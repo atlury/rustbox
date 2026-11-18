@@ -37,6 +37,13 @@ changing its behavior:
 Do not combine algorithm changes with normalization.  If canonical and
 normalized C differ, reject the pass.
 
+The pinned local tool image is described by `tools/versions.json` and built by
+`scripts/build_tool_image.sh`.  `scripts/run_tool.sh rustbox-tool-report`
+records the effective versions.  CodeChecker's complete Python dependency
+graph is frozen in `tools/codechecker-requirements.lock`; C2Rust uses its
+upstream locked Cargo graph.  GitHub-hosted workflows are intentionally not
+part of this process.
+
 ## Candidate translation backends
 
 The backend set is extensible.  Start with C2Rust, AST-guided generation, and a
