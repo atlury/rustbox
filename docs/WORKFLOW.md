@@ -137,6 +137,14 @@ and help/version tests while a trap temporarily redirects only the `true` and
 overwritten.  `scripts/check_coreutils_true_false_resources.sh` separately
 runs Valgrind over normal, help, and version paths for both applets.
 
+The preserve-unused emission remains the completeness audit artifact.  For
+stable integration, a second emission omits unreachable header-inline bodies;
+`scripts/modernize_c2rust_output.py` then replaces only C2Rust's unstable
+opaque `extern type` declarations with zero-sized `repr(C)` pointer-only
+markers and removes feature gates already stabilized by Rust.  The pass aborts
+if an opaque type is ever used by value, writes a before/after hash manifest,
+and never edits either raw emission.
+
 ## Repair score
 
 Repairs are changes to generated Rust, not proven C normalization passes.

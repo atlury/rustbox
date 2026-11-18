@@ -55,17 +55,43 @@
     "errors": 4,
     "classification": "C2Rust generator drift around the historical VaListImpl/as_va_list API; not a Coreutils semantic failure"
   },
+  "stable_integration": {
+    "toolchain": "rustc 1.99.0 (b940084d7 2026-09-28)",
+    "audit_generated_rust_bytes": 137613,
+    "reachable_generated_rust_bytes": 25481,
+    "stable_generated_rust_bytes": 25586,
+    "opaque_types_verified_pointer_only": [
+      "_IO_wide_data",
+      "_IO_codecvt",
+      "_IO_marker"
+    ],
+    "feature_gates_removed": [
+      "extern_types",
+      "raw_ref_op"
+    ],
+    "modernization_manifest_sha256": "b8ca551416e3ab6878d975a06d9c52a74619dd99420ee1f89f4b4a61d04e4e1c",
+    "rust_files": {
+      "src/coreutils_false.rs": "c4fe3410ca48542e8f239c37ae7857cb2e935fc799012143d69127258e850c24",
+      "src/true.rs": "b73f40451e7d662db91b6bd3925ab28b68d59979f8305618681360ef66618da1",
+      "src/true_true.rs": "702d18810384d70053fdca6a9a36ef454059bcacb434a153da5df6018bda5d83"
+    },
+    "cargo_check_errors": 0,
+    "cargo_check_warnings": 0,
+    "hand_edits": 0,
+    "repair_score": 3,
+    "repair_score_basis": "one deterministic feature-gate cleanup (1) plus one reusable mechanical opaque-type spelling rule (2)"
+  },
   "hybrid": {
     "canonical_multicall_sha256": "fd60bd0bd22c8d92fcb93b1f4ca18a093ec2360425b0132da8d0c992941c4ad0",
-    "hybrid_multicall_sha256": "71784d5201a8dd5a580c847dfe3ce868c32e8c3e984ad8f6b955dbee43bb6676",
-    "link_map_sha256": "4087b95cb5ffd9231b99eb29e32e6ec30172697d1001b93604728e6c3d7e384d",
+    "hybrid_multicall_sha256": "4541c08defed9bbb3bd0c8668b8cde7149fe6a0f1f8af353a07fb6bc8c6a8900",
+    "link_map_sha256": "6be0526845f5ddf83f9887a18d40afd2ef8140754f9f911ab20a23276ee4ffec",
     "original_true_archive_linked": false,
     "original_false_archive_linked": false,
     "replacement_symbols_defined_once": true,
     "canonical_bytes": 4951664,
-    "hybrid_bytes": 4945120,
+    "hybrid_bytes": 4943600,
     "canonical_stripped_bytes": 1499584,
-    "hybrid_stripped_bytes": 1499488
+    "hybrid_stripped_bytes": 1499528
   },
   "behavior": {
     "differential": {
