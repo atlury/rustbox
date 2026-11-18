@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Rustbox generated-code repair",
+  "type": "object",
+  "required": ["upstream", "unit", "backend", "input_sha256", "class", "weight", "reason", "evidence"],
+  "properties": {
+    "upstream": { "enum": ["coreutils", "util-linux"] },
+    "unit": { "type": "string", "minLength": 1 },
+    "backend": { "type": "string", "minLength": 1 },
+    "input_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "class": { "enum": ["syntax", "type", "abi", "control-flow", "semantic"] },
+    "weight": { "enum": [1, 2, 4, 8, 16] },
+    "reason": { "type": "string", "minLength": 1 },
+    "evidence": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+  },
+  "additionalProperties": false
+}
+

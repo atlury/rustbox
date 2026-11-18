@@ -1,0 +1,20 @@
+[package]
+name = "rustbox"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.99"
+license = "GPL-3.0-or-later"
+publish = false
+description = "A mechanically translated and differentially verified Linux multicall utility"
+
+[profile.release]
+opt-level = "z"
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+strip = "symbols"
+
+[profile.size]
+inherits = "release"
+opt-level = "z"
+

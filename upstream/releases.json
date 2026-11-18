@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "releases": {
+    "coreutils": {
+      "version": "9.12",
+      "archive": "coreutils-9.12.tar.xz",
+      "url": "https://ftp.gnu.org/gnu/coreutils/coreutils-9.12.tar.xz",
+      "signature_url": "https://ftp.gnu.org/gnu/coreutils/coreutils-9.12.tar.xz.sig",
+      "signature_sha256": "e28e1ee5d29f88bd88bedf64bbbf033106eb28eb2efc9ffc4a0c3c92a80ac353",
+      "signature_mode": "archive",
+      "signer_fingerprint": "6C37DC12121A5006BC1DB804DF6FD971306037D9",
+      "key": "coreutils-release-key.asc",
+      "key_url": "https://keys.openpgp.org/vks/v1/by-fingerprint/6C37DC12121A5006BC1DB804DF6FD971306037D9",
+      "key_sha256": "8fa639cbcacdc24788b617ddbaadf1461a84eaf4952eb47efdb050d4752a459d",
+      "sha256": "a480198559733e9b3da999e90543ac6f888a2caa544d8d664c5a1f17e528e210",
+      "source_directory": "coreutils-9.12",
+      "license": "GPL-3.0-or-later"
+    },
+    "util-linux": {
+      "version": "2.42.4",
+      "archive": "util-linux-2.42.4.tar.xz",
+      "url": "https://www.kernel.org/pub/linux/utils/util-linux/v2.42/util-linux-2.42.4.tar.xz",
+      "signature_url": "https://www.kernel.org/pub/linux/utils/util-linux/v2.42/util-linux-2.42.4.tar.sign",
+      "signature_sha256": "d3b4e930a38c3b4512761708d0d226a55a1420995e3996c1efca0910d7effd3e",
+      "signature_mode": "uncompressed-tar",
+      "signer_fingerprint": "B0C64D14301CC6EFAEDF60E4E4B71D5EEC39C284",
+      "key": "util-linux-release-key.asc",
+      "key_url": "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xB0C64D14301CC6EFAEDF60E4E4B71D5EEC39C284",
+      "key_sha256": "ab6fb7fab1351270d0520e8ee090e3b8d3e174023e8c18634801d8d16c4a6115",
+      "sha256": "fbd62a100ab7bb8746ba0661255c3c48185b1e9021507c624da01fbc696330ec",
+      "source_directory": "util-linux-2.42.4",
+      "license": "mixed; preserve per-file SPDX identifiers"
+    }
+  }
+}
+
