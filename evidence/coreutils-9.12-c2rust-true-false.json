@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "recorded_at": "2026-11-19",
+  "status": "generated-and-compile-checked; functional substitution pending",
+  "input": {
+    "upstream_archive_sha256": "a480198559733e9b3da999e90543ac6f888a2caa544d8d664c5a1f17e528e210",
+    "compile_database_sha256": "ad64e30bb18bd1b89844c30f58cdda0776e199c3ea3690ea1ed11a510c59a056",
+    "slice_sha256": "9f7dcb86a78424aed24ead180c70fe8c6689a02eae758350778c259729bf5f71",
+    "compile_commands": 3,
+    "sources": [
+      "src/coreutils-false.c",
+      "src/true.c",
+      "src/true-true.c"
+    ]
+  },
+  "translator": {
+    "name": "C2Rust",
+    "version": "0.22.1",
+    "image_id": "sha256:33d1796d617e06fa97f3063d98d9a094d21b0ae4fe5a7780ef33728c2f63658f",
+    "options": [
+      "--emit-build-files",
+      "--emit-c-decl-map",
+      "--preserve-unused-functions",
+      "--fail-on-error",
+      "--disable-rustfmt"
+    ],
+    "exit_status": 0
+  },
+  "generated": {
+    "compile_error_macros": 0,
+    "todo_macros": 0,
+    "unimplemented_macros": 0,
+    "rust_files": {
+      "src/coreutils_false.rs": "82976c43f092635ebd2e663f6b3741b6072d0a92f5886e805bdc562cf307a733",
+      "src/true.rs": "0582c741351384f533a55a67a307fe2df78ffa1cd482c19386a93c90492794af",
+      "src/true_true.rs": "702d18810384d70053fdca6a9a36ef454059bcacb434a153da5df6018bda5d83"
+    },
+    "declaration_maps": {
+      "src/coreutils_false.c_decls.json": "c6da740fceca85a1883d70dcb2aa5f004d9454b75f2451644396db524d22e0d0",
+      "src/true.c_decls.json": "0f17778373635061e763a34b3997d435ce2b2c3dea8d5aceb114b5e5f4a0c0dc",
+      "src/true_true.c_decls.json": "8438ada1d41b6d1a6e3a8acd4e6a138be06b8784f9df5465324a0c5ab61df0f7"
+    }
+  },
+  "compile_check": {
+    "toolchain": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+    "exit_status": 0,
+    "errors": 0,
+    "warnings": 2,
+    "warning_class": "unused imports",
+    "generated_rust_repairs": 0,
+    "repair_score": 0
+  },
+  "modern_stable_probe": {
+    "toolchain": "rustc 1.99.0 (b940084d7 2026-09-28)",
+    "errors": 4,
+    "classification": "C2Rust generator drift around the historical VaListImpl/as_va_list API; not a Coreutils semantic failure"
+  }
+}

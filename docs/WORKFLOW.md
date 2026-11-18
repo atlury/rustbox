@@ -115,6 +115,13 @@ Each backend receives the same normalized C and test corpus.  Generated Rust
 is retained unchanged first so its actual compilation and parity rate can be
 measured.
 
+The initial raw-C baseline uses `--fail-on-error`, emits C-declaration maps,
+and enables C2Rust's `--preserve-unused-functions`.  Therefore a successful
+translation cannot improve its score by silently omitting an unused static
+function.  `scripts/translate_coreutils_true_false.sh` is the first measured
+slice; it keeps the exact captured compiler arguments for the shared `true`
+implementation and the `false` wrapper.
+
 ## Repair score
 
 Repairs are changes to generated Rust, not proven C normalization passes.

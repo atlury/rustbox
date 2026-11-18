@@ -9,3 +9,5 @@ printf '%-16s %s\n' abi-checker "$(abi-compliance-checker --version | head -1)"
 printf '%-16s %s\n' pahole "$(pahole --version | head -1)"
 printf '%-16s %s\n' creduce "$(creduce --version | head -1)"
 printf '%-16s %s\n' cvise "$(cvise --version | head -1)"
+printf '%-16s %s\n' c2rust-rustc \
+  "$(RUSTUP_TOOLCHAIN=nightly-2023-04-15 rustc --version)"
