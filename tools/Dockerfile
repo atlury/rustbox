@@ -56,6 +56,33 @@ RUN git clone --depth 1 --branch "${COCCINELLE_TAG}" \
  && make install \
  && rm -rf /tmp/coccinelle
 
+# Runtime fixtures needed to exercise the canonical GNU test suites rather
+# than silently skipping ACL, capability, terminal, and locale cases.
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+      acl attr gnupg libcap2-bin libexpect-perl locales \
+      python-is-python3 python3-inotify python3-pyinotify \
+ && localedef -i en_US -f UTF-8 en_US.UTF-8 \
+ && localedef -i fr_FR -f ISO-8859-1 fr_FR \
+ && localedef -i fr_FR -f UTF-8 fr_FR.UTF-8 \
+ && localedef -i tr_TR -f UTF-8 tr_TR.UTF-8 \
+ && localedef -i ja_JP -f EUC-JP ja_JP.EUC-JP \
+ && localedef -i zh_CN -f GB18030 zh_CN.GB18030 \
+ && localedef -i sv_SE -f UTF-8 sv_SE.UTF-8 \
+ && localedef -i sv_SE -f ISO-8859-1 sv_SE \
+ && localedef -i fi_FI -f UTF-8 fi_FI.UTF-8 \
+ && localedef -i ga_IE -f UTF-8 ga_IE.UTF-8 \
+ && localedef -i gv_GB -f UTF-8 gv_GB.UTF-8 \
+ && localedef -i ar_SY -f UTF-8 ar_SY.UTF-8 \
+ && localedef -i am_ET -f UTF-8 am_ET.UTF-8 \
+ && localedef -i fa_IR -f UTF-8 fa_IR.UTF-8 \
+ && localedef -i th_TH -f UTF-8 th_TH.UTF-8 \
+ && rm -rf /var/lib/apt/lists/*
+
+# Keep CodeChecker callable without letting its private Python shadow the
+# system interpreter used by canonical upstream test harnesses.
+ENV PATH=/root/.cargo/bin:/usr/lib/llvm-18/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/codechecker/bin
+
 COPY tools/tool-report.sh /usr/local/bin/rustbox-tool-report
 
 WORKDIR /work

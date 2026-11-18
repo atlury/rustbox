@@ -19,6 +19,10 @@ printf '%-16s %s\n' codechecker \
 show valgrind valgrind --version
 show afl++ afl-fuzz --version
 show bear bear --version
+show gpg gpg --version
+printf '%-16s %s\n' perl-expect \
+  "$(perl -MExpect -e 'print "$Expect::VERSION\n"')"
+printf '%-16s %s\n' locales "$(locale -a | wc -l | tr -d ' ') installed"
 show rustc rustc --version
 show cargo cargo --version
 

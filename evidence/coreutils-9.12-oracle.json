@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "recorded_at": "2026-11-19",
+  "upstream": {
+    "name": "GNU Coreutils",
+    "version": "9.12",
+    "archive_sha256": "a480198559733e9b3da999e90543ac6f888a2caa544d8d664c5a1f17e528e210",
+    "signer_fingerprint": "6C37DC12121A5006BC1DB804DF6FD971306037D9",
+    "archive_members_verified": 3990
+  },
+  "oracle": {
+    "source_mount": "rustbox-coreutils-source-9.12:/rustbox-source:ro",
+    "source_mount_filesystem": "ext4",
+    "public_applets": 108,
+    "compiler": "GCC 13.3.0",
+    "cflags": "-O2 -g",
+    "single_binary_sha256": "8242f34bbca98273dfd3e4149f83871a787bd62948dbe8ae02bdd02133b650b3",
+    "single_binary_bytes": 6602512
+  },
+  "tool_image": {
+    "tag": "rustbox-tools:2026-11-19",
+    "image_id": "sha256:404e3f20b5fba03160fae5622b6067a2122388a36b57fae29be671d83f6ebf29"
+  },
+  "tests": {
+    "unprivileged_standard": {
+      "total": 761,
+      "pass": 628,
+      "skip": 132,
+      "fail": 0,
+      "error": 1,
+      "error_classification": "tests/rm/deep-2.sh cannot construct its input because the Docker VM kernel rejects the approximately 8 KiB nested path with ENAMETOOLONG"
+    },
+    "serial_fixture_followups": {
+      "tests/install/stdin.sh": "pass"
+    }
+  },
+  "notes": [
+    "The standard suite ran as an unprivileged user belonging to two groups.",
+    "Expensive, root-only, controlling-terminal, mount-namespace, SELinux, and SMACK cases remain separate explicit passes.",
+    "The sole ERROR occurred during test input construction before the applet was invoked."
+  ]
+}

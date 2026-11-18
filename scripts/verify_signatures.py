@@ -27,6 +27,29 @@ def checked(path: Path, expected: str, label: str) -> None:
         raise RuntimeError(f"{label}: SHA-256 {actual}, expected {expected}")
 
 
+def record_verification(root: Path, name: str, release: dict[str, str]) -> None:
+    state_path = root / "work/upstream/.state" / f"{name}.json"
+    state = json.loads(state_path.read_text(encoding="utf-8"))
+    expected = {
+        "version": release["version"],
+        "sha256": release["sha256"],
+        "signature_sha256": release["signature_sha256"],
+        "key_sha256": release["key_sha256"],
+        "signer_fingerprint": release["signer_fingerprint"],
+    }
+    for field, value in expected.items():
+        if state.get(field) != value:
+            raise RuntimeError(
+                f"{name} state {field}={state.get(field)!r}, expected {value!r}"
+            )
+    state["signature_verified"] = True
+    temporary = state_path.with_suffix(".json.tmp")
+    temporary.write_text(
+        json.dumps(state, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
+    os.replace(temporary, state_path)
+
+
 def verify(
     home: Path, signature: Path, archive: Path, mode: str, expected_fingerprint: str
 ) -> None:
@@ -107,6 +130,7 @@ def main() -> int:
                 release["signature_mode"],
                 release["signer_fingerprint"],
             )
+        record_verification(root, name, release)
         print(f"{name} {release['version']}: valid signature {release['signer_fingerprint']}")
     return 0
 

@@ -20,6 +20,22 @@ Canonical releases are downloaded and hash-checked by
 outputs, translation outputs, test evidence, and repair ledgers identify their
 input digest and tool versions.
 
+`scripts/verify_source_tree.py PACKAGE` byte-compares every extracted member
+against the pinned release archive and rejects added, removed, or changed
+members.  Coreutils' GCC multicall oracle is built out-of-tree by
+`scripts/build_coreutils_oracle.sh` and tested by
+`scripts/test_coreutils_oracle.sh`; its normally disabled `arch`, `hostname`,
+`kill`, and `uptime` programs are explicitly enabled.
+
+Oracle builds and tests live in the persistent `rustbox-coreutils-9.12` Docker
+volume, not the macOS bind mount.  The byte-verified canonical source has its
+own `rustbox-coreutils-source-9.12` volume and is mounted read-only during every
+build, analysis, and test run.  This prevents container root or an analyzer
+from silently changing the oracle.  The Linux volumes are also required for
+genuine FIFO, inotify, sparse-file, permission, and deep-path behavior.  The
+standard suite runs as a two-group unprivileged user by default; `root` and
+`expensive` modes are separate, explicit passes.
+
 ## Normalization toolbox
 
 Use the smallest ordered passes that make a translation unit explicit without
@@ -37,12 +53,43 @@ changing its behavior:
 Do not combine algorithm changes with normalization.  If canonical and
 normalized C differ, reject the pass.
 
+Normalization is a gated experiment, not a one-way source rewrite.  For each
+translation unit and each candidate pass:
+
+1. Bear records the real compiler invocations; reject entries that Clang
+   cannot replay without changing flags or generated headers.
+2. Freeze the pre-pass source digest, preprocessed token stream, exported
+   symbols, type layouts, call graph, diagnostics, and canonical behavior.
+3. Apply exactly one versioned Coccinelle semantic patch or one exported
+   Clang-Tidy/LibTooling replacement set to a disposable tree.
+4. Rebuild with GCC and Clang.  Compare ABI with symbol tables and DWARF/type
+   layout tools; compile-time equivalence is necessary but not sufficient.
+5. Run Cppcheck, Sparse, Splint, Flawfinder, Clang Static Analyzer through
+   CodeChecker, and GCC `-fanalyzer`.  New diagnostics reject the pass;
+   existing findings stay in a baseline rather than being silently hidden.
+6. Run ASan/UBSan, Valgrind, canonical tests, syscall-trace comparisons, and
+   differential fuzzing.  Reject any changed exit status, signal, `errno`,
+   output byte, filesystem effect, metadata, or resource lifetime.
+7. Measure every translator again.  Keep the C pass only when it is behavior
+   neutral and reduces holes, compiler errors, unsafe boundary complexity, or
+   weighted repair score.
+
+Warnings are evidence, not normalization instructions.  A static analyzer may
+find a genuine upstream defect, but fixing that defect is a separate patch and
+cannot be smuggled into the translation-friendly C.  Formatting-only churn is
+excluded because it obscures semantic review without helping the translator.
+
 The pinned local tool image is described by `tools/versions.json` and built by
 `scripts/build_tool_image.sh`.  `scripts/run_tool.sh rustbox-tool-report`
 records the effective versions.  CodeChecker's complete Python dependency
 graph is frozen in `tools/codechecker-requirements.lock`; C2Rust uses its
 upstream locked Cargo graph.  GitHub-hosted workflows are intentionally not
 part of this process.
+
+The image also supplies canonical-suite fixtures (ACL/xattr/capability tools,
+Perl Expect, and representative single-byte, multibyte, and UTF-8 locales).
+A skip caused by an unavailable fixture is treated as a missing dependency,
+not as evidence of correctness.
 
 ## Candidate translation backends
 

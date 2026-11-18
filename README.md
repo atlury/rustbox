@@ -39,6 +39,18 @@ cargo build --profile size
 See `docs/WORKFLOW.md` for the normalization, translator selection, repair
 scoring, and correctness gates.
 
+## Current progress
+
+| Upstream | Inventory | Signed source oracle | Normalized | Integrated Rust applets |
+|---|---:|---:|---:|---:|
+| GNU Coreutils 9.12 | 108 | 108 | 0 | 0 |
+| util-linux 2.42.4 | 155 | 0 | 0 | 0 |
+
+The Coreutils oracle and its local test evidence are recorded in
+`evidence/coreutils-9.12-oracle.json`.  An oracle-built applet is not marked
+complete in the inventory below; completion is reserved for translated Rust
+that has reached canonical behavioral parity through the multicall interface.
+
 ## Applet inventory
 
 This list is generated from the pinned upstream build definitions by
