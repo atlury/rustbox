@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "recorded_at": "2026-11-19",
+  "upstream_archive_sha256": "a480198559733e9b3da999e90543ac6f888a2caa544d8d664c5a1f17e528e210",
+  "source_mount": "rustbox-coreutils-source-9.12:/rustbox-source:ro",
+  "compiler": "clang-18",
+  "cflags": "-O1 -g",
+  "bear": "3.1.3",
+  "database_sha256": "ad64e30bb18bd1b89844c30f58cdda0776e199c3ea3690ea1ed11a510c59a056",
+  "database_bytes": 604117,
+  "commands": 563,
+  "distinct_commands": 563,
+  "unique_translation_units": 529,
+  "translation_units_with_multiple_configurations": 21,
+  "maximum_configurations_per_translation_unit": 6,
+  "locations": {
+    "canonical_source": 562,
+    "generated_build": 1
+  },
+  "policy": "Multiple commands for one source are retained because preprocessor configurations are semantically distinct translation units."
+}

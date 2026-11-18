@@ -79,12 +79,25 @@ find a genuine upstream defect, but fixing that defect is a separate patch and
 cannot be smuggled into the translation-friendly C.  Formatting-only churn is
 excluded because it obscures semantic review without helping the translator.
 
+`scripts/capture_coreutils_compdb.sh` performs the canonical Clang build and
+stores its validated database under ignored `work/analysis/`.  The validator
+intentionally retains multiple commands for one source file: Coreutils builds
+shared implementation files with different preprocessor definitions for
+different applets, and deduplicating by filename would discard configurations.
+
 The pinned local tool image is described by `tools/versions.json` and built by
 `scripts/build_tool_image.sh`.  `scripts/run_tool.sh rustbox-tool-report`
 records the effective versions.  CodeChecker's complete Python dependency
 graph is frozen in `tools/codechecker-requirements.lock`; C2Rust uses its
 upstream locked Cargo graph.  GitHub-hosted workflows are intentionally not
 part of this process.
+
+The separately versioned `rustbox-normalize:2026-11-19` image extends that
+exact, ID-checked base with Libabigail/ABI Dumper, `pahole`, C-Vise, and
+C-Reduce.  ABI and layout tools guard mechanical rewrites; reducers shrink
+translator and analyzer failures into reviewable fixtures.  Set
+`RUSTBOX_TOOL_IMAGE=rustbox-normalize:2026-11-19` only for stages that need
+them, leaving the recorded oracle environment unchanged.
 
 The image also supplies canonical-suite fixtures (ACL/xattr/capability tools,
 Perl Expect, and representative single-byte, multibyte, and UTF-8 locales).
