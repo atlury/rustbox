@@ -13,7 +13,10 @@ import zipfile
 from pathlib import Path
 
 
-ANALYZER_IN_NAME = re.compile(r"_(clangsa|clang-tidy|cppcheck)_[0-9a-f]+\.plist")
+ACTION_NAME = re.compile(
+    r"^(?P<source>.+)_(?P<analyzer>clangsa|clang-tidy|cppcheck)_"
+    r"(?P<digest>[0-9a-f]+)\.plist(?:_unknown)?(?:\.zip)?$"
+)
 
 
 def ordered_counts(values: list[str]) -> dict[str, int]:
@@ -28,15 +31,17 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def analyzer_from_archive(path: Path) -> str:
-    match = ANALYZER_IN_NAME.search(path.name)
-    return match.group(1) if match else "unknown"
+def action_from_name(path: Path) -> tuple[str, str, str]:
+    match = ACTION_NAME.match(path.name)
+    if match is None:
+        raise RuntimeError(f"unrecognized CodeChecker action name: {path.name}")
+    return match.group("source"), match.group("analyzer"), match.group("digest")
 
 
 def failure_record(path: Path) -> dict[str, object]:
     record: dict[str, object] = {
         "archive": path.name,
-        "analyzer": analyzer_from_archive(path),
+        "analyzer": action_from_name(path)[1],
         "sha256": sha256(path),
     }
     with zipfile.ZipFile(path) as archive:
@@ -70,17 +75,31 @@ def main() -> int:
     if exported.get("version") != 1 or not isinstance(reports, list):
         raise SystemExit("unsupported CodeChecker JSON export schema")
 
-    completed = []
+    plist_actions: dict[tuple[str, str, str], Path] = {}
     plist_files = sorted(args.reports.glob("*.plist"))
     for path in plist_files:
+        action = action_from_name(path)
+        if action in plist_actions:
+            raise RuntimeError(f"duplicate CodeChecker plist action: {action}")
+        plist_actions[action] = path
+
+    failure_paths = sorted((args.reports / "failed").glob("*.zip"))
+    failure_actions = {action_from_name(path) for path in failure_paths}
+    if len(failure_actions) != len(failure_paths):
+        raise RuntimeError("duplicate CodeChecker failure actions")
+
+    completed = []
+    for action, path in sorted(plist_actions.items()):
+        if action in failure_actions:
+            continue
         with path.open("rb") as stream:
             metadata = plistlib.load(stream).get("metadata", {})
         completed.append(metadata.get("analyzer", {}).get("name", "unknown"))
 
-    failures = [failure_record(path) for path in sorted((args.reports / "failed").glob("*.zip"))]
+    failures = [failure_record(path) for path in failure_paths]
     hashes = [str(report.get("report_hash", "")) for report in reports]
     unique_hashes = {item for item in hashes if item}
-    actions = len(completed) + len(failures)
+    observed_actions = set(plist_actions) | failure_actions
 
     summary: dict[str, object] = {
         "schema": 1,
@@ -92,7 +111,8 @@ def main() -> int:
         "analysis_actions": {
             "completed": len(completed),
             "failed": len(failures),
-            "observed": actions,
+            "observed": len(observed_actions),
+            "partial_plists_for_failed_actions": len(set(plist_actions) & failure_actions),
             "by_analyzer": ordered_counts(
                 completed + [str(failure["analyzer"]) for failure in failures]
             ),
@@ -114,16 +134,16 @@ def main() -> int:
     }
     if args.expected_actions is not None:
         summary["analysis_actions"]["expected"] = args.expected_actions  # type: ignore[index]
-        summary["analysis_actions"]["complete"] = actions == args.expected_actions  # type: ignore[index]
-        if actions != args.expected_actions:
+        summary["analysis_actions"]["complete"] = len(observed_actions) == args.expected_actions  # type: ignore[index]
+        if len(observed_actions) != args.expected_actions:
             raise SystemExit(
-                f"incomplete analysis: observed {actions}, expected {args.expected_actions}"
+                f"incomplete analysis: observed {len(observed_actions)}, expected {args.expected_actions}"
             )
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n")
     print(json.dumps({
-        "actions": actions,
+        "actions": len(observed_actions),
         "diagnostics": len(reports),
         "failures": len(failures),
         "unique_diagnostics": len(unique_hashes),

@@ -1,0 +1,215 @@
+{
+  "analysis_actions": {
+    "by_analyzer": {
+      "clang-tidy": 563,
+      "clangsa": 563,
+      "cppcheck": 563
+    },
+    "complete": true,
+    "completed": 1669,
+    "expected": 1689,
+    "failed": 20,
+    "observed": 1689,
+    "partial_plists_for_failed_actions": 12
+  },
+  "codechecker_export": {
+    "bytes": 6413529,
+    "schema_version": 1,
+    "sha256": "d51133f1300a553649b21767957e5933ac106f803ccc2178828bda20b8c33460"
+  },
+  "diagnostics": {
+    "by_analyzer": {
+      "clang-tidy": 2733,
+      "clangsa": 65,
+      "cppcheck": 29
+    },
+    "by_checker": {
+      "bugprone-inc-dec-in-conditions": 5,
+      "bugprone-integer-division": 1,
+      "bugprone-not-null-terminated-result": 6,
+      "bugprone-signed-char-misuse": 28,
+      "bugprone-sizeof-expression": 16,
+      "bugprone-switch-missing-default-case": 35,
+      "cert-err33-c": 254,
+      "cert-flp30-c": 1,
+      "clang-diagnostic-conditional-uninitialized": 36,
+      "clang-diagnostic-double-promotion": 7,
+      "clang-diagnostic-embedded-directive": 80,
+      "clang-diagnostic-float-conversion": 24,
+      "clang-diagnostic-format-nonliteral": 79,
+      "clang-diagnostic-missing-field-initializers": 1,
+      "clang-diagnostic-reserved-identifier": 1484,
+      "clang-diagnostic-reserved-macro-identifier": 447,
+      "clang-diagnostic-sign-compare": 165,
+      "clang-diagnostic-tautological-constant-out-of-range-compare": 11,
+      "clang-diagnostic-unused-parameter": 40,
+      "core.CallAndMessage": 6,
+      "core.NonNullParamChecker": 4,
+      "core.NullDereference": 34,
+      "core.UndefinedBinaryOperatorResult": 9,
+      "cppcheck-constStatement": 2,
+      "cppcheck-incorrectLogicOperator": 1,
+      "cppcheck-nullPointerRedundantCheck": 2,
+      "cppcheck-redundantContinue": 9,
+      "cppcheck-sizeofwithnumericparameter": 9,
+      "cppcheck-uninitvar": 3,
+      "cppcheck-va_end_missing": 2,
+      "cppcheck-va_list_usedBeforeStarted": 1,
+      "deadcode.DeadStores": 7,
+      "misc-redundant-expression": 6,
+      "readability-suspicious-call-argument": 7,
+      "security.cert.env.InvalidPtr": 1,
+      "unix.Malloc": 4
+    },
+    "by_severity": {
+      "HIGH": 112,
+      "LOW": 58,
+      "MEDIUM": 2657
+    },
+    "reported": 2827,
+    "unique_context_free_hashes": 2483
+  },
+  "failures": [
+    {
+      "analyzer": "cppcheck",
+      "archive": "base32.c_cppcheck_55b08dcec3e386d22d99867af1bd18f2.plist_unknown.zip",
+      "classification": "timeout",
+      "return_code": "-1",
+      "sha256": "4bf512219f796eac7c09d212d1b3a0d8bfccd564983f6eee2126ba14bbac2408"
+    },
+    {
+      "analyzer": "cppcheck",
+      "archive": "base64.c_cppcheck_38c8d11215988e580c98c3dab33d4b32.plist_unknown.zip",
+      "classification": "timeout",
+      "return_code": "-1",
+      "sha256": "33b41fccfc3e041c50b9647b550434f18b9287f14c7aec891aca6cf812cbdb6e"
+    },
+    {
+      "analyzer": "clangsa",
+      "archive": "cksum.c_clangsa_3d4655ec5544b8b13b2af98a311b2a04.plist_unknown.zip",
+      "classification": "timeout",
+      "return_code": "-1",
+      "sha256": "b37b0abf33fc4e751e8413647db1fd34fae07e349b37ceefdfa44ffc3ddd5255"
+    },
+    {
+      "analyzer": "cppcheck",
+      "archive": "coreutils.c_cppcheck_90825ca59e5faf67e3238f537b3c08f6.plist_unknown.zip",
+      "classification": "timeout",
+      "return_code": "-1",
+      "sha256": "72357fb4ec81bd5a23addf0ac0a51d91532ae15b4baea9fa7e9ad1b81569678c"
+    },
+    {
+      "analyzer": "cppcheck",
+      "archive": "filevercmp.c_cppcheck_d73231ff5e7e643baead0f145de18c07.plist_unknown.zip",
+      "classification": "timeout",
+      "return_code": "-1",
+      "sha256": "839c2cb277b1d97b9eae62a9ed4e27904038be07314682e8e5abc020e8dfd8bf"
+    },
+    {
+      "analyzer": "cppcheck",
+      "archive": "fprintftime.c_cppcheck_c5b730c5038ac75df413638290074b3b.plist_unknown.zip",
+      "classification": "timeout",
+      "return_code": "-1",
+      "sha256": "7ac7447d4a0f76fd6684162dbe543080f9e5e8fc44cfd81523768eeae8d487ee"
+    },
+    {
+      "analyzer": "clangsa",
+      "archive": "fts.c_clangsa_7492c8cdc2917ac91bec58d44788ca4f.plist_unknown.zip",
+      "classification": "timeout",
+      "return_code": "-1",
+      "sha256": "0b1453e268fa31234fa9528a9c236315fcb6d985e734332f4a476d630ddeb2a1"
+    },
+    {
+      "analyzer": "cppcheck",
+      "archive": "fts.c_cppcheck_7492c8cdc2917ac91bec58d44788ca4f.plist_unknown.zip",
+      "classification": "timeout",
+      "return_code": "-1",
+      "sha256": "d6775a182a3c4a51ec540469fecf922c61ad9e71660d83c004dfe1bccdfd097b"
+    },
+    {
+      "analyzer": "clangsa",
+      "archive": "ls.c_clangsa_a7acb17d8914bf4027cc501f4f5755f4.plist_unknown.zip",
+      "classification": "timeout",
+      "return_code": "-1",
+      "sha256": "8a5fb26ebfc01174cc95a2edcb28ad9f5f0993c0476bed24e7d673eb96870b56"
+    },
+    {
+      "analyzer": "cppcheck",
+      "archive": "nstrftime.c_cppcheck_488c2ecc6df3542a1193938557285e15.plist_unknown.zip",
+      "classification": "timeout",
+      "return_code": "-1",
+      "sha256": "d31b06a221c903e42b907fedde8f1677b68a93cbda12ccfa29de767f239751a7"
+    },
+    {
+      "analyzer": "clangsa",
+      "archive": "numfmt.c_clangsa_10c29e53502cd25012ba9d8a2f6e352d.plist_unknown.zip",
+      "classification": "timeout",
+      "return_code": "-1",
+      "sha256": "221cb8c3f4f3b86daa90c76ceac0aaf26aab87c2a9a96d71b1dc7cdb0f78273c"
+    },
+    {
+      "analyzer": "cppcheck",
+      "archive": "parse-datetime.c_cppcheck_355ce069aac1b8084341f20552956037.plist_unknown.zip",
+      "classification": "timeout",
+      "return_code": "-1",
+      "sha256": "0def5f98e4cd1b2179c0dfc6777dbc2a2c1ecee92f282616b47d4c8cf66b424c"
+    },
+    {
+      "analyzer": "cppcheck",
+      "archive": "quotearg.c_cppcheck_783bc296ae571113cc213859faa6ff2a.plist_unknown.zip",
+      "classification": "timeout",
+      "return_code": "-1",
+      "sha256": "7730f55d624b5e9908cf850b6ec904f42bc89904fd39395c2f501dd8171b60bb"
+    },
+    {
+      "analyzer": "cppcheck",
+      "archive": "regex.c_cppcheck_dc6e89dfdf1c11e39cff3b455f2f57ca.plist_unknown.zip",
+      "classification": "timeout",
+      "return_code": "-1",
+      "sha256": "cf616ddc5f0bfb87eb649c14c9ae29772679ba3bef6c95c17d7fdcc53d0331bd"
+    },
+    {
+      "analyzer": "cppcheck",
+      "archive": "sm3.c_cppcheck_f4b7f6d842ecbc23b3af7bcb46114f91.plist_unknown.zip",
+      "classification": "timeout",
+      "return_code": "-1",
+      "sha256": "dc0f9c3b6a10a974964263959064632bde05720319e99d1c8f3ae14098b361fa"
+    },
+    {
+      "analyzer": "clangsa",
+      "archive": "sort.c_clangsa_5e17d307fc39b1ee16ffa4585ac4fdf0.plist_unknown.zip",
+      "classification": "timeout",
+      "return_code": "-1",
+      "sha256": "206cb8ecd9a2f6c560bada21bddef55db343be24b78b15a9acaba5849843e7b2"
+    },
+    {
+      "analyzer": "clangsa",
+      "archive": "split.c_clangsa_59c54a49244ec74df3c8a8fcaccc5919.plist_unknown.zip",
+      "classification": "timeout",
+      "return_code": "-1",
+      "sha256": "22eb877c7f4e7524faec5b604d7caeaa2325a8281a041c8a062480c432217c39"
+    },
+    {
+      "analyzer": "clangsa",
+      "archive": "stat.c_clangsa_488ed63530001bdbf578cf9d86316a66.plist_unknown.zip",
+      "classification": "timeout",
+      "return_code": "-1",
+      "sha256": "8b2cfae929e590ccb6e80248635e4c50d5406c49f00ba94d7b106a96056f6dd9"
+    },
+    {
+      "analyzer": "clangsa",
+      "archive": "tail.c_clangsa_36a76c0594dc3351eeac43a1d56f8f22.plist_unknown.zip",
+      "classification": "timeout",
+      "return_code": "-1",
+      "sha256": "44669ca0c3d4b6148a0d1c8cd44e0750929ea7029a5871a77a7bb03402c84c2f"
+    },
+    {
+      "analyzer": "cppcheck",
+      "archive": "utimecmp.c_cppcheck_e1ddcac4470e39ea11b47c526c2b4de0.plist_unknown.zip",
+      "classification": "timeout",
+      "return_code": "-1",
+      "sha256": "c803696c2fc205a839a2c3c36a8d51cafbfd608ef111db94d236c7423e6a5330"
+    }
+  ],
+  "schema": 1
+}
