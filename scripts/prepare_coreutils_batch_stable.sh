@@ -1,0 +1,26 @@
+#!/bin/sh
+# SPDX-License-Identifier: GPL-3.0-or-later
+set -eu
+
+test "$#" -eq 1 || {
+  echo "usage: $0 BATCH" >&2
+  exit 2
+}
+batch=$1
+case $batch in
+  *[!A-Za-z0-9_-]*|'') exit 2 ;;
+esac
+
+root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
+base="$root/work/analysis/coreutils-9.12/translations/c2rust-0.22.1"
+"$root/scripts/modernize_c2rust_output.py" \
+  --input "$base/$batch-reachable" \
+  --output "$base/$batch-stable"
+
+RUSTBOX_TOOL_IMAGE=rustbox-normalize:2026-11-19 \
+  exec "$root/scripts/run_tool.sh" sh -eu -c '
+    cd "$1"
+    cargo check
+    cargo build --release
+  ' rustbox-c2rust-stable \
+    "/work/work/analysis/coreutils-9.12/translations/c2rust-0.22.1/$batch-stable"

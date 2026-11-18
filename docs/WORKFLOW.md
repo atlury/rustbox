@@ -85,6 +85,15 @@ intentionally retains multiple commands for one source file: Coreutils builds
 shared implementation files with different preprocessor definitions for
 different applets, and deduplicating by filename would discard configurations.
 
+`scripts/analyze_coreutils_canonical.sh` replays all 563 configurations through
+Clang Static Analyzer, Clang-Tidy, and Cppcheck: 1,689 analyzer actions in all.
+It refuses to merge runs, retains analyzer failures and timeouts, and uses
+context-free diagnostic hashes.  `scripts/summarize_coreutils_analysis.sh`
+rejects an incomplete action set and writes a compact ledger with every
+checker and severity count.  The bulky raw reports remain in the Linux build
+volume; the deterministic summary is committed.  Later normalized trees are
+compared against this ledger, never against an assumed zero-warning baseline.
+
 The pinned local tool image is described by `tools/versions.json` and built by
 `scripts/build_tool_image.sh`.  `scripts/run_tool.sh rustbox-tool-report`
 records the effective versions.  CodeChecker's complete Python dependency
@@ -144,6 +153,14 @@ opaque `extern type` declarations with zero-sized `repr(C)` pointer-only
 markers and removes feature gates already stabilized by Rust.  The pass aborts
 if an opaque type is ever used by value, writes a before/after hash manifest,
 and never edits either raw emission.
+
+Subsequent groups are declared under `batches/` rather than embedded in shell
+code.  `scripts/translate_coreutils_batch.sh` checks the exact number of
+captured compiler actions, emits both a preserve-unused audit crate and a
+reachable crate, and fails on every translator error.  The first ten-applet
+group deliberately contains one translation unit per applet.  That makes a
+normalization regression attributable before larger shared-library closures
+are attempted; it does not waive whole-applet testing or shared-C replacement.
 
 ## Repair score
 

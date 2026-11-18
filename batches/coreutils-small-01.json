@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "upstream": "GNU Coreutils 9.12",
+  "name": "coreutils-small-01",
+  "applets": [
+    "basename",
+    "dirname",
+    "hostid",
+    "link",
+    "logname",
+    "printenv",
+    "tty",
+    "unlink",
+    "whoami",
+    "yes"
+  ],
+  "output_regex": "/src/libsinglebin_(basename|dirname|hostid|link|logname|printenv|tty|unlink|whoami|yes)_",
+  "expected_compile_commands": 10,
+  "selection_policy": "One canonical translation unit per applet; shared canonical C libraries remain linked during the first hybrid substitution gate."
+}

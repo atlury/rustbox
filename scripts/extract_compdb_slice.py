@@ -19,6 +19,7 @@ def main() -> int:
     parser.add_argument("--database", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--output-regex", required=True)
+    parser.add_argument("--expected-commands", type=int)
     args = parser.parse_args()
 
     entries = json.loads(args.database.read_text(encoding="utf-8"))
@@ -26,6 +27,10 @@ def main() -> int:
     selected = [entry for entry in entries if pattern.search(entry.get("output", ""))]
     if not selected:
         raise RuntimeError(f"no compile commands match {args.output_regex!r}")
+    if args.expected_commands is not None and len(selected) != args.expected_commands:
+        raise RuntimeError(
+            f"selected {len(selected)} compile commands, expected {args.expected_commands}"
+        )
     if len({canonical(entry) for entry in selected}) != len(selected):
         raise RuntimeError("selected compile commands contain exact duplicates")
 
