@@ -25,7 +25,7 @@ test -s "$host_output/Cargo.toml" || {
 }
 
 RUSTBOX_TOOL_IMAGE=rustbox-normalize:2026-11-19 \
-  exec "$root/scripts/run_tool.sh" sh -eu -c '
-    cd "$1"
-    RUSTUP_TOOLCHAIN=nightly-2023-04-15 cargo check
-  ' rustbox-c2rust-check "$container_output"
+  exec "$root/scripts/run_tool.sh" python3 /work/scripts/check_cargo_crate.py \
+    --crate "$container_output" \
+    --toolchain nightly-2023-04-15 \
+    --output "$container_output/rustbox-cargo-check.json"

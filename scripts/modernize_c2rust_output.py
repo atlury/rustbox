@@ -13,11 +13,25 @@ from pathlib import Path
 
 
 EXTERN_TYPE = re.compile(r"^\s*pub type ([A-Za-z_][A-Za-z0-9_]*);\s*$")
+STATIC_MUT = re.compile(r"^\s*(?:pub\s+)?static\s+mut\s+([A-Za-z_][A-Za-z0-9_]*):")
 REMOVED_FEATURES = {"#![feature(extern_types)]", "#![feature(raw_ref_op)]"}
 
 
 def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def has_only_pointer_uses(line: str, name: str) -> bool:
+    """Accept every occurrence only when it denotes or constructs a raw pointer."""
+    escaped = re.escape(name)
+    residual = line
+    allowed = (
+        rf"\*(?:mut|const)\s+{escaped}\b",
+        rf"\bnull(?:_mut)?\s*::\s*<\s*{escaped}\s*>",
+    )
+    for pattern in allowed:
+        residual = re.sub(pattern, "", residual)
+    return re.search(rf"\b{escaped}\b", residual) is None
 
 
 def transform_rust(path: Path) -> dict[str, object] | None:
@@ -26,10 +40,24 @@ def transform_rust(path: Path) -> dict[str, object] | None:
     opaque = [match.group(1) for line in lines if (match := EXTERN_TYPE.match(line))]
     kept = [line for line in lines if not EXTERN_TYPE.match(line) and line not in REMOVED_FEATURES]
 
+    mutable_statics = {
+        match.group(1) for line in kept if (match := STATIC_MUT.match(line))
+    }
+    raw_static_pointer_rewrites: list[str] = []
+    for name in sorted(mutable_statics):
+        pattern = re.compile(rf"&mut\s+{re.escape(name)}\s+as\s+\*mut\b")
+        rewritten = []
+        for line in kept:
+            changed, count = pattern.subn(f"&raw mut {name} as *mut", line)
+            if count:
+                raw_static_pointer_rewrites.extend([name] * count)
+            rewritten.append(changed)
+        kept = rewritten
+
     for name in opaque:
         uses = [line for line in kept if re.search(rf"\b{re.escape(name)}\b", line)]
         for line in uses:
-            if not re.search(rf"\*(?:mut|const)\s+{re.escape(name)}\b", line):
+            if not has_only_pointer_uses(line, name):
                 raise RuntimeError(f"{path}: opaque type {name} has non-pointer use: {line}")
 
     definitions: list[str] = []
@@ -51,6 +79,7 @@ def transform_rust(path: Path) -> dict[str, object] | None:
         "before_sha256": hashlib.sha256(before.encode()).hexdigest(),
         "after_sha256": hashlib.sha256(after.encode()).hexdigest(),
         "opaque_pointer_types": opaque,
+        "raw_static_pointer_rewrites": raw_static_pointer_rewrites,
     }
 
 

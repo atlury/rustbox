@@ -43,13 +43,17 @@ scoring, and correctness gates.
 
 | Upstream | Inventory | Signed source oracle | Hybrid canonical parity | Integrated Rust applets |
 |---|---:|---:|---:|---:|
-| GNU Coreutils 9.12 | 108 | 108 | 2 | 0 |
+| GNU Coreutils 9.12 | 108 | 108 | 12 | 0 |
 | util-linux 2.42.4 | 155 | 0 | 0 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
-`evidence/coreutils-9.12-oracle.json`.  An oracle-built applet is not marked
-complete in the inventory below; completion is reserved for translated Rust
-that has reached canonical behavioral parity through the multicall interface.
+`evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
+baseline is in `evidence/coreutils-9.12-static-analysis.json`; translation and
+hybrid evidence for the first ten-applet batch is in
+`evidence/coreutils-9.12-c2rust-small-01.json`.  An oracle-built applet is not
+marked complete in the inventory below; completion is reserved for translated
+Rust that has reached canonical behavioral parity through the multicall
+interface.
 
 ## Applet inventory
 
@@ -67,7 +71,7 @@ parity.
 - [ ] `b2sum` — inventory
 - [ ] `base32` — inventory
 - [ ] `base64` — inventory
-- [ ] `basename` — inventory
+- [ ] `basename` — hybrid canonical parity
 - [ ] `basenc` — inventory
 - [ ] `cat` — inventory
 - [ ] `chcon` — inventory
@@ -85,7 +89,7 @@ parity.
 - [ ] `df` — inventory
 - [ ] `dir` — inventory
 - [ ] `dircolors` — inventory
-- [ ] `dirname` — inventory
+- [ ] `dirname` — hybrid canonical parity
 - [ ] `du` — inventory
 - [ ] `echo` — inventory
 - [ ] `env` — inventory
@@ -97,15 +101,15 @@ parity.
 - [ ] `fold` — inventory
 - [ ] `groups` — inventory
 - [ ] `head` — inventory
-- [ ] `hostid` — inventory
+- [ ] `hostid` — hybrid canonical parity
 - [ ] `hostname` — inventory
 - [ ] `id` — inventory
 - [ ] `install` — inventory
 - [ ] `join` — inventory
 - [ ] `kill` — inventory
-- [ ] `link` — inventory
+- [ ] `link` — hybrid canonical parity
 - [ ] `ln` — inventory
-- [ ] `logname` — inventory
+- [ ] `logname` — hybrid canonical parity
 - [ ] `ls` — inventory
 - [ ] `md5sum` — inventory
 - [ ] `mkdir` — inventory
@@ -123,7 +127,7 @@ parity.
 - [ ] `pathchk` — inventory
 - [ ] `pinky` — inventory
 - [ ] `pr` — inventory
-- [ ] `printenv` — inventory
+- [ ] `printenv` — hybrid canonical parity
 - [ ] `printf` — inventory
 - [ ] `ptx` — inventory
 - [ ] `pwd` — inventory
@@ -158,18 +162,18 @@ parity.
 - [ ] `true` — hybrid canonical parity
 - [ ] `truncate` — inventory
 - [ ] `tsort` — inventory
-- [ ] `tty` — inventory
+- [ ] `tty` — hybrid canonical parity
 - [ ] `uname` — inventory
 - [ ] `unexpand` — inventory
 - [ ] `uniq` — inventory
-- [ ] `unlink` — inventory
+- [ ] `unlink` — hybrid canonical parity
 - [ ] `uptime` — inventory
 - [ ] `users` — inventory
 - [ ] `vdir` — inventory
 - [ ] `wc` — inventory
 - [ ] `who` — inventory
-- [ ] `whoami` — inventory
-- [ ] `yes` — inventory
+- [ ] `whoami` — hybrid canonical parity
+- [ ] `yes` — hybrid canonical parity
 
 ### util-linux 2.42.4 (155)
 

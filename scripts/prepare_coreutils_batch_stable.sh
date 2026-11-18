@@ -19,8 +19,10 @@ base="$root/work/analysis/coreutils-9.12/translations/c2rust-0.22.1"
 
 RUSTBOX_TOOL_IMAGE=rustbox-normalize:2026-11-19 \
   exec "$root/scripts/run_tool.sh" sh -eu -c '
+    python3 /work/scripts/check_cargo_crate.py \
+      --crate "$1" \
+      --output "$1/rustbox-cargo-check.json"
     cd "$1"
-    cargo check
     cargo build --release
   ' rustbox-c2rust-stable \
     "/work/work/analysis/coreutils-9.12/translations/c2rust-0.22.1/$batch-stable"

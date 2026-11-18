@@ -16,5 +16,31 @@
   ],
   "output_regex": "/src/libsinglebin_(basename|dirname|hostid|link|logname|printenv|tty|unlink|whoami|yes)_",
   "expected_compile_commands": 10,
+  "reachable_staticlib": "libcoreutils_small_01_reachable.a",
+  "differential_harness": "coreutils_small_01_differential.py",
+  "upstream_tests": [
+    "tests/misc/basename.pl",
+    "tests/misc/dirname.pl",
+    "tests/misc/printenv.sh",
+    "tests/misc/yes.sh",
+    "tests/misc/tty-eof.pl",
+    "tests/misc/tty-quoting.sh",
+    "tests/tty/tty.sh",
+    "tests/misc/user.sh",
+    "tests/env/env-null.sh",
+    "tests/help/help-version.sh",
+    "tests/help/help-version-getopt.sh"
+  ],
+  "valgrind_cases": [
+    {"applet": "basename", "arguments": ["value"], "status": 0},
+    {"applet": "dirname", "arguments": ["value"], "status": 0},
+    {"applet": "hostid", "arguments": [], "status": 0},
+    {"applet": "link", "arguments": ["source", "destination"], "status": 0, "setup": "link"},
+    {"applet": "logname", "arguments": [], "status": 1},
+    {"applet": "printenv", "arguments": ["ENV_TEST"], "status": 0},
+    {"applet": "tty", "arguments": ["-s"], "status": 1},
+    {"applet": "unlink", "arguments": ["victim"], "status": 0, "setup": "unlink"},
+    {"applet": "whoami", "arguments": [], "status": 0}
+  ],
   "selection_policy": "One canonical translation unit per applet; shared canonical C libraries remain linked during the first hybrid substitution gate."
 }

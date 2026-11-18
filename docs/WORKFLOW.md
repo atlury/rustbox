@@ -94,6 +94,13 @@ checker and severity count.  The bulky raw reports remain in the Linux build
 volume; the deterministic summary is committed.  Later normalized trees are
 compared against this ledger, never against an assumed zero-warning baseline.
 
+The first ten-applet batch required no C normalization: its exact canonical
+translation units produced a zero-hole preserve-unused audit crate that
+compiled unchanged.  Applying a source rewrite in that situation would add
+risk without reducing repair burden.  The stable integration pass instead
+uses guarded, regression-tested rules for obsolete C2Rust syntax; raw audit
+and reachable emissions remain byte-identifiable and unedited.
+
 The pinned local tool image is described by `tools/versions.json` and built by
 `scripts/build_tool_image.sh`.  `scripts/run_tool.sh rustbox-tool-report`
 records the effective versions.  CodeChecker's complete Python dependency
