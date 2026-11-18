@@ -122,6 +122,21 @@ function.  `scripts/translate_coreutils_true_false.sh` is the first measured
 slice; it keeps the exact captured compiler arguments for the shared `true`
 implementation and the `false` wrapper.
 
+`scripts/build_coreutils_true_false_hybrid.sh` performs the next gate without
+editing generated Rust: it builds the static library, removes only the two C
+archives from the canonical multicall dependency list, suppresses the C
+wrapper's extra dependency on the C `true` archive, and emits a separate
+hybrid binary.  It rejects duplicate or missing replacement symbols before
+behavioral comparison.
+
+`scripts/test_coreutils_true_false_hybrid.sh` then compares public dispatcher
+and argv-zero invocation byte-for-byte across raw arguments and five locales,
+including closed-output-pipe failures.  It also runs the upstream false-status
+and help/version tests while a trap temporarily redirects only the `true` and
+`false` symlinks to the hybrid; the canonical multicall binary is never
+overwritten.  `scripts/check_coreutils_true_false_resources.sh` separately
+runs Valgrind over normal, help, and version paths for both applets.
+
 ## Repair score
 
 Repairs are changes to generated Rust, not proven C normalization passes.

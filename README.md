@@ -41,9 +41,9 @@ scoring, and correctness gates.
 
 ## Current progress
 
-| Upstream | Inventory | Signed source oracle | Normalized | Integrated Rust applets |
+| Upstream | Inventory | Signed source oracle | Hybrid canonical parity | Integrated Rust applets |
 |---|---:|---:|---:|---:|
-| GNU Coreutils 9.12 | 108 | 108 | 0 | 0 |
+| GNU Coreutils 9.12 | 108 | 108 | 2 | 0 |
 | util-linux 2.42.4 | 155 | 0 | 0 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
@@ -92,7 +92,7 @@ parity.
 - [ ] `expand` — inventory
 - [ ] `expr` — inventory
 - [ ] `factor` — inventory
-- [ ] `false` — inventory
+- [ ] `false` — hybrid canonical parity
 - [ ] `fmt` — inventory
 - [ ] `fold` — inventory
 - [ ] `groups` — inventory
@@ -155,7 +155,7 @@ parity.
 - [ ] `timeout` — inventory
 - [ ] `touch` — inventory
 - [ ] `tr` — inventory
-- [ ] `true` — inventory
+- [ ] `true` — hybrid canonical parity
 - [ ] `truncate` — inventory
 - [ ] `tsort` — inventory
 - [ ] `tty` — inventory

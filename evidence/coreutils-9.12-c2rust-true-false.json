@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "recorded_at": "2026-11-19",
-  "status": "generated-and-compile-checked; functional substitution pending",
+  "status": "hybrid canonical parity; Rustbox-native integration pending",
   "input": {
     "upstream_archive_sha256": "a480198559733e9b3da999e90543ac6f888a2caa544d8d664c5a1f17e528e210",
     "compile_database_sha256": "ad64e30bb18bd1b89844c30f58cdda0776e199c3ea3690ea1ed11a510c59a056",
@@ -54,5 +54,52 @@
     "toolchain": "rustc 1.99.0 (b940084d7 2026-09-28)",
     "errors": 4,
     "classification": "C2Rust generator drift around the historical VaListImpl/as_va_list API; not a Coreutils semantic failure"
+  },
+  "hybrid": {
+    "canonical_multicall_sha256": "fd60bd0bd22c8d92fcb93b1f4ca18a093ec2360425b0132da8d0c992941c4ad0",
+    "hybrid_multicall_sha256": "71784d5201a8dd5a580c847dfe3ce868c32e8c3e984ad8f6b955dbee43bb6676",
+    "link_map_sha256": "4087b95cb5ffd9231b99eb29e32e6ec30172697d1001b93604728e6c3d7e384d",
+    "original_true_archive_linked": false,
+    "original_false_archive_linked": false,
+    "replacement_symbols_defined_once": true,
+    "canonical_bytes": 4951664,
+    "hybrid_bytes": 4945120,
+    "canonical_stripped_bytes": 1499584,
+    "hybrid_stripped_bytes": 1499488
+  },
+  "behavior": {
+    "differential": {
+      "total": 200,
+      "pass": 200,
+      "locales": 5,
+      "covers": [
+        "explicit multicall dispatch",
+        "argv[0] dispatch",
+        "raw non-UTF-8 arguments",
+        "help and version output",
+        "broken output pipes",
+        "exit status and stderr bytes"
+      ]
+    },
+    "targeted_upstream": {
+      "total": 3,
+      "pass": 3,
+      "skip": 0,
+      "fail": 0,
+      "error": 0
+    },
+    "complete_upstream_applet_suite": {
+      "total": 761,
+      "pass": 628,
+      "skip": 132,
+      "fail": 0,
+      "error": 1,
+      "error_classification": "the previously recorded Docker VM long-path input-construction limit in tests/rm/deep-2; no applet was invoked for this error"
+    },
+    "valgrind": {
+      "cases": 6,
+      "errors": 0,
+      "definite_or_indirect_leaks": 0
+    }
   }
 }
