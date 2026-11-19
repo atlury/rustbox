@@ -33,7 +33,7 @@
   "output_regex": "/(?:disk-utils/(?:cfdisk-cfdisk|fdisk-fdisk|sfdisk-sfdisk)|login-utils/(?:login|runuser|su-su|sulogin|vipw)|lsfd-cmd/lsfd-lsfd|misc-utils/(?:findmnt-findmnt|lsblk-lsblk)|term-utils/agetty-agetty)\\.o$",
   "expected_compile_commands": 12,
   "header_normalization": [
-    {"source": "include/list.h", "engine": "exact", "expected_before": "if (lev >= ARRAY_SIZE(part) - 1)", "replacement": "if (lev >= 20)", "expected_after": "if (lev >= 20)", "reason": "Pin the list-sort overflow threshold for this signed release: part has MAX_LIST_LENGTH_BITS + 1 elements and MAX_LIST_LENGTH_BITS is 20; C2Rust 0.22.1 rejects the macro-expanded enclosing condition when list_sort is reachable."}
+    {"source": "include/list.h", "engine": "exact", "expected_before": "if (lev >= ARRAY_SIZE(part) - 1)\n\t\t\t\tlev--;", "replacement": "lev -= lev >= 20;", "expected_after": "lev -= lev >= 20;", "reason": "Express the list-sort bound decrement without the Clang-exporter-rejected condition node: comparison yields 0 or 1, lev is evaluated once, and this signed release fixes MAX_LIST_LENGTH_BITS at 20."}
   ],
   "c_normalization": [
     {"source": "disk-utils/cfdisk.c", "engine": "exact", "expected_before": "ARRAY_SIZE(color_pairs)", "replacement": "(sizeof(color_pairs) / sizeof(color_pairs[0]))", "expected_after": "(sizeof(color_pairs) / sizeof(color_pairs[0]))", "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."},
