@@ -17,6 +17,7 @@ case $batch in
   util-linux-small-10) suffix=10; components='enosys ipcs lsclocks lslocks lsmem mkswap uuidd utmp'; count=21 ;;
   util-linux-small-11) suffix=11; components='blkid column eject logger losetup nsenter partx setpriv wipefs'; count=31 ;;
   util-linux-small-12) suffix=12; components='cal dmesg hardlink more mount'; count=66 ;;
+  util-linux-small-13) suffix=13; components='chfn fsck hexdump hwclock lscpu lslogins lsns script swapon unshare'; count=29 ;;
   *) echo "unknown batch: $batch" >&2; exit 2 ;;
 esac
 
@@ -107,7 +108,7 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     export TS_CMD_SETPRIV="$build/rustbox-small-11/setpriv"
     export TS_CMD_WIPEFS="$build/rustbox-small-11/wipefs"
     export TS_CMD_ZRAMCTL="$build/rustbox-small-11/zramctl"
-  else
+  elif test "$suffix" = 12; then
     export TS_CMD_CAL="$build/rustbox-small-12/cal"
     export TS_CMD_DMESG="$build/rustbox-small-12/dmesg"
     export TS_CMD_FSCK_MINIX="$build/rustbox-small-12/fsck.minix"
@@ -118,6 +119,17 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     export TS_CMD_MOUNT="$build/rustbox-small-12/mount"
     export TS_CMD_PG="$build/rustbox-small-12/pg"
     export TS_CMD_UMOUNT="$build/rustbox-small-12/umount"
+  else
+    export TS_CMD_CHFN="$build/rustbox-small-13/chfn"
+    export TS_CMD_FSCK="$build/rustbox-small-13/fsck"
+    export TS_CMD_HEXDUMP="$build/rustbox-small-13/hexdump"
+    export TS_CMD_HWCLOCK="$build/rustbox-small-13/hwclock"
+    export TS_CMD_LSCPU="$build/rustbox-small-13/lscpu"
+    export TS_CMD_LSLOGINS="$build/rustbox-small-13/lslogins"
+    export TS_CMD_LSNS="$build/rustbox-small-13/lsns"
+    export TS_CMD_SCRIPT="$build/rustbox-small-13/script"
+    export TS_CMD_SWAPON="$build/rustbox-small-13/swapon"
+    export TS_CMD_UNSHARE="$build/rustbox-small-13/unshare"
   fi
   su -m -s /bin/bash rustbox-test -c \
     "cd $build && $source/tests/run.sh --srcdir=$source --builddir=$build $components" \

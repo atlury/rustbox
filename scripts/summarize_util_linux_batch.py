@@ -71,7 +71,7 @@ def main() -> int:
     reachable_prepared = base / f"{batch}-normalized-reachable-prepared"
     stable = base / f"{batch}-stable"
     suffix = batch.removeprefix("util-linux-small-")
-    if suffix not in {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"}:
+    if suffix not in {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13"}:
         raise RuntimeError(f"undeclared util-linux batch: {batch}")
     hybrid = build / f"rustbox-util-linux-small-{suffix}"
     link_map = hybrid.with_suffix(".map")
@@ -187,10 +187,42 @@ def main() -> int:
             "more": "text-utils/more-more.o", "mount": "sys-utils/mount-mount.o",
             "pg": "text-utils/pg-pg.o", "umount": "sys-utils/umount-umount.o",
         },
+        "13": {
+            "chfn": "login-utils/chfn-chfn.o", "fsck": "disk-utils/fsck-fsck.o",
+            "hexdump": "text-utils/hexdump.o", "hwclock": "sys-utils/hwclock-hwclock.o",
+            "lscpu": "sys-utils/lscpu-lscpu.o", "lslogins": "login-utils/lslogins-lslogins.o",
+            "lsns": "sys-utils/lsns-lsns.o", "script": "term-utils/script-script.o",
+            "swapon": "sys-utils/swapon-swapon.o", "unshare": "sys-utils/unshare-unshare.o",
+        },
     }
     canonical_objects = canonical_objects_by_batch[suffix]
     if any(name in map_text for name in canonical_objects.values()):
         raise RuntimeError("hybrid link map contains a replaced canonical applet object")
+    support_symbol_specializations = []
+    if suffix == "13":
+        canonical_parser = build / "sys-utils/hwclock-hwclock-parse-date.o"
+        specialized_parser = build / "rustbox-support-13/hwclock-parse-date.o"
+        for path in (canonical_parser, specialized_parser):
+            if not path.is_file():
+                raise RuntimeError(f"missing parser support object: {path}")
+        canonical_symbols = subprocess.run(
+            ["nm", "-g", "--defined-only", str(canonical_parser)],
+            check=True, text=True, stdout=subprocess.PIPE,
+        ).stdout
+        specialized_symbols = subprocess.run(
+            ["nm", "-g", "--defined-only", str(specialized_parser)],
+            check=True, text=True, stdout=subprocess.PIPE,
+        ).stdout
+        if " yyparse\n" not in canonical_symbols or " rustbox_hwclock_yyparse\n" not in specialized_symbols:
+            raise RuntimeError("hwclock parser support symbol specialization is incomplete")
+        support_symbol_specializations.append({
+            "object": "sys-utils/hwclock-hwclock-parse-date.o",
+            "canonical_sha256": sha256(canonical_parser),
+            "specialized_sha256": sha256(specialized_parser),
+            "renamed_symbol": "yyparse",
+            "replacement_symbol": "rustbox_hwclock_yyparse",
+            "reason": "avoid collision with libsmartcols' independent Bison parser in one multicall link",
+        })
 
     modernization = load(stable / "rustbox-modernization.json")
     opaque = sorted({
@@ -211,6 +243,7 @@ def main() -> int:
         "10": (5, "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), and reusable VaListImpl/as_va_list modernization (2)"),
         "11": (5, "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), and reusable VaListImpl/as_va_list modernization (2)"),
         "12": (5, "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), and reusable VaList spelling/cursor modernization (2)"),
+        "13": (5, "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), and reusable VaListImpl/as_va_list modernization (2)"),
     }[suffix]
     targeted = {
         "01": {"components": 9, "passed": 9, "ctrlaltdel": "no upstream component test; hard and soft branches compared unprivileged"},
@@ -225,6 +258,7 @@ def main() -> int:
         "10": {"components": 21, "passed": 21, "ordinary_components_passed": 10, "ordinary_subtests_passed": 27, "upstream_skipped_components": 5, "upstream_skipped_subtests": 2, "coverage_note": "five helper-, root-, or bc-dependent components and two unavailable-device subtests were skipped under upstream Docker policy; 10 ordinary components and 27 executable subtests passed, while mkfs.minix, setterm, and both last public names are additionally covered by safe differential and Valgrind cases"},
         "11": {"components": 31, "passed": 31, "ordinary_components_passed": 11, "ordinary_subtests_passed": 207, "upstream_skipped_components": 20, "coverage_note": "20 root- or unavailable-helper-dependent components were skipped under upstream Docker policy; 11 ordinary components and 207 executable subtests passed, while all ten public names, including zramctl which has no upstream component, are additionally covered by safe differential and Valgrind cases"},
         "12": {"components": 66, "passed": 66, "ordinary_components_passed": 8, "ordinary_subtests_passed": 59, "upstream_skipped_components": 58, "coverage_note": "58 root- or unavailable-helper-dependent components were skipped under upstream Docker policy; eight ordinary cal and hardlink components and 59 executable subtests passed, while all ten public names are additionally covered by safe differential and Valgrind cases"},
+        "13": {"components": 29, "passed": 29, "ordinary_components_passed": 8, "ordinary_subtests_passed": 65, "upstream_skipped_components": 21, "upstream_known_failed_subtests": 1, "coverage_note": "21 root-, namespace-, or unavailable-helper-dependent components were skipped under upstream Docker policy; eight ordinary components and 65 executable subtests passed, while script/replay-live retained its one upstream-known failure; all ten public names are additionally covered by safe differential and Valgrind cases"},
     }[suffix]
     evidence = {
         "schema": 1,
@@ -283,6 +317,7 @@ def main() -> int:
             "link_map_sha256": sha256(link_map),
             "replacement_symbols_defined_once": True,
             "canonical_applet_objects_linked": False,
+            "support_symbol_specializations": support_symbol_specializations,
         },
         "behavior": {
             "differential": load(stable / "differential.json"),

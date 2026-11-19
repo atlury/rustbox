@@ -92,6 +92,13 @@ case $batch in
     extra_objects='lib/monotonic.o lib/dmesg-pager.o lib/ismounted.o lib/hardlink-fileeq.o sys-utils/lsirq-irq-common.o sys-utils/ipcutils.o ./.libs/libmount.a ./.libs/libblkid.a ./.libs/libsmartcols.a ./.libs/libtcolors.a ./.libs/libcommon.a'
     extra_libraries='-leconf -lmagic -lncursesw -ltinfo'
     ;;
+  util-linux-small-13)
+    suffix=13
+    library_name=libutil_linux_small_13_normalized_reachable.a
+    applets='chfn fsck hexdump hwclock lscpu lslogins lsns script swapon unshare'
+    extra_objects='login-utils/chfn-ch-common.o login-utils/chfn-auth.o login-utils/chfn-islocal.o login-utils/chfn-setpwnam.o lib/monotonic.o text-utils/hexdump-conv.o text-utils/hexdump-display.o text-utils/hexdump-parse.o rustbox-support-13/hwclock-parse-date.o sys-utils/hwclock-hwclock-cmos.o sys-utils/hwclock-hwclock-rtc.o sys-utils/lscpu-lscpu-cputype.o sys-utils/lscpu-lscpu-cpu.o sys-utils/lscpu-lscpu-topology.o sys-utils/lscpu-lscpu-virt.o sys-utils/lscpu-lscpu-arm.o sys-utils/lscpu-lscpu-dmi.o sys-utils/lscpu-lscpu-riscv.o lib/script-pty-session.o sys-utils/swapon-swapon-common.o lib/swapon-swapprober.o lib/unshare-caputils.o lib/unshare-exec_shell.o ./.libs/liblastlog2.a ./.libs/libmount.a ./.libs/libblkid.a ./.libs/libsmartcols.a ./.libs/libtcolors.a ./.libs/libcommon_logindefs.a ./.libs/libcommon.a'
+    extra_libraries='-leconf -lpam -lpam_misc -lsqlite3 -ltinfo'
+    ;;
   *) echo "hybrid linker not yet declared for $batch" >&2; exit 2 ;;
 esac
 
@@ -111,6 +118,14 @@ RUSTBOX_TOOL_IMAGE=rustbox-normalize:2026-11-19 \
     replacement_count=$6
     output="$build/rustbox-util-linux-small-$suffix"
     cd "$build"
+    if test "$suffix" = 13; then
+      mkdir -p rustbox-support-13
+      cp sys-utils/hwclock-hwclock-parse-date.o rustbox-support-13/hwclock-parse-date.o
+      objcopy --redefine-sym yyparse=rustbox_hwclock_yyparse \
+        rustbox-support-13/hwclock-parse-date.o
+      nm -g --defined-only rustbox-support-13/hwclock-parse-date.o \
+        | grep -q " rustbox_hwclock_yyparse$"
+    fi
     clang-18 -O2 -g -Wl,-Map,"$output.map" -o "$output" \
       "/work/bridges/util-linux/small-$suffix-dispatch.c" \
       "$library" $extra_objects \
