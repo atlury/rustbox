@@ -1,0 +1,635 @@
+{
+  "audit": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "a9e8758a866f7d6a180058b59fd1962563a19781363b3819a901212e070e1872",
+      "cargo_toml_sha256": "10e1e39520e5c2c784a5151ce241208d5ceb5c7e868bff82089a55318d340713",
+      "diagnostics_by_level": {
+        "warning": 38
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "c4498ba41ac144e6020e4cbe1cb20475ee60ac5bf5b0e8944fc75fea11647a16",
+      "toolchain_request": "nightly-2023-04-15",
+      "warning_codes": {
+        "stable_features": 1,
+        "unused_imports": 1,
+        "unused_must_use": 22,
+        "unused_parens": 12,
+        "unused_variables": 1
+      }
+    },
+    "compile_error_macros": 0,
+    "declaration_map_sha256": {
+      "src/login_utils/utmpdump.c_decls.json": "40647d7babba307da8b5cda72f2b9c1385331fad7f3e372ba256a625d380b073",
+      "src/login_utils/vipw.c_decls.json": "aa7b7f34c7130035cb66780d876967dc0d93d0557b717e9c46199a4b3081238f",
+      "src/misc_utils/lastlog2.c_decls.json": "5202b8a40aec50c20386ee776a8234d9136d03c8f94ce518dd4999c88e9a5607",
+      "src/misc_utils/look.c_decls.json": "332f301468a0a36000df15facdc631778fadad2917551b66785eed25b24435c7",
+      "src/misc_utils/pipesz.c_decls.json": "7847a618822675fae024b50c020ebd3cb983ba1334f1bc33cc81bd407aad018b",
+      "src/misc_utils/rename.c_decls.json": "d147729858cea0c9fc35002636733c5b36220a60df15a81f66c6b246140929ef",
+      "src/misc_utils/uuidparse.c_decls.json": "5df92105992ea719c1fd7db4803133fe80cd77c87396307020a6923959b9a82a",
+      "src/sys_utils/blkdiscard.c_decls.json": "bbbb9b565bd9ade74adea7b1d5c4d48a230e39687011668ff9ff84e3378c1297",
+      "src/sys_utils/tunelp.c_decls.json": "b8d68e2df1b87eec9c811c0c28b7f1f340909af208f86f434e534b2d4578f86d",
+      "src/term_utils/scriptlive.c_decls.json": "988e4cc5ab3264fee1f68f623d967bc7c947eea5a900d502a69840dbbb234a1a"
+    },
+    "declaration_maps": 10,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "158334c146e2b12db22f6b7fd0090579143eae70c6448c52e796c1d51a346e44",
+      "src/login_utils/utmpdump.rs": "971cd403ce751521cd6a16a9d321ab5a2871ca796511b56c195bf1d9dc4de3fa",
+      "src/login_utils/vipw.rs": "a94de91e24396a965aec912b624bcd98b57e0b72ef79997eaa093d7041c33948",
+      "src/misc_utils/lastlog2.rs": "bda7017ae3f0cd94d678472aa266f0afc1256d69d202f8ca977a0e18bd105539",
+      "src/misc_utils/look.rs": "0527ef7a838b18779c3bc82f740994d391936ae94f7c2341e4569becf9443137",
+      "src/misc_utils/pipesz.rs": "7cccec75423bd5c9fdd093100fe0883c188d4b888ae5ba4cd24a93fe1c807a64",
+      "src/misc_utils/rename.rs": "b4c5556c33a7f3bed76ac0283a62eae390292dadeb653c7d79e50923185c0bb4",
+      "src/misc_utils/uuidparse.rs": "29877f38d8344161ea4e7cdb1a266686f5aa71903059a40a8f2046b148b6cf0a",
+      "src/sys_utils/blkdiscard.rs": "1af6c6e27efeb4bf1c09f5c0a8a61202adeb96c44ccdbb807635bf5036ceb59e",
+      "src/sys_utils/tunelp.rs": "da31b1d08cb75e2acbaa3ec849437390b791e28b796d7b8a68236d12470d6d76",
+      "src/term_utils/scriptlive.rs": "440e1a1e21d9e1ffe9302dc46c5c5e1d34c2b073346cedadede5b63f37e5bb92"
+    },
+    "generated_rust_repairs": 0,
+    "rust_bytes": 967136,
+    "rust_files": 12,
+    "todo_macros": 0,
+    "unimplemented_macros": 0
+  },
+  "batch": {
+    "applets": [
+      "look",
+      "pipesz",
+      "blkdiscard",
+      "tunelp",
+      "rename",
+      "uuidparse",
+      "utmpdump",
+      "lastlog2",
+      "scriptlive",
+      "vipw"
+    ],
+    "manifest_sha256": "cb6217fab2881f76b7a8c0426b41a7f0027f5d0be1f055552078d7c844fd5e43",
+    "name": "util-linux-small-05"
+  },
+  "behavior": {
+    "differential": {
+      "cases": 53,
+      "failures": [],
+      "passed": 53,
+      "schema": 1
+    },
+    "targeted_upstream": {
+      "components": 10,
+      "coverage_note": "the root-only blkdiscard offsets component was skipped by upstream policy; safe unprivileged blkdiscard behavior is covered differentially and under Valgrind",
+      "log_sha256": "cbe65f4a30f64db598b8c0fbf23ddce529e21d57755bba1a684b8da676539125",
+      "ordinary_subtests_passed": 18,
+      "passed": 10,
+      "upstream_skipped_components": 1
+    },
+    "valgrind": {
+      "cases": 10,
+      "logs": [
+        "valgrind-blkdiscard.log",
+        "valgrind-lastlog2.log",
+        "valgrind-look.log",
+        "valgrind-pipesz.log",
+        "valgrind-rename.log",
+        "valgrind-scriptlive.log",
+        "valgrind-tunelp.log",
+        "valgrind-utmpdump.log",
+        "valgrind-uuidparse.log",
+        "valgrind-vipw.log"
+      ],
+      "passed": 10,
+      "schema": 1
+    }
+  },
+  "entrypoint_specialization": {
+    "database_sha256": "a5c83ff2f55fb04cb726f554c6efaa9cdf8f1bbfbe4df5f8b88f213e4f68df69",
+    "entrypoints": {
+      "blkdiscard": {
+        "after_sha256": "b6376f971c65dd9cf978129186a8db4cf8df48ba73ba5d9ccfc1dfae5a8f9248",
+        "before_sha256": "12a2c7438319f7bf4200641d793a684f22af9b79c834c196566c49404cde4e67",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_blkdiscard_main"
+      },
+      "lastlog2": {
+        "after_sha256": "65d12d83debce4846f22175f4870b528fdca09c735a1c3c0ec303eddd31628c9",
+        "before_sha256": "5dfcdaf8b56a7033739a20481c9c9a968149196cd55b52661254ff0e0ee0dc18",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_lastlog2_main"
+      },
+      "look": {
+        "after_sha256": "709b57d1e055a7fe57f69a92218cb9dcd2a3e53727371c9352920865bd618b2d",
+        "before_sha256": "39c2c2c7a20fcce380989d839d244cdc944b651f42eecb2bdf67fc77380ed527",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_look_main"
+      },
+      "pipesz": {
+        "after_sha256": "03cc4bb3ed5042f45d981a8d8ddd1ccd2bb278f5b546dccbac8a74627aeb6580",
+        "before_sha256": "44d42227c7c62278550b1ee04f0bb1cd125aa42addaac36b463361bc274bdc16",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_pipesz_main"
+      },
+      "rename": {
+        "after_sha256": "f0d6a5bc5613c85488ff9db38c4e052992613787b9264953bf85b41972a5ec8f",
+        "before_sha256": "6f40d8a0f28f982521766e628617b97f53d9f9277a2e6667003e699bed4a0e64",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_rename_main"
+      },
+      "scriptlive": {
+        "after_sha256": "afda7659518e11f0acf5e1e52e4505720fdd96b54b640aa05505b7432f06018f",
+        "before_sha256": "1ccd2a7f93551141939f417db6362d41701134e9550c5f559eab76d7ccb8e1c7",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_scriptlive_main"
+      },
+      "tunelp": {
+        "after_sha256": "d79e91f2e670c92ac77b5f36e3de56c2ce02028fabd9c99f525c094faed593c2",
+        "before_sha256": "4b89dd0a673bb15ecf1de7ab80afba63ac4ff1b1a2553252bc83a078d353921e",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_tunelp_main"
+      },
+      "utmpdump": {
+        "after_sha256": "3a41bd208ac0569bcbd6aee94e9291e0730bdc0fce9568f3930809a13360f814",
+        "before_sha256": "e3814b1f1106bdaca3ddc566d36f52ffef40c0895c27495e0090e7cb7759559f",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_utmpdump_main"
+      },
+      "uuidparse": {
+        "after_sha256": "4a6ba2f87fd4253f2bf488f0c39a2c7e84b6fcb9ab038cae2abb95854ba5be30",
+        "before_sha256": "38730f54771760e68fcc62b5d93f861550dfea95370d444f2553c301eee73b82",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_uuidparse_main"
+      },
+      "vipw": {
+        "after_sha256": "e8b853d71ec4d59dd9f7389bbda7a9271e8adb4816c1f4af442e0c003d4dbf65",
+        "before_sha256": "a2defa19a976d5304fc9d0148a448716ecc84df0933956e500a29d0d79b449c0",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_vipw_main"
+      }
+    },
+    "schema": 1
+  },
+  "hybrid": {
+    "bytes": 7179672,
+    "canonical_applet_objects_linked": false,
+    "link_map_sha256": "aa32a369f7d15b3d75874002e620f1d714cee4f1f746d9ee2acec43102da856b",
+    "replacement_symbols_defined_once": true,
+    "sha256": "9d20669589f3857d1499263dda76438bba33a3b6a585cd56fccd8fea9b45b3a1",
+    "stripped_bytes": 1509184
+  },
+  "input": {
+    "clang_database_sha256": "ae7282a1e610ac0cba546c1b680ec08596d01b4687c939f1946dba3cd052a70b",
+    "compile_commands": 10,
+    "gcc_database_sha256": "5531e1967ffa8621f087036daa3b9d8a92b2d45813eac704335a84511e799e22",
+    "slice_sha256": "ab9106e6742b39e5188c2dfacac757d84e383c875b4781822fba4f568eaab982",
+    "upstream_archive_sha256": "fbd62a100ab7bb8746ba0661255c3c48185b1e9021507c624da01fbc696330ec"
+  },
+  "normalization": {
+    "abi_checks": [
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "term-utils/scriptlive.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "misc-utils/uuidparse.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "misc-utils/rename.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "misc-utils/pipesz.c"
+      }
+    ],
+    "batch": "util-linux-small-05",
+    "compiler_replays": [
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "sys-utils/blkdiscard.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "term-utils/scriptlive.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "login-utils/utmpdump.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "misc-utils/look.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "misc-utils/lastlog2.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "a156f95e5c35d7b9a59e69dec1670b58eda8a17886a522c52d48eb9f58a3c188",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "2fe102c8929117282283b7ca41db412abc2cfe97e1fe5ba1c147fa30790d2a23",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "misc-utils/uuidparse.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "misc-utils/rename.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "login-utils/vipw.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "sys-utils/tunelp.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "misc-utils/pipesz.c"
+      }
+    ],
+    "gcc_database_sha256": "637233c9e8011b690c8e9f84a4af3c0a0d4be1cbc6c33853d1df94f30f85c5b1",
+    "input_database_sha256": "ab9106e6742b39e5188c2dfacac757d84e383c875b4781822fba4f568eaab982",
+    "normalized_database_sha256": "4c617fc6dc1b3e82b5ec0447a6e98eb8925367a1c3677e63e6f45d2a996c0224",
+    "schema": 1,
+    "semantic_patches": [
+      {
+        "after_sha256": "44d42227c7c62278550b1ee04f0bb1cd125aa42addaac36b463361bc274bdc16",
+        "before_sha256": "2bfe7c4705b3b692e2c4175117853faf62eb44ef04e580b9e5bb4e44de57257b",
+        "engine": "exact",
+        "expected_after": "sizeof(excl) / sizeof(excl[0])",
+        "expected_before": "ARRAY_SIZE(excl)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(excl) / sizeof(excl[0])",
+        "source": "misc-utils/pipesz.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "6f40d8a0f28f982521766e628617b97f53d9f9277a2e6667003e699bed4a0e64",
+        "before_sha256": "5d45a712e3bf828502fe425b3ec5e228b3377673a2d591d8ef6bd59a2433afe9",
+        "engine": "exact",
+        "expected_after": "sizeof(excl) / sizeof(excl[0])",
+        "expected_before": "ARRAY_SIZE(excl)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(excl) / sizeof(excl[0])",
+        "source": "misc-utils/rename.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "d0515169217c4e3a5dfa789de24551fd7cbe76d2cda45f9bdb6bf1f30c1fdd25",
+        "before_sha256": "3b1224821bf30b533b1f889b6a34c0e122cb0d6dc34ff035fdb84ef84f153e94",
+        "engine": "exact",
+        "expected_after": "sizeof(infos) / sizeof(infos[0])",
+        "expected_after_count": 4,
+        "expected_before": "ARRAY_SIZE(infos)",
+        "expected_before_count": 4,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(infos) / sizeof(infos[0])",
+        "source": "misc-utils/uuidparse.c",
+        "verified_after_count": 4,
+        "verified_before_count": 4
+      },
+      {
+        "after_sha256": "2d68636c786ed1b65f5f4302874f47c38d9d86c6c4f243d0ed743ead6f16933c",
+        "before_sha256": "d0515169217c4e3a5dfa789de24551fd7cbe76d2cda45f9bdb6bf1f30c1fdd25",
+        "engine": "exact",
+        "expected_after": "sizeof(columns) / sizeof(columns[0])",
+        "expected_before": "ARRAY_SIZE(columns)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(columns) / sizeof(columns[0])",
+        "source": "misc-utils/uuidparse.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "38730f54771760e68fcc62b5d93f861550dfea95370d444f2553c301eee73b82",
+        "before_sha256": "2d68636c786ed1b65f5f4302874f47c38d9d86c6c4f243d0ed743ead6f16933c",
+        "engine": "exact",
+        "expected_after": "sizeof(excl) / sizeof(excl[0])",
+        "expected_before": "ARRAY_SIZE(excl)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(excl) / sizeof(excl[0])",
+        "source": "misc-utils/uuidparse.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "1ccd2a7f93551141939f417db6362d41701134e9550c5f559eab76d7ccb8e1c7",
+        "before_sha256": "5888fa4d1c330ededb4d3389da9df9fe558fb035549849c2b5a15e3ba0b69ab3",
+        "engine": "exact",
+        "expected_after": "sizeof(excl) / sizeof(excl[0])",
+        "expected_before": "ARRAY_SIZE(excl)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(excl) / sizeof(excl[0])",
+        "source": "term-utils/scriptlive.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      }
+    ],
+    "sources": {
+      "login-utils/utmpdump.c": {
+        "canonical_sha256": "e3814b1f1106bdaca3ddc566d36f52ffef40c0895c27495e0090e7cb7759559f",
+        "changed": false,
+        "normalized_sha256": "e3814b1f1106bdaca3ddc566d36f52ffef40c0895c27495e0090e7cb7759559f",
+        "staged_before_sha256": "e3814b1f1106bdaca3ddc566d36f52ffef40c0895c27495e0090e7cb7759559f"
+      },
+      "login-utils/vipw.c": {
+        "canonical_sha256": "a2defa19a976d5304fc9d0148a448716ecc84df0933956e500a29d0d79b449c0",
+        "changed": false,
+        "normalized_sha256": "a2defa19a976d5304fc9d0148a448716ecc84df0933956e500a29d0d79b449c0",
+        "staged_before_sha256": "a2defa19a976d5304fc9d0148a448716ecc84df0933956e500a29d0d79b449c0"
+      },
+      "misc-utils/lastlog2.c": {
+        "canonical_sha256": "5dfcdaf8b56a7033739a20481c9c9a968149196cd55b52661254ff0e0ee0dc18",
+        "changed": false,
+        "normalized_sha256": "5dfcdaf8b56a7033739a20481c9c9a968149196cd55b52661254ff0e0ee0dc18",
+        "staged_before_sha256": "5dfcdaf8b56a7033739a20481c9c9a968149196cd55b52661254ff0e0ee0dc18"
+      },
+      "misc-utils/look.c": {
+        "canonical_sha256": "39c2c2c7a20fcce380989d839d244cdc944b651f42eecb2bdf67fc77380ed527",
+        "changed": false,
+        "normalized_sha256": "39c2c2c7a20fcce380989d839d244cdc944b651f42eecb2bdf67fc77380ed527",
+        "staged_before_sha256": "39c2c2c7a20fcce380989d839d244cdc944b651f42eecb2bdf67fc77380ed527"
+      },
+      "misc-utils/pipesz.c": {
+        "canonical_sha256": "2bfe7c4705b3b692e2c4175117853faf62eb44ef04e580b9e5bb4e44de57257b",
+        "changed": true,
+        "normalized_sha256": "44d42227c7c62278550b1ee04f0bb1cd125aa42addaac36b463361bc274bdc16",
+        "staged_before_sha256": "2bfe7c4705b3b692e2c4175117853faf62eb44ef04e580b9e5bb4e44de57257b"
+      },
+      "misc-utils/rename.c": {
+        "canonical_sha256": "5d45a712e3bf828502fe425b3ec5e228b3377673a2d591d8ef6bd59a2433afe9",
+        "changed": true,
+        "normalized_sha256": "6f40d8a0f28f982521766e628617b97f53d9f9277a2e6667003e699bed4a0e64",
+        "staged_before_sha256": "5d45a712e3bf828502fe425b3ec5e228b3377673a2d591d8ef6bd59a2433afe9"
+      },
+      "misc-utils/uuidparse.c": {
+        "canonical_sha256": "3b1224821bf30b533b1f889b6a34c0e122cb0d6dc34ff035fdb84ef84f153e94",
+        "changed": true,
+        "normalized_sha256": "38730f54771760e68fcc62b5d93f861550dfea95370d444f2553c301eee73b82",
+        "staged_before_sha256": "3b1224821bf30b533b1f889b6a34c0e122cb0d6dc34ff035fdb84ef84f153e94"
+      },
+      "sys-utils/blkdiscard.c": {
+        "canonical_sha256": "12a2c7438319f7bf4200641d793a684f22af9b79c834c196566c49404cde4e67",
+        "changed": false,
+        "normalized_sha256": "12a2c7438319f7bf4200641d793a684f22af9b79c834c196566c49404cde4e67",
+        "staged_before_sha256": "12a2c7438319f7bf4200641d793a684f22af9b79c834c196566c49404cde4e67"
+      },
+      "sys-utils/tunelp.c": {
+        "canonical_sha256": "4b89dd0a673bb15ecf1de7ab80afba63ac4ff1b1a2553252bc83a078d353921e",
+        "changed": false,
+        "normalized_sha256": "4b89dd0a673bb15ecf1de7ab80afba63ac4ff1b1a2553252bc83a078d353921e",
+        "staged_before_sha256": "4b89dd0a673bb15ecf1de7ab80afba63ac4ff1b1a2553252bc83a078d353921e"
+      },
+      "term-utils/scriptlive.c": {
+        "canonical_sha256": "5888fa4d1c330ededb4d3389da9df9fe558fb035549849c2b5a15e3ba0b69ab3",
+        "changed": true,
+        "normalized_sha256": "1ccd2a7f93551141939f417db6362d41701134e9550c5f559eab76d7ccb8e1c7",
+        "staged_before_sha256": "5888fa4d1c330ededb4d3389da9df9fe558fb035549849c2b5a15e3ba0b69ab3"
+      }
+    }
+  },
+  "reachable": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "b5b38ff6ed5be54826c6c008ffe2d0642aca392351d88e38f96f60924a25b1b9",
+      "cargo_toml_sha256": "f3fab73f41ee956ffff738a65fa626dd88b04417ff9638de5536bd6db7662275",
+      "diagnostics_by_level": {
+        "warning": 11
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "886994f556af8c9e47ad544c63dc16f3af61e8a3fe8b2b9664adf2c66dc820ea",
+      "toolchain_request": "nightly-2023-04-15",
+      "warning_codes": {
+        "stable_features": 1,
+        "unused_imports": 1,
+        "unused_must_use": 4,
+        "unused_parens": 3,
+        "unused_variables": 1
+      }
+    },
+    "compile_error_macros": 0,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "a7ef60b11c68c8c6300ce5f0b6a62985110fc25bc598591b7a3604ee86791ff8",
+      "src/login_utils/utmpdump.rs": "bff63e177818eed42caf44cd399c717fe8dc24ee2c1a178667b8b37d585da90b",
+      "src/login_utils/vipw.rs": "e261eae8723c0e08bad619b9897f3c6fec018f2c8a2da2bdb9ad357756f94b42",
+      "src/misc_utils/lastlog2.rs": "68bf9a036202a1c9f4dbc81943e08a4d00c335b1f9ab3c5505abb256fc39228b",
+      "src/misc_utils/look.rs": "598157a2e5e1dac40a4d5b0b2676e08c53c62a3442afedc4c3253040baa48bf9",
+      "src/misc_utils/pipesz.rs": "bec80971ade5f569772e7f174577857a10474a1f0a5e9f7a146b16712e0684b5",
+      "src/misc_utils/rename.rs": "49aeaa5c6d864e56eddd2e3208f61eded69f6530f5bfa3561bdc4594eebe118c",
+      "src/misc_utils/uuidparse.rs": "4ff5093b5c61dbec407be048333e802d80132f0bb1795e84dbda42c41af92301",
+      "src/sys_utils/blkdiscard.rs": "0125263ae6b1c9fcf4c4f2fc0b91b33c18ded89d7a03aa20e91caa10b7ac9cc8",
+      "src/sys_utils/tunelp.rs": "681a022d4d87728d8612d2c1e7e4f75a3b55e4264a795bef0af440ce6c467177",
+      "src/term_utils/scriptlive.rs": "129a34e2ed45843bd0ce2e7b4828dcd208e34ef7736f5b8426149783b1e2b00b"
+    },
+    "generated_rust_repairs": 0,
+    "rust_bytes": 411085,
+    "rust_files": 12,
+    "todo_macros": 0,
+    "unimplemented_macros": 0
+  },
+  "recorded_at": "2026-11-19",
+  "schema": 1,
+  "stable_integration": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+      "cargo_lock_sha256": "afcdab3e3f541de818e2f594c88882280bd7c843691a73775400bc1b1aa9fadc",
+      "cargo_toml_sha256": "f3fab73f41ee956ffff738a65fa626dd88b04417ff9638de5536bd6db7662275",
+      "diagnostics_by_level": {
+        "warning": 10
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+      "schema": 1,
+      "stderr_sha256": "8c22cce73aa0196b5d63bd212be5bee94d0451d6ff4d1d315cdb7a50c5841913",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "suspicious_runtime_symbol_definitions": 1,
+        "unused_imports": 1,
+        "unused_must_use": 4,
+        "unused_parens": 3,
+        "unused_variables": 1
+      }
+    },
+    "compile_error_macros": 0,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "b55dab4e87351ae35eb5909b2a517ceaa54d29c0e349c6e71d20912f58fe861d",
+      "src/login_utils/utmpdump.rs": "42ebbbc0d5d500c5ab63bf463a89e8a1ec46eb018664d0bfdbfeec58a4b5ac76",
+      "src/login_utils/vipw.rs": "bd5be3fa62e8e6f2d8a77e017c939ce4488e631f6571f63d505f95cc2237a8f5",
+      "src/misc_utils/lastlog2.rs": "a5bfb4e25f26eae93abbf2f277b40e496bfa321215fd68bd47a01f20212ca6ce",
+      "src/misc_utils/look.rs": "a8f588189f3bac8539d803b5864a4a747bcc89c8a18bf3a21cca29ad702316c1",
+      "src/misc_utils/pipesz.rs": "5f45f3010d1f371a2c39f649e8025c248e080a85a525efdc5850aae610e84205",
+      "src/misc_utils/rename.rs": "052d17b5307a13c3ea30fc030f1aa1ab2a17d08994f86b147e06be6c41fd2a61",
+      "src/misc_utils/uuidparse.rs": "63a0583a048c1e542ab270a89ffed961187d94dbe3edadc534e4d317547d5be3",
+      "src/sys_utils/blkdiscard.rs": "6e090e30bfddcc1ca7342cdc66b3624017bc473c6fe878cdb22eb1a0c89cb795",
+      "src/sys_utils/tunelp.rs": "88f986ce11de13df0f31fa36c80f14f5f1701eade6211d66ba78609e3ceb42a2",
+      "src/term_utils/scriptlive.rs": "6fcc03316b1d7333ee40c2a62d8074d880eba62d5c7830155f0d3ffd2b88d4ef"
+    },
+    "hand_edits": 0,
+    "modernization_manifest_sha256": "be0c0c9d835614bb7724d9f1302746951edc87595d8d3aa821e9b53d7d04a835",
+    "opaque_types_verified_pointer_only": [
+      "_IO_codecvt",
+      "_IO_marker",
+      "_IO_wide_data",
+      "blkid_struct_probe",
+      "libscols_column",
+      "libscols_line",
+      "libscols_table",
+      "ll2_context",
+      "replay_setup",
+      "replay_step"
+    ],
+    "repair_score": 3,
+    "repair_score_basis": "feature-gate cleanup (1) and reusable opaque-pointer spelling rule (2)",
+    "rust_bytes": 412299,
+    "rust_files": 12,
+    "todo_macros": 0,
+    "unimplemented_macros": 0
+  },
+  "status": "hybrid canonical parity; Rustbox-native integration pending",
+  "translator": {
+    "audit_preserves_unused_functions": true,
+    "fail_on_error": true,
+    "image_id": "sha256:d7f3755ec6a27d89124626535d36b859ddee1f7a11236454f7952bf513c3d6aa",
+    "name": "C2Rust",
+    "version": "0.22.1"
+  }
+}

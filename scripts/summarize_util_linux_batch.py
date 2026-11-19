@@ -71,7 +71,7 @@ def main() -> int:
     reachable_prepared = base / f"{batch}-normalized-reachable-prepared"
     stable = base / f"{batch}-stable"
     suffix = batch.removeprefix("util-linux-small-")
-    if suffix not in {"01", "02", "03", "04"}:
+    if suffix not in {"01", "02", "03", "04", "05"}:
         raise RuntimeError(f"undeclared util-linux batch: {batch}")
     hybrid = build / f"rustbox-util-linux-small-{suffix}"
     link_map = hybrid.with_suffix(".map")
@@ -132,6 +132,13 @@ def main() -> int:
             "ipcmk": "sys-utils/ipcmk.o", "bits": "text-utils/bits.o",
             "swapoff": "sys-utils/swapoff-swapoff.o", "uclampset": "schedutils/uclampset.o",
         },
+        "05": {
+            "look": "misc-utils/look.o", "pipesz": "misc-utils/pipesz-pipesz.o",
+            "blkdiscard": "sys-utils/blkdiscard-blkdiscard.o", "tunelp": "sys-utils/tunelp.o",
+            "rename": "misc-utils/rename.o", "uuidparse": "misc-utils/uuidparse-uuidparse.o",
+            "utmpdump": "login-utils/utmpdump.o", "lastlog2": "misc-utils/lastlog2-lastlog2.o",
+            "scriptlive": "term-utils/scriptlive.o", "vipw": "login-utils/vipw.o",
+        },
     }
     canonical_objects = canonical_objects_by_batch[suffix]
     if any(name in map_text for name in canonical_objects.values()):
@@ -148,12 +155,14 @@ def main() -> int:
         "02": (5, "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), and reusable VaListImpl/as_va_list modernization (2)"),
         "03": (3, "feature-gate cleanup (1) and reusable opaque-pointer spelling rule (2)"),
         "04": (3, "feature-gate cleanup (1) and reusable opaque-pointer spelling rule (2)"),
+        "05": (3, "feature-gate cleanup (1) and reusable opaque-pointer spelling rule (2)"),
     }[suffix]
     targeted = {
         "01": {"components": 9, "passed": 9, "ctrlaltdel": "no upstream component test; hard and soft branches compared unprivileged"},
         "02": {"components": 1, "passed": 1, "subtests": 3, "coverage_note": "isosize is the only upstream component test for this batch; the other nine applets are covered by differential and Valgrind cases"},
         "03": {"components": 5, "passed": 5, "copyfilerange_subtests": 8, "coverage_note": "all available swaplabel, uuidgen, ionice, and copyfilerange components passed; the other six applets are covered by differential and Valgrind cases"},
         "04": {"components": 7, "passed": 7, "ordinary_subtests_passed": 32, "upstream_known_failure_subtests": 6, "coverage_note": "the upstream harness classifies the environment-dependent getino and waitpid pidfd-inode cases as known failures; all seven components passed under upstream policy"},
+        "05": {"components": 10, "passed": 10, "ordinary_subtests_passed": 18, "upstream_skipped_components": 1, "coverage_note": "the root-only blkdiscard offsets component was skipped by upstream policy; safe unprivileged blkdiscard behavior is covered differentially and under Valgrind"},
     }[suffix]
     evidence = {
         "schema": 1,

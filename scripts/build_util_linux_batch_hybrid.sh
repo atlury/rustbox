@@ -34,6 +34,13 @@ case $batch in
     extra_objects='login-utils/chsh-ch-common.o login-utils/chsh-auth.o login-utils/chsh-islocal.o login-utils/chsh-setpwnam.o sys-utils/swapoff-swapon-common.o lib/swapoff-swapprober.o ./.libs/libmount.a ./.libs/libblkid.a ./.libs/libcommon_logindefs.a ./.libs/libcommon_shells.a ./.libs/libcommon.a'
     extra_libraries='-leconf -lpam -lpam_misc'
     ;;
+  util-linux-small-05)
+    suffix=05
+    library_name=libutil_linux_small_05_normalized_reachable.a
+    applets='look pipesz blkdiscard tunelp rename uuidparse utmpdump lastlog2 scriptlive vipw'
+    extra_objects='lib/blkdiscard-monotonic.o lib/lastlog2-strutils.o term-utils/script-playutils.o lib/pty-session.o ./.libs/liblastlog2.a ./.libs/libblkid.a ./.libs/libsmartcols.a ./.libs/libuuid.a ./.libs/libcommon.a'
+    extra_libraries='-leconf -lsqlite3'
+    ;;
   *) echo "hybrid linker not yet declared for $batch" >&2; exit 2 ;;
 esac
 

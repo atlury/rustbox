@@ -44,7 +44,7 @@ scoring, and correctness gates.
 | Upstream | Inventory | Signed source oracle | Hybrid canonical parity | Integrated Rust applets |
 |---|---:|---:|---:|---:|
 | GNU Coreutils 9.12 | 108 | 108 | 107 | 0 |
-| util-linux 2.42.4 | 155 | 155 | 40 | 0 |
+| util-linux 2.42.4 | 155 | 155 | 50 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -88,10 +88,11 @@ legacy `raw` utility are deliberately enabled rather than silently omitted.
 The paired Clang/GCC command inventory is recorded in
 `evidence/util-linux-2.42.4-compdb.json`.  Translation, normalization,
 hybrid-link, differential, upstream-test, and Valgrind evidence for the first
-four batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
+five batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 `evidence/util-linux-2.42.4-c2rust-small-02.json`,
 `evidence/util-linux-2.42.4-c2rust-small-03.json`, and
-`evidence/util-linux-2.42.4-c2rust-small-04.json`.  Forty util-linux applets
+`evidence/util-linux-2.42.4-c2rust-small-04.json`, and
+`evidence/util-linux-2.42.4-c2rust-small-05.json`.  Fifty util-linux applets
 have reached hybrid canonical parity; final Rustbox integration remains
 deliberately deferred until the applet batches are complete.
 
@@ -220,7 +221,7 @@ parity.
 - [x] `addpart` — hybrid canonical parity; repair score 5
 - [ ] `agetty` — inventory
 - [x] `bits` — hybrid canonical parity; repair score 3
-- [ ] `blkdiscard` — inventory
+- [x] `blkdiscard` — hybrid canonical parity; repair score 3
 - [ ] `blkid` — inventory
 - [ ] `blkpr` — inventory
 - [ ] `blkzone` — inventory
@@ -274,14 +275,14 @@ parity.
 - [ ] `kill` — inventory
 - [ ] `last` — inventory
 - [ ] `lastb` — inventory
-- [ ] `lastlog2` — inventory
+- [x] `lastlog2` — hybrid canonical parity; repair score 3
 - [ ] `ldattach` — inventory
 - [x] `line` — hybrid canonical parity; repair score 3
 - [ ] `linux32` — inventory
 - [ ] `linux64` — inventory
 - [ ] `logger` — inventory
 - [ ] `login` — inventory
-- [ ] `look` — inventory
+- [x] `look` — hybrid canonical parity; repair score 3
 - [ ] `losetup` — inventory
 - [ ] `lsblk` — inventory
 - [ ] `lsclocks` — inventory
@@ -315,7 +316,7 @@ parity.
 - [ ] `parisc64` — inventory
 - [ ] `partx` — inventory
 - [ ] `pg` — inventory
-- [ ] `pipesz` — inventory
+- [x] `pipesz` — hybrid canonical parity; repair score 3
 - [x] `pivot_root` — hybrid canonical parity; repair score 5
 - [ ] `ppc` — inventory
 - [ ] `ppc32` — inventory
@@ -323,7 +324,7 @@ parity.
 - [ ] `prlimit` — inventory
 - [x] `raw` — hybrid canonical parity; repair score 3
 - [ ] `readprofile` — inventory
-- [ ] `rename` — inventory
+- [x] `rename` — hybrid canonical parity; repair score 3
 - [x] `renice` — hybrid canonical parity; repair score 3
 - [x] `resizepart` — hybrid canonical parity; repair score 5
 - [x] `rev` — hybrid canonical parity; repair score 3
@@ -333,7 +334,7 @@ parity.
 - [ ] `s390` — inventory
 - [ ] `s390x` — inventory
 - [ ] `script` — inventory
-- [ ] `scriptlive` — inventory
+- [x] `scriptlive` — hybrid canonical parity; repair score 3
 - [ ] `scriptreplay` — inventory
 - [ ] `setarch` — inventory
 - [x] `setpgid` — hybrid canonical parity; repair score 3
@@ -352,18 +353,18 @@ parity.
 - [ ] `swapon` — inventory
 - [x] `switch_root` — hybrid canonical parity; repair score 3
 - [x] `taskset` — hybrid canonical parity; repair score 3
-- [ ] `tunelp` — inventory
+- [x] `tunelp` — hybrid canonical parity; repair score 3
 - [x] `uclampset` — hybrid canonical parity; repair score 3
 - [ ] `ul` — inventory
 - [ ] `umount` — inventory
 - [ ] `uname26` — inventory
 - [ ] `unshare` — inventory
-- [ ] `utmpdump` — inventory
+- [x] `utmpdump` — hybrid canonical parity; repair score 3
 - [ ] `uuidd` — inventory
 - [x] `uuidgen` — hybrid canonical parity; repair score 3
-- [ ] `uuidparse` — inventory
+- [x] `uuidparse` — hybrid canonical parity; repair score 3
 - [ ] `vigr` — inventory
-- [ ] `vipw` — inventory
+- [x] `vipw` — hybrid canonical parity; repair score 3
 - [x] `waitpid` — hybrid canonical parity; repair score 3
 - [ ] `wall` — inventory
 - [ ] `wdctl` — inventory

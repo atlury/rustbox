@@ -9,6 +9,7 @@ case $batch in
   util-linux-small-02) suffix=02 ;;
   util-linux-small-03) suffix=03 ;;
   util-linux-small-04) suffix=04 ;;
+  util-linux-small-05) suffix=05 ;;
   *) echo "unknown batch: $batch" >&2; exit 2 ;;
 esac
 
@@ -54,10 +55,17 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     for applet in swaplabel lsirq newgrp uuidgen switch_root raw renice ionice fdformat copyfilerange; do
       check "$applet" "$applet" --help >/dev/null
     done
-  else
+  elif test "$suffix" = 04; then
     for applet in taskset mountpoint chsh waitpid colcrt getino ipcmk bits swapoff uclampset; do
       check "$applet" "$applet" --help >/dev/null
     done
+  else
+    for applet in look pipesz blkdiscard rename uuidparse utmpdump lastlog2 scriptlive vipw; do
+      check "$applet" "$applet" --help >/dev/null
+    done
+    status=0
+    check tunelp tunelp --help >/dev/null || status=$?
+    test "$status" -eq 99
   fi
   python3 - <<'PY'
 import json
