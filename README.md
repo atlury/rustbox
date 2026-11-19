@@ -112,7 +112,9 @@ test-only binaries.  The duplicate `gzip` request is represented once.
 1. Small libraries and single-purpose tools:
    - [ ] zlib — shared compression library; no installed applet (`minigzip` is
      an example/test helper).
-   - [ ] pkg-config — `pkg-config`.
+   - [ ] pkgconf 3.0.10 — `pkgconf`, its compatible `pkg-config` alias,
+     `bomtool`, `pccritic`, and `spdxtool`; use this maintained implementation
+     instead of the dormant freedesktop pkg-config 0.29.2 codebase.
    - [ ] M4 — `m4`.
    - [ ] File — `file`.
    - [ ] patch — `patch`.
