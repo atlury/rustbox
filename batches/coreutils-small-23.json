@@ -1,0 +1,179 @@
+{
+  "schema": 1,
+  "upstream": "GNU Coreutils 9.12",
+  "name": "coreutils-small-23",
+  "applets": ["sort"],
+  "canonical_analysis": "canonical-clang-no-security",
+  "canonical_gcc_analysis": "canonical-gcc-no-security",
+  "canonical_build": "canonical-clang-no-security-compdb",
+  "output_regex": "/src/libsinglebin_sort_a-sort\\.o$",
+  "expected_compile_commands": 1,
+  "translation_variant": "normalized",
+  "prepare_scaffold": true,
+  "reachable_staticlib": "libcoreutils_small_23_normalized_reachable.a",
+  "differential_harness": "coreutils_small_23_differential.py",
+  "upstream_tests": [
+    "tests/sort/sort.pl",
+    "tests/sort/sort-buffer-size.sh",
+    "tests/sort/sort-compress.sh",
+    "tests/sort/sort-continue.sh",
+    "tests/sort/sort-debug-keys.sh",
+    "tests/sort/sort-debug-warn.sh",
+    "tests/sort/sort-discrim.sh",
+    "tests/sort/sort-exit-early.sh",
+    "tests/sort/sort-field-limit.sh",
+    "tests/sort/sort-files0-from.pl",
+    "tests/sort/sort-float.sh",
+    "tests/sort/sort-h-thousands-sep.sh",
+    "tests/sort/sort-locale.sh",
+    "tests/sort/sort-merge-fdlimit.sh",
+    "tests/sort/sort-merge.pl",
+    "tests/sort/sort-month.sh",
+    "tests/sort/sort-rand.sh",
+    "tests/sort/sort-u-FMR.sh",
+    "tests/sort/sort-unique-segv.sh",
+    "tests/sort/sort-unique.sh",
+    "tests/sort/sort-version.sh",
+    "tests/sort/sort-NaN-infloop.sh",
+    "tests/help/help-version.sh",
+    "tests/help/help-version-getopt.sh"
+  ],
+  "valgrind_cases": [
+    {"applet": "sort", "arguments": [], "status": 0}
+  ],
+  "full_suite_baseline": {
+    "total": 761, "pass": 626, "skip": 134, "fail": 0, "error": 1,
+    "known_error": "tests/rm/deep-2"
+  },
+  "typed_c_bridges": [
+    {
+      "source": "bridges/coreutils/sort-long-double.c",
+      "reference_output": "src/libsinglebin_sort_a-sort.o",
+      "object": "sort-long-double.o",
+      "symbols": ["rustbox_sort_general_numcompare", "rustbox_sort_strtold_end"],
+      "reason": "Keep only GNU sort's general-numeric native long-double comparison and debug end-pointer scan behind typed C boundaries; all sorting, keys, locale policy, merging, threading, compression, random hashing, files, and diagnostics remain translated Rust."
+    }
+  ],
+  "c_normalization": [
+    {
+      "source": "src/sort.c", "engine": "exact",
+      "expected_before": "SD_ELF_NOTE_DLOPEN (\"random-sort\",\n                    \"Support for random sorting\",\n                    SD_ELF_NOTE_DLOPEN_PRIORITY_REQUIRED,\n                    LIBCRYPTO_SONAME);",
+      "replacement": "/* The optional ELF package-manager note has no runtime semantics.  */",
+      "expected_after": "/* The optional ELF package-manager note has no runtime semantics.  */",
+      "reason": "Omit only the non-runtime OpenSSL package-manager ELF note whose top-level assembler construct C2Rust's Clang exporter cannot represent; dynamic random-sort behavior is unchanged."
+    },
+    {
+      "source": "src/sort.c", "engine": "exact",
+      "expected_before": "static int\nnan_compare (long double a, long double b)\n{\n  char buf[2][sizeof \"-nan\"\"()\" + CHAR_BIT * sizeof a];\n  snprintf (buf[0], sizeof buf[0], \"%Lf\", a);\n  snprintf (buf[1], sizeof buf[1], \"%Lf\", b);\n  return strcmp (buf[0], buf[1]);\n}\n\nstatic int\ngeneral_numcompare (char const *sa, char const *sb)\n{\n  /* FIXME: maybe add option to try expensive FP conversion\n     only if A and B can't be compared more cheaply/accurately.  */\n\n  char *ea;\n  char *eb;\n  long double a = strtold (sa, &ea);\n  long double b = strtold (sb, &eb);\n\n  /* Put conversion errors at the start of the collating sequence.  */\n  if (sa == ea)\n    return sb == eb ? 0 : -1;\n  if (sb == eb)\n    return 1;\n\n  /* Sort numbers in the usual way, where -0 == +0.  Put NaNs after\n     conversion errors but before numbers; sort them by internal\n     bit-pattern, for lack of a more portable alternative.  */\n  return (a < b ? -1\n          : a > b ? 1\n          : a == b ? 0\n          : b == b ? -1\n          : a == a ? 1\n          : nan_compare (a, b));\n}",
+      "replacement": "extern int rustbox_sort_general_numcompare (char const *, char const *);\nextern char *rustbox_sort_strtold_end (char const *);\n\nstatic int\ngeneral_numcompare (char const *sa, char const *sb)\n{\n  return rustbox_sort_general_numcompare (sa, sb);\n}",
+      "expected_after": "return rustbox_sort_general_numcompare (sa, sb);",
+      "reason": "Delegate only native x86 long-double parsing, comparison, and NaN bit-pattern ordering while retaining every caller and key policy in translated Rust."
+    },
+    {
+      "source": "src/sort.c", "engine": "exact",
+      "expected_before": "ignore_value (strtold (beg, &tighter_lim));",
+      "replacement": "tighter_lim = rustbox_sort_strtold_end (beg);",
+      "expected_after": "tighter_lim = rustbox_sort_strtold_end (beg);",
+      "reason": "Obtain the debug key end pointer without crossing the unsupported long-double return ABI."
+    },
+    {
+      "source": "src/sort.c", "engine": "exact",
+      "expected_before": "ckd_mul (&n, n, 1024)",
+      "replacement": "ckd_mul (&n, n, (uintmax_t) 1024)",
+      "expected_after": "ckd_mul (&n, n, (uintmax_t) 1024)",
+      "reason": "Use the uintmax_t destination width explicitly for the validated KiB default multiplier."
+    },
+    {
+      "source": "src/sort.c", "engine": "exact",
+      "expected_before": "ckd_mul (&input_size, INPUT_FILE_SIZE_GUESS, line_bytes + 1)",
+      "replacement": "ckd_mul (&input_size, (size_t) INPUT_FILE_SIZE_GUESS,\n               (size_t) (line_bytes + 1))",
+      "expected_after": "ckd_mul (&input_size, (size_t) INPUT_FILE_SIZE_GUESS,",
+      "reason": "Evaluate the initial input-size estimate at its size_t destination width."
+    },
+    {
+      "source": "src/sort.c", "engine": "exact",
+      "expected_before": "ugkey.skipsblanks &= !key->skipsblanks;",
+      "replacement": "ugkey.skipsblanks = ugkey.skipsblanks && !key->skipsblanks;",
+      "expected_after": "ugkey.skipsblanks = ugkey.skipsblanks && !key->skipsblanks;",
+      "reason": "Accumulate the Boolean unspecified-key property without bool-to-integer compound assignment."
+    },
+    {
+      "source": "src/sort.c", "engine": "exact",
+      "expected_before": "ugkey.skipeblanks &= !key->skipeblanks;",
+      "replacement": "ugkey.skipeblanks = ugkey.skipeblanks && !key->skipeblanks;",
+      "expected_after": "ugkey.skipeblanks = ugkey.skipeblanks && !key->skipeblanks;",
+      "reason": "Accumulate the Boolean unspecified-key property without bool-to-integer compound assignment."
+    },
+    {
+      "source": "src/sort.c", "engine": "exact",
+      "expected_before": "ugkey.month &= !key->month;",
+      "replacement": "ugkey.month = ugkey.month && !key->month;",
+      "expected_after": "ugkey.month = ugkey.month && !key->month;",
+      "reason": "Accumulate the Boolean unspecified-key property without bool-to-integer compound assignment."
+    },
+    {
+      "source": "src/sort.c", "engine": "exact",
+      "expected_before": "ugkey.numeric &= !key->numeric;",
+      "replacement": "ugkey.numeric = ugkey.numeric && !key->numeric;",
+      "expected_after": "ugkey.numeric = ugkey.numeric && !key->numeric;",
+      "reason": "Accumulate the Boolean unspecified-key property without bool-to-integer compound assignment."
+    },
+    {
+      "source": "src/sort.c", "engine": "exact",
+      "expected_before": "ugkey.general_numeric &= !key->general_numeric;",
+      "replacement": "ugkey.general_numeric = ugkey.general_numeric && !key->general_numeric;",
+      "expected_after": "ugkey.general_numeric = ugkey.general_numeric && !key->general_numeric;",
+      "reason": "Accumulate the Boolean unspecified-key property without bool-to-integer compound assignment."
+    },
+    {
+      "source": "src/sort.c", "engine": "exact",
+      "expected_before": "ugkey.human_numeric &= !key->human_numeric;",
+      "replacement": "ugkey.human_numeric = ugkey.human_numeric && !key->human_numeric;",
+      "expected_after": "ugkey.human_numeric = ugkey.human_numeric && !key->human_numeric;",
+      "reason": "Accumulate the Boolean unspecified-key property without bool-to-integer compound assignment."
+    },
+    {
+      "source": "src/sort.c", "engine": "exact",
+      "expected_before": "ugkey.random &= !key->random;",
+      "replacement": "ugkey.random = ugkey.random && !key->random;",
+      "expected_after": "ugkey.random = ugkey.random && !key->random;",
+      "reason": "Accumulate the Boolean unspecified-key property without bool-to-integer compound assignment."
+    },
+    {
+      "source": "src/sort.c", "engine": "exact",
+      "expected_before": "ugkey.version &= !key->version;",
+      "replacement": "ugkey.version = ugkey.version && !key->version;",
+      "expected_after": "ugkey.version = ugkey.version && !key->version;",
+      "reason": "Accumulate the Boolean unspecified-key property without bool-to-integer compound assignment."
+    },
+    {
+      "source": "src/sort.c", "engine": "exact",
+      "expected_before": "ugkey.reverse &= !key->reverse;",
+      "replacement": "ugkey.reverse = ugkey.reverse && !key->reverse;",
+      "expected_after": "ugkey.reverse = ugkey.reverse && !key->reverse;",
+      "reason": "Accumulate the Boolean unspecified-key property without bool-to-integer compound assignment."
+    },
+    {
+      "source": "src/sort.c", "engine": "exact",
+      "expected_before": "traditional_usage |= minus_pos_usage && !posixly_correct;",
+      "replacement": "traditional_usage = traditional_usage\n                                  || (minus_pos_usage && !posixly_correct);",
+      "expected_after": "traditional_usage = traditional_usage",
+      "reason": "Accumulate the legacy syntax flag as a Boolean expression."
+    },
+    {
+      "source": "src/sort.c", "engine": "exact",
+      "expected_before": "need_random |= key->random;",
+      "replacement": "need_random = need_random || key->random;",
+      "expected_after": "need_random = need_random || key->random;",
+      "reason": "Accumulate random-sort demand as a Boolean expression."
+    },
+    {
+      "source": "src/sort.c", "engine": "exact",
+      "expected_before": "need_random |= gkey.random;",
+      "replacement": "need_random = need_random || gkey.random;",
+      "expected_after": "need_random = need_random || gkey.random;",
+      "reason": "Accumulate global random-sort demand as a Boolean expression."
+    }
+  ],
+  "selection_policy": "Translate GNU sort in full and isolate only its two native long-double ABI operations behind typed C functions."
+}
