@@ -1,0 +1,126 @@
+{
+  "schema": 1,
+  "upstream": "GNU Coreutils 9.12",
+  "name": "coreutils-small-06",
+  "applets": [
+    "cat",
+    "dircolors",
+    "fmt",
+    "mkfifo",
+    "nl",
+    "pinky",
+    "printf",
+    "realpath",
+    "seq",
+    "shuf"
+  ],
+  "output_regex": "/src/libsinglebin_(cat|dircolors|fmt|mkfifo|nl|pinky|printf|realpath|seq|shuf)_",
+  "expected_compile_commands": 12,
+  "translation_variant": "normalized",
+  "c_normalization": [
+    {
+      "source": "src/seq.c",
+      "engine": "exact",
+      "expected_before": "seq_fast (char const *a, char const *b, uintmax_t step)\n{",
+      "replacement": "seq_fast (char const *a, char const *b, long double step)\n{\n  uintmax_t integer_step = 0;\n  while (1 <= step)\n    {\n      integer_step++;\n      step--;\n    }",
+      "expected_after": "uintmax_t integer_step = 0;",
+      "reason": "Seq calls the fast path only for positive integral steps no greater than 200. Count that long-double value into uintmax_t explicitly so C2Rust need not emit its unsupported long-double-to-uintmax cast."
+    },
+    {
+      "source": "src/seq.c",
+      "engine": "exact",
+      "expected_before": "for (uintmax_t n_incr = step; n_incr; n_incr--)",
+      "replacement": "for (uintmax_t n_incr = integer_step; n_incr; n_incr--)",
+      "expected_after": "for (uintmax_t n_incr = integer_step; n_incr; n_incr--)",
+      "reason": "Use the mechanically counted integral step in the existing decimal increment loop."
+    },
+    {
+      "source": "src/cat.c",
+      "semantic_patch": "normalization/coreutils/bool-eager-and.cocci",
+      "expected_before": "ok &= 0 < copy_cat_status;",
+      "expected_after": "ok = 0 < copy_cat_status && ok;",
+      "reason": "Preserve eager cat operation evaluation while avoiding C2Rust's integer-to-bool casts for bool &= bool."
+    },
+    {
+      "source": "src/fmt.c",
+      "semantic_patch": "normalization/coreutils/bool-eager-and.cocci",
+      "expected_before": "ok &= fmt (stdin, file);",
+      "expected_after": "ok = fmt",
+      "expected_after_count": 3,
+      "reason": "Preserve eager fmt evaluation and accumulate its Boolean status explicitly."
+    },
+    {
+      "source": "src/nl.c",
+      "engine": "exact",
+      "expected_before": "ok &= nl_file (argv[optind]);",
+      "replacement": "ok = nl_file (argv[optind]) && ok;",
+      "expected_after": "ok = nl_file",
+      "expected_after_count": 2,
+      "reason": "Preserve eager nl_file evaluation and accumulate its Boolean status explicitly."
+    },
+    {
+      "source": "src/realpath.c",
+      "semantic_patch": "normalization/coreutils/bool-eager-and.cocci",
+      "expected_before": "ok &= process_path (argv[optind], can_mode);",
+      "expected_after": "ok = process_path",
+      "reason": "Preserve eager process_path evaluation and accumulate its Boolean status explicitly."
+    },
+    {
+      "source": "src/printf.c",
+      "engine": "exact",
+      "expected_before": "v |= ckd_mul (&a, a, 10);",
+      "replacement": "v = ckd_mul (&a, a, 10) || v;",
+      "expected_after": "v = ckd_mul (&a, a, 10) || v;",
+      "reason": "Always perform the checked decimal multiplication while explicitly accumulating its overflow flag."
+    },
+    {
+      "source": "src/printf.c",
+      "engine": "exact",
+      "expected_before": "v |= ckd_add (&a, a, *f - '0');",
+      "replacement": "v = ckd_add (&a, a, *f - '0') || v;",
+      "expected_after": "v = ckd_add (&a, a, *f - '0') || v;",
+      "reason": "Always perform the checked decimal addition while explicitly accumulating its overflow flag."
+    },
+    {
+      "source": "src/relpath.c",
+      "semantic_patch": "normalization/coreutils/bool-call-eager-or.cocci",
+      "expected_before": "buf_err |= buffer_or_output (\"..\", &buf, &len);",
+      "expected_after": "buf_err = buffer_or_output",
+      "expected_after_count": 5,
+      "reason": "Always emit every relative-path component while explicitly accumulating output errors."
+    },
+    {
+      "source": "src/cat.c",
+      "engine": "exact",
+      "expected_before": "ckd_mul (&bufsize, insize, 4)",
+      "replacement": "ckd_mul (&bufsize, insize, (idx_t) 4)",
+      "expected_after": "ckd_mul (&bufsize, insize, (idx_t) 4)",
+      "reason": "Make the small multiplier's exact idx_t destination width explicit."
+    },
+    {
+      "source": "src/cat.c",
+      "engine": "exact",
+      "expected_before": "ckd_add (&bufsize, bufsize, LINE_COUNTER_BUF_LEN - 1)",
+      "replacement": "ckd_add (&bufsize, bufsize, (idx_t) (LINE_COUNTER_BUF_LEN - 1))",
+      "expected_after": "ckd_add (&bufsize, bufsize, (idx_t) (LINE_COUNTER_BUF_LEN - 1))",
+      "reason": "Make the bounded line-counter allowance's exact idx_t width explicit."
+    },
+    {
+      "source": "src/realpath.c",
+      "engine": "exact",
+      "expected_before": "ckd_mul (&size, strlen (can_relative_to), 2)",
+      "replacement": "ckd_mul (&size, strlen (can_relative_to), (size_t) 2)",
+      "expected_after": "ckd_mul (&size, strlen (can_relative_to), (size_t) 2)",
+      "reason": "Make the relative-path size multiplier's size_t width explicit."
+    },
+    {
+      "source": "src/realpath.c",
+      "engine": "exact",
+      "expected_before": "ckd_add (&size, size, 1)",
+      "replacement": "ckd_add (&size, size, (size_t) 1)",
+      "expected_after": "ckd_add (&size, size, (size_t) 1)",
+      "reason": "Make the terminating-byte allowance's size_t width explicit."
+    }
+  ],
+  "selection_policy": "The next measured-smallest independent canonical archives after batch five. Mknod is deferred because it repeats mkfifo's selinux.c source path and would trigger C2Rust's repeated-source deduplication hazard; pinky is substituted."
+}
