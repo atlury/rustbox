@@ -71,6 +71,13 @@ case $batch in
     extra_objects='sys-utils/ipcutils.o disk-utils/cramfs_common.o ./.libs/libmount.a ./.libs/libblkid.a ./.libs/libsmartcols.a ./.libs/libcommon.a'
     extra_libraries='-leconf -lz -ltinfo'
     ;;
+  util-linux-small-10)
+    suffix=10
+    library_name=libutil_linux_small_10_normalized_reachable.a
+    applets='enosys ipcs last lastb lsclocks lslocks lsmem mkfs.minix mkswap setterm uuidd'
+    extra_objects='sys-utils/ipcutils.o lib/ismounted.o lib/monotonic.o lib/uuidd-timer.o ./.libs/libmount.a ./.libs/libblkid.a ./.libs/libsmartcols.a ./.libs/libuuid.a ./.libs/libcommon.a'
+    extra_libraries='-leconf -ltinfo'
+    ;;
   *) echo "hybrid linker not yet declared for $batch" >&2; exit 2 ;;
 esac
 

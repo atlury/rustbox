@@ -15,6 +15,7 @@ case $batch in
   util-linux-small-07) suffix=07 ;;
   util-linux-small-08) suffix=08; expected=1 ;;
   util-linux-small-09) suffix=09 ;;
+  util-linux-small-10) suffix=10 ;;
   *) echo "unknown batch: $batch" >&2; exit 2 ;;
 esac
 
@@ -99,8 +100,12 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     check_process_lifetime chmem chmem --help >/dev/null
   elif test "$suffix" = 08; then
     check setarch setarch --help >/dev/null
-  else
+  elif test "$suffix" = 09; then
     for applet in blkzone ipcrm fstrim prlimit fsck.cramfs mkfs.cramfs kill rtcwake wdctl ul; do
+      check "$applet" "$applet" --help >/dev/null
+    done
+  else
+    for applet in enosys ipcs last lsclocks lslocks lsmem mkfs.minix mkswap setterm uuidd; do
       check "$applet" "$applet" --help >/dev/null
     done
   fi

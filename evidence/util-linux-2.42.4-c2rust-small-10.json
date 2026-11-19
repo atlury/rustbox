@@ -1,0 +1,1030 @@
+{
+  "audit": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "1b59698ddee0b7fdeca30b150051f6f025e1d883ff68c798f52a7f31271fdbef",
+      "cargo_toml_sha256": "5d5e2936506d3f97073db59fa1a3351303964a692676729618cef9f499905269",
+      "diagnostics_by_level": {
+        "warning": 55
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "60364c5c33bc469a299589c747d653c8d492e219aafdab8474413e80a9308cec",
+      "toolchain_request": "nightly-2023-04-15",
+      "warning_codes": {
+        "stable_features": 1,
+        "unused_must_use": 20,
+        "unused_parens": 25,
+        "unused_variables": 8
+      }
+    },
+    "compile_error_macros": 0,
+    "declaration_map_sha256": {
+      "src/disk_utils/mkfs_minix.c_decls.json": "7210dd59dd9c44e28563ff062c1507f67fdebbbfc215fb93cfa175a09175ae4d",
+      "src/disk_utils/mkswap.c_decls.json": "2b177635c3ed25ea9bf6acc4681919b5a6371a6e94937d76886feafaf757e2e7",
+      "src/login_utils/last.c_decls.json": "54712904133a6e93344a646a6d26d1a0a329ffcd45c4475b4a5f8073fb04d7e9",
+      "src/misc_utils/enosys.c_decls.json": "c3e385071c75a892a0c0bf70629870a0736f5b8a41eadbf12c3277b5cf0a26e4",
+      "src/misc_utils/lsclocks.c_decls.json": "1f6a4315f57aadbc45f2c54e81bbd37f37c76f9b2486a6f5214d0e77372fdcf2",
+      "src/misc_utils/lslocks.c_decls.json": "f79d3d5bbe090dd181705208a162d6a4f0494fd4dff859c5405814777a34e625",
+      "src/misc_utils/uuidd.c_decls.json": "03e2eaf0f290a3895fcc7243d44fed1adef1b95021e36c400208c179ef72f2c0",
+      "src/sys_utils/ipcs.c_decls.json": "f588facbf00f96dc84b5c80aa2726f00da994dae6b44db5251e1a721b1e2ef26",
+      "src/sys_utils/lsmem.c_decls.json": "e43c2ef94eed4b72e210fedd30764e1a2abbf4b3159f10738e4bfb027194387e",
+      "src/term_utils/setterm.c_decls.json": "8a2a09018bbc48342707f7ab621de78aced6df4079196174ace94b91856a5b1b"
+    },
+    "declaration_maps": 10,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "696cdc4af866773eb21500eb5a41048756437981ee7788147d298bbc30e6e52a",
+      "src/disk_utils/mkfs_minix.rs": "df06eed09b6b71f5e0cd604e6eae5ee513ca5ab9752046c014754b15e3716864",
+      "src/disk_utils/mkswap.rs": "390b183d2739bbddbdb10220078cb75c6e10735b1b2faa0493992db1a216fde0",
+      "src/login_utils/last.rs": "f341ecd56ca29cd375d5c3f9b418b1bae428d69580ae6d958b15e8431e37d5c4",
+      "src/misc_utils/enosys.rs": "39839ac75bb1859b52f6e43ca09416988c45dc79c929c988d20d1525d47fcec0",
+      "src/misc_utils/lsclocks.rs": "e90dbfd595a642be8a8db0d9c7963a3b13d5845b3173862aee474085c0666123",
+      "src/misc_utils/lslocks.rs": "51f3659370a6ecfafbe8b59944243826d6fcbb41549fd09f814de64c45c9bd7c",
+      "src/misc_utils/uuidd.rs": "d24a85a145557969d736b21d97b413455640b5ae914413c60f462a2c6b5fcc65",
+      "src/sys_utils/ipcs.rs": "7fd445fef53868e64ebfe438b03ed8136a235876392357b90880fb1e15dcdd37",
+      "src/sys_utils/lsmem.rs": "90a8720b23618b91b506f7a2873f465c35ac52b581574a67ba0151be7821e9ec",
+      "src/term_utils/setterm.rs": "7c8c0d6b21c9fb1f83e16e924063b2009181e223caadd4a298464d23ed19383d"
+    },
+    "generated_rust_repairs": 0,
+    "rust_bytes": 1869908,
+    "rust_files": 12,
+    "scaffold": {
+      "crate_feature_additions": [],
+      "dependency_additions": [],
+      "input_cargo_sha256": "5d5e2936506d3f97073db59fa1a3351303964a692676729618cef9f499905269",
+      "output_cargo_sha256": "5d5e2936506d3f97073db59fa1a3351303964a692676729618cef9f499905269",
+      "rust_files_changed": 0,
+      "schema": 1
+    },
+    "todo_macros": 0,
+    "unimplemented_macros": 0
+  },
+  "batch": {
+    "applets": [
+      "enosys",
+      "ipcs",
+      "last",
+      "lastb",
+      "lsclocks",
+      "lslocks",
+      "lsmem",
+      "mkfs.minix",
+      "mkswap",
+      "setterm",
+      "uuidd"
+    ],
+    "manifest_sha256": "93bd0925ac534e57e079ac0197e5eab19900ba37ae25273f2d5c677ca780eaa9",
+    "name": "util-linux-small-10"
+  },
+  "behavior": {
+    "differential": {
+      "cases": 65,
+      "failures": [],
+      "passed": 65,
+      "schema": 1
+    },
+    "targeted_upstream": {
+      "components": 21,
+      "coverage_note": "five helper-, root-, or bc-dependent components and two unavailable-device subtests were skipped under upstream Docker policy; 10 ordinary components and 27 executable subtests passed, while mkfs.minix, setterm, and both last public names are additionally covered by safe differential and Valgrind cases",
+      "log_sha256": "b907f02783666970b1db1aaee2ad1c339c13e862cc3b5aa5fae9f25094dc2091",
+      "ordinary_components_passed": 10,
+      "ordinary_subtests_passed": 27,
+      "passed": 21,
+      "upstream_skipped_components": 5,
+      "upstream_skipped_subtests": 2
+    },
+    "valgrind": {
+      "cases": 10,
+      "logs": [
+        "valgrind-enosys.log",
+        "valgrind-ipcs.log",
+        "valgrind-last.log",
+        "valgrind-lsclocks.log",
+        "valgrind-lslocks.log",
+        "valgrind-lsmem.log",
+        "valgrind-mkfs.minix.log",
+        "valgrind-mkswap.log",
+        "valgrind-setterm.log",
+        "valgrind-uuidd.log"
+      ],
+      "passed": 10,
+      "schema": 1
+    }
+  },
+  "entrypoint_specialization": {
+    "database_sha256": "f3d94cee1d184a634fb97d57ff73f366440340e52956c001393c6947c2c2bcfe",
+    "entrypoints": {
+      "enosys": {
+        "after_sha256": "da8f31888fa35cc4af6ad558d6fa0b2176782040b6352dc63f60fc0e8c72a321",
+        "before_sha256": "8c50877bef888512a499ec6f4f06a2672a555a416385cb785aa10dc6c9591ac9",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "enosys"
+        ],
+        "specialized_entrypoint": "rustbox_enosys_main"
+      },
+      "ipcs": {
+        "after_sha256": "f2646e51870d30afb7cd29c6aa970061aeb47e3313f95f2116ef5100db01ae69",
+        "before_sha256": "f575a2325a99f6b1b50bc1a22570d1de2a27110126a6999fdb045c28f1da1f97",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "ipcs"
+        ],
+        "specialized_entrypoint": "rustbox_ipcs_main"
+      },
+      "last": {
+        "after_sha256": "33fd7ea0397d42bef4201b69429b799d81813ab8a354425cc178820fff8ac27e",
+        "before_sha256": "683aa035934ed8ff0e14cfb1d649772c7d4bf2911b56a9582d5af86890f419ee",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "last",
+          "lastb"
+        ],
+        "specialized_entrypoint": "rustbox_last_main"
+      },
+      "lsclocks": {
+        "after_sha256": "b7c316c5e91cfadfff021cd49ffb49ed0459bfb28d0785de2315371a679f49e5",
+        "before_sha256": "e527ab59779c3d2142a264fce30a97d4583f868c2ca4cbe16d12b45cda2d05fa",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "lsclocks"
+        ],
+        "specialized_entrypoint": "rustbox_lsclocks_main"
+      },
+      "lslocks": {
+        "after_sha256": "0e054bad277c7dacf0bc7e95ed4bfc644ad1c0e072e80d16cff76b40bcc7fcfd",
+        "before_sha256": "aa0cbd9d317ee4b12c8eccb62ed667f640580b778a8a70c54fddd6f23427d68d",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "lslocks"
+        ],
+        "specialized_entrypoint": "rustbox_lslocks_main"
+      },
+      "lsmem": {
+        "after_sha256": "8d7636e9a6b9757f7263b20e4e5e5eea59bd8db0d176f305081155715379e318",
+        "before_sha256": "30ddd36a0db9c86d6d225cf4f0f8fd1ac54b8fff3e6ec689a63bd98d88146888",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "lsmem"
+        ],
+        "specialized_entrypoint": "rustbox_lsmem_main"
+      },
+      "mkfs.minix": {
+        "after_sha256": "1fbecb5a322f445fb8c43916a060654927137ac4a1f34b7f90c17d09cddcb355",
+        "before_sha256": "f96abac12dabb75aa448e0dde3c3026140acf545be1d2936a996a617d6d4a362",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "mkfs.minix"
+        ],
+        "specialized_entrypoint": "rustbox_mkfs_minix_main"
+      },
+      "mkswap": {
+        "after_sha256": "a7b6b3653647c6af026c2fcc379d7f18a3d0e7c3b3cc4997252e52a87df587b5",
+        "before_sha256": "49fa0cf9a31823b81859d7fa23af7e8ac7c12d9a8f284708ad2378d1b5b0163c",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "mkswap"
+        ],
+        "specialized_entrypoint": "rustbox_mkswap_main"
+      },
+      "setterm": {
+        "after_sha256": "f4d92c3fce46d73bb592f8783e38cdeac2560e44e6360e2ba1dd231e88edef52",
+        "before_sha256": "3ea178bb4bfc1a9c14d74fb90f57e62d5f84a6af7bb4ece4e23c3782989980e3",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "setterm"
+        ],
+        "specialized_entrypoint": "rustbox_setterm_main"
+      },
+      "uuidd": {
+        "after_sha256": "6f17cf39f52bdacbc3b8a2f12ab6e1d6ad44eb5c4f3cadefc29a6eaf1456dfed",
+        "before_sha256": "b62712e55eb626e0f89ec7ee1dedbc253e11a7eb2b0c3f49ee99c3dfb68e2cb2",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "uuidd"
+        ],
+        "specialized_entrypoint": "rustbox_uuidd_main"
+      }
+    },
+    "schema": 1
+  },
+  "hybrid": {
+    "bytes": 7918504,
+    "canonical_applet_objects_linked": false,
+    "link_map_sha256": "8c80e2c8e728a2647e4d5dc45d4f3082f69845f10cfbaceb938b33504372928f",
+    "replacement_symbols_defined_once": true,
+    "sha256": "b0efca16e1dfd3800759420ba0abb83211f278ad481993988ed07dbd8b051095",
+    "stripped_bytes": 1800608
+  },
+  "input": {
+    "clang_database_sha256": "ae7282a1e610ac0cba546c1b680ec08596d01b4687c939f1946dba3cd052a70b",
+    "compile_commands": 10,
+    "gcc_database_sha256": "5531e1967ffa8621f087036daa3b9d8a92b2d45813eac704335a84511e799e22",
+    "slice_sha256": "71f43c23b06fa348295b20273211a3438ec513d9acbf1e479bec228fe5301471",
+    "upstream_archive_sha256": "fbd62a100ab7bb8746ba0661255c3c48185b1e9021507c624da01fbc696330ec"
+  },
+  "normalization": {
+    "abi_checks": [
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "term-utils/setterm.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "login-utils/last.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "sys-utils/lsmem.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "sys-utils/ipcs.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "misc-utils/lslocks.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "misc-utils/lsclocks.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "misc-utils/uuidd.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "disk-utils/mkfs.minix.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "disk-utils/mkswap.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "misc-utils/enosys.c"
+      }
+    ],
+    "batch": "util-linux-small-10",
+    "compiler_replays": [
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "term-utils/setterm.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "login-utils/last.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "sys-utils/lsmem.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "sys-utils/ipcs.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "misc-utils/lslocks.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "misc-utils/lsclocks.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "misc-utils/uuidd.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "disk-utils/mkfs.minix.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "disk-utils/mkswap.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "misc-utils/enosys.c"
+      }
+    ],
+    "gcc_database_sha256": "653fbad8c00274462bd06f4840c162a833a0b7fc614421e97eb3b3e84690fd98",
+    "input_database_sha256": "71f43c23b06fa348295b20273211a3438ec513d9acbf1e479bec228fe5301471",
+    "normalized_database_sha256": "e894bded30dcd58723f992da7c458e41eea2b4f7c55098dfa682b74cbcb43ced",
+    "schema": 1,
+    "semantic_patches": [
+      {
+        "after_sha256": "2c6248382a7fc4b7d3539315c52f0b1476b2255b19ea1a503e16e4524dfef865",
+        "before_sha256": "36d5736ae67ab0d97bfc444b9da057967233ebe152fa2afd94e34913b20f4d3f",
+        "engine": "exact",
+        "expected_after": "sizeof(errnos) / sizeof(errnos[0])",
+        "expected_before": "ARRAY_SIZE(errnos)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(errnos) / sizeof(errnos[0])",
+        "source": "misc-utils/enosys.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "15a400fc8e424eca376d4226ad5073275362aad24b2132fe1125493a90f49a1d",
+        "before_sha256": "2c6248382a7fc4b7d3539315c52f0b1476b2255b19ea1a503e16e4524dfef865",
+        "engine": "exact",
+        "expected_after": "sizeof(filter) / sizeof(filter[0])",
+        "expected_before": "ARRAY_SIZE(filter)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(filter) / sizeof(filter[0])",
+        "source": "misc-utils/enosys.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "750e29370e4dce692482cd23dcfa85fb1eefcfd8f94f4ae7dc5d921196eb06f0",
+        "before_sha256": "15a400fc8e424eca376d4226ad5073275362aad24b2132fe1125493a90f49a1d",
+        "engine": "exact",
+        "expected_after": "sizeof(ioctls) / sizeof(ioctls[0])",
+        "expected_after_count": 2,
+        "expected_before": "ARRAY_SIZE(ioctls)",
+        "expected_before_count": 2,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(ioctls) / sizeof(ioctls[0])",
+        "source": "misc-utils/enosys.c",
+        "verified_after_count": 2,
+        "verified_before_count": 2
+      },
+      {
+        "after_sha256": "e5bd9916d3ba7c0acfb4d222ede92ff4090be139dcaec4413d5e6a5859244e64",
+        "before_sha256": "750e29370e4dce692482cd23dcfa85fb1eefcfd8f94f4ae7dc5d921196eb06f0",
+        "engine": "exact",
+        "expected_after": "sizeof(syscalls) / sizeof(syscalls[0])",
+        "expected_after_count": 2,
+        "expected_before": "ARRAY_SIZE(syscalls)",
+        "expected_before_count": 2,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(syscalls) / sizeof(syscalls[0])",
+        "source": "misc-utils/enosys.c",
+        "verified_after_count": 2,
+        "verified_before_count": 2
+      },
+      {
+        "after_sha256": "df3df4f2de3a3dd28698d6c5fe442bc9d00b8210105df9f9c166267f97518856",
+        "before_sha256": "025396922d60eaec93abfd7b5dc2f575622f4d6f3b499736bdbfd1049704d220",
+        "engine": "exact",
+        "expected_after": "sizeof(clocks) / sizeof(clocks[0])",
+        "expected_after_count": 2,
+        "expected_before": "ARRAY_SIZE(clocks)",
+        "expected_before_count": 2,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(clocks) / sizeof(clocks[0])",
+        "source": "misc-utils/lsclocks.c",
+        "verified_after_count": 2,
+        "verified_before_count": 2
+      },
+      {
+        "after_sha256": "610ca1f604743e2d29015089f3e54e6466107438cefecd746b614b9853479e53",
+        "before_sha256": "df3df4f2de3a3dd28698d6c5fe442bc9d00b8210105df9f9c166267f97518856",
+        "engine": "exact",
+        "expected_after": "sizeof(columns) / sizeof(columns[0])",
+        "expected_before": "ARRAY_SIZE(columns)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(columns) / sizeof(columns[0])",
+        "source": "misc-utils/lsclocks.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "5c194da672a13e92b71832d47b11b61b4ed49994c5e7561cafdf4b5dd86c6dcf",
+        "before_sha256": "610ca1f604743e2d29015089f3e54e6466107438cefecd746b614b9853479e53",
+        "engine": "exact",
+        "expected_after": "sizeof(infos) / sizeof(infos[0])",
+        "expected_after_count": 4,
+        "expected_before": "ARRAY_SIZE(infos)",
+        "expected_before_count": 4,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(infos) / sizeof(infos[0])",
+        "source": "misc-utils/lsclocks.c",
+        "verified_after_count": 4,
+        "verified_before_count": 4
+      },
+      {
+        "after_sha256": "e527ab59779c3d2142a264fce30a97d4583f868c2ca4cbe16d12b45cda2d05fa",
+        "before_sha256": "5c194da672a13e92b71832d47b11b61b4ed49994c5e7561cafdf4b5dd86c6dcf",
+        "engine": "exact",
+        "expected_after": "\tscols_print_table(tb);\n\tscols_unref_table(tb);\n\treturn EXIT_SUCCESS;\n}",
+        "expected_before": "\tscols_print_table(tb);\n\tscols_unref_table(tb);\n}",
+        "reason": "Make C main's specified implicit success return explicit so its specialized non-main entrypoint retains the same language-defined fallthrough value.",
+        "replacement": "\tscols_print_table(tb);\n\tscols_unref_table(tb);\n\treturn EXIT_SUCCESS;\n}",
+        "source": "misc-utils/lsclocks.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "8d93bc3eb009c06962114539f2518146d9af4f31145cb662ce7bca073642eafe",
+        "before_sha256": "858e02cc6dff5f3a9dc6fa43d03213d9641eba207aa692194c67c082bc1cc0f6",
+        "engine": "exact",
+        "expected_after": "sizeof(columns) / sizeof(columns[0])",
+        "expected_after_count": 3,
+        "expected_before": "ARRAY_SIZE(columns)",
+        "expected_before_count": 3,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(columns) / sizeof(columns[0])",
+        "source": "misc-utils/lslocks.c",
+        "verified_after_count": 3,
+        "verified_before_count": 3
+      },
+      {
+        "after_sha256": "f73738d1ff56db503da534dc376af9a2d3ba259c391c3675f6c4fdae50923c13",
+        "before_sha256": "8d93bc3eb009c06962114539f2518146d9af4f31145cb662ce7bca073642eafe",
+        "engine": "exact",
+        "expected_after": "sizeof(excl) / sizeof(excl[0])",
+        "expected_before": "ARRAY_SIZE(excl)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(excl) / sizeof(excl[0])",
+        "source": "misc-utils/lslocks.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "8b458d7a849718ec1c5945d905959fcffb7d16b92a784ed07375bab423c417c8",
+        "before_sha256": "f73738d1ff56db503da534dc376af9a2d3ba259c391c3675f6c4fdae50923c13",
+        "engine": "exact",
+        "expected_after": "sizeof(infos) / sizeof(infos[0])",
+        "expected_after_count": 6,
+        "expected_before": "ARRAY_SIZE(infos)",
+        "expected_before_count": 6,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(infos) / sizeof(infos[0])",
+        "source": "misc-utils/lslocks.c",
+        "verified_after_count": 6,
+        "verified_before_count": 6
+      },
+      {
+        "after_sha256": "aa0cbd9d317ee4b12c8eccb62ed667f640580b778a8a70c54fddd6f23427d68d",
+        "before_sha256": "8b458d7a849718ec1c5945d905959fcffb7d16b92a784ed07375bab423c417c8",
+        "engine": "exact",
+        "expected_after": "(int) (sizeof(infos) / sizeof(infos[0]))",
+        "expected_before": "(int) sizeof(infos) / sizeof(infos[0])",
+        "reason": "Keep the canonical cast over the complete fixed-array extent after expanding ARRAY_SIZE.",
+        "replacement": "(int) (sizeof(infos) / sizeof(infos[0]))",
+        "source": "misc-utils/lslocks.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "04f397db42fd8d228f9bae5f1fa5555c2f3563c69a5d81f530e2c0369394c43f",
+        "before_sha256": "d3e794bd3a194608d88e403925314528e1d013f2a900bb33a751662c4c1e376d",
+        "engine": "exact",
+        "expected_after": "sizeof(excl) / sizeof(excl[0])",
+        "expected_before": "ARRAY_SIZE(excl)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(excl) / sizeof(excl[0])",
+        "source": "misc-utils/uuidd.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "b62712e55eb626e0f89ec7ee1dedbc253e11a7eb2b0c3f49ee99c3dfb68e2cb2",
+        "before_sha256": "04f397db42fd8d228f9bae5f1fa5555c2f3563c69a5d81f530e2c0369394c43f",
+        "engine": "exact",
+        "expected_after": "sizeof(pfd) / sizeof(pfd[0])",
+        "expected_before": "ARRAY_SIZE(pfd)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(pfd) / sizeof(pfd[0])",
+        "source": "misc-utils/uuidd.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "f58deae8d31fff05cb2d3c698c55c8b93e130a7a9a0f3ed1414ac3d38e70df02",
+        "before_sha256": "6540c7d69d429b32a53411d5f793bfe1d65440ff55c6bf40539197ef89ba6a4d",
+        "engine": "exact",
+        "expected_after": "sizeof(ary) / sizeof(ary[0])",
+        "expected_before": "ARRAY_SIZE(ary)",
+        "reason": "Spell the array-parameter macro extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(ary) / sizeof(ary[0])",
+        "source": "sys-utils/lsmem.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "602def69c5a68aa545d6d66aaf20c7113af1ebe347fa3aff970e7626d74b632a",
+        "before_sha256": "f58deae8d31fff05cb2d3c698c55c8b93e130a7a9a0f3ed1414ac3d38e70df02",
+        "engine": "exact",
+        "expected_after": "sizeof(coldescs) / sizeof(coldescs[0])",
+        "expected_after_count": 6,
+        "expected_before": "ARRAY_SIZE(coldescs)",
+        "expected_before_count": 6,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(coldescs) / sizeof(coldescs[0])",
+        "source": "sys-utils/lsmem.c",
+        "verified_after_count": 6,
+        "verified_before_count": 6
+      },
+      {
+        "after_sha256": "9176d7cc3db791a90f1bb92f484b345636c0f8530ca5e6d48cafad29dfb5a917",
+        "before_sha256": "602def69c5a68aa545d6d66aaf20c7113af1ebe347fa3aff970e7626d74b632a",
+        "engine": "exact",
+        "expected_after": "(int) (sizeof(coldescs) / sizeof(coldescs[0]))",
+        "expected_before": "(int) sizeof(coldescs) / sizeof(coldescs[0])",
+        "reason": "Keep the canonical cast over the complete fixed-array extent after expanding ARRAY_SIZE.",
+        "replacement": "(int) (sizeof(coldescs) / sizeof(coldescs[0]))",
+        "source": "sys-utils/lsmem.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "72024a3fecc5b888df4fd8bac32ebbce80ad10b406a6b4817b2caf37970956d5",
+        "before_sha256": "9176d7cc3db791a90f1bb92f484b345636c0f8530ca5e6d48cafad29dfb5a917",
+        "engine": "exact",
+        "expected_after": "sizeof(columns) / sizeof(columns[0])",
+        "expected_before": "ARRAY_SIZE(columns)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(columns) / sizeof(columns[0])",
+        "source": "sys-utils/lsmem.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "3e21181ce01582b9f7d49b7d62f9ecf6ce5561982de2d150a739e9c974613c62",
+        "before_sha256": "72024a3fecc5b888df4fd8bac32ebbce80ad10b406a6b4817b2caf37970956d5",
+        "engine": "exact",
+        "expected_after": "sizeof(excl) / sizeof(excl[0])",
+        "expected_before": "ARRAY_SIZE(excl)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(excl) / sizeof(excl[0])",
+        "source": "sys-utils/lsmem.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "207ee4103d886baa51f78433be20a14967cff964b6982d4feed7b38a2ef198ea",
+        "before_sha256": "3e21181ce01582b9f7d49b7d62f9ecf6ce5561982de2d150a739e9c974613c62",
+        "engine": "exact",
+        "expected_after": "sizeof(split) / sizeof(split[0])",
+        "expected_before": "ARRAY_SIZE(split)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(split) / sizeof(split[0])",
+        "source": "sys-utils/lsmem.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "30ddd36a0db9c86d6d225cf4f0f8fd1ac54b8fff3e6ec689a63bd98d88146888",
+        "before_sha256": "207ee4103d886baa51f78433be20a14967cff964b6982d4feed7b38a2ef198ea",
+        "engine": "exact",
+        "expected_after": "sizeof(zone_names) / sizeof(zone_names[0])",
+        "expected_before": "ARRAY_SIZE(zone_names)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(zone_names) / sizeof(zone_names[0])",
+        "source": "sys-utils/lsmem.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "368747a23965bd41133619d7fefaa0769c3b6880a9ec833f29027338cffba08d",
+        "before_sha256": "014961ff85fba8119ec72d9dfc88c60fcc53b95cdbb3a66bb74af5aa66114154",
+        "engine": "exact",
+        "expected_after": "sizeof(excl) / sizeof(excl[0])",
+        "expected_before": "ARRAY_SIZE(excl)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(excl) / sizeof(excl[0])",
+        "source": "login-utils/last.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "683aa035934ed8ff0e14cfb1d649772c7d4bf2911b56a9582d5af86890f419ee",
+        "before_sha256": "368747a23965bd41133619d7fefaa0769c3b6880a9ec833f29027338cffba08d",
+        "engine": "exact",
+        "expected_after": "sizeof(timefmts) / sizeof(timefmts[0])",
+        "expected_before": "ARRAY_SIZE(timefmts)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(timefmts) / sizeof(timefmts[0])",
+        "source": "login-utils/last.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "49fa0cf9a31823b81859d7fa23af7e8ac7c12d9a8f284708ad2378d1b5b0163c",
+        "before_sha256": "7df0ae1cd0f56e056fa1a03bc986184554ce2aa5d4743ef8b0d9f4517f62cca7",
+        "engine": "exact",
+        "expected_after": "sizeof(excl) / sizeof(excl[0])",
+        "expected_before": "ARRAY_SIZE(excl)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(excl) / sizeof(excl[0])",
+        "source": "disk-utils/mkswap.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "c69f128552ae5ac6ef0249ee2b30d39ba8a54c4b8d80f0465325b79d9599e6ca",
+        "before_sha256": "0c67a54923315bdd0f1db8a51e6bdc61b3131c3e27971604e37569103dd738ed",
+        "engine": "exact",
+        "expected_after": "sizeof(colornames) / sizeof(colornames[0])",
+        "expected_after_count": 2,
+        "expected_before": "ARRAY_SIZE(colornames)",
+        "expected_before_count": 2,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(colornames) / sizeof(colornames[0])",
+        "source": "term-utils/setterm.c",
+        "verified_after_count": 2,
+        "verified_before_count": 2
+      },
+      {
+        "after_sha256": "5aa1980152b182d5c7a68292c4dcc0e5f5cb0bbe1d94dedd24ea004a29a5554b",
+        "before_sha256": "c69f128552ae5ac6ef0249ee2b30d39ba8a54c4b8d80f0465325b79d9599e6ca",
+        "engine": "exact",
+        "expected_after": "sizeof(excl) / sizeof(excl[0])",
+        "expected_before": "ARRAY_SIZE(excl)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(excl) / sizeof(excl[0])",
+        "source": "term-utils/setterm.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "3ea178bb4bfc1a9c14d74fb90f57e62d5f84a6af7bb4ece4e23c3782989980e3",
+        "before_sha256": "5aa1980152b182d5c7a68292c4dcc0e5f5cb0bbe1d94dedd24ea004a29a5554b",
+        "engine": "exact",
+        "expected_after": "ctl->opt_msg_on = true;",
+        "expected_before": "ctl->opt_msg_on |= 1;",
+        "reason": "Express the unconditional Boolean result directly without C2Rust's unsupported integer-to-bool compound cast.",
+        "replacement": "ctl->opt_msg_on = true;",
+        "source": "term-utils/setterm.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "8c50877bef888512a499ec6f4f06a2672a555a416385cb785aa10dc6c9591ac9",
+        "before_sha256": "e5bd9916d3ba7c0acfb4d222ede92ff4090be139dcaec4413d5e6a5859244e64",
+        "engine": "exact",
+        "expected_after": "\tif (execvp(argv[optind], argv + optind))\n\t\terr(EXIT_NOTSUPP, _(\"Could not exec\"));\n\treturn EXIT_SUCCESS;\n}",
+        "expected_before": "\tif (execvp(argv[optind], argv + optind))\n\t\terr(EXIT_NOTSUPP, _(\"Could not exec\"));\n}",
+        "reason": "Make C main's specified implicit success return explicit so its specialized non-main entrypoint retains the same language-defined fallthrough value.",
+        "replacement": "\tif (execvp(argv[optind], argv + optind))\n\t\terr(EXIT_NOTSUPP, _(\"Could not exec\"));\n\treturn EXIT_SUCCESS;\n}",
+        "source": "misc-utils/enosys.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "cfed97e2388777504c58b9961a6908341b333a10d6ec0e835d2abb8b323b5a8f",
+        "before_sha256": "8bce25453bd2710e735facdf7f0313114e57eb93b27d392d89960a3d8c867c64",
+        "engine": "exact",
+        "expected_after": "sizeof(part) / sizeof(part[0])",
+        "expected_before": "ARRAY_SIZE(part)",
+        "reason": "Spell the inline helper's fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(part) / sizeof(part[0])",
+        "source": "include/list.h",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      }
+    ],
+    "sources": {
+      "disk-utils/mkfs.minix.c": {
+        "canonical_sha256": "f96abac12dabb75aa448e0dde3c3026140acf545be1d2936a996a617d6d4a362",
+        "changed": false,
+        "normalized_sha256": "f96abac12dabb75aa448e0dde3c3026140acf545be1d2936a996a617d6d4a362",
+        "staged_before_sha256": "f96abac12dabb75aa448e0dde3c3026140acf545be1d2936a996a617d6d4a362"
+      },
+      "disk-utils/mkswap.c": {
+        "canonical_sha256": "7df0ae1cd0f56e056fa1a03bc986184554ce2aa5d4743ef8b0d9f4517f62cca7",
+        "changed": true,
+        "normalized_sha256": "49fa0cf9a31823b81859d7fa23af7e8ac7c12d9a8f284708ad2378d1b5b0163c",
+        "staged_before_sha256": "7df0ae1cd0f56e056fa1a03bc986184554ce2aa5d4743ef8b0d9f4517f62cca7"
+      },
+      "include/list.h": {
+        "canonical_sha256": "8bce25453bd2710e735facdf7f0313114e57eb93b27d392d89960a3d8c867c64",
+        "changed": true,
+        "normalized_sha256": "cfed97e2388777504c58b9961a6908341b333a10d6ec0e835d2abb8b323b5a8f",
+        "staged_before_sha256": "8bce25453bd2710e735facdf7f0313114e57eb93b27d392d89960a3d8c867c64"
+      },
+      "login-utils/last.c": {
+        "canonical_sha256": "014961ff85fba8119ec72d9dfc88c60fcc53b95cdbb3a66bb74af5aa66114154",
+        "changed": true,
+        "normalized_sha256": "683aa035934ed8ff0e14cfb1d649772c7d4bf2911b56a9582d5af86890f419ee",
+        "staged_before_sha256": "014961ff85fba8119ec72d9dfc88c60fcc53b95cdbb3a66bb74af5aa66114154"
+      },
+      "misc-utils/enosys.c": {
+        "canonical_sha256": "36d5736ae67ab0d97bfc444b9da057967233ebe152fa2afd94e34913b20f4d3f",
+        "changed": true,
+        "normalized_sha256": "8c50877bef888512a499ec6f4f06a2672a555a416385cb785aa10dc6c9591ac9",
+        "staged_before_sha256": "36d5736ae67ab0d97bfc444b9da057967233ebe152fa2afd94e34913b20f4d3f"
+      },
+      "misc-utils/lsclocks.c": {
+        "canonical_sha256": "025396922d60eaec93abfd7b5dc2f575622f4d6f3b499736bdbfd1049704d220",
+        "changed": true,
+        "normalized_sha256": "e527ab59779c3d2142a264fce30a97d4583f868c2ca4cbe16d12b45cda2d05fa",
+        "staged_before_sha256": "025396922d60eaec93abfd7b5dc2f575622f4d6f3b499736bdbfd1049704d220"
+      },
+      "misc-utils/lslocks.c": {
+        "canonical_sha256": "858e02cc6dff5f3a9dc6fa43d03213d9641eba207aa692194c67c082bc1cc0f6",
+        "changed": true,
+        "normalized_sha256": "aa0cbd9d317ee4b12c8eccb62ed667f640580b778a8a70c54fddd6f23427d68d",
+        "staged_before_sha256": "858e02cc6dff5f3a9dc6fa43d03213d9641eba207aa692194c67c082bc1cc0f6"
+      },
+      "misc-utils/uuidd.c": {
+        "canonical_sha256": "d3e794bd3a194608d88e403925314528e1d013f2a900bb33a751662c4c1e376d",
+        "changed": true,
+        "normalized_sha256": "b62712e55eb626e0f89ec7ee1dedbc253e11a7eb2b0c3f49ee99c3dfb68e2cb2",
+        "staged_before_sha256": "d3e794bd3a194608d88e403925314528e1d013f2a900bb33a751662c4c1e376d"
+      },
+      "sys-utils/ipcs.c": {
+        "canonical_sha256": "f575a2325a99f6b1b50bc1a22570d1de2a27110126a6999fdb045c28f1da1f97",
+        "changed": false,
+        "normalized_sha256": "f575a2325a99f6b1b50bc1a22570d1de2a27110126a6999fdb045c28f1da1f97",
+        "staged_before_sha256": "f575a2325a99f6b1b50bc1a22570d1de2a27110126a6999fdb045c28f1da1f97"
+      },
+      "sys-utils/lsmem.c": {
+        "canonical_sha256": "6540c7d69d429b32a53411d5f793bfe1d65440ff55c6bf40539197ef89ba6a4d",
+        "changed": true,
+        "normalized_sha256": "30ddd36a0db9c86d6d225cf4f0f8fd1ac54b8fff3e6ec689a63bd98d88146888",
+        "staged_before_sha256": "6540c7d69d429b32a53411d5f793bfe1d65440ff55c6bf40539197ef89ba6a4d"
+      },
+      "term-utils/setterm.c": {
+        "canonical_sha256": "0c67a54923315bdd0f1db8a51e6bdc61b3131c3e27971604e37569103dd738ed",
+        "changed": true,
+        "normalized_sha256": "3ea178bb4bfc1a9c14d74fb90f57e62d5f84a6af7bb4ece4e23c3782989980e3",
+        "staged_before_sha256": "0c67a54923315bdd0f1db8a51e6bdc61b3131c3e27971604e37569103dd738ed"
+      }
+    }
+  },
+  "reachable": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "cc8eb17edea9f74a3735e601ea80e44c4f8c2ae23ba4d04c766ea28d914c76fb",
+      "cargo_toml_sha256": "a888b43392d5f75765d6feccfb44bb7ed49681a60d8631503cfc6b02180ad145",
+      "diagnostics_by_level": {
+        "warning": 32
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "5b22423cbef680238cb2dd186e9e98f3e293e0dfce6a4bc1738e45a9d83950b9",
+      "toolchain_request": "nightly-2023-04-15",
+      "warning_codes": {
+        "stable_features": 1,
+        "unused_must_use": 6,
+        "unused_parens": 16,
+        "unused_variables": 8
+      }
+    },
+    "compile_error_macros": 0,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "696cdc4af866773eb21500eb5a41048756437981ee7788147d298bbc30e6e52a",
+      "src/disk_utils/mkfs_minix.rs": "c918aa308bb9519ca591b187126fdf884301c3d0033ff740d20e648c955d6531",
+      "src/disk_utils/mkswap.rs": "368fdf9b3bc39135183356447036ef4b6ee5ea84cead189f3d07aec1ebddff2c",
+      "src/login_utils/last.rs": "2c2d079116b71cfdfeddb73e1f2499b1f5dec6863022d7bf684bf3019c8fb305",
+      "src/misc_utils/enosys.rs": "c853e214c421ea8056ca57f30d109d02d5edac41b6a355606621ffa19c1b5d69",
+      "src/misc_utils/lsclocks.rs": "edf3398d8abc271134bb8c292b70a1ffbc88dc3c59ba4d058d4a10cfeb82f15d",
+      "src/misc_utils/lslocks.rs": "9779a2817c41e67a4d08d3749d588769449ae3d724b3293054f8be814caf13c7",
+      "src/misc_utils/uuidd.rs": "fc533fce5a092cd2d8824552581c2c5bedacc99d6062d84c2c655d346d83f9fa",
+      "src/sys_utils/ipcs.rs": "0d2b3cfa7664b18802b9b2ffa635c001d9c173591e3b73773a8c98352f27ced6",
+      "src/sys_utils/lsmem.rs": "7daf51ddd95a692d2a72f5765005e5302dedb80828c59c9ae79a8b3f9459d7ae",
+      "src/term_utils/setterm.rs": "717847b2c6c745346bbc655372adb74dc0394ff98215253c2e49ce8a0c4784f7"
+    },
+    "generated_rust_repairs": 0,
+    "rust_bytes": 1249076,
+    "rust_files": 12,
+    "scaffold": {
+      "crate_feature_additions": [],
+      "dependency_additions": [],
+      "input_cargo_sha256": "a888b43392d5f75765d6feccfb44bb7ed49681a60d8631503cfc6b02180ad145",
+      "output_cargo_sha256": "a888b43392d5f75765d6feccfb44bb7ed49681a60d8631503cfc6b02180ad145",
+      "rust_files_changed": 0,
+      "schema": 1
+    },
+    "todo_macros": 0,
+    "unimplemented_macros": 0
+  },
+  "recorded_at": "2026-11-19",
+  "schema": 1,
+  "stable_integration": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+      "cargo_lock_sha256": "1622fee0345c0da4d0a6caf09ad5c21063e147d429958832ae0ada152c46be34",
+      "cargo_toml_sha256": "a888b43392d5f75765d6feccfb44bb7ed49681a60d8631503cfc6b02180ad145",
+      "diagnostics_by_level": {
+        "warning": 41
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+      "schema": 1,
+      "stderr_sha256": "baa133f9a27d7074e4fa9e95bf84db4350353430abea3daa8def43bf92acb0e0",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "clashing_extern_declarations": 2,
+        "suspicious_runtime_symbol_definitions": 9,
+        "unused_must_use": 6,
+        "unused_parens": 16,
+        "unused_variables": 8
+      }
+    },
+    "compile_error_macros": 0,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "759224f3d1df67bd3ed531a29dcea66a4801dd6c3545e3244d3b9296ee83088d",
+      "src/disk_utils/mkfs_minix.rs": "b8740b1f9f358c904bda0fa76a89075d0373452a66502a81c032223507e7aec5",
+      "src/disk_utils/mkswap.rs": "588961cac4a70d34e640b288860325fb87c67fa078daa3c51e1b0503f7d3b89b",
+      "src/login_utils/last.rs": "df517146c1ca3abaf7d56b7a2aad18764c8efd68b7d2e1034002132b73142ce1",
+      "src/misc_utils/enosys.rs": "d95cf675080507bbaaceb0098f721136e52548ee8df9906fda4f4045fc49ca6b",
+      "src/misc_utils/lsclocks.rs": "1359b9c397563a60aa990e70b0b7f6a75961c23c0b71c1316b40e96a7e243d00",
+      "src/misc_utils/lslocks.rs": "5b4ba44f69a96999ccb2813e34ff06a0506ad7d7e965437907d0236adcd4d2c1",
+      "src/misc_utils/uuidd.rs": "d424738d1917b39b6e0a7a55ea7b8a150f41356b65246e0d41edc386e6cdf45f",
+      "src/sys_utils/ipcs.rs": "54763f60d5749fd756af7e2fca84eefa0ccb8bb78d05c78420196ac2db353b05",
+      "src/sys_utils/lsmem.rs": "8a3a4326692441e9e3ab22235f275e30f656a1c52e811966d7f8f09fb97d46c9",
+      "src/term_utils/setterm.rs": "585508bd0e2116ff51b0c9828da620841c2270dccdc2521ecf3918f5089b1b61"
+    },
+    "hand_edits": 0,
+    "modernization_manifest_sha256": "560cfff4d90a9cde90c960e4bdebd250677eb6d198bf733b758eb30c6685a0f1",
+    "opaque_types_verified_pointer_only": [
+      "_IO_codecvt",
+      "_IO_marker",
+      "_IO_wide_data",
+      "__dirstream",
+      "blkid_struct_probe",
+      "dirent",
+      "libmnt_fs",
+      "libmnt_table",
+      "libscols_cell",
+      "libscols_column",
+      "libscols_filter",
+      "libscols_iter",
+      "libscols_line",
+      "libscols_table",
+      "sockaddr_at",
+      "sockaddr_ax25",
+      "sockaddr_dl",
+      "sockaddr_eon",
+      "sockaddr_in",
+      "sockaddr_in6",
+      "sockaddr_inarp",
+      "sockaddr_ipx",
+      "sockaddr_iso",
+      "sockaddr_ns",
+      "sockaddr_x25"
+    ],
+    "repair_score": 5,
+    "repair_score_basis": "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), and reusable VaListImpl/as_va_list modernization (2)",
+    "rust_bytes": 1251003,
+    "rust_files": 12,
+    "todo_macros": 0,
+    "unimplemented_macros": 0
+  },
+  "status": "hybrid canonical parity; Rustbox-native integration pending",
+  "translator": {
+    "audit_preserves_unused_functions": true,
+    "fail_on_error": true,
+    "image_id": "sha256:d7f3755ec6a27d89124626535d36b859ddee1f7a11236454f7952bf513c3d6aa",
+    "name": "C2Rust",
+    "version": "0.22.1"
+  }
+}

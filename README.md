@@ -44,7 +44,7 @@ scoring, and correctness gates.
 | Upstream | Inventory | Signed source oracle | Hybrid canonical parity | Integrated Rust applets |
 |---|---:|---:|---:|---:|
 | GNU Coreutils 9.12 | 108 | 108 | 107 | 0 |
-| util-linux 2.42.4 | 155 | 155 | 102 | 0 |
+| util-linux 2.42.4 | 155 | 155 | 113 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -88,16 +88,17 @@ legacy `raw` utility are deliberately enabled rather than silently omitted.
 The paired Clang/GCC command inventory is recorded in
 `evidence/util-linux-2.42.4-compdb.json`.  Translation, normalization,
 hybrid-link, differential, upstream-test, and Valgrind evidence for the first
-nine batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
+ten batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 `evidence/util-linux-2.42.4-c2rust-small-02.json`,
 `evidence/util-linux-2.42.4-c2rust-small-03.json`, and
 `evidence/util-linux-2.42.4-c2rust-small-04.json`,
 `evidence/util-linux-2.42.4-c2rust-small-05.json`,
 `evidence/util-linux-2.42.4-c2rust-small-06.json`,
 `evidence/util-linux-2.42.4-c2rust-small-07.json`,
-`evidence/util-linux-2.42.4-c2rust-small-08.json`, and
-`evidence/util-linux-2.42.4-c2rust-small-09.json`.  One hundred two util-linux
-applets have reached hybrid canonical parity; final Rustbox integration remains
+`evidence/util-linux-2.42.4-c2rust-small-08.json`,
+`evidence/util-linux-2.42.4-c2rust-small-09.json`, and
+`evidence/util-linux-2.42.4-c2rust-small-10.json`.  One hundred thirteen
+util-linux applets have reached hybrid canonical parity; final Rustbox integration remains
 deliberately deferred until the applet batches are complete.
 
 ## Work queue after util-linux
@@ -315,7 +316,7 @@ parity.
 - [x] `delpart` — hybrid canonical parity; repair score 5
 - [ ] `dmesg` — inventory
 - [ ] `eject` — inventory
-- [ ] `enosys` — inventory
+- [x] `enosys` — hybrid canonical parity; repair score 5
 - [x] `exch` — hybrid canonical parity; repair score 3
 - [x] `fadvise` — hybrid canonical parity; repair score 3
 - [x] `fallocate` — hybrid canonical parity; repair score 5
@@ -340,12 +341,12 @@ parity.
 - [x] `ionice` — hybrid canonical parity; repair score 3
 - [x] `ipcmk` — hybrid canonical parity; repair score 3
 - [x] `ipcrm` — hybrid canonical parity; repair score 5
-- [ ] `ipcs` — inventory
+- [x] `ipcs` — hybrid canonical parity; repair score 5
 - [ ] `irqtop` — inventory
 - [x] `isosize` — hybrid canonical parity; repair score 5
 - [x] `kill` — hybrid canonical parity; repair score 5
-- [ ] `last` — inventory
-- [ ] `lastb` — inventory
+- [x] `last` — hybrid canonical parity; repair score 5
+- [x] `lastb` — hybrid canonical parity; repair score 5
 - [x] `lastlog2` — hybrid canonical parity; repair score 3
 - [x] `ldattach` — hybrid canonical parity; repair score 5
 - [x] `line` — hybrid canonical parity; repair score 3
@@ -356,14 +357,14 @@ parity.
 - [x] `look` — hybrid canonical parity; repair score 3
 - [ ] `losetup` — inventory
 - [ ] `lsblk` — inventory
-- [ ] `lsclocks` — inventory
+- [x] `lsclocks` — hybrid canonical parity; repair score 5
 - [ ] `lscpu` — inventory
 - [ ] `lsfd` — inventory
 - [ ] `lsipc` — inventory
 - [x] `lsirq` — hybrid canonical parity; repair score 3
-- [ ] `lslocks` — inventory
+- [x] `lslocks` — hybrid canonical parity; repair score 5
 - [ ] `lslogins` — inventory
-- [ ] `lsmem` — inventory
+- [x] `lsmem` — hybrid canonical parity; repair score 5
 - [ ] `lsns` — inventory
 - [x] `mcookie` — hybrid canonical parity; repair score 3
 - [x] `mesg` — hybrid canonical parity; repair score 5
@@ -373,8 +374,8 @@ parity.
 - [x] `mkfs` — hybrid canonical parity; repair score 5
 - [x] `mkfs.bfs` — hybrid canonical parity; repair score 5
 - [x] `mkfs.cramfs` — hybrid canonical parity; repair score 5
-- [ ] `mkfs.minix` — inventory
-- [ ] `mkswap` — inventory
+- [x] `mkfs.minix` — hybrid canonical parity; repair score 5
+- [x] `mkswap` — hybrid canonical parity; repair score 5
 - [ ] `more` — inventory
 - [ ] `mount` — inventory
 - [x] `mountpoint` — hybrid canonical parity; repair score 3
@@ -411,7 +412,7 @@ parity.
 - [x] `setpgid` — hybrid canonical parity; repair score 3
 - [ ] `setpriv` — inventory
 - [x] `setsid` — hybrid canonical parity; repair score 3
-- [ ] `setterm` — inventory
+- [x] `setterm` — hybrid canonical parity; repair score 5
 - [ ] `sfdisk` — inventory
 - [x] `sparc` — hybrid canonical parity; repair score 3
 - [x] `sparc32` — hybrid canonical parity; repair score 3
@@ -431,7 +432,7 @@ parity.
 - [x] `uname26` — hybrid canonical parity; repair score 3
 - [ ] `unshare` — inventory
 - [x] `utmpdump` — hybrid canonical parity; repair score 3
-- [ ] `uuidd` — inventory
+- [x] `uuidd` — hybrid canonical parity; repair score 5
 - [x] `uuidgen` — hybrid canonical parity; repair score 3
 - [x] `uuidparse` — hybrid canonical parity; repair score 3
 - [ ] `vigr` — inventory

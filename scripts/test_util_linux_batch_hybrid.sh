@@ -14,6 +14,7 @@ case $batch in
   util-linux-small-07) suffix=07; components='chrt col fallocate fincore getopt whereis'; count=11 ;;
   util-linux-small-08) suffix=08; components='setarch'; count=3 ;;
   util-linux-small-09) suffix=09; components='kill ul'; count=9 ;;
+  util-linux-small-10) suffix=10; components='enosys ipcs lsclocks lslocks lsmem mkswap uuidd utmp'; count=21 ;;
   *) echo "unknown batch: $batch" >&2; exit 2 ;;
 esac
 
@@ -81,9 +82,18 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     export TS_CMD_WHEREIS="$build/rustbox-small-07/whereis"
   elif test "$suffix" = 08; then
     export TS_CMD_SETARCH="$build/rustbox-small-08/setarch"
-  else
+  elif test "$suffix" = 09; then
     export TS_CMD_KILL="$build/rustbox-small-09/kill"
     export TS_CMD_UL="$build/rustbox-small-09/ul"
+  else
+    export TS_CMD_ENOSYS="$build/rustbox-small-10/enosys"
+    export TS_CMD_IPCS="$build/rustbox-small-10/ipcs"
+    export TS_CMD_LAST="$build/rustbox-small-10/last"
+    export TS_CMD_LSCLOCKS="$build/rustbox-small-10/lsclocks"
+    export TS_CMD_LSLOCKS="$build/rustbox-small-10/lslocks"
+    export TS_CMD_LSMEM="$build/rustbox-small-10/lsmem"
+    export TS_CMD_MKSWAP="$build/rustbox-small-10/mkswap"
+    export TS_CMD_UUIDD="$build/rustbox-small-10/uuidd"
   fi
   su -m -s /bin/bash rustbox-test -c \
     "cd $build && $source/tests/run.sh --srcdir=$source --builddir=$build $components" \

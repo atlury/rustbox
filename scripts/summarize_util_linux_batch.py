@@ -71,7 +71,7 @@ def main() -> int:
     reachable_prepared = base / f"{batch}-normalized-reachable-prepared"
     stable = base / f"{batch}-stable"
     suffix = batch.removeprefix("util-linux-small-")
-    if suffix not in {"01", "02", "03", "04", "05", "06", "07", "08", "09"}:
+    if suffix not in {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10"}:
         raise RuntimeError(f"undeclared util-linux batch: {batch}")
     hybrid = build / f"rustbox-util-linux-small-{suffix}"
     link_map = hybrid.with_suffix(".map")
@@ -166,6 +166,13 @@ def main() -> int:
             "kill": "misc-utils/kill.o", "rtcwake": "sys-utils/rtcwake.o",
             "wdctl": "sys-utils/wdctl-wdctl.o", "ul": "text-utils/ul-ul.o",
         },
+        "10": {
+            "enosys": "misc-utils/enosys-enosys.o", "ipcs": "sys-utils/ipcs.o",
+            "last": "login-utils/last.o", "lsclocks": "misc-utils/lsclocks-lsclocks.o",
+            "lslocks": "misc-utils/lslocks-lslocks.o", "lsmem": "sys-utils/lsmem-lsmem.o",
+            "mkfs.minix": "disk-utils/mkfs.minix.o", "mkswap": "disk-utils/mkswap-mkswap.o",
+            "setterm": "term-utils/setterm-setterm.o", "uuidd": "misc-utils/uuidd-uuidd.o",
+        },
     }
     canonical_objects = canonical_objects_by_batch[suffix]
     if any(name in map_text for name in canonical_objects.values()):
@@ -187,6 +194,7 @@ def main() -> int:
         "07": (5, "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), and reusable VaListImpl/as_va_list modernization (2)"),
         "08": (3, "feature-gate cleanup (1) and reusable opaque-pointer spelling rule (2)"),
         "09": (5, "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), and reusable VaListImpl/as_va_list modernization (2)"),
+        "10": (5, "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), and reusable VaListImpl/as_va_list modernization (2)"),
     }[suffix]
     targeted = {
         "01": {"components": 9, "passed": 9, "ctrlaltdel": "no upstream component test; hard and soft branches compared unprivileged"},
@@ -198,6 +206,7 @@ def main() -> int:
         "07": {"components": 11, "passed": 11, "ordinary_subtests_passed": 63, "upstream_skipped_components": 1, "coverage_note": "the root-only chrt component was skipped under upstream policy; its non-root component and all 63 executable chrt, col, fallocate, fincore, getopt, and whereis checks passed, while mkfs.bfs, write, chmem, and rfkill are covered by safe differential and Valgrind cases"},
         "08": {"components": 3, "passed": 3, "ordinary_subtests_passed": 1, "upstream_skipped_components": 2, "coverage_note": "one setarch component executed and two environment-dependent components were skipped under upstream Docker policy; all three passed under that policy, and all 22 public aliases are covered differentially and share the one resource-checked implementation body"},
         "09": {"components": 9, "passed": 9, "ordinary_components_passed": 1, "upstream_skipped_components": 7, "upstream_known_failed_subtests": 3, "coverage_note": "all seven kill components were skipped under upstream Docker policy because they require root or unavailable test helpers; ul/ul passed, while ul/basic retained its three upstream-known failures; the other eight applets are covered by safe differential and Valgrind cases"},
+        "10": {"components": 21, "passed": 21, "ordinary_components_passed": 10, "ordinary_subtests_passed": 27, "upstream_skipped_components": 5, "upstream_skipped_subtests": 2, "coverage_note": "five helper-, root-, or bc-dependent components and two unavailable-device subtests were skipped under upstream Docker policy; 10 ordinary components and 27 executable subtests passed, while mkfs.minix, setterm, and both last public names are additionally covered by safe differential and Valgrind cases"},
     }[suffix]
     evidence = {
         "schema": 1,
