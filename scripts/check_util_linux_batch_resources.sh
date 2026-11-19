@@ -8,6 +8,7 @@ case $batch in
   util-linux-small-01) suffix=01 ;;
   util-linux-small-02) suffix=02 ;;
   util-linux-small-03) suffix=03 ;;
+  util-linux-small-04) suffix=04 ;;
   *) echo "unknown batch: $batch" >&2; exit 2 ;;
 esac
 
@@ -49,8 +50,12 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     status=0
     check nologin nologin >/dev/null || status=$?
     test "$status" -eq 1
-  else
+  elif test "$suffix" = 03; then
     for applet in swaplabel lsirq newgrp uuidgen switch_root raw renice ionice fdformat copyfilerange; do
+      check "$applet" "$applet" --help >/dev/null
+    done
+  else
+    for applet in taskset mountpoint chsh waitpid colcrt getino ipcmk bits swapoff uclampset; do
       check "$applet" "$applet" --help >/dev/null
     done
   fi

@@ -8,6 +8,7 @@ case $batch in
   util-linux-small-01) suffix=01; components='line setpgid exch setsid choom fadvise colrm mcookie rev'; count=9 ;;
   util-linux-small-02) suffix=02; components='isosize'; count=1 ;;
   util-linux-small-03) suffix=03; components='swaplabel uuidgen ionice copyfilerange'; count=5 ;;
+  util-linux-small-04) suffix=04; components='bits colcrt getino mountpoint waitpid'; count=7 ;;
   *) echo "unknown batch: $batch" >&2; exit 2 ;;
 esac
 
@@ -29,6 +30,7 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
   cd "$build"
   if test "$suffix" = 01; then make -j"$(nproc)" test_md5; fi
   if test "$suffix" = 03; then make -j"$(nproc)" test_sysinfo test_uuid_parser; fi
+  if test "$suffix" = 04; then make -j"$(nproc)" test_strerror; fi
   chmod -R a+rwX "$build"
   getent passwd rustbox-test >/dev/null || useradd -m rustbox-test
   if test "$suffix" = 01; then
@@ -43,11 +45,17 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     export TS_CMD_REV="$build/rustbox-small-01/rev"
   elif test "$suffix" = 02; then
     export TS_CMD_ISOSIZE="$build/rustbox-small-02/isosize"
-  else
+  elif test "$suffix" = 03; then
     export TS_CMD_SWAPLABEL="$build/rustbox-small-03/swaplabel"
     export TS_CMD_UUIDGEN="$build/rustbox-small-03/uuidgen"
     export TS_CMD_IONICE="$build/rustbox-small-03/ionice"
     export TS_CMD_COPYFILERANGE="$build/rustbox-small-03/copyfilerange"
+  else
+    export TS_CMD_BITS="$build/rustbox-small-04/bits"
+    export TS_CMD_COLCRT="$build/rustbox-small-04/colcrt"
+    export TS_CMD_GETINO="$build/rustbox-small-04/getino"
+    export TS_CMD_MOUNTPOINT="$build/rustbox-small-04/mountpoint"
+    export TS_CMD_WAITPID="$build/rustbox-small-04/waitpid"
   fi
   su -m -s /bin/bash rustbox-test -c \
     "cd $build && $source/tests/run.sh --srcdir=$source --builddir=$build $components" \

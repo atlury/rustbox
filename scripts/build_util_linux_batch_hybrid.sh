@@ -27,6 +27,13 @@ case $batch in
     extra_objects='lib/swaplabel-swapprober.o sys-utils/lsirq-irq-common.o ./.libs/libblkid.a ./.libs/libsmartcols.a ./.libs/libuuid.a ./.libs/libcommon.a'
     extra_libraries='-leconf -lcrypt'
     ;;
+  util-linux-small-04)
+    suffix=04
+    library_name=libutil_linux_small_04_normalized_reachable.a
+    applets='taskset mountpoint chsh waitpid colcrt getino ipcmk bits swapoff uclampset'
+    extra_objects='login-utils/chsh-ch-common.o login-utils/chsh-auth.o login-utils/chsh-islocal.o login-utils/chsh-setpwnam.o sys-utils/swapoff-swapon-common.o lib/swapoff-swapprober.o ./.libs/libmount.a ./.libs/libblkid.a ./.libs/libcommon_logindefs.a ./.libs/libcommon_shells.a ./.libs/libcommon.a'
+    extra_libraries='-leconf -lpam -lpam_misc'
+    ;;
   *) echo "hybrid linker not yet declared for $batch" >&2; exit 2 ;;
 esac
 
