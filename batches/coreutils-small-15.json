@@ -8,8 +8,8 @@
   "canonical_build": "canonical-clang-no-security-compdb",
   "output_regex": "/src/libsinglebin_ginstall_",
   "expected_compile_commands": 7,
-  "translation_variant": "canonical",
-  "reachable_staticlib": "libcoreutils_small_15_reachable.a",
+  "translation_variant": "normalized",
+  "reachable_staticlib": "libcoreutils_small_15_normalized_reachable.a",
   "differential_harness": "coreutils_small_15_differential.py",
   "upstream_tests": [
     "tests/install/basic-1.sh",
@@ -32,5 +32,63 @@
     "error": 1,
     "known_error": "tests/rm/deep-2"
   },
+  "c_normalization": [
+    {
+      "source": "src/copy.c",
+      "engine": "exact",
+      "expected_before": "ok &= copy_internal (src_name, dst_name, dst_dirfd,\n                           dst_name + (dst_relname_in - dst_name_in),\n                           new_dst, src_sb,\n                           ancestors, &non_command_line_options, false,\n                           &first_dir_created,\n                           &local_copy_into_self, &rename_succeeded);",
+      "replacement": "ok = copy_internal (src_name, dst_name, dst_dirfd,\n                          dst_name + (dst_relname_in - dst_name_in),\n                          new_dst, src_sb,\n                          ancestors, &non_command_line_options, false,\n                          &first_dir_created,\n                          &local_copy_into_self, &rename_succeeded) && ok;",
+      "expected_after": "&local_copy_into_self, &rename_succeeded) && ok;",
+      "reason": "Evaluate every recursive copy eagerly before explicitly accumulating its Boolean result."
+    },
+    {
+      "source": "src/copy.c",
+      "engine": "exact",
+      "expected_before": "*copy_into_self |= local_copy_into_self;",
+      "replacement": "*copy_into_self = local_copy_into_self || *copy_into_self;",
+      "expected_after": "*copy_into_self = local_copy_into_self || *copy_into_self;",
+      "reason": "Spell copy's Boolean copy-into-self accumulation without compound bitwise assignment."
+    },
+    {
+      "source": "src/copy.c",
+      "engine": "exact",
+      "expected_before": "new_first_dir_created |= first_dir_created;",
+      "replacement": "new_first_dir_created = first_dir_created || new_first_dir_created;",
+      "expected_after": "new_first_dir_created = first_dir_created || new_first_dir_created;",
+      "reason": "Spell copy's Boolean first-directory accumulation without compound bitwise assignment."
+    },
+    {
+      "source": "src/cp-hash.c",
+      "engine": "exact",
+      "expected_before": "return (uintmax_t) {p->st_ino} % table_size;",
+      "replacement": "return (size_t) ((uintmax_t) p->st_ino % table_size);",
+      "expected_after": "return (size_t) ((uintmax_t) p->st_ino % table_size);",
+      "reason": "Make install's inode hash conversions explicit without the scalar compound literal."
+    },
+    {
+      "source": "src/copy-file-data.c",
+      "engine": "exact",
+      "expected_before": "if (ckd_add (&psize, psize, csize))",
+      "replacement": "if (ckd_add (&psize, psize, (off_t) csize))",
+      "expected_after": "if (ckd_add (&psize, psize, (off_t) csize))",
+      "reason": "Make the standard integer conversion from idx_t to off_t explicit at the checked-add boundary."
+    },
+    {
+      "source": "src/install.c",
+      "engine": "exact",
+      "expected_before": "if (xstrtoumax (owner_name, NULL, 0, &tmp, \"\") != LONGINT_OK\n              || ckd_add (&owner_id, tmp, 0))\n            error (EXIT_FAILURE, 0, _(\"invalid user %s\"),\n                   quoteaf (owner_name));",
+      "replacement": "if (xstrtoumax (owner_name, NULL, 0, &tmp, \"\") != LONGINT_OK\n              || UID_T_MAX < tmp)\n            error (EXIT_FAILURE, 0, _(\"invalid user %s\"),\n                   quoteaf (owner_name));\n          owner_id = (uid_t) tmp;",
+      "expected_after": "owner_id = (uid_t) tmp;",
+      "reason": "Spell install's checked uintmax_t-to-uid_t conversion as an explicit range check and assignment."
+    },
+    {
+      "source": "src/install.c",
+      "engine": "exact",
+      "expected_before": "if (xstrtoumax (group_name, NULL, 0, &tmp, \"\") != LONGINT_OK\n              || ckd_add (&group_id, tmp, 0))\n            error (EXIT_FAILURE, 0, _(\"invalid group %s\"),\n                   quoteaf (group_name));",
+      "replacement": "if (xstrtoumax (group_name, NULL, 0, &tmp, \"\") != LONGINT_OK\n              || GID_T_MAX < tmp)\n            error (EXIT_FAILURE, 0, _(\"invalid group %s\"),\n                   quoteaf (group_name));\n          group_id = (gid_t) tmp;",
+      "expected_after": "group_id = (gid_t) tmp;",
+      "reason": "Spell install's checked uintmax_t-to-gid_t conversion as an explicit range check and assignment."
+    }
+  ],
   "selection_policy": "The no-security install closure is translated independently from cp and mv because all three compile the shared copy engine with applet-specific definitions; install additionally owns install.c and prog-fprintf.c, and C2Rust requires unique source paths within each translation batch."
 }
