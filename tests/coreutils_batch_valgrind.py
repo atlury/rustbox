@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import concurrent.futures
 import json
 import os
 import re
@@ -97,11 +98,11 @@ def main() -> int:
         for option in ("--help", "--version")
     ] + declared
 
-    checked = 0
-    canonical_nonzero = 0
     with tempfile.TemporaryDirectory(prefix="rustbox-valgrind-") as temporary:
         root = Path(temporary)
-        for index, case in enumerate(cases):
+
+        def check_case(item: tuple[int, dict[str, object]]) -> bool:
+            index, case = item
             applet = case["applet"]
             if applet not in applets:
                 raise RuntimeError(f"Valgrind case names undeclared applet: {applet}")
@@ -126,15 +127,21 @@ def main() -> int:
                 )
             if expected[0] != case["status"] or actual[:2] != expected[:2]:
                 raise AssertionError((case, expected, actual))
-            if any(expected[1].values()):
-                canonical_nonzero += 1
-            checked += 1
+            return any(expected[1].values())
+
+        workers = min(8, len(cases))
+        with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as executor:
+            nonzero = list(executor.map(check_case, enumerate(cases)))
+
+    checked = len(cases)
+    canonical_nonzero = sum(nonzero)
 
     result = {
         "schema": 1,
         "cases": checked,
         "passed": checked,
         "canonical_nonzero_resource_cases": canonical_nonzero,
+        "parallel_workers": workers,
         "valgrind_errors": 0,
         "definite_or_indirect_leaks": 0,
         "translation_introduced_resource_deltas": 0,
