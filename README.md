@@ -117,8 +117,10 @@ The next canonical oracle is zlib 1.4.  Its signed release, independent GCC
 and Clang builds, 18-case upstream CTest suite, sanitizer and Valgrind gates,
 111-symbol ABI comparison, and reviewed static-analysis findings are recorded
 in `evidence/zlib-1.4-oracle.json`.  This is an oracle baseline only: zlib
-remains unchecked in the queue until normalization, translation, and Rustbox
-integration reach the same behavioral gates.
+then passes a zero-change, whole-tree normalization with independent GCC,
+Clang, sanitizer, Valgrind, upstream-test, symbol, and Libabigail gates in
+`evidence/zlib-1.4-normalization.json`.  Zlib remains unchecked in the queue
+until translation and Rustbox integration reach the same behavioral gates.
 
 ## Work queue after util-linux
 

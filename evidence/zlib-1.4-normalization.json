@@ -1,0 +1,62 @@
+{
+  "abi": {
+    "abidiff_exit_status": 0,
+    "abidiff_output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exported_symbol_count": 111,
+    "matching_exports": true
+  },
+  "compiler_replays": {
+    "clang_make": {
+      "compile_commands": 34,
+      "gates": [
+        "static",
+        "shared",
+        "large-file-64"
+      ],
+      "production_sources": [
+        "adler32.c",
+        "compress.c",
+        "crc32.c",
+        "deflate.c",
+        "gzclose.c",
+        "gzlib.c",
+        "gzread.c",
+        "gzwrite.c",
+        "infback.c",
+        "inffast.c",
+        "inflate.c",
+        "inftrees.c",
+        "trees.c",
+        "uncompr.c",
+        "zutil.c"
+      ]
+    },
+    "gcc_cmake_tests": {
+      "passed": 18,
+      "total": 18
+    },
+    "gcc_sanitizers": {
+      "address": "pass",
+      "undefined": "pass"
+    },
+    "valgrind": {
+      "example": "pass",
+      "infcover": "pass"
+    }
+  },
+  "normalization": {
+    "canonical_tree_sha256": "375515d6811085408914429bbe357b3c3e6c659c54c56e209f1fae507d1fa258",
+    "changed_sources": 0,
+    "manifest_sha256": "98be9ef21a63e738bda25832e0fbb692049b90e6db4cc53443e24a26586bddf5",
+    "normalized_tree_sha256": "375515d6811085408914429bbe357b3c3e6c659c54c56e209f1fae507d1fa258",
+    "production_sources": 15,
+    "strategy": "exact-source zero-change normalization"
+  },
+  "release": "1.4",
+  "schema": 1,
+  "translation_policy": {
+    "holes_allowed": false,
+    "next_gate": "C2Rust audit translation of all production compile commands",
+    "semantic_patches": []
+  }
+}
