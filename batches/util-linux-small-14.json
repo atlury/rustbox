@@ -32,7 +32,7 @@
   },
   "output_regex": "/(?:disk-utils/(?:cfdisk-cfdisk|fdisk-fdisk|sfdisk-sfdisk)|login-utils/(?:login|runuser|su-su|sulogin|vipw)|lsfd-cmd/lsfd-lsfd|misc-utils/(?:findmnt-findmnt|lsblk-lsblk)|term-utils/agetty-agetty)\\.o$",
   "expected_compile_commands": 12,
-  "header_passthrough": ["include/configs.h", "include/netaddrq.h", "include/netlink.h"],
+  "header_passthrough": ["disk-utils/fdisk.h", "include/configs.h", "include/netaddrq.h", "include/netlink.h"],
   "header_normalization": [
     {"source": "include/list.h", "engine": "exact", "expected_before": " */\n_INLINE_ void list_sort(", "replacement": " */\n#if 0\n_INLINE_ void list_sort(", "expected_after": " */\n#if 0\n_INLINE_ void list_sort(", "reason": "Keep the canonical inline list-sort implementation out of C2Rust's header AST; the hybrid links an external wrapper around the unchanged canonical implementation."},
     {"source": "include/list.h", "engine": "exact", "expected_before": "\tmerge_and_restore_back_links(cmp, data, head, part[max_lev], list);\n}\n\n#undef _INLINE_", "replacement": "\tmerge_and_restore_back_links(cmp, data, head, part[max_lev], list);\n}\n#endif\nvoid list_sort(struct list_head *head,\n\t\tint (*cmp)(struct list_head *a,\n\t\t\t   struct list_head *b,\n\t\t\t   void *data),\n\t\tvoid *data);\n\n#undef _INLINE_", "expected_after": "\tmerge_and_restore_back_links(cmp, data, head, part[max_lev], list);\n}\n#endif\nvoid list_sort(struct list_head *head,\n\t\tint (*cmp)(struct list_head *a,\n\t\t\t   struct list_head *b,\n\t\t\t   void *data),\n\t\tvoid *data);\n\n#undef _INLINE_", "reason": "Declare the canonical list-sort support boundary after excluding its inline body from the translator."},
