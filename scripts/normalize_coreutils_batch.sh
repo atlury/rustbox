@@ -13,9 +13,13 @@ slice="$root/work/analysis/coreutils-9.12/slices/$batch/compile_commands.json"
 manifest="$root/batches/$batch.json"
 test -s "$slice" || { echo "translate or extract $batch first" >&2; exit 1; }
 test -s "$manifest" || { echo "unknown batch: $batch" >&2; exit 2; }
-gcc_database="$root/work/analysis/coreutils-9.12/canonical-gcc/compile_commands.json"
+gcc_analysis=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1])).get("canonical_gcc_analysis", "canonical-gcc"))' "$manifest")
+case $gcc_analysis in
+  *[!A-Za-z0-9_-]*|'') echo "unsafe canonical GCC analysis name" >&2; exit 2 ;;
+esac
+gcc_database="$root/work/analysis/coreutils-9.12/$gcc_analysis/compile_commands.json"
 test -s "$gcc_database" || {
-  echo "run scripts/capture_coreutils_gcc_compdb.sh first" >&2
+  echo "missing canonical GCC compilation database: $gcc_analysis" >&2
   exit 1
 }
 
@@ -24,6 +28,6 @@ RUSTBOX_TOOL_IMAGE=rustbox-normalize:2026-11-19 \
     --repository /work \
     --source-root /rustbox-source/coreutils-9.12 \
     --database "/work/work/analysis/coreutils-9.12/slices/$batch/compile_commands.json" \
-    --gcc-database /work/work/analysis/coreutils-9.12/canonical-gcc/compile_commands.json \
+    --gcc-database "/work/work/analysis/coreutils-9.12/$gcc_analysis/compile_commands.json" \
     --manifest "/work/batches/$batch.json" \
     --output "/work/work/analysis/coreutils-9.12/normalized/$batch"

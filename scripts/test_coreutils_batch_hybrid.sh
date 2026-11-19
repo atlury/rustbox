@@ -22,6 +22,10 @@ test -s "$manifest" || { echo "unknown batch: $batch" >&2; exit 2; }
 applets=$(python3 -c 'import json,sys; print(" ".join(json.load(open(sys.argv[1]))["applets"]))' "$manifest")
 tests=$(python3 -c 'import json,sys; print(" ".join(json.load(open(sys.argv[1]))["upstream_tests"]))' "$manifest")
 harness=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["differential_harness"])' "$manifest")
+canonical_build=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1])).get("canonical_build", "canonical-clang-compdb"))' "$manifest")
+case $canonical_build in
+  *[!A-Za-z0-9_-]*|'') echo "unsafe canonical build name" >&2; exit 2 ;;
+esac
 
 exec "$root/scripts/run_tool.sh" sh -eu -c '
   batch=$1
@@ -29,7 +33,7 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
   applets=$3
   tests=$4
   harness=$5
-  build=/rustbox-coreutils/canonical-clang-compdb
+  build="/rustbox-coreutils/$6"
   canonical="$build/src/coreutils"
   hybrid="$build/src/coreutils-rust-$batch"
   output="/work/work/analysis/coreutils-9.12/translations/c2rust-0.22.1/$batch-stable/differential.json"
@@ -86,4 +90,4 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
       --output "/work/work/analysis/coreutils-9.12/translations/c2rust-0.22.1/$batch-stable/upstream-full.json"
     echo "full hybrid suite: 628 pass, 132 skip, 0 fail, 1 known VM path setup error"
   fi
-' rustbox-batch-test "$batch" "$mode" "$applets" "$tests" "$harness"
+' rustbox-batch-test "$batch" "$mode" "$applets" "$tests" "$harness" "$canonical_build"

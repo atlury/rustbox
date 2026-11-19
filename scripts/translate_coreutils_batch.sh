@@ -26,7 +26,6 @@ esac
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 manifest="$root/batches/$batch.json"
 analysis="$root/work/analysis/coreutils-9.12"
-database="$analysis/canonical-clang/compile_commands.json"
 slice="$analysis/slices/$batch/compile_commands.json"
 slice_container="/work/work/analysis/coreutils-9.12/slices/$batch/compile_commands.json"
 output_name="$batch-$mode"
@@ -38,8 +37,13 @@ fi
 output="$analysis/translations/c2rust-0.22.1/$output_name"
 
 test -s "$manifest" || { echo "unknown batch: $batch" >&2; exit 2; }
+canonical_analysis=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1])).get("canonical_analysis", "canonical-clang"))' "$manifest")
+case $canonical_analysis in
+  *[!A-Za-z0-9_-]*|'') echo "unsafe canonical analysis name" >&2; exit 2 ;;
+esac
+database="$analysis/$canonical_analysis/compile_commands.json"
 test -s "$database" || {
-  echo "run scripts/capture_coreutils_compdb.sh first" >&2
+  echo "missing canonical compilation database: $canonical_analysis" >&2
   exit 1
 }
 
