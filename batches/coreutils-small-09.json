@@ -182,6 +182,46 @@
       "reason": "Disambiguate the private pointer parameter from its opaque struct tag for deterministic stable-Rust modernization."
     },
     {
+      "source": "src/du.c",
+      "engine": "exact",
+      "expected_before": "static struct exclude *exclude;",
+      "replacement": "static struct exclude *exclude_patterns;",
+      "expected_after": "static struct exclude *exclude_patterns;",
+      "reason": "Disambiguate du's private exclusion-set pointer from its opaque struct tag."
+    },
+    {
+      "source": "src/du.c",
+      "engine": "exact",
+      "expected_before": "excluded_file_name (exclude, file)",
+      "replacement": "excluded_file_name (exclude_patterns, file)",
+      "expected_after": "excluded_file_name (exclude_patterns, file)",
+      "reason": "Follow the private exclusion-set pointer rename during file filtering."
+    },
+    {
+      "source": "src/du.c",
+      "engine": "exact",
+      "expected_before": "exclude = new_exclude ();",
+      "replacement": "exclude_patterns = new_exclude ();",
+      "expected_after": "exclude_patterns = new_exclude ();",
+      "reason": "Follow the private exclusion-set pointer rename at initialization."
+    },
+    {
+      "source": "src/du.c",
+      "engine": "exact",
+      "expected_before": "add_exclude_file (add_exclude, exclude, optarg,",
+      "replacement": "add_exclude_file (add_exclude, exclude_patterns, optarg,",
+      "expected_after": "add_exclude_file (add_exclude, exclude_patterns, optarg,",
+      "reason": "Follow the private exclusion-set pointer rename for pattern files."
+    },
+    {
+      "source": "src/du.c",
+      "engine": "exact",
+      "expected_before": "add_exclude (exclude, optarg, EXCLUDE_WILDCARDS);",
+      "replacement": "add_exclude (exclude_patterns, optarg, EXCLUDE_WILDCARDS);",
+      "expected_after": "add_exclude (exclude_patterns, optarg, EXCLUDE_WILDCARDS);",
+      "reason": "Follow the private exclusion-set pointer rename for command-line patterns."
+    },
+    {
       "source": "src/split.c",
       "engine": "exact",
       "expected_before": "ckd_add (&outfile_length, outfile_length, 2)",
