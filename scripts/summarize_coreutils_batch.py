@@ -123,6 +123,45 @@ def main() -> int:
     removed = [f"src/libsinglebin_{applet}.a" for applet in manifest["applets"]]
     if str(library) not in map_text or any(archive + "(" in map_text for archive in removed):
         raise RuntimeError("hybrid link map does not prove exact archive replacement")
+    archive_exclusion_evidence = []
+    for exclusion in manifest.get("canonical_archive_member_exclusions", []):
+        archive = exclusion["archive"]
+        members = exclusion["members"]
+        canonical_archive = build / archive
+        filtered_archive = build / "src" / f".rustbox-{batch}-{Path(archive).name}"
+        for path in (canonical_archive, filtered_archive):
+            if not path.is_file():
+                raise RuntimeError(f"missing archive exclusion artifact: {path}")
+        canonical_members = subprocess.run(
+            ["ar", "t", str(canonical_archive)],
+            check=True,
+            text=True,
+            stdout=subprocess.PIPE,
+        ).stdout.splitlines()
+        filtered_members = subprocess.run(
+            ["ar", "t", str(filtered_archive)],
+            check=True,
+            text=True,
+            stdout=subprocess.PIPE,
+        ).stdout.splitlines()
+        if any(canonical_members.count(member) != 1 for member in members):
+            raise RuntimeError(f"canonical archive lacks one declared member: {archive}")
+        expected_members = [member for member in canonical_members if member not in members]
+        if filtered_members != expected_members:
+            raise RuntimeError(f"filtered archive member set is wrong: {archive}")
+        if archive + "(" in map_text:
+            raise RuntimeError(f"hybrid link map contains unfiltered archive: {archive}")
+        if f"LOAD {filtered_archive}" not in map_text:
+            raise RuntimeError(f"hybrid link map omits filtered archive: {archive}")
+        if any(f"{filtered_archive}({member})" in map_text for member in members):
+            raise RuntimeError(f"hybrid link map contains excluded member: {archive}")
+        archive_exclusion_evidence.append({
+            "archive": archive,
+            "canonical_archive_sha256": sha256(canonical_archive),
+            "excluded_members": members,
+            "filtered_archive_sha256": sha256(filtered_archive),
+            "reason": exclusion["reason"],
+        })
     symbols = subprocess.run(
         ["nm", "-g", "--defined-only", str(hybrid)],
         check=True,
@@ -242,6 +281,7 @@ def main() -> int:
             "link_map_sha256": sha256(link_map),
             "original_applet_archives_linked": False,
             "replacement_symbols_defined_once": True,
+            "canonical_archive_member_exclusions": archive_exclusion_evidence,
             "canonical_bytes": canonical.stat().st_size,
             "hybrid_bytes": hybrid.stat().st_size,
             "canonical_stripped_bytes": stripped_size(canonical),
