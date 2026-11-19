@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "upstream": "util-linux 2.42.4",
+  "name": "util-linux-small-14",
+  "applets": [
+    "agetty",
+    "cfdisk",
+    "fdisk",
+    "findmnt",
+    "login",
+    "lsblk",
+    "lsfd",
+    "runuser",
+    "sfdisk",
+    "su",
+    "sulogin",
+    "vigr"
+  ],
+  "entrypoints": {
+    "agetty": {"symbol": "agetty", "public_names": ["agetty"]},
+    "cfdisk": {"symbol": "cfdisk", "public_names": ["cfdisk"]},
+    "fdisk": {"symbol": "fdisk", "public_names": ["fdisk"]},
+    "findmnt": {"symbol": "findmnt", "public_names": ["findmnt"]},
+    "login": {"symbol": "login", "public_names": ["login"]},
+    "lsblk": {"symbol": "lsblk", "public_names": ["lsblk"]},
+    "lsfd": {"symbol": "lsfd", "public_names": ["lsfd"]},
+    "runuser": {"symbol": "runuser", "public_names": ["runuser"]},
+    "sfdisk": {"symbol": "sfdisk", "public_names": ["sfdisk"]},
+    "su": {"symbol": "su", "public_names": ["su"]},
+    "sulogin": {"symbol": "sulogin", "public_names": ["sulogin"]},
+    "vipw": {"symbol": "vigr", "public_names": ["vigr"]}
+  },
+  "output_regex": "/(?:disk-utils/(?:cfdisk-cfdisk|fdisk-fdisk|sfdisk-sfdisk)|login-utils/(?:login|runuser|su-su|sulogin|vipw)|lsfd-cmd/lsfd-lsfd|misc-utils/(?:findmnt-findmnt|lsblk-lsblk)|term-utils/agetty-agetty)\\.o$",
+  "expected_compile_commands": 12,
+  "header_normalization": [
+    {"source": "include/list.h", "engine": "exact", "expected_before": "ARRAY_SIZE(part)", "replacement": "sizeof(part) / sizeof(part[0])", "expected_after": "sizeof(part) / sizeof(part[0])", "reason": "Spell the inline helper's fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."}
+  ],
+  "c_normalization": [
+    {"source": "disk-utils/cfdisk.c", "engine": "exact", "expected_before": "ARRAY_SIZE(color_pairs)", "replacement": "(sizeof(color_pairs) / sizeof(color_pairs[0]))", "expected_after": "(sizeof(color_pairs) / sizeof(color_pairs[0]))", "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."},
+    {"source": "disk-utils/cfdisk.c", "engine": "exact", "expected_before": "ARRAY_SIZE(help)", "replacement": "(sizeof(help) / sizeof(help[0]))", "expected_after": "(sizeof(help) / sizeof(help[0]))", "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."},
+    {"source": "disk-utils/cfdisk.c", "engine": "exact", "expected_before": "ARRAY_SIZE(default_disks)", "replacement": "(sizeof(default_disks) / sizeof(default_disks[0]))", "expected_after": "(sizeof(default_disks) / sizeof(default_disks[0]))", "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."},
+    {"source": "misc-utils/findmnt.c", "engine": "exact", "expected_before": "ARRAY_SIZE(infos)", "expected_before_count": 12, "replacement": "(sizeof(infos) / sizeof(infos[0]))", "expected_after": "(sizeof(infos) / sizeof(infos[0]))", "expected_after_count": 12, "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."},
+    {"source": "misc-utils/findmnt.c", "engine": "exact", "expected_before": "ARRAY_SIZE(columns)", "expected_before_count": 3, "replacement": "(sizeof(columns) / sizeof(columns[0]))", "expected_after": "(sizeof(columns) / sizeof(columns[0]))", "expected_after_count": 3, "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."},
+    {"source": "misc-utils/findmnt.c", "engine": "exact", "expected_before": "ARRAY_SIZE(excl)", "replacement": "(sizeof(excl) / sizeof(excl[0]))", "expected_after": "(sizeof(excl) / sizeof(excl[0]))", "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."},
+    {"source": "misc-utils/findmnt.c", "engine": "exact", "expected_before": "ARRAY_SIZE(actions)", "replacement": "(sizeof(actions) / sizeof(actions[0]))", "expected_after": "(sizeof(actions) / sizeof(actions[0]))", "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."},
+    {"source": "login-utils/login.c", "engine": "exact", "expected_before": "const char *home = getenv(\"HOME\") ?: pwd->pw_dir;", "replacement": "const char *home = getenv(\"HOME\");\n\tif (!home)\n\t\thome = pwd->pw_dir;", "expected_after": "const char *home = getenv(\"HOME\");\n\tif (!home)\n\t\thome = pwd->pw_dir;", "reason": "Expand GNU's omitted-middle conditional into ordered statements, evaluating getenv exactly once as the canonical expression does while avoiding C2Rust's missing AST child."},
+    {"source": "misc-utils/lsblk.c", "engine": "exact", "expected_before": "ARRAY_SIZE(infos)", "expected_before_count": 6, "replacement": "(sizeof(infos) / sizeof(infos[0]))", "expected_after": "(sizeof(infos) / sizeof(infos[0]))", "expected_after_count": 6, "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."},
+    {"source": "misc-utils/lsblk.c", "engine": "exact", "expected_before": "ARRAY_SIZE(columns)", "expected_before_count": 3, "replacement": "(sizeof(columns) / sizeof(columns[0]))", "expected_after": "(sizeof(columns) / sizeof(columns[0]))", "expected_after_count": 3, "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."},
+    {"source": "misc-utils/lsblk.c", "engine": "exact", "expected_before": "ARRAY_SIZE(excludes)", "expected_before_count": 3, "replacement": "(sizeof(excludes) / sizeof(excludes[0]))", "expected_after": "(sizeof(excludes) / sizeof(excludes[0]))", "expected_after_count": 3, "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."},
+    {"source": "misc-utils/lsblk.c", "engine": "exact", "expected_before": "ARRAY_SIZE(includes)", "expected_before_count": 3, "replacement": "(sizeof(includes) / sizeof(includes[0]))", "expected_after": "(sizeof(includes) / sizeof(includes[0]))", "expected_after_count": 3, "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."},
+    {"source": "misc-utils/lsblk.c", "engine": "exact", "expected_before": "ARRAY_SIZE(excl)", "replacement": "(sizeof(excl) / sizeof(excl[0]))", "expected_after": "(sizeof(excl) / sizeof(excl[0]))", "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."},
+    {"source": "lsfd-cmd/lsfd.c", "engine": "exact", "expected_before": "ARRAY_SIZE(infos)", "expected_before_count": 4, "replacement": "(sizeof(infos) / sizeof(infos[0]))", "expected_after": "(sizeof(infos) / sizeof(infos[0]))", "expected_after_count": 4, "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."},
+    {"source": "lsfd-cmd/lsfd.c", "engine": "exact", "expected_before": "ARRAY_SIZE(columns)", "expected_before_count": 2, "replacement": "(sizeof(columns) / sizeof(columns[0]))", "expected_after": "(sizeof(columns) / sizeof(columns[0]))", "expected_after_count": 2, "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."},
+    {"source": "lsfd-cmd/lsfd.c", "engine": "exact", "expected_before": "ARRAY_SIZE(assocs)", "expected_before_count": 4, "replacement": "(sizeof(assocs) / sizeof(assocs[0]))", "expected_after": "(sizeof(assocs) / sizeof(assocs[0]))", "expected_after_count": 4, "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."},
+    {"source": "lsfd-cmd/lsfd.c", "engine": "exact", "expected_before": "ARRAY_SIZE(default_columns)", "replacement": "(sizeof(default_columns) / sizeof(default_columns[0]))", "expected_after": "(sizeof(default_columns) / sizeof(default_columns[0]))", "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."},
+    {"source": "lsfd-cmd/lsfd.c", "engine": "exact", "expected_before": "ARRAY_SIZE(default_threads_columns)", "replacement": "(sizeof(default_threads_columns) / sizeof(default_threads_columns[0]))", "expected_after": "(sizeof(default_threads_columns) / sizeof(default_threads_columns[0]))", "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."},
+    {"source": "lsfd-cmd/lsfd.c", "engine": "exact", "expected_before": "ARRAY_SIZE(default_counter_specs)", "expected_before_count": 2, "replacement": "(sizeof(default_counter_specs) / sizeof(default_counter_specs[0]))", "expected_after": "(sizeof(default_counter_specs) / sizeof(default_counter_specs[0]))", "expected_after_count": 2, "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."},
+    {"source": "lsfd-cmd/lsfd.c", "engine": "exact", "expected_before": "ARRAY_SIZE(COLUMN_SPEC)", "replacement": "(sizeof(COLUMN_SPEC) / sizeof((COLUMN_SPEC)[0]))", "expected_after": "(sizeof(COLUMN_SPEC) / sizeof((COLUMN_SPEC)[0]))", "reason": "Spell the array-macro parameter extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."},
+    {"source": "disk-utils/sfdisk.c", "engine": "exact", "expected_before": "ARRAY_SIZE(excl)", "replacement": "(sizeof(excl) / sizeof(excl[0]))", "expected_after": "(sizeof(excl) / sizeof(excl[0]))", "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."}
+  ],
+  "selection_policy": "All twelve remaining util-linux public names; vigr receives its own specialized entrypoint from the canonical shared vipw.c body."
+}
