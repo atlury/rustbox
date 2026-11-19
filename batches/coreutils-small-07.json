@@ -16,8 +16,137 @@
   ],
   "output_regex": "/src/libsinglebin_(csplit|expand|expr|head|join|ln|rm|shred|test|who)_",
   "expected_compile_commands": 15,
-  "translation_variant": "canonical",
-  "c_normalization": [],
+  "translation_variant": "normalized",
+  "c_normalization": [
+    {
+      "source": "src/csplit.c",
+      "engine": "exact",
+      "expected_before": "|| ckd_add (&p->repeat, val, 0)",
+      "replacement": "|| INTMAX_MAX < val\n          || (p->repeat = (intmax_t) val, false)",
+      "expected_after": "|| INTMAX_MAX < val\n          || (p->repeat = (intmax_t) val, false)",
+      "reason": "Spell the checked uintmax_t-to-intmax_t repeat conversion explicitly so C2Rust does not mix signed and unsigned checked-add operands."
+    },
+    {
+      "source": "src/expand.c",
+      "engine": "exact",
+      "expected_before": "convert &= convert_entire_line || c32issep (g.ch);",
+      "replacement": "convert = (convert_entire_line || c32issep (g.ch)) && convert;",
+      "expected_after": "convert = (convert_entire_line || c32issep (g.ch)) && convert;",
+      "reason": "Preserve eager separator evaluation while accumulating the Boolean conversion state explicitly."
+    },
+    {
+      "source": "src/expand.c",
+      "engine": "exact",
+      "expected_before": "ckd_add (&column, column, width < 0 ? 1 : width)",
+      "replacement": "ckd_add (&column, column, (colno) (width < 0 ? 1 : width))",
+      "expected_after": "ckd_add (&column, column, (colno) (width < 0 ? 1 : width))",
+      "reason": "Make the bounded display-width operand use the colno destination width."
+    },
+    {
+      "source": "src/expand-common.c",
+      "engine": "exact",
+      "expected_before": "ckd_add (&max_column_width, width, 0)",
+      "replacement": "ckd_add (&max_column_width, (idx_t) width, (idx_t) 0)",
+      "expected_after": "ckd_add (&max_column_width, (idx_t) width, (idx_t) 0)",
+      "reason": "Make the checked column-width assignment use the idx_t destination type explicitly."
+    },
+    {
+      "source": "src/expand-common.c",
+      "engine": "exact",
+      "expected_before": "if (!DECIMAL_DIGIT_ACCUMULATE (tabval, *stops - '0'))",
+      "replacement": "if (ckd_mul (&tabval, tabval, (colno) 10)\n              || ckd_add (&tabval, tabval, (colno) (*stops - '0')))",
+      "expected_after": "ckd_mul (&tabval, tabval, (colno) 10)",
+      "reason": "Expand decimal accumulation with explicit colno operands."
+    },
+    {
+      "source": "src/expand-common.c",
+      "engine": "exact",
+      "expected_before": "ok &= set_extend_size (tabval);",
+      "replacement": "ok = set_extend_size (tabval) && ok;",
+      "expected_after": "ok = set_extend_size (tabval) && ok;",
+      "reason": "Preserve eager extend-size validation while explicitly accumulating its Boolean status."
+    },
+    {
+      "source": "src/expand-common.c",
+      "engine": "exact",
+      "expected_before": "ok &= set_increment_size (tabval);",
+      "replacement": "ok = set_increment_size (tabval) && ok;",
+      "expected_after": "ok = set_increment_size (tabval) && ok;",
+      "reason": "Preserve eager increment-size validation while explicitly accumulating its Boolean status."
+    },
+    {
+      "source": "src/head.c",
+      "engine": "exact",
+      "expected_before": "ok &= head_file (file_list[i], n_units, count_lines, elide_from_end);",
+      "replacement": "ok = head_file (file_list[i], n_units, count_lines,\n                    elide_from_end) && ok;",
+      "expected_after": "ok = head_file (file_list[i], n_units, count_lines,",
+      "reason": "Preserve eager processing of every head input while explicitly accumulating failures."
+    },
+    {
+      "source": "src/ln.c",
+      "engine": "exact",
+      "expected_before": "ok &= do_link (file[i], destdir_fd, dest_base, dest, -1);",
+      "replacement": "ok = do_link (file[i], destdir_fd, dest_base, dest, -1) && ok;",
+      "expected_after": "ok = do_link (file[i], destdir_fd, dest_base, dest, -1) && ok;",
+      "reason": "Preserve eager processing of every link operand while accumulating failures."
+    },
+    {
+      "source": "src/relpath.c",
+      "semantic_patch": "normalization/coreutils/bool-call-eager-or.cocci",
+      "expected_before": "buf_err |= buffer_or_output (\"..\", &buf, &len);",
+      "expected_after": "buf_err = buffer_or_output",
+      "expected_after_count": 5,
+      "reason": "Always emit every relative-path component while explicitly accumulating output errors."
+    },
+    {
+      "source": "src/shred.c",
+      "engine": "exact",
+      "expected_before": "ckd_add (&offset, offset, soff)",
+      "replacement": "(TYPE_MAXIMUM (off_t) < soff\n          || ckd_add (&offset, offset, (off_t) soff))",
+      "expected_after": "TYPE_MAXIMUM (off_t) < soff",
+      "reason": "Check size_t-to-off_t range explicitly before the existing checked offset addition."
+    },
+    {
+      "source": "src/shred.c",
+      "engine": "exact",
+      "expected_before": "ok &= wipefd (STDOUT_FILENO, qname, randint_source, &flags);",
+      "replacement": "ok = wipefd (STDOUT_FILENO, qname, randint_source, &flags) && ok;",
+      "expected_after": "ok = wipefd (STDOUT_FILENO, qname, randint_source, &flags) && ok;",
+      "reason": "Always perform stdout shredding before accumulating its status."
+    },
+    {
+      "source": "src/shred.c",
+      "engine": "exact",
+      "expected_before": "ok &= wipefile (file[i], qname, randint_source, &flags);",
+      "replacement": "ok = wipefile (file[i], qname, randint_source, &flags) && ok;",
+      "expected_after": "ok = wipefile (file[i], qname, randint_source, &flags) && ok;",
+      "reason": "Always process every shred input before accumulating its status."
+    },
+    {
+      "source": "src/test.c",
+      "engine": "exact",
+      "expected_before": "value &= term ();",
+      "replacement": "value = term () && value;",
+      "expected_after": "value = term () && value;",
+      "reason": "Preserve eager test term parsing while explicitly accumulating conjunction."
+    },
+    {
+      "source": "src/test.c",
+      "engine": "exact",
+      "expected_before": "value |= and ();",
+      "replacement": "value = and () || value;",
+      "expected_after": "value = and () || value;",
+      "reason": "Preserve eager test conjunction parsing while explicitly accumulating disjunction."
+    },
+    {
+      "source": "src/who.c",
+      "engine": "exact",
+      "expected_before": "int seconds_idle;\n  if (boottime < when && when <= now\n      && ! ckd_sub (&seconds_idle, now, when)",
+      "replacement": "int seconds_idle;\n  time_t seconds_idle_wide;\n  if (boottime < when && when <= now\n      && ! ckd_sub (&seconds_idle_wide, now, when)\n      && seconds_idle_wide <= INT_MAX\n      && (seconds_idle = seconds_idle_wide, true)",
+      "expected_after": "time_t seconds_idle_wide;",
+      "reason": "Compute idle time at time_t width, range-check it, then assign to the bounded int used for display."
+    }
+  ],
   "deferred_intrinsics": [
     {
       "applet": "wc",
