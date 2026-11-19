@@ -12,6 +12,7 @@ case $batch in
   util-linux-small-05) suffix=05; components='blkdiscard look pipesz rename uuidparse'; count=10 ;;
   util-linux-small-06) suffix=06; components='coresched flock namei'; count=4 ;;
   util-linux-small-07) suffix=07; components='chrt col fallocate fincore getopt whereis'; count=11 ;;
+  util-linux-small-08) suffix=08; components='setarch'; count=3 ;;
   *) echo "unknown batch: $batch" >&2; exit 2 ;;
 esac
 
@@ -70,13 +71,15 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     export TS_CMD_CORESCHED="$build/rustbox-small-06/coresched"
     export TS_CMD_FLOCK="$build/rustbox-small-06/flock"
     export TS_CMD_NAMEI="$build/rustbox-small-06/namei"
-  else
+  elif test "$suffix" = 07; then
     export TS_CMD_CHRT="$build/rustbox-small-07/chrt"
     export TS_CMD_COL="$build/rustbox-small-07/col"
     export TS_CMD_FALLOCATE="$build/rustbox-small-07/fallocate"
     export TS_CMD_FINCORE="$build/rustbox-small-07/fincore"
     export TS_CMD_GETOPT="$build/rustbox-small-07/getopt"
     export TS_CMD_WHEREIS="$build/rustbox-small-07/whereis"
+  else
+    export TS_CMD_SETARCH="$build/rustbox-small-08/setarch"
   fi
   su -m -s /bin/bash rustbox-test -c \
     "cd $build && $source/tests/run.sh --srcdir=$source --builddir=$build $components" \

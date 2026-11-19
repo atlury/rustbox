@@ -4,6 +4,7 @@ set -eu
 
 test "$#" -eq 1 || { echo "usage: $0 BATCH" >&2; exit 2; }
 batch=$1
+expected=10
 case $batch in
   util-linux-small-01) suffix=01 ;;
   util-linux-small-02) suffix=02 ;;
@@ -12,6 +13,7 @@ case $batch in
   util-linux-small-05) suffix=05 ;;
   util-linux-small-06) suffix=06 ;;
   util-linux-small-07) suffix=07 ;;
+  util-linux-small-08) suffix=08; expected=1 ;;
   *) echo "unknown batch: $batch" >&2; exit 2 ;;
 esac
 
@@ -20,6 +22,7 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
   build=/rustbox-util-linux/canonical-clang-compdb
   suffix=$1
   export RUSTBOX_SUFFIX=$suffix
+  export RUSTBOX_EXPECTED=$2
   hybrid="$build/rustbox-util-linux-small-$suffix"
   stable="/work/work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-$suffix-stable"
   temporary=$(mktemp -d /tmp/rustbox-util-resources.XXXXXX)
@@ -83,7 +86,7 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     # Canonical chcpu retains its 4,184-byte path context until process exit.
     # Continue rejecting every definite, indirect, and possible loss.
     check_process_lifetime chcpu chcpu --help >/dev/null
-  else
+  elif test "$suffix" = 07; then
     for applet in mkfs.bfs write fallocate chrt fincore whereis rfkill; do
       check "$applet" "$applet" --help >/dev/null
     done
@@ -93,6 +96,8 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     check_process_lifetime col col --help >/dev/null
     # Canonical chmem retains its discovered sysfs paths until process exit.
     check_process_lifetime chmem chmem --help >/dev/null
+  else
+    check setarch setarch --help >/dev/null
   fi
   python3 - <<'PY'
 import json
@@ -100,10 +105,11 @@ from pathlib import Path
 
 import os
 suffix = os.environ.get("RUSTBOX_SUFFIX")
+expected = int(os.environ["RUSTBOX_EXPECTED"])
 root = Path(f"/work/work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-{suffix}-stable")
 logs = sorted(root.glob("valgrind-*.log"))
-if len(logs) != 10:
-    raise SystemExit(f"expected 10 Valgrind logs, found {len(logs)}")
+if len(logs) != expected:
+    raise SystemExit(f"expected {expected} Valgrind logs, found {len(logs)}")
 result = {"schema": 1, "cases": len(logs), "passed": len(logs), "logs": [path.name for path in logs]}
 if suffix == "06":
     result["canonical_process_lifetime_exception"] = {
@@ -120,4 +126,4 @@ elif suffix == "07":
 (root / "resources.json").write_text(json.dumps(result, indent=2) + "\n")
 print(json.dumps(result, sort_keys=True))
 PY
-' rustbox-util-resources "$suffix"
+' rustbox-util-resources "$suffix" "$expected"

@@ -71,7 +71,7 @@ def main() -> int:
     reachable_prepared = base / f"{batch}-normalized-reachable-prepared"
     stable = base / f"{batch}-stable"
     suffix = batch.removeprefix("util-linux-small-")
-    if suffix not in {"01", "02", "03", "04", "05", "06", "07"}:
+    if suffix not in {"01", "02", "03", "04", "05", "06", "07", "08"}:
         raise RuntimeError(f"undeclared util-linux batch: {batch}")
     hybrid = build / f"rustbox-util-linux-small-{suffix}"
     link_map = hybrid.with_suffix(".map")
@@ -158,6 +158,7 @@ def main() -> int:
             "whereis": "misc-utils/whereis.o", "col": "text-utils/col.o",
             "chmem": "sys-utils/chmem.o", "rfkill": "sys-utils/rfkill-rfkill.o",
         },
+        "08": {"setarch": "sys-utils/setarch.o"},
     }
     canonical_objects = canonical_objects_by_batch[suffix]
     if any(name in map_text for name in canonical_objects.values()):
@@ -177,6 +178,7 @@ def main() -> int:
         "05": (3, "feature-gate cleanup (1) and reusable opaque-pointer spelling rule (2)"),
         "06": (5, "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), and reusable VaListImpl/as_va_list modernization (2)"),
         "07": (5, "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), and reusable VaListImpl/as_va_list modernization (2)"),
+        "08": (3, "feature-gate cleanup (1) and reusable opaque-pointer spelling rule (2)"),
     }[suffix]
     targeted = {
         "01": {"components": 9, "passed": 9, "ctrlaltdel": "no upstream component test; hard and soft branches compared unprivileged"},
@@ -186,6 +188,7 @@ def main() -> int:
         "05": {"components": 10, "passed": 10, "ordinary_subtests_passed": 18, "upstream_skipped_components": 1, "coverage_note": "the root-only blkdiscard offsets component was skipped by upstream policy; safe unprivileged blkdiscard behavior is covered differentially and under Valgrind"},
         "06": {"components": 4, "passed": 4, "ordinary_subtests_passed": 17, "upstream_skipped_components": 1, "coverage_note": "coresched was skipped under upstream policy because the test kernel lacks CONFIG_SCHED_CORE; all 17 executable flock, range-lock, and namei checks passed, while coresched and the other six applets are covered by safe differential and Valgrind cases"},
         "07": {"components": 11, "passed": 11, "ordinary_subtests_passed": 63, "upstream_skipped_components": 1, "coverage_note": "the root-only chrt component was skipped under upstream policy; its non-root component and all 63 executable chrt, col, fallocate, fincore, getopt, and whereis checks passed, while mkfs.bfs, write, chmem, and rfkill are covered by safe differential and Valgrind cases"},
+        "08": {"components": 3, "passed": 3, "ordinary_subtests_passed": 1, "upstream_skipped_components": 2, "coverage_note": "one setarch component executed and two environment-dependent components were skipped under upstream Docker policy; all three passed under that policy, and all 22 public aliases are covered differentially and share the one resource-checked implementation body"},
     }[suffix]
     evidence = {
         "schema": 1,
@@ -218,13 +221,15 @@ def main() -> int:
             "declaration_map_sha256": {
                 str(path.relative_to(audit)): sha256(path) for path in declaration_maps
             },
+            "scaffold": load(audit_prepared / "rustbox-scaffold.json"),
             "cargo_check": load(audit_prepared / "rustbox-cargo-check.json"),
-            "generated_rust_repairs": 0,
+            "generated_rust_repairs": load(audit_prepared / "rustbox-scaffold.json")["rust_files_changed"],
         },
         "reachable": {
             **rust_metrics(reachable),
+            "scaffold": load(reachable_prepared / "rustbox-scaffold.json"),
             "cargo_check": load(reachable_prepared / "rustbox-cargo-check.json"),
-            "generated_rust_repairs": 0,
+            "generated_rust_repairs": load(reachable_prepared / "rustbox-scaffold.json")["rust_files_changed"],
         },
         "stable_integration": {
             **rust_metrics(stable),

@@ -13,6 +13,7 @@ from pathlib import Path
 
 
 NUM_TRAITS_IMPORT = re.compile(r"^\s*use\s+::num_traits::", re.MULTILINE)
+VA_LIST_USE = re.compile(r"::core::ffi::VaList\b")
 
 
 def sha256(path: Path) -> str:
@@ -67,6 +68,17 @@ def main() -> int:
             })
         after = changed
 
+    feature_additions: list[str] = []
+    lib_before = (source / "lib.rs").read_text(encoding="utf-8")
+    lib_after = lib_before
+    if VA_LIST_USE.search(rust_text) and "#![feature(c_variadic)]" not in lib_before:
+        feature_lines = list(re.finditer(r"^#!\[feature\([^\n]+\)\]\n", lib_before, re.MULTILINE))
+        if not feature_lines:
+            raise RuntimeError("generated crate has no feature insertion point")
+        insertion = feature_lines[-1].end()
+        lib_after = lib_before[:insertion] + "#![feature(c_variadic)]\n" + lib_before[insertion:]
+        feature_additions.append("c_variadic")
+
     output.parent.mkdir(parents=True, exist_ok=True)
     temporary = Path(tempfile.mkdtemp(prefix=output.name + ".", dir=output.parent))
     staged = temporary / output.name
@@ -79,12 +91,14 @@ def main() -> int:
             ),
         )
         (staged / "Cargo.toml").write_text(after, encoding="utf-8")
+        (staged / "lib.rs").write_text(lib_after, encoding="utf-8")
         record = {
             "schema": 1,
             "input_cargo_sha256": hashlib.sha256(before.encode()).hexdigest(),
             "output_cargo_sha256": hashlib.sha256(after.encode()).hexdigest(),
             "dependency_additions": additions,
-            "rust_files_changed": 0,
+            "crate_feature_additions": feature_additions,
+            "rust_files_changed": int(lib_after != lib_before),
         }
         (staged / "rustbox-scaffold.json").write_text(
             json.dumps(record, indent=2, sort_keys=True) + "\n", encoding="utf-8"

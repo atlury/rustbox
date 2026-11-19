@@ -56,6 +56,14 @@ case $batch in
     extra_objects='./.libs/libsmartcols.a ./.libs/libcommon.a'
     extra_libraries=''
     ;;
+  util-linux-small-08)
+    suffix=08
+    library_name=libutil_linux_small_08_normalized_reachable.a
+    applets='i386 ia64 linux32 linux64 mips mips32 mips64 parisc parisc32 parisc64 ppc ppc32 ppc64 s390 s390x setarch sparc sparc32 sparc32bash sparc64 uname26 x86_64'
+    extra_objects='./.libs/libcommon.a'
+    extra_libraries=''
+    replacement_count=1
+    ;;
   *) echo "hybrid linker not yet declared for $batch" >&2; exit 2 ;;
 esac
 

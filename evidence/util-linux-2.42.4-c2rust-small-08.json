@@ -1,0 +1,299 @@
+{
+  "audit": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "f7cf93d8bb5fc627e5a365ee4f64eb12c89dcaea1e21b771cd1205767c8b32eb",
+      "cargo_toml_sha256": "7a7db234554bb8555dd3e317ac6bf2f00c6118e357df16bf5a0717537a5a093e",
+      "diagnostics_by_level": {
+        "warning": 4
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "a66a620ff538d14e7e05cf07fd11e5df4b1790be9bc0e1ee892b87f6e69c00ee",
+      "toolchain_request": "nightly-2023-04-15",
+      "warning_codes": {
+        "unused_must_use": 2,
+        "unused_parens": 1
+      }
+    },
+    "compile_error_macros": 0,
+    "declaration_map_sha256": {
+      "src/setarch.c_decls.json": "83a136f21b082ae9dbbdfc936ad81e20579b7ee3c5d89df6cd66901b1dd5bb2d"
+    },
+    "declaration_maps": 1,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "1a0f0b34f6870c549f46747c8cbd5645e457adc5165687d6112357aac52b7ba2",
+      "src/setarch.rs": "8c410e013bd8d18751f62289c09d18526446fc27b7434471c0b1b42f82a5c605"
+    },
+    "generated_rust_repairs": 1,
+    "rust_bytes": 115355,
+    "rust_files": 3,
+    "scaffold": {
+      "crate_feature_additions": [
+        "c_variadic"
+      ],
+      "dependency_additions": [],
+      "input_cargo_sha256": "7a7db234554bb8555dd3e317ac6bf2f00c6118e357df16bf5a0717537a5a093e",
+      "output_cargo_sha256": "7a7db234554bb8555dd3e317ac6bf2f00c6118e357df16bf5a0717537a5a093e",
+      "rust_files_changed": 1,
+      "schema": 1
+    },
+    "todo_macros": 0,
+    "unimplemented_macros": 0
+  },
+  "batch": {
+    "applets": [
+      "i386",
+      "ia64",
+      "linux32",
+      "linux64",
+      "mips",
+      "mips32",
+      "mips64",
+      "parisc",
+      "parisc32",
+      "parisc64",
+      "ppc",
+      "ppc32",
+      "ppc64",
+      "s390",
+      "s390x",
+      "setarch",
+      "sparc",
+      "sparc32",
+      "sparc32bash",
+      "sparc64",
+      "uname26",
+      "x86_64"
+    ],
+    "manifest_sha256": "1b2860c621457db22028dc52f88460851d28f849cf985b1b81f42a2faa758d32",
+    "name": "util-linux-small-08"
+  },
+  "behavior": {
+    "differential": {
+      "cases": 54,
+      "failures": [],
+      "passed": 54,
+      "schema": 1
+    },
+    "targeted_upstream": {
+      "components": 3,
+      "coverage_note": "one setarch component executed and two environment-dependent components were skipped under upstream Docker policy; all three passed under that policy, and all 22 public aliases are covered differentially and share the one resource-checked implementation body",
+      "log_sha256": "e5ebe39637751a65b607c9f3b2aad7789f0fc83ffa92a8d36df8a92ca57ad1ce",
+      "ordinary_subtests_passed": 1,
+      "passed": 3,
+      "upstream_skipped_components": 2
+    },
+    "valgrind": {
+      "cases": 1,
+      "logs": [
+        "valgrind-setarch.log"
+      ],
+      "passed": 1,
+      "schema": 1
+    }
+  },
+  "entrypoint_specialization": {
+    "database_sha256": "b5d7f12a0f786e1d1a2c8bec9bb26f64fde0ef820f952abf48d3502d9f320b37",
+    "entrypoints": {
+      "setarch": {
+        "after_sha256": "20c058482389680bd6f3953b32533ede5aee9045516f1f1b31aa448d5b43db44",
+        "before_sha256": "bb9bf4a14e8a1223aedf6108bb9c445981eae30661dfd4325d14765a7d34854b",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "i386",
+          "ia64",
+          "linux32",
+          "linux64",
+          "mips",
+          "mips32",
+          "mips64",
+          "parisc",
+          "parisc32",
+          "parisc64",
+          "ppc",
+          "ppc32",
+          "ppc64",
+          "s390",
+          "s390x",
+          "setarch",
+          "sparc",
+          "sparc32",
+          "sparc32bash",
+          "sparc64",
+          "uname26",
+          "x86_64"
+        ],
+        "specialized_entrypoint": "rustbox_setarch_main"
+      }
+    },
+    "schema": 1
+  },
+  "hybrid": {
+    "bytes": 5698160,
+    "canonical_applet_objects_linked": false,
+    "link_map_sha256": "4e8a545ae6e2c0d3ebeff05ae43a2bd023dbce3914418e26856a43fcc30f7687",
+    "replacement_symbols_defined_once": true,
+    "sha256": "772b31c3965bde01d4ee895b4890e6b9f11d84d3bbff39a6eedf8579104d2bae",
+    "stripped_bytes": 1108616
+  },
+  "input": {
+    "clang_database_sha256": "ae7282a1e610ac0cba546c1b680ec08596d01b4687c939f1946dba3cd052a70b",
+    "compile_commands": 1,
+    "gcc_database_sha256": "5531e1967ffa8621f087036daa3b9d8a92b2d45813eac704335a84511e799e22",
+    "slice_sha256": "1bacbaf9e1c8361405c3a627095d66693c17bc6fa119202fba5917daac4f42da",
+    "upstream_archive_sha256": "fbd62a100ab7bb8746ba0661255c3c48185b1e9021507c624da01fbc696330ec"
+  },
+  "normalization": {
+    "abi_checks": [
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "sys-utils/setarch.c"
+      }
+    ],
+    "batch": "util-linux-small-08",
+    "compiler_replays": [
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "sys-utils/setarch.c"
+      }
+    ],
+    "gcc_database_sha256": "c3c09231f0021ec309077f561080208e9fbbf0627691848edbf8955045bfc94c",
+    "input_database_sha256": "1bacbaf9e1c8361405c3a627095d66693c17bc6fa119202fba5917daac4f42da",
+    "normalized_database_sha256": "3d4341b97b094a955f36a1c910061436a787cfad60ee9e52f5d2a0a89323e835",
+    "schema": 1,
+    "semantic_patches": [
+      {
+        "after_sha256": "5d6d8d26ad5a1d43c06ff8c77759e14b570d4425aaef02c76f7359ca8996f1c9",
+        "before_sha256": "459b433fd57a2f5edf7676522c63f2ec2cf58f347d50f4bb0c67d163e0519e07",
+        "engine": "exact",
+        "expected_after": "sizeof(all_personalities) / sizeof(all_personalities[0])",
+        "expected_after_count": 3,
+        "expected_before": "ARRAY_SIZE(all_personalities)",
+        "expected_before_count": 3,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(all_personalities) / sizeof(all_personalities[0])",
+        "source": "sys-utils/setarch.c",
+        "verified_after_count": 3,
+        "verified_before_count": 3
+      },
+      {
+        "after_sha256": "bb9bf4a14e8a1223aedf6108bb9c445981eae30661dfd4325d14765a7d34854b",
+        "before_sha256": "5d6d8d26ad5a1d43c06ff8c77759e14b570d4425aaef02c76f7359ca8996f1c9",
+        "engine": "exact",
+        "expected_after": "sizeof(all_options) / sizeof(all_options[0])",
+        "expected_before": "ARRAY_SIZE(all_options)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(all_options) / sizeof(all_options[0])",
+        "source": "sys-utils/setarch.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      }
+    ],
+    "sources": {
+      "sys-utils/setarch.c": {
+        "canonical_sha256": "459b433fd57a2f5edf7676522c63f2ec2cf58f347d50f4bb0c67d163e0519e07",
+        "changed": true,
+        "normalized_sha256": "bb9bf4a14e8a1223aedf6108bb9c445981eae30661dfd4325d14765a7d34854b",
+        "staged_before_sha256": "459b433fd57a2f5edf7676522c63f2ec2cf58f347d50f4bb0c67d163e0519e07"
+      }
+    }
+  },
+  "reachable": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "de489558e1d0ae8496e644be5cad53163c363c0a19903fa1100838383aad0c29",
+      "cargo_toml_sha256": "1824d3e1f74cc98f0b5931d683bfbefb05f5f61b1bb4b32df6df81fd57065071",
+      "diagnostics_by_level": {},
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "8a7a44e5c1d7b5879e91e8c8303b0a3d3922d9c05aa310f94a750451e56808c5",
+      "toolchain_request": "nightly-2023-04-15",
+      "warning_codes": {}
+    },
+    "compile_error_macros": 0,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "1a0f0b34f6870c549f46747c8cbd5645e457adc5165687d6112357aac52b7ba2",
+      "src/setarch.rs": "beb0d485865be7ce4f4e49513b2d1346646c79606b5882a66c327b31e877ac45"
+    },
+    "generated_rust_repairs": 0,
+    "rust_bytes": 66983,
+    "rust_files": 3,
+    "scaffold": {
+      "dependency_additions": [],
+      "input_cargo_sha256": "1824d3e1f74cc98f0b5931d683bfbefb05f5f61b1bb4b32df6df81fd57065071",
+      "output_cargo_sha256": "1824d3e1f74cc98f0b5931d683bfbefb05f5f61b1bb4b32df6df81fd57065071",
+      "rust_files_changed": 0,
+      "schema": 1
+    },
+    "todo_macros": 0,
+    "unimplemented_macros": 0
+  },
+  "recorded_at": "2026-11-19",
+  "schema": 1,
+  "stable_integration": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+      "cargo_lock_sha256": "417be890723124669c967b133a730c191d3f834671c72c8691ab21534ec4b2be",
+      "cargo_toml_sha256": "1824d3e1f74cc98f0b5931d683bfbefb05f5f61b1bb4b32df6df81fd57065071",
+      "diagnostics_by_level": {},
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+      "schema": 1,
+      "stderr_sha256": "473ef990a7e9a9d1acb517550c72d26efdc2f604ef7076f1e8481d876fc3fd62",
+      "toolchain_request": "crate default",
+      "warning_codes": {}
+    },
+    "compile_error_macros": 0,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "399047820290e4f98b2a8c4f3525330a7d610feb8eb390cc9d6b9bcfd8e2010e",
+      "src/setarch.rs": "03953853ba7621580f10a6623360ee25cb390e46f693c74120eaba8024dd7720"
+    },
+    "hand_edits": 0,
+    "modernization_manifest_sha256": "248dc10a441b85c6fb01d42973b85c988cf7cd726312553b9849861deb5df0d9",
+    "opaque_types_verified_pointer_only": [
+      "_IO_codecvt",
+      "_IO_marker",
+      "_IO_wide_data"
+    ],
+    "repair_score": 3,
+    "repair_score_basis": "feature-gate cleanup (1) and reusable opaque-pointer spelling rule (2)",
+    "rust_bytes": 67038,
+    "rust_files": 3,
+    "todo_macros": 0,
+    "unimplemented_macros": 0
+  },
+  "status": "hybrid canonical parity; Rustbox-native integration pending",
+  "translator": {
+    "audit_preserves_unused_functions": true,
+    "fail_on_error": true,
+    "image_id": "sha256:d7f3755ec6a27d89124626535d36b859ddee1f7a11236454f7952bf513c3d6aa",
+    "name": "C2Rust",
+    "version": "0.22.1"
+  }
+}
