@@ -34,12 +34,11 @@ def main() -> int:
     normalized = analysis / "normalized"
     manifest_path = normalized / "normalization.json"
     manifest = json.loads(manifest_path.read_text())
-    if manifest["canonical_tree_sha256"] != manifest["normalized_tree_sha256"]:
-        raise RuntimeError("normalized source is not byte-identical to canonical source")
-    if manifest["transformations"] or any(
-        record["changed"] for record in manifest["production_sources"].values()
-    ):
-        raise RuntimeError("unexpected zlib normalization rewrite")
+    changed = sorted(
+        name for name, record in manifest["production_sources"].items() if record["changed"]
+    )
+    if changed != ["compress.c", "uncompr.c"] or len(manifest["transformations"]) != 3:
+        raise RuntimeError(f"unexpected zlib normalization change set: {changed!r}")
 
     build = normalized / "gcc-cmake"
     inventory = json.loads(subprocess.run(
@@ -82,7 +81,7 @@ def main() -> int:
         "release": "1.4",
         "normalization": {
             "strategy": manifest["strategy"],
-            "changed_sources": 0,
+            "changed_sources": 2,
             "production_sources": len(production),
             "canonical_tree_sha256": manifest["canonical_tree_sha256"],
             "normalized_tree_sha256": manifest["normalized_tree_sha256"],
@@ -105,14 +104,17 @@ def main() -> int:
             "abidiff_output_sha256": hashlib.sha256(abi.stdout.encode()).hexdigest(),
         },
         "translation_policy": {
-            "semantic_patches": [],
+            "semantic_patches": [
+                "normalization/zlib/split-z-size-declarators.cocci",
+                "normalization/zlib/explicit-z-size.cocci",
+            ],
             "holes_allowed": False,
             "next_gate": "C2Rust audit translation of all production compile commands",
         },
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")
-    print(json.dumps({"changed_sources": 0, "tests": 18, "exports": len(normalized_symbols)}, sort_keys=True))
+    print(json.dumps({"changed_sources": 2, "tests": 18, "exports": len(normalized_symbols)}, sort_keys=True))
     return 0
 
 

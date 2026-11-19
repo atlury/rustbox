@@ -46,17 +46,20 @@
   },
   "normalization": {
     "canonical_tree_sha256": "375515d6811085408914429bbe357b3c3e6c659c54c56e209f1fae507d1fa258",
-    "changed_sources": 0,
-    "manifest_sha256": "98be9ef21a63e738bda25832e0fbb692049b90e6db4cc53443e24a26586bddf5",
-    "normalized_tree_sha256": "375515d6811085408914429bbe357b3c3e6c659c54c56e209f1fae507d1fa258",
+    "changed_sources": 2,
+    "manifest_sha256": "0af77f65e6273c867c3166c51430cfa843852630453c1846bb180edc4c58496b",
+    "normalized_tree_sha256": "eacc2637eb1161f681e073551f9cd924eb8109447a2ba50f1deb4432c3442b48",
     "production_sources": 15,
-    "strategy": "exact-source zero-change normalization"
+    "strategy": "Coccinelle declarator split and explicit target-width conversions"
   },
   "release": "1.4",
   "schema": 1,
   "translation_policy": {
     "holes_allowed": false,
     "next_gate": "C2Rust audit translation of all production compile commands",
-    "semantic_patches": []
+    "semantic_patches": [
+      "normalization/zlib/split-z-size-declarators.cocci",
+      "normalization/zlib/explicit-z-size.cocci"
+    ]
   }
 }
