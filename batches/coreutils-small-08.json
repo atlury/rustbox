@@ -8,13 +8,13 @@
     "cut",
     "date",
     "env",
-    "od",
+    "pr",
     "ptx",
     "stty",
     "tr",
     "unexpand"
   ],
-  "output_regex": "/src/libsinglebin_(basenc|chown|cut|date|env|od|ptx|stty|tr|unexpand)_",
+  "output_regex": "/src/libsinglebin_(basenc|chown|cut|date|env|pr|ptx|stty|tr|unexpand)_",
   "expected_compile_commands": 16,
   "translation_variant": "canonical",
   "c_normalization": [],
@@ -22,7 +22,11 @@
     {
       "applet": "factor",
       "reason": "C2Rust 0.22.1 panics on the x86_64 GNU inline-assembly constraints emitted through factor's arithmetic helpers, including e and %1. Preserve the optimized canonical path for a typed asm/GMP bridge rather than hand-editing generated Rust."
+    },
+    {
+      "applet": "od",
+      "reason": "C2Rust 0.22.1 rejects GNU od's canonical _Float16 typedef as unsupported Half in both audit and reachable modes. Preserve half-float input/output semantics for a typed ABI bridge rather than removing the declaration or disabling the format."
     }
   ],
-  "selection_policy": "The next measured-smallest canonical archives after batch seven whose captured translation units contain neither SELinux nor systemd support. Date and du are kept in separate batches because both capture show-date.c under distinct applet configurations. Factor moved to the typed inline-assembly/GMP bridge queue after both raw translator passes reproduced C2Rust's constraint-parser panic; stty substitutes here. Previously isolated shared-source families basenc and unexpand can now advance without same-batch C2Rust deduplication."
+  "selection_policy": "The next measured-smallest canonical archives after batch seven whose captured translation units contain neither SELinux nor systemd support. Date and du are kept in separate batches because both capture show-date.c under distinct applet configurations. Factor moved to the typed inline-assembly/GMP bridge queue after both raw translator passes reproduced C2Rust's constraint-parser panic; stty substitutes. Od moved to the typed half-float bridge queue after both raw passes rejected its canonical _Float16 declaration; pr substitutes. Previously isolated shared-source families basenc and unexpand can now advance without same-batch C2Rust deduplication."
 }
