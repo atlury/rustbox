@@ -8,8 +8,8 @@
   "canonical_build": "canonical-clang-no-security-compdb",
   "output_regex": "/src/libsinglebin_cp_",
   "expected_compile_commands": 6,
-  "translation_variant": "canonical",
-  "reachable_staticlib": "libcoreutils_small_14_reachable.a",
+  "translation_variant": "normalized",
+  "reachable_staticlib": "libcoreutils_small_14_normalized_reachable.a",
   "differential_harness": "coreutils_small_14_differential.py",
   "upstream_tests": [
     "tests/cp/copy-FMR.sh",
