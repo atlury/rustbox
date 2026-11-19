@@ -67,6 +67,7 @@ def main() -> int:
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
     normalizations = manifest.get("c_normalization", [])
     header_normalizations = manifest.get("header_normalization", [])
+    header_passthrough = manifest.get("header_passthrough", [])
     all_normalizations = [*normalizations, *header_normalizations]
     if len(database) != manifest["expected_compile_commands"]:
         raise RuntimeError("compile database count differs from batch declaration")
@@ -143,6 +144,21 @@ def main() -> int:
             source_records[str(relative)] = {
                 "canonical_sha256": sha256(source),
                 "staged_before_sha256": sha256(destination),
+            }
+
+        for name in header_passthrough:
+            relative = Path(name)
+            source = source_root / relative
+            destination = staged_source / relative
+            if not source.is_file() or destination.exists():
+                raise RuntimeError(f"invalid passthrough header source: {relative}")
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, destination)
+            destination.chmod(destination.stat().st_mode | 0o200)
+            source_records[str(relative)] = {
+                "canonical_sha256": sha256(source),
+                "staged_before_sha256": sha256(destination),
+                "passthrough": True,
             }
 
         patch_records = []
