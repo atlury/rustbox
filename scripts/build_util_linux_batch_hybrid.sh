@@ -99,6 +99,14 @@ case $batch in
     extra_objects='login-utils/chfn-ch-common.o login-utils/chfn-auth.o login-utils/chfn-islocal.o login-utils/chfn-setpwnam.o lib/monotonic.o text-utils/hexdump-conv.o text-utils/hexdump-display.o text-utils/hexdump-parse.o rustbox-support-13/hwclock-parse-date.o sys-utils/hwclock-hwclock-cmos.o sys-utils/hwclock-hwclock-rtc.o sys-utils/lscpu-lscpu-cputype.o sys-utils/lscpu-lscpu-cpu.o sys-utils/lscpu-lscpu-topology.o sys-utils/lscpu-lscpu-virt.o sys-utils/lscpu-lscpu-arm.o sys-utils/lscpu-lscpu-dmi.o sys-utils/lscpu-lscpu-riscv.o lib/script-pty-session.o sys-utils/swapon-swapon-common.o lib/swapon-swapprober.o lib/unshare-caputils.o lib/unshare-exec_shell.o ./.libs/liblastlog2.a ./.libs/libmount.a ./.libs/libblkid.a ./.libs/libsmartcols.a ./.libs/libtcolors.a ./.libs/libcommon_logindefs.a ./.libs/libcommon.a'
     extra_libraries='-leconf -lpam -lpam_misc -lsqlite3 -ltinfo'
     ;;
+  util-linux-small-14)
+    suffix=14
+    library_name=libutil_linux_small_14_normalized_reachable.a
+    applets='agetty cfdisk fdisk findmnt login lsblk lsfd runuser sfdisk su sulogin vigr'
+    extra_objects='lib/agetty-plymouth-ctrl.o lib/agetty-netlink.o lib/agetty-netaddrq.o disk-utils/fdisk-fdisk-menu.o disk-utils/fdisk-fdisk-list.o lib/fdisk-pager.o misc-utils/findmnt-findmnt-verify.o misc-utils/lsblk-lsblk-mnt.o misc-utils/lsblk-lsblk-properties.o misc-utils/lsblk-lsblk-devtree.o lsfd-cmd/lsfd-decode-file-flags.o lsfd-cmd/lsfd-file.o lsfd-cmd/lsfd-error.o lsfd-cmd/lsfd-cdev.o lsfd-cmd/lsfd-bdev.o lsfd-cmd/lsfd-sock.o lsfd-cmd/lsfd-sock-xinfo.o lsfd-cmd/lsfd-unkn.o lsfd-cmd/lsfd-fifo.o lsfd-cmd/lsfd-pidfd.o lsfd-cmd/lsfd-util.o login-utils/su-common.o lib/pty-session.o lib/monotonic.o login-utils/sulogin-consoles.o rustbox-support-14/list-sort-support.o ./.libs/libfdisk.a ./.libs/libmount.a ./.libs/libblkid.a ./.libs/libsmartcols.a ./.libs/libtcolors.a ./.libs/libuuid.a ./.libs/libcommon_logindefs.a ./.libs/libcommon_shells.a ./.libs/libcommon.a'
+    extra_libraries='-leconf -lcrypt -lncursesw -lpam -lpam_misc -lreadline -ltinfo'
+    replacement_count=12
+    ;;
   *) echo "hybrid linker not yet declared for $batch" >&2; exit 2 ;;
 esac
 
@@ -125,6 +133,13 @@ RUSTBOX_TOOL_IMAGE=rustbox-normalize:2026-11-19 \
         rustbox-support-13/hwclock-parse-date.o
       nm -g --defined-only rustbox-support-13/hwclock-parse-date.o \
         | grep -q " rustbox_hwclock_yyparse$"
+    fi
+    if test "$suffix" = 14; then
+      mkdir -p rustbox-support-14
+      clang-18 -O2 -g -DHAVE_CONFIG_H -I. -include config.h \
+        -I/rustbox-util-linux-source/util-linux-2.42.4/include \
+        -c /work/bridges/util-linux/list-sort-support.c \
+        -o rustbox-support-14/list-sort-support.o
     fi
     clang-18 -O2 -g -Wl,-Map,"$output.map" -o "$output" \
       "/work/bridges/util-linux/small-$suffix-dispatch.c" \
