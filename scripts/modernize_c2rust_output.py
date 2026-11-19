@@ -18,6 +18,9 @@ TYPE_ALIAS = re.compile(
     r"^\s*pub\s+type\s+([A-Za-z_][A-Za-z0-9_]*)\s*=\s*"
     r"([A-Za-z_][A-Za-z0-9_]*)\s*;\s*$"
 )
+RUST_LITERAL = re.compile(
+    r"(?:b|c)?r\#*\".*?\"\#*|(?:b|c)?\"(?:\\.|[^\"\\])*\"|b?'(?:\\.|[^'\\])*'"
+)
 REMOVED_FEATURES = {
     "#![feature(c_variadic)]",
     "#![feature(extern_types)]",
@@ -33,9 +36,14 @@ def digest(path: Path) -> str:
 def has_only_pointer_uses(line: str, name: str) -> bool:
     """Accept every occurrence only when it denotes or constructs a raw pointer."""
     escaped = re.escape(name)
+    # A spelling inside a byte/string/character literal or trailing comment is
+    # data, not a Rust identifier use.  C2Rust commonly emits option names that
+    # happen to match opaque C tags (for example b"exclude\\0").
+    residual = RUST_LITERAL.sub("", line)
+    residual = residual.split("//", 1)[0]
     # A C field and an opaque tag can legitimately share a spelling.  Remove
     # Rust field/argument labels before classifying occurrences in type position.
-    residual = re.sub(rf"\b{escaped}\s*:", "", line)
+    residual = re.sub(rf"\b{escaped}\s*:", "", residual)
     allowed = (
         rf"\*(?:mut|const)\s+{escaped}\b",
         rf"\bnull(?:_mut)?\s*::\s*<\s*{escaped}\s*>",
