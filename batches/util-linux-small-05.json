@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "upstream": "util-linux 2.42.4",
+  "name": "util-linux-small-05",
+  "applets": [
+    "look",
+    "pipesz",
+    "blkdiscard",
+    "tunelp",
+    "rename",
+    "uuidparse",
+    "utmpdump",
+    "lastlog2",
+    "scriptlive",
+    "vipw"
+  ],
+  "output_regex": "/(?:misc-utils/(?:look|pipesz-pipesz|rename|uuidparse-uuidparse|lastlog2-lastlog2)|sys-utils/(?:blkdiscard-blkdiscard|tunelp)|term-utils/scriptlive|login-utils/(?:vipw|utmpdump))\\.o$",
+  "expected_compile_commands": 10,
+  "c_normalization": [
+    {
+      "source": "misc-utils/pipesz.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(excl)",
+      "replacement": "sizeof(excl) / sizeof(excl[0])",
+      "expected_after": "sizeof(excl) / sizeof(excl[0])",
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."
+    },
+    {
+      "source": "misc-utils/rename.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(excl)",
+      "replacement": "sizeof(excl) / sizeof(excl[0])",
+      "expected_after": "sizeof(excl) / sizeof(excl[0])",
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."
+    },
+    {
+      "source": "misc-utils/uuidparse.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(infos)",
+      "expected_before_count": 4,
+      "replacement": "sizeof(infos) / sizeof(infos[0])",
+      "expected_after": "sizeof(infos) / sizeof(infos[0])",
+      "expected_after_count": 4,
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."
+    },
+    {
+      "source": "misc-utils/uuidparse.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(columns)",
+      "replacement": "sizeof(columns) / sizeof(columns[0])",
+      "expected_after": "sizeof(columns) / sizeof(columns[0])",
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."
+    },
+    {
+      "source": "misc-utils/uuidparse.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(excl)",
+      "replacement": "sizeof(excl) / sizeof(excl[0])",
+      "expected_after": "sizeof(excl) / sizeof(excl[0])",
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."
+    },
+    {
+      "source": "term-utils/scriptlive.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(excl)",
+      "replacement": "sizeof(excl) / sizeof(excl[0])",
+      "expected_after": "sizeof(excl) / sizeof(excl[0])",
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."
+    }
+  ],
+  "selection_policy": "The next ten smallest independent canonical applet translation units after batch four. Hexdump and enosys share the list.h macro edge, the dotted mkfs.bfs public name is isolated, and the su/runuser shared-implementation wrappers remain isolated for later edge-case batches."
+}
