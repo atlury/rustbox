@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import shlex
 from collections import Counter
 from pathlib import Path
@@ -34,6 +35,7 @@ def main() -> int:
     parser.add_argument("--source-root", type=Path, required=True)
     parser.add_argument("--build-root", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--compiler-family", choices=("clang", "gcc"), default="clang")
     args = parser.parse_args()
 
     database = args.database.resolve()
@@ -73,7 +75,11 @@ def main() -> int:
         if not command:
             raise RuntimeError(f"entry {number}: empty command")
         compiler = os.path.basename(command[0])
-        if compiler not in {"clang", "clang-18"}:
+        expected = {
+            "clang": re.compile(r"^clang(?:-[0-9]+)?$"),
+            "gcc": re.compile(r"^(?:gcc|cc)(?:-[0-9]+)?$"),
+        }[args.compiler_family]
+        if not expected.fullmatch(compiler):
             raise RuntimeError(f"entry {number}: unexpected compiler {compiler}")
 
         normalized_command = "\0".join([str(directory), *command]).encode()

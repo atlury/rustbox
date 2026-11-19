@@ -2,19 +2,25 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 set -eu
 
-test "$#" -eq 1 || {
-  echo "usage: $0 BATCH" >&2
+test "$#" -ge 1 && test "$#" -le 2 || {
+  echo "usage: $0 BATCH [canonical|normalized]" >&2
   exit 2
 }
 batch=$1
+variant=${2:-canonical}
 case $batch in
   *[!A-Za-z0-9_-]*|'') exit 2 ;;
+esac
+case $variant in
+  canonical) input="$batch-reachable" ;;
+  normalized) input="$batch-normalized-reachable" ;;
+  *) exit 2 ;;
 esac
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 base="$root/work/analysis/coreutils-9.12/translations/c2rust-0.22.1"
 "$root/scripts/modernize_c2rust_output.py" \
-  --input "$base/$batch-reachable" \
+  --input "$base/$input" \
   --output "$base/$batch-stable"
 
 RUSTBOX_TOOL_IMAGE=rustbox-normalize:2026-11-19 \

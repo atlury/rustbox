@@ -84,6 +84,11 @@ stores its validated database under ignored `work/analysis/`.  The validator
 intentionally retains multiple commands for one source file: Coreutils builds
 shared implementation files with different preprocessor definitions for
 different applets, and deduplicating by filename would discard configurations.
+`scripts/capture_coreutils_gcc_compdb.sh` independently configures and captures
+the same 563 commands with GCC.  A normalized source is replayed against each
+compiler's own generated headers and feature decisions; mixing GCC into the
+Clang-configured tree is rejected because it can create false missing-header
+failures.
 
 `scripts/analyze_coreutils_canonical.sh` replays all 563 configurations through
 Clang Static Analyzer, Clang-Tidy, and Cppcheck: 1,689 analyzer actions in all.

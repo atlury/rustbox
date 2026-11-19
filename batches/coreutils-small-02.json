@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "upstream": "GNU Coreutils 9.12",
+  "name": "coreutils-small-02",
+  "applets": [
+    "arch",
+    "echo",
+    "hostname",
+    "nice",
+    "nproc",
+    "readlink",
+    "sleep",
+    "sync",
+    "uptime",
+    "users"
+  ],
+  "output_regex": "/src/libsinglebin_(arch|echo|hostname|nice|nproc|readlink|sleep|sync|uptime|users)_",
+  "expected_compile_commands": 10,
+  "translation_variant": "normalized",
+  "c_normalization": [
+    {
+      "source": "src/sync.c",
+      "semantic_patch": "normalization/coreutils/sync-bool-and.cocci",
+      "expected_before": "ok &= sync_arg (mode, argv[optind]);",
+      "expected_after": "ok = sync_arg(mode, argv[optind]) && ok;",
+      "reason": "C2Rust rejects integer-to-bool casts generated for bool &= bool. Calling sync_arg first preserves eager RHS evaluation and the same boolean truth table."
+    }
+  ],
+  "selection_policy": "The ten smallest remaining one-command applet slices with independent public entry points; shared canonical C libraries remain linked during the first hybrid substitution gate."
+}

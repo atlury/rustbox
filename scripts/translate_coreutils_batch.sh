@@ -3,18 +3,23 @@
 set -eu
 
 usage() {
-  echo "usage: $0 BATCH audit|reachable" >&2
+  echo "usage: $0 BATCH audit|reachable [canonical|normalized]" >&2
   exit 2
 }
 
-test "$#" -eq 2 || usage
+test "$#" -ge 2 && test "$#" -le 3 || usage
 batch=$1
 mode=$2
+variant=${3:-canonical}
 case $batch in
   *[!A-Za-z0-9_-]*|'') usage ;;
 esac
 case $mode in
   audit|reachable) ;;
+  *) usage ;;
+esac
+case $variant in
+  canonical|normalized) ;;
   *) usage ;;
 esac
 
@@ -23,7 +28,14 @@ manifest="$root/batches/$batch.json"
 analysis="$root/work/analysis/coreutils-9.12"
 database="$analysis/canonical-clang/compile_commands.json"
 slice="$analysis/slices/$batch/compile_commands.json"
-output="$analysis/translations/c2rust-0.22.1/$batch-$mode"
+slice_container="/work/work/analysis/coreutils-9.12/slices/$batch/compile_commands.json"
+output_name="$batch-$mode"
+if test "$variant" = normalized; then
+  slice="$analysis/normalized/$batch/compile_commands.json"
+  slice_container="/work/work/analysis/coreutils-9.12/normalized/$batch/compile_commands.json"
+  output_name="$batch-normalized-$mode"
+fi
+output="$analysis/translations/c2rust-0.22.1/$output_name"
 
 test -s "$manifest" || { echo "unknown batch: $batch" >&2; exit 2; }
 test -s "$database" || {
@@ -33,16 +45,23 @@ test -s "$database" || {
 
 regex=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["output_regex"])' "$manifest")
 expected=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["expected_compile_commands"])' "$manifest")
-"$root/scripts/extract_compdb_slice.py" \
-  --database "$database" \
-  --output "$slice" \
-  --output-regex "$regex" \
-  --expected-commands "$expected"
+if test "$variant" = canonical; then
+  "$root/scripts/extract_compdb_slice.py" \
+    --database "$database" \
+    --output "$slice" \
+    --output-regex "$regex" \
+    --expected-commands "$expected"
+else
+  test -s "$slice" || {
+    echo "run scripts/normalize_coreutils_batch.sh $batch first" >&2
+    exit 1
+  }
+fi
 mkdir -p "$output"
 
 set -- c2rust transpile \
-  "/work/work/analysis/coreutils-9.12/slices/$batch/compile_commands.json" \
-  --output-dir "/work/work/analysis/coreutils-9.12/translations/c2rust-0.22.1/$batch-$mode" \
+  "$slice_container" \
+  --output-dir "/work/work/analysis/coreutils-9.12/translations/c2rust-0.22.1/$output_name" \
   --emit-build-files \
   --emit-c-decl-map \
   --fail-on-error \
