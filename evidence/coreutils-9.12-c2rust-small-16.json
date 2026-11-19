@@ -1,0 +1,285 @@
+{
+  "audit": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "cd3da9b4b277e84eeccfe23b7a3b62220d71fbbd19e7b617e81689c7394f0a64",
+      "cargo_toml_sha256": "9987aa207d009bba62f6f73b969b8c4709393e36c18c8ad6b6b3a247b71be43e",
+      "diagnostics_by_level": {
+        "warning": 230
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "820d5d68580a125681b7d39155d4778936a023a44ffc346ca977aa4a440b5876",
+      "toolchain_request": "nightly-2023-04-15",
+      "warning_codes": {
+        "stable_features": 1,
+        "unreachable_code": 2,
+        "unused_imports": 7,
+        "unused_parens": 7,
+        "unused_variables": 212
+      }
+    },
+    "compile_error_macros": 0,
+    "declaration_map_sha256": {
+      "src/copy.c_decls.json": "aa386f5671bf04fe2c6c5a073cdc7540f2eb3027f7372435a6ee96d655fd7af4",
+      "src/copy_file_data.c_decls.json": "8f9ba304c2b95c44757c3ffca150c7768202d1c75b8c61763d2bbfebec621cfd",
+      "src/cp_hash.c_decls.json": "febdde013bf61ec05196ab76229877dc71231882ab979084a94f8a8335bf450f",
+      "src/force_link.c_decls.json": "6ed0d0cc5b53c08913b37b8754f9d48ad0f75a34075ef90f32e6fafaec9a35f7",
+      "src/mv.c_decls.json": "b69dc34b9b7b24d7c685fd32bd804952743608cec7179e88ce8fc863f8d26253",
+      "src/remove.c_decls.json": "6289dee0dd0eee30e964e512fa00161d3fe4ffe327afef49fb232aee0e41a7f2",
+      "src/selinux.c_decls.json": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    "declaration_maps": 7,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "062d31f0d915a067b5a079f51f1a629a99f0b889a708ee05baae761b76ea72eb",
+      "src/copy.rs": "77f3ebfb6214ea078ef4141c814eb569da12b900dff5e90854048288ae10328b",
+      "src/copy_file_data.rs": "f9263c1537294a16dda1fa239b6ea4317ba5c2b75726eb56436671b1999bfc17",
+      "src/cp_hash.rs": "f05ae52cfc19ccad9bf213e8bec91c3fb657d5687838f29dfad9d57df8e6c7b4",
+      "src/force_link.rs": "84a954ca2604c72de530a8208b21b6937bffbb819580fb126bb2fe9a274ef2f4",
+      "src/mv.rs": "506c34ed0d0078cf3aeecf53a6c6853abcd985e8dec0653755d2bd06ea35da0d",
+      "src/remove.rs": "ea35926d87d6573f6fa1924b421cfb77d9a3936f211a88681941fdd11647d078",
+      "src/selinux.rs": "55925432480a16c92dfe23f6f569c0be44bf5f3498528ad6276bfa233213dc92"
+    },
+    "generated_rust_repairs": 0,
+    "rust_bytes": 991988,
+    "rust_files": 9,
+    "scaffold": null,
+    "todo_macros": 0,
+    "unimplemented_macros": 0
+  },
+  "batch": {
+    "applets": [
+      "mv"
+    ],
+    "manifest_sha256": "266f73f812ee9eaea9e4340144d341d1fadb4e349bc0afc4fd16a0d67520caa9",
+    "name": "coreutils-small-16"
+  },
+  "behavior": {
+    "complete_upstream_suite": {
+      "error": 1,
+      "errors": [
+        "tests/rm/deep-2"
+      ],
+      "fail": 0,
+      "pass": 626,
+      "schema": 1,
+      "skip": 134,
+      "suite": "full",
+      "total": 761,
+      "xfail": 0,
+      "xpass": 0
+    },
+    "differential": {
+      "applets": [
+        "mv"
+      ],
+      "cases": 290,
+      "locales": [
+        "C",
+        "en_US.UTF-8",
+        "fr_FR",
+        "tr_TR.UTF-8",
+        "ja_JP.EUC-JP"
+      ],
+      "passed": 290,
+      "schema": 1
+    },
+    "targeted_upstream": {
+      "error": 0,
+      "errors": [],
+      "fail": 0,
+      "pass": 14,
+      "schema": 1,
+      "skip": 0,
+      "suite": "targeted",
+      "total": 14,
+      "xfail": 0,
+      "xpass": 0
+    },
+    "valgrind": {
+      "canonical_nonzero_resource_cases": 0,
+      "cases": 3,
+      "definite_or_indirect_leaks": 0,
+      "improved_resource_cases": 0,
+      "parallel_workers": 3,
+      "passed": 3,
+      "schema": 1,
+      "translation_introduced_resource_deltas": 0,
+      "valgrind_errors": 0
+    }
+  },
+  "hybrid": {
+    "canonical_archive_member_exclusions": [
+      {
+        "archive": "src/libsinglebin_cp.a",
+        "canonical_archive_sha256": "ce18b8962f8c5a84347622da65cd41ee840402df2a5c1cc8fc4c6584208473ae",
+        "excluded_members": [
+          "libsinglebin_cp_a-copy.o",
+          "libsinglebin_cp_a-copy-file-data.o",
+          "libsinglebin_cp_a-cp-hash.o",
+          "libsinglebin_cp_a-force-link.o"
+        ],
+        "filtered_archive_sha256": "7f9372d28ca6e5a457c6c7ecef770d0e8546fe2c396dcfdfed745cdbcf04862a",
+        "reason": "Mv's translated closure supplies the shared copy engine after cp's archive. The no-security actions differ only in renamed main/usage macros; retain cp.c and revalidate cp through the complete GNU suite."
+      },
+      {
+        "archive": "src/libsinglebin_ginstall.a",
+        "canonical_archive_sha256": "dce988ea59bb48a19f6351578f1c4be1d88b190aeabbafb59135baeefdc63276",
+        "excluded_members": [
+          "libsinglebin_ginstall_a-copy.o",
+          "libsinglebin_ginstall_a-copy-file-data.o",
+          "libsinglebin_ginstall_a-cp-hash.o",
+          "libsinglebin_ginstall_a-force-link.o"
+        ],
+        "filtered_archive_sha256": "6461859def7925d8eaa9eedb46296d0980dd53a6100a4c15c0b1a3b3d7f42a8a",
+        "reason": "Mv's translated closure supplies the shared copy engine after install's archive. Retain install.c and prog-fprintf.c while removing duplicate helpers, then revalidate install through the complete GNU suite."
+      },
+      {
+        "archive": "src/libsinglebin_ln.a",
+        "canonical_archive_sha256": "84176032841d71372b91bc1826e208a638fe038e398ec1768d50e9d274e5df45",
+        "excluded_members": [
+          "libsinglebin_ln_a-force-link.o"
+        ],
+        "filtered_archive_sha256": "d579712b09261efb83afe00c72d3cbec2aa459611c51cb292b2799398e21eead",
+        "reason": "Mv's translated closure supplies force-link.c after ln's archive. Its no-security action differs only in renamed main/usage macros; retain ln.c and revalidate ln through the complete GNU suite."
+      }
+    ],
+    "canonical_bytes": 4866128,
+    "canonical_multicall_sha256": "65bfab8f884bbcda43fb7066030cce39a8680567e69dde898118c216e468505e",
+    "canonical_stripped_bytes": 1474736,
+    "hybrid_bytes": 10159280,
+    "hybrid_multicall_sha256": "6f5b2e00fd23e589f7933afc3ffb7afecb5623cb8d5355ba9df8f1e905998384",
+    "hybrid_stripped_bytes": 2480952,
+    "link_map_sha256": "580576df6f84695800ed329b40228e034adfee780dea446b25043276cc07d2f6",
+    "original_applet_archives_linked": false,
+    "replacement_symbols_defined_once": true
+  },
+  "input": {
+    "compile_commands": 7,
+    "compile_database": "canonical-clang-no-security",
+    "compile_database_sha256": "1ac31eaf422d62e2557e80e7d7dd4e899745f0be6ed56f02cfc457cccae8bcd4",
+    "slice_sha256": "59f918a95d2ba539c63a0fb4e5bbe7919191d05892cd1b432d1886f54a0ee972",
+    "upstream_archive_sha256": "a480198559733e9b3da999e90543ac6f888a2caa544d8d664c5a1f17e528e210"
+  },
+  "normalization": {
+    "abi_checks_clean": true,
+    "canonical_c_rewrites": 6,
+    "clang_replays_clean": true,
+    "compiler_replays": 7,
+    "evidence_sha256": "68d7ef01b7c6b00d578cd7dea4b8c965c027b7f58245ea034589ed2b3043ed8e",
+    "gcc_replays_clean": true,
+    "new_static_diagnostics": 0,
+    "static_analysis_evidence_sha256": "520750130a430997c742b983c614e716eb42548036c7083980319251d3d0a0e7"
+  },
+  "reachable": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "3c83f1771bb6af6f06d63cb383d5c61a4aedf0f1229c9e005b5eab74763a8bb2",
+      "cargo_toml_sha256": "10cb7d1259d4522db79e941ffed0c2bd6b746c1d5b688b5fac9da6c2eeffde80",
+      "diagnostics_by_level": {
+        "warning": 33
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "76ecb45b8034e46d9271965c37a0742c1ae4d069e3e89ba5b9bdad75026608b1",
+      "toolchain_request": "nightly-2023-04-15",
+      "warning_codes": {
+        "stable_features": 1,
+        "unreachable_code": 2,
+        "unused_parens": 7,
+        "unused_variables": 22
+      }
+    },
+    "compile_error_macros": 0,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "062d31f0d915a067b5a079f51f1a629a99f0b889a708ee05baae761b76ea72eb",
+      "src/copy.rs": "2d244c2e06571c0abfa593a4365801f2e955b0e48283e7ee71fbf1c678337684",
+      "src/copy_file_data.rs": "b7155eaa8037df435d7e17d8a76bd6ccecc96eb7886653e779d4cc5fde05497b",
+      "src/cp_hash.rs": "f737e02934d370e465413a68f1e92c958177f11dc2665f15485f7c183b786576",
+      "src/force_link.rs": "03ba7b6dda93ab6ad7f181410f15ef701dda4034c192072f69be334fa90823bb",
+      "src/mv.rs": "c60a79e939e59b4b59d5e75b8b50daf5737b31a9ec33c08271dc5f79c32c80d2",
+      "src/remove.rs": "9c1cdbac32e1ad18709307e9bfe326294999eceaefca9dbfb3b3d1d7f936ba3d",
+      "src/selinux.rs": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "generated_rust_repairs": 0,
+    "rust_bytes": 532151,
+    "rust_files": 9,
+    "scaffold": null,
+    "todo_macros": 0,
+    "unimplemented_macros": 0
+  },
+  "recorded_at": "2026-11-19",
+  "schema": 1,
+  "stable_integration": {
+    "as_va_list_rewrites": 4,
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+      "cargo_lock_sha256": "ab4fee850b7d3e6a4901f2fda2bdf4f2ff8a4bf237a0ba3aa5dd60366570a1c8",
+      "cargo_toml_sha256": "10cb7d1259d4522db79e941ffed0c2bd6b746c1d5b688b5fac9da6c2eeffde80",
+      "diagnostics_by_level": {
+        "warning": 31
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+      "schema": 1,
+      "stderr_sha256": "d39ec78d342e3a785843b4a8074f131b98674913a9cf8d06f32da96b1f14ecd3",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "unreachable_code": 2,
+        "unused_parens": 7,
+        "unused_variables": 22
+      }
+    },
+    "compile_error_macros": 0,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "ed8553b484e0bce878134cfb6b4460df5807db28a1c952022e951db36f77366f",
+      "src/copy.rs": "90f15db4b9506986243bab9947e43b12ba180aebf083216bcfac80bab0faa8b3",
+      "src/copy_file_data.rs": "d35a267f25a61dcb9b39293da68628a2255062b40eefe528247c5964372edfc1",
+      "src/cp_hash.rs": "931c68b8aa9eeda9bc57db2fe6ff82c15fd9a6aad1e2527b3a3757128f69df81",
+      "src/force_link.rs": "03ba7b6dda93ab6ad7f181410f15ef701dda4034c192072f69be334fa90823bb",
+      "src/mv.rs": "630076f2e8d437709c9cf26ff52cd3ce79e9af764de2e7dc3134130c5e0b6395",
+      "src/remove.rs": "80e486663e5063e1f2d37d3da59428799a4049283bcf8e2a851a07cb1b4bd41c",
+      "src/selinux.rs": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    "hand_edits": 0,
+    "modernization_manifest_sha256": "41bab0cf0ea99a2b08efe0825e0ac576581a01eac391b7e58e523b7b36ee3098",
+    "opaque_types_verified_pointer_only": [
+      "_IO_codecvt",
+      "_IO_marker",
+      "_IO_wide_data",
+      "__dirstream",
+      "cycle_check_state",
+      "hash_table",
+      "selabel_handle",
+      "selinux_opt"
+    ],
+    "raw_static_pointer_rewrites": 0,
+    "repair_score": 7,
+    "repair_score_basis": "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), reusable mutable-static raw-pointer spelling rule (2), reusable stable VaList spelling/ownership rule (2)",
+    "rust_bytes": 532719,
+    "rust_files": 9,
+    "todo_macros": 0,
+    "typed_null_pointer_uses_verified": 4,
+    "unimplemented_macros": 0,
+    "va_list_impl_rewrites": 2
+  },
+  "status": "hybrid canonical parity; Rustbox-native integration pending",
+  "translator": {
+    "audit_preserves_unused_functions": true,
+    "fail_on_error": true,
+    "image_id": "sha256:33d1796d617e06fa97f3063d98d9a094d21b0ae4fe5a7780ef33728c2f63658f",
+    "name": "C2Rust",
+    "version": "0.22.1"
+  }
+}

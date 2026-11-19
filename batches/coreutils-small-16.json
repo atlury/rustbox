@@ -38,6 +38,33 @@
     "error": 1,
     "known_error": "tests/rm/deep-2"
   },
+  "canonical_archive_member_exclusions": [
+    {
+      "archive": "src/libsinglebin_cp.a",
+      "members": [
+        "libsinglebin_cp_a-copy.o",
+        "libsinglebin_cp_a-copy-file-data.o",
+        "libsinglebin_cp_a-cp-hash.o",
+        "libsinglebin_cp_a-force-link.o"
+      ],
+      "reason": "Mv's translated closure supplies the shared copy engine after cp's archive. The no-security actions differ only in renamed main/usage macros; retain cp.c and revalidate cp through the complete GNU suite."
+    },
+    {
+      "archive": "src/libsinglebin_ginstall.a",
+      "members": [
+        "libsinglebin_ginstall_a-copy.o",
+        "libsinglebin_ginstall_a-copy-file-data.o",
+        "libsinglebin_ginstall_a-cp-hash.o",
+        "libsinglebin_ginstall_a-force-link.o"
+      ],
+      "reason": "Mv's translated closure supplies the shared copy engine after install's archive. Retain install.c and prog-fprintf.c while removing duplicate helpers, then revalidate install through the complete GNU suite."
+    },
+    {
+      "archive": "src/libsinglebin_ln.a",
+      "members": ["libsinglebin_ln_a-force-link.o"],
+      "reason": "Mv's translated closure supplies force-link.c after ln's archive. Its no-security action differs only in renamed main/usage macros; retain ln.c and revalidate ln through the complete GNU suite."
+    }
+  ],
   "c_normalization": [
     {
       "source": "src/copy.c",
