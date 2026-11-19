@@ -120,7 +120,7 @@ def main() -> int:
             # lookup to the including header's canonical directory; put the
             # incomplete staged directory first in the ordinary include path
             # and fall through to the canonical tree for every unstaged file.
-            item["arguments"].insert(compile_index, f"-I{staged_source / 'include'}")
+            item["arguments"].insert(1, f"-I{staged_source / 'include'}")
             object_path = staged_objects / Path(item["output"]).name
             output_index = item["arguments"].index("-o") + 1
             item["arguments"][output_index] = str(object_path)
@@ -230,10 +230,7 @@ def main() -> int:
                 f"-fmacro-prefix-map={staged_source}={source_root}",
             )
             gcc_arguments.insert(gcc_compile_index, f"-iquote{gcc_source.parent}")
-            gcc_arguments.insert(
-                gcc_compile_index,
-                f"-I{staged_source / 'include'}",
-            )
+            gcc_arguments.insert(1, f"-I{staged_source / 'include'}")
             clang_result = replay(entry["arguments"], clang_output, Path(entry["directory"]))
             gcc_result = replay(gcc_arguments, gcc_output, Path(gcc_entry["directory"]))
             replay_results.append({
