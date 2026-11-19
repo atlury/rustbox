@@ -21,6 +21,7 @@
   "output_regex": "/src/(libsinglebin___a-|libsinglebin_(b2sum|chmod|dd|df|du|split|tail)_)",
   "expected_compile_commands": 12,
   "translation_variant": "normalized",
+  "prepare_scaffold": true,
   "reachable_staticlib": "libcoreutils_small_09_normalized_reachable.a",
   "differential_harness": "coreutils_small_09_differential.py",
   "upstream_tests": [
