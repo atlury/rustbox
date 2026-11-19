@@ -128,6 +128,70 @@
       "replacement": "ok = tac_file (file[i]) && ok;",
       "expected_after": "ok = tac_file (file[i]) && ok;",
       "reason": "Preserve eager tac_file evaluation while explicitly accumulating its Boolean status."
+    },
+    {
+      "source": "src/shuf.c",
+      "engine": "exact",
+      "expected_before": "struct randint_source *randint_source;",
+      "replacement": "struct randint_source *rand_source;",
+      "expected_after": "struct randint_source *rand_source;",
+      "reason": "Avoid a C2Rust type/value spelling collision by renaming a private pointer variable; ABI is unchanged."
+    },
+    {
+      "source": "src/shuf.c",
+      "engine": "exact",
+      "expected_before": "randint_source = randint_all_new",
+      "replacement": "rand_source = randint_all_new",
+      "expected_after": "rand_source = randint_all_new",
+      "reason": "Follow the private shuf pointer-variable rename at initialization."
+    },
+    {
+      "source": "src/shuf.c",
+      "engine": "exact",
+      "expected_before": "if (! randint_source)",
+      "replacement": "if (! rand_source)",
+      "expected_after": "if (! rand_source)",
+      "reason": "Follow the private shuf pointer-variable rename at its null check."
+    },
+    {
+      "source": "src/shuf.c",
+      "engine": "exact",
+      "expected_before": "randint_source, &reservoir",
+      "replacement": "rand_source, &reservoir",
+      "expected_after": "rand_source, &reservoir",
+      "reason": "Follow the private shuf pointer-variable rename in reservoir sampling."
+    },
+    {
+      "source": "src/shuf.c",
+      "engine": "exact",
+      "expected_before": "randperm_new (randint_source,",
+      "replacement": "randperm_new (rand_source,",
+      "expected_after": "randperm_new (rand_source,",
+      "reason": "Follow the private shuf pointer-variable rename in permutation generation."
+    },
+    {
+      "source": "src/shuf.c",
+      "engine": "exact",
+      "expected_before": "write_random_numbers (randint_source,",
+      "replacement": "write_random_numbers (rand_source,",
+      "expected_after": "write_random_numbers (rand_source,",
+      "reason": "Follow the private shuf pointer-variable rename in range output."
+    },
+    {
+      "source": "src/shuf.c",
+      "engine": "exact",
+      "expected_before": "write_random_lines (randint_source,",
+      "replacement": "write_random_lines (rand_source,",
+      "expected_after": "write_random_lines (rand_source,",
+      "reason": "Follow the private shuf pointer-variable rename in line output."
+    },
+    {
+      "source": "src/shuf.c",
+      "engine": "exact",
+      "expected_before": "randint_all_free (randint_source)",
+      "replacement": "randint_all_free (rand_source)",
+      "expected_after": "randint_all_free (rand_source)",
+      "reason": "Follow the private shuf pointer-variable rename at cleanup."
     }
   ],
   "selection_policy": "The next measured-smallest independent canonical archives after batch five, excluding SELinux and systemd support by project policy. Mkfifo and mknod are deferred until their non-SELinux canonical configurations are captured; tac is substituted."
