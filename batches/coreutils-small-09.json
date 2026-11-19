@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "upstream": "GNU Coreutils 9.12",
+  "name": "coreutils-small-09",
+  "applets": [
+    "[",
+    "b2sum",
+    "chmod",
+    "dd",
+    "df",
+    "du",
+    "numfmt",
+    "sort",
+    "split",
+    "tail"
+  ],
+  "applet_linkage": {
+    "[": {
+      "archive": "src/libsinglebin__.a",
+      "symbol": "single_binary_main_lbracket"
+    }
+  },
+  "output_regex": "/src/(libsinglebin___a-|libsinglebin_(b2sum|chmod|dd|df|du|numfmt|sort|split|tail)_)",
+  "expected_compile_commands": 15,
+  "translation_variant": "canonical",
+  "reachable_staticlib": "libcoreutils_small_09_reachable.a",
+  "differential_harness": "coreutils_small_09_differential.py",
+  "upstream_tests": [
+    "tests/test/test.pl",
+    "tests/test/test-N.sh",
+    "tests/test/test-file.sh",
+    "tests/cksum/b2sum.sh",
+    "tests/chmod/no-x.sh",
+    "tests/chmod/octal.sh",
+    "tests/chmod/symlinks.sh",
+    "tests/dd/bytes.sh",
+    "tests/dd/misc.sh",
+    "tests/dd/stderr.sh",
+    "tests/df/df-P.sh",
+    "tests/df/df-output.sh",
+    "tests/df/total-verify.sh",
+    "tests/du/apparent.sh",
+    "tests/du/basic.sh",
+    "tests/du/files0-from.pl",
+    "tests/numfmt/mb-non-utf8.sh",
+    "tests/numfmt/numfmt.pl",
+    "tests/sort/sort-float.sh",
+    "tests/sort/sort-unique.sh",
+    "tests/sort/sort.pl",
+    "tests/split/b-chunk.sh",
+    "tests/split/filter.sh",
+    "tests/split/split-io-err.sh",
+    "tests/tail/basic-seek.sh",
+    "tests/tail/tail-c.sh",
+    "tests/tail/tail.pl",
+    "tests/help/help-version.sh",
+    "tests/help/help-version-getopt.sh"
+  ],
+  "valgrind_cases": [
+    {"applet": "[", "arguments": ["1", "=", "1"], "status": 0},
+    {"applet": "b2sum", "arguments": [], "status": 0},
+    {"applet": "chmod", "arguments": ["600", "file"], "status": 0, "setup": "file"},
+    {"applet": "dd", "arguments": ["if=/dev/null", "of=/dev/null"], "status": 0},
+    {"applet": "df", "arguments": ["."], "status": 0},
+    {"applet": "du", "arguments": ["."], "status": 0},
+    {"applet": "numfmt", "arguments": ["--to=si", "1000"], "status": 0},
+    {"applet": "sort", "arguments": [], "status": 0},
+    {"applet": "split", "arguments": [], "status": 0},
+    {"applet": "tail", "arguments": ["-n", "0"], "status": 0}
+  ],
+  "selection_policy": "The next independent canonical closures after batch eight that contain neither SELinux nor systemd code. The bracket applet advances through an explicit validated archive/symbol alias. B2sum is isolated from cksum because both compile cksum.c under different algorithm configurations; df is isolated from stat because both compile find-mount-point.c. Previously deferred intrinsic and long-double ABI applets remain in their typed-bridge queues."
+}

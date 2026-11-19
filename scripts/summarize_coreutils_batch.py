@@ -120,7 +120,13 @@ def main() -> int:
         if not path.is_file():
             raise RuntimeError(f"missing hybrid artifact: {path}")
     map_text = link_map.read_text(encoding="utf-8", errors="replace")
-    removed = [f"src/libsinglebin_{applet}.a" for applet in manifest["applets"]]
+    applet_linkage = manifest.get("applet_linkage", {})
+    removed = [
+        applet_linkage.get(applet, {}).get(
+            "archive", f"src/libsinglebin_{applet}.a"
+        )
+        for applet in manifest["applets"]
+    ]
     if str(library) not in map_text or any(archive + "(" in map_text for archive in removed):
         raise RuntimeError("hybrid link map does not prove exact archive replacement")
     archive_exclusion_evidence = []
@@ -170,7 +176,9 @@ def main() -> int:
     ).stdout.splitlines()
     defined = [line.split()[-1] for line in symbols if line.split()]
     for applet in manifest["applets"]:
-        symbol = "single_binary_main_" + applet.replace("-", "_")
+        symbol = applet_linkage.get(applet, {}).get(
+            "symbol", "single_binary_main_" + applet.replace("-", "_")
+        )
         if defined.count(symbol) != 1:
             raise RuntimeError(f"replacement symbol count is not one: {symbol}")
 
@@ -224,6 +232,7 @@ def main() -> int:
             "name": batch,
             "manifest_sha256": sha256(manifest_path),
             "applets": manifest["applets"],
+            **({"applet_linkage": applet_linkage} if applet_linkage else {}),
         },
         "input": {
             "upstream_archive_sha256": archive_evidence["upstream_archive_sha256"],

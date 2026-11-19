@@ -18,6 +18,7 @@ SAFE_APPLET = re.compile(r"^[A-Za-z0-9_-]+$")
 SAFE_LINK_LIBRARY = re.compile(r"^-l[A-Za-z0-9_+.-]+$")
 SAFE_ARCHIVE = re.compile(r"^src/libsinglebin_[A-Za-z0-9_-]+\.a$")
 SAFE_MEMBER = re.compile(r"^[A-Za-z0-9_.+-]+\.o$")
+SAFE_SYMBOL = re.compile(r"^[A-Za-z0-9_]+$")
 
 
 def make_assignment(path: Path, name: str) -> str:
@@ -50,6 +51,7 @@ def main() -> int:
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
     batch = manifest.get("name")
     applets = manifest.get("applets")
+    applet_linkage = manifest.get("applet_linkage", {})
     extra_link_libraries = manifest.get("extra_link_libraries", [])
     archive_exclusions = manifest.get("canonical_archive_member_exclusions", [])
     if not isinstance(batch, str) or not SAFE_NAME.fullmatch(batch):
@@ -57,10 +59,27 @@ def main() -> int:
     if (
         not isinstance(applets, list)
         or not applets
-        or not all(isinstance(item, str) and SAFE_APPLET.fullmatch(item) for item in applets)
+        or not all(
+            isinstance(item, str) and (item == "[" or SAFE_APPLET.fullmatch(item))
+            for item in applets
+        )
         or len(set(applets)) != len(applets)
     ):
         raise RuntimeError("batch manifest has invalid or duplicate applets")
+    if (
+        not isinstance(applet_linkage, dict)
+        or not set(applet_linkage).issubset(applets)
+        or any(
+            not isinstance(item, dict)
+            or set(item) != {"archive", "symbol"}
+            or not isinstance(item["archive"], str)
+            or not SAFE_ARCHIVE.fullmatch(item["archive"])
+            or not isinstance(item["symbol"], str)
+            or not SAFE_SYMBOL.fullmatch(item["symbol"])
+            for item in applet_linkage.values()
+        )
+    ):
+        raise RuntimeError("batch manifest has invalid applet linkage aliases")
     if (
         not isinstance(extra_link_libraries, list)
         or not all(
@@ -95,7 +114,14 @@ def main() -> int:
         raise RuntimeError("canonical build or generated Rust static library is missing")
 
     dependencies = make_assignment(makefile, "single_binary_deps").split()
-    removed = {f"src/libsinglebin_{applet}.a" for applet in applets}
+    removed = {
+        applet_linkage.get(applet, {}).get(
+            "archive", f"src/libsinglebin_{applet}.a"
+        )
+        for applet in applets
+    }
+    if len(removed) != len(applets):
+        raise RuntimeError("batch applets do not map to distinct canonical archives")
     for archive in sorted(removed):
         count = dependencies.count(archive)
         if count != 1:
@@ -189,7 +215,9 @@ def main() -> int:
     ).stdout
     symbols = [line.split()[-1] for line in defined.splitlines() if line.split()]
     for applet in applets:
-        symbol = "single_binary_main_" + applet.replace("-", "_")
+        symbol = applet_linkage.get(applet, {}).get(
+            "symbol", "single_binary_main_" + applet.replace("-", "_")
+        )
         if symbols.count(symbol) != 1:
             raise RuntimeError(f"hybrid output does not define {symbol} exactly once")
     print(output)
