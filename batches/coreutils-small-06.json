@@ -17,6 +17,10 @@
   "output_regex": "/src/libsinglebin_(cat|dircolors|fmt|nl|pinky|printf|realpath|seq|shuf|tac)_",
   "expected_compile_commands": 12,
   "translation_variant": "normalized",
+  "reachable_staticlib": "libcoreutils_small_06_normalized_reachable.a",
+  "extra_link_libraries": [
+    "-lquadmath"
+  ],
   "c_normalization": [
     {
       "source": "src/seq.c",

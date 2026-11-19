@@ -14,6 +14,7 @@ from pathlib import Path
 
 SAFE_NAME = re.compile(r"^[A-Za-z0-9_-]+$")
 SAFE_APPLET = re.compile(r"^[A-Za-z0-9_-]+$")
+SAFE_LINK_LIBRARY = re.compile(r"^-l[A-Za-z0-9_+.-]+$")
 
 
 def make_assignment(path: Path, name: str) -> str:
@@ -40,6 +41,7 @@ def main() -> int:
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
     batch = manifest.get("name")
     applets = manifest.get("applets")
+    extra_link_libraries = manifest.get("extra_link_libraries", [])
     if not isinstance(batch, str) or not SAFE_NAME.fullmatch(batch):
         raise RuntimeError("batch manifest has an unsafe name")
     if (
@@ -49,6 +51,15 @@ def main() -> int:
         or len(set(applets)) != len(applets)
     ):
         raise RuntimeError("batch manifest has invalid or duplicate applets")
+    if (
+        not isinstance(extra_link_libraries, list)
+        or not all(
+            isinstance(item, str) and SAFE_LINK_LIBRARY.fullmatch(item)
+            for item in extra_link_libraries
+        )
+        or len(set(extra_link_libraries)) != len(extra_link_libraries)
+    ):
+        raise RuntimeError("batch manifest has invalid or duplicate extra link libraries")
 
     makefile = build / "Makefile"
     if not makefile.is_file() or not rust_library.is_file():
@@ -83,6 +94,8 @@ def main() -> int:
         "V=1",
         "src/coreutils",
         "single_binary_deps=" + " ".join(rewritten),
+        "src_coreutils_LDADD=$(single_binary_deps) $(LDADD) $(single_binary_libs) "
+        + " ".join(extra_link_libraries),
         "src_coreutils_LINK=" + link,
     ]
     canonical = build / "src/coreutils"
