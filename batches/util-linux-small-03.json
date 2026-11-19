@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "upstream": "util-linux 2.42.4",
+  "name": "util-linux-small-03",
+  "applets": [
+    "swaplabel",
+    "lsirq",
+    "newgrp",
+    "uuidgen",
+    "switch_root",
+    "raw",
+    "renice",
+    "ionice",
+    "fdformat",
+    "copyfilerange"
+  ],
+  "output_regex": "/(?:disk-utils/(?:swaplabel-swaplabel|raw|fdformat)|sys-utils/(?:lsirq-lsirq|switch_root|renice)|login-utils/newgrp-newgrp|misc-utils/(?:uuidgen-uuidgen|copyfilerange-copyfilerange)|schedutils/ionice)\\.o$",
+  "expected_compile_commands": 10,
+  "c_normalization": [
+    {
+      "source": "sys-utils/lsirq.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(excl)",
+      "replacement": "sizeof(excl) / sizeof(excl[0])",
+      "expected_after": "sizeof(excl) / sizeof(excl[0])",
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports this parenthesized ARRAY_SIZE expansion with a self-referential AST child."
+    },
+    {
+      "source": "sys-utils/lsirq.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(out.columns)",
+      "replacement": "sizeof(out.columns) / sizeof(out.columns[0])",
+      "expected_after": "sizeof(out.columns) / sizeof(out.columns[0])",
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports this parenthesized ARRAY_SIZE expansion with a self-referential AST child."
+    },
+    {
+      "source": "misc-utils/uuidgen.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(excl)",
+      "replacement": "sizeof(excl) / sizeof(excl[0])",
+      "expected_after": "sizeof(excl) / sizeof(excl[0])",
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports this parenthesized ARRAY_SIZE expansion with a self-referential AST child."
+    },
+    {
+      "source": "schedutils/ionice.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(to_prio)",
+      "expected_before_count": 2,
+      "replacement": "sizeof(to_prio) / sizeof(to_prio[0])",
+      "expected_after": "sizeof(to_prio) / sizeof(to_prio[0])",
+      "expected_after_count": 2,
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports this parenthesized ARRAY_SIZE expansion with a self-referential AST child."
+    }
+  ],
+  "selection_policy": "The next ten smallest independent canonical applet translation units after batch two. The tiny su and runuser wrapper files share the included su-common implementation and are isolated from one another in later batches to prevent translator path deduplication."
+}

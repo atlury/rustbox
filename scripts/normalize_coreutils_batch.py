@@ -112,6 +112,7 @@ def main() -> int:
             macro_map = f"-fmacro-prefix-map={staged_source}={source_root}"
             compile_index = item["arguments"].index("-c")
             item["arguments"].insert(compile_index, macro_map)
+            item["arguments"].insert(compile_index, f"-iquote{source.parent}")
             object_path = staged_objects / Path(item["output"]).name
             output_index = item["arguments"].index("-o") + 1
             item["arguments"][output_index] = str(object_path)
@@ -206,6 +207,7 @@ def main() -> int:
                 gcc_compile_index,
                 f"-fmacro-prefix-map={staged_source}={source_root}",
             )
+            gcc_arguments.insert(gcc_compile_index, f"-iquote{gcc_source.parent}")
             clang_result = replay(entry["arguments"], clang_output, Path(entry["directory"]))
             gcc_result = replay(gcc_arguments, gcc_output, Path(gcc_entry["directory"]))
             replay_results.append({
