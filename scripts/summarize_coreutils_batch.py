@@ -176,6 +176,43 @@ def main() -> int:
             "filtered_archive_sha256": sha256(filtered_archive),
             "reason": exclusion["reason"],
         })
+    bridge_evidence = []
+    for declaration in manifest.get("canonical_bridge_members", []):
+        archive = declaration["archive"]
+        members = declaration["members"]
+        canonical_archive = build / archive
+        bridge_archive = build / "src" / f".rustbox-{batch}-bridge-{Path(archive).name}"
+        for path in (canonical_archive, bridge_archive):
+            if not path.is_file():
+                raise RuntimeError(f"missing canonical bridge artifact: {path}")
+        canonical_members = subprocess.run(
+            ["ar", "t", str(canonical_archive)],
+            check=True,
+            text=True,
+            stdout=subprocess.PIPE,
+        ).stdout.splitlines()
+        bridge_members = subprocess.run(
+            ["ar", "t", str(bridge_archive)],
+            check=True,
+            text=True,
+            stdout=subprocess.PIPE,
+        ).stdout.splitlines()
+        expected_members = [member for member in canonical_members if member in members]
+        if any(canonical_members.count(member) != 1 for member in members):
+            raise RuntimeError(f"canonical bridge archive lacks one declared member: {archive}")
+        if bridge_members != expected_members:
+            raise RuntimeError(f"canonical bridge member set is wrong: {archive}")
+        if archive + "(" in map_text:
+            raise RuntimeError(f"hybrid link map contains original bridged archive: {archive}")
+        if any(f"{bridge_archive}({member})" not in map_text for member in members):
+            raise RuntimeError(f"hybrid link map omits a declared bridge member: {archive}")
+        bridge_evidence.append({
+            "archive": archive,
+            "bridge_archive_sha256": sha256(bridge_archive),
+            "canonical_archive_sha256": sha256(canonical_archive),
+            "retained_members": members,
+            "reason": declaration["reason"],
+        })
     symbols = subprocess.run(
         ["nm", "-g", "--defined-only", str(hybrid)],
         check=True,
@@ -300,6 +337,7 @@ def main() -> int:
             "original_applet_archives_linked": False,
             "replacement_symbols_defined_once": True,
             "canonical_archive_member_exclusions": archive_exclusion_evidence,
+            "canonical_bridge_members": bridge_evidence,
             "canonical_bytes": canonical.stat().st_size,
             "hybrid_bytes": hybrid.stat().st_size,
             "canonical_stripped_bytes": stripped_size(canonical),

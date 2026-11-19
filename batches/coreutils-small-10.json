@@ -5,10 +5,13 @@
   "applets": [
     "cksum"
   ],
-  "output_regex": "/src/libsinglebin_cksum_",
-  "expected_compile_commands": 4,
-  "translation_variant": "canonical",
-  "reachable_staticlib": "libcoreutils_small_10_reachable.a",
+  "canonical_analysis": "canonical-clang-no-security",
+  "canonical_gcc_analysis": "canonical-gcc-no-security",
+  "canonical_build": "canonical-clang-no-security-compdb",
+  "output_regex": "/src/libsinglebin_cksum_(?!.*cksum_crc)",
+  "expected_compile_commands": 3,
+  "translation_variant": "normalized",
+  "reachable_staticlib": "libcoreutils_small_10_normalized_reachable.a",
   "differential_harness": "coreutils_small_10_differential.py",
   "upstream_tests": [
     "tests/cksum/cksum-a.sh",
@@ -24,17 +27,46 @@
   "valgrind_cases": [
     {"applet": "cksum", "arguments": [], "status": 0}
   ],
+  "full_suite_baseline": {
+    "total": 761,
+    "pass": 626,
+    "skip": 134,
+    "fail": 0,
+    "error": 1,
+    "known_error": "tests/rm/deep-2"
+  },
+  "canonical_bridge_members": [
+    {
+      "archive": "src/libsinglebin_cksum.a",
+      "members": ["libsinglebin_cksum_a-cksum_crc.o"],
+      "reason": "Retain only GNU cksum_crc.c as a typed canonical bridge so glibc runtime CPU feature selection and PCLMUL/AVX2/AVX512 dispatch remain exact; translate cksum.c, sum.c and crctab.c and prove no other canonical cksum member enters the hybrid."
+    }
+  ],
+  "c_normalization": [
+    {
+      "source": "src/cksum.c",
+      "engine": "exact",
+      "expected_before": "ok &= digest_check (file);",
+      "replacement": "ok = digest_check (file) && ok;",
+      "expected_after": "ok = digest_check (file) && ok;",
+      "reason": "Check every digest operand eagerly before explicitly accumulating its Boolean result."
+    },
+    {
+      "source": "src/sum.c",
+      "engine": "exact",
+      "expected_before": "if (ckd_add (&total_bytes, total_bytes, sum))",
+      "replacement": "if (ckd_add (&total_bytes, total_bytes, (intmax_t) sum))",
+      "expected_after": "if (ckd_add (&total_bytes, total_bytes, (intmax_t) sum))",
+      "expected_before_count": 2,
+      "expected_after_count": 2,
+      "reason": "Make both nonnegative read-count conversions to intmax_t explicit at checked-add boundaries."
+    }
+  ],
   "deferred_configuration": [
     {
       "applets": ["stat"],
       "reason": "The canonical stat translation unit directly compiles SELinux headers, runtime probes, context formats, and help text. Rebuild it in the declared no-SELinux configuration tranche rather than translating excluded policy."
     }
   ],
-  "deferred_intrinsics": [
-    {
-      "applets": ["cksum"],
-      "reason": "C2Rust 0.22.1 rejects the __builtin_cpu_supports probes in cksum_crc.c for PCLMUL, AVX2, VPCLMULQDQ and AVX512 in both audit and reachable modes. Preserve canonical runtime selection of the accelerated checksum implementations for the typed CPU-feature bridge shared with wc rather than hard-coding a feature result."
-    }
-  ],
-  "selection_policy": "Cksum was isolated from the already completed b2sum because both compile cksum.c under different algorithm configurations and C2Rust silently deduplicates repeated source paths. Both translator modes then rejected its canonical runtime CPU-feature dispatch, so cksum joined wc in the typed feature bridge queue. Stat was rejected from this batch after source inspection proved that its captured configuration directly includes SELinux behavior."
+  "selection_policy": "Cksum is isolated from b2sum because both compile cksum.c under different algorithm configurations. Its three ordinary captured units are translated while the exact cksum_crc.c object is retained as the typed CPU-dispatch bridge; the hybrid linker rejects every other canonical cksum member."
 }

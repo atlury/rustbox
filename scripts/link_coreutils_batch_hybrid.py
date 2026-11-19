@@ -54,6 +54,7 @@ def main() -> int:
     applet_linkage = manifest.get("applet_linkage", {})
     extra_link_libraries = manifest.get("extra_link_libraries", [])
     archive_exclusions = manifest.get("canonical_archive_member_exclusions", [])
+    bridge_declarations = manifest.get("canonical_bridge_members", [])
     if not isinstance(batch, str) or not SAFE_NAME.fullmatch(batch):
         raise RuntimeError("batch manifest has an unsafe name")
     if (
@@ -108,6 +109,28 @@ def main() -> int:
         ):
             raise RuntimeError("batch manifest has unsafe or duplicate canonical archive exclusions")
         exclusion_map[archive] = members
+    if not isinstance(bridge_declarations, list):
+        raise RuntimeError("batch manifest has invalid canonical bridge members")
+    bridge_map: dict[str, list[str]] = {}
+    for item in bridge_declarations:
+        if not isinstance(item, dict):
+            raise RuntimeError("canonical bridge declaration must be an object")
+        archive = item.get("archive")
+        members = item.get("members")
+        reason = item.get("reason")
+        if (
+            not isinstance(archive, str)
+            or not SAFE_ARCHIVE.fullmatch(archive)
+            or archive in bridge_map
+            or not isinstance(members, list)
+            or not members
+            or not all(isinstance(member, str) and SAFE_MEMBER.fullmatch(member) for member in members)
+            or len(set(members)) != len(members)
+            or not isinstance(reason, str)
+            or not reason.strip()
+        ):
+            raise RuntimeError("canonical bridge declaration is unsafe or duplicated")
+        bridge_map[archive] = members
 
     makefile = build / "Makefile"
     if not makefile.is_file() or not rust_library.is_file():
@@ -126,6 +149,26 @@ def main() -> int:
         count = dependencies.count(archive)
         if count != 1:
             raise RuntimeError(f"expected one {archive} dependency, found {count}")
+    if not set(bridge_map).issubset(removed):
+        raise RuntimeError("canonical bridge archive is not replaced by this batch")
+
+    bridge_archives: dict[str, Path] = {}
+    for archive, members in sorted(bridge_map.items()):
+        source = build / archive
+        if not source.is_file():
+            raise RuntimeError(f"canonical bridge archive is missing: {archive}")
+        before = ar_members(source)
+        if any(before.count(member) != 1 for member in members):
+            raise RuntimeError(f"canonical bridge archive lacks one declared member: {archive}")
+        retained = [member for member in before if member in members]
+        bridge = build / "src" / f".rustbox-{batch}-bridge-{Path(archive).name}"
+        shutil.copy2(source, bridge)
+        removed_members = [member for member in before if member not in members]
+        if removed_members:
+            subprocess.run(["ar", "d", str(bridge), *removed_members], check=True)
+        if ar_members(bridge) != retained:
+            raise RuntimeError(f"canonical bridge member set is wrong: {archive}")
+        bridge_archives[archive] = bridge
 
     filtered_archives: dict[str, Path] = {}
     for archive, members in sorted(exclusion_map.items()):
@@ -155,6 +198,8 @@ def main() -> int:
             if not inserted:
                 rewritten.append(str(rust_library))
                 inserted = True
+            if dependency in bridge_archives:
+                rewritten.append(str(bridge_archives[dependency]))
         elif dependency in filtered_archives:
             rewritten.append(str(filtered_archives[dependency]))
         else:
@@ -200,6 +245,10 @@ def main() -> int:
         # final public entry point below.
         if archive + "(" in map_text:
             raise RuntimeError(f"link map contains a member from original {archive}")
+    for archive, bridge in bridge_archives.items():
+        for member in bridge_map[archive]:
+            if f"{bridge}({member})" not in map_text:
+                raise RuntimeError(f"link map omits declared canonical bridge member {member}")
     for archive, filtered in filtered_archives.items():
         if archive + "(" in map_text:
             raise RuntimeError(f"link map contains unfiltered canonical archive {archive}")
