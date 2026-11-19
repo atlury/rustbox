@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "upstream": "util-linux 2.42.4",
+  "name": "util-linux-small-02",
+  "applets": [
+    "pivot_root",
+    "delpart",
+    "addpart",
+    "findfs",
+    "nologin",
+    "resizepart",
+    "mkfs",
+    "fsfreeze",
+    "isosize",
+    "mesg"
+  ],
+  "output_regex": "/(?:login-utils/nologin|sys-utils/(?:fsfreeze|pivot_root)|misc-utils/findfs-findfs|term-utils/mesg|disk-utils/(?:isosize|addpart|delpart|resizepart|mkfs))\\.o$",
+  "expected_compile_commands": 10,
+  "c_normalization": [
+    {
+      "source": "sys-utils/fsfreeze.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(excl)",
+      "replacement": "sizeof(excl) / sizeof(excl[0])",
+      "expected_after": "sizeof(excl) / sizeof(excl[0])",
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports this parenthesized ARRAY_SIZE expansion with a self-referential AST child."
+    }
+  ],
+  "selection_policy": "The next ten smallest direct canonical applet translation units; shared canonical C libraries remain linked during hybrid substitution."
+}

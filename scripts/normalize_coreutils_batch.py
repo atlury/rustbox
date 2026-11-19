@@ -66,8 +66,6 @@ def main() -> int:
     gcc_database = json.loads(args.gcc_database.read_text(encoding="utf-8"))
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
     normalizations = manifest.get("c_normalization", [])
-    if not normalizations:
-        raise RuntimeError("batch declares no C normalization")
     if len(database) != manifest["expected_compile_commands"]:
         raise RuntimeError("compile database count differs from batch declaration")
     gcc_by_output: dict[str, dict[str, object]] = {}
