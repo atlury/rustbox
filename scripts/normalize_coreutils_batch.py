@@ -116,6 +116,7 @@ def main() -> int:
             compile_index = item["arguments"].index("-c")
             item["arguments"].insert(compile_index, macro_map)
             item["arguments"].insert(compile_index, f"-iquote{source.parent}")
+            item["arguments"].insert(compile_index, f"-iquote{staged_source / relative.parent}")
             # A staged header is an overlay, including when a canonical header
             # includes its neighbor with quotes.  -iquote alone loses that
             # lookup to the including header's canonical directory; put the
@@ -251,6 +252,10 @@ def main() -> int:
                 f"-fmacro-prefix-map={staged_source}={source_root}",
             )
             gcc_arguments.insert(gcc_compile_index, f"-iquote{gcc_source.parent}")
+            gcc_arguments.insert(
+                gcc_compile_index,
+                f"-iquote{staged_source / Path(source_relative).parent}",
+            )
             gcc_arguments.insert(1, f"-I{staged_source / 'include'}")
             gcc_arguments.insert(1, f"-I{staged_source / Path(source_relative).parent}")
             clang_result = replay(entry["arguments"], clang_output, Path(entry["directory"]))
