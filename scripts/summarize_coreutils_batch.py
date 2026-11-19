@@ -213,6 +213,31 @@ def main() -> int:
             "retained_members": members,
             "reason": declaration["reason"],
         })
+    typed_bridge_evidence = []
+    for declaration in manifest.get("typed_c_bridges", []):
+        source = repository / declaration["source"]
+        bridge_object = build / "src" / f".rustbox-{batch}-{declaration['object']}"
+        if not source.is_file() or not bridge_object.is_file():
+            raise RuntimeError("typed C bridge source or object is missing")
+        defined_output = subprocess.run(
+            ["nm", "-g", "--defined-only", str(bridge_object)],
+            check=True,
+            text=True,
+            stdout=subprocess.PIPE,
+        ).stdout
+        defined_symbols = sorted(
+            line.split()[-1] for line in defined_output.splitlines() if line.split()
+        )
+        if defined_symbols != sorted(declaration["symbols"]):
+            raise RuntimeError("typed C bridge exports the wrong symbols")
+        if f"LOAD {bridge_object}" not in map_text:
+            raise RuntimeError("hybrid link map omits typed C bridge object")
+        typed_bridge_evidence.append({
+            **declaration,
+            "source_sha256": sha256(source),
+            "object_sha256": sha256(bridge_object),
+            "defined_symbols": defined_symbols,
+        })
     symbols = subprocess.run(
         ["nm", "-g", "--defined-only", str(hybrid)],
         check=True,
@@ -338,6 +363,7 @@ def main() -> int:
             "replacement_symbols_defined_once": True,
             "canonical_archive_member_exclusions": archive_exclusion_evidence,
             "canonical_bridge_members": bridge_evidence,
+            "typed_c_bridges": typed_bridge_evidence,
             "canonical_bytes": canonical.stat().st_size,
             "hybrid_bytes": hybrid.stat().st_size,
             "canonical_stripped_bytes": stripped_size(canonical),

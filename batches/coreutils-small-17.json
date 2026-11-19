@@ -1,0 +1,73 @@
+{
+  "schema": 1,
+  "upstream": "GNU Coreutils 9.12",
+  "name": "coreutils-small-17",
+  "applets": [
+    "wc"
+  ],
+  "canonical_analysis": "canonical-clang-no-security",
+  "canonical_gcc_analysis": "canonical-gcc-no-security",
+  "canonical_build": "canonical-clang-no-security-compdb",
+  "output_regex": "/src/libsinglebin_wc_a-wc\\.o$",
+  "expected_compile_commands": 1,
+  "translation_variant": "normalized",
+  "reachable_staticlib": "libcoreutils_small_17_normalized_reachable.a",
+  "differential_harness": "coreutils_small_17_differential.py",
+  "upstream_tests": [
+    "tests/wc/wc.pl",
+    "tests/wc/wc-files0-from.pl",
+    "tests/wc/wc-parallel.sh",
+    "tests/help/help-version.sh",
+    "tests/help/help-version-getopt.sh"
+  ],
+  "valgrind_cases": [
+    {"applet": "wc", "arguments": [], "status": 0}
+  ],
+  "full_suite_baseline": {
+    "total": 761,
+    "pass": 626,
+    "skip": 134,
+    "fail": 0,
+    "error": 1,
+    "known_error": "tests/rm/deep-2"
+  },
+  "typed_c_bridges": [
+    {
+      "source": "bridges/coreutils/wc-cpu.c",
+      "reference_output": "src/libsinglebin_wc_a-wc.o",
+      "object": "wc-cpu.o",
+      "symbols": [
+        "rustbox_wc_cpu_supports_avx2",
+        "rustbox_wc_cpu_supports_avx512"
+      ],
+      "reason": "Keep GNU wc's exact cpu_supports expressions, including GLIBC_TUNABLES policy and compiler CPU builtins, behind two typed Boolean C ABI calls while translating the complete wc applet logic."
+    }
+  ],
+  "c_normalization": [
+    {
+      "source": "src/wc.c",
+      "engine": "exact",
+      "expected_before": "#include \"wc.h\"\n\n/* The official name",
+      "replacement": "#include \"wc.h\"\n\nextern bool rustbox_wc_cpu_supports_avx2 (void);\nextern bool rustbox_wc_cpu_supports_avx512 (void);\n\n/* The official name",
+      "expected_after": "extern bool rustbox_wc_cpu_supports_avx2 (void);",
+      "reason": "Declare the two narrow CPU-probe bridge functions without changing wc's public ABI."
+    },
+    {
+      "source": "src/wc.c",
+      "engine": "exact",
+      "expected_before": "bool avx2_enabled = cpu_supports (\"avx2\");",
+      "replacement": "bool avx2_enabled = rustbox_wc_cpu_supports_avx2 ();",
+      "expected_after": "bool avx2_enabled = rustbox_wc_cpu_supports_avx2 ();",
+      "reason": "Move only the unsupported compiler CPU builtin behind the typed bridge."
+    },
+    {
+      "source": "src/wc.c",
+      "engine": "exact",
+      "expected_before": "bool avx512_enabled = (cpu_supports (\"avx512f\")\n                         && cpu_supports (\"avx512bw\"));",
+      "replacement": "bool avx512_enabled = rustbox_wc_cpu_supports_avx512 ();",
+      "expected_after": "bool avx512_enabled = rustbox_wc_cpu_supports_avx512 ();",
+      "reason": "Move only the unsupported paired AVX512 compiler probes behind the typed bridge."
+    }
+  ],
+  "selection_policy": "Translate GNU wc in full while isolating its two compiler-specific runtime CPU feature expressions behind a typed, source-hashed C ABI. GNU's AVX2 and AVX512 line-count implementations remain canonical linked support objects."
+}

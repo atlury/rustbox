@@ -31,4 +31,5 @@ RUSTBOX_TOOL_IMAGE=rustbox-normalize:2026-11-19 \
     /work/scripts/link_coreutils_batch_hybrid.py \
     --build "/rustbox-coreutils/$canonical_build" \
     --rust-library "$container_translation/target/release/$library" \
-    --manifest "/work/batches/$batch.json"
+    --manifest "/work/batches/$batch.json" \
+    --repository /work

@@ -19,6 +19,9 @@ SAFE_LINK_LIBRARY = re.compile(r"^-l[A-Za-z0-9_+.-]+$")
 SAFE_ARCHIVE = re.compile(r"^src/libsinglebin_[A-Za-z0-9_-]+\.a$")
 SAFE_MEMBER = re.compile(r"^[A-Za-z0-9_.+-]+\.o$")
 SAFE_SYMBOL = re.compile(r"^[A-Za-z0-9_]+$")
+SAFE_BRIDGE_SOURCE = re.compile(r"^bridges/coreutils/[A-Za-z0-9_.+-]+\.c$")
+SAFE_OBJECT = re.compile(r"^[A-Za-z0-9_.+-]+\.o$")
+SAFE_REFERENCE_OUTPUT = re.compile(r"^src/[A-Za-z0-9_.+-]+\.o$")
 
 
 def make_assignment(path: Path, name: str) -> str:
@@ -44,10 +47,12 @@ def main() -> int:
     parser.add_argument("--build", type=Path, required=True)
     parser.add_argument("--rust-library", type=Path, required=True)
     parser.add_argument("--manifest", type=Path, required=True)
+    parser.add_argument("--repository", type=Path, required=True)
     args = parser.parse_args()
 
     build = args.build.resolve()
     rust_library = args.rust_library.resolve()
+    repository = args.repository.resolve()
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
     batch = manifest.get("name")
     applets = manifest.get("applets")
@@ -55,6 +60,7 @@ def main() -> int:
     extra_link_libraries = manifest.get("extra_link_libraries", [])
     archive_exclusions = manifest.get("canonical_archive_member_exclusions", [])
     bridge_declarations = manifest.get("canonical_bridge_members", [])
+    typed_bridge_declarations = manifest.get("typed_c_bridges", [])
     if not isinstance(batch, str) or not SAFE_NAME.fullmatch(batch):
         raise RuntimeError("batch manifest has an unsafe name")
     if (
@@ -131,10 +137,80 @@ def main() -> int:
         ):
             raise RuntimeError("canonical bridge declaration is unsafe or duplicated")
         bridge_map[archive] = members
+    if not isinstance(typed_bridge_declarations, list):
+        raise RuntimeError("batch manifest has invalid typed C bridges")
+    typed_bridges: list[dict[str, object]] = []
+    for item in typed_bridge_declarations:
+        if not isinstance(item, dict) or set(item) != {
+            "source", "reference_output", "object", "symbols", "reason"
+        }:
+            raise RuntimeError("typed C bridge declaration has invalid keys")
+        source = item["source"]
+        reference_output = item["reference_output"]
+        object_name = item["object"]
+        symbols = item["symbols"]
+        reason = item["reason"]
+        if (
+            not isinstance(source, str)
+            or not SAFE_BRIDGE_SOURCE.fullmatch(source)
+            or not isinstance(reference_output, str)
+            or not SAFE_REFERENCE_OUTPUT.fullmatch(reference_output)
+            or not isinstance(object_name, str)
+            or not SAFE_OBJECT.fullmatch(object_name)
+            or not isinstance(symbols, list)
+            or not symbols
+            or not all(isinstance(symbol, str) and SAFE_SYMBOL.fullmatch(symbol) for symbol in symbols)
+            or len(set(symbols)) != len(symbols)
+            or not isinstance(reason, str)
+            or not reason.strip()
+        ):
+            raise RuntimeError("typed C bridge declaration is unsafe")
+        typed_bridges.append(item)
 
     makefile = build / "Makefile"
     if not makefile.is_file() or not rust_library.is_file():
         raise RuntimeError("canonical build or generated Rust static library is missing")
+
+    typed_bridge_objects: list[tuple[dict[str, object], Path]] = []
+    if typed_bridges:
+        compile_database_path = build / "compile_commands.json"
+        if not compile_database_path.is_file():
+            raise RuntimeError("typed C bridge requires the canonical compile database")
+        compile_database = json.loads(compile_database_path.read_text(encoding="utf-8"))
+        for declaration in typed_bridges:
+            source = repository / str(declaration["source"])
+            if not source.is_file():
+                raise RuntimeError(f"typed C bridge source is missing: {source}")
+            matches = [
+                entry for entry in compile_database
+                if entry.get("output") == str(declaration["reference_output"])
+                or str(entry.get("output", "")).endswith("/" + str(declaration["reference_output"]))
+            ]
+            if len(matches) != 1:
+                raise RuntimeError("typed C bridge reference compile action is not unique")
+            entry = matches[0]
+            arguments = list(entry["arguments"])
+            canonical_source = str(entry["file"])
+            if arguments.count(canonical_source) != 1 or arguments.count("-o") != 1:
+                raise RuntimeError("typed C bridge reference compile action is malformed")
+            bridge_object = build / "src" / f".rustbox-{batch}-{declaration['object']}"
+            arguments[arguments.index(canonical_source)] = str(source)
+            arguments[arguments.index("-o") + 1] = str(bridge_object)
+            subprocess.run(arguments, cwd=entry["directory"], check=True)
+            defined_output = subprocess.run(
+                ["nm", "-g", "--defined-only", str(bridge_object)],
+                check=True,
+                text=True,
+                stdout=subprocess.PIPE,
+            ).stdout
+            defined_symbols = sorted(
+                line.split()[-1] for line in defined_output.splitlines() if line.split()
+            )
+            if defined_symbols != sorted(declaration["symbols"]):
+                raise RuntimeError(
+                    f"typed C bridge exports the wrong symbols: {defined_symbols}"
+                )
+            typed_bridge_objects.append((declaration, bridge_object))
 
     dependencies = make_assignment(makefile, "single_binary_deps").split()
     removed = {
@@ -197,6 +273,7 @@ def main() -> int:
         if dependency in removed:
             if not inserted:
                 rewritten.append(str(rust_library))
+                rewritten.extend(str(path) for _, path in typed_bridge_objects)
                 inserted = True
             if dependency in bridge_archives:
                 rewritten.append(str(bridge_archives[dependency]))
@@ -249,6 +326,12 @@ def main() -> int:
         for member in bridge_map[archive]:
             if f"{bridge}({member})" not in map_text:
                 raise RuntimeError(f"link map omits declared canonical bridge member {member}")
+    for declaration, bridge_object in typed_bridge_objects:
+        if f"LOAD {bridge_object}" not in map_text:
+            raise RuntimeError(f"link map omits typed C bridge object: {bridge_object}")
+        for symbol in declaration["symbols"]:
+            if map_text.count(symbol) < 1:
+                raise RuntimeError(f"link map omits typed C bridge symbol: {symbol}")
     for archive, filtered in filtered_archives.items():
         if archive + "(" in map_text:
             raise RuntimeError(f"link map contains unfiltered canonical archive {archive}")
