@@ -18,6 +18,7 @@ case $batch in
   util-linux-small-11) suffix=11; components='blkid column eject logger losetup nsenter partx setpriv wipefs'; count=31 ;;
   util-linux-small-12) suffix=12; components='cal dmesg hardlink more mount'; count=66 ;;
   util-linux-small-13) suffix=13; components='chfn fsck hexdump hwclock lscpu lslogins lsns script swapon unshare'; count=29 ;;
+  util-linux-small-14) suffix=14; components='fdisk findmnt login lsblk lsfd sfdisk su'; count=99 ;;
   *) echo "unknown batch: $batch" >&2; exit 2 ;;
 esac
 
@@ -119,7 +120,7 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     export TS_CMD_MOUNT="$build/rustbox-small-12/mount"
     export TS_CMD_PG="$build/rustbox-small-12/pg"
     export TS_CMD_UMOUNT="$build/rustbox-small-12/umount"
-  else
+  elif test "$suffix" = 13; then
     export TS_CMD_CHFN="$build/rustbox-small-13/chfn"
     export TS_CMD_FSCK="$build/rustbox-small-13/fsck"
     export TS_CMD_HEXDUMP="$build/rustbox-small-13/hexdump"
@@ -130,9 +131,31 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     export TS_CMD_SCRIPT="$build/rustbox-small-13/script"
     export TS_CMD_SWAPON="$build/rustbox-small-13/swapon"
     export TS_CMD_UNSHARE="$build/rustbox-small-13/unshare"
+  else
+    export TS_CMD_CFDISK="$build/rustbox-small-14/cfdisk"
+    export TS_CMD_FDISK="$build/rustbox-small-14/fdisk"
+    export TS_CMD_FINDMNT="$build/rustbox-small-14/findmnt"
+    export TS_CMD_LOGIN="$build/rustbox-small-14/login"
+    export TS_CMD_LSBLK="$build/rustbox-small-14/lsblk"
+    export TS_CMD_LSFD="$build/rustbox-small-14/lsfd"
+    export TS_CMD_RUNUSER="$build/rustbox-small-14/runuser"
+    export TS_CMD_SFDISK="$build/rustbox-small-14/sfdisk"
+    export TS_CMD_SU="$build/rustbox-small-14/su"
+    export TS_CMD_SULOGIN="$build/rustbox-small-14/sulogin"
   fi
   su -m -s /bin/bash rustbox-test -c \
     "cd $build && $source/tests/run.sh --srcdir=$source --builddir=$build $components" \
     | tee "$stable/upstream-targeted.log"
-  grep -q "All $count tests PASSED" "$stable/upstream-targeted.log"
+  if test "$suffix" = 14; then
+    grep -q "1 tests of $count FAILED" "$stable/upstream-targeted.log"
+    grep -q "lsfd/mkfds-inotify" "$stable/upstream-targeted.log"
+    TS_CMD_LSFD="$build/lsfd" TS_CMD_FINDMNT="$build/findmnt" \
+      su -m -s /bin/bash rustbox-test -c \
+      "cd $build && $source/tests/run.sh --srcdir=$source --builddir=$build lsfd/mkfds-inotify" \
+      | tee "$stable/upstream-canonical-known-failure.log"
+    grep -q "1 tests of 1 FAILED" "$stable/upstream-canonical-known-failure.log"
+    grep -q "lsfd/mkfds-inotify" "$stable/upstream-canonical-known-failure.log"
+  else
+    grep -q "All $count tests PASSED" "$stable/upstream-targeted.log"
+  fi
 ' rustbox-util-test "$suffix" "$components" "$count"

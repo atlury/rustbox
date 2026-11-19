@@ -71,7 +71,7 @@ def main() -> int:
     reachable_prepared = base / f"{batch}-normalized-reachable-prepared"
     stable = base / f"{batch}-stable"
     suffix = batch.removeprefix("util-linux-small-")
-    if suffix not in {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13"}:
+    if suffix not in {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14"}:
         raise RuntimeError(f"undeclared util-linux batch: {batch}")
     hybrid = build / f"rustbox-util-linux-small-{suffix}"
     link_map = hybrid.with_suffix(".map")
@@ -194,6 +194,14 @@ def main() -> int:
             "lsns": "sys-utils/lsns-lsns.o", "script": "term-utils/script-script.o",
             "swapon": "sys-utils/swapon-swapon.o", "unshare": "sys-utils/unshare-unshare.o",
         },
+        "14": {
+            "agetty": "term-utils/agetty-agetty.o", "cfdisk": "disk-utils/cfdisk-cfdisk.o",
+            "fdisk": "disk-utils/fdisk-fdisk.o", "findmnt": "misc-utils/findmnt-findmnt.o",
+            "login": "login-utils/login.o", "lsblk": "misc-utils/lsblk-lsblk.o",
+            "lsfd": "lsfd-cmd/lsfd-lsfd.o", "runuser": "login-utils/runuser.o",
+            "sfdisk": "disk-utils/sfdisk-sfdisk.o", "su": "login-utils/su-su.o",
+            "sulogin": "login-utils/sulogin.o", "vigr": "login-utils/vipw.o",
+        },
     }
     canonical_objects = canonical_objects_by_batch[suffix]
     if any(name in map_text for name in canonical_objects.values()):
@@ -223,6 +231,27 @@ def main() -> int:
             "replacement_symbol": "rustbox_hwclock_yyparse",
             "reason": "avoid collision with libsmartcols' independent Bison parser in one multicall link",
         })
+    elif suffix == "14":
+        support_object = build / "rustbox-support-14/list-sort-support.o"
+        support_source = root / "bridges/util-linux/list-sort-support.c"
+        normalized_header = analysis / f"normalized/{batch}/source/include/list.h"
+        for path in (support_object, support_source, normalized_header):
+            if not path.is_file():
+                raise RuntimeError(f"missing list-sort support boundary artifact: {path}")
+        support_symbols = subprocess.run(
+            ["nm", "-g", "--defined-only", str(support_object)],
+            check=True, text=True, stdout=subprocess.PIPE,
+        ).stdout
+        if " list_sort\n" not in support_symbols:
+            raise RuntimeError("canonical list-sort support boundary is incomplete")
+        support_symbol_specializations.append({
+            "object": "rustbox-support-14/list-sort-support.o",
+            "object_sha256": sha256(support_object),
+            "source_sha256": sha256(support_source),
+            "normalized_header_sha256": sha256(normalized_header),
+            "defined_symbol": "list_sort",
+            "reason": "keep the unchanged canonical inline merge-sort implementation outside C2Rust's header AST and expose it through one explicit C ABI boundary",
+        })
 
     modernization = load(stable / "rustbox-modernization.json")
     opaque = sorted({
@@ -244,6 +273,7 @@ def main() -> int:
         "11": (5, "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), and reusable VaListImpl/as_va_list modernization (2)"),
         "12": (5, "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), and reusable VaList spelling/cursor modernization (2)"),
         "13": (5, "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), and reusable VaListImpl/as_va_list modernization (2)"),
+        "14": (5, "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), and reusable VaListImpl/as_va_list modernization (2)"),
     }[suffix]
     targeted = {
         "01": {"components": 9, "passed": 9, "ctrlaltdel": "no upstream component test; hard and soft branches compared unprivileged"},
@@ -259,6 +289,7 @@ def main() -> int:
         "11": {"components": 31, "passed": 31, "ordinary_components_passed": 11, "ordinary_subtests_passed": 207, "upstream_skipped_components": 20, "coverage_note": "20 root- or unavailable-helper-dependent components were skipped under upstream Docker policy; 11 ordinary components and 207 executable subtests passed, while all ten public names, including zramctl which has no upstream component, are additionally covered by safe differential and Valgrind cases"},
         "12": {"components": 66, "passed": 66, "ordinary_components_passed": 8, "ordinary_subtests_passed": 59, "upstream_skipped_components": 58, "coverage_note": "58 root- or unavailable-helper-dependent components were skipped under upstream Docker policy; eight ordinary cal and hardlink components and 59 executable subtests passed, while all ten public names are additionally covered by safe differential and Valgrind cases"},
         "13": {"components": 29, "passed": 29, "ordinary_components_passed": 8, "ordinary_subtests_passed": 65, "upstream_skipped_components": 21, "upstream_known_failed_subtests": 1, "coverage_note": "21 root-, namespace-, or unavailable-helper-dependent components were skipped under upstream Docker policy; eight ordinary components and 65 executable subtests passed, while script/replay-live retained its one upstream-known failure; all ten public names are additionally covered by safe differential and Valgrind cases"},
+        "14": {"components": 99, "passed_under_policy": 98, "ordinary_components_passed": 18, "ordinary_subtests_passed": 95, "upstream_skipped_components": 80, "upstream_known_failed_components": 1, "canonical_known_failure_log_sha256": sha256(stable / "upstream-canonical-known-failure.log"), "coverage_note": "80 root-, kernel-, or unavailable-helper-dependent components were skipped under upstream Docker policy; 18 ordinary components and 95 executable checks passed. lsfd/mkfds-inotify also fails unchanged canonical lsfd in this environment and is recorded independently; all twelve public names are additionally covered by safe differential and Valgrind cases"},
     }[suffix]
     evidence = {
         "schema": 1,

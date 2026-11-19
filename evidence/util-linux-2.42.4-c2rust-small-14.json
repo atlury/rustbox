@@ -1,0 +1,1147 @@
+{
+  "audit": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "7fc78c2de68ba252ecaaedece09c3c5ebb49a499366511fd4d8977c9c4a31be8",
+      "cargo_toml_sha256": "81d67fb7a4ecde4fc2c7459c93993394fadb0f7f993e864e03a46c9ee48965a1",
+      "diagnostics_by_level": {
+        "warning": 113
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "f0a168f9b32247bf7c513e57d89092d59c7575f298a978260196b97aeaaedfa9",
+      "toolchain_request": "nightly-2023-04-15",
+      "warning_codes": {
+        "stable_features": 1,
+        "unused_imports": 4,
+        "unused_must_use": 30,
+        "unused_parens": 53,
+        "unused_variables": 24
+      }
+    },
+    "compile_error_macros": 0,
+    "declaration_map_sha256": {
+      "src/disk_utils/cfdisk.c_decls.json": "4b9b5e1bdedd78d934aaeabef24165779baeed2e6574aab44a6c2eee82e9af6c",
+      "src/disk_utils/fdisk.c_decls.json": "2727f90d9e801c49d22f14a77ecc4e78f9efe709f7a8735b698003e42393f6f0",
+      "src/disk_utils/sfdisk.c_decls.json": "9c4e2a3355db43e9a3f174214cce05222cf9633a4626c81d7d085b2e58a2f104",
+      "src/login_utils/login.c_decls.json": "7a9fbfef953ea3d63aa6f84b240d6142650d9ce6a9345651f744e984821cb82e",
+      "src/login_utils/runuser.c_decls.json": "b9b40263c8051c4d571915f4ebf0a37fd769e40db0202656f96e510e504a3965",
+      "src/login_utils/su.c_decls.json": "3b1491f574cb5626422ba1ac292cea0b5d6753f52f1b043535e3b116b46b41e4",
+      "src/login_utils/sulogin.c_decls.json": "b56a044c7853c518c1216b1fe38d384fec2f87347fb8ce4b74ecb82ab621223a",
+      "src/login_utils/vipw.c_decls.json": "fca8ae9ca2a3244399c6b56a74c50f7490047d416b73dc3cc8dd615ec806976d",
+      "src/lsfd_cmd/lsfd.c_decls.json": "576bd34309f0383f2eafa6f7dad2066244eb585b60393a5320c84393101aab79",
+      "src/misc_utils/findmnt.c_decls.json": "ddb83b3abb251892b4409f1132e0baef4a4297d248a393fdadca480c7dee9511",
+      "src/misc_utils/lsblk.c_decls.json": "2a815d8a0dcbd63d525d4f333080835646b1fbae22425e12cd34e5c7a40d1dff",
+      "src/term_utils/agetty.c_decls.json": "2a0c63c14e00f989ff5a7546393276c081544e1ba29182137dcf1d8044c190fd"
+    },
+    "declaration_maps": 12,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "13aa53389c3364a286314b7183883f52cd78bb7814515047efeeea6305350c8a",
+      "src/disk_utils/cfdisk.rs": "7ad6e10a69aeeea44119441736a30125645f3440dc0bbac0aca259b63390c5c2",
+      "src/disk_utils/fdisk.rs": "42341d9b9aaa71a62f6c3671f6faf6d07766943c3deb76bc43ac0ef59efa2093",
+      "src/disk_utils/sfdisk.rs": "9f5995e22e857bcf380be50147e98b626d13fd43fb7b107b37906118dfb18865",
+      "src/login_utils/login.rs": "c2f56fbecd8e34c9fe3dadf5daa5ad86ddc43b331c153aabc5f6004822e47c5d",
+      "src/login_utils/runuser.rs": "324db028a1369e6b1aa73ca1ca540b55ff4d0399910c51a25aafe9b3fd3ea721",
+      "src/login_utils/su.rs": "b14de4ce10b16a30e1619b83e1cbcbf73a6f256c5e6f39a07152f799fc3a63e3",
+      "src/login_utils/sulogin.rs": "11fb98593ffc370ef334d749a2fc644b195149a23bdad1b1911e058a11966217",
+      "src/login_utils/vipw.rs": "f254494c502ddf2fda35e9b196336eafad8a905b85388d1e8e4d06fe37cd04c0",
+      "src/lsfd_cmd/lsfd.rs": "ed44e922e6deac2d61bd8be6373971b549796858e0bb58cc3b6b42f30855d402",
+      "src/misc_utils/findmnt.rs": "ed253a6d904d3b4c292a4f58126cf041a5b916d6cd0d4e73f9ec6da1faa2b60a",
+      "src/misc_utils/lsblk.rs": "d22a32dfa30add44fc258cf1b2e9029031840149d804f2d180e60511486e9649",
+      "src/term_utils/agetty.rs": "09a26ef1e69b8755e715364751cd302526764e3cf4ba054642fe7ee3416bdb8f"
+    },
+    "generated_rust_repairs": 0,
+    "rust_bytes": 3067115,
+    "rust_files": 14,
+    "scaffold": {
+      "crate_feature_additions": [],
+      "dependency_additions": [],
+      "input_cargo_sha256": "81d67fb7a4ecde4fc2c7459c93993394fadb0f7f993e864e03a46c9ee48965a1",
+      "output_cargo_sha256": "81d67fb7a4ecde4fc2c7459c93993394fadb0f7f993e864e03a46c9ee48965a1",
+      "rust_files_changed": 0,
+      "schema": 1
+    },
+    "todo_macros": 0,
+    "unimplemented_macros": 0
+  },
+  "batch": {
+    "applets": [
+      "agetty",
+      "cfdisk",
+      "fdisk",
+      "findmnt",
+      "login",
+      "lsblk",
+      "lsfd",
+      "runuser",
+      "sfdisk",
+      "su",
+      "sulogin",
+      "vigr"
+    ],
+    "manifest_sha256": "7a38dfac3797ba3d36645017ad9a9bc72163916db2a30cc5a36fe54d0ba1db8f",
+    "name": "util-linux-small-14"
+  },
+  "behavior": {
+    "differential": {
+      "cases": 39,
+      "failures": [],
+      "passed": 39,
+      "schema": 1
+    },
+    "targeted_upstream": {
+      "canonical_known_failure_log_sha256": "96be69998157e97bb62a49c6cb3ced459ef7804b3268c351c221afc430e7a48c",
+      "components": 99,
+      "coverage_note": "80 root-, kernel-, or unavailable-helper-dependent components were skipped under upstream Docker policy; 18 ordinary components and 95 executable checks passed. lsfd/mkfds-inotify also fails unchanged canonical lsfd in this environment and is recorded independently; all twelve public names are additionally covered by safe differential and Valgrind cases",
+      "log_sha256": "9d3ffe1c40ca2e5c357001ff20fa7575c18a33d463c2dc9980b2186bb04d8570",
+      "ordinary_components_passed": 18,
+      "ordinary_subtests_passed": 95,
+      "passed_under_policy": 98,
+      "upstream_known_failed_components": 1,
+      "upstream_skipped_components": 80
+    },
+    "valgrind": {
+      "canonical_process_lifetime_exceptions": [
+        {
+          "applet": "fdisk",
+          "canonical": {
+            "definitely_lost": 0,
+            "indirectly_lost": 0,
+            "possibly_lost": 0,
+            "still_reachable": 12480
+          },
+          "hybrid": {
+            "definitely_lost": 0,
+            "indirectly_lost": 0,
+            "possibly_lost": 0,
+            "still_reachable": 12480
+          }
+        },
+        {
+          "applet": "login",
+          "canonical": {
+            "definitely_lost": 120,
+            "indirectly_lost": 538,
+            "possibly_lost": 0,
+            "still_reachable": 13082
+          },
+          "environment_dependent": true,
+          "hybrid": {
+            "definitely_lost": 120,
+            "indirectly_lost": 538,
+            "possibly_lost": 0,
+            "still_reachable": 13082
+          },
+          "origin": "process_title_init"
+        }
+      ],
+      "cases": 12,
+      "logs": [
+        "valgrind-agetty.log",
+        "valgrind-cfdisk.log",
+        "valgrind-fdisk.log",
+        "valgrind-findmnt.log",
+        "valgrind-login.log",
+        "valgrind-lsblk.log",
+        "valgrind-lsfd.log",
+        "valgrind-runuser.log",
+        "valgrind-sfdisk.log",
+        "valgrind-su.log",
+        "valgrind-sulogin.log",
+        "valgrind-vigr.log"
+      ],
+      "passed": 12,
+      "schema": 1
+    }
+  },
+  "entrypoint_specialization": {
+    "database_sha256": "e5fb2812538115b69ea8fb0ac244052674c60f44addf5375194e93042bdad693",
+    "entrypoints": {
+      "agetty": {
+        "after_sha256": "9d86fdb24ea6f16019925ae8af865bdf811b9f96689799acfbf3fe85c24e77b6",
+        "before_sha256": "6cc79b22825d3c06f1c4f654612e15b1d45c8b04d346c3d3ccab1ac20c3db7f7",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "agetty"
+        ],
+        "specialized_entrypoint": "rustbox_agetty_main"
+      },
+      "cfdisk": {
+        "after_sha256": "1145771e2c594b5a61478e852fd223c8b9dc3f9102c6b84d595460b3f3126225",
+        "before_sha256": "16062dc1a8d223460d19002d8a27dbd6c4a110e284594aacf309f90527df08b2",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "cfdisk"
+        ],
+        "specialized_entrypoint": "rustbox_cfdisk_main"
+      },
+      "fdisk": {
+        "after_sha256": "78cc8d79270b71166cb7e3ec1bcd6fd516abefb7c15efaa30e4f9ec5f8627b94",
+        "before_sha256": "387ee3d330e8bfe3eae0f03a5e1d57d8c7189ff6fb364a188f6d59c9cdfd4801",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "fdisk"
+        ],
+        "specialized_entrypoint": "rustbox_fdisk_main"
+      },
+      "findmnt": {
+        "after_sha256": "59886257d0ea2b909cc9e8d575ea28d2a273559eef5543ff25e0dc9430a8a4a9",
+        "before_sha256": "44c857b6c9110ff1a0eeffa32cff8db4145e429609b003fc92aa29ecb16f67a4",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "findmnt"
+        ],
+        "specialized_entrypoint": "rustbox_findmnt_main"
+      },
+      "login": {
+        "after_sha256": "19608b6a15f11b6877e5f4ad8c8675566467224dc069b009b0150ef95d546e2b",
+        "before_sha256": "0f01dcc2912a9f761e0a1690e29b4121a333316945874daaa7fc1a4403c8ae33",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "login"
+        ],
+        "specialized_entrypoint": "rustbox_login_main"
+      },
+      "lsblk": {
+        "after_sha256": "ebb14dfa7b9787352444570290b34432b0a09ffdb3af068798103563887146b6",
+        "before_sha256": "67ee3977f3ed10b1d2fd51ba1f63c17374facd4c7fed085466e9326176e327c6",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "lsblk"
+        ],
+        "specialized_entrypoint": "rustbox_lsblk_main"
+      },
+      "lsfd": {
+        "after_sha256": "39db7f6664d3de31cbb2d422cc168d8e397387504398bc4e757c6f1c94e7de2a",
+        "before_sha256": "fc10a9e9cc73c33b1e7060ed108c31cd98af4494c7eccc57e9eea1bab52634f1",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "lsfd"
+        ],
+        "specialized_entrypoint": "rustbox_lsfd_main"
+      },
+      "runuser": {
+        "after_sha256": "e16f81dbe175a43a7eaac4a46f37614bbecebf64e9863c5a0489e2d9bd8e0d3f",
+        "before_sha256": "8c24416409b829e096d9ca4a8c6fc60c3be8d0e08377a05c9305253069b29c68",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "runuser"
+        ],
+        "specialized_entrypoint": "rustbox_runuser_main"
+      },
+      "sfdisk": {
+        "after_sha256": "00c53f6c40a2c9c61f14ab88812adc6d390cd572450d2de0a43e0b605b6a91bb",
+        "before_sha256": "36d7b961ed721dc9917da03337090e7f720c9de4c43ed8e06807c4f7019534f8",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "sfdisk"
+        ],
+        "specialized_entrypoint": "rustbox_sfdisk_main"
+      },
+      "su": {
+        "after_sha256": "9800ace89540d41b5f40868b42ccda9db11d179145ee38fefb5c3048d33050da",
+        "before_sha256": "a45f8427c8945b54a2e5d969c9742a0d7b3fa7a5b602ab0885d3ff2f8adade6d",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "su"
+        ],
+        "specialized_entrypoint": "rustbox_su_main"
+      },
+      "sulogin": {
+        "after_sha256": "d14a3eefb47cfde1f88628a5d93834fd01a243dc2cee4ca7c6e226fe3772bf25",
+        "before_sha256": "b11e2585a7102e69bd6febb6b5cf8442c96c4a2d34bb52822af6ffffc12b1f44",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "sulogin"
+        ],
+        "specialized_entrypoint": "rustbox_sulogin_main"
+      },
+      "vipw": {
+        "after_sha256": "602e7e72838147fd02381823113034397bd8dce2041e65f82f11bae5be3d86df",
+        "before_sha256": "a2defa19a976d5304fc9d0148a448716ecc84df0933956e500a29d0d79b449c0",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "vigr"
+        ],
+        "specialized_entrypoint": "rustbox_vigr_main"
+      }
+    },
+    "schema": 1
+  },
+  "hybrid": {
+    "bytes": 9771208,
+    "canonical_applet_objects_linked": false,
+    "link_map_sha256": "78ca73af0736d4dfeb15ea17b1f5977a30e80dd8702b265938d7a8788d292a95",
+    "replacement_symbols_defined_once": true,
+    "sha256": "04192a6657bed7a6fac3a1fc7cfbfdec59fe2af450bba32e4a643201330bc08c",
+    "stripped_bytes": 2506976,
+    "support_symbol_specializations": [
+      {
+        "defined_symbol": "list_sort",
+        "normalized_header_sha256": "6e53f4390774d76db542c8bd5024e22ac51c15cd43d4c640bb69fc59a83a3752",
+        "object": "rustbox-support-14/list-sort-support.o",
+        "object_sha256": "21866ad2f121466ccba9876e0a4a7f7dab37eb43a5fd69d6b6769e2a281c5680",
+        "reason": "keep the unchanged canonical inline merge-sort implementation outside C2Rust's header AST and expose it through one explicit C ABI boundary",
+        "source_sha256": "2e4c9b8da3b63f23b999e36224f76ef50fcb88d6e0255a42f0398d0972e0ecba"
+      }
+    ]
+  },
+  "input": {
+    "clang_database_sha256": "ae7282a1e610ac0cba546c1b680ec08596d01b4687c939f1946dba3cd052a70b",
+    "compile_commands": 12,
+    "gcc_database_sha256": "5531e1967ffa8621f087036daa3b9d8a92b2d45813eac704335a84511e799e22",
+    "slice_sha256": "18f6f125b0b87cb83d7d5384593a37a4e47c5bf609ae3693c6a9a46b712f766f",
+    "upstream_archive_sha256": "fbd62a100ab7bb8746ba0661255c3c48185b1e9021507c624da01fbc696330ec"
+  },
+  "normalization": {
+    "abi_checks": [
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "login-utils/sulogin.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "login-utils/runuser.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "disk-utils/fdisk.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "disk-utils/sfdisk.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "disk-utils/cfdisk.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "login-utils/vipw.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "login-utils/login.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "login-utils/su.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "misc-utils/lsblk.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "misc-utils/findmnt.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "lsfd-cmd/lsfd.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "term-utils/agetty.c"
+      }
+    ],
+    "batch": "util-linux-small-14",
+    "compiler_replays": [
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "login-utils/sulogin.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "login-utils/runuser.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "disk-utils/fdisk.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "disk-utils/sfdisk.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "disk-utils/cfdisk.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "login-utils/vipw.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "login-utils/login.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "login-utils/su.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "misc-utils/lsblk.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "misc-utils/findmnt.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "lsfd-cmd/lsfd.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "term-utils/agetty.c"
+      }
+    ],
+    "gcc_database_sha256": "d2792eba1c2166d864cd36e84ec32a0797d6143ec4786d098c199664f4eb5ce7",
+    "input_database_sha256": "18f6f125b0b87cb83d7d5384593a37a4e47c5bf609ae3693c6a9a46b712f766f",
+    "normalized_database_sha256": "49e7cbf335d6ee9bd427d3833306d39ef9f1a329a72a35743110e79ddfe4a1bd",
+    "schema": 1,
+    "semantic_patches": [
+      {
+        "after_sha256": "3fe59e8d87ebc9a48081cd109385fdfcf731cfd70b32fbc3cbea7c2c094a8505",
+        "before_sha256": "8827175d9494dfa54da403f3971db976ded73f9afb89a0c9ae002d1b4a9a2be6",
+        "engine": "exact",
+        "expected_after": "(sizeof(color_pairs) / sizeof(color_pairs[0]))",
+        "expected_before": "ARRAY_SIZE(color_pairs)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "(sizeof(color_pairs) / sizeof(color_pairs[0]))",
+        "source": "disk-utils/cfdisk.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "5eb13241cc6a379db8ca3f22bd65b9aa686ddc500417341e32e230c123f7cf9a",
+        "before_sha256": "3fe59e8d87ebc9a48081cd109385fdfcf731cfd70b32fbc3cbea7c2c094a8505",
+        "engine": "exact",
+        "expected_after": "(sizeof(help) / sizeof(help[0]))",
+        "expected_before": "ARRAY_SIZE(help)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "(sizeof(help) / sizeof(help[0]))",
+        "source": "disk-utils/cfdisk.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "16062dc1a8d223460d19002d8a27dbd6c4a110e284594aacf309f90527df08b2",
+        "before_sha256": "5eb13241cc6a379db8ca3f22bd65b9aa686ddc500417341e32e230c123f7cf9a",
+        "engine": "exact",
+        "expected_after": "(sizeof(default_disks) / sizeof(default_disks[0]))",
+        "expected_before": "ARRAY_SIZE(default_disks)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "(sizeof(default_disks) / sizeof(default_disks[0]))",
+        "source": "disk-utils/cfdisk.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "13cf16b1e2597d7adb48776a37d4b4461448c37d7cc5a2f601e51d2f8d66da76",
+        "before_sha256": "04f7d87e076dc7d25aa4fa79e971693b65cf6201f0d663ae641ca11c3d216905",
+        "engine": "exact",
+        "expected_after": "(sizeof(infos) / sizeof(infos[0]))",
+        "expected_after_count": 12,
+        "expected_before": "ARRAY_SIZE(infos)",
+        "expected_before_count": 12,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "(sizeof(infos) / sizeof(infos[0]))",
+        "source": "misc-utils/findmnt.c",
+        "verified_after_count": 12,
+        "verified_before_count": 12
+      },
+      {
+        "after_sha256": "5d468c31fe5144e49d7d4f8ef2b02d2b8750dac6f89db150ca0373f2e933fbe5",
+        "before_sha256": "13cf16b1e2597d7adb48776a37d4b4461448c37d7cc5a2f601e51d2f8d66da76",
+        "engine": "exact",
+        "expected_after": "(sizeof(columns) / sizeof(columns[0]))",
+        "expected_after_count": 3,
+        "expected_before": "ARRAY_SIZE(columns)",
+        "expected_before_count": 3,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "(sizeof(columns) / sizeof(columns[0]))",
+        "source": "misc-utils/findmnt.c",
+        "verified_after_count": 3,
+        "verified_before_count": 3
+      },
+      {
+        "after_sha256": "4bbb45452d3c7f9a32ad963e14007ad8312df4c976c87fe4e0642be908c0fd8b",
+        "before_sha256": "5d468c31fe5144e49d7d4f8ef2b02d2b8750dac6f89db150ca0373f2e933fbe5",
+        "engine": "exact",
+        "expected_after": "(sizeof(excl) / sizeof(excl[0]))",
+        "expected_before": "ARRAY_SIZE(excl)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "(sizeof(excl) / sizeof(excl[0]))",
+        "source": "misc-utils/findmnt.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "44c857b6c9110ff1a0eeffa32cff8db4145e429609b003fc92aa29ecb16f67a4",
+        "before_sha256": "4bbb45452d3c7f9a32ad963e14007ad8312df4c976c87fe4e0642be908c0fd8b",
+        "engine": "exact",
+        "expected_after": "(sizeof(actions) / sizeof(actions[0]))",
+        "expected_before": "ARRAY_SIZE(actions)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "(sizeof(actions) / sizeof(actions[0]))",
+        "source": "misc-utils/findmnt.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "0f01dcc2912a9f761e0a1690e29b4121a333316945874daaa7fc1a4403c8ae33",
+        "before_sha256": "e3383d7419a5e3d87c1de51bb0eb4c4d5c7d673d00992fcbf9e73285bf09452d",
+        "engine": "exact",
+        "expected_after": "const char *home = getenv(\"HOME\");\n\tif (!home)\n\t\thome = pwd->pw_dir;",
+        "expected_before": "const char *home = getenv(\"HOME\") ?: pwd->pw_dir;",
+        "reason": "Expand GNU's omitted-middle conditional into ordered statements, evaluating getenv exactly once as the canonical expression does while avoiding C2Rust's missing AST child.",
+        "replacement": "const char *home = getenv(\"HOME\");\n\tif (!home)\n\t\thome = pwd->pw_dir;",
+        "source": "login-utils/login.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "3c8fa4c3cc63505fea2a7ecc476a87f63491543b2faa7115e44018258a4e3f02",
+        "before_sha256": "ca3e8d5c18020ab624373ed1f2eb4176e8a3610595ffdca4164ca68f36f9440a",
+        "engine": "exact",
+        "expected_after": "(sizeof(infos) / sizeof(infos[0]))",
+        "expected_after_count": 6,
+        "expected_before": "ARRAY_SIZE(infos)",
+        "expected_before_count": 6,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "(sizeof(infos) / sizeof(infos[0]))",
+        "source": "misc-utils/lsblk.c",
+        "verified_after_count": 6,
+        "verified_before_count": 6
+      },
+      {
+        "after_sha256": "d327a0abed2cfc2c925437d3b2323df8c16f9a473e31b644d8c438f284f8fc0b",
+        "before_sha256": "3c8fa4c3cc63505fea2a7ecc476a87f63491543b2faa7115e44018258a4e3f02",
+        "engine": "exact",
+        "expected_after": "(sizeof(columns) / sizeof(columns[0]))",
+        "expected_after_count": 3,
+        "expected_before": "ARRAY_SIZE(columns)",
+        "expected_before_count": 3,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "(sizeof(columns) / sizeof(columns[0]))",
+        "source": "misc-utils/lsblk.c",
+        "verified_after_count": 3,
+        "verified_before_count": 3
+      },
+      {
+        "after_sha256": "801ca47bbf63dbe7e034fe57b20f07f2f39eec516c520d2e2c6a1aeffca583ba",
+        "before_sha256": "d327a0abed2cfc2c925437d3b2323df8c16f9a473e31b644d8c438f284f8fc0b",
+        "engine": "exact",
+        "expected_after": "(sizeof(excludes) / sizeof(excludes[0]))",
+        "expected_after_count": 3,
+        "expected_before": "ARRAY_SIZE(excludes)",
+        "expected_before_count": 3,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "(sizeof(excludes) / sizeof(excludes[0]))",
+        "source": "misc-utils/lsblk.c",
+        "verified_after_count": 3,
+        "verified_before_count": 3
+      },
+      {
+        "after_sha256": "f15992089020c4a23161fa41106cd9884a40b944645715dfe2c5b08c1ee309af",
+        "before_sha256": "801ca47bbf63dbe7e034fe57b20f07f2f39eec516c520d2e2c6a1aeffca583ba",
+        "engine": "exact",
+        "expected_after": "(sizeof(includes) / sizeof(includes[0]))",
+        "expected_after_count": 3,
+        "expected_before": "ARRAY_SIZE(includes)",
+        "expected_before_count": 3,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "(sizeof(includes) / sizeof(includes[0]))",
+        "source": "misc-utils/lsblk.c",
+        "verified_after_count": 3,
+        "verified_before_count": 3
+      },
+      {
+        "after_sha256": "67ee3977f3ed10b1d2fd51ba1f63c17374facd4c7fed085466e9326176e327c6",
+        "before_sha256": "f15992089020c4a23161fa41106cd9884a40b944645715dfe2c5b08c1ee309af",
+        "engine": "exact",
+        "expected_after": "(sizeof(excl) / sizeof(excl[0]))",
+        "expected_before": "ARRAY_SIZE(excl)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "(sizeof(excl) / sizeof(excl[0]))",
+        "source": "misc-utils/lsblk.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "8420cdb48b5d91b944ffa3261cf11f37e00bccd7571dc6439688b15d5c36ff5a",
+        "before_sha256": "e79862d71e8bf3cf8e8e0fa01b0ab6a1c4065e81381c6352efd32005c83ac3df",
+        "engine": "exact",
+        "expected_after": "(sizeof(infos) / sizeof(infos[0]))",
+        "expected_after_count": 4,
+        "expected_before": "ARRAY_SIZE(infos)",
+        "expected_before_count": 4,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "(sizeof(infos) / sizeof(infos[0]))",
+        "source": "lsfd-cmd/lsfd.c",
+        "verified_after_count": 4,
+        "verified_before_count": 4
+      },
+      {
+        "after_sha256": "fdf653326412739f24e9f8bddce9798e5a118bc23621c78653a6385a2f1afd6e",
+        "before_sha256": "8420cdb48b5d91b944ffa3261cf11f37e00bccd7571dc6439688b15d5c36ff5a",
+        "engine": "exact",
+        "expected_after": "(sizeof(columns) / sizeof(columns[0]))",
+        "expected_after_count": 2,
+        "expected_before": "ARRAY_SIZE(columns)",
+        "expected_before_count": 2,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "(sizeof(columns) / sizeof(columns[0]))",
+        "source": "lsfd-cmd/lsfd.c",
+        "verified_after_count": 2,
+        "verified_before_count": 2
+      },
+      {
+        "after_sha256": "f3522309216f964e6eafe3e47804ca53878d21b8d3090a11b97d99f2ba7b3a58",
+        "before_sha256": "fdf653326412739f24e9f8bddce9798e5a118bc23621c78653a6385a2f1afd6e",
+        "engine": "exact",
+        "expected_after": "(sizeof(assocs) / sizeof(assocs[0]))",
+        "expected_after_count": 4,
+        "expected_before": "ARRAY_SIZE(assocs)",
+        "expected_before_count": 4,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "(sizeof(assocs) / sizeof(assocs[0]))",
+        "source": "lsfd-cmd/lsfd.c",
+        "verified_after_count": 4,
+        "verified_before_count": 4
+      },
+      {
+        "after_sha256": "70f0598d4e36c5e12749b87f5e668aaf99ef2f300e11bdf20e16fdb0ffff2b9c",
+        "before_sha256": "f3522309216f964e6eafe3e47804ca53878d21b8d3090a11b97d99f2ba7b3a58",
+        "engine": "exact",
+        "expected_after": "(sizeof(default_columns) / sizeof(default_columns[0]))",
+        "expected_before": "ARRAY_SIZE(default_columns)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "(sizeof(default_columns) / sizeof(default_columns[0]))",
+        "source": "lsfd-cmd/lsfd.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "9e165ed3c662598c2f6bcd36208192b230b8bd98cfab05d88db2c483773d51ac",
+        "before_sha256": "70f0598d4e36c5e12749b87f5e668aaf99ef2f300e11bdf20e16fdb0ffff2b9c",
+        "engine": "exact",
+        "expected_after": "(sizeof(default_threads_columns) / sizeof(default_threads_columns[0]))",
+        "expected_before": "ARRAY_SIZE(default_threads_columns)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "(sizeof(default_threads_columns) / sizeof(default_threads_columns[0]))",
+        "source": "lsfd-cmd/lsfd.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "753211d5f542d8c20789720dbd5e511425122dda70c1217d5cb164673e9c2f1f",
+        "before_sha256": "9e165ed3c662598c2f6bcd36208192b230b8bd98cfab05d88db2c483773d51ac",
+        "engine": "exact",
+        "expected_after": "(sizeof(default_counter_specs) / sizeof(default_counter_specs[0]))",
+        "expected_after_count": 2,
+        "expected_before": "ARRAY_SIZE(default_counter_specs)",
+        "expected_before_count": 2,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "(sizeof(default_counter_specs) / sizeof(default_counter_specs[0]))",
+        "source": "lsfd-cmd/lsfd.c",
+        "verified_after_count": 2,
+        "verified_before_count": 2
+      },
+      {
+        "after_sha256": "fc10a9e9cc73c33b1e7060ed108c31cd98af4494c7eccc57e9eea1bab52634f1",
+        "before_sha256": "753211d5f542d8c20789720dbd5e511425122dda70c1217d5cb164673e9c2f1f",
+        "engine": "exact",
+        "expected_after": "(sizeof(COLUMN_SPEC) / sizeof((COLUMN_SPEC)[0]))",
+        "expected_before": "ARRAY_SIZE(COLUMN_SPEC)",
+        "reason": "Spell the array-macro parameter extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "(sizeof(COLUMN_SPEC) / sizeof((COLUMN_SPEC)[0]))",
+        "source": "lsfd-cmd/lsfd.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "36d7b961ed721dc9917da03337090e7f720c9de4c43ed8e06807c4f7019534f8",
+        "before_sha256": "22cb4c961b38e5c687ffffac4e57e79b59e318f0a2912811ee93af6c905a6f45",
+        "engine": "exact",
+        "expected_after": "(sizeof(excl) / sizeof(excl[0]))",
+        "expected_before": "ARRAY_SIZE(excl)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "(sizeof(excl) / sizeof(excl[0]))",
+        "source": "disk-utils/sfdisk.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "2be1a80e1ca6ebff7b21619cd1e152f01beef14c867ca372d8260108c8307560",
+        "before_sha256": "8bce25453bd2710e735facdf7f0313114e57eb93b27d392d89960a3d8c867c64",
+        "engine": "exact",
+        "expected_after": " */\n#if 0\n_INLINE_ void list_sort(",
+        "expected_before": " */\n_INLINE_ void list_sort(",
+        "reason": "Keep the canonical inline list-sort implementation out of C2Rust's header AST; the hybrid links an external wrapper around the unchanged canonical implementation.",
+        "replacement": " */\n#if 0\n_INLINE_ void list_sort(",
+        "source": "include/list.h",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "6e53f4390774d76db542c8bd5024e22ac51c15cd43d4c640bb69fc59a83a3752",
+        "before_sha256": "2be1a80e1ca6ebff7b21619cd1e152f01beef14c867ca372d8260108c8307560",
+        "engine": "exact",
+        "expected_after": "\tmerge_and_restore_back_links(cmp, data, head, part[max_lev], list);\n}\n#endif\nvoid list_sort(struct list_head *head,\n\t\tint (*cmp)(struct list_head *a,\n\t\t\t   struct list_head *b,\n\t\t\t   void *data),\n\t\tvoid *data);\n\n#undef _INLINE_",
+        "expected_before": "\tmerge_and_restore_back_links(cmp, data, head, part[max_lev], list);\n}\n\n#undef _INLINE_",
+        "reason": "Declare the canonical list-sort support boundary after excluding its inline body from the translator.",
+        "replacement": "\tmerge_and_restore_back_links(cmp, data, head, part[max_lev], list);\n}\n#endif\nvoid list_sort(struct list_head *head,\n\t\tint (*cmp)(struct list_head *a,\n\t\t\t   struct list_head *b,\n\t\t\t   void *data),\n\t\tvoid *data);\n\n#undef _INLINE_",
+        "source": "include/list.h",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "a3ee334735f0306e8c2b5ba4f79e061216a820a0baf523675623760b9980f54e",
+        "before_sha256": "ee63a6a681e1559d0b4e0809728c14ccc64f94494bc3a97e9b9db4a0eb24eb52",
+        "engine": "exact",
+        "expected_after": "(sizeof(modes) / sizeof(modes[0]))",
+        "expected_before": "ARRAY_SIZE(modes)",
+        "reason": "Spell the local header's fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a missing AST child.",
+        "replacement": "(sizeof(modes) / sizeof(modes[0]))",
+        "source": "disk-utils/fdisk-list.h",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      }
+    ],
+    "sources": {
+      "disk-utils/cfdisk.c": {
+        "canonical_sha256": "8827175d9494dfa54da403f3971db976ded73f9afb89a0c9ae002d1b4a9a2be6",
+        "changed": true,
+        "normalized_sha256": "16062dc1a8d223460d19002d8a27dbd6c4a110e284594aacf309f90527df08b2",
+        "staged_before_sha256": "8827175d9494dfa54da403f3971db976ded73f9afb89a0c9ae002d1b4a9a2be6"
+      },
+      "disk-utils/fdisk-list.h": {
+        "canonical_sha256": "ee63a6a681e1559d0b4e0809728c14ccc64f94494bc3a97e9b9db4a0eb24eb52",
+        "changed": true,
+        "normalized_sha256": "a3ee334735f0306e8c2b5ba4f79e061216a820a0baf523675623760b9980f54e",
+        "staged_before_sha256": "ee63a6a681e1559d0b4e0809728c14ccc64f94494bc3a97e9b9db4a0eb24eb52"
+      },
+      "disk-utils/fdisk.c": {
+        "canonical_sha256": "387ee3d330e8bfe3eae0f03a5e1d57d8c7189ff6fb364a188f6d59c9cdfd4801",
+        "changed": false,
+        "normalized_sha256": "387ee3d330e8bfe3eae0f03a5e1d57d8c7189ff6fb364a188f6d59c9cdfd4801",
+        "staged_before_sha256": "387ee3d330e8bfe3eae0f03a5e1d57d8c7189ff6fb364a188f6d59c9cdfd4801"
+      },
+      "disk-utils/fdisk.h": {
+        "canonical_sha256": "ec5aa7a76b8d583af9d278cab12fe63fca90aa96bb74f18e558d5ce663fb1969",
+        "changed": false,
+        "normalized_sha256": "ec5aa7a76b8d583af9d278cab12fe63fca90aa96bb74f18e558d5ce663fb1969",
+        "passthrough": true,
+        "staged_before_sha256": "ec5aa7a76b8d583af9d278cab12fe63fca90aa96bb74f18e558d5ce663fb1969"
+      },
+      "disk-utils/sfdisk.c": {
+        "canonical_sha256": "22cb4c961b38e5c687ffffac4e57e79b59e318f0a2912811ee93af6c905a6f45",
+        "changed": true,
+        "normalized_sha256": "36d7b961ed721dc9917da03337090e7f720c9de4c43ed8e06807c4f7019534f8",
+        "staged_before_sha256": "22cb4c961b38e5c687ffffac4e57e79b59e318f0a2912811ee93af6c905a6f45"
+      },
+      "include/configs.h": {
+        "canonical_sha256": "f1cd11508ec7b5a216db6fcb01654c7be81a676b1ef7777f344d4c61b7fc5b09",
+        "changed": false,
+        "normalized_sha256": "f1cd11508ec7b5a216db6fcb01654c7be81a676b1ef7777f344d4c61b7fc5b09",
+        "passthrough": true,
+        "staged_before_sha256": "f1cd11508ec7b5a216db6fcb01654c7be81a676b1ef7777f344d4c61b7fc5b09"
+      },
+      "include/list.h": {
+        "canonical_sha256": "8bce25453bd2710e735facdf7f0313114e57eb93b27d392d89960a3d8c867c64",
+        "changed": true,
+        "normalized_sha256": "6e53f4390774d76db542c8bd5024e22ac51c15cd43d4c640bb69fc59a83a3752",
+        "staged_before_sha256": "8bce25453bd2710e735facdf7f0313114e57eb93b27d392d89960a3d8c867c64"
+      },
+      "include/netaddrq.h": {
+        "canonical_sha256": "c748cfe5255a9c0b370d471c08547e65fb58fea83d8a7eb59f2a0d73850f5bf0",
+        "changed": false,
+        "normalized_sha256": "c748cfe5255a9c0b370d471c08547e65fb58fea83d8a7eb59f2a0d73850f5bf0",
+        "passthrough": true,
+        "staged_before_sha256": "c748cfe5255a9c0b370d471c08547e65fb58fea83d8a7eb59f2a0d73850f5bf0"
+      },
+      "include/netlink.h": {
+        "canonical_sha256": "922848f7194da52b2d9422fd29c88043f9ac2062bb1b937d957ab1f9be0c121d",
+        "changed": false,
+        "normalized_sha256": "922848f7194da52b2d9422fd29c88043f9ac2062bb1b937d957ab1f9be0c121d",
+        "passthrough": true,
+        "staged_before_sha256": "922848f7194da52b2d9422fd29c88043f9ac2062bb1b937d957ab1f9be0c121d"
+      },
+      "login-utils/login.c": {
+        "canonical_sha256": "e3383d7419a5e3d87c1de51bb0eb4c4d5c7d673d00992fcbf9e73285bf09452d",
+        "changed": true,
+        "normalized_sha256": "0f01dcc2912a9f761e0a1690e29b4121a333316945874daaa7fc1a4403c8ae33",
+        "staged_before_sha256": "e3383d7419a5e3d87c1de51bb0eb4c4d5c7d673d00992fcbf9e73285bf09452d"
+      },
+      "login-utils/runuser.c": {
+        "canonical_sha256": "8c24416409b829e096d9ca4a8c6fc60c3be8d0e08377a05c9305253069b29c68",
+        "changed": false,
+        "normalized_sha256": "8c24416409b829e096d9ca4a8c6fc60c3be8d0e08377a05c9305253069b29c68",
+        "staged_before_sha256": "8c24416409b829e096d9ca4a8c6fc60c3be8d0e08377a05c9305253069b29c68"
+      },
+      "login-utils/su.c": {
+        "canonical_sha256": "a45f8427c8945b54a2e5d969c9742a0d7b3fa7a5b602ab0885d3ff2f8adade6d",
+        "changed": false,
+        "normalized_sha256": "a45f8427c8945b54a2e5d969c9742a0d7b3fa7a5b602ab0885d3ff2f8adade6d",
+        "staged_before_sha256": "a45f8427c8945b54a2e5d969c9742a0d7b3fa7a5b602ab0885d3ff2f8adade6d"
+      },
+      "login-utils/sulogin.c": {
+        "canonical_sha256": "b11e2585a7102e69bd6febb6b5cf8442c96c4a2d34bb52822af6ffffc12b1f44",
+        "changed": false,
+        "normalized_sha256": "b11e2585a7102e69bd6febb6b5cf8442c96c4a2d34bb52822af6ffffc12b1f44",
+        "staged_before_sha256": "b11e2585a7102e69bd6febb6b5cf8442c96c4a2d34bb52822af6ffffc12b1f44"
+      },
+      "login-utils/vipw.c": {
+        "canonical_sha256": "a2defa19a976d5304fc9d0148a448716ecc84df0933956e500a29d0d79b449c0",
+        "changed": false,
+        "normalized_sha256": "a2defa19a976d5304fc9d0148a448716ecc84df0933956e500a29d0d79b449c0",
+        "staged_before_sha256": "a2defa19a976d5304fc9d0148a448716ecc84df0933956e500a29d0d79b449c0"
+      },
+      "lsfd-cmd/lsfd.c": {
+        "canonical_sha256": "e79862d71e8bf3cf8e8e0fa01b0ab6a1c4065e81381c6352efd32005c83ac3df",
+        "changed": true,
+        "normalized_sha256": "fc10a9e9cc73c33b1e7060ed108c31cd98af4494c7eccc57e9eea1bab52634f1",
+        "staged_before_sha256": "e79862d71e8bf3cf8e8e0fa01b0ab6a1c4065e81381c6352efd32005c83ac3df"
+      },
+      "misc-utils/findmnt.c": {
+        "canonical_sha256": "04f7d87e076dc7d25aa4fa79e971693b65cf6201f0d663ae641ca11c3d216905",
+        "changed": true,
+        "normalized_sha256": "44c857b6c9110ff1a0eeffa32cff8db4145e429609b003fc92aa29ecb16f67a4",
+        "staged_before_sha256": "04f7d87e076dc7d25aa4fa79e971693b65cf6201f0d663ae641ca11c3d216905"
+      },
+      "misc-utils/lsblk.c": {
+        "canonical_sha256": "ca3e8d5c18020ab624373ed1f2eb4176e8a3610595ffdca4164ca68f36f9440a",
+        "changed": true,
+        "normalized_sha256": "67ee3977f3ed10b1d2fd51ba1f63c17374facd4c7fed085466e9326176e327c6",
+        "staged_before_sha256": "ca3e8d5c18020ab624373ed1f2eb4176e8a3610595ffdca4164ca68f36f9440a"
+      },
+      "term-utils/agetty.c": {
+        "canonical_sha256": "6cc79b22825d3c06f1c4f654612e15b1d45c8b04d346c3d3ccab1ac20c3db7f7",
+        "changed": false,
+        "normalized_sha256": "6cc79b22825d3c06f1c4f654612e15b1d45c8b04d346c3d3ccab1ac20c3db7f7",
+        "staged_before_sha256": "6cc79b22825d3c06f1c4f654612e15b1d45c8b04d346c3d3ccab1ac20c3db7f7"
+      }
+    }
+  },
+  "reachable": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "5503b98cb47c2ce34e2e7e2c2bed3d4b14e7cb68baac7fcdc921429b883c346b",
+      "cargo_toml_sha256": "e6abdf50ae24fc85e13e8ccf2ddf5fed46026c567377f549d5808ba2ff21e049",
+      "diagnostics_by_level": {
+        "warning": 89
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "5ce3929ed332fdca1f59d20dd45a85c30416617da686da77fb2b597afeb3a99e",
+      "toolchain_request": "nightly-2023-04-15",
+      "warning_codes": {
+        "stable_features": 1,
+        "unused_imports": 4,
+        "unused_must_use": 14,
+        "unused_parens": 45,
+        "unused_variables": 24
+      }
+    },
+    "compile_error_macros": 0,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "13aa53389c3364a286314b7183883f52cd78bb7814515047efeeea6305350c8a",
+      "src/disk_utils/cfdisk.rs": "1cbcd701b2836e4971cf38d0996621c4762ca3ddda183cf4d2654d2371f2c5ea",
+      "src/disk_utils/fdisk.rs": "c72e1c0878512fcecebf883b6e834ea26281757e8c0e30c627d8feeb82d066e4",
+      "src/disk_utils/sfdisk.rs": "0fed7f47c9bb3ae3b624a1c982e7879d5cbf988adc7842b360f6f9e6ced61308",
+      "src/login_utils/login.rs": "dff584d5ca5bcb2c26925fa69b0c6bbe01e6040d09bd9907019097305be95c9a",
+      "src/login_utils/runuser.rs": "324db028a1369e6b1aa73ca1ca540b55ff4d0399910c51a25aafe9b3fd3ea721",
+      "src/login_utils/su.rs": "b14de4ce10b16a30e1619b83e1cbcbf73a6f256c5e6f39a07152f799fc3a63e3",
+      "src/login_utils/sulogin.rs": "84b2244eaa22ace7fff3953f45bdc218bfd080e98166cba9d8bf1fd81910781a",
+      "src/login_utils/vipw.rs": "230aaaa27dfd44bc183783bc578c98c3e48896eceaa7bfcc08b1067255cf27f1",
+      "src/lsfd_cmd/lsfd.rs": "d1672c289867972fa7b886cc90f09c69c50b48f1e388dd5118f334f460e054ca",
+      "src/misc_utils/findmnt.rs": "f1f4efa85bd5bb2aeeeac1a95e4c028e1f248731e45239ea10e63dd5b0d5008a",
+      "src/misc_utils/lsblk.rs": "e3e5d5f5a77b55cca75180a72a118ec4bd6fb9a7483330777a68e7709b123bb1",
+      "src/term_utils/agetty.rs": "490d3e5e4a45f9c6f6da755b4813dbb93123440bbecacb8266be5788c48f25cb"
+    },
+    "generated_rust_repairs": 0,
+    "rust_bytes": 2499249,
+    "rust_files": 14,
+    "scaffold": {
+      "crate_feature_additions": [],
+      "dependency_additions": [],
+      "input_cargo_sha256": "e6abdf50ae24fc85e13e8ccf2ddf5fed46026c567377f549d5808ba2ff21e049",
+      "output_cargo_sha256": "e6abdf50ae24fc85e13e8ccf2ddf5fed46026c567377f549d5808ba2ff21e049",
+      "rust_files_changed": 0,
+      "schema": 1
+    },
+    "todo_macros": 0,
+    "unimplemented_macros": 0
+  },
+  "recorded_at": "2026-11-20",
+  "schema": 1,
+  "stable_integration": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+      "cargo_lock_sha256": "f9ef641ea511d6311636d7981165464626f10edda8a982591917fe8379b54c7b",
+      "cargo_toml_sha256": "e6abdf50ae24fc85e13e8ccf2ddf5fed46026c567377f549d5808ba2ff21e049",
+      "diagnostics_by_level": {
+        "warning": 114
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+      "schema": 1,
+      "stderr_sha256": "7416038cf329f285bedd0f0cdd9fa09a130cf88bfcb2bb77adc77a9b6e5b5b84",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "clashing_extern_declarations": 22,
+        "suspicious_runtime_symbol_definitions": 5,
+        "unused_imports": 4,
+        "unused_must_use": 14,
+        "unused_parens": 45,
+        "unused_variables": 24
+      }
+    },
+    "compile_error_macros": 0,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "7b2a07b11f44967bef9a32d6db3961591a843b67ebc2de485ac174507cae4c90",
+      "src/disk_utils/cfdisk.rs": "ee3c5e0eb2fb19fab0a6372aeb6b04948c72964131c9cc7d6fbe74c799ab106d",
+      "src/disk_utils/fdisk.rs": "9d068771541cdff4d89929e84a7f713b3b665e5cce9d761704fd8c7d8536efbe",
+      "src/disk_utils/sfdisk.rs": "afc5a9b865ed83c235bbf4e830e4bd37d29232eec5b19fb8c4328d2b0a7cd1a0",
+      "src/login_utils/login.rs": "823c90d108be5579a8846674f8c6a047fc300b2b8c5b24fc51666834cafbc50a",
+      "src/login_utils/runuser.rs": "324db028a1369e6b1aa73ca1ca540b55ff4d0399910c51a25aafe9b3fd3ea721",
+      "src/login_utils/su.rs": "b14de4ce10b16a30e1619b83e1cbcbf73a6f256c5e6f39a07152f799fc3a63e3",
+      "src/login_utils/sulogin.rs": "e77a9a413ca27999fd0084063fa83e976101f17b310abb14e9ba4c266ecd1c1f",
+      "src/login_utils/vipw.rs": "35d8dadb4c9bf8855e00c61f77c23d5f9a5583f90f7f98d8ef0e0c767b0f4fb4",
+      "src/lsfd_cmd/lsfd.rs": "223a7909b035c2b54fd23ab526eefe7d0ea4c64277225814d3873fad0e4e6744",
+      "src/misc_utils/findmnt.rs": "45ddc22cd3bbc04e965fef378396a9cafadc00e5773bfc587e0409a7398e1cfa",
+      "src/misc_utils/lsblk.rs": "8175c2ce1708089b070e52f095d5de9cfe5292697ddeea7a03397fd7b3f6132a",
+      "src/term_utils/agetty.rs": "97ae7d037056cb656df529e3ca1209b5961c7014410a538b70129261d3ce87e0"
+    },
+    "hand_edits": 0,
+    "modernization_manifest_sha256": "7b32a5f59ca55b9c78a114c2803fa97ff8e77a774ada6eb8af7f7208ffa6e2ae",
+    "opaque_types_verified_pointer_only": [
+      "_IO_codecvt",
+      "_IO_marker",
+      "_IO_wide_data",
+      "__dirstream",
+      "_win_st",
+      "blkid_struct_cache",
+      "blkid_struct_dev",
+      "blkid_struct_dev_iterate",
+      "fdisk_ask",
+      "fdisk_context",
+      "fdisk_field",
+      "fdisk_iter",
+      "fdisk_label",
+      "fdisk_partition",
+      "fdisk_parttype",
+      "fdisk_script",
+      "fdisk_table",
+      "libmnt_cache",
+      "libmnt_fs",
+      "libmnt_iter",
+      "libmnt_statmnt",
+      "libmnt_tabdiff",
+      "libmnt_table",
+      "libscols_cell",
+      "libscols_column",
+      "libscols_counter",
+      "libscols_filter",
+      "libscols_iter",
+      "libscols_line",
+      "libscols_table",
+      "pam_handle",
+      "ul_env_list"
+    ],
+    "repair_score": 5,
+    "repair_score_basis": "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), and reusable VaListImpl/as_va_list modernization (2)",
+    "rust_bytes": 2502417,
+    "rust_files": 14,
+    "todo_macros": 0,
+    "unimplemented_macros": 0
+  },
+  "status": "hybrid canonical parity; Rustbox-native integration pending",
+  "translator": {
+    "audit_preserves_unused_functions": true,
+    "fail_on_error": true,
+    "image_id": "sha256:d7f3755ec6a27d89124626535d36b859ddee1f7a11236454f7952bf513c3d6aa",
+    "name": "C2Rust",
+    "version": "0.22.1"
+  }
+}

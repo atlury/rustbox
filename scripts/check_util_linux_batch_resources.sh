@@ -19,6 +19,7 @@ case $batch in
   util-linux-small-11) suffix=11 ;;
   util-linux-small-12) suffix=12 ;;
   util-linux-small-13) suffix=13 ;;
+  util-linux-small-14) suffix=14; expected=12 ;;
   *) echo "unknown batch: $batch" >&2; exit 2 ;;
 esac
 
@@ -49,6 +50,14 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     valgrind --quiet --leak-check=full --show-leak-kinds=all \
       --errors-for-leak-kinds=definite,indirect,possible \
       --error-exitcode=99 --log-file="$stable/valgrind-$name.log" \
+      "$hybrid" "$@"
+  }
+  check_canonical_loss () {
+    name=$1
+    shift
+    valgrind --leak-check=full --show-leak-kinds=all \
+      --errors-for-leak-kinds=none --error-exitcode=99 \
+      --log-file="$stable/valgrind-$name.log" \
       "$hybrid" "$@"
   }
   if test "$suffix" = 01; then
@@ -129,7 +138,7 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     check_process_lifetime umount umount --help >/dev/null
     # Canonical pg retains its 71-byte terminal capability string until exit.
     check_process_lifetime pg pg --help >/dev/null
-  else
+  elif test "$suffix" = 13; then
     for applet in chfn hwclock lsns script unshare; do
       check "$applet" "$applet" --help >/dev/null
     done
@@ -140,6 +149,27 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     check_process_lifetime lscpu lscpu --help >/dev/null
     check_process_lifetime lslogins lslogins --help >/dev/null
     check_process_lifetime swapon swapon --help >/dev/null
+  else
+    for applet in agetty cfdisk findmnt lsblk lsfd runuser sfdisk su sulogin vigr; do
+      check "$applet" "$applet" --help >/dev/null
+    done
+    check_process_lifetime fdisk fdisk --help >/dev/null
+    # Canonical login loses its process-title allocation on early option exits.
+    # Keep invalid memory access fatal while recording the canonical-matched loss.
+    check_canonical_loss login login --version >/dev/null
+    valgrind --leak-check=full --show-leak-kinds=all \
+      --errors-for-leak-kinds=none --error-exitcode=99 \
+      --log-file="$stable/hybrid-fdisk-lifetime.log" \
+      "$hybrid" fdisk --help >/dev/null
+    LD_LIBRARY_PATH="$build/.libs" \
+    valgrind --leak-check=full --show-leak-kinds=all \
+      --errors-for-leak-kinds=none --error-exitcode=99 \
+      --log-file="$stable/canonical-fdisk-lifetime.log" \
+      "$build/.libs/fdisk" --help >/dev/null
+    valgrind --leak-check=full --show-leak-kinds=all \
+      --errors-for-leak-kinds=none --error-exitcode=99 \
+      --log-file="$stable/canonical-login-lifetime.log" \
+      "$build/login" --version >/dev/null
   fi
   python3 - <<'PY'
 import json
@@ -195,6 +225,39 @@ elif suffix == "13":
         {"applet": "lscpu", "bytes": 224, "definite_indirect_possible_losses": 0},
         {"applet": "lslogins", "bytes": 120, "definite_indirect_possible_losses": 0},
         {"applet": "swapon", "bytes": 48, "definite_indirect_possible_losses": 0},
+    ]
+elif suffix == "14":
+    import re
+
+    def leak_summary(name):
+        text = (root / name).read_text()
+        labels = ("definitely lost", "indirectly lost", "possibly lost", "still reachable")
+        result = {}
+        for label in labels:
+            match = re.search(rf"{label}: ([0-9,]+) bytes", text)
+            if not match:
+                raise SystemExit(f"missing {label} summary in {name}")
+            result[label.replace(" ", "_")] = int(match.group(1).replace(",", ""))
+        return result
+
+    hybrid_fdisk = leak_summary("hybrid-fdisk-lifetime.log")
+    canonical_fdisk = leak_summary("canonical-fdisk-lifetime.log")
+    hybrid_login = leak_summary("valgrind-login.log")
+    canonical_login = leak_summary("canonical-login-lifetime.log")
+    if hybrid_fdisk != canonical_fdisk:
+        raise SystemExit(f"fdisk lifetime allocation mismatch: {hybrid_fdisk} != {canonical_fdisk}")
+    for record in (hybrid_login, canonical_login):
+        if record["definitely_lost"] == 0 or record["indirectly_lost"] == 0 or record["possibly_lost"] != 0:
+            raise SystemExit(f"unexpected login lifetime allocation profile: {record}")
+    result["canonical_process_lifetime_exceptions"] = [
+        {"applet": "fdisk", "hybrid": hybrid_fdisk, "canonical": canonical_fdisk},
+        {
+            "applet": "login",
+            "hybrid": hybrid_login,
+            "canonical": canonical_login,
+            "environment_dependent": True,
+            "origin": "process_title_init",
+        },
     ]
 (root / "resources.json").write_text(json.dumps(result, indent=2) + "\n")
 print(json.dumps(result, sort_keys=True))
