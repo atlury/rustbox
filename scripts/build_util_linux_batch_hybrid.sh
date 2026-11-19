@@ -41,6 +41,13 @@ case $batch in
     extra_objects='lib/blkdiscard-monotonic.o lib/lastlog2-strutils.o term-utils/script-playutils.o lib/pty-session.o ./.libs/liblastlog2.a ./.libs/libblkid.a ./.libs/libsmartcols.a ./.libs/libuuid.a ./.libs/libcommon.a'
     extra_libraries='-leconf -lsqlite3'
     ;;
+  util-linux-small-06)
+    suffix=06
+    library_name=libutil_linux_small_06_normalized_reachable.a
+    applets='coresched chcpu namei wall readprofile scriptreplay blkpr ldattach blockdev flock'
+    extra_objects='lib/strutils.o lib/idcache.o term-utils/wall-ttymsg.o term-utils/script-playutils.o lib/monotonic.o lib/timer.o ./.libs/libcommon.a'
+    extra_libraries=''
+    ;;
   *) echo "hybrid linker not yet declared for $batch" >&2; exit 2 ;;
 esac
 

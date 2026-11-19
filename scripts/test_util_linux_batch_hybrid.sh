@@ -10,6 +10,7 @@ case $batch in
   util-linux-small-03) suffix=03; components='swaplabel uuidgen ionice copyfilerange'; count=5 ;;
   util-linux-small-04) suffix=04; components='bits colcrt getino mountpoint waitpid'; count=7 ;;
   util-linux-small-05) suffix=05; components='blkdiscard look pipesz rename uuidparse'; count=10 ;;
+  util-linux-small-06) suffix=06; components='coresched flock namei'; count=4 ;;
   *) echo "unknown batch: $batch" >&2; exit 2 ;;
 esac
 
@@ -58,12 +59,16 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     export TS_CMD_GETINO="$build/rustbox-small-04/getino"
     export TS_CMD_MOUNTPOINT="$build/rustbox-small-04/mountpoint"
     export TS_CMD_WAITPID="$build/rustbox-small-04/waitpid"
-  else
+  elif test "$suffix" = 05; then
     export TS_CMD_BLKDISCARD="$build/rustbox-small-05/blkdiscard"
     export TS_CMD_LOOK="$build/rustbox-small-05/look"
     export TS_CMD_PIPESZ="$build/rustbox-small-05/pipesz"
     export TS_CMD_RENAME="$build/rustbox-small-05/rename"
     export TS_CMD_UUIDPARSE="$build/rustbox-small-05/uuidparse"
+  else
+    export TS_CMD_CORESCHED="$build/rustbox-small-06/coresched"
+    export TS_CMD_FLOCK="$build/rustbox-small-06/flock"
+    export TS_CMD_NAMEI="$build/rustbox-small-06/namei"
   fi
   su -m -s /bin/bash rustbox-test -c \
     "cd $build && $source/tests/run.sh --srcdir=$source --builddir=$build $components" \

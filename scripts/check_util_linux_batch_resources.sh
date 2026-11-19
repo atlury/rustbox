@@ -10,6 +10,7 @@ case $batch in
   util-linux-small-03) suffix=03 ;;
   util-linux-small-04) suffix=04 ;;
   util-linux-small-05) suffix=05 ;;
+  util-linux-small-06) suffix=06 ;;
   *) echo "unknown batch: $batch" >&2; exit 2 ;;
 esac
 
@@ -30,6 +31,14 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     name=$1
     shift
     valgrind --quiet --leak-check=full --errors-for-leak-kinds=all \
+      --error-exitcode=99 --log-file="$stable/valgrind-$name.log" \
+      "$hybrid" "$@"
+  }
+  check_process_lifetime () {
+    name=$1
+    shift
+    valgrind --quiet --leak-check=full --show-leak-kinds=all \
+      --errors-for-leak-kinds=definite,indirect,possible \
       --error-exitcode=99 --log-file="$stable/valgrind-$name.log" \
       "$hybrid" "$@"
   }
@@ -59,13 +68,20 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     for applet in taskset mountpoint chsh waitpid colcrt getino ipcmk bits swapoff uclampset; do
       check "$applet" "$applet" --help >/dev/null
     done
-  else
+  elif test "$suffix" = 05; then
     for applet in look pipesz blkdiscard rename uuidparse utmpdump lastlog2 scriptlive vipw; do
       check "$applet" "$applet" --help >/dev/null
     done
     status=0
     check tunelp tunelp --help >/dev/null || status=$?
     test "$status" -eq 99
+  else
+    for applet in coresched namei wall readprofile scriptreplay blkpr ldattach blockdev flock; do
+      check "$applet" "$applet" --help >/dev/null
+    done
+    # Canonical chcpu retains its 4,184-byte path context until process exit.
+    # Continue rejecting every definite, indirect, and possible loss.
+    check_process_lifetime chcpu chcpu --help >/dev/null
   fi
   python3 - <<'PY'
 import json
@@ -78,6 +94,12 @@ logs = sorted(root.glob("valgrind-*.log"))
 if len(logs) != 10:
     raise SystemExit(f"expected 10 Valgrind logs, found {len(logs)}")
 result = {"schema": 1, "cases": len(logs), "passed": len(logs), "logs": [path.name for path in logs]}
+if suffix == "06":
+    result["canonical_process_lifetime_exception"] = {
+        "applet": "chcpu",
+        "bytes": 4184,
+        "definite_indirect_possible_losses": 0,
+    }
 (root / "resources.json").write_text(json.dumps(result, indent=2) + "\n")
 print(json.dumps(result, sort_keys=True))
 PY

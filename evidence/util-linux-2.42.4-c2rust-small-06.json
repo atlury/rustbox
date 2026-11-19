@@ -1,0 +1,639 @@
+{
+  "audit": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "a19a532da15652beddae10fa27de7d33c32aa814e67c59516ed3c9236407aa9f",
+      "cargo_toml_sha256": "0034d169ad1e3836756c3c15af903f1e2c735a369269bf2b550ddec5038e6b9f",
+      "diagnostics_by_level": {
+        "warning": 37
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "bddd96717ea9ea8c86424f2a265ca8fb6e0b626d6b52707010858d4ac7ef6ab4",
+      "toolchain_request": "nightly-2023-04-15",
+      "warning_codes": {
+        "stable_features": 1,
+        "unused_must_use": 20,
+        "unused_parens": 13,
+        "unused_variables": 2
+      }
+    },
+    "compile_error_macros": 0,
+    "declaration_map_sha256": {
+      "src/disk_utils/blockdev.c_decls.json": "9bb6654fb79e4780a9d55a92dc4131d3fe9f53e4b50f6b04b3453d5548973cd3",
+      "src/misc_utils/namei.c_decls.json": "85fdb01d17295c35b4c9459215316494d0bc388fae01a88f22e37d9135a41d11",
+      "src/schedutils/coresched.c_decls.json": "0e6287e0676f7bdefa0fd9b3272b439d27e8b2ff9e7d511084f5b83dcf88db8e",
+      "src/sys_utils/blkpr.c_decls.json": "438bf8b15805bd0484cad2d8450b8640b5652bb33132a987b1f4b0924e3352eb",
+      "src/sys_utils/chcpu.c_decls.json": "28fb03ee661b28bfb352723d3ba456d7af049ffefd2cf59a7cb89428c93d919d",
+      "src/sys_utils/flock.c_decls.json": "ee705f7e92e3e62fce8304a4977ea0d725235b35720b6d6e36ebd16bfe658714",
+      "src/sys_utils/ldattach.c_decls.json": "30d6341cbf04e3f553544f17f4a98bdca4ff5eaf49daf3775e0b2a1852c89319",
+      "src/sys_utils/readprofile.c_decls.json": "c0cf0bea71d9c06255bdf2fca3506b69937fb54c3adb99b6b02a14b3bf064b48",
+      "src/term_utils/scriptreplay.c_decls.json": "fab0c86a5c07b7526bfe60b319b973bbef4d1205e16b56c5ee91a9bff8e3298d",
+      "src/term_utils/wall.c_decls.json": "7041a681ec4d6bf496fc6c7125c343000b9e715884e9f68d62318386a70f95ec"
+    },
+    "declaration_maps": 10,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "cdf00d1df6077b452b9d6286809efcfd320ddb0d3d434bfe9e20ae24ad8940ed",
+      "src/disk_utils/blockdev.rs": "8b438fba13e67bfb4fd30fc49f3934069852ee0af1aafe9e4830c871e48ad3c8",
+      "src/misc_utils/namei.rs": "f1be3a41b760c8491e512897c1845a7b2deb0571933ea8aa7d57416ed86a89d4",
+      "src/schedutils/coresched.rs": "5e7a7a6efa8a6247a5c10304aebee8723c6ca979195bc2d3d74b1cbac30ea446",
+      "src/sys_utils/blkpr.rs": "fb68162a24269cc5372928bba979e35bc89a9e17d4c563fcb51e1fd714500411",
+      "src/sys_utils/chcpu.rs": "7235701181640533daf06209699fbeb5f78f745eee4dff033abd2266b66de6e5",
+      "src/sys_utils/flock.rs": "21e65bd1a158a069416928ec923b5dc4c87d453951db1ffb592f9e45b3a6cdb7",
+      "src/sys_utils/ldattach.rs": "9956e2c762e4da38c86313ea4e1739f36c7649bbc0e406c537322cffffbe2c94",
+      "src/sys_utils/readprofile.rs": "f57abbd3cf88594e71acda1b52804e563c7333f96371a0243c81587692fab075",
+      "src/term_utils/scriptreplay.rs": "5513537b153a56eec04311e5931e3457b4bb3137f837d1f28bc0212f6aed020f",
+      "src/term_utils/wall.rs": "bbb1560f5047462d82cdf8bff6ff755fc2884be858eb669fe36d8994ab5bd560"
+    },
+    "generated_rust_repairs": 0,
+    "rust_bytes": 1029130,
+    "rust_files": 12,
+    "todo_macros": 0,
+    "unimplemented_macros": 0
+  },
+  "batch": {
+    "applets": [
+      "coresched",
+      "chcpu",
+      "namei",
+      "wall",
+      "readprofile",
+      "scriptreplay",
+      "blkpr",
+      "ldattach",
+      "blockdev",
+      "flock"
+    ],
+    "manifest_sha256": "8def1b845d6a95e91986e721b620af19d6a37d3b2b9fa66f0d8405f29c03ed32",
+    "name": "util-linux-small-06"
+  },
+  "behavior": {
+    "differential": {
+      "cases": 58,
+      "failures": [],
+      "passed": 58,
+      "schema": 1
+    },
+    "targeted_upstream": {
+      "components": 4,
+      "coverage_note": "coresched was skipped under upstream policy because the test kernel lacks CONFIG_SCHED_CORE; all 17 executable flock, range-lock, and namei checks passed, while coresched and the other six applets are covered by safe differential and Valgrind cases",
+      "log_sha256": "610bc2147e542f9ccb7054a5685f3af7c4fe0c76c05f4edb1178801476fb2bf9",
+      "ordinary_subtests_passed": 17,
+      "passed": 4,
+      "upstream_skipped_components": 1
+    },
+    "valgrind": {
+      "canonical_process_lifetime_exception": {
+        "applet": "chcpu",
+        "bytes": 4184,
+        "definite_indirect_possible_losses": 0
+      },
+      "cases": 10,
+      "logs": [
+        "valgrind-blkpr.log",
+        "valgrind-blockdev.log",
+        "valgrind-chcpu.log",
+        "valgrind-coresched.log",
+        "valgrind-flock.log",
+        "valgrind-ldattach.log",
+        "valgrind-namei.log",
+        "valgrind-readprofile.log",
+        "valgrind-scriptreplay.log",
+        "valgrind-wall.log"
+      ],
+      "passed": 10,
+      "schema": 1
+    }
+  },
+  "entrypoint_specialization": {
+    "database_sha256": "5b383a541d668e1119eeb9b38df1475840ed1668f58ef6c0e87897bf460ba7fc",
+    "entrypoints": {
+      "blkpr": {
+        "after_sha256": "6fe739a06395f0cd6680f48777fe799a6753e2ff6775ed41a8df570ae62d0bc9",
+        "before_sha256": "445d0519005f297a9c26fa59be35b20ff947a13bf89b52be946846faf0b05f1b",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_blkpr_main"
+      },
+      "blockdev": {
+        "after_sha256": "465e21482333876c64adf0eaeea3ca963399b3c2826d67f61869d5ffb6cac17d",
+        "before_sha256": "598f47e1059d938705a796a7eaf2624f73c715ac748a211f2342526758bb20a9",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_blockdev_main"
+      },
+      "chcpu": {
+        "after_sha256": "d203be13324043aaa19dd625ef9a5c20caaab0e34a447390e11e981193c2e133",
+        "before_sha256": "1e9c85298f6765bda48d03b1b90d85611bb5b9a2209f9585152860ec30a6ed4a",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_chcpu_main"
+      },
+      "coresched": {
+        "after_sha256": "7f4403f1d342f165901b1140a71c17b00a09df4a4df41006cd674157b1e48407",
+        "before_sha256": "f70b6da7f1650eb23ae926273b264da03ad7bdb955b2c53ac92be80fa4b3fa4c",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_coresched_main"
+      },
+      "flock": {
+        "after_sha256": "b8c63fbf1d200ed11899cde4f53dad64d894a71335091fa71ba2013566757a4e",
+        "before_sha256": "ef803f1cb65b1dfa15ebeb6c34233ae09fd8efb9130ecc8bd6ce0c595a1b9395",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_flock_main"
+      },
+      "ldattach": {
+        "after_sha256": "b0940a161b6639cb33f7bea4ffb5cb7de7310efaa1affacc4d7610b9e0681719",
+        "before_sha256": "7af71e69fdbf32a29658ebc4575df32fec6d558be3550f37d6d6c6efd3af04fc",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_ldattach_main"
+      },
+      "namei": {
+        "after_sha256": "127d10174c145ff5b425718459de1a503d21a1d7e2eda9fc7c03476e777954ca",
+        "before_sha256": "ecacb0af934003bd2acaae6d2124a9e0503318cba7beacc652a78484fd83d584",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_namei_main"
+      },
+      "readprofile": {
+        "after_sha256": "b43f7bce96827d0b7ba2f153a3acd4b3abe94b8eb5a9cb1d1fa18339ebf4e172",
+        "before_sha256": "4703ef0bc9e0ca7f8b2a083bbb01cb308b939993d0550f5269777a606b51dbc2",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_readprofile_main"
+      },
+      "scriptreplay": {
+        "after_sha256": "4ce14138487df5cbf5dd1d21460a8a8edd4b4a78bd884ecf9431b0fe28d4bb61",
+        "before_sha256": "abc7ef4f9e058120d36a1c5dea9f8af89306d039181fb7278a40e465e3ba9a28",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_scriptreplay_main"
+      },
+      "wall": {
+        "after_sha256": "f0c72e0000be96e613561c0ac76f536a79f4d7a5dbb08c8d3c1335f6db654c4f",
+        "before_sha256": "ed8cfebf073e7fc7c62244fc8af4b2537d6d3b2744b06661746a014e9602aebf",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_wall_main"
+      }
+    },
+    "schema": 1
+  },
+  "hybrid": {
+    "bytes": 5838008,
+    "canonical_applet_objects_linked": false,
+    "link_map_sha256": "53c668b6607c491a8208528adcae26789905bb30c4713121c066919a5ea3ea82",
+    "replacement_symbols_defined_once": true,
+    "sha256": "d9f221667837f921c9fed4d0de64970a15064a548ee9f9cb00f1aca93b5bc549",
+    "stripped_bytes": 1189656
+  },
+  "input": {
+    "clang_database_sha256": "ae7282a1e610ac0cba546c1b680ec08596d01b4687c939f1946dba3cd052a70b",
+    "compile_commands": 10,
+    "gcc_database_sha256": "5531e1967ffa8621f087036daa3b9d8a92b2d45813eac704335a84511e799e22",
+    "slice_sha256": "11c97a817ff920bc5e1e2ca3e2c1e2a647586e1e79c682800ac9368522f2ddc2",
+    "upstream_archive_sha256": "fbd62a100ab7bb8746ba0661255c3c48185b1e9021507c624da01fbc696330ec"
+  },
+  "normalization": {
+    "abi_checks": [
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "sys-utils/blkpr.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "sys-utils/chcpu.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "disk-utils/blockdev.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "term-utils/scriptreplay.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "schedutils/coresched.c"
+      }
+    ],
+    "batch": "util-linux-small-06",
+    "compiler_replays": [
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "sys-utils/blkpr.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "sys-utils/chcpu.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "disk-utils/blockdev.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "term-utils/scriptreplay.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "term-utils/wall.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "sys-utils/flock.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "misc-utils/namei.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "sys-utils/readprofile.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "sys-utils/ldattach.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "schedutils/coresched.c"
+      }
+    ],
+    "gcc_database_sha256": "d6e79aaba2dab23deda0950e6b1540a5b4c23e0889e675974fd8693452d7d410",
+    "input_database_sha256": "11c97a817ff920bc5e1e2ca3e2c1e2a647586e1e79c682800ac9368522f2ddc2",
+    "normalized_database_sha256": "e23567ee194f32637d623f0f84fbb7b22b6c1f31a49a15422465b11888b7c462",
+    "schema": 1,
+    "semantic_patches": [
+      {
+        "after_sha256": "1e9c85298f6765bda48d03b1b90d85611bb5b9a2209f9585152860ec30a6ed4a",
+        "before_sha256": "21296193ed918192024366a6ec3df3fd4640e85b6ae1c4fb6d76523b03ad22eb",
+        "engine": "exact",
+        "expected_after": "sizeof(excl) / sizeof(excl[0])",
+        "expected_before": "ARRAY_SIZE(excl)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(excl) / sizeof(excl[0])",
+        "source": "sys-utils/chcpu.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "abc7ef4f9e058120d36a1c5dea9f8af89306d039181fb7278a40e465e3ba9a28",
+        "before_sha256": "5570e7d954ed8b4f46334baf271645cfd67d0dda7f2a26b25833c7f4ee103366",
+        "engine": "exact",
+        "expected_after": "sizeof(excl) / sizeof(excl[0])",
+        "expected_before": "ARRAY_SIZE(excl)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(excl) / sizeof(excl[0])",
+        "source": "term-utils/scriptreplay.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "123812da08e2282aef4b8bdc0aa257627d884d302b3a1ac58feec9dc6d7d9d1e",
+        "before_sha256": "83ad6c76f98d2507dd2ec91fc8b0651ac5b4cbbe03fc76b387cf82cb7ee3b951",
+        "engine": "exact",
+        "expected_after": "sizeof(XX) / sizeof(XX[0])",
+        "expected_after_count": 2,
+        "expected_before": "ARRAY_SIZE(XX)",
+        "expected_before_count": 2,
+        "reason": "Spell the macro-parameter fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(XX) / sizeof(XX[0])",
+        "source": "sys-utils/blkpr.c",
+        "verified_after_count": 2,
+        "verified_before_count": 2
+      },
+      {
+        "after_sha256": "445d0519005f297a9c26fa59be35b20ff947a13bf89b52be946846faf0b05f1b",
+        "before_sha256": "123812da08e2282aef4b8bdc0aa257627d884d302b3a1ac58feec9dc6d7d9d1e",
+        "engine": "exact",
+        "expected_after": "sizeof(pr_type) / sizeof(pr_type[0])",
+        "expected_before": "ARRAY_SIZE(pr_type)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(pr_type) / sizeof(pr_type[0])",
+        "source": "sys-utils/blkpr.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "598f47e1059d938705a796a7eaf2624f73c715ac748a211f2342526758bb20a9",
+        "before_sha256": "4f952b15602bfaaf55990e1c4ac470103f732f8cae2530dd2debed4182f7eae3",
+        "engine": "exact",
+        "expected_after": "sizeof(bdcms) / sizeof(bdcms[0])",
+        "expected_after_count": 2,
+        "expected_before": "ARRAY_SIZE(bdcms)",
+        "expected_before_count": 2,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(bdcms) / sizeof(bdcms[0])",
+        "source": "disk-utils/blockdev.c",
+        "verified_after_count": 2,
+        "verified_before_count": 2
+      },
+      {
+        "after_sha256": "f70b6da7f1650eb23ae926273b264da03ad7bdb955b2c53ac92be80fa4b3fa4c",
+        "before_sha256": "cb2eeebdcafa72c6cb189447c4eb5626305c5587fa0fac60344fd27eef857d3c",
+        "engine": "exact",
+        "expected_after": "\tdefault:\n\t\tusage();\n\t}\n\treturn EXIT_SUCCESS;\n}",
+        "expected_before": "\tdefault:\n\t\tusage();\n\t}\n}",
+        "reason": "Make C main's specified implicit success return explicit so C2Rust does not synthesize an abort after successful get, new, or copy operations.",
+        "replacement": "\tdefault:\n\t\tusage();\n\t}\n\treturn EXIT_SUCCESS;\n}",
+        "source": "schedutils/coresched.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      }
+    ],
+    "sources": {
+      "disk-utils/blockdev.c": {
+        "canonical_sha256": "4f952b15602bfaaf55990e1c4ac470103f732f8cae2530dd2debed4182f7eae3",
+        "changed": true,
+        "normalized_sha256": "598f47e1059d938705a796a7eaf2624f73c715ac748a211f2342526758bb20a9",
+        "staged_before_sha256": "4f952b15602bfaaf55990e1c4ac470103f732f8cae2530dd2debed4182f7eae3"
+      },
+      "misc-utils/namei.c": {
+        "canonical_sha256": "ecacb0af934003bd2acaae6d2124a9e0503318cba7beacc652a78484fd83d584",
+        "changed": false,
+        "normalized_sha256": "ecacb0af934003bd2acaae6d2124a9e0503318cba7beacc652a78484fd83d584",
+        "staged_before_sha256": "ecacb0af934003bd2acaae6d2124a9e0503318cba7beacc652a78484fd83d584"
+      },
+      "schedutils/coresched.c": {
+        "canonical_sha256": "cb2eeebdcafa72c6cb189447c4eb5626305c5587fa0fac60344fd27eef857d3c",
+        "changed": true,
+        "normalized_sha256": "f70b6da7f1650eb23ae926273b264da03ad7bdb955b2c53ac92be80fa4b3fa4c",
+        "staged_before_sha256": "cb2eeebdcafa72c6cb189447c4eb5626305c5587fa0fac60344fd27eef857d3c"
+      },
+      "sys-utils/blkpr.c": {
+        "canonical_sha256": "83ad6c76f98d2507dd2ec91fc8b0651ac5b4cbbe03fc76b387cf82cb7ee3b951",
+        "changed": true,
+        "normalized_sha256": "445d0519005f297a9c26fa59be35b20ff947a13bf89b52be946846faf0b05f1b",
+        "staged_before_sha256": "83ad6c76f98d2507dd2ec91fc8b0651ac5b4cbbe03fc76b387cf82cb7ee3b951"
+      },
+      "sys-utils/chcpu.c": {
+        "canonical_sha256": "21296193ed918192024366a6ec3df3fd4640e85b6ae1c4fb6d76523b03ad22eb",
+        "changed": true,
+        "normalized_sha256": "1e9c85298f6765bda48d03b1b90d85611bb5b9a2209f9585152860ec30a6ed4a",
+        "staged_before_sha256": "21296193ed918192024366a6ec3df3fd4640e85b6ae1c4fb6d76523b03ad22eb"
+      },
+      "sys-utils/flock.c": {
+        "canonical_sha256": "ef803f1cb65b1dfa15ebeb6c34233ae09fd8efb9130ecc8bd6ce0c595a1b9395",
+        "changed": false,
+        "normalized_sha256": "ef803f1cb65b1dfa15ebeb6c34233ae09fd8efb9130ecc8bd6ce0c595a1b9395",
+        "staged_before_sha256": "ef803f1cb65b1dfa15ebeb6c34233ae09fd8efb9130ecc8bd6ce0c595a1b9395"
+      },
+      "sys-utils/ldattach.c": {
+        "canonical_sha256": "7af71e69fdbf32a29658ebc4575df32fec6d558be3550f37d6d6c6efd3af04fc",
+        "changed": false,
+        "normalized_sha256": "7af71e69fdbf32a29658ebc4575df32fec6d558be3550f37d6d6c6efd3af04fc",
+        "staged_before_sha256": "7af71e69fdbf32a29658ebc4575df32fec6d558be3550f37d6d6c6efd3af04fc"
+      },
+      "sys-utils/readprofile.c": {
+        "canonical_sha256": "4703ef0bc9e0ca7f8b2a083bbb01cb308b939993d0550f5269777a606b51dbc2",
+        "changed": false,
+        "normalized_sha256": "4703ef0bc9e0ca7f8b2a083bbb01cb308b939993d0550f5269777a606b51dbc2",
+        "staged_before_sha256": "4703ef0bc9e0ca7f8b2a083bbb01cb308b939993d0550f5269777a606b51dbc2"
+      },
+      "term-utils/scriptreplay.c": {
+        "canonical_sha256": "5570e7d954ed8b4f46334baf271645cfd67d0dda7f2a26b25833c7f4ee103366",
+        "changed": true,
+        "normalized_sha256": "abc7ef4f9e058120d36a1c5dea9f8af89306d039181fb7278a40e465e3ba9a28",
+        "staged_before_sha256": "5570e7d954ed8b4f46334baf271645cfd67d0dda7f2a26b25833c7f4ee103366"
+      },
+      "term-utils/wall.c": {
+        "canonical_sha256": "ed8cfebf073e7fc7c62244fc8af4b2537d6d3b2744b06661746a014e9602aebf",
+        "changed": false,
+        "normalized_sha256": "ed8cfebf073e7fc7c62244fc8af4b2537d6d3b2744b06661746a014e9602aebf",
+        "staged_before_sha256": "ed8cfebf073e7fc7c62244fc8af4b2537d6d3b2744b06661746a014e9602aebf"
+      }
+    }
+  },
+  "reachable": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "b8b490bd82721d2e993bff4e06b9201e10d7a04050a4a7ffffcae72c98735b93",
+      "cargo_toml_sha256": "9c9234ab6970d6718b5b86f5086d52e2e1a743641845a23f685a38ef85bc1c4b",
+      "diagnostics_by_level": {
+        "warning": 5
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "20ce16b7e943c63726141bff26f3279f297f8bc0c14c754a4894c1fa3cf54175",
+      "toolchain_request": "nightly-2023-04-15",
+      "warning_codes": {
+        "stable_features": 1,
+        "unused_parens": 1,
+        "unused_variables": 2
+      }
+    },
+    "compile_error_macros": 0,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "cdf00d1df6077b452b9d6286809efcfd320ddb0d3d434bfe9e20ae24ad8940ed",
+      "src/disk_utils/blockdev.rs": "ca088ae27d2cb1e821aed5b91b14cfc73bdadfd1c8409065c37c83c09bcb7712",
+      "src/misc_utils/namei.rs": "cb5090af93d7b5419ac90d4441b5dacf515a63a87b4482f336536666d0b7bdb1",
+      "src/schedutils/coresched.rs": "708f2a068455adc11fe8bb0efcb6e91518259e73dfcc7aa057f736b239bb6308",
+      "src/sys_utils/blkpr.rs": "5a2d3d81cff432bf69f09157820949cbd7fb51199e383bd98aa5bd1b58fb5bd5",
+      "src/sys_utils/chcpu.rs": "7c0e387459b2b9ae2629f843edecb995cf3bb90eb6ff63ce3a79a0111d8eac6d",
+      "src/sys_utils/flock.rs": "31faca7133fcb638a6c23db2b70148fa67d30086d11bee0b9ce11dd78cefd4c7",
+      "src/sys_utils/ldattach.rs": "c3516d0cc7515c1917b6b1a168c25f7a1f07c970801aa4759a87e758cf7a5ffe",
+      "src/sys_utils/readprofile.rs": "c6834b082c1ccbe825f05b3338572b0bbc23b277d967034bf724f397fa49691a",
+      "src/term_utils/scriptreplay.rs": "03632a7e95abf46c6abe4b34127cd2d26ab0d22817bf7c76eb724ee0937af811",
+      "src/term_utils/wall.rs": "1156bf12d66534fab3ca400d14b0fabbcb8b60f7a4566c6f6b43073e7d9b7734"
+    },
+    "generated_rust_repairs": 0,
+    "rust_bytes": 485682,
+    "rust_files": 12,
+    "todo_macros": 0,
+    "unimplemented_macros": 0
+  },
+  "recorded_at": "2026-11-19",
+  "schema": 1,
+  "stable_integration": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+      "cargo_lock_sha256": "7d10d5a3b43f361f28808594a5cacd831bf2a3051bddf0629d6073132f17b387",
+      "cargo_toml_sha256": "9c9234ab6970d6718b5b86f5086d52e2e1a743641845a23f685a38ef85bc1c4b",
+      "diagnostics_by_level": {
+        "warning": 7
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+      "schema": 1,
+      "stderr_sha256": "4c0871af4f10f37dd9c63066c82c8db8de0842eb58cc9112c65bef32ff36473c",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "clashing_extern_declarations": 1,
+        "suspicious_runtime_symbol_definitions": 3,
+        "unused_parens": 1,
+        "unused_variables": 2
+      }
+    },
+    "compile_error_macros": 0,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "693c9c7580f0fbefddbdcb24c35f33d98fe2da1deccff72cdc19484f452fb6a7",
+      "src/disk_utils/blockdev.rs": "002216bea4a5adedfd9e6e2ce5a8697ef1cfb8a960bca5d21b2f9487542af970",
+      "src/misc_utils/namei.rs": "802cc936a4f4e9025147b52ed020e19a350cb2a3e698a03925520fcdf69a68e2",
+      "src/schedutils/coresched.rs": "63793ed05658ac4da8a67a82ee39d637cb6b1647959b770a93a2bf5225df9063",
+      "src/sys_utils/blkpr.rs": "84d74e4f559bb32b676d18f5e52f4a14e09512058f446aae270eeaece88b0f5c",
+      "src/sys_utils/chcpu.rs": "81a452aa2901466dad308fcfcf9944d795a8f19bf5fef271b546c910178c52c6",
+      "src/sys_utils/flock.rs": "a338cc7875042d925e5159d910144c248915a009e137993501fbac17d9292155",
+      "src/sys_utils/ldattach.rs": "b5b25dc50cacdd46ef6446fd591deff554d4471e7f02159f39063a3d66c1e6cf",
+      "src/sys_utils/readprofile.rs": "e2998d12b463a82dd4badabeffc280e64e79ec926679b4ab8b4dc9b1a53cab4d",
+      "src/term_utils/scriptreplay.rs": "a15395b5381b2eb41f8e3dd8af75c6e88190ac8c708773f8615d465232af84e7",
+      "src/term_utils/wall.rs": "4eb5fb8b41cf7196dd4887bf1cdcebefe8adbb15f7a5b424613b2055fb3b5da7"
+    },
+    "hand_edits": 0,
+    "modernization_manifest_sha256": "39da570860a99cb2a0f9432ae813273fc71018bc5a5e5b9c08f082af4b5089a0",
+    "opaque_types_verified_pointer_only": [
+      "_IO_codecvt",
+      "_IO_marker",
+      "_IO_wide_data",
+      "replay_setup",
+      "replay_step"
+    ],
+    "repair_score": 5,
+    "repair_score_basis": "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), and reusable VaListImpl/as_va_list modernization (2)",
+    "rust_bytes": 486683,
+    "rust_files": 12,
+    "todo_macros": 0,
+    "unimplemented_macros": 0
+  },
+  "status": "hybrid canonical parity; Rustbox-native integration pending",
+  "translator": {
+    "audit_preserves_unused_functions": true,
+    "fail_on_error": true,
+    "image_id": "sha256:d7f3755ec6a27d89124626535d36b859ddee1f7a11236454f7952bf513c3d6aa",
+    "name": "C2Rust",
+    "version": "0.22.1"
+  }
+}
