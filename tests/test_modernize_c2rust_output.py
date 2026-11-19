@@ -58,6 +58,22 @@ class OpaqueUseTests(unittest.TestCase):
         )
         self.assertIn("pub struct tm_zone", output)
 
+    def test_pointer_only_alias_of_opaque_type_is_accepted(self) -> None:
+        output = self.transform(
+            "pub type __dirstream;\n"
+            "pub type DIR = __dirstream;\n"
+            "fn f(stream: *mut DIR) {}\n"
+        )
+        self.assertIn("pub struct __dirstream", output)
+
+    def test_by_value_alias_of_opaque_type_is_rejected(self) -> None:
+        with self.assertRaisesRegex(RuntimeError, "non-pointer use"):
+            self.transform(
+                "pub type __dirstream;\n"
+                "pub type DIR = __dirstream;\n"
+                "fn f(stream: DIR) {}\n"
+            )
+
     def test_mutable_static_address_uses_raw_pointer_operator(self) -> None:
         output = self.transform(
             "pub static mut failure: i32 = 1;\n"

@@ -14,6 +14,10 @@ from pathlib import Path
 
 EXTERN_TYPE = re.compile(r"^\s*pub type ([A-Za-z_][A-Za-z0-9_]*);\s*$")
 STATIC_MUT = re.compile(r"^\s*(?:pub\s+)?static\s+mut\s+([A-Za-z_][A-Za-z0-9_]*):")
+TYPE_ALIAS = re.compile(
+    r"^\s*pub\s+type\s+([A-Za-z_][A-Za-z0-9_]*)\s*=\s*"
+    r"([A-Za-z_][A-Za-z0-9_]*)\s*;\s*$"
+)
 REMOVED_FEATURES = {
     "#![feature(c_variadic)]",
     "#![feature(extern_types)]",
@@ -64,6 +68,16 @@ def transform_rust(path: Path) -> dict[str, object] | None:
     for name in opaque:
         uses = [line for line in kept if re.search(rf"\b{re.escape(name)}\b", line)]
         for line in uses:
+            alias = TYPE_ALIAS.match(line)
+            if alias is not None and alias.group(2) == name:
+                alias_name = alias.group(1)
+                alias_uses = [
+                    candidate for candidate in kept
+                    if candidate != line
+                    and re.search(rf"\b{re.escape(alias_name)}\b", candidate)
+                ]
+                if all(has_only_pointer_uses(candidate, alias_name) for candidate in alias_uses):
+                    continue
             if not has_only_pointer_uses(line, name):
                 raise RuntimeError(f"{path}: opaque type {name} has non-pointer use: {line}")
 
