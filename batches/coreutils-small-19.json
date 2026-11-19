@@ -1,0 +1,180 @@
+{
+  "schema": 1,
+  "upstream": "GNU Coreutils 9.12",
+  "name": "coreutils-small-19",
+  "applets": ["od"],
+  "canonical_analysis": "canonical-clang-no-security",
+  "canonical_gcc_analysis": "canonical-gcc-no-security",
+  "canonical_build": "canonical-clang-no-security-compdb",
+  "output_regex": "/src/libsinglebin_od_a-od\\.o$",
+  "expected_compile_commands": 1,
+  "translation_variant": "normalized",
+  "prepare_scaffold": true,
+  "reachable_staticlib": "libcoreutils_small_19_normalized_reachable.a",
+  "differential_harness": "coreutils_small_19_differential.py",
+  "upstream_tests": [
+    "tests/od/od.pl",
+    "tests/od/od-float.sh",
+    "tests/od/od-endian.sh",
+    "tests/od/od-multiple-t.sh",
+    "tests/od/od-N.sh",
+    "tests/od/od-j.sh",
+    "tests/od/od-x8.sh",
+    "tests/help/help-version.sh",
+    "tests/help/help-version-getopt.sh"
+  ],
+  "valgrind_cases": [{"applet": "od", "arguments": [], "status": 0}],
+  "full_suite_baseline": {
+    "total": 761, "pass": 626, "skip": 134, "fail": 0, "error": 1,
+    "known_error": "tests/rm/deep-2"
+  },
+  "typed_c_bridges": [
+    {
+      "source": "bridges/coreutils/od-float.c",
+      "reference_output": "src/libsinglebin_od_a-od.o",
+      "object": "od-float.o",
+      "symbols": ["rustbox_od_bfloat_to_string", "rustbox_od_halffloat_to_string", "rustbox_od_long_double_to_string"],
+      "reason": "Keep only GNU od's native _Float16 and x86 GNU long-double value-to-text calls behind raw-byte typed boundaries; parsing, endian conversion, padding, field layout, and output remain translated Rust."
+    }
+  ],
+  "c_normalization": [
+    {
+      "source": "src/od.c", "engine": "exact",
+      "expected_before": "typedef _Float16 float16;",
+      "replacement": "typedef uint16_t float16;",
+      "expected_after": "typedef uint16_t float16;",
+      "reason": "Represent the configured two-byte IEEE half payload as raw bytes until the typed conversion bridge."
+    },
+    {
+      "source": "src/od.c", "engine": "exact",
+      "expected_before": "typedef __bf16 bfloat16;",
+      "replacement": "typedef uint16_t bfloat16;",
+      "expected_after": "typedef uint16_t bfloat16;",
+      "reason": "Represent the configured two-byte brain-float payload as raw bytes until the typed conversion bridge."
+    },
+    {
+      "source": "src/od.c", "engine": "exact",
+      "expected_before": "#endif\n\nenum size_spec",
+      "replacement": "#endif\n\ntypedef struct\n{\n  unsigned char bytes[sizeof (long double)];\n} rustbox_long_double_storage;\n\nextern void rustbox_od_bfloat_to_string\n  (char *, size_t, void const *);\nextern void rustbox_od_halffloat_to_string\n  (char *, size_t, void const *);\nextern void rustbox_od_long_double_to_string\n  (char *, size_t, void const *);\n\nenum size_spec",
+      "expected_after": "} rustbox_long_double_storage;",
+      "reason": "Carry native long-double objects as exact raw storage and declare the two narrow conversion boundaries."
+    },
+    {
+      "source": "src/od.c", "engine": "exact",
+      "expected_before": "PRINT_FLOATTYPE (print_bfloat, bfloat16, ftoastr, FLT_BUFSIZE_BOUND)",
+      "replacement": "PRINT_FIELDS (print_bfloat, bfloat16,\n              MAYBE_UNUSED char const *fmt_string,\n              char buf[FLT_BUFSIZE_BOUND];\n              rustbox_od_bfloat_to_string (buf, sizeof buf, &x);\n              xprintf (\"%*s\", adjusted_width, buf))",
+      "expected_after": "rustbox_od_bfloat_to_string (buf, sizeof buf, &x);",
+      "reason": "Preserve GNU od's field iteration and endian handling while delegating only brain-float-to-text conversion."
+    },
+    {
+      "source": "src/od.c", "engine": "exact",
+      "expected_before": "PRINT_FLOATTYPE (print_halffloat, float16, ftoastr, FLT_BUFSIZE_BOUND)",
+      "replacement": "PRINT_FIELDS (print_halffloat, float16,\n              MAYBE_UNUSED char const *fmt_string,\n              char buf[FLT_BUFSIZE_BOUND];\n              rustbox_od_halffloat_to_string (buf, sizeof buf, &x);\n              xprintf (\"%*s\", adjusted_width, buf))",
+      "expected_after": "rustbox_od_halffloat_to_string (buf, sizeof buf, &x);",
+      "reason": "Preserve GNU od's field iteration and endian handling while delegating only half-to-text conversion."
+    },
+    {
+      "source": "src/od.c", "engine": "exact",
+      "expected_before": "PRINT_FLOATTYPE (print_long_double, long double, ldtoastr, LDBL_BUFSIZE_BOUND)",
+      "replacement": "PRINT_FIELDS (print_long_double, rustbox_long_double_storage,\n              MAYBE_UNUSED char const *fmt_string,\n              char buf[LDBL_BUFSIZE_BOUND];\n              rustbox_od_long_double_to_string (buf, sizeof buf, &x);\n              xprintf (\"%*s\", adjusted_width, buf))",
+      "expected_after": "rustbox_od_long_double_to_string (buf, sizeof buf, &x);",
+      "reason": "Preserve GNU od's raw long-double bytes and field policy while delegating only native value-to-text conversion."
+    },
+    {
+      "source": "src/od.c",
+      "engine": "exact",
+      "expected_before": "ok &= check_and_close (in_errno);",
+      "replacement": "ok = check_and_close (in_errno) && ok;",
+      "expected_after": "ok = check_and_close (in_errno) && ok;",
+      "reason": "Close the current input eagerly before accumulating its status."
+    },
+    {
+      "source": "src/od.c", "engine": "exact",
+      "expected_before": "ok &= open_next_file ();",
+      "replacement": "ok = open_next_file () && ok;",
+      "expected_after": "ok = open_next_file () && ok;",
+      "expected_before_count": 3, "expected_after_count": 3,
+      "reason": "Open every next input eagerly before accumulating its status."
+    },
+    {
+      "source": "src/od.c", "engine": "exact",
+      "expected_before": "ok &= check_and_close (errno);",
+      "replacement": "ok = check_and_close (errno) && ok;",
+      "expected_after": "ok = check_and_close (errno) && ok;",
+      "expected_before_count": 2, "expected_after_count": 2,
+      "reason": "Close failed inputs eagerly before accumulating their status."
+    },
+    {
+      "source": "src/od.c", "engine": "exact",
+      "expected_before": "ok &= check_and_close (0);",
+      "replacement": "ok = check_and_close (0) && ok;",
+      "expected_after": "ok = check_and_close (0) && ok;",
+      "expected_before_count": 2, "expected_after_count": 2,
+      "reason": "Close completed inputs eagerly before accumulating their status."
+    },
+    {
+      "source": "src/od.c", "engine": "exact",
+      "expected_before": "ok &= read_block (n_needed, block[idx], &n_bytes_read);",
+      "replacement": "ok = read_block (n_needed, block[idx], &n_bytes_read) && ok;",
+      "expected_after": "ok = read_block (n_needed, block[idx], &n_bytes_read) && ok;",
+      "reason": "Read each block eagerly before accumulating its status."
+    },
+    {
+      "source": "src/od.c", "engine": "exact",
+      "expected_before": "ok &= read_char (&c);",
+      "replacement": "ok = read_char (&c) && ok;",
+      "expected_after": "ok = read_char (&c) && ok;",
+      "reason": "Read each string byte eagerly before accumulating its status."
+    },
+    {
+      "source": "src/od.c", "engine": "exact",
+      "expected_before": "ok &= decode_format_string (optarg);",
+      "replacement": "ok = decode_format_string (optarg) && ok;",
+      "expected_after": "ok = decode_format_string (optarg) && ok;",
+      "reason": "Decode every explicit format eagerly before accumulating its status."
+    },
+    {
+      "source": "src/od.c", "engine": "exact",
+      "expected_before": "ok &= decode_format_string (new_string);",
+      "replacement": "ok = decode_format_string (new_string) && ok;",
+      "expected_after": "ok = decode_format_string (new_string) && ok;",
+      "reason": "Decode every legacy format eagerly before accumulating its status."
+    },
+    {
+      "source": "src/od.c", "engine": "exact",
+      "expected_before": "ok &= skip (n_bytes_to_skip);",
+      "replacement": "ok = skip (n_bytes_to_skip) && ok;",
+      "expected_after": "ok = skip (n_bytes_to_skip) && ok;",
+      "reason": "Perform the requested skip eagerly before accumulating its status."
+    },
+    {
+      "source": "src/od.c", "engine": "exact",
+      "expected_before": "ok &= (flag_dump_strings ? dump_strings () : dump ());",
+      "replacement": "ok = (flag_dump_strings ? dump_strings () : dump ()) && ok;",
+      "expected_after": "ok = (flag_dump_strings ? dump_strings () : dump ()) && ok;",
+      "reason": "Run the selected dump mode eagerly before accumulating its status."
+    },
+    {
+      "source": "src/od.c", "engine": "exact",
+      "expected_before": "ckd_mul (&product, fields - 1, fields - 1)",
+      "replacement": "ckd_mul (&product, (intmax_t) (fields - 1),\n                  (intmax_t) (fields - 1))",
+      "expected_after": "ckd_mul (&product, (intmax_t) (fields - 1),",
+      "reason": "Check the padding product at its intmax_t destination width explicitly."
+    },
+    {
+      "source": "src/od.c", "engine": "exact",
+      "expected_before": "ckd_add (&i, tmp, 1)",
+      "replacement": "ckd_add (&i, (idx_t) tmp, (idx_t) 1)",
+      "expected_after": "ckd_add (&i, (idx_t) tmp, (idx_t) 1)",
+      "reason": "Use the configured idx_t width for the validated string-buffer bound."
+    },
+    {
+      "source": "src/od.c", "engine": "exact",
+      "expected_before": "ckd_add (&desired_width, w_tmp, 0)",
+      "replacement": "ckd_add (&desired_width, (idx_t) w_tmp, (idx_t) 0)",
+      "expected_after": "ckd_add (&desired_width, (idx_t) w_tmp, (idx_t) 0)",
+      "reason": "Use the configured idx_t width for the validated output width."
+    }
+  ],
+  "selection_policy": "Translate all GNU od control flow and byte processing; isolate only two native floating representations that C2Rust cannot ABI-represent on x86_64."
+}
