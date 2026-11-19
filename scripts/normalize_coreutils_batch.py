@@ -66,6 +66,8 @@ def main() -> int:
     gcc_database = json.loads(args.gcc_database.read_text(encoding="utf-8"))
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
     normalizations = manifest.get("c_normalization", [])
+    header_normalizations = manifest.get("header_normalization", [])
+    all_normalizations = [*normalizations, *header_normalizations]
     if len(database) != manifest["expected_compile_commands"]:
         raise RuntimeError("compile database count differs from batch declaration")
     gcc_by_output: dict[str, dict[str, object]] = {}
@@ -113,14 +115,29 @@ def main() -> int:
             compile_index = item["arguments"].index("-c")
             item["arguments"].insert(compile_index, macro_map)
             item["arguments"].insert(compile_index, f"-iquote{source.parent}")
+            item["arguments"].insert(compile_index, f"-iquote{staged_source / 'include'}")
             object_path = staged_objects / Path(item["output"]).name
             output_index = item["arguments"].index("-o") + 1
             item["arguments"][output_index] = str(object_path)
             item["output"] = str(object_path)
             rewritten.append(item)
 
+        for declaration in header_normalizations:
+            relative = Path(declaration["source"])
+            source = source_root / relative
+            destination = staged_source / relative
+            if not source.is_file() or destination.exists():
+                raise RuntimeError(f"invalid shared header normalization source: {relative}")
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, destination)
+            destination.chmod(destination.stat().st_mode | 0o200)
+            source_records[str(relative)] = {
+                "canonical_sha256": sha256(source),
+                "staged_before_sha256": sha256(destination),
+            }
+
         patch_records = []
-        for declaration in normalizations:
+        for declaration in all_normalizations:
             relative = Path(declaration["source"])
             source = staged_source / relative
             before = source.read_text(encoding="utf-8")
@@ -187,7 +204,7 @@ def main() -> int:
 
         replay_results = []
         abi_results = []
-        changed_sources = {item["source"] for item in normalizations}
+        changed_sources = {item["source"] for item in all_normalizations}
         for entry in rewritten:
             source_relative = str(relative_source(Path(entry["file"]), staged_source))
             clang_output = Path(entry["output"])
@@ -208,6 +225,10 @@ def main() -> int:
                 f"-fmacro-prefix-map={staged_source}={source_root}",
             )
             gcc_arguments.insert(gcc_compile_index, f"-iquote{gcc_source.parent}")
+            gcc_arguments.insert(
+                gcc_compile_index,
+                f"-iquote{staged_source / 'include'}",
+            )
             clang_result = replay(entry["arguments"], clang_output, Path(entry["directory"]))
             gcc_result = replay(gcc_arguments, gcc_output, Path(gcc_entry["directory"]))
             replay_results.append({
@@ -220,7 +241,7 @@ def main() -> int:
                     f"compiler replay failed: {source_relative}: "
                     f"clang={clang_result!r}; gcc={gcc_result!r}"
                 )
-            if source_relative in changed_sources:
+            if source_relative in changed_sources or header_normalizations:
                 canonical_object = Path(database[[x["file"] for x in database].index(
                     str(source_root / source_relative)
                 )]["output"])
