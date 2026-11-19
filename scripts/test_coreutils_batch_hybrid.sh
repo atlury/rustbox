@@ -20,6 +20,7 @@ root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 manifest="$root/batches/$batch.json"
 test -s "$manifest" || { echo "unknown batch: $batch" >&2; exit 2; }
 applets=$(python3 -c 'import json,sys; print(" ".join(json.load(open(sys.argv[1]))["applets"]))' "$manifest")
+programs=$(python3 -c 'import json,sys; d=json.load(open(sys.argv[1])); print(" ".join(d.get("upstream_test_programs", d["applets"])))' "$manifest")
 tests=$(python3 -c 'import json,sys; print(" ".join(json.load(open(sys.argv[1]))["upstream_tests"]))' "$manifest")
 harness=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["differential_harness"])' "$manifest")
 canonical_build=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1])).get("canonical_build", "canonical-clang-compdb"))' "$manifest")
@@ -43,16 +44,17 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
   batch=$1
   mode=$2
   applets=$3
-  tests=$4
-  harness=$5
-  build="/rustbox-coreutils/$6"
-  full_total=$7
-  full_pass=$8
-  full_skip=$9
+  programs=$4
+  tests=$5
+  harness=$6
+  build="/rustbox-coreutils/$7"
+  full_total=$8
+  full_pass=$9
   shift 9
-  full_fail=$1
-  full_error=$2
-  known_error=$3
+  full_skip=$1
+  full_fail=$2
+  full_error=$3
+  known_error=$4
   canonical="$build/src/coreutils"
   hybrid="$build/src/coreutils-rust-$batch"
   output="/work/work/analysis/coreutils-9.12/translations/c2rust-0.22.1/$batch-stable/differential.json"
@@ -63,17 +65,17 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     --canonical "$canonical" --hybrid "$hybrid" --output "$output"
 
   cd "$build"
-  for applet in $applets; do
-    test "$(readlink "src/$applet")" = coreutils
+  for program in $programs; do
+    test "$(readlink "src/$program")" = coreutils
   done
   restore () {
-    for applet in $applets; do
-      ln -sfn coreutils "src/$applet"
+    for program in $programs; do
+      ln -sfn coreutils "src/$program"
     done
   }
   trap restore EXIT HUP INT TERM
-  for applet in $applets; do
-    ln -sfn "coreutils-rust-$batch" "src/$applet"
+  for program in $programs; do
+    ln -sfn "coreutils-rust-$batch" "src/$program"
   done
 
   chmod -R a+rwX "$build"
@@ -109,6 +111,6 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
       --output "/work/work/analysis/coreutils-9.12/translations/c2rust-0.22.1/$batch-stable/upstream-full.json"
     echo "full hybrid suite: $full_pass pass, $full_skip skip, $full_fail fail, $full_error known VM path setup error"
   fi
-' rustbox-batch-test "$batch" "$mode" "$applets" "$tests" "$harness" \
+' rustbox-batch-test "$batch" "$mode" "$applets" "$programs" "$tests" "$harness" \
   "$canonical_build" "$full_total" "$full_pass" "$full_skip" "$full_fail" \
   "$full_error" "$known_error"

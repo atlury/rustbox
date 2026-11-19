@@ -46,7 +46,8 @@ def valgrind_metrics(text: str) -> dict[str, int]:
 
 
 def run_case(
-    binary: Path, case: dict[str, object], cwd: Path, log: Path, env: dict[str, str]
+    binary: Path, case: dict[str, object], dispatch_applet: str,
+    cwd: Path, log: Path, env: dict[str, str]
 ) -> tuple[int, dict[str, int], str]:
     command = [
         "valgrind",
@@ -56,7 +57,7 @@ def run_case(
         "--errors-for-leak-kinds=definite,indirect",
         f"--log-file={log}",
         str(binary),
-        f"--coreutils-prog={case['applet']}",
+        f"--coreutils-prog={dispatch_applet}",
         *case["arguments"],
     ]
     process = subprocess.run(
@@ -96,6 +97,16 @@ def main() -> int:
     args = parser.parse_args()
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
     applets = manifest["applets"]
+    dispatch = manifest.get("applet_dispatch", {})
+    if (
+        not isinstance(dispatch, dict)
+        or not set(dispatch).issubset(applets)
+        or any(
+            not isinstance(name, str) or re.fullmatch(r"[A-Za-z0-9_-]+", name) is None
+            for name in dispatch.values()
+        )
+    ):
+        raise RuntimeError("invalid applet dispatch mapping")
     declared = manifest["valgrind_cases"]
     cases = [
         {"applet": applet, "arguments": [option], "status": 0}
@@ -111,6 +122,7 @@ def main() -> int:
             applet = case["applet"]
             if applet not in applets:
                 raise RuntimeError(f"Valgrind case names undeclared applet: {applet}")
+            dispatch_applet = dispatch.get(applet, applet)
             setup = case.get("setup")
             hybrid_cwd = root / str(index) / "hybrid"
             canonical_cwd = root / str(index) / "canonical"
@@ -121,13 +133,14 @@ def main() -> int:
             env["LC_ALL"] = "C"
             env["ENV_TEST"] = "alpha"
             actual = run_case(
-                args.binary, case, hybrid_cwd, root / f"{index}-{applet}-hybrid.log", env
+                args.binary, case, dispatch_applet, hybrid_cwd,
+                root / f"{index}-{applet}-hybrid.log", env
             )
             if args.canonical is None:
                 expected = (case["status"], {name: 0 for name in actual[1]}, "")
             else:
                 expected = run_case(
-                    args.canonical, case, canonical_cwd,
+                    args.canonical, case, dispatch_applet, canonical_cwd,
                     root / f"{index}-{applet}-canonical.log", env
                 )
             metrics_not_worse = all(

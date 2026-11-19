@@ -3,6 +3,14 @@
   "upstream": "GNU Coreutils 9.12",
   "name": "coreutils-small-15",
   "applets": ["install"],
+  "applet_linkage": {
+    "install": {
+      "archive": "src/libsinglebin_ginstall.a",
+      "symbol": "single_binary_main_ginstall"
+    }
+  },
+  "upstream_test_programs": ["ginstall"],
+  "applet_dispatch": {"install": "ginstall"},
   "canonical_analysis": "canonical-clang-no-security",
   "canonical_gcc_analysis": "canonical-gcc-no-security",
   "canonical_build": "canonical-clang-no-security-compdb",
@@ -32,6 +40,18 @@
     "error": 1,
     "known_error": "tests/rm/deep-2"
   },
+  "canonical_archive_member_exclusions": [
+    {
+      "archive": "src/libsinglebin_cp.a",
+      "members": [
+        "libsinglebin_cp_a-copy.o",
+        "libsinglebin_cp_a-copy-file-data.o",
+        "libsinglebin_cp_a-cp-hash.o",
+        "libsinglebin_cp_a-force-link.o"
+      ],
+      "reason": "Install's translated closure supplies the shared copy engine before the canonical cp entry point is resolved. The no-security compile actions differ only in renamed main/usage macros; retain cp.c while removing the four duplicate public helper objects, then revalidate both applets through the complete GNU suite."
+    }
+  ],
   "c_normalization": [
     {
       "source": "src/copy.c",

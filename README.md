@@ -43,7 +43,7 @@ scoring, and correctness gates.
 
 | Upstream | Inventory | Signed source oracle | Hybrid canonical parity | Integrated Rust applets |
 |---|---:|---:|---:|---:|
-| GNU Coreutils 9.12 | 108 | 108 | 97 | 0 |
+| GNU Coreutils 9.12 | 108 | 108 | 98 | 0 |
 | util-linux 2.42.4 | 155 | 0 | 0 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
@@ -61,8 +61,9 @@ hybrid evidence for the verified batches is in
 `evidence/coreutils-9.12-c2rust-small-09.json`,
 `evidence/coreutils-9.12-c2rust-small-11.json`,
 `evidence/coreutils-9.12-c2rust-small-12.json`,
-`evidence/coreutils-9.12-c2rust-small-13.json`, and
-`evidence/coreutils-9.12-c2rust-small-14.json`.  Batch 10 remains a recorded
+`evidence/coreutils-9.12-c2rust-small-13.json`,
+`evidence/coreutils-9.12-c2rust-small-14.json`, and
+`evidence/coreutils-9.12-c2rust-small-15.json`.  Batch 10 remains a recorded
 CPU-dispatch translation deferral.  An oracle-built applet is not
 marked complete in the inventory below; completion is reserved for translated
 Rust that has reached canonical behavioral parity through the multicall
@@ -117,7 +118,7 @@ parity.
 - [x] `hostid` — hybrid canonical parity; repair score 5
 - [x] `hostname` — hybrid canonical parity; repair score 5
 - [x] `id` — hybrid canonical parity; repair score 7
-- [ ] `install` — inventory
+- [x] `install` — hybrid canonical parity; repair score 7
 - [x] `join` — hybrid canonical parity; repair score 7
 - [x] `kill` — hybrid canonical parity; repair score 7
 - [x] `link` — hybrid canonical parity; repair score 5
