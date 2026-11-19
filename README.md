@@ -98,6 +98,71 @@ seven batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 have reached hybrid canonical parity; final Rustbox integration remains
 deliberately deferred until the applet batches are complete.
 
+## Work queue after util-linux
+
+No package in this queue starts until all in-scope util-linux applets reach
+canonical parity and the completed Coreutils and util-linux translations are
+linked and verified together as the single `rustbox` multicall executable.
+This ordering is from lower to higher estimated translation and integration
+complexity; build dependencies may be prepared earlier when a queued package
+requires them.  Names include canonical installed aliases, but not examples or
+test-only binaries.  The duplicate `gzip` request is represented once.
+
+1. Small libraries and single-purpose tools:
+   - [ ] zlib — shared compression library; no installed applet (`minigzip` is
+     an example/test helper).
+   - [ ] pkg-config — `pkg-config`.
+   - [ ] M4 — `m4`.
+   - [ ] File — `file`.
+   - [ ] patch — `patch`.
+   - [ ] sed — `sed`.
+   - [ ] Diffutils — `cmp`, `diff`, `diff3`, `sdiff`.
+   - [ ] Grep — `grep`, `egrep`, `fgrep`.
+   - [ ] bc — `bc`, `dc`.
+   - [ ] attr — `attr`, `getfattr`, `setfattr`.
+   - [ ] acl — `chacl`, `getfacl`, `setfacl`.
+   - [ ] lz4 — `lz4`, `lz4c`, `lz4cat`, `unlz4`.
+2. Compression, archive, and terminal foundations:
+   - [ ] Gzip — `gzip`, `gunzip`, `zcat`, `uncompress`, `gzexe`, `zcmp`,
+     `zdiff`, `zegrep`, `zfgrep`, `zforce`, `zgrep`, `zless`, `zmore`, `znew`.
+   - [ ] xz — `xz`, `unxz`, `xzcat`, `lzma`, `unlzma`, `lzcat`, `xzdec`,
+     `lzmadec`, `lzmainfo`, `xzcmp`, `xzdiff`, `xzegrep`, `xzfgrep`, `xzgrep`,
+     `xzless`, `xzmore`.
+   - [ ] zstd — `zstd`, `zstdmt`, `unzstd`, `zstdcat`, `zstdgrep`,
+     `zstdless`.
+   - [ ] tar — `tar`, `rmt`.
+   - [ ] Ncurses — `captoinfo`, `clear`, `infocmp`, `infotocap`, `tabs`,
+     `tic`, `toe`, `tput`, `tset`, `reset`, and the generated
+     `ncurses*-config` helper; shared `ncurses`, `panel`, `form`, and `menu`
+     libraries are part of the same integration.
+   - [ ] Readline — shared `readline` and `history` libraries; no canonical
+     installed applet (`rlfe` remains an example).
+   - [ ] less — `less`, `lesskey`, `lessecho`.
+3. Multi-tool text processing and source generators:
+   - [ ] Findutils — `find`, `xargs`, `locate`, `updatedb`.
+   - [ ] Gawk — `gawk`, `awk`, `gawkbug`.
+   - [ ] Flex — `flex`, `flex++`, `lex`.
+   - [ ] Bison — `bison`, `yacc` (C/C++ skeletons only; Java output is out of
+     scope).
+4. Network-facing suites:
+   - [ ] curl — `curl`, `curl-config`, plus the shared `libcurl` runtime.
+   - [ ] Inetutils — `dnsdomainname`, `ftp`, `hostname`, `ifconfig`, `logger`,
+     `ping`, `ping6`, `rcp`, `rexec`, `rlogin`, `rsh`, `talk`, `telnet`,
+     `tftp`, `traceroute`, `whois`; and canonical daemons `ftpd`, `inetd`,
+     `rexecd`, `rlogind`, `rshd`, `syslogd`, `talkd`, `telnetd`, `tftpd`,
+     `uucpd`.
+5. Large Linux system suites:
+   - [ ] IPRoute2 — `arpd`, `bridge`, `ctstat`, `dcb`, `devlink`, `genl`,
+     `ifcfg`, `ifstat`, `ip`, `lnstat`, `nstat`, `rdma`, `routef`, `routel`,
+     `rtacct`, `rtmon`, `rtpr`, `rtstat`, `ss`, `tc`, `tipc`, `vdpa`.
+   - [ ] E2fsprogs — `badblocks`, `chattr`, `debugfs`, `dumpe2fs`,
+     `e2freefrag`, `e2fsck`, `e2image`, `e2label`, `e2mmpstatus`, `e2scrub`,
+     `e2scrub_all`, `e2undo`, `e4crypt`, `e4defrag`, `filefrag`, `findfs`,
+     `fsck`, `fsck.ext2`, `fsck.ext3`, `fsck.ext4`, `fuse2fs`, `logsave`,
+     `lsattr`, `mk_cmds`, `mke2fs`, `mkfs.ext2`, `mkfs.ext3`, `mkfs.ext4`,
+     `mklost+found`, `resize2fs`, `tune2fs`; `compile_et` is included as the
+     canonical build helper.
+
 ## Applet inventory
 
 This list is generated from the pinned upstream build definitions by
