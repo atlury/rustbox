@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "upstream": "util-linux 2.42.4",
+  "name": "util-linux-small-04",
+  "applets": [
+    "taskset",
+    "mountpoint",
+    "chsh",
+    "waitpid",
+    "colcrt",
+    "getino",
+    "ipcmk",
+    "bits",
+    "swapoff",
+    "uclampset"
+  ],
+  "output_regex": "/(?:schedutils/(?:taskset|uclampset)|sys-utils/(?:mountpoint-mountpoint|ipcmk|swapoff-swapoff)|login-utils/chsh-chsh|misc-utils/(?:waitpid-waitpid|getino-getino)|text-utils/(?:colcrt|bits))\\.o$",
+  "expected_compile_commands": 10,
+  "c_normalization": [
+    {
+      "source": "misc-utils/waitpid.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(excl)",
+      "replacement": "sizeof(excl) / sizeof(excl[0])",
+      "expected_after": "sizeof(excl) / sizeof(excl[0])",
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports this parenthesized ARRAY_SIZE expansion with a self-referential AST child."
+    },
+    {
+      "source": "misc-utils/getino.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(excl)",
+      "replacement": "sizeof(excl) / sizeof(excl[0])",
+      "expected_after": "sizeof(excl) / sizeof(excl[0])",
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports this parenthesized ARRAY_SIZE expansion with a self-referential AST child."
+    },
+    {
+      "source": "schedutils/uclampset.c",
+      "engine": "exact",
+      "expected_before": "comm ? : \"unknown\"",
+      "replacement": "comm ? comm : \"unknown\"",
+      "expected_after": "comm ? comm : \"unknown\"",
+      "reason": "Expand the GNU omitted-middle conditional over an unmodified local pointer because C2Rust 0.22.1 exports its implicit bit-cast with a missing AST child."
+    }
+  ],
+  "selection_policy": "The next ten smallest independent canonical applet translation units after batch three. The su and runuser shared-implementation wrappers remain isolated for later one-at-a-time translation."
+}
