@@ -85,6 +85,13 @@ case $batch in
     extra_objects='lib/ismounted.o lib/monotonic.o lib/logger-strutils.o lib/logger-strv.o lib/exec_shell.o lib/caputils.o sys-utils/setpriv-landlock.o ./.libs/libmount.a ./.libs/libblkid.a ./.libs/libsmartcols.a ./.libs/libtcolors.a ./.libs/libcommon_logindefs.a ./.libs/libcommon.a'
     extra_libraries='-leconf -lcap-ng -ltinfo'
     ;;
+  util-linux-small-12)
+    suffix=12
+    library_name=libutil_linux_small_12_normalized_reachable.a
+    applets='cal dmesg fsck.minix hardlink irqtop lsipc more mount pg umount'
+    extra_objects='lib/monotonic.o lib/dmesg-pager.o lib/ismounted.o lib/hardlink-fileeq.o sys-utils/lsirq-irq-common.o sys-utils/ipcutils.o ./.libs/libmount.a ./.libs/libblkid.a ./.libs/libsmartcols.a ./.libs/libtcolors.a ./.libs/libcommon.a'
+    extra_libraries='-leconf -lmagic -lncursesw -ltinfo'
+    ;;
   *) echo "hybrid linker not yet declared for $batch" >&2; exit 2 ;;
 esac
 

@@ -71,7 +71,7 @@ def main() -> int:
     reachable_prepared = base / f"{batch}-normalized-reachable-prepared"
     stable = base / f"{batch}-stable"
     suffix = batch.removeprefix("util-linux-small-")
-    if suffix not in {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11"}:
+    if suffix not in {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"}:
         raise RuntimeError(f"undeclared util-linux batch: {batch}")
     hybrid = build / f"rustbox-util-linux-small-{suffix}"
     link_map = hybrid.with_suffix(".map")
@@ -180,6 +180,13 @@ def main() -> int:
             "partx": "disk-utils/partx-partx.o", "setpriv": "sys-utils/setpriv.o",
             "wipefs": "misc-utils/wipefs-wipefs.o", "zramctl": "sys-utils/zramctl-zramctl.o",
         },
+        "12": {
+            "cal": "misc-utils/cal-cal.o", "dmesg": "sys-utils/dmesg-dmesg.o",
+            "fsck.minix": "disk-utils/fsck.minix.o", "hardlink": "misc-utils/hardlink-hardlink.o",
+            "irqtop": "sys-utils/irqtop-irqtop.o", "lsipc": "sys-utils/lsipc-lsipc.o",
+            "more": "text-utils/more-more.o", "mount": "sys-utils/mount-mount.o",
+            "pg": "text-utils/pg-pg.o", "umount": "sys-utils/umount-umount.o",
+        },
     }
     canonical_objects = canonical_objects_by_batch[suffix]
     if any(name in map_text for name in canonical_objects.values()):
@@ -203,6 +210,7 @@ def main() -> int:
         "09": (5, "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), and reusable VaListImpl/as_va_list modernization (2)"),
         "10": (5, "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), and reusable VaListImpl/as_va_list modernization (2)"),
         "11": (5, "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), and reusable VaListImpl/as_va_list modernization (2)"),
+        "12": (5, "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), and reusable VaList spelling/cursor modernization (2)"),
     }[suffix]
     targeted = {
         "01": {"components": 9, "passed": 9, "ctrlaltdel": "no upstream component test; hard and soft branches compared unprivileged"},
@@ -216,6 +224,7 @@ def main() -> int:
         "09": {"components": 9, "passed": 9, "ordinary_components_passed": 1, "upstream_skipped_components": 7, "upstream_known_failed_subtests": 3, "coverage_note": "all seven kill components were skipped under upstream Docker policy because they require root or unavailable test helpers; ul/ul passed, while ul/basic retained its three upstream-known failures; the other eight applets are covered by safe differential and Valgrind cases"},
         "10": {"components": 21, "passed": 21, "ordinary_components_passed": 10, "ordinary_subtests_passed": 27, "upstream_skipped_components": 5, "upstream_skipped_subtests": 2, "coverage_note": "five helper-, root-, or bc-dependent components and two unavailable-device subtests were skipped under upstream Docker policy; 10 ordinary components and 27 executable subtests passed, while mkfs.minix, setterm, and both last public names are additionally covered by safe differential and Valgrind cases"},
         "11": {"components": 31, "passed": 31, "ordinary_components_passed": 11, "ordinary_subtests_passed": 207, "upstream_skipped_components": 20, "coverage_note": "20 root- or unavailable-helper-dependent components were skipped under upstream Docker policy; 11 ordinary components and 207 executable subtests passed, while all ten public names, including zramctl which has no upstream component, are additionally covered by safe differential and Valgrind cases"},
+        "12": {"components": 66, "passed": 66, "ordinary_components_passed": 8, "ordinary_subtests_passed": 59, "upstream_skipped_components": 58, "coverage_note": "58 root- or unavailable-helper-dependent components were skipped under upstream Docker policy; eight ordinary cal and hardlink components and 59 executable subtests passed, while all ten public names are additionally covered by safe differential and Valgrind cases"},
     }[suffix]
     evidence = {
         "schema": 1,

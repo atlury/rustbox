@@ -106,12 +106,15 @@ def transform_rust(path: Path) -> dict[str, object] | None:
     # C variadics are stable now, but C2Rust 0.22 emitted the old internal
     # VaListImpl spelling and borrowed it through as_va_list().  The stable
     # public type is VaList itself; clone() is its stable va_copy operation and
-    # supplies an independently owned cursor to each by-value C ABI call.
+    # supplies an independently owned cursor to each by-value C ABI call.  Rust
+    # 1.99 renamed the cursor-reading method from arg() to next_arg().
     va_list_impl_rewrites = sum(line.count("::core::ffi::VaListImpl") for line in kept)
     as_va_list_rewrites = sum(line.count(".as_va_list()") for line in kept)
+    va_arg_rewrites = sum(line.count(".arg::<") for line in kept)
     kept = [
         line.replace("::core::ffi::VaListImpl", "::core::ffi::VaList")
         .replace(".as_va_list()", ".clone()")
+        .replace(".arg::<", ".next_arg::<")
         for line in kept
     ]
 
@@ -137,6 +140,7 @@ def transform_rust(path: Path) -> dict[str, object] | None:
         "raw_static_pointer_rewrites": raw_static_pointer_rewrites,
         "va_list_impl_rewrites": va_list_impl_rewrites,
         "as_va_list_rewrites": as_va_list_rewrites,
+        "va_arg_rewrites": va_arg_rewrites,
     }
 
 

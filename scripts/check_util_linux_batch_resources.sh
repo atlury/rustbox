@@ -17,6 +17,7 @@ case $batch in
   util-linux-small-09) suffix=09 ;;
   util-linux-small-10) suffix=10 ;;
   util-linux-small-11) suffix=11 ;;
+  util-linux-small-12) suffix=12 ;;
   *) echo "unknown batch: $batch" >&2; exit 2 ;;
 esac
 
@@ -109,12 +110,24 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     for applet in enosys ipcs last lsclocks lslocks lsmem mkfs.minix mkswap setterm uuidd; do
       check "$applet" "$applet" --help >/dev/null
     done
-  else
+  elif test "$suffix" = 11; then
     for applet in blkid eject logger losetup nsenter partx setpriv wipefs zramctl; do
       check "$applet" "$applet" --help >/dev/null
     done
     # Canonical column retains its 12-byte multibyte option string until exit.
     check_process_lifetime column column --help >/dev/null
+  else
+    for applet in cal dmesg fsck.minix hardlink irqtop more; do
+      check "$applet" "$applet" --help >/dev/null
+    done
+    # Canonical lsipc retains its 8-byte column selection until process exit.
+    check_process_lifetime lsipc lsipc --help >/dev/null
+    # Canonical mount and umount retain their sanitized environment until exit.
+    # Its byte count depends on the inherited environment; losses remain errors.
+    check_process_lifetime mount mount --help >/dev/null
+    check_process_lifetime umount umount --help >/dev/null
+    # Canonical pg retains its 71-byte terminal capability string until exit.
+    check_process_lifetime pg pg --help >/dev/null
   fi
   python3 - <<'PY'
 import json
@@ -146,6 +159,23 @@ elif suffix == "11":
         "bytes": 12,
         "definite_indirect_possible_losses": 0,
     }
+elif suffix == "12":
+    result["canonical_process_lifetime_exceptions"] = [
+        {"applet": "lsipc", "bytes": 8, "definite_indirect_possible_losses": 0},
+        {
+            "applet": "mount",
+            "bytes": 382,
+            "environment_dependent": True,
+            "definite_indirect_possible_losses": 0,
+        },
+        {
+            "applet": "umount",
+            "bytes": 382,
+            "environment_dependent": True,
+            "definite_indirect_possible_losses": 0,
+        },
+        {"applet": "pg", "bytes": 71, "definite_indirect_possible_losses": 0},
+    ]
 (root / "resources.json").write_text(json.dumps(result, indent=2) + "\n")
 print(json.dumps(result, sort_keys=True))
 PY

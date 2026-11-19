@@ -16,6 +16,7 @@ case $batch in
   util-linux-small-09) suffix=09; components='kill ul'; count=9 ;;
   util-linux-small-10) suffix=10; components='enosys ipcs lsclocks lslocks lsmem mkswap uuidd utmp'; count=21 ;;
   util-linux-small-11) suffix=11; components='blkid column eject logger losetup nsenter partx setpriv wipefs'; count=31 ;;
+  util-linux-small-12) suffix=12; components='cal dmesg hardlink more mount'; count=66 ;;
   *) echo "unknown batch: $batch" >&2; exit 2 ;;
 esac
 
@@ -95,7 +96,7 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     export TS_CMD_LSMEM="$build/rustbox-small-10/lsmem"
     export TS_CMD_MKSWAP="$build/rustbox-small-10/mkswap"
     export TS_CMD_UUIDD="$build/rustbox-small-10/uuidd"
-  else
+  elif test "$suffix" = 11; then
     export TS_CMD_BLKID="$build/rustbox-small-11/blkid"
     export TS_CMD_COLUMN="$build/rustbox-small-11/column"
     export TS_CMD_EJECT="$build/rustbox-small-11/eject"
@@ -106,6 +107,17 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     export TS_CMD_SETPRIV="$build/rustbox-small-11/setpriv"
     export TS_CMD_WIPEFS="$build/rustbox-small-11/wipefs"
     export TS_CMD_ZRAMCTL="$build/rustbox-small-11/zramctl"
+  else
+    export TS_CMD_CAL="$build/rustbox-small-12/cal"
+    export TS_CMD_DMESG="$build/rustbox-small-12/dmesg"
+    export TS_CMD_FSCK_MINIX="$build/rustbox-small-12/fsck.minix"
+    export TS_CMD_HARDLINK="$build/rustbox-small-12/hardlink"
+    export TS_CMD_IRQTOP="$build/rustbox-small-12/irqtop"
+    export TS_CMD_LSIPC="$build/rustbox-small-12/lsipc"
+    export TS_CMD_MORE="$build/rustbox-small-12/more"
+    export TS_CMD_MOUNT="$build/rustbox-small-12/mount"
+    export TS_CMD_PG="$build/rustbox-small-12/pg"
+    export TS_CMD_UMOUNT="$build/rustbox-small-12/umount"
   fi
   su -m -s /bin/bash rustbox-test -c \
     "cd $build && $source/tests/run.sh --srcdir=$source --builddir=$build $components" \
