@@ -120,7 +120,10 @@ in `evidence/zlib-1.4-oracle.json`.  This is an oracle baseline only: zlib
 then passes a narrow Coccinelle normalization with independent GCC, Clang,
 sanitizer, Valgrind, upstream-test, symbol, and Libabigail gates in
 `evidence/zlib-1.4-normalization.json`.  Zlib remains unchecked in the queue
-until translation and Rustbox integration reach the same behavioral gates.
+until Rustbox integration reaches the same behavioral gates.  The full
+15-file C2Rust preserve-unused audit has no translation holes and compiles
+without generated Rust repairs; its hashes and unsafe/raw-pointer inventory
+are in `evidence/zlib-1.4-c2rust-audit.json`.
 
 ## Work queue after util-linux
 

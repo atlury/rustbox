@@ -1,0 +1,104 @@
+{
+  "audit": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "6cca45a5411f59dbe30f4a7329046e3baa94a83803513db5794c2792db97ed2e",
+      "cargo_toml_sha256": "adaca5c0fbb64ebfbfe3bd6a511133295a8b0d3da4cee23fb9f6255031c5bca0",
+      "diagnostics_by_level": {
+        "warning": 7
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "437fb8a0f01feab77a316f79b7ae047e012e885f1fdba6ebc82b6b6109065426",
+      "toolchain_request": "nightly-2023-04-15",
+      "warning_codes": {
+        "unused_parens": 2,
+        "unused_unsafe": 1,
+        "unused_variables": 3
+      }
+    },
+    "compile_error_macros": 0,
+    "declaration_map_sha256": {
+      "src/adler32.c_decls.json": "ba13b05a27c34c865a21183122e07dde09a893b22af37d563266918e5393b86e",
+      "src/compress.c_decls.json": "75660d9c13b6bb268706691dc30e36f7df0a2b456b0b85ca4798579f114b9088",
+      "src/crc32.c_decls.json": "bc6215ed5cbd5d3a335f7ed5228107b7ebe3b3526ac1fde9c81b501b3a93b4b7",
+      "src/deflate.c_decls.json": "8bb1bc5e9befadc90b6cdb361e966b99ecfee6add17946aa95d964e8073584eb",
+      "src/gzclose.c_decls.json": "6b9e6b20755a72a68e90c9f013534f7460c729492ebea192cf2b09bd6437b0c3",
+      "src/gzlib.c_decls.json": "be711f9e5873ac8e801699135fa8f8e7d6d4d054de293764b17f923b6e39abb3",
+      "src/gzread.c_decls.json": "041c1ee0939aee87718840574e541ed6ca2193994a299e5e19c0d1c451e9c8e1",
+      "src/gzwrite.c_decls.json": "b850a4ec0c0cea67e6dbe823088576f3ed269127ab08c1971386bc267f59d483",
+      "src/infback.c_decls.json": "7cd3236068abc48701b4da67a779ea2902696c2decde0f52696934dccaca6b93",
+      "src/inffast.c_decls.json": "69836153530f4daeffbed729278814857dda482cdf00e85042f43f855e74f3ac",
+      "src/inflate.c_decls.json": "ec66fc3340ccba53ed8d82b5d883d3d0d742f585b07baf77376f67a6fb90ce72",
+      "src/inftrees.c_decls.json": "daf0df869f844ce7be97f34974f9991fd80b07d9f8908acd0352cbf8a7715a50",
+      "src/trees.c_decls.json": "09fbce31c17c6f42f803864b918ec06b4e468294fe53e6b7f2d58f3a83f5e1ce",
+      "src/uncompr.c_decls.json": "8e41f7b791dbe5e86f50aa06ed2283de8c0ff7ddd94adbb9dd4b7dbd751f4ac9",
+      "src/zutil.c_decls.json": "a4811e818471c4eddb47de73f1980da1ed20dac04ab8c9f57df7f81d0ab628cb"
+    },
+    "declaration_maps": 15,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "3e3c3ecaed0ffb844bbe6671ab07996871c244a4631be5b1fdc0c16744e4548d",
+      "src/adler32.rs": "2eeaf83131fe49cc70e4c024bc9b98c099f6912f74ae2f52a2eac3ae40ada9db",
+      "src/compress.rs": "0722f5d4d0d8fc42a127979f8fa8571af84ce72881efd98c68aae001644e09d1",
+      "src/crc32.rs": "df9af63d1810e03959a9a485a2d39266741fa3de52df9139fbcfd85db843b40d",
+      "src/deflate.rs": "8531d55ff2fa5f7381432c1024a946810299c1f3d264236eb1284019a9949ed4",
+      "src/gzclose.rs": "7e22e01359ce4e449bcf79529663f714336580c34b657772e7f888c772a11428",
+      "src/gzlib.rs": "7885eec03e340fefa28bdd1abddbbf05d0384b95a341d79fb01ac257dd4875ac",
+      "src/gzread.rs": "b150a3014816b2d27c1fe34b9d380194a38a1189c105109fe5eb5e4887169748",
+      "src/gzwrite.rs": "023a9b411c70832c2de9d8ff32ebba857a5d5a286d862b177fbaebc8cdd945a4",
+      "src/infback.rs": "bc603d72150810ce5d8175f23da3dd79a51912dde20ab6038699975bfa9b05fc",
+      "src/inffast.rs": "9fb082fd88e533287ee96c0dbb091d7b6c02a65db9af6c70a0a9e0181038a7c7",
+      "src/inflate.rs": "102cafb1fadd8460f312c24be58069fc6755b1c369072b3a2b596bc8194959c0",
+      "src/inftrees.rs": "cbb0fec4926498c454864a2ae4f4fdc2b9e9f878d2faf71df0f62fcd6fbb441c",
+      "src/trees.rs": "c4eac7ebecac864642bf7b44a02fce277a7987a1fe9a5a6fbae212fe72674f68",
+      "src/uncompr.rs": "9f3282f9fcdf900627ba46efd12c4b9df4b431273ffcbcf423f75a3af1009092",
+      "src/zutil.rs": "981526b9383b9c4b216f37ef3756ab343b28b0b01ce62a47645d96fab8cedeee"
+    },
+    "generated_rust_repairs": 0,
+    "raw_pointer_type_occurrences": 1603,
+    "rust_bytes": 1059315,
+    "rust_files": 17,
+    "todo_macros": 0,
+    "unimplemented_macros": 0,
+    "unsafe_block_occurrences": 14,
+    "unsafe_function_occurrences": 426
+  },
+  "input": {
+    "compile_commands": 15,
+    "compile_database_sha256": "88645299775cb75721d3404f6136fcd1170967da1fb0a04746a38377214f8e31",
+    "normalization_evidence_sha256": "0bbc1d68d8a1368559d18d497e348f327252ffbeb12495a542af57a23624f7e6",
+    "production_sources": [
+      "adler32.c",
+      "compress.c",
+      "crc32.c",
+      "deflate.c",
+      "gzclose.c",
+      "gzlib.c",
+      "gzread.c",
+      "gzwrite.c",
+      "infback.c",
+      "inffast.c",
+      "inflate.c",
+      "inftrees.c",
+      "trees.c",
+      "uncompr.c",
+      "zutil.c"
+    ]
+  },
+  "next_gate": "stable-toolchain modernization and canonical C/Rust differential library tests",
+  "release": "1.4",
+  "schema": 1,
+  "status": "full audit translation compiles unchanged; stable integration pending",
+  "translator": {
+    "direct_common_flags": true,
+    "fail_on_error": true,
+    "name": "C2Rust",
+    "preserve_unused_functions": true,
+    "reason_for_direct_flags": "C2Rust 0.22.1 routes the Bear JSON filename through ClangTool's directory-only -p interface; the selector proves every production command has one identical flag vector before passing it directly.",
+    "version": "0.22.1"
+  }
+}
