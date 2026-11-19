@@ -8,36 +8,66 @@
     "fmt",
     "nl",
     "pinky",
-    "printf",
     "realpath",
-    "seq",
     "shuf",
-    "tac"
+    "tac",
+    "timeout",
+    "uniq"
   ],
-  "output_regex": "/src/libsinglebin_(cat|dircolors|fmt|nl|pinky|printf|realpath|seq|shuf|tac)_",
-  "expected_compile_commands": 12,
+  "output_regex": "/src/libsinglebin_(cat|dircolors|fmt|nl|pinky|realpath|shuf|tac|timeout|uniq)_",
+  "expected_compile_commands": 13,
   "translation_variant": "normalized",
   "reachable_staticlib": "libcoreutils_small_06_normalized_reachable.a",
-  "extra_link_libraries": [
-    "-lquadmath"
+  "differential_harness": "coreutils_small_06_differential.py",
+  "upstream_tests": [
+    "tests/cat/cat-E.sh",
+    "tests/cat/cat-buf.sh",
+    "tests/cat/cat-distinct-err.sh",
+    "tests/cat/cat-proc.sh",
+    "tests/cat/cat-self.sh",
+    "tests/cat/splice.sh",
+    "tests/misc/dircolors.pl",
+    "tests/fmt/base.pl",
+    "tests/fmt/goal-option.sh",
+    "tests/fmt/long-line.sh",
+    "tests/fmt/non-space.sh",
+    "tests/fmt/width.sh",
+    "tests/nl/multibyte.sh",
+    "tests/nl/multiple-files.sh",
+    "tests/nl/nl.sh",
+    "tests/misc/realpath.sh",
+    "tests/shuf/shuf-reservoir.sh",
+    "tests/shuf/shuf.sh",
+    "tests/tac/tac-2-nonseekable.sh",
+    "tests/tac/tac-continue.sh",
+    "tests/tac/tac-locale.sh",
+    "tests/tac/tac.pl",
+    "tests/timeout/init-parent.sh",
+    "tests/timeout/timeout-blocked.pl",
+    "tests/timeout/timeout-group.sh",
+    "tests/timeout/timeout-large-parameters.sh",
+    "tests/timeout/timeout-parameters.sh",
+    "tests/timeout/timeout.sh",
+    "tests/uniq/uniq-c-width.sh",
+    "tests/uniq/uniq-collate.sh",
+    "tests/uniq/uniq-perf.sh",
+    "tests/uniq/uniq.pl",
+    "tests/help/help-version.sh",
+    "tests/help/help-version-getopt.sh"
+  ],
+  "valgrind_cases": [
+    {"applet": "cat", "arguments": [], "status": 0},
+    {"applet": "dircolors", "arguments": ["-p"], "status": 0},
+    {"applet": "fmt", "arguments": [], "status": 0},
+    {"applet": "nl", "arguments": [], "status": 0},
+    {"applet": "pinky", "arguments": [], "status": 0},
+    {"applet": "realpath", "arguments": ["missing"], "status": 0},
+    {"applet": "shuf", "arguments": ["-e"], "status": 0},
+    {"applet": "tac", "arguments": [], "status": 0},
+    {"applet": "timeout", "arguments": ["0", "/bin/true"], "status": 0},
+    {"applet": "uniq", "arguments": [], "status": 0}
   ],
   "c_normalization": [
-    {
-      "source": "src/seq.c",
-      "engine": "exact",
-      "expected_before": "seq_fast (char const *a, char const *b, uintmax_t step)\n{",
-      "replacement": "seq_fast (char const *a, char const *b, long double step)\n{\n  uintmax_t integer_step = 0;\n  while (1 <= step)\n    {\n      integer_step++;\n      step--;\n    }",
-      "expected_after": "uintmax_t integer_step = 0;",
-      "reason": "Seq calls the fast path only for positive integral steps no greater than 200. Count that long-double value into uintmax_t explicitly so C2Rust need not emit its unsupported long-double-to-uintmax cast."
-    },
-    {
-      "source": "src/seq.c",
-      "engine": "exact",
-      "expected_before": "for (uintmax_t n_incr = step; n_incr; n_incr--)",
-      "replacement": "for (uintmax_t n_incr = integer_step; n_incr; n_incr--)",
-      "expected_after": "for (uintmax_t n_incr = integer_step; n_incr; n_incr--)",
-      "reason": "Use the mechanically counted integral step in the existing decimal increment loop."
-    },
     {
       "source": "src/cat.c",
       "semantic_patch": "normalization/coreutils/bool-eager-and.cocci",
@@ -64,26 +94,11 @@
     },
     {
       "source": "src/realpath.c",
-      "semantic_patch": "normalization/coreutils/bool-eager-and.cocci",
+      "engine": "exact",
       "expected_before": "ok &= process_path (argv[optind], can_mode);",
-      "expected_after": "ok = process_path",
+      "replacement": "ok = process_path (argv[optind], can_mode) && ok;",
+      "expected_after": "ok = process_path (argv[optind], can_mode) && ok;",
       "reason": "Preserve eager process_path evaluation and accumulate its Boolean status explicitly."
-    },
-    {
-      "source": "src/printf.c",
-      "engine": "exact",
-      "expected_before": "v |= ckd_mul (&a, a, 10);",
-      "replacement": "v = ckd_mul (&a, a, 10) || v;",
-      "expected_after": "v = ckd_mul (&a, a, 10) || v;",
-      "reason": "Always perform the checked decimal multiplication while explicitly accumulating its overflow flag."
-    },
-    {
-      "source": "src/printf.c",
-      "engine": "exact",
-      "expected_before": "v |= ckd_add (&a, a, *f - '0');",
-      "replacement": "v = ckd_add (&a, a, *f - '0') || v;",
-      "expected_after": "v = ckd_add (&a, a, *f - '0') || v;",
-      "reason": "Always perform the checked decimal addition while explicitly accumulating its overflow flag."
     },
     {
       "source": "src/relpath.c",
@@ -196,7 +211,45 @@
       "replacement": "randint_all_free (rand_source)",
       "expected_after": "randint_all_free (rand_source)",
       "reason": "Follow the private shuf pointer-variable rename at cleanup."
+    },
+    {
+      "source": "src/timeout.c",
+      "engine": "exact",
+      "expected_before": "*x = dtimespec_bound (*x * multiplier, 0);",
+      "replacement": "*x = timeout_dtimespec_bound (*x * multiplier, 0);",
+      "expected_after": "*x = timeout_dtimespec_bound (*x * multiplier, 0);",
+      "reason": "Route timeout's scaled double through a typed helper so C2Rust does not emit the type-generic signbit macro's unreachable f128 branch."
+    },
+    {
+      "source": "src/timeout.c",
+      "engine": "exact",
+      "expected_before": "double s = dtimespec_bound (duration, errno);",
+      "replacement": "double s = timeout_dtimespec_bound (duration, errno);",
+      "expected_after": "double s = timeout_dtimespec_bound (duration, errno);",
+      "reason": "Route timeout's parsed double through the same typed bound helper."
+    },
+    {
+      "source": "src/timeout.c",
+      "engine": "exact",
+      "expected_before": "  exit (status);\n}\n\n/* Given a floating point value *X, and a suffix character, SUFFIX_CHAR,",
+      "replacement": "  exit (status);\n}\n\nstatic inline double\ntimeout_dtimespec_bound (double c, int err)\n{\n  if (err == ERANGE && c == 0)\n    return __builtin_signbit (c) ? -DBL_TRUE_MIN : DBL_TRUE_MIN;\n\n  double phi = DBL_EPSILON / 2 * (1 + DBL_EPSILON);\n  return c + phi * c;\n}\n\n/* Given a floating point value *X, and a suffix character, SUFFIX_CHAR,",
+      "expected_after": "timeout_dtimespec_bound (double c, int err)",
+      "reason": "Specialize gnulib's exact dtimespec_bound algorithm to double, including negative-zero underflow, without the generic signbit dispatch that C2Rust cannot type-eliminate."
+    },
+    {
+      "source": "src/uniq.c",
+      "engine": "exact",
+      "expected_before": "if (!DECIMAL_DIGIT_ACCUMULATE (skip_fields, optc - '0'))\n              skip_fields = IDX_MAX;",
+      "replacement": "if (ckd_mul (&skip_fields, skip_fields, (idx_t) 10)\n                || ckd_add (&skip_fields, skip_fields,\n                            (idx_t) (optc - '0')))\n              skip_fields = IDX_MAX;",
+      "expected_after": "ckd_mul (&skip_fields, skip_fields, (idx_t) 10)",
+      "reason": "Expand the decimal-accumulation macro with explicit idx_t operands so C2Rust keeps both checked operations at the destination width."
     }
   ],
-  "selection_policy": "The next measured-smallest independent canonical archives after batch five, excluding SELinux and systemd support by project policy. Mkfifo and mknod are deferred until their non-SELinux canonical configurations are captured; tac is substituted."
+  "deferred_abi": [
+    {
+      "applets": ["printf", "seq"],
+      "reason": "C2Rust 0.22.1 maps x86_64 GNU 80-bit long double to the f128 crate's incompatible IEEE binary128 representation. Differential tests caught zero-valued floating output; these applets require a typed C ABI bridge before translation can be accepted."
+    }
+  ],
+  "selection_policy": "The next measured-smallest independent canonical archives after batch five, excluding SELinux and systemd support by project policy. Mkfifo and mknod are deferred until their non-SELinux canonical configurations are captured. Differential testing moved printf and seq to the shared long-double ABI queue; timeout and uniq are substituted. Id remains deferred because its canonical build includes SELinux support."
 }

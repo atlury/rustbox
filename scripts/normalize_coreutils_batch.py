@@ -127,8 +127,13 @@ def main() -> int:
             before = source.read_text(encoding="utf-8")
             expected_before_count = declaration.get("expected_before_count", 1)
             expected_after_count = declaration.get("expected_after_count", 1)
-            if before.count(declaration["expected_before"]) != expected_before_count:
-                raise RuntimeError(f"normalization precondition not unique: {relative}")
+            actual_before_count = before.count(declaration["expected_before"])
+            if actual_before_count != expected_before_count:
+                raise RuntimeError(
+                    f"normalization precondition count for {relative}: "
+                    f"expected {expected_before_count}, found {actual_before_count}; "
+                    f"needle={declaration['expected_before']!r}"
+                )
             engine = declaration.get("engine", "coccinelle")
             if engine == "exact":
                 replacement = declaration["replacement"]
