@@ -20,8 +20,8 @@
   },
   "output_regex": "/src/(libsinglebin___a-|libsinglebin_(b2sum|chmod|dd|df|du|split|tail)_)",
   "expected_compile_commands": 12,
-  "translation_variant": "canonical",
-  "reachable_staticlib": "libcoreutils_small_09_reachable.a",
+  "translation_variant": "normalized",
+  "reachable_staticlib": "libcoreutils_small_09_normalized_reachable.a",
   "differential_harness": "coreutils_small_09_differential.py",
   "upstream_tests": [
     "tests/test/test.pl",
@@ -58,6 +58,218 @@
     {"applet": "du", "arguments": ["."], "status": 0},
     {"applet": "split", "arguments": [], "status": 0},
     {"applet": "tail", "arguments": ["-n", "0"], "status": 0}
+  ],
+  "c_normalization": [
+    {
+      "source": "src/chmod.c",
+      "engine": "exact",
+      "expected_before": "ok &= process_file (fts, ent);",
+      "replacement": "ok = process_file (fts, ent) && ok;",
+      "expected_after": "ok = process_file (fts, ent) && ok;",
+      "reason": "Preserve eager chmod traversal while explicitly accumulating failures."
+    },
+    {
+      "source": "src/cksum.c",
+      "engine": "exact",
+      "expected_before": "ok &= digest_check (file);",
+      "replacement": "ok = digest_check (file) && ok;",
+      "expected_after": "ok = digest_check (file) && ok;",
+      "reason": "Check every b2sum operand before explicitly accumulating its status."
+    },
+    {
+      "source": "src/dd.c",
+      "engine": "exact",
+      "expected_before": "ckd_mul (&product, result, n)",
+      "replacement": "ckd_mul (&product, result, (intmax_t) n)",
+      "expected_after": "ckd_mul (&product, result, (intmax_t) n)",
+      "reason": "Make the checked product use the intmax_t destination width after the existing range guard."
+    },
+    {
+      "source": "src/dd.c",
+      "engine": "exact",
+      "expected_before": "ckd_mul (&offset, records, blocksize)",
+      "replacement": "ckd_mul (&offset, (off_t) records, (off_t) blocksize)",
+      "expected_after": "ckd_mul (&offset, (off_t) records, (off_t) blocksize)",
+      "reason": "Spell the checked seek product at the off_t destination width on the captured x86_64 ABI."
+    },
+    {
+      "source": "src/dd.c",
+      "engine": "exact",
+      "expected_before": "ckd_add (&offset, offset, *bytes)",
+      "replacement": "ckd_add (&offset, offset, (off_t) *bytes)",
+      "expected_after": "ckd_add (&offset, offset, (off_t) *bytes)",
+      "reason": "Spell the checked residual-byte addition at off_t width."
+    },
+    {
+      "source": "src/dd.c",
+      "engine": "exact",
+      "expected_before": "ckd_mul (&us_bytes, skip_records, input_blocksize)",
+      "replacement": "ckd_mul (&us_bytes, skip_records, (intmax_t) input_blocksize)",
+      "expected_after": "ckd_mul (&us_bytes, skip_records, (intmax_t) input_blocksize)",
+      "reason": "Make the checked input skip product use its intmax_t destination width."
+    },
+    {
+      "source": "src/dd.c",
+      "engine": "exact",
+      "expected_before": "ckd_add (&us_bytes, skip_bytes, us_bytes)",
+      "replacement": "ckd_add (&us_bytes, (intmax_t) skip_bytes, us_bytes)",
+      "expected_after": "ckd_add (&us_bytes, (intmax_t) skip_bytes, us_bytes)",
+      "reason": "Make the checked input skip addition use its intmax_t destination width."
+    },
+    {
+      "source": "src/dd.c",
+      "engine": "exact",
+      "expected_before": "i_nocache_eof |= i_nocache;",
+      "replacement": "i_nocache_eof = i_nocache || i_nocache_eof;",
+      "expected_after": "i_nocache_eof = i_nocache || i_nocache_eof;",
+      "reason": "Explicitly accumulate the input cache-finalization Boolean."
+    },
+    {
+      "source": "src/dd.c",
+      "engine": "exact",
+      "expected_before": "o_nocache_eof |= o_nocache && ! (conversions_mask & C_NOTRUNC);",
+      "replacement": "o_nocache_eof = (o_nocache && ! (conversions_mask & C_NOTRUNC))\n                            || o_nocache_eof;",
+      "expected_after": "|| o_nocache_eof;",
+      "reason": "Explicitly accumulate the output cache-finalization Boolean."
+    },
+    {
+      "source": "src/dd.c",
+      "engine": "exact",
+      "expected_before": "ckd_mul (&size, seek_records, output_blocksize)",
+      "replacement": "ckd_mul (&size, (off_t) seek_records, (off_t) output_blocksize)",
+      "expected_after": "ckd_mul (&size, (off_t) seek_records, (off_t) output_blocksize)",
+      "reason": "Spell the checked output seek product at off_t width on the captured x86_64 ABI."
+    },
+    {
+      "source": "src/df.c",
+      "engine": "exact",
+      "expected_before": "return (uintmax_t) {p->dev_num} % table_size;",
+      "replacement": "return (size_t) ((uintmax_t) p->dev_num % table_size);",
+      "expected_after": "return (size_t) ((uintmax_t) p->dev_num % table_size);",
+      "reason": "Make the hash function's final size_t conversion explicit without the scalar compound literal."
+    },
+    {
+      "source": "src/du.c",
+      "engine": "exact",
+      "expected_before": "ok &= process_file (fts, ent);",
+      "replacement": "ok = process_file (fts, ent) && ok;",
+      "expected_after": "ok = process_file (fts, ent) && ok;",
+      "reason": "Preserve eager du traversal while explicitly accumulating failures."
+    },
+    {
+      "source": "src/du.c",
+      "engine": "exact",
+      "expected_before": "ckd_add (&max_depth, tmp, 0)",
+      "replacement": "ckd_add (&max_depth, (idx_t) tmp, (idx_t) 0)",
+      "expected_after": "ckd_add (&max_depth, (idx_t) tmp, (idx_t) 0)",
+      "reason": "Make maximum-depth validation use the idx_t destination width explicitly."
+    },
+    {
+      "source": "src/du.c",
+      "engine": "exact",
+      "expected_before": "ok &= du_files (temp_argv, bit_flags);",
+      "replacement": "ok = du_files (temp_argv, bit_flags) && ok;",
+      "expected_after": "ok = du_files (temp_argv, bit_flags) && ok;",
+      "reason": "Process every du command-line file before explicitly accumulating its status."
+    },
+    {
+      "source": "src/split.c",
+      "engine": "exact",
+      "expected_before": "ckd_add (&outfile_length, outfile_length, 2)",
+      "replacement": "ckd_add (&outfile_length, outfile_length, (idx_t) 2)",
+      "expected_after": "ckd_add (&outfile_length, outfile_length, (idx_t) 2)",
+      "reason": "Make suffix widening use the idx_t destination width."
+    },
+    {
+      "source": "src/split.c",
+      "engine": "exact",
+      "expected_before": "overflow |= ckd_add (&outfile_size, outfile_length, 1);",
+      "replacement": "overflow = ckd_add (&outfile_size, outfile_length, (idx_t) 1)\n                 || overflow;",
+      "expected_after": "overflow = ckd_add (&outfile_size, outfile_length, (idx_t) 1)",
+      "reason": "Evaluate the checked size addition eagerly at idx_t width and explicitly accumulate overflow."
+    },
+    {
+      "source": "src/split.c",
+      "engine": "exact",
+      "expected_before": "file_limit |= ofile_open (files, i_file, n);",
+      "replacement": "file_limit = ofile_open (files, i_file, n) || file_limit;",
+      "expected_after": "file_limit = ofile_open (files, i_file, n) || file_limit;",
+      "expected_before_count": 2,
+      "expected_after_count": 2,
+      "reason": "Open every split output before explicitly accumulating descriptor-limit state."
+    },
+    {
+      "source": "src/split.c",
+      "engine": "exact",
+      "expected_before": "ckd_mul (&n_units, n_units, 10)",
+      "replacement": "ckd_mul (&n_units, n_units, (intmax_t) 10)",
+      "expected_after": "ckd_mul (&n_units, n_units, (intmax_t) 10)",
+      "reason": "Make legacy numeric suffix accumulation use intmax_t width."
+    },
+    {
+      "source": "src/split.c",
+      "engine": "exact",
+      "expected_before": "ckd_add (&n_units, n_units, c - '0')",
+      "replacement": "ckd_add (&n_units, n_units, (intmax_t) (c - '0'))",
+      "expected_after": "ckd_add (&n_units, n_units, (intmax_t) (c - '0'))",
+      "reason": "Make the legacy numeric suffix digit addition use intmax_t width."
+    },
+    {
+      "source": "src/tail.c",
+      "engine": "exact",
+      "expected_before": "ckd_sub (&minus_n, 0, n_bytes)",
+      "replacement": "ckd_sub (&minus_n, (off_t) 0, (off_t) n_bytes)",
+      "expected_after": "ckd_sub (&minus_n, (off_t) 0, (off_t) n_bytes)",
+      "reason": "Spell the checked negative tail offset at off_t width on the captured x86_64 ABI."
+    },
+    {
+      "source": "src/tail.c",
+      "engine": "exact",
+      "expected_before": "ckd_mul (&n, n, 10)",
+      "replacement": "ckd_mul (&n, n, (count_t) 10)",
+      "expected_after": "ckd_mul (&n, n, (count_t) 10)",
+      "reason": "Make tail's decimal count multiplication use count_t width."
+    },
+    {
+      "source": "src/tail.c",
+      "engine": "exact",
+      "expected_before": "ckd_add (&n, n, *p - '0')",
+      "replacement": "ckd_add (&n, n, (count_t) (*p - '0'))",
+      "expected_after": "ckd_add (&n, n, (count_t) (*p - '0'))",
+      "reason": "Make tail's decimal count digit addition use count_t width."
+    },
+    {
+      "source": "src/tail.c",
+      "engine": "exact",
+      "expected_before": "ckd_mul (&n, n, 512)",
+      "replacement": "ckd_mul (&n, n, (count_t) 512)",
+      "expected_after": "ckd_mul (&n, n, (count_t) 512)",
+      "reason": "Make tail's block-count multiplication use count_t width."
+    },
+    {
+      "source": "src/tail.c",
+      "engine": "exact",
+      "expected_before": "*sleep_interval = dtimespec_bound (s, errno);",
+      "replacement": "*sleep_interval = tail_dtimespec_bound (s, errno);",
+      "expected_after": "*sleep_interval = tail_dtimespec_bound (s, errno);",
+      "reason": "Route tail's parsed double through a typed helper so C2Rust does not emit the generic signbit macro's unreachable f128 branch."
+    },
+    {
+      "source": "src/tail.c",
+      "engine": "exact",
+      "expected_before": "  return true;\n}\n\nstatic void\nparse_options (int argc, char **argv,",
+      "replacement": "  return true;\n}\n\nstatic inline double\ntail_dtimespec_bound (double c, int err)\n{\n  if (err == ERANGE && c == 0)\n    return __builtin_signbit (c) ? -DBL_TRUE_MIN : DBL_TRUE_MIN;\n\n  double phi = DBL_EPSILON / 2 * (1 + DBL_EPSILON);\n  return c + phi * c;\n}\n\nstatic void\nparse_options (int argc, char **argv,",
+      "expected_after": "tail_dtimespec_bound (double c, int err)",
+      "reason": "Specialize gnulib's exact dtimespec_bound algorithm to double, including negative-zero underflow, without generic signbit dispatch."
+    },
+    {
+      "source": "src/tail.c",
+      "engine": "exact",
+      "expected_before": "ok &= tail_file (&F[i], n_files, n_units);",
+      "replacement": "ok = tail_file (&F[i], n_files, n_units) && ok;",
+      "expected_after": "ok = tail_file (&F[i], n_files, n_units) && ok;",
+      "reason": "Process every tail input before explicitly accumulating its status."
+    }
   ],
   "deferred_abi": [
     {
