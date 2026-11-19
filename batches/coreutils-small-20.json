@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "upstream": "GNU Coreutils 9.12",
+  "name": "coreutils-small-20",
+  "applets": ["printf"],
+  "canonical_analysis": "canonical-clang-no-security",
+  "canonical_gcc_analysis": "canonical-gcc-no-security",
+  "canonical_build": "canonical-clang-no-security-compdb",
+  "output_regex": "/src/libsinglebin_printf_a-printf\\.o$",
+  "expected_compile_commands": 1,
+  "translation_variant": "normalized",
+  "prepare_scaffold": true,
+  "reachable_staticlib": "libcoreutils_small_20_normalized_reachable.a",
+  "differential_harness": "coreutils_small_20_differential.py",
+  "upstream_tests": [
+    "tests/printf/printf.sh",
+    "tests/printf/printf-hex.sh",
+    "tests/printf/printf-indexed.sh",
+    "tests/printf/printf-mb.sh",
+    "tests/printf/printf-quote.sh",
+    "tests/printf/printf-surprise.sh",
+    "tests/printf/printf-cov.pl",
+    "tests/help/help-version.sh",
+    "tests/help/help-version-getopt.sh"
+  ],
+  "valgrind_cases": [
+    {"applet": "printf", "arguments": ["%s\\n", "rustbox"], "status": 0}
+  ],
+  "full_suite_baseline": {
+    "total": 761, "pass": 626, "skip": 134, "fail": 0, "error": 1,
+    "known_error": "tests/rm/deep-2"
+  },
+  "typed_c_bridges": [
+    {
+      "source": "bridges/coreutils/printf-long-double.c",
+      "reference_output": "src/libsinglebin_printf_a-printf.o",
+      "object": "printf-long-double.o",
+      "symbols": [
+        "rustbox_printf_long_double_from_intmax",
+        "rustbox_printf_parse_long_double",
+        "rustbox_printf_print_long_double"
+      ],
+      "reason": "Keep only GNU printf's native x86 long-double construction, parsing, and variadic xprintf call behind raw-byte typed boundaries; format parsing, quoted-character policy, diagnostics, and other conversions remain translated Rust."
+    }
+  ],
+  "c_normalization": [
+    {
+      "source": "src/printf.c", "engine": "exact",
+      "expected_before": "  }\n}\n\n#define STRTOX(TYPE, FUNC_NAME, LIB_FUNC_EXPR)",
+      "replacement": "  }\n}\n\ntypedef struct\n{\n  unsigned char bytes[sizeof (long double)];\n} rustbox_long_double_storage;\n\nextern void rustbox_printf_parse_long_double\n  (char const *, char **, void *);\nextern void rustbox_printf_long_double_from_intmax\n  (intmax_t, void *);\nextern void rustbox_printf_print_long_double\n  (char const *, bool, int, bool, int, void const *);\n\n#define STRTOX(TYPE, FUNC_NAME, LIB_FUNC_EXPR)",
+      "expected_after": "} rustbox_long_double_storage;",
+      "reason": "Carry the native long-double object as exact raw storage and declare the three narrow typed boundaries."
+    },
+    {
+      "source": "src/printf.c", "engine": "exact",
+      "expected_before": "STRTOX (long double, vstrtold,   cl_strtold (s, &end))",
+      "replacement": "static rustbox_long_double_storage\nvstrtold (char const *s)\n{\n  char *end;\n  rustbox_long_double_storage val;\n\n  if ((*s == 34 || *s == 39) && *(s + 1))\n    {\n      intmax_t character = (unsigned char) *++s;\n\n      if (MB_CUR_MAX > 1 && *(s + 1))\n        {\n          mbstate_t mbstate; mbszero (&mbstate);\n          wchar_t wc;\n          size_t slen = strlen (s);\n          ssize_t bytes = mbrtowc (&wc, s, slen, &mbstate);\n          if (0 < bytes)\n            {\n              character = wc;\n              s += bytes - 1;\n            }\n        }\n\n      rustbox_printf_long_double_from_intmax (character, &val);\n      if (*++s != 0 && !posixly_correct)\n        error (0, 0, _(cfcc_msg), s);\n    }\n  else\n    {\n      errno = 0;\n      rustbox_printf_parse_long_double (s, &end, &val);\n      verify_numeric (s, end);\n    }\n  return val;\n}",
+      "expected_after": "static rustbox_long_double_storage\nvstrtold",
+      "reason": "Preserve GNU's quoted-character, locale, warning, errno, and validation policy while storing the parsed native value as raw bytes."
+    },
+    {
+      "source": "src/printf.c", "engine": "exact",
+      "expected_before": "        long double arg = argument ? vstrtold (argument) : 0;\n        if (!have_field_width)\n          {\n            if (!have_precision)\n              xprintf (p, arg);\n            else\n              xprintf (p, precision, arg);\n          }\n        else\n          {\n            if (!have_precision)\n              xprintf (p, field_width, arg);\n            else\n              xprintf (p, field_width, precision, arg);\n          }",
+      "replacement": "        rustbox_long_double_storage arg;\n        if (argument)\n          arg = vstrtold (argument);\n        else\n          rustbox_printf_long_double_from_intmax (0, &arg);\n        rustbox_printf_print_long_double\n          (p, have_field_width, field_width,\n           have_precision, precision, &arg);",
+      "expected_after": "rustbox_printf_print_long_double\n          (p, have_field_width",
+      "reason": "Delegate only the ABI-sensitive variadic long-double call while retaining GNU's directive construction and argument selection."
+    },
+    {
+      "source": "src/printf.c", "engine": "exact",
+      "expected_before": "v |= ckd_mul (&a, a, 10);",
+      "replacement": "v = ckd_mul (&a, a, (int) 10) || v;",
+      "expected_after": "v = ckd_mul (&a, a, (int) 10) || v;",
+      "reason": "Evaluate the checked multiplication eagerly and accumulate its Boolean overflow result without a bool-to-integer compound assignment."
+    },
+    {
+      "source": "src/printf.c", "engine": "exact",
+      "expected_before": "v |= ckd_add (&a, a, *f - '0');",
+      "replacement": "v = ckd_add (&a, a, (int) (*f - '0')) || v;",
+      "expected_after": "v = ckd_add (&a, a, (int) (*f - '0')) || v;",
+      "reason": "Evaluate the checked addition eagerly at the destination width and accumulate its Boolean overflow result explicitly."
+    }
+  ],
+  "selection_policy": "Translate GNU printf in full and isolate only the native x86 long-double representation and variadic ABI that Rust and C2Rust cannot express."
+}
