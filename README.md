@@ -43,7 +43,7 @@ scoring, and correctness gates.
 
 | Upstream | Inventory | Signed source oracle | Hybrid canonical parity | Integrated Rust applets |
 |---|---:|---:|---:|---:|
-| GNU Coreutils 9.12 | 108 | 108 | 104 | 0 |
+| GNU Coreutils 9.12 | 108 | 108 | 105 | 0 |
 | util-linux 2.42.4 | 155 | 0 | 0 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
@@ -68,8 +68,9 @@ hybrid evidence for the verified batches is in
 `evidence/coreutils-9.12-c2rust-small-16.json`,
 `evidence/coreutils-9.12-c2rust-small-17.json`,
 `evidence/coreutils-9.12-c2rust-small-18.json`,
-`evidence/coreutils-9.12-c2rust-small-19.json`, and
-`evidence/coreutils-9.12-c2rust-small-20.json`.  An oracle-built applet is not
+`evidence/coreutils-9.12-c2rust-small-19.json`,
+`evidence/coreutils-9.12-c2rust-small-20.json`, and
+`evidence/coreutils-9.12-c2rust-small-21.json`.  An oracle-built applet is not
 marked complete in the inventory below; completion is reserved for translated
 Rust that has reached canonical behavioral parity through the multicall
 interface.
@@ -155,7 +156,7 @@ parity.
 - [x] `rm` — hybrid canonical parity; repair score 7
 - [x] `rmdir` — hybrid canonical parity; repair score 7
 - [x] `runcon` — hybrid canonical parity; repair score 5
-- [ ] `seq` — inventory
+- [x] `seq` — hybrid canonical parity with typed native-long-double bridge; repair score 5
 - [x] `sha1sum` — hybrid canonical parity; repair score 5
 - [x] `sha224sum` — hybrid canonical parity; repair score 5
 - [x] `sha256sum` — hybrid canonical parity; repair score 5
