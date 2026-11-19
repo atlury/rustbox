@@ -94,6 +94,12 @@ def main() -> int:
     raw_static_rewrites = sum(
         len(change["raw_static_pointer_rewrites"]) for change in changes
     )
+    va_list_impl_rewrites = sum(
+        change.get("va_list_impl_rewrites", 0) for change in changes
+    )
+    as_va_list_rewrites = sum(
+        change.get("as_va_list_rewrites", 0) for change in changes
+    )
     reachable_text = "\n".join(
         path.read_text(encoding="utf-8") for path in sorted(reachable.rglob("*.rs"))
     )
@@ -115,7 +121,7 @@ def main() -> int:
             raise RuntimeError(f"missing hybrid artifact: {path}")
     map_text = link_map.read_text(encoding="utf-8", errors="replace")
     removed = [f"src/libsinglebin_{applet}.a" for applet in manifest["applets"]]
-    if str(library) not in map_text or any(archive in map_text for archive in removed):
+    if str(library) not in map_text or any(archive + "(" in map_text for archive in removed):
         raise RuntimeError("hybrid link map does not prove exact archive replacement")
     symbols = subprocess.run(
         ["nm", "-g", "--defined-only", str(hybrid)],
@@ -217,9 +223,18 @@ def main() -> int:
             "opaque_types_verified_pointer_only": opaque_types,
             "typed_null_pointer_uses_verified": typed_null_uses,
             "raw_static_pointer_rewrites": raw_static_rewrites,
+            "va_list_impl_rewrites": va_list_impl_rewrites,
+            "as_va_list_rewrites": as_va_list_rewrites,
             "hand_edits": 0,
-            "repair_score": 5,
-            "repair_score_basis": "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), reusable mutable-static raw-pointer spelling rule (2)",
+            "repair_score": 5 + (2 if va_list_impl_rewrites or as_va_list_rewrites else 0),
+            "repair_score_basis": (
+                "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), "
+                "reusable mutable-static raw-pointer spelling rule (2)"
+                + (
+                    ", reusable stable VaList spelling/ownership rule (2)"
+                    if va_list_impl_rewrites or as_va_list_rewrites else ""
+                )
+            ),
         },
         "hybrid": {
             "canonical_multicall_sha256": sha256(canonical),

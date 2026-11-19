@@ -12,6 +12,28 @@ BEGIN = "<!-- BEGIN APPLET INVENTORY -->"
 END = "<!-- END APPLET INVENTORY -->"
 
 
+def coreutils_parity_evidence(root: Path) -> dict[str, int]:
+    """Return applet repair scores from completed, committed evidence."""
+    result: dict[str, int] = {}
+    for path in sorted((root / "evidence").glob("coreutils-9.12-c2rust-*.json")):
+        record = json.loads(path.read_text(encoding="utf-8"))
+        if record.get("status") != "hybrid canonical parity; Rustbox-native integration pending":
+            continue
+        batch = record.get("batch")
+        if isinstance(batch, dict):
+            applets = batch.get("applets", [])
+        elif path.name == "coreutils-9.12-c2rust-true-false.json":
+            applets = ["false", "true"]
+        else:
+            raise RuntimeError(f"parity evidence lacks an applet list: {path}")
+        score = record["stable_integration"]["repair_score"]
+        for applet in applets:
+            if applet in result:
+                raise RuntimeError(f"duplicate Coreutils parity evidence: {applet}")
+            result[applet] = score
+    return result
+
+
 def coreutils(root: Path) -> list[str]:
     build = (root / "src/cu-progs.mk").read_text(encoding="utf-8")
     programs = set(
@@ -99,7 +121,8 @@ def markdown_group(title: str, programs: dict[str, dict[str, object]]) -> str:
         checked = "x" if stage == "canonical-parity" else " "
         repair = record["repair_score"]
         suffix = "" if repair is None else f"; repair score {repair}"
-        lines.append(f"- [{checked}] `{program}` — {stage}{suffix}")
+        shown_stage = "hybrid canonical parity" if stage == "canonical-parity" else stage
+        lines.append(f"- [{checked}] `{program}` — {shown_stage}{suffix}")
     return "\n".join(lines)
 
 
@@ -123,6 +146,10 @@ def main() -> int:
 
     core_records = records("coreutils", core)
     util_records = records("util-linux", util)
+    for name, score in coreutils_parity_evidence(root).items():
+        if name not in core_records:
+            raise RuntimeError(f"evidence names an unknown Coreutils applet: {name}")
+        core_records[name] = {"stage": "canonical-parity", "repair_score": score}
     inventory = {
         "schema": 1,
         "stages": [
