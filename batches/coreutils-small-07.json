@@ -145,6 +145,54 @@
       "replacement": "int seconds_idle;\n  time_t seconds_idle_wide;\n  if (boottime < when && when <= now\n      && ! ckd_sub (&seconds_idle_wide, now, when)\n      && seconds_idle_wide <= INT_MAX\n      && (seconds_idle = seconds_idle_wide, true)",
       "expected_after": "time_t seconds_idle_wide;",
       "reason": "Compute idle time at time_t width, range-check it, then assign to the bounded int used for display."
+    },
+    {
+      "source": "src/shred.c",
+      "engine": "exact",
+      "expected_before": "static struct randint_source *randint_source;",
+      "replacement": "static struct randint_source *rand_source;",
+      "expected_after": "static struct randint_source *rand_source;",
+      "reason": "Avoid a C2Rust type/value spelling collision by renaming shred's private random-source pointer; no exported ABI changes."
+    },
+    {
+      "source": "src/shred.c",
+      "engine": "exact",
+      "expected_before": "randint_all_free (randint_source);",
+      "replacement": "randint_all_free (rand_source);",
+      "expected_after": "randint_all_free (rand_source);",
+      "reason": "Follow shred's private random-source pointer rename at cleanup."
+    },
+    {
+      "source": "src/shred.c",
+      "engine": "exact",
+      "expected_before": "randint_source = randint_all_new (random_source, SIZE_MAX);",
+      "replacement": "rand_source = randint_all_new (random_source, SIZE_MAX);",
+      "expected_after": "rand_source = randint_all_new (random_source, SIZE_MAX);",
+      "reason": "Follow shred's private random-source pointer rename at initialization."
+    },
+    {
+      "source": "src/shred.c",
+      "engine": "exact",
+      "expected_before": "if (! randint_source)",
+      "replacement": "if (! rand_source)",
+      "expected_after": "if (! rand_source)",
+      "reason": "Follow shred's private random-source pointer rename at its null check."
+    },
+    {
+      "source": "src/shred.c",
+      "engine": "exact",
+      "expected_before": "wipefd (STDOUT_FILENO, qname, randint_source, &flags)",
+      "replacement": "wipefd (STDOUT_FILENO, qname, rand_source, &flags)",
+      "expected_after": "wipefd (STDOUT_FILENO, qname, rand_source, &flags)",
+      "reason": "Follow shred's private random-source pointer rename for standard-output wiping."
+    },
+    {
+      "source": "src/shred.c",
+      "engine": "exact",
+      "expected_before": "wipefile (file[i], qname, randint_source, &flags)",
+      "replacement": "wipefile (file[i], qname, rand_source, &flags)",
+      "expected_after": "wipefile (file[i], qname, rand_source, &flags)",
+      "reason": "Follow shred's private random-source pointer rename for file wiping."
     }
   ],
   "deferred_intrinsics": [
