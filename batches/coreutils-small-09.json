@@ -51,7 +51,7 @@
     "tests/help/help-version-getopt.sh"
   ],
   "valgrind_cases": [
-    {"applet": "[", "arguments": ["1", "=", "1"], "status": 0},
+    {"applet": "[", "arguments": ["1", "=", "1", "]"], "status": 0},
     {"applet": "b2sum", "arguments": [], "status": 0},
     {"applet": "chmod", "arguments": ["600", "file"], "status": 0, "setup": "file"},
     {"applet": "dd", "arguments": ["if=/dev/null", "of=/dev/null"], "status": 0},
