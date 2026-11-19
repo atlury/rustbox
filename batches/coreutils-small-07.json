@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "upstream": "GNU Coreutils 9.12",
+  "name": "coreutils-small-07",
+  "applets": [
+    "csplit",
+    "expand",
+    "expr",
+    "head",
+    "join",
+    "ln",
+    "rm",
+    "shred",
+    "test",
+    "who"
+  ],
+  "output_regex": "/src/libsinglebin_(csplit|expand|expr|head|join|ln|rm|shred|test|who)_",
+  "expected_compile_commands": 15,
+  "translation_variant": "canonical",
+  "c_normalization": [],
+  "deferred_intrinsics": [
+    {
+      "applet": "wc",
+      "reason": "C2Rust 0.22.1 cannot translate __builtin_cpu_supports used by GNU wc's AVX2 runtime dispatch. Preserve that optimized behavior for a typed CPU-feature bridge instead of hard-coding a result."
+    }
+  ],
+  "selection_policy": "The next measured-smallest canonical archives after batch six whose captured translation units contain neither SELinux nor systemd support. Expand and unexpand are kept in separate batches because they capture expand-common.c under distinct applet configurations. Chmod and mkdir are deferred to the canonical no-SELinux build. Wc moved to the CPU-dispatch bridge queue and join is substituted."
+}
