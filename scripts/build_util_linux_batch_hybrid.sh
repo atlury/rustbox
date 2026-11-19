@@ -20,6 +20,13 @@ case $batch in
     extra_objects='./.libs/libblkid.a ./.libs/libcommon.a'
     extra_libraries='-leconf'
     ;;
+  util-linux-small-03)
+    suffix=03
+    library_name=libutil_linux_small_03_normalized_reachable.a
+    applets='swaplabel lsirq newgrp uuidgen switch_root raw renice ionice fdformat copyfilerange'
+    extra_objects='lib/swaplabel-swapprober.o sys-utils/lsirq-irq-common.o ./.libs/libblkid.a ./.libs/libsmartcols.a ./.libs/libuuid.a ./.libs/libcommon.a'
+    extra_libraries='-leconf -lcrypt'
+    ;;
   *) echo "hybrid linker not yet declared for $batch" >&2; exit 2 ;;
 esac
 

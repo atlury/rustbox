@@ -7,6 +7,7 @@ batch=$1
 case $batch in
   util-linux-small-01) suffix=01 ;;
   util-linux-small-02) suffix=02 ;;
+  util-linux-small-03) suffix=03 ;;
   *) echo "unknown batch: $batch" >&2; exit 2 ;;
 esac
 
@@ -41,13 +42,17 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     printf "abcdef\n" | check colrm colrm 2 4 >/dev/null
     check mcookie mcookie --file seed >/dev/null
     printf "abcdef\n" | check rev rev >/dev/null
-  else
+  elif test "$suffix" = 02; then
     for applet in pivot_root delpart addpart findfs resizepart mkfs fsfreeze isosize mesg; do
       check "$applet" "$applet" --help >/dev/null
     done
     status=0
     check nologin nologin >/dev/null || status=$?
     test "$status" -eq 1
+  else
+    for applet in swaplabel lsirq newgrp uuidgen switch_root raw renice ionice fdformat copyfilerange; do
+      check "$applet" "$applet" --help >/dev/null
+    done
   fi
   python3 - <<'PY'
 import json

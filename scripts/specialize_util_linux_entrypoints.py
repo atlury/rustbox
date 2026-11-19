@@ -13,7 +13,7 @@ from pathlib import Path
 
 
 SAFE_APPLET = re.compile(r"^[a-z0-9_]+$")
-MAIN_DEFINITION = re.compile(r"\bint[ \t]+main[ \t]*\(")
+MAIN_DEFINITION = re.compile(r"\bint\s+main\s*\(")
 
 
 def sha256(path: Path) -> str:

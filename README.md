@@ -44,7 +44,7 @@ scoring, and correctness gates.
 | Upstream | Inventory | Signed source oracle | Hybrid canonical parity | Integrated Rust applets |
 |---|---:|---:|---:|---:|
 | GNU Coreutils 9.12 | 108 | 108 | 107 | 0 |
-| util-linux 2.42.4 | 155 | 155 | 20 | 0 |
+| util-linux 2.42.4 | 155 | 155 | 30 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -88,8 +88,9 @@ legacy `raw` utility are deliberately enabled rather than silently omitted.
 The paired Clang/GCC command inventory is recorded in
 `evidence/util-linux-2.42.4-compdb.json`.  Translation, normalization,
 hybrid-link, differential, upstream-test, and Valgrind evidence for the first
-two batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json` and
-`evidence/util-linux-2.42.4-c2rust-small-02.json`.  Twenty util-linux applets
+three batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
+`evidence/util-linux-2.42.4-c2rust-small-02.json`, and
+`evidence/util-linux-2.42.4-c2rust-small-03.json`.  Thirty util-linux applets
 have reached hybrid canonical parity; final Rustbox integration remains
 deliberately deferred until the applet batches are complete.
 
@@ -235,7 +236,7 @@ parity.
 - [ ] `colcrt` — inventory
 - [x] `colrm` — hybrid canonical parity; repair score 3
 - [ ] `column` — inventory
-- [ ] `copyfilerange` — inventory
+- [x] `copyfilerange` — hybrid canonical parity; repair score 3
 - [ ] `coresched` — inventory
 - [x] `ctrlaltdel` — hybrid canonical parity; repair score 3
 - [x] `delpart` — hybrid canonical parity; repair score 5
@@ -245,7 +246,7 @@ parity.
 - [x] `exch` — hybrid canonical parity; repair score 3
 - [x] `fadvise` — hybrid canonical parity; repair score 3
 - [ ] `fallocate` — inventory
-- [ ] `fdformat` — inventory
+- [x] `fdformat` — hybrid canonical parity; repair score 3
 - [ ] `fdisk` — inventory
 - [ ] `fincore` — inventory
 - [x] `findfs` — hybrid canonical parity; repair score 5
@@ -263,7 +264,7 @@ parity.
 - [ ] `hwclock` — inventory
 - [ ] `i386` — inventory
 - [ ] `ia64` — inventory
-- [ ] `ionice` — inventory
+- [x] `ionice` — hybrid canonical parity; repair score 3
 - [ ] `ipcmk` — inventory
 - [ ] `ipcrm` — inventory
 - [ ] `ipcs` — inventory
@@ -286,7 +287,7 @@ parity.
 - [ ] `lscpu` — inventory
 - [ ] `lsfd` — inventory
 - [ ] `lsipc` — inventory
-- [ ] `lsirq` — inventory
+- [x] `lsirq` — hybrid canonical parity; repair score 3
 - [ ] `lslocks` — inventory
 - [ ] `lslogins` — inventory
 - [ ] `lsmem` — inventory
@@ -305,7 +306,7 @@ parity.
 - [ ] `mount` — inventory
 - [ ] `mountpoint` — inventory
 - [ ] `namei` — inventory
-- [ ] `newgrp` — inventory
+- [x] `newgrp` — hybrid canonical parity; repair score 3
 - [x] `nologin` — hybrid canonical parity; repair score 5
 - [ ] `nsenter` — inventory
 - [ ] `parisc` — inventory
@@ -319,10 +320,10 @@ parity.
 - [ ] `ppc32` — inventory
 - [ ] `ppc64` — inventory
 - [ ] `prlimit` — inventory
-- [ ] `raw` — inventory
+- [x] `raw` — hybrid canonical parity; repair score 3
 - [ ] `readprofile` — inventory
 - [ ] `rename` — inventory
-- [ ] `renice` — inventory
+- [x] `renice` — hybrid canonical parity; repair score 3
 - [x] `resizepart` — hybrid canonical parity; repair score 5
 - [x] `rev` — hybrid canonical parity; repair score 3
 - [ ] `rfkill` — inventory
@@ -345,10 +346,10 @@ parity.
 - [ ] `sparc64` — inventory
 - [ ] `su` — inventory
 - [ ] `sulogin` — inventory
-- [ ] `swaplabel` — inventory
+- [x] `swaplabel` — hybrid canonical parity; repair score 3
 - [ ] `swapoff` — inventory
 - [ ] `swapon` — inventory
-- [ ] `switch_root` — inventory
+- [x] `switch_root` — hybrid canonical parity; repair score 3
 - [ ] `taskset` — inventory
 - [ ] `tunelp` — inventory
 - [ ] `uclampset` — inventory
@@ -358,7 +359,7 @@ parity.
 - [ ] `unshare` — inventory
 - [ ] `utmpdump` — inventory
 - [ ] `uuidd` — inventory
-- [ ] `uuidgen` — inventory
+- [x] `uuidgen` — hybrid canonical parity; repair score 3
 - [ ] `uuidparse` — inventory
 - [ ] `vigr` — inventory
 - [ ] `vipw` — inventory

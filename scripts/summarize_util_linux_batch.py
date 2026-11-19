@@ -71,7 +71,7 @@ def main() -> int:
     reachable_prepared = base / f"{batch}-normalized-reachable-prepared"
     stable = base / f"{batch}-stable"
     suffix = batch.removeprefix("util-linux-small-")
-    if suffix not in {"01", "02"}:
+    if suffix not in {"01", "02", "03"}:
         raise RuntimeError(f"undeclared util-linux batch: {batch}")
     hybrid = build / f"rustbox-util-linux-small-{suffix}"
     link_map = hybrid.with_suffix(".map")
@@ -118,6 +118,13 @@ def main() -> int:
             "mkfs": "disk-utils/mkfs.o", "fsfreeze": "sys-utils/fsfreeze.o",
             "isosize": "disk-utils/isosize.o", "mesg": "term-utils/mesg.o",
         },
+        "03": {
+            "swaplabel": "disk-utils/swaplabel-swaplabel.o", "lsirq": "sys-utils/lsirq-lsirq.o",
+            "newgrp": "login-utils/newgrp-newgrp.o", "uuidgen": "misc-utils/uuidgen-uuidgen.o",
+            "switch_root": "sys-utils/switch_root.o", "raw": "disk-utils/raw.o",
+            "renice": "sys-utils/renice.o", "ionice": "schedutils/ionice.o",
+            "fdformat": "disk-utils/fdformat.o", "copyfilerange": "misc-utils/copyfilerange-copyfilerange.o",
+        },
     }
     canonical_objects = canonical_objects_by_batch[suffix]
     if any(name in map_text for name in canonical_objects.values()):
@@ -132,10 +139,12 @@ def main() -> int:
     repair = {
         "01": (3, "feature-gate cleanup (1) and reusable opaque-pointer spelling rule (2)"),
         "02": (5, "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), and reusable VaListImpl/as_va_list modernization (2)"),
+        "03": (3, "feature-gate cleanup (1) and reusable opaque-pointer spelling rule (2)"),
     }[suffix]
     targeted = {
         "01": {"components": 9, "passed": 9, "ctrlaltdel": "no upstream component test; hard and soft branches compared unprivileged"},
         "02": {"components": 1, "passed": 1, "subtests": 3, "coverage_note": "isosize is the only upstream component test for this batch; the other nine applets are covered by differential and Valgrind cases"},
+        "03": {"components": 5, "passed": 5, "copyfilerange_subtests": 8, "coverage_note": "all available swaplabel, uuidgen, ionice, and copyfilerange components passed; the other six applets are covered by differential and Valgrind cases"},
     }[suffix]
     evidence = {
         "schema": 1,
