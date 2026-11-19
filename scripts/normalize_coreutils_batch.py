@@ -124,27 +124,44 @@ def main() -> int:
         for declaration in normalizations:
             relative = Path(declaration["source"])
             source = staged_source / relative
-            patch = repository / declaration["semantic_patch"]
             before = source.read_text(encoding="utf-8")
-            if before.count(declaration["expected_before"]) != 1:
+            expected_before_count = declaration.get("expected_before_count", 1)
+            expected_after_count = declaration.get("expected_after_count", 1)
+            if before.count(declaration["expected_before"]) != expected_before_count:
                 raise RuntimeError(f"normalization precondition not unique: {relative}")
-            with tempfile.TemporaryDirectory(prefix="rustbox-cocci-") as patch_temporary:
-                transformed = Path(patch_temporary) / source.name
-                patch_process = subprocess.run(
-                    ["spatch", "--sp-file", str(patch), str(source), "-o", str(transformed)],
-                    text=True,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE,
+            engine = declaration.get("engine", "coccinelle")
+            if engine == "exact":
+                replacement = declaration["replacement"]
+                source.write_text(
+                    before.replace(declaration["expected_before"], replacement),
+                    encoding="utf-8",
                 )
-                if patch_process.returncode:
-                    raise RuntimeError(
-                        f"semantic patch failed: {relative}: {patch_process.stderr.strip()}"
+            elif engine == "coccinelle":
+                patch = repository / declaration["semantic_patch"]
+                if not patch.is_file():
+                    raise RuntimeError(f"semantic patch does not exist: {patch}")
+                with tempfile.TemporaryDirectory(prefix="rustbox-cocci-") as patch_temporary:
+                    transformed = Path(patch_temporary) / source.name
+                    patch_process = subprocess.run(
+                        ["spatch", "--sp-file", str(patch), str(source), "-o", str(transformed)],
+                        text=True,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.PIPE,
                     )
-                if not transformed.is_file():
-                    raise RuntimeError(f"semantic patch produced no output: {relative}")
-                shutil.copy2(transformed, source)
+                    if patch_process.returncode:
+                        raise RuntimeError(
+                            f"semantic patch failed: {relative}: {patch_process.stderr.strip()}"
+                        )
+                    if not transformed.is_file():
+                        raise RuntimeError(f"semantic patch produced no output: {relative}")
+                    shutil.copy2(transformed, source)
+            else:
+                raise RuntimeError(f"unknown normalization engine: {engine}")
             after = source.read_text(encoding="utf-8")
-            if declaration["expected_before"] in after or after.count(declaration["expected_after"]) != 1:
+            if (
+                declaration["expected_before"] in after
+                or after.count(declaration["expected_after"]) != expected_after_count
+            ):
                 candidates = [
                     line.strip() for line in after.splitlines()
                     if "sync_arg" in line and "ok" in line
@@ -154,6 +171,9 @@ def main() -> int:
                 )
             patch_records.append({
                 **declaration,
+                "verified_before_count": expected_before_count,
+                "verified_after_count": expected_after_count,
+                "engine": engine,
                 "before_sha256": hashlib.sha256(before.encode()).hexdigest(),
                 "after_sha256": hashlib.sha256(after.encode()).hexdigest(),
             })

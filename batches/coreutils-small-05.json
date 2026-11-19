@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "upstream": "GNU Coreutils 9.12",
+  "name": "coreutils-small-05",
+  "applets": [
+    "base32",
+    "chroot",
+    "fold",
+    "kill",
+    "paste",
+    "rmdir",
+    "sum",
+    "tee",
+    "touch",
+    "uname"
+  ],
+  "output_regex": "/src/libsinglebin_(base32|chroot|fold|kill|paste|rmdir|sum|tee|touch|uname)_",
+  "expected_compile_commands": 15,
+  "translation_variant": "normalized",
+  "c_normalization": [
+    {
+      "source": "src/cksum.c",
+      "engine": "exact",
+      "expected_before": "ok &= digest_check (file);",
+      "replacement": "ok = digest_check (file) && ok;",
+      "expected_after": "ok = digest_check (file) && ok;",
+      "reason": "Preserve eager digest_check evaluation while avoiding C2Rust's integer-to-bool cast for bool &= bool."
+    },
+    {
+      "source": "src/fold.c",
+      "semantic_patch": "normalization/coreutils/bool-ok-call-eager-and.cocci",
+      "expected_before": "ok &= fold_file (argv[i], width);",
+      "expected_after": "ok = fold_file",
+      "expected_after_count": 2,
+      "reason": "Preserve eager fold_file evaluation while avoiding C2Rust's integer-to-bool cast for bool &= bool."
+    },
+    {
+      "source": "src/kill.c",
+      "engine": "exact",
+      "expected_before": "ckd_add (&pid, n, 0)",
+      "replacement": "(n < TYPE_MINIMUM (pid_t)\n           || TYPE_MAXIMUM (pid_t) < n\n           || (pid = (pid_t) n, false))",
+      "expected_after": "TYPE_MAXIMUM (pid_t) < n",
+      "reason": "Spell the checked intmax_t-to-pid_t conversion and assignment explicitly so C2Rust does not mix i64 and i32 checked-add operands."
+    },
+    {
+      "source": "src/rmdir.c",
+      "semantic_patch": "normalization/coreutils/bool-ok-call-eager-and.cocci",
+      "expected_before": "ok &= remove_parents (dir);",
+      "expected_after": "ok = remove_parents",
+      "reason": "Preserve eager remove_parents evaluation while avoiding C2Rust's integer-to-bool cast for bool &= bool."
+    },
+    {
+      "source": "src/sum.c",
+      "engine": "exact",
+      "expected_before": "ckd_add (&total_bytes, total_bytes, sum)",
+      "expected_before_count": 2,
+      "replacement": "ckd_add (&total_bytes, total_bytes, (intmax_t) sum)",
+      "expected_after": "ckd_add (&total_bytes, total_bytes, (intmax_t) sum)",
+      "expected_after_count": 2,
+      "reason": "The buffer count is bounded by 32768 and therefore exactly representable in intmax_t; make that conversion explicit before checked addition."
+    },
+    {
+      "source": "src/touch.c",
+      "semantic_patch": "normalization/coreutils/bool-ok-call-eager-and.cocci",
+      "expected_before": "ok &= touch (argv[optind]);",
+      "expected_after": "ok = touch",
+      "reason": "Preserve eager touch evaluation while avoiding C2Rust's integer-to-bool cast for bool &= bool."
+    }
+  ],
+  "selection_policy": "The next ten smallest independent canonical archives after batch four. Base32 is now isolated from base64 so C2Rust cannot deduplicate their shared basenc.c path; every multi-object archive retains all captured configurations."
+}

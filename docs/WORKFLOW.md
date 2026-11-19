@@ -118,6 +118,14 @@ dependency is added by a deterministic scanner, while all Rust source files
 remain untouched.  These two reusable stages are preferable to repairing the
 translated `sync` or `sleep` implementations by hand.
 
+When Coccinelle cannot parse a replacement accepted by the canonical C
+compiler, the normalization runner permits an exact-text fallback.  It is not
+an unrestricted search-and-replace: the manifest pins the source, exact
+before text, expected occurrence counts, replacement, and exact after text.
+The result must pass the same dual Clang/GCC replay, symbol comparison, and
+Libabigail gate as a semantic patch.  Batch five uses this fallback only for
+three parser-resistant checked-conversion and boolean expressions.
+
 The pinned local tool image is described by `tools/versions.json` and built by
 `scripts/build_tool_image.sh`.  `scripts/run_tool.sh rustbox-tool-report`
 records the effective versions.  CodeChecker's complete Python dependency
