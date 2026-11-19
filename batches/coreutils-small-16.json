@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "upstream": "GNU Coreutils 9.12",
+  "name": "coreutils-small-16",
+  "applets": ["mv"],
+  "canonical_analysis": "canonical-clang-no-security",
+  "canonical_gcc_analysis": "canonical-gcc-no-security",
+  "canonical_build": "canonical-clang-no-security-compdb",
+  "output_regex": "/src/libsinglebin_mv_",
+  "expected_compile_commands": 7,
+  "translation_variant": "canonical",
+  "reachable_staticlib": "libcoreutils_small_16_reachable.a",
+  "differential_harness": "coreutils_small_16_differential.py",
+  "upstream_tests": [
+    "tests/mv/atomic.sh",
+    "tests/mv/backup-dir.sh",
+    "tests/mv/dir2dir.sh",
+    "tests/mv/dup-source.sh",
+    "tests/mv/hard-link-1.sh",
+    "tests/mv/into-self.sh",
+    "tests/mv/mv-n.sh",
+    "tests/mv/no-target-dir.sh",
+    "tests/mv/part-rename.sh",
+    "tests/mv/symlink-onto-hardlink.sh",
+    "tests/mv/trailing-slash.sh",
+    "tests/mv/update.sh",
+    "tests/help/help-version.sh",
+    "tests/help/help-version-getopt.sh"
+  ],
+  "valgrind_cases": [
+    {"applet": "mv", "arguments": ["source", "destination"], "status": 0, "setup": "link"}
+  ],
+  "full_suite_baseline": {
+    "total": 761,
+    "pass": 626,
+    "skip": 134,
+    "fail": 0,
+    "error": 1,
+    "known_error": "tests/rm/deep-2"
+  },
+  "selection_policy": "The no-security mv closure is translated independently from cp and install because all three compile the shared copy engine with applet-specific main/usage renames; mv additionally owns mv.c and remove.c, and C2Rust requires unique source paths within each translation batch."
+}
