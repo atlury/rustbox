@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "upstream": "util-linux 2.42.4",
+  "name": "util-linux-small-06",
+  "applets": [
+    "coresched",
+    "chcpu",
+    "namei",
+    "wall",
+    "readprofile",
+    "scriptreplay",
+    "blkpr",
+    "ldattach",
+    "blockdev",
+    "flock"
+  ],
+  "output_regex": "/(?:schedutils/coresched|sys-utils/(?:chcpu|readprofile|blkpr|ldattach|flock)|misc-utils/namei|term-utils/(?:wall-wall|scriptreplay)|disk-utils/blockdev)\\.o$",
+  "expected_compile_commands": 10,
+  "c_normalization": [
+    {
+      "source": "sys-utils/chcpu.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(excl)",
+      "replacement": "sizeof(excl) / sizeof(excl[0])",
+      "expected_after": "sizeof(excl) / sizeof(excl[0])",
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."
+    },
+    {
+      "source": "term-utils/scriptreplay.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(excl)",
+      "replacement": "sizeof(excl) / sizeof(excl[0])",
+      "expected_after": "sizeof(excl) / sizeof(excl[0])",
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."
+    },
+    {
+      "source": "sys-utils/blkpr.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(XX)",
+      "expected_before_count": 2,
+      "replacement": "sizeof(XX) / sizeof(XX[0])",
+      "expected_after": "sizeof(XX) / sizeof(XX[0])",
+      "expected_after_count": 2,
+      "reason": "Spell the macro-parameter fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."
+    },
+    {
+      "source": "sys-utils/blkpr.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(pr_type)",
+      "replacement": "sizeof(pr_type) / sizeof(pr_type[0])",
+      "expected_after": "sizeof(pr_type) / sizeof(pr_type[0])",
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."
+    },
+    {
+      "source": "disk-utils/blockdev.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(bdcms)",
+      "expected_before_count": 2,
+      "replacement": "sizeof(bdcms) / sizeof(bdcms[0])",
+      "expected_after": "sizeof(bdcms) / sizeof(bdcms[0])",
+      "expected_after_count": 2,
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."
+    },
+    {
+      "source": "schedutils/coresched.c",
+      "engine": "exact",
+      "expected_before": "\tdefault:\n\t\tusage();\n\t}\n}",
+      "replacement": "\tdefault:\n\t\tusage();\n\t}\n\treturn EXIT_SUCCESS;\n}",
+      "expected_after": "\tdefault:\n\t\tusage();\n\t}\n\treturn EXIT_SUCCESS;\n}",
+      "reason": "Make C main's specified implicit success return explicit so C2Rust does not synthesize an abort after successful get, new, or copy operations."
+    }
+  ],
+  "selection_policy": "The next ten smallest independent canonical applet translation units after batch five. Shared-list-header, dotted-name, and shared-implementation wrapper edges remain isolated for dedicated batches."
+}
