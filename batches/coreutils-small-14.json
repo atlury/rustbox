@@ -36,5 +36,63 @@
     "error": 1,
     "known_error": "tests/rm/deep-2"
   },
+  "c_normalization": [
+    {
+      "source": "src/copy.c",
+      "engine": "exact",
+      "expected_before": "ok &= copy_internal (src_name, dst_name, dst_dirfd,\n                           dst_name + (dst_relname_in - dst_name_in),\n                           new_dst, src_sb,\n                           ancestors, &non_command_line_options, false,\n                           &first_dir_created,\n                           &local_copy_into_self, &rename_succeeded);",
+      "replacement": "ok = copy_internal (src_name, dst_name, dst_dirfd,\n                          dst_name + (dst_relname_in - dst_name_in),\n                          new_dst, src_sb,\n                          ancestors, &non_command_line_options, false,\n                          &first_dir_created,\n                          &local_copy_into_self, &rename_succeeded) && ok;",
+      "expected_after": "&local_copy_into_self, &rename_succeeded) && ok;",
+      "reason": "Evaluate every recursive copy eagerly before explicitly accumulating its Boolean result."
+    },
+    {
+      "source": "src/copy.c",
+      "engine": "exact",
+      "expected_before": "*copy_into_self |= local_copy_into_self;",
+      "replacement": "*copy_into_self = local_copy_into_self || *copy_into_self;",
+      "expected_after": "*copy_into_self = local_copy_into_self || *copy_into_self;",
+      "reason": "Spell copy's Boolean copy-into-self accumulation without compound bitwise assignment."
+    },
+    {
+      "source": "src/copy.c",
+      "engine": "exact",
+      "expected_before": "new_first_dir_created |= first_dir_created;",
+      "replacement": "new_first_dir_created = first_dir_created || new_first_dir_created;",
+      "expected_after": "new_first_dir_created = first_dir_created || new_first_dir_created;",
+      "reason": "Spell copy's Boolean first-directory accumulation without compound bitwise assignment."
+    },
+    {
+      "source": "src/cp.c",
+      "engine": "exact",
+      "expected_before": "ok &= copy (arg, dst_name, target_dirfd, dst_relname,\n                          new_dst, x, &copy_into_self, NULL);",
+      "replacement": "ok = copy (arg, dst_name, target_dirfd, dst_relname,\n                         new_dst, x, &copy_into_self, NULL) && ok;",
+      "expected_after": "new_dst, x, &copy_into_self, NULL) && ok;",
+      "reason": "Evaluate every command-line copy eagerly before explicitly accumulating its Boolean result."
+    },
+    {
+      "source": "src/cp.c",
+      "engine": "exact",
+      "expected_before": "ok &= re_protect (dst_name, arg_in_concat, target_dirfd,\n                                  dst_relname, attr_list, x);",
+      "replacement": "ok = re_protect (dst_name, arg_in_concat, target_dirfd,\n                                 dst_relname, attr_list, x) && ok;",
+      "expected_after": "dst_relname, attr_list, x) && ok;",
+      "reason": "Evaluate every parent protection eagerly before explicitly accumulating its Boolean result."
+    },
+    {
+      "source": "src/cp-hash.c",
+      "engine": "exact",
+      "expected_before": "return (uintmax_t) {p->st_ino} % table_size;",
+      "replacement": "return (size_t) ((uintmax_t) p->st_ino % table_size);",
+      "expected_after": "return (size_t) ((uintmax_t) p->st_ino % table_size);",
+      "reason": "Make cp's inode hash conversions explicit without the scalar compound literal."
+    },
+    {
+      "source": "src/copy-file-data.c",
+      "engine": "exact",
+      "expected_before": "if (ckd_add (&psize, psize, csize))",
+      "replacement": "if (ckd_add (&psize, psize, (off_t) csize))",
+      "expected_after": "if (ckd_add (&psize, psize, (off_t) csize))",
+      "reason": "Make the standard integer conversion from idx_t to off_t explicit at the checked-add boundary."
+    }
+  ],
   "selection_policy": "The no-security cp closure is translated independently from install and mv because all three compile copy.c, copy-file-data.c, cp-hash.c, force-link.c and selinux.c with applet-specific definitions; C2Rust requires unique source paths within each translation batch."
 }
