@@ -67,6 +67,62 @@
       "replacement": "bool avx512_enabled = rustbox_wc_cpu_supports_avx512 ();",
       "expected_after": "bool avx512_enabled = rustbox_wc_cpu_supports_avx512 ();",
       "reason": "Move only the unsupported paired AVX512 compiler probes behind the typed bridge."
+    },
+    {
+      "source": "src/wc.c",
+      "semantic_patch": "normalization/coreutils/bool-call-eager-or.cocci",
+      "expected_before": "total_lines_overflow |= ckd_add (&total_lines, total_lines, lines);",
+      "expected_after": "_overflow = ckd_add",
+      "expected_after_count": 4,
+      "reason": "Evaluate all four checked total additions eagerly, then explicitly accumulate each Boolean overflow flag."
+    },
+    {
+      "source": "src/wc.c",
+      "engine": "exact",
+      "expected_before": "ckd_add(&total_lines, total_lines, lines)",
+      "replacement": "ckd_add(&total_lines, total_lines, (uintmax_t) lines)",
+      "expected_after": "ckd_add(&total_lines, total_lines, (uintmax_t) lines)",
+      "reason": "Spell wc's nonnegative line total conversion to uintmax_t explicitly."
+    },
+    {
+      "source": "src/wc.c",
+      "engine": "exact",
+      "expected_before": "ckd_add(&total_words, total_words, words)",
+      "replacement": "ckd_add(&total_words, total_words, (uintmax_t) words)",
+      "expected_after": "ckd_add(&total_words, total_words, (uintmax_t) words)",
+      "reason": "Spell wc's nonnegative word total conversion to uintmax_t explicitly."
+    },
+    {
+      "source": "src/wc.c",
+      "engine": "exact",
+      "expected_before": "ckd_add(&total_chars, total_chars, chars)",
+      "replacement": "ckd_add(&total_chars, total_chars, (uintmax_t) chars)",
+      "expected_after": "ckd_add(&total_chars, total_chars, (uintmax_t) chars)",
+      "reason": "Spell wc's nonnegative character total conversion to uintmax_t explicitly."
+    },
+    {
+      "source": "src/wc.c",
+      "engine": "exact",
+      "expected_before": "ckd_add(&total_bytes, total_bytes, bytes)",
+      "replacement": "ckd_add(&total_bytes, total_bytes, (uintmax_t) bytes)",
+      "expected_after": "ckd_add(&total_bytes, total_bytes, (uintmax_t) bytes)",
+      "reason": "Spell wc's nonnegative byte total conversion to uintmax_t explicitly."
+    },
+    {
+      "source": "src/wc.c",
+      "engine": "exact",
+      "expected_before": "ckd_add (&regular_total, regular_total,\n                              fstatus[i].st.st_size)",
+      "replacement": "ckd_add (&regular_total, regular_total,\n                              (uintmax_t) fstatus[i].st.st_size)",
+      "expected_after": "(uintmax_t) fstatus[i].st.st_size",
+      "reason": "Spell the canonical signed-to-unsigned file-size conversion explicitly at the checked-add boundary."
+    },
+    {
+      "source": "src/wc.c",
+      "semantic_patch": "normalization/coreutils/bool-ok-call-eager-and.cocci",
+      "expected_before": "ok &= wc_file (file_name, &fstatus[nfiles ? i : 0]);",
+      "expected_after": "ok = wc_file",
+      "expected_after_count": 2,
+      "reason": "Process each input eagerly before explicitly accumulating wc_file's Boolean status."
     }
   ],
   "selection_policy": "Translate GNU wc in full while isolating its two compiler-specific runtime CPU feature expressions behind a typed, source-hashed C ABI. GNU's AVX2 and AVX512 line-count implementations remain canonical linked support objects."
