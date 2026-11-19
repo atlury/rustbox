@@ -157,6 +157,10 @@ test-only binaries.  The duplicate `gzip` request is represented once.
      `rexecd`, `rlogind`, `rshd`, `syslogd`, `talkd`, `telnetd`, `tftpd`,
      `uucpd`.
 5. Large Linux system suites:
+   - [ ] Kmod 34.3 — `kmod` and its installed `depmod`, `insmod`, `lsmod`,
+     `modinfo`, `modprobe`, and `rmmod` compatibility links, plus the shared
+     `libkmod` runtime; retain xz, zlib, and zstd module decompression through
+     the corresponding canonical queued libraries.
    - [ ] Procps-ng 4.0.7 — `free`, `hugetop`, `kill`, `pgrep`, `pidof`,
      `pkill`, `pmap`, `ps`, `pwait`, `pwdx`, `skill`, `slabtop`, `snice`,
      `sysctl`, `tload`, `top`, `uptime`, `vmstat`, `w`, `watch`, plus the
