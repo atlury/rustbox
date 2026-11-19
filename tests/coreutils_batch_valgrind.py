@@ -106,7 +106,7 @@ def main() -> int:
     with tempfile.TemporaryDirectory(prefix="rustbox-valgrind-") as temporary:
         root = Path(temporary)
 
-        def check_case(item: tuple[int, dict[str, object]]) -> bool:
+        def check_case(item: tuple[int, dict[str, object]]) -> tuple[bool, bool]:
             index, case = item
             applet = case["applet"]
             if applet not in applets:
@@ -130,22 +130,27 @@ def main() -> int:
                     args.canonical, case, canonical_cwd,
                     root / f"{index}-{applet}-canonical.log", env
                 )
-            if expected[0] != case["status"] or actual[:2] != expected[:2]:
+            metrics_not_worse = all(
+                actual[1][name] <= expected[1][name] for name in actual[1]
+            )
+            if expected[0] != case["status"] or actual[0] != expected[0] or not metrics_not_worse:
                 raise AssertionError((case, expected, actual))
-            return any(expected[1].values())
+            return any(expected[1].values()), actual[1] != expected[1]
 
         workers = min(8, len(cases))
         with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as executor:
-            nonzero = list(executor.map(check_case, enumerate(cases)))
+            comparisons = list(executor.map(check_case, enumerate(cases)))
 
     checked = len(cases)
-    canonical_nonzero = sum(nonzero)
+    canonical_nonzero = sum(nonzero for nonzero, _improved in comparisons)
+    improved = sum(improved for _nonzero, improved in comparisons)
 
     result = {
         "schema": 1,
         "cases": checked,
         "passed": checked,
         "canonical_nonzero_resource_cases": canonical_nonzero,
+        "improved_resource_cases": improved,
         "parallel_workers": workers,
         "valgrind_errors": 0,
         "definite_or_indirect_leaks": 0,
