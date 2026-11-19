@@ -43,7 +43,7 @@ scoring, and correctness gates.
 
 | Upstream | Inventory | Signed source oracle | Hybrid canonical parity | Integrated Rust applets |
 |---|---:|---:|---:|---:|
-| GNU Coreutils 9.12 | 108 | 108 | 106 | 0 |
+| GNU Coreutils 9.12 | 108 | 108 | 107 | 0 |
 | util-linux 2.42.4 | 155 | 0 | 0 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
@@ -70,9 +70,11 @@ hybrid evidence for the verified batches is in
 `evidence/coreutils-9.12-c2rust-small-18.json`,
 `evidence/coreutils-9.12-c2rust-small-19.json`,
 `evidence/coreutils-9.12-c2rust-small-20.json`,
-`evidence/coreutils-9.12-c2rust-small-21.json`, and
-`evidence/coreutils-9.12-c2rust-small-22.json`.  An oracle-built applet is not
-marked complete in the inventory below; completion is reserved for translated
+`evidence/coreutils-9.12-c2rust-small-21.json`,
+`evidence/coreutils-9.12-c2rust-small-22.json`, and
+`evidence/coreutils-9.12-c2rust-small-23.json`.  All 107 applets in scope under
+the no-SELinux policy have reached hybrid canonical parity.  An oracle-built
+applet is not marked complete in the inventory below; completion is reserved for translated
 Rust that has reached canonical behavioral parity through the multicall
 interface.
 
@@ -166,7 +168,7 @@ parity.
 - [x] `shred` — hybrid canonical parity; repair score 7
 - [x] `shuf` — hybrid canonical parity; repair score 5
 - [x] `sleep` — hybrid canonical parity; repair score 5
-- [ ] `sort` — inventory
+- [x] `sort` — hybrid canonical parity with typed native-long-double bridge; repair score 7
 - [x] `split` — hybrid canonical parity; repair score 7
 - [x] `stat` — hybrid canonical parity; repair score 7
 - [x] `stdbuf` — hybrid canonical parity; repair score 5
