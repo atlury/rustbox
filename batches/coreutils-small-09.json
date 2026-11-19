@@ -174,6 +174,14 @@
       "reason": "Process every du command-line file before explicitly accumulating its status."
     },
     {
+      "source": "src/du.c",
+      "engine": "exact",
+      "expected_before": "hash_ins (struct di_set *di_set, ino_t ino, dev_t dev)\n{\n  int inserted = di_set_insert (di_set, dev, ino);",
+      "replacement": "hash_ins (struct di_set *set, ino_t ino, dev_t dev)\n{\n  int inserted = di_set_insert (set, dev, ino);",
+      "expected_after": "hash_ins (struct di_set *set, ino_t ino, dev_t dev)",
+      "reason": "Disambiguate the private pointer parameter from its opaque struct tag for deterministic stable-Rust modernization."
+    },
+    {
       "source": "src/split.c",
       "engine": "exact",
       "expected_before": "ckd_add (&outfile_length, outfile_length, 2)",
