@@ -33,17 +33,42 @@ def main() -> int:
     applets = manifest["applets"]
     if not all(isinstance(name, str) and SAFE_APPLET.fullmatch(name) for name in applets):
         raise RuntimeError("unsafe applet name in manifest")
-    symbol_tokens = {
-        name: re.sub(r"[^a-z0-9_]", "_", name)
-        for name in applets
-    }
-    if len(set(symbol_tokens.values())) != len(symbol_tokens):
-        raise RuntimeError(f"applet names collide as C symbols: {symbol_tokens}")
     by_stem = {Path(entry["file"]).stem: entry for entry in entries}
-    if set(by_stem) != set(applets) or len(by_stem) != len(entries):
+    configured = manifest.get("entrypoints")
+    if configured is None:
+        entrypoints = {
+            name: {
+                "symbol": re.sub(r"[^a-z0-9_]", "_", name),
+                "public_names": [name],
+            }
+            for name in applets
+        }
+    elif isinstance(configured, dict):
+        entrypoints = configured
+    else:
+        raise RuntimeError("entrypoints must be an object")
+    public_names = [
+        name
+        for record in entrypoints.values()
+        for name in record.get("public_names", [])
+    ]
+    if sorted(public_names) != sorted(applets) or len(set(public_names)) != len(applets):
+        raise RuntimeError("entrypoint public names differ from applets")
+    symbol_tokens = {
+        source_stem: record.get("symbol")
+        for source_stem, record in entrypoints.items()
+    }
+    if not all(
+        isinstance(token, str) and re.fullmatch(r"[a-z0-9_]+", token)
+        for token in symbol_tokens.values()
+    ):
+        raise RuntimeError(f"unsafe entrypoint symbol: {symbol_tokens}")
+    if len(set(symbol_tokens.values())) != len(symbol_tokens):
+        raise RuntimeError(f"entrypoint symbols collide: {symbol_tokens}")
+    if set(by_stem) != set(entrypoints) or len(by_stem) != len(entries):
         raise RuntimeError(
             f"entrypoint sources differ from applets: sources={sorted(by_stem)}, "
-            f"applets={sorted(applets)}"
+            f"entrypoints={sorted(entrypoints)}"
         )
 
     source_root = args.source_root.resolve()
@@ -58,8 +83,8 @@ def main() -> int:
     object_root.mkdir(parents=True)
     rewritten = []
     records = {}
-    for applet in applets:
-        entry = json.loads(json.dumps(by_stem[applet]))
+    for source_stem, configuration in entrypoints.items():
+        entry = json.loads(json.dumps(by_stem[source_stem]))
         source = Path(entry["file"]).resolve()
         try:
             relative = source.relative_to(source_root)
@@ -68,24 +93,24 @@ def main() -> int:
         destination = specialized_root / relative
         destination.parent.mkdir(parents=True, exist_ok=True)
         before = source.read_text(encoding="utf-8")
-        symbol = f"rustbox_{symbol_tokens[applet]}_main"
+        symbol = f"rustbox_{symbol_tokens[source_stem]}_main"
         after, replacements = MAIN_DEFINITION.subn(
             f"int {symbol}(", before, count=1
         )
         if replacements != 1 or MAIN_DEFINITION.search(after):
-            raise RuntimeError(f"expected exactly one main definition: {applet}")
+            raise RuntimeError(f"expected exactly one main definition: {source_stem}")
         destination.write_text(after, encoding="utf-8")
 
         arguments = entry["arguments"]
         if arguments.count(str(source)) != 1:
-            raise RuntimeError(f"compile action source is not unique: {applet}")
+            raise RuntimeError(f"compile action source is not unique: {source_stem}")
         arguments[arguments.index(str(source))] = str(destination)
         compile_index = arguments.index("-c")
         arguments.insert(
             compile_index,
             f"-fmacro-prefix-map={specialized_root}={source_root}",
         )
-        object_path = object_root / f"{symbol_tokens[applet]}.o"
+        object_path = object_root / f"{symbol_tokens[source_stem]}.o"
         output_index = arguments.index("-o") + 1
         arguments[output_index] = str(object_path)
         process = subprocess.run(
@@ -97,7 +122,7 @@ def main() -> int:
         )
         if process.returncode:
             raise RuntimeError(
-                f"specialized compile failed for {applet}: {process.stderr[-4000:]}"
+                f"specialized compile failed for {source_stem}: {process.stderr[-4000:]}"
             )
         symbols = subprocess.run(
             ["nm", "-g", "--defined-only", str(object_path)],
@@ -107,14 +132,15 @@ def main() -> int:
         ).stdout.splitlines()
         defined = [line.split()[-1] for line in symbols if line.split()]
         if symbol not in defined or "main" in defined:
-            raise RuntimeError(f"wrong specialized symbols for {applet}: {defined}")
+            raise RuntimeError(f"wrong specialized symbols for {source_stem}: {defined}")
 
         entry["file"] = str(destination)
         entry["output"] = str(object_path)
         rewritten.append(entry)
-        records[applet] = {
+        records[source_stem] = {
             "canonical_entrypoint": "main",
             "specialized_entrypoint": symbol,
+            "public_names": configuration["public_names"],
             "before_sha256": sha256(source),
             "after_sha256": sha256(destination),
             "compiler_replay": "pass",

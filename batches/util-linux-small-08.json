@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "upstream": "util-linux 2.42.4",
+  "name": "util-linux-small-08",
+  "applets": [
+    "i386",
+    "ia64",
+    "linux32",
+    "linux64",
+    "mips",
+    "mips32",
+    "mips64",
+    "parisc",
+    "parisc32",
+    "parisc64",
+    "ppc",
+    "ppc32",
+    "ppc64",
+    "s390",
+    "s390x",
+    "setarch",
+    "sparc",
+    "sparc32",
+    "sparc32bash",
+    "sparc64",
+    "uname26",
+    "x86_64"
+  ],
+  "entrypoints": {
+    "setarch": {
+      "symbol": "setarch",
+      "public_names": [
+        "i386",
+        "ia64",
+        "linux32",
+        "linux64",
+        "mips",
+        "mips32",
+        "mips64",
+        "parisc",
+        "parisc32",
+        "parisc64",
+        "ppc",
+        "ppc32",
+        "ppc64",
+        "s390",
+        "s390x",
+        "setarch",
+        "sparc",
+        "sparc32",
+        "sparc32bash",
+        "sparc64",
+        "uname26",
+        "x86_64"
+      ]
+    }
+  },
+  "output_regex": "/sys-utils/setarch\\.o$",
+  "expected_compile_commands": 1,
+  "c_normalization": [
+    {
+      "source": "sys-utils/setarch.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(all_personalities)",
+      "expected_before_count": 3,
+      "replacement": "sizeof(all_personalities) / sizeof(all_personalities[0])",
+      "expected_after": "sizeof(all_personalities) / sizeof(all_personalities[0])",
+      "expected_after_count": 3,
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."
+    },
+    {
+      "source": "sys-utils/setarch.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(all_options)",
+      "replacement": "sizeof(all_options) / sizeof(all_options[0])",
+      "expected_after": "sizeof(all_options) / sizeof(all_options[0])",
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."
+    }
+  ],
+  "selection_policy": "Translate the one canonical setarch body once and verify all 22 installed public aliases without duplicating generated Rust."
+}

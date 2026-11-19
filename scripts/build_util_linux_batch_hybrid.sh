@@ -5,6 +5,7 @@ set -eu
 test "$#" -eq 1 || { echo "usage: $0 BATCH" >&2; exit 2; }
 batch=$1
 case $batch in *[!A-Za-z0-9_-]*|'') exit 2 ;; esac
+replacement_count=10
 case $batch in
   util-linux-small-01)
     suffix=01
@@ -71,13 +72,14 @@ RUSTBOX_TOOL_IMAGE=rustbox-normalize:2026-11-19 \
     applets=$3
     extra_objects=$4
     extra_libraries=$5
+    replacement_count=$6
     output="$build/rustbox-util-linux-small-$suffix"
     cd "$build"
     clang-18 -O2 -g -Wl,-Map,"$output.map" -o "$output" \
       "/work/bridges/util-linux/small-$suffix-dispatch.c" \
       "$library" $extra_objects \
       $extra_libraries -ldl -lpthread -lrt -lutil -lm
-    test "$(nm -g --defined-only "$output" | awk '\''/ rustbox_.*_main$/ { count++ } END { print count+0 }'\'')" = 10
+    test "$(nm -g --defined-only "$output" | awk '\''/ rustbox_.*_main$/ { count++ } END { print count+0 }'\'')" = "$replacement_count"
     mkdir -p "rustbox-small-$suffix"
     for applet in $applets; do
       ln -sfn "../rustbox-util-linux-small-$suffix" "rustbox-small-$suffix/$applet"
@@ -85,4 +87,4 @@ RUSTBOX_TOOL_IMAGE=rustbox-normalize:2026-11-19 \
     printf "util-linux hybrid: %s bytes\n" "$(stat -c %s "$output")"
   ' rustbox-util-link \
     "/work/work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/$batch-stable/target/release/$library_name" \
-    "$suffix" "$applets" "$extra_objects" "$extra_libraries"
+    "$suffix" "$applets" "$extra_objects" "$extra_libraries" "$replacement_count"
