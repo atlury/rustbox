@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "upstream": "GNU Coreutils 9.12",
+  "name": "coreutils-small-15",
+  "applets": ["install"],
+  "canonical_analysis": "canonical-clang-no-security",
+  "canonical_gcc_analysis": "canonical-gcc-no-security",
+  "canonical_build": "canonical-clang-no-security-compdb",
+  "output_regex": "/src/libsinglebin_ginstall_",
+  "expected_compile_commands": 7,
+  "translation_variant": "canonical",
+  "reachable_staticlib": "libcoreutils_small_15_reachable.a",
+  "differential_harness": "coreutils_small_15_differential.py",
+  "upstream_tests": [
+    "tests/install/basic-1.sh",
+    "tests/install/create-leading.sh",
+    "tests/install/d-slashdot.sh",
+    "tests/install/install-C.sh",
+    "tests/install/strip-program.sh",
+    "tests/install/trap.sh",
+    "tests/help/help-version.sh",
+    "tests/help/help-version-getopt.sh"
+  ],
+  "valgrind_cases": [
+    {"applet": "install", "arguments": ["source", "destination"], "status": 0, "setup": "link"}
+  ],
+  "full_suite_baseline": {
+    "total": 761,
+    "pass": 626,
+    "skip": 134,
+    "fail": 0,
+    "error": 1,
+    "known_error": "tests/rm/deep-2"
+  },
+  "selection_policy": "The no-security install closure is translated independently from cp and mv because all three compile the shared copy engine with applet-specific definitions; install additionally owns install.c and prog-fprintf.c, and C2Rust requires unique source paths within each translation batch."
+}
