@@ -115,7 +115,12 @@ def main() -> int:
             compile_index = item["arguments"].index("-c")
             item["arguments"].insert(compile_index, macro_map)
             item["arguments"].insert(compile_index, f"-iquote{source.parent}")
-            item["arguments"].insert(compile_index, f"-iquote{staged_source / 'include'}")
+            # A staged header is an overlay, including when a canonical header
+            # includes its neighbor with quotes.  -iquote alone loses that
+            # lookup to the including header's canonical directory; put the
+            # incomplete staged directory first in the ordinary include path
+            # and fall through to the canonical tree for every unstaged file.
+            item["arguments"].insert(compile_index, f"-I{staged_source / 'include'}")
             object_path = staged_objects / Path(item["output"]).name
             output_index = item["arguments"].index("-o") + 1
             item["arguments"][output_index] = str(object_path)
@@ -227,7 +232,7 @@ def main() -> int:
             gcc_arguments.insert(gcc_compile_index, f"-iquote{gcc_source.parent}")
             gcc_arguments.insert(
                 gcc_compile_index,
-                f"-iquote{staged_source / 'include'}",
+                f"-I{staged_source / 'include'}",
             )
             clang_result = replay(entry["arguments"], clang_output, Path(entry["directory"]))
             gcc_result = replay(gcc_arguments, gcc_output, Path(gcc_entry["directory"]))
