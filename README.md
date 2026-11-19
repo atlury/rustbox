@@ -43,7 +43,7 @@ scoring, and correctness gates.
 
 | Upstream | Inventory | Signed source oracle | Hybrid canonical parity | Integrated Rust applets |
 |---|---:|---:|---:|---:|
-| GNU Coreutils 9.12 | 108 | 108 | 105 | 0 |
+| GNU Coreutils 9.12 | 108 | 108 | 106 | 0 |
 | util-linux 2.42.4 | 155 | 0 | 0 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
@@ -69,8 +69,9 @@ hybrid evidence for the verified batches is in
 `evidence/coreutils-9.12-c2rust-small-17.json`,
 `evidence/coreutils-9.12-c2rust-small-18.json`,
 `evidence/coreutils-9.12-c2rust-small-19.json`,
-`evidence/coreutils-9.12-c2rust-small-20.json`, and
-`evidence/coreutils-9.12-c2rust-small-21.json`.  An oracle-built applet is not
+`evidence/coreutils-9.12-c2rust-small-20.json`,
+`evidence/coreutils-9.12-c2rust-small-21.json`, and
+`evidence/coreutils-9.12-c2rust-small-22.json`.  An oracle-built applet is not
 marked complete in the inventory below; completion is reserved for translated
 Rust that has reached canonical behavioral parity through the multicall
 interface.
@@ -141,7 +142,7 @@ parity.
 - [x] `nl` — hybrid canonical parity; repair score 5
 - [x] `nohup` — hybrid canonical parity; repair score 5
 - [x] `nproc` — hybrid canonical parity; repair score 5
-- [ ] `numfmt` — inventory
+- [x] `numfmt` — hybrid canonical parity with canonical native-numeric bridge; repair score 5
 - [x] `od` — hybrid canonical parity with typed native-floating bridge; repair score 5
 - [x] `paste` — hybrid canonical parity; repair score 7
 - [x] `pathchk` — hybrid canonical parity; repair score 5
