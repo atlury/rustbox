@@ -13,7 +13,7 @@
   "canonical_build": "canonical-clang-no-security-compdb",
   "output_regex": "/src/libsinglebin_(id|ls|mkdir|stat)_",
   "expected_compile_commands": 9,
-  "translation_variant": "canonical",
+  "translation_variant": "normalized",
   "reachable_staticlib": "libcoreutils_small_11_reachable.a",
   "differential_harness": "coreutils_small_11_differential.py",
   "upstream_tests": [
@@ -37,6 +37,90 @@
     {"applet": "ls", "arguments": ["-la", "."], "status": 0},
     {"applet": "mkdir", "arguments": ["directory"], "status": 0},
     {"applet": "stat", "arguments": ["."], "status": 0}
+  ],
+  "c_normalization": [
+    {
+      "source": "src/id.c",
+      "engine": "exact",
+      "expected_before": "ok &= false;",
+      "replacement": "ok = false && ok;",
+      "expected_after": "ok = false && ok;",
+      "expected_before_count": 3,
+      "expected_after_count": 3,
+      "reason": "Spell the three unconditional id failure accumulations as Boolean expressions."
+    },
+    {
+      "source": "src/id.c",
+      "engine": "exact",
+      "expected_before": "ok &= print_group (use_real ? rgid : egid, use_name);",
+      "replacement": "ok = print_group (use_real ? rgid : egid, use_name) && ok;",
+      "expected_after": "ok = print_group (use_real ? rgid : egid, use_name) && ok;",
+      "reason": "Evaluate id's group printer eagerly before explicitly accumulating its Boolean result."
+    },
+    {
+      "source": "src/id.c",
+      "engine": "exact",
+      "expected_before": "ok &= print_group_list (pw_name, ruid, rgid, egid,\n                            use_name, opt_zero ? '\\0' : ' ');",
+      "replacement": "ok = print_group_list (pw_name, ruid, rgid, egid,\n                           use_name, opt_zero ? '\\0' : ' ') && ok;",
+      "expected_after": "ok = print_group_list (pw_name, ruid, rgid, egid,",
+      "reason": "Evaluate id's group-list printer eagerly before explicitly accumulating its Boolean result."
+    },
+    {
+      "source": "src/ls.c",
+      "engine": "exact",
+      "expected_before": "return (uintmax_t) {p->st_ino} % table_size;",
+      "replacement": "return (size_t) ((uintmax_t) p->st_ino % table_size);",
+      "expected_after": "return (size_t) ((uintmax_t) p->st_ino % table_size);",
+      "reason": "Make ls's inode hash result conversion explicit without the scalar compound literal."
+    },
+    {
+      "source": "src/ls.c",
+      "engine": "exact",
+      "expected_before": "dired &= (format == long_format) & !print_hyperlink;",
+      "replacement": "dired = ((format == long_format) & !print_hyperlink) && dired;",
+      "expected_after": "dired = ((format == long_format) & !print_hyperlink) && dired;",
+      "reason": "Preserve ls's exact bitwise option test while explicitly accumulating the Boolean dired state."
+    },
+    {
+      "source": "src/ls.c",
+      "engine": "exact",
+      "expected_before": "any_has_acl |= f->acl_type != ACL_T_NONE;",
+      "replacement": "any_has_acl = (f->acl_type != ACL_T_NONE) || any_has_acl;",
+      "expected_after": "any_has_acl = (f->acl_type != ACL_T_NONE) || any_has_acl;",
+      "reason": "Evaluate every ls ACL result before explicitly accumulating its Boolean state."
+    },
+    {
+      "source": "src/stat.c",
+      "engine": "exact",
+      "expected_before": "fail |= print_func (dest, len, mod_char, fmt_char,\n                                    fd, filename, data);",
+      "replacement": "fail = print_func (dest, len, mod_char, fmt_char,\n                                   fd, filename, data) || fail;",
+      "expected_after": "fail = print_func (dest, len, mod_char, fmt_char,",
+      "reason": "Evaluate every stat format printer eagerly before explicitly accumulating failures."
+    },
+    {
+      "source": "src/stat.c",
+      "engine": "exact",
+      "expected_before": "fail |= out_mount_point (filename, pformat, prefix_len, statbuf);",
+      "replacement": "fail = out_mount_point (filename, pformat, prefix_len, statbuf) || fail;",
+      "expected_after": "fail = out_mount_point (filename, pformat, prefix_len, statbuf) || fail;",
+      "reason": "Evaluate stat's mount-point formatter eagerly before explicitly accumulating failures."
+    },
+    {
+      "source": "src/stat.c",
+      "engine": "exact",
+      "expected_before": "fail |= out_file_context (pformat, prefix_len, filename);",
+      "replacement": "fail = out_file_context (pformat, prefix_len, filename) || fail;",
+      "expected_after": "fail = out_file_context (pformat, prefix_len, filename) || fail;",
+      "reason": "Evaluate stat's disabled-context stub eagerly before explicitly accumulating failures."
+    },
+    {
+      "source": "src/stat.c",
+      "engine": "exact",
+      "expected_before": "ok &= (fs\n           ? do_statfs (argv[i], format)\n           : do_stat (argv[i], format, format2));",
+      "replacement": "ok = (fs\n        ? do_statfs (argv[i], format)\n        : do_stat (argv[i], format, format2)) && ok;",
+      "expected_after": "do_stat (argv[i], format, format2)) && ok;",
+      "reason": "Process every stat operand eagerly before explicitly accumulating its status."
+    }
   ],
   "selection_policy": "The first no-security canonical tranche: four independent archive closures with unique source paths after configuring GNU Coreutils without SELinux, SMACK or systemd. Chcon and runcon remain excluded; the shared copy family and repeated selinux.c closures remain isolated for later batches."
 }
