@@ -40,6 +40,14 @@
       "replacement": "comm ? comm : \"unknown\"",
       "expected_after": "comm ? comm : \"unknown\"",
       "reason": "Expand the GNU omitted-middle conditional over an unmodified local pointer because C2Rust 0.22.1 exports its implicit bit-cast with a missing AST child."
+    },
+    {
+      "source": "misc-utils/waitpid.c",
+      "engine": "exact",
+      "expected_before": "\twait_for_exits(&ctl, epoll, active_pids, proc_infos);\n}",
+      "replacement": "\twait_for_exits(&ctl, epoll, active_pids, proc_infos);\n\treturn EXIT_SUCCESS;\n}",
+      "expected_after": "\twait_for_exits(&ctl, epoll, active_pids, proc_infos);\n\treturn EXIT_SUCCESS;\n}",
+      "reason": "Make C main's specified implicit success return explicit so C2Rust does not synthesize an abort on the --exited fast path."
     }
   ],
   "selection_policy": "The next ten smallest independent canonical applet translation units after batch three. The su and runuser shared-implementation wrappers remain isolated for later one-at-a-time translation."
