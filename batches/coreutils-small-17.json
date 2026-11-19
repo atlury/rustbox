@@ -11,12 +11,17 @@
   "output_regex": "/src/libsinglebin_wc_a-wc\\.o$",
   "expected_compile_commands": 1,
   "translation_variant": "normalized",
+  "prepare_scaffold": true,
   "reachable_staticlib": "libcoreutils_small_17_normalized_reachable.a",
   "differential_harness": "coreutils_small_17_differential.py",
   "upstream_tests": [
+    "tests/wc/wc-cpu.sh",
     "tests/wc/wc.pl",
     "tests/wc/wc-files0-from.pl",
+    "tests/wc/wc-files0.sh",
+    "tests/wc/wc-nbsp.sh",
     "tests/wc/wc-parallel.sh",
+    "tests/wc/wc-total.sh",
     "tests/help/help-version.sh",
     "tests/help/help-version-getopt.sh"
   ],

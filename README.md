@@ -43,7 +43,7 @@ scoring, and correctness gates.
 
 | Upstream | Inventory | Signed source oracle | Hybrid canonical parity | Integrated Rust applets |
 |---|---:|---:|---:|---:|
-| GNU Coreutils 9.12 | 108 | 108 | 100 | 0 |
+| GNU Coreutils 9.12 | 108 | 108 | 101 | 0 |
 | util-linux 2.42.4 | 155 | 0 | 0 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
@@ -64,8 +64,9 @@ hybrid evidence for the verified batches is in
 `evidence/coreutils-9.12-c2rust-small-12.json`,
 `evidence/coreutils-9.12-c2rust-small-13.json`,
 `evidence/coreutils-9.12-c2rust-small-14.json`,
-`evidence/coreutils-9.12-c2rust-small-15.json`, and
-`evidence/coreutils-9.12-c2rust-small-16.json`.  An oracle-built applet is not
+`evidence/coreutils-9.12-c2rust-small-15.json`,
+`evidence/coreutils-9.12-c2rust-small-16.json`, and
+`evidence/coreutils-9.12-c2rust-small-17.json`.  An oracle-built applet is not
 marked complete in the inventory below; completion is reserved for translated
 Rust that has reached canonical behavioral parity through the multicall
 interface.
@@ -185,7 +186,7 @@ parity.
 - [x] `uptime` — hybrid canonical parity; repair score 5
 - [x] `users` — hybrid canonical parity; repair score 5
 - [x] `vdir` — hybrid canonical parity; repair score 5
-- [ ] `wc` — inventory
+- [x] `wc` — hybrid canonical parity with typed CPU-dispatch bridge; repair score 5
 - [x] `who` — hybrid canonical parity; repair score 7
 - [x] `whoami` — hybrid canonical parity; repair score 5
 - [x] `yes` — hybrid canonical parity; repair score 5
