@@ -1,0 +1,1637 @@
+{
+  "batch_differential": {
+    "batches": 38,
+    "cases": 14022,
+    "failed_batches": [],
+    "passed": 14022,
+    "records": [
+      {
+        "batch": "true-false",
+        "command": [
+          "python3",
+          "/work/tests/coreutils_true_false_differential.py",
+          "--canonical",
+          "/rustbox-coreutils/canonical-clang-compdb/src/coreutils",
+          "--hybrid",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/coreutils-true-false.json"
+        ],
+        "output": "{\"cases\": 200, \"locales\": [\"C\", \"en_US.UTF-8\", \"fr_FR\", \"tr_TR.UTF-8\", \"ja_JP.EUC-JP\"], \"passed\": 200, \"schema\": 1}\n",
+        "result": {
+          "cases": 200,
+          "locales": [
+            "C",
+            "en_US.UTF-8",
+            "fr_FR",
+            "tr_TR.UTF-8",
+            "ja_JP.EUC-JP"
+          ],
+          "passed": 200,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "coreutils"
+      },
+      {
+        "batch": "coreutils-small-01",
+        "command": [
+          "python3",
+          "/work/tests/coreutils_small_01_differential.py",
+          "--canonical",
+          "/rustbox-coreutils/canonical-clang-compdb/src/coreutils",
+          "--hybrid",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/coreutils-small-01.json"
+        ],
+        "output": "{\"applets\": [\"basename\", \"dirname\", \"hostid\", \"logname\", \"printenv\", \"tty\", \"whoami\", \"link\", \"unlink\", \"yes\"], \"cases\": 990, \"locales\": [\"C\", \"en_US.UTF-8\", \"fr_FR\", \"tr_TR.UTF-8\", \"ja_JP.EUC-JP\"], \"passed\": 990, \"schema\": 1}\n",
+        "result": {
+          "applets": [
+            "basename",
+            "dirname",
+            "hostid",
+            "logname",
+            "printenv",
+            "tty",
+            "whoami",
+            "link",
+            "unlink",
+            "yes"
+          ],
+          "cases": 990,
+          "locales": [
+            "C",
+            "en_US.UTF-8",
+            "fr_FR",
+            "tr_TR.UTF-8",
+            "ja_JP.EUC-JP"
+          ],
+          "passed": 990,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "coreutils"
+      },
+      {
+        "batch": "coreutils-small-02",
+        "command": [
+          "python3",
+          "/work/tests/coreutils_small_02_differential.py",
+          "--canonical",
+          "/rustbox-coreutils/canonical-clang-compdb/src/coreutils",
+          "--hybrid",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/coreutils-small-02.json"
+        ],
+        "output": "{\"applets\": [\"arch\", \"echo\", \"hostname\", \"nice\", \"nproc\", \"sleep\", \"readlink\", \"sync\", \"uptime\", \"users\"], \"cases\": 710, \"locales\": [\"C\", \"en_US.UTF-8\", \"fr_FR\", \"tr_TR.UTF-8\", \"ja_JP.EUC-JP\"], \"passed\": 710, \"schema\": 1}\n",
+        "result": {
+          "applets": [
+            "arch",
+            "echo",
+            "hostname",
+            "nice",
+            "nproc",
+            "sleep",
+            "readlink",
+            "sync",
+            "uptime",
+            "users"
+          ],
+          "cases": 710,
+          "locales": [
+            "C",
+            "en_US.UTF-8",
+            "fr_FR",
+            "tr_TR.UTF-8",
+            "ja_JP.EUC-JP"
+          ],
+          "passed": 710,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "coreutils"
+      },
+      {
+        "batch": "coreutils-small-03",
+        "command": [
+          "python3",
+          "/work/tests/coreutils_small_03_differential.py",
+          "--canonical",
+          "/rustbox-coreutils/canonical-clang-compdb/src/coreutils",
+          "--hybrid",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/coreutils-small-03.json"
+        ],
+        "output": "{\"applets\": [\"chgrp\", \"dir\", \"md5sum\", \"sha1sum\", \"sha224sum\", \"sha256sum\", \"sha384sum\", \"sha512sum\", \"nohup\", \"vdir\"], \"cases\": 1150, \"locales\": [\"C\", \"en_US.UTF-8\", \"fr_FR\", \"tr_TR.UTF-8\", \"ja_JP.EUC-JP\"], \"passed\": 1150, \"schema\": 1}\n",
+        "result": {
+          "applets": [
+            "chgrp",
+            "dir",
+            "md5sum",
+            "sha1sum",
+            "sha224sum",
+            "sha256sum",
+            "sha384sum",
+            "sha512sum",
+            "nohup",
+            "vdir"
+          ],
+          "cases": 1150,
+          "locales": [
+            "C",
+            "en_US.UTF-8",
+            "fr_FR",
+            "tr_TR.UTF-8",
+            "ja_JP.EUC-JP"
+          ],
+          "passed": 1150,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "coreutils"
+      },
+      {
+        "batch": "coreutils-small-04",
+        "command": [
+          "python3",
+          "/work/tests/coreutils_small_04_differential.py",
+          "--canonical",
+          "/rustbox-coreutils/canonical-clang-compdb/src/coreutils",
+          "--hybrid",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/coreutils-small-04.json",
+          "--exclude",
+          "runcon"
+        ],
+        "output": "{\"applets\": [\"base64\", \"comm\", \"groups\", \"mktemp\", \"pathchk\", \"pwd\", \"stdbuf\", \"truncate\", \"tsort\"], \"cases\": 750, \"locales\": [\"C\", \"en_US.UTF-8\", \"fr_FR\", \"tr_TR.UTF-8\", \"ja_JP.EUC-JP\"], \"passed\": 750, \"schema\": 1}\n",
+        "result": {
+          "applets": [
+            "base64",
+            "comm",
+            "groups",
+            "mktemp",
+            "pathchk",
+            "pwd",
+            "stdbuf",
+            "truncate",
+            "tsort"
+          ],
+          "cases": 750,
+          "locales": [
+            "C",
+            "en_US.UTF-8",
+            "fr_FR",
+            "tr_TR.UTF-8",
+            "ja_JP.EUC-JP"
+          ],
+          "passed": 750,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "coreutils"
+      },
+      {
+        "batch": "coreutils-small-05",
+        "command": [
+          "python3",
+          "/work/tests/coreutils_small_05_differential.py",
+          "--canonical",
+          "/rustbox-coreutils/canonical-clang-compdb/src/coreutils",
+          "--hybrid",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/coreutils-small-05.json"
+        ],
+        "output": "{\"applets\": [\"base32\", \"chroot\", \"fold\", \"kill\", \"paste\", \"rmdir\", \"sum\", \"tee\", \"touch\", \"uname\"], \"cases\": 1030, \"locales\": [\"C\", \"en_US.UTF-8\", \"fr_FR\", \"tr_TR.UTF-8\", \"ja_JP.EUC-JP\"], \"passed\": 1030, \"schema\": 1}\n",
+        "result": {
+          "applets": [
+            "base32",
+            "chroot",
+            "fold",
+            "kill",
+            "paste",
+            "rmdir",
+            "sum",
+            "tee",
+            "touch",
+            "uname"
+          ],
+          "cases": 1030,
+          "locales": [
+            "C",
+            "en_US.UTF-8",
+            "fr_FR",
+            "tr_TR.UTF-8",
+            "ja_JP.EUC-JP"
+          ],
+          "passed": 1030,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "coreutils"
+      },
+      {
+        "batch": "coreutils-small-06",
+        "command": [
+          "python3",
+          "/work/tests/coreutils_small_06_differential.py",
+          "--canonical",
+          "/rustbox-coreutils/canonical-clang-compdb/src/coreutils",
+          "--hybrid",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/coreutils-small-06.json"
+        ],
+        "output": "{\"applets\": [\"cat\", \"dircolors\", \"fmt\", \"nl\", \"pinky\", \"realpath\", \"shuf\", \"tac\", \"timeout\", \"uniq\"], \"cases\": 1370, \"locales\": [\"C\", \"en_US.UTF-8\", \"fr_FR\", \"tr_TR.UTF-8\", \"ja_JP.EUC-JP\"], \"passed\": 1370, \"schema\": 1}\n",
+        "result": {
+          "applets": [
+            "cat",
+            "dircolors",
+            "fmt",
+            "nl",
+            "pinky",
+            "realpath",
+            "shuf",
+            "tac",
+            "timeout",
+            "uniq"
+          ],
+          "cases": 1370,
+          "locales": [
+            "C",
+            "en_US.UTF-8",
+            "fr_FR",
+            "tr_TR.UTF-8",
+            "ja_JP.EUC-JP"
+          ],
+          "passed": 1370,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "coreutils"
+      },
+      {
+        "batch": "coreutils-small-07",
+        "command": [
+          "python3",
+          "/work/tests/coreutils_small_07_differential.py",
+          "--canonical",
+          "/rustbox-coreutils/canonical-clang-compdb/src/coreutils",
+          "--hybrid",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/coreutils-small-07.json"
+        ],
+        "output": "{\"applets\": [\"csplit\", \"expand\", \"expr\", \"head\", \"join\", \"ln\", \"rm\", \"shred\", \"test\", \"who\"], \"cases\": 1110, \"locales\": [\"C\", \"en_US.UTF-8\", \"fr_FR\", \"tr_TR.UTF-8\", \"ja_JP.EUC-JP\"], \"passed\": 1110, \"schema\": 1}\n",
+        "result": {
+          "applets": [
+            "csplit",
+            "expand",
+            "expr",
+            "head",
+            "join",
+            "ln",
+            "rm",
+            "shred",
+            "test",
+            "who"
+          ],
+          "cases": 1110,
+          "locales": [
+            "C",
+            "en_US.UTF-8",
+            "fr_FR",
+            "tr_TR.UTF-8",
+            "ja_JP.EUC-JP"
+          ],
+          "passed": 1110,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "coreutils"
+      },
+      {
+        "batch": "coreutils-small-08",
+        "command": [
+          "python3",
+          "/work/tests/coreutils_small_08_differential.py",
+          "--canonical",
+          "/rustbox-coreutils/canonical-clang-compdb/src/coreutils",
+          "--hybrid",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/coreutils-small-08.json"
+        ],
+        "output": "{\"applets\": [\"basenc\", \"chown\", \"cut\", \"date\", \"env\", \"pr\", \"ptx\", \"stty\", \"tr\", \"unexpand\"], \"cases\": 1100, \"locales\": [\"C\", \"en_US.UTF-8\", \"fr_FR\", \"tr_TR.UTF-8\", \"ja_JP.EUC-JP\"], \"passed\": 1100, \"schema\": 1}\n",
+        "result": {
+          "applets": [
+            "basenc",
+            "chown",
+            "cut",
+            "date",
+            "env",
+            "pr",
+            "ptx",
+            "stty",
+            "tr",
+            "unexpand"
+          ],
+          "cases": 1100,
+          "locales": [
+            "C",
+            "en_US.UTF-8",
+            "fr_FR",
+            "tr_TR.UTF-8",
+            "ja_JP.EUC-JP"
+          ],
+          "passed": 1100,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "coreutils"
+      },
+      {
+        "batch": "coreutils-small-09",
+        "command": [
+          "python3",
+          "/work/tests/coreutils_small_09_differential.py",
+          "--canonical",
+          "/rustbox-coreutils/canonical-clang-compdb/src/coreutils",
+          "--hybrid",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/coreutils-small-09.json"
+        ],
+        "output": "{\"applets\": [\"[\", \"b2sum\", \"chmod\", \"dd\", \"df\", \"du\", \"split\", \"tail\"], \"cases\": 900, \"locales\": [\"C\", \"en_US.UTF-8\", \"fr_FR\", \"tr_TR.UTF-8\", \"ja_JP.EUC-JP\"], \"passed\": 900, \"schema\": 1}\n",
+        "result": {
+          "applets": [
+            "[",
+            "b2sum",
+            "chmod",
+            "dd",
+            "df",
+            "du",
+            "split",
+            "tail"
+          ],
+          "cases": 900,
+          "locales": [
+            "C",
+            "en_US.UTF-8",
+            "fr_FR",
+            "tr_TR.UTF-8",
+            "ja_JP.EUC-JP"
+          ],
+          "passed": 900,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "coreutils"
+      },
+      {
+        "batch": "coreutils-small-10",
+        "command": [
+          "python3",
+          "/work/tests/coreutils_small_10_differential.py",
+          "--canonical",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/coreutils",
+          "--hybrid",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/coreutils-small-10.json"
+        ],
+        "output": "{\"applets\": [\"cksum\"], \"cases\": 700, \"locales\": [\"C\", \"en_US.UTF-8\", \"fr_FR\", \"tr_TR.UTF-8\", \"ja_JP.EUC-JP\"], \"passed\": 700, \"schema\": 1}\n",
+        "result": {
+          "applets": [
+            "cksum"
+          ],
+          "cases": 700,
+          "locales": [
+            "C",
+            "en_US.UTF-8",
+            "fr_FR",
+            "tr_TR.UTF-8",
+            "ja_JP.EUC-JP"
+          ],
+          "passed": 700,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "coreutils"
+      },
+      {
+        "batch": "coreutils-small-11",
+        "command": [
+          "python3",
+          "/work/tests/coreutils_small_11_differential.py",
+          "--canonical",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/coreutils",
+          "--hybrid",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/coreutils-small-11.json"
+        ],
+        "output": "{\"applets\": [\"id\", \"ls\", \"mkdir\", \"stat\"], \"cases\": 530, \"locales\": [\"C\", \"en_US.UTF-8\", \"fr_FR\", \"tr_TR.UTF-8\", \"ja_JP.EUC-JP\"], \"passed\": 530, \"schema\": 1}\n",
+        "result": {
+          "applets": [
+            "id",
+            "ls",
+            "mkdir",
+            "stat"
+          ],
+          "cases": 530,
+          "locales": [
+            "C",
+            "en_US.UTF-8",
+            "fr_FR",
+            "tr_TR.UTF-8",
+            "ja_JP.EUC-JP"
+          ],
+          "passed": 530,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "coreutils"
+      },
+      {
+        "batch": "coreutils-small-12",
+        "command": [
+          "python3",
+          "/work/tests/coreutils_small_12_differential.py",
+          "--canonical",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/coreutils",
+          "--hybrid",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/coreutils-small-12.json"
+        ],
+        "output": "{\"applets\": [\"mkfifo\"], \"cases\": 160, \"locales\": [\"C\", \"en_US.UTF-8\", \"fr_FR\", \"tr_TR.UTF-8\", \"ja_JP.EUC-JP\"], \"passed\": 160, \"schema\": 1}\n",
+        "result": {
+          "applets": [
+            "mkfifo"
+          ],
+          "cases": 160,
+          "locales": [
+            "C",
+            "en_US.UTF-8",
+            "fr_FR",
+            "tr_TR.UTF-8",
+            "ja_JP.EUC-JP"
+          ],
+          "passed": 160,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "coreutils"
+      },
+      {
+        "batch": "coreutils-small-13",
+        "command": [
+          "python3",
+          "/work/tests/coreutils_small_13_differential.py",
+          "--canonical",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/coreutils",
+          "--hybrid",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/coreutils-small-13.json"
+        ],
+        "output": "{\"applets\": [\"mknod\"], \"cases\": 180, \"locales\": [\"C\", \"en_US.UTF-8\", \"fr_FR\", \"tr_TR.UTF-8\", \"ja_JP.EUC-JP\"], \"passed\": 180, \"schema\": 1}\n",
+        "result": {
+          "applets": [
+            "mknod"
+          ],
+          "cases": 180,
+          "locales": [
+            "C",
+            "en_US.UTF-8",
+            "fr_FR",
+            "tr_TR.UTF-8",
+            "ja_JP.EUC-JP"
+          ],
+          "passed": 180,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "coreutils"
+      },
+      {
+        "batch": "coreutils-small-14",
+        "command": [
+          "python3",
+          "/work/tests/coreutils_small_14_differential.py",
+          "--canonical",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/coreutils",
+          "--hybrid",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/coreutils-small-14.json"
+        ],
+        "output": "{\"applets\": [\"cp\"], \"cases\": 280, \"locales\": [\"C\", \"en_US.UTF-8\", \"fr_FR\", \"tr_TR.UTF-8\", \"ja_JP.EUC-JP\"], \"passed\": 280, \"schema\": 1}\n",
+        "result": {
+          "applets": [
+            "cp"
+          ],
+          "cases": 280,
+          "locales": [
+            "C",
+            "en_US.UTF-8",
+            "fr_FR",
+            "tr_TR.UTF-8",
+            "ja_JP.EUC-JP"
+          ],
+          "passed": 280,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "coreutils"
+      },
+      {
+        "batch": "coreutils-small-15",
+        "command": [
+          "python3",
+          "/work/tests/coreutils_small_15_differential.py",
+          "--canonical",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/coreutils",
+          "--hybrid",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/coreutils-small-15.json"
+        ],
+        "output": "{\"applets\": [\"install\"], \"cases\": 270, \"locales\": [\"C\", \"en_US.UTF-8\", \"fr_FR\", \"tr_TR.UTF-8\", \"ja_JP.EUC-JP\"], \"passed\": 270, \"schema\": 1}\n",
+        "result": {
+          "applets": [
+            "install"
+          ],
+          "cases": 270,
+          "locales": [
+            "C",
+            "en_US.UTF-8",
+            "fr_FR",
+            "tr_TR.UTF-8",
+            "ja_JP.EUC-JP"
+          ],
+          "passed": 270,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "coreutils"
+      },
+      {
+        "batch": "coreutils-small-16",
+        "command": [
+          "python3",
+          "/work/tests/coreutils_small_16_differential.py",
+          "--canonical",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/coreutils",
+          "--hybrid",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/coreutils-small-16.json"
+        ],
+        "output": "{\"applets\": [\"mv\"], \"cases\": 290, \"locales\": [\"C\", \"en_US.UTF-8\", \"fr_FR\", \"tr_TR.UTF-8\", \"ja_JP.EUC-JP\"], \"passed\": 290, \"schema\": 1}\n",
+        "result": {
+          "applets": [
+            "mv"
+          ],
+          "cases": 290,
+          "locales": [
+            "C",
+            "en_US.UTF-8",
+            "fr_FR",
+            "tr_TR.UTF-8",
+            "ja_JP.EUC-JP"
+          ],
+          "passed": 290,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "coreutils"
+      },
+      {
+        "batch": "coreutils-small-17",
+        "command": [
+          "python3",
+          "/work/tests/coreutils_small_17_differential.py",
+          "--canonical",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/coreutils",
+          "--hybrid",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/coreutils-small-17.json"
+        ],
+        "output": "{\"applets\": [\"wc\"], \"cases\": 360, \"locales\": [\"C\", \"en_US.UTF-8\", \"fr_FR\", \"tr_TR.UTF-8\", \"ja_JP.EUC-JP\"], \"passed\": 360, \"schema\": 1}\n",
+        "result": {
+          "applets": [
+            "wc"
+          ],
+          "cases": 360,
+          "locales": [
+            "C",
+            "en_US.UTF-8",
+            "fr_FR",
+            "tr_TR.UTF-8",
+            "ja_JP.EUC-JP"
+          ],
+          "passed": 360,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "coreutils"
+      },
+      {
+        "batch": "coreutils-small-18",
+        "command": [
+          "python3",
+          "/work/tests/coreutils_small_18_differential.py",
+          "--canonical",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/coreutils",
+          "--hybrid",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/coreutils-small-18.json"
+        ],
+        "output": "{\"applets\": [\"factor\"], \"cases\": 260, \"locales\": [\"C\", \"en_US.UTF-8\", \"fr_FR\", \"tr_TR.UTF-8\", \"ja_JP.EUC-JP\"], \"passed\": 260, \"schema\": 1}\n",
+        "result": {
+          "applets": [
+            "factor"
+          ],
+          "cases": 260,
+          "locales": [
+            "C",
+            "en_US.UTF-8",
+            "fr_FR",
+            "tr_TR.UTF-8",
+            "ja_JP.EUC-JP"
+          ],
+          "passed": 260,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "coreutils"
+      },
+      {
+        "batch": "coreutils-small-19",
+        "command": [
+          "python3",
+          "/work/tests/coreutils_small_19_differential.py",
+          "--canonical",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/coreutils",
+          "--hybrid",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/coreutils-small-19.json"
+        ],
+        "output": "{\"applets\": [\"od\"], \"cases\": 220, \"locales\": [\"C\", \"en_US.UTF-8\", \"fr_FR\", \"tr_TR.UTF-8\", \"ja_JP.EUC-JP\"], \"passed\": 220, \"schema\": 1}\n",
+        "result": {
+          "applets": [
+            "od"
+          ],
+          "cases": 220,
+          "locales": [
+            "C",
+            "en_US.UTF-8",
+            "fr_FR",
+            "tr_TR.UTF-8",
+            "ja_JP.EUC-JP"
+          ],
+          "passed": 220,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "coreutils"
+      },
+      {
+        "batch": "coreutils-small-20",
+        "command": [
+          "python3",
+          "/work/tests/coreutils_small_20_differential.py",
+          "--canonical",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/coreutils",
+          "--hybrid",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/coreutils-small-20.json"
+        ],
+        "output": "{\"applets\": [\"printf\"], \"cases\": 160, \"locales\": [\"C\", \"en_US.UTF-8\", \"fr_FR\", \"tr_TR.UTF-8\", \"ja_JP.EUC-JP\"], \"passed\": 160, \"schema\": 1}\n",
+        "result": {
+          "applets": [
+            "printf"
+          ],
+          "cases": 160,
+          "locales": [
+            "C",
+            "en_US.UTF-8",
+            "fr_FR",
+            "tr_TR.UTF-8",
+            "ja_JP.EUC-JP"
+          ],
+          "passed": 160,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "coreutils"
+      },
+      {
+        "batch": "coreutils-small-21",
+        "command": [
+          "python3",
+          "/work/tests/coreutils_small_21_differential.py",
+          "--canonical",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/coreutils",
+          "--hybrid",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/coreutils-small-21.json"
+        ],
+        "output": "{\"applets\": [\"seq\"], \"cases\": 160, \"locales\": [\"C\", \"en_US.UTF-8\", \"fr_FR\", \"tr_TR.UTF-8\", \"ja_JP.EUC-JP\"], \"passed\": 160, \"schema\": 1}\n",
+        "result": {
+          "applets": [
+            "seq"
+          ],
+          "cases": 160,
+          "locales": [
+            "C",
+            "en_US.UTF-8",
+            "fr_FR",
+            "tr_TR.UTF-8",
+            "ja_JP.EUC-JP"
+          ],
+          "passed": 160,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "coreutils"
+      },
+      {
+        "batch": "coreutils-small-22",
+        "command": [
+          "python3",
+          "/work/tests/coreutils_small_22_differential.py",
+          "--canonical",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/coreutils",
+          "--hybrid",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/coreutils-small-22.json"
+        ],
+        "output": "{\"applets\": [\"numfmt\"], \"cases\": 170, \"locales\": [\"C\", \"en_US.UTF-8\", \"fr_FR\", \"tr_TR.UTF-8\", \"ja_JP.EUC-JP\"], \"passed\": 170, \"schema\": 1}\n",
+        "result": {
+          "applets": [
+            "numfmt"
+          ],
+          "cases": 170,
+          "locales": [
+            "C",
+            "en_US.UTF-8",
+            "fr_FR",
+            "tr_TR.UTF-8",
+            "ja_JP.EUC-JP"
+          ],
+          "passed": 170,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "coreutils"
+      },
+      {
+        "batch": "coreutils-small-23",
+        "command": [
+          "python3",
+          "/work/tests/coreutils_small_23_differential.py",
+          "--canonical",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/coreutils",
+          "--hybrid",
+          "/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/coreutils-small-23.json"
+        ],
+        "output": "{\"applets\": [\"sort\"], \"cases\": 200, \"locales\": [\"C\", \"en_US.UTF-8\", \"fr_FR\", \"tr_TR.UTF-8\", \"ja_JP.EUC-JP\"], \"passed\": 200, \"schema\": 1}\n",
+        "result": {
+          "applets": [
+            "sort"
+          ],
+          "cases": 200,
+          "locales": [
+            "C",
+            "en_US.UTF-8",
+            "fr_FR",
+            "tr_TR.UTF-8",
+            "ja_JP.EUC-JP"
+          ],
+          "passed": 200,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "coreutils"
+      },
+      {
+        "batch": "util-linux-small-01",
+        "command": [
+          "python3",
+          "/work/tests/util-linux-small-01-differential.py",
+          "--canonical-directory",
+          "/rustbox-util-linux/canonical-clang-compdb",
+          "--hybrid",
+          "/tmp/rustbox-unified-batches-0f7_9bzb/rustbox-util-linux-small-01",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/util-linux-small-01.json"
+        ],
+        "output": "{\"cases\": 57, \"passed\": 57}\n",
+        "result": {
+          "cases": 57,
+          "failures": [],
+          "passed": 57,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "util-linux"
+      },
+      {
+        "batch": "util-linux-small-02",
+        "command": [
+          "python3",
+          "/work/tests/util-linux-small-02-differential.py",
+          "--canonical-directory",
+          "/rustbox-util-linux/canonical-clang-compdb",
+          "--hybrid",
+          "/tmp/rustbox-unified-batches-0f7_9bzb/rustbox-util-linux-small-02",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/util-linux-small-02.json"
+        ],
+        "output": "{\"cases\": 50, \"passed\": 50}\n",
+        "result": {
+          "cases": 50,
+          "failures": [],
+          "passed": 50,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "util-linux"
+      },
+      {
+        "batch": "util-linux-small-03",
+        "command": [
+          "python3",
+          "/work/tests/util-linux-small-03-differential.py",
+          "--canonical-directory",
+          "/rustbox-util-linux/canonical-clang-compdb",
+          "--hybrid",
+          "/tmp/rustbox-unified-batches-0f7_9bzb/rustbox-util-linux-small-03",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/util-linux-small-03.json"
+        ],
+        "output": "{\"cases\": 51, \"passed\": 51}\n",
+        "result": {
+          "cases": 51,
+          "failures": [],
+          "passed": 51,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "util-linux"
+      },
+      {
+        "batch": "util-linux-small-04",
+        "command": [
+          "python3",
+          "/work/tests/util-linux-small-04-differential.py",
+          "--canonical-directory",
+          "/rustbox-util-linux/canonical-clang-compdb",
+          "--hybrid",
+          "/tmp/rustbox-unified-batches-0f7_9bzb/rustbox-util-linux-small-04",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/util-linux-small-04.json"
+        ],
+        "output": "{\"cases\": 57, \"passed\": 57}\n",
+        "result": {
+          "cases": 57,
+          "failures": [],
+          "passed": 57,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "util-linux"
+      },
+      {
+        "batch": "util-linux-small-05",
+        "command": [
+          "python3",
+          "/work/tests/util-linux-small-05-differential.py",
+          "--canonical-directory",
+          "/rustbox-util-linux/canonical-clang-compdb",
+          "--hybrid",
+          "/tmp/rustbox-unified-batches-0f7_9bzb/rustbox-util-linux-small-05",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/util-linux-small-05.json"
+        ],
+        "output": "{\"cases\": 53, \"passed\": 53}\n",
+        "result": {
+          "cases": 53,
+          "failures": [],
+          "passed": 53,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "util-linux"
+      },
+      {
+        "batch": "util-linux-small-06",
+        "command": [
+          "python3",
+          "/work/tests/util-linux-small-06-differential.py",
+          "--canonical-directory",
+          "/rustbox-util-linux/canonical-clang-compdb",
+          "--hybrid",
+          "/tmp/rustbox-unified-batches-0f7_9bzb/rustbox-util-linux-small-06",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/util-linux-small-06.json"
+        ],
+        "output": "{\"cases\": 58, \"passed\": 58}\n",
+        "result": {
+          "cases": 58,
+          "failures": [],
+          "passed": 58,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "util-linux"
+      },
+      {
+        "batch": "util-linux-small-07",
+        "command": [
+          "python3",
+          "/work/tests/util-linux-small-07-differential.py",
+          "--canonical-directory",
+          "/rustbox-util-linux/canonical-clang-compdb",
+          "--hybrid",
+          "/tmp/rustbox-unified-batches-0f7_9bzb/rustbox-util-linux-small-07",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/util-linux-small-07.json"
+        ],
+        "output": "{\"cases\": 59, \"passed\": 59}\n",
+        "result": {
+          "cases": 59,
+          "failures": [],
+          "passed": 59,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "util-linux"
+      },
+      {
+        "batch": "util-linux-small-08",
+        "command": [
+          "python3",
+          "/work/tests/util-linux-small-08-differential.py",
+          "--canonical-directory",
+          "/rustbox-util-linux/canonical-clang-compdb",
+          "--hybrid",
+          "/tmp/rustbox-unified-batches-0f7_9bzb/rustbox-util-linux-small-08",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/util-linux-small-08.json"
+        ],
+        "output": "{\"cases\": 54, \"passed\": 54}\n",
+        "result": {
+          "cases": 54,
+          "failures": [],
+          "passed": 54,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "util-linux"
+      },
+      {
+        "batch": "util-linux-small-09",
+        "command": [
+          "python3",
+          "/work/tests/util-linux-small-09-differential.py",
+          "--canonical-directory",
+          "/rustbox-util-linux/canonical-clang-compdb",
+          "--hybrid",
+          "/tmp/rustbox-unified-batches-0f7_9bzb/rustbox-util-linux-small-09",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/util-linux-small-09.json"
+        ],
+        "output": "{\"cases\": 59, \"passed\": 59}\n",
+        "result": {
+          "cases": 59,
+          "failures": [],
+          "passed": 59,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "util-linux"
+      },
+      {
+        "batch": "util-linux-small-10",
+        "command": [
+          "python3",
+          "/work/tests/util-linux-small-10-differential.py",
+          "--canonical-directory",
+          "/rustbox-util-linux/canonical-clang-compdb",
+          "--hybrid",
+          "/tmp/rustbox-unified-batches-0f7_9bzb/rustbox-util-linux-small-10",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/util-linux-small-10.json"
+        ],
+        "output": "{\"cases\": 65, \"passed\": 65}\n",
+        "result": {
+          "cases": 65,
+          "failures": [],
+          "passed": 65,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "util-linux"
+      },
+      {
+        "batch": "util-linux-small-11",
+        "command": [
+          "python3",
+          "/work/tests/util-linux-small-11-differential.py",
+          "--canonical-directory",
+          "/rustbox-util-linux/canonical-clang-compdb",
+          "--hybrid",
+          "/tmp/rustbox-unified-batches-0f7_9bzb/rustbox-util-linux-small-11",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/util-linux-small-11.json"
+        ],
+        "output": "{\"cases\": 54, \"passed\": 54}\n",
+        "result": {
+          "cases": 54,
+          "failures": [],
+          "passed": 54,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "util-linux"
+      },
+      {
+        "batch": "util-linux-small-12",
+        "command": [
+          "python3",
+          "/work/tests/util-linux-small-12-differential.py",
+          "--canonical-directory",
+          "/rustbox-util-linux/canonical-clang-compdb",
+          "--hybrid",
+          "/tmp/rustbox-unified-batches-0f7_9bzb/rustbox-util-linux-small-12",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/util-linux-small-12.json"
+        ],
+        "output": "{\"cases\": 56, \"passed\": 56}\n",
+        "result": {
+          "cases": 56,
+          "failures": [],
+          "passed": 56,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "util-linux"
+      },
+      {
+        "batch": "util-linux-small-13",
+        "command": [
+          "python3",
+          "/work/tests/util-linux-small-13-differential.py",
+          "--canonical-directory",
+          "/rustbox-util-linux/canonical-clang-compdb",
+          "--hybrid",
+          "/tmp/rustbox-unified-batches-0f7_9bzb/rustbox-util-linux-small-13",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/util-linux-small-13.json"
+        ],
+        "output": "{\"cases\": 60, \"passed\": 60}\n",
+        "result": {
+          "cases": 60,
+          "failures": [],
+          "passed": 60,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "util-linux"
+      },
+      {
+        "batch": "util-linux-small-14",
+        "command": [
+          "python3",
+          "/work/tests/util-linux-small-14-differential.py",
+          "--canonical-directory",
+          "/rustbox-util-linux/canonical-clang-compdb",
+          "--hybrid",
+          "/tmp/rustbox-unified-batches-0f7_9bzb/rustbox-util-linux-small-14",
+          "--output",
+          "/work/work/analysis/rustbox-multicall-differential/util-linux-small-14.json"
+        ],
+        "output": "{\"cases\": 39, \"passed\": 39}\n",
+        "result": {
+          "cases": 39,
+          "failures": [],
+          "passed": 39,
+          "schema": 1
+        },
+        "status": 0,
+        "suite": "util-linux"
+      }
+    ],
+    "schema": 1
+  },
+  "binary": {
+    "bytes": 14565992,
+    "link_map_sha256": "c584523b5cc20d9f0acdf94526be475df557c649a3297638680f7d2b53dac409",
+    "needed_libraries": [
+      "ld-linux-x86-64.so.2",
+      "libacl.so.1",
+      "libattr.so.1",
+      "libc.so.6",
+      "libcap-ng.so.0",
+      "libcap.so.2",
+      "libcrypt.so.1",
+      "libcrypto.so.3",
+      "libeconf.so.0",
+      "libgcc_s.so.1",
+      "libgmp.so.10",
+      "libmagic.so.1",
+      "libncursesw.so.6",
+      "libpam.so.0",
+      "libpam_misc.so.0",
+      "libreadline.so.8",
+      "libsqlite3.so.0",
+      "libtinfo.so.6",
+      "libz.so.1"
+    ],
+    "selinux_dependencies": [],
+    "sha256": "237cffcb69525d84c4301c52beb71e59cba1aa9645d9945ec7ea0c15c97b2703",
+    "stripped_bytes": 5094096,
+    "stripped_sha256": "d826e2064a7029c85f4ce7550f050ef267562c3bf23ec7ef907ab340b5d7d107",
+    "systemd_dependencies": []
+  },
+  "collision_isolation": {
+    "manifest": {
+      "binary": {
+        "bytes": 14565992,
+        "link_map_sha256": "c584523b5cc20d9f0acdf94526be475df557c649a3297638680f7d2b53dac409",
+        "sha256": "237cffcb69525d84c4301c52beb71e59cba1aa9645d9945ec7ea0c15c97b2703"
+      },
+      "coreutils_applets": 106,
+      "excluded": [
+        "chcon",
+        "runcon"
+      ],
+      "namespaced_canonical_symbols": {
+        "lib/libcoreutils.a": {
+          "crc32": "rustbox_coreutils_gnulib_crc32",
+          "reason": "isolate zlib's incompatible crc32 ABI used by mkfs.cramfs"
+        }
+      },
+      "namespaced_support_symbols": {
+        ".libs/libsmartcols.a": [
+          "yyparse"
+        ],
+        "lib/fdisk-pager.o": [
+          "pager_close",
+          "pager_open"
+        ],
+        "lib/logger-strutils.o": [
+          "annotationwanted",
+          "hyperlinkwanted",
+          "isdigit_strend",
+          "isxdigit_strend",
+          "size_to_human_string",
+          "skip_fline",
+          "str2num_or_err",
+          "str2unum_or_err",
+          "streq_paths",
+          "strfappend",
+          "string_add_to_idarray",
+          "string_to_bitarray",
+          "string_to_bitmask",
+          "string_to_idarray",
+          "strnchr",
+          "strtod_or_err",
+          "strtold_or_err",
+          "strtosize",
+          "strtosize_or_err",
+          "strtotime_or_err",
+          "strtotimespec_or_err",
+          "strtotimeval_or_err",
+          "strutils_set_exitcode",
+          "ul_optstr_get_value",
+          "ul_optstr_is_valid",
+          "ul_optstr_next",
+          "ul_parse_range",
+          "ul_parse_size",
+          "ul_parse_switch",
+          "ul_split",
+          "ul_stralnumcmp",
+          "ul_strappend",
+          "ul_strchr_escaped",
+          "ul_strconcat",
+          "ul_strfconcat",
+          "ul_strnconcat",
+          "ul_strtold",
+          "ul_strtos32",
+          "ul_strtos64",
+          "ul_strtou16",
+          "ul_strtou32",
+          "ul_strtou64",
+          "ul_strvfappend",
+          "xstrmode"
+        ],
+        "lib/monotonic.o": [
+          "get_boot_time",
+          "get_suspended_time",
+          "gettime_monotonic"
+        ],
+        "lib/script-pty-session.o": [
+          "ul_free_pty",
+          "ul_new_pty",
+          "ul_pty_chownmod_slave",
+          "ul_pty_cleanup",
+          "ul_pty_get_callbacks",
+          "ul_pty_get_child",
+          "ul_pty_get_childfd",
+          "ul_pty_get_delivered_signal",
+          "ul_pty_init_debug",
+          "ul_pty_init_slave",
+          "ul_pty_is_running",
+          "ul_pty_proxy_master",
+          "ul_pty_set_callback_data",
+          "ul_pty_set_child",
+          "ul_pty_set_mainloop_time",
+          "ul_pty_setup",
+          "ul_pty_signals_setup",
+          "ul_pty_slave_echo",
+          "ul_pty_wait_for_child",
+          "ul_pty_write_eof_to_child"
+        ],
+        "lib/strutils.o": [
+          "annotationwanted",
+          "hyperlinkwanted",
+          "isdigit_strend",
+          "isxdigit_strend",
+          "size_to_human_string",
+          "skip_fline",
+          "str2num_or_err",
+          "str2unum_or_err",
+          "streq_paths",
+          "strfappend",
+          "string_add_to_idarray",
+          "string_to_bitarray",
+          "string_to_bitmask",
+          "string_to_idarray",
+          "strnchr",
+          "strtod_or_err",
+          "strtold_or_err",
+          "strtosize",
+          "strtosize_or_err",
+          "strtotime_or_err",
+          "strtotimespec_or_err",
+          "strtotimeval_or_err",
+          "strutils_set_exitcode",
+          "ul_optstr_get_value",
+          "ul_optstr_is_valid",
+          "ul_optstr_next",
+          "ul_parse_range",
+          "ul_parse_size",
+          "ul_parse_switch",
+          "ul_split",
+          "ul_stralnumcmp",
+          "ul_strappend",
+          "ul_strchr_escaped",
+          "ul_strconcat",
+          "ul_strfconcat",
+          "ul_strnconcat",
+          "ul_strtold",
+          "ul_strtos32",
+          "ul_strtos64",
+          "ul_strtou16",
+          "ul_strtou32",
+          "ul_strtou64",
+          "ul_strvfappend",
+          "xstrmode"
+        ],
+        "lib/swapoff-swapprober.o": [
+          "get_swap_prober"
+        ],
+        "lib/swapon-swapprober.o": [
+          "get_swap_prober"
+        ],
+        "lib/unshare-caputils.o": [
+          "cap_last_cap",
+          "cap_permitted_to_ambient"
+        ],
+        "lib/unshare-exec_shell.o": [
+          "exec_shell"
+        ],
+        "lib/uuidd-timer.o": [
+          "cancel_timer",
+          "setup_timer"
+        ],
+        "login-utils/chfn-auth.o": [
+          "auth_pam"
+        ],
+        "login-utils/chfn-ch-common.o": [
+          "illegal_passwd_chars"
+        ],
+        "login-utils/chfn-islocal.o": [
+          "is_local"
+        ],
+        "login-utils/chfn-setpwnam.o": [
+          "setpwnam"
+        ],
+        "sys-utils/swapon-swapon-common.o": [
+          "add_label",
+          "add_uuid",
+          "cannot_find",
+          "free_tables",
+          "get_fstab",
+          "get_label",
+          "get_swaps",
+          "get_uuid",
+          "is_active_swap",
+          "match_swap",
+          "mntcache",
+          "numof_labels",
+          "numof_uuids"
+        ]
+      },
+      "namespaced_symbols": {
+        "libcoreutils_small_06_normalized_reachable.a": [
+          "operand2sig"
+        ],
+        "libcoreutils_small_07_normalized_reachable.a": [
+          "relpath"
+        ],
+        "libcoreutils_small_08_normalized_reachable.a": [
+          "add_tab_stop",
+          "cleanup_file_list_stdin",
+          "convert_entire_line",
+          "emit_tab_list_info",
+          "exit_status",
+          "finalize_tab_stops",
+          "get_next_tab_column",
+          "max_column_width",
+          "next_file",
+          "operand2sig",
+          "parse_tab_stops",
+          "set_file_list"
+        ],
+        "libcoreutils_small_09_normalized_reachable.a": [
+          "iopoll",
+          "iopoll_input_ok",
+          "iopoll_output_ok",
+          "show_date",
+          "temp_stream",
+          "write_wait"
+        ],
+        "libcoreutils_small_10_normalized_reachable.a": [
+          "bsd_sum_stream",
+          "output_bsd",
+          "output_sysv",
+          "sysv_sum_stream"
+        ],
+        "libcoreutils_small_11_normalized_reachable.a": [
+          "find_mount_point",
+          "print_group",
+          "print_group_list",
+          "prog_fprintf"
+        ],
+        "libcoreutils_small_14_normalized_reachable.a": [
+          "force_linkat",
+          "force_symlinkat"
+        ],
+        "libcoreutils_small_15_normalized_reachable.a": [
+          "cached_umask",
+          "chown_failure_ok",
+          "copy",
+          "copy_file_data",
+          "cp_options_default",
+          "dest_info_init",
+          "force_linkat",
+          "force_symlinkat",
+          "forget_created",
+          "hash_init",
+          "prog_fprintf",
+          "remember_copied",
+          "set_file_security_ctx",
+          "set_process_security_ctx",
+          "src_info_init",
+          "src_to_dest_lookup"
+        ],
+        "libcoreutils_small_16_normalized_reachable.a": [
+          "cached_umask",
+          "chown_failure_ok",
+          "copy",
+          "copy_file_data",
+          "cp_options_default",
+          "dest_info_init",
+          "force_linkat",
+          "force_symlinkat",
+          "forget_created",
+          "hash_init",
+          "remember_copied",
+          "rm",
+          "set_file_security_ctx",
+          "set_process_security_ctx",
+          "src_info_init",
+          "src_to_dest_lookup"
+        ],
+        "libcoreutils_small_19_normalized_reachable.a": [
+          "acoshq_f",
+          "acosq_f",
+          "asinhq_f",
+          "asinq_f",
+          "atan2q_f",
+          "atanhq_f",
+          "atanq_f",
+          "cbrtq_f",
+          "ceilq_f",
+          "copysignq_f",
+          "coshq_f",
+          "cosq_f",
+          "eqq",
+          "erfcq_f",
+          "erfq_f",
+          "expm1q_f",
+          "expq_f",
+          "f128_add",
+          "f128_div",
+          "f128_modulo",
+          "f128_mul",
+          "f128_sub",
+          "f128_to_f32",
+          "f128_to_f64",
+          "f128_to_i128",
+          "f128_to_i16",
+          "f128_to_i32",
+          "f128_to_i64",
+          "f128_to_i8",
+          "f128_to_isize",
+          "f128_to_str",
+          "f128_to_u128",
+          "f128_to_u16",
+          "f128_to_u32",
+          "f128_to_u64",
+          "f128_to_u8",
+          "f128_to_usize",
+          "f32_to_f128",
+          "f64_to_f128",
+          "fabsq_f",
+          "fdimq_f",
+          "finiteq_f",
+          "floorq_f",
+          "fmaq_f",
+          "fmaxq_f",
+          "fminq_f",
+          "fmodq_f",
+          "frexpq_f",
+          "gteq",
+          "gtq",
+          "hypotq_f",
+          "i128_to_f128",
+          "i16_to_f128",
+          "i32_to_f128",
+          "i64_to_f128",
+          "i8_to_f128",
+          "ilogbq_f",
+          "isinfq_f",
+          "isize_to_f128",
+          "isnanq_f",
+          "j0q_f",
+          "j1q_f",
+          "jnq_f",
+          "ldexpq_f",
+          "lgammaq_f",
+          "llrintq_f",
+          "llroundq_f",
+          "log10q_f",
+          "log1pq_f",
+          "log2q_f",
+          "logq_f",
+          "lrintq_f",
+          "lroundq_f",
+          "lteq",
+          "ltq",
+          "modfq_f",
+          "nanq_f",
+          "nearbyintq_f",
+          "neqq",
+          "nextafterq_f",
+          "powq_f",
+          "qtostr",
+          "remainderq_f",
+          "remquoq_f",
+          "rintq_f",
+          "roundq_f",
+          "scalblnq_f",
+          "scalbnq_f",
+          "signbitq_f",
+          "sincosq_f",
+          "sinhq_f",
+          "sinq_f",
+          "sqrtq_f",
+          "strtoflt128_f",
+          "tanhq_f",
+          "tanq_f",
+          "tgammaq_f",
+          "truncq_f",
+          "u128_to_f128",
+          "u16_to_f128",
+          "u32_to_f128",
+          "u64_to_f128",
+          "u8_to_f128",
+          "usize_to_f128",
+          "y0q_f",
+          "y1q_f",
+          "ynq_f"
+        ],
+        "libutil_linux_small_12_normalized_reachable.a": [
+          "fs_version",
+          "super_block_buffer"
+        ],
+        "libutil_linux_small_13_normalized_reachable.a": [
+          "usage"
+        ],
+        "libutil_linux_small_14_normalized_reachable.a": [
+          "pw_error"
+        ]
+      },
+      "public_name_precedence": {
+        "kill": "GNU Coreutils",
+        "util-linux-kill": "util-linux"
+      },
+      "schema": 1,
+      "source_library_sha256": {
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-01-stable/target/release/libcoreutils_small_01_reachable.a": "786810212c942c575ef671c8c8ccd003b84b1204919657fa506c1904de668090",
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-02-stable/target/release/libcoreutils_small_02_normalized_reachable.a": "e387063872b084f470ad37fc237eea1d9608c54d797aa7eb13d439d960a94b47",
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-03-stable/target/release/libcoreutils_small_03_reachable.a": "2247f25e801f9259994595441d889d844b8b9d8dbb68c975f8745b498fa9b9df",
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-04-stable/target/release/libcoreutils_small_04_normalized_reachable.a": "41cdd9cb17be1b5b825e086e69ad7dcb1091b7394887500131c274dee1018820",
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-05-stable/target/release/libcoreutils_small_05_normalized_reachable.a": "e877c9024f2f1e8ce0bf88b4eb3b45c3bba85dc566404feb4463372a0a8ddbee",
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-06-stable/target/release/libcoreutils_small_06_normalized_reachable.a": "df4daba57a8fdb315ee6f808c09e2a2e600ac5627825b85e47e058ab6b614a71",
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-07-stable/target/release/libcoreutils_small_07_normalized_reachable.a": "b81b515af6ee346c97af6ee8f62aa75fa46704d4186c1ce4008c3a7ab2f1f744",
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-08-stable/target/release/libcoreutils_small_08_normalized_reachable.a": "558128ac26fc4a13efb58cb498a20da95f9719d5312aa7332d761c6300ac5111",
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-09-stable/target/release/libcoreutils_small_09_normalized_reachable.a": "b4d46e7d8155683314a6a8ec4f267fb2e43289a5e244cd5655162c7a87cf8e3a",
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-10-stable/target/release/libcoreutils_small_10_normalized_reachable.a": "a9324d9e5491828a8862fea52acc5dfaa91e3d463cb89ae973bb153a94834fb7",
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-11-stable/target/release/libcoreutils_small_11_normalized_reachable.a": "1f34344280edac03d781ebc7c4a5fde0874e989cf313dce98b8e631385cde697",
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-12-stable/target/release/libcoreutils_small_12_reachable.a": "45635aab49e0ffb1a5995beb28ea045d1df8ef66fad066f26e74702b391b90c2",
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-13-stable/target/release/libcoreutils_small_13_reachable.a": "2cc1b69564ebc83dfa3d6f3c40c09244a7064bcc1f47533969ab011273c24293",
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-14-stable/target/release/libcoreutils_small_14_normalized_reachable.a": "b85970d6aaf277aec89978556ae8e46e6f439ebca3f21f9349bd73ec8f5b69c9",
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-15-stable/target/release/libcoreutils_small_15_normalized_reachable.a": "a4e9e38619f3b1cec431a014a7b354c5e167d9e13e7edeaaa962c2e2f521a713",
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-16-stable/target/release/libcoreutils_small_16_normalized_reachable.a": "7b6f28be7135189c6b36e5a070985c39bf021bd674f502f698590247a115ed17",
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-17-stable/target/release/libcoreutils_small_17_normalized_reachable.a": "f599b2290e5bfe94cfc91bba8bd3af587c67d28b7baa19be6bd849ad050bcbf7",
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-18-stable/target/release/libcoreutils_small_18_normalized_reachable.a": "589039652561dafdc17b21f490f30a6d6a9d387f5b5702eec5bb1c684e1b1fee",
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-19-stable/target/release/libcoreutils_small_19_normalized_reachable.a": "ed3ac083e260770b549e245344c75a9dc30040ed62b799e42a94916a7eeb2040",
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-20-stable/target/release/libcoreutils_small_20_normalized_reachable.a": "606d195055f306c477d8b326425cd1dc871229f4af76bdbddd1e86d041686594",
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-21-stable/target/release/libcoreutils_small_21_normalized_reachable.a": "f367e3d64619328d03bede78b13d50b50f89d8366cee4c8e9efcfdd5df83d100",
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-22-stable/target/release/libcoreutils_small_22_normalized_reachable.a": "bcb8bda99f07eea562e7fdf20335af764bb5476ca7674840bc8a38708bd640c6",
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-23-stable/target/release/libcoreutils_small_23_normalized_reachable.a": "d2056593c27369a31e37fc140f8465b24f54269c340ab44c4e921d571ad05090",
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/true-false-stable/target/release/libtrue_false_reachable.a": "d9fbc1c7501dd0f85cf1d9d94711c04c56fc78b1f2dec70693376340067924a6",
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-01-stable/target/release/libutil_linux_small_01_normalized_reachable.a": "f523bf614d565fa4233a02bb4e1db702d807dce56fa3329fc5f1979ed1d79544",
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-02-stable/target/release/libutil_linux_small_02_normalized_reachable.a": "d5d22a655383d623cf90a69b6a8009106c0a65b22946499a4711d0bbdc7580d6",
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-03-stable/target/release/libutil_linux_small_03_normalized_reachable.a": "5b7614be5f32cf48ab42ecc4aa247ddd259f9f09711a4ed1420cb039bfdf0c88",
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-04-stable/target/release/libutil_linux_small_04_normalized_reachable.a": "e92f47064a28ad625ed422e6fee68730c8b0ea88e280b7bfdda4e332ef726b97",
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-05-stable/target/release/libutil_linux_small_05_normalized_reachable.a": "dca7842726bd5ebde6bb92f702ed0e32ee4d092d741c355afe56638fbd9fc547",
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-06-stable/target/release/libutil_linux_small_06_normalized_reachable.a": "337cd75d4306fd5e74da761afaca1eda488fafd598acc986dc8988f5c96b966e",
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-07-stable/target/release/libutil_linux_small_07_normalized_reachable.a": "9ea1f7468488ebee2b091a0c0de1d2b5e26830042fcd64e8c9ba788cb3fefda5",
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-08-stable/target/release/libutil_linux_small_08_normalized_reachable.a": "7ba80103b9a2cfb8483ee3f3d5a05656cc21852719f1f520b144c4f3bb17e361",
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-09-stable/target/release/libutil_linux_small_09_normalized_reachable.a": "5d0fb5c2338227784632eaf8a4bf99abf23575a3aeb493bb8c33f632282884c3",
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-10-stable/target/release/libutil_linux_small_10_normalized_reachable.a": "ff39a7930076f74ecec7737c46565a4c2816deedd65c07689a3fc334706c4608",
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-11-stable/target/release/libutil_linux_small_11_normalized_reachable.a": "1b854a7f59b79fb8007d7623d6e9cad19ee3e66c457f25348458e8f32c99b007",
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-12-stable/target/release/libutil_linux_small_12_normalized_reachable.a": "42e96d62388f3e16ed87b95b92f4f9b34eff8eeae5737efbdea60cb2df533c64",
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-13-stable/target/release/libutil_linux_small_13_normalized_reachable.a": "655b8e12e5048dcd5c1511de0877ad4b38a338358f00f19fdef5594d7fbaa099",
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-14-stable/target/release/libutil_linux_small_14_normalized_reachable.a": "5c6587cf76610e5bd220c38c10896e1eb6d021ed6e85e4cebe75057d48e4aab3"
+      },
+      "total_dispatch_names": 261,
+      "util_linux_applets": 155
+    },
+    "namespaced_libraries": 13,
+    "namespaced_support_objects": 16,
+    "namespaced_symbols": 173,
+    "translated_libraries": 38
+  },
+  "dispatch": {
+    "cases": 522,
+    "coreutils_applets": 106,
+    "failures": [],
+    "passed": 522,
+    "schema": 1,
+    "util_linux_applets": 155
+  },
+  "recorded_at": "2026-11-20",
+  "schema": 1,
+  "scope": {
+    "coreutils": 106,
+    "dispatch_names": 261,
+    "excluded": [
+      "chcon",
+      "runcon"
+    ],
+    "util_linux": 155
+  },
+  "status": "Coreutils and util-linux integrated canonical parity"
+}

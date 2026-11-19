@@ -1,0 +1,103 @@
+#!/usr/bin/env python3
+"""Generate committed evidence for the unified Rustbox multicall executable."""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import re
+import shutil
+import subprocess
+import tempfile
+from pathlib import Path
+
+
+def sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--binary", type=Path, required=True)
+    parser.add_argument("--link-report", type=Path, required=True)
+    parser.add_argument("--dispatch-report", type=Path, required=True)
+    parser.add_argument("--differential-report", type=Path, required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    args = parser.parse_args()
+    binary = args.binary.resolve()
+    link = json.loads(args.link_report.read_text(encoding="utf-8"))
+    dispatch = json.loads(args.dispatch_report.read_text(encoding="utf-8"))
+    differential = json.loads(args.differential_report.read_text(encoding="utf-8"))
+    if dispatch["cases"] != 522 or dispatch["passed"] != 522 or dispatch["failures"]:
+        raise RuntimeError("unified dispatcher comparison is incomplete")
+    if (
+        differential["batches"] != 38
+        or differential["cases"] != 14022
+        or differential["passed"] != 14022
+        or differential["failed_batches"]
+    ):
+        raise RuntimeError("unified batch differential comparison is incomplete")
+    if sha256(binary) != link["binary"]["sha256"]:
+        raise RuntimeError("unified binary changed after link evidence")
+    with tempfile.TemporaryDirectory(prefix="rustbox-strip-") as temporary:
+        stripped = Path(temporary) / "rustbox"
+        shutil.copy2(binary, stripped)
+        subprocess.run(["strip", "--strip-all", str(stripped)], check=True)
+        stripped_bytes = stripped.stat().st_size
+        stripped_sha256 = sha256(stripped)
+    dynamic = subprocess.run(
+        ["readelf", "-d", str(binary)], check=True, text=True, stdout=subprocess.PIPE
+    ).stdout
+    needed = sorted(set(re.findall(r"Shared library: \[([^]]+)\]", dynamic)))
+    forbidden = [name for name in needed if "selinux" in name or "systemd" in name]
+    undefined = subprocess.run(
+        ["nm", "-u", str(binary)], check=True, text=True, stdout=subprocess.PIPE
+    ).stdout
+    forbidden_undefined = sorted(
+        line.strip() for line in undefined.splitlines()
+        if "selinux" in line.lower() or "systemd" in line.lower()
+    )
+    if forbidden or forbidden_undefined:
+        raise RuntimeError("unified binary retains a forbidden SELinux/systemd dependency")
+    evidence = {
+        "schema": 1,
+        "recorded_at": "2026-11-20",
+        "status": "Coreutils and util-linux integrated canonical parity",
+        "scope": {
+            "coreutils": 106,
+            "util_linux": 155,
+            "dispatch_names": 261,
+            "excluded": ["chcon", "runcon"],
+        },
+        "binary": {
+            **link["binary"],
+            "stripped_bytes": stripped_bytes,
+            "stripped_sha256": stripped_sha256,
+            "needed_libraries": needed,
+            "selinux_dependencies": [],
+            "systemd_dependencies": [],
+        },
+        "dispatch": dispatch,
+        "batch_differential": differential,
+        "collision_isolation": {
+            "translated_libraries": len(link["source_library_sha256"]),
+            "namespaced_libraries": len(link["namespaced_symbols"]),
+            "namespaced_symbols": sum(len(items) for items in link["namespaced_symbols"].values()),
+            "namespaced_support_objects": len(link["namespaced_support_symbols"]),
+            "manifest": link,
+        },
+    }
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    print(json.dumps({
+        "dispatch": dispatch["passed"],
+        "differential": differential["passed"],
+        "stripped_bytes": stripped_bytes,
+        "needed_libraries": len(needed),
+    }, sort_keys=True))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

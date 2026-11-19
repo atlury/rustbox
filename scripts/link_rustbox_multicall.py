@@ -4,12 +4,17 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
 import shutil
 import subprocess
 from pathlib import Path
+
+
+def sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def make_assignment(path: Path, name: str) -> str:
@@ -35,7 +40,7 @@ def defined_symbols(path: Path) -> list[str]:
 
 
 def namespace_duplicate_c_symbols(
-    libraries: list[Path], public_symbols: set[str], build: Path
+    libraries: list[Path], public_symbols: set[str], reserved_symbols: set[str], build: Path
 ) -> tuple[list[Path], dict[str, list[str]]]:
     """Give repeated C2Rust extern symbols crate-local link names.
 
@@ -68,15 +73,20 @@ def namespace_duplicate_c_symbols(
     duplicates = {
         symbol
         for symbol, owners in by_symbol.items()
-        if len(owners) > 1
+        if (len(owners) > 1 or symbol in reserved_symbols)
         and symbol not in public_symbols
         and not symbol.startswith("rust_")
         and not compiler_math.fullmatch(symbol)
     }
     rewritten: list[Path] = []
     report: dict[str, list[str]] = {}
+    owners = {symbol: sorted(by_symbol[symbol]) for symbol in duplicates}
     for index, library in enumerate(libraries):
-        selected = sorted(library_symbols[index] & duplicates)
+        selected = sorted(
+            symbol
+            for symbol in library_symbols[index] & duplicates
+            if symbol in reserved_symbols or index != owners[symbol][0]
+        )
         if not selected:
             rewritten.append(library)
             continue
@@ -92,6 +102,82 @@ def namespace_duplicate_c_symbols(
         rewritten.append(output)
         report[library.name] = selected
     return rewritten, report
+
+
+def util_linux_link_inputs(
+    repository: Path, build: Path, rust_defined: set[str]
+) -> tuple[list[Path], list[str], dict[str, list[str]]]:
+    text = (repository / "scripts/build_util_linux_batch_hybrid.sh").read_text(encoding="utf-8")
+    declarations = re.findall(
+        r"util-linux-small-[0-9]+\).*?extra_objects='([^']*)'.*?extra_libraries='([^']*)'",
+        text,
+        flags=re.DOTALL,
+    )
+    if len(declarations) != 14:
+        raise RuntimeError(f"expected 14 util-linux linker declarations, found {len(declarations)}")
+    tokens: list[str] = []
+    link_libraries: list[str] = []
+    for objects, libraries in declarations:
+        for token in objects.split():
+            if token not in tokens:
+                tokens.append(token)
+        for token in libraries.split():
+            if token not in link_libraries:
+                link_libraries.append(token)
+    paths = [(build / token).resolve() for token in tokens]
+    for path in paths:
+        if not path.is_file():
+            raise RuntimeError(f"util-linux support input is missing: {path}")
+
+    objects = [path for path in paths if path.suffix == ".o"]
+    archives = [path for path in paths if path.suffix == ".a"]
+    strong_types = {"B", "C", "D", "G", "R", "S", "T"}
+    claimed = set(rust_defined)
+    rewritten_objects: list[Path] = []
+    report: dict[str, list[str]] = {}
+    for index, path in enumerate(objects):
+        output = subprocess.run(
+            ["nm", "-g", "--defined-only", str(path)],
+            check=True, text=True, stdout=subprocess.PIPE,
+        ).stdout
+        defined = {
+            fields[-1]
+            for line in output.splitlines()
+            if len(fields := line.split()) >= 3 and fields[-2] in strong_types
+        }
+        duplicates = sorted(defined & claimed)
+        if duplicates:
+            copy = build / f"rustbox-support-all/{index:03d}-{path.name}"
+            mapping = copy.with_suffix(copy.suffix + ".map")
+            copy.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(path, copy)
+            mapping.write_text(
+                "".join(
+                    f"{symbol} rustbox_support_{index:03d}_{symbol}\n"
+                    for symbol in duplicates
+                ),
+                encoding="utf-8",
+            )
+            subprocess.run(["objcopy", "--redefine-syms", str(mapping), str(copy)], check=True)
+            rewritten_objects.append(copy)
+            report[str(path.relative_to(build))] = duplicates
+        else:
+            rewritten_objects.append(path)
+        claimed.update(defined - set(duplicates))
+    rewritten_archives: list[Path] = []
+    for path in archives:
+        if path.name == "libsmartcols.a":
+            copy = build / "rustbox-support-all/libsmartcols-parser-namespaced.a"
+            shutil.copy2(path, copy)
+            subprocess.run(
+                ["objcopy", "--redefine-sym", "yyparse=rustbox_smartcols_yyparse", str(copy)],
+                check=True,
+            )
+            rewritten_archives.append(copy)
+            report[str(path.relative_to(build))] = ["yyparse"]
+        else:
+            rewritten_archives.append(path)
+    return rewritten_objects + rewritten_archives, link_libraries, report
 
 
 def compile_typed_bridges(
@@ -127,8 +213,28 @@ def compile_typed_bridges(
     return outputs
 
 
-def write_dispatcher(path: Path, applets: list[str]) -> None:
+def write_dispatcher(
+    path: Path, applets: list[str], util_linux: dict[str, str]
+) -> None:
     names = "\n".join(f'    "{name}",' for name in sorted(applets))
+    util_symbols = sorted(set(util_linux.values()))
+    declarations = "\n".join(
+        f"extern int rustbox_{symbol}_main(int, char **);" for symbol in util_symbols
+    )
+    selection_lines = []
+    for name, symbol in sorted(util_linux.items()):
+        if name == "util-linux-kill":
+            selection_lines.append(
+                '    if (strcmp(name, "util-linux-kill") == 0) {'
+                ' argv[0] = "kill"; program_invocation_name = argv[0];'
+                ' program_invocation_short_name = argv[0];'
+                f' return rustbox_{symbol}_main(argc, argv); }}'
+            )
+        else:
+            selection_lines.append(
+                f'    if (strcmp(name, "{name}") == 0) return rustbox_{symbol}_main(argc, argv);'
+            )
+    selections = "\n".join(selection_lines)
     path.write_text(
         """/* Generated by link_rustbox_multicall.py. */
 #include <errno.h>
@@ -139,6 +245,9 @@ def write_dispatcher(path: Path, applets: list[str]) -> None:
 extern char *program_invocation_name;
 extern char *program_invocation_short_name;
 extern int rustbox_coreutils_dispatch(int, char **);
+"""
+        + declarations
+        + """
 
 static const char *const coreutils_applets[] = {
 """
@@ -158,10 +267,17 @@ static int is_coreutils(const char *name)
 int main(int argc, char **argv)
 {
     char *name = basename(argv[0]);
+    int force_util_linux = 0;
     if (strcmp(name, "rustbox") == 0) {
         if (argc < 2) {
             fputs("usage: rustbox APPLET [ARGUMENT]...\\n", stderr);
             return 127;
+        }
+        if (strncmp(argv[1], "--coreutils-prog=", 17) == 0) {
+            argv[0] = "coreutils";
+            program_invocation_name = argv[0];
+            program_invocation_short_name = argv[0];
+            return rustbox_coreutils_dispatch(argc, argv);
         }
         argc--;
         argv++;
@@ -169,8 +285,23 @@ int main(int argc, char **argv)
         program_invocation_name = argv[0];
         program_invocation_short_name = name;
     }
-    if (is_coreutils(name))
+    else if (strncmp(name, "rustbox-util-linux-small-", sizeof "rustbox-util-linux-small-" - 1) == 0) {
+        if (argc < 2) {
+            fputs("usage: rustbox-util-linux-small-NN APPLET [ARGUMENT]...\\n", stderr);
+            return 127;
+        }
+        argc--;
+        argv++;
+        name = basename(argv[0]);
+        program_invocation_name = argv[0];
+        program_invocation_short_name = name;
+        force_util_linux = 1;
+    }
+    if (!force_util_linux && is_coreutils(name))
         return rustbox_coreutils_dispatch(argc, argv);
+"""
+        + selections
+        + """
     errno = ENOENT;
     fprintf(stderr, "rustbox: unknown applet: %s\\n", name);
     return 127;
@@ -184,9 +315,12 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repository", type=Path, required=True)
     parser.add_argument("--coreutils-build", type=Path, required=True)
+    parser.add_argument("--util-linux-build", type=Path, required=True)
+    parser.add_argument("--link-report", type=Path, required=True)
     args = parser.parse_args()
     repository = args.repository.resolve()
     build = args.coreutils_build.resolve()
+    util_build = args.util_linux_build.resolve()
     makefile = build / "Makefile"
     if not makefile.is_file():
         raise RuntimeError("canonical Coreutils build is missing")
@@ -233,8 +367,50 @@ def main() -> int:
         if not library.is_file():
             raise RuntimeError(f"translated Coreutils library is missing: {library}")
 
+    util_manifests = [
+        json.loads(path.read_text(encoding="utf-8"))
+        for path in sorted((repository / "batches").glob("util-linux-small-*.json"))
+    ]
+    util_dispatch: dict[str, str] = {}
+    util_libraries: list[Path] = []
+    for manifest in util_manifests:
+        suffix = str(manifest["name"]).removeprefix("util-linux-small-")
+        util_libraries.append(
+            repository
+            / "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1"
+            / f"util-linux-small-{suffix}-stable/target/release/libutil_linux_small_{suffix}_normalized_reachable.a"
+        )
+        entrypoints = manifest.get("entrypoints")
+        if entrypoints:
+            for record in entrypoints.values():
+                for public_name in record["public_names"]:
+                    util_dispatch[public_name] = record["symbol"]
+        else:
+            for applet in manifest["applets"]:
+                util_dispatch[applet] = re.sub(r"[^a-z0-9_]", "_", applet)
+    if len(util_dispatch) != 155:
+        raise RuntimeError(f"expected 155 util-linux public names, found {len(util_dispatch)}")
+    for library in util_libraries:
+        if not library.is_file():
+            raise RuntimeError(f"translated util-linux library is missing: {library}")
+    duplicate_names = sorted(set(applets) & set(util_dispatch))
+    if duplicate_names != ["kill"]:
+        raise RuntimeError(f"unexpected cross-suite public-name collisions: {duplicate_names}")
+    util_public_count = len(util_dispatch)
+    util_dispatch["util-linux-kill"] = util_dispatch["kill"]
+    libraries.extend(util_libraries)
+    source_library_hashes = {str(path.relative_to(repository)): sha256(path) for path in libraries}
+    expected_symbols.update(f"rustbox_{symbol}_main" for symbol in util_dispatch.values())
+
+    canonical_dispatch_symbols = set(defined_symbols(build / "src/coreutils-coreutils.o"))
     libraries, namespaced_symbols = namespace_duplicate_c_symbols(
-        libraries, expected_symbols, build
+        libraries, expected_symbols, canonical_dispatch_symbols, build
+    )
+    rust_defined = canonical_dispatch_symbols | set().union(
+        *(set(defined_symbols(path)) for path in libraries)
+    )
+    util_inputs, util_link_libraries, namespaced_support = util_linux_link_inputs(
+        repository, util_build, rust_defined
     )
 
     typed_bridge_objects = compile_typed_bridges(repository, build, manifests)
@@ -253,6 +429,21 @@ def main() -> int:
             subprocess.run(["ar", "d", str(output), *discard], check=True)
         bridge_archives[archive] = output
 
+    canonical_coreutils = build / "lib/libcoreutils.a"
+    namespaced_coreutils = build / "lib/.rustbox-libcoreutils.a"
+    shutil.copy2(canonical_coreutils, namespaced_coreutils)
+    subprocess.run(
+        [
+            "objcopy", "--redefine-sym",
+            "crc32=rustbox_coreutils_gnulib_crc32",
+            str(namespaced_coreutils),
+        ],
+        check=True,
+    )
+    namespaced_coreutils_symbols = defined_symbols(namespaced_coreutils)
+    if "crc32" in namespaced_coreutils_symbols or "rustbox_coreutils_gnulib_crc32" not in namespaced_coreutils_symbols:
+        raise RuntimeError("failed to isolate Coreutils' gnulib crc32 symbol")
+
     dependencies = make_assignment(makefile, "single_binary_deps").split()
     for archive in removed:
         if dependencies.count(archive) != 1:
@@ -264,9 +455,12 @@ def main() -> int:
             if not inserted:
                 rewritten.extend(str(path) for path in libraries)
                 rewritten.extend(str(path) for path in typed_bridge_objects)
+                rewritten.extend(str(path) for path in util_inputs)
                 inserted = True
             if dependency in bridge_archives:
                 rewritten.append(str(bridge_archives[dependency]))
+        elif dependency == "lib/libcoreutils.a":
+            rewritten.append(str(namespaced_coreutils))
         else:
             rewritten.append(dependency)
 
@@ -282,7 +476,7 @@ def main() -> int:
 
     dispatcher_source = build / "src/.rustbox-dispatch.c"
     dispatcher_object = build / "src/.rustbox-dispatch.o"
-    write_dispatcher(dispatcher_source, applets)
+    write_dispatcher(dispatcher_source, applets, util_dispatch)
     subprocess.run(
         ["clang-18", "-O2", "-g", "-c", str(dispatcher_source), "-o", str(dispatcher_object)],
         cwd=build,
@@ -302,18 +496,23 @@ def main() -> int:
         "single_binary_deps=" + " ".join(rewritten),
         "src_coreutils_OBJECTS=" + str(dispatcher_object) + " " + str(renamed_dispatch),
         "src_libsinglebin_false_a_ldadd=$(src_true_LDADD) -ldl -lpthread -lm -lrt -lutil",
-        "src_coreutils_LDADD=$(single_binary_deps) $(LDADD) $(single_binary_libs)",
+        "src_coreutils_LDADD=$(single_binary_deps) $(LDADD) $(single_binary_libs) "
+        + " ".join(util_link_libraries),
         "src_coreutils_LINK=" + link,
     ]
     canonical = build / "src/coreutils"
     saved = build / "src/.rustbox-canonical-coreutils"
+    saved_coreutils_archive = build / "lib/.rustbox-canonical-libcoreutils.a"
     shutil.copy2(canonical, saved)
+    shutil.copy2(canonical_coreutils, saved_coreutils_archive)
+    shutil.copy2(namespaced_coreutils, canonical_coreutils)
     for path in libraries:
         os.utime(path)
     try:
         subprocess.run(command, cwd=build, check=True)
     finally:
         os.replace(saved, canonical)
+        os.replace(saved_coreutils_archive, canonical_coreutils)
     if not output.is_file() or not link_map.is_file():
         raise RuntimeError("combined Coreutils multicall was not produced")
     symbols = defined_symbols(output)
@@ -322,11 +521,37 @@ def main() -> int:
             raise RuntimeError(f"combined output does not define {symbol} exactly once")
     if symbols.count("main") != 1 or symbols.count("rustbox_coreutils_dispatch") != 1:
         raise RuntimeError("combined dispatcher symbols are incomplete")
+    report = {
+        "schema": 1,
+        "coreutils_applets": len(applets),
+        "util_linux_applets": 155,
+        "total_dispatch_names": len(set(applets) | set(util_dispatch)),
+        "excluded": ["chcon", "runcon"],
+        "public_name_precedence": {"kill": "GNU Coreutils", "util-linux-kill": "util-linux"},
+        "namespaced_canonical_symbols": {
+            "lib/libcoreutils.a": {
+                "crc32": "rustbox_coreutils_gnulib_crc32",
+                "reason": "isolate zlib's incompatible crc32 ABI used by mkfs.cramfs",
+            }
+        },
+        "source_library_sha256": source_library_hashes,
+        "namespaced_symbols": namespaced_symbols,
+        "namespaced_support_symbols": namespaced_support,
+        "binary": {
+            "bytes": output.stat().st_size,
+            "sha256": sha256(output),
+            "link_map_sha256": sha256(link_map),
+        },
+    }
+    args.link_report.parent.mkdir(parents=True, exist_ok=True)
+    args.link_report.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(json.dumps({
         "applets": len(applets),
         "bytes": output.stat().st_size,
         "namespaced_libraries": len(namespaced_symbols),
         "namespaced_symbols": sum(len(items) for items in namespaced_symbols.values()),
+        "namespaced_support_objects": len(namespaced_support),
+        "util_linux_applets": util_public_count,
         "output": str(output),
     }))
     return 0

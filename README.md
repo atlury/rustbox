@@ -43,8 +43,8 @@ scoring, and correctness gates.
 
 | Upstream | Inventory | Signed source oracle | Hybrid canonical parity | Integrated Rust applets |
 |---|---:|---:|---:|---:|
-| GNU Coreutils 9.12 | 108 | 108 | 107 | 0 |
-| util-linux 2.42.4 | 155 | 155 | 155 | 0 |
+| GNU Coreutils 9.12 | 108 | 108 | 106 | 106 |
+| util-linux 2.42.4 | 155 | 155 | 155 | 155 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -72,11 +72,12 @@ hybrid evidence for the verified batches is in
 `evidence/coreutils-9.12-c2rust-small-20.json`,
 `evidence/coreutils-9.12-c2rust-small-21.json`,
 `evidence/coreutils-9.12-c2rust-small-22.json`, and
-`evidence/coreutils-9.12-c2rust-small-23.json`.  All 107 applets in scope under
-the no-SELinux policy have reached hybrid canonical parity.  An oracle-built
-applet is not marked complete in the inventory below; completion is reserved for translated
-Rust that has reached canonical behavioral parity through the multicall
-interface.
+`evidence/coreutils-9.12-c2rust-small-23.json`.  All 106 applets in scope under
+the no-SELinux policy have reached hybrid canonical parity and are integrated.
+Both `chcon` and `runcon` are excluded because their purpose is SELinux policy
+management.  An oracle-built applet is not marked complete in the inventory
+below; completion is reserved for translated Rust that has reached canonical
+behavioral parity through the multicall interface.
 
 The signed util-linux oracle is recorded in
 `evidence/util-linux-2.42.4-oracle.json`.  Its 155 public names comprise 132
@@ -102,14 +103,22 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 `evidence/util-linux-2.42.4-c2rust-small-12.json`,
 `evidence/util-linux-2.42.4-c2rust-small-13.json`, and
 `evidence/util-linux-2.42.4-c2rust-small-14.json`.  All 155 in-scope
-util-linux applets have reached hybrid canonical parity; final Rustbox integration remains
-the next gate now that the applet batches are complete.
+util-linux applets have reached hybrid canonical parity and are integrated.
+
+The single combined executable and its collision-isolation manifest are
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 261
+distinct public names (106 Coreutils and 155 util-linux applets, with `kill`
+shared and `util-linux-kill` available explicitly).  It passes all 522
+help/version oracle comparisons and all 14,022 cases in the 38 original batch
+differential harnesses.  `chcon` and `runcon` remain absent, and the linked
+binary has no SELinux or systemd dependency.
 
 ## Work queue after util-linux
 
-No package in this queue starts until all in-scope util-linux applets reach
-canonical parity and the completed Coreutils and util-linux translations are
-linked and verified together as the single `rustbox` multicall executable.
+This queue starts only after all in-scope util-linux applets reach canonical
+parity and the completed Coreutils and util-linux translations are linked and
+verified together as the single `rustbox` multicall executable.  That gate is
+now satisfied.
 This ordering is from lower to higher estimated translation and integration
 complexity; build dependencies may be prepared earlier when a queued package
 requires them.  Names include canonical installed aliases, but not examples or
@@ -272,7 +281,7 @@ parity.
 - [x] `realpath` — hybrid canonical parity; repair score 5
 - [x] `rm` — hybrid canonical parity; repair score 7
 - [x] `rmdir` — hybrid canonical parity; repair score 7
-- [x] `runcon` — hybrid canonical parity; repair score 5
+- [ ] `runcon` — excluded by the no-SELinux policy
 - [x] `seq` — hybrid canonical parity; repair score 5
 - [x] `sha1sum` — hybrid canonical parity; repair score 5
 - [x] `sha224sum` — hybrid canonical parity; repair score 5

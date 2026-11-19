@@ -188,8 +188,13 @@ def main() -> int:
     parser.add_argument("--canonical", type=Path, required=True)
     parser.add_argument("--hybrid", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--exclude", action="append", default=[])
     args = parser.parse_args()
     canonical, hybrid = args.canonical.resolve(), args.hybrid.resolve()
+    excluded = {item.encode() for item in args.exclude}
+    unknown = excluded - set(STATELESS) - set(FILESYSTEM)
+    if unknown:
+        raise RuntimeError(f"unknown excluded applet: {sorted(unknown)!r}")
     checked = 0
     with tempfile.TemporaryDirectory(prefix="rustbox-small-04-") as temporary:
         root = Path(temporary)
@@ -200,6 +205,8 @@ def main() -> int:
             return links / os.fsdecode(applet)
 
         for applet, cases in STATELESS.items():
+            if applet in excluded:
+                continue
             for locale in LOCALES:
                 for mode in ("explicit", "argv0"):
                     for arguments, input_bytes in [*cases, *[(item, b"") for item in OPTIONS]]:
@@ -210,6 +217,8 @@ def main() -> int:
                         checked += 1
 
         for applet, cases in FILESYSTEM.items():
+            if applet in excluded:
+                continue
             for locale in LOCALES:
                 for mode in ("explicit", "argv0"):
                     for arguments in OPTIONS:
@@ -233,7 +242,7 @@ def main() -> int:
 
     result = {
         "schema": 1, "cases": checked, "passed": checked, "locales": LOCALES,
-        "applets": [os.fsdecode(item) for item in [b"base64", b"comm", b"groups", b"mktemp", b"pathchk", b"pwd", b"runcon", b"stdbuf", b"truncate", b"tsort"]],
+        "applets": [os.fsdecode(item) for item in [b"base64", b"comm", b"groups", b"mktemp", b"pathchk", b"pwd", b"runcon", b"stdbuf", b"truncate", b"tsort"] if item not in excluded],
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")

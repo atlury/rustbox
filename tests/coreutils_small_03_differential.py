@@ -120,8 +120,7 @@ def listing(directory: Path, arguments: list[bytes]) -> tuple[list[bytes], bytes
     (directory / "subdir").mkdir()
     (directory / "link").symlink_to("alpha")
     for path in directory.iterdir():
-        if not path.is_symlink():
-            os.utime(path, (1_000_000_000, 1_000_000_000))
+        os.utime(path, (1_000_000_000, 1_000_000_000), follow_symlinks=False)
     return arguments, b""
 
 
