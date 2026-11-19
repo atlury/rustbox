@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "upstream": "GNU Coreutils 9.12",
+  "name": "coreutils-small-10",
+  "applets": [
+    "cksum"
+  ],
+  "output_regex": "/src/libsinglebin_cksum_",
+  "expected_compile_commands": 4,
+  "translation_variant": "canonical",
+  "reachable_staticlib": "libcoreutils_small_10_reachable.a",
+  "differential_harness": "coreutils_small_10_differential.py",
+  "upstream_tests": [
+    "tests/cksum/cksum-a.sh",
+    "tests/cksum/cksum-base64-untagged.sh",
+    "tests/cksum/cksum-base64.pl",
+    "tests/cksum/cksum-c.sh",
+    "tests/cksum/cksum-raw.sh",
+    "tests/cksum/cksum-sha3.sh",
+    "tests/cksum/cksum.sh",
+    "tests/help/help-version.sh",
+    "tests/help/help-version-getopt.sh"
+  ],
+  "valgrind_cases": [
+    {"applet": "cksum", "arguments": [], "status": 0}
+  ],
+  "deferred_configuration": [
+    {
+      "applets": ["stat"],
+      "reason": "The canonical stat translation unit directly compiles SELinux headers, runtime probes, context formats, and help text. Rebuild it in the declared no-SELinux configuration tranche rather than translating excluded policy."
+    }
+  ],
+  "selection_policy": "Advance the remaining clean checksum closure independently. Cksum is isolated from the already completed b2sum because both compile cksum.c under different algorithm configurations and C2Rust silently deduplicates repeated source paths. Stat was rejected from this batch after source inspection proved that its captured configuration directly includes SELinux behavior."
+}
