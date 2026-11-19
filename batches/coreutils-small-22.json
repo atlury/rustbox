@@ -1,0 +1,93 @@
+{
+  "schema": 1,
+  "upstream": "GNU Coreutils 9.12",
+  "name": "coreutils-small-22",
+  "applets": ["numfmt"],
+  "canonical_analysis": "canonical-clang-no-security",
+  "canonical_gcc_analysis": "canonical-gcc-no-security",
+  "canonical_build": "canonical-clang-no-security-compdb",
+  "output_regex": "/src/libsinglebin_numfmt_a-numfmt\\.o$",
+  "expected_compile_commands": 1,
+  "translation_variant": "normalized",
+  "prepare_scaffold": true,
+  "reachable_staticlib": "libcoreutils_small_22_normalized_reachable.a",
+  "differential_harness": "coreutils_small_22_differential.py",
+  "upstream_tests": [
+    "tests/numfmt/numfmt.pl",
+    "tests/numfmt/mb-non-utf8.sh",
+    "tests/help/help-version.sh",
+    "tests/help/help-version-getopt.sh"
+  ],
+  "valgrind_cases": [
+    {"applet": "numfmt", "arguments": ["--to=si", "1000"], "status": 0}
+  ],
+  "full_suite_baseline": {
+    "total": 761, "pass": 626, "skip": 134, "fail": 0, "error": 1,
+    "known_error": "tests/rm/deep-2"
+  },
+  "typed_c_bridges": [
+    {
+      "source": "bridges/coreutils/numfmt-number.c",
+      "reference_output": "src/libsinglebin_numfmt_a-numfmt.o",
+      "object": "numfmt-number.o",
+      "symbols": [
+        "rustbox_numfmt_process_number",
+        "rustbox_numfmt_unused_main",
+        "rustbox_numfmt_unused_usage"
+      ],
+      "reason": "Keep GNU numfmt's tightly coupled native long-double parser, scaling, rounding, and variadic formatter behind one configuration-explicit boundary; CLI parsing, format validation, field selection, multibyte line splitting, diagnostics policy, and multicall dispatch remain translated Rust."
+    }
+  ],
+  "c_normalization": [
+    {
+      "source": "src/numfmt.c", "engine": "exact",
+      "expected_before": "static bool dev_debug = false;\n\nstatic bool\nnewline_or_blank (mcel_t g)",
+      "replacement": "static bool dev_debug = false;\n\nextern bool rustbox_numfmt_process_number\n  (char *, uintmax_t, int, int, int, int, char const *, char const *,\n   uintmax_t, uintmax_t, int, intmax_t, int, long int, char const *,\n   char const *, int, int, bool, char const *, int, char const *, int, bool);\n\nstatic bool\nnewline_or_blank (mcel_t g)",
+      "expected_after": "extern bool rustbox_numfmt_process_number",
+      "reason": "Declare a configuration-explicit boundary for the native numeric engine before translating the surrounding CLI and text pipeline."
+    },
+    {
+      "source": "src/numfmt.c", "engine": "exact",
+      "expected_before": "}\n\n/* Similar to 'powl(3)' but without requiring 'libm'.  */",
+      "replacement": "}\n\n#if 0\n/* Similar to 'powl(3)' but without requiring 'libm'.  */",
+      "expected_after": "#if 0\n/* Similar to 'powl(3)'",
+      "reason": "The canonical native parser, scaler, rounder, and formatter are compiled in the typed bridge instead of through C2Rust's incompatible long-double type."
+    },
+    {
+      "source": "src/numfmt.c", "engine": "exact",
+      "expected_before": "}\n\n/* Convert a string of decimal digits, N_STRING, with an optional suffix",
+      "replacement": "}\n#endif\n\n/* Convert a string of decimal digits, N_STRING, with an optional suffix",
+      "expected_after": "}\n#endif\n\n/* Convert a string of decimal digits",
+      "reason": "Resume translation at unit-size option parsing, which uses integer arithmetic only."
+    },
+    {
+      "source": "src/numfmt.c", "engine": "exact",
+      "expected_before": "}\n\n/* Parse a numeric value (with optional suffix) from a string.",
+      "replacement": "}\n\n#if 0\n/* Parse a numeric value (with optional suffix) from a string.",
+      "expected_after": "#if 0\n/* Parse a numeric value (with optional suffix)",
+      "reason": "Compile the high-level native numeric conversion and padding helpers in the typed bridge."
+    },
+    {
+      "source": "src/numfmt.c", "engine": "exact",
+      "expected_before": "}\n\n/* Search for multi-byte character C in multi-byte string S.",
+      "replacement": "}\n#endif\n\n/* Search for multi-byte character C in multi-byte string S.",
+      "expected_after": "#endif\n\n/* Search for multi-byte character C",
+      "reason": "Resume translation for multibyte field splitting and selection."
+    },
+    {
+      "source": "src/numfmt.c", "engine": "exact",
+      "expected_before": "static bool\nprocess_field (char *text, uintmax_t field)\n{\n  long double val = 0;\n  size_t precision = 0;\n  bool valid_number = true;\n\n  if (include_field (field))\n    {\n      valid_number =\n        process_suffixed_number (text, &val, &precision, field);\n\n      intmax_t padding;\n      if (valid_number)\n        valid_number = prepare_padded_number (val, precision, &padding);\n\n      if (valid_number)\n        print_padded_number (padding);\n      else\n        fputs (text, stdout);\n    }\n  else\n    fputs (text, stdout);\n\n  return valid_number;\n}",
+      "replacement": "static bool\nprocess_field (char *text, uintmax_t field)\n{\n  if (!include_field (field))\n    {\n      fputs (text, stdout);\n      return true;\n    }\n\n  return rustbox_numfmt_process_number\n    (text, field, scale_from, scale_to, round_style, inval_style, suffix,\n     unit_separator, from_unit_size, to_unit_size, grouping, padding_width,\n     zero_padding_width, user_precision, format_str_prefix, format_str_suffix,\n     conv_exit_code, auto_padding, debug, decimal_point, decimal_point_length,\n     thousands_sep, thousands_sep_length, dev_debug);\n}",
+      "expected_after": "return rustbox_numfmt_process_number",
+      "reason": "Keep translated field selection and delegate only an included field's native numeric conversion with every policy input explicit."
+    },
+    {
+      "source": "src/numfmt.c", "engine": "exact",
+      "expected_before": "(char *) mbsstr (s, c)",
+      "replacement": "(char *) (mbsstr) (s, c)",
+      "expected_after": "(char *) (mbsstr) (s, c)",
+      "reason": "Call the const-correct gnulib function directly instead of expanding its C11 _Generic convenience macro, which C2Rust cannot export."
+    }
+  ],
+  "selection_policy": "Translate GNU numfmt's CLI, format validation, field selection, and multibyte line pipeline; retain its canonical native long-double numeric engine behind an explicit typed configuration boundary."
+}
