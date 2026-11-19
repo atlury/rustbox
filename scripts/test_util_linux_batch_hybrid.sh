@@ -15,6 +15,7 @@ case $batch in
   util-linux-small-08) suffix=08; components='setarch'; count=3 ;;
   util-linux-small-09) suffix=09; components='kill ul'; count=9 ;;
   util-linux-small-10) suffix=10; components='enosys ipcs lsclocks lslocks lsmem mkswap uuidd utmp'; count=21 ;;
+  util-linux-small-11) suffix=11; components='blkid column eject logger losetup nsenter partx setpriv wipefs'; count=31 ;;
   *) echo "unknown batch: $batch" >&2; exit 2 ;;
 esac
 
@@ -85,7 +86,7 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
   elif test "$suffix" = 09; then
     export TS_CMD_KILL="$build/rustbox-small-09/kill"
     export TS_CMD_UL="$build/rustbox-small-09/ul"
-  else
+  elif test "$suffix" = 10; then
     export TS_CMD_ENOSYS="$build/rustbox-small-10/enosys"
     export TS_CMD_IPCS="$build/rustbox-small-10/ipcs"
     export TS_CMD_LAST="$build/rustbox-small-10/last"
@@ -94,6 +95,17 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     export TS_CMD_LSMEM="$build/rustbox-small-10/lsmem"
     export TS_CMD_MKSWAP="$build/rustbox-small-10/mkswap"
     export TS_CMD_UUIDD="$build/rustbox-small-10/uuidd"
+  else
+    export TS_CMD_BLKID="$build/rustbox-small-11/blkid"
+    export TS_CMD_COLUMN="$build/rustbox-small-11/column"
+    export TS_CMD_EJECT="$build/rustbox-small-11/eject"
+    export TS_CMD_LOGGER="$build/rustbox-small-11/logger"
+    export TS_CMD_LOSETUP="$build/rustbox-small-11/losetup"
+    export TS_CMD_NSENTER="$build/rustbox-small-11/nsenter"
+    export TS_CMD_PARTX="$build/rustbox-small-11/partx"
+    export TS_CMD_SETPRIV="$build/rustbox-small-11/setpriv"
+    export TS_CMD_WIPEFS="$build/rustbox-small-11/wipefs"
+    export TS_CMD_ZRAMCTL="$build/rustbox-small-11/zramctl"
   fi
   su -m -s /bin/bash rustbox-test -c \
     "cd $build && $source/tests/run.sh --srcdir=$source --builddir=$build $components" \

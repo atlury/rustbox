@@ -78,6 +78,13 @@ case $batch in
     extra_objects='sys-utils/ipcutils.o lib/ismounted.o lib/monotonic.o lib/uuidd-timer.o ./.libs/libmount.a ./.libs/libblkid.a ./.libs/libsmartcols.a ./.libs/libuuid.a ./.libs/libcommon.a'
     extra_libraries='-leconf -ltinfo'
     ;;
+  util-linux-small-11)
+    suffix=11
+    library_name=libutil_linux_small_11_normalized_reachable.a
+    applets='blkid column eject logger losetup nsenter partx setpriv wipefs zramctl'
+    extra_objects='lib/ismounted.o lib/monotonic.o lib/logger-strutils.o lib/logger-strv.o lib/exec_shell.o lib/caputils.o sys-utils/setpriv-landlock.o ./.libs/libmount.a ./.libs/libblkid.a ./.libs/libsmartcols.a ./.libs/libtcolors.a ./.libs/libcommon_logindefs.a ./.libs/libcommon.a'
+    extra_libraries='-leconf -lcap-ng -ltinfo'
+    ;;
   *) echo "hybrid linker not yet declared for $batch" >&2; exit 2 ;;
 esac
 

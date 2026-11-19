@@ -16,6 +16,7 @@ case $batch in
   util-linux-small-08) suffix=08; expected=1 ;;
   util-linux-small-09) suffix=09 ;;
   util-linux-small-10) suffix=10 ;;
+  util-linux-small-11) suffix=11 ;;
   *) echo "unknown batch: $batch" >&2; exit 2 ;;
 esac
 
@@ -104,10 +105,16 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     for applet in blkzone ipcrm fstrim prlimit fsck.cramfs mkfs.cramfs kill rtcwake wdctl ul; do
       check "$applet" "$applet" --help >/dev/null
     done
-  else
+  elif test "$suffix" = 10; then
     for applet in enosys ipcs last lsclocks lslocks lsmem mkfs.minix mkswap setterm uuidd; do
       check "$applet" "$applet" --help >/dev/null
     done
+  else
+    for applet in blkid eject logger losetup nsenter partx setpriv wipefs zramctl; do
+      check "$applet" "$applet" --help >/dev/null
+    done
+    # Canonical column retains its 12-byte multibyte option string until exit.
+    check_process_lifetime column column --help >/dev/null
   fi
   python3 - <<'PY'
 import json
@@ -133,6 +140,12 @@ elif suffix == "07":
         {"applet": "col", "bytes": 3584, "definite_indirect_possible_losses": 0},
         {"applet": "chmem", "bytes": 17056, "definite_indirect_possible_losses": 0},
     ]
+elif suffix == "11":
+    result["canonical_process_lifetime_exception"] = {
+        "applet": "column",
+        "bytes": 12,
+        "definite_indirect_possible_losses": 0,
+    }
 (root / "resources.json").write_text(json.dumps(result, indent=2) + "\n")
 print(json.dumps(result, sort_keys=True))
 PY
