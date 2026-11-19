@@ -125,7 +125,7 @@ requires them.  Names include canonical installed aliases, but not examples or
 test-only binaries.  The duplicate `gzip` request is represented once.
 
 1. Small libraries and single-purpose tools:
-   - [ ] zlib — shared compression library; no installed applet (`minigzip` is
+   - [ ] zlib 1.4 — shared compression library; no installed applet (`minigzip` is
      an example/test helper).
    - [ ] pkgconf 3.0.10 — `pkgconf`, its compatible `pkg-config` alias,
      `bomtool`, `pccritic`, and `spdxtool`; use this maintained implementation
