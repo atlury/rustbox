@@ -17,6 +17,14 @@
   "output_regex": "/src/libsinglebin_(basenc|chown|cut|date|env|pr|ptx|stty|tr|unexpand)_",
   "expected_compile_commands": 16,
   "translation_variant": "normalized",
+  "reachable_staticlib": "libcoreutils_small_08_normalized_reachable.a",
+  "canonical_archive_member_exclusions": [
+    {
+      "archive": "src/libsinglebin_timeout.a",
+      "members": ["libsinglebin_timeout_a-operand2sig.o"],
+      "reason": "Env's translated closure defines operand2sig; retain timeout's canonical entry point while removing only its duplicate private copy from the isolated hybrid link."
+    }
+  ],
   "c_normalization": [
     {
       "source": "src/chown-core.c",
