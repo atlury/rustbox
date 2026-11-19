@@ -102,8 +102,13 @@ def main() -> int:
     if str(rust_library) not in map_text:
         raise RuntimeError("link map does not contain the generated Rust library")
     for archive in removed:
-        if archive in map_text:
-            raise RuntimeError(f"link map unexpectedly contains original {archive}")
+        # GNU's link variables can mention an archive again as support for a
+        # different applet (notably uname for arch/hostname/uptime).  A LOAD
+        # directive alone does not contribute code.  Reject any extracted
+        # member, which GNU ld records as archive(member), and then verify the
+        # final public entry point below.
+        if archive + "(" in map_text:
+            raise RuntimeError(f"link map contains a member from original {archive}")
 
     defined = subprocess.run(
         ["nm", "-g", "--defined-only", str(output)],

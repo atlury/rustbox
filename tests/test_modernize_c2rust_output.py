@@ -97,6 +97,18 @@ class OpaqueUseTests(unittest.TestCase):
         )
         self.assertNotIn("#![feature(", output)
 
+    def test_obsolete_va_list_spelling_and_borrow_are_rewritten(self) -> None:
+        output = self.transform(
+            "unsafe fn f(mut args: ...) {\n"
+            "    let mut copy: ::core::ffi::VaListImpl = args.clone();\n"
+            "    consume(copy.as_va_list());\n"
+            "}\n"
+        )
+        self.assertIn("let mut copy: ::core::ffi::VaList = args.clone();", output)
+        self.assertIn("consume(copy.clone());", output)
+        self.assertNotIn("VaListImpl", output)
+        self.assertNotIn("as_va_list", output)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -81,6 +81,18 @@ def transform_rust(path: Path) -> dict[str, object] | None:
             if not has_only_pointer_uses(line, name):
                 raise RuntimeError(f"{path}: opaque type {name} has non-pointer use: {line}")
 
+    # C variadics are stable now, but C2Rust 0.22 emitted the old internal
+    # VaListImpl spelling and borrowed it through as_va_list().  The stable
+    # public type is VaList itself; clone() is its stable va_copy operation and
+    # supplies an independently owned cursor to each by-value C ABI call.
+    va_list_impl_rewrites = sum(line.count("::core::ffi::VaListImpl") for line in kept)
+    as_va_list_rewrites = sum(line.count(".as_va_list()") for line in kept)
+    kept = [
+        line.replace("::core::ffi::VaListImpl", "::core::ffi::VaList")
+        .replace(".as_va_list()", ".clone()")
+        for line in kept
+    ]
+
     definitions: list[str] = []
     for name in opaque:
         definitions.extend(
@@ -101,6 +113,8 @@ def transform_rust(path: Path) -> dict[str, object] | None:
         "after_sha256": hashlib.sha256(after.encode()).hexdigest(),
         "opaque_pointer_types": opaque,
         "raw_static_pointer_rewrites": raw_static_pointer_rewrites,
+        "va_list_impl_rewrites": va_list_impl_rewrites,
+        "as_va_list_rewrites": as_va_list_rewrites,
     }
 
 
