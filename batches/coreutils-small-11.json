@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "upstream": "GNU Coreutils 9.12",
+  "name": "coreutils-small-11",
+  "applets": [
+    "id",
+    "ls",
+    "mkdir",
+    "stat"
+  ],
+  "canonical_analysis": "canonical-clang-no-security",
+  "canonical_gcc_analysis": "canonical-gcc-no-security",
+  "canonical_build": "canonical-clang-no-security-compdb",
+  "output_regex": "/src/libsinglebin_(id|ls|mkdir|stat)_",
+  "expected_compile_commands": 9,
+  "translation_variant": "canonical",
+  "reachable_staticlib": "libcoreutils_small_11_reachable.a",
+  "differential_harness": "coreutils_small_11_differential.py",
+  "upstream_tests": [
+    "tests/id/gnu-zero-uids.sh",
+    "tests/id/no-context.sh",
+    "tests/id/uid.sh",
+    "tests/ls/dired.sh",
+    "tests/ls/ls-misc.pl",
+    "tests/ls/stat-free-color.sh",
+    "tests/mkdir/p-1.sh",
+    "tests/mkdir/p-2.sh",
+    "tests/mkdir/parents.sh",
+    "tests/stat/stat-fmt.sh",
+    "tests/stat/stat-birthtime.sh",
+    "tests/stat/stat-printf.pl",
+    "tests/help/help-version.sh",
+    "tests/help/help-version-getopt.sh"
+  ],
+  "valgrind_cases": [
+    {"applet": "id", "arguments": [], "status": 0},
+    {"applet": "ls", "arguments": ["-la", "."], "status": 0},
+    {"applet": "mkdir", "arguments": ["directory"], "status": 0},
+    {"applet": "stat", "arguments": ["."], "status": 0}
+  ],
+  "selection_policy": "The first no-security canonical tranche: four independent archive closures with unique source paths after configuring GNU Coreutils without SELinux, SMACK or systemd. Chcon and runcon remain excluded; the shared copy family and repeated selinux.c closures remain isolated for later batches."
+}
