@@ -157,6 +157,13 @@ test-only binaries.  The duplicate `gzip` request is represented once.
      `rexecd`, `rlogind`, `rshd`, `syslogd`, `talkd`, `telnetd`, `tftpd`,
      `uucpd`.
 5. Large Linux system suites:
+   - [ ] Procps-ng 4.0.7 — `free`, `hugetop`, `kill`, `pgrep`, `pidof`,
+     `pkill`, `pmap`, `ps`, `pwait`, `pwdx`, `skill`, `slabtop`, `snice`,
+     `sysctl`, `tload`, `top`, `uptime`, `vmstat`, `w`, `watch`, plus the
+     shared `libproc2` runtime; use the canonical GitLab release and exclude
+     optional systemd and SELinux integration.  Duplicate public names such as
+     `kill` and `uptime` remain separately verified until the final dispatcher
+     precedence decision.
    - [ ] IPRoute2 — `arpd`, `bridge`, `ctstat`, `dcb`, `devlink`, `genl`,
      `ifcfg`, `ifstat`, `ip`, `lnstat`, `nstat`, `rdma`, `routef`, `routel`,
      `rtacct`, `rtmon`, `rtpr`, `rtstat`, `ss`, `tc`, `tipc`, `vdpa`.
