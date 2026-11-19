@@ -43,13 +43,13 @@ scoring, and correctness gates.
 
 | Upstream | Inventory | Signed source oracle | Hybrid canonical parity | Integrated Rust applets |
 |---|---:|---:|---:|---:|
-| GNU Coreutils 9.12 | 108 | 108 | 90 | 0 |
+| GNU Coreutils 9.12 | 108 | 108 | 94 | 0 |
 | util-linux 2.42.4 | 155 | 0 | 0 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
 baseline is in `evidence/coreutils-9.12-static-analysis.json`; translation and
-hybrid evidence for the first nine batches is in
+hybrid evidence for the verified batches is in
 `evidence/coreutils-9.12-c2rust-small-01.json`,
 `evidence/coreutils-9.12-c2rust-small-02.json`,
 `evidence/coreutils-9.12-c2rust-small-03.json`,
@@ -57,8 +57,10 @@ hybrid evidence for the first nine batches is in
 `evidence/coreutils-9.12-c2rust-small-05.json`,
 `evidence/coreutils-9.12-c2rust-small-06.json`,
 `evidence/coreutils-9.12-c2rust-small-07.json`,
-`evidence/coreutils-9.12-c2rust-small-08.json`, and
-`evidence/coreutils-9.12-c2rust-small-09.json`.  An oracle-built applet is not
+`evidence/coreutils-9.12-c2rust-small-08.json`,
+`evidence/coreutils-9.12-c2rust-small-09.json`, and
+`evidence/coreutils-9.12-c2rust-small-11.json`.  Batch 10 remains a recorded
+CPU-dispatch translation deferral.  An oracle-built applet is not
 marked complete in the inventory below; completion is reserved for translated
 Rust that has reached canonical behavioral parity through the multicall
 interface.
@@ -111,16 +113,16 @@ parity.
 - [x] `head` — hybrid canonical parity; repair score 7
 - [x] `hostid` — hybrid canonical parity; repair score 5
 - [x] `hostname` — hybrid canonical parity; repair score 5
-- [ ] `id` — inventory
+- [x] `id` — hybrid canonical parity; repair score 7
 - [ ] `install` — inventory
 - [x] `join` — hybrid canonical parity; repair score 7
 - [x] `kill` — hybrid canonical parity; repair score 7
 - [x] `link` — hybrid canonical parity; repair score 5
 - [x] `ln` — hybrid canonical parity; repair score 7
 - [x] `logname` — hybrid canonical parity; repair score 5
-- [ ] `ls` — inventory
+- [x] `ls` — hybrid canonical parity; repair score 7
 - [x] `md5sum` — hybrid canonical parity; repair score 5
-- [ ] `mkdir` — inventory
+- [x] `mkdir` — hybrid canonical parity; repair score 7
 - [ ] `mkfifo` — inventory
 - [ ] `mknod` — inventory
 - [x] `mktemp` — hybrid canonical parity; repair score 5
@@ -155,7 +157,7 @@ parity.
 - [x] `sleep` — hybrid canonical parity; repair score 5
 - [ ] `sort` — inventory
 - [x] `split` — hybrid canonical parity; repair score 7
-- [ ] `stat` — inventory
+- [x] `stat` — hybrid canonical parity; repair score 7
 - [x] `stdbuf` — hybrid canonical parity; repair score 5
 - [x] `stty` — hybrid canonical parity; repair score 7
 - [x] `sum` — hybrid canonical parity; repair score 7

@@ -66,6 +66,14 @@ def main() -> int:
         raise RuntimeError("batch name does not match its manifest")
 
     analysis = repository / "work/analysis/coreutils-9.12"
+    canonical_analysis = manifest.get("canonical_analysis", "canonical-clang")
+    if not isinstance(canonical_analysis, str) or not re.fullmatch(
+        r"[A-Za-z0-9_-]+", canonical_analysis
+    ):
+        raise RuntimeError("manifest has an unsafe canonical analysis name")
+    compile_database = analysis / canonical_analysis / "compile_commands.json"
+    if not compile_database.is_file():
+        raise RuntimeError(f"missing canonical compilation database: {compile_database}")
     base = analysis / "translations/c2rust-0.22.1"
     variant = manifest.get("translation_variant", "canonical")
     prefix = f"{batch}-normalized" if variant == "normalized" else batch
@@ -236,7 +244,8 @@ def main() -> int:
         },
         "input": {
             "upstream_archive_sha256": archive_evidence["upstream_archive_sha256"],
-            "compile_database_sha256": archive_evidence["database_sha256"],
+            "compile_database": canonical_analysis,
+            "compile_database_sha256": sha256(compile_database),
             "slice_sha256": sha256(slice_path),
             "compile_commands": len(json_file(slice_path)),
         },

@@ -14,7 +14,7 @@
   "output_regex": "/src/libsinglebin_(id|ls|mkdir|stat)_",
   "expected_compile_commands": 9,
   "translation_variant": "normalized",
-  "reachable_staticlib": "libcoreutils_small_11_reachable.a",
+  "reachable_staticlib": "libcoreutils_small_11_normalized_reachable.a",
   "differential_harness": "coreutils_small_11_differential.py",
   "upstream_tests": [
     "tests/id/gnu-zero-uids.sh",
@@ -37,6 +37,31 @@
     {"applet": "ls", "arguments": ["-la", "."], "status": 0},
     {"applet": "mkdir", "arguments": ["directory"], "status": 0},
     {"applet": "stat", "arguments": ["."], "status": 0}
+  ],
+  "full_suite_baseline": {
+    "total": 761,
+    "pass": 626,
+    "skip": 134,
+    "fail": 0,
+    "error": 1,
+    "known_error": "tests/rm/deep-2"
+  },
+  "canonical_archive_member_exclusions": [
+    {
+      "archive": "src/libsinglebin_groups.a",
+      "members": ["libsinglebin_groups_a-group-list.o"],
+      "reason": "Id's translated closure defines print_group and print_group_list; retain groups' canonical entry point while removing its duplicate private helper object from the isolated hybrid link."
+    },
+    {
+      "archive": "src/libsinglebin_ginstall.a",
+      "members": ["libsinglebin_ginstall_a-prog-fprintf.o"],
+      "reason": "Mkdir's translated closure defines prog_fprintf; retain install's canonical entry point while removing its duplicate helper object from the isolated hybrid link."
+    },
+    {
+      "archive": "src/libsinglebin_df.a",
+      "members": ["libsinglebin_df_a-find-mount-point.o"],
+      "reason": "Stat's translated closure defines find_mount_point; retain df's canonical entry point while removing its duplicate helper object from the isolated hybrid link."
+    }
   ],
   "c_normalization": [
     {
