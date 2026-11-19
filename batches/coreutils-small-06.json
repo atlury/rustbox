@@ -17,6 +17,7 @@
   "output_regex": "/src/libsinglebin_(cat|dircolors|fmt|nl|pinky|realpath|shuf|tac|timeout|uniq)_",
   "expected_compile_commands": 13,
   "translation_variant": "normalized",
+  "prepare_scaffold": true,
   "reachable_staticlib": "libcoreutils_small_06_normalized_reachable.a",
   "differential_harness": "coreutils_small_06_differential.py",
   "upstream_tests": [
