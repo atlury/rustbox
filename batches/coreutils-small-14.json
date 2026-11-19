@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "upstream": "GNU Coreutils 9.12",
+  "name": "coreutils-small-14",
+  "applets": ["cp"],
+  "canonical_analysis": "canonical-clang-no-security",
+  "canonical_gcc_analysis": "canonical-gcc-no-security",
+  "canonical_build": "canonical-clang-no-security-compdb",
+  "output_regex": "/src/libsinglebin_cp_",
+  "expected_compile_commands": 6,
+  "translation_variant": "canonical",
+  "reachable_staticlib": "libcoreutils_small_14_reachable.a",
+  "differential_harness": "coreutils_small_14_differential.py",
+  "upstream_tests": [
+    "tests/cp/copy-FMR.sh",
+    "tests/cp/cp-HL.sh",
+    "tests/cp/cp-parents.sh",
+    "tests/cp/dir-vs-file.sh",
+    "tests/cp/link.sh",
+    "tests/cp/non-utf8-name.sh",
+    "tests/cp/preserve-mode.sh",
+    "tests/cp/same-file.sh",
+    "tests/cp/sparse.sh",
+    "tests/cp/symlink-slash.sh",
+    "tests/help/help-version.sh",
+    "tests/help/help-version-getopt.sh"
+  ],
+  "valgrind_cases": [
+    {"applet": "cp", "arguments": ["source", "destination"], "status": 0, "setup": "link"}
+  ],
+  "full_suite_baseline": {
+    "total": 761,
+    "pass": 626,
+    "skip": 134,
+    "fail": 0,
+    "error": 1,
+    "known_error": "tests/rm/deep-2"
+  },
+  "selection_policy": "The no-security cp closure is translated independently from install and mv because all three compile copy.c, copy-file-data.c, cp-hash.c, force-link.c and selinux.c with applet-specific definitions; C2Rust requires unique source paths within each translation batch."
+}
