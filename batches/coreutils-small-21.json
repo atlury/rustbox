@@ -1,0 +1,152 @@
+{
+  "schema": 1,
+  "upstream": "GNU Coreutils 9.12",
+  "name": "coreutils-small-21",
+  "applets": ["seq"],
+  "canonical_analysis": "canonical-clang-no-security",
+  "canonical_gcc_analysis": "canonical-gcc-no-security",
+  "canonical_build": "canonical-clang-no-security-compdb",
+  "output_regex": "/src/libsinglebin_seq_a-seq\\.o$",
+  "expected_compile_commands": 1,
+  "translation_variant": "normalized",
+  "prepare_scaffold": true,
+  "reachable_staticlib": "libcoreutils_small_21_normalized_reachable.a",
+  "differential_harness": "coreutils_small_21_differential.py",
+  "upstream_tests": [
+    "tests/seq/seq.pl",
+    "tests/seq/seq-epipe.sh",
+    "tests/seq/seq-extra-number.sh",
+    "tests/seq/seq-io-errors.sh",
+    "tests/seq/seq-locale.sh",
+    "tests/seq/seq-long-double.sh",
+    "tests/seq/seq-precision.sh",
+    "tests/help/help-version.sh",
+    "tests/help/help-version-getopt.sh"
+  ],
+  "valgrind_cases": [
+    {"applet": "seq", "arguments": ["1", "3"], "status": 0}
+  ],
+  "full_suite_baseline": {
+    "total": 761, "pass": 626, "skip": 134, "fail": 0, "error": 1,
+    "known_error": "tests/rm/deep-2"
+  },
+  "typed_c_bridges": [
+    {
+      "source": "bridges/coreutils/seq-long-double.c",
+      "reference_output": "src/libsinglebin_seq_a-seq.o",
+      "object": "seq-long-double.o",
+      "symbols": [
+        "rustbox_seq_format_integer",
+        "rustbox_seq_from_uintmax",
+        "rustbox_seq_parse",
+        "rustbox_seq_print_numbers",
+        "rustbox_seq_properties",
+        "rustbox_seq_to_uintmax"
+      ],
+      "reason": "Keep GNU seq's native x86 long-double representation, arithmetic loop, and variadic formatting behind raw-byte typed boundaries; option parsing, operand layout analysis, format validation, arbitrary-precision integer fast path, diagnostics, and output policy remain translated Rust."
+    }
+  ],
+  "c_normalization": [
+    {
+      "source": "src/seq.c", "engine": "exact",
+      "expected_before": "struct operand\n{\n  /* Its value, converted to 'long double'.  */\n  long double value;",
+      "replacement": "typedef struct\n{\n  unsigned char bytes[sizeof (long double)];\n} rustbox_long_double_storage;\n\nextern bool rustbox_seq_parse (char const *, void *);\nextern void rustbox_seq_from_uintmax (uintmax_t, void *);\nextern unsigned int rustbox_seq_properties (void const *);\nextern uintmax_t rustbox_seq_to_uintmax (void const *);\nextern char *rustbox_seq_format_integer (void const *);\nextern void rustbox_seq_print_numbers\n  (char const *, size_t, size_t, void const *, void const *, void const *,\n   bool, char const *, char const *);\n\nenum\n{\n  RUSTBOX_SEQ_NAN = 1,\n  RUSTBOX_SEQ_FINITE = 2,\n  RUSTBOX_SEQ_ZERO = 4,\n  RUSTBOX_SEQ_NONNEGATIVE = 8,\n  RUSTBOX_SEQ_FAST_STEP = 16\n};\n\nstruct operand\n{\n  /* Its value, stored in native long-double representation.  */\n  rustbox_long_double_storage value;",
+      "expected_after": "rustbox_long_double_storage value;",
+      "reason": "Represent each native long-double operand as exact raw storage and declare narrow typed operations for the unsupported ABI."
+    },
+    {
+      "source": "src/seq.c", "engine": "exact",
+      "expected_before": "if (! xstrtold (arg, NULL, &ret.value, cl_strtold))",
+      "replacement": "if (! rustbox_seq_parse (arg, &ret.value))",
+      "expected_after": "if (! rustbox_seq_parse (arg, &ret.value))",
+      "reason": "Parse into native raw storage while retaining GNU seq's diagnostic and operand-layout policy."
+    },
+    {
+      "source": "src/seq.c", "engine": "exact",
+      "expected_before": "if (isnan (ret.value))",
+      "replacement": "if (rustbox_seq_properties (&ret.value) & RUSTBOX_SEQ_NAN)",
+      "expected_after": "if (rustbox_seq_properties (&ret.value) & RUSTBOX_SEQ_NAN)",
+      "reason": "Classify NaN in the native representation before GNU's unchanged diagnostic."
+    },
+    {
+      "source": "src/seq.c", "engine": "exact",
+      "expected_before": "if (! arg[strcspn (arg, \"xX\")] && isfinite (ret.value))",
+      "replacement": "if (! arg[strcspn (arg, \"xX\")]\n      && (rustbox_seq_properties (&ret.value) & RUSTBOX_SEQ_FINITE))",
+      "expected_after": "rustbox_seq_properties (&ret.value) & RUSTBOX_SEQ_FINITE",
+      "reason": "Preserve GNU's finite-only decimal layout inference using native classification."
+    },
+    {
+      "source": "src/seq.c", "engine": "exact",
+      "expected_before": "static void\nprint_numbers (char const *fmt, struct layout layout,\n               long double first, long double step, long double last)\n{\n  bool out_of_range",
+      "replacement": "static void\nprint_numbers (char const *fmt, struct layout layout,\n               rustbox_long_double_storage first,\n               rustbox_long_double_storage step,\n               rustbox_long_double_storage last)\n{\n  rustbox_seq_print_numbers\n    (fmt, layout.prefix_len, layout.suffix_len, &first, &step, &last,\n     locale_ok, separator, terminator);\n#if 0\n  bool out_of_range",
+      "expected_after": "rustbox_seq_print_numbers\n    (fmt, layout.prefix_len",
+      "reason": "Keep the native long-double arithmetic and variadic formatting loop together while retaining GNU's translated caller and output configuration."
+    },
+    {
+      "source": "src/seq.c", "engine": "exact",
+      "expected_before": "      if (fputs (terminator, stdout) == EOF)\n        write_error ();\n    }\n}\n\n/* Return the default format",
+      "replacement": "      if (fputs (terminator, stdout) == EOF)\n        write_error ();\n    }\n#endif\n}\n\n/* Return the default format",
+      "expected_after": "    }\n#endif\n}\n\n/* Return the default format",
+      "reason": "Exclude only the superseded native arithmetic body from translation after installing its typed bridge call."
+    },
+    {
+      "source": "src/seq.c", "engine": "exact",
+      "expected_before": "  operand step = { 1, 1, 0 };",
+      "replacement": "  operand step = { { { 0 } }, 1, 0 };\n  rustbox_seq_from_uintmax (1, &step.value);",
+      "expected_after": "rustbox_seq_from_uintmax (1, &step.value);",
+      "reason": "Construct the default increment in native storage without exposing long-double layout to Rust."
+    },
+    {
+      "source": "src/seq.c", "engine": "exact",
+      "expected_before": "&& xstrtold (argv[optind + 1], NULL, &step.value, cl_strtold)\n          && 0 < step.value && step.value <= SEQ_FAST_STEP_LIMIT",
+      "replacement": "&& rustbox_seq_parse (argv[optind + 1], &step.value)\n          && (rustbox_seq_properties (&step.value) & RUSTBOX_SEQ_FAST_STEP)",
+      "expected_after": "rustbox_seq_parse (argv[optind + 1], &step.value)",
+      "reason": "Parse and range-check the optional fast-path increment in its native representation."
+    },
+    {
+      "source": "src/seq.c", "engine": "exact",
+      "expected_before": "seq_fast (s1, s2, step.value);",
+      "replacement": "seq_fast (s1, s2, rustbox_seq_to_uintmax (&step.value));",
+      "expected_after": "seq_fast (s1, s2, rustbox_seq_to_uintmax (&step.value));",
+      "expected_before_count": 2, "expected_after_count": 2,
+      "reason": "Convert only already range-checked positive integral increments at the typed boundary."
+    },
+    {
+      "source": "src/seq.c", "engine": "exact",
+      "expected_before": "  operand first = { 1, 1, 0 };",
+      "replacement": "  operand first = { { { 0 } }, 1, 0 };\n  rustbox_seq_from_uintmax (1, &first.value);",
+      "expected_after": "rustbox_seq_from_uintmax (1, &first.value);",
+      "reason": "Construct the default first operand in native storage without exposing long-double layout to Rust."
+    },
+    {
+      "source": "src/seq.c", "engine": "exact",
+      "expected_before": "if (step.value == 0)",
+      "replacement": "if (rustbox_seq_properties (&step.value) & RUSTBOX_SEQ_ZERO)",
+      "expected_after": "if (rustbox_seq_properties (&step.value) & RUSTBOX_SEQ_ZERO)",
+      "reason": "Test the native increment for zero before GNU's unchanged error path."
+    },
+    {
+      "source": "src/seq.c", "engine": "exact",
+      "expected_before": "&& isfinite (first.value) && 0 <= first.value && 0 <= last.value\n      && 0 < step.value && step.value <= SEQ_FAST_STEP_LIMIT",
+      "replacement": "&& (rustbox_seq_properties (&first.value)\n          & (RUSTBOX_SEQ_FINITE | RUSTBOX_SEQ_NONNEGATIVE))\n         == (RUSTBOX_SEQ_FINITE | RUSTBOX_SEQ_NONNEGATIVE)\n      && (rustbox_seq_properties (&last.value) & RUSTBOX_SEQ_NONNEGATIVE)\n      && (rustbox_seq_properties (&step.value) & RUSTBOX_SEQ_FAST_STEP)",
+      "expected_after": "rustbox_seq_properties (&step.value) & RUSTBOX_SEQ_FAST_STEP",
+      "expected_after_count": 2,
+      "reason": "Preserve GNU's second integer fast-path predicates using native classifications."
+    },
+    {
+      "source": "src/seq.c", "engine": "exact",
+      "expected_before": "? xstrdup (user_start) : xasprintf (\"%0.Lf\", first.value)",
+      "replacement": "? xstrdup (user_start) : rustbox_seq_format_integer (&first.value)",
+      "expected_after": "rustbox_seq_format_integer (&first.value)",
+      "reason": "Format the native first value without crossing a variadic ABI."
+    },
+    {
+      "source": "src/seq.c", "engine": "exact",
+      "expected_before": "char *s2 = (! isfinite (last.value)\n                  ? xstrdup (\"inf\") : xasprintf (\"%0.Lf\", last.value));",
+      "replacement": "char *s2 = (!(rustbox_seq_properties (&last.value) & RUSTBOX_SEQ_FINITE)\n                  ? xstrdup (\"inf\")\n                  : rustbox_seq_format_integer (&last.value));",
+      "expected_after": "rustbox_seq_format_integer (&last.value));",
+      "reason": "Preserve infinity handling and format a finite native final value through the typed boundary."
+    }
+  ],
+  "selection_policy": "Translate GNU seq's CLI, validation, arbitrary-precision integer path, and layout policy in full; isolate the native x86 long-double representation and arithmetic loop that Rust cannot ABI-represent."
+}
