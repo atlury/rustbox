@@ -99,7 +99,10 @@ def main() -> int:
         for line in symbol_output.splitlines()
         if re.search(r" rustbox_[a-z0-9_]+_main$", line)
     )
-    expected_symbols = sorted(f"rustbox_{name}_main" for name in manifest["applets"])
+    expected_symbols = sorted(
+        f"rustbox_{re.sub(r'[^a-z0-9_]', '_', name)}_main"
+        for name in manifest["applets"]
+    )
     if replacement_symbols != expected_symbols:
         raise RuntimeError(f"wrong hybrid replacement symbols: {replacement_symbols}")
     map_text = link_map.read_text(encoding="utf-8", errors="replace")

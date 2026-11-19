@@ -1,0 +1,132 @@
+{
+  "schema": 1,
+  "upstream": "util-linux 2.42.4",
+  "name": "util-linux-small-07",
+  "applets": [
+    "mkfs.bfs",
+    "write",
+    "getopt",
+    "fallocate",
+    "chrt",
+    "fincore",
+    "whereis",
+    "col",
+    "chmem",
+    "rfkill"
+  ],
+  "output_regex": "/(?:disk-utils/mkfs\\.bfs|term-utils/write-write|misc-utils/(?:getopt|fincore-fincore|whereis)|sys-utils/(?:fallocate|chmem|rfkill-rfkill)|schedutils/chrt|text-utils/col)\\.o$",
+  "expected_compile_commands": 10,
+  "c_normalization": [
+    {
+      "source": "text-utils/col.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(excl)",
+      "replacement": "sizeof(excl) / sizeof(excl[0])",
+      "expected_after": "sizeof(excl) / sizeof(excl[0])",
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."
+    },
+    {
+      "source": "sys-utils/fallocate.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(excl)",
+      "replacement": "sizeof(excl) / sizeof(excl[0])",
+      "expected_after": "sizeof(excl) / sizeof(excl[0])",
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."
+    },
+    {
+      "source": "sys-utils/chmem.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(zone_names)",
+      "expected_before_count": 2,
+      "replacement": "sizeof(zone_names) / sizeof(zone_names[0])",
+      "expected_after": "sizeof(zone_names) / sizeof(zone_names[0])",
+      "expected_after_count": 2,
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."
+    },
+    {
+      "source": "sys-utils/chmem.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(excl)",
+      "replacement": "sizeof(excl) / sizeof(excl[0])",
+      "expected_after": "sizeof(excl) / sizeof(excl[0])",
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."
+    },
+    {
+      "source": "schedutils/chrt.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(policies)",
+      "replacement": "sizeof(policies) / sizeof(policies[0])",
+      "expected_after": "sizeof(policies) / sizeof(policies[0])",
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."
+    },
+    {
+      "source": "misc-utils/fincore.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(infos)",
+      "expected_before_count": 5,
+      "replacement": "sizeof(infos) / sizeof(infos[0])",
+      "expected_after": "sizeof(infos) / sizeof(infos[0])",
+      "expected_after_count": 5,
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."
+    },
+    {
+      "source": "misc-utils/fincore.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(columns)",
+      "replacement": "sizeof(columns) / sizeof(columns[0])",
+      "expected_after": "sizeof(columns) / sizeof(columns[0])",
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."
+    },
+    {
+      "source": "sys-utils/rfkill.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(infos)",
+      "expected_before_count": 4,
+      "replacement": "sizeof(infos) / sizeof(infos[0])",
+      "expected_after": "sizeof(infos) / sizeof(infos[0])",
+      "expected_after_count": 4,
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."
+    },
+    {
+      "source": "sys-utils/rfkill.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(rfkill_actions)",
+      "replacement": "sizeof(rfkill_actions) / sizeof(rfkill_actions[0])",
+      "expected_after": "sizeof(rfkill_actions) / sizeof(rfkill_actions[0])",
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."
+    },
+    {
+      "source": "sys-utils/rfkill.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(p)",
+      "replacement": "sizeof(p) / sizeof(p[0])",
+      "expected_after": "sizeof(p) / sizeof(p[0])",
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."
+    },
+    {
+      "source": "sys-utils/rfkill.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(rfkill_type_strings)",
+      "replacement": "sizeof(rfkill_type_strings) / sizeof(rfkill_type_strings[0])",
+      "expected_after": "sizeof(rfkill_type_strings) / sizeof(rfkill_type_strings[0])",
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."
+    },
+    {
+      "source": "sys-utils/rfkill.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(excl)",
+      "replacement": "sizeof(excl) / sizeof(excl[0])",
+      "expected_after": "sizeof(excl) / sizeof(excl[0])",
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."
+    },
+    {
+      "source": "sys-utils/rfkill.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(columns)",
+      "replacement": "sizeof(columns) / sizeof(columns[0])",
+      "expected_after": "sizeof(columns) / sizeof(columns[0])",
+      "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."
+    }
+  ],
+  "selection_policy": "Ten of the smallest remaining independent canonical applet translation units after batch six, including the first dotted public applet name. Shared-list-header and shared-implementation edges remain isolated for dedicated batches."
+}

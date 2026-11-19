@@ -12,7 +12,7 @@ import subprocess
 from pathlib import Path
 
 
-SAFE_APPLET = re.compile(r"^[a-z0-9_]+$")
+SAFE_APPLET = re.compile(r"^[a-z0-9_.-]+$")
 MAIN_DEFINITION = re.compile(r"\bint\s+main\s*\(")
 
 
@@ -33,6 +33,12 @@ def main() -> int:
     applets = manifest["applets"]
     if not all(isinstance(name, str) and SAFE_APPLET.fullmatch(name) for name in applets):
         raise RuntimeError("unsafe applet name in manifest")
+    symbol_tokens = {
+        name: re.sub(r"[^a-z0-9_]", "_", name)
+        for name in applets
+    }
+    if len(set(symbol_tokens.values())) != len(symbol_tokens):
+        raise RuntimeError(f"applet names collide as C symbols: {symbol_tokens}")
     by_stem = {Path(entry["file"]).stem: entry for entry in entries}
     if set(by_stem) != set(applets) or len(by_stem) != len(entries):
         raise RuntimeError(
@@ -62,7 +68,7 @@ def main() -> int:
         destination = specialized_root / relative
         destination.parent.mkdir(parents=True, exist_ok=True)
         before = source.read_text(encoding="utf-8")
-        symbol = f"rustbox_{applet}_main"
+        symbol = f"rustbox_{symbol_tokens[applet]}_main"
         after, replacements = MAIN_DEFINITION.subn(
             f"int {symbol}(", before, count=1
         )
@@ -79,7 +85,7 @@ def main() -> int:
             compile_index,
             f"-fmacro-prefix-map={specialized_root}={source_root}",
         )
-        object_path = object_root / f"{applet}.o"
+        object_path = object_root / f"{symbol_tokens[applet]}.o"
         output_index = arguments.index("-o") + 1
         arguments[output_index] = str(object_path)
         process = subprocess.run(
