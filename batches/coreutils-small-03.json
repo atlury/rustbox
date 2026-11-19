@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "upstream": "GNU Coreutils 9.12",
+  "name": "coreutils-small-03",
+  "applets": [
+    "chgrp",
+    "dir",
+    "md5sum",
+    "nohup",
+    "sha1sum",
+    "sha224sum",
+    "sha256sum",
+    "sha384sum",
+    "sha512sum",
+    "vdir"
+  ],
+  "output_regex": "/src/libsinglebin_(chgrp|dir|md5sum|nohup|sha1sum|sha224sum|sha256sum|sha384sum|sha512sum|vdir)_",
+  "expected_compile_commands": 10,
+  "reachable_staticlib": "libcoreutils_small_03_reachable.a",
+  "selection_policy": "The ten smallest remaining canonical applet archives that have one captured compile action each, excluding the bracket naming edge case. Shared canonical C closures remain linked and are not counted as translated."
+}
