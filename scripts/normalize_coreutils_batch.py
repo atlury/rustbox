@@ -131,8 +131,12 @@ def main() -> int:
             relative = Path(declaration["source"])
             source = source_root / relative
             destination = staged_source / relative
-            if not source.is_file() or destination.exists():
+            if not source.is_file():
                 raise RuntimeError(f"invalid shared header normalization source: {relative}")
+            if destination.exists():
+                if str(relative) not in source_records:
+                    raise RuntimeError(f"untracked staged header normalization source: {relative}")
+                continue
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(source, destination)
             destination.chmod(destination.stat().st_mode | 0o200)
