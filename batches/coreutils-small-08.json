@@ -94,9 +94,9 @@
       "source": "src/pr.c",
       "engine": "exact",
       "expected_before": "ckd_mul (&buff_allocated, chars_if_truncate, use_col_separator + 1)",
-      "replacement": "ckd_mul (&buff_allocated, chars_if_truncate,\n                  (idx_t) use_col_separator + 1)",
-      "expected_after": "(idx_t) use_col_separator + 1",
-      "reason": "Make the separator-width multiplier use the idx_t destination width explicitly."
+      "replacement": "ckd_mul (&buff_allocated, (idx_t) chars_if_truncate,\n                  (idx_t) use_col_separator + 1)",
+      "expected_after": "ckd_mul (&buff_allocated, (idx_t) chars_if_truncate,",
+      "reason": "Make both bounded multiplier operands use the idx_t destination width explicitly."
     },
     {
       "source": "src/set-fields.c",
