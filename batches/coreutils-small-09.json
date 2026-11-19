@@ -22,8 +22,8 @@
   },
   "output_regex": "/src/(libsinglebin___a-|libsinglebin_(b2sum|chmod|dd|df|du|numfmt|sort|split|tail)_)",
   "expected_compile_commands": 15,
-  "translation_variant": "canonical",
-  "reachable_staticlib": "libcoreutils_small_09_reachable.a",
+  "translation_variant": "normalized",
+  "reachable_staticlib": "libcoreutils_small_09_normalized_reachable.a",
   "differential_harness": "coreutils_small_09_differential.py",
   "upstream_tests": [
     "tests/test/test.pl",
@@ -67,6 +67,16 @@
     {"applet": "sort", "arguments": [], "status": 0},
     {"applet": "split", "arguments": [], "status": 0},
     {"applet": "tail", "arguments": ["-n", "0"], "status": 0}
+  ],
+  "c_normalization": [
+    {
+      "source": "src/numfmt.c",
+      "engine": "exact",
+      "expected_before": "return *(c + 1) == '\\0' ? mbschr (s, uc) : (char *) mbsstr (s, c);",
+      "replacement": "return *(c + 1) == '\\0' ? mbschr (s, uc) : (char *) (mbsstr) (s, c);",
+      "expected_after": "(char *) (mbsstr) (s, c)",
+      "reason": "Call the same mutable mbsstr function directly instead of expanding gnulib's const-correct _Generic wrapper, which C2Rust cannot export as a valid Clang AST."
+    }
   ],
   "selection_policy": "The next independent canonical closures after batch eight that contain neither SELinux nor systemd code. The bracket applet advances through an explicit validated archive/symbol alias. B2sum is isolated from cksum because both compile cksum.c under different algorithm configurations; df is isolated from stat because both compile find-mount-point.c. Previously deferred intrinsic and long-double ABI applets remain in their typed-bridge queues."
 }
