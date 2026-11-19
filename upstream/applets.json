@@ -5,7 +5,8 @@
     "normalized",
     "translated",
     "integrated",
-    "canonical-parity"
+    "canonical-parity",
+    "excluded"
   ],
   "upstreams": {
     "coreutils": {
@@ -43,7 +44,7 @@
       },
       "chcon": {
         "repair_score": null,
-        "stage": "inventory"
+        "stage": "excluded"
       },
       "chgrp": {
         "repair_score": 5,
@@ -62,16 +63,16 @@
         "stage": "canonical-parity"
       },
       "cksum": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 5,
+        "stage": "canonical-parity"
       },
       "comm": {
         "repair_score": 5,
         "stage": "canonical-parity"
       },
       "cp": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 7,
+        "stage": "canonical-parity"
       },
       "csplit": {
         "repair_score": 7,
@@ -126,8 +127,8 @@
         "stage": "canonical-parity"
       },
       "factor": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 5,
+        "stage": "canonical-parity"
       },
       "false": {
         "repair_score": 3,
@@ -158,12 +159,12 @@
         "stage": "canonical-parity"
       },
       "id": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 7,
+        "stage": "canonical-parity"
       },
       "install": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 7,
+        "stage": "canonical-parity"
       },
       "join": {
         "repair_score": 7,
@@ -186,32 +187,32 @@
         "stage": "canonical-parity"
       },
       "ls": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 7,
+        "stage": "canonical-parity"
       },
       "md5sum": {
         "repair_score": 5,
         "stage": "canonical-parity"
       },
       "mkdir": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 7,
+        "stage": "canonical-parity"
       },
       "mkfifo": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 5,
+        "stage": "canonical-parity"
       },
       "mknod": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 5,
+        "stage": "canonical-parity"
       },
       "mktemp": {
         "repair_score": 5,
         "stage": "canonical-parity"
       },
       "mv": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 7,
+        "stage": "canonical-parity"
       },
       "nice": {
         "repair_score": 5,
@@ -230,12 +231,12 @@
         "stage": "canonical-parity"
       },
       "numfmt": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 5,
+        "stage": "canonical-parity"
       },
       "od": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 5,
+        "stage": "canonical-parity"
       },
       "paste": {
         "repair_score": 7,
@@ -258,8 +259,8 @@
         "stage": "canonical-parity"
       },
       "printf": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 5,
+        "stage": "canonical-parity"
       },
       "ptx": {
         "repair_score": 7,
@@ -290,8 +291,8 @@
         "stage": "canonical-parity"
       },
       "seq": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 5,
+        "stage": "canonical-parity"
       },
       "sha1sum": {
         "repair_score": 5,
@@ -326,16 +327,16 @@
         "stage": "canonical-parity"
       },
       "sort": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 7,
+        "stage": "canonical-parity"
       },
       "split": {
         "repair_score": 7,
         "stage": "canonical-parity"
       },
       "stat": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 7,
+        "stage": "canonical-parity"
       },
       "stdbuf": {
         "repair_score": 5,
@@ -426,8 +427,8 @@
         "stage": "canonical-parity"
       },
       "wc": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 5,
+        "stage": "canonical-parity"
       },
       "who": {
         "repair_score": 7,
@@ -496,8 +497,8 @@
         "stage": "inventory"
       },
       "choom": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 3,
+        "stage": "canonical-parity"
       },
       "chrt": {
         "repair_score": null,
@@ -516,8 +517,8 @@
         "stage": "inventory"
       },
       "colrm": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 3,
+        "stage": "canonical-parity"
       },
       "column": {
         "repair_score": null,
@@ -532,8 +533,8 @@
         "stage": "inventory"
       },
       "ctrlaltdel": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 3,
+        "stage": "canonical-parity"
       },
       "delpart": {
         "repair_score": null,
@@ -552,12 +553,12 @@
         "stage": "inventory"
       },
       "exch": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 3,
+        "stage": "canonical-parity"
       },
       "fadvise": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 3,
+        "stage": "canonical-parity"
       },
       "fallocate": {
         "repair_score": null,
@@ -680,8 +681,8 @@
         "stage": "inventory"
       },
       "line": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 3,
+        "stage": "canonical-parity"
       },
       "linux32": {
         "repair_score": null,
@@ -748,8 +749,8 @@
         "stage": "inventory"
       },
       "mcookie": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 3,
+        "stage": "canonical-parity"
       },
       "mesg": {
         "repair_score": null,
@@ -880,8 +881,8 @@
         "stage": "inventory"
       },
       "rev": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 3,
+        "stage": "canonical-parity"
       },
       "rfkill": {
         "repair_score": null,
@@ -920,16 +921,16 @@
         "stage": "inventory"
       },
       "setpgid": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 3,
+        "stage": "canonical-parity"
       },
       "setpriv": {
         "repair_score": null,
         "stage": "inventory"
       },
       "setsid": {
-        "repair_score": null,
-        "stage": "inventory"
+        "repair_score": 3,
+        "stage": "canonical-parity"
       },
       "setterm": {
         "repair_score": null,

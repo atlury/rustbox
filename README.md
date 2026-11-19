@@ -44,7 +44,7 @@ scoring, and correctness gates.
 | Upstream | Inventory | Signed source oracle | Hybrid canonical parity | Integrated Rust applets |
 |---|---:|---:|---:|---:|
 | GNU Coreutils 9.12 | 108 | 108 | 107 | 0 |
-| util-linux 2.42.4 | 155 | 155 | 0 | 0 |
+| util-linux 2.42.4 | 155 | 155 | 10 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -85,6 +85,12 @@ SELinux, systemd, audit, udev, Python bindings, and PAM lastlog integration;
 it retains the ordinary non-SELinux implementations, including `mkfifo`-like
 filesystem functionality elsewhere in Rustbox.  `setpriv`, `lastlog2`, and the
 legacy `raw` utility are deliberately enabled rather than silently omitted.
+The paired Clang/GCC command inventory is recorded in
+`evidence/util-linux-2.42.4-compdb.json`, and first-batch translation,
+normalization, hybrid-link, differential, upstream-test, and Valgrind evidence
+is in `evidence/util-linux-2.42.4-c2rust-small-01.json`.  Ten util-linux
+applets have reached hybrid canonical parity; final Rustbox integration remains
+deliberately deferred until the applet batches are complete.
 
 ## Applet inventory
 
@@ -110,7 +116,7 @@ parity.
 - [x] `chmod` — hybrid canonical parity; repair score 7
 - [x] `chown` — hybrid canonical parity; repair score 7
 - [x] `chroot` — hybrid canonical parity; repair score 7
-- [x] `cksum` — hybrid canonical parity with typed CPU-dispatch bridge; repair score 5
+- [x] `cksum` — hybrid canonical parity; repair score 5
 - [x] `comm` — hybrid canonical parity; repair score 5
 - [x] `cp` — hybrid canonical parity; repair score 7
 - [x] `csplit` — hybrid canonical parity; repair score 7
@@ -126,7 +132,7 @@ parity.
 - [x] `env` — hybrid canonical parity; repair score 7
 - [x] `expand` — hybrid canonical parity; repair score 7
 - [x] `expr` — hybrid canonical parity; repair score 7
-- [x] `factor` — hybrid canonical parity through GNU's portable arithmetic path; repair score 5
+- [x] `factor` — hybrid canonical parity; repair score 5
 - [x] `false` — hybrid canonical parity; repair score 3
 - [x] `fmt` — hybrid canonical parity; repair score 5
 - [x] `fold` — hybrid canonical parity; repair score 7
@@ -152,14 +158,14 @@ parity.
 - [x] `nl` — hybrid canonical parity; repair score 5
 - [x] `nohup` — hybrid canonical parity; repair score 5
 - [x] `nproc` — hybrid canonical parity; repair score 5
-- [x] `numfmt` — hybrid canonical parity with canonical native-numeric bridge; repair score 5
-- [x] `od` — hybrid canonical parity with typed native-floating bridge; repair score 5
+- [x] `numfmt` — hybrid canonical parity; repair score 5
+- [x] `od` — hybrid canonical parity; repair score 5
 - [x] `paste` — hybrid canonical parity; repair score 7
 - [x] `pathchk` — hybrid canonical parity; repair score 5
 - [x] `pinky` — hybrid canonical parity; repair score 5
 - [x] `pr` — hybrid canonical parity; repair score 7
 - [x] `printenv` — hybrid canonical parity; repair score 5
-- [x] `printf` — hybrid canonical parity with typed native-long-double bridge; repair score 5
+- [x] `printf` — hybrid canonical parity; repair score 5
 - [x] `ptx` — hybrid canonical parity; repair score 7
 - [x] `pwd` — hybrid canonical parity; repair score 5
 - [x] `readlink` — hybrid canonical parity; repair score 5
@@ -167,7 +173,7 @@ parity.
 - [x] `rm` — hybrid canonical parity; repair score 7
 - [x] `rmdir` — hybrid canonical parity; repair score 7
 - [x] `runcon` — hybrid canonical parity; repair score 5
-- [x] `seq` — hybrid canonical parity with typed native-long-double bridge; repair score 5
+- [x] `seq` — hybrid canonical parity; repair score 5
 - [x] `sha1sum` — hybrid canonical parity; repair score 5
 - [x] `sha224sum` — hybrid canonical parity; repair score 5
 - [x] `sha256sum` — hybrid canonical parity; repair score 5
@@ -176,7 +182,7 @@ parity.
 - [x] `shred` — hybrid canonical parity; repair score 7
 - [x] `shuf` — hybrid canonical parity; repair score 5
 - [x] `sleep` — hybrid canonical parity; repair score 5
-- [x] `sort` — hybrid canonical parity with typed native-long-double bridge; repair score 7
+- [x] `sort` — hybrid canonical parity; repair score 7
 - [x] `split` — hybrid canonical parity; repair score 7
 - [x] `stat` — hybrid canonical parity; repair score 7
 - [x] `stdbuf` — hybrid canonical parity; repair score 5
@@ -201,7 +207,7 @@ parity.
 - [x] `uptime` — hybrid canonical parity; repair score 5
 - [x] `users` — hybrid canonical parity; repair score 5
 - [x] `vdir` — hybrid canonical parity; repair score 5
-- [x] `wc` — hybrid canonical parity with typed CPU-dispatch bridge; repair score 5
+- [x] `wc` — hybrid canonical parity; repair score 5
 - [x] `who` — hybrid canonical parity; repair score 7
 - [x] `whoami` — hybrid canonical parity; repair score 5
 - [x] `yes` — hybrid canonical parity; repair score 5
@@ -221,22 +227,22 @@ parity.
 - [ ] `chcpu` — inventory
 - [ ] `chfn` — inventory
 - [ ] `chmem` — inventory
-- [ ] `choom` — inventory
+- [x] `choom` — hybrid canonical parity; repair score 3
 - [ ] `chrt` — inventory
 - [ ] `chsh` — inventory
 - [ ] `col` — inventory
 - [ ] `colcrt` — inventory
-- [ ] `colrm` — inventory
+- [x] `colrm` — hybrid canonical parity; repair score 3
 - [ ] `column` — inventory
 - [ ] `copyfilerange` — inventory
 - [ ] `coresched` — inventory
-- [ ] `ctrlaltdel` — inventory
+- [x] `ctrlaltdel` — hybrid canonical parity; repair score 3
 - [ ] `delpart` — inventory
 - [ ] `dmesg` — inventory
 - [ ] `eject` — inventory
 - [ ] `enosys` — inventory
-- [ ] `exch` — inventory
-- [ ] `fadvise` — inventory
+- [x] `exch` — hybrid canonical parity; repair score 3
+- [x] `fadvise` — hybrid canonical parity; repair score 3
 - [ ] `fallocate` — inventory
 - [ ] `fdformat` — inventory
 - [ ] `fdisk` — inventory
@@ -267,7 +273,7 @@ parity.
 - [ ] `lastb` — inventory
 - [ ] `lastlog2` — inventory
 - [ ] `ldattach` — inventory
-- [ ] `line` — inventory
+- [x] `line` — hybrid canonical parity; repair score 3
 - [ ] `linux32` — inventory
 - [ ] `linux64` — inventory
 - [ ] `logger` — inventory
@@ -284,7 +290,7 @@ parity.
 - [ ] `lslogins` — inventory
 - [ ] `lsmem` — inventory
 - [ ] `lsns` — inventory
-- [ ] `mcookie` — inventory
+- [x] `mcookie` — hybrid canonical parity; repair score 3
 - [ ] `mesg` — inventory
 - [ ] `mips` — inventory
 - [ ] `mips32` — inventory
@@ -317,7 +323,7 @@ parity.
 - [ ] `rename` — inventory
 - [ ] `renice` — inventory
 - [ ] `resizepart` — inventory
-- [ ] `rev` — inventory
+- [x] `rev` — hybrid canonical parity; repair score 3
 - [ ] `rfkill` — inventory
 - [ ] `rtcwake` — inventory
 - [ ] `runuser` — inventory
@@ -327,9 +333,9 @@ parity.
 - [ ] `scriptlive` — inventory
 - [ ] `scriptreplay` — inventory
 - [ ] `setarch` — inventory
-- [ ] `setpgid` — inventory
+- [x] `setpgid` — hybrid canonical parity; repair score 3
 - [ ] `setpriv` — inventory
-- [ ] `setsid` — inventory
+- [x] `setsid` — hybrid canonical parity; repair score 3
 - [ ] `setterm` — inventory
 - [ ] `sfdisk` — inventory
 - [ ] `sparc` — inventory

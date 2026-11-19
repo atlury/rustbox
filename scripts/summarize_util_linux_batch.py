@@ -1,0 +1,203 @@
+#!/usr/bin/env python3
+"""Build reproducible evidence for one translated util-linux hybrid batch."""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import re
+import shutil
+import subprocess
+import tempfile
+from pathlib import Path
+
+
+HOLES = {
+    "compile_error_macros": re.compile(r"\bcompile_error!"),
+    "todo_macros": re.compile(r"\btodo!"),
+    "unimplemented_macros": re.compile(r"\bunimplemented!"),
+}
+
+
+def sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def load(path: Path) -> dict[str, object]:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def rust_metrics(crate: Path) -> dict[str, object]:
+    files = sorted(crate.rglob("*.rs"))
+    combined = "\n".join(path.read_text(encoding="utf-8") for path in files)
+    result: dict[str, object] = {
+        "rust_files": len(files),
+        "rust_bytes": sum(path.stat().st_size for path in files),
+        "file_sha256": {str(path.relative_to(crate)): sha256(path) for path in files},
+    }
+    result.update({name: len(pattern.findall(combined)) for name, pattern in HOLES.items()})
+    return result
+
+
+def stripped_size(path: Path) -> int:
+    with tempfile.TemporaryDirectory(prefix="rustbox-util-strip-") as temporary:
+        output = Path(temporary) / path.name
+        shutil.copy2(path, output)
+        subprocess.run(["strip", "--strip-all", str(output)], check=True)
+        return output.stat().st_size
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--repository", type=Path, required=True)
+    parser.add_argument("--build", type=Path, required=True)
+    parser.add_argument("--batch", required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    args = parser.parse_args()
+    root = args.repository.resolve()
+    build = args.build.resolve()
+    batch = args.batch
+    manifest_path = root / "batches" / f"{batch}.json"
+    manifest = load(manifest_path)
+    if manifest.get("name") != batch:
+        raise RuntimeError("batch manifest mismatch")
+
+    analysis = root / "work/analysis/util-linux-2.42.4"
+    base = analysis / "translations/c2rust-0.22.1"
+    audit = base / f"{batch}-normalized-audit"
+    audit_prepared = base / f"{batch}-normalized-audit-prepared"
+    reachable = base / f"{batch}-normalized-reachable"
+    reachable_prepared = base / f"{batch}-normalized-reachable-prepared"
+    stable = base / f"{batch}-stable"
+    hybrid = build / "rustbox-util-linux-small-01"
+    link_map = hybrid.with_suffix(".map")
+    library = stable / "target/release/libutil_linux_small_01_normalized_reachable.a"
+    for path in (manifest_path, hybrid, link_map, library):
+        if not path.is_file():
+            raise RuntimeError(f"missing batch artifact: {path}")
+
+    declaration_maps = sorted(audit.rglob("*.c_decls.json"))
+    if len(declaration_maps) != manifest["expected_compile_commands"]:
+        raise RuntimeError("preserve-unused audit declaration maps are incomplete")
+    for crate in (audit, reachable, stable):
+        metrics = rust_metrics(crate)
+        if any(metrics[name] for name in HOLES):
+            raise RuntimeError(f"generated Rust contains a hole: {crate}")
+
+    symbol_output = subprocess.run(
+        ["nm", "-g", "--defined-only", str(hybrid)],
+        check=True,
+        text=True,
+        stdout=subprocess.PIPE,
+    ).stdout
+    replacement_symbols = sorted(
+        line.split()[-1]
+        for line in symbol_output.splitlines()
+        if re.search(r" rustbox_[a-z0-9_]+_main$", line)
+    )
+    expected_symbols = sorted(f"rustbox_{name}_main" for name in manifest["applets"])
+    if replacement_symbols != expected_symbols:
+        raise RuntimeError(f"wrong hybrid replacement symbols: {replacement_symbols}")
+    map_text = link_map.read_text(encoding="utf-8", errors="replace")
+    canonical_objects = {
+        "line": "text-utils/line.o",
+        "setpgid": "sys-utils/setpgid.o",
+        "exch": "misc-utils/exch-exch.o",
+        "ctrlaltdel": "sys-utils/ctrlaltdel.o",
+        "setsid": "sys-utils/setsid.o",
+        "choom": "sys-utils/choom.o",
+        "fadvise": "misc-utils/fadvise-fadvise.o",
+        "colrm": "text-utils/colrm.o",
+        "mcookie": "misc-utils/mcookie.o",
+        "rev": "text-utils/rev.o",
+    }
+    if any(name in map_text for name in canonical_objects.values()):
+        raise RuntimeError("hybrid link map contains a replaced canonical applet object")
+
+    modernization = load(stable / "rustbox-modernization.json")
+    opaque = sorted({
+        name
+        for change in modernization["changes"]
+        for name in change["opaque_pointer_types"]
+    })
+    evidence = {
+        "schema": 1,
+        "recorded_at": "2026-11-19",
+        "status": "hybrid canonical parity; Rustbox-native integration pending",
+        "batch": {
+            "name": batch,
+            "applets": manifest["applets"],
+            "manifest_sha256": sha256(manifest_path),
+        },
+        "input": {
+            "upstream_archive_sha256": "fbd62a100ab7bb8746ba0661255c3c48185b1e9021507c624da01fbc696330ec",
+            "clang_database_sha256": sha256(analysis / "canonical-clang/compile_commands.json"),
+            "gcc_database_sha256": sha256(analysis / "canonical-gcc/compile_commands.json"),
+            "compile_commands": manifest["expected_compile_commands"],
+            "slice_sha256": sha256(analysis / f"slices/{batch}/compile_commands.json"),
+        },
+        "normalization": load(analysis / f"normalized/{batch}/normalization.json"),
+        "entrypoint_specialization": load(analysis / f"normalized/{batch}/entrypoints/entrypoints.json"),
+        "translator": {
+            "name": "C2Rust",
+            "version": "0.22.1",
+            "image_id": "sha256:d7f3755ec6a27d89124626535d36b859ddee1f7a11236454f7952bf513c3d6aa",
+            "fail_on_error": True,
+            "audit_preserves_unused_functions": True,
+        },
+        "audit": {
+            **rust_metrics(audit),
+            "declaration_maps": len(declaration_maps),
+            "declaration_map_sha256": {
+                str(path.relative_to(audit)): sha256(path) for path in declaration_maps
+            },
+            "cargo_check": load(audit_prepared / "rustbox-cargo-check.json"),
+            "generated_rust_repairs": 0,
+        },
+        "reachable": {
+            **rust_metrics(reachable),
+            "cargo_check": load(reachable_prepared / "rustbox-cargo-check.json"),
+            "generated_rust_repairs": 0,
+        },
+        "stable_integration": {
+            **rust_metrics(stable),
+            "cargo_check": load(stable / "rustbox-cargo-check.json"),
+            "modernization_manifest_sha256": sha256(stable / "rustbox-modernization.json"),
+            "opaque_types_verified_pointer_only": opaque,
+            "hand_edits": 0,
+            "repair_score": 3,
+            "repair_score_basis": "feature-gate cleanup (1) and reusable opaque-pointer spelling rule (2)",
+        },
+        "hybrid": {
+            "bytes": hybrid.stat().st_size,
+            "stripped_bytes": stripped_size(hybrid),
+            "sha256": sha256(hybrid),
+            "link_map_sha256": sha256(link_map),
+            "replacement_symbols_defined_once": True,
+            "canonical_applet_objects_linked": False,
+        },
+        "behavior": {
+            "differential": load(stable / "differential.json"),
+            "targeted_upstream": {
+                "components": 9,
+                "passed": 9,
+                "ctrlaltdel": "no upstream component test; hard and soft branches compared unprivileged",
+                "log_sha256": sha256(stable / "upstream-targeted.log"),
+            },
+            "valgrind": load(stable / "resources.json"),
+        },
+    }
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    print(json.dumps({
+        "applets": len(manifest["applets"]),
+        "differential": evidence["behavior"]["differential"]["passed"],
+        "repair_score": evidence["stable_integration"]["repair_score"],
+        "stripped_bytes": evidence["hybrid"]["stripped_bytes"],
+    }, sort_keys=True))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

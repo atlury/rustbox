@@ -1,0 +1,540 @@
+{
+  "audit": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "d2069a9837cbe33871620ff30d9f0a0d49b0ecd6b53c48de23632542a974e76c",
+      "cargo_toml_sha256": "676497c4060d5afc9b285ee10de4289e3777cce862769781bb8064a822fb8a22",
+      "diagnostics_by_level": {
+        "warning": 18
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "5cfe54d2cce89fcfedf94440e309329dfbef45629b67a8006de6f51ea8944113",
+      "toolchain_request": "nightly-2023-04-15",
+      "warning_codes": {
+        "stable_features": 1,
+        "unused_must_use": 10,
+        "unused_parens": 5,
+        "unused_variables": 1
+      }
+    },
+    "compile_error_macros": 0,
+    "declaration_map_sha256": {
+      "src/misc_utils/exch.c_decls.json": "793fc5e2a829dc61c96712bc8c3468999e1e2d88103b2cd0c6ad5b33a701ad6c",
+      "src/misc_utils/fadvise.c_decls.json": "a10304b918bccb02f59ef01eaaa98bbd217e251b1badc266713e09ef59740427",
+      "src/misc_utils/mcookie.c_decls.json": "60d241810336744a9571a96d853b6f27080d73c89df09cbddf87e8dcb5ca1f4a",
+      "src/sys_utils/choom.c_decls.json": "55ada7563c2445058fb46c923b39b39b71c8041c1bc93c02ac1c1d4612877318",
+      "src/sys_utils/ctrlaltdel.c_decls.json": "9e07f1bceb4c70f481123446dafe9aaddc033eac84a91bc3021b3abae414cbf0",
+      "src/sys_utils/setpgid.c_decls.json": "767f8a8107032934523f0d734c9a135da670fd01c5d7a2bda1704bf0c698da88",
+      "src/sys_utils/setsid.c_decls.json": "b939d4d4b5fa6b110946675da34627016c508fca30d51fb44374e17b127456ad",
+      "src/text_utils/colrm.c_decls.json": "a99493f75c65eb90c67eadd1a582d336edee60ed482a8e90a0003b498930aab1",
+      "src/text_utils/line.c_decls.json": "f6532eed73a4b1f5591ac3b3f8e6a09861cce02c29900ee8e1dee3c6c682e21f",
+      "src/text_utils/rev.c_decls.json": "b4a4265d3e2f8a926d735bd01f37b12d5835a34723aa5fbbfc95f684b3af9c55"
+    },
+    "declaration_maps": 10,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "f65e63ac5a7486aa2b04ab75ef66d4ef9d124a408418055b906b6f7707c752dc",
+      "src/misc_utils/exch.rs": "c0b85316eda24c3633f62355279fe665178760be5f8b429d1ab8ae7cf19788a6",
+      "src/misc_utils/fadvise.rs": "7582585d4bfe217d93f86e702f7fba7aab17da8bb9b51ea0d0a40ebf18852078",
+      "src/misc_utils/mcookie.rs": "3b7654464eb9c87192e635b3706b4bdfa8f514b0e7477f89e264ceb094ad6d83",
+      "src/sys_utils/choom.rs": "36681a4df3cfedd5e68c7ebb1ef3312460aff5e2ed272af2725a674c1f285bb7",
+      "src/sys_utils/ctrlaltdel.rs": "1b9486c417280dcd6b08a22abbc3c1b900441220c0b2f1183294f363aaa180e5",
+      "src/sys_utils/setpgid.rs": "6617f80429f15e6e4dfc07960b4f220f7b21c4e37c19360216e1a343f954e2b2",
+      "src/sys_utils/setsid.rs": "509a38e07fbf785f0d46b98ab2a3c896aaebddd260efbe3ffab89f56b07d2185",
+      "src/text_utils/colrm.rs": "64be2380aa0fba2d4d168fe5868d85abc893dad09118b3375c972056d8a844f4",
+      "src/text_utils/line.rs": "c4fe160f54e7ef677e0236083e988b4f093fef7f5854fa4764c229b0f475a446",
+      "src/text_utils/rev.rs": "e38078ecd3b890d79feee948209bec77a462a789c2a6f23b8a91b48a1562eb8d"
+    },
+    "generated_rust_repairs": 0,
+    "rust_bytes": 575871,
+    "rust_files": 12,
+    "todo_macros": 0,
+    "unimplemented_macros": 0
+  },
+  "batch": {
+    "applets": [
+      "line",
+      "setpgid",
+      "exch",
+      "ctrlaltdel",
+      "setsid",
+      "choom",
+      "fadvise",
+      "colrm",
+      "mcookie",
+      "rev"
+    ],
+    "manifest_sha256": "c87bc8bc71f04b4ca4f1afeeff310ee640f703394d5a8cbc7182c2efd984d631",
+    "name": "util-linux-small-01"
+  },
+  "behavior": {
+    "differential": {
+      "cases": 57,
+      "failures": [],
+      "passed": 57,
+      "schema": 1
+    },
+    "targeted_upstream": {
+      "components": 9,
+      "ctrlaltdel": "no upstream component test; hard and soft branches compared unprivileged",
+      "log_sha256": "3c54d36920f0f595005d6534b3557d27c542174fcc5547ed77703d67c6ca3b67",
+      "passed": 9
+    },
+    "valgrind": {
+      "cases": 10,
+      "logs": [
+        "valgrind-choom.log",
+        "valgrind-colrm.log",
+        "valgrind-ctrlaltdel.log",
+        "valgrind-exch.log",
+        "valgrind-fadvise.log",
+        "valgrind-line.log",
+        "valgrind-mcookie.log",
+        "valgrind-rev.log",
+        "valgrind-setpgid.log",
+        "valgrind-setsid.log"
+      ],
+      "passed": 10,
+      "schema": 1
+    }
+  },
+  "entrypoint_specialization": {
+    "database_sha256": "61886159fe40b3025233e873048a73649daa9d2cf181478f9facfa6feab95f91",
+    "entrypoints": {
+      "choom": {
+        "after_sha256": "6febd839f8745594aa5cf57285ee53c6ef63161a52e0edc4c4f52348ea95029a",
+        "before_sha256": "7cba5c6093f1569beb08bd229c94c24777c4b206ed4378e4f4f1f8efa841acdf",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_choom_main"
+      },
+      "colrm": {
+        "after_sha256": "1732d4fde97d0a0ecba01f6e9025e3339dd0b109d0fb1ee50baaa90223c26c13",
+        "before_sha256": "1e53c40f4e3f1eaadbbdc9ac55d32f81566e74171164f64768ebec9ddccd4d0f",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_colrm_main"
+      },
+      "ctrlaltdel": {
+        "after_sha256": "04ad5dfca6ca6ad1e3298a537dda2df5406b4d4fc29647706d973fe0699a1437",
+        "before_sha256": "63c93c95067b50bad2ba10638fe4223ae3c07604b7f44b681c1c5e507ca3751d",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_ctrlaltdel_main"
+      },
+      "exch": {
+        "after_sha256": "31c41eb8cfe65f1eac86a6187d0144fe24b279f894c876f822017eb6fab1de66",
+        "before_sha256": "227859ed674eb0dbf6a0ca6f320c8bb53b88cab96e0abc5bbc4c876b0a374439",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_exch_main"
+      },
+      "fadvise": {
+        "after_sha256": "1bce75c4a8f9ea680edfab18262eee0f29b7d28e255f77f26fe02cd49228c1f7",
+        "before_sha256": "ba4168243051f73600f1989d7a48e2c0fc8388d0e35e1d21e1b6927d4feaf519",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_fadvise_main"
+      },
+      "line": {
+        "after_sha256": "533dd22f5b887b23f858bd351762f91c3112693b914953c3bd39f242a31918c4",
+        "before_sha256": "ce8d4020680d0fc78179f787b3a2343a8bd3d7c38adafd2b6a8615c0da1dbfe5",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_line_main"
+      },
+      "mcookie": {
+        "after_sha256": "954a3ba3be4c6e7e4b0bed99b63896e8e7bbe6753421b0f054c86d65a24f3c52",
+        "before_sha256": "9f81afc52cbf13666f4b86727422e79bd0899a18e197e36e463d9becc96f0201",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_mcookie_main"
+      },
+      "rev": {
+        "after_sha256": "3e19bded4e70e24c6a182b482972be4316d5313704a3f98fb674f07afa28db85",
+        "before_sha256": "79c19afc8d127fb3a7b0649de609c11874fc2bcf68c5237c0ec83036ef20db6e",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_rev_main"
+      },
+      "setpgid": {
+        "after_sha256": "8e9522de35df05eb16316a1ee82373e2427b9978af0464dbd30056ea2efa35b3",
+        "before_sha256": "5c4e45a49ceecec8e62cc629a4eeacf4a8f672b1daee8478ada4f32b7cab1ad3",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_setpgid_main"
+      },
+      "setsid": {
+        "after_sha256": "a0be7933f6f3ddf9f4328067e329bd7320cc3cecd2a8cab4413b9f7bbdeefe54",
+        "before_sha256": "e440a53d9a7372fc9526f21e4e341ba75a25bb9f114d1902fcc463c212b252f6",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "specialized_entrypoint": "rustbox_setsid_main"
+      }
+    },
+    "schema": 1
+  },
+  "hybrid": {
+    "bytes": 231208,
+    "canonical_applet_objects_linked": false,
+    "link_map_sha256": "b84a3d34f3723d8007556785ac49706f516a4f0a226259681a5af24125c026be",
+    "replacement_symbols_defined_once": true,
+    "sha256": "c50e341c2ded4e360f70b75e5dcd6716de6259b7efe9217ea1e5837f5d8dd652",
+    "stripped_bytes": 90472
+  },
+  "input": {
+    "clang_database_sha256": "ae7282a1e610ac0cba546c1b680ec08596d01b4687c939f1946dba3cd052a70b",
+    "compile_commands": 10,
+    "gcc_database_sha256": "5531e1967ffa8621f087036daa3b9d8a92b2d45813eac704335a84511e799e22",
+    "slice_sha256": "4259213e30dff8330a3fa808d6ad6b384df3b374298381fc9ef05cd13de8b547",
+    "upstream_archive_sha256": "fbd62a100ab7bb8746ba0661255c3c48185b1e9021507c624da01fbc696330ec"
+  },
+  "normalization": {
+    "abi_checks": [
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "misc-utils/fadvise.c"
+      }
+    ],
+    "batch": "util-linux-small-01",
+    "compiler_replays": [
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "sys-utils/ctrlaltdel.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "text-utils/colrm.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "text-utils/rev.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "text-utils/line.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "sys-utils/choom.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "sys-utils/setpgid.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "sys-utils/setsid.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "misc-utils/mcookie.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "misc-utils/exch.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "misc-utils/fadvise.c"
+      }
+    ],
+    "gcc_database_sha256": "11d8e7dc93f0ed20a397d5fed661b3979927a60e076658c9c5e247bb855ee449",
+    "input_database_sha256": "4259213e30dff8330a3fa808d6ad6b384df3b374298381fc9ef05cd13de8b547",
+    "normalized_database_sha256": "0115182780f791ec34d1821ea89bbff5a7b1b732121367649793a7e8e7ffd1ff",
+    "schema": 1,
+    "semantic_patches": [
+      {
+        "after_sha256": "ba4168243051f73600f1989d7a48e2c0fc8388d0e35e1d21e1b6927d4feaf519",
+        "before_sha256": "ccc72e53bb3b1ef508a5691ef4b919ef347c86dc5daef7a3df29f05f8b9401e2",
+        "engine": "exact",
+        "expected_after": "sizeof(advices) / sizeof(advices[0])",
+        "expected_after_count": 2,
+        "expected_before": "ARRAY_SIZE(advices)",
+        "expected_before_count": 2,
+        "reason": "Spell the standard fixed-array extent directly because C2Rust 0.22.1 exports the parenthesized ARRAY_SIZE expansion with a self-referential AST child.",
+        "replacement": "sizeof(advices) / sizeof(advices[0])",
+        "source": "misc-utils/fadvise.c",
+        "verified_after_count": 2,
+        "verified_before_count": 2
+      }
+    ],
+    "sources": {
+      "misc-utils/exch.c": {
+        "canonical_sha256": "227859ed674eb0dbf6a0ca6f320c8bb53b88cab96e0abc5bbc4c876b0a374439",
+        "changed": false,
+        "normalized_sha256": "227859ed674eb0dbf6a0ca6f320c8bb53b88cab96e0abc5bbc4c876b0a374439",
+        "staged_before_sha256": "227859ed674eb0dbf6a0ca6f320c8bb53b88cab96e0abc5bbc4c876b0a374439"
+      },
+      "misc-utils/fadvise.c": {
+        "canonical_sha256": "ccc72e53bb3b1ef508a5691ef4b919ef347c86dc5daef7a3df29f05f8b9401e2",
+        "changed": true,
+        "normalized_sha256": "ba4168243051f73600f1989d7a48e2c0fc8388d0e35e1d21e1b6927d4feaf519",
+        "staged_before_sha256": "ccc72e53bb3b1ef508a5691ef4b919ef347c86dc5daef7a3df29f05f8b9401e2"
+      },
+      "misc-utils/mcookie.c": {
+        "canonical_sha256": "9f81afc52cbf13666f4b86727422e79bd0899a18e197e36e463d9becc96f0201",
+        "changed": false,
+        "normalized_sha256": "9f81afc52cbf13666f4b86727422e79bd0899a18e197e36e463d9becc96f0201",
+        "staged_before_sha256": "9f81afc52cbf13666f4b86727422e79bd0899a18e197e36e463d9becc96f0201"
+      },
+      "sys-utils/choom.c": {
+        "canonical_sha256": "7cba5c6093f1569beb08bd229c94c24777c4b206ed4378e4f4f1f8efa841acdf",
+        "changed": false,
+        "normalized_sha256": "7cba5c6093f1569beb08bd229c94c24777c4b206ed4378e4f4f1f8efa841acdf",
+        "staged_before_sha256": "7cba5c6093f1569beb08bd229c94c24777c4b206ed4378e4f4f1f8efa841acdf"
+      },
+      "sys-utils/ctrlaltdel.c": {
+        "canonical_sha256": "63c93c95067b50bad2ba10638fe4223ae3c07604b7f44b681c1c5e507ca3751d",
+        "changed": false,
+        "normalized_sha256": "63c93c95067b50bad2ba10638fe4223ae3c07604b7f44b681c1c5e507ca3751d",
+        "staged_before_sha256": "63c93c95067b50bad2ba10638fe4223ae3c07604b7f44b681c1c5e507ca3751d"
+      },
+      "sys-utils/setpgid.c": {
+        "canonical_sha256": "5c4e45a49ceecec8e62cc629a4eeacf4a8f672b1daee8478ada4f32b7cab1ad3",
+        "changed": false,
+        "normalized_sha256": "5c4e45a49ceecec8e62cc629a4eeacf4a8f672b1daee8478ada4f32b7cab1ad3",
+        "staged_before_sha256": "5c4e45a49ceecec8e62cc629a4eeacf4a8f672b1daee8478ada4f32b7cab1ad3"
+      },
+      "sys-utils/setsid.c": {
+        "canonical_sha256": "e440a53d9a7372fc9526f21e4e341ba75a25bb9f114d1902fcc463c212b252f6",
+        "changed": false,
+        "normalized_sha256": "e440a53d9a7372fc9526f21e4e341ba75a25bb9f114d1902fcc463c212b252f6",
+        "staged_before_sha256": "e440a53d9a7372fc9526f21e4e341ba75a25bb9f114d1902fcc463c212b252f6"
+      },
+      "text-utils/colrm.c": {
+        "canonical_sha256": "1e53c40f4e3f1eaadbbdc9ac55d32f81566e74171164f64768ebec9ddccd4d0f",
+        "changed": false,
+        "normalized_sha256": "1e53c40f4e3f1eaadbbdc9ac55d32f81566e74171164f64768ebec9ddccd4d0f",
+        "staged_before_sha256": "1e53c40f4e3f1eaadbbdc9ac55d32f81566e74171164f64768ebec9ddccd4d0f"
+      },
+      "text-utils/line.c": {
+        "canonical_sha256": "ce8d4020680d0fc78179f787b3a2343a8bd3d7c38adafd2b6a8615c0da1dbfe5",
+        "changed": false,
+        "normalized_sha256": "ce8d4020680d0fc78179f787b3a2343a8bd3d7c38adafd2b6a8615c0da1dbfe5",
+        "staged_before_sha256": "ce8d4020680d0fc78179f787b3a2343a8bd3d7c38adafd2b6a8615c0da1dbfe5"
+      },
+      "text-utils/rev.c": {
+        "canonical_sha256": "79c19afc8d127fb3a7b0649de609c11874fc2bcf68c5237c0ec83036ef20db6e",
+        "changed": false,
+        "normalized_sha256": "79c19afc8d127fb3a7b0649de609c11874fc2bcf68c5237c0ec83036ef20db6e",
+        "staged_before_sha256": "79c19afc8d127fb3a7b0649de609c11874fc2bcf68c5237c0ec83036ef20db6e"
+      }
+    }
+  },
+  "reachable": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "b61583634f4ae699fe1b215b04ae512bfd610ace2caa553897c8c776b78676e1",
+      "cargo_toml_sha256": "759308bd1c727240c7f098fffef65ed53b5eba07f9762f755bf1cddf704691d2",
+      "diagnostics_by_level": {
+        "warning": 2
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "cebe5166706113cd1f9179711e103f400488d79e315271e2202de301c9105a0c",
+      "toolchain_request": "nightly-2023-04-15",
+      "warning_codes": {
+        "unused_variables": 1
+      }
+    },
+    "compile_error_macros": 0,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "697a7818b3bf3ec0066d548f9ab7364c31d931f102fa94d2d0f6f4848fdd9eb4",
+      "src/misc_utils/exch.rs": "021cd7e5b1c99b8a0e4083460d6a4c97bb55f189de94b020d33e72668197bf0b",
+      "src/misc_utils/fadvise.rs": "a68adb784a75d6f9c8f065ab096ff5848f716caf2061e50fd9644e55b890cca7",
+      "src/misc_utils/mcookie.rs": "a5efc504c6f2e69bfefdbbcf3bed244db2cab5703672ad55d26f8d7380677876",
+      "src/sys_utils/choom.rs": "d66a9f0d6a53a68f1c56b72f263ee09a87c663002716b9d34cacb7eee8703b64",
+      "src/sys_utils/ctrlaltdel.rs": "957b8ab699fe4373c3c319f82b9ab21c49e11472d7d6d2385b4dc392ddf1a245",
+      "src/sys_utils/setpgid.rs": "c5cec395bb2d7f51dd34a884a506077559455c743a236dd3a57146f28cb8ee84",
+      "src/sys_utils/setsid.rs": "25af9a9c494166b80d84fadcd4d6c1cc199fe7d0a68247810f5f0f69d424a7b3",
+      "src/text_utils/colrm.rs": "c4f99ee173cb061712691b84e1e7ea102a1b9ba8c4b4dbcbece2575b1ad41acf",
+      "src/text_utils/line.rs": "e3e6bc33f13c36e7d44c35dcc44067a0c082cb34b992442bb5d657a75b727741",
+      "src/text_utils/rev.rs": "d22aa666fcb9f894c9796473c69e866bb79abb99e2f17ad799daa3ab82977676"
+    },
+    "generated_rust_repairs": 0,
+    "rust_bytes": 182814,
+    "rust_files": 12,
+    "todo_macros": 0,
+    "unimplemented_macros": 0
+  },
+  "recorded_at": "2026-11-19",
+  "schema": 1,
+  "stable_integration": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+      "cargo_lock_sha256": "6c0fbb9a4d8615585d9bc18439363eb0ad51a6d13775bdde1385b3eb26dc5b0a",
+      "cargo_toml_sha256": "759308bd1c727240c7f098fffef65ed53b5eba07f9762f755bf1cddf704691d2",
+      "diagnostics_by_level": {
+        "warning": 2
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+      "schema": 1,
+      "stderr_sha256": "627c47c04d814c4b4440190a8e2af48a9c9ca186ec23c1c405a5e62b36699826",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "suspicious_runtime_symbol_definitions": 1,
+        "unused_variables": 1
+      }
+    },
+    "compile_error_macros": 0,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "93b4d9ae86f14c67a2ad941f86c42ee3472e4326a2b601fde331e636f7706d9d",
+      "src/misc_utils/exch.rs": "68ea6820a602f5c405e28b5966bc60bbef39a183c1946d2fbd95d352051c5755",
+      "src/misc_utils/fadvise.rs": "e5fb51bbe761f5545c2c5f9c81672f3401d17c1e3efaf9fe3a6099b03c7c9bda",
+      "src/misc_utils/mcookie.rs": "605500c53d3f3562f8ca70b2ec01be4c550e84691158e1b24d698b0872090038",
+      "src/sys_utils/choom.rs": "8b8883da674d4af0704590afbbc69543a86bb39c04200f16325bf2851903f96e",
+      "src/sys_utils/ctrlaltdel.rs": "5f88c2e1a1e2775fc2272fd6c4a18580666654376ba50c486b7e4bbc431a2138",
+      "src/sys_utils/setpgid.rs": "de5593a32babe8c37ce5d9046b49a869672565b3200e8084b89e8d73d4ecc35b",
+      "src/sys_utils/setsid.rs": "9a3ddb1287e90b1d6ac4518d2c1b298d5607044686973bf6f9ca915683a09a3c",
+      "src/text_utils/colrm.rs": "65e6cf1d4d34b3bfacd104ca219a2a9a0b220eac163832f31e71a5d20865b2b5",
+      "src/text_utils/line.rs": "ec3c5dae14549cb116d48a98c275d1decda8cc483e9fcaef93dded1760e767bb",
+      "src/text_utils/rev.rs": "58610da045f386e153053843e90b3e7f18c584235a1a976d50416f493108befd"
+    },
+    "hand_edits": 0,
+    "modernization_manifest_sha256": "23d1fff91e6a0868fe1c044048dd8df6b3ae0c8656413ec2371a3ae58e23576c",
+    "opaque_types_verified_pointer_only": [
+      "_IO_codecvt",
+      "_IO_marker",
+      "_IO_wide_data"
+    ],
+    "repair_score": 3,
+    "repair_score_basis": "feature-gate cleanup (1) and reusable opaque-pointer spelling rule (2)",
+    "rust_bytes": 183814,
+    "rust_files": 12,
+    "todo_macros": 0,
+    "unimplemented_macros": 0
+  },
+  "status": "hybrid canonical parity; Rustbox-native integration pending",
+  "translator": {
+    "audit_preserves_unused_functions": true,
+    "fail_on_error": true,
+    "image_id": "sha256:d7f3755ec6a27d89124626535d36b859ddee1f7a11236454f7952bf513c3d6aa",
+    "name": "C2Rust",
+    "version": "0.22.1"
+  }
+}

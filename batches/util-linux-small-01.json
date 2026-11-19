@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "upstream": "util-linux 2.42.4",
+  "name": "util-linux-small-01",
+  "applets": [
+    "line",
+    "setpgid",
+    "exch",
+    "ctrlaltdel",
+    "setsid",
+    "choom",
+    "fadvise",
+    "colrm",
+    "mcookie",
+    "rev"
+  ],
+  "output_regex": "/(?:text-utils/(?:line|colrm|rev)|sys-utils/(?:setpgid|ctrlaltdel|setsid|choom)|misc-utils/(?:exch-exch|fadvise-fadvise|mcookie))\\.o$",
+  "expected_compile_commands": 10,
+  "c_normalization": [
+    {
+      "source": "misc-utils/fadvise.c",
+      "engine": "exact",
+      "expected_before": "ARRAY_SIZE(advices)",
+      "expected_before_count": 2,
+      "replacement": "sizeof(advices) / sizeof(advices[0])",
+      "expected_after": "sizeof(advices) / sizeof(advices[0])",
+      "expected_after_count": 2,
+      "reason": "Spell the standard fixed-array extent directly because C2Rust 0.22.1 exports the parenthesized ARRAY_SIZE expansion with a self-referential AST child."
+    }
+  ],
+  "selection_policy": "The ten smallest direct canonical applet translation units; shared canonical C libraries remain linked during hybrid substitution."
+}

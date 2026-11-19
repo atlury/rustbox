@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stage, semantic-patch, replay, and ABI-check a Coreutils batch."""
+"""Stage, semantic-patch, replay, and ABI-check a canonical C batch."""
 
 from __future__ import annotations
 

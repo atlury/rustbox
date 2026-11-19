@@ -27,6 +27,28 @@ members.  Coreutils' GCC multicall oracle is built out-of-tree by
 `scripts/test_coreutils_oracle.sh`; its normally disabled `arch`, `hostname`,
 `kill`, and `uptime` programs are explicitly enabled.
 
+The util-linux oracle follows the same immutable-source rule through
+`scripts/build_util_linux_oracle.sh`.  Its configuration deliberately disables
+SELinux, systemd, audit, udev, Python bindings, and PAM lastlog integration,
+while explicitly enabling every otherwise optional inventory utility whose
+ordinary dependencies are available.  A pinned copy of the removed Linux
+raw-device UAPI declarations permits the canonical `raw` source to build on
+current headers; it is an external compatibility header, not an upstream
+source edit.  The paired `capture_util_linux_compdb.sh` and
+`capture_util_linux_gcc_compdb.sh` scripts reproduce that configuration for
+Clang and GCC.
+
+Unlike Coreutils' configured single-binary objects, util-linux translation
+units begin with ordinary standalone `main` functions.  After normalization
+has passed its unchanged-ABI gate, `specialize_util_linux_entrypoints.py`
+copies each selected source and changes exactly its `main` definition to the
+translation-only `rustbox_APPLET_main` spelling.  It recompiles every copy and
+checks the exported symbol before C2Rust runs.  This changes only the
+integration symbol name, gives every
+applet a distinct narrow C ABI, and avoids C2Rust's convenience `main` wrapper,
+which reconstructs arguments through UTF-8 `std::env::args` and would lose the
+canonical arbitrary-byte argv contract.
+
 Oracle builds and tests live in the persistent `rustbox-coreutils-9.12` Docker
 volume, not the macOS bind mount.  The byte-verified canonical source has its
 own `rustbox-coreutils-source-9.12` volume and is mounted read-only during every
