@@ -33,7 +33,7 @@
   "output_regex": "/(?:disk-utils/(?:cfdisk-cfdisk|fdisk-fdisk|sfdisk-sfdisk)|login-utils/(?:login|runuser|su-su|sulogin|vipw)|lsfd-cmd/lsfd-lsfd|misc-utils/(?:findmnt-findmnt|lsblk-lsblk)|term-utils/agetty-agetty)\\.o$",
   "expected_compile_commands": 12,
   "header_normalization": [
-    {"source": "include/list.h", "engine": "exact", "expected_before": "ARRAY_SIZE(part)", "replacement": "(MAX_LIST_LENGTH_BITS + 1)", "expected_after": "(MAX_LIST_LENGTH_BITS + 1)", "reason": "Spell the inline helper's declared fixed-array extent as its defining constant because C2Rust 0.22.1 rejects both ARRAY_SIZE and sizeof this reachable local array."}
+    {"source": "include/list.h", "engine": "exact", "expected_before": "ARRAY_SIZE(part)", "replacement": "MAX_LIST_LENGTH_BITS + 1", "expected_after": "MAX_LIST_LENGTH_BITS + 1", "reason": "Spell the inline helper's declared fixed-array extent as its defining unparenthesized constant because C2Rust 0.22.1 rejects ARRAY_SIZE, sizeof, and a parenthesized expression for this reachable local array."}
   ],
   "c_normalization": [
     {"source": "disk-utils/cfdisk.c", "engine": "exact", "expected_before": "ARRAY_SIZE(color_pairs)", "replacement": "(sizeof(color_pairs) / sizeof(color_pairs[0]))", "expected_after": "(sizeof(color_pairs) / sizeof(color_pairs[0]))", "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child."},
