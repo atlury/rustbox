@@ -6,15 +6,15 @@
     "cat",
     "dircolors",
     "fmt",
-    "mkfifo",
     "nl",
     "pinky",
     "printf",
     "realpath",
     "seq",
-    "shuf"
+    "shuf",
+    "tac"
   ],
-  "output_regex": "/src/libsinglebin_(cat|dircolors|fmt|mkfifo|nl|pinky|printf|realpath|seq|shuf)_",
+  "output_regex": "/src/libsinglebin_(cat|dircolors|fmt|nl|pinky|printf|realpath|seq|shuf|tac)_",
   "expected_compile_commands": 12,
   "translation_variant": "normalized",
   "c_normalization": [
@@ -120,7 +120,15 @@
       "replacement": "ckd_add (&size, size, (size_t) 1)",
       "expected_after": "ckd_add (&size, size, (size_t) 1)",
       "reason": "Make the terminating-byte allowance's size_t width explicit."
+    },
+    {
+      "source": "src/tac.c",
+      "engine": "exact",
+      "expected_before": "ok &= tac_file (file[i]);",
+      "replacement": "ok = tac_file (file[i]) && ok;",
+      "expected_after": "ok = tac_file (file[i]) && ok;",
+      "reason": "Preserve eager tac_file evaluation while explicitly accumulating its Boolean status."
     }
   ],
-  "selection_policy": "The next measured-smallest independent canonical archives after batch five. Mknod is deferred because it repeats mkfifo's selinux.c source path and would trigger C2Rust's repeated-source deduplication hazard; pinky is substituted."
+  "selection_policy": "The next measured-smallest independent canonical archives after batch five, excluding SELinux and systemd support by project policy. Mkfifo and mknod are deferred until their non-SELinux canonical configurations are captured; tac is substituted."
 }
