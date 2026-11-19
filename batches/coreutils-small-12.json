@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "upstream": "GNU Coreutils 9.12",
+  "name": "coreutils-small-12",
+  "applets": ["mkfifo"],
+  "canonical_analysis": "canonical-clang-no-security",
+  "canonical_gcc_analysis": "canonical-gcc-no-security",
+  "canonical_build": "canonical-clang-no-security-compdb",
+  "output_regex": "/src/libsinglebin_mkfifo_",
+  "expected_compile_commands": 2,
+  "translation_variant": "canonical",
+  "reachable_staticlib": "libcoreutils_small_12_reachable.a",
+  "differential_harness": "coreutils_small_12_differential.py",
+  "upstream_tests": [
+    "tests/misc/mknod.sh",
+    "tests/help/help-version.sh",
+    "tests/help/help-version-getopt.sh"
+  ],
+  "valgrind_cases": [
+    {"applet": "mkfifo", "arguments": ["fifo"], "status": 0}
+  ],
+  "full_suite_baseline": {
+    "total": 761,
+    "pass": 626,
+    "skip": 134,
+    "fail": 0,
+    "error": 1,
+    "known_error": "tests/rm/deep-2"
+  },
+  "selection_policy": "The next independent no-security canonical closure after batch eleven. Mkfifo remains separate from mknod and mkdir because all three compile src/selinux.c under distinct applet configurations and C2Rust deduplicates repeated source paths."
+}
