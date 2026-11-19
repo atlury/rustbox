@@ -113,6 +113,13 @@ help/version oracle comparisons and all 14,022 cases in the 38 original batch
 differential harnesses.  `chcon` and `runcon` remain absent, and the linked
 binary has no SELinux or systemd dependency.
 
+The next canonical oracle is zlib 1.4.  Its signed release, independent GCC
+and Clang builds, 18-case upstream CTest suite, sanitizer and Valgrind gates,
+111-symbol ABI comparison, and reviewed static-analysis findings are recorded
+in `evidence/zlib-1.4-oracle.json`.  This is an oracle baseline only: zlib
+remains unchecked in the queue until normalization, translation, and Rustbox
+integration reach the same behavioral gates.
+
 ## Work queue after util-linux
 
 This queue starts only after all in-scope util-linux applets reach canonical
