@@ -19,6 +19,9 @@ esac
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 base="$root/work/analysis/coreutils-9.12/translations/c2rust-0.22.1"
+if test -s "$base/$input-prepared/Cargo.toml"; then
+  input="$input-prepared"
+fi
 "$root/scripts/modernize_c2rust_output.py" \
   --input "$base/$input" \
   --output "$base/$batch-stable"

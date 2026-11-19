@@ -17,6 +17,28 @@
   "output_regex": "/src/libsinglebin_(arch|echo|hostname|nice|nproc|readlink|sleep|sync|uptime|users)_",
   "expected_compile_commands": 10,
   "translation_variant": "normalized",
+  "prepare_scaffold": true,
+  "reachable_staticlib": "libcoreutils_small_02_normalized_reachable.a",
+  "differential_harness": "coreutils_small_02_differential.py",
+  "upstream_tests": [
+    "tests/misc/arch.sh",
+    "tests/misc/echo.sh",
+    "tests/misc/sleep.sh",
+    "tests/misc/sync.sh",
+    "tests/df/sync.sh",
+    "tests/nice/nice.sh",
+    "tests/nice/nice-fail.sh",
+    "tests/nproc/nproc-avail.sh",
+    "tests/nproc/nproc-override.sh",
+    "tests/nproc/nproc-positive.sh",
+    "tests/nproc/nproc-quota.sh",
+    "tests/nproc/nproc-quota-systemd.sh",
+    "tests/readlink/readlink-fp-loop.sh",
+    "tests/readlink/readlink-posix.sh",
+    "tests/readlink/readlink-root.sh",
+    "tests/help/help-version.sh",
+    "tests/help/help-version-getopt.sh"
+  ],
   "c_normalization": [
     {
       "source": "src/sync.c",

@@ -50,6 +50,14 @@ class OpaqueUseTests(unittest.TestCase):
                 "pub type opaque;\nfn f(pointer: *mut opaque, value: opaque) {}\n"
             )
 
+    def test_field_with_same_name_as_opaque_type_is_not_a_type_use(self) -> None:
+        output = self.transform(
+            "pub type tm_zone;\n"
+            "struct tm { pub tm_zone: *const core::ffi::c_char }\n"
+            "fn f(pointer: *mut tm_zone) {}\n"
+        )
+        self.assertIn("pub struct tm_zone", output)
+
     def test_mutable_static_address_uses_raw_pointer_operator(self) -> None:
         output = self.transform(
             "pub static mut failure: i32 = 1;\n"
@@ -62,6 +70,16 @@ class OpaqueUseTests(unittest.TestCase):
             "fn f() { let mut value = 1; let _ = &mut value as *mut i32; }\n"
         )
         self.assertIn("&mut value as *mut i32", output)
+
+    def test_stable_feature_attributes_are_removed(self) -> None:
+        output = self.transform(
+            "#![feature(c_variadic)]\n"
+            "#![feature(extern_types)]\n"
+            "#![feature(label_break_value)]\n"
+            "#![feature(raw_ref_op)]\n"
+            "fn f() {}\n"
+        )
+        self.assertNotIn("#![feature(", output)
 
 
 if __name__ == "__main__":

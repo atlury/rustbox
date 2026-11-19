@@ -14,7 +14,12 @@ from pathlib import Path
 
 EXTERN_TYPE = re.compile(r"^\s*pub type ([A-Za-z_][A-Za-z0-9_]*);\s*$")
 STATIC_MUT = re.compile(r"^\s*(?:pub\s+)?static\s+mut\s+([A-Za-z_][A-Za-z0-9_]*):")
-REMOVED_FEATURES = {"#![feature(extern_types)]", "#![feature(raw_ref_op)]"}
+REMOVED_FEATURES = {
+    "#![feature(c_variadic)]",
+    "#![feature(extern_types)]",
+    "#![feature(label_break_value)]",
+    "#![feature(raw_ref_op)]",
+}
 
 
 def digest(path: Path) -> str:
@@ -24,7 +29,9 @@ def digest(path: Path) -> str:
 def has_only_pointer_uses(line: str, name: str) -> bool:
     """Accept every occurrence only when it denotes or constructs a raw pointer."""
     escaped = re.escape(name)
-    residual = line
+    # A C field and an opaque tag can legitimately share a spelling.  Remove
+    # Rust field/argument labels before classifying occurrences in type position.
+    residual = re.sub(rf"\b{escaped}\s*:", "", line)
     allowed = (
         rf"\*(?:mut|const)\s+{escaped}\b",
         rf"\bnull(?:_mut)?\s*::\s*<\s*{escaped}\s*>",
