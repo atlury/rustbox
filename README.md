@@ -168,6 +168,15 @@ test-only binaries.  The duplicate `gzip` request is represented once.
      optional systemd and SELinux integration.  Duplicate public names such as
      `kill` and `uptime` remain separately verified until the final dispatcher
      precedence decision.
+   - [ ] Shadow 4.20.3 — `chage`, `chfn`, `chgpasswd`, `chpasswd`, `chsh`,
+     `faillog`, `getsubids`, `gpasswd`, `groupadd`, `groupdel`, `groupmod`,
+     `grpck`, `grpconv`, `grpunconv`, `lastlog`, `login`, `newgidmap`,
+     `newgrp`, `newuidmap`, `newusers`, `nologin`, `passwd`, `pwck`, `pwconv`,
+     `pwunconv`, `su`, `useradd`, `userdel`, `usermod`, `vipw`, and the
+     installed `sg` and `vigr` compatibility links, plus `libshadow` and
+     `libsubid`.  Use the canonical `shadow-maint/shadow` release with SELinux
+     and systemd integration disabled; separately verify duplicate public
+     names supplied by util-linux before choosing final dispatcher precedence.
    - [ ] IPRoute2 — `arpd`, `bridge`, `ctstat`, `dcb`, `devlink`, `genl`,
      `ifcfg`, `ifstat`, `ip`, `lnstat`, `nstat`, `rdma`, `routef`, `routel`,
      `rtacct`, `rtmon`, `rtpr`, `rtstat`, `ss`, `tc`, `tipc`, `vdpa`.
