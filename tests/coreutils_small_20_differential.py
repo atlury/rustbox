@@ -26,7 +26,7 @@ CASES = [
     ([b"%q\\n", b"a b'c\\nd"], None),
     ([b"%d\\n", b"'AB"], None),
     ([b"%d\\n", b"'AB"], b"1"),
-    ([b"%1000000000f", b"1"], None),
+    ([b"%999999999999999999999f", b"1"], None),
     ([b"--help"], None),
     ([b"--version"], None),
 ]
