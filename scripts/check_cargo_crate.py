@@ -48,6 +48,7 @@ def main() -> int:
     )
     levels: collections.Counter[str] = collections.Counter()
     codes: collections.Counter[str] = collections.Counter()
+    errors: list[dict[str, object]] = []
     build_success = False
     for line in process.stdout.splitlines():
         try:
@@ -60,6 +61,21 @@ def main() -> int:
             code = diagnostic.get("code")
             if isinstance(code, dict) and code.get("code"):
                 codes[str(code["code"])] += 1
+            if diagnostic.get("level") == "error":
+                primary = next(
+                    (
+                        span for span in diagnostic.get("spans", [])
+                        if span.get("is_primary")
+                    ),
+                    None,
+                )
+                errors.append({
+                    "code": code.get("code") if isinstance(code, dict) else None,
+                    "message": diagnostic.get("message"),
+                    "file": primary.get("file_name") if primary else None,
+                    "line": primary.get("line_start") if primary else None,
+                    "column": primary.get("column_start") if primary else None,
+                })
         elif message.get("reason") == "build-finished":
             build_success = bool(message.get("success"))
 
@@ -73,6 +89,7 @@ def main() -> int:
         "exit_status": process.returncode,
         "build_finished_success": build_success,
         "diagnostics_by_level": dict(sorted(levels.items())),
+        "errors": errors,
         "warning_codes": dict(sorted(codes.items())),
         "stderr_sha256": hashlib.sha256(process.stderr.encode()).hexdigest(),
     }
