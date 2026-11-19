@@ -106,6 +106,18 @@ risk without reducing repair burden.  The stable integration pass instead
 uses guarded, regression-tested rules for obsolete C2Rust syntax; raw audit
 and reachable emissions remain byte-identifiable and unedited.
 
+The second batch demonstrates the failure-driven normalization rule.  Raw
+C2Rust rejected GNU `bool &= bool` as an integer-to-`bool` cast.  A narrow
+Coccinelle semantic patch rewrites it to eager, RHS-first boolean assignment,
+preserving both the truth table and call order.  The disposable normalized
+tree must then compile under all ten exact Clang configurations and the ten
+corresponding GCC configurations, retain identical exported symbols, and pass
+Libabigail comparison before translation.  Generated Cargo metadata is also
+treated separately from generated Rust: a missing direct `num-traits`
+dependency is added by a deterministic scanner, while all Rust source files
+remain untouched.  These two reusable stages are preferable to repairing the
+translated `sync` or `sleep` implementations by hand.
+
 The pinned local tool image is described by `tools/versions.json` and built by
 `scripts/build_tool_image.sh`.  `scripts/run_tool.sh rustbox-tool-report`
 records the effective versions.  CodeChecker's complete Python dependency

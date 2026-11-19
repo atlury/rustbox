@@ -43,14 +43,15 @@ scoring, and correctness gates.
 
 | Upstream | Inventory | Signed source oracle | Hybrid canonical parity | Integrated Rust applets |
 |---|---:|---:|---:|---:|
-| GNU Coreutils 9.12 | 108 | 108 | 12 | 0 |
+| GNU Coreutils 9.12 | 108 | 108 | 22 | 0 |
 | util-linux 2.42.4 | 155 | 0 | 0 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
 baseline is in `evidence/coreutils-9.12-static-analysis.json`; translation and
-hybrid evidence for the first ten-applet batch is in
-`evidence/coreutils-9.12-c2rust-small-01.json`.  An oracle-built applet is not
+hybrid evidence for the first two ten-applet batches is in
+`evidence/coreutils-9.12-c2rust-small-01.json` and
+`evidence/coreutils-9.12-c2rust-small-02.json`.  An oracle-built applet is not
 marked complete in the inventory below; completion is reserved for translated
 Rust that has reached canonical behavioral parity through the multicall
 interface.

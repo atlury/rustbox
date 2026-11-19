@@ -39,6 +39,18 @@
     "tests/help/help-version.sh",
     "tests/help/help-version-getopt.sh"
   ],
+  "valgrind_cases": [
+    {"applet": "arch", "arguments": [], "status": 0},
+    {"applet": "echo", "arguments": ["hello"], "status": 0},
+    {"applet": "hostname", "arguments": [], "status": 0},
+    {"applet": "nice", "arguments": [], "status": 0},
+    {"applet": "nproc", "arguments": [], "status": 0},
+    {"applet": "readlink", "arguments": ["missing"], "status": 1},
+    {"applet": "sleep", "arguments": ["0"], "status": 0},
+    {"applet": "sync", "arguments": [], "status": 0},
+    {"applet": "uptime", "arguments": ["missing"], "status": 1},
+    {"applet": "users", "arguments": ["missing"], "status": 1}
+  ],
   "c_normalization": [
     {
       "source": "src/sync.c",

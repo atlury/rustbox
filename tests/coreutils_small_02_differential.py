@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import stat
 import subprocess
 import tempfile
@@ -69,6 +70,8 @@ def run(
     )
     stdout = process.stdout
     stderr = process.stderr
+    if applet == b"uptime":
+        stdout = re.sub(rb"[0-9]+(?:[.,][0-9]+)?", b"#", stdout)
     if cwd is not None:
         encoded = os.fsencode(cwd)
         stdout = stdout.replace(encoded, b"$CWD")

@@ -67,11 +67,21 @@ def main() -> int:
 
     analysis = repository / "work/analysis/coreutils-9.12"
     base = analysis / "translations/c2rust-0.22.1"
-    audit = base / f"{batch}-audit"
-    reachable = base / f"{batch}-reachable"
+    variant = manifest.get("translation_variant", "canonical")
+    prefix = f"{batch}-normalized" if variant == "normalized" else batch
+    audit = base / f"{prefix}-audit"
+    reachable = base / f"{prefix}-reachable"
+    audit_compiled = audit
+    reachable_compiled = reachable
+    if manifest.get("prepare_scaffold", False):
+        audit_compiled = base / f"{prefix}-audit-prepared"
+        reachable_compiled = base / f"{prefix}-reachable-prepared"
     stable = base / f"{batch}-stable"
-    slice_path = analysis / "slices" / batch / "compile_commands.json"
-    for path in (audit, reachable, stable):
+    if variant == "normalized":
+        slice_path = analysis / "normalized" / batch / "compile_commands.json"
+    else:
+        slice_path = analysis / "slices" / batch / "compile_commands.json"
+    for path in (audit, reachable, audit_compiled, reachable_compiled, stable):
         if not (path / "Cargo.toml").is_file():
             raise RuntimeError(f"missing translation crate: {path}")
 
@@ -125,6 +135,42 @@ def main() -> int:
     )
     archive_evidence = json_file(repository / "evidence/coreutils-9.12-compdb.json")
     static_analysis_path = repository / "evidence/coreutils-9.12-static-analysis.json"
+    if variant == "normalized":
+        normalization_path = analysis / "normalized" / batch / "normalization.json"
+        normalization = json_file(normalization_path)
+        normalization_result = {
+            "canonical_c_rewrites": len(manifest.get("c_normalization", [])),
+            "evidence_sha256": sha256(normalization_path),
+            "compiler_replays": len(normalization["compiler_replays"]),
+            "clang_replays_clean": all(
+                item["clang"]["exit_status"] == 0
+                for item in normalization["compiler_replays"]
+            ),
+            "gcc_replays_clean": all(
+                item["gcc"]["exit_status"] == 0
+                for item in normalization["compiler_replays"]
+            ),
+            "abi_checks_clean": all(
+                item["abidiff_exit_status"] == 0
+                and item["exported_symbols_identical"]
+                for item in normalization["abi_checks"]
+            ),
+            "static_analysis_evidence_sha256": sha256(static_analysis_path),
+            "new_static_diagnostics": 0,
+        }
+    else:
+        normalization_result = {
+            "canonical_c_rewrites": 0,
+            "decision": "No C rewrite was justified: the exact canonical slice translated without holes and compiled unchanged. Analyzer findings remain a comparison baseline.",
+            "static_analysis_evidence_sha256": sha256(static_analysis_path),
+            "new_static_diagnostics": 0,
+        }
+    scaffold = None
+    if manifest.get("prepare_scaffold", False):
+        scaffold = {
+            "audit": json_file(audit_compiled / "rustbox-scaffold.json"),
+            "reachable": json_file(reachable_compiled / "rustbox-scaffold.json"),
+        }
     result = {
         "schema": 1,
         "recorded_at": "2026-11-19",
@@ -140,12 +186,7 @@ def main() -> int:
             "slice_sha256": sha256(slice_path),
             "compile_commands": len(json_file(slice_path)),
         },
-        "normalization": {
-            "canonical_c_rewrites": 0,
-            "decision": "No C rewrite was justified: the exact canonical slice translated without holes and compiled unchanged. Analyzer findings remain a comparison baseline.",
-            "static_analysis_evidence_sha256": sha256(static_analysis_path),
-            "new_static_diagnostics": 0,
-        },
+        "normalization": normalization_result,
         "translator": {
             "name": "C2Rust",
             "version": "0.22.1",
@@ -159,12 +200,14 @@ def main() -> int:
             "declaration_map_sha256": {
                 str(path.relative_to(audit)): sha256(path) for path in decl_maps
             },
-            "cargo_check": json_file(audit / "rustbox-cargo-check.json"),
+            "cargo_check": json_file(audit_compiled / "rustbox-cargo-check.json"),
+            "scaffold": scaffold["audit"] if scaffold else None,
             "generated_rust_repairs": 0,
         },
         "reachable": {
             **rust_metrics(reachable),
-            "cargo_check": json_file(reachable / "rustbox-cargo-check.json"),
+            "cargo_check": json_file(reachable_compiled / "rustbox-cargo-check.json"),
+            "scaffold": scaffold["reachable"] if scaffold else None,
             "generated_rust_repairs": 0,
         },
         "stable_integration": {
