@@ -43,19 +43,20 @@ scoring, and correctness gates.
 
 | Upstream | Inventory | Signed source oracle | Hybrid canonical parity | Integrated Rust applets |
 |---|---:|---:|---:|---:|
-| GNU Coreutils 9.12 | 108 | 108 | 62 | 0 |
+| GNU Coreutils 9.12 | 108 | 108 | 72 | 0 |
 | util-linux 2.42.4 | 155 | 0 | 0 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
 baseline is in `evidence/coreutils-9.12-static-analysis.json`; translation and
-hybrid evidence for the first six ten-applet batches is in
+hybrid evidence for the first seven ten-applet batches is in
 `evidence/coreutils-9.12-c2rust-small-01.json`,
 `evidence/coreutils-9.12-c2rust-small-02.json`, and
 `evidence/coreutils-9.12-c2rust-small-03.json`,
 `evidence/coreutils-9.12-c2rust-small-04.json`,
-`evidence/coreutils-9.12-c2rust-small-05.json`, and
-`evidence/coreutils-9.12-c2rust-small-06.json`.  An oracle-built applet is not
+`evidence/coreutils-9.12-c2rust-small-05.json`,
+`evidence/coreutils-9.12-c2rust-small-06.json`, and
+`evidence/coreutils-9.12-c2rust-small-07.json`.  An oracle-built applet is not
 marked complete in the inventory below; completion is reserved for translated
 Rust that has reached canonical behavioral parity through the multicall
 interface.
@@ -87,7 +88,7 @@ parity.
 - [ ] `cksum` — inventory
 - [x] `comm` — hybrid canonical parity; repair score 5
 - [ ] `cp` — inventory
-- [ ] `csplit` — inventory
+- [x] `csplit` — hybrid canonical parity; repair score 7
 - [ ] `cut` — inventory
 - [ ] `date` — inventory
 - [ ] `dd` — inventory
@@ -98,22 +99,22 @@ parity.
 - [ ] `du` — inventory
 - [x] `echo` — hybrid canonical parity; repair score 5
 - [ ] `env` — inventory
-- [ ] `expand` — inventory
-- [ ] `expr` — inventory
+- [x] `expand` — hybrid canonical parity; repair score 7
+- [x] `expr` — hybrid canonical parity; repair score 7
 - [ ] `factor` — inventory
 - [x] `false` — hybrid canonical parity; repair score 3
 - [x] `fmt` — hybrid canonical parity; repair score 5
 - [x] `fold` — hybrid canonical parity; repair score 7
 - [x] `groups` — hybrid canonical parity; repair score 5
-- [ ] `head` — inventory
+- [x] `head` — hybrid canonical parity; repair score 7
 - [x] `hostid` — hybrid canonical parity; repair score 5
 - [x] `hostname` — hybrid canonical parity; repair score 5
 - [ ] `id` — inventory
 - [ ] `install` — inventory
-- [ ] `join` — inventory
+- [x] `join` — hybrid canonical parity; repair score 7
 - [x] `kill` — hybrid canonical parity; repair score 7
 - [x] `link` — hybrid canonical parity; repair score 5
-- [ ] `ln` — inventory
+- [x] `ln` — hybrid canonical parity; repair score 7
 - [x] `logname` — hybrid canonical parity; repair score 5
 - [ ] `ls` — inventory
 - [x] `md5sum` — hybrid canonical parity; repair score 5
@@ -138,7 +139,7 @@ parity.
 - [x] `pwd` — hybrid canonical parity; repair score 5
 - [x] `readlink` — hybrid canonical parity; repair score 5
 - [x] `realpath` — hybrid canonical parity; repair score 5
-- [ ] `rm` — inventory
+- [x] `rm` — hybrid canonical parity; repair score 7
 - [x] `rmdir` — hybrid canonical parity; repair score 7
 - [x] `runcon` — hybrid canonical parity; repair score 5
 - [ ] `seq` — inventory
@@ -147,7 +148,7 @@ parity.
 - [x] `sha256sum` — hybrid canonical parity; repair score 5
 - [x] `sha384sum` — hybrid canonical parity; repair score 5
 - [x] `sha512sum` — hybrid canonical parity; repair score 5
-- [ ] `shred` — inventory
+- [x] `shred` — hybrid canonical parity; repair score 7
 - [x] `shuf` — hybrid canonical parity; repair score 5
 - [x] `sleep` — hybrid canonical parity; repair score 5
 - [ ] `sort` — inventory
@@ -160,7 +161,7 @@ parity.
 - [x] `tac` — hybrid canonical parity; repair score 5
 - [ ] `tail` — inventory
 - [x] `tee` — hybrid canonical parity; repair score 7
-- [ ] `test` — inventory
+- [x] `test` — hybrid canonical parity; repair score 7
 - [x] `timeout` — hybrid canonical parity; repair score 5
 - [x] `touch` — hybrid canonical parity; repair score 7
 - [ ] `tr` — inventory
@@ -176,7 +177,7 @@ parity.
 - [x] `users` — hybrid canonical parity; repair score 5
 - [x] `vdir` — hybrid canonical parity; repair score 5
 - [ ] `wc` — inventory
-- [ ] `who` — inventory
+- [x] `who` — hybrid canonical parity; repair score 7
 - [x] `whoami` — hybrid canonical parity; repair score 5
 - [x] `yes` — hybrid canonical parity; repair score 5
 
