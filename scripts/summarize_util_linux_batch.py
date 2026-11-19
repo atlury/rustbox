@@ -70,9 +70,12 @@ def main() -> int:
     reachable = base / f"{batch}-normalized-reachable"
     reachable_prepared = base / f"{batch}-normalized-reachable-prepared"
     stable = base / f"{batch}-stable"
-    hybrid = build / "rustbox-util-linux-small-01"
+    suffix = batch.removeprefix("util-linux-small-")
+    if suffix not in {"01", "02"}:
+        raise RuntimeError(f"undeclared util-linux batch: {batch}")
+    hybrid = build / f"rustbox-util-linux-small-{suffix}"
     link_map = hybrid.with_suffix(".map")
-    library = stable / "target/release/libutil_linux_small_01_normalized_reachable.a"
+    library = stable / f"target/release/libutil_linux_small_{suffix}_normalized_reachable.a"
     for path in (manifest_path, hybrid, link_map, library):
         if not path.is_file():
             raise RuntimeError(f"missing batch artifact: {path}")
@@ -100,18 +103,23 @@ def main() -> int:
     if replacement_symbols != expected_symbols:
         raise RuntimeError(f"wrong hybrid replacement symbols: {replacement_symbols}")
     map_text = link_map.read_text(encoding="utf-8", errors="replace")
-    canonical_objects = {
-        "line": "text-utils/line.o",
-        "setpgid": "sys-utils/setpgid.o",
-        "exch": "misc-utils/exch-exch.o",
-        "ctrlaltdel": "sys-utils/ctrlaltdel.o",
-        "setsid": "sys-utils/setsid.o",
-        "choom": "sys-utils/choom.o",
-        "fadvise": "misc-utils/fadvise-fadvise.o",
-        "colrm": "text-utils/colrm.o",
-        "mcookie": "misc-utils/mcookie.o",
-        "rev": "text-utils/rev.o",
+    canonical_objects_by_batch = {
+        "01": {
+            "line": "text-utils/line.o", "setpgid": "sys-utils/setpgid.o",
+            "exch": "misc-utils/exch-exch.o", "ctrlaltdel": "sys-utils/ctrlaltdel.o",
+            "setsid": "sys-utils/setsid.o", "choom": "sys-utils/choom.o",
+            "fadvise": "misc-utils/fadvise-fadvise.o", "colrm": "text-utils/colrm.o",
+            "mcookie": "misc-utils/mcookie.o", "rev": "text-utils/rev.o",
+        },
+        "02": {
+            "pivot_root": "sys-utils/pivot_root.o", "delpart": "disk-utils/delpart.o",
+            "addpart": "disk-utils/addpart.o", "findfs": "misc-utils/findfs-findfs.o",
+            "nologin": "login-utils/nologin.o", "resizepart": "disk-utils/resizepart.o",
+            "mkfs": "disk-utils/mkfs.o", "fsfreeze": "sys-utils/fsfreeze.o",
+            "isosize": "disk-utils/isosize.o", "mesg": "term-utils/mesg.o",
+        },
     }
+    canonical_objects = canonical_objects_by_batch[suffix]
     if any(name in map_text for name in canonical_objects.values()):
         raise RuntimeError("hybrid link map contains a replaced canonical applet object")
 
@@ -121,6 +129,14 @@ def main() -> int:
         for change in modernization["changes"]
         for name in change["opaque_pointer_types"]
     })
+    repair = {
+        "01": (3, "feature-gate cleanup (1) and reusable opaque-pointer spelling rule (2)"),
+        "02": (5, "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), and reusable VaListImpl/as_va_list modernization (2)"),
+    }[suffix]
+    targeted = {
+        "01": {"components": 9, "passed": 9, "ctrlaltdel": "no upstream component test; hard and soft branches compared unprivileged"},
+        "02": {"components": 1, "passed": 1, "subtests": 3, "coverage_note": "isosize is the only upstream component test for this batch; the other nine applets are covered by differential and Valgrind cases"},
+    }[suffix]
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-19",
@@ -166,8 +182,8 @@ def main() -> int:
             "modernization_manifest_sha256": sha256(stable / "rustbox-modernization.json"),
             "opaque_types_verified_pointer_only": opaque,
             "hand_edits": 0,
-            "repair_score": 3,
-            "repair_score_basis": "feature-gate cleanup (1) and reusable opaque-pointer spelling rule (2)",
+            "repair_score": repair[0],
+            "repair_score_basis": repair[1],
         },
         "hybrid": {
             "bytes": hybrid.stat().st_size,
@@ -179,12 +195,7 @@ def main() -> int:
         },
         "behavior": {
             "differential": load(stable / "differential.json"),
-            "targeted_upstream": {
-                "components": 9,
-                "passed": 9,
-                "ctrlaltdel": "no upstream component test; hard and soft branches compared unprivileged",
-                "log_sha256": sha256(stable / "upstream-targeted.log"),
-            },
+            "targeted_upstream": {**targeted, "log_sha256": sha256(stable / "upstream-targeted.log")},
             "valgrind": load(stable / "resources.json"),
         },
     }
