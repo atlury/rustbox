@@ -43,7 +43,7 @@ scoring, and correctness gates.
 
 | Upstream | Inventory | Signed source oracle | Hybrid canonical parity | Integrated Rust applets |
 |---|---:|---:|---:|---:|
-| GNU Coreutils 9.12 | 108 | 108 | 101 | 0 |
+| GNU Coreutils 9.12 | 108 | 108 | 102 | 0 |
 | util-linux 2.42.4 | 155 | 0 | 0 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
@@ -65,8 +65,9 @@ hybrid evidence for the verified batches is in
 `evidence/coreutils-9.12-c2rust-small-13.json`,
 `evidence/coreutils-9.12-c2rust-small-14.json`,
 `evidence/coreutils-9.12-c2rust-small-15.json`,
-`evidence/coreutils-9.12-c2rust-small-16.json`, and
-`evidence/coreutils-9.12-c2rust-small-17.json`.  An oracle-built applet is not
+`evidence/coreutils-9.12-c2rust-small-16.json`,
+`evidence/coreutils-9.12-c2rust-small-17.json`, and
+`evidence/coreutils-9.12-c2rust-small-18.json`.  An oracle-built applet is not
 marked complete in the inventory below; completion is reserved for translated
 Rust that has reached canonical behavioral parity through the multicall
 interface.
@@ -90,7 +91,7 @@ parity.
 - [x] `basename` — hybrid canonical parity; repair score 5
 - [x] `basenc` — hybrid canonical parity; repair score 7
 - [x] `cat` — hybrid canonical parity; repair score 5
-- [ ] `chcon` — inventory
+- [ ] `chcon` — excluded by the no-SELinux policy
 - [x] `chgrp` — hybrid canonical parity; repair score 5
 - [x] `chmod` — hybrid canonical parity; repair score 7
 - [x] `chown` — hybrid canonical parity; repair score 7
@@ -111,7 +112,7 @@ parity.
 - [x] `env` — hybrid canonical parity; repair score 7
 - [x] `expand` — hybrid canonical parity; repair score 7
 - [x] `expr` — hybrid canonical parity; repair score 7
-- [ ] `factor` — inventory
+- [x] `factor` — hybrid canonical parity through GNU's portable arithmetic path; repair score 5
 - [x] `false` — hybrid canonical parity; repair score 3
 - [x] `fmt` — hybrid canonical parity; repair score 5
 - [x] `fold` — hybrid canonical parity; repair score 7
