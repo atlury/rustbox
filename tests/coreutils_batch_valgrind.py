@@ -80,6 +80,9 @@ def prepare_case(directory: Path, setup: object) -> None:
         (directory / "victim").write_bytes(b"payload")
     elif setup == "file":
         (directory / "file").write_bytes(b"payload")
+    elif setup == "comm":
+        (directory / "left").write_bytes(b"alpha\ncommon\n")
+        (directory / "right").write_bytes(b"beta\ncommon\n")
     elif setup is not None:
         raise RuntimeError(f"unknown Valgrind setup: {setup}")
 
