@@ -40,13 +40,13 @@ def has_only_pointer_uses(line: str, name: str) -> bool:
     # data, not a Rust identifier use.  C2Rust commonly emits option names that
     # happen to match opaque C tags (for example b"exclude\\0").
     residual = RUST_LITERAL.sub("", line)
-    residual = residual.split("//", 1)[0]
+    residual = "\n".join(line.split("//", 1)[0] for line in residual.splitlines())
     # A C field and an opaque tag can legitimately share a spelling.  Remove
     # Rust field/argument labels before classifying occurrences in type position.
     residual = re.sub(rf"\b{escaped}\s*:", "", residual)
     allowed = (
         rf"\*(?:mut|const)\s+{escaped}\b",
-        rf"\bnull(?:_mut)?\s*::\s*<\s*{escaped}\s*>",
+        rf"\bnull(?:_mut)?\s*::\s*<\s*{escaped}\s*,?\s*>",
     )
     for pattern in allowed:
         residual = re.sub(pattern, "", residual)
@@ -64,18 +64,30 @@ def transform_rust(path: Path) -> dict[str, object] | None:
     }
     raw_static_pointer_rewrites: list[str] = []
     for name in sorted(mutable_statics):
-        pattern = re.compile(rf"&mut\s+{re.escape(name)}\s+as\s+\*mut\b")
+        mutable_pattern = re.compile(rf"&mut\s+{re.escape(name)}\s+as\s+\*mut\b")
+        const_pattern = re.compile(rf"&\s*{re.escape(name)}\s+as\s+\*const\b")
         rewritten = []
         for line in kept:
-            changed, count = pattern.subn(f"&raw mut {name} as *mut", line)
-            if count:
-                raw_static_pointer_rewrites.extend([name] * count)
+            changed, mutable_count = mutable_pattern.subn(
+                f"&raw mut {name} as *mut", line
+            )
+            changed, const_count = const_pattern.subn(
+                f"&raw const {name} as *const", changed
+            )
+            if mutable_count or const_count:
+                raw_static_pointer_rewrites.extend(
+                    [name] * (mutable_count + const_count)
+                )
             rewritten.append(changed)
         kept = rewritten
 
     for name in opaque:
-        uses = [line for line in kept if re.search(rf"\b{re.escape(name)}\b", line)]
-        for line in uses:
+        uses = [
+            (index, line)
+            for index, line in enumerate(kept)
+            if re.search(rf"\b{re.escape(name)}\b", line)
+        ]
+        for index, line in uses:
             alias = TYPE_ALIAS.match(line)
             if alias is not None and alias.group(2) == name:
                 alias_name = alias.group(1)
@@ -87,7 +99,9 @@ def transform_rust(path: Path) -> dict[str, object] | None:
                 if all(has_only_pointer_uses(candidate, alias_name) for candidate in alias_uses):
                     continue
             if not has_only_pointer_uses(line, name):
-                raise RuntimeError(f"{path}: opaque type {name} has non-pointer use: {line}")
+                context = "\n".join(kept[max(0, index - 2):index + 3])
+                if not has_only_pointer_uses(context, name):
+                    raise RuntimeError(f"{path}: opaque type {name} has non-pointer use: {line}")
 
     # C variadics are stable now, but C2Rust 0.22 emitted the old internal
     # VaListImpl spelling and borrowed it through as_va_list().  The stable

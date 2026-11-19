@@ -40,6 +40,15 @@ class OpaqueUseTests(unittest.TestCase):
         )
         self.assertIn("pub struct opaque", output)
 
+    def test_multiline_typed_null_pointer_constructor_is_accepted(self) -> None:
+        output = self.transform(
+            "pub type opaque;\n"
+            "static mut VALUE: *mut opaque = core::ptr::null::<\n"
+            "    opaque,\n"
+            ">() as *mut opaque;\n"
+        )
+        self.assertIn("pub struct opaque", output)
+
     def test_by_value_use_is_rejected(self) -> None:
         with self.assertRaisesRegex(RuntimeError, "non-pointer use"):
             self.transform("pub type opaque;\nfn f(value: opaque) {}\n")
@@ -86,6 +95,13 @@ class OpaqueUseTests(unittest.TestCase):
             "fn f() { let mut value = 1; let _ = &mut value as *mut i32; }\n"
         )
         self.assertIn("&mut value as *mut i32", output)
+
+    def test_mutable_static_shared_address_uses_raw_pointer_operator(self) -> None:
+        output = self.transform(
+            "pub static mut count: i32 = 1;\n"
+            "fn f() { let _ = &count as *const i32; }\n"
+        )
+        self.assertIn("&raw const count as *const i32", output)
 
     def test_stable_feature_attributes_are_removed(self) -> None:
         output = self.transform(
