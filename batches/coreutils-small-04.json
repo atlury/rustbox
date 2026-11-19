@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "upstream": "GNU Coreutils 9.12",
+  "name": "coreutils-small-04",
+  "applets": [
+    "base64",
+    "comm",
+    "groups",
+    "mktemp",
+    "pathchk",
+    "pwd",
+    "runcon",
+    "stdbuf",
+    "truncate",
+    "tsort"
+  ],
+  "output_regex": "/src/libsinglebin_(base64|comm|groups|mktemp|pathchk|pwd|runcon|stdbuf|truncate|tsort)_",
+  "expected_compile_commands": 11,
+  "translation_variant": "normalized",
+  "c_normalization": [
+    {
+      "source": "src/pathchk.c",
+      "semantic_patch": "normalization/coreutils/bool-eager-and.cocci",
+      "expected_before": "ok &= validate_file_name (argv[optind],\n                              check_basic_portability, check_extra_portability);",
+      "expected_after": "ok = validate_file_name",
+      "reason": "C2Rust rejects its integer-to-bool cast for bool &= bool. Calling validate_file_name first preserves eager evaluation and the boolean truth table."
+    },
+    {
+      "source": "src/stdbuf.c",
+      "semantic_patch": "normalization/coreutils/checked-size-assignment.cocci",
+      "expected_before": "if (e == LONGINT_OK && ckd_add (size, tmp_size, 0))\n    e = LONGINT_OVERFLOW;",
+      "expected_after": "tmp_size > SIZE_MAX",
+      "reason": "Express the checked uintmax_t-to-size_t assignment explicitly so C2Rust does not infer mixed integer types for ckd_add."
+    },
+    {
+      "source": "src/truncate.c",
+      "semantic_patch": "normalization/coreutils/checked-off-multiply.cocci",
+      "expected_before": "if (ckd_mul (&ssize, ssize, blksize))",
+      "expected_after": "intmax_t product;",
+      "reason": "Perform the checked multiplication in intmax_t and explicitly check the off_t range, avoiding C2Rust's incompatible off_t/ptrdiff_t operands."
+    },
+    {
+      "source": "src/truncate.c",
+      "semantic_patch": "normalization/coreutils/bool-eager-or.cocci",
+      "expected_before": "errors |= !do_ftruncate (fd, fname, size, rsize, rel_mode);",
+      "expected_after": "errors = !do_ftruncate",
+      "reason": "C2Rust rejects its integer-to-bool cast for bool |= bool. Calling do_ftruncate first preserves eager evaluation and the boolean truth table."
+    }
+  ],
+  "selection_policy": "The next measured-smallest independent canonical applet archives after batch three. Base32 is deferred because C2Rust silently deduplicates its shared basenc.c path against base64; comm is substituted. The groups archive has two distinct captured translation units, and both are retained."
+}

@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import re
+from collections import Counter
 from pathlib import Path
 
 
@@ -20,6 +21,7 @@ def main() -> int:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--output-regex", required=True)
     parser.add_argument("--expected-commands", type=int)
+    parser.add_argument("--require-unique-sources", action="store_true")
     args = parser.parse_args()
 
     entries = json.loads(args.database.read_text(encoding="utf-8"))
@@ -33,6 +35,13 @@ def main() -> int:
         )
     if len({canonical(entry) for entry in selected}) != len(selected):
         raise RuntimeError("selected compile commands contain exact duplicates")
+    source_counts = Counter(entry["file"] for entry in selected)
+    repeated_sources = sorted(source for source, count in source_counts.items() if count > 1)
+    if args.require_unique_sources and repeated_sources:
+        raise RuntimeError(
+            "C2Rust would silently deduplicate repeated source paths: "
+            + ", ".join(repeated_sources)
+        )
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(selected, indent=2) + "\n", encoding="utf-8")

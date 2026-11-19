@@ -50,13 +50,20 @@ if test "$variant" = canonical; then
     --database "$database" \
     --output "$slice" \
     --output-regex "$regex" \
-    --expected-commands "$expected"
+    --expected-commands "$expected" \
+    --require-unique-sources
 else
   test -s "$slice" || {
     echo "run scripts/normalize_coreutils_batch.sh $batch first" >&2
     exit 1
   }
 fi
+case "$output" in
+  "$analysis/translations/c2rust-0.22.1/"*)
+    test ! -e "$output" || rm -rf -- "$output"
+    ;;
+  *) exit 2 ;;
+esac
 mkdir -p "$output"
 
 set -- c2rust transpile \
