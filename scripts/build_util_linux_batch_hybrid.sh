@@ -48,6 +48,13 @@ case $batch in
     extra_objects='lib/strutils.o lib/idcache.o term-utils/wall-ttymsg.o term-utils/script-playutils.o lib/monotonic.o lib/timer.o ./.libs/libcommon.a'
     extra_libraries=''
     ;;
+  util-linux-small-07)
+    suffix=07
+    library_name=libutil_linux_small_07_normalized_reachable.a
+    applets='mkfs.bfs write getopt fallocate chrt fincore whereis col chmem rfkill'
+    extra_objects='./.libs/libsmartcols.a ./.libs/libcommon.a'
+    extra_libraries=''
+    ;;
   *) echo "hybrid linker not yet declared for $batch" >&2; exit 2 ;;
 esac
 

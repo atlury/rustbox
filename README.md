@@ -44,7 +44,7 @@ scoring, and correctness gates.
 | Upstream | Inventory | Signed source oracle | Hybrid canonical parity | Integrated Rust applets |
 |---|---:|---:|---:|---:|
 | GNU Coreutils 9.12 | 108 | 108 | 107 | 0 |
-| util-linux 2.42.4 | 155 | 155 | 60 | 0 |
+| util-linux 2.42.4 | 155 | 155 | 70 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -88,12 +88,13 @@ legacy `raw` utility are deliberately enabled rather than silently omitted.
 The paired Clang/GCC command inventory is recorded in
 `evidence/util-linux-2.42.4-compdb.json`.  Translation, normalization,
 hybrid-link, differential, upstream-test, and Valgrind evidence for the first
-six batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
+seven batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 `evidence/util-linux-2.42.4-c2rust-small-02.json`,
 `evidence/util-linux-2.42.4-c2rust-small-03.json`, and
 `evidence/util-linux-2.42.4-c2rust-small-04.json`,
-`evidence/util-linux-2.42.4-c2rust-small-05.json`, and
-`evidence/util-linux-2.42.4-c2rust-small-06.json`.  Sixty util-linux applets
+`evidence/util-linux-2.42.4-c2rust-small-05.json`,
+`evidence/util-linux-2.42.4-c2rust-small-06.json`, and
+`evidence/util-linux-2.42.4-c2rust-small-07.json`.  Seventy util-linux applets
 have reached hybrid canonical parity; final Rustbox integration remains
 deliberately deferred until the applet batches are complete.
 
@@ -231,11 +232,11 @@ parity.
 - [ ] `cfdisk` — inventory
 - [x] `chcpu` — hybrid canonical parity; repair score 5
 - [ ] `chfn` — inventory
-- [ ] `chmem` — inventory
+- [x] `chmem` — hybrid canonical parity; repair score 5
 - [x] `choom` — hybrid canonical parity; repair score 3
-- [ ] `chrt` — inventory
+- [x] `chrt` — hybrid canonical parity; repair score 5
 - [x] `chsh` — hybrid canonical parity; repair score 3
-- [ ] `col` — inventory
+- [x] `col` — hybrid canonical parity; repair score 5
 - [x] `colcrt` — hybrid canonical parity; repair score 3
 - [x] `colrm` — hybrid canonical parity; repair score 3
 - [ ] `column` — inventory
@@ -248,10 +249,10 @@ parity.
 - [ ] `enosys` — inventory
 - [x] `exch` — hybrid canonical parity; repair score 3
 - [x] `fadvise` — hybrid canonical parity; repair score 3
-- [ ] `fallocate` — inventory
+- [x] `fallocate` — hybrid canonical parity; repair score 5
 - [x] `fdformat` — hybrid canonical parity; repair score 3
 - [ ] `fdisk` — inventory
-- [ ] `fincore` — inventory
+- [x] `fincore` — hybrid canonical parity; repair score 5
 - [x] `findfs` — hybrid canonical parity; repair score 5
 - [ ] `findmnt` — inventory
 - [x] `flock` — hybrid canonical parity; repair score 5
@@ -261,7 +262,7 @@ parity.
 - [x] `fsfreeze` — hybrid canonical parity; repair score 5
 - [ ] `fstrim` — inventory
 - [x] `getino` — hybrid canonical parity; repair score 3
-- [ ] `getopt` — inventory
+- [x] `getopt` — hybrid canonical parity; repair score 5
 - [ ] `hardlink` — inventory
 - [ ] `hexdump` — inventory
 - [ ] `hwclock` — inventory
@@ -301,7 +302,7 @@ parity.
 - [ ] `mips32` — inventory
 - [ ] `mips64` — inventory
 - [x] `mkfs` — hybrid canonical parity; repair score 5
-- [ ] `mkfs.bfs` — inventory
+- [x] `mkfs.bfs` — hybrid canonical parity; repair score 5
 - [ ] `mkfs.cramfs` — inventory
 - [ ] `mkfs.minix` — inventory
 - [ ] `mkswap` — inventory
@@ -329,7 +330,7 @@ parity.
 - [x] `renice` — hybrid canonical parity; repair score 3
 - [x] `resizepart` — hybrid canonical parity; repair score 5
 - [x] `rev` — hybrid canonical parity; repair score 3
-- [ ] `rfkill` — inventory
+- [x] `rfkill` — hybrid canonical parity; repair score 5
 - [ ] `rtcwake` — inventory
 - [ ] `runuser` — inventory
 - [ ] `s390` — inventory
@@ -369,9 +370,9 @@ parity.
 - [x] `waitpid` — hybrid canonical parity; repair score 3
 - [x] `wall` — hybrid canonical parity; repair score 5
 - [ ] `wdctl` — inventory
-- [ ] `whereis` — inventory
+- [x] `whereis` — hybrid canonical parity; repair score 5
 - [ ] `wipefs` — inventory
-- [ ] `write` — inventory
+- [x] `write` — hybrid canonical parity; repair score 5
 - [ ] `x86_64` — inventory
 - [ ] `zramctl` — inventory
 

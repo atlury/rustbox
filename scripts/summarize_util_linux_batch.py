@@ -71,7 +71,7 @@ def main() -> int:
     reachable_prepared = base / f"{batch}-normalized-reachable-prepared"
     stable = base / f"{batch}-stable"
     suffix = batch.removeprefix("util-linux-small-")
-    if suffix not in {"01", "02", "03", "04", "05", "06"}:
+    if suffix not in {"01", "02", "03", "04", "05", "06", "07"}:
         raise RuntimeError(f"undeclared util-linux batch: {batch}")
     hybrid = build / f"rustbox-util-linux-small-{suffix}"
     link_map = hybrid.with_suffix(".map")
@@ -149,6 +149,13 @@ def main() -> int:
             "blkpr": "sys-utils/blkpr.o", "ldattach": "sys-utils/ldattach.o",
             "blockdev": "disk-utils/blockdev.o", "flock": "sys-utils/flock.o",
         },
+        "07": {
+            "mkfs.bfs": "disk-utils/mkfs.bfs.o", "write": "term-utils/write-write.o",
+            "getopt": "misc-utils/getopt.o", "fallocate": "sys-utils/fallocate.o",
+            "chrt": "schedutils/chrt.o", "fincore": "misc-utils/fincore-fincore.o",
+            "whereis": "misc-utils/whereis.o", "col": "text-utils/col.o",
+            "chmem": "sys-utils/chmem.o", "rfkill": "sys-utils/rfkill-rfkill.o",
+        },
     }
     canonical_objects = canonical_objects_by_batch[suffix]
     if any(name in map_text for name in canonical_objects.values()):
@@ -167,6 +174,7 @@ def main() -> int:
         "04": (3, "feature-gate cleanup (1) and reusable opaque-pointer spelling rule (2)"),
         "05": (3, "feature-gate cleanup (1) and reusable opaque-pointer spelling rule (2)"),
         "06": (5, "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), and reusable VaListImpl/as_va_list modernization (2)"),
+        "07": (5, "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), and reusable VaListImpl/as_va_list modernization (2)"),
     }[suffix]
     targeted = {
         "01": {"components": 9, "passed": 9, "ctrlaltdel": "no upstream component test; hard and soft branches compared unprivileged"},
@@ -175,6 +183,7 @@ def main() -> int:
         "04": {"components": 7, "passed": 7, "ordinary_subtests_passed": 32, "upstream_known_failure_subtests": 6, "coverage_note": "the upstream harness classifies the environment-dependent getino and waitpid pidfd-inode cases as known failures; all seven components passed under upstream policy"},
         "05": {"components": 10, "passed": 10, "ordinary_subtests_passed": 18, "upstream_skipped_components": 1, "coverage_note": "the root-only blkdiscard offsets component was skipped by upstream policy; safe unprivileged blkdiscard behavior is covered differentially and under Valgrind"},
         "06": {"components": 4, "passed": 4, "ordinary_subtests_passed": 17, "upstream_skipped_components": 1, "coverage_note": "coresched was skipped under upstream policy because the test kernel lacks CONFIG_SCHED_CORE; all 17 executable flock, range-lock, and namei checks passed, while coresched and the other six applets are covered by safe differential and Valgrind cases"},
+        "07": {"components": 11, "passed": 11, "ordinary_subtests_passed": 63, "upstream_skipped_components": 1, "coverage_note": "the root-only chrt component was skipped under upstream policy; its non-root component and all 63 executable chrt, col, fallocate, fincore, getopt, and whereis checks passed, while mkfs.bfs, write, chmem, and rfkill are covered by safe differential and Valgrind cases"},
     }[suffix]
     evidence = {
         "schema": 1,

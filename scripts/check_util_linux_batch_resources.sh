@@ -11,6 +11,7 @@ case $batch in
   util-linux-small-04) suffix=04 ;;
   util-linux-small-05) suffix=05 ;;
   util-linux-small-06) suffix=06 ;;
+  util-linux-small-07) suffix=07 ;;
   *) echo "unknown batch: $batch" >&2; exit 2 ;;
 esac
 
@@ -75,13 +76,23 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     status=0
     check tunelp tunelp --help >/dev/null || status=$?
     test "$status" -eq 99
-  else
+  elif test "$suffix" = 06; then
     for applet in coresched namei wall readprofile scriptreplay blkpr ldattach blockdev flock; do
       check "$applet" "$applet" --help >/dev/null
     done
     # Canonical chcpu retains its 4,184-byte path context until process exit.
     # Continue rejecting every definite, indirect, and possible loss.
     check_process_lifetime chcpu chcpu --help >/dev/null
+  else
+    for applet in mkfs.bfs write fallocate chrt fincore whereis rfkill; do
+      check "$applet" "$applet" --help >/dev/null
+    done
+    # Canonical getopt retains its 256-byte output buffer until process exit.
+    check_process_lifetime getopt getopt --help >/dev/null
+    # Canonical col retains its initial 3,584-byte line until process exit.
+    check_process_lifetime col col --help >/dev/null
+    # Canonical chmem retains its discovered sysfs paths until process exit.
+    check_process_lifetime chmem chmem --help >/dev/null
   fi
   python3 - <<'PY'
 import json
@@ -100,6 +111,12 @@ if suffix == "06":
         "bytes": 4184,
         "definite_indirect_possible_losses": 0,
     }
+elif suffix == "07":
+    result["canonical_process_lifetime_exceptions"] = [
+        {"applet": "getopt", "bytes": 256, "definite_indirect_possible_losses": 0},
+        {"applet": "col", "bytes": 3584, "definite_indirect_possible_losses": 0},
+        {"applet": "chmem", "bytes": 17056, "definite_indirect_possible_losses": 0},
+    ]
 (root / "resources.json").write_text(json.dumps(result, indent=2) + "\n")
 print(json.dumps(result, sort_keys=True))
 PY
