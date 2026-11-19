@@ -9,7 +9,6 @@
     "dd",
     "df",
     "du",
-    "numfmt",
     "sort",
     "split",
     "tail"
@@ -20,10 +19,10 @@
       "symbol": "single_binary_main_lbracket"
     }
   },
-  "output_regex": "/src/(libsinglebin___a-|libsinglebin_(b2sum|chmod|dd|df|du|numfmt|sort|split|tail)_)",
-  "expected_compile_commands": 15,
-  "translation_variant": "normalized",
-  "reachable_staticlib": "libcoreutils_small_09_normalized_reachable.a",
+  "output_regex": "/src/(libsinglebin___a-|libsinglebin_(b2sum|chmod|dd|df|du|sort|split|tail)_)",
+  "expected_compile_commands": 13,
+  "translation_variant": "canonical",
+  "reachable_staticlib": "libcoreutils_small_09_reachable.a",
   "differential_harness": "coreutils_small_09_differential.py",
   "upstream_tests": [
     "tests/test/test.pl",
@@ -42,8 +41,6 @@
     "tests/du/apparent.sh",
     "tests/du/basic.sh",
     "tests/du/files0-from.pl",
-    "tests/numfmt/mb-non-utf8.sh",
-    "tests/numfmt/numfmt.pl",
     "tests/sort/sort-float.sh",
     "tests/sort/sort-unique.sh",
     "tests/sort/sort.pl",
@@ -63,20 +60,15 @@
     {"applet": "dd", "arguments": ["if=/dev/null", "of=/dev/null"], "status": 0},
     {"applet": "df", "arguments": ["."], "status": 0},
     {"applet": "du", "arguments": ["."], "status": 0},
-    {"applet": "numfmt", "arguments": ["--to=si", "1000"], "status": 0},
     {"applet": "sort", "arguments": [], "status": 0},
     {"applet": "split", "arguments": [], "status": 0},
     {"applet": "tail", "arguments": ["-n", "0"], "status": 0}
   ],
-  "c_normalization": [
+  "deferred_abi": [
     {
-      "source": "src/numfmt.c",
-      "engine": "exact",
-      "expected_before": "return *(c + 1) == '\\0' ? mbschr (s, uc) : (char *) mbsstr (s, c);",
-      "replacement": "return *(c + 1) == '\\0' ? mbschr (s, uc) : (char *) (mbsstr) (s, c);",
-      "expected_after": "(char *) (mbsstr) (s, c)",
-      "reason": "Call the same mutable mbsstr function directly instead of expanding gnulib's const-correct _Generic wrapper, which C2Rust cannot export as a valid Clang AST."
+      "applets": ["numfmt"],
+      "reason": "After bypassing gnulib's const-correct _Generic mbsstr wrapper with an ABI-identical C normalization, C2Rust still rejects numfmt's semantically required GNU 80-bit long-double to intmax_t rounding conversion. Preserve it for the typed long-double ABI bridge shared with printf and seq rather than introducing a lossy generated-Rust cast."
     }
   ],
-  "selection_policy": "The next independent canonical closures after batch eight that contain neither SELinux nor systemd code. The bracket applet advances through an explicit validated archive/symbol alias. B2sum is isolated from cksum because both compile cksum.c under different algorithm configurations; df is isolated from stat because both compile find-mount-point.c. Previously deferred intrinsic and long-double ABI applets remain in their typed-bridge queues."
+  "selection_policy": "The next independent canonical closures after batch eight that contain neither SELinux nor systemd code. The bracket applet advances through an explicit validated archive/symbol alias. B2sum is isolated from cksum because both compile cksum.c under different algorithm configurations; df is isolated from stat because both compile find-mount-point.c. Numfmt joined the typed long-double ABI queue after the raw translator rejected its semantically required GNU 80-bit long-double rounding conversion, leaving nine applets to advance without a lossy rewrite."
 }
