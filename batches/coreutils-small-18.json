@@ -1,0 +1,77 @@
+{
+  "schema": 1,
+  "upstream": "GNU Coreutils 9.12",
+  "name": "coreutils-small-18",
+  "applets": [
+    "factor"
+  ],
+  "canonical_analysis": "canonical-clang-no-security",
+  "canonical_gcc_analysis": "canonical-gcc-no-security",
+  "canonical_build": "canonical-clang-no-security-compdb",
+  "output_regex": "/src/libsinglebin_factor_a-factor\\.o$",
+  "expected_compile_commands": 1,
+  "translation_variant": "normalized",
+  "prepare_scaffold": true,
+  "reachable_staticlib": "libcoreutils_small_18_normalized_reachable.a",
+  "differential_harness": "coreutils_small_18_differential.py",
+  "upstream_tests": [
+    "tests/factor/factor.pl",
+    "tests/factor/factor-parallel.sh",
+    "tests/help/help-version.sh",
+    "tests/help/help-version-getopt.sh"
+  ],
+  "valgrind_cases": [
+    {"applet": "factor", "arguments": ["120"], "status": 0}
+  ],
+  "full_suite_baseline": {
+    "total": 761,
+    "pass": 626,
+    "skip": 134,
+    "fail": 0,
+    "error": 1,
+    "known_error": "tests/rm/deep-2"
+  },
+  "c_normalization": [
+    {
+      "source": "src/factor.c",
+      "engine": "exact",
+      "expected_before": "static_assert (INT_MAX < MP_LIMB_MAX);\n\n#ifndef USE_LONGLONG_H",
+      "replacement": "static_assert (INT_MAX < MP_LIMB_MAX);\n\n#define USE_LONGLONG_H false\n#ifndef USE_LONGLONG_H",
+      "expected_after": "#define USE_LONGLONG_H false",
+      "reason": "Select GNU factor's canonical portable uint128 and checked-arithmetic fallback instead of longlong.h inline assembly, preserving the factoring algorithm while avoiding C2Rust's unsupported x86 constraint syntax."
+    },
+    {
+      "source": "src/factor.c",
+      "engine": "exact",
+      "expected_before": "ckd_mul (&hi, hi, 10)",
+      "replacement": "ckd_mul (&hi, hi, (mp_limb_t) 10)",
+      "expected_after": "ckd_mul (&hi, hi, (mp_limb_t) 10)",
+      "reason": "Make decimal accumulation use factor's mp_limb_t destination width explicitly."
+    },
+    {
+      "source": "src/factor.c",
+      "engine": "exact",
+      "expected_before": "ckd_add (&lo, lo, *s - '0')",
+      "replacement": "ckd_add (&lo, lo, (mp_limb_t) (*s - '0'))",
+      "expected_after": "ckd_add (&lo, lo, (mp_limb_t) (*s - '0'))",
+      "reason": "Make each validated decimal digit use the mp_limb_t destination width."
+    },
+    {
+      "source": "src/factor.c",
+      "engine": "exact",
+      "expected_before": "ckd_add (&hi, hi, lo_carry)",
+      "replacement": "ckd_add (&hi, hi, (mp_limb_t) lo_carry)",
+      "expected_after": "ckd_add (&hi, hi, (mp_limb_t) lo_carry)",
+      "reason": "Make the bounded carry use the mp_limb_t destination width."
+    },
+    {
+      "source": "src/factor.c",
+      "engine": "exact",
+      "expected_before": "ok &= print_factors (tokenbuffer.buffer);",
+      "replacement": "ok = print_factors (tokenbuffer.buffer) && ok;",
+      "expected_after": "ok = print_factors (tokenbuffer.buffer) && ok;",
+      "reason": "Factor every stdin operand eagerly before explicitly accumulating its Boolean status."
+    }
+  ],
+  "selection_policy": "Translate GNU factor in full through its own canonical portable arithmetic fallback; the normalized source changes only the upstream USE_LONGLONG_H selector and is replayed by Clang, GCC, ABI comparison, differential tests, and GNU's factor suite."
+}
