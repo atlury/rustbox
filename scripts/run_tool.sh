@@ -10,6 +10,8 @@ exec docker run --rm \
   --volume "$root:/work" \
   --volume rustbox-coreutils-source-9.12:/rustbox-source:ro \
   --volume rustbox-coreutils-9.12:/rustbox-coreutils \
+  --volume rustbox-util-linux-source-2.42.4:/rustbox-util-linux-source:ro \
+  --volume rustbox-util-linux-2.42.4:/rustbox-util-linux \
   --workdir /work \
   "$tool_image" "$@"
 

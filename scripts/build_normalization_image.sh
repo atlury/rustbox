@@ -3,7 +3,7 @@
 set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
-expected=sha256:404e3f20b5fba03160fae5622b6067a2122388a36b57fae29be671d83f6ebf29
+expected=sha256:41a351ca225bcf38b4d49adbf4a4c9224bdd7268c526e0522e3696049401f382
 actual=$(docker image inspect rustbox-tools:2026-11-19 --format '{{.Id}}')
 if test "$actual" != "$expected"; then
   echo "base image ID $actual, expected $expected" >&2

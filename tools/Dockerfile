@@ -79,6 +79,12 @@ RUN apt-get update \
  && localedef -i th_TH -f UTF-8 th_TH.UTF-8 \
  && rm -rf /var/lib/apt/lists/*
 
+# Canonical util-linux coverage: setpriv and lastlog2 are optional only when
+# their development libraries are unavailable.
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends libcap-ng-dev libsqlite3-dev \
+ && rm -rf /var/lib/apt/lists/*
+
 # Keep CodeChecker callable without letting its private Python shadow the
 # system interpreter used by canonical upstream test harnesses.
 ENV PATH=/root/.cargo/bin:/usr/lib/llvm-18/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/codechecker/bin

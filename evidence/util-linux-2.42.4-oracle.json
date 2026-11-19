@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "recorded_at": "2026-11-19",
+  "upstream": {
+    "name": "util-linux",
+    "version": "2.42.4",
+    "archive_sha256": "fbd62a100ab7bb8746ba0661255c3c48185b1e9021507c624da01fbc696330ec",
+    "signer_fingerprint": "B0C64D14301CC6EFAEDF60E4E4B71D5EEC39C284",
+    "archive_members_verified": 4183
+  },
+  "oracle": {
+    "source_mount": "rustbox-util-linux-source-2.42.4:/rustbox-util-linux-source:ro",
+    "source_mount_filesystem": "ext4",
+    "public_applets": 155,
+    "canonical_executables": 132,
+    "canonical_aliases": 23,
+    "compiler": "GCC 13.3.0",
+    "cflags": "-O2 -g",
+    "public_manifest_sha256": "fc475ab278447761cf1d3212ff42555e73869de54b8639195c124e8d1a437788",
+    "public_executable_bytes": 17123123
+  },
+  "configuration": {
+    "disabled": [
+      "audit",
+      "pam-lastlog2",
+      "pylibmount",
+      "python",
+      "selinux",
+      "systemd",
+      "udev"
+    ],
+    "explicitly_enabled": [
+      "fdformat",
+      "lastlog2",
+      "liblastlog2",
+      "line",
+      "newgrp",
+      "pg",
+      "raw",
+      "setpriv",
+      "tunelp",
+      "vipw",
+      "write"
+    ],
+    "raw_uapi_compatibility_header": "compat/util-linux/linux/raw.h"
+  },
+  "tool_images": {
+    "build": "sha256:41a351ca225bcf38b4d49adbf4a4c9224bdd7268c526e0522e3696049401f382",
+    "normalization": "sha256:d7f3755ec6a27d89124626535d36b859ddee1f7a11236454f7952bf513c3d6aa"
+  },
+  "tests": {
+    "source_tree_exact_match": true,
+    "complete_inventory_presence": true,
+    "canonical_upstream_suite": "pending separate recorded pass"
+  },
+  "notes": [
+    "The compatibility header restores the removed Linux raw-device UAPI declarations without changing util-linux source.",
+    "Aliases are materialized only after their canonical targets build successfully.",
+    "No translated applet is credited by this oracle checkpoint."
+  ]
+}

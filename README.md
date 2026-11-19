@@ -44,7 +44,7 @@ scoring, and correctness gates.
 | Upstream | Inventory | Signed source oracle | Hybrid canonical parity | Integrated Rust applets |
 |---|---:|---:|---:|---:|
 | GNU Coreutils 9.12 | 108 | 108 | 107 | 0 |
-| util-linux 2.42.4 | 155 | 0 | 0 | 0 |
+| util-linux 2.42.4 | 155 | 155 | 0 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -77,6 +77,14 @@ the no-SELinux policy have reached hybrid canonical parity.  An oracle-built
 applet is not marked complete in the inventory below; completion is reserved for translated
 Rust that has reached canonical behavioral parity through the multicall
 interface.
+
+The signed util-linux oracle is recorded in
+`evidence/util-linux-2.42.4-oracle.json`.  Its 155 public names comprise 132
+canonical executables and 23 upstream aliases.  The build explicitly excludes
+SELinux, systemd, audit, udev, Python bindings, and PAM lastlog integration;
+it retains the ordinary non-SELinux implementations, including `mkfifo`-like
+filesystem functionality elsewhere in Rustbox.  `setpriv`, `lastlog2`, and the
+legacy `raw` utility are deliberately enabled rather than silently omitted.
 
 ## Applet inventory
 
