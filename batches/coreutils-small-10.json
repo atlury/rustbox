@@ -30,5 +30,11 @@
       "reason": "The canonical stat translation unit directly compiles SELinux headers, runtime probes, context formats, and help text. Rebuild it in the declared no-SELinux configuration tranche rather than translating excluded policy."
     }
   ],
-  "selection_policy": "Advance the remaining clean checksum closure independently. Cksum is isolated from the already completed b2sum because both compile cksum.c under different algorithm configurations and C2Rust silently deduplicates repeated source paths. Stat was rejected from this batch after source inspection proved that its captured configuration directly includes SELinux behavior."
+  "deferred_intrinsics": [
+    {
+      "applets": ["cksum"],
+      "reason": "C2Rust 0.22.1 rejects the __builtin_cpu_supports probes in cksum_crc.c for PCLMUL, AVX2, VPCLMULQDQ and AVX512 in both audit and reachable modes. Preserve canonical runtime selection of the accelerated checksum implementations for the typed CPU-feature bridge shared with wc rather than hard-coding a feature result."
+    }
+  ],
+  "selection_policy": "Cksum was isolated from the already completed b2sum because both compile cksum.c under different algorithm configurations and C2Rust silently deduplicates repeated source paths. Both translator modes then rejected its canonical runtime CPU-feature dispatch, so cksum joined wc in the typed feature bridge queue. Stat was rejected from this batch after source inspection proved that its captured configuration directly includes SELinux behavior."
 }
