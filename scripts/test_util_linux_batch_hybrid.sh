@@ -13,6 +13,7 @@ case $batch in
   util-linux-small-06) suffix=06; components='coresched flock namei'; count=4 ;;
   util-linux-small-07) suffix=07; components='chrt col fallocate fincore getopt whereis'; count=11 ;;
   util-linux-small-08) suffix=08; components='setarch'; count=3 ;;
+  util-linux-small-09) suffix=09; components='kill ul'; count=9 ;;
   *) echo "unknown batch: $batch" >&2; exit 2 ;;
 esac
 
@@ -78,8 +79,11 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     export TS_CMD_FINCORE="$build/rustbox-small-07/fincore"
     export TS_CMD_GETOPT="$build/rustbox-small-07/getopt"
     export TS_CMD_WHEREIS="$build/rustbox-small-07/whereis"
-  else
+  elif test "$suffix" = 08; then
     export TS_CMD_SETARCH="$build/rustbox-small-08/setarch"
+  else
+    export TS_CMD_KILL="$build/rustbox-small-09/kill"
+    export TS_CMD_UL="$build/rustbox-small-09/ul"
   fi
   su -m -s /bin/bash rustbox-test -c \
     "cd $build && $source/tests/run.sh --srcdir=$source --builddir=$build $components" \

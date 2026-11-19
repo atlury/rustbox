@@ -14,6 +14,7 @@ case $batch in
   util-linux-small-06) suffix=06 ;;
   util-linux-small-07) suffix=07 ;;
   util-linux-small-08) suffix=08; expected=1 ;;
+  util-linux-small-09) suffix=09 ;;
   *) echo "unknown batch: $batch" >&2; exit 2 ;;
 esac
 
@@ -96,8 +97,12 @@ exec "$root/scripts/run_tool.sh" sh -eu -c '
     check_process_lifetime col col --help >/dev/null
     # Canonical chmem retains its discovered sysfs paths until process exit.
     check_process_lifetime chmem chmem --help >/dev/null
-  else
+  elif test "$suffix" = 08; then
     check setarch setarch --help >/dev/null
+  else
+    for applet in blkzone ipcrm fstrim prlimit fsck.cramfs mkfs.cramfs kill rtcwake wdctl ul; do
+      check "$applet" "$applet" --help >/dev/null
+    done
   fi
   python3 - <<'PY'
 import json

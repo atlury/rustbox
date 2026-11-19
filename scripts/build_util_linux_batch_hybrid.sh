@@ -64,6 +64,13 @@ case $batch in
     extra_libraries=''
     replacement_count=1
     ;;
+  util-linux-small-09)
+    suffix=09
+    library_name=libutil_linux_small_09_normalized_reachable.a
+    applets='blkzone ipcrm fstrim prlimit fsck.cramfs mkfs.cramfs kill rtcwake wdctl ul'
+    extra_objects='sys-utils/ipcutils.o disk-utils/cramfs_common.o ./.libs/libmount.a ./.libs/libblkid.a ./.libs/libsmartcols.a ./.libs/libcommon.a'
+    extra_libraries='-leconf -lz -ltinfo'
+    ;;
   *) echo "hybrid linker not yet declared for $batch" >&2; exit 2 ;;
 esac
 

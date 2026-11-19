@@ -1,0 +1,859 @@
+{
+  "audit": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "1c80b3f420e53ccbe3699fe0a4beaacca488242911aa9df05fc2be52ce436df7",
+      "cargo_toml_sha256": "bee379eb5e7d74fb6f021f52d35eda0380d3efd12a4531b7a0e1192780014700",
+      "diagnostics_by_level": {
+        "warning": 46
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "f0e2f4a09c992b04e970d3ea8d38221203297d7a0ba9588063450a28a4974968",
+      "toolchain_request": "nightly-2023-04-15",
+      "warning_codes": {
+        "stable_features": 1,
+        "unused_must_use": 24,
+        "unused_parens": 16,
+        "unused_unsafe": 1,
+        "unused_variables": 3
+      }
+    },
+    "compile_error_macros": 0,
+    "declaration_map_sha256": {
+      "src/disk_utils/fsck_cramfs.c_decls.json": "1a4b9f5574a3e23871f05d4c51bfbcd88f875e317c7f8eb1e21009e8966e664e",
+      "src/disk_utils/mkfs_cramfs.c_decls.json": "ad1ac2a9603f5293a55bb9c72c018feadc2d4d9507a9283befe1a9af65f97d66",
+      "src/misc_utils/kill.c_decls.json": "441dadecd16f37246feb2522e3fce1a58fc95f133fac56e4d8bae0189c31e1f1",
+      "src/sys_utils/blkzone.c_decls.json": "4046051c2a6b70780d844b2896a35b5416a0bb3328e0a29b38cc4b588a62edd8",
+      "src/sys_utils/fstrim.c_decls.json": "a19d9a87994093b6a2488dcd785b6aa78c71a24da86e132185b5562cbcb81bc2",
+      "src/sys_utils/ipcrm.c_decls.json": "c405ef887827b0c498e8fbb81ded10a3e5db82f9a8300a5bd4737e29dd775830",
+      "src/sys_utils/prlimit.c_decls.json": "16530a6e34454bb116107e753bd757d88341b29b333328dbd8eb8ae143ae56d4",
+      "src/sys_utils/rtcwake.c_decls.json": "3f32b456537d4c8a937916699cb35c417ffd7402081eea2afd59ffb14edac0d2",
+      "src/sys_utils/wdctl.c_decls.json": "ed3b12eca07dbb04e67e3a993d398726631d139a2f7d33370d70288494a4eb01",
+      "src/text_utils/ul.c_decls.json": "9260d72a3888060cb632cb6bcd79be1bd9dbca0244480a9a867cf72c1c1e23d7"
+    },
+    "declaration_maps": 10,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "fd668e3f8adb403a2d1d7ee58f2e1197f871f5a90e131ead820a4b5da8ed8e48",
+      "src/disk_utils/fsck_cramfs.rs": "f67467850a8759dec5eeef6ef55c1c11078f8fe8927e52d46aebaccbb918288d",
+      "src/disk_utils/mkfs_cramfs.rs": "9250d8d5671c3460f52b89294e2851875f29430d2ddde92f0b768b9d5c9a7b84",
+      "src/misc_utils/kill.rs": "f26dd445b27f5303d64df0db28240d5cf4fdc7a511f4802b584bc0bbba1b5b29",
+      "src/sys_utils/blkzone.rs": "072828e1d7ba44b9822ccdff375a747b71874beb2b22d9253cfd84c85377983d",
+      "src/sys_utils/fstrim.rs": "1bc0c9384da5e0af10365729855c292f67ab221ad4abda4fe98d79130314c765",
+      "src/sys_utils/ipcrm.rs": "b78aa900dedd27cecac444391780a514d7177db3af4303a378581852bca952ef",
+      "src/sys_utils/prlimit.rs": "daf4099a318f00c5cd4c070f43f144f0f782326bd3ba8aaa45dc07a4a4ff97f1",
+      "src/sys_utils/rtcwake.rs": "e822d90dcf54a8abbf00d35417f631a9c8deaf616a260afa4b5b87a7c7033231",
+      "src/sys_utils/wdctl.rs": "6fb4a8f8f5ea0c9593e43c384238eb41797706081232e92d429bc9c4f1b38175",
+      "src/text_utils/ul.rs": "12b5c364cb48ba7bd799516b2702dc0b9bea0cc89d656277b58c4894e4805e14"
+    },
+    "generated_rust_repairs": 0,
+    "rust_bytes": 1348927,
+    "rust_files": 12,
+    "scaffold": {
+      "crate_feature_additions": [],
+      "dependency_additions": [],
+      "input_cargo_sha256": "bee379eb5e7d74fb6f021f52d35eda0380d3efd12a4531b7a0e1192780014700",
+      "output_cargo_sha256": "bee379eb5e7d74fb6f021f52d35eda0380d3efd12a4531b7a0e1192780014700",
+      "rust_files_changed": 0,
+      "schema": 1
+    },
+    "todo_macros": 0,
+    "unimplemented_macros": 0
+  },
+  "batch": {
+    "applets": [
+      "blkzone",
+      "ipcrm",
+      "fstrim",
+      "prlimit",
+      "fsck.cramfs",
+      "mkfs.cramfs",
+      "kill",
+      "rtcwake",
+      "wdctl",
+      "ul"
+    ],
+    "manifest_sha256": "3e8817541f1530bcbaf4ed3c78430fc8d79950f6c34ae3e565b15718527b3e6f",
+    "name": "util-linux-small-09"
+  },
+  "behavior": {
+    "differential": {
+      "cases": 59,
+      "failures": [],
+      "passed": 59,
+      "schema": 1
+    },
+    "targeted_upstream": {
+      "components": 9,
+      "coverage_note": "all seven kill components were skipped under upstream Docker policy because they require root or unavailable test helpers; ul/ul passed, while ul/basic retained its three upstream-known failures; the other eight applets are covered by safe differential and Valgrind cases",
+      "log_sha256": "c4673af23808a4ac9e081f8ed0183c5e7bf2df95be202c9af2ada81544ea765d",
+      "ordinary_components_passed": 1,
+      "passed": 9,
+      "upstream_known_failed_subtests": 3,
+      "upstream_skipped_components": 7
+    },
+    "valgrind": {
+      "cases": 10,
+      "logs": [
+        "valgrind-blkzone.log",
+        "valgrind-fsck.cramfs.log",
+        "valgrind-fstrim.log",
+        "valgrind-ipcrm.log",
+        "valgrind-kill.log",
+        "valgrind-mkfs.cramfs.log",
+        "valgrind-prlimit.log",
+        "valgrind-rtcwake.log",
+        "valgrind-ul.log",
+        "valgrind-wdctl.log"
+      ],
+      "passed": 10,
+      "schema": 1
+    }
+  },
+  "entrypoint_specialization": {
+    "database_sha256": "14cbde500ba94445c6f6a8e6a0d8b69f95d60f6ca7139957bf78af3fbe2e75f0",
+    "entrypoints": {
+      "blkzone": {
+        "after_sha256": "82ffa41ffe7bc875a8eacc39641893f1b57339099ed7ea81e57682abf524aa75",
+        "before_sha256": "2f0bb54b72608d856408d9507eaa6836010de7b1a98e27b2f9161e738c5f8c9b",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "blkzone"
+        ],
+        "specialized_entrypoint": "rustbox_blkzone_main"
+      },
+      "fsck.cramfs": {
+        "after_sha256": "eb34787f4bd298f9284ab86579bb94b6a1f9964df942586f6034319e1b2a2e7f",
+        "before_sha256": "b6ee64b6b60742120efb013c1965083f8860720d8229eeebbd5cd8e2fadaa34c",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "fsck.cramfs"
+        ],
+        "specialized_entrypoint": "rustbox_fsck_cramfs_main"
+      },
+      "fstrim": {
+        "after_sha256": "a1c00c4e53e23dd533b714de825c90745d5babbd12d884946d0be05f455508dc",
+        "before_sha256": "e1b741be887019d4cf6f6ea75e8a713b5711a62eb0ce23a269858cf99a2308cf",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "fstrim"
+        ],
+        "specialized_entrypoint": "rustbox_fstrim_main"
+      },
+      "ipcrm": {
+        "after_sha256": "1145814ce8d4387723cacb70148b07172ed4f7da88de73ff99d39e9d93db874d",
+        "before_sha256": "d084c788ee581d1a3b74758f1149b458d0742b68a8f2f35c1e126379f80fd3ab",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "ipcrm"
+        ],
+        "specialized_entrypoint": "rustbox_ipcrm_main"
+      },
+      "kill": {
+        "after_sha256": "588e2f378a4ea9ec5bf8e2b34467f9a4aa3e0ef311e9c44cc24d691f227a8175",
+        "before_sha256": "832b559d61c06e0dfeaa8394bc4744b8741cbe977a2138aecd6314263d6a27da",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "kill"
+        ],
+        "specialized_entrypoint": "rustbox_kill_main"
+      },
+      "mkfs.cramfs": {
+        "after_sha256": "3e7a3f62474c0a4885c73e94406d6a1d3dc57c778f376f8a9a9aaebcda19ee05",
+        "before_sha256": "44b565b3bca8606f4ec407675b25b5a1e95b57ef1484d76d4701353a45dc099d",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "mkfs.cramfs"
+        ],
+        "specialized_entrypoint": "rustbox_mkfs_cramfs_main"
+      },
+      "prlimit": {
+        "after_sha256": "eea2ea487003ea1111592a4b7a2a0aa8b318e00fc09581f598942694be23a911",
+        "before_sha256": "dd713714ef66d9d7ca6963ee1df1f12b451c344c4cf22379a678835c34e24390",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "prlimit"
+        ],
+        "specialized_entrypoint": "rustbox_prlimit_main"
+      },
+      "rtcwake": {
+        "after_sha256": "eb5f242d8e50f62cc779bf88899e200134a593199c87034b0c16de12c99d698b",
+        "before_sha256": "83fec796c6d7ea06bebd5cb2113a5594e863e856832e12184211f12b8304b15b",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "rtcwake"
+        ],
+        "specialized_entrypoint": "rustbox_rtcwake_main"
+      },
+      "ul": {
+        "after_sha256": "119a1925ba09a94ec8fdaf1bfc946cf5f9b365a437004eec8cadc4c083fb1ec8",
+        "before_sha256": "288ae4fb30e81cfd7fddc0268870e72e34e7e43b671279d7b402311909e7991b",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "ul"
+        ],
+        "specialized_entrypoint": "rustbox_ul_main"
+      },
+      "wdctl": {
+        "after_sha256": "c91b6b2b78c903d53f1dab0c1014d317ea213ac983ce06088d153e9bdd563b6c",
+        "before_sha256": "5fd0a5d438dbc1ffa73db27a22a9a1b809c80453f90687d234b5278c25c7e8b0",
+        "canonical_entrypoint": "main",
+        "compiler_replay": "pass",
+        "public_names": [
+          "wdctl"
+        ],
+        "specialized_entrypoint": "rustbox_wdctl_main"
+      }
+    },
+    "schema": 1
+  },
+  "hybrid": {
+    "bytes": 7696832,
+    "canonical_applet_objects_linked": false,
+    "link_map_sha256": "1bc64da7b6913beaa424c1723b936e400b92456d8cb438f758e40fc9f143f554",
+    "replacement_symbols_defined_once": true,
+    "sha256": "e04cdc9cb9497e6919f0f4bb257d375ec7c1405f1f8ddc0f3785ff8eab3f7a22",
+    "stripped_bytes": 1702632
+  },
+  "input": {
+    "clang_database_sha256": "ae7282a1e610ac0cba546c1b680ec08596d01b4687c939f1946dba3cd052a70b",
+    "compile_commands": 10,
+    "gcc_database_sha256": "5531e1967ffa8621f087036daa3b9d8a92b2d45813eac704335a84511e799e22",
+    "slice_sha256": "ad7f2537a16e08f0b8c161474032cf64bcc0666f2cb3982087191d121c85e5f0",
+    "upstream_archive_sha256": "fbd62a100ab7bb8746ba0661255c3c48185b1e9021507c624da01fbc696330ec"
+  },
+  "normalization": {
+    "abi_checks": [
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "sys-utils/fstrim.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "sys-utils/blkzone.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "disk-utils/fsck.cramfs.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "disk-utils/mkfs.cramfs.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "text-utils/ul.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "sys-utils/ipcrm.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "sys-utils/prlimit.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "sys-utils/rtcwake.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "sys-utils/wdctl.c"
+      },
+      {
+        "abidiff_exit_status": 0,
+        "abidiff_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exported_symbols_identical": true,
+        "source": "misc-utils/kill.c"
+      }
+    ],
+    "batch": "util-linux-small-09",
+    "compiler_replays": [
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "sys-utils/fstrim.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "sys-utils/blkzone.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "disk-utils/fsck.cramfs.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "disk-utils/mkfs.cramfs.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "text-utils/ul.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "sys-utils/ipcrm.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "168a7d106c4691599ef52abe5b54bf46e1b1c733cb45c26b7558248a415f8368",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "299aea6224b8b3cab55d318811201fdd9724cdcb8db0a7e125c6f9d6f579151b",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "sys-utils/prlimit.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "sys-utils/rtcwake.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "309a94ea9f01e24fa9acaccd36e361dd2f0b6c090ccd0ea5fb7ef8662f25802f",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "9bc3230d72c3b08001cecb1094455e1e0c048bcfbc1b96897aa71d2bcfaa18e4",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "sys-utils/wdctl.c"
+      },
+      {
+        "clang": {
+          "compiler": "clang-18",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "compiler": "gcc",
+          "exit_status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "source": "misc-utils/kill.c"
+      }
+    ],
+    "gcc_database_sha256": "a6e6caa1b1b3ff83a53555f97e1cf3a9e7e8f28be290579fe959e9f7673eefb9",
+    "input_database_sha256": "ad7f2537a16e08f0b8c161474032cf64bcc0666f2cb3982087191d121c85e5f0",
+    "normalized_database_sha256": "65d533065815ee7e0e778ce2ed9c9859d0129a9c48511bdf2068c4c739bb7542",
+    "schema": 1,
+    "semantic_patches": [
+      {
+        "after_sha256": "c7baf65db49ea862f6619bff7f0cdf6140aa307b03becd89b64c3f368ee115aa",
+        "before_sha256": "775d05f836563c12b0490fb0be7377dbf53931dc1940009e09ada624d0fa02dd",
+        "engine": "exact",
+        "expected_after": "sizeof(commands) / sizeof(commands[0])",
+        "expected_after_count": 2,
+        "expected_before": "ARRAY_SIZE(commands)",
+        "expected_before_count": 2,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(commands) / sizeof(commands[0])",
+        "source": "sys-utils/blkzone.c",
+        "verified_after_count": 2,
+        "verified_before_count": 2
+      },
+      {
+        "after_sha256": "217ffa65303d2054e9914154663b1d1854d87352a12d235f4e77c82a4fba9688",
+        "before_sha256": "c7baf65db49ea862f6619bff7f0cdf6140aa307b03becd89b64c3f368ee115aa",
+        "engine": "exact",
+        "expected_after": "sizeof(condition_str) / sizeof(condition_str[0])",
+        "expected_after_count": 2,
+        "expected_before": "ARRAY_SIZE(condition_str)",
+        "expected_before_count": 2,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(condition_str) / sizeof(condition_str[0])",
+        "source": "sys-utils/blkzone.c",
+        "verified_after_count": 2,
+        "verified_before_count": 2
+      },
+      {
+        "after_sha256": "2f0bb54b72608d856408d9507eaa6836010de7b1a98e27b2f9161e738c5f8c9b",
+        "before_sha256": "217ffa65303d2054e9914154663b1d1854d87352a12d235f4e77c82a4fba9688",
+        "engine": "exact",
+        "expected_after": "sizeof(excl) / sizeof(excl[0])",
+        "expected_before": "ARRAY_SIZE(excl)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(excl) / sizeof(excl[0])",
+        "source": "sys-utils/blkzone.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "e1b741be887019d4cf6f6ea75e8a713b5711a62eb0ce23a269858cf99a2308cf",
+        "before_sha256": "8af5c6a825b256a8fe9ed5190ae447b6406217a966afc57eaa6e6fab1cd8f9fc",
+        "engine": "exact",
+        "expected_after": "sizeof(excl) / sizeof(excl[0])",
+        "expected_before": "ARRAY_SIZE(excl)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(excl) / sizeof(excl[0])",
+        "source": "sys-utils/fstrim.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "0d6346253a0b6c3ebbf96788b79c7192c4d29161330ee63dcbde315ca3c9ec7c",
+        "before_sha256": "ddf8bc0bd0d0f72bd89c0d01d5c8bd96a4bd96c56b899e2d3635653cafee65de",
+        "engine": "exact",
+        "expected_after": "sizeof(prlimit_desc) / sizeof(prlimit_desc[0])",
+        "expected_before": "ARRAY_SIZE(prlimit_desc)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(prlimit_desc) / sizeof(prlimit_desc[0])",
+        "source": "sys-utils/prlimit.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "5c75d0aaaa8e2eab3dd5eddc85ecd8900d826c8dabc975b57dca1f7b78cf2740",
+        "before_sha256": "0d6346253a0b6c3ebbf96788b79c7192c4d29161330ee63dcbde315ca3c9ec7c",
+        "engine": "exact",
+        "expected_after": "sizeof(infos) / sizeof(infos[0])",
+        "expected_after_count": 4,
+        "expected_before": "ARRAY_SIZE(infos)",
+        "expected_before_count": 4,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(infos) / sizeof(infos[0])",
+        "source": "sys-utils/prlimit.c",
+        "verified_after_count": 4,
+        "verified_before_count": 4
+      },
+      {
+        "after_sha256": "dd713714ef66d9d7ca6963ee1df1f12b451c344c4cf22379a678835c34e24390",
+        "before_sha256": "5c75d0aaaa8e2eab3dd5eddc85ecd8900d826c8dabc975b57dca1f7b78cf2740",
+        "engine": "exact",
+        "expected_after": "sizeof(columns) / sizeof(columns[0])",
+        "expected_before": "ARRAY_SIZE(columns)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(columns) / sizeof(columns[0])",
+        "source": "sys-utils/prlimit.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "790346a969dc0493da76bd8996f3a290053df157fe93f65a68fa13692af3aee7",
+        "before_sha256": "5306870bc71dc2ed53b658e14b44a9a9a0139c1b32f77c8f061454349d954ede",
+        "engine": "exact",
+        "expected_after": "sizeof(sigfields) / sizeof(sigfields[0])",
+        "expected_before": "ARRAY_SIZE(sigfields)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(sigfields) / sizeof(sigfields[0])",
+        "source": "misc-utils/kill.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "832b559d61c06e0dfeaa8394bc4744b8741cbe977a2138aecd6314263d6a27da",
+        "before_sha256": "790346a969dc0493da76bd8996f3a290053df157fe93f65a68fa13692af3aee7",
+        "engine": "exact",
+        "expected_after": "sizeof(features) / sizeof(features[0])",
+        "expected_after_count": 3,
+        "expected_before": "ARRAY_SIZE(features)",
+        "expected_before_count": 3,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(features) / sizeof(features[0])",
+        "source": "misc-utils/kill.c",
+        "verified_after_count": 3,
+        "verified_before_count": 3
+      },
+      {
+        "after_sha256": "69d72f5aec9a1b71a559b407e6cbda8bfd79fa22f35050dbfb0ad2ec35a5263f",
+        "before_sha256": "62083787c6164a5ef9c52fe594abc3ec5656c9dcd44015f7e0bd52ec728110be",
+        "engine": "exact",
+        "expected_after": "sizeof(rtcwake_mode_string) / sizeof(rtcwake_mode_string[0])",
+        "expected_after_count": 2,
+        "expected_before": "ARRAY_SIZE(rtcwake_mode_string)",
+        "expected_before_count": 2,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(rtcwake_mode_string) / sizeof(rtcwake_mode_string[0])",
+        "source": "sys-utils/rtcwake.c",
+        "verified_after_count": 2,
+        "verified_before_count": 2
+      },
+      {
+        "after_sha256": "83fec796c6d7ea06bebd5cb2113a5594e863e856832e12184211f12b8304b15b",
+        "before_sha256": "69d72f5aec9a1b71a559b407e6cbda8bfd79fa22f35050dbfb0ad2ec35a5263f",
+        "engine": "exact",
+        "expected_after": "sizeof(excl) / sizeof(excl[0])",
+        "expected_before": "ARRAY_SIZE(excl)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(excl) / sizeof(excl[0])",
+        "source": "sys-utils/rtcwake.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "9b741428db8a18db1f044798ba05de4d8a8a149f3923761abe618da2651cb822",
+        "before_sha256": "6766f1faf60b0f399e254af8d2caf7a5363f0b0a15464ffe0f7c6db116416246",
+        "engine": "exact",
+        "expected_after": "sizeof(infos) / sizeof(infos[0])",
+        "expected_after_count": 4,
+        "expected_before": "ARRAY_SIZE(infos)",
+        "expected_before_count": 4,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(infos) / sizeof(infos[0])",
+        "source": "sys-utils/wdctl.c",
+        "verified_after_count": 4,
+        "verified_before_count": 4
+      },
+      {
+        "after_sha256": "0f85b08778b0fce2de2ec4fd22266f79050fe6446f8b3d426cecc74be7cdc792",
+        "before_sha256": "9b741428db8a18db1f044798ba05de4d8a8a149f3923761abe618da2651cb822",
+        "engine": "exact",
+        "expected_after": "sizeof(wdflags) / sizeof(wdflags[0])",
+        "expected_after_count": 3,
+        "expected_before": "ARRAY_SIZE(wdflags)",
+        "expected_before_count": 3,
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(wdflags) / sizeof(wdflags[0])",
+        "source": "sys-utils/wdctl.c",
+        "verified_after_count": 3,
+        "verified_before_count": 3
+      },
+      {
+        "after_sha256": "fc4b0419176e9b696eebf95637243215db8327f52e292bc001b04cfc3873e416",
+        "before_sha256": "0f85b08778b0fce2de2ec4fd22266f79050fe6446f8b3d426cecc74be7cdc792",
+        "engine": "exact",
+        "expected_after": "sizeof(excl) / sizeof(excl[0])",
+        "expected_before": "ARRAY_SIZE(excl)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(excl) / sizeof(excl[0])",
+        "source": "sys-utils/wdctl.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "5fd0a5d438dbc1ffa73db27a22a9a1b809c80453f90687d234b5278c25c7e8b0",
+        "before_sha256": "fc4b0419176e9b696eebf95637243215db8327f52e292bc001b04cfc3873e416",
+        "engine": "exact",
+        "expected_after": "sizeof(columns) / sizeof(columns[0])",
+        "expected_before": "ARRAY_SIZE(columns)",
+        "reason": "Spell the fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(columns) / sizeof(columns[0])",
+        "source": "sys-utils/wdctl.c",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      },
+      {
+        "after_sha256": "cfed97e2388777504c58b9961a6908341b333a10d6ec0e835d2abb8b323b5a8f",
+        "before_sha256": "8bce25453bd2710e735facdf7f0313114e57eb93b27d392d89960a3d8c867c64",
+        "engine": "exact",
+        "expected_after": "sizeof(part) / sizeof(part[0])",
+        "expected_before": "ARRAY_SIZE(part)",
+        "reason": "Spell the inline helper's fixed-array extent directly because C2Rust 0.22.1 exports ARRAY_SIZE with a self-referential AST child.",
+        "replacement": "sizeof(part) / sizeof(part[0])",
+        "source": "include/list.h",
+        "verified_after_count": 1,
+        "verified_before_count": 1
+      }
+    ],
+    "sources": {
+      "disk-utils/fsck.cramfs.c": {
+        "canonical_sha256": "b6ee64b6b60742120efb013c1965083f8860720d8229eeebbd5cd8e2fadaa34c",
+        "changed": false,
+        "normalized_sha256": "b6ee64b6b60742120efb013c1965083f8860720d8229eeebbd5cd8e2fadaa34c",
+        "staged_before_sha256": "b6ee64b6b60742120efb013c1965083f8860720d8229eeebbd5cd8e2fadaa34c"
+      },
+      "disk-utils/mkfs.cramfs.c": {
+        "canonical_sha256": "44b565b3bca8606f4ec407675b25b5a1e95b57ef1484d76d4701353a45dc099d",
+        "changed": false,
+        "normalized_sha256": "44b565b3bca8606f4ec407675b25b5a1e95b57ef1484d76d4701353a45dc099d",
+        "staged_before_sha256": "44b565b3bca8606f4ec407675b25b5a1e95b57ef1484d76d4701353a45dc099d"
+      },
+      "include/list.h": {
+        "canonical_sha256": "8bce25453bd2710e735facdf7f0313114e57eb93b27d392d89960a3d8c867c64",
+        "changed": true,
+        "normalized_sha256": "cfed97e2388777504c58b9961a6908341b333a10d6ec0e835d2abb8b323b5a8f",
+        "staged_before_sha256": "8bce25453bd2710e735facdf7f0313114e57eb93b27d392d89960a3d8c867c64"
+      },
+      "misc-utils/kill.c": {
+        "canonical_sha256": "5306870bc71dc2ed53b658e14b44a9a9a0139c1b32f77c8f061454349d954ede",
+        "changed": true,
+        "normalized_sha256": "832b559d61c06e0dfeaa8394bc4744b8741cbe977a2138aecd6314263d6a27da",
+        "staged_before_sha256": "5306870bc71dc2ed53b658e14b44a9a9a0139c1b32f77c8f061454349d954ede"
+      },
+      "sys-utils/blkzone.c": {
+        "canonical_sha256": "775d05f836563c12b0490fb0be7377dbf53931dc1940009e09ada624d0fa02dd",
+        "changed": true,
+        "normalized_sha256": "2f0bb54b72608d856408d9507eaa6836010de7b1a98e27b2f9161e738c5f8c9b",
+        "staged_before_sha256": "775d05f836563c12b0490fb0be7377dbf53931dc1940009e09ada624d0fa02dd"
+      },
+      "sys-utils/fstrim.c": {
+        "canonical_sha256": "8af5c6a825b256a8fe9ed5190ae447b6406217a966afc57eaa6e6fab1cd8f9fc",
+        "changed": true,
+        "normalized_sha256": "e1b741be887019d4cf6f6ea75e8a713b5711a62eb0ce23a269858cf99a2308cf",
+        "staged_before_sha256": "8af5c6a825b256a8fe9ed5190ae447b6406217a966afc57eaa6e6fab1cd8f9fc"
+      },
+      "sys-utils/ipcrm.c": {
+        "canonical_sha256": "d084c788ee581d1a3b74758f1149b458d0742b68a8f2f35c1e126379f80fd3ab",
+        "changed": false,
+        "normalized_sha256": "d084c788ee581d1a3b74758f1149b458d0742b68a8f2f35c1e126379f80fd3ab",
+        "staged_before_sha256": "d084c788ee581d1a3b74758f1149b458d0742b68a8f2f35c1e126379f80fd3ab"
+      },
+      "sys-utils/prlimit.c": {
+        "canonical_sha256": "ddf8bc0bd0d0f72bd89c0d01d5c8bd96a4bd96c56b899e2d3635653cafee65de",
+        "changed": true,
+        "normalized_sha256": "dd713714ef66d9d7ca6963ee1df1f12b451c344c4cf22379a678835c34e24390",
+        "staged_before_sha256": "ddf8bc0bd0d0f72bd89c0d01d5c8bd96a4bd96c56b899e2d3635653cafee65de"
+      },
+      "sys-utils/rtcwake.c": {
+        "canonical_sha256": "62083787c6164a5ef9c52fe594abc3ec5656c9dcd44015f7e0bd52ec728110be",
+        "changed": true,
+        "normalized_sha256": "83fec796c6d7ea06bebd5cb2113a5594e863e856832e12184211f12b8304b15b",
+        "staged_before_sha256": "62083787c6164a5ef9c52fe594abc3ec5656c9dcd44015f7e0bd52ec728110be"
+      },
+      "sys-utils/wdctl.c": {
+        "canonical_sha256": "6766f1faf60b0f399e254af8d2caf7a5363f0b0a15464ffe0f7c6db116416246",
+        "changed": true,
+        "normalized_sha256": "5fd0a5d438dbc1ffa73db27a22a9a1b809c80453f90687d234b5278c25c7e8b0",
+        "staged_before_sha256": "6766f1faf60b0f399e254af8d2caf7a5363f0b0a15464ffe0f7c6db116416246"
+      },
+      "text-utils/ul.c": {
+        "canonical_sha256": "288ae4fb30e81cfd7fddc0268870e72e34e7e43b671279d7b402311909e7991b",
+        "changed": false,
+        "normalized_sha256": "288ae4fb30e81cfd7fddc0268870e72e34e7e43b671279d7b402311909e7991b",
+        "staged_before_sha256": "288ae4fb30e81cfd7fddc0268870e72e34e7e43b671279d7b402311909e7991b"
+      }
+    }
+  },
+  "reachable": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "33d7bde1dd34a02bbb5ba64bfddb3a49fa25a2d8ca509e7228691f00065186c2",
+      "cargo_toml_sha256": "738f8ca65309ef2a0853576e78b1bca83514b5005d4f50dd0493c6cdedf1fe19",
+      "diagnostics_by_level": {
+        "warning": 16
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "295d410d1f93fce642d23cb4ff012b3f9d892b53ad466a8ffdf8f468177c35c4",
+      "toolchain_request": "nightly-2023-04-15",
+      "warning_codes": {
+        "stable_features": 1,
+        "unused_must_use": 4,
+        "unused_parens": 6,
+        "unused_unsafe": 1,
+        "unused_variables": 3
+      }
+    },
+    "compile_error_macros": 0,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "fd668e3f8adb403a2d1d7ee58f2e1197f871f5a90e131ead820a4b5da8ed8e48",
+      "src/disk_utils/fsck_cramfs.rs": "6bced5dc0ca1e6fdec51a10f109dfc05a4f9d2384806553f1c54cfc2c7ce96a4",
+      "src/disk_utils/mkfs_cramfs.rs": "24687e718e8c63c4496d85477746131eaf70a5f92038eb02a67143329b2cedf3",
+      "src/misc_utils/kill.rs": "41777a99341d31d1ba059bad4332e930b5df5d9aa43f44f6b163031a07471500",
+      "src/sys_utils/blkzone.rs": "15f2bd2888a321668556d05fb22e43f9f1ced689f1aef08119c1e14350273616",
+      "src/sys_utils/fstrim.rs": "261934cb3fd545ab4be695e11dc88fe50aa68be0df2c7bf0a7ecf165d74eda6c",
+      "src/sys_utils/ipcrm.rs": "4445aa1f3602e4e09422bdee628a64a838d968ae0d9d08d9df9ed7a49085b7c7",
+      "src/sys_utils/prlimit.rs": "7463e78c039231691d33938f221aff624fe3ec437eab837260dc7bb8e9c31048",
+      "src/sys_utils/rtcwake.rs": "f5c47b5633b486a21e4da34c24c105ee4621b078811952ba790f5b10452fccee",
+      "src/sys_utils/wdctl.rs": "814e6a0477746ecf79bb3e8f13455936a4e6bb90765ca67c686bcba59425ae1b",
+      "src/text_utils/ul.rs": "0dcba5828fd8ff18b5021f9c906f48adfce259b15ab0a0f03410be3b0e1e4426"
+    },
+    "generated_rust_repairs": 0,
+    "rust_bytes": 749373,
+    "rust_files": 12,
+    "scaffold": {
+      "crate_feature_additions": [],
+      "dependency_additions": [],
+      "input_cargo_sha256": "738f8ca65309ef2a0853576e78b1bca83514b5005d4f50dd0493c6cdedf1fe19",
+      "output_cargo_sha256": "738f8ca65309ef2a0853576e78b1bca83514b5005d4f50dd0493c6cdedf1fe19",
+      "rust_files_changed": 0,
+      "schema": 1
+    },
+    "todo_macros": 0,
+    "unimplemented_macros": 0
+  },
+  "recorded_at": "2026-11-19",
+  "schema": 1,
+  "stable_integration": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+      "cargo_lock_sha256": "eac59763e843ef9256d4efb446034d7bbb90deba633380c6dd383f1f71231b2c",
+      "cargo_toml_sha256": "738f8ca65309ef2a0853576e78b1bca83514b5005d4f50dd0493c6cdedf1fe19",
+      "diagnostics_by_level": {
+        "warning": 28
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+      "schema": 1,
+      "stderr_sha256": "e695f0c376721b7009ea5aacf34d713a237905a9ff900e807b2591b0bf50f4bb",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "clashing_extern_declarations": 10,
+        "suspicious_runtime_symbol_definitions": 4,
+        "unused_must_use": 4,
+        "unused_parens": 6,
+        "unused_unsafe": 1,
+        "unused_variables": 3
+      }
+    },
+    "compile_error_macros": 0,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "82c182871d4b9d672366767120b75c48f8cd84d4c9f3f4665c9c12bed49f4ef1",
+      "src/disk_utils/fsck_cramfs.rs": "c79af800cd04b238c10c2396b24858771f496de8191732f35c07b3bfc45000d4",
+      "src/disk_utils/mkfs_cramfs.rs": "7ee28961a42a0fae47149ff09b4bbe0b3faea8784e6a59f8f0eec487a5baac26",
+      "src/misc_utils/kill.rs": "bb1562cc79f708c68b5ca16ec5f4c2d76205d067e86e02d263130f271a55ae17",
+      "src/sys_utils/blkzone.rs": "748d2d82c8b46a00060dd59a0ea2677e1a56307496a707c9b0b877e4726d8c66",
+      "src/sys_utils/fstrim.rs": "ce320f12a67c190d2f0e7bbba14dc5f8fab0ebdcde3cd94697ea320d1e0593d7",
+      "src/sys_utils/ipcrm.rs": "f04cf5cd56afdd52880b2f9c043ceea84417d0156050cc57da39c87fe4bd6600",
+      "src/sys_utils/prlimit.rs": "ce5e2bd7d8e5389e056f30e107dac59ce68ffd7d9c9175fc2af0bcdf6938e70e",
+      "src/sys_utils/rtcwake.rs": "46b8ec7175e9f3e6ac50291f8d24b453bf67fde9ee689871a5040b72cdc99d74",
+      "src/sys_utils/wdctl.rs": "4ad59b6142011a7dfcc0e3c1a9f66444add6c51ca2023d5213460ae77d6bbc81",
+      "src/text_utils/ul.rs": "b108425431b1cdf7d298dc8a218f536c709251b456471f0d8b80f9bbf26283dc"
+    },
+    "hand_edits": 0,
+    "modernization_manifest_sha256": "3e4ebe32354e07affef49e5641eb2c8dac67ab64b3e0a032b3cb8aba94a545df",
+    "opaque_types_verified_pointer_only": [
+      "_IO_codecvt",
+      "_IO_marker",
+      "_IO_wide_data",
+      "__dirstream",
+      "internal_state",
+      "libmnt_cache",
+      "libmnt_fs",
+      "libmnt_iter",
+      "libmnt_table",
+      "libscols_column",
+      "libscols_line",
+      "libscols_table"
+    ],
+    "repair_score": 5,
+    "repair_score_basis": "feature-gate cleanup (1), reusable opaque-pointer spelling rule (2), and reusable VaListImpl/as_va_list modernization (2)",
+    "rust_bytes": 750711,
+    "rust_files": 12,
+    "todo_macros": 0,
+    "unimplemented_macros": 0
+  },
+  "status": "hybrid canonical parity; Rustbox-native integration pending",
+  "translator": {
+    "audit_preserves_unused_functions": true,
+    "fail_on_error": true,
+    "image_id": "sha256:d7f3755ec6a27d89124626535d36b859ddee1f7a11236454f7952bf513c3d6aa",
+    "name": "C2Rust",
+    "version": "0.22.1"
+  }
+}
