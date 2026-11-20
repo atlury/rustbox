@@ -146,7 +146,7 @@ test-only binaries.  The duplicate `gzip` request is represented once.
    - [ ] pkgconf 3.0.10 — `pkgconf`, its compatible `pkg-config` alias,
      `bomtool`, `pccritic`, and `spdxtool`; use this maintained implementation
      instead of the dormant freedesktop pkg-config 0.29.2 codebase.
-   - [ ] M4 — `m4`.
+   - [ ] M4 1.4.21 — `m4`.
    - [ ] File — `file`.
    - [ ] patch — `patch`.
    - [ ] sed — `sed`.
