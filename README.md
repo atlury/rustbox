@@ -154,7 +154,12 @@ the mechanically modernized Rust 1.99 crate compile without translation holes,
 and export `rustbox_m4_main` exactly once.  Its hashes and current
 raw-pointer/`unsafe` inventory are recorded in
 `evidence/m4-1.4.21-c2rust.json`; normalized gnulib linkage and canonical
-differential parity are the next M4 gate.
+differential parity are complete in `evidence/m4-1.4.21-hybrid.json`.  The
+hybrid passes all 242 numbered language checks, the stack-overflow check, 108
+additional exact differential comparisons, and Valgrind.  Its linked stripped
+artifact is 531,000 bytes with 375,330 bytes of `.text`; the 23.7 MB Rust
+static archive is intermediate linker inventory, not the release footprint.
+Single-multicall integration is the next M4 gate.
 
 ## Work queue after util-linux
 

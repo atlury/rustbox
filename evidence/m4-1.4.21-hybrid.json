@@ -1,0 +1,62 @@
+{
+  "artifacts": {
+    "language_log_sha256": "ffe7cb0087038b01674b4467e87b09c6460843e51f45ea028d2060273b0d6bdd",
+    "linked_sha256": "9ad71d4ac3767a02f86ced7e0f3baf33b9b800263f5a238eaef33479859c58ce",
+    "stripped_sha256": "cf4c712e3c36623c6a2e02756cf4ace80c3415deae766c0b64f7be82658dd2e5",
+    "valgrind_log_sha256": "6ddb2faf03cc33e3523835af3f1eb78665f4336f64114a73aedb6506d6a28129"
+  },
+  "behavior": {
+    "differential": {
+      "canonical_hybrid_exact": true,
+      "comparisons": 108,
+      "fixed_cases": 12,
+      "generated_cases": 96,
+      "output_digest_sha256": "50a1f75e1d7fb294e4a38eb9fc22de911dd1bb3791079715607e9021b73b8c7d",
+      "schema": 1
+    },
+    "intentional_changeword_skips": 7,
+    "numbered_language_checks": 242,
+    "stack_overflow_check": "pass",
+    "valgrind": {
+      "definitely_indirectly_possibly_lost_bytes": 0,
+      "errors": 0,
+      "reachable_process_lifetime_bytes": 531828
+    }
+  },
+  "implementation": {
+    "entrypoint": "rustbox_m4_main",
+    "normalized_gnulib_c_sources": 181,
+    "rust_application_sources": 11
+  },
+  "input_evidence": {
+    "m4-1.4.21-c2rust.json": "445e5bd2b78f34ee316f9a3d81f848200b60a5abaa1efeff264d8361f3dcb920",
+    "m4-1.4.21-normalization.json": "b6d6b50b85fe578999bd4b1959651ba83e3b28fb33a1b0c154b2ca3088b3c8e2",
+    "m4-1.4.21-oracle.json": "8a76ee0b61c77576060c1a0fe5361c3c7ec32dbe59a5baf360a5b6daee442232"
+  },
+  "next_gate": "link rustbox_m4_main into the single Rustbox multicall and replay all combined regressions",
+  "release": "1.4.21",
+  "runtime_linkage": {
+    "current_dynamic_needed": [
+      "libm.so.6",
+      "libgcc_s.so.1",
+      "libc.so.6",
+      "ld-linux-x86-64.so.2"
+    ],
+    "final_no_dt_needed_gate": "pending Rustbox-owned static runtime"
+  },
+  "schema": 1,
+  "size": {
+    "canonical_clang_stripped_bytes": 208336,
+    "interpretation": "The static archive is link inventory, not release size.",
+    "linked_sections": {
+      "bss": 96000,
+      "data": 3512,
+      "rodata": 46832,
+      "text": 375330
+    },
+    "linked_stripped_bytes": 531000,
+    "linked_unstripped_bytes": 5088440,
+    "translation_static_archive_bytes": 23718300
+  },
+  "status": "translated hybrid at canonical parity; multicall integration pending"
+}
