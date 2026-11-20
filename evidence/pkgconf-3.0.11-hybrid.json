@@ -1,0 +1,684 @@
+{
+  "artifacts": {
+    "api_log_sha256": "614caca2f38a538754ce8d08ee8951771ce01f453b40dd4f93faefeea1525ab8",
+    "differential_sha256": "b63fc95f15797f5fcf53cbb5429427367d6c7773c79b52fe8a581b309313e745",
+    "fixture_log_sha256": "2db7eb1a8af9f030e0917586d987af667c86b42d6a1003d2afadccc45950cfcb",
+    "fuzz_log_sha256": "5e0f8625a4c05561977b1fd9a67c8e744189a7380297af5d1adaf8ae90f75006",
+    "linked_sha256": "7a8cbf4cc774a82f7b63b02954c4f2504f321e212119e80bf5caee0c01be05a0",
+    "stripped_sha256": "9e26b55c1e855e80e9996c2f11b35e59c5cfdf56cf1be76ceb583ee66e9b5eb7",
+    "valgrind_log_sha256": {
+      "api-buffer": "82f400b50c8c605fc174e2400d86e9d32e89ffcddd2f31e2c485e3fbb868c7c3",
+      "bomtool": "c1abac644ac18f476cb7f007cc150ff700f6a8493408beb747b4a47cd9fdd1d1",
+      "pccritic": "76afdcc6e335dd711618f8e1f9b04594e02b5417d07c267f512908f6e4999608",
+      "pkg-config": "e11fe6b1328aa4af54eda56768f501f49f5209a8fb933a78965986cc771220cc",
+      "pkgconf": "4ae649054b3fe4eaf5de7946ce602e1df7940572add50b4100ff3a9318369484",
+      "spdxtool": "e74d5223b3c3dc5518e9d408673ddd983b2a34641e0b81670a10bc99b70faa43"
+    }
+  },
+  "behavior": {
+    "api_checks": 223,
+    "api_executables_relinked_against_rust": 16,
+    "differential": {
+      "canonical_hybrid_exact": true,
+      "comparisons": 55,
+      "records": [
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical_sha256": "f56c06f77bab069b551c05bbc393a52b788d04ee9b8b187d1d272813be5a0d61",
+          "exact": true,
+          "hybrid_sha256": "f56c06f77bab069b551c05bbc393a52b788d04ee9b8b187d1d272813be5a0d61",
+          "index": 0,
+          "tool": "pkgconf"
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "canonical_sha256": "01e4b6a2694f127c5a66469c05c697a8a3427c05279c4ad6653153de51e8254b",
+          "exact": true,
+          "hybrid_sha256": "01e4b6a2694f127c5a66469c05c697a8a3427c05279c4ad6653153de51e8254b",
+          "index": 1,
+          "tool": "pkgconf"
+        },
+        {
+          "arguments": [
+            "--about"
+          ],
+          "canonical_sha256": "49f3ef7415bf354f629a73b179b5b73244c332e77dd39466af0f4a41d133c3d0",
+          "exact": true,
+          "hybrid_sha256": "49f3ef7415bf354f629a73b179b5b73244c332e77dd39466af0f4a41d133c3d0",
+          "index": 2,
+          "tool": "pkgconf"
+        },
+        {
+          "arguments": [
+            "--modversion",
+            "foo"
+          ],
+          "canonical_sha256": "647c368ef24346c0e32970dff7d057db491dd8a449994a0728446b49fbecb598",
+          "exact": true,
+          "hybrid_sha256": "647c368ef24346c0e32970dff7d057db491dd8a449994a0728446b49fbecb598",
+          "index": 3,
+          "tool": "pkgconf"
+        },
+        {
+          "arguments": [
+            "--cflags",
+            "foo"
+          ],
+          "canonical_sha256": "60acd28caeb241e08325cdd1d92f09e2ce6195d0d4649858b36457d940ca04d9",
+          "exact": true,
+          "hybrid_sha256": "60acd28caeb241e08325cdd1d92f09e2ce6195d0d4649858b36457d940ca04d9",
+          "index": 4,
+          "tool": "pkgconf"
+        },
+        {
+          "arguments": [
+            "--cflags-only-I",
+            "foo"
+          ],
+          "canonical_sha256": "f4f570b1bdf8082c21af157ae352fcaa87c3c73abd409ddde706a5034ac747fc",
+          "exact": true,
+          "hybrid_sha256": "f4f570b1bdf8082c21af157ae352fcaa87c3c73abd409ddde706a5034ac747fc",
+          "index": 5,
+          "tool": "pkgconf"
+        },
+        {
+          "arguments": [
+            "--libs",
+            "foo"
+          ],
+          "canonical_sha256": "e21ad208592510bae2dbd16d51c685f865114b4c5eda908f21f1863bf0d7c3f3",
+          "exact": true,
+          "hybrid_sha256": "e21ad208592510bae2dbd16d51c685f865114b4c5eda908f21f1863bf0d7c3f3",
+          "index": 6,
+          "tool": "pkgconf"
+        },
+        {
+          "arguments": [
+            "--libs-only-l",
+            "foo"
+          ],
+          "canonical_sha256": "3c399fb7aa32f0eff7b7c7b22de8073b6e47ec60bfb2ade7649f8e2a4f34ca5c",
+          "exact": true,
+          "hybrid_sha256": "3c399fb7aa32f0eff7b7c7b22de8073b6e47ec60bfb2ade7649f8e2a4f34ca5c",
+          "index": 7,
+          "tool": "pkgconf"
+        },
+        {
+          "arguments": [
+            "--static",
+            "--libs",
+            "foo"
+          ],
+          "canonical_sha256": "6868ecdc00e6031f1f9ae68ab621a2655ba2dbf704170b1f383ba6e8e29aa32a",
+          "exact": true,
+          "hybrid_sha256": "6868ecdc00e6031f1f9ae68ab621a2655ba2dbf704170b1f383ba6e8e29aa32a",
+          "index": 8,
+          "tool": "pkgconf"
+        },
+        {
+          "arguments": [
+            "--variable=prefix",
+            "foo"
+          ],
+          "canonical_sha256": "7fe84d5990f62519a5ab3e861ec04584cfea881c529520d6e37f846bfce66db1",
+          "exact": true,
+          "hybrid_sha256": "7fe84d5990f62519a5ab3e861ec04584cfea881c529520d6e37f846bfce66db1",
+          "index": 9,
+          "tool": "pkgconf"
+        },
+        {
+          "arguments": [
+            "--variable=custom",
+            "foo"
+          ],
+          "canonical_sha256": "2b90c2562d56d669213eb11c8f6a39b4a84f4f356a88a5626e8fc0f0f123baa8",
+          "exact": true,
+          "hybrid_sha256": "2b90c2562d56d669213eb11c8f6a39b4a84f4f356a88a5626e8fc0f0f123baa8",
+          "index": 10,
+          "tool": "pkgconf"
+        },
+        {
+          "arguments": [
+            "--print-variables",
+            "foo"
+          ],
+          "canonical_sha256": "6521142f44315abfe0abdd931545a8e0351046072e91578743ce192b8b05e5a8",
+          "exact": true,
+          "hybrid_sha256": "6521142f44315abfe0abdd931545a8e0351046072e91578743ce192b8b05e5a8",
+          "index": 11,
+          "tool": "pkgconf"
+        },
+        {
+          "arguments": [
+            "--print-requires",
+            "foo"
+          ],
+          "canonical_sha256": "8e0946ec326f359214e4617e44b94dbf299f956bf4694722f5e656b2ed2fe31d",
+          "exact": true,
+          "hybrid_sha256": "8e0946ec326f359214e4617e44b94dbf299f956bf4694722f5e656b2ed2fe31d",
+          "index": 12,
+          "tool": "pkgconf"
+        },
+        {
+          "arguments": [
+            "--print-requires-private",
+            "foo"
+          ],
+          "canonical_sha256": "fe5d27b0ec34594fa00c7aee9f99e564ed887e4efd67e6c0cbced81735b23096",
+          "exact": true,
+          "hybrid_sha256": "fe5d27b0ec34594fa00c7aee9f99e564ed887e4efd67e6c0cbced81735b23096",
+          "index": 13,
+          "tool": "pkgconf"
+        },
+        {
+          "arguments": [
+            "--list-all"
+          ],
+          "canonical_sha256": "5f3c6af79fdb79153ec628636de92a6bae71f2e84cf618f631d03352926c5316",
+          "exact": true,
+          "hybrid_sha256": "5f3c6af79fdb79153ec628636de92a6bae71f2e84cf618f631d03352926c5316",
+          "index": 14,
+          "tool": "pkgconf"
+        },
+        {
+          "arguments": [
+            "--exists",
+            "foo"
+          ],
+          "canonical_sha256": "8855508aade16ec573d21e6a485dfd0a7624085c1a14b5ecdd6485de0c6839a4",
+          "exact": true,
+          "hybrid_sha256": "8855508aade16ec573d21e6a485dfd0a7624085c1a14b5ecdd6485de0c6839a4",
+          "index": 15,
+          "tool": "pkgconf"
+        },
+        {
+          "arguments": [
+            "--exists",
+            "missing"
+          ],
+          "canonical_sha256": "957b88b12730e646e0f33d3618b77dfa579e8231e3c59c7104be7165611c8027",
+          "exact": true,
+          "hybrid_sha256": "957b88b12730e646e0f33d3618b77dfa579e8231e3c59c7104be7165611c8027",
+          "index": 16,
+          "tool": "pkgconf"
+        },
+        {
+          "arguments": [
+            "--atleast-version=1.4",
+            "foo"
+          ],
+          "canonical_sha256": "8855508aade16ec573d21e6a485dfd0a7624085c1a14b5ecdd6485de0c6839a4",
+          "exact": true,
+          "hybrid_sha256": "8855508aade16ec573d21e6a485dfd0a7624085c1a14b5ecdd6485de0c6839a4",
+          "index": 17,
+          "tool": "pkgconf"
+        },
+        {
+          "arguments": [
+            "--exact-version=1.4.2",
+            "foo"
+          ],
+          "canonical_sha256": "8855508aade16ec573d21e6a485dfd0a7624085c1a14b5ecdd6485de0c6839a4",
+          "exact": true,
+          "hybrid_sha256": "8855508aade16ec573d21e6a485dfd0a7624085c1a14b5ecdd6485de0c6839a4",
+          "index": 18,
+          "tool": "pkgconf"
+        },
+        {
+          "arguments": [
+            "--max-version=1.5",
+            "foo"
+          ],
+          "canonical_sha256": "8855508aade16ec573d21e6a485dfd0a7624085c1a14b5ecdd6485de0c6839a4",
+          "exact": true,
+          "hybrid_sha256": "8855508aade16ec573d21e6a485dfd0a7624085c1a14b5ecdd6485de0c6839a4",
+          "index": 19,
+          "tool": "pkgconf"
+        },
+        {
+          "arguments": [
+            "--define-variable=prefix=/tmp/override",
+            "--variable=prefix",
+            "foo"
+          ],
+          "canonical_sha256": "0c162c33a694e216f3eb0d95c8a199028368c086148645659a59167b81af5653",
+          "exact": true,
+          "hybrid_sha256": "0c162c33a694e216f3eb0d95c8a199028368c086148645659a59167b81af5653",
+          "index": 20,
+          "tool": "pkgconf"
+        },
+        {
+          "arguments": [
+            "--env=CHECK",
+            "foo"
+          ],
+          "canonical_sha256": "8855508aade16ec573d21e6a485dfd0a7624085c1a14b5ecdd6485de0c6839a4",
+          "exact": true,
+          "hybrid_sha256": "8855508aade16ec573d21e6a485dfd0a7624085c1a14b5ecdd6485de0c6839a4",
+          "index": 21,
+          "tool": "pkgconf"
+        },
+        {
+          "arguments": [
+            "--fragment-tree",
+            "--libs",
+            "foo"
+          ],
+          "canonical_sha256": "266153eaf676551e03a2a2527a46bafc54db4ba29ed2f365285d3f36cafba71e",
+          "exact": true,
+          "hybrid_sha256": "266153eaf676551e03a2a2527a46bafc54db4ba29ed2f365285d3f36cafba71e",
+          "index": 22,
+          "tool": "pkgconf"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical_sha256": "f56c06f77bab069b551c05bbc393a52b788d04ee9b8b187d1d272813be5a0d61",
+          "exact": true,
+          "hybrid_sha256": "f56c06f77bab069b551c05bbc393a52b788d04ee9b8b187d1d272813be5a0d61",
+          "index": 23,
+          "tool": "pkg-config"
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "canonical_sha256": "01e4b6a2694f127c5a66469c05c697a8a3427c05279c4ad6653153de51e8254b",
+          "exact": true,
+          "hybrid_sha256": "01e4b6a2694f127c5a66469c05c697a8a3427c05279c4ad6653153de51e8254b",
+          "index": 24,
+          "tool": "pkg-config"
+        },
+        {
+          "arguments": [
+            "--about"
+          ],
+          "canonical_sha256": "49f3ef7415bf354f629a73b179b5b73244c332e77dd39466af0f4a41d133c3d0",
+          "exact": true,
+          "hybrid_sha256": "49f3ef7415bf354f629a73b179b5b73244c332e77dd39466af0f4a41d133c3d0",
+          "index": 25,
+          "tool": "pkg-config"
+        },
+        {
+          "arguments": [
+            "--modversion",
+            "foo"
+          ],
+          "canonical_sha256": "647c368ef24346c0e32970dff7d057db491dd8a449994a0728446b49fbecb598",
+          "exact": true,
+          "hybrid_sha256": "647c368ef24346c0e32970dff7d057db491dd8a449994a0728446b49fbecb598",
+          "index": 26,
+          "tool": "pkg-config"
+        },
+        {
+          "arguments": [
+            "--cflags",
+            "foo"
+          ],
+          "canonical_sha256": "60acd28caeb241e08325cdd1d92f09e2ce6195d0d4649858b36457d940ca04d9",
+          "exact": true,
+          "hybrid_sha256": "60acd28caeb241e08325cdd1d92f09e2ce6195d0d4649858b36457d940ca04d9",
+          "index": 27,
+          "tool": "pkg-config"
+        },
+        {
+          "arguments": [
+            "--cflags-only-I",
+            "foo"
+          ],
+          "canonical_sha256": "f4f570b1bdf8082c21af157ae352fcaa87c3c73abd409ddde706a5034ac747fc",
+          "exact": true,
+          "hybrid_sha256": "f4f570b1bdf8082c21af157ae352fcaa87c3c73abd409ddde706a5034ac747fc",
+          "index": 28,
+          "tool": "pkg-config"
+        },
+        {
+          "arguments": [
+            "--libs",
+            "foo"
+          ],
+          "canonical_sha256": "e21ad208592510bae2dbd16d51c685f865114b4c5eda908f21f1863bf0d7c3f3",
+          "exact": true,
+          "hybrid_sha256": "e21ad208592510bae2dbd16d51c685f865114b4c5eda908f21f1863bf0d7c3f3",
+          "index": 29,
+          "tool": "pkg-config"
+        },
+        {
+          "arguments": [
+            "--libs-only-l",
+            "foo"
+          ],
+          "canonical_sha256": "3c399fb7aa32f0eff7b7c7b22de8073b6e47ec60bfb2ade7649f8e2a4f34ca5c",
+          "exact": true,
+          "hybrid_sha256": "3c399fb7aa32f0eff7b7c7b22de8073b6e47ec60bfb2ade7649f8e2a4f34ca5c",
+          "index": 30,
+          "tool": "pkg-config"
+        },
+        {
+          "arguments": [
+            "--static",
+            "--libs",
+            "foo"
+          ],
+          "canonical_sha256": "6868ecdc00e6031f1f9ae68ab621a2655ba2dbf704170b1f383ba6e8e29aa32a",
+          "exact": true,
+          "hybrid_sha256": "6868ecdc00e6031f1f9ae68ab621a2655ba2dbf704170b1f383ba6e8e29aa32a",
+          "index": 31,
+          "tool": "pkg-config"
+        },
+        {
+          "arguments": [
+            "--variable=prefix",
+            "foo"
+          ],
+          "canonical_sha256": "7fe84d5990f62519a5ab3e861ec04584cfea881c529520d6e37f846bfce66db1",
+          "exact": true,
+          "hybrid_sha256": "7fe84d5990f62519a5ab3e861ec04584cfea881c529520d6e37f846bfce66db1",
+          "index": 32,
+          "tool": "pkg-config"
+        },
+        {
+          "arguments": [
+            "--variable=custom",
+            "foo"
+          ],
+          "canonical_sha256": "2b90c2562d56d669213eb11c8f6a39b4a84f4f356a88a5626e8fc0f0f123baa8",
+          "exact": true,
+          "hybrid_sha256": "2b90c2562d56d669213eb11c8f6a39b4a84f4f356a88a5626e8fc0f0f123baa8",
+          "index": 33,
+          "tool": "pkg-config"
+        },
+        {
+          "arguments": [
+            "--print-variables",
+            "foo"
+          ],
+          "canonical_sha256": "6521142f44315abfe0abdd931545a8e0351046072e91578743ce192b8b05e5a8",
+          "exact": true,
+          "hybrid_sha256": "6521142f44315abfe0abdd931545a8e0351046072e91578743ce192b8b05e5a8",
+          "index": 34,
+          "tool": "pkg-config"
+        },
+        {
+          "arguments": [
+            "--print-requires",
+            "foo"
+          ],
+          "canonical_sha256": "8e0946ec326f359214e4617e44b94dbf299f956bf4694722f5e656b2ed2fe31d",
+          "exact": true,
+          "hybrid_sha256": "8e0946ec326f359214e4617e44b94dbf299f956bf4694722f5e656b2ed2fe31d",
+          "index": 35,
+          "tool": "pkg-config"
+        },
+        {
+          "arguments": [
+            "--print-requires-private",
+            "foo"
+          ],
+          "canonical_sha256": "fe5d27b0ec34594fa00c7aee9f99e564ed887e4efd67e6c0cbced81735b23096",
+          "exact": true,
+          "hybrid_sha256": "fe5d27b0ec34594fa00c7aee9f99e564ed887e4efd67e6c0cbced81735b23096",
+          "index": 36,
+          "tool": "pkg-config"
+        },
+        {
+          "arguments": [
+            "--list-all"
+          ],
+          "canonical_sha256": "5f3c6af79fdb79153ec628636de92a6bae71f2e84cf618f631d03352926c5316",
+          "exact": true,
+          "hybrid_sha256": "5f3c6af79fdb79153ec628636de92a6bae71f2e84cf618f631d03352926c5316",
+          "index": 37,
+          "tool": "pkg-config"
+        },
+        {
+          "arguments": [
+            "--exists",
+            "foo"
+          ],
+          "canonical_sha256": "8855508aade16ec573d21e6a485dfd0a7624085c1a14b5ecdd6485de0c6839a4",
+          "exact": true,
+          "hybrid_sha256": "8855508aade16ec573d21e6a485dfd0a7624085c1a14b5ecdd6485de0c6839a4",
+          "index": 38,
+          "tool": "pkg-config"
+        },
+        {
+          "arguments": [
+            "--exists",
+            "missing"
+          ],
+          "canonical_sha256": "957b88b12730e646e0f33d3618b77dfa579e8231e3c59c7104be7165611c8027",
+          "exact": true,
+          "hybrid_sha256": "957b88b12730e646e0f33d3618b77dfa579e8231e3c59c7104be7165611c8027",
+          "index": 39,
+          "tool": "pkg-config"
+        },
+        {
+          "arguments": [
+            "--atleast-version=1.4",
+            "foo"
+          ],
+          "canonical_sha256": "8855508aade16ec573d21e6a485dfd0a7624085c1a14b5ecdd6485de0c6839a4",
+          "exact": true,
+          "hybrid_sha256": "8855508aade16ec573d21e6a485dfd0a7624085c1a14b5ecdd6485de0c6839a4",
+          "index": 40,
+          "tool": "pkg-config"
+        },
+        {
+          "arguments": [
+            "--exact-version=1.4.2",
+            "foo"
+          ],
+          "canonical_sha256": "8855508aade16ec573d21e6a485dfd0a7624085c1a14b5ecdd6485de0c6839a4",
+          "exact": true,
+          "hybrid_sha256": "8855508aade16ec573d21e6a485dfd0a7624085c1a14b5ecdd6485de0c6839a4",
+          "index": 41,
+          "tool": "pkg-config"
+        },
+        {
+          "arguments": [
+            "--max-version=1.5",
+            "foo"
+          ],
+          "canonical_sha256": "8855508aade16ec573d21e6a485dfd0a7624085c1a14b5ecdd6485de0c6839a4",
+          "exact": true,
+          "hybrid_sha256": "8855508aade16ec573d21e6a485dfd0a7624085c1a14b5ecdd6485de0c6839a4",
+          "index": 42,
+          "tool": "pkg-config"
+        },
+        {
+          "arguments": [
+            "--define-variable=prefix=/tmp/override",
+            "--variable=prefix",
+            "foo"
+          ],
+          "canonical_sha256": "0c162c33a694e216f3eb0d95c8a199028368c086148645659a59167b81af5653",
+          "exact": true,
+          "hybrid_sha256": "0c162c33a694e216f3eb0d95c8a199028368c086148645659a59167b81af5653",
+          "index": 43,
+          "tool": "pkg-config"
+        },
+        {
+          "arguments": [
+            "--env=CHECK",
+            "foo"
+          ],
+          "canonical_sha256": "8855508aade16ec573d21e6a485dfd0a7624085c1a14b5ecdd6485de0c6839a4",
+          "exact": true,
+          "hybrid_sha256": "8855508aade16ec573d21e6a485dfd0a7624085c1a14b5ecdd6485de0c6839a4",
+          "index": 44,
+          "tool": "pkg-config"
+        },
+        {
+          "arguments": [
+            "--fragment-tree",
+            "--libs",
+            "foo"
+          ],
+          "canonical_sha256": "266153eaf676551e03a2a2527a46bafc54db4ba29ed2f365285d3f36cafba71e",
+          "exact": true,
+          "hybrid_sha256": "266153eaf676551e03a2a2527a46bafc54db4ba29ed2f365285d3f36cafba71e",
+          "index": 45,
+          "tool": "pkg-config"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical_sha256": "89fa400ba48c7cf1bcd6db07db81d3e17f2daa3445ec6295390663057e74d6a3",
+          "exact": true,
+          "hybrid_sha256": "89fa400ba48c7cf1bcd6db07db81d3e17f2daa3445ec6295390663057e74d6a3",
+          "index": 46,
+          "tool": "bomtool"
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "canonical_sha256": "6e92ef3a19688ae506fc2fae469b50101d66d2f4e72cabecc0d33a620f3cea3f",
+          "exact": true,
+          "hybrid_sha256": "6e92ef3a19688ae506fc2fae469b50101d66d2f4e72cabecc0d33a620f3cea3f",
+          "index": 47,
+          "tool": "bomtool"
+        },
+        {
+          "arguments": [
+            "--about"
+          ],
+          "canonical_sha256": "c9267a0c399e5735f9a2a35ef636e6c9b1c49fd3150e51deb21de1e5c37f155a",
+          "exact": true,
+          "hybrid_sha256": "c9267a0c399e5735f9a2a35ef636e6c9b1c49fd3150e51deb21de1e5c37f155a",
+          "index": 48,
+          "tool": "bomtool"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical_sha256": "b9999bc9e8427b19d85e9fe2fb1392414271735e2d745715e840f13f244b8f34",
+          "exact": true,
+          "hybrid_sha256": "b9999bc9e8427b19d85e9fe2fb1392414271735e2d745715e840f13f244b8f34",
+          "index": 49,
+          "tool": "pccritic"
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "canonical_sha256": "248c57703679718bb5df2741cf2b503198d0c1f38f45b7ab7242241aecf7be28",
+          "exact": true,
+          "hybrid_sha256": "248c57703679718bb5df2741cf2b503198d0c1f38f45b7ab7242241aecf7be28",
+          "index": 50,
+          "tool": "pccritic"
+        },
+        {
+          "arguments": [
+            "--about"
+          ],
+          "canonical_sha256": "25e2c7c9a9a3359ffe7dcdd7a486eba78de5bb91e5d67da685c046346e4a4c18",
+          "exact": true,
+          "hybrid_sha256": "25e2c7c9a9a3359ffe7dcdd7a486eba78de5bb91e5d67da685c046346e4a4c18",
+          "index": 51,
+          "tool": "pccritic"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical_sha256": "6aa74437b1c7ea44c3a498e6307bb2fc449dc124b1f6cc8255f0718ca23dc0e4",
+          "exact": true,
+          "hybrid_sha256": "6aa74437b1c7ea44c3a498e6307bb2fc449dc124b1f6cc8255f0718ca23dc0e4",
+          "index": 52,
+          "tool": "spdxtool"
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "canonical_sha256": "aab947c73a788a67b5416fb117acfddaa0b829fab860e87cb48504e998a31911",
+          "exact": true,
+          "hybrid_sha256": "aab947c73a788a67b5416fb117acfddaa0b829fab860e87cb48504e998a31911",
+          "index": 53,
+          "tool": "spdxtool"
+        },
+        {
+          "arguments": [
+            "--about"
+          ],
+          "canonical_sha256": "f495467ef6ec8bb9d44c5d93953a84a3d1d35035f722e760e177c847d452a115",
+          "exact": true,
+          "hybrid_sha256": "f495467ef6ec8bb9d44c5d93953a84a3d1d35035f722e760e177c847d452a115",
+          "index": 54,
+          "tool": "spdxtool"
+        }
+      ],
+      "schema": 1
+    },
+    "fixture_passes": 429,
+    "fixture_suites": 14,
+    "fuzz_replay_suites": 2,
+    "intentional_platform_skips": 5,
+    "upstream_suites": 32,
+    "valgrind_smokes": 6
+  },
+  "implementation": {
+    "entrypoints": [
+      "rustbox_pkgconf_main",
+      "rustbox_bomtool_main",
+      "rustbox_pccritic_main",
+      "rustbox_spdxtool_main"
+    ],
+    "public_names": [
+      "pkgconf",
+      "pkg-config",
+      "bomtool",
+      "pccritic",
+      "spdxtool"
+    ],
+    "rust_files": 37,
+    "rust_production_sources": 35
+  },
+  "input_evidence": {
+    "pkgconf-3.0.11-c2rust.json": "f3b30fcdabc9871203cdb3a2ee81591549fbac47fd103a635593a0164a62f254",
+    "pkgconf-3.0.11-normalization.json": "127afcabb26a6b98e77d27b8e007c826cf097e4237e5bc857afe8d075f556e9e",
+    "pkgconf-3.0.11-oracle.json": "5460ce5ab6063107ee7337fbaf4c6dcacde5aa15f29a14e7702d348043269cad"
+  },
+  "next_gate": "link all five names into the single Rustbox multicall and replay combined regressions",
+  "recorded_at": "2026-11-20",
+  "release": "3.0.11",
+  "runtime_linkage": {
+    "current_dynamic_needed": [
+      "libm.so.6",
+      "libgcc_s.so.1",
+      "libc.so.6",
+      "ld-linux-x86-64.so.2"
+    ],
+    "final_no_dt_needed_gate": "pending Rustbox-owned static runtime"
+  },
+  "schema": 1,
+  "size": {
+    "canonical_four_tools_stripped_bytes": 490848,
+    "canonical_stripped_bytes": {
+      "bomtool": 113488,
+      "pccritic": 109416,
+      "pkgconf": 133976,
+      "spdxtool": 133968
+    },
+    "interpretation": "The static archive is link inventory, not release size.",
+    "linked_sections": {
+      "bss": 11424,
+      "data": 6992,
+      "rodata": 55867,
+      "text": 365254
+    },
+    "linked_stripped_bytes": 521560,
+    "linked_unstripped_bytes": 4710672,
+    "translation_static_archive_bytes": 23906642
+  },
+  "status": "complete translated hybrid at canonical parity; multicall integration pending"
+}

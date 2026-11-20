@@ -185,7 +185,13 @@ functions preserved.  The untouched audit output and mechanically modernized
 stable crate compile without translation holes or generated-Rust repairs and
 export all four multicall entrypoints exactly once; hashes and the deferred
 raw-pointer/unsafe inventory are in `evidence/pkgconf-3.0.11-c2rust.json`.
-Complete Rust linkage and canonical differential parity are next.
+The complete Rust archive then passes all 32 upstream suites: 429 CLI fixture
+checks, 223 API checks relinked unchanged against Rust, and both allocation-
+failure fuzz replays.  Fifty-five additional exact differential comparisons
+and six Valgrind smokes pass.  The four-tool hybrid is 521,560 bytes stripped
+(509 KiB), versus 490,848 bytes for the four separate canonical executables;
+full parity and size evidence are in `evidence/pkgconf-3.0.11-hybrid.json`.
+Single-binary Rustbox integration is next.
 
 ## Work queue after util-linux
 
