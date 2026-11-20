@@ -75,7 +75,7 @@ def extract(archive_path: Path, source_directory: str, destination_root: Path) -
     destination_root.mkdir(parents=True, exist_ok=True)
     temporary_root = Path(tempfile.mkdtemp(prefix=".extract-", dir=destination_root))
     try:
-        with tarfile.open(archive_path, "r:xz") as archive:
+        with tarfile.open(archive_path, "r:*") as archive:
             validate_members(archive, temporary_root)
             archive.extractall(temporary_root)
         extracted = temporary_root / source_directory

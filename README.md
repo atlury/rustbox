@@ -47,6 +47,7 @@ scoring, and correctness gates.
 | util-linux 2.42.4 | 155 | 155 | 155 | 155 |
 | GNU M4 1.4.21 | 1 | 1 | 1 | 1 |
 | pkgconf 3.0.11 | 5 | 5 | 5 | 5 |
+| File 5.48 | 1 | 1 | 0 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -201,6 +202,18 @@ stripped multicall by 201,024 bytes, from 5,287,600 to 5,488,624 bytes.  The
 resulting 267-name executable passes all 534 dispatcher comparisons, the full
 14,022-case Coreutils/util-linux replay, the complete M4 replay, and pkgconf's
 429 CLI fixture checks, 55 exact differential comparisons, and Valgrind.
+
+File 5.48 is pinned to its canonical signed release.  Independent GCC and
+Clang builds enable builtin ELF/core handling, zlib, bzip2, xz, zstd, lzip,
+seccomp, and Landlock; lrzip is the only unavailable optional backend.  Each
+compiler build and the ASan/UBSan build passes all 83 upstream fixtures.  The
+two canonical executables agree exactly across 174 additional CLI cases, their
+compiled magic databases are byte-identical, their 126 defined libmagic global
+symbols match, and Valgrind is clean.  The exact 25-source production closure
+and all hashes are recorded in `evidence/file-5.48-oracle.json`.  Compression
+and sandbox shared libraries are oracle-only dependencies: Rustbox must
+replace or statically integrate them before the no-external-library release
+gate.
 
 ## Work queue after util-linux
 

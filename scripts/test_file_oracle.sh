@@ -1,0 +1,12 @@
+#!/bin/sh
+# SPDX-License-Identifier: BSD-2-Clause
+set -eu
+
+root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
+RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
+  exec "$root/scripts/run_tool.sh" python3 /work/tests/file-oracle-differential.py \
+    --gcc /rustbox-file/canonical-gcc/src/file \
+    --clang /rustbox-file/canonical-clang/src/file \
+    --magic /rustbox-file/canonical-gcc/magic/magic \
+    --upstream-tests /rustbox-file/source/tests \
+    --output /work/work/analysis/file-5.48/oracle/differential.json
