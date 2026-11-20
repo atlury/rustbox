@@ -9,7 +9,7 @@
   },
   "binaries": {
     "clang": {
-      "bytes": 593752,
+      "bytes": 593840,
       "needed": [
         "libm.so.6",
         "libseccomp.so.2",
@@ -20,10 +20,10 @@
         "libz.so.1",
         "libc.so.6"
       ],
-      "sha256": "3109984b5d6d1f4a732825e710851869b9149469ec65e5690b635de2ae4c1c4b"
+      "sha256": "f74f7c16d3db859ca7193755b1851d1bd94fbaacee46aae7720ab52124fe920f"
     },
     "gcc": {
-      "bytes": 813432,
+      "bytes": 813504,
       "needed": [
         "libseccomp.so.2",
         "liblz.so.1",
@@ -33,7 +33,7 @@
         "libz.so.1",
         "libc.so.6"
       ],
-      "sha256": "f5ccf62f3b799a4eb3440e39e30b7c357968b0206fc01532983cb15991aef0ac"
+      "sha256": "6124b9d909358c7d523a3fb69f3e5dc4c9530688268c149a3d1e2154daf3b7ac"
     }
   },
   "configuration": {
@@ -45,12 +45,12 @@
       "clang": {
         "comparisons": 174,
         "exact": true,
-        "report_sha256": "c2d3029f8b83f865e392bbf5e26e296d0f3c4a60095ae91b236b87175d6477bd"
+        "report_sha256": "804d934a26c77806cfa1227860ae3d58d719465b9056294c0ca2e36fdc5da531"
       },
       "gcc": {
         "comparisons": 174,
         "exact": true,
-        "report_sha256": "91750b989263fe6080df5db98bfe2d1054d400242b1e2e466ab071ba8b1230c3"
+        "report_sha256": "aafe6e62e96813abe3354b202bb106281049569bf70248162bb5a37a441937ec"
       }
     },
     "canonical_normalized_exact": true,
@@ -101,15 +101,17 @@
     "canonical_archive_sha256": "ed14656883b23a364b4057c05595d93252da9bc473d30106519519d0da141283",
     "canonical_tree_sha256": "bb06fe02045bbe51ca29cb178e7f646025108cd047bba584d2245af426bad28b",
     "changed_sources": [
+      "src/apprentice.c",
       "src/file.c",
       "src/softmagic.c"
     ],
     "conditional": "RUSTBOX_MULTICALL",
     "engines": [
       "Coccinelle 1.3.3 semantic patch",
-      "exact deterministic source rewrite"
+      "exact deterministic source rewrite",
+      "exact deterministic translator-compatibility rewrite"
     ],
-    "normalized_tree_sha256": "dc47040097dcef7b1f2a18312fe1dff1cb7bbd68c282f6ddba7f04c6ee2b02d4",
+    "normalized_tree_sha256": "bcac689c7196f3995a9627978a8834a9c145efa25d5570e0aad4badbe633e10d",
     "release": "5.48",
     "schema": 1,
     "transformations": [
@@ -118,6 +120,20 @@
         "engine": "Coccinelle 1.3.3 semantic patch",
         "normalized_sha256": "268f0b1676ef3808be4792f98fcd78a3b4b7532a390b4ba931b02a4a1e501657",
         "operation": "initialize do_ops offset to the identity lhs before dispatching a validated operation",
+        "source": "src/softmagic.c"
+      },
+      {
+        "canonical_sha256": "e574febd30c89567c48f6a131428f2d9a8c0cfd1dbcf4fef3704e3877fdf9120",
+        "engine": "exact deterministic translator-compatibility rewrite",
+        "normalized_sha256": "75f346a0ba8edd02b0e9a139a90f5936a72d4f76af10d0e1fe98ac0a4ca2715e",
+        "operation": "give three C2Rust-lifted size variables globally unique names",
+        "source": "src/apprentice.c"
+      },
+      {
+        "canonical_sha256": "5e18583517c1d00807f2cce1456b9ff868f60355e720203f151de786b20bf7c7",
+        "engine": "exact deterministic translator-compatibility rewrite",
+        "normalized_sha256": "3e3fa4df8778f85ae364cea08a25aff8ab1739dd1c946183af69713630e479b5",
+        "operation": "spell eight IEEE-754 comparisons with equivalent C operators instead of unsupported Clang builtins",
         "source": "src/softmagic.c"
       },
       {
@@ -132,7 +148,7 @@
   "valgrind": {
     "errors": 0,
     "leaks": 0,
-    "log_sha256": "5c4519b800c44a1089d27764f5fe0c3173cbf83821b29a42cb979af641211c28",
+    "log_sha256": "b8cda9a48f42472ccdf531ad0805c7c9f57ce4b15cdd7d1fefb461c7a692faaf",
     "sandbox_disabled_for_tool_compatibility": true
   }
 }

@@ -49,11 +49,14 @@ def main() -> int:
     normalized = repository / "work/analysis/file-5.48/normalized"
     oracle = repository / "work/analysis/file-5.48/oracle"
     manifest = json.loads((normalized / "normalization.json").read_text())
-    if manifest["changed_sources"] != ["src/file.c", "src/softmagic.c"]:
+    if manifest["changed_sources"] != [
+        "src/apprentice.c", "src/file.c", "src/softmagic.c"
+    ]:
         raise RuntimeError("File normalization changed an unexpected source set")
     if manifest["engines"] != [
         "Coccinelle 1.3.3 semantic patch",
         "exact deterministic source rewrite",
+        "exact deterministic translator-compatibility rewrite",
     ]:
         raise RuntimeError("File normalization engine set changed")
 

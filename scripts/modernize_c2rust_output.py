@@ -53,6 +53,28 @@ def has_only_pointer_uses(line: str, name: str) -> bool:
     return re.search(rf"\b{escaped}\b", residual) is None
 
 
+def alias_has_only_pointer_uses(
+    lines: list[str], name: str, visited: frozenset[str] = frozenset()
+) -> bool:
+    """Accept an opaque alias chain only when every leaf use is a pointer use."""
+    if name in visited:
+        return False
+    descendants = visited | {name}
+    for line in lines:
+        if not re.search(rf"\b{re.escape(name)}\b", line):
+            continue
+        alias = TYPE_ALIAS.match(line)
+        if alias is not None and alias.group(1) == name:
+            continue
+        if alias is not None and alias.group(2) == name:
+            if not alias_has_only_pointer_uses(lines, alias.group(1), descendants):
+                return False
+            continue
+        if not has_only_pointer_uses(line, name):
+            return False
+    return True
+
+
 def transform_rust(path: Path) -> dict[str, object] | None:
     before = path.read_text(encoding="utf-8")
     lines = before.splitlines()
@@ -90,13 +112,7 @@ def transform_rust(path: Path) -> dict[str, object] | None:
         for index, line in uses:
             alias = TYPE_ALIAS.match(line)
             if alias is not None and alias.group(2) == name:
-                alias_name = alias.group(1)
-                alias_uses = [
-                    candidate for candidate in kept
-                    if candidate != line
-                    and re.search(rf"\b{re.escape(alias_name)}\b", candidate)
-                ]
-                if all(has_only_pointer_uses(candidate, alias_name) for candidate in alias_uses):
+                if alias_has_only_pointer_uses(kept, alias.group(1)):
                     continue
             if not has_only_pointer_uses(line, name):
                 context = "\n".join(kept[max(0, index - 2):index + 3])

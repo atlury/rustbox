@@ -88,6 +88,103 @@ def main() -> int:
             }
         )
 
+        apprentice = staged / "src/apprentice.c"
+        before_apprentice = apprentice.read_text()
+        apprentice_declarations = (
+            "\tstatic const size_t nm = sizeof(*map->nmagic) * MAGIC_SETS;\n"
+            "\tstatic const size_t m = sizeof(**map->magic);\n"
+            "\tint fd = -1;\n"
+            "\tsize_t len;\n"
+        )
+        apprentice_declarations_normalized = (
+            "\tstatic const size_t magic_set_sizes_bytes =\n"
+            "\t    sizeof(*map->nmagic) * MAGIC_SETS;\n"
+            "\tstatic const size_t magic_record_size = sizeof(**map->magic);\n"
+            "\tint fd = -1;\n"
+            "\tsize_t database_len;\n"
+        )
+        apprentice_write = (
+            "\t\tlen = m * map->nmagic[i];\n"
+            "\t\tif (write(fd, map->magic[i], len) != CAST(ssize_t, len)) {\n"
+        )
+        apprentice_write_normalized = (
+            "\t\tdatabase_len = magic_record_size * map->nmagic[i];\n"
+            "\t\tif (write(fd, map->magic[i], database_len) !=\n"
+            "\t\t    CAST(ssize_t, database_len)) {\n"
+        )
+        if before_apprentice.count(apprentice_declarations) != 1:
+            raise RuntimeError("apprentice_compile declaration normalization precondition failed")
+        if before_apprentice.count(apprentice_write) != 1:
+            raise RuntimeError("apprentice_compile write normalization precondition failed")
+        after_apprentice = before_apprentice.replace(
+            apprentice_declarations, apprentice_declarations_normalized
+        ).replace(apprentice_write, apprentice_write_normalized)
+        if after_apprentice.count("memcpy(hdr.h + 2, map->nmagic, nm);") != 1:
+            raise RuntimeError("apprentice_compile header-size normalization precondition failed")
+        after_apprentice = after_apprentice.replace(
+            "memcpy(hdr.h + 2, map->nmagic, nm);",
+            "memcpy(hdr.h + 2, map->nmagic, magic_set_sizes_bytes);",
+        )
+        allocation_block = (
+            "\t\tstatic const size_t len = sizeof(*m) * ALLOC_CHUNK;\n"
+            "\t\tif (me->mp != NULL)\n"
+            "\t\t\treturn 1;\n"
+            "\t\tif ((m = CAST(struct magic *, malloc(len))) == NULL) {\n"
+            "\t\t\tfile_oomem(ms, len);\n"
+        )
+        allocation_block_normalized = (
+            "\t\tstatic const size_t magic_allocation_size =\n"
+            "\t\t    sizeof(*m) * ALLOC_CHUNK;\n"
+            "\t\tif (me->mp != NULL)\n"
+            "\t\t\treturn 1;\n"
+            "\t\tif ((m = CAST(struct magic *, malloc(magic_allocation_size))) == NULL) {\n"
+            "\t\t\tfile_oomem(ms, magic_allocation_size);\n"
+        )
+        if after_apprentice.count(allocation_block) != 1:
+            raise RuntimeError("magic allocation-size normalization precondition failed")
+        after_apprentice = after_apprentice.replace(
+            allocation_block, allocation_block_normalized
+        )
+        apprentice.write_text(after_apprentice)
+        changes.append(
+            {
+                "source": "src/apprentice.c",
+                "canonical_sha256": sha256(canonical / "src/apprentice.c"),
+                "normalized_sha256": sha256(apprentice),
+                "operation": "give three C2Rust-lifted size variables globally unique names",
+                "engine": "exact deterministic translator-compatibility rewrite",
+            }
+        )
+
+        before_fp = softmagic.read_text()
+        fp_replacements = {
+            "matched = isunordered(fl, fv) ? 1 : fv != fl;": "matched = fv != fl;",
+            "matched = isunordered(fl, fv) ? 0 : fv == fl;": "matched = fv == fl;",
+            "matched = isgreater(fv, fl);": "matched = fv > fl;",
+            "matched = isless(fv, fl);": "matched = fv < fl;",
+            "matched = isunordered(dv, dl) ? 1 : dv != dl;": "matched = dv != dl;",
+            "matched = isunordered(dv, dl) ? 0 : dv == dl;": "matched = dv == dl;",
+            "matched = isgreater(dv, dl);": "matched = dv > dl;",
+            "matched = isless(dv, dl);": "matched = dv < dl;",
+        }
+        after_fp = before_fp
+        for old, new in fp_replacements.items():
+            if after_fp.count(old) != 1:
+                raise RuntimeError(f"floating comparison normalization precondition failed: {old}")
+            after_fp = after_fp.replace(old, new)
+        softmagic.write_text(after_fp)
+        if any(name in after_fp for name in ("isunordered(", "isgreater(", "isless(")):
+            raise RuntimeError("C2Rust-incompatible floating comparison macro remains")
+        changes.append(
+            {
+                "source": "src/softmagic.c",
+                "canonical_sha256": sha256(canonical / "src/softmagic.c"),
+                "normalized_sha256": sha256(softmagic),
+                "operation": "spell eight IEEE-754 comparisons with equivalent C operators instead of unsupported Clang builtins",
+                "engine": "exact deterministic translator-compatibility rewrite",
+            }
+        )
+
         entrypoint = staged / "src/file.c"
         before = entrypoint.read_text()
         signature = "int\nmain(int argc, char *argv[])\n{"
@@ -137,7 +234,7 @@ def main() -> int:
             for relative in canonical_files
             if sha256(canonical / relative) != sha256(staged / relative)
         )
-        if changed != ["src/file.c", "src/softmagic.c"]:
+        if changed != ["src/apprentice.c", "src/file.c", "src/softmagic.c"]:
             raise RuntimeError(f"unexpected normalized source changes: {changed}")
 
         manifest = {
@@ -149,7 +246,11 @@ def main() -> int:
             "changed_sources": changed,
             "transformations": changes,
             "conditional": "RUSTBOX_MULTICALL",
-            "engines": ["Coccinelle 1.3.3 semantic patch", "exact deterministic source rewrite"],
+            "engines": [
+                "Coccinelle 1.3.3 semantic patch",
+                "exact deterministic source rewrite",
+                "exact deterministic translator-compatibility rewrite",
+            ],
         }
         if output.exists():
             shutil.rmtree(output)

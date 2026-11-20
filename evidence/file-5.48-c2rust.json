@@ -1,0 +1,625 @@
+{
+  "hardening": {
+    "later_order": [
+      "eliminate raw pointers and unsafe",
+      "replace std with Rustbox-owned no_std runtime"
+    ],
+    "raw_pointers_and_unsafe_are_inventory_only": true
+  },
+  "input": {
+    "compile_commands": 25,
+    "compile_database_sha256": "a4de3d0523d7b16dbde8a68bdcc6eb87a0b3ab97db45b70dd564d055fe8dcc96",
+    "normalization_evidence_sha256": "1e854c64399ba5b62e54d916aafd951b957b1a25795acf593634dbe919d10fb3",
+    "production_sources": [
+      "src/apprentice.c",
+      "src/apptype.c",
+      "src/ascmagic.c",
+      "src/buffer.c",
+      "src/cdf.c",
+      "src/cdf_time.c",
+      "src/compress.c",
+      "src/der.c",
+      "src/encoding.c",
+      "src/file.c",
+      "src/fmtcheck.c",
+      "src/fsmagic.c",
+      "src/funcs.c",
+      "src/is_csv.c",
+      "src/is_json.c",
+      "src/is_simh.c",
+      "src/is_tar.c",
+      "src/landlock.c",
+      "src/magic.c",
+      "src/print.c",
+      "src/readcdf.c",
+      "src/readelf.c",
+      "src/seccomp.c",
+      "src/softmagic.c",
+      "src/swap.c"
+    ]
+  },
+  "next_gate": "link the complete Rust archive and pass canonical File differential tests",
+  "raw_translation": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "289381f8e58b82488824cadcf6b538572bfc952aeac05766785e5b487ab5a961",
+      "cargo_toml_sha256": "07d844eb5ba52790c79d4ee815a891586a8bdf9ffc5a1f1a83100886ffd1fa02",
+      "diagnostics_by_level": {
+        "warning": 83
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "b45bf776ca05eaba7109b257c222d088cd7b7338527cf3695be41c2464f1ad17",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "stable_features": 1,
+        "unused_imports": 1,
+        "unused_must_use": 7,
+        "unused_parens": 51,
+        "unused_unsafe": 1,
+        "unused_variables": 21
+      }
+    },
+    "compile_error_macros": 0,
+    "declaration_map_sha256": {
+      "src/apprentice.c_decls.json": "08d817f5d6c79ef2fd5f1b0bd4a3883aeb529f64dc993750991cce769d91b8f1",
+      "src/apptype.c_decls.json": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "src/ascmagic.c_decls.json": "d696c3615a0fabc4a94232d46fc7703054180687056593b65678f7e31b85bc1f",
+      "src/buffer.c_decls.json": "75c612352ed2c2792a50fcc7a7029b0fdf0351d674230948585cecf44a865420",
+      "src/cdf.c_decls.json": "ca7a5a33a3bbce7c906b666a31a65fe081b14711eb5bd5dc2c73d83798f7fc7b",
+      "src/cdf_time.c_decls.json": "424a129002fdc24fdb9151c11e61bd448f3fd469ad36faf9db8fa953ef367704",
+      "src/compress.c_decls.json": "cc86306d49a7ea27373cd3644f25e3f18212e7c63aeb44b51eade19ac5989d71",
+      "src/der.c_decls.json": "2a7257306eac8fb9ead72d43bca6ae3a142c7d56dcc715fda2d13ff9ea250f47",
+      "src/encoding.c_decls.json": "d4057a2b84743aca33c8f1c2a8d0df399e323baa5ea53fc15ee3df0bf8986aec",
+      "src/file.c_decls.json": "9a4c53cdae228ddd472ebd64f4a595dd6388785d21a2c79a2f43ca5859be6ec0",
+      "src/fmtcheck.c_decls.json": "4d8f83f502334fc581712de7e21daacf4e7c670bcf8dadc82aa9c69c3a2dabfb",
+      "src/fsmagic.c_decls.json": "3042cf66cf4672c6e0a539b9f44e865fc67fda4c03b8eeb5012e073a8b62929c",
+      "src/funcs.c_decls.json": "d318fee908811b5282aa5bfbf256c427d24e21d50f945e772f84f9956a949d5f",
+      "src/is_csv.c_decls.json": "464fcf3b25439598b73c7524ddc8b559b69304af722fa02c21012ad3650daced",
+      "src/is_json.c_decls.json": "047d439f35f44d73c4938f7ebc48d2e5a89cd541e1a40fe4a911acd421a09415",
+      "src/is_simh.c_decls.json": "ddcf4c728965691a396f5d6b0215ba2b00fe9ea2e451a95c15b4297dbded51c5",
+      "src/is_tar.c_decls.json": "3ae9604c0d26247bbe9d252eabbe34859f2bab4f59202cc1b97217b92ca00dac",
+      "src/landlock.c_decls.json": "bb94d020b8b651927473919b08f74963d8be535c0ebc57bf107e7283e5884bc2",
+      "src/magic.c_decls.json": "06e29785181eaa0f5fc9047684e1c58429c1656420fad10f634e1fd6905a033b",
+      "src/print.c_decls.json": "0e5f20012009d2d1512044b8e6a28e330f12930269e35a684ae7c71170a6e9cc",
+      "src/readcdf.c_decls.json": "a24cf1a1462427c2e3c30089deb144033f814e4bb3546b9ae81182c107b88a22",
+      "src/readelf.c_decls.json": "4e4a140724649660e87df199fe7523c32ac28c243f21b53d839d724cd12c4961",
+      "src/seccomp.c_decls.json": "1c6531de46eece705fab1dc9fad65a7e42451a7e395922168f17662701dc0d3b",
+      "src/softmagic.c_decls.json": "bd62a2dc3b9880de05d44895e389f0f5411644316ddecae7af2a8c9098cdf09c",
+      "src/swap.c_decls.json": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    "declaration_maps": 25,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "a029d579d491c77633cf85a66d5c8dddbf135242edb993406376cfafcbc48e76",
+      "src/apprentice.rs": "aeedc4f949802be116038e654c85969ebedfcab42ae5ad30b0111adf4954843e",
+      "src/apptype.rs": "f4cc6d3e1931d1f8c68c2e70b2746f015cecb65303673471bb613eb7b1b7d56e",
+      "src/ascmagic.rs": "ccd9073c0b9fa5069331ffecf166a1224aec050ca8f4941e323497276c13bc8c",
+      "src/buffer.rs": "94c3be81722b726ad0ab87711de7a2f334376cbff57cd03e9daaa992ab29066f",
+      "src/cdf.rs": "2f472c85e97ad8b6da1e3f3a3da07f81d02da2ff0add2eda35634db091089091",
+      "src/cdf_time.rs": "5760cbec0e49860232a52f3fc63155dadb04249edf95b20a23ab77fdd20745b0",
+      "src/compress.rs": "c2f829e721d604a2833f60413ddf630ba78652d79f20e0c1266bb5c02620748f",
+      "src/der.rs": "ef8112fd4e16f97c71a6b7d78294b69b8cf9582bc8053863654c49b1072a4552",
+      "src/encoding.rs": "b978304c60fd0214f40446ecead197729e4174641d71fdfba889210ba75140b6",
+      "src/file.rs": "e7686179c6fd2ff7a018b4e58cba28abb95c21d384698d90dc1d73ff52eebac0",
+      "src/fmtcheck.rs": "3c4bf88924a38b9950b516c5e8b0c32ca667a0b754c364f4deab2fa59b0f3773",
+      "src/fsmagic.rs": "271555eb38316c5f5973ff13361e52279139a4429e7381a720a301420d2be970",
+      "src/funcs.rs": "3b3b5c6566204d2cdd0b80ae76d4a03510173b229fd8bb02105434e2354d9943",
+      "src/is_csv.rs": "dd311ac57ce86c755b3fbe8d8b5d847056eb06b98b633f6b44617b892e456f21",
+      "src/is_json.rs": "13bd214a605085616b421a85208aa9a6e0ff33c7a9db6e19c3bbc7a6f5f84266",
+      "src/is_simh.rs": "82ed5dd88afe8fce792fcddf4c26b31a522ffb1cc41d1e1ebe8a8c34f6313e5c",
+      "src/is_tar.rs": "c64a5f756ac06a9ef0527309c8970a70bf0ff8f639980b33beb7a3d1614ae54f",
+      "src/landlock.rs": "b51ecc9c3db9844bb2cf30e5f8bfae3507b71939d0ade768e954f06fd9ce9669",
+      "src/magic.rs": "ed41f4f8dabbc0cfdcfd9a5b7fbe6240d173d6d6ab4e662b98ab3600a23bc8d9",
+      "src/print.rs": "29afeca2fd28b395a1cdeb52475253b6c6c154ab6ad85f5b51a3f4784cd91f8b",
+      "src/readcdf.rs": "abd386f53ad922700461a92d26f37fdb9f89d1a9eb090798813e44e45698dca8",
+      "src/readelf.rs": "724dca5fc20d31ae223b96e5265458a51473b68f8f69f8774bad670517bf92a1",
+      "src/seccomp.rs": "6203eed8505003a7356dcc121eddea07f6816dde146282a3ddc3584e17388ef6",
+      "src/softmagic.rs": "e150091296a067670424d5e464c5d2642201a6133d71c82122d6b14ecb8c8ded",
+      "src/swap.rs": "ef21cc98921261564c53985bf8e03abc01efcf908018f99a5ae17988cfe2b24a"
+    },
+    "panic_macros": 0,
+    "raw_pointer_type_occurrences": 7620,
+    "rust_bytes": 1851669,
+    "rust_files": 27,
+    "rust_lines": 45792,
+    "todo_macros": 0,
+    "unimplemented_macros": 0,
+    "unsafe_block_occurrences": 53,
+    "unsafe_function_occurrences": 964
+  },
+  "recorded_at": "2026-11-20",
+  "release": "5.48",
+  "schema": 1,
+  "stable_translation": {
+    "archive": {
+      "bytes": 23958594,
+      "rustbox_file_main_definitions": 1,
+      "sha256": "bdaebfb4d3a07c60c3b75aaab722967e24002fdfb1f78094370a8cfc28bc4e73"
+    },
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+      "cargo_lock_sha256": "4588ed36c2e986fd9e2d20ade5e12cae743375933e8653459f64ce8be72c06f1",
+      "cargo_toml_sha256": "07d844eb5ba52790c79d4ee815a891586a8bdf9ffc5a1f1a83100886ffd1fa02",
+      "diagnostics_by_level": {
+        "warning": 89
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+      "schema": 1,
+      "stderr_sha256": "836d3919176ac4e2557cf5c69efcd3262622b18c3626f9f10a809dc115207a49",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "suspicious_runtime_symbol_definitions": 5,
+        "unpredictable_function_pointer_comparisons": 1,
+        "unused_imports": 1,
+        "unused_must_use": 7,
+        "unused_parens": 51,
+        "unused_unsafe": 3,
+        "unused_variables": 21
+      }
+    },
+    "compile_error_macros": 0,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "d417ae4ea0b5022ec2dcfb2e39b3360cc26fc037d790939726e36d1baa0a878d",
+      "src/apprentice.rs": "9cb80c060e54a976e8e03fe150948dae99f063f36153ea1ba2cc76f8fef4f1da",
+      "src/apptype.rs": "fc0e2cd6d4e81761ca0e2feaeecb5e4798fbfa42383862ce1335542108eb567f",
+      "src/ascmagic.rs": "97dd9355804adeff4215feacf5055163a7d9692bac93029c89aa9bea51048ac8",
+      "src/buffer.rs": "781226ddddf396c1616711c6262eb884163f35113aa80846a7bff29ddc6ddee2",
+      "src/cdf.rs": "395a33a1db16f05cbeaf27c2e335e4b9a221509231e4cd1d5da44c6b93937899",
+      "src/cdf_time.rs": "77718681b8a2ce51829281504e968a8b3ea82ebc17f9d244f9556eff68ea592c",
+      "src/compress.rs": "97a5d3a4a00faaac337293467f73f3c63396861acccc4d612c522092bfe29b39",
+      "src/der.rs": "1773b546612670e07fcb1eac10ad168293efd9c59cff61ae47d2950c33032d0c",
+      "src/encoding.rs": "3900af4594ed0b46a80249e5b0e2be9e04dfbbb5de2257da075b163f9fc77951",
+      "src/file.rs": "a6e146378066b3fb5db936fd9aae5ae1afb6549288e9e2b30ea3e74806fa938d",
+      "src/fmtcheck.rs": "0c5023ef9407a1e538dbd3c929d1fc0731387e9f566d2ff281b5b913940b5ad6",
+      "src/fsmagic.rs": "678354079a8190bec86ae7788e14ff03636d1307621284bc9eb370e1e8a2e57e",
+      "src/funcs.rs": "d054660d4699306b1f8a2654d6c7b61472166170dde97aaad0b12454eecbb6ba",
+      "src/is_csv.rs": "122d72b331e769fbb95bd8c48ded3bd83961f609d8ffbb8f217992b4bc5929d1",
+      "src/is_json.rs": "b93ef04f83e95170510d76c8cc37d4233fa8b7d5be04e4cea25bb298bee74a67",
+      "src/is_simh.rs": "62dcb91892af1db1e7ac314968699667a2823243391d1ed7a5979c3515481bcf",
+      "src/is_tar.rs": "12a0bd7b681c87d3b32106cae23bd3430c8c918fad9fa8a0a5899268751e5c29",
+      "src/landlock.rs": "3e384390714c2b9b3e0c460980ae00037cf6ee4c32f0217c4144962521b88832",
+      "src/magic.rs": "a18e208db3f77d63d9e2517f27e858267e968064c56cf0ec903c82812b6f56c1",
+      "src/print.rs": "adf121908be3e2513d2bc04150065e9da9c9c2d8c8a73c10a3610a7245529243",
+      "src/readcdf.rs": "ccabad91a194f8e5da669832763236c4250e0ca7a36cab25aa9ff36fe3c080d1",
+      "src/readelf.rs": "134a2dd747c3a791a640aa7b24de6cde1e85b13e6cd11e5fb2bc90c2b1b04403",
+      "src/seccomp.rs": "cd4a850f326f5d5ed447616782f064cf31cdd803a9c1434d860e88587a827b13",
+      "src/softmagic.rs": "c0322c641e9569c6780b1e3050d68f0b26f27f8dc9adaf4b45ab4ce4a9ceb3da",
+      "src/swap.rs": "ee5ff9317fd34e6aa37984be8cd2180abf54fb20ed7fe81e250f8df9900e8cde"
+    },
+    "modernization": {
+      "changes": [
+        {
+          "after_sha256": "d417ae4ea0b5022ec2dcfb2e39b3360cc26fc037d790939726e36d1baa0a878d",
+          "as_va_list_rewrites": 0,
+          "before_sha256": "a029d579d491c77633cf85a66d5c8dddbf135242edb993406376cfafcbc48e76",
+          "opaque_pointer_types": [],
+          "path": "lib.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "9cb80c060e54a976e8e03fe150948dae99f063f36153ea1ba2cc76f8fef4f1da",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "aeedc4f949802be116038e654c85969ebedfcab42ae5ad30b0111adf4954843e",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "re_dfa_t",
+            "__locale_data",
+            "__dirstream"
+          ],
+          "path": "src/apprentice.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "fc0e2cd6d4e81761ca0e2feaeecb5e4798fbfa42383862ce1335542108eb567f",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "f4cc6d3e1931d1f8c68c2e70b2746f015cecb65303673471bb613eb7b1b7d56e",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/apptype.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "97dd9355804adeff4215feacf5055163a7d9692bac93029c89aa9bea51048ac8",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "ccd9073c0b9fa5069331ffecf166a1224aec050ca8f4941e323497276c13bc8c",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "re_dfa_t",
+            "__locale_data"
+          ],
+          "path": "src/ascmagic.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "781226ddddf396c1616711c6262eb884163f35113aa80846a7bff29ddc6ddee2",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "94c3be81722b726ad0ab87711de7a2f334376cbff57cd03e9daaa992ab29066f",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/buffer.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "395a33a1db16f05cbeaf27c2e335e4b9a221509231e4cd1d5da44c6b93937899",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "2f472c85e97ad8b6da1e3f3a3da07f81d02da2ff0add2eda35634db091089091",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/cdf.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "77718681b8a2ce51829281504e968a8b3ea82ebc17f9d244f9556eff68ea592c",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "5760cbec0e49860232a52f3fc63155dadb04249edf95b20a23ab77fdd20745b0",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/cdf_time.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "97a5d3a4a00faaac337293467f73f3c63396861acccc4d612c522092bfe29b39",
+          "as_va_list_rewrites": 2,
+          "before_sha256": "c2f829e721d604a2833f60413ddf630ba78652d79f20e0c1266bb5c02620748f",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "re_dfa_t",
+            "__locale_data",
+            "__spawn_action",
+            "LZ_Decoder",
+            "ZSTD_DCtx_s",
+            "lzma_internal_s",
+            "internal_state"
+          ],
+          "path": "src/compress.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 1
+        },
+        {
+          "after_sha256": "1773b546612670e07fcb1eac10ad168293efd9c59cff61ae47d2950c33032d0c",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "ef8112fd4e16f97c71a6b7d78294b69b8cf9582bc8053863654c49b1072a4552",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "re_dfa_t",
+            "__locale_data"
+          ],
+          "path": "src/der.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "3900af4594ed0b46a80249e5b0e2be9e04dfbbb5de2257da075b163f9fc77951",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "b978304c60fd0214f40446ecead197729e4174641d71fdfba889210ba75140b6",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "re_dfa_t",
+            "__locale_data"
+          ],
+          "path": "src/encoding.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "a6e146378066b3fb5db936fd9aae5ae1afb6549288e9e2b30ea3e74806fa938d",
+          "as_va_list_rewrites": 5,
+          "before_sha256": "e7686179c6fd2ff7a018b4e58cba28abb95c21d384698d90dc1d73ff52eebac0",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "re_dfa_t",
+            "__locale_data"
+          ],
+          "path": "src/file.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 4
+        },
+        {
+          "after_sha256": "0c5023ef9407a1e538dbd3c929d1fc0731387e9f566d2ff281b5b913940b5ad6",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "3c4bf88924a38b9950b516c5e8b0c32ca667a0b754c364f4deab2fa59b0f3773",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/fmtcheck.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "678354079a8190bec86ae7788e14ff03636d1307621284bc9eb370e1e8a2e57e",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "271555eb38316c5f5973ff13361e52279139a4429e7381a720a301420d2be970",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "re_dfa_t",
+            "__locale_data"
+          ],
+          "path": "src/fsmagic.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "d054660d4699306b1f8a2654d6c7b61472166170dde97aaad0b12454eecbb6ba",
+          "as_va_list_rewrites": 6,
+          "before_sha256": "3b3b5c6566204d2cdd0b80ae76d4a03510173b229fd8bb02105434e2354d9943",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "re_dfa_t",
+            "__locale_data"
+          ],
+          "path": "src/funcs.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 3
+        },
+        {
+          "after_sha256": "122d72b331e769fbb95bd8c48ded3bd83961f609d8ffbb8f217992b4bc5929d1",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "dd311ac57ce86c755b3fbe8d8b5d847056eb06b98b633f6b44617b892e456f21",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "re_dfa_t",
+            "__locale_data"
+          ],
+          "path": "src/is_csv.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "b93ef04f83e95170510d76c8cc37d4233fa8b7d5be04e4cea25bb298bee74a67",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "13bd214a605085616b421a85208aa9a6e0ff33c7a9db6e19c3bbc7a6f5f84266",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "re_dfa_t",
+            "__locale_data"
+          ],
+          "path": "src/is_json.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "62dcb91892af1db1e7ac314968699667a2823243391d1ed7a5979c3515481bcf",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "82ed5dd88afe8fce792fcddf4c26b31a522ffb1cc41d1e1ebe8a8c34f6313e5c",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "re_dfa_t",
+            "__locale_data"
+          ],
+          "path": "src/is_simh.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "12a0bd7b681c87d3b32106cae23bd3430c8c918fad9fa8a0a5899268751e5c29",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "c64a5f756ac06a9ef0527309c8970a70bf0ff8f639980b33beb7a3d1614ae54f",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "re_dfa_t",
+            "__locale_data"
+          ],
+          "path": "src/is_tar.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "3e384390714c2b9b3e0c460980ae00037cf6ee4c32f0217c4144962521b88832",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "b51ecc9c3db9844bb2cf30e5f8bfae3507b71939d0ade768e954f06fd9ce9669",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/landlock.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "a18e208db3f77d63d9e2517f27e858267e968064c56cf0ec903c82812b6f56c1",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "ed41f4f8dabbc0cfdcfd9a5b7fbe6240d173d6d6ab4e662b98ab3600a23bc8d9",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "re_dfa_t",
+            "__locale_data"
+          ],
+          "path": "src/magic.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "adf121908be3e2513d2bc04150065e9da9c9c2d8c8a73c10a3610a7245529243",
+          "as_va_list_rewrites": 4,
+          "before_sha256": "29afeca2fd28b395a1cdeb52475253b6c6c154ab6ad85f5b51a3f4784cd91f8b",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "re_dfa_t",
+            "__locale_data"
+          ],
+          "path": "src/print.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 2
+        },
+        {
+          "after_sha256": "ccabad91a194f8e5da669832763236c4250e0ca7a36cab25aa9ff36fe3c080d1",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "abd386f53ad922700461a92d26f37fdb9f89d1a9eb090798813e44e45698dca8",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "re_dfa_t",
+            "__locale_data"
+          ],
+          "path": "src/readcdf.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "134a2dd747c3a791a640aa7b24de6cde1e85b13e6cd11e5fb2bc90c2b1b04403",
+          "as_va_list_rewrites": 2,
+          "before_sha256": "724dca5fc20d31ae223b96e5265458a51473b68f8f69f8774bad670517bf92a1",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "re_dfa_t",
+            "__locale_data"
+          ],
+          "path": "src/readelf.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 1
+        },
+        {
+          "after_sha256": "cd4a850f326f5d5ed447616782f064cf31cdd803a9c1434d860e88587a827b13",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "6203eed8505003a7356dcc121eddea07f6816dde146282a3ddc3584e17388ef6",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/seccomp.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "c0322c641e9569c6780b1e3050d68f0b26f27f8dc9adaf4b45ab4ce4a9ceb3da",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "e150091296a067670424d5e464c5d2642201a6133d71c82122d6b14ecb8c8ded",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "re_dfa_t",
+            "__locale_data"
+          ],
+          "path": "src/softmagic.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "ee5ff9317fd34e6aa37984be8cd2180abf54fb20ed7fe81e250f8df9900e8cde",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "ef21cc98921261564c53985bf8e03abc01efcf908018f99a5ae17988cfe2b24a",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/swap.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        }
+      ],
+      "input_cargo_sha256": "07d844eb5ba52790c79d4ee815a891586a8bdf9ffc5a1f1a83100886ffd1fa02",
+      "schema": 1,
+      "stable_toolchain": "1.99.0"
+    },
+    "modernization_manifest_sha256": "2bd0749468e2261ea804a2e617ba2292c12091ddbe8fd71b22dea92b65783408",
+    "panic_macros": 0,
+    "raw_pointer_type_occurrences": 7620,
+    "rust_bytes": 1855350,
+    "rust_files": 27,
+    "rust_lines": 46133,
+    "todo_macros": 0,
+    "unimplemented_macros": 0,
+    "unsafe_block_occurrences": 53,
+    "unsafe_function_occurrences": 964
+  },
+  "status": "complete stable translation compiles without holes; hybrid parity pending",
+  "translator": {
+    "fail_on_error": true,
+    "generated_rust_repairs": 0,
+    "name": "C2Rust",
+    "preserve_unused_functions": true,
+    "reason_for_direct_flags": "C2Rust 0.22.1 misroutes a Bear JSON filename through ClangTool's directory-only -p interface, so the selected compile database is hashed and its common verified flags are passed directly.",
+    "translation_compatibility_c_rewrites": 2,
+    "version": "0.22.1"
+  }
+}

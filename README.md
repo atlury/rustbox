@@ -221,14 +221,22 @@ the remaining findings are reviewed union/endian idioms, generic Annex K
 advice, modernization warnings, null spellings, or lexical-risk inventory.
 The complete logs, counts, and review are pinned in
 `evidence/file-5.48-static-analysis.json`.
-Deterministic normalization changes only `src/file.c` and
-`src/softmagic.c`: an exact rewrite exports `rustbox_file_main`, while a
+Deterministic normalization changes only `src/apprentice.c`, `src/file.c`,
+and `src/softmagic.c`: an exact rewrite exports `rustbox_file_main`, a
 Coccinelle semantic patch gives invalid operation encodings a deterministic
-identity fallback.  GCC, Clang, and ASan/UBSan each pass all 83 fixtures;
+identity fallback, and exact compatibility rewrites spell IEEE comparisons
+portably and prevent C2Rust from lifting function-local names into collisions.
+GCC, Clang, and ASan/UBSan each pass all 83 fixtures;
 both compiler variants remain exact against their canonical binaries across
 174 cases each, libmagic's 126-symbol surface and both compiled magic
 databases are unchanged, and Valgrind is clean.  The complete transformation
 and parity evidence is in `evidence/file-5.48-normalization.json`.
+C2Rust covers the exact 25-source production closure with unused functions
+preserved.  The untouched audit output and mechanically modernized stable
+crate compile without translation holes or generated-Rust repairs, and the
+archive exports `rustbox_file_main` exactly once.  Source hashes and the
+deferred raw-pointer/unsafe inventory are in
+`evidence/file-5.48-c2rust.json`; hybrid runtime parity is the next gate.
 
 ## Work queue after util-linux
 
