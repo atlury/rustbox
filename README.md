@@ -280,7 +280,7 @@ Library-only checkpoints (outside the active utility order):
      instead of the dormant freedesktop pkg-config 0.29.2 codebase.
    - [x] M4 1.4.21 — `m4`; integrated at canonical parity.
    - [x] File 5.48 — `file`; integrated at canonical parity.
-   - [ ] patch — `patch`.
+   - [ ] GNU patch 2.8 — `patch`.
    - [ ] sed — `sed`.
    - [ ] Diffutils — `cmp`, `diff`, `diff3`, `sdiff`.
    - [ ] Grep — `grep`, `egrep`, `fgrep`.
