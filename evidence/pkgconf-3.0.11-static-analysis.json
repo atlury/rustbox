@@ -1,0 +1,74 @@
+{
+  "artifacts": {
+    "clang-analyzer-tidy.log": "cb0193a5e756d138d7ada3820079e92aa28ea8323fc47c82ed0f239d91bca01b",
+    "compile_commands.json": "e7eff86087e2bde37bea124079c740f89eb46d67ca736e52624a0942eab3e3df",
+    "cppcheck.log": "e3374937b17220a558bc2052a992e0da241738725947cdca5e82d941083fbc67",
+    "flawfinder.log": "28fcf1bc2032293de9a12cc5e6d9e6ec5230b2df408450bcbe75cd0193e36822",
+    "gcc-analyzer-setup.log": "53e5ba8aed44c8e50ae67b33d2ea1a3ccc93885ff5d7d5b3a7fb2c418f728f6f",
+    "gcc-analyzer.log": "e6108062abdc863cc05c2ffe3e15fc7b1e37144e34ef5350db8cda9c7cfd3c49",
+    "sources.list": "f065bb6919647cfef1e3afa461e12c345d5796ae937f83af5e19a7fd17c285b6",
+    "sparse.log": "b357be15aebd8427b432ed4fdf4e4747aeb2f2b9e57824bb7d6bf5f4aecb81fe"
+  },
+  "recorded_at": "2026-11-20",
+  "release": "3.0.11",
+  "review": {
+    "blocking_findings": 0,
+    "notes": [
+      "Clang's pccritic fileno warning loses the invariant that out is assigned stdout before option parsing and is never assigned null.",
+      "Clang's bomtool fclose warning likewise loses the invariant that sbom_out is assigned stdout before parsing and every later assignment is checked for null.",
+      "Sparse identifies one bitwise-or spelling between already-evaluated boolean allocation checks in spdxtool; it has the same truth value and no evaluation-side-effect difference, and will be made explicit in normalization.",
+      "GCC -fanalyzer reports no warnings for the exact production executable closure.",
+      "Cppcheck findings are style or portability reports; compiler analyzers, the complete sanitizer suite, and the complete static Valgrind suite do not reproduce a memory-safety failure.",
+      "Flawfinder reports lexical risk sites for later pointer hardening; it does not establish an executable defect by itself.",
+      "All findings remain recorded for normalization and later raw-pointer/no_std hardening."
+    ]
+  },
+  "schema": 1,
+  "scope": {
+    "compile_actions": 38,
+    "targets": [
+      "libpkgconf",
+      "pkgconf",
+      "bomtool",
+      "pccritic",
+      "spdxtool"
+    ],
+    "tests_and_benchmarks_excluded": true,
+    "unique_sources": 35
+  },
+  "tools": {
+    "clang_analyzer_tidy": {
+      "all_findings_by_check": {
+        "bugprone-assignment-in-if-condition": 15,
+        "bugprone-branch-clone": 1,
+        "bugprone-easily-swappable-parameters": 29,
+        "bugprone-inc-dec-in-conditions": 2,
+        "bugprone-multi-level-implicit-pointer-conversion": 37,
+        "bugprone-narrowing-conversions": 14,
+        "bugprone-suspicious-string-compare": 10,
+        "bugprone-switch-missing-default-case": 1,
+        "bugprone-unsafe-functions": 1,
+        "clang-analyzer-core.NonNullParamChecker": 2
+      },
+      "analyzer_findings_by_check": {
+        "clang-analyzer-core.NonNullParamChecker": 2
+      }
+    },
+    "cppcheck": {
+      "findings_by_severity": {
+        "portability": 5,
+        "style": 138
+      }
+    },
+    "flawfinder": {
+      "hits_at_level_1_or_higher": 124,
+      "lines_analyzed": 17620
+    },
+    "gcc_fanalyzer": {
+      "warnings": 0
+    },
+    "sparse": {
+      "warnings": 1
+    }
+  }
+}

@@ -171,8 +171,11 @@ the shared ASan/UBSan build passes 33, including the extra allocation-failure
 case, and the complete 32-test static suite passes under Valgrind.  Its four
 installed executables, `pkg-config` compatibility alias, exact 35-source
 production closure, and 176-symbol static-library ABI are recorded in
-`evidence/pkgconf-3.0.11-oracle.json`.  Production-only static analysis and
-deterministic multicall normalization are the next pkgconf gates.
+`evidence/pkgconf-3.0.11-oracle.json`.  Cppcheck, GCC `-fanalyzer`, Clang
+analyzer/tidy, Flawfinder, and Sparse cover that exact production closure;
+their complete results and reviewed non-blocking findings are recorded in
+`evidence/pkgconf-3.0.11-static-analysis.json`.  Deterministic multicall
+normalization is the next pkgconf gate.
 
 ## Work queue after util-linux
 
