@@ -50,7 +50,7 @@ def main() -> int:
     normalized = repository / "work/analysis/sed-4.10/normalized"
     oracle = repository / "work/analysis/sed-4.10/oracle"
     manifest = json.loads((normalized / "normalization.json").read_text())
-    if len(manifest["changed_sources"]) != 11:
+    if len(manifest["changed_sources"]) != 12:
         raise RuntimeError("GNU sed normalization changed an unexpected source set")
     if manifest["engine"] != "exact deterministic source rewrite":
         raise RuntimeError("GNU sed normalization engine changed")

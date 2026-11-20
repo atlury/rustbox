@@ -140,6 +140,17 @@ def main() -> int:
             ("== buf_size - buf_used)",
              "== (ssize_t) (buf_size - buf_used))", 1),
         ])
+        replace_exact(staged / "sed/mbcs.c", [
+            ("      panic (\"is_mb_char: mbrtowc (0x%x) returned %d\",\n"
+             "             (unsigned int) ch, result);\n"
+             "    }\n"
+             "}",
+             "      panic (\"is_mb_char: mbrtowc (0x%x) returned %d\",\n"
+             "             (unsigned int) ch, result);\n"
+             "      return 0; /* Unreachable: make the non-void edge explicit.  */\n"
+             "    }\n"
+             "}", 1),
+        ])
 
         canonical_files = {
             path.relative_to(canonical).as_posix()
@@ -158,7 +169,7 @@ def main() -> int:
         expected_changed = [
             "lib/dfa.c", "lib/file-has-acl.c", "lib/malloca.c", "lib/obstack.c",
             "lib/realloc.c", "lib/regex_internal.c", "sed/compile.c", "sed/execute.c",
-            "sed/regexp.c", "sed/sed.c", "sed/utils.c",
+            "sed/mbcs.c", "sed/regexp.c", "sed/sed.c", "sed/utils.c",
         ]
         if changed != expected_changed:
             raise RuntimeError(f"unexpected GNU sed normalized sources: {changed}")
@@ -171,6 +182,7 @@ def main() -> int:
                 "normalized_sha256": sha256(staged / name),
                 "operation": (
                     "export the multicall entrypoint" if name == "sed/sed.c" else
+                    "make nonreturning panic control flow explicit for C2Rust" if name == "sed/mbcs.c" else
                     "make checked-integer widths and eager Boolean accumulation explicit for C2Rust"
                 ),
                 "engine": "exact deterministic translator-compatibility rewrite",
@@ -194,7 +206,7 @@ def main() -> int:
 
     args.manifest.parent.mkdir(parents=True, exist_ok=True)
     args.manifest.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
-    print(json.dumps({"changed_sources": 11, "entrypoints": 1}, sort_keys=True))
+    print(json.dumps({"changed_sources": 12, "entrypoints": 1}, sort_keys=True))
     return 0
 
 

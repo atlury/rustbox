@@ -7,7 +7,7 @@
         "libattr.so.1",
         "libc.so.6"
       ],
-      "sha256": "2ad8ed392c4b797ef3c38b5c6d22abbbeff000d53ef964b0aa8d0e76a60529de"
+      "sha256": "eaa8d75b1c8abd0df0c44e247ed2d28050cfb520ebc694528b586061e6631721"
     },
     "gcc": {
       "bytes": 843104,
@@ -16,7 +16,7 @@
         "libattr.so.1",
         "libc.so.6"
       ],
-      "sha256": "30b0fea7214e8f3e57fe1df96e5d64cf015cef49f05c4951743a66cbe1e69e9f"
+      "sha256": "ca1b4f0a22345f5fa75219b79c3062c0b54d6a4bc92489d916c3423da1e484c6"
     }
   },
   "configuration": {
@@ -48,17 +48,17 @@
   "production": {
     "clang": {
       "all_compile_actions": 121,
-      "compile_database_sha256": "116ddbee4cb372013e9fbbf81b00e638bff3a8e0e5b659976563eeb50b59c63d",
+      "compile_database_sha256": "c6702534fc70d028ce4fb78fe9b1ae8948d7d7ad3118a48f594e8f507a3904f6",
       "production_compile_actions": 85
     },
     "gcc": {
       "all_compile_actions": 121,
-      "compile_database_sha256": "243eaabc6459cf062dbedd6bcb470a6b025498e27133721f0a32a310664fa4d2",
+      "compile_database_sha256": "8d1f91b383e1b0b43353e5df6574e569ec78b1eee9ae22be3fd73586da735340",
       "production_compile_actions": 85
     },
     "sanitizer": {
       "all_compile_actions": 121,
-      "compile_database_sha256": "ad166db7e9f7ca4870bff879f42968144157a3a99bd080559bdc56d1f1f35b48",
+      "compile_database_sha256": "261f7f671d70a84e2c26411ceaf30a296b21b84b77354f91cbee69951941f881",
       "production_compile_actions": 85
     }
   },
@@ -67,7 +67,7 @@
   "schema": 1,
   "tests": {
     "clang": {
-      "log_sha256": "4b619af8c40acfeec20e74e9541358106f872bb3086f02a0f6f2a9d15498de17",
+      "log_sha256": "9d0a10a9381edfdae63ddbbf3b5a28a72ad3cb9d305a0af96cdfa4405fcbc893",
       "suites": [
         {
           "error": 0,
@@ -90,7 +90,7 @@
       ]
     },
     "gcc": {
-      "log_sha256": "f62db70241746365bf728d3d56954e9e826c719c6c4ea2c1e309fcc0ea750637",
+      "log_sha256": "249b90c37eb4175552a2eecda78f4f46c05a5f5f4a2a4baac43bfcdc0094647e",
       "suites": [
         {
           "error": 0,
@@ -113,7 +113,7 @@
       ]
     },
     "sanitizer": {
-      "log_sha256": "fcaa2985f5a2c85e0f96f6b82f20af206d1712987e347dd3bbb6301f57dd88aa",
+      "log_sha256": "ebd4abc02b7855655e4ed77464a02aed00f4c9a540d49cc1f63673c7fedcb222",
       "suites": [
         {
           "error": 0,
@@ -139,13 +139,14 @@
       "lib/regex_internal.c",
       "sed/compile.c",
       "sed/execute.c",
+      "sed/mbcs.c",
       "sed/regexp.c",
       "sed/sed.c",
       "sed/utils.c"
     ],
     "conditional": "RUSTBOX_MULTICALL",
     "engine": "exact deterministic source rewrite",
-    "normalized_tree_sha256": "1d381fbd8844f4bbbea8063fe1a18372c4eb5c1a6099b854ea66e9ade291ffa0",
+    "normalized_tree_sha256": "6de10ed72c4d4420e82353d3426a9accb6553ddad7fa1b944ed041f2d2069bea",
     "release": "4.10",
     "schema": 1,
     "transformations": [
@@ -206,6 +207,13 @@
         "source": "sed/execute.c"
       },
       {
+        "canonical_sha256": "dbecacd744ba502847308648568ad325dc9bb03bfb1b1de45a95c7dbed650f80",
+        "engine": "exact deterministic translator-compatibility rewrite",
+        "normalized_sha256": "ba8f1fd45f4e7aafef49114857d45fa0bc1c8864717ffd7178a913f023fbc96f",
+        "operation": "make nonreturning panic control flow explicit for C2Rust",
+        "source": "sed/mbcs.c"
+      },
+      {
         "canonical_sha256": "b47b0e72d2ce75408bcb61f1dc75aff824ab4f0de8485bad0f86f3a252d37903",
         "engine": "exact deterministic translator-compatibility rewrite",
         "normalized_sha256": "1f3b8f8c401f46268d01aeeac0cf8dd8ea17732497cc78cc684f816460d15252",
@@ -231,7 +239,7 @@
   "valgrind": {
     "definite_indirect_possible_leaks": 0,
     "errors": 0,
-    "log_sha256": "97756da8b6833568729b814cdc0e879dd39fe41bbaee3f0096e3122922a8dd8c",
+    "log_sha256": "46876b654c4dcdf0aea825a88a9487520533fcc3d5ad2122e1c89d64b463c17c",
     "still_reachable_bytes": 4317
   }
 }
