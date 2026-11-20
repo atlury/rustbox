@@ -146,7 +146,10 @@ recorded in `evidence/m4-1.4.21-oracle.json`.  Its exact linked production
 slice is 192 C sources, including 11 M4 application sources.  Cppcheck, GCC
 `-fanalyzer`, Clang analyzer/tidy, and Flawfinder results and their review are
 recorded in `evidence/m4-1.4.21-static-analysis.json`.  Deterministic C
-normalization and C2Rust translation are the next M4 stages.
+normalization changes only `src/m4.c`, exporting `rustbox_m4_main` while
+retaining the standalone `main` wrapper.  Both compiler suites and Valgrind
+remain clean in `evidence/m4-1.4.21-normalization.json`.  C2Rust translation is
+the next M4 stage.
 
 ## Work queue after util-linux
 

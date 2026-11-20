@@ -1,0 +1,81 @@
+{
+  "artifacts": {
+    "clang": {
+      "bytes": 788136,
+      "sha256": "a494c726e994adc63f6213d12b029175e1aa203c3fdf863d81466f5d471911b4"
+    },
+    "gcc": {
+      "bytes": 1043544,
+      "sha256": "61ea6dce2c15d2adb3c40ea77eb236c5a7466d9721975cdb2f55f87646a09e86"
+    }
+  },
+  "builds": {
+    "clang": {
+      "application_sources": 11,
+      "gnulib": {
+        "error": 0,
+        "fail": 0,
+        "pass": 335,
+        "skip": 47,
+        "total": 382,
+        "xfail": 0,
+        "xpass": 0
+      },
+      "language_checks": 242,
+      "language_policy_skips": 7,
+      "production_compile_commands": 192,
+      "stack_overflow_check": "pass"
+    },
+    "gcc": {
+      "application_sources": 11,
+      "gnulib": {
+        "error": 0,
+        "fail": 0,
+        "pass": 335,
+        "skip": 47,
+        "total": 382,
+        "xfail": 0,
+        "xpass": 0
+      },
+      "language_checks": 242,
+      "language_policy_skips": 7,
+      "production_compile_commands": 192,
+      "stack_overflow_check": "pass"
+    }
+  },
+  "entrypoints": {
+    "conditional": "RUSTBOX_MULTICALL",
+    "multicall": "rustbox_m4_main",
+    "present_in_both_compiler_outputs": true,
+    "standalone": "main"
+  },
+  "logs": {
+    "clang-check.log": "5f83f4a283756bd93682f7ccd605d4157b168b56897f7a22a9c11e094cb0cb8c",
+    "gcc-check.log": "7dfebf6171adb52cf0da83c898afd0549bb2db02bcc178f34810130bb64606fd",
+    "valgrind.log": "4c9dfbea523e79ae4fbaf301cdffbdb29149cdeb5e9699f07069aedb7faf339a"
+  },
+  "recorded_at": "2026-11-20",
+  "release": "1.4.21",
+  "schema": 1,
+  "transformation": {
+    "canonical_archive_sha256": "f25c6ab51548a73a75558742fb031e0625d6485fe5f9155949d6486a2408ab66",
+    "canonical_tree_sha256": "921e9e30200110bfe3919ec48c9fd94559d28d1e778d320a5244a45e5fd0d6d0",
+    "changed_sources": [
+      "src/m4.c"
+    ],
+    "normalized_tree_sha256": "94889d59a6241c6d2f4070e614ef6a4632844b8c943375e37c268a0238347ca4",
+    "release": "1.4.21",
+    "schema": 1,
+    "transformation": {
+      "canonical_sha256": "4633d9a72c20eb7a3aefca99ad114c025f4158928907af83e9576868fca82b2b",
+      "engine": "exact",
+      "normalized_sha256": "ca392e181b3176b91ef493fe2ccd85fbfe63471825e890ffc7fe8452e1fc3fc8",
+      "purpose": "Export rustbox_m4_main while retaining a conditional standalone main wrapper.",
+      "source": "src/m4.c"
+    }
+  },
+  "valgrind": {
+    "definitely_indirectly_possibly_lost_bytes": 0,
+    "errors": 0
+  }
+}
