@@ -8,7 +8,8 @@ compiles.
 The initial authoritative source releases are:
 
 - GNU Coreutils 9.12, released September 14, 2026;
-- util-linux 2.42.4, released September 21, 2026.
+- util-linux 2.42.4, released September 21, 2026;
+- GNU sed 4.10, released November 13, 2025.
 
 Their release archives, signatures, and SHA-256 digests are pinned in
 `upstream/releases.json`.  Downloaded source remains outside Git and serves as
@@ -49,6 +50,7 @@ scoring, and correctness gates.
 | pkgconf 3.0.11 | 5 | 5 | 5 | 5 |
 | File 5.48 | 1 | 1 | 1 | 1 |
 | GNU patch 2.8 | 1 | 1 | 1 | 1 |
+| GNU sed 4.10 | 1 | 1 | 1 | 1 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -110,16 +112,18 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 269
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 270
 distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, five
-pkgconf names, File, and GNU patch, with `kill` shared and `util-linux-kill`
-available explicitly).  It passes all 538
+pkgconf names, File, GNU patch, and GNU sed, with `kill` shared and
+`util-linux-kill` available explicitly).  It passes all 540
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
 check, 108-case differential suite, and Valgrind.  Pkgconf also passes all 429
 CLI fixture checks, 55 exact differential comparisons, and Valgrind through
-the unified dispatcher.  `chcon` and `runcon` remain absent, and the linked
-binary has no SELinux or systemd dependency.
+the unified dispatcher.  Sed passes its complete 362-case upstream replay,
+30 exact differential comparisons, and Valgrind through the same dispatcher.
+The stripped 270-name executable is 6,111,456 bytes.  `chcon` and `runcon`
+remain absent, and the linked binary has no SELinux or systemd dependency.
 
 The final Rustbox executable is required to be self-contained: utility
 implementations and any required support code must be linked into the one
@@ -296,6 +300,30 @@ namespaced.  The resulting 269-name executable is 5,856,208 bytes stripped—a
 combined regressions; integration evidence is in
 `evidence/rustbox-multicall.json`.
 
+GNU sed 4.10 is pinned to its canonical signed release.  Its exact configured
+production closure is 85 C translation units: 77 gnulib/support sources and
+eight sed sources.  Independent GCC and Clang builds each pass the 75-case sed
+suite and 287-case gnulib suite with only canonical platform skips;
+ASan/UBSan, Valgrind, and 30 cross-compiler CLI/filesystem comparisons are
+clean.  Oracle and five-analyzer evidence is recorded in
+`evidence/sed-4.10-oracle.json` and `evidence/sed-4.10-analysis.json`.
+Deterministic normalization changes 12 sources to export
+`rustbox_sed_main`, make checked integer and Boolean semantics explicit, and
+materialize one unreachable non-returning control-flow edge.  GCC, Clang,
+ASan/UBSan, Valgrind, and 60 canonical-versus-normalized comparisons remain at
+exact parity in `evidence/sed-4.10-normalization.json`.  C2Rust translates all
+85 units with unused functions preserved, zero translation holes, and zero
+generated-Rust repairs; both the raw nightly crate and mechanically modernized
+Rust 1.99 archive compile, with hashes and deferred pointer/unsafe inventory in
+`evidence/sed-4.10-c2rust.json`.  The translated executable passes both
+upstream suites, 30 exact differentials, and Valgrind.  It is 592,248 bytes
+stripped versus 208,264 bytes for canonical C; full linkage and parity evidence
+is in `evidence/sed-4.10-hybrid.json`.  Sed's configured gnulib/internal C
+surface is privately namespaced in the multicall, with its `wctob` asm-label
+alias supplied by an explicit ABI bridge.  The resulting 270-name binary is
+6,111,456 bytes stripped—255,248 bytes above the prior checkpoint—and passes
+all combined regressions in `evidence/rustbox-multicall.json`.
+
 ## Work queue after util-linux
 
 This queue starts only after all in-scope util-linux applets reach canonical
@@ -328,7 +356,7 @@ Library-only checkpoints (outside the active utility order):
    - [x] M4 1.4.21 — `m4`; integrated at canonical parity.
    - [x] File 5.48 — `file`; integrated at canonical parity.
    - [x] GNU patch 2.8 — `patch`; integrated at canonical parity.
-   - [ ] sed — `sed`.
+   - [x] GNU sed 4.10 — `sed`; integrated at canonical parity.
    - [ ] Diffutils — `cmp`, `diff`, `diff3`, `sdiff`.
    - [ ] Grep — `grep`, `egrep`, `fgrep`.
    - [ ] bc — `bc`, `dc`.

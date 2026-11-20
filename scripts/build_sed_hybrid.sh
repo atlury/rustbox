@@ -14,7 +14,8 @@ RUSTBOX_TOOL_IMAGE=rustbox-sed:2026-11-20 \
 
     clang-18 -O2 -g -ffunction-sections -fdata-sections \
       -Wl,--gc-sections -Wl,-Map,"$output.map" \
-      -o "$output" /work/bridges/sed_main.c "$archive" $libraries
+      -o "$output" /work/bridges/sed_main.c /work/bridges/sed_abi.c \
+      "$archive" $libraries
     ln -sfn sed-hybrid /work/build/sed-4.10-hybrid/sed
     cp "$output" "$output.stripped"
     strip --strip-all "$output.stripped"

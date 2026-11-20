@@ -27,6 +27,7 @@ def main() -> int:
     parser.add_argument("--pkgconf-report-directory", type=Path, required=True)
     parser.add_argument("--file-report-directory", type=Path, required=True)
     parser.add_argument("--patch-report-directory", type=Path, required=True)
+    parser.add_argument("--sed-report-directory", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     binary = args.binary.resolve()
@@ -37,10 +38,11 @@ def main() -> int:
     pkgconf_directory = args.pkgconf_report_directory.resolve()
     file_directory = args.file_report_directory.resolve()
     patch_directory = args.patch_report_directory.resolve()
+    sed_directory = args.sed_report_directory.resolve()
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
-    if dispatch["cases"] != 538 or dispatch["passed"] != 538 or dispatch["failures"]:
+    if dispatch["cases"] != 540 or dispatch["passed"] != 540 or dispatch["failures"]:
         raise RuntimeError("unified dispatcher comparison is incomplete")
     if (
         differential["batches"] != 38
@@ -109,6 +111,37 @@ def main() -> int:
         or "possibly lost: 0 bytes in 0 blocks" not in patch_valgrind
     ):
         raise RuntimeError("unified GNU patch integration comparison is incomplete")
+    sed_differential_path = sed_directory / "differential.json"
+    sed_differential = json.loads(sed_differential_path.read_text())
+    sed_upstream_path = sed_directory / "upstream-tests.log"
+    sed_upstream = sed_upstream_path.read_text(errors="replace")
+    sed_valgrind_path = sed_directory / "valgrind.log"
+    sed_valgrind = sed_valgrind_path.read_text(errors="replace")
+    sed_summaries = []
+    for match in re.finditer(
+        r"# TOTAL:\s+(\d+).*?# PASS:\s+(\d+).*?# SKIP:\s+(\d+).*?"
+        r"# XFAIL:\s+(\d+).*?# FAIL:\s+(\d+).*?# XPASS:\s+(\d+).*?# ERROR:\s+(\d+)",
+        sed_upstream,
+        re.DOTALL,
+    ):
+        sed_summaries.append(dict(zip(
+            ("total", "pass", "skip", "xfail", "fail", "xpass", "error"),
+            map(int, match.groups()),
+        )))
+    expected_sed_summaries = [
+        {"total": 75, "pass": 68, "skip": 7, "xfail": 0, "fail": 0, "xpass": 0, "error": 0},
+        {"total": 287, "pass": 241, "skip": 46, "xfail": 0, "fail": 0, "xpass": 0, "error": 0},
+    ]
+    if (
+        sed_summaries != expected_sed_summaries
+        or not sed_differential["gcc_clang_exact"]
+        or sed_differential["comparisons"] != 30
+        or "ERROR SUMMARY: 0 errors" not in sed_valgrind
+        or "definitely lost: 0 bytes in 0 blocks" not in sed_valgrind
+        or "indirectly lost: 0 bytes in 0 blocks" not in sed_valgrind
+        or "possibly lost: 0 bytes in 0 blocks" not in sed_valgrind
+    ):
+        raise RuntimeError("unified GNU sed integration comparison is incomplete")
     if sha256(binary) != link["binary"]["sha256"]:
         raise RuntimeError("unified binary changed after link evidence")
     with tempfile.TemporaryDirectory(prefix="rustbox-strip-") as temporary:
@@ -134,7 +167,7 @@ def main() -> int:
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-20",
-        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, and GNU patch integrated canonical parity",
+        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, and GNU sed integrated canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
@@ -142,7 +175,8 @@ def main() -> int:
             "pkgconf_public_names": 5,
             "file": 1,
             "patch": 1,
-            "dispatch_names": 269,
+            "sed": 1,
+            "dispatch_names": 270,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -185,6 +219,14 @@ def main() -> int:
             "differential_sha256": sha256(patch_differential_path),
             "valgrind_log_sha256": sha256(patch_valgrind_path),
         },
+        "sed_integration": {
+            "upstream_suites": sed_summaries,
+            "differential": sed_differential,
+            "valgrind_errors": 0,
+            "upstream_log_sha256": sha256(sed_upstream_path),
+            "differential_sha256": sha256(sed_differential_path),
+            "valgrind_log_sha256": sha256(sed_valgrind_path),
+        },
         "collision_isolation": {
             "translated_libraries": len(link["source_library_sha256"]),
             "namespaced_libraries": len(link["namespaced_symbols"]),
@@ -193,6 +235,8 @@ def main() -> int:
             "m4_namespaced_support_symbols": len(link["m4_namespaced_support_symbols"]),
             "file_namespaced_symbols": len(link["file_namespaced_symbols"]),
             "patch_namespaced_symbols": len(link["patch_namespaced_symbols"]),
+            "sed_namespaced_symbols": len(link["sed_namespaced_symbols"]),
+            "sed_abi_bridge_symbols": len(link["sed_abi_bridge"]["symbols"]),
             "manifest": link,
         },
     }

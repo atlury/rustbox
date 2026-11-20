@@ -12,5 +12,6 @@ RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
     --pkgconf-oracle-dir /rustbox-pkgconf/normalized-clang-static \
     --file-oracle /rustbox-file/normalized-clang/src/file \
     --patch-oracle /rustbox-patch/normalized-clang/src/patch \
+    --sed-oracle /rustbox-sed/normalized-clang/sed/sed \
     --rustbox /rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox \
     --output /work/work/analysis/rustbox-multicall-dispatch.json
