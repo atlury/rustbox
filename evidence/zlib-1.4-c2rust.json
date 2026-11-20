@@ -1,0 +1,80 @@
+{
+  "artifacts": {
+    "public_c_api_symbols": 95,
+    "public_c_api_symbols_defined_once": true,
+    "rust_bytes": 1060388,
+    "rust_files": 17,
+    "static_library_bytes": 23540368,
+    "static_library_sha256": "c71a6e8f41eba3336e302533d7697b68aa8a790e0c316d2725fef945d4832b47"
+  },
+  "behavior": {
+    "canonical_rust_exact": true,
+    "comparisons": 98,
+    "corpus_inputs": 40,
+    "cross_decompression": "pass",
+    "output_digest_sha256": "edf6052ccc10398584fbd8a1d6d3727af1a09b6e2898400632a4a61bf6d88ddb",
+    "rust_library_bytes": 23540368,
+    "rust_library_sha256": "c71a6e8f41eba3336e302533d7697b68aa8a790e0c316d2725fef945d4832b47",
+    "rust_test_binary_bytes": {
+      "example": 5525368,
+      "infcover": 5534352,
+      "minigzip": 5525824
+    },
+    "schema": 1,
+    "upstream_example": "pass",
+    "upstream_infcover": "pass",
+    "valgrind": {
+      "rust_example": "pass",
+      "rust_infcover": "pass"
+    }
+  },
+  "cargo_check": {
+    "build_finished_success": true,
+    "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+    "cargo_lock_sha256": "e84134cfbd1d06e847c586306aa4809114bd89d5a8e96a5d7b1b4da36d0d03a3",
+    "cargo_toml_sha256": "adaca5c0fbb64ebfbfe3bd6a511133295a8b0d3da4cee23fb9f6255031c5bca0",
+    "diagnostics_by_level": {
+      "warning": 9
+    },
+    "errors": [],
+    "exit_status": 0,
+    "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+    "schema": 1,
+    "stderr_sha256": "e56e8442cfcec70b4b643adeb09876eb666d6094ef23ad39108725809b5b1ba1",
+    "toolchain_request": "crate default",
+    "warning_codes": {
+      "unused_parens": 2,
+      "unused_unsafe": 4,
+      "unused_variables": 3
+    }
+  },
+  "input_evidence": {
+    "audit_sha256": "a2f530c10a7c708bf585d5099366cacd42d6b18206200f0f367f03e82f500c7f",
+    "normalization_sha256": "0bbc1d68d8a1368559d18d497e348f327252ffbeb12495a542af57a23624f7e6",
+    "oracle_sha256": "b09b3ef5736d934471cc0fed82ea98d1eb54d299ae2a8a3be269eecdc604a2ca"
+  },
+  "integration": {
+    "applets": [],
+    "multicall_linked": false,
+    "policy": "Keep library isolated; final shared/static linkage policy is deferred."
+  },
+  "release": "1.4",
+  "schema": 1,
+  "stable_modernization": {
+    "function_pointer_identity": "core::ptr::fn_addr_eq",
+    "generated_rules": 2,
+    "generic_manifest_sha256": "7aec54b4e4275b922abfe1de1fc9c9d1f04e794df0df3da45adff1b9c121b094",
+    "hand_edits": 0,
+    "opaque_types_verified_pointer_only": [
+      "_IO_codecvt",
+      "_IO_marker",
+      "_IO_wide_data",
+      "internal_state",
+      "static_tree_desc_s"
+    ],
+    "repair_score": 7,
+    "toolchain": "1.99.0",
+    "zlib_manifest_sha256": "2bb2566b54770edad21e8c926d11fabe17bad7964bc0838734a9e690a3497269"
+  },
+  "status": "isolated stable Rust library at canonical parity"
+}

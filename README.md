@@ -116,14 +116,17 @@ binary has no SELinux or systemd dependency.
 The next canonical oracle is zlib 1.4.  Its signed release, independent GCC
 and Clang builds, 18-case upstream CTest suite, sanitizer and Valgrind gates,
 111-symbol ABI comparison, and reviewed static-analysis findings are recorded
-in `evidence/zlib-1.4-oracle.json`.  This is an oracle baseline only: zlib
-then passes a narrow Coccinelle normalization with independent GCC, Clang,
+in `evidence/zlib-1.4-oracle.json`.  Zlib then passes a narrow Coccinelle
+normalization with independent GCC, Clang,
 sanitizer, Valgrind, upstream-test, symbol, and Libabigail gates in
-`evidence/zlib-1.4-normalization.json`.  Zlib remains unchecked in the queue
-until Rustbox integration reaches the same behavioral gates.  The full
+`evidence/zlib-1.4-normalization.json`.  The full
 15-file C2Rust preserve-unused audit has no translation holes and compiles
 without generated Rust repairs; its hashes and unsafe/raw-pointer inventory
-are in `evidence/zlib-1.4-c2rust-audit.json`.
+are in `evidence/zlib-1.4-c2rust-audit.json`.  The isolated stable Rust library
+passes 98 canonical differential comparisons, cross-decompression, upstream
+`example` and exhaustive `infcover`, malformed streams, and Valgrind; final
+shared/static multicall linkage is deliberately deferred.  Stable evidence is
+in `evidence/zlib-1.4-c2rust.json`.
 
 ## Work queue after util-linux
 
@@ -137,8 +140,9 @@ requires them.  Names include canonical installed aliases, but not examples or
 test-only binaries.  The duplicate `gzip` request is represented once.
 
 1. Small libraries and single-purpose tools:
-   - [ ] zlib 1.4 — shared compression library; no installed applet (`minigzip` is
-     an example/test helper).
+   - [x] zlib 1.4 — isolated stable Rust compression library at canonical
+     parity; no installed applet (`minigzip` is an example/test helper), and
+     final shared/static multicall linkage is deferred by policy.
    - [ ] pkgconf 3.0.10 — `pkgconf`, its compatible `pkg-config` alias,
      `bomtool`, `pccritic`, and `spdxtool`; use this maintained implementation
      instead of the dormant freedesktop pkg-config 0.29.2 codebase.
