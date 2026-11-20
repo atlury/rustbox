@@ -51,6 +51,7 @@ scoring, and correctness gates.
 | File 5.48 | 1 | 1 | 1 | 1 |
 | GNU patch 2.8 | 1 | 1 | 1 | 1 |
 | GNU sed 4.10 | 1 | 1 | 1 | 1 |
+| GNU Diffutils 3.12 | 4 | 4 | 4 | 4 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -112,17 +113,19 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 270
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 274
 distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, five
-pkgconf names, File, GNU patch, and GNU sed, with `kill` shared and
-`util-linux-kill` available explicitly).  It passes all 540
+pkgconf names, File, GNU patch, GNU sed, and four GNU Diffutils applets, with
+`kill` shared and `util-linux-kill` available explicitly).  It passes all 548
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
 check, 108-case differential suite, and Valgrind.  Pkgconf also passes all 429
 CLI fixture checks, 55 exact differential comparisons, and Valgrind through
 the unified dispatcher.  Sed passes its complete 362-case upstream replay,
 30 exact differential comparisons, and Valgrind through the same dispatcher.
-The stripped 270-name executable is 6,111,456 bytes.  `chcon` and `runcon`
+Diffutils passes its complete 377-case upstream replay, 48 exact differential
+comparisons, and resource checks through the same dispatcher.  The stripped
+274-name executable is 6,340,800 bytes.  `chcon` and `runcon`
 remain absent, and the linked binary has no SELinux or systemd dependency.
 
 The final Rustbox executable is required to be self-contained: utility
@@ -320,8 +323,8 @@ upstream suites, 30 exact differentials, and Valgrind.  It is 592,248 bytes
 stripped versus 208,264 bytes for canonical C; full linkage and parity evidence
 is in `evidence/sed-4.10-hybrid.json`.  Sed's configured gnulib/internal C
 surface is privately namespaced in the multicall, with its `wctob` asm-label
-alias supplied by an explicit ABI bridge.  The resulting 270-name binary is
-6,111,456 bytes stripped—255,248 bytes above the prior checkpoint—and passes
+alias supplied by an explicit ABI bridge.  At that checkpoint the 270-name
+binary was 6,111,456 bytes stripped—255,248 bytes above its predecessor—and passed
 all combined regressions in `evidence/rustbox-multicall.json`.
 
 GNU Diffutils 3.12 is pinned to its canonical signed release.  Its normal
@@ -364,7 +367,15 @@ has the exact canonical allocation lifecycle—20 allocations, six frees, and
 root sooner and therefore changes Valgrind's reachable/lost classification for
 160 of those intentionally retained bytes.  Per-command sizes, hashes,
 dependencies, and the full parity record are in
-`evidence/diffutils-3.12-hybrid.json`.  Multicall integration is the next gate.
+`evidence/diffutils-3.12-hybrid.json`.  Its configured C/gnulib surface is
+privately namespaced in the multicall.  `program_name` remains a deliberately
+shared process global, and a private ABI bridge preserves libc-compatible
+full-path `error(3)` diagnostics rather than binding to another translated
+package's error policy.  The resulting 274-name binary is 6,340,800 bytes
+stripped—229,344 bytes above the sed checkpoint—and passes all 548 dispatcher
+comparisons, all 14,022 prior batch cases, both Diffutils upstream suites, 48
+exact Diffutils comparisons, and the resource checks recorded in
+`evidence/rustbox-multicall.json`.
 
 ## Work queue after util-linux
 
@@ -399,9 +410,8 @@ Library-only checkpoints (outside the active utility order):
    - [x] File 5.48 — `file`; integrated at canonical parity.
    - [x] GNU patch 2.8 — `patch`; integrated at canonical parity.
    - [x] GNU sed 4.10 — `sed`; integrated at canonical parity.
-   - [ ] Diffutils 3.12 — `cmp`, `diff`, `diff3`, `sdiff`; signed canonical
-     oracle, analysis, normalization, hole-free C2Rust translation, and hybrid
-     canonical parity complete; multicall integration next.
+   - [x] Diffutils 3.12 — `cmp`, `diff`, `diff3`, `sdiff`; integrated at
+     canonical parity.
    - [ ] Grep — `grep`, `egrep`, `fgrep`.
    - [ ] bc — `bc`, `dc`.
    - [ ] attr — `attr`, `getfattr`, `setfattr`.

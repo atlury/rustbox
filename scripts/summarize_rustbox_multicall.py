@@ -28,6 +28,7 @@ def main() -> int:
     parser.add_argument("--file-report-directory", type=Path, required=True)
     parser.add_argument("--patch-report-directory", type=Path, required=True)
     parser.add_argument("--sed-report-directory", type=Path, required=True)
+    parser.add_argument("--diffutils-report-directory", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     binary = args.binary.resolve()
@@ -39,10 +40,11 @@ def main() -> int:
     file_directory = args.file_report_directory.resolve()
     patch_directory = args.patch_report_directory.resolve()
     sed_directory = args.sed_report_directory.resolve()
+    diffutils_directory = args.diffutils_report_directory.resolve()
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
-    if dispatch["cases"] != 540 or dispatch["passed"] != 540 or dispatch["failures"]:
+    if dispatch["cases"] != 548 or dispatch["passed"] != 548 or dispatch["failures"]:
         raise RuntimeError("unified dispatcher comparison is incomplete")
     if (
         differential["batches"] != 38
@@ -142,6 +144,48 @@ def main() -> int:
         or "possibly lost: 0 bytes in 0 blocks" not in sed_valgrind
     ):
         raise RuntimeError("unified GNU sed integration comparison is incomplete")
+    diffutils_differential_path = diffutils_directory / "differential.json"
+    diffutils_differential = json.loads(diffutils_differential_path.read_text())
+    diffutils_upstream_path = diffutils_directory / "upstream-tests.log"
+    diffutils_upstream = diffutils_upstream_path.read_text(errors="replace")
+    diffutils_summaries = []
+    for match in re.finditer(
+        r"# TOTAL:\s+(\d+).*?# PASS:\s+(\d+).*?# SKIP:\s+(\d+).*?"
+        r"# XFAIL:\s+(\d+).*?# FAIL:\s+(\d+).*?# XPASS:\s+(\d+).*?# ERROR:\s+(\d+)",
+        diffutils_upstream,
+        re.DOTALL,
+    ):
+        diffutils_summaries.append(dict(zip(
+            ("total", "pass", "skip", "xfail", "fail", "xpass", "error"),
+            map(int, match.groups()),
+        )))
+    expected_diffutils_summaries = [
+        {"total": 33, "pass": 30, "skip": 2, "xfail": 1, "fail": 0, "xpass": 0, "error": 0},
+        {"total": 344, "pass": 301, "skip": 43, "xfail": 0, "fail": 0, "xpass": 0, "error": 0},
+    ]
+    diffutils_valgrind_paths = {
+        name: diffutils_directory / f"valgrind-{name}.log"
+        for name in ("cmp", "diff", "diff3", "sdiff")
+    }
+    for name in ("cmp", "diff", "sdiff"):
+        text = diffutils_valgrind_paths[name].read_text(errors="replace")
+        if (
+            "ERROR SUMMARY: 0 errors" not in text
+            or "definitely lost: 0 bytes in 0 blocks" not in text
+            or "indirectly lost: 0 bytes in 0 blocks" not in text
+            or "possibly lost: 0 bytes in 0 blocks" not in text
+        ):
+            raise RuntimeError(f"unified GNU {name} Valgrind comparison is incomplete")
+    diff3_valgrind = diffutils_valgrind_paths["diff3"].read_text(errors="replace")
+    if (
+        diffutils_summaries != expected_diffutils_summaries
+        or not diffutils_differential["gcc_clang_exact"]
+        or diffutils_differential["comparisons"] != 48
+        or "ERROR SUMMARY: 9 errors" not in diff3_valgrind
+        or (diffutils_directory / "valgrind-diff3-heap").read_text()
+           != (diffutils_directory / "valgrind-diff3-canonical-heap").read_text()
+    ):
+        raise RuntimeError("unified GNU Diffutils integration comparison is incomplete")
     if sha256(binary) != link["binary"]["sha256"]:
         raise RuntimeError("unified binary changed after link evidence")
     with tempfile.TemporaryDirectory(prefix="rustbox-strip-") as temporary:
@@ -166,8 +210,8 @@ def main() -> int:
         raise RuntimeError("unified binary retains a forbidden SELinux/systemd dependency")
     evidence = {
         "schema": 1,
-        "recorded_at": "2026-11-20",
-        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, and GNU sed integrated canonical parity",
+        "recorded_at": "2026-11-21",
+        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, and GNU Diffutils integrated canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
@@ -176,7 +220,8 @@ def main() -> int:
             "file": 1,
             "patch": 1,
             "sed": 1,
-            "dispatch_names": 270,
+            "diffutils": 4,
+            "dispatch_names": 274,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -227,6 +272,17 @@ def main() -> int:
             "differential_sha256": sha256(sed_differential_path),
             "valgrind_log_sha256": sha256(sed_valgrind_path),
         },
+        "diffutils_integration": {
+            "upstream_suites": diffutils_summaries,
+            "differential": diffutils_differential,
+            "valgrind_clean_applets": ["cmp", "diff", "sdiff"],
+            "diff3_allocation_lifecycle_exact": True,
+            "upstream_log_sha256": sha256(diffutils_upstream_path),
+            "differential_sha256": sha256(diffutils_differential_path),
+            "valgrind_log_sha256": {
+                name: sha256(path) for name, path in diffutils_valgrind_paths.items()
+            },
+        },
         "collision_isolation": {
             "translated_libraries": len(link["source_library_sha256"]),
             "namespaced_libraries": len(link["namespaced_symbols"]),
@@ -237,6 +293,8 @@ def main() -> int:
             "patch_namespaced_symbols": len(link["patch_namespaced_symbols"]),
             "sed_namespaced_symbols": len(link["sed_namespaced_symbols"]),
             "sed_abi_bridge_symbols": len(link["sed_abi_bridge"]["symbols"]),
+            "diffutils_namespaced_symbols": len(link["diffutils_namespaced_symbols"]),
+            "diffutils_error_bridge_symbols": len(link["diffutils_error_bridge"]["symbols"]),
             "manifest": link,
         },
     }

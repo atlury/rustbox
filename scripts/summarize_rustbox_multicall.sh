@@ -14,4 +14,5 @@ RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
     --file-report-directory /work/work/analysis/file-5.48/multicall \
     --patch-report-directory /work/work/analysis/patch-2.8/multicall \
     --sed-report-directory /work/work/analysis/sed-4.10/multicall \
+    --diffutils-report-directory /work/work/analysis/diffutils-3.12/multicall \
     --output /work/evidence/rustbox-multicall.json

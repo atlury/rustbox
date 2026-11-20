@@ -44,6 +44,7 @@ def main() -> int:
     parser.add_argument("--file-oracle", type=Path, required=True)
     parser.add_argument("--patch-oracle", type=Path, required=True)
     parser.add_argument("--sed-oracle", type=Path, required=True)
+    parser.add_argument("--diffutils-oracle-dir", type=Path, required=True)
     parser.add_argument("--rustbox", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
@@ -56,6 +57,7 @@ def main() -> int:
     file_oracle = args.file_oracle.resolve()
     patch_oracle = args.patch_oracle.resolve()
     sed_oracle = args.sed_oracle.resolve()
+    diffutils_oracle_dir = args.diffutils_oracle_dir.resolve()
     failures: list[dict[str, object]] = []
     cases = 0
 
@@ -132,6 +134,15 @@ def main() -> int:
         if oracle != actual:
             failures.append({"suite": "sed", "applet": "sed", "option": option, "oracle": oracle, "actual": actual})
 
+    diffutils_names = ["cmp", "diff", "diff3", "sdiff"]
+    for name in diffutils_names:
+        for option in ("--help", "--version"):
+            cases += 1
+            oracle = invoke([name, option], executable=diffutils_oracle_dir / name)
+            actual = invoke([str(rustbox), name, option])
+            if oracle != actual:
+                failures.append({"suite": "diffutils", "applet": name, "option": option, "oracle": oracle, "actual": actual})
+
     result = {
         "schema": 1,
         "cases": cases,
@@ -143,6 +154,7 @@ def main() -> int:
         "file_applets": 1,
         "patch_applets": 1,
         "sed_applets": 1,
+        "diffutils_applets": len(diffutils_names),
         "failures": failures,
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
@@ -155,7 +167,7 @@ def main() -> int:
         + "\n",
         encoding="utf-8",
     )
-    print(json.dumps({key: result[key] for key in ("cases", "passed", "coreutils_applets", "util_linux_applets", "m4_applets", "pkgconf_public_names", "file_applets", "patch_applets", "sed_applets")}))
+    print(json.dumps({key: result[key] for key in ("cases", "passed", "coreutils_applets", "util_linux_applets", "m4_applets", "pkgconf_public_names", "file_applets", "patch_applets", "sed_applets", "diffutils_applets")}))
     return 1 if failures else 0
 
 
