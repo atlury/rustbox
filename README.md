@@ -269,6 +269,14 @@ defect.  Sparse's limitations around generated gnulib alignment storage and a
 function attribute are retained explicitly rather than hidden.  Complete
 counts, classifications, and raw-log hashes are recorded in
 `evidence/patch-2.8-static-analysis.json`.
+Deterministic normalization changes only `src/patch.c`, exporting
+`rustbox_patch_main` while retaining a conditional standalone `main`.  The
+exact 67-unit closure remains unchanged under all three builds; their 147
+upstream test executions pass with only the canonical XFAILs, 56 canonical-
+versus-normalized differential comparisons are exact, compiler feature
+configurations are byte-identical, both object files export both entrypoints,
+and Valgrind remains free of real leaks and errors.  Transformation and parity
+evidence is in `evidence/patch-2.8-normalization.json`.
 
 ## Work queue after util-linux
 
