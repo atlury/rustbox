@@ -105,6 +105,25 @@ def main() -> int:
             ("  idx_t nplus;\n  if (!ckd_add (&nplus, n, plus) && !xalloc_oversized (nplus, 1))",
              "  idx_t nplus;\n  if (n <= (size_t) (IDX_MAX - plus)\n      && (nplus = (idx_t) n + plus, !xalloc_oversized (nplus, 1)))", 1),
         ])
+        replace_exact(staged / "lib/file-has-acl.c", [
+            ("b = strnul (b) + 1", "b = _gl_strnul (b) + 1", 1),
+        ])
+        replace_exact(staged / "lib/dfa.c", [
+            ("stk[-2].nullable &= stk[-1].nullable;",
+             "stk[-2].nullable = stk[-1].nullable && stk[-2].nullable;", 1),
+            ("stk[-2].nullable |= stk[-1].nullable;",
+             "stk[-2].nullable = stk[-1].nullable || stk[-2].nullable;", 1),
+            ("mergeit &= d->multibyte_prop[group.elems[j].index];",
+             "mergeit = (d->multibyte_prop[group.elems[j].index]\n                           && mergeit);", 1),
+            ("lmp->begline &= rmp->begline;",
+             "lmp->begline = rmp->begline && lmp->begline;", 1),
+            ("lmp->endline &= rmp->endline;",
+             "lmp->endline = rmp->endline && lmp->endline;", 1),
+        ])
+        replace_exact(staged / "lib/regex_internal.c", [
+            ("if (__glibc_unlikely (set->nelem) == 0)",
+             "if (__glibc_unlikely (set->nelem) == (Idx) 0)", 1),
+        ])
         replace_exact(staged / "lib/realloc.c", [
             ("  ptrdiff_t signed_n;\n  if (ckd_add (&signed_n, n, 0))\n    {\n      errno = ENOMEM;\n      return NULL;\n    }",
              "  if (PTRDIFF_MAX < n)\n    {\n      errno = ENOMEM;\n      return NULL;\n    }", 1),
@@ -116,6 +135,10 @@ def main() -> int:
              "  v = align_chunk_size_up (&s, h->alignment_mask, s) || v;", 1),
             ("  v |= ckd_add (&s, s,\n                (offsetof (struct _obstack_chunk, contents)\n                 + h->alignment_mask));",
              "  v = ckd_add (&s, s,\n               (offsetof (struct _obstack_chunk, contents)\n                + h->alignment_mask)) || v;", 1),
+        ])
+        replace_exact(staged / "sed/utils.c", [
+            ("== buf_size - buf_used)",
+             "== (ssize_t) (buf_size - buf_used))", 1),
         ])
 
         canonical_files = {
@@ -133,8 +156,9 @@ def main() -> int:
             if sha256(canonical / name) != sha256(staged / name)
         )
         expected_changed = [
-            "lib/malloca.c", "lib/obstack.c", "lib/realloc.c",
-            "sed/compile.c", "sed/execute.c", "sed/regexp.c", "sed/sed.c",
+            "lib/dfa.c", "lib/file-has-acl.c", "lib/malloca.c", "lib/obstack.c",
+            "lib/realloc.c", "lib/regex_internal.c", "sed/compile.c", "sed/execute.c",
+            "sed/regexp.c", "sed/sed.c", "sed/utils.c",
         ]
         if changed != expected_changed:
             raise RuntimeError(f"unexpected GNU sed normalized sources: {changed}")
@@ -170,7 +194,7 @@ def main() -> int:
 
     args.manifest.parent.mkdir(parents=True, exist_ok=True)
     args.manifest.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
-    print(json.dumps({"changed_sources": 7, "entrypoints": 1}, sort_keys=True))
+    print(json.dumps({"changed_sources": 11, "entrypoints": 1}, sort_keys=True))
     return 0
 
 

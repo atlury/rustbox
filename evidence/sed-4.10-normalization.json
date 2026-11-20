@@ -1,22 +1,22 @@
 {
   "binaries": {
     "clang": {
-      "bytes": 711848,
+      "bytes": 711944,
       "needed": [
         "libacl.so.1",
         "libattr.so.1",
         "libc.so.6"
       ],
-      "sha256": "2f307db89db9e3c0835ed22e3dc36bb482cf02fa60e446d5eb309f26364cfcaf"
+      "sha256": "2ad8ed392c4b797ef3c38b5c6d22abbbeff000d53ef964b0aa8d0e76a60529de"
     },
     "gcc": {
-      "bytes": 842920,
+      "bytes": 843104,
       "needed": [
         "libacl.so.1",
         "libattr.so.1",
         "libc.so.6"
       ],
-      "sha256": "05a8b1dddceb364e0fe66e3f8cef758c5aed494b66e62439ad10cb2b92a03ff7"
+      "sha256": "30b0fea7214e8f3e57fe1df96e5d64cf015cef49f05c4951743a66cbe1e69e9f"
     }
   },
   "configuration": {
@@ -67,7 +67,7 @@
   "schema": 1,
   "tests": {
     "clang": {
-      "log_sha256": "2e899c7128ad13fcde0099ba4178275dfbffdb57751469ba2906b2fb63ed1cdc",
+      "log_sha256": "4b619af8c40acfeec20e74e9541358106f872bb3086f02a0f6f2a9d15498de17",
       "suites": [
         {
           "error": 0,
@@ -90,7 +90,7 @@
       ]
     },
     "gcc": {
-      "log_sha256": "1d27be88d6d9695a5b7354478ee7cef481a6f162dd63c8baf253332d3bef30f9",
+      "log_sha256": "f62db70241746365bf728d3d56954e9e826c719c6c4ea2c1e309fcc0ea750637",
       "suites": [
         {
           "error": 0,
@@ -113,7 +113,7 @@
       ]
     },
     "sanitizer": {
-      "log_sha256": "6a202914a920d5b1b519003367c5c7c574b149ea52b96a4e009716c3cffe47e1",
+      "log_sha256": "fcaa2985f5a2c85e0f96f6b82f20af206d1712987e347dd3bbb6301f57dd88aa",
       "suites": [
         {
           "error": 0,
@@ -131,20 +131,38 @@
     "canonical_archive_sha256": "b8e72182b2ec96a3574e2998c47b7aaa64cc20ce000d8e9ac313cc07cecf28c7",
     "canonical_tree_sha256": "f06fcf5f2ba7f872964cd28ddc175eb65e0b116c266e6ea5a183e20961e97fcc",
     "changed_sources": [
+      "lib/dfa.c",
+      "lib/file-has-acl.c",
       "lib/malloca.c",
       "lib/obstack.c",
       "lib/realloc.c",
+      "lib/regex_internal.c",
       "sed/compile.c",
       "sed/execute.c",
       "sed/regexp.c",
-      "sed/sed.c"
+      "sed/sed.c",
+      "sed/utils.c"
     ],
     "conditional": "RUSTBOX_MULTICALL",
     "engine": "exact deterministic source rewrite",
-    "normalized_tree_sha256": "ec67ca2b70586c8321cfae512ceb7358970a1cfa00013023e474b4a1d5d32bc4",
+    "normalized_tree_sha256": "1d381fbd8844f4bbbea8063fe1a18372c4eb5c1a6099b854ea66e9ade291ffa0",
     "release": "4.10",
     "schema": 1,
     "transformations": [
+      {
+        "canonical_sha256": "692657ed556c4c27e431664d726cb43441ef4a71161adc93d95ed76ce84197cf",
+        "engine": "exact deterministic translator-compatibility rewrite",
+        "normalized_sha256": "2969eae22afec961efab7ca7a5cc5e27db4c0327dc7e821de14f195c57ca94d6",
+        "operation": "make checked-integer widths and eager Boolean accumulation explicit for C2Rust",
+        "source": "lib/dfa.c"
+      },
+      {
+        "canonical_sha256": "10e445b779125ab59d6020cadf45e4689d5c0b42674c272676463ae08d88ebb7",
+        "engine": "exact deterministic translator-compatibility rewrite",
+        "normalized_sha256": "894d763313bd4fdfb5fe39d2496aaea8464b3f1d6ed8d9fefe2ae58f55c78ec0",
+        "operation": "make checked-integer widths and eager Boolean accumulation explicit for C2Rust",
+        "source": "lib/file-has-acl.c"
+      },
       {
         "canonical_sha256": "c101dc247bb8e2ab40d000ba3fe4cba0b4c56275187f702c75501e75eaf8df04",
         "engine": "exact deterministic translator-compatibility rewrite",
@@ -165,6 +183,13 @@
         "normalized_sha256": "e20a8f4ba6939e8bd6d956a5a85211bdc197f86a588736620ea4511d54c3ea02",
         "operation": "make checked-integer widths and eager Boolean accumulation explicit for C2Rust",
         "source": "lib/realloc.c"
+      },
+      {
+        "canonical_sha256": "d1654ad20e07c6726fa4c1e53e36cdb048f588c1a8c0458b4b8f37cb08908356",
+        "engine": "exact deterministic translator-compatibility rewrite",
+        "normalized_sha256": "d6ec018a55b1c68d44601bc1704b97aec5c00791fc816c9f864f3ff19a348f17",
+        "operation": "make checked-integer widths and eager Boolean accumulation explicit for C2Rust",
+        "source": "lib/regex_internal.c"
       },
       {
         "canonical_sha256": "0a5d189db7ee6d3b47b1e8a5fd26c4f7ac2d26ac32f4767d4dff586bbfff45c1",
@@ -193,13 +218,20 @@
         "normalized_sha256": "1238707dce9ac70abd91c279147b6199c118224b805067df46c4e9e0ea7a7805",
         "operation": "export the multicall entrypoint",
         "source": "sed/sed.c"
+      },
+      {
+        "canonical_sha256": "19deabf6cdb9e2344b5ee6559cd5f190ae4a57bbfc052bd039c7e6a0de36a487",
+        "engine": "exact deterministic translator-compatibility rewrite",
+        "normalized_sha256": "f369e1630bad63c4cd9da63bc64208238565368b3d95b7102d61364c2f2c20b0",
+        "operation": "make checked-integer widths and eager Boolean accumulation explicit for C2Rust",
+        "source": "sed/utils.c"
       }
     ]
   },
   "valgrind": {
     "definite_indirect_possible_leaks": 0,
     "errors": 0,
-    "log_sha256": "dca69b50cf1152454680e4ae50e7111015a6db47f7a35a7c66679302bb7853e9",
+    "log_sha256": "97756da8b6833568729b814cdc0e879dd39fe41bbaee3f0096e3122922a8dd8c",
     "still_reachable_bytes": 4317
   }
 }
