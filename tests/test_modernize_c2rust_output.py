@@ -63,7 +63,8 @@ class OpaqueUseTests(unittest.TestCase):
         output = self.transform(
             "pub type tm_zone;\n"
             "struct tm { pub tm_zone: *const core::ffi::c_char }\n"
-            "fn f(pointer: *mut tm_zone) {}\n"
+            "fn f(pointer: *mut tm_zone, value: *mut tm) { "
+            "let _ = (*value).tm_zone; }\n"
         )
         self.assertIn("pub struct tm_zone", output)
 
@@ -108,10 +109,14 @@ class OpaqueUseTests(unittest.TestCase):
             "#![feature(c_variadic)]\n"
             "#![feature(extern_types)]\n"
             "#![feature(label_break_value)]\n"
+            "#![feature(linkage)]\n"
             "#![feature(raw_ref_op)]\n"
+            "#[linkage = \"external\"]\n"
+            "pub fn exported() {}\n"
             "fn f() {}\n"
         )
         self.assertNotIn("#![feature(", output)
+        self.assertNotIn("#[linkage", output)
 
     def test_obsolete_va_list_spelling_and_borrow_are_rewritten(self) -> None:
         output = self.transform(
@@ -124,6 +129,25 @@ class OpaqueUseTests(unittest.TestCase):
         self.assertIn("consume(copy.clone());", output)
         self.assertNotIn("VaListImpl", output)
         self.assertNotIn("as_va_list", output)
+
+    def test_archive_override_keeps_program_export_and_mangles_library_copy(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            program = root / "src/src/util.rs"
+            library = root / "src/lib/xalloc_die.rs"
+            program.parent.mkdir(parents=True)
+            library.parent.mkdir(parents=True)
+            definition = '#[no_mangle]\npub unsafe extern "C" fn xalloc_die() {}\n'
+            program.write_text(definition, encoding="utf-8")
+            library.write_text(definition, encoding="utf-8")
+            changes = MODULE.deduplicate_no_mangle_functions(root)
+            self.assertEqual(changes, [{
+                "symbol": "xalloc_die",
+                "kept": "src/src/util.rs",
+                "mangled": "src/lib/xalloc_die.rs",
+            }])
+            self.assertIn("#[no_mangle]", program.read_text(encoding="utf-8"))
+            self.assertNotIn("#[no_mangle]", library.read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

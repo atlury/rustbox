@@ -21,10 +21,16 @@ TYPE_ALIAS = re.compile(
 RUST_LITERAL = re.compile(
     r"(?:b|c)?r\#*\".*?\"\#*|(?:b|c)?\"(?:\\.|[^\"\\])*\"|b?'(?:\\.|[^'\\])*'"
 )
+NO_MANGLE_FUNCTION = re.compile(
+    r'(?m)^#\[no_mangle\]\n'
+    r'(?=(?:#\[[^\n]+\]\n)*pub\s+(?:(?:unsafe|extern\s+"C")\s+)*fn\s+'
+    r'([A-Za-z_][A-Za-z0-9_]*))'
+)
 REMOVED_FEATURES = {
     "#![feature(c_variadic)]",
     "#![feature(extern_types)]",
     "#![feature(label_break_value)]",
+    "#![feature(linkage)]",
     "#![feature(raw_ref_op)]",
 }
 
@@ -42,8 +48,10 @@ def has_only_pointer_uses(line: str, name: str) -> bool:
     residual = RUST_LITERAL.sub("", line)
     residual = "\n".join(line.split("//", 1)[0] for line in residual.splitlines())
     # A C field and an opaque tag can legitimately share a spelling.  Remove
-    # Rust field/argument labels before classifying occurrences in type position.
+    # Rust field/argument labels and field accesses before classifying
+    # occurrences in type position.  A dot cannot introduce a Rust type path.
     residual = re.sub(rf"\b{escaped}\s*:", "", residual)
+    residual = re.sub(rf"\.\s*{escaped}\b", "", residual)
     allowed = (
         rf"\*(?:mut|const)\s+{escaped}\b",
         rf"\bnull(?:_mut)?\s*::\s*<\s*{escaped}\s*,?\s*>",
@@ -75,11 +83,61 @@ def alias_has_only_pointer_uses(
     return True
 
 
+def deduplicate_no_mangle_functions(root: Path) -> list[dict[str, object]]:
+    """Mangle archive members shadowed by a configured program definition.
+
+    C archives only extract a member when one of its symbols is needed.  A
+    Rust crate compiles every translated module together, so an otherwise
+    unused gnulib member can collide with the program's configured override.
+    Keep the program definition exported and retain each shadowed function as
+    ordinary mangled Rust code.
+    """
+    definitions: dict[str, list[Path]] = {}
+    for path in sorted(root.rglob("*.rs")):
+        text = path.read_text(encoding="utf-8")
+        for match in NO_MANGLE_FUNCTION.finditer(text):
+            definitions.setdefault(match.group(1), []).append(path)
+
+    changes = []
+    for name, paths in sorted(definitions.items()):
+        if len(paths) == 1:
+            continue
+        ordered = sorted(
+            paths,
+            key=lambda path: ("src/src" not in path.relative_to(root).as_posix(),
+                              path.relative_to(root).as_posix()),
+        )
+        kept = ordered[0]
+        for path in ordered[1:]:
+            text = path.read_text(encoding="utf-8")
+            matches = [match for match in NO_MANGLE_FUNCTION.finditer(text)
+                       if match.group(1) == name]
+            if len(matches) != 1:
+                raise RuntimeError(f"cannot uniquely mangle duplicate export {name} in {path}")
+            match = matches[0]
+            text = text[:match.start()] + text[match.start() + len("#[no_mangle]\n"):]
+            path.write_text(text, encoding="utf-8")
+            changes.append({
+                "symbol": name,
+                "kept": kept.relative_to(root).as_posix(),
+                "mangled": path.relative_to(root).as_posix(),
+            })
+    return changes
+
+
 def transform_rust(path: Path) -> dict[str, object] | None:
     before = path.read_text(encoding="utf-8")
     lines = before.splitlines()
     opaque = [match.group(1) for line in lines if (match := EXTERN_TYPE.match(line))]
-    kept = [line for line in lines if not EXTERN_TYPE.match(line) and line not in REMOVED_FEATURES]
+    external_linkage_attributes = sum(
+        line.strip() == '#[linkage = "external"]' for line in lines
+    )
+    kept = [
+        line for line in lines
+        if not EXTERN_TYPE.match(line)
+        and line not in REMOVED_FEATURES
+        and line.strip() != '#[linkage = "external"]'
+    ]
 
     mutable_statics = {
         match.group(1) for line in kept if (match := STATIC_MUT.match(line))
@@ -148,7 +206,7 @@ def transform_rust(path: Path) -> dict[str, object] | None:
     if after == before:
         return None
     path.write_text(after, encoding="utf-8")
-    return {
+    result = {
         "path": str(path),
         "before_sha256": hashlib.sha256(before.encode()).hexdigest(),
         "after_sha256": hashlib.sha256(after.encode()).hexdigest(),
@@ -158,6 +216,9 @@ def transform_rust(path: Path) -> dict[str, object] | None:
         "as_va_list_rewrites": as_va_list_rewrites,
         "va_arg_rewrites": va_arg_rewrites,
     }
+    if external_linkage_attributes:
+        result["external_linkage_attributes_removed"] = external_linkage_attributes
+    return result
 
 
 def main() -> int:
@@ -187,6 +248,7 @@ def main() -> int:
             if change is not None:
                 change["path"] = str(path.relative_to(staged))
                 changes.append(change)
+        duplicate_exports_mangled = deduplicate_no_mangle_functions(staged)
         (staged / "rust-toolchain.toml").write_text(
             '[toolchain]\nchannel = "1.99.0"\nprofile = "minimal"\n', encoding="utf-8"
         )
@@ -198,6 +260,8 @@ def main() -> int:
             "stable_toolchain": "1.99.0",
             "changes": changes,
         }
+        if duplicate_exports_mangled:
+            manifest["duplicate_exports_mangled"] = duplicate_exports_mangled
         (staged / "rustbox-modernization.json").write_text(
             json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
         )

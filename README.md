@@ -281,7 +281,11 @@ configurations are byte-identical, both object files export both entrypoints,
 and Valgrind remains free of real leaks and errors.  Transformation and parity
 evidence is in `evidence/patch-2.8-normalization.json`.  C2Rust 0.22.1 now
 translates all 67 units with unused functions preserved; the untouched audit
-crate compiles with no translation holes and no generated-Rust repairs.
+crate and mechanically modernized stable archive compile with no translation
+holes and no generated-Rust repairs.  The stable archive exports
+`rustbox_patch_main` exactly once; source hashes, modernization operations,
+archive symbols, and the deferred raw-pointer/unsafe inventory are recorded in
+`evidence/patch-2.8-c2rust.json`.
 
 ## Work queue after util-linux
 
