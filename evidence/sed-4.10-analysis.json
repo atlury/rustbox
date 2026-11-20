@@ -1,0 +1,107 @@
+{
+  "artifacts": {
+    "clang-analyzer-tidy.log": "f00f989ab11826ed413739a42eeef284ecad1371a4faa0327a75099fede6a627",
+    "compile_commands.json": "4d1c0ab29a89f235dbc64cf3528757c6d9eb0b71896bb0924434c31be20b9643",
+    "cppcheck.log": "644e6c7b5494bc2fcac6922d3bc99de5f7bef83873b920ec84fc00d87be8f57b",
+    "flawfinder.log": "b41fdb95ae7cad5e2610f34801746dbf584fa6b972b32d65a1fc62e88a87b170",
+    "gcc-analyzer-setup.log": "176667fba1714806b4ec63bfa20c1fdcfaed0fdc4c4724fddf3ab630773b6803",
+    "gcc-analyzer.log": "cc81b4a0bc08e8e6f03d512054c1a39999243819d662a81d4bf4a945bb5a5e2f",
+    "sources.list": "4bffc5d967b92c657430acd603353f0f57a338e6ad15686190041a73107467be",
+    "sparse.log": "c44bc97c20715981faccb69b7fecc3a217dd305cb2d9757d305345c2d2061f33",
+    "sparse.status": "181210f8f9c779c26da1d9b2075bde0127302ee0e3fca38c9a83f5b1dd8e5d3b"
+  },
+  "recorded_at": "2026-11-20",
+  "release": "4.10",
+  "review": {
+    "blocking_findings": 0,
+    "canonical_source_changes": 0,
+    "notes": [
+      "Cppcheck cannot parse sed.c's translated NLS expression or dfa.c's dense generated-style condition; both production compilers and the sanitizer suite compile and exercise them.",
+      "Cppcheck's preprocessor errors are configure/platform-selection guards analyzed outside their selected branches.",
+      "GCC's seven xmalloc-family leaks model allocation-returning helpers as owners at return; ownership is intentionally transferred to each caller.",
+      "Clang's execute.c uninitialized ownership report invents a path where in-place cleanup uses stat data despite in-place mode being disabled; open_next_file initializes the stat record on every real in-place path.",
+      "Clang's dfa.c null report loses realloc_trans_if_necessary's invariant that d->trans is allocated whenever tralloc is nonzero; the canonical regex suite and sanitizer coverage exercise this loop.",
+      "The remaining Clang-Tidy and Flawfinder results are modernization and lexical-risk inventory for the later pointer-hardening phase, not executable defect proofs.",
+      "Sparse's parser errors reflect gnulib generated headers, C23 constructs, and attribute syntax outside Sparse's configured grammar; they are recorded rather than treated as program defects."
+    ]
+  },
+  "schema": 1,
+  "scope": {
+    "compile_actions": 85,
+    "targets": [
+      "sed"
+    ],
+    "tests_and_examples_excluded": true,
+    "unique_sources": 85
+  },
+  "tools": {
+    "clang_analyzer_tidy": {
+      "all_findings_by_check": {
+        "bugprone-assignment-in-if-condition": 15,
+        "bugprone-branch-clone": 7,
+        "bugprone-casting-through-void": 5,
+        "bugprone-easily-swappable-parameters": 118,
+        "bugprone-implicit-widening-of-multiplication-result": 3,
+        "bugprone-inc-dec-in-conditions": 6,
+        "bugprone-macro-parentheses": 31,
+        "bugprone-multi-level-implicit-pointer-conversion": 49,
+        "bugprone-narrowing-conversions": 121,
+        "bugprone-reserved-identifier": 938,
+        "bugprone-signed-char-misuse": 1,
+        "bugprone-suspicious-include": 4,
+        "bugprone-switch-missing-default-case": 8,
+        "bugprone-unsafe-functions": 1,
+        "clang-analyzer-core.CallAndMessage": 1,
+        "clang-analyzer-core.NullDereference": 1,
+        "clang-analyzer-deadcode.DeadStores": 4,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 181,
+        "clang-analyzer-security.insecureAPI.strcpy": 5,
+        "performance-no-int-to-ptr": 1
+      },
+      "analyzer_findings_by_check": {
+        "clang-analyzer-core.CallAndMessage": 1,
+        "clang-analyzer-core.NullDereference": 1,
+        "clang-analyzer-deadcode.DeadStores": 4,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 181,
+        "clang-analyzer-security.insecureAPI.strcpy": 5
+      }
+    },
+    "cppcheck": {
+      "findings_by_id": {
+        "constParameterPointer": 12,
+        "constVariablePointer": 9,
+        "internalAstError": 1,
+        "knownConditionTrueFalse": 9,
+        "preprocessorErrorDirective": 2,
+        "redundantContinue": 2,
+        "redundantInitialization": 1,
+        "shadowFunction": 1,
+        "syntaxError": 1,
+        "unsignedLessThanZero": 1,
+        "unusedStructMember": 3,
+        "variableScope": 7
+      },
+      "findings_by_severity": {
+        "error": 4,
+        "style": 45
+      }
+    },
+    "flawfinder": {
+      "hits_at_level_1_or_higher": 202,
+      "lines_analyzed": 22015
+    },
+    "gcc_fanalyzer": {
+      "findings_by_check": {
+        "analyzer-malloc-leak": 7,
+        "sign-compare": 10,
+        "unused-value": 7,
+        "unused-variable": 2
+      },
+      "warnings": 26
+    },
+    "sparse": {
+      "parser_errors": 40,
+      "warnings": 255
+    }
+  }
+}
