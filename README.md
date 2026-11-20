@@ -191,7 +191,7 @@ Library-only checkpoints (outside the active utility order):
   installed applet (`rlfe` remains an example).
 
 1. Small and single-purpose utilities:
-   - [ ] pkgconf 3.0.10 — `pkgconf`, its compatible `pkg-config` alias,
+   - [ ] pkgconf 3.0.11 — `pkgconf`, its compatible `pkg-config` alias,
      `bomtool`, `pccritic`, and `spdxtool`; use this maintained implementation
      instead of the dormant freedesktop pkg-config 0.29.2 codebase.
    - [x] M4 1.4.21 — `m4`; integrated at canonical parity.

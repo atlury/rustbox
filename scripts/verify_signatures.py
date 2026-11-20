@@ -30,13 +30,24 @@ def checked(path: Path, expected: str, label: str) -> None:
 def record_verification(root: Path, name: str, release: dict[str, str]) -> None:
     state_path = root / "work/upstream/.state" / f"{name}.json"
     state = json.loads(state_path.read_text(encoding="utf-8"))
-    expected = {
-        "version": release["version"],
-        "sha256": release["sha256"],
-        "signature_sha256": release["signature_sha256"],
-        "key_sha256": release["key_sha256"],
-        "signer_fingerprint": release["signer_fingerprint"],
-    }
+    if release.get("source_kind") == "signed-git-tag":
+        expected = {
+            "version": release["version"],
+            "source_kind": "signed-git-tag",
+            "tag": release["tag"],
+            "commit": release["commit"],
+            "tree": release["tree"],
+            "key_sha256": release["key_sha256"],
+            "signer_fingerprint": release["signer_fingerprint"],
+        }
+    else:
+        expected = {
+            "version": release["version"],
+            "sha256": release["sha256"],
+            "signature_sha256": release["signature_sha256"],
+            "key_sha256": release["key_sha256"],
+            "signer_fingerprint": release["signer_fingerprint"],
+        }
     for field, value in expected.items():
         if state.get(field) != value:
             raise RuntimeError(
@@ -92,6 +103,42 @@ def verify(
         )
 
 
+def verify_signed_git(root: Path, name: str, release: dict[str, str], key: Path) -> None:
+    source = root / "work/upstream" / release["source_directory"]
+    keys = [line for line in key.read_text(encoding="utf-8").splitlines() if line.strip()]
+    if not keys:
+        raise RuntimeError(f"{name}: signing-key file is empty")
+    with tempfile.TemporaryDirectory(prefix="rustbox-allowed-signers-") as directory:
+        allowed = Path(directory) / "allowed_signers"
+        allowed.write_text(
+            "".join(f"{release['signer_principal']} {line}\n" for line in keys),
+            encoding="utf-8",
+        )
+        result = subprocess.run(
+            [
+                "git", "-c", f"safe.directory={source}",
+                "-c", f"gpg.ssh.allowedSignersFile={allowed}", "-C", str(source),
+                "verify-tag", "--raw", release["tag"],
+            ],
+            check=False,
+            text=True,
+            capture_output=True,
+        )
+    diagnostic = result.stdout + result.stderr
+    if result.returncode != 0 or release["signer_fingerprint"] not in diagnostic:
+        raise RuntimeError(diagnostic.strip() or f"{name}: signed tag verification failed")
+    commit = subprocess.run(
+        ["git", "-c", f"safe.directory={source}", "-C", str(source), "rev-parse", release["tag"] + "^{}"],
+        check=True, text=True, stdout=subprocess.PIPE,
+    ).stdout.strip()
+    tree = subprocess.run(
+        ["git", "-c", f"safe.directory={source}", "-C", str(source), "rev-parse", release["tag"] + "^{tree}"],
+        check=True, text=True, stdout=subprocess.PIPE,
+    ).stdout.strip()
+    if commit != release["commit"] or tree != release["tree"]:
+        raise RuntimeError(f"{name}: verified tag resolves outside the immutable pin")
+
+
 def main() -> int:
     root = Path(__file__).resolve().parents[1]
     parser = argparse.ArgumentParser()
@@ -108,6 +155,13 @@ def main() -> int:
     cache = root / ".cache/downloads"
     for name in selected:
         release = releases[name]
+        if release.get("source_kind") == "signed-git-tag":
+            key = cache / release["key"]
+            checked(key, release["key_sha256"], f"{name} key")
+            verify_signed_git(root, name, release, key)
+            record_verification(root, name, release)
+            print(f"{name} {release['version']}: valid signature {release['signer_fingerprint']}")
+            continue
         archive = cache / release["archive"]
         signature = cache / (release["archive"] + ".signature")
         key = cache / release["key"]
