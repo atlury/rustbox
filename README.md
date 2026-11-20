@@ -165,6 +165,15 @@ support symbols privately namespaced.  It increases the stripped multicall by
 193,504 bytes, from 5,094,096 to 5,287,600 bytes, and passes its entire parity
 suite through multicall dispatch.
 
+Pkgconf 3.0.11 is pinned to its canonical verified signed tag.  Independent
+static GCC and Clang builds each pass all 32 upstream tests without skips;
+the shared ASan/UBSan build passes 33, including the extra allocation-failure
+case, and the complete 32-test static suite passes under Valgrind.  Its four
+installed executables, `pkg-config` compatibility alias, exact 35-source
+production closure, and 176-symbol static-library ABI are recorded in
+`evidence/pkgconf-3.0.11-oracle.json`.  Production-only static analysis and
+deterministic multicall normalization are the next pkgconf gates.
+
 ## Work queue after util-linux
 
 This queue starts only after all in-scope util-linux applets reach canonical
