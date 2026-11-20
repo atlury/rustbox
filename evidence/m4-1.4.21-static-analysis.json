@@ -1,0 +1,80 @@
+{
+  "logs": {
+    "clang-analyzer-tidy.log": "7fcd8a468137ca4c52902af0e50fdf3d8b292131e1ee99cb4d20c642e634d273",
+    "cppcheck.log": "84a90fd0306da06a09112e2e18462d93a49e73c2acd6ca7c93089dfe4b668660",
+    "flawfinder.log": "a6cc264c04e174122529bc0366c1dd0ba3719aae782448523018ee245cd50bd9",
+    "gcc-analyzer.log": "b2be03a9e55b4443b5b5baa798f553ecdd1a89f1896d87d32fc56da208df1b04"
+  },
+  "recorded_at": "2026-11-20",
+  "release": "1.4.21",
+  "review": {
+    "blocking_findings": 0,
+    "notes": [
+      "GCC ownership warnings are returned allocations, registered cleanup state, or xmalloc-family wrappers; Valgrind reports zero definitely, indirectly, or possibly lost bytes.",
+      "Clang's INPUT_STRING null path contradicts all constructors, which assign obstack-backed non-null strings; both full suites and the sanitizer language suite do not reproduce it.",
+      "Clang vasnprintf null paths lose the allocation postcondition through gnulib macros; the bundled gnulib suite and sanitizer run cover those paths without reproduction.",
+      "Clang enum-range reports are intentional bitwise combinations of canonicalize mode flags; strcpy reports have explicitly sized destinations.",
+      "Cppcheck preprocessor and uninitialized reports include unsupported generated-header configurations; compiler analyzers and runtime gates take precedence.",
+      "All findings remain recorded for normalization and later pointer/no_std hardening even when not reproduced dynamically."
+    ]
+  },
+  "schema": 1,
+  "scope": {
+    "application_sources": 11,
+    "compile_commands": 192,
+    "test_support_commands_excluded": 31
+  },
+  "tools": {
+    "clang_analyzer_tidy": {
+      "all_findings_by_check": {
+        "bugprone-assignment-in-if-condition": 50,
+        "bugprone-branch-clone": 2,
+        "bugprone-casting-through-void": 4,
+        "bugprone-easily-swappable-parameters": 155,
+        "bugprone-implicit-widening-of-multiplication-result": 4,
+        "bugprone-inc-dec-in-conditions": 5,
+        "bugprone-macro-parentheses": 119,
+        "bugprone-multi-level-implicit-pointer-conversion": 8,
+        "bugprone-narrowing-conversions": 81,
+        "bugprone-not-null-terminated-result": 2,
+        "bugprone-reserved-identifier": 1301,
+        "bugprone-signed-char-misuse": 7,
+        "bugprone-sizeof-expression": 8,
+        "bugprone-suspicious-include": 1,
+        "bugprone-suspicious-string-compare": 2,
+        "bugprone-switch-missing-default-case": 4,
+        "bugprone-unsafe-functions": 1,
+        "clang-analyzer-core.NonNullParamChecker": 2,
+        "clang-analyzer-core.NullDereference": 1,
+        "clang-analyzer-deadcode.DeadStores": 2,
+        "clang-analyzer-optin.core.EnumCastOutOfRange": 2,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 262,
+        "clang-analyzer-security.insecureAPI.strcpy": 2,
+        "performance-no-int-to-ptr": 11
+      },
+      "analyzer_findings_by_check": {
+        "clang-analyzer-core.NonNullParamChecker": 2,
+        "clang-analyzer-core.NullDereference": 1,
+        "clang-analyzer-deadcode.DeadStores": 2,
+        "clang-analyzer-optin.core.EnumCastOutOfRange": 2,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 262,
+        "clang-analyzer-security.insecureAPI.strcpy": 2
+      }
+    },
+    "cppcheck": {
+      "findings_by_severity": {
+        "error": 12,
+        "portability": 1,
+        "style": 66,
+        "warning": 8
+      }
+    },
+    "flawfinder": {
+      "hits_at_level_1_or_higher": 467,
+      "lines_analyzed": 47051
+    },
+    "gcc_fanalyzer": {
+      "warnings": 13
+    }
+  }
+}

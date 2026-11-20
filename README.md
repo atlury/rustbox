@@ -139,6 +139,15 @@ passes 98 canonical differential comparisons, cross-decompression, upstream
 shared/static multicall linkage is deliberately deferred.  Stable evidence is
 in `evidence/zlib-1.4-c2rust.json`.
 
+GNU M4 1.4.21 is pinned from its signed canonical release.  Independent GCC
+and Clang builds each pass all 382 bundled gnulib cases and the 242 numbered
+language checks plus stack-overflow check; ASan/UBSan and Valgrind gates are
+recorded in `evidence/m4-1.4.21-oracle.json`.  Its exact linked production
+slice is 192 C sources, including 11 M4 application sources.  Cppcheck, GCC
+`-fanalyzer`, Clang analyzer/tidy, and Flawfinder results and their review are
+recorded in `evidence/m4-1.4.21-static-analysis.json`.  Deterministic C
+normalization and C2Rust translation are the next M4 stages.
+
 ## Work queue after util-linux
 
 This queue starts only after all in-scope util-linux applets reach canonical
