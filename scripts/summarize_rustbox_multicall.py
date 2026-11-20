@@ -26,6 +26,7 @@ def main() -> int:
     parser.add_argument("--m4-report-directory", type=Path, required=True)
     parser.add_argument("--pkgconf-report-directory", type=Path, required=True)
     parser.add_argument("--file-report-directory", type=Path, required=True)
+    parser.add_argument("--patch-report-directory", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     binary = args.binary.resolve()
@@ -35,10 +36,11 @@ def main() -> int:
     m4_directory = args.m4_report_directory.resolve()
     pkgconf_directory = args.pkgconf_report_directory.resolve()
     file_directory = args.file_report_directory.resolve()
+    patch_directory = args.patch_report_directory.resolve()
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
-    if dispatch["cases"] != 536 or dispatch["passed"] != 536 or dispatch["failures"]:
+    if dispatch["cases"] != 538 or dispatch["passed"] != 538 or dispatch["failures"]:
         raise RuntimeError("unified dispatcher comparison is incomplete")
     if (
         differential["batches"] != 38
@@ -85,6 +87,28 @@ def main() -> int:
         or "All heap blocks were freed -- no leaks are possible" not in file_valgrind
     ):
         raise RuntimeError("unified File integration comparison is incomplete")
+    patch_differential_path = patch_directory / "differential.json"
+    patch_differential = json.loads(patch_differential_path.read_text())
+    patch_upstream_path = patch_directory / "upstream-tests.log"
+    patch_upstream = patch_upstream_path.read_text(errors="replace")
+    patch_valgrind_path = patch_directory / "valgrind.log"
+    patch_valgrind = patch_valgrind_path.read_text(errors="replace")
+    patch_summary = {
+        name.lower(): int(match.group(1))
+        for name in ("TOTAL", "PASS", "SKIP", "XFAIL", "FAIL", "XPASS", "ERROR")
+        if (match := re.search(rf"^# {name}:\s+(\d+)$", patch_upstream, re.MULTILINE))
+    }
+    if (
+        patch_summary != {"total": 49, "pass": 47, "skip": 0, "xfail": 2,
+                          "fail": 0, "xpass": 0, "error": 0}
+        or not patch_differential["gcc_clang_exact"]
+        or patch_differential["comparisons"] != 28
+        or "ERROR SUMMARY: 0 errors" not in patch_valgrind
+        or "definitely lost: 0 bytes in 0 blocks" not in patch_valgrind
+        or "indirectly lost: 0 bytes in 0 blocks" not in patch_valgrind
+        or "possibly lost: 0 bytes in 0 blocks" not in patch_valgrind
+    ):
+        raise RuntimeError("unified GNU patch integration comparison is incomplete")
     if sha256(binary) != link["binary"]["sha256"]:
         raise RuntimeError("unified binary changed after link evidence")
     with tempfile.TemporaryDirectory(prefix="rustbox-strip-") as temporary:
@@ -110,14 +134,15 @@ def main() -> int:
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-20",
-        "status": "Coreutils, util-linux, GNU M4, pkgconf, and File integrated canonical parity",
+        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, and GNU patch integrated canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
             "m4": 1,
             "pkgconf_public_names": 5,
             "file": 1,
-            "dispatch_names": 268,
+            "patch": 1,
+            "dispatch_names": 269,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -152,6 +177,14 @@ def main() -> int:
             "differential_sha256": sha256(file_differential_path),
             "valgrind_log_sha256": sha256(file_valgrind_path),
         },
+        "patch_integration": {
+            "upstream_suite": patch_summary,
+            "differential": patch_differential,
+            "valgrind_errors": 0,
+            "upstream_log_sha256": sha256(patch_upstream_path),
+            "differential_sha256": sha256(patch_differential_path),
+            "valgrind_log_sha256": sha256(patch_valgrind_path),
+        },
         "collision_isolation": {
             "translated_libraries": len(link["source_library_sha256"]),
             "namespaced_libraries": len(link["namespaced_symbols"]),
@@ -159,6 +192,7 @@ def main() -> int:
             "namespaced_support_objects": len(link["namespaced_support_symbols"]),
             "m4_namespaced_support_symbols": len(link["m4_namespaced_support_symbols"]),
             "file_namespaced_symbols": len(link["file_namespaced_symbols"]),
+            "patch_namespaced_symbols": len(link["patch_namespaced_symbols"]),
             "manifest": link,
         },
     }

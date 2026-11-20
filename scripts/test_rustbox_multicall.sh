@@ -11,5 +11,6 @@ RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
     --m4-oracle /rustbox-m4/normalized-clang/src/m4 \
     --pkgconf-oracle-dir /rustbox-pkgconf/normalized-clang-static \
     --file-oracle /rustbox-file/normalized-clang/src/file \
+    --patch-oracle /rustbox-patch/normalized-clang/src/patch \
     --rustbox /rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox \
     --output /work/work/analysis/rustbox-multicall-dispatch.json

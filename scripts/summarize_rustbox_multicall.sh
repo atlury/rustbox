@@ -12,4 +12,5 @@ RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
     --m4-report-directory /work/work/analysis/m4-1.4.21/multicall \
     --pkgconf-report-directory /work/work/analysis/pkgconf-3.0.11/multicall \
     --file-report-directory /work/work/analysis/file-5.48/multicall \
+    --patch-report-directory /work/work/analysis/patch-2.8/multicall \
     --output /work/evidence/rustbox-multicall.json

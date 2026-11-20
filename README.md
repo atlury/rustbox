@@ -48,7 +48,7 @@ scoring, and correctness gates.
 | GNU M4 1.4.21 | 1 | 1 | 1 | 1 |
 | pkgconf 3.0.11 | 5 | 5 | 5 | 5 |
 | File 5.48 | 1 | 1 | 1 | 1 |
-| GNU patch 2.8 | 1 | 1 | 1 | 0 |
+| GNU patch 2.8 | 1 | 1 | 1 | 1 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -110,10 +110,10 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 267
-distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, and five
-pkgconf names, with `kill` shared and `util-linux-kill` available explicitly).
-It passes all 534
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 269
+distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, five
+pkgconf names, File, and GNU patch, with `kill` shared and `util-linux-kill`
+available explicitly).  It passes all 538
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
 check, 108-case differential suite, and Valgrind.  Pkgconf also passes all 429
@@ -244,8 +244,8 @@ pre-link inventory), versus 184 KiB for canonical File; complete parity,
 linkage, and size evidence is in `evidence/file-5.48-hybrid.json`.
 File is integrated into the unified Rustbox dispatcher with its entire
 libmagic/internal C surface privately namespaced, so util-linux `more` keeps
-its own canonical libmagic behavior.  The resulting 268-name executable
-is 5,668,624 bytes stripped, a 180,000-byte increase over the prior build, and
+its own canonical libmagic behavior.  Its 268-name integration checkpoint was
+5,668,624 bytes stripped, a 180,000-byte increase over the prior build, and
 passes all 536 dispatcher comparisons, the full 14,022-case Coreutils and
 util-linux replay, the complete M4 and pkgconf replays, File's 174 exact CLI
 comparisons, and Valgrind.
@@ -289,7 +289,12 @@ archive symbols, and the deferred raw-pointer/unsafe inventory are recorded in
 complete 49-case upstream suite, all 28 filesystem-aware canonical
 differentials, and Valgrind.  It is 500 KiB stripped versus 164 KiB for the
 canonical C executable; linkage, section, and parity evidence is in
-`evidence/patch-2.8-hybrid.json`.
+`evidence/patch-2.8-hybrid.json`.  GNU patch is integrated into the unified
+Rustbox dispatcher with its configured gnulib/internal C surface privately
+namespaced.  The resulting 269-name executable is 5,856,208 bytes stripped—a
+187,584-byte increase—and retains exact patch parity while passing all prior
+combined regressions; integration evidence is in
+`evidence/rustbox-multicall.json`.
 
 ## Work queue after util-linux
 
@@ -322,7 +327,7 @@ Library-only checkpoints (outside the active utility order):
      instead of the dormant freedesktop pkg-config 0.29.2 codebase.
    - [x] M4 1.4.21 — `m4`; integrated at canonical parity.
    - [x] File 5.48 — `file`; integrated at canonical parity.
-   - [ ] GNU patch 2.8 — `patch`.
+   - [x] GNU patch 2.8 — `patch`; integrated at canonical parity.
    - [ ] sed — `sed`.
    - [ ] Diffutils — `cmp`, `diff`, `diff3`, `sdiff`.
    - [ ] Grep — `grep`, `egrep`, `fgrep`.

@@ -194,6 +194,56 @@ def namespace_file_library(
     return mapped, symbols
 
 
+def namespace_patch_library(
+    rust_library: Path, build: Path
+) -> tuple[Path, list[str]]:
+    """Keep GNU patch's configured gnulib/internal C surface private."""
+    strong_types = {"B", "C", "D", "G", "R", "S", "T"}
+    compiler_math = re.compile(
+        r"^(?:cbrt|ceil|copysign|fabs|fdim|floor|fma|fmax|fmaximum|fmin|fminimum|fmod|rint|round|sqrt|trunc)(?:f|f16|f128)?$"
+    )
+    output = subprocess.run(
+        ["nm", "-g", "--defined-only", str(rust_library)],
+        check=True,
+        text=True,
+        stdout=subprocess.PIPE,
+    ).stdout
+    symbols = sorted({
+        fields[-1]
+        for line in output.splitlines()
+        if len(fields := line.split()) >= 3
+        and fields[-2] in strong_types
+        and (
+            re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", fields[-1])
+            or fields[-1] in {"__xargmatch_internal", "_gl_alloc_nomem"}
+        )
+        and fields[-1] != "rustbox_patch_main"
+        and not fields[-1].startswith("rust_")
+        and not compiler_math.fullmatch(fields[-1])
+    })
+    if not symbols:
+        raise RuntimeError("GNU patch archive exports no namespaceable C symbols")
+    destination = build / "src/.rustbox-patch"
+    destination.mkdir(parents=True, exist_ok=True)
+    mapped = destination / rust_library.name
+    mapping = destination / "symbols.map"
+    mapping.write_text(
+        "".join(f"{symbol} rustbox_patch_private_{symbol}\n" for symbol in symbols),
+        encoding="utf-8",
+    )
+    shutil.copy2(rust_library, mapped)
+    subprocess.run(["objcopy", "--redefine-syms", str(mapping), str(mapped)], check=True)
+    mapped_definitions = defined_symbols(mapped)
+    definitions = set(mapped_definitions)
+    if mapped_definitions.count("rustbox_patch_main") != 1:
+        raise RuntimeError("GNU patch symbol isolation damaged its public entrypoint")
+    if any(symbol in definitions for symbol in symbols):
+        raise RuntimeError("GNU patch symbol isolation left an unprefixed definition")
+    if any(f"rustbox_patch_private_{symbol}" not in definitions for symbol in symbols):
+        raise RuntimeError("GNU patch symbol isolation lost a definition")
+    return mapped, symbols
+
+
 def util_linux_link_inputs(
     repository: Path, build: Path, rust_defined: set[str]
 ) -> tuple[list[Path], list[str], dict[str, list[str]]]:
@@ -341,6 +391,7 @@ extern int rustbox_bomtool_main(int, char **);
 extern int rustbox_pccritic_main(int, char **);
 extern int rustbox_spdxtool_main(int, char **);
 extern int rustbox_file_main(int, char **);
+extern int rustbox_patch_main(int, char **);
 """
         + declarations
         + """
@@ -407,6 +458,8 @@ int main(int argc, char **argv)
         return rustbox_spdxtool_main(argc, argv);
     if (!force_util_linux && strcmp(name, "file") == 0)
         return rustbox_file_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "patch") == 0)
+        return rustbox_patch_main(argc, argv);
 """
         + selections
         + """
@@ -428,6 +481,7 @@ def main() -> int:
     parser.add_argument("--m4-support-library", type=Path, required=True)
     parser.add_argument("--pkgconf-rust-library", type=Path, required=True)
     parser.add_argument("--file-rust-library", type=Path, required=True)
+    parser.add_argument("--patch-rust-library", type=Path, required=True)
     parser.add_argument("--link-report", type=Path, required=True)
     args = parser.parse_args()
     repository = args.repository.resolve()
@@ -437,6 +491,7 @@ def main() -> int:
     m4_support_library = args.m4_support_library.resolve()
     pkgconf_rust_library = args.pkgconf_rust_library.resolve()
     file_rust_library = args.file_rust_library.resolve()
+    patch_rust_library = args.patch_rust_library.resolve()
     makefile = build / "Makefile"
     if not makefile.is_file():
         raise RuntimeError("canonical Coreutils build is missing")
@@ -517,7 +572,7 @@ def main() -> int:
     libraries.extend(util_libraries)
     for path in (
         m4_rust_library, m4_support_library, pkgconf_rust_library,
-        file_rust_library,
+        file_rust_library, patch_rust_library,
     ):
         if not path.is_file():
             raise RuntimeError(f"multicall input is missing: {path}")
@@ -526,6 +581,8 @@ def main() -> int:
     libraries.append(pkgconf_rust_library)
     libraries.append(file_rust_library)
     file_library_index = len(libraries) - 1
+    libraries.append(patch_rust_library)
+    patch_library_index = len(libraries) - 1
     source_library_hashes = {str(path.relative_to(repository)): sha256(path) for path in libraries}
     source_library_hashes[str(m4_support_library)] = sha256(m4_support_library)
     expected_symbols.update(f"rustbox_{symbol}_main" for symbol in util_dispatch.values())
@@ -536,12 +593,18 @@ def main() -> int:
         "rustbox_pccritic_main",
         "rustbox_spdxtool_main",
         "rustbox_file_main",
+        "rustbox_patch_main",
     })
 
     mapped_file_rust, file_symbols = namespace_file_library(
         libraries[file_library_index], build
     )
     libraries[file_library_index] = mapped_file_rust
+
+    mapped_patch_rust, patch_symbols = namespace_patch_library(
+        libraries[patch_library_index], build
+    )
+    libraries[patch_library_index] = mapped_patch_rust
 
     canonical_dispatch_symbols = set(defined_symbols(build / "src/coreutils-coreutils.o"))
     libraries, namespaced_symbols = namespace_duplicate_c_symbols(
@@ -642,7 +705,7 @@ def main() -> int:
         "single_binary_deps=" + " ".join(rewritten),
         "src_coreutils_OBJECTS=" + str(dispatcher_object) + " " + str(renamed_dispatch),
         "src_libsinglebin_false_a_ldadd=$(src_true_LDADD) -ldl -lpthread -lm -lrt -lutil "
-        "-lbz2 -llz -llzma -lseccomp -lz -lzstd",
+        "-lbz2 -llz -llzma -lseccomp -lz -lzstd -lattr",
         "src_coreutils_LDADD=$(single_binary_deps) $(LDADD) $(single_binary_libs) "
         + " ".join(util_link_libraries),
         "src_coreutils_LINK=" + link,
@@ -675,10 +738,11 @@ def main() -> int:
         "m4_applets": 1,
         "pkgconf_public_names": 5,
         "file_applets": 1,
+        "patch_applets": 1,
         "total_dispatch_names": len(
             set(applets)
             | set(util_dispatch)
-            | {"m4", "pkgconf", "pkg-config", "bomtool", "pccritic", "spdxtool", "file"}
+            | {"m4", "pkgconf", "pkg-config", "bomtool", "pccritic", "spdxtool", "file", "patch"}
         ),
         "excluded": ["chcon", "runcon"],
         "public_name_precedence": {"kill": "GNU Coreutils", "util-linux-kill": "util-linux"},
@@ -693,6 +757,7 @@ def main() -> int:
         "namespaced_support_symbols": namespaced_support,
         "m4_namespaced_support_symbols": m4_support_symbols,
         "file_namespaced_symbols": file_symbols,
+        "patch_namespaced_symbols": patch_symbols,
         "binary": {
             "bytes": output.stat().st_size,
             "sha256": sha256(output),
@@ -711,6 +776,7 @@ def main() -> int:
         "m4_applets": 1,
         "pkgconf_public_names": 5,
         "file_applets": 1,
+        "patch_applets": 1,
         "output": str(output),
     }))
     return 0
