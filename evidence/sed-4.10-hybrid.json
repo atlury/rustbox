@@ -1,0 +1,491 @@
+{
+  "artifacts": {
+    "differential_sha256": "264cacae91cb1661c9e8340821c4db405388a507ee0cd21dbdd1dc09c303fc22",
+    "linked_sha256": "9919d829e66cff35ce86fa61a73f7898604fccf5410a3594967b39c57e23648e",
+    "stripped_sha256": "16cab95e6037e201b8bafc85e7b9f3883f14e4291bb5c3eaac866e3aa025ba8e",
+    "upstream_log_sha256": "e47d4c04bf6e925e368b9c381185e26d00e981fd1eb090a64f0647735d7805ca",
+    "valgrind_log_sha256": "2317db8c64e8c37f5ee4fc823f7846a7c0c8f646c56e71960067ca64cf12eb0a"
+  },
+  "behavior": {
+    "differential": {
+      "comparisons": 30,
+      "gcc_clang_exact": true,
+      "records": [
+        {
+          "exact": true,
+          "index": 0,
+          "name": "interface-help",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "58a168bf0881034ec442861ace46f251fd3ea64d991103c184d59966bc15b6a7",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 1,
+          "name": "interface-version",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "bb632e3e4140853fedadf769ccc03fd662eb5e761cb2c43c1e8e27e082f2a713",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 2,
+          "name": "interface-bad-option",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "df53648856c27312b39e776523b3e4166b2225e0a29b919f618ddf8890df55b2",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 3,
+          "name": "substitute-first",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "ebf8eb606dc3119ec8da9802ca9659dab609c5035384d5331f5ca278f2d4e611",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 4,
+          "name": "substitute-global",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "109dbb0e506dbfd44edef582e4f6805ae73e088ebea725c37301d9808e03bd82",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 5,
+          "name": "quiet-print",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "27dd8ed44a83ff94d557f9fd0412ed5a8cbca69ea04922d88c01184a07300a5a",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 6,
+          "name": "range-delete",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "8d3f637163d6e8c6495784c5bfcbf7cae4efc94d956fc966a922d269b1e57ab7",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 7,
+          "name": "bre-groups",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "a5323087f237769a00072bac9b6ff8a825bbba07f9e332f3f4bbc9672d7fe6ae",
+            "stdout_sha256": "e96c85925f0440ced8fb5f26a10fa5eca0ff6711e02709dac9323ad752cd1391",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 8,
+          "name": "ere-groups",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "1d31e0c15ba75c3f3b58bb2048bab974d60cb87bb8627c90b0b84388b76fe98a",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 9,
+          "name": "transliterate",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "852929c1ebbcdd569de2bfa87fb3f2de60dfda38f3048cd96a99e0e53815e7b8",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 10,
+          "name": "hold-space",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "0a6b1d5640dbbbf8392c15b7011890027b7315efc766dee44e81bf46c2015456",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 11,
+          "name": "branch-label",
+          "result": {
+            "status": 2,
+            "stderr_sha256": "d730712be9df1231d8810a1166bb801076ea4e94c9e16bcf54cd447b8a079e79",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 12,
+          "name": "multiple-expressions",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "b02de8c2f91350b06d82f4a9e2b310a65aba52f750ecadbf34e9999658e445a8",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 13,
+          "name": "line-number",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "0c57b2440be5b2ba897689f1370e04e16344a20fd07a8e171d455bf297ed8702",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 14,
+          "name": "next-line",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "ba2d5c3e6edf14b416656ab7a619b9c9773b7eb52f14f782c485ca2be05beff5",
+            "stdout_sha256": "bd56340fa351acf2fc5a26e3ab06e6a64535d0f76c95cc8b03ade77c6b862adb",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 15,
+          "name": "nul-data",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "9a771da50e13f3dc0214050005a9213326e66c7c00bd1159a843825d3c61afd1",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 16,
+          "name": "script-file",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "c7069753a237f2a93fff5ed683971631308a528546d673169f567103d21a0c04",
+            "tree": [
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "input",
+                "sha256": "b5bb9d8014a0f9b1d61e21e796d78dccdf1352f23cd32812f4850b878ae4944c"
+              },
+              {
+                "bytes": 8,
+                "kind": "file",
+                "mode": 420,
+                "path": "script.sed",
+                "sha256": "ef80cd90e4e80f4fd28c03436f11d5d98145434f368b35f5e39b2d3b47c19c1b"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 17,
+          "name": "multiple-files",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "0111f7554519f7126c570c154b894f1fbcddf4faa126f6d644b974dab6c77411",
+            "tree": [
+              {
+                "bytes": 6,
+                "kind": "file",
+                "mode": 420,
+                "path": "a",
+                "sha256": "65454a5200a827c042e1379e1f2698d151699e4d76466a3b0e4ebd348f4f131b"
+              },
+              {
+                "bytes": 6,
+                "kind": "file",
+                "mode": 420,
+                "path": "b",
+                "sha256": "60f7d20526ca5e01cb32632d83777bf8bed06baeb7a53bce9e86fecaac0e3f6d"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 18,
+          "name": "separate-files",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "f2833555023ddfa36e9256af3b3940e17e0fd88daf28d98e0098c935aff98e01",
+            "tree": [
+              {
+                "bytes": 6,
+                "kind": "file",
+                "mode": 420,
+                "path": "a",
+                "sha256": "65454a5200a827c042e1379e1f2698d151699e4d76466a3b0e4ebd348f4f131b"
+              },
+              {
+                "bytes": 6,
+                "kind": "file",
+                "mode": 420,
+                "path": "b",
+                "sha256": "60f7d20526ca5e01cb32632d83777bf8bed06baeb7a53bce9e86fecaac0e3f6d"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 19,
+          "name": "in-place",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "input",
+                "sha256": "7aa7a5359173d05b63cfd682e3c38487f3cb4f7f1d60659fe59fab1505977d4c"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 20,
+          "name": "in-place-backup",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "input",
+                "sha256": "7aa7a5359173d05b63cfd682e3c38487f3cb4f7f1d60659fe59fab1505977d4c"
+              },
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "input.bak",
+                "sha256": "01d09d19c2139a46aebfb577780d123d7396e97201bc7ead210a2ebff8239dee"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 21,
+          "name": "invalid-command",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "084789124278f1aef46b5af447dceb0f7907f44324a1526cfeaea5d4164e63c9",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 22,
+          "name": "missing-script",
+          "result": {
+            "status": 4,
+            "stderr_sha256": "d888b7fcddb738cba7b037a2fb5bc8d35802f2d0d26efe8e3a667938ea542976",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 23,
+          "name": "missing-input",
+          "result": {
+            "status": 2,
+            "stderr_sha256": "240441e867a24b9ed2cf7e0e021d730853ef959302dc43ab6c65faa262af5d94",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 24,
+          "name": "sandbox-reject-read",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "4d8c1d5fa54e90fd5f4da754c607784ba54db39fdb11c60004efc48713286076",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 25,
+          "name": "address-regexp",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "27dd8ed44a83ff94d557f9fd0412ed5a8cbca69ea04922d88c01184a07300a5a",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 26,
+          "name": "address-step",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "c9b0fb1fa00b3a5ce714c876c35bb18f21eed970d33d9093a3cbd7cf0c9db3dc",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 27,
+          "name": "quit-status",
+          "result": {
+            "status": 7,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "c3f9c8c283a2b1f2f1896f27a01cbe3cddc0c9d93f752e4639035a0f5b36f6e8",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 28,
+          "name": "empty-input",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 29,
+          "name": "no-final-newline",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "a1fce4363854ff888cff4b8e7875d600c2682390412a8cf79b37d0b11148b0fa",
+            "tree": []
+          }
+        }
+      ],
+      "schema": 1
+    },
+    "upstream_suites": [
+      {
+        "error": 0,
+        "fail": 0,
+        "pass": 68,
+        "skip": 7,
+        "total": 75,
+        "xfail": 0,
+        "xpass": 0
+      },
+      {
+        "error": 0,
+        "fail": 0,
+        "pass": 241,
+        "skip": 46,
+        "total": 287,
+        "xfail": 0,
+        "xpass": 0
+      }
+    ],
+    "upstream_total": 362,
+    "valgrind_smokes": 1,
+    "valgrind_still_reachable_bytes": 4317
+  },
+  "implementation": {
+    "abi_bridge": {
+      "reason": "C2Rust preserves gnulib's C alias identifier but not its configured asm label",
+      "symbol": "__wctob_alias",
+      "target": "wctob"
+    },
+    "entrypoint": "rustbox_sed_main",
+    "generated_rust_repairs": 0,
+    "public_name": "sed",
+    "rust_files": 87,
+    "rust_production_sources": 85
+  },
+  "input_evidence": {
+    "sed-4.10-c2rust.json": "39a9bc1be6258220ad19044b096313d3d89c7a8490cbcdb93f15c83cf8f7dc8f",
+    "sed-4.10-normalization.json": "dd6ed430551449441108b78db57ea902bb915d9f93956b47b9b76254fe6ef069",
+    "sed-4.10-oracle.json": "b707b9e28e07a7e9e8f2dd83678ed3925c92815a28d3c832dc96d8170bde8b16"
+  },
+  "next_gate": "link sed into the single Rustbox multicall and replay combined regressions",
+  "recorded_at": "2026-11-20",
+  "release": "4.10",
+  "runtime_linkage": {
+    "current_dynamic_needed": [
+      "libacl.so.1",
+      "libattr.so.1",
+      "libm.so.6",
+      "libgcc_s.so.1",
+      "libc.so.6",
+      "ld-linux-x86-64.so.2"
+    ],
+    "final_no_dt_needed_gate": "pending Rustbox-owned static runtime and ACL/xattr implementation",
+    "oracle_backends": [
+      "libacl",
+      "libattr"
+    ],
+    "selinux": false,
+    "systemd": false
+  },
+  "schema": 1,
+  "size": {
+    "canonical_stripped_bytes": 208264,
+    "interpretation": "The static archive is link inventory, not release size.",
+    "linked_sections": {
+      "bss": 10784,
+      "data": 3936,
+      "rodata": 46393,
+      "text": 451138
+    },
+    "linked_stripped_bytes": 592248,
+    "linked_unstripped_bytes": 4773624,
+    "translation_static_archive_bytes": 24272278
+  },
+  "status": "complete translated hybrid at canonical parity; multicall integration pending"
+}
