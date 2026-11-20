@@ -1,0 +1,768 @@
+{
+  "hardening": {
+    "later_order": [
+      "eliminate raw pointers and unsafe",
+      "replace std with Rustbox-owned no_std runtime"
+    ],
+    "raw_pointers_and_unsafe_are_inventory_only": true
+  },
+  "input": {
+    "compile_commands": 35,
+    "compile_database_sha256": "a33bddcee3d67db2be283646aea3ab6aa28eb12e62b2c8e750934b45d742997c",
+    "normalization_evidence_sha256": "127afcabb26a6b98e77d27b8e007c826cf097e4237e5bc857afe8d075f556e9e",
+    "production_sources": [
+      "cli/bomtool/main.c",
+      "cli/core.c",
+      "cli/getopt_long.c",
+      "cli/main.c",
+      "cli/pccritic/critic.c",
+      "cli/pccritic/main.c",
+      "cli/renderer-msvc.c",
+      "cli/spdxtool/core.c",
+      "cli/spdxtool/generate.c",
+      "cli/spdxtool/main.c",
+      "cli/spdxtool/serialize.c",
+      "cli/spdxtool/simplelicensing.c",
+      "cli/spdxtool/software.c",
+      "cli/spdxtool/util.c",
+      "libpkgconf/argvsplit.c",
+      "libpkgconf/audit.c",
+      "libpkgconf/bsdstubs.c",
+      "libpkgconf/buffer.c",
+      "libpkgconf/bufferset.c",
+      "libpkgconf/bytecode.c",
+      "libpkgconf/cache.c",
+      "libpkgconf/client.c",
+      "libpkgconf/dependency.c",
+      "libpkgconf/fileio.c",
+      "libpkgconf/fragment.c",
+      "libpkgconf/license.c",
+      "libpkgconf/output.c",
+      "libpkgconf/parser.c",
+      "libpkgconf/path.c",
+      "libpkgconf/personality.c",
+      "libpkgconf/pkg.c",
+      "libpkgconf/queue.c",
+      "libpkgconf/tuple.c",
+      "libpkgconf/variable.c",
+      "libpkgconf/version.c"
+    ]
+  },
+  "next_gate": "link the complete Rust archive and pass canonical pkgconf differential tests",
+  "raw_translation": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "9c55de15144ecc756403793de3dde057d2a391006bad775be93363c5631f531a",
+      "cargo_toml_sha256": "fafd784178e6cb739567207099ad5621920a16bc025d63ca3b2a0b71e81988b6",
+      "diagnostics_by_level": {
+        "warning": 143
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "4ea81bbbf09da6ae302e5c1419d8b24f55190b4903c5a74c3b4a9167c101f9be",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "unused_must_use": 1,
+        "unused_parens": 43,
+        "unused_unsafe": 8,
+        "unused_variables": 90
+      }
+    },
+    "compile_error_macros": 0,
+    "declaration_map_sha256": {
+      "src/cli/bomtool/main.c_decls.json": "2b5d1be9a4af4c1fe2dd0a76fa2918c103d8ffde0e0cb4c4c58ab93c1ba82116",
+      "src/cli/core.c_decls.json": "8b04f3c317e574b226ea07e29ec47a043fd26106ad9aa5a7088092461214068a",
+      "src/cli/getopt_long.c_decls.json": "ce2cddcc3f01f401da0eee3a4273ff4220f39b1a7ae870e66721a97ee001e79e",
+      "src/cli/main.c_decls.json": "e38ced79c23795358c35b0616f3742ab6a7eb65998a17ff7b01547296f934d91",
+      "src/cli/pccritic/critic.c_decls.json": "a168ab04d9c2e25a8ce43c83337874c4114f21ac951017b207db4d28fb30ccd2",
+      "src/cli/pccritic/main.c_decls.json": "04c639f3a52b0199c7724ffccf5f880c3e24ea08a51d3ad86a0347c0a1c9fe5c",
+      "src/cli/renderer_msvc.c_decls.json": "f809837cdc4f65bdfac4e0013cbc7cb7d4f446bad0f0ead297d216f133bb3716",
+      "src/cli/spdxtool/core.c_decls.json": "348ff269b21f842d06c98640a60e6311f4bdbc88ab8a3c24a81c377a650a2a69",
+      "src/cli/spdxtool/generate.c_decls.json": "a4152a2064dfb3dd02cbaf4076ee423e43b43c9e3a554faf82b6617a12a57111",
+      "src/cli/spdxtool/main.c_decls.json": "fbbc5a2c9390306c7bfbcc2e747bd4960af2dd5c08186d7bd58b4a21cf70c204",
+      "src/cli/spdxtool/serialize.c_decls.json": "054b52742d0633e97ab1d8afbfb2a86457c37c129bd9143517dbc2e03e64bd09",
+      "src/cli/spdxtool/simplelicensing.c_decls.json": "c2c8cefbc403d28bade1a8b2cb56605a0724223707b6bbd88282ea2af51a5aee",
+      "src/cli/spdxtool/software.c_decls.json": "9ba396df87a93ceddba773f1802b07433fa4d399996746bdacef3691b6f4f4a2",
+      "src/cli/spdxtool/util.c_decls.json": "9e3392ae685c5dc11b02ff1b436ed083f97542da6b5b5e586a89c08f53294239",
+      "src/libpkgconf/argvsplit.c_decls.json": "9808d0e380eeff1224e488d93bccedc4e5f424c91c10ff2eb73682bdced09656",
+      "src/libpkgconf/audit.c_decls.json": "df4e82e8208a297b25cf724460d91e77f522ff86ec9c1a18c463c7d6e2a3d0b4",
+      "src/libpkgconf/bsdstubs.c_decls.json": "49a43dc8de936f8669e0cd3fbd5f311cbc220978a3f499301b70928597fbd08e",
+      "src/libpkgconf/buffer.c_decls.json": "3933335a3309f258a643dc6e51fc83034776ab88eb66257b1ae5addb3eff2326",
+      "src/libpkgconf/bufferset.c_decls.json": "c1f4ccd068fb9c680778b583cac4e6ae40743d5fade6727a3b96d4022dcc9c4a",
+      "src/libpkgconf/bytecode.c_decls.json": "21f761e70a895933eefc3d30cb182aa96cba6d2938d1d5305a846adde003159a",
+      "src/libpkgconf/cache.c_decls.json": "d8fc244e9348c7ec6fa90146c468ea2211c76f832ebd3a46364aba268f16aeac",
+      "src/libpkgconf/client.c_decls.json": "3511654e01d8db6c67c3960f35dc5ca7cfe86edcd8af93ba4e71fb8dae862fe3",
+      "src/libpkgconf/dependency.c_decls.json": "d2a46955304baa4a8c525372c7878fbea2905566b4227657cf1b0fea382bf9b0",
+      "src/libpkgconf/fileio.c_decls.json": "a5bfcca7121f5def51fa8c82dfd69f902ad937c865624b5aa16f332f33a56388",
+      "src/libpkgconf/fragment.c_decls.json": "e0d79a85dabcc9eff301ad4d73f1a9c8ad617345be9b134257309c87d3046d07",
+      "src/libpkgconf/license.c_decls.json": "703b4fd70d675e22b77b1d46e0f5d3f9361f635faf83b37a999bd3967781b6c6",
+      "src/libpkgconf/output.c_decls.json": "c7f0d3a7dc7ecfd44f53da78a7bd8b3f133ffe1c1c92914464770486441654b4",
+      "src/libpkgconf/parser.c_decls.json": "4ab8cdcef767b653f34600c546a0d71c7b54e38bd6b1484aabb435fd8da51333",
+      "src/libpkgconf/path.c_decls.json": "9158cc3f76f27fa7b02f3763b08ce38dc69a9833aab44ce7c63f7bfe258adc88",
+      "src/libpkgconf/personality.c_decls.json": "1cca31830cfd67280379f199a45b46764794bd76db431bb2008409613aab0da1",
+      "src/libpkgconf/pkg.c_decls.json": "58d9b616401cd9f65bf81da0eb135db1e0e489380aa3e3cbacad2d9549d0c609",
+      "src/libpkgconf/queue.c_decls.json": "ab48dff27ebd615c6dd7198295d673f2c04121a17f93a6dad34ee0ff1380672c",
+      "src/libpkgconf/tuple.c_decls.json": "eb07b878a644991d6120329c5e0def9f2ad419de8d9caac6600d1cbf3c3b5f73",
+      "src/libpkgconf/variable.c_decls.json": "1898dfa874df628f0023078b7999fcee03a1babb88ff8488de47e542226bcf69",
+      "src/libpkgconf/version.c_decls.json": "7f65ef83351c965a23d954832a7bef1f3fde28859ae632a8936000634f033210"
+    },
+    "declaration_maps": 35,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "3d8bf7ba4402ae66f87fa94534f8fabfcd0860137a1e7b1a7f5e31121cf030c7",
+      "src/cli/bomtool/main.rs": "cea8dda0b8983a482c79d1a365127043432fd104eff4f53f19674a272c9247d8",
+      "src/cli/core.rs": "294f7c19c44d724e0f459bafec501f1631bafdd987272a199cb493190081dfce",
+      "src/cli/getopt_long.rs": "7de4d0bfdba62f44c8f26c7fff4d68353f61912b1fffbe34516106fecc142bf2",
+      "src/cli/main.rs": "203e4de36d6655c841283f0f04d97c9378f86e43542bfd9ee40e48c089318cd0",
+      "src/cli/pccritic/critic.rs": "d944f7b807905d361e99c1e52b2f4439fcb5eb128678dae21d3a4cf4f155be84",
+      "src/cli/pccritic/main.rs": "13f3090d5af6b0f02e4fd859d3b3c05bdb9bbcb126a883187834f4aa63174757",
+      "src/cli/renderer_msvc.rs": "10136b7b76c807df57e13e78cb779d8aa024af42efee0167cc0acd29a13931e1",
+      "src/cli/spdxtool/core.rs": "a45aaac7a75ab76c7ccb2b6e499b7cfbc6a3dd3746d4e5e10cf2eea5653f713e",
+      "src/cli/spdxtool/generate.rs": "6c038b1302e7e74bd9ab30724a10ceedc536ab7232760b4dfda22d0b0e92810f",
+      "src/cli/spdxtool/main.rs": "99b1ce76f1e7f1d5aa3bd94b5d249ad59e4bf3e6922de3fbdca55e45ea23be08",
+      "src/cli/spdxtool/serialize.rs": "c7a65db92116cecfcf242c37ba2826ee7f8f1dc67e3fc3fd79473fa675dd3a3b",
+      "src/cli/spdxtool/simplelicensing.rs": "b0271b5dc422b1728130ed8e67f049d283fa8ece71a925080efed6853f2a90e7",
+      "src/cli/spdxtool/software.rs": "1194a03c7332091b4fcb24471da7c292c15530b72804b3113cff5ac5da582edf",
+      "src/cli/spdxtool/util.rs": "25a494f1ec8579bac6c1b9efc61705567168f770a6005c9f8c7a98020a2f3df4",
+      "src/libpkgconf/argvsplit.rs": "9b683d282f3d1cd3ff6c87c8eb997720a55532f3bce40678363ed890db7d9c38",
+      "src/libpkgconf/audit.rs": "52583d94fc08f3e7212579760a0d401f7d1ae97a15d377717c7209764512e081",
+      "src/libpkgconf/bsdstubs.rs": "6cb47cac7eddd5a5778389d50c4466ff84c3be248a2563e8d7887caf959fdd60",
+      "src/libpkgconf/buffer.rs": "04ea3871b76687eb643ee462d5a3c296f6140300c61d05a045fc9110b32e37ef",
+      "src/libpkgconf/bufferset.rs": "9cdd4e17c8cf1adef0cfaacdeb23eb4a46a2019a6b77faac52b78eae77d7f88f",
+      "src/libpkgconf/bytecode.rs": "8eca3450eee7156d5278818ba0032879204a5bc2a3b826f22419db72bd4adb68",
+      "src/libpkgconf/cache.rs": "a114a2e970541c5f6536b8623bcba8aeb410d19d9b6b644986e595118cd427c7",
+      "src/libpkgconf/client.rs": "d76d837fbbe97fa1f542cd8610d76ecb3649d88f96658475e30386f6ab0fad92",
+      "src/libpkgconf/dependency.rs": "c14f8c1eb9876203d3b660e4bd0943adc78761d142efd27c7c72d58d70980b33",
+      "src/libpkgconf/fileio.rs": "a697f9c27b3c19feee2d7904bebcc28f264e9133da914b774e91bf1400a32efa",
+      "src/libpkgconf/fragment.rs": "53f5b0f2d02b8d54c97089ac412d0ff17df696ba4f857ce59b3fd6e852ac87a3",
+      "src/libpkgconf/license.rs": "21c86371377ecafa1e519828e6ccce887897c9eeb334ed0aa955722136d16c3b",
+      "src/libpkgconf/output.rs": "1aa811a1b1b26f72bc82013c5137e36af6f254b68a8c88b63843962d5d11f914",
+      "src/libpkgconf/parser.rs": "addeb11a623baf9930c0837aa6ea6ff4a3f035d9b0ff73c372ec5d0c306c1e35",
+      "src/libpkgconf/path.rs": "da504e2f594cac35f9c53ef0eab2c2457387dae7daf7e242b1cf25f2ecf3cb3c",
+      "src/libpkgconf/personality.rs": "49300a8a29b43e393df6eedb2a9195440017656efcdac72db15d9280623843b6",
+      "src/libpkgconf/pkg.rs": "81cb092b53038605cdfb05f7e9530ea8084ca4fa7034e4d9c2bb56bbf8508c8e",
+      "src/libpkgconf/queue.rs": "3995748204d0fb67c1c29f1820662fd5a19a470ff3a0951414664c3da4dd4265",
+      "src/libpkgconf/tuple.rs": "1f920ac8ecace3a44f443e3c8664ce0a6d47e3a362991649bb7fb843a3357de6",
+      "src/libpkgconf/variable.rs": "9744c7d12fe5eff4cae28ace8f130fe6adc2cb22f8e6d1ac7584685c08587203",
+      "src/libpkgconf/version.rs": "f9fdb87bb06808d2834a57db50750a4a6c9d1d627d845fb3e57f7e4772f0d6bc"
+    },
+    "panic_macros": 0,
+    "raw_pointer_type_occurrences": 12743,
+    "rust_bytes": 1975704,
+    "rust_files": 37,
+    "rust_lines": 53048,
+    "todo_macros": 0,
+    "unimplemented_macros": 0,
+    "unsafe_block_occurrences": 44,
+    "unsafe_function_occurrences": 2305
+  },
+  "recorded_at": "2026-11-20",
+  "release": "3.0.11",
+  "schema": 1,
+  "stable_translation": {
+    "archive": {
+      "bytes": 23906642,
+      "entrypoint_definitions": {
+        "rustbox_bomtool_main": 1,
+        "rustbox_pccritic_main": 1,
+        "rustbox_pkgconf_main": 1,
+        "rustbox_spdxtool_main": 1
+      },
+      "sha256": "d3e6b0b4d941a034d0b40511835bf1177dc62bfa38bf05287fad2775a9f2da26"
+    },
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+      "cargo_lock_sha256": "f5e90ba635fbfca0d50be24d8d9c962d82a9728cb99dc5cbdcc348ed62a23f1f",
+      "cargo_toml_sha256": "fafd784178e6cb739567207099ad5621920a16bc025d63ca3b2a0b71e81988b6",
+      "diagnostics_by_level": {
+        "warning": 214
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+      "schema": 1,
+      "stderr_sha256": "37ef7ed22ec90b5824456c940d0f5e0e0e992d49fdc1c9144a1665f2f4243100",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "clashing_extern_declarations": 72,
+        "unused_must_use": 1,
+        "unused_parens": 43,
+        "unused_unsafe": 8,
+        "unused_variables": 90
+      }
+    },
+    "compile_error_macros": 0,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "47e5e1b83d3bc3ad4f3533ba258fc4393f68dd557820636ccedc832cf779e372",
+      "src/cli/bomtool/main.rs": "5ba4f858e8762034f4258110eeb6dafa55a85d785af937e6ea5d132d69d7bbc3",
+      "src/cli/core.rs": "618feb29097c670185ad2ade523bcd36bdd067fdc3c67fca02ab1060433eab6b",
+      "src/cli/getopt_long.rs": "e761ae15bec7fe792f8865bde3cb71f6dc149f7397576677a65e3dac5bcfd113",
+      "src/cli/main.rs": "5c278118614a304c96b692ada6109832fb776d49440c5d5425f29f29be49b894",
+      "src/cli/pccritic/critic.rs": "24ab87edb2c45af7a2c013861b9da7c4dc03ef9759451ec4578b14dc91d2edb2",
+      "src/cli/pccritic/main.rs": "2c20930f9dfcd9630b562c00e43ab865d4fffb34311c4434dde3c1fc9052b240",
+      "src/cli/renderer_msvc.rs": "8756967640476ebc1f6b35d87a71585532a198c38bf81a57209ae667cd4afe0d",
+      "src/cli/spdxtool/core.rs": "ac380a73dfb02a3ee9df5eb57d9e824b1c0b68f4ab4e96129a819d6b6f384c01",
+      "src/cli/spdxtool/generate.rs": "124538a142cc1632b2f70628b614b5d44d746bc8b400777020ea564ed6d959e7",
+      "src/cli/spdxtool/main.rs": "ad9841e93465f09fa848e05c11d18821a5ba998164802e00d85b40eaeb019e99",
+      "src/cli/spdxtool/serialize.rs": "54cd2d22bb1cbd2834f9b2bfdbf6fb032b32ba2aeebc4a62772392e00a065ea6",
+      "src/cli/spdxtool/simplelicensing.rs": "e44227cab4a4d43daf8b0ae587ab69230c9b406a6cec9149e16cc73fe78aa3a0",
+      "src/cli/spdxtool/software.rs": "3d92ad19b49f4d0f523c340847865ab249e93df952b2eb89a224623097b4e1c8",
+      "src/cli/spdxtool/util.rs": "b652a3d5b142713f2f86515339d516b0f40b3e064b7420c05f034c13662bad76",
+      "src/libpkgconf/argvsplit.rs": "afdfa8ebb02e9cdaeb9a03a72ca15075f0de433d9b83ed02d7f8e741ca4afbe5",
+      "src/libpkgconf/audit.rs": "8ed638b88a0b9086e7440d72b3ee7f170641310bc1f12342c3f22f61a3887704",
+      "src/libpkgconf/bsdstubs.rs": "84a3153d0e587ae4d057919a7538c7eefe445cbb2745a818cc8f21fd044f0b67",
+      "src/libpkgconf/buffer.rs": "d50c34912318d197c20ac8f5035e3c240867cfc139fa49f0061ce165c59de689",
+      "src/libpkgconf/bufferset.rs": "fdab336232ad668d4ff950f35a51e5ea1aa026eb7bc6db91240c28d53ae129cc",
+      "src/libpkgconf/bytecode.rs": "1e38b8257a0e90214d9ddc5cd349330cb291706985145955ba13bf37c1cf42cb",
+      "src/libpkgconf/cache.rs": "65f6232a77277f5dc3f6a4be1e1601ace90a32b78039318ad712a76cfe3b0ce3",
+      "src/libpkgconf/client.rs": "6299eb39d3b120e13da2a96aef1502386f4c56c9c16504c3b69d02a0c74417e5",
+      "src/libpkgconf/dependency.rs": "d5e7f7dcb17251ec358573485e91168f402114ec85186a059d9107879d63eeb2",
+      "src/libpkgconf/fileio.rs": "f3134a44a0c009e37fca5254f8bd9b687326093beec5179747847a04ec3ebe0d",
+      "src/libpkgconf/fragment.rs": "b9a477e465394ed369075faabf9dae81afcf6c1ab8e776cd6334bc899564c261",
+      "src/libpkgconf/license.rs": "7c8f680beb00760a5ea9fd687ed2201f039a84e89a9d5bdbf9ac19330895d517",
+      "src/libpkgconf/output.rs": "36a533e09f7163b1ca365ede0726ae03fe5fd19e0903c9e88ddd8cd9608930d4",
+      "src/libpkgconf/parser.rs": "c1167afdd5cbbb02e98e34f5eb20d9ecce5debd885c4759508bff5c3983a8d3d",
+      "src/libpkgconf/path.rs": "565195932ba65bf650c5800260dac23ef921714ff434fcdc89a935fb7ae40fd4",
+      "src/libpkgconf/personality.rs": "ad88eab916e0359fe91bfad87b81b78f87e804648867b0f12f9b62e1f79484cf",
+      "src/libpkgconf/pkg.rs": "21d66b320d6606c63ed2d606c05d21647f804e587a7ccb9e31fae4c3e7d12a54",
+      "src/libpkgconf/queue.rs": "f482d8ada3a72d4a42773ab4d0b7fa05f6eb20921eb16c639134bc49c34ccf46",
+      "src/libpkgconf/tuple.rs": "c88a2a8b2b72b50fcfda826078f02544910be94beb43a5439a2111d5cf8e6c0e",
+      "src/libpkgconf/variable.rs": "dc6620356af8b2a1e4ba10d73080b740f7decdd2ff982d7b1bc6dcc1b6885956",
+      "src/libpkgconf/version.rs": "eb30efd3263c1d0541abe8f906b7ef6aae6edce941efaa0013e8086dd58e9eb3"
+    },
+    "modernization": {
+      "changes": [
+        {
+          "after_sha256": "47e5e1b83d3bc3ad4f3533ba258fc4393f68dd557820636ccedc832cf779e372",
+          "as_va_list_rewrites": 0,
+          "before_sha256": "3d8bf7ba4402ae66f87fa94534f8fabfcd0860137a1e7b1a7f5e31121cf030c7",
+          "opaque_pointer_types": [],
+          "path": "lib.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "5ba4f858e8762034f4258110eeb6dafa55a85d785af937e6ea5d132d69d7bbc3",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "cea8dda0b8983a482c79d1a365127043432fd104eff4f53f19674a272c9247d8",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/cli/bomtool/main.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "618feb29097c670185ad2ade523bcd36bdd067fdc3c67fca02ab1060433eab6b",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "294f7c19c44d724e0f459bafec501f1631bafdd987272a199cb493190081dfce",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/cli/core.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "e761ae15bec7fe792f8865bde3cb71f6dc149f7397576677a65e3dac5bcfd113",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "7de4d0bfdba62f44c8f26c7fff4d68353f61912b1fffbe34516106fecc142bf2",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/cli/getopt_long.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "5c278118614a304c96b692ada6109832fb776d49440c5d5425f29f29be49b894",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "203e4de36d6655c841283f0f04d97c9378f86e43542bfd9ee40e48c089318cd0",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/cli/main.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "24ab87edb2c45af7a2c013861b9da7c4dc03ef9759451ec4578b14dc91d2edb2",
+          "as_va_list_rewrites": 2,
+          "before_sha256": "d944f7b807905d361e99c1e52b2f4439fcb5eb128678dae21d3a4cf4f155be84",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/cli/pccritic/critic.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 1
+        },
+        {
+          "after_sha256": "2c20930f9dfcd9630b562c00e43ab865d4fffb34311c4434dde3c1fc9052b240",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "13f3090d5af6b0f02e4fd859d3b3c05bdb9bbcb126a883187834f4aa63174757",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/cli/pccritic/main.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "8756967640476ebc1f6b35d87a71585532a198c38bf81a57209ae667cd4afe0d",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "10136b7b76c807df57e13e78cb779d8aa024af42efee0167cc0acd29a13931e1",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/cli/renderer_msvc.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "ac380a73dfb02a3ee9df5eb57d9e824b1c0b68f4ab4e96129a819d6b6f384c01",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "a45aaac7a75ab76c7ccb2b6e499b7cfbc6a3dd3746d4e5e10cf2eea5653f713e",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/cli/spdxtool/core.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "124538a142cc1632b2f70628b614b5d44d746bc8b400777020ea564ed6d959e7",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "6c038b1302e7e74bd9ab30724a10ceedc536ab7232760b4dfda22d0b0e92810f",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/cli/spdxtool/generate.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "ad9841e93465f09fa848e05c11d18821a5ba998164802e00d85b40eaeb019e99",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "99b1ce76f1e7f1d5aa3bd94b5d249ad59e4bf3e6922de3fbdca55e45ea23be08",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/cli/spdxtool/main.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "54cd2d22bb1cbd2834f9b2bfdbf6fb032b32ba2aeebc4a62772392e00a065ea6",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "c7a65db92116cecfcf242c37ba2826ee7f8f1dc67e3fc3fd79473fa675dd3a3b",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/cli/spdxtool/serialize.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "e44227cab4a4d43daf8b0ae587ab69230c9b406a6cec9149e16cc73fe78aa3a0",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "b0271b5dc422b1728130ed8e67f049d283fa8ece71a925080efed6853f2a90e7",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/cli/spdxtool/simplelicensing.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "3d92ad19b49f4d0f523c340847865ab249e93df952b2eb89a224623097b4e1c8",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "1194a03c7332091b4fcb24471da7c292c15530b72804b3113cff5ac5da582edf",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/cli/spdxtool/software.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "b652a3d5b142713f2f86515339d516b0f40b3e064b7420c05f034c13662bad76",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "25a494f1ec8579bac6c1b9efc61705567168f770a6005c9f8c7a98020a2f3df4",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/cli/spdxtool/util.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "afdfa8ebb02e9cdaeb9a03a72ca15075f0de433d9b83ed02d7f8e741ca4afbe5",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "9b683d282f3d1cd3ff6c87c8eb997720a55532f3bce40678363ed890db7d9c38",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/libpkgconf/argvsplit.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "8ed638b88a0b9086e7440d72b3ee7f170641310bc1f12342c3f22f61a3887704",
+          "as_va_list_rewrites": 2,
+          "before_sha256": "52583d94fc08f3e7212579760a0d401f7d1ae97a15d377717c7209764512e081",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/libpkgconf/audit.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 1
+        },
+        {
+          "after_sha256": "84a3153d0e587ae4d057919a7538c7eefe445cbb2745a818cc8f21fd044f0b67",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "6cb47cac7eddd5a5778389d50c4466ff84c3be248a2563e8d7887caf959fdd60",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/libpkgconf/bsdstubs.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "d50c34912318d197c20ac8f5035e3c240867cfc139fa49f0061ce165c59de689",
+          "as_va_list_rewrites": 5,
+          "before_sha256": "04ea3871b76687eb643ee462d5a3c296f6140300c61d05a045fc9110b32e37ef",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/libpkgconf/buffer.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 1,
+          "va_list_impl_rewrites": 4
+        },
+        {
+          "after_sha256": "fdab336232ad668d4ff950f35a51e5ea1aa026eb7bc6db91240c28d53ae129cc",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "9cdd4e17c8cf1adef0cfaacdeb23eb4a46a2019a6b77faac52b78eae77d7f88f",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/libpkgconf/bufferset.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "1e38b8257a0e90214d9ddc5cd349330cb291706985145955ba13bf37c1cf42cb",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "8eca3450eee7156d5278818ba0032879204a5bc2a3b826f22419db72bd4adb68",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/libpkgconf/bytecode.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "65f6232a77277f5dc3f6a4be1e1601ace90a32b78039318ad712a76cfe3b0ce3",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "a114a2e970541c5f6536b8623bcba8aeb410d19d9b6b644986e595118cd427c7",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/libpkgconf/cache.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "6299eb39d3b120e13da2a96aef1502386f4c56c9c16504c3b69d02a0c74417e5",
+          "as_va_list_rewrites": 7,
+          "before_sha256": "d76d837fbbe97fa1f542cd8610d76ecb3649d88f96658475e30386f6ab0fad92",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/libpkgconf/client.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 3
+        },
+        {
+          "after_sha256": "d5e7f7dcb17251ec358573485e91168f402114ec85186a059d9107879d63eeb2",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "c14f8c1eb9876203d3b660e4bd0943adc78761d142efd27c7c72d58d70980b33",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/libpkgconf/dependency.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "f3134a44a0c009e37fca5254f8bd9b687326093beec5179747847a04ec3ebe0d",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "a697f9c27b3c19feee2d7904bebcc28f264e9133da914b774e91bf1400a32efa",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/libpkgconf/fileio.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "b9a477e465394ed369075faabf9dae81afcf6c1ab8e776cd6334bc899564c261",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "53f5b0f2d02b8d54c97089ac412d0ff17df696ba4f857ce59b3fd6e852ac87a3",
+          "opaque_pointer_types": [
+            "__locale_data",
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/libpkgconf/fragment.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "7c8f680beb00760a5ea9fd687ed2201f039a84e89a9d5bdbf9ac19330895d517",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "21c86371377ecafa1e519828e6ccce887897c9eeb334ed0aa955722136d16c3b",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/libpkgconf/license.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "36a533e09f7163b1ca365ede0726ae03fe5fd19e0903c9e88ddd8cd9608930d4",
+          "as_va_list_rewrites": 5,
+          "before_sha256": "1aa811a1b1b26f72bc82013c5137e36af6f254b68a8c88b63843962d5d11f914",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/libpkgconf/output.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 3
+        },
+        {
+          "after_sha256": "c1167afdd5cbbb02e98e34f5eb20d9ecce5debd885c4759508bff5c3983a8d3d",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "addeb11a623baf9930c0837aa6ea6ff4a3f035d9b0ff73c372ec5d0c306c1e35",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/libpkgconf/parser.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "565195932ba65bf650c5800260dac23ef921714ff434fcdc89a935fb7ae40fd4",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "da504e2f594cac35f9c53ef0eab2c2457387dae7daf7e242b1cf25f2ecf3cb3c",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/libpkgconf/path.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "ad88eab916e0359fe91bfad87b81b78f87e804648867b0f12f9b62e1f79484cf",
+          "as_va_list_rewrites": 2,
+          "before_sha256": "49300a8a29b43e393df6eedb2a9195440017656efcdac72db15d9280623843b6",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/libpkgconf/personality.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 1
+        },
+        {
+          "after_sha256": "21d66b320d6606c63ed2d606c05d21647f804e587a7ccb9e31fae4c3e7d12a54",
+          "as_va_list_rewrites": 2,
+          "before_sha256": "81cb092b53038605cdfb05f7e9530ea8084ca4fa7034e4d9c2bb56bbf8508c8e",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "__dirstream"
+          ],
+          "path": "src/libpkgconf/pkg.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 1
+        },
+        {
+          "after_sha256": "f482d8ada3a72d4a42773ab4d0b7fa05f6eb20921eb16c639134bc49c34ccf46",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "3995748204d0fb67c1c29f1820662fd5a19a470ff3a0951414664c3da4dd4265",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/libpkgconf/queue.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "c88a2a8b2b72b50fcfda826078f02544910be94beb43a5439a2111d5cf8e6c0e",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "1f920ac8ecace3a44f443e3c8664ce0a6d47e3a362991649bb7fb843a3357de6",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/libpkgconf/tuple.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "dc6620356af8b2a1e4ba10d73080b740f7decdd2ff982d7b1bc6dcc1b6885956",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "9744c7d12fe5eff4cae28ace8f130fe6adc2cb22f8e6d1ac7584685c08587203",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/libpkgconf/variable.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "eb30efd3263c1d0541abe8f906b7ef6aae6edce941efaa0013e8086dd58e9eb3",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "f9fdb87bb06808d2834a57db50750a4a6c9d1d627d845fb3e57f7e4772f0d6bc",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/libpkgconf/version.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        }
+      ],
+      "input_cargo_sha256": "fafd784178e6cb739567207099ad5621920a16bc025d63ca3b2a0b71e81988b6",
+      "schema": 1,
+      "stable_toolchain": "1.99.0"
+    },
+    "modernization_manifest_sha256": "33f45be619ad36d5282a95dc5adddd43548d8be7016d2dbd39694c72d88c2557",
+    "panic_macros": 0,
+    "raw_pointer_type_occurrences": 12743,
+    "rust_bytes": 1979059,
+    "rust_files": 37,
+    "rust_lines": 53366,
+    "todo_macros": 0,
+    "unimplemented_macros": 0,
+    "unsafe_block_occurrences": 44,
+    "unsafe_function_occurrences": 2305
+  },
+  "status": "complete stable translation compiles without holes; hybrid parity pending",
+  "translator": {
+    "fail_on_error": true,
+    "generated_rust_repairs": 0,
+    "name": "C2Rust",
+    "preserve_unused_functions": true,
+    "reason_for_direct_flags": "C2Rust 0.22.1 misroutes a Bear JSON filename through ClangTool's directory-only -p interface, so the selected compile database is hashed and its common verified flags are passed directly.",
+    "translation_compatibility_c_rewrites": 1,
+    "version": "0.22.1"
+  }
+}

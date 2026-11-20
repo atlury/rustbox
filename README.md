@@ -180,7 +180,12 @@ boolean disjunctions explicit for static-analysis and C2Rust compatibility.
 Both compiler suites, ASan/UBSan, all 32
 Valgrind tests, public help/version bytes, and the 176-symbol library ABI
 remain at canonical parity in `evidence/pkgconf-3.0.11-normalization.json`.
-C2Rust translation of the exact 35-source production closure is next.
+C2Rust translation covers the exact 35-source production closure with unused
+functions preserved.  The untouched audit output and mechanically modernized
+stable crate compile without translation holes or generated-Rust repairs and
+export all four multicall entrypoints exactly once; hashes and the deferred
+raw-pointer/unsafe inventory are in `evidence/pkgconf-3.0.11-c2rust.json`.
+Complete Rust linkage and canonical differential parity are next.
 
 ## Work queue after util-linux
 
