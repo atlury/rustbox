@@ -1,0 +1,96 @@
+{
+  "artifacts": {
+    "clang-analyzer-tidy.log": "be2572bd447e62a6899c0a6c66e5089718a85102e8091b4875a71e9f7d5aa721",
+    "compile_commands.json": "1d5b76aa4b990021a0e96f2f57365339c59c27c02e91531d36f8b04ed67cb2ad",
+    "cppcheck.log": "38306327d627681d7594d8cb03db8111f03e64c498fe19e82135da1af0359e78",
+    "flawfinder.log": "6434bbb3f2fda780f393812c9e471c5f4b572e0c0cf915fbf006d06a616d38a4",
+    "gcc-analyzer-setup.log": "8d00fc6d87eb5ddf514111590b511d4e2f36aa50bfa80ef5e05562c65eb815c4",
+    "gcc-analyzer.log": "4e8b5ea7c1280495dcfe84f38ab65bb7aaa138296ff1a5b10e06dbf830ae4f4f",
+    "sources.list": "e41df506a664ee802cbf58366ef522f8c513c53b529ef44a82854af802ba2f02",
+    "sparse.log": "dadb5e5cc377a7962562242238f9724642490bebcc834ad50fa4da7274b860ed"
+  },
+  "recorded_at": "2026-11-20",
+  "release": "5.48",
+  "review": {
+    "actionable_hardening_findings": 1,
+    "blocking_findings": 0,
+    "notes": [
+      "GCC emits two diagnostics for one root cause: do_ops leaves offset uninitialized only if a nonzero operand is paired with an operation value outside every defined FILE_OP case. The canonical parser constrains that field, but normalization will initialize offset to lhs before the switch and rerun every parity gate.",
+      "Cppcheck's overlappingWriteUnion reports cover the intentional endian conversion pattern that reads a union byte-array member before assigning its scalar member; GCC, Clang, ASan, UBSan, and the complete fixture corpus execute these paths without reproducing a defect.",
+      "Cppcheck's single syntaxError is a parser failure on the ordinary asprintf call in magic_getpath, not a compiler diagnostic.",
+      "Clang's analyzer findings are exclusively its generic Annex K replacement advice for memcpy, memset, snprintf, and related bounded calls; it reports no path-sensitive core or unix analyzer defect.",
+      "Clang-Tidy bugprone/performance findings are advisory modernization sites retained for later pointer hardening rather than bulk-edited during translation normalization.",
+      "Sparse's nine findings are semantics-neutral integer-zero null-pointer spellings.",
+      "Flawfinder reports lexical risk sites for later pointer hardening and does not establish an executable defect by itself."
+    ]
+  },
+  "schema": 1,
+  "scope": {
+    "compile_actions": 25,
+    "targets": [
+      "file",
+      "libmagic"
+    ],
+    "tests_and_examples_excluded": true,
+    "unique_sources": 25
+  },
+  "tools": {
+    "clang_analyzer_tidy": {
+      "all_findings_by_check": {
+        "bugprone-assignment-in-if-condition": 81,
+        "bugprone-branch-clone": 6,
+        "bugprone-casting-through-void": 13,
+        "bugprone-easily-swappable-parameters": 57,
+        "bugprone-implicit-widening-of-multiplication-result": 13,
+        "bugprone-inc-dec-in-conditions": 6,
+        "bugprone-macro-parentheses": 52,
+        "bugprone-multi-level-implicit-pointer-conversion": 7,
+        "bugprone-narrowing-conversions": 31,
+        "bugprone-reserved-identifier": 156,
+        "bugprone-signed-char-misuse": 11,
+        "bugprone-sizeof-expression": 1,
+        "bugprone-suspicious-memory-comparison": 1,
+        "bugprone-switch-missing-default-case": 8,
+        "bugprone-unsafe-functions": 1,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 226,
+        "performance-no-int-to-ptr": 67
+      },
+      "analyzer_findings_by_check": {
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 226
+      }
+    },
+    "cppcheck": {
+      "findings_by_id": {
+        "constParameter": 1,
+        "constParameterPointer": 20,
+        "constVariablePointer": 14,
+        "invalidPrintfArgType_sint": 3,
+        "knownConditionTrueFalse": 2,
+        "overlappingWriteUnion": 11,
+        "redundantContinue": 10,
+        "syntaxError": 1,
+        "unusedStructMember": 2,
+        "variableScope": 9
+      },
+      "findings_by_severity": {
+        "error": 12,
+        "style": 58,
+        "warning": 3
+      }
+    },
+    "flawfinder": {
+      "hits_at_level_1_or_higher": 173,
+      "lines_analyzed": 19373
+    },
+    "gcc_fanalyzer": {
+      "findings_by_check": {
+        "analyzer-use-of-uninitialized-value": 2
+      },
+      "unique_root_causes": 1,
+      "warnings": 2
+    },
+    "sparse": {
+      "warnings": 9
+    }
+  }
+}

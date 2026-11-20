@@ -214,6 +214,13 @@ and all hashes are recorded in `evidence/file-5.48-oracle.json`.  Compression
 and sandbox shared libraries are oracle-only dependencies: Rustbox must
 replace or statically integrate them before the no-external-library release
 gate.
+The exact production closure has also been checked with Cppcheck, GCC
+`-fanalyzer`, Clang analyzer/tidy, Flawfinder, and Sparse.  One actionable
+hardening site initializes an otherwise parser-constrained operation result;
+the remaining findings are reviewed union/endian idioms, generic Annex K
+advice, modernization warnings, null spellings, or lexical-risk inventory.
+The complete logs, counts, and review are pinned in
+`evidence/file-5.48-static-analysis.json`.
 
 ## Work queue after util-linux
 
