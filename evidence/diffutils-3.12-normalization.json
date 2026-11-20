@@ -1,0 +1,276 @@
+{
+  "binaries": {
+    "clang": {
+      "cmp": {
+        "bytes": 174512,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "3557087d63022805d8c077a79b5fd3f98884ae04aa839d99a3147899beeeaf02"
+      },
+      "diff": {
+        "bytes": 503832,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "7553925ff81e30f16c9797593b86240e1f9579d5c0c647dec5125a637e8b252a"
+      },
+      "diff3": {
+        "bytes": 188232,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "8caf36ed9c0cfb754096cc25e6a1302e319cb859f1f37a3b148a592a685e89bd"
+      },
+      "sdiff": {
+        "bytes": 190816,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "74166db37e2222d84e6d2cb08cf2230303f21fda7dc3d8cf0c346e7a63c2c5b9"
+      }
+    },
+    "gcc": {
+      "cmp": {
+        "bytes": 228296,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "41dcc21183584fd54a7807e0b4cfe6e5fc27bb268d1e4cab6cad686b1ffff44e"
+      },
+      "diff": {
+        "bytes": 651464,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "b68ca12eace88504803978b3ab12fac1b15d04df3aca16250337d1e80bc53923"
+      },
+      "diff3": {
+        "bytes": 251368,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "b16806ed05b3c6ddc28558680921185d4bff398d16cfcec8de10df3579859ba1"
+      },
+      "sdiff": {
+        "bytes": 249160,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "deda76a002412c143d91a59084114947ffe173601f284d18fa8448e66297d2f3"
+      }
+    }
+  },
+  "configuration": {
+    "canonical_normalized_exact_by_compiler": true,
+    "generated_version_source_exact": true
+  },
+  "differential": {
+    "by_compiler": {
+      "clang": {
+        "comparisons": 48,
+        "exact": true,
+        "report_sha256": "77f1c4a04abfe585a41d54584a597e7132d2ecea54a625e246d598502b156f64"
+      },
+      "gcc": {
+        "comparisons": 48,
+        "exact": true,
+        "report_sha256": "77f1c4a04abfe585a41d54584a597e7132d2ecea54a625e246d598502b156f64"
+      }
+    },
+    "canonical_normalized_exact": true,
+    "comparisons": 96
+  },
+  "entrypoint": {
+    "conditional": "RUSTBOX_MULTICALL",
+    "exports": [
+      "rustbox_cmp_main",
+      "rustbox_diff_main",
+      "rustbox_diff3_main",
+      "rustbox_sdiff_main"
+    ],
+    "gcc_clang_object_symbols_verified": true,
+    "standalone_main_retained": true
+  },
+  "next_gate": "C2Rust audit translation of the exact 139-source normal production closure",
+  "production": {
+    "by_compiler": {
+      "clang": {
+        "captured_compile_actions": 178,
+        "compile_database_sha256": "840ec67fb8c47aff22580ed58208684c4c8221a7f95d720891fd17dd949fa264",
+        "production_sources": 139,
+        "test_support_compile_actions": 39
+      },
+      "gcc": {
+        "captured_compile_actions": 178,
+        "compile_database_sha256": "5f32c45be31ae3d352e3faac0439220f2c874aae1bded7f569713d91ce6adcd6",
+        "production_sources": 139,
+        "test_support_compile_actions": 39
+      },
+      "sanitizer": {
+        "captured_compile_actions": 180,
+        "compile_database_sha256": "6f4f231c84fa7b6774f4791612147942cc7ce5136dea2347e140d0d052b6834f",
+        "production_sources": 141,
+        "test_support_compile_actions": 39
+      }
+    },
+    "normal_sources": 139,
+    "sanitizer_only_sources": [
+      "lib/strcasecmp.c",
+      "lib/strncasecmp.c"
+    ],
+    "source_set_exact_across_gcc_clang": true
+  },
+  "recorded_at": "2026-11-20",
+  "release": "3.12",
+  "schema": 1,
+  "tests": {
+    "clang": {
+      "diffutils": {
+        "error": 0,
+        "fail": 0,
+        "pass": 30,
+        "skip": 2,
+        "total": 33,
+        "xfail": 1,
+        "xpass": 0
+      },
+      "gnulib": {
+        "error": 0,
+        "fail": 0,
+        "pass": 301,
+        "skip": 43,
+        "total": 344,
+        "xfail": 0,
+        "xpass": 0
+      },
+      "log_sha256": "c94b8d503551bf4d399e49a69f94d485d626e9a647e5df53c54af7e9f2bf3295"
+    },
+    "gcc": {
+      "diffutils": {
+        "error": 0,
+        "fail": 0,
+        "pass": 30,
+        "skip": 2,
+        "total": 33,
+        "xfail": 1,
+        "xpass": 0
+      },
+      "gnulib": {
+        "error": 0,
+        "fail": 0,
+        "pass": 301,
+        "skip": 43,
+        "total": 344,
+        "xfail": 0,
+        "xpass": 0
+      },
+      "log_sha256": "99bec3b44f5f58873e6648afdca740d6e008a58ee8f95c8a7e463a1a3d482c7e"
+    },
+    "sanitizer": {
+      "diffutils": {
+        "error": 0,
+        "fail": 0,
+        "pass": 30,
+        "skip": 2,
+        "total": 33,
+        "xfail": 1,
+        "xpass": 0
+      },
+      "gnulib": {
+        "error": 0,
+        "fail": 0,
+        "pass": 297,
+        "skip": 47,
+        "total": 344,
+        "xfail": 0,
+        "xpass": 0
+      },
+      "log_sha256": "a011a5239a2c2ddba6848193083cb3468a7ef1395cb0381305e0285800a2c0f2"
+    }
+  },
+  "transformation": {
+    "canonical_archive_sha256": "7c8b7f9fc8609141fdea9cece85249d308624391ff61dedaf528fcb337727dfd",
+    "canonical_tree_sha256": "f5ca958cb45e26a885b5dc6ab3ba0edb7b159adb6a2d6259d14b8c777a870768",
+    "changed_sources": [
+      "src/cmp.c",
+      "src/diff.c",
+      "src/diff3.c",
+      "src/sdiff.c"
+    ],
+    "conditional": "RUSTBOX_MULTICALL",
+    "engine": "exact deterministic source rewrite",
+    "entrypoints": [
+      "rustbox_cmp_main",
+      "rustbox_diff_main",
+      "rustbox_diff3_main",
+      "rustbox_sdiff_main"
+    ],
+    "normalized_tree_sha256": "e2727e0da3a5561abe8e70bdb30b7ce082ccad84c472e469b179c34555b98665",
+    "release": "3.12",
+    "schema": 1,
+    "transformations": [
+      {
+        "canonical_sha256": "9fc2b64cecfaa008fde27ec0ee177b8a17ac3b05d851e06e40f6db62e276d42c",
+        "engine": "exact deterministic source rewrite",
+        "normalized_sha256": "801754827bfda6b02f535d7bff4b2368e738ffbb6cef9c168dc53e29b49d920d",
+        "operation": "export rustbox_cmp_main with a conditional standalone main wrapper",
+        "source": "src/cmp.c"
+      },
+      {
+        "canonical_sha256": "f89740750bda61c5fabc71ea26c6ea3a9e4f8623a1e765680e241ac8c559d13e",
+        "engine": "exact deterministic source rewrite",
+        "normalized_sha256": "e98ce84cde93387e25e84b6fb9136006cd6fc0fd88dc6f0a13afa39df5882a01",
+        "operation": "export rustbox_diff_main with a conditional standalone main wrapper",
+        "source": "src/diff.c"
+      },
+      {
+        "canonical_sha256": "b893b782f84193ab4eb6756b350f3c89ef4b89e3b54df761505721e75cba52b9",
+        "engine": "exact deterministic source rewrite",
+        "normalized_sha256": "131f2bef0786d0995e2b1d2d845129bcc1121ef6e7224e0302fdbfa569292488",
+        "operation": "export rustbox_diff3_main with a conditional standalone main wrapper",
+        "source": "src/diff3.c"
+      },
+      {
+        "canonical_sha256": "62e1f9753eb2be18685aca5995ab418038b269442c54c56077d8ef56427bd1c4",
+        "engine": "exact deterministic source rewrite",
+        "normalized_sha256": "ea5b7a9efb383777ef30d71f88159e3b323cdcc769e6e7903f59d4e03e7bd6f7",
+        "operation": "export rustbox_sdiff_main with a conditional standalone main wrapper",
+        "source": "src/sdiff.c"
+      }
+    ]
+  },
+  "valgrind": {
+    "canonical_baseline_exact": true,
+    "results": {
+      "cmp": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "indirectly_lost_bytes": 0,
+        "log_sha256": "34120305cd98a8bb0a6d309283709a083c25ed9401fc519061d9e72554dfff63",
+        "possibly_lost_bytes": 0
+      },
+      "diff": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "indirectly_lost_bytes": 0,
+        "log_sha256": "6d18c7ac881f8d78ac3fc89cbe5af32e14da011dfe2e1ae4cbfc183bb8e17a5c",
+        "possibly_lost_bytes": 0
+      },
+      "diff3": {
+        "definitely_lost_bytes": 4096,
+        "errors": 2,
+        "indirectly_lost_bytes": 0,
+        "log_sha256": "9aaa9946193874de39e73b13ba7af2612e2ea6f2a803c41e2e9edc0dda0eb90c",
+        "possibly_lost_bytes": 4096
+      },
+      "sdiff": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "indirectly_lost_bytes": 0,
+        "log_sha256": "69baedfcfe44d75964b945d62967966a54209e1ad6e2913727b9bfa3973b691e",
+        "possibly_lost_bytes": 0
+      }
+    }
+  }
+}

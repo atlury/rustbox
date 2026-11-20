@@ -341,7 +341,16 @@ analyzer/Tidy, Flawfinder, and Sparse then review exactly those 139 production
 sources.  Their ownership, nullability, configured-header, and parser reports
 have zero blocking findings after review; the complete immutable inventory and
 reasoning are in `evidence/diffutils-3.12-analysis.json`.  Deterministic
-normalization is the next gate.
+normalization changes only the four program entrypoint sources, exporting
+`rustbox_cmp_main`, `rustbox_diff_main`, `rustbox_diff3_main`, and
+`rustbox_sdiff_main` behind conditional standalone wrappers without changing
+an algorithm.  GCC, Clang, and ASan/UBSan retain every canonical upstream
+test total; Valgrind retains the exact canonical resource baseline; and all 96
+canonical-versus-normalized behavior comparisons are byte-exact.  The exact
+139-source production closure, generated configuration, dynamic dependency,
+and entrypoint-symbol checks are recorded in
+`evidence/diffutils-3.12-normalization.json`.  Complete C2Rust translation is
+the next gate.
 
 ## Work queue after util-linux
 
@@ -377,7 +386,8 @@ Library-only checkpoints (outside the active utility order):
    - [x] GNU patch 2.8 — `patch`; integrated at canonical parity.
    - [x] GNU sed 4.10 — `sed`; integrated at canonical parity.
    - [ ] Diffutils 3.12 — `cmp`, `diff`, `diff3`, `sdiff`; signed canonical
-     oracle and production analysis complete, normalization in progress.
+     oracle, production analysis, and deterministic normalization complete;
+     complete C2Rust translation next.
    - [ ] Grep — `grep`, `egrep`, `fgrep`.
    - [ ] bc — `bc`, `dc`.
    - [ ] attr — `attr`, `getfattr`, `setfattr`.
