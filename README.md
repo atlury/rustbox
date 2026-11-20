@@ -269,14 +269,19 @@ defect.  Sparse's limitations around generated gnulib alignment storage and a
 function attribute are retained explicitly rather than hidden.  Complete
 counts, classifications, and raw-log hashes are recorded in
 `evidence/patch-2.8-static-analysis.json`.
-Deterministic normalization changes only `src/patch.c`, exporting
-`rustbox_patch_main` while retaining a conditional standalone `main`.  The
-exact 67-unit closure remains unchanged under all three builds; their 147
+Deterministic normalization changes ten production sources: `src/patch.c`
+exports `rustbox_patch_main` while retaining a conditional standalone `main`;
+the generated date parser has its diagnostic source mapping materialized; and
+checked-integer widths, narrowing guards, and eager Boolean accumulation are
+made explicit where C2Rust otherwise emits invalid Rust.  The exact 67-unit
+closure remains unchanged under all three builds; their 147
 upstream test executions pass with only the canonical XFAILs, 56 canonical-
 versus-normalized differential comparisons are exact, compiler feature
 configurations are byte-identical, both object files export both entrypoints,
 and Valgrind remains free of real leaks and errors.  Transformation and parity
-evidence is in `evidence/patch-2.8-normalization.json`.
+evidence is in `evidence/patch-2.8-normalization.json`.  C2Rust 0.22.1 now
+translates all 67 units with unused functions preserved; the untouched audit
+crate compiles with no translation holes and no generated-Rust repairs.
 
 ## Work queue after util-linux
 

@@ -1,20 +1,20 @@
 {
   "binaries": {
     "clang": {
-      "bytes": 539352,
+      "bytes": 540248,
       "needed": [
         "libattr.so.1",
         "libc.so.6"
       ],
-      "sha256": "223a2ef7a94aad0c6d7c746802cad10fd590af7fefe3bee7682553bd3c32a8e0"
+      "sha256": "ceb6c91cb89d8a8e2074cf084bf8402dc30e18e537443d2551e079acd7d0d920"
     },
     "gcc": {
-      "bytes": 671520,
+      "bytes": 673536,
       "needed": [
         "libattr.so.1",
         "libc.so.6"
       ],
-      "sha256": "c0d268b5add1d9458f6fa32908eebbdae2705ea33084aae2b15fbab827c35301"
+      "sha256": "28d908bab2ec3dd9fc085eae78247f2145a1e90df721faf0052bce40b7ae4582"
     }
   },
   "configuration": {
@@ -46,17 +46,17 @@
   "production": {
     "clang": {
       "compile_actions": 67,
-      "compile_database_sha256": "ea514248dd0dc68f116dd4a19eec1d6bd374513dcbbb27a3cf131626cb5d2d2a",
+      "compile_database_sha256": "df163eeb844334be9b41a747a7ad6320acc4bee85ba1fe89630c26fd97bbbc90",
       "unique_sources": 67
     },
     "gcc": {
       "compile_actions": 67,
-      "compile_database_sha256": "2404f6aea936d4e668054fd5e721668f54b79cec81fc949f350d6964c51f0889",
+      "compile_database_sha256": "97402ca29c96e54e596925841df72bab067b4af2de7c01b0d5011b16829f0331",
       "unique_sources": 67
     },
     "sanitizer": {
       "compile_actions": 67,
-      "compile_database_sha256": "d45c00be5fb6680cdabbfc9943b3eb0239cec8b15d268728a6c55891efbfebee",
+      "compile_database_sha256": "16a25bb2610463bbecbf307f423e2ec841693893aaff27f194f7aeb58bc797f7",
       "unique_sources": 67
     }
   },
@@ -67,7 +67,7 @@
     "clang": {
       "error": 0,
       "fail": 0,
-      "log_sha256": "39386c880000676ce149268ac58b0750cbbd3fcf4de4f2465a7f907b04f678df",
+      "log_sha256": "dbeadf02807c9b05e61623fe9c585aa8b4eeabb17f401de5ee3dc85accc9c065",
       "pass": 47,
       "skip": 0,
       "total": 49,
@@ -77,7 +77,7 @@
     "gcc": {
       "error": 0,
       "fail": 0,
-      "log_sha256": "d5a20e4498672d3e3539a4381d4504b96b9a029b513be67f4e3de94a7c7ac3d8",
+      "log_sha256": "a872bcce4bc80621fc85cd94acafd17317b165a28122bff797d730767f7fec6f",
       "pass": 47,
       "skip": 0,
       "total": 49,
@@ -87,7 +87,7 @@
     "sanitizer": {
       "error": 0,
       "fail": 0,
-      "log_sha256": "2cc7afcc39b8ab72bb417b243f4ae5f2aaa1b2a35b0eecab62350545bb28351a",
+      "log_sha256": "bcb0622e421ca0d58d84d0d073c39e0e76bcf4f34a9229495bd5b759fa124e62",
       "pass": 47,
       "skip": 0,
       "total": 49,
@@ -99,27 +99,99 @@
     "canonical_archive_sha256": "f87cee69eec2b4fcbf60a396b030ad6aa3415f192aa5f7ee84cad5e11f7f5ae3",
     "canonical_tree_sha256": "2d87f9a105b070b98d91e970ee72b19bf2b1f8656b195866943d72cda704c51c",
     "changed_sources": [
-      "src/patch.c"
+      "lib/backupfile.c",
+      "lib/malloca.c",
+      "lib/mktime.c",
+      "lib/parse-datetime.c",
+      "src/inp.c",
+      "src/merge.c",
+      "src/patch.c",
+      "src/pch.c",
+      "src/safe.c",
+      "src/util.c"
     ],
     "conditional": "RUSTBOX_MULTICALL",
     "engine": "exact deterministic source rewrite",
-    "normalized_tree_sha256": "4455f12ec1be7a8a8dfa61d7d6528cce5cd7518b0dd7f319a9d570384d6af08a",
+    "normalized_tree_sha256": "ad52b66f4cdf4b666c48bed2f126fb2d579cee6480cb127fe0b7b2009099b977",
     "release": "2.8",
     "schema": 1,
     "transformations": [
       {
+        "canonical_sha256": "78eefade7696e8e7aa267cb21879ffe8526dda7ad6680985e38a15f382311179",
+        "engine": "exact deterministic generated-source rewrite",
+        "normalized_sha256": "def533cf14496cb74d1e8f84aa286b607baf95daf4ae182e5544bf428cf75a4e",
+        "operation": "materialize the sole __FILE__/__LINE__ expansion, remove 158 generated diagnostic line remaps that reverse Clang source offsets, and make checked-integer destination widths and eager Boolean accumulation explicit",
+        "source": "lib/parse-datetime.c"
+      },
+      {
         "canonical_sha256": "ca20b87c33247159560d896283c7ac506f71304bdc3249d9826c8bfb92417106",
         "engine": "exact deterministic source rewrite",
-        "normalized_sha256": "429e6fc699e911fc1ea3f51d663565ef000666ba6cea543f9e63f6cd0a5c087c",
-        "operation": "export rustbox_patch_main with a conditional standalone main wrapper",
+        "normalized_sha256": "6a42ac2da70d8cec7a2e707ce73cd8534fa028db8579f43c4d4eb66e253ebd19",
+        "operation": "export rustbox_patch_main with a conditional standalone main wrapper and make checked-integer widths and eager Boolean accumulation explicit",
         "source": "src/patch.c"
+      },
+      {
+        "canonical_sha256": "d3313d9156ce05c1a70240d8a261a07dfd8d43492c55f61cca2e4d0c3caa0fcc",
+        "engine": "exact deterministic translator-compatibility rewrite",
+        "normalized_sha256": "3241f62970f184e419bbcad231e38a0a5ca8e713f4d6636e50052350adccee2d",
+        "operation": "make checked-integer operands and Boolean accumulation explicit for C2Rust while preserving configured x86_64 semantics",
+        "source": "lib/backupfile.c"
+      },
+      {
+        "canonical_sha256": "af669118e496cb4ae83b655e46817f387c0c21ee96b109fa359800f3ef4f9bf0",
+        "engine": "exact deterministic translator-compatibility rewrite",
+        "normalized_sha256": "6934c42ef9c90861e3f9d995bdd490ecc841914187aee4babe65396da20316a1",
+        "operation": "make checked-integer operands and Boolean accumulation explicit for C2Rust while preserving configured x86_64 semantics",
+        "source": "lib/malloca.c"
+      },
+      {
+        "canonical_sha256": "f9734ca8f8dba2b2a7dc28a453f39d813f91b2d43e98ab270a1989371b960086",
+        "engine": "exact deterministic translator-compatibility rewrite",
+        "normalized_sha256": "8e7c7844e52fe58ac4e1a852585b06e973c2d655edac7044b832bc620fe161b6",
+        "operation": "make checked-integer operands and Boolean accumulation explicit for C2Rust while preserving configured x86_64 semantics",
+        "source": "lib/mktime.c"
+      },
+      {
+        "canonical_sha256": "5307644a4601524146a6b0edbbc03d58255a29a23c08a90a4bf43f0987b9ce27",
+        "engine": "exact deterministic translator-compatibility rewrite",
+        "normalized_sha256": "534ed2ce4c91c4b7258baca7f64fca630c0ef841d1b7e446c2b48a16cd51e0a3",
+        "operation": "make checked-integer operands and Boolean accumulation explicit for C2Rust while preserving configured x86_64 semantics",
+        "source": "src/inp.c"
+      },
+      {
+        "canonical_sha256": "45ee6b5be274e856184a73b721fffe8f4cc753dd6b34c19bd07897ca994953d3",
+        "engine": "exact deterministic translator-compatibility rewrite",
+        "normalized_sha256": "636e52501b0b833f18f965a51773e8bc2d364faf436e5404fcf650fdae3e94ec",
+        "operation": "make checked-integer operands and Boolean accumulation explicit for C2Rust while preserving configured x86_64 semantics",
+        "source": "src/merge.c"
+      },
+      {
+        "canonical_sha256": "8783613c48836e634cb7457396b8b81b0a57aaec53053034e2dd18d8299e5bf9",
+        "engine": "exact deterministic translator-compatibility rewrite",
+        "normalized_sha256": "0f815ba95de4ab1d1efe278976bb64625762d1e7f4c99d04e91d5955b67ab9b9",
+        "operation": "make checked-integer operands and Boolean accumulation explicit for C2Rust while preserving configured x86_64 semantics",
+        "source": "src/pch.c"
+      },
+      {
+        "canonical_sha256": "0aa6b4928c957bfef819bef237e3c98c9276dcb53b332abc822482e8ddbeb533",
+        "engine": "exact deterministic translator-compatibility rewrite",
+        "normalized_sha256": "4f3f4098a53d1ec660a6d3f5545925c5eb99615f8ce85e3d2515f10279c22130",
+        "operation": "make checked-integer operands and Boolean accumulation explicit for C2Rust while preserving configured x86_64 semantics",
+        "source": "src/safe.c"
+      },
+      {
+        "canonical_sha256": "67ba718ceec6cf3004d2619cd0303f9cea5c2c962603bf7ebd7978519f10bfb2",
+        "engine": "exact deterministic translator-compatibility rewrite",
+        "normalized_sha256": "ab4d9f16aca23b9b23020eca43569d0580764014494bb983d91657b0917234f8",
+        "operation": "make checked-integer operands and Boolean accumulation explicit for C2Rust while preserving configured x86_64 semantics",
+        "source": "src/util.c"
       }
     ]
   },
   "valgrind": {
     "definite_indirect_possible_leaks": 0,
     "errors": 0,
-    "log_sha256": "01747b810d19baca1d632823643774caebd4ef6e2d8e7886154d23190806eb77",
+    "log_sha256": "6b04395a0782247cb450c5d623722a554ed78d73ea88ee99687f60278f4a3bea",
     "still_reachable_bytes": 2947
   }
 }
