@@ -324,6 +324,21 @@ alias supplied by an explicit ABI bridge.  The resulting 270-name binary is
 6,111,456 bytes stripped—255,248 bytes above the prior checkpoint—and passes
 all combined regressions in `evidence/rustbox-multicall.json`.
 
+GNU Diffutils 3.12 is pinned to its canonical signed release.  Its normal
+Linux production closure is 139 C translation units: 124 configured gnulib
+sources, 14 program sources, and generated `version.c`; the sanitizer
+configuration activates two additional replacement sources.  GCC and Clang
+each pass the 33-case Diffutils suite (30 pass, two platform skips, one
+expected failure) and the 344-case gnulib suite (301 pass, 43 platform skips),
+while ASan/UBSan passes the same Diffutils totals and all 344 gnulib cases
+under its documented 297-pass/47-skip instrumentation policy.  Independent
+GCC-versus-Clang behavior comparisons pass 48/48 across `cmp`, `diff`,
+`diff3`, and `sdiff`.  Valgrind is clean for `cmp`, `diff`, and `sdiff`'s own
+process; canonical `diff3`'s two retained 4096-byte buffers are recorded as a
+baseline rather than hidden.  Reproducible details are in
+`evidence/diffutils-3.12-oracle.json`; production-only analysis and
+normalization are the next gates.
+
 ## Work queue after util-linux
 
 This queue starts only after all in-scope util-linux applets reach canonical
@@ -357,7 +372,8 @@ Library-only checkpoints (outside the active utility order):
    - [x] File 5.48 — `file`; integrated at canonical parity.
    - [x] GNU patch 2.8 — `patch`; integrated at canonical parity.
    - [x] GNU sed 4.10 — `sed`; integrated at canonical parity.
-   - [ ] Diffutils — `cmp`, `diff`, `diff3`, `sdiff`.
+   - [ ] Diffutils 3.12 — `cmp`, `diff`, `diff3`, `sdiff`; signed canonical
+     oracle complete, static analysis and normalization in progress.
    - [ ] Grep — `grep`, `egrep`, `fgrep`.
    - [ ] bc — `bc`, `dc`.
    - [ ] attr — `attr`, `getfattr`, `setfattr`.

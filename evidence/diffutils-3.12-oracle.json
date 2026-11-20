@@ -1,0 +1,507 @@
+{
+  "binaries": {
+    "clang": {
+      "cmp": {
+        "bytes": 173376,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "db859d377072d394981d0cc4a7e1fb684d910c73394b332be4e24457e9622fea"
+      },
+      "diff": {
+        "bytes": 502112,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "af0b00eebab2101063636bd06d8e46e2c7561709a8cd2a2f88d3b49c905d01b5"
+      },
+      "diff3": {
+        "bytes": 187184,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "45eb46ce2a6ecc4acbe64d4aac70be3544658981998c66962dd21f7043dfaff3"
+      },
+      "sdiff": {
+        "bytes": 189800,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "cd30f316d07b79e12136135de0bb794486052bdb429cfa60d8ff79330741ee02"
+      }
+    },
+    "gcc": {
+      "cmp": {
+        "bytes": 226840,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "fc9f7dd641f1b05a7a755c510ab672d6dedd9fa87f7d9b75d8acb61d59e4cffe"
+      },
+      "diff": {
+        "bytes": 648920,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "fc6a0108e03c7992085ec8e151377a16e67a37c6f2d349d7895e4e111f0d704e"
+      },
+      "diff3": {
+        "bytes": 250824,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "472a35eabe172256b5db4f7f51ffa710dae9534790d39092a6d5431e05376a76"
+      },
+      "sdiff": {
+        "bytes": 246552,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "27b33052ef866412855bc76adc92b5f63994998b3e52487ac4ee0b367ff706d8"
+      }
+    }
+  },
+  "configuration": {
+    "oracle_dynamic_dependencies": [
+      "libc.so.6"
+    ],
+    "sanitizer_policy": {
+      "asan": "detect_leaks=0:halt_on_error=1:allocator_may_return_null=1",
+      "disabled_checker": "nonnull-attribute, solely for gnulib memchr(NULL, ..., 0) self-test",
+      "ubsan": "halt_on_error=1"
+    }
+  },
+  "cross_compiler_differential": {
+    "comparisons": 48,
+    "exact": true,
+    "report_sha256": "77f1c4a04abfe585a41d54584a597e7132d2ecea54a625e246d598502b156f64"
+  },
+  "next_gate": "production-only static analysis followed by deterministic multicall-entrypoint normalization",
+  "recorded_at": "2026-11-20",
+  "release": {
+    "archive": "diffutils-3.12.tar.xz",
+    "sha256": "7c8b7f9fc8609141fdea9cece85249d308624391ff61dedaf528fcb337727dfd",
+    "signature_sha256": "ad05b321b2f23441275af68072123a5907b05ad989335a9f1f6e3781cb0846a6",
+    "signature_verified": true,
+    "signer_fingerprint": "155D3FC500C834486D1EEA677FD9FCCB000BEEEE",
+    "signing_key_sha256": "0a59092bbfd92d25e1a01b541c39862646b71be646bd7550ad92f58e0484438f",
+    "version": "3.12"
+  },
+  "schema": 1,
+  "scope": {
+    "captured_compile_actions": {
+      "clang": 178,
+      "gcc": 178,
+      "sanitizer": 180
+    },
+    "compile_database_sha256": {
+      "clang": "0202557a50dfeeeb3c06919ab5d3570204616dab757a5de4e14eb00bb2b4cc88",
+      "gcc": "33b053c1dda9abbff93e4595e1c406c0772dce2532f8422841d14dc1ea625348",
+      "sanitizer": "8398e848b797d34a847ecc41829fdf797f9e2a781288ce0ef7402138a50800a2"
+    },
+    "executables": [
+      "cmp",
+      "diff",
+      "diff3",
+      "sdiff"
+    ],
+    "generated_sources": [
+      "generated/src/version.c"
+    ],
+    "gnulib_sources": [
+      "lib/allocator.c",
+      "lib/argmatch.c",
+      "lib/basename-lgpl.c",
+      "lib/basename.c",
+      "lib/binary-io.c",
+      "lib/bitrotate.c",
+      "lib/btoc32.c",
+      "lib/btowc.c",
+      "lib/c-ctype.c",
+      "lib/c-file-type.c",
+      "lib/c-stack.c",
+      "lib/c-strcasecmp.c",
+      "lib/c32_apply_type_test.c",
+      "lib/c32_get_type_test.c",
+      "lib/c32isalnum.c",
+      "lib/c32isalpha.c",
+      "lib/c32isblank.c",
+      "lib/c32iscntrl.c",
+      "lib/c32isdigit.c",
+      "lib/c32isgraph.c",
+      "lib/c32islower.c",
+      "lib/c32isprint.c",
+      "lib/c32ispunct.c",
+      "lib/c32isspace.c",
+      "lib/c32isupper.c",
+      "lib/c32isxdigit.c",
+      "lib/c32tolower.c",
+      "lib/c32width.c",
+      "lib/careadlinkat.c",
+      "lib/chdir-long.c",
+      "lib/cloexec.c",
+      "lib/cmpbuf.c",
+      "lib/diagnose.c",
+      "lib/dirname-lgpl.c",
+      "lib/dirname.c",
+      "lib/exclude.c",
+      "lib/exitfail.c",
+      "lib/fcntl.c",
+      "lib/fd-hook.c",
+      "lib/filenamecat-lgpl.c",
+      "lib/filenamecat.c",
+      "lib/fopen.c",
+      "lib/getprogname.c",
+      "lib/gettime.c",
+      "lib/glthread/lock.c",
+      "lib/glthread/once.c",
+      "lib/glthread/threadlib.c",
+      "lib/hard-locale.c",
+      "lib/hash.c",
+      "lib/ialloc.c",
+      "lib/localcharset.c",
+      "lib/malloc/dynarray_at_failure.c",
+      "lib/malloc/dynarray_emplace_enlarge.c",
+      "lib/malloc/dynarray_finalize.c",
+      "lib/malloc/dynarray_resize.c",
+      "lib/malloc/dynarray_resize_clear.c",
+      "lib/malloca.c",
+      "lib/mbrtoc32.c",
+      "lib/mbrtowc.c",
+      "lib/mbscasecmp.c",
+      "lib/mbsrtoc32s-state.c",
+      "lib/mbsrtoc32s.c",
+      "lib/mbsrtowcs-state.c",
+      "lib/mbsrtowcs.c",
+      "lib/mbszero.c",
+      "lib/mcel.c",
+      "lib/mktime.c",
+      "lib/nl_langinfo.c",
+      "lib/nstrftime.c",
+      "lib/openat-die.c",
+      "lib/openat-proc.c",
+      "lib/progname.c",
+      "lib/propername-lite.c",
+      "lib/quotearg.c",
+      "lib/realloc.c",
+      "lib/reallocarray.c",
+      "lib/same-inode.c",
+      "lib/save-cwd.c",
+      "lib/setlocale_null-unlocked.c",
+      "lib/setlocale_null.c",
+      "lib/sh-quote.c",
+      "lib/sig-handler.c",
+      "lib/sigsegv.c",
+      "lib/stackvma.c",
+      "lib/stat-time.c",
+      "lib/stdlib.c",
+      "lib/stdopen.c",
+      "lib/stripslash.c",
+      "lib/strnlen1.c",
+      "lib/system-quote.c",
+      "lib/tempname.c",
+      "lib/time_rz.c",
+      "lib/timespec.c",
+      "lib/unicase/tolower.c",
+      "lib/unictype/ctype_alnum.c",
+      "lib/unictype/ctype_alpha.c",
+      "lib/unictype/ctype_blank.c",
+      "lib/unictype/ctype_cntrl.c",
+      "lib/unictype/ctype_digit.c",
+      "lib/unictype/ctype_graph.c",
+      "lib/unictype/ctype_lower.c",
+      "lib/unictype/ctype_print.c",
+      "lib/unictype/ctype_punct.c",
+      "lib/unictype/ctype_space.c",
+      "lib/unictype/ctype_upper.c",
+      "lib/unictype/ctype_xdigit.c",
+      "lib/unistd.c",
+      "lib/unistr/u32-chr.c",
+      "lib/unistr/u32-cpy.c",
+      "lib/unistr/u32-pcpy.c",
+      "lib/unistr/u32-strcat.c",
+      "lib/unistr/u32-strlen.c",
+      "lib/uniwidth/width.c",
+      "lib/version-etc-fsf.c",
+      "lib/version-etc.c",
+      "lib/wctype-h.c",
+      "lib/xalloc-die.c",
+      "lib/xfreopen.c",
+      "lib/xmalloc.c",
+      "lib/xmalloca.c",
+      "lib/xstdopen.c",
+      "lib/xstrtoimax.c",
+      "lib/xstrtol.c",
+      "lib/xstrtoul.c"
+    ],
+    "normal_production_compile_actions": 139,
+    "normal_production_sources": 139,
+    "production_lines": 30098,
+    "production_sources": [
+      "generated/src/version.c",
+      "lib/allocator.c",
+      "lib/argmatch.c",
+      "lib/basename-lgpl.c",
+      "lib/basename.c",
+      "lib/binary-io.c",
+      "lib/bitrotate.c",
+      "lib/btoc32.c",
+      "lib/btowc.c",
+      "lib/c-ctype.c",
+      "lib/c-file-type.c",
+      "lib/c-stack.c",
+      "lib/c-strcasecmp.c",
+      "lib/c32_apply_type_test.c",
+      "lib/c32_get_type_test.c",
+      "lib/c32isalnum.c",
+      "lib/c32isalpha.c",
+      "lib/c32isblank.c",
+      "lib/c32iscntrl.c",
+      "lib/c32isdigit.c",
+      "lib/c32isgraph.c",
+      "lib/c32islower.c",
+      "lib/c32isprint.c",
+      "lib/c32ispunct.c",
+      "lib/c32isspace.c",
+      "lib/c32isupper.c",
+      "lib/c32isxdigit.c",
+      "lib/c32tolower.c",
+      "lib/c32width.c",
+      "lib/careadlinkat.c",
+      "lib/chdir-long.c",
+      "lib/cloexec.c",
+      "lib/cmpbuf.c",
+      "lib/diagnose.c",
+      "lib/dirname-lgpl.c",
+      "lib/dirname.c",
+      "lib/exclude.c",
+      "lib/exitfail.c",
+      "lib/fcntl.c",
+      "lib/fd-hook.c",
+      "lib/filenamecat-lgpl.c",
+      "lib/filenamecat.c",
+      "lib/fopen.c",
+      "lib/getprogname.c",
+      "lib/gettime.c",
+      "lib/glthread/lock.c",
+      "lib/glthread/once.c",
+      "lib/glthread/threadlib.c",
+      "lib/hard-locale.c",
+      "lib/hash.c",
+      "lib/ialloc.c",
+      "lib/localcharset.c",
+      "lib/malloc/dynarray_at_failure.c",
+      "lib/malloc/dynarray_emplace_enlarge.c",
+      "lib/malloc/dynarray_finalize.c",
+      "lib/malloc/dynarray_resize.c",
+      "lib/malloc/dynarray_resize_clear.c",
+      "lib/malloca.c",
+      "lib/mbrtoc32.c",
+      "lib/mbrtowc.c",
+      "lib/mbscasecmp.c",
+      "lib/mbsrtoc32s-state.c",
+      "lib/mbsrtoc32s.c",
+      "lib/mbsrtowcs-state.c",
+      "lib/mbsrtowcs.c",
+      "lib/mbszero.c",
+      "lib/mcel.c",
+      "lib/mktime.c",
+      "lib/nl_langinfo.c",
+      "lib/nstrftime.c",
+      "lib/openat-die.c",
+      "lib/openat-proc.c",
+      "lib/progname.c",
+      "lib/propername-lite.c",
+      "lib/quotearg.c",
+      "lib/realloc.c",
+      "lib/reallocarray.c",
+      "lib/same-inode.c",
+      "lib/save-cwd.c",
+      "lib/setlocale_null-unlocked.c",
+      "lib/setlocale_null.c",
+      "lib/sh-quote.c",
+      "lib/sig-handler.c",
+      "lib/sigsegv.c",
+      "lib/stackvma.c",
+      "lib/stat-time.c",
+      "lib/stdlib.c",
+      "lib/stdopen.c",
+      "lib/stripslash.c",
+      "lib/strnlen1.c",
+      "lib/system-quote.c",
+      "lib/tempname.c",
+      "lib/time_rz.c",
+      "lib/timespec.c",
+      "lib/unicase/tolower.c",
+      "lib/unictype/ctype_alnum.c",
+      "lib/unictype/ctype_alpha.c",
+      "lib/unictype/ctype_blank.c",
+      "lib/unictype/ctype_cntrl.c",
+      "lib/unictype/ctype_digit.c",
+      "lib/unictype/ctype_graph.c",
+      "lib/unictype/ctype_lower.c",
+      "lib/unictype/ctype_print.c",
+      "lib/unictype/ctype_punct.c",
+      "lib/unictype/ctype_space.c",
+      "lib/unictype/ctype_upper.c",
+      "lib/unictype/ctype_xdigit.c",
+      "lib/unistd.c",
+      "lib/unistr/u32-chr.c",
+      "lib/unistr/u32-cpy.c",
+      "lib/unistr/u32-pcpy.c",
+      "lib/unistr/u32-strcat.c",
+      "lib/unistr/u32-strlen.c",
+      "lib/uniwidth/width.c",
+      "lib/version-etc-fsf.c",
+      "lib/version-etc.c",
+      "lib/wctype-h.c",
+      "lib/xalloc-die.c",
+      "lib/xfreopen.c",
+      "lib/xmalloc.c",
+      "lib/xmalloca.c",
+      "lib/xstdopen.c",
+      "lib/xstrtoimax.c",
+      "lib/xstrtol.c",
+      "lib/xstrtoul.c",
+      "src/analyze.c",
+      "src/cmp.c",
+      "src/context.c",
+      "src/diff.c",
+      "src/diff3.c",
+      "src/dir.c",
+      "src/ed.c",
+      "src/ifdef.c",
+      "src/io.c",
+      "src/normal.c",
+      "src/sdiff.c",
+      "src/side.c",
+      "src/system.c",
+      "src/util.c"
+    ],
+    "program_sources": [
+      "src/analyze.c",
+      "src/cmp.c",
+      "src/context.c",
+      "src/diff.c",
+      "src/diff3.c",
+      "src/dir.c",
+      "src/ed.c",
+      "src/ifdef.c",
+      "src/io.c",
+      "src/normal.c",
+      "src/sdiff.c",
+      "src/side.c",
+      "src/system.c",
+      "src/util.c"
+    ],
+    "sanitizer_only_sources": [
+      "lib/strcasecmp.c",
+      "lib/strncasecmp.c"
+    ],
+    "test_support_compile_actions": {
+      "clang": 39,
+      "gcc": 39,
+      "sanitizer": 39
+    },
+    "version_c_sha256": "15229b8b9690ecf3f5e25b992cde8906fb045fe86a59ff0699ae6181e305492e"
+  },
+  "tests": {
+    "clang": {
+      "diffutils": {
+        "error": 0,
+        "fail": 0,
+        "pass": 30,
+        "skip": 2,
+        "total": 33,
+        "xfail": 1,
+        "xpass": 0
+      },
+      "gnulib": {
+        "error": 0,
+        "fail": 0,
+        "pass": 301,
+        "skip": 43,
+        "total": 344,
+        "xfail": 0,
+        "xpass": 0
+      },
+      "log_sha256": "46393dace81705278dbd8e0577b88b6e48e4b15a34e7dc7c7575a22704304987"
+    },
+    "gcc": {
+      "diffutils": {
+        "error": 0,
+        "fail": 0,
+        "pass": 30,
+        "skip": 2,
+        "total": 33,
+        "xfail": 1,
+        "xpass": 0
+      },
+      "gnulib": {
+        "error": 0,
+        "fail": 0,
+        "pass": 301,
+        "skip": 43,
+        "total": 344,
+        "xfail": 0,
+        "xpass": 0
+      },
+      "log_sha256": "a7c4cecbfd1ab81d343e7c8a1b8fe8a25a43f9581731c40014a21a02da628fb8"
+    },
+    "sanitizer": {
+      "diffutils": {
+        "error": 0,
+        "fail": 0,
+        "pass": 30,
+        "skip": 2,
+        "total": 33,
+        "xfail": 1,
+        "xpass": 0
+      },
+      "gnulib": {
+        "error": 0,
+        "fail": 0,
+        "pass": 297,
+        "skip": 47,
+        "total": 344,
+        "xfail": 0,
+        "xpass": 0
+      },
+      "log_sha256": "e45977ab4248a85ed96526308b25c441df8af6fee9769634e6cada5a50ceee0c"
+    }
+  },
+  "valgrind": {
+    "diff3_baseline_note": "canonical diff3 retains two 4096-byte read_diff buffers on this comparison path",
+    "results": {
+      "cmp": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "indirectly_lost_bytes": 0,
+        "log_sha256": "641c43ef5f8d17c54af4d605204ca5855e004310082e8aeaaf0faa506577bafa",
+        "possibly_lost_bytes": 0
+      },
+      "diff": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "indirectly_lost_bytes": 0,
+        "log_sha256": "a0d3ed0a73b5f24b9b50b6c83fc8120c68ec661fed7f9734e30832bc8da9c6a5",
+        "possibly_lost_bytes": 0
+      },
+      "diff3": {
+        "definitely_lost_bytes": 4096,
+        "errors": 2,
+        "indirectly_lost_bytes": 0,
+        "log_sha256": "f8524fa315aaecc47bc81aefc80c2c5517efa613af33cec6805ab86a4090d1cc",
+        "possibly_lost_bytes": 4096
+      },
+      "sdiff": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "indirectly_lost_bytes": 0,
+        "log_sha256": "51237a02db6eda79c873d89960d5de6066b388a464a7217c0f3023ba66011aad",
+        "possibly_lost_bytes": 0
+      }
+    },
+    "sdiff_path_note": "resource check uses --help because normal comparison delegates to a child diff process; comparison behavior is covered differentially"
+  }
+}
