@@ -1,0 +1,132 @@
+{
+  "artifacts": {
+    "clang-analyzer-tidy.log": "64d3484547f1392cfe70ff29f95926ea788c50d41e1e347271f312a43ce08785",
+    "compile_commands.json": "2f36d4e42b2b8f2eb563df2bf875c7540030366eca2a3dc5f9db46ff5dcbd8ce",
+    "cppcheck.log": "5f46c4ae676f5bae6899679607b629209bb2e5d4944259a5092da72c0e68d7e3",
+    "flawfinder.log": "0b7388741f76fcdc06537d07c7d9452c41cd0cd270edfca01347142c689970bf",
+    "gcc-analyzer-setup.log": "58f031b5aec5a1ae6544df4e7c2efac36a1eb18516ce33e03db7086bc22876e7",
+    "gcc-analyzer.log": "eb6e60159e447e1937845d1c478bb21abfef0ba8503b2699622019ab1dec6e47",
+    "sources.list": "3c863ccd6c2c66435cfe46354b2ebc783d48cbed6f70a16a158acc708a05c898",
+    "sparse.log": "a9e0209e08083c00f5c1beec7bc86aed4802307f76ca7e583658fcd759142901",
+    "sparse.status": "181210f8f9c779c26da1d9b2075bde0127302ee0e3fca38c9a83f5b1dd8e5d3b"
+  },
+  "recorded_at": "2026-11-20",
+  "release": "3.12",
+  "review": {
+    "blocking_findings": 0,
+    "canonical_source_changes": 0,
+    "known_canonical_resource_baseline": {
+      "diff3_definitely_lost_bytes": 4096,
+      "diff3_possibly_lost_bytes": 4096
+    },
+    "notes": [
+      "Cppcheck's chdir-long preprocessor error analyzes a configure guard without the selected config; the production compiler selects the valid branch.",
+      "Cppcheck's side.c objectIndex analysis mistakes curr.file[*].linbuf for a local object and loses the paired start/end-pointer representation; upstream and differential side-by-side tests exercise these paths under sanitizers.",
+      "Cppcheck's xfreopen allocation-return warning treats freopen as an allocator; successful freopen intentionally reuses FP and failure exits through error.",
+      "GCC's stdopen descriptor leaks are the function's purpose: newly opened descriptors occupy missing standard descriptor numbers 0 through 2 and remain process-owned.",
+      "GCC's xmalloc-family reports model allocation-returning helpers as leaks at return; ownership is transferred to callers.  exclude.c similarly transfers a unique string to its hash table.",
+      "GCC's generated xpalloc reports likewise stop at an allocation-returning helper; diff.c keeps its regex fastmap in process-lifetime global state, and analyze.c frees the original allocation after temporarily offsetting both work pointers.",
+      "GCC and Clang time_rz reports do not follow revert_tz, which restores the environment and calls tzfree on every old_tz success path.",
+      "Clang's two diff3 null reports lose create_diff3_block's line-count invariant: a line array is allocated exactly when the associated loop can execute.",
+      "Clang's diff.c nonnull report does not model xpalloc as non-returning on allocation failure; the size<=newlen branch allocates at least one byte before memcpy.",
+      "The canonical diff3 Valgrind buffer retention is preserved as an explicit oracle baseline; normalization and translation may not introduce additional loss.",
+      "Remaining Clang-Tidy and Flawfinder results are portability, buffer-hardening, and pointer-modernization inventory rather than demonstrated defects.",
+      "Sparse parser errors arise from configured gnulib headers, attributes, and C23 syntax outside its grammar and are recorded rather than suppressed."
+    ]
+  },
+  "schema": 1,
+  "scope": {
+    "compile_actions": 139,
+    "targets": [
+      "cmp",
+      "diff",
+      "diff3",
+      "sdiff"
+    ],
+    "tests_examples_and_sanitizer_only_replacements_excluded": true,
+    "unique_sources": 139
+  },
+  "tools": {
+    "clang_analyzer_tidy": {
+      "all_findings_by_check": {
+        "bugprone-assignment-in-if-condition": 2,
+        "bugprone-branch-clone": 4,
+        "bugprone-easily-swappable-parameters": 132,
+        "bugprone-implicit-widening-of-multiplication-result": 7,
+        "bugprone-inc-dec-in-conditions": 5,
+        "bugprone-macro-parentheses": 26,
+        "bugprone-multi-level-implicit-pointer-conversion": 43,
+        "bugprone-narrowing-conversions": 148,
+        "bugprone-reserved-identifier": 2240,
+        "bugprone-signed-char-misuse": 4,
+        "bugprone-suspicious-include": 3,
+        "bugprone-suspicious-missing-comma": 3,
+        "bugprone-suspicious-string-compare": 4,
+        "bugprone-switch-missing-default-case": 11,
+        "clang-analyzer-core.NonNullParamChecker": 1,
+        "clang-analyzer-core.NullDereference": 2,
+        "clang-analyzer-deadcode.DeadStores": 1,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 137,
+        "clang-analyzer-security.insecureAPI.strcpy": 6,
+        "clang-analyzer-unix.Malloc": 3,
+        "clang-diagnostic-tautological-constant-out-of-range-compare": 4,
+        "performance-no-int-to-ptr": 7
+      },
+      "analyzer_findings_by_check": {
+        "clang-analyzer-core.NonNullParamChecker": 1,
+        "clang-analyzer-core.NullDereference": 2,
+        "clang-analyzer-deadcode.DeadStores": 1,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 137,
+        "clang-analyzer-security.insecureAPI.strcpy": 6,
+        "clang-analyzer-unix.Malloc": 3
+      }
+    },
+    "cppcheck": {
+      "findings_by_id": {
+        "allocaCalled": 1,
+        "clarifyCalculation": 3,
+        "clarifyCondition": 8,
+        "constParameterPointer": 6,
+        "constVariablePointer": 14,
+        "invalidPrintfArgType_sint": 4,
+        "invalidPrintfArgType_uint": 1,
+        "knownConditionTrueFalse": 11,
+        "leakReturnValNotUsed": 1,
+        "nullPointerRedundantCheck": 1,
+        "objectIndex": 7,
+        "pointerSize": 3,
+        "preprocessorErrorDirective": 1,
+        "redundantContinue": 20,
+        "returnNonBoolInBooleanFunction": 1,
+        "shadowVariable": 1,
+        "unassignedVariable": 1,
+        "unreadVariable": 5,
+        "unsignedLessThanZero": 1,
+        "unusedStructMember": 2
+      },
+      "findings_by_severity": {
+        "error": 9,
+        "portability": 5,
+        "style": 73,
+        "warning": 5
+      }
+    },
+    "flawfinder": {
+      "hits_at_level_1_or_higher": 285,
+      "lines_analyzed": 30049
+    },
+    "gcc_fanalyzer": {
+      "findings_by_check": {
+        "analyzer-fd-leak": 3,
+        "analyzer-malloc-leak": 14,
+        "sign-compare": 18
+      },
+      "warnings": 35
+    },
+    "sparse": {
+      "exit_status": 123,
+      "parser_errors": 20,
+      "warnings": 141
+    }
+  }
+}

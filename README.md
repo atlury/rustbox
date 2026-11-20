@@ -336,8 +336,12 @@ GCC-versus-Clang behavior comparisons pass 48/48 across `cmp`, `diff`,
 `diff3`, and `sdiff`.  Valgrind is clean for `cmp`, `diff`, and `sdiff`'s own
 process; canonical `diff3`'s two retained 4096-byte buffers are recorded as a
 baseline rather than hidden.  Reproducible details are in
-`evidence/diffutils-3.12-oracle.json`; production-only analysis and
-normalization are the next gates.
+`evidence/diffutils-3.12-oracle.json`.  Cppcheck, GCC `-fanalyzer`, Clang
+analyzer/Tidy, Flawfinder, and Sparse then review exactly those 139 production
+sources.  Their ownership, nullability, configured-header, and parser reports
+have zero blocking findings after review; the complete immutable inventory and
+reasoning are in `evidence/diffutils-3.12-analysis.json`.  Deterministic
+normalization is the next gate.
 
 ## Work queue after util-linux
 
@@ -373,7 +377,7 @@ Library-only checkpoints (outside the active utility order):
    - [x] GNU patch 2.8 — `patch`; integrated at canonical parity.
    - [x] GNU sed 4.10 — `sed`; integrated at canonical parity.
    - [ ] Diffutils 3.12 — `cmp`, `diff`, `diff3`, `sdiff`; signed canonical
-     oracle complete, static analysis and normalization in progress.
+     oracle and production analysis complete, normalization in progress.
    - [ ] Grep — `grep`, `egrep`, `fgrep`.
    - [ ] bc — `bc`, `dc`.
    - [ ] attr — `attr`, `getfattr`, `setfattr`.
