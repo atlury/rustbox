@@ -48,7 +48,7 @@ scoring, and correctness gates.
 | GNU M4 1.4.21 | 1 | 1 | 1 | 1 |
 | pkgconf 3.0.11 | 5 | 5 | 5 | 5 |
 | File 5.48 | 1 | 1 | 1 | 1 |
-| GNU patch 2.8 | 1 | 1 | 0 | 0 |
+| GNU patch 2.8 | 1 | 1 | 1 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -285,7 +285,11 @@ crate and mechanically modernized stable archive compile with no translation
 holes and no generated-Rust repairs.  The stable archive exports
 `rustbox_patch_main` exactly once; source hashes, modernization operations,
 archive symbols, and the deferred raw-pointer/unsafe inventory are recorded in
-`evidence/patch-2.8-c2rust.json`.
+`evidence/patch-2.8-c2rust.json`.  The linked translated executable passes the
+complete 49-case upstream suite, all 28 filesystem-aware canonical
+differentials, and Valgrind.  It is 500 KiB stripped versus 164 KiB for the
+canonical C executable; linkage, section, and parity evidence is in
+`evidence/patch-2.8-hybrid.json`.
 
 ## Work queue after util-linux
 

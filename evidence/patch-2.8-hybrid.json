@@ -1,0 +1,595 @@
+{
+  "artifacts": {
+    "differential_sha256": "c283872417f31652310579117e11712fe2db576969136c7165764a051d098a65",
+    "linked_sha256": "29108c3a24ae3692185fbadaf0781ab0559178d8482eaccb942514e6ac697f08",
+    "stripped_sha256": "e48fdb41a5de70b7219cbe2bdf4aaf1e20752863194ee8963e8a2c8748a05270",
+    "upstream_log_sha256": "802ad9970f50e15b6f831e1bd70dcdd2132a1a01a16f093c93b08c2b37ec1e1e",
+    "valgrind_log_sha256": "59c329728bffdb5ecf101b5c99e89eaa05d82894e62923582aedd2248051a043"
+  },
+  "behavior": {
+    "differential": {
+      "comparisons": 28,
+      "gcc_clang_exact": true,
+      "records": [
+        {
+          "exact": true,
+          "index": 0,
+          "name": "interface-help",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "142688f4192054e859371268ff17892288b40be5a8a0eee6ad5a37a9b1d44613",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 1,
+          "name": "interface-version",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "82f273f48e89a799d94e00688a36bb0cb8aff0b374100fb0ec71d1d2f1da8583",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 2,
+          "name": "interface-bad-option",
+          "result": {
+            "status": 2,
+            "stderr_sha256": "4203162f7beb224541ab6e9c82ef0a493ecab577decd0ddd9288ef9324412409",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 3,
+          "name": "unified-file",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "b8ab3416f8f61719ea2779dea205b630c37f4d8201060574c1ae1b9a2694b1fe",
+            "tree": [
+              {
+                "bytes": 9,
+                "kind": "file",
+                "mode": 420,
+                "path": "alpha",
+                "sha256": "dbe1b40e670a9c0139459261e911c59be001fd356949852ab20b561a5622da34"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 4,
+          "name": "unified-stdin",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "b8ab3416f8f61719ea2779dea205b630c37f4d8201060574c1ae1b9a2694b1fe",
+            "tree": [
+              {
+                "bytes": 9,
+                "kind": "file",
+                "mode": 420,
+                "path": "alpha",
+                "sha256": "dbe1b40e670a9c0139459261e911c59be001fd356949852ab20b561a5622da34"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 5,
+          "name": "context",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "b8ab3416f8f61719ea2779dea205b630c37f4d8201060574c1ae1b9a2694b1fe",
+            "tree": [
+              {
+                "bytes": 9,
+                "kind": "file",
+                "mode": 420,
+                "path": "alpha",
+                "sha256": "dbe1b40e670a9c0139459261e911c59be001fd356949852ab20b561a5622da34"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 6,
+          "name": "normal",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "b8ab3416f8f61719ea2779dea205b630c37f4d8201060574c1ae1b9a2694b1fe",
+            "tree": [
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "alpha",
+                "sha256": "7aa7a5359173d05b63cfd682e3c38487f3cb4f7f1d60659fe59fab1505977d4c"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 7,
+          "name": "reverse",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "b8ab3416f8f61719ea2779dea205b630c37f4d8201060574c1ae1b9a2694b1fe",
+            "tree": [
+              {
+                "bytes": 9,
+                "kind": "file",
+                "mode": 420,
+                "path": "alpha",
+                "sha256": "93862b8f30e3b375e8a4ebfc514bab781f8e817fb28cc8e6774c4d116e73f0cd"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 8,
+          "name": "dry-run",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "0274805237304a098b5c666f4115e3cfeeb26699ec9a143d82d45d9912265a66",
+            "tree": [
+              {
+                "bytes": 9,
+                "kind": "file",
+                "mode": 420,
+                "path": "alpha",
+                "sha256": "93862b8f30e3b375e8a4ebfc514bab781f8e817fb28cc8e6774c4d116e73f0cd"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 9,
+          "name": "force",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "b8ab3416f8f61719ea2779dea205b630c37f4d8201060574c1ae1b9a2694b1fe",
+            "tree": [
+              {
+                "bytes": 9,
+                "kind": "file",
+                "mode": 420,
+                "path": "alpha",
+                "sha256": "dbe1b40e670a9c0139459261e911c59be001fd356949852ab20b561a5622da34"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 10,
+          "name": "batch",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "b8ab3416f8f61719ea2779dea205b630c37f4d8201060574c1ae1b9a2694b1fe",
+            "tree": [
+              {
+                "bytes": 9,
+                "kind": "file",
+                "mode": 420,
+                "path": "alpha",
+                "sha256": "dbe1b40e670a9c0139459261e911c59be001fd356949852ab20b561a5622da34"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 11,
+          "name": "silent",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 9,
+                "kind": "file",
+                "mode": 420,
+                "path": "alpha",
+                "sha256": "dbe1b40e670a9c0139459261e911c59be001fd356949852ab20b561a5622da34"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 12,
+          "name": "strip-one",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "b8ab3416f8f61719ea2779dea205b630c37f4d8201060574c1ae1b9a2694b1fe",
+            "tree": [
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "alpha",
+                "sha256": "7aa7a5359173d05b63cfd682e3c38487f3cb4f7f1d60659fe59fab1505977d4c"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 13,
+          "name": "directory-prefix",
+          "result": {
+            "status": 2,
+            "stderr_sha256": "b2274537dc784f6502650e6596c6f5565719620cbfc8a8838f822d34f2316a70",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "kind": "directory",
+                "mode": 493,
+                "path": "tree"
+              },
+              {
+                "bytes": 9,
+                "kind": "file",
+                "mode": 420,
+                "path": "tree/alpha",
+                "sha256": "93862b8f30e3b375e8a4ebfc514bab781f8e817fb28cc8e6774c4d116e73f0cd"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 14,
+          "name": "backup",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "b8ab3416f8f61719ea2779dea205b630c37f4d8201060574c1ae1b9a2694b1fe",
+            "tree": [
+              {
+                "bytes": 9,
+                "kind": "file",
+                "mode": 420,
+                "path": "alpha",
+                "sha256": "dbe1b40e670a9c0139459261e911c59be001fd356949852ab20b561a5622da34"
+              },
+              {
+                "bytes": 9,
+                "kind": "file",
+                "mode": 420,
+                "path": "alpha.orig",
+                "sha256": "93862b8f30e3b375e8a4ebfc514bab781f8e817fb28cc8e6774c4d116e73f0cd"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 15,
+          "name": "reject",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "af2dfdd0b4ec12d47a187999d6fd3990fced2d0481df2ade155dffd8d855a3b4",
+            "tree": [
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "alpha",
+                "sha256": "01d09d19c2139a46aebfb577780d123d7396e97201bc7ead210a2ebff8239dee"
+              },
+              {
+                "bytes": 46,
+                "kind": "file",
+                "mode": 420,
+                "path": "alpha.rej",
+                "sha256": "e0b64df2a23885162048eff21024aa829d3c371d72cfc00cfbb171d240ed5258"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 16,
+          "name": "reject-custom",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "6acf76fedc9a39880103a5e72b10300f5ff80ca175036be477df9eb26e578fb6",
+            "tree": [
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "alpha",
+                "sha256": "01d09d19c2139a46aebfb577780d123d7396e97201bc7ead210a2ebff8239dee"
+              },
+              {
+                "bytes": 46,
+                "kind": "file",
+                "mode": 420,
+                "path": "failure.rej",
+                "sha256": "e0b64df2a23885162048eff21024aa829d3c371d72cfc00cfbb171d240ed5258"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 17,
+          "name": "create",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "00f1321323e8a804b2ba07fdea7a6b331b009b046f64040c182f54fea5c8a140",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 18,
+          "name": "delete",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "9972f91106dfba2b2315c1ba2c104b2fb8c9a400747b168a49f994aa8c5418ed",
+            "tree": [
+              {
+                "bytes": 0,
+                "kind": "file",
+                "mode": 420,
+                "path": "doomed",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 19,
+          "name": "remove-empty",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "11be29742f3cda19025290e910a08a6a1c8e54179d89a7188c26a94fb922fe61",
+            "tree": []
+          }
+        },
+        {
+          "exact": true,
+          "index": 20,
+          "name": "ifdef",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "b8ab3416f8f61719ea2779dea205b630c37f4d8201060574c1ae1b9a2694b1fe",
+            "tree": [
+              {
+                "bytes": 42,
+                "kind": "file",
+                "mode": 420,
+                "path": "alpha",
+                "sha256": "cdd6557aa6fceb6ea2a05911b67b806faf064246e9a811478187464d4f87ae9a"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 21,
+          "name": "fuzz",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "74cfebe97cc0ddf6cfee4922d7aba3dff58a0acf42e2a8b3095719123fde1fd5",
+            "tree": [
+              {
+                "bytes": 27,
+                "kind": "file",
+                "mode": 420,
+                "path": "alpha",
+                "sha256": "75b0a038adedb5dbbc7ffeafbc91b07952030301d287813b6e7de409556a5ef7"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 22,
+          "name": "offset",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "5702212f3e390861ffde3451257087648ad52ceca4b6d97789f310977b29ee7b",
+            "tree": [
+              {
+                "bytes": 16,
+                "kind": "file",
+                "mode": 420,
+                "path": "alpha",
+                "sha256": "6981cd3a0230e352d3de96a0e75638b2b4557728715227838d82fcbbf6d2ef2a"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 23,
+          "name": "space-name",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "dce47d82fd9b94d12534eaf6144028ac3355a9f7cfd2c6bbe1abde6481538e68",
+            "tree": [
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "a file",
+                "sha256": "01d09d19c2139a46aebfb577780d123d7396e97201bc7ead210a2ebff8239dee"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 24,
+          "name": "no-newline",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "b8ab3416f8f61719ea2779dea205b630c37f4d8201060574c1ae1b9a2694b1fe",
+            "tree": [
+              {
+                "bytes": 3,
+                "kind": "file",
+                "mode": 420,
+                "path": "alpha",
+                "sha256": "11507a0e2f5e69d5dfa40a62a1bd7b6ee57e6bcd85c67c9b8431b36fff21c437"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 25,
+          "name": "two-files",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "5b1ce8eff64082b45cc1ccb5cc549e2128cb087edc0d8c1b9e17ec6b1fba35eb",
+            "tree": [
+              {
+                "bytes": 2,
+                "kind": "file",
+                "mode": 420,
+                "path": "alpha",
+                "sha256": "06f961b802bc46ee168555f066d28f4f0e9afdf3f88174c1ee6f9de004fc30a0"
+              },
+              {
+                "bytes": 2,
+                "kind": "file",
+                "mode": 420,
+                "path": "beta",
+                "sha256": "c0cde77fa8fef97d476c10aad3d2d54fcc2f336140d073651c2dcccf1e379fd6"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 26,
+          "name": "merge",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "faeb3a222b216849ec8caa3351181c238b6cc4414eef09a26487beae8af02a2d",
+            "tree": [
+              {
+                "bytes": 44,
+                "kind": "file",
+                "mode": 420,
+                "path": "alpha",
+                "sha256": "cf6b47720ffdb5844764d8a56696cab6334f0d3cc637862fe52bcf115741a1a3"
+              }
+            ]
+          }
+        },
+        {
+          "exact": true,
+          "index": 27,
+          "name": "merge-diff3",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "dfa1e407169737a060d9b081e8bfcd8fd9b5d6bcc6d21aca0e1d78b4e40be9a8",
+            "tree": [
+              {
+                "bytes": 56,
+                "kind": "file",
+                "mode": 420,
+                "path": "alpha",
+                "sha256": "86618689260bbc6916e77a3d0fcbadd8d9226ce5a694a822a30f78a0b6043222"
+              }
+            ]
+          }
+        }
+      ],
+      "schema": 1
+    },
+    "upstream_suite": {
+      "error": 0,
+      "fail": 0,
+      "log_sha256": "802ad9970f50e15b6f831e1bd70dcdd2132a1a01a16f093c93b08c2b37ec1e1e",
+      "pass": 47,
+      "skip": 0,
+      "total": 49,
+      "xfail": 2,
+      "xpass": 0
+    },
+    "valgrind_smokes": 1,
+    "valgrind_still_reachable_bytes": 2947
+  },
+  "implementation": {
+    "entrypoint": "rustbox_patch_main",
+    "public_name": "patch",
+    "rust_files": 69,
+    "rust_production_sources": 67
+  },
+  "input_evidence": {
+    "patch-2.8-c2rust.json": "97bdf614897847a67015a63ba1b0c4505373242be731fb847448bac66e822a62",
+    "patch-2.8-normalization.json": "1f2f62b83fc5002191c2dfee7cb4a9c059faf922329605566d74b938db727145",
+    "patch-2.8-oracle.json": "246b71127245b988e8b9bc60ac5cf20a801efedf2114abbf6866838aa2813e9c"
+  },
+  "next_gate": "link patch into the single Rustbox multicall and replay combined regressions",
+  "recorded_at": "2026-11-20",
+  "release": "2.8",
+  "runtime_linkage": {
+    "current_dynamic_needed": [
+      "libattr.so.1",
+      "libm.so.6",
+      "libgcc_s.so.1",
+      "libc.so.6",
+      "ld-linux-x86-64.so.2"
+    ],
+    "final_no_dt_needed_gate": "pending Rustbox-owned static runtime and attr implementation",
+    "oracle_backend": "libattr"
+  },
+  "schema": 1,
+  "size": {
+    "canonical_stripped_bytes": 167432,
+    "interpretation": "The static archive is link inventory, not release size.",
+    "linked_sections": {
+      "bss": 279504,
+      "data": 5896,
+      "rodata": 49216,
+      "text": 370866
+    },
+    "linked_stripped_bytes": 512280,
+    "linked_unstripped_bytes": 4693680,
+    "translation_static_archive_bytes": 24066584
+  },
+  "status": "complete translated hybrid at canonical parity; multicall integration pending"
+}
