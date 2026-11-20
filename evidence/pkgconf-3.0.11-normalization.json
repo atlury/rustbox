@@ -1,0 +1,205 @@
+{
+  "abi": {
+    "canonical_gcc_clang_normalized_exact": true,
+    "libpkgconf_symbols": 176
+  },
+  "binaries": {
+    "bomtool-clang": {
+      "bytes": 402320,
+      "entrypoint": "rustbox_bomtool_main",
+      "needed": [
+        "libc.so.6"
+      ],
+      "sha256": "c01fa9bdbd5587b428e6ae92c75cf722b89a5825ca41ae9b906428f5df0e214e"
+    },
+    "bomtool-gcc": {
+      "bytes": 474040,
+      "entrypoint": "rustbox_bomtool_main",
+      "needed": [
+        "libc.so.6"
+      ],
+      "sha256": "9cba201e7093eec74da437f4fa2a615968fb5f0a1b97e2c06f3468886e7672d7"
+    },
+    "pccritic-clang": {
+      "bytes": 397952,
+      "entrypoint": "rustbox_pccritic_main",
+      "needed": [
+        "libc.so.6"
+      ],
+      "sha256": "d92bd796c843db9c3d4d267f920d8cd2b4d41fc6b296e02d513cdb9209173954"
+    },
+    "pccritic-gcc": {
+      "bytes": 477280,
+      "entrypoint": "rustbox_pccritic_main",
+      "needed": [
+        "libc.so.6"
+      ],
+      "sha256": "044d814e3e327012bf8c08b22f217e1bbd9da877e03a4562d30d5d6d313005f5"
+    },
+    "pkgconf-clang": {
+      "bytes": 457496,
+      "entrypoint": "rustbox_pkgconf_main",
+      "needed": [
+        "libc.so.6"
+      ],
+      "sha256": "16db232ca51a4e6a9caa6405492812e2a725ba550729825a3f4a34099573f18f"
+    },
+    "pkgconf-gcc": {
+      "bytes": 545744,
+      "entrypoint": "rustbox_pkgconf_main",
+      "needed": [
+        "libc.so.6"
+      ],
+      "sha256": "377f580a85243fed87bc863ba7cd3448251367653b93d48424e696f2ec687b94"
+    },
+    "spdxtool-clang": {
+      "bytes": 515200,
+      "entrypoint": "rustbox_spdxtool_main",
+      "needed": [
+        "libc.so.6"
+      ],
+      "sha256": "8b3deaa07b19a10662ec43e64304a39ae15fd8ecb08637ad850999f5ba7c9a23"
+    },
+    "spdxtool-gcc": {
+      "bytes": 618248,
+      "entrypoint": "rustbox_spdxtool_main",
+      "needed": [
+        "libc.so.6"
+      ],
+      "sha256": "4102b1fa7dcc2bccc71718554f89748664c08a917636282b0d5c98c5d04fa39a"
+    }
+  },
+  "entrypoints": {
+    "conditional": "RUSTBOX_MULTICALL",
+    "exports": {
+      "bomtool": "rustbox_bomtool_main",
+      "pccritic": "rustbox_pccritic_main",
+      "pkgconf": "rustbox_pkgconf_main",
+      "spdxtool": "rustbox_spdxtool_main"
+    },
+    "standalone_main_retained": true
+  },
+  "production": {
+    "clang": {
+      "compile_actions": 38,
+      "unique_sources": 35
+    },
+    "gcc": {
+      "compile_actions": 38,
+      "unique_sources": 35
+    }
+  },
+  "public_surface": {
+    "bomtool-clang": {
+      "help": "aac9d1ed0ea614f098b4e3f00c21582e230d2ad984dfa20e1d3a8612d33869dc",
+      "version": "773bb599afd321f3b5a98d227fac3b3f3f44f39b1dd676bf40c8c34e3ce519b6"
+    },
+    "bomtool-gcc": {
+      "help": "aac9d1ed0ea614f098b4e3f00c21582e230d2ad984dfa20e1d3a8612d33869dc",
+      "version": "773bb599afd321f3b5a98d227fac3b3f3f44f39b1dd676bf40c8c34e3ce519b6"
+    },
+    "pccritic-clang": {
+      "help": "b2b995d6a8abe5b5e5782cbbe9c3f9c1bc9e266f0d8841cee7fc928252cf9270",
+      "version": "d4f9dadff9f5eab08b58cd4a1ffc4e5786e1ea3487bf47348cf9af5239947f2d"
+    },
+    "pccritic-gcc": {
+      "help": "b2b995d6a8abe5b5e5782cbbe9c3f9c1bc9e266f0d8841cee7fc928252cf9270",
+      "version": "d4f9dadff9f5eab08b58cd4a1ffc4e5786e1ea3487bf47348cf9af5239947f2d"
+    },
+    "pkgconf-clang": {
+      "help": "c1d314844fa104acccd6c673c1b79cb451d5a2c0eb421ccda24d5f3bc31dddd9",
+      "version": "be5ab7f9206cc0c078d22bd084da04df838061b1cb7b55d1dd86002da6852e69"
+    },
+    "pkgconf-gcc": {
+      "help": "c1d314844fa104acccd6c673c1b79cb451d5a2c0eb421ccda24d5f3bc31dddd9",
+      "version": "be5ab7f9206cc0c078d22bd084da04df838061b1cb7b55d1dd86002da6852e69"
+    },
+    "spdxtool-clang": {
+      "help": "84ab0a1c2af9f489e9da8c1fe80b24764e755ffa7fd830299c62df691d0d6ad8",
+      "version": "f386c5202e5b52fe346ef95494c5ecd0fa57a35964e687ad1e4b04d2ce78f1aa"
+    },
+    "spdxtool-gcc": {
+      "help": "84ab0a1c2af9f489e9da8c1fe80b24764e755ffa7fd830299c62df691d0d6ad8",
+      "version": "f386c5202e5b52fe346ef95494c5ecd0fa57a35964e687ad1e4b04d2ce78f1aa"
+    }
+  },
+  "recorded_at": "2026-11-20",
+  "release": "3.0.11",
+  "schema": 1,
+  "tests": {
+    "clang": {
+      "log_sha256": "cd9678331d9c94ad3ad08a30cc1941e69bb71402a7b5d468490b8db27efb3540",
+      "passed": 32,
+      "skipped": 0,
+      "total": 32
+    },
+    "gcc": {
+      "log_sha256": "577c3fd62138b5664aa5d61418cfbfd9baa6c42ae65a7858c045e466513732a4",
+      "passed": 32,
+      "skipped": 0,
+      "total": 32
+    },
+    "sanitizer": {
+      "log_sha256": "a498f3fc1586d46750ab3b0dd48e9ab949e2e534e3a9b5c1c4365865fea7ffd2",
+      "passed": 33,
+      "skipped": 0,
+      "total": 33
+    }
+  },
+  "transformation": {
+    "canonical_signed_tree": "662806322eabf771e5125e27f062b2a0aa2fb186",
+    "canonical_tree_sha256": "842380dfc62d08f63273329937b46a4baddf4348c44e19ab5e55f79a40358c6c",
+    "changed_sources": [
+      "cli/bomtool/main.c",
+      "cli/main.c",
+      "cli/pccritic/main.c",
+      "cli/spdxtool/core.c",
+      "cli/spdxtool/main.c"
+    ],
+    "conditional": "RUSTBOX_MULTICALL",
+    "engine": "exact deterministic source rewrite",
+    "normalized_tree_sha256": "7533387e86031c9ff4e3c80d929ada70ebe5dcce78b5ddcdb44409d0d0ec3981",
+    "release": "3.0.11",
+    "schema": 1,
+    "transformations": [
+      {
+        "canonical_sha256": "d54897f3f3e89604f3ff30141b005f606531c9f485ba2d8cbc3918ffea5d790f",
+        "normalized_sha256": "63e13e283bb004e4de44053638b581f8cbf7e8f7ad22b710cc0448ebeb6e5174",
+        "operation": "export rustbox_pkgconf_main with a conditional standalone main wrapper",
+        "source": "cli/main.c"
+      },
+      {
+        "canonical_sha256": "b66838be2bd40a2c20f9f35c931196d7f9dfec53925a1cb9b80e1994446a1836",
+        "normalized_sha256": "d84a15f8b17431222b8f52e7502c90d4fe3b7267d57b969bf7a3f06ebad9ddcb",
+        "operation": "export rustbox_bomtool_main with a conditional standalone main wrapper",
+        "source": "cli/bomtool/main.c"
+      },
+      {
+        "canonical_sha256": "5eb6b51be8ae531a775207b9335dbb2270323507357fc36f9d2e297136e44a98",
+        "normalized_sha256": "d8570bde2f717b2c1ec126cf1131bbf70caabb1307987556256e4fab629e54b6",
+        "operation": "export rustbox_pccritic_main with a conditional standalone main wrapper",
+        "source": "cli/pccritic/main.c"
+      },
+      {
+        "canonical_sha256": "f97ee901a23716215aab286bc84ae0a4b8062b037ed37c089453f6cd00bac3d7",
+        "normalized_sha256": "fe8eef5779c536cf935b08911e180f386571e42a3cae0940be5369070136bd3d",
+        "operation": "export rustbox_spdxtool_main with a conditional standalone main wrapper",
+        "source": "cli/spdxtool/main.c"
+      },
+      {
+        "canonical_sha256": "de814bf7db9ffa4339adfbc59311ca4ece362b020f5d57bc826f1021da2bf890",
+        "normalized_sha256": "e697553d509ed138067a05aa3603364b613dc3e18024c6cd7304f568b015f937",
+        "operation": "spell boolean disjunction with logical-or; operands are already evaluated pointer tests",
+        "source": "cli/spdxtool/core.c"
+      }
+    ]
+  },
+  "valgrind": {
+    "full_log_sha256": "44c89b6c6458033c41159a1c6f345207279dc9d572038cea302d5b9a5a04f0c4",
+    "lost_bytes": 0,
+    "passed": 32,
+    "summary_sha256": "100f2aa16b48c7beea94efab9b82860a30e291bec97a17e0e1aa3302888742d1",
+    "tests": 32,
+    "zero_error_summaries": 32
+  }
+}

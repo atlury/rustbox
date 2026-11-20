@@ -174,8 +174,12 @@ production closure, and 176-symbol static-library ABI are recorded in
 `evidence/pkgconf-3.0.11-oracle.json`.  Cppcheck, GCC `-fanalyzer`, Clang
 analyzer/tidy, Flawfinder, and Sparse cover that exact production closure;
 their complete results and reviewed non-blocking findings are recorded in
-`evidence/pkgconf-3.0.11-static-analysis.json`.  Deterministic multicall
-normalization is the next pkgconf gate.
+`evidence/pkgconf-3.0.11-static-analysis.json`.  Deterministic normalization
+exports four conditional multicall entrypoints and makes the reviewed
+boolean disjunction explicit.  Both compiler suites, ASan/UBSan, all 32
+Valgrind tests, public help/version bytes, and the 176-symbol library ABI
+remain at canonical parity in `evidence/pkgconf-3.0.11-normalization.json`.
+C2Rust translation of the exact 35-source production closure is next.
 
 ## Work queue after util-linux
 
