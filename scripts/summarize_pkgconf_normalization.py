@@ -59,6 +59,7 @@ def main() -> int:
         "cli/pccritic/main.c",
         "cli/spdxtool/main.c",
         "cli/spdxtool/core.c",
+        "libpkgconf/bytecode.c",
     ])
     if manifest["changed_sources"] != expected_changed:
         raise RuntimeError("pkgconf normalization changed an unexpected source set")

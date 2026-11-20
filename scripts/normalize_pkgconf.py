@@ -111,12 +111,29 @@ def main() -> int:
             }
         )
 
+        bytecode_source = "libpkgconf/bytecode.c"
+        bytecode_target = staged / bytecode_source
+        before = bytecode_target.read_text()
+        old = "\t\t*saw_sysroot |= inner_saw;"
+        new = "\t\t*saw_sysroot = *saw_sysroot || inner_saw;"
+        if before.count(old) != 1:
+            raise RuntimeError("bytecode boolean normalization precondition failed")
+        bytecode_target.write_text(before.replace(old, new))
+        changes.append(
+            {
+                "source": bytecode_source,
+                "canonical_sha256": sha256(canonical / bytecode_source),
+                "normalized_sha256": sha256(bytecode_target),
+                "operation": "expand boolean compound bitwise-or into an explicit logical disjunction for C2Rust",
+            }
+        )
+
         changed = []
         for source in sorted(path for path in canonical.rglob("*") if path.is_file() and ".git" not in path.parts):
             relative = source.relative_to(canonical)
             if sha256(source) != sha256(staged / relative):
                 changed.append(relative.as_posix())
-        expected = sorted([*ENTRYPOINTS, sparse_source])
+        expected = sorted([*ENTRYPOINTS, sparse_source, bytecode_source])
         if changed != expected:
             raise RuntimeError(f"unexpected normalized source changes: {changed}")
 

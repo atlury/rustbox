@@ -5,68 +5,68 @@
   },
   "binaries": {
     "bomtool-clang": {
-      "bytes": 402320,
+      "bytes": 402328,
       "entrypoint": "rustbox_bomtool_main",
       "needed": [
         "libc.so.6"
       ],
-      "sha256": "c01fa9bdbd5587b428e6ae92c75cf722b89a5825ca41ae9b906428f5df0e214e"
+      "sha256": "855b1e970f0f92f15a68e8e7da20442b4bff0d70d8133fa6ad84d03e129edd8d"
     },
     "bomtool-gcc": {
-      "bytes": 474040,
+      "bytes": 474176,
       "entrypoint": "rustbox_bomtool_main",
       "needed": [
         "libc.so.6"
       ],
-      "sha256": "9cba201e7093eec74da437f4fa2a615968fb5f0a1b97e2c06f3468886e7672d7"
+      "sha256": "3f2240c042e3acf89bad70c8e577d1e5fc9604028c02088765d365e078e5d17b"
     },
     "pccritic-clang": {
-      "bytes": 397952,
+      "bytes": 397968,
       "entrypoint": "rustbox_pccritic_main",
       "needed": [
         "libc.so.6"
       ],
-      "sha256": "d92bd796c843db9c3d4d267f920d8cd2b4d41fc6b296e02d513cdb9209173954"
+      "sha256": "daf3f1746361ff0ab0229a1c2dcdcd60d19e1d02f33bad14d5b604a5fdc4d543"
     },
     "pccritic-gcc": {
-      "bytes": 477280,
+      "bytes": 477424,
       "entrypoint": "rustbox_pccritic_main",
       "needed": [
         "libc.so.6"
       ],
-      "sha256": "044d814e3e327012bf8c08b22f217e1bbd9da877e03a4562d30d5d6d313005f5"
+      "sha256": "2f32d9b52df7e37ff26def0c92115af86408eeaed6b4640581ca74f6762f4923"
     },
     "pkgconf-clang": {
-      "bytes": 457496,
+      "bytes": 457512,
       "entrypoint": "rustbox_pkgconf_main",
       "needed": [
         "libc.so.6"
       ],
-      "sha256": "16db232ca51a4e6a9caa6405492812e2a725ba550729825a3f4a34099573f18f"
+      "sha256": "a884d548776d2f780b7d3286eee1d7b81d5010ae235ef36428dbb8fb5eb94a84"
     },
     "pkgconf-gcc": {
-      "bytes": 545744,
+      "bytes": 545888,
       "entrypoint": "rustbox_pkgconf_main",
       "needed": [
         "libc.so.6"
       ],
-      "sha256": "377f580a85243fed87bc863ba7cd3448251367653b93d48424e696f2ec687b94"
+      "sha256": "3f85d3a5f3f7ef6985bdc3a4adc8ae8a014bb40caa70cbf765bbe9d21da9d9e1"
     },
     "spdxtool-clang": {
-      "bytes": 515200,
+      "bytes": 515208,
       "entrypoint": "rustbox_spdxtool_main",
       "needed": [
         "libc.so.6"
       ],
-      "sha256": "8b3deaa07b19a10662ec43e64304a39ae15fd8ecb08637ad850999f5ba7c9a23"
+      "sha256": "7e210e7e193ad20e30b7b3abca671a300389228a70853aa2825f6bf93623df78"
     },
     "spdxtool-gcc": {
-      "bytes": 618248,
+      "bytes": 622488,
       "entrypoint": "rustbox_spdxtool_main",
       "needed": [
         "libc.so.6"
       ],
-      "sha256": "4102b1fa7dcc2bccc71718554f89748664c08a917636282b0d5c98c5d04fa39a"
+      "sha256": "575160bc08c979a4c094a00e5a4c16d57b0f217090f0a0b43f587933631fb804"
     }
   },
   "entrypoints": {
@@ -128,19 +128,19 @@
   "schema": 1,
   "tests": {
     "clang": {
-      "log_sha256": "cd9678331d9c94ad3ad08a30cc1941e69bb71402a7b5d468490b8db27efb3540",
+      "log_sha256": "9cf28cf5c46ed71fd3c3f396e1339f53aa61d22ccc122dbbec012cf031f99c43",
       "passed": 32,
       "skipped": 0,
       "total": 32
     },
     "gcc": {
-      "log_sha256": "577c3fd62138b5664aa5d61418cfbfd9baa6c42ae65a7858c045e466513732a4",
+      "log_sha256": "ccd20ae825d500e4bfc3ea6da3f0af27a26e7497731931e17972b099db464801",
       "passed": 32,
       "skipped": 0,
       "total": 32
     },
     "sanitizer": {
-      "log_sha256": "a498f3fc1586d46750ab3b0dd48e9ab949e2e534e3a9b5c1c4365865fea7ffd2",
+      "log_sha256": "9fc4ba5ce7fdaa1d32a2a19dbd6f186f9eb5aaabeb2988bcef853f338cce7e77",
       "passed": 33,
       "skipped": 0,
       "total": 33
@@ -154,11 +154,12 @@
       "cli/main.c",
       "cli/pccritic/main.c",
       "cli/spdxtool/core.c",
-      "cli/spdxtool/main.c"
+      "cli/spdxtool/main.c",
+      "libpkgconf/bytecode.c"
     ],
     "conditional": "RUSTBOX_MULTICALL",
     "engine": "exact deterministic source rewrite",
-    "normalized_tree_sha256": "7533387e86031c9ff4e3c80d929ada70ebe5dcce78b5ddcdb44409d0d0ec3981",
+    "normalized_tree_sha256": "0944c774d2c683e9d253680f7361d095540259c98a837e9df5fe53cefe1600f9",
     "release": "3.0.11",
     "schema": 1,
     "transformations": [
@@ -191,14 +192,20 @@
         "normalized_sha256": "e697553d509ed138067a05aa3603364b613dc3e18024c6cd7304f568b015f937",
         "operation": "spell boolean disjunction with logical-or; operands are already evaluated pointer tests",
         "source": "cli/spdxtool/core.c"
+      },
+      {
+        "canonical_sha256": "20e44a37e1bc8587387a4dafc5acfbf6c2ae3ce10d8c681b261e9d32a219ebdb",
+        "normalized_sha256": "3fead0ccc8b23c986c1738ce0aa46df6a91e7cf82510a91b0b4d270b636b14a3",
+        "operation": "expand boolean compound bitwise-or into an explicit logical disjunction for C2Rust",
+        "source": "libpkgconf/bytecode.c"
       }
     ]
   },
   "valgrind": {
-    "full_log_sha256": "44c89b6c6458033c41159a1c6f345207279dc9d572038cea302d5b9a5a04f0c4",
+    "full_log_sha256": "4224d1757e7216a626be92428b2247dc034de643e9cf4fa351468bc1f6143cb6",
     "lost_bytes": 0,
     "passed": 32,
-    "summary_sha256": "100f2aa16b48c7beea94efab9b82860a30e291bec97a17e0e1aa3302888742d1",
+    "summary_sha256": "a7ab7341950727426095750af139aa5d2de2a6b022a0ada33868f47cc5d11c55",
     "tests": 32,
     "zero_error_summaries": 32
   }

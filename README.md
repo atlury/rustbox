@@ -175,8 +175,9 @@ production closure, and 176-symbol static-library ABI are recorded in
 analyzer/tidy, Flawfinder, and Sparse cover that exact production closure;
 their complete results and reviewed non-blocking findings are recorded in
 `evidence/pkgconf-3.0.11-static-analysis.json`.  Deterministic normalization
-exports four conditional multicall entrypoints and makes the reviewed
-boolean disjunction explicit.  Both compiler suites, ASan/UBSan, all 32
+exports four conditional multicall entrypoints and makes two equivalent
+boolean disjunctions explicit for static-analysis and C2Rust compatibility.
+Both compiler suites, ASan/UBSan, all 32
 Valgrind tests, public help/version bytes, and the 176-symbol library ABI
 remain at canonical parity in `evidence/pkgconf-3.0.11-normalization.json`.
 C2Rust translation of the exact 35-source production closure is next.
