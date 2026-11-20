@@ -149,7 +149,12 @@ recorded in `evidence/m4-1.4.21-static-analysis.json`.  Deterministic C
 normalization changes only `src/m4.c`, exporting `rustbox_m4_main` while
 retaining the standalone `main` wrapper.  Both compiler suites and Valgrind
 remain clean in `evidence/m4-1.4.21-normalization.json`.  C2Rust translation is
-the next M4 stage.
+complete for all 11 application sources: both the untouched audit output and
+the mechanically modernized Rust 1.99 crate compile without translation holes,
+and export `rustbox_m4_main` exactly once.  Its hashes and current
+raw-pointer/`unsafe` inventory are recorded in
+`evidence/m4-1.4.21-c2rust.json`; normalized gnulib linkage and canonical
+differential parity are the next M4 gate.
 
 ## Work queue after util-linux
 
