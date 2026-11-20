@@ -47,7 +47,7 @@ scoring, and correctness gates.
 | util-linux 2.42.4 | 155 | 155 | 155 | 155 |
 | GNU M4 1.4.21 | 1 | 1 | 1 | 1 |
 | pkgconf 3.0.11 | 5 | 5 | 5 | 5 |
-| File 5.48 | 1 | 1 | 1 | 0 |
+| File 5.48 | 1 | 1 | 1 | 1 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -241,6 +241,13 @@ upstream libmagic fixtures, 174 exact CLI differential cases, and Valgrind.
 The linked executable is 497 KiB stripped (the 23 MiB static archive is only
 pre-link inventory), versus 184 KiB for canonical File; complete parity,
 linkage, and size evidence is in `evidence/file-5.48-hybrid.json`.
+File is integrated into the unified Rustbox dispatcher with its entire
+libmagic/internal C surface privately namespaced, so util-linux `more` keeps
+its own canonical libmagic behavior.  The resulting 268-name executable
+is 5,668,624 bytes stripped, a 180,000-byte increase over the prior build, and
+passes all 536 dispatcher comparisons, the full 14,022-case Coreutils and
+util-linux replay, the complete M4 and pkgconf replays, File's 174 exact CLI
+comparisons, and Valgrind.
 
 ## Work queue after util-linux
 
@@ -272,7 +279,7 @@ Library-only checkpoints (outside the active utility order):
      `bomtool`, `pccritic`, and `spdxtool`; use this maintained implementation
      instead of the dormant freedesktop pkg-config 0.29.2 codebase.
    - [x] M4 1.4.21 — `m4`; integrated at canonical parity.
-   - [ ] File — `file`.
+   - [x] File 5.48 — `file`; integrated at canonical parity.
    - [ ] patch — `patch`.
    - [ ] sed — `sed`.
    - [ ] Diffutils — `cmp`, `diff`, `diff3`, `sdiff`.

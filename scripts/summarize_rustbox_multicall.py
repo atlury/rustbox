@@ -25,6 +25,7 @@ def main() -> int:
     parser.add_argument("--differential-report", type=Path, required=True)
     parser.add_argument("--m4-report-directory", type=Path, required=True)
     parser.add_argument("--pkgconf-report-directory", type=Path, required=True)
+    parser.add_argument("--file-report-directory", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     binary = args.binary.resolve()
@@ -33,10 +34,11 @@ def main() -> int:
     differential = json.loads(args.differential_report.read_text(encoding="utf-8"))
     m4_directory = args.m4_report_directory.resolve()
     pkgconf_directory = args.pkgconf_report_directory.resolve()
+    file_directory = args.file_report_directory.resolve()
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
-    if dispatch["cases"] != 534 or dispatch["passed"] != 534 or dispatch["failures"]:
+    if dispatch["cases"] != 536 or dispatch["passed"] != 536 or dispatch["failures"]:
         raise RuntimeError("unified dispatcher comparison is incomplete")
     if (
         differential["batches"] != 38
@@ -72,6 +74,17 @@ def main() -> int:
         or "ERROR SUMMARY: 0 errors" not in pkgconf_valgrind
     ):
         raise RuntimeError("unified pkgconf integration comparison is incomplete")
+    file_differential_path = file_directory / "differential.json"
+    file_differential = json.loads(file_differential_path.read_text())
+    file_valgrind_path = file_directory / "valgrind.log"
+    file_valgrind = file_valgrind_path.read_text(errors="replace")
+    if (
+        not file_differential["gcc_clang_exact"]
+        or file_differential["comparisons"] != 174
+        or "ERROR SUMMARY: 0 errors" not in file_valgrind
+        or "All heap blocks were freed -- no leaks are possible" not in file_valgrind
+    ):
+        raise RuntimeError("unified File integration comparison is incomplete")
     if sha256(binary) != link["binary"]["sha256"]:
         raise RuntimeError("unified binary changed after link evidence")
     with tempfile.TemporaryDirectory(prefix="rustbox-strip-") as temporary:
@@ -97,13 +110,14 @@ def main() -> int:
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-20",
-        "status": "Coreutils, util-linux, GNU M4, and pkgconf integrated canonical parity",
+        "status": "Coreutils, util-linux, GNU M4, pkgconf, and File integrated canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
             "m4": 1,
             "pkgconf_public_names": 5,
-            "dispatch_names": 267,
+            "file": 1,
+            "dispatch_names": 268,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -132,12 +146,19 @@ def main() -> int:
             "fixture_log_sha256": sha256(pkgconf_fixture_path),
             "valgrind_log_sha256": sha256(pkgconf_valgrind_path),
         },
+        "file_integration": {
+            "differential": file_differential,
+            "valgrind_errors": 0,
+            "differential_sha256": sha256(file_differential_path),
+            "valgrind_log_sha256": sha256(file_valgrind_path),
+        },
         "collision_isolation": {
             "translated_libraries": len(link["source_library_sha256"]),
             "namespaced_libraries": len(link["namespaced_symbols"]),
             "namespaced_symbols": sum(len(items) for items in link["namespaced_symbols"].values()),
             "namespaced_support_objects": len(link["namespaced_support_symbols"]),
             "m4_namespaced_support_symbols": len(link["m4_namespaced_support_symbols"]),
+            "file_namespaced_symbols": len(link["file_namespaced_symbols"]),
             "manifest": link,
         },
     }

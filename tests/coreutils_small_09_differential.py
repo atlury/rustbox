@@ -45,7 +45,7 @@ STATELESS: dict[bytes, list[tuple[list[bytes], bytes]]] = {
         ([b"--apparent-size", b"-b", b"/dev/null"], b""),
         ([b"--inodes", b"/dev/null"], b""),
         ([b"--max-depth=0", b"/dev/null"], b""),
-        ([b"--exclude=*", b"/dev/null"], b""), ([b"-x"], b""),
+        ([b"--exclude=*", b"/dev/null"], b""), ([b"-x", b"/dev/null"], b""),
     ],
     b"split": [([b"--number=bad"], b""), ([b"-x"], b"")],
     b"tail": [

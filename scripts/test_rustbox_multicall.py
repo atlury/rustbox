@@ -41,6 +41,7 @@ def main() -> int:
     parser.add_argument("--util-linux-build", type=Path, required=True)
     parser.add_argument("--m4-oracle", type=Path, required=True)
     parser.add_argument("--pkgconf-oracle-dir", type=Path, required=True)
+    parser.add_argument("--file-oracle", type=Path, required=True)
     parser.add_argument("--rustbox", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
@@ -50,6 +51,7 @@ def main() -> int:
     util_build = args.util_linux_build.resolve()
     m4_oracle = args.m4_oracle.resolve()
     pkgconf_oracle_dir = args.pkgconf_oracle_dir.resolve()
+    file_oracle = args.file_oracle.resolve()
     failures: list[dict[str, object]] = []
     cases = 0
 
@@ -105,6 +107,13 @@ def main() -> int:
             if oracle != actual:
                 failures.append({"suite": "pkgconf", "applet": name, "option": option, "oracle": oracle, "actual": actual})
 
+    for option in ("--help", "--version"):
+        cases += 1
+        oracle = invoke(["file", option], executable=file_oracle)
+        actual = invoke([str(rustbox), "file", option])
+        if oracle != actual:
+            failures.append({"suite": "file", "applet": "file", "option": option, "oracle": oracle, "actual": actual})
+
     result = {
         "schema": 1,
         "cases": cases,
@@ -113,6 +122,7 @@ def main() -> int:
         "util_linux_applets": len(util_names),
         "m4_applets": 1,
         "pkgconf_public_names": len(pkgconf_names),
+        "file_applets": 1,
         "failures": failures,
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
@@ -125,7 +135,7 @@ def main() -> int:
         + "\n",
         encoding="utf-8",
     )
-    print(json.dumps({key: result[key] for key in ("cases", "passed", "coreutils_applets", "util_linux_applets", "m4_applets", "pkgconf_public_names")}))
+    print(json.dumps({key: result[key] for key in ("cases", "passed", "coreutils_applets", "util_linux_applets", "m4_applets", "pkgconf_public_names", "file_applets")}))
     return 1 if failures else 0
 
 
