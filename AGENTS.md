@@ -8,8 +8,14 @@
   except for shared infrastructure needed by both.
 - Rustbox is one multicall executable.  Do not introduce final per-applet
   executables or duplicate shared runtimes.
+- The final multicall must be a fully static, self-contained ELF with no
+  `DT_NEEDED` entries.  Canonical oracle builds may use host libraries, but
+  integrated utilities must not require package shared libraries at runtime.
 - Preserve raw Unix argument and filename bytes.  Do not insert UTF-8
   assumptions into canonical byte-oriented paths.
+- Record raw-pointer and `unsafe` inventories during translation.  Their
+  removal and the final move to a Rustbox-owned `no_std` runtime are later,
+  separate behavior-preserving phases and do not block utility coverage.
 
 ## Transformation discipline
 

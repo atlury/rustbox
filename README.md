@@ -113,6 +113,17 @@ help/version oracle comparisons and all 14,022 cases in the 38 original batch
 differential harnesses.  `chcon` and `runcon` remain absent, and the linked
 binary has no SELinux or systemd dependency.
 
+The final Rustbox executable is required to be self-contained: utility
+implementations and any required support code must be linked into the one
+multicall artifact, with no runtime dependency on package shared libraries.
+The release gate will require a fully static ELF with no `DT_NEEDED` entries;
+dynamic canonical builds remain permitted only as independent test oracles.
+After utility coverage and static parity are complete, hardening proceeds in
+separate behavior-preserving phases: eliminate raw pointers and `unsafe`, then
+replace `std` with Rustbox-owned `no_std` runtime facilities.  Pointer and
+`unsafe` inventories are recorded now, but they do not block the current
+utility-completion tranche.
+
 The next canonical oracle is zlib 1.4.  Its signed release, independent GCC
 and Clang builds, 18-case upstream CTest suite, sanitizer and Valgrind gates,
 111-symbol ABI comparison, and reviewed static-analysis findings are recorded
@@ -139,10 +150,21 @@ complexity; build dependencies may be prepared earlier when a queued package
 requires them.  Names include canonical installed aliases, but not examples or
 test-only binaries.  The duplicate `gzip` request is represented once.
 
-1. Small libraries and single-purpose tools:
-   - [x] zlib 1.4 — isolated stable Rust compression library at canonical
-     parity; no installed applet (`minigzip` is an example/test helper), and
-     final shared/static multicall linkage is deferred by policy.
+Standalone library-only work stays isolated and does not block the utility
+queue.  Zlib 1.4 is complete at canonical parity as an isolated stable Rust
+library; its final shared/static linkage remains deferred.  Readline's
+library-only tranche is likewise deferred until a utility consumer requires
+it.  Libraries that are inseparable from an installed utility may be built and
+verified with that utility, but executable integration remains the priority.
+
+Library-only checkpoints (outside the active utility order):
+
+- [x] zlib 1.4 — isolated stable Rust library at canonical parity; no
+  installed applet (`minigzip` is an example/test helper).
+- [ ] Readline — isolated `readline` and `history` libraries; no canonical
+  installed applet (`rlfe` remains an example).
+
+1. Small and single-purpose utilities:
    - [ ] pkgconf 3.0.10 — `pkgconf`, its compatible `pkg-config` alias,
      `bomtool`, `pccritic`, and `spdxtool`; use this maintained implementation
      instead of the dormant freedesktop pkg-config 0.29.2 codebase.
@@ -169,8 +191,6 @@ test-only binaries.  The duplicate `gzip` request is represented once.
      `tic`, `toe`, `tput`, `tset`, `reset`, and the generated
      `ncurses*-config` helper; shared `ncurses`, `panel`, `form`, and `menu`
      libraries are part of the same integration.
-   - [ ] Readline — shared `readline` and `history` libraries; no canonical
-     installed applet (`rlfe` remains an example).
    - [ ] less — `less`, `lesskey`, `lessecho`.
 3. Multi-tool text processing and source generators:
    - [ ] Findutils — `find`, `xargs`, `locate`, `updatedb`.
