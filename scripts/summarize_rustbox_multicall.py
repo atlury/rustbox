@@ -23,13 +23,18 @@ def main() -> int:
     parser.add_argument("--link-report", type=Path, required=True)
     parser.add_argument("--dispatch-report", type=Path, required=True)
     parser.add_argument("--differential-report", type=Path, required=True)
+    parser.add_argument("--m4-report-directory", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     binary = args.binary.resolve()
     link = json.loads(args.link_report.read_text(encoding="utf-8"))
     dispatch = json.loads(args.dispatch_report.read_text(encoding="utf-8"))
     differential = json.loads(args.differential_report.read_text(encoding="utf-8"))
-    if dispatch["cases"] != 522 or dispatch["passed"] != 522 or dispatch["failures"]:
+    m4_directory = args.m4_report_directory.resolve()
+    m4_differential = json.loads((m4_directory / "differential.json").read_text())
+    m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
+    m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
+    if dispatch["cases"] != 524 or dispatch["passed"] != 524 or dispatch["failures"]:
         raise RuntimeError("unified dispatcher comparison is incomplete")
     if (
         differential["batches"] != 38
@@ -38,6 +43,16 @@ def main() -> int:
         or differential["failed_batches"]
     ):
         raise RuntimeError("unified batch differential comparison is incomplete")
+    m4_numbered = set(re.findall(r"^Checking .*/checks/(\d{3})\.", m4_language, re.MULTILINE))
+    if (
+        len(m4_numbered) != 242
+        or "All checks successful" not in m4_language
+        or "stackovf.test" not in m4_language
+        or not m4_differential["canonical_hybrid_exact"]
+        or m4_differential["comparisons"] != 108
+        or "ERROR SUMMARY: 0 errors" not in m4_valgrind
+    ):
+        raise RuntimeError("unified M4 integration comparison is incomplete")
     if sha256(binary) != link["binary"]["sha256"]:
         raise RuntimeError("unified binary changed after link evidence")
     with tempfile.TemporaryDirectory(prefix="rustbox-strip-") as temporary:
@@ -63,11 +78,12 @@ def main() -> int:
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-20",
-        "status": "Coreutils and util-linux integrated canonical parity",
+        "status": "Coreutils, util-linux, and GNU M4 integrated canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
-            "dispatch_names": 261,
+            "m4": 1,
+            "dispatch_names": 262,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -80,11 +96,20 @@ def main() -> int:
         },
         "dispatch": dispatch,
         "batch_differential": differential,
+        "m4_integration": {
+            "numbered_language_checks": len(m4_numbered),
+            "stack_overflow_check": "pass",
+            "differential": m4_differential,
+            "valgrind_errors": 0,
+            "language_log_sha256": sha256(m4_directory / "language-check.log"),
+            "valgrind_log_sha256": sha256(m4_directory / "valgrind.log"),
+        },
         "collision_isolation": {
             "translated_libraries": len(link["source_library_sha256"]),
             "namespaced_libraries": len(link["namespaced_symbols"]),
             "namespaced_symbols": sum(len(items) for items in link["namespaced_symbols"].values()),
             "namespaced_support_objects": len(link["namespaced_support_symbols"]),
+            "m4_namespaced_support_symbols": len(link["m4_namespaced_support_symbols"]),
             "manifest": link,
         },
     }

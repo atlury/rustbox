@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Link every verified Coreutils translation into one Rustbox dispatcher."""
+"""Link all verified utility translations into one Rustbox dispatcher."""
 
 from __future__ import annotations
 
@@ -102,6 +102,49 @@ def namespace_duplicate_c_symbols(
         rewritten.append(output)
         report[library.name] = selected
     return rewritten, report
+
+
+def namespace_m4_support(
+    rust_library: Path, support_library: Path, build: Path
+) -> tuple[Path, Path, list[str]]:
+    """Keep M4's configured gnulib closure private to its translated applet."""
+    strong_types = {"B", "C", "D", "G", "R", "S", "T"}
+    output = subprocess.run(
+        ["nm", "-g", "--defined-only", str(support_library)],
+        check=True,
+        text=True,
+        stdout=subprocess.PIPE,
+    ).stdout
+    symbols = sorted({
+        fields[-1]
+        for line in output.splitlines()
+        if len(fields := line.split()) >= 3
+        and fields[-2] in strong_types
+        and re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", fields[-1])
+    })
+    if not symbols:
+        raise RuntimeError("GNU M4 support archive exports no namespaceable symbols")
+    destination = build / "src/.rustbox-m4-support"
+    destination.mkdir(parents=True, exist_ok=True)
+    mapped_rust = destination / rust_library.name
+    mapped_support = destination / support_library.name
+    mapping = destination / "symbols.map"
+    mapping.write_text(
+        "".join(f"{symbol} rustbox_m4_support_{symbol}\n" for symbol in symbols),
+        encoding="utf-8",
+    )
+    shutil.copy2(rust_library, mapped_rust)
+    shutil.copy2(support_library, mapped_support)
+    subprocess.run(["objcopy", "--redefine-syms", str(mapping), str(mapped_rust)], check=True)
+    subprocess.run(["objcopy", "--redefine-syms", str(mapping), str(mapped_support)], check=True)
+    if defined_symbols(mapped_rust).count("rustbox_m4_main") != 1:
+        raise RuntimeError("M4 support isolation damaged its public entrypoint")
+    mapped_definitions = set(defined_symbols(mapped_support))
+    if any(symbol in mapped_definitions for symbol in symbols):
+        raise RuntimeError("M4 support isolation left an unprefixed definition")
+    if any(f"rustbox_m4_support_{symbol}" not in mapped_definitions for symbol in symbols):
+        raise RuntimeError("M4 support isolation lost a definition")
+    return mapped_rust, mapped_support, symbols
 
 
 def util_linux_link_inputs(
@@ -245,6 +288,7 @@ def write_dispatcher(
 extern char *program_invocation_name;
 extern char *program_invocation_short_name;
 extern int rustbox_coreutils_dispatch(int, char **);
+extern int rustbox_m4_main(int, char **);
 """
         + declarations
         + """
@@ -299,6 +343,8 @@ int main(int argc, char **argv)
     }
     if (!force_util_linux && is_coreutils(name))
         return rustbox_coreutils_dispatch(argc, argv);
+    if (!force_util_linux && strcmp(name, "m4") == 0)
+        return rustbox_m4_main(argc, argv);
 """
         + selections
         + """
@@ -316,11 +362,15 @@ def main() -> int:
     parser.add_argument("--repository", type=Path, required=True)
     parser.add_argument("--coreutils-build", type=Path, required=True)
     parser.add_argument("--util-linux-build", type=Path, required=True)
+    parser.add_argument("--m4-rust-library", type=Path, required=True)
+    parser.add_argument("--m4-support-library", type=Path, required=True)
     parser.add_argument("--link-report", type=Path, required=True)
     args = parser.parse_args()
     repository = args.repository.resolve()
     build = args.coreutils_build.resolve()
     util_build = args.util_linux_build.resolve()
+    m4_rust_library = args.m4_rust_library.resolve()
+    m4_support_library = args.m4_support_library.resolve()
     makefile = build / "Makefile"
     if not makefile.is_file():
         raise RuntimeError("canonical Coreutils build is missing")
@@ -399,13 +449,23 @@ def main() -> int:
     util_public_count = len(util_dispatch)
     util_dispatch["util-linux-kill"] = util_dispatch["kill"]
     libraries.extend(util_libraries)
+    for path in (m4_rust_library, m4_support_library):
+        if not path.is_file():
+            raise RuntimeError(f"GNU M4 multicall input is missing: {path}")
+    libraries.append(m4_rust_library)
     source_library_hashes = {str(path.relative_to(repository)): sha256(path) for path in libraries}
+    source_library_hashes[str(m4_support_library)] = sha256(m4_support_library)
     expected_symbols.update(f"rustbox_{symbol}_main" for symbol in util_dispatch.values())
+    expected_symbols.add("rustbox_m4_main")
 
     canonical_dispatch_symbols = set(defined_symbols(build / "src/coreutils-coreutils.o"))
     libraries, namespaced_symbols = namespace_duplicate_c_symbols(
         libraries, expected_symbols, canonical_dispatch_symbols, build
     )
+    mapped_m4_rust, mapped_m4_support, m4_support_symbols = namespace_m4_support(
+        libraries[-1], m4_support_library, build
+    )
+    libraries[-1] = mapped_m4_rust
     rust_defined = canonical_dispatch_symbols | set().union(
         *(set(defined_symbols(path)) for path in libraries)
     )
@@ -456,6 +516,7 @@ def main() -> int:
                 rewritten.extend(str(path) for path in libraries)
                 rewritten.extend(str(path) for path in typed_bridge_objects)
                 rewritten.extend(str(path) for path in util_inputs)
+                rewritten.append(str(mapped_m4_support))
                 inserted = True
             if dependency in bridge_archives:
                 rewritten.append(str(bridge_archives[dependency]))
@@ -525,7 +586,8 @@ def main() -> int:
         "schema": 1,
         "coreutils_applets": len(applets),
         "util_linux_applets": 155,
-        "total_dispatch_names": len(set(applets) | set(util_dispatch)),
+        "m4_applets": 1,
+        "total_dispatch_names": len(set(applets) | set(util_dispatch) | {"m4"}),
         "excluded": ["chcon", "runcon"],
         "public_name_precedence": {"kill": "GNU Coreutils", "util-linux-kill": "util-linux"},
         "namespaced_canonical_symbols": {
@@ -537,6 +599,7 @@ def main() -> int:
         "source_library_sha256": source_library_hashes,
         "namespaced_symbols": namespaced_symbols,
         "namespaced_support_symbols": namespaced_support,
+        "m4_namespaced_support_symbols": m4_support_symbols,
         "binary": {
             "bytes": output.stat().st_size,
             "sha256": sha256(output),
@@ -552,6 +615,7 @@ def main() -> int:
         "namespaced_symbols": sum(len(items) for items in namespaced_symbols.values()),
         "namespaced_support_objects": len(namespaced_support),
         "util_linux_applets": util_public_count,
+        "m4_applets": 1,
         "output": str(output),
     }))
     return 0

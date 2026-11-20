@@ -106,12 +106,13 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 261
-distinct public names (106 Coreutils and 155 util-linux applets, with `kill`
-shared and `util-linux-kill` available explicitly).  It passes all 522
-help/version oracle comparisons and all 14,022 cases in the 38 original batch
-differential harnesses.  `chcon` and `runcon` remain absent, and the linked
-binary has no SELinux or systemd dependency.
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 262
+distinct public names (106 Coreutils, 155 util-linux applets, and GNU M4, with
+`kill` shared and `util-linux-kill` available explicitly).  It passes all 524
+help/version oracle comparisons, all 14,022 cases in the 38 original batch
+differential harnesses, and M4's full 242-check language suite, stack-overflow
+check, 108-case differential suite, and Valgrind.  `chcon` and `runcon` remain
+absent, and the linked binary has no SELinux or systemd dependency.
 
 The final Rustbox executable is required to be self-contained: utility
 implementations and any required support code must be linked into the one
@@ -159,7 +160,10 @@ hybrid passes all 242 numbered language checks, the stack-overflow check, 108
 additional exact differential comparisons, and Valgrind.  Its linked stripped
 artifact is 531,000 bytes with 375,330 bytes of `.text`; the 23.7 MB Rust
 static archive is intermediate linker inventory, not the release footprint.
-Single-multicall integration is the next M4 gate.
+M4 is integrated into the single Rustbox binary with 436 configured gnulib
+support symbols privately namespaced.  It increases the stripped multicall by
+193,504 bytes, from 5,094,096 to 5,287,600 bytes, and passes its entire parity
+suite through multicall dispatch.
 
 ## Work queue after util-linux
 
@@ -190,7 +194,7 @@ Library-only checkpoints (outside the active utility order):
    - [ ] pkgconf 3.0.10 — `pkgconf`, its compatible `pkg-config` alias,
      `bomtool`, `pccritic`, and `spdxtool`; use this maintained implementation
      instead of the dormant freedesktop pkg-config 0.29.2 codebase.
-   - [ ] M4 1.4.21 — `m4`.
+   - [x] M4 1.4.21 — `m4`; integrated at canonical parity.
    - [ ] File — `file`.
    - [ ] patch — `patch`.
    - [ ] sed — `sed`.

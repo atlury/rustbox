@@ -39,6 +39,7 @@ def main() -> int:
     parser.add_argument("--repository", type=Path, required=True)
     parser.add_argument("--coreutils-build", type=Path, required=True)
     parser.add_argument("--util-linux-build", type=Path, required=True)
+    parser.add_argument("--m4-oracle", type=Path, required=True)
     parser.add_argument("--rustbox", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
@@ -46,6 +47,7 @@ def main() -> int:
     rustbox = args.rustbox.resolve()
     core_oracle = args.coreutils_build.resolve() / "src/coreutils"
     util_build = args.util_linux_build.resolve()
+    m4_oracle = args.m4_oracle.resolve()
     failures: list[dict[str, object]] = []
     cases = 0
 
@@ -83,12 +85,20 @@ def main() -> int:
     if len(util_names) != 155:
         raise RuntimeError(f"expected 155 util-linux public names, found {len(util_names)}")
 
+    for option in ("--help", "--version"):
+        cases += 1
+        oracle = invoke(["m4", option], executable=m4_oracle)
+        actual = invoke([str(rustbox), "m4", option])
+        if oracle != actual:
+            failures.append({"suite": "m4", "applet": "m4", "option": option, "oracle": oracle, "actual": actual})
+
     result = {
         "schema": 1,
         "cases": cases,
         "passed": cases - len(failures),
         "coreutils_applets": len(core_names),
         "util_linux_applets": len(util_names),
+        "m4_applets": 1,
         "failures": failures,
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
@@ -101,7 +111,7 @@ def main() -> int:
         + "\n",
         encoding="utf-8",
     )
-    print(json.dumps({key: result[key] for key in ("cases", "passed", "coreutils_applets", "util_linux_applets")}))
+    print(json.dumps({key: result[key] for key in ("cases", "passed", "coreutils_applets", "util_linux_applets", "m4_applets")}))
     return 1 if failures else 0
 
 
