@@ -10,4 +10,5 @@ RUSTBOX_TOOL_IMAGE=rustbox-normalize:2026-11-19 \
     --dispatch-report /work/work/analysis/rustbox-multicall-dispatch.json \
     --differential-report /work/work/analysis/rustbox-multicall-differential.json \
     --m4-report-directory /work/work/analysis/m4-1.4.21/multicall \
+    --pkgconf-report-directory /work/work/analysis/pkgconf-3.0.11/multicall \
     --output /work/evidence/rustbox-multicall.json

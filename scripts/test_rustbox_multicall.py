@@ -40,6 +40,7 @@ def main() -> int:
     parser.add_argument("--coreutils-build", type=Path, required=True)
     parser.add_argument("--util-linux-build", type=Path, required=True)
     parser.add_argument("--m4-oracle", type=Path, required=True)
+    parser.add_argument("--pkgconf-oracle-dir", type=Path, required=True)
     parser.add_argument("--rustbox", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
@@ -48,6 +49,7 @@ def main() -> int:
     core_oracle = args.coreutils_build.resolve() / "src/coreutils"
     util_build = args.util_linux_build.resolve()
     m4_oracle = args.m4_oracle.resolve()
+    pkgconf_oracle_dir = args.pkgconf_oracle_dir.resolve()
     failures: list[dict[str, object]] = []
     cases = 0
 
@@ -92,6 +94,17 @@ def main() -> int:
         if oracle != actual:
             failures.append({"suite": "m4", "applet": "m4", "option": option, "oracle": oracle, "actual": actual})
 
+    pkgconf_names = ["pkgconf", "pkg-config", "bomtool", "pccritic", "spdxtool"]
+    for name in pkgconf_names:
+        oracle_name = "pkgconf" if name == "pkg-config" else name
+        oracle_binary = pkgconf_oracle_dir / oracle_name
+        for option in ("--help", "--version"):
+            cases += 1
+            oracle = invoke([name, option], executable=oracle_binary)
+            actual = invoke([str(rustbox), name, option])
+            if oracle != actual:
+                failures.append({"suite": "pkgconf", "applet": name, "option": option, "oracle": oracle, "actual": actual})
+
     result = {
         "schema": 1,
         "cases": cases,
@@ -99,6 +112,7 @@ def main() -> int:
         "coreutils_applets": len(core_names),
         "util_linux_applets": len(util_names),
         "m4_applets": 1,
+        "pkgconf_public_names": len(pkgconf_names),
         "failures": failures,
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
@@ -111,7 +125,7 @@ def main() -> int:
         + "\n",
         encoding="utf-8",
     )
-    print(json.dumps({key: result[key] for key in ("cases", "passed", "coreutils_applets", "util_linux_applets", "m4_applets")}))
+    print(json.dumps({key: result[key] for key in ("cases", "passed", "coreutils_applets", "util_linux_applets", "m4_applets", "pkgconf_public_names")}))
     return 1 if failures else 0
 
 

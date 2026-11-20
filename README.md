@@ -45,6 +45,8 @@ scoring, and correctness gates.
 |---|---:|---:|---:|---:|
 | GNU Coreutils 9.12 | 108 | 108 | 106 | 106 |
 | util-linux 2.42.4 | 155 | 155 | 155 | 155 |
+| GNU M4 1.4.21 | 1 | 1 | 1 | 1 |
+| pkgconf 3.0.11 | 5 | 5 | 5 | 5 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -106,13 +108,16 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 262
-distinct public names (106 Coreutils, 155 util-linux applets, and GNU M4, with
-`kill` shared and `util-linux-kill` available explicitly).  It passes all 524
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 267
+distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, and five
+pkgconf names, with `kill` shared and `util-linux-kill` available explicitly).
+It passes all 534
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
-check, 108-case differential suite, and Valgrind.  `chcon` and `runcon` remain
-absent, and the linked binary has no SELinux or systemd dependency.
+check, 108-case differential suite, and Valgrind.  Pkgconf also passes all 429
+CLI fixture checks, 55 exact differential comparisons, and Valgrind through
+the unified dispatcher.  `chcon` and `runcon` remain absent, and the linked
+binary has no SELinux or systemd dependency.
 
 The final Rustbox executable is required to be self-contained: utility
 implementations and any required support code must be linked into the one
@@ -191,7 +196,11 @@ failure fuzz replays.  Fifty-five additional exact differential comparisons
 and six Valgrind smokes pass.  The four-tool hybrid is 521,560 bytes stripped
 (509 KiB), versus 490,848 bytes for the four separate canonical executables;
 full parity and size evidence are in `evidence/pkgconf-3.0.11-hybrid.json`.
-Single-binary Rustbox integration is next.
+Pkgconf is integrated into Rustbox under five public names.  It increases the
+stripped multicall by 201,024 bytes, from 5,287,600 to 5,488,624 bytes.  The
+resulting 267-name executable passes all 534 dispatcher comparisons, the full
+14,022-case Coreutils/util-linux replay, the complete M4 replay, and pkgconf's
+429 CLI fixture checks, 55 exact differential comparisons, and Valgrind.
 
 ## Work queue after util-linux
 
@@ -219,7 +228,7 @@ Library-only checkpoints (outside the active utility order):
   installed applet (`rlfe` remains an example).
 
 1. Small and single-purpose utilities:
-   - [ ] pkgconf 3.0.11 — `pkgconf`, its compatible `pkg-config` alias,
+   - [x] pkgconf 3.0.11 — `pkgconf`, its compatible `pkg-config` alias,
      `bomtool`, `pccritic`, and `spdxtool`; use this maintained implementation
      instead of the dormant freedesktop pkg-config 0.29.2 codebase.
    - [x] M4 1.4.21 — `m4`; integrated at canonical parity.

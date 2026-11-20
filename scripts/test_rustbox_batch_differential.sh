@@ -10,4 +10,5 @@ RUSTBOX_TOOL_IMAGE=rustbox-normalize:2026-11-19 \
     --util-linux-build /rustbox-util-linux/canonical-clang-compdb \
     --rustbox /rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox \
     --report-directory /work/work/analysis/rustbox-multicall-differential \
+    --jobs 8 --reuse-passing \
     --output /work/work/analysis/rustbox-multicall-differential.json

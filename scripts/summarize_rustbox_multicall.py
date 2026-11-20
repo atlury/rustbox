@@ -24,6 +24,7 @@ def main() -> int:
     parser.add_argument("--dispatch-report", type=Path, required=True)
     parser.add_argument("--differential-report", type=Path, required=True)
     parser.add_argument("--m4-report-directory", type=Path, required=True)
+    parser.add_argument("--pkgconf-report-directory", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     binary = args.binary.resolve()
@@ -31,10 +32,11 @@ def main() -> int:
     dispatch = json.loads(args.dispatch_report.read_text(encoding="utf-8"))
     differential = json.loads(args.differential_report.read_text(encoding="utf-8"))
     m4_directory = args.m4_report_directory.resolve()
+    pkgconf_directory = args.pkgconf_report_directory.resolve()
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
-    if dispatch["cases"] != 524 or dispatch["passed"] != 524 or dispatch["failures"]:
+    if dispatch["cases"] != 534 or dispatch["passed"] != 534 or dispatch["failures"]:
         raise RuntimeError("unified dispatcher comparison is incomplete")
     if (
         differential["batches"] != 38
@@ -53,6 +55,23 @@ def main() -> int:
         or "ERROR SUMMARY: 0 errors" not in m4_valgrind
     ):
         raise RuntimeError("unified M4 integration comparison is incomplete")
+    pkgconf_fixture_path = pkgconf_directory / "fixture-tests.log"
+    pkgconf_fixture = pkgconf_fixture_path.read_text(errors="replace")
+    pkgconf_fixture_passes = len(re.findall(r"^PASS:", pkgconf_fixture, re.MULTILINE))
+    pkgconf_fixture_skips = len(re.findall(r"^SKIP:", pkgconf_fixture, re.MULTILINE))
+    pkgconf_differential_path = pkgconf_directory / "differential.json"
+    pkgconf_differential = json.loads(pkgconf_differential_path.read_text())
+    pkgconf_valgrind_path = pkgconf_directory / "valgrind.log"
+    pkgconf_valgrind = pkgconf_valgrind_path.read_text(errors="replace")
+    if (
+        pkgconf_fixture_passes != 429
+        or pkgconf_fixture_skips != 5
+        or re.search(r"^(?:FAIL|ERROR):", pkgconf_fixture, re.MULTILINE)
+        or not pkgconf_differential["canonical_hybrid_exact"]
+        or pkgconf_differential["comparisons"] != 55
+        or "ERROR SUMMARY: 0 errors" not in pkgconf_valgrind
+    ):
+        raise RuntimeError("unified pkgconf integration comparison is incomplete")
     if sha256(binary) != link["binary"]["sha256"]:
         raise RuntimeError("unified binary changed after link evidence")
     with tempfile.TemporaryDirectory(prefix="rustbox-strip-") as temporary:
@@ -78,12 +97,13 @@ def main() -> int:
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-20",
-        "status": "Coreutils, util-linux, and GNU M4 integrated canonical parity",
+        "status": "Coreutils, util-linux, GNU M4, and pkgconf integrated canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
             "m4": 1,
-            "dispatch_names": 262,
+            "pkgconf_public_names": 5,
+            "dispatch_names": 267,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -103,6 +123,14 @@ def main() -> int:
             "valgrind_errors": 0,
             "language_log_sha256": sha256(m4_directory / "language-check.log"),
             "valgrind_log_sha256": sha256(m4_directory / "valgrind.log"),
+        },
+        "pkgconf_integration": {
+            "fixture_passes": pkgconf_fixture_passes,
+            "intentional_platform_skips": pkgconf_fixture_skips,
+            "differential": pkgconf_differential,
+            "valgrind_errors": 0,
+            "fixture_log_sha256": sha256(pkgconf_fixture_path),
+            "valgrind_log_sha256": sha256(pkgconf_valgrind_path),
         },
         "collision_isolation": {
             "translated_libraries": len(link["source_library_sha256"]),

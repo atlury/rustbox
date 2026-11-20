@@ -289,6 +289,10 @@ extern char *program_invocation_name;
 extern char *program_invocation_short_name;
 extern int rustbox_coreutils_dispatch(int, char **);
 extern int rustbox_m4_main(int, char **);
+extern int rustbox_pkgconf_main(int, char **);
+extern int rustbox_bomtool_main(int, char **);
+extern int rustbox_pccritic_main(int, char **);
+extern int rustbox_spdxtool_main(int, char **);
 """
         + declarations
         + """
@@ -345,6 +349,14 @@ int main(int argc, char **argv)
         return rustbox_coreutils_dispatch(argc, argv);
     if (!force_util_linux && strcmp(name, "m4") == 0)
         return rustbox_m4_main(argc, argv);
+    if (!force_util_linux && (strcmp(name, "pkgconf") == 0 || strcmp(name, "pkg-config") == 0))
+        return rustbox_pkgconf_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "bomtool") == 0)
+        return rustbox_bomtool_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "pccritic") == 0)
+        return rustbox_pccritic_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "spdxtool") == 0)
+        return rustbox_spdxtool_main(argc, argv);
 """
         + selections
         + """
@@ -364,6 +376,7 @@ def main() -> int:
     parser.add_argument("--util-linux-build", type=Path, required=True)
     parser.add_argument("--m4-rust-library", type=Path, required=True)
     parser.add_argument("--m4-support-library", type=Path, required=True)
+    parser.add_argument("--pkgconf-rust-library", type=Path, required=True)
     parser.add_argument("--link-report", type=Path, required=True)
     args = parser.parse_args()
     repository = args.repository.resolve()
@@ -371,6 +384,7 @@ def main() -> int:
     util_build = args.util_linux_build.resolve()
     m4_rust_library = args.m4_rust_library.resolve()
     m4_support_library = args.m4_support_library.resolve()
+    pkgconf_rust_library = args.pkgconf_rust_library.resolve()
     makefile = build / "Makefile"
     if not makefile.is_file():
         raise RuntimeError("canonical Coreutils build is missing")
@@ -449,23 +463,31 @@ def main() -> int:
     util_public_count = len(util_dispatch)
     util_dispatch["util-linux-kill"] = util_dispatch["kill"]
     libraries.extend(util_libraries)
-    for path in (m4_rust_library, m4_support_library):
+    for path in (m4_rust_library, m4_support_library, pkgconf_rust_library):
         if not path.is_file():
-            raise RuntimeError(f"GNU M4 multicall input is missing: {path}")
+            raise RuntimeError(f"multicall input is missing: {path}")
     libraries.append(m4_rust_library)
+    m4_library_index = len(libraries) - 1
+    libraries.append(pkgconf_rust_library)
     source_library_hashes = {str(path.relative_to(repository)): sha256(path) for path in libraries}
     source_library_hashes[str(m4_support_library)] = sha256(m4_support_library)
     expected_symbols.update(f"rustbox_{symbol}_main" for symbol in util_dispatch.values())
     expected_symbols.add("rustbox_m4_main")
+    expected_symbols.update({
+        "rustbox_pkgconf_main",
+        "rustbox_bomtool_main",
+        "rustbox_pccritic_main",
+        "rustbox_spdxtool_main",
+    })
 
     canonical_dispatch_symbols = set(defined_symbols(build / "src/coreutils-coreutils.o"))
     libraries, namespaced_symbols = namespace_duplicate_c_symbols(
         libraries, expected_symbols, canonical_dispatch_symbols, build
     )
     mapped_m4_rust, mapped_m4_support, m4_support_symbols = namespace_m4_support(
-        libraries[-1], m4_support_library, build
+        libraries[m4_library_index], m4_support_library, build
     )
-    libraries[-1] = mapped_m4_rust
+    libraries[m4_library_index] = mapped_m4_rust
     rust_defined = canonical_dispatch_symbols | set().union(
         *(set(defined_symbols(path)) for path in libraries)
     )
@@ -587,7 +609,12 @@ def main() -> int:
         "coreutils_applets": len(applets),
         "util_linux_applets": 155,
         "m4_applets": 1,
-        "total_dispatch_names": len(set(applets) | set(util_dispatch) | {"m4"}),
+        "pkgconf_public_names": 5,
+        "total_dispatch_names": len(
+            set(applets)
+            | set(util_dispatch)
+            | {"m4", "pkgconf", "pkg-config", "bomtool", "pccritic", "spdxtool"}
+        ),
         "excluded": ["chcon", "runcon"],
         "public_name_precedence": {"kill": "GNU Coreutils", "util-linux-kill": "util-linux"},
         "namespaced_canonical_symbols": {
@@ -616,6 +643,7 @@ def main() -> int:
         "namespaced_support_objects": len(namespaced_support),
         "util_linux_applets": util_public_count,
         "m4_applets": 1,
+        "pkgconf_public_names": 5,
         "output": str(output),
     }))
     return 0

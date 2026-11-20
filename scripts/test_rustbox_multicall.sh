@@ -9,5 +9,6 @@ RUSTBOX_TOOL_IMAGE=rustbox-normalize:2026-11-19 \
     --coreutils-build /rustbox-coreutils/canonical-clang-no-security-compdb \
     --util-linux-build /rustbox-util-linux/canonical-clang-compdb \
     --m4-oracle /rustbox-m4/normalized-clang/src/m4 \
+    --pkgconf-oracle-dir /rustbox-pkgconf/normalized-clang-static \
     --rustbox /rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox \
     --output /work/work/analysis/rustbox-multicall-dispatch.json

@@ -10,4 +10,5 @@ RUSTBOX_TOOL_IMAGE=rustbox-normalize:2026-11-19 \
     --util-linux-build /rustbox-util-linux/canonical-clang-compdb \
     --m4-rust-library /work/work/analysis/m4-1.4.21/translations/c2rust-0.22.1/m4-1.4.21-stable/target/release/libm4_1_4_21_normalized_audit.a \
     --m4-support-library /rustbox-m4/normalized-clang/lib/libm4.a \
+    --pkgconf-rust-library /work/work/analysis/pkgconf-3.0.11/translations/c2rust-0.22.1/pkgconf-3.0.11-stable/target/release/libpkgconf_3_0_11_normalized_audit.a \
     --link-report /work/work/analysis/rustbox-multicall-link.json
