@@ -341,16 +341,24 @@ analyzer/Tidy, Flawfinder, and Sparse then review exactly those 139 production
 sources.  Their ownership, nullability, configured-header, and parser reports
 have zero blocking findings after review; the complete immutable inventory and
 reasoning are in `evidence/diffutils-3.12-analysis.json`.  Deterministic
-normalization changes only the four program entrypoint sources, exporting
-`rustbox_cmp_main`, `rustbox_diff_main`, `rustbox_diff3_main`, and
-`rustbox_sdiff_main` behind conditional standalone wrappers without changing
-an algorithm.  GCC, Clang, and ASan/UBSan retain every canonical upstream
-test total; Valgrind retains the exact canonical resource baseline; and all 96
+normalization exports `rustbox_cmp_main`, `rustbox_diff_main`,
+`rustbox_diff3_main`, and `rustbox_sdiff_main` behind conditional standalone
+wrappers.  It also makes checked-arithmetic operand types, Boolean assignments,
+and one unreachable post-`_Noreturn` edge explicit for deterministic C2Rust
+translation without changing an algorithm.  GCC, Clang, and ASan/UBSan retain
+every canonical upstream test total; Valgrind retains the exact canonical
+resource baseline; and all 96
 canonical-versus-normalized behavior comparisons are byte-exact.  The exact
 139-source production closure, generated configuration, dynamic dependency,
 and entrypoint-symbol checks are recorded in
-`evidence/diffutils-3.12-normalization.json`.  Complete C2Rust translation is
-the next gate.
+`evidence/diffutils-3.12-normalization.json`.  C2Rust translates all 139
+production units with unused functions preserved and zero translation holes
+or generated-Rust repairs.  Both the raw pinned-nightly
+crate and its mechanically modernized Rust 1.99 archive compile; all four
+multicall entrypoints are exported exactly once.  Source, declaration-map,
+pointer/unsafe, toolchain, modernization, and archive inventories are recorded
+in `evidence/diffutils-3.12-c2rust.json`.  Hybrid linkage and parity are the
+next gate.
 
 ## Work queue after util-linux
 
@@ -387,7 +395,7 @@ Library-only checkpoints (outside the active utility order):
    - [x] GNU sed 4.10 — `sed`; integrated at canonical parity.
    - [ ] Diffutils 3.12 — `cmp`, `diff`, `diff3`, `sdiff`; signed canonical
      oracle, production analysis, and deterministic normalization complete;
-     complete C2Rust translation next.
+     complete hole-free C2Rust translation compiles; hybrid parity next.
    - [ ] Grep — `grep`, `egrep`, `fgrep`.
    - [ ] bc — `bc`, `dc`.
    - [ ] attr — `attr`, `getfattr`, `setfattr`.

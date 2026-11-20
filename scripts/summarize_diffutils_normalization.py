@@ -79,7 +79,20 @@ def main() -> int:
     normalized = repository / "work/analysis/diffutils-3.12/normalized"
     oracle = repository / "work/analysis/diffutils-3.12/oracle"
     manifest = json.loads((normalized / "normalization.json").read_text())
-    expected_changed = ["src/cmp.c", "src/diff.c", "src/diff3.c", "src/sdiff.c"]
+    expected_changed = [
+        "lib/c-stack.c",
+        "lib/malloca.c",
+        "lib/mktime.c",
+        "lib/xstrtol.c",
+        "src/analyze.c",
+        "src/cmp.c",
+        "src/context.c",
+        "src/diff.c",
+        "src/diff3.c",
+        "src/io.c",
+        "src/sdiff.c",
+        "src/side.c",
+    ]
     if manifest["changed_sources"] != expected_changed:
         raise RuntimeError("GNU Diffutils normalization changed an unexpected source set")
     if manifest["entrypoints"] != list(EXPORTS.values()):
@@ -188,7 +201,7 @@ def main() -> int:
 
     evidence = {
         "schema": 1,
-        "recorded_at": "2026-11-20",
+        "recorded_at": "2026-11-21",
         "release": "3.12",
         "transformation": manifest,
         "production": {

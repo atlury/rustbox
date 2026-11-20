@@ -90,7 +90,7 @@ RUSTBOX_TOOL_IMAGE=rustbox-diffutils:2026-11-20 \
     cp "$gcc_build/lib/config.h" "$output/config-gcc.h"
     cp "$clang_build/lib/config.h" "$output/config-clang.h"
     cmp "$gcc_build/src/version.c" "$clang_build/src/version.c"
-    cp "$gcc_build/src/version.c" "$output/version.c"
+    cp -f "$gcc_build/src/version.c" "$output/version.c"
     for utility in cmp diff diff3 sdiff; do
       cp "$gcc_build/src/$utility" "$output/$utility-gcc"
       cp "$clang_build/src/$utility" "$output/$utility-clang"

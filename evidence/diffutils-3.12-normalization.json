@@ -6,28 +6,28 @@
         "needed": [
           "libc.so.6"
         ],
-        "sha256": "3557087d63022805d8c077a79b5fd3f98884ae04aa839d99a3147899beeeaf02"
+        "sha256": "6c8bdae60a859610bd6cff4169ae18e7002c3298064dee5342bf6817d251dc51"
       },
       "diff": {
-        "bytes": 503832,
+        "bytes": 503824,
         "needed": [
           "libc.so.6"
         ],
-        "sha256": "7553925ff81e30f16c9797593b86240e1f9579d5c0c647dec5125a637e8b252a"
+        "sha256": "f4d46ab105dee66cf22705041b17377fe1dbc7da26d1d6b28411b4fac4013e43"
       },
       "diff3": {
-        "bytes": 188232,
+        "bytes": 188248,
         "needed": [
           "libc.so.6"
         ],
-        "sha256": "8caf36ed9c0cfb754096cc25e6a1302e319cb859f1f37a3b148a592a685e89bd"
+        "sha256": "8c08f6509d09f3285e97476ef606b9bc8c534734a184d2a96d75d31cca5b3096"
       },
       "sdiff": {
         "bytes": 190816,
         "needed": [
           "libc.so.6"
         ],
-        "sha256": "74166db37e2222d84e6d2cb08cf2230303f21fda7dc3d8cf0c346e7a63c2c5b9"
+        "sha256": "67e766f8ecabab1e8c0a2a35957a22235fcb33985d30f375e6882c7baafcad8c"
       }
     },
     "gcc": {
@@ -36,28 +36,28 @@
         "needed": [
           "libc.so.6"
         ],
-        "sha256": "41dcc21183584fd54a7807e0b4cfe6e5fc27bb268d1e4cab6cad686b1ffff44e"
+        "sha256": "df4e0dc86d4fba98d8ed679ad1bc1bcd98e8eb24f6246e4747cb49880dc83259"
       },
       "diff": {
-        "bytes": 651464,
+        "bytes": 651336,
         "needed": [
           "libc.so.6"
         ],
-        "sha256": "b68ca12eace88504803978b3ab12fac1b15d04df3aca16250337d1e80bc53923"
+        "sha256": "c204d5b237e6b17dfaf0c5839a54868d2694efe52d93b6d74043c6180adfa9b6"
       },
       "diff3": {
-        "bytes": 251368,
+        "bytes": 251760,
         "needed": [
           "libc.so.6"
         ],
-        "sha256": "b16806ed05b3c6ddc28558680921185d4bff398d16cfcec8de10df3579859ba1"
+        "sha256": "fdd20b7095151454c981ae45d209347b4821698cb62f40d11905266a8e7f29bf"
       },
       "sdiff": {
-        "bytes": 249160,
+        "bytes": 249168,
         "needed": [
           "libc.so.6"
         ],
-        "sha256": "deda76a002412c143d91a59084114947ffe173601f284d18fa8448e66297d2f3"
+        "sha256": "dc7ea8aac49ce57ebb6fb812d9db131a3b7da455614a3c0906795991b7fcf047"
       }
     }
   },
@@ -97,19 +97,19 @@
     "by_compiler": {
       "clang": {
         "captured_compile_actions": 178,
-        "compile_database_sha256": "840ec67fb8c47aff22580ed58208684c4c8221a7f95d720891fd17dd949fa264",
+        "compile_database_sha256": "874720a87d9c58a134b9a1c022007ef6a7da998ad3c92cba50b6cc053a3033c1",
         "production_sources": 139,
         "test_support_compile_actions": 39
       },
       "gcc": {
         "captured_compile_actions": 178,
-        "compile_database_sha256": "5f32c45be31ae3d352e3faac0439220f2c874aae1bded7f569713d91ce6adcd6",
+        "compile_database_sha256": "ee9e73121639b3cab0dbd25cf2b18d0541f5098cbf1580a62ee69b485cdb9561",
         "production_sources": 139,
         "test_support_compile_actions": 39
       },
       "sanitizer": {
         "captured_compile_actions": 180,
-        "compile_database_sha256": "6f4f231c84fa7b6774f4791612147942cc7ce5136dea2347e140d0d052b6834f",
+        "compile_database_sha256": "87428809598413db717258241c192fee77be41b71a6b9fd4f7e7764e94a7ac89",
         "production_sources": 141,
         "test_support_compile_actions": 39
       }
@@ -121,7 +121,7 @@
     ],
     "source_set_exact_across_gcc_clang": true
   },
-  "recorded_at": "2026-11-20",
+  "recorded_at": "2026-11-21",
   "release": "3.12",
   "schema": 1,
   "tests": {
@@ -144,7 +144,7 @@
         "xfail": 0,
         "xpass": 0
       },
-      "log_sha256": "c94b8d503551bf4d399e49a69f94d485d626e9a647e5df53c54af7e9f2bf3295"
+      "log_sha256": "75700c9da7a6f2cc167d3aed09f11cd7095905f624318ea3afdc5ee98109856b"
     },
     "gcc": {
       "diffutils": {
@@ -165,7 +165,7 @@
         "xfail": 0,
         "xpass": 0
       },
-      "log_sha256": "99bec3b44f5f58873e6648afdca740d6e008a58ee8f95c8a7e463a1a3d482c7e"
+      "log_sha256": "7c9901f6020a14c92e05687dd8dd1c2cedb8d3295b9780c0af9f9b5d7ab909bf"
     },
     "sanitizer": {
       "diffutils": {
@@ -186,17 +186,25 @@
         "xfail": 0,
         "xpass": 0
       },
-      "log_sha256": "a011a5239a2c2ddba6848193083cb3468a7ef1395cb0381305e0285800a2c0f2"
+      "log_sha256": "a5ac6717ff7cda11710577b0d25dfac5f7c9c0cc6d35e33d346c20fc69e665cd"
     }
   },
   "transformation": {
     "canonical_archive_sha256": "7c8b7f9fc8609141fdea9cece85249d308624391ff61dedaf528fcb337727dfd",
     "canonical_tree_sha256": "f5ca958cb45e26a885b5dc6ab3ba0edb7b159adb6a2d6259d14b8c777a870768",
     "changed_sources": [
+      "lib/c-stack.c",
+      "lib/malloca.c",
+      "lib/mktime.c",
+      "lib/xstrtol.c",
+      "src/analyze.c",
       "src/cmp.c",
+      "src/context.c",
       "src/diff.c",
       "src/diff3.c",
-      "src/sdiff.c"
+      "src/io.c",
+      "src/sdiff.c",
+      "src/side.c"
     ],
     "conditional": "RUSTBOX_MULTICALL",
     "engine": "exact deterministic source rewrite",
@@ -206,30 +214,79 @@
       "rustbox_diff3_main",
       "rustbox_sdiff_main"
     ],
-    "normalized_tree_sha256": "e2727e0da3a5561abe8e70bdb30b7ce082ccad84c472e469b179c34555b98665",
+    "normalized_tree_sha256": "75f6ad19bda4649b9c69207a25fb8dd13ce7835c26aa20c2d286d487ea5523ab",
     "release": "3.12",
     "schema": 1,
     "transformations": [
       {
+        "canonical_sha256": "9d287fac8d4e516b25c56ab52928bfecb115b44d9628f31651c48baafdff6fe3",
+        "engine": "exact deterministic source rewrite",
+        "normalized_sha256": "f20238125d5a5b0b6fbac1ac405b40b0c6c98469ed09561d44a9b5f18a05bac1",
+        "operation": "make checked arithmetic, Boolean assignment, or non-returning control flow explicit for C2Rust",
+        "source": "lib/c-stack.c"
+      },
+      {
+        "canonical_sha256": "af669118e496cb4ae83b655e46817f387c0c21ee96b109fa359800f3ef4f9bf0",
+        "engine": "exact deterministic source rewrite",
+        "normalized_sha256": "e315ed244d23da655ac67ab4f03e092ec4d6bf0e53b73f9d1f0a812df9c723e7",
+        "operation": "make checked arithmetic, Boolean assignment, or non-returning control flow explicit for C2Rust",
+        "source": "lib/malloca.c"
+      },
+      {
+        "canonical_sha256": "f9734ca8f8dba2b2a7dc28a453f39d813f91b2d43e98ab270a1989371b960086",
+        "engine": "exact deterministic source rewrite",
+        "normalized_sha256": "fffef7a49dea4eb6d0c35880e740447d17ee1f8fdd55395700ff39b67a75cff7",
+        "operation": "make checked arithmetic, Boolean assignment, or non-returning control flow explicit for C2Rust",
+        "source": "lib/mktime.c"
+      },
+      {
+        "canonical_sha256": "0c3d503d35a4a7c14df51fe8a290c05f13793bc4a1adb34364823853101931e8",
+        "engine": "exact deterministic source rewrite",
+        "normalized_sha256": "3344c6904caf0135daf030c85c10f6bc7f50171579323103cf66f55086b9013e",
+        "operation": "make checked arithmetic, Boolean assignment, or non-returning control flow explicit for C2Rust",
+        "source": "lib/xstrtol.c"
+      },
+      {
+        "canonical_sha256": "e6018af7c95c26d4c5538bfbe209a285f5bc91fd206772a097e28243558cccc2",
+        "engine": "exact deterministic source rewrite",
+        "normalized_sha256": "05a751d63bde2de0b4bf2b7c7d7dc2979742b0f6c78733ae75cea2ed00b62bc3",
+        "operation": "make checked arithmetic, Boolean assignment, or non-returning control flow explicit for C2Rust",
+        "source": "src/analyze.c"
+      },
+      {
         "canonical_sha256": "9fc2b64cecfaa008fde27ec0ee177b8a17ac3b05d851e06e40f6db62e276d42c",
         "engine": "exact deterministic source rewrite",
-        "normalized_sha256": "801754827bfda6b02f535d7bff4b2368e738ffbb6cef9c168dc53e29b49d920d",
-        "operation": "export rustbox_cmp_main with a conditional standalone main wrapper",
+        "normalized_sha256": "3392e7702c55e2235288ad8009fe38b64ac0686ecb663b823ebba559865a5da6",
+        "operation": "export rustbox_cmp_main with a conditional standalone main wrapper; also make checked arithmetic or Boolean assignment explicit for C2Rust",
         "source": "src/cmp.c"
+      },
+      {
+        "canonical_sha256": "e892aefb7c1045be10251d3e62511cae617053715626da4cdc1f49f4b6c40369",
+        "engine": "exact deterministic source rewrite",
+        "normalized_sha256": "d85e5b2a9f9090fc609e1e46a1e6a1c0c5c9cfc7ef9f963b88ea8cb94d26e509",
+        "operation": "make checked arithmetic, Boolean assignment, or non-returning control flow explicit for C2Rust",
+        "source": "src/context.c"
       },
       {
         "canonical_sha256": "f89740750bda61c5fabc71ea26c6ea3a9e4f8623a1e765680e241ac8c559d13e",
         "engine": "exact deterministic source rewrite",
-        "normalized_sha256": "e98ce84cde93387e25e84b6fb9136006cd6fc0fd88dc6f0a13afa39df5882a01",
-        "operation": "export rustbox_diff_main with a conditional standalone main wrapper",
+        "normalized_sha256": "56609fb931014578c6224c8b2fecb204e2410d7d6edcc224e7e63769026d87dd",
+        "operation": "export rustbox_diff_main with a conditional standalone main wrapper; also make checked arithmetic or Boolean assignment explicit for C2Rust",
         "source": "src/diff.c"
       },
       {
         "canonical_sha256": "b893b782f84193ab4eb6756b350f3c89ef4b89e3b54df761505721e75cba52b9",
         "engine": "exact deterministic source rewrite",
-        "normalized_sha256": "131f2bef0786d0995e2b1d2d845129bcc1121ef6e7224e0302fdbfa569292488",
-        "operation": "export rustbox_diff3_main with a conditional standalone main wrapper",
+        "normalized_sha256": "b4201ed83a62ddc40d68dec8ec39fc2ca60986b7ebb0f24e09b2d19a9e18c467",
+        "operation": "export rustbox_diff3_main with a conditional standalone main wrapper; also make checked arithmetic or Boolean assignment explicit for C2Rust",
         "source": "src/diff3.c"
+      },
+      {
+        "canonical_sha256": "10d97f0f8e0402a1d75d01fe6d9d53d50b283a83b4db26d314f9de5a02495ccd",
+        "engine": "exact deterministic source rewrite",
+        "normalized_sha256": "c9550b51e6818efda3e9627dafcbaf063e2695d012e67c15fb2dc569d3edd5ef",
+        "operation": "make checked arithmetic, Boolean assignment, or non-returning control flow explicit for C2Rust",
+        "source": "src/io.c"
       },
       {
         "canonical_sha256": "62e1f9753eb2be18685aca5995ab418038b269442c54c56077d8ef56427bd1c4",
@@ -237,6 +294,13 @@
         "normalized_sha256": "ea5b7a9efb383777ef30d71f88159e3b323cdcc769e6e7903f59d4e03e7bd6f7",
         "operation": "export rustbox_sdiff_main with a conditional standalone main wrapper",
         "source": "src/sdiff.c"
+      },
+      {
+        "canonical_sha256": "ded352d77641b1fb79d3058e2676085cf1c4569029306cc9e1dfdcfc401a103b",
+        "engine": "exact deterministic source rewrite",
+        "normalized_sha256": "d8dba9c3fd563cfdece54859ace454396ced6989b006454cbb023dc816d86d04",
+        "operation": "make checked arithmetic, Boolean assignment, or non-returning control flow explicit for C2Rust",
+        "source": "src/side.c"
       }
     ]
   },
@@ -247,28 +311,28 @@
         "definitely_lost_bytes": 0,
         "errors": 0,
         "indirectly_lost_bytes": 0,
-        "log_sha256": "34120305cd98a8bb0a6d309283709a083c25ed9401fc519061d9e72554dfff63",
+        "log_sha256": "0ab08368fea5e6d7391aa10b0cd64393f1061b78cdbfafe13d35ddf5f8981728",
         "possibly_lost_bytes": 0
       },
       "diff": {
         "definitely_lost_bytes": 0,
         "errors": 0,
         "indirectly_lost_bytes": 0,
-        "log_sha256": "6d18c7ac881f8d78ac3fc89cbe5af32e14da011dfe2e1ae4cbfc183bb8e17a5c",
+        "log_sha256": "52e126db2eb0616cf20cb9fa475c90f6bc3583eef27d9627ebcdf65a44574d51",
         "possibly_lost_bytes": 0
       },
       "diff3": {
         "definitely_lost_bytes": 4096,
         "errors": 2,
         "indirectly_lost_bytes": 0,
-        "log_sha256": "9aaa9946193874de39e73b13ba7af2612e2ea6f2a803c41e2e9edc0dda0eb90c",
+        "log_sha256": "7a3d394c02de91d4aa23ffb25cab1117bfd9e28453995765c3ab53e93065d8a4",
         "possibly_lost_bytes": 4096
       },
       "sdiff": {
         "definitely_lost_bytes": 0,
         "errors": 0,
         "indirectly_lost_bytes": 0,
-        "log_sha256": "69baedfcfe44d75964b945d62967966a54209e1ad6e2913727b9bfa3973b691e",
+        "log_sha256": "979c94ae31d7ed0760a70c2a7082f67ae30aa747fe190a49892767eba09efb28",
         "possibly_lost_bytes": 0
       }
     }
