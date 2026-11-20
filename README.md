@@ -261,6 +261,14 @@ leaks.  The signed-source pin, closure, hashes, dependencies, and test evidence
 are recorded in `evidence/patch-2.8-oracle.json`.  Libattr is an oracle-only
 dynamic dependency and must be replaced or statically integrated before the
 final no-external-library gate.
+The same 67-unit production closure has been checked with Cppcheck, GCC
+`-fanalyzer`, Clang analyzer/tidy, Flawfinder, and Sparse.  Reviewed path
+reports are ownership-transfer, configured-platform, bitmask-enum, or parser-
+invariant false positives; the sanitizer and Valgrind gates reproduce no
+defect.  Sparse's limitations around generated gnulib alignment storage and a
+function attribute are retained explicitly rather than hidden.  Complete
+counts, classifications, and raw-log hashes are recorded in
+`evidence/patch-2.8-static-analysis.json`.
 
 ## Work queue after util-linux
 

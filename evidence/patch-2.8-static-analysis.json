@@ -1,0 +1,125 @@
+{
+  "artifacts": {
+    "clang-analyzer-tidy.log": "f37b3d58e1d2b1a071873841aa60fb00cd6bd3ba1a9528f1c1aa11eb749cde76",
+    "compile_commands.json": "0ab690180755b27695612e20dc77fca7e2e8dc7209b532cb2d2a45789f72560c",
+    "cppcheck.log": "e5f753eb98f8f99bf17d478da1338e6970368b7aff80733a82f8c93bda785ded",
+    "flawfinder.log": "4dc2c6778db1991d49e58f94244ce118b251cec4bd47b561c003711a8511b47b",
+    "gcc-analyzer-setup.log": "26859f15be11e003ae3513a45d129cf8858d5dd651f8b3bbb783ad5327e96323",
+    "gcc-analyzer.log": "2325dd8c86a413cf987975caea9a971664d3c1bfa37a09f5bf96d72a5ef7a163",
+    "sources.list": "9344734164fc7abcf2eb56696f1273c8acfe60ce2dcbab31680837af2c48ea16",
+    "sparse.log": "2aa7b807a747fb97e7b50a4e9167e0a61d4397eebe62e6f77d9118e1d420c1b4",
+    "sparse.status": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "recorded_at": "2026-11-20",
+  "release": "2.8",
+  "review": {
+    "blocking_findings": 0,
+    "canonical_source_changes": 0,
+    "notes": [
+      "Cppcheck's legacyUninitvar in pch.c is a short-circuit false positive: s is assigned whenever invalid_line is false, and invalid_line prevents dereference otherwise.",
+      "Cppcheck's preprocessor errors are platform-selection guards analyzed without configure's per-file conditions; both configured compiler builds select valid branches.",
+      "GCC's xmalloc reports treat allocation-returning helper results as leaks at function return; ownership is intentionally transferred to callers.",
+      "GCC and Clang report the same time_rz old_tz ownership path, but the gnulib local_tz sentinel and revert_tz protocol retain or release it by design; full ASan/LSan and Valgrind gates report no definite, indirect, or possible leak.",
+      "The three stdopen descriptor reports do not model its deliberate movement of descriptors into standard slots; canonical tests and Valgrind exercise the configured implementation without an open-descriptor failure.",
+      "GCC's merge.c uninitialized report contradicts the explicit idx_t old = 1 initializer; Clang's pch.c array reports lose the invariant that only populated name slots are read after their companion arrays are initialized.",
+      "Clang's NonNull reports lose global parser invariants for outname and the output stream; upstream and generated differential cases cover those paths under ASan/UBSan.",
+      "Clang's EnumCastOutOfRange sites intentionally use enum file_attributes as a bitmask with zero as the empty set.",
+      "The remaining Clang-Tidy and Flawfinder results are modernization and lexical-risk inventory for the later pointer-hardening phase, not executable defect proofs.",
+      "Sparse parses most of the closure but cannot fully parse gnulib's generated alignas storage or GNU patch's pure-function attribute placement; its parser errors are recorded rather than misreported as program defects."
+    ]
+  },
+  "schema": 1,
+  "scope": {
+    "compile_actions": 67,
+    "targets": [
+      "patch"
+    ],
+    "tests_and_examples_excluded": true,
+    "unique_sources": 67
+  },
+  "tools": {
+    "clang_analyzer_tidy": {
+      "all_findings_by_check": {
+        "bugprone-assignment-in-if-condition": 18,
+        "bugprone-branch-clone": 3,
+        "bugprone-easily-swappable-parameters": 62,
+        "bugprone-implicit-widening-of-multiplication-result": 7,
+        "bugprone-inc-dec-in-conditions": 3,
+        "bugprone-macro-parentheses": 2,
+        "bugprone-multi-level-implicit-pointer-conversion": 7,
+        "bugprone-narrowing-conversions": 129,
+        "bugprone-reserved-identifier": 609,
+        "bugprone-signed-char-misuse": 8,
+        "bugprone-suspicious-missing-comma": 1,
+        "bugprone-suspicious-string-compare": 2,
+        "bugprone-switch-missing-default-case": 3,
+        "bugprone-unsafe-functions": 1,
+        "clang-analyzer-core.NonNullParamChecker": 5,
+        "clang-analyzer-core.uninitialized.Branch": 3,
+        "clang-analyzer-deadcode.DeadStores": 2,
+        "clang-analyzer-optin.core.EnumCastOutOfRange": 4,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 60,
+        "clang-analyzer-security.insecureAPI.strcpy": 14,
+        "clang-analyzer-unix.Malloc": 3
+      },
+      "analyzer_findings_by_check": {
+        "clang-analyzer-core.NonNullParamChecker": 5,
+        "clang-analyzer-core.uninitialized.Branch": 3,
+        "clang-analyzer-deadcode.DeadStores": 2,
+        "clang-analyzer-optin.core.EnumCastOutOfRange": 4,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 60,
+        "clang-analyzer-security.insecureAPI.strcpy": 14,
+        "clang-analyzer-unix.Malloc": 3
+      }
+    },
+    "cppcheck": {
+      "findings_by_id": {
+        "badBitmaskCheck": 2,
+        "clarifyCalculation": 1,
+        "clarifyCondition": 2,
+        "constParameterPointer": 4,
+        "constVariablePointer": 8,
+        "identicalConditionAfterEarlyExit": 2,
+        "knownConditionTrueFalse": 3,
+        "legacyUninitvar": 1,
+        "nullPointerRedundantCheck": 2,
+        "preprocessorErrorDirective": 2,
+        "redundantContinue": 5,
+        "redundantInitialization": 1,
+        "unreadVariable": 4,
+        "unusedStructMember": 2,
+        "uselessAssignmentPtrArg": 1,
+        "variableScope": 8
+      },
+      "findings_by_severity": {
+        "error": 3,
+        "style": 40,
+        "warning": 5
+      }
+    },
+    "flawfinder": {
+      "hits_at_level_1_or_higher": 257,
+      "lines_analyzed": 23358
+    },
+    "gcc_fanalyzer": {
+      "findings_by_check": {
+        "analyzer-fd-leak": 3,
+        "analyzer-malloc-leak": 11,
+        "analyzer-use-of-uninitialized-value": 2,
+        "sign-compare": 3
+      },
+      "warnings": 19
+    },
+    "sparse": {
+      "parser_errors": 135,
+      "parser_limited_sources": [
+        "lib/malloc/scratch_buffer_grow.c",
+        "lib/malloc/scratch_buffer_grow_preserve.c",
+        "lib/malloc/scratch_buffer_set_array_size.c",
+        "src/merge.c",
+        "src/pch.c"
+      ],
+      "warnings": 141
+    }
+  }
+}
