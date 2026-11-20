@@ -47,7 +47,7 @@ scoring, and correctness gates.
 | util-linux 2.42.4 | 155 | 155 | 155 | 155 |
 | GNU M4 1.4.21 | 1 | 1 | 1 | 1 |
 | pkgconf 3.0.11 | 5 | 5 | 5 | 5 |
-| File 5.48 | 1 | 1 | 0 | 0 |
+| File 5.48 | 1 | 1 | 1 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -236,7 +236,11 @@ preserved.  The untouched audit output and mechanically modernized stable
 crate compile without translation holes or generated-Rust repairs, and the
 archive exports `rustbox_file_main` exactly once.  Source hashes and the
 deferred raw-pointer/unsafe inventory are in
-`evidence/file-5.48-c2rust.json`; hybrid runtime parity is the next gate.
+`evidence/file-5.48-c2rust.json`.  The translated archive passes all 83
+upstream libmagic fixtures, 174 exact CLI differential cases, and Valgrind.
+The linked executable is 497 KiB stripped (the 23 MiB static archive is only
+pre-link inventory), versus 184 KiB for canonical File; complete parity,
+linkage, and size evidence is in `evidence/file-5.48-hybrid.json`.
 
 ## Work queue after util-linux
 
