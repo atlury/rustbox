@@ -16,6 +16,7 @@ exec docker run --rm \
   --volume rustbox-pkgconf-3.0.11:/rustbox-pkgconf \
   --volume rustbox-file-5.48:/rustbox-file \
   --volume rustbox-patch-2.8:/rustbox-patch \
+  --volume rustbox-sed-4.10:/rustbox-sed \
   --workdir /work \
   "$tool_image" "$@"
 
