@@ -48,6 +48,7 @@ scoring, and correctness gates.
 | GNU M4 1.4.21 | 1 | 1 | 1 | 1 |
 | pkgconf 3.0.11 | 5 | 5 | 5 | 5 |
 | File 5.48 | 1 | 1 | 1 | 1 |
+| GNU patch 2.8 | 1 | 1 | 0 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -248,6 +249,18 @@ is 5,668,624 bytes stripped, a 180,000-byte increase over the prior build, and
 passes all 536 dispatcher comparisons, the full 14,022-case Coreutils and
 util-linux replay, the complete M4 and pkgconf replays, File's 174 exact CLI
 comparisons, and Valgrind.
+
+GNU patch 2.8 is pinned to its canonical signed release.  The exact production
+closure is 67 C translation units: all seven program sources and all 60 gnulib
+support sources selected by the configured build.  Independent GCC, Clang,
+and ASan/UBSan builds each pass the complete upstream suite (49 tests: 47
+passes, two documented XFAILs, and no failures), including the `ed`-style
+case.  GCC and Clang agree exactly across 28 additional filesystem-aware CLI
+comparisons, and Valgrind reports no errors or definite, indirect, or possible
+leaks.  The signed-source pin, closure, hashes, dependencies, and test evidence
+are recorded in `evidence/patch-2.8-oracle.json`.  Libattr is an oracle-only
+dynamic dependency and must be replaced or statically integrated before the
+final no-external-library gate.
 
 ## Work queue after util-linux
 
