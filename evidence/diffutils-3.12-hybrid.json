@@ -1,0 +1,1338 @@
+{
+  "artifacts": {
+    "differential_sha256": "77f1c4a04abfe585a41d54584a597e7132d2ecea54a625e246d598502b156f64",
+    "upstream_log_sha256": "0e224339c70cafc191f9d5e2988096f8e1b19547ecf66fa10a80e9a52191c9ae"
+  },
+  "behavior": {
+    "differential": {
+      "comparisons": 48,
+      "gcc_clang_exact": true,
+      "records": [
+        {
+          "exact": true,
+          "index": 0,
+          "name": "cmp-help",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "ef280ca85bd1074c21ff9f26262d1a9bb2984473c9d6ec8e6a8e2334aa1d9621",
+            "tree": []
+          },
+          "utility": "cmp"
+        },
+        {
+          "exact": true,
+          "index": 1,
+          "name": "cmp-version",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "4ba0e3bf6eb986381d94a811d116140dd5b87024d485bcb3bc176537a1fbc461",
+            "tree": []
+          },
+          "utility": "cmp"
+        },
+        {
+          "exact": true,
+          "index": 2,
+          "name": "cmp-bad-option",
+          "result": {
+            "status": 2,
+            "stderr_sha256": "682f8f3249e5b201b37243106cb7566a707de1f1c1f2b5744ea0bcbbdeabb2d9",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": []
+          },
+          "utility": "cmp"
+        },
+        {
+          "exact": true,
+          "index": 3,
+          "name": "cmp-same",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "left",
+                "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+              },
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+              }
+            ]
+          },
+          "utility": "cmp"
+        },
+        {
+          "exact": true,
+          "index": 4,
+          "name": "cmp-different",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "3a2cf62858a877cc054d1fea79848e1e60a11b227eb57402b755dd359bd580b8",
+            "tree": [
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "left",
+                "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+              },
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "69726aa4696684f51191101c90b115e8cf6e01d6339e158d01b69ca692562fbf"
+              }
+            ]
+          },
+          "utility": "cmp"
+        },
+        {
+          "exact": true,
+          "index": 5,
+          "name": "cmp-verbose",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "74c94cf0fcc2ab4590d2868361d56baa1f2bb077058584e49b53f5ff6851392d",
+            "tree": [
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "left",
+                "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+              },
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "69726aa4696684f51191101c90b115e8cf6e01d6339e158d01b69ca692562fbf"
+              }
+            ]
+          },
+          "utility": "cmp"
+        },
+        {
+          "exact": true,
+          "index": 6,
+          "name": "cmp-byte-number",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "7097d32194f2a56501472fee46c288ee338e5fbb026fe6b2fa0a07108775ea12",
+            "tree": [
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "left",
+                "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+              },
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "69726aa4696684f51191101c90b115e8cf6e01d6339e158d01b69ca692562fbf"
+              }
+            ]
+          },
+          "utility": "cmp"
+        },
+        {
+          "exact": true,
+          "index": 7,
+          "name": "cmp-ignore-initial",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "c2e9c9069fa3a8689a734cdd11bdc7fad7b290939de3a4a44655e122e13362f6",
+            "tree": [
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "left",
+                "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+              },
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "69726aa4696684f51191101c90b115e8cf6e01d6339e158d01b69ca692562fbf"
+              }
+            ]
+          },
+          "utility": "cmp"
+        },
+        {
+          "exact": true,
+          "index": 8,
+          "name": "cmp-limit",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "left",
+                "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+              },
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "69726aa4696684f51191101c90b115e8cf6e01d6339e158d01b69ca692562fbf"
+              }
+            ]
+          },
+          "utility": "cmp"
+        },
+        {
+          "exact": true,
+          "index": 9,
+          "name": "cmp-stdin",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+              }
+            ]
+          },
+          "utility": "cmp"
+        },
+        {
+          "exact": true,
+          "index": 10,
+          "name": "cmp-missing",
+          "result": {
+            "status": 2,
+            "stderr_sha256": "24135add2498d77386720cf57516f2d264394a5dc09c6861a0dfeeebfd3b1231",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 2,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "73cb3858a687a8494ca3323053016282f3dad39d42cf62ca4e79dda2aac7d9ac"
+              }
+            ]
+          },
+          "utility": "cmp"
+        },
+        {
+          "exact": true,
+          "index": 11,
+          "name": "diff-help",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "cd4e3c2be080f0d776f7ce158faf0e7bd5deefb4f4eb6900e1b83ee825fddda6",
+            "tree": []
+          },
+          "utility": "diff"
+        },
+        {
+          "exact": true,
+          "index": 12,
+          "name": "diff-version",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "6ec37762ce72817e3174815c42b13970ca1d371e688e9ce6554765a1638a7176",
+            "tree": []
+          },
+          "utility": "diff"
+        },
+        {
+          "exact": true,
+          "index": 13,
+          "name": "diff-bad-option",
+          "result": {
+            "status": 2,
+            "stderr_sha256": "6c90feaad34e38feb19a1e7318bf6b760eb7b6d8a08878c402a1ad657d33ce2b",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": []
+          },
+          "utility": "diff"
+        },
+        {
+          "exact": true,
+          "index": 14,
+          "name": "diff-same",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "left",
+                "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+              },
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+              }
+            ]
+          },
+          "utility": "diff"
+        },
+        {
+          "exact": true,
+          "index": 15,
+          "name": "diff-normal",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "1cba92d5ee33476efa54f59ab96febceded9a376b543acb3b25c7611ed27bdeb",
+            "tree": [
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "left",
+                "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+              },
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "69726aa4696684f51191101c90b115e8cf6e01d6339e158d01b69ca692562fbf"
+              }
+            ]
+          },
+          "utility": "diff"
+        },
+        {
+          "exact": true,
+          "index": 16,
+          "name": "diff-unified",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "b4f18b494d232b38a0ca67d6fc409d612a3f21f9dbe49ed6051e1f81526d3f89",
+            "tree": [
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "left",
+                "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+              },
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "69726aa4696684f51191101c90b115e8cf6e01d6339e158d01b69ca692562fbf"
+              }
+            ]
+          },
+          "utility": "diff"
+        },
+        {
+          "exact": true,
+          "index": 17,
+          "name": "diff-context",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "5aafc2c5a845c91830d35a93ceab1a534560908d6038d6d5349cfed1f727feab",
+            "tree": [
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "left",
+                "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+              },
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "69726aa4696684f51191101c90b115e8cf6e01d6339e158d01b69ca692562fbf"
+              }
+            ]
+          },
+          "utility": "diff"
+        },
+        {
+          "exact": true,
+          "index": 18,
+          "name": "diff-side-by-side",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "aed0e5bf876021da17f0e83985f344a02e9ccc88d514145d8528243bdffba5f6",
+            "tree": [
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "left",
+                "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+              },
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "69726aa4696684f51191101c90b115e8cf6e01d6339e158d01b69ca692562fbf"
+              }
+            ]
+          },
+          "utility": "diff"
+        },
+        {
+          "exact": true,
+          "index": 19,
+          "name": "diff-brief",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "3778a9b14db1be69db3f811e103c433367b31dcc19561bef67516c3a27698ff5",
+            "tree": [
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "left",
+                "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+              },
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "69726aa4696684f51191101c90b115e8cf6e01d6339e158d01b69ca692562fbf"
+              }
+            ]
+          },
+          "utility": "diff"
+        },
+        {
+          "exact": true,
+          "index": 20,
+          "name": "diff-ignore-case",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "left",
+                "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+              },
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "69726aa4696684f51191101c90b115e8cf6e01d6339e158d01b69ca692562fbf"
+              }
+            ]
+          },
+          "utility": "diff"
+        },
+        {
+          "exact": true,
+          "index": 21,
+          "name": "diff-ignore-space",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 6,
+                "kind": "file",
+                "mode": 420,
+                "path": "left",
+                "sha256": "1a25953465ab671d54b30108a9951b5500fa40994098ef9463853004da7933e1"
+              },
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "edeaaff3f1774ad2888673770c6d64097e391bc362d7d6fb34982ddf0efd18cb"
+              }
+            ]
+          },
+          "utility": "diff"
+        },
+        {
+          "exact": true,
+          "index": 22,
+          "name": "diff-ignore-blank",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 12,
+                "kind": "file",
+                "mode": 420,
+                "path": "left",
+                "sha256": "0e937c34625ef864d694878f01fd96318893d29014a51536006dacd150d809ec"
+              },
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+              }
+            ]
+          },
+          "utility": "diff"
+        },
+        {
+          "exact": true,
+          "index": 23,
+          "name": "diff-recursive",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "0a032369194ebf1914e876e1766fa709e369677574a9198920e5edde84d2aa5e",
+            "tree": [
+              {
+                "kind": "directory",
+                "mode": 493,
+                "path": "a"
+              },
+              {
+                "bytes": 5,
+                "kind": "file",
+                "mode": 420,
+                "path": "a/one",
+                "sha256": "a6328afc76e9db71da297ebff4b0d3e7a7eb3b01d917c05a6573fef121b6ecb6"
+              },
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "a/two",
+                "sha256": "01d09d19c2139a46aebfb577780d123d7396e97201bc7ead210a2ebff8239dee"
+              },
+              {
+                "kind": "directory",
+                "mode": 493,
+                "path": "b"
+              },
+              {
+                "bytes": 5,
+                "kind": "file",
+                "mode": 420,
+                "path": "b/one",
+                "sha256": "a6328afc76e9db71da297ebff4b0d3e7a7eb3b01d917c05a6573fef121b6ecb6"
+              },
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "b/two",
+                "sha256": "7aa7a5359173d05b63cfd682e3c38487f3cb4f7f1d60659fe59fab1505977d4c"
+              }
+            ]
+          },
+          "utility": "diff"
+        },
+        {
+          "exact": true,
+          "index": 24,
+          "name": "diff-new-file",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "9b38b176feaf99eab983e1f5763c419e2c3e857b19ea348cace2e89c28016c93",
+            "tree": [
+              {
+                "kind": "directory",
+                "mode": 493,
+                "path": "a"
+              },
+              {
+                "bytes": 5,
+                "kind": "file",
+                "mode": 420,
+                "path": "a/only-left",
+                "sha256": "14156f2c20b45bf665145b1c56eda12810f16be3e85007050928ecd6556d283a"
+              },
+              {
+                "kind": "directory",
+                "mode": 493,
+                "path": "b"
+              },
+              {
+                "bytes": 6,
+                "kind": "file",
+                "mode": 420,
+                "path": "b/only-right",
+                "sha256": "55c97802b397ef4da0d8e2ecf4a8fa33c1f4755da0eacec54c62cacbbcfd9713"
+              }
+            ]
+          },
+          "utility": "diff"
+        },
+        {
+          "exact": true,
+          "index": 25,
+          "name": "diff-stdin",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+              }
+            ]
+          },
+          "utility": "diff"
+        },
+        {
+          "exact": true,
+          "index": 26,
+          "name": "diff-binary",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "d7585dbdf38372336b230ad39f14407cf3589d2d638b1afe37ed3a3e80f6b18d",
+            "tree": [
+              {
+                "bytes": 3,
+                "kind": "file",
+                "mode": 420,
+                "path": "left",
+                "sha256": "59b271ae1bbcb1d31d41929817f4b16fb439eb4f31520b5ad1d5ce98920a7138"
+              },
+              {
+                "bytes": 3,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "b179f49283f586ae1922b625af4017aecdf77e7ee175c0af675abea14252a666"
+              }
+            ]
+          },
+          "utility": "diff"
+        },
+        {
+          "exact": true,
+          "index": 27,
+          "name": "diff-missing",
+          "result": {
+            "status": 2,
+            "stderr_sha256": "539e58bb4d617ef9ab55c75263e05003e84f089000d148f19094555e101a0752",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 2,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "73cb3858a687a8494ca3323053016282f3dad39d42cf62ca4e79dda2aac7d9ac"
+              }
+            ]
+          },
+          "utility": "diff"
+        },
+        {
+          "exact": true,
+          "index": 28,
+          "name": "diff3-help",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e8c7f1a96bddeeb2635cb1054e0686a0b73df5d1a1bfcb745aa1f0e8ee68b311",
+            "tree": []
+          },
+          "utility": "diff3"
+        },
+        {
+          "exact": true,
+          "index": 29,
+          "name": "diff3-version",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "01b390530fdd5fb158c9440a72e6b07c3b4c558b1e1e6c8c21115ec18c94c88d",
+            "tree": []
+          },
+          "utility": "diff3"
+        },
+        {
+          "exact": true,
+          "index": 30,
+          "name": "diff3-bad-option",
+          "result": {
+            "status": 2,
+            "stderr_sha256": "d8374d8983ef8fb93690eadad2c433fa54867b7c892dec5dc5b4f1800aeddd01",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": []
+          },
+          "utility": "diff3"
+        },
+        {
+          "exact": true,
+          "index": 31,
+          "name": "diff3-same",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "mine",
+                "sha256": "911169ddaaf146aff539f58c26c489af3b892dff0fe283c1c264c65ae5aa59a2"
+              },
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "older",
+                "sha256": "911169ddaaf146aff539f58c26c489af3b892dff0fe283c1c264c65ae5aa59a2"
+              },
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "yours",
+                "sha256": "911169ddaaf146aff539f58c26c489af3b892dff0fe283c1c264c65ae5aa59a2"
+              }
+            ]
+          },
+          "utility": "diff3"
+        },
+        {
+          "exact": true,
+          "index": 32,
+          "name": "diff3-one-change",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "a00bffc145fd6beebfd7887e12bd4ea10bebc0b4cfe9ef53ffb16862ee26fadb",
+            "tree": [
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "mine",
+                "sha256": "b48a76d221f917617243bfb43826989df6c2b6285429bd159897c3e2bfeaafdd"
+              },
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "older",
+                "sha256": "911169ddaaf146aff539f58c26c489af3b892dff0fe283c1c264c65ae5aa59a2"
+              },
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "yours",
+                "sha256": "911169ddaaf146aff539f58c26c489af3b892dff0fe283c1c264c65ae5aa59a2"
+              }
+            ]
+          },
+          "utility": "diff3"
+        },
+        {
+          "exact": true,
+          "index": 33,
+          "name": "diff3-conflict",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "0091c2f423ef73e02a22a2b2759ecaea7a4d89291dd9d2a450d5c55b3026db48",
+            "tree": [
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "mine",
+                "sha256": "b48a76d221f917617243bfb43826989df6c2b6285429bd159897c3e2bfeaafdd"
+              },
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "older",
+                "sha256": "911169ddaaf146aff539f58c26c489af3b892dff0fe283c1c264c65ae5aa59a2"
+              },
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "yours",
+                "sha256": "d450380aab31f5b4aa1e3a0f59dfc3ac5b86eb950c29ef78a0217c0c98f66a17"
+              }
+            ]
+          },
+          "utility": "diff3"
+        },
+        {
+          "exact": true,
+          "index": 34,
+          "name": "diff3-ed",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "fff360b91b2f20744d4c017f20d0a3bce650167fcc9cfcc160133ff547b70b64",
+            "tree": [
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "mine",
+                "sha256": "b48a76d221f917617243bfb43826989df6c2b6285429bd159897c3e2bfeaafdd"
+              },
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "older",
+                "sha256": "911169ddaaf146aff539f58c26c489af3b892dff0fe283c1c264c65ae5aa59a2"
+              },
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "yours",
+                "sha256": "d450380aab31f5b4aa1e3a0f59dfc3ac5b86eb950c29ef78a0217c0c98f66a17"
+              }
+            ]
+          },
+          "utility": "diff3"
+        },
+        {
+          "exact": true,
+          "index": 35,
+          "name": "diff3-merge",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "2821d8b72fcb6dc36e22b89fb85859bafa3bfcd02a56785895c671a77c162956",
+            "tree": [
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "mine",
+                "sha256": "b48a76d221f917617243bfb43826989df6c2b6285429bd159897c3e2bfeaafdd"
+              },
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "older",
+                "sha256": "911169ddaaf146aff539f58c26c489af3b892dff0fe283c1c264c65ae5aa59a2"
+              },
+              {
+                "bytes": 4,
+                "kind": "file",
+                "mode": 420,
+                "path": "yours",
+                "sha256": "d450380aab31f5b4aa1e3a0f59dfc3ac5b86eb950c29ef78a0217c0c98f66a17"
+              }
+            ]
+          },
+          "utility": "diff3"
+        },
+        {
+          "exact": true,
+          "index": 36,
+          "name": "diff3-labels",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "4670aa41ce6bff75feb4d6a60320d78f2349fbc886d42ea43e06a71c9b418a84",
+            "tree": [
+              {
+                "bytes": 2,
+                "kind": "file",
+                "mode": 420,
+                "path": "mine",
+                "sha256": "42097422722a4c0bb086b9434939223f169e99acac564e8be0e28ebc888d7f8f"
+              },
+              {
+                "bytes": 2,
+                "kind": "file",
+                "mode": 420,
+                "path": "older",
+                "sha256": "0263829989b6fd954f72baaf2fc64bc2e2f01d692d4de72986ea808f6e99813f"
+              },
+              {
+                "bytes": 2,
+                "kind": "file",
+                "mode": 420,
+                "path": "yours",
+                "sha256": "d08c5f95ebb8581ee4e5c0a2ee534d5a10d3c8e7f3a18d961adf902602bbd8a3"
+              }
+            ]
+          },
+          "utility": "diff3"
+        },
+        {
+          "exact": true,
+          "index": 37,
+          "name": "diff3-missing",
+          "result": {
+            "status": 2,
+            "stderr_sha256": "1bc34e7c3bcf37999607963764dd53210185bceb036c9fc69c5eb9502dc80d3e",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 2,
+                "kind": "file",
+                "mode": 420,
+                "path": "mine",
+                "sha256": "87428fc522803d31065e7bce3cf03fe475096631e5e07bbd7a0fde60c4cf25c7"
+              },
+              {
+                "bytes": 2,
+                "kind": "file",
+                "mode": 420,
+                "path": "yours",
+                "sha256": "87428fc522803d31065e7bce3cf03fe475096631e5e07bbd7a0fde60c4cf25c7"
+              }
+            ]
+          },
+          "utility": "diff3"
+        },
+        {
+          "exact": true,
+          "index": 38,
+          "name": "sdiff-help",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "6299d4b7920e157124d6be0bf3e2ba2b2417d8e7aa508eefef3f351ef5f79906",
+            "tree": []
+          },
+          "utility": "sdiff"
+        },
+        {
+          "exact": true,
+          "index": 39,
+          "name": "sdiff-version",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "ea30407193898b77061e2353320e08612ec12528716ef32a386755c8b9b6adbf",
+            "tree": []
+          },
+          "utility": "sdiff"
+        },
+        {
+          "exact": true,
+          "index": 40,
+          "name": "sdiff-bad-option",
+          "result": {
+            "status": 2,
+            "stderr_sha256": "cebddcab5e7b4d477178eaea4716678d73331ffb9f6b78a169387dc61b6c27cb",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": []
+          },
+          "utility": "sdiff"
+        },
+        {
+          "exact": true,
+          "index": 41,
+          "name": "sdiff-same",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "8465596f567ea359c3c9bcc0c806ef29b27647a291109a580990a1ee16022d04",
+            "tree": [
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "left",
+                "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+              },
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+              }
+            ]
+          },
+          "utility": "sdiff"
+        },
+        {
+          "exact": true,
+          "index": 42,
+          "name": "sdiff-different",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "aed0e5bf876021da17f0e83985f344a02e9ccc88d514145d8528243bdffba5f6",
+            "tree": [
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "left",
+                "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+              },
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "69726aa4696684f51191101c90b115e8cf6e01d6339e158d01b69ca692562fbf"
+              }
+            ]
+          },
+          "utility": "sdiff"
+        },
+        {
+          "exact": true,
+          "index": 43,
+          "name": "sdiff-width",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "f63836999fa754dcadd06eba8761b78ab5de6c4d7bf4531802ef3b57d6ee8a64",
+            "tree": [
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "left",
+                "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+              },
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "69726aa4696684f51191101c90b115e8cf6e01d6339e158d01b69ca692562fbf"
+              }
+            ]
+          },
+          "utility": "sdiff"
+        },
+        {
+          "exact": true,
+          "index": 44,
+          "name": "sdiff-suppress-common",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "902306f5d5dfe90fa4ef08f36f52da515ee5e4e93b50f5b0ce83cde003a46e2c",
+            "tree": [
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "left",
+                "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+              },
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "69726aa4696684f51191101c90b115e8cf6e01d6339e158d01b69ca692562fbf"
+              }
+            ]
+          },
+          "utility": "sdiff"
+        },
+        {
+          "exact": true,
+          "index": 45,
+          "name": "sdiff-left-column",
+          "result": {
+            "status": 1,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "2e1dd97258d713dc880be012b17d08972c84903cc7ac4be5f1cd2a9c07b2347e",
+            "tree": [
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "left",
+                "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+              },
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "69726aa4696684f51191101c90b115e8cf6e01d6339e158d01b69ca692562fbf"
+              }
+            ]
+          },
+          "utility": "sdiff"
+        },
+        {
+          "exact": true,
+          "index": 46,
+          "name": "sdiff-ignore-case",
+          "result": {
+            "status": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "f9541f2716b36d50027ec8f94c820ebda4b624f0221d988f21b131ec3f441370",
+            "tree": [
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "left",
+                "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+              },
+              {
+                "bytes": 11,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "69726aa4696684f51191101c90b115e8cf6e01d6339e158d01b69ca692562fbf"
+              }
+            ]
+          },
+          "utility": "sdiff"
+        },
+        {
+          "exact": true,
+          "index": 47,
+          "name": "sdiff-missing",
+          "result": {
+            "status": 2,
+            "stderr_sha256": "51623d9a44a3c80e739d7e334fb1aa1c77abab7be686e102b9f2b7a8834c4852",
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 2,
+                "kind": "file",
+                "mode": 420,
+                "path": "right",
+                "sha256": "73cb3858a687a8494ca3323053016282f3dad39d42cf62ca4e79dda2aac7d9ac"
+              }
+            ]
+          },
+          "utility": "sdiff"
+        }
+      ],
+      "schema": 1
+    },
+    "upstream_suites": [
+      {
+        "error": 0,
+        "fail": 0,
+        "pass": 30,
+        "skip": 2,
+        "total": 33,
+        "xfail": 1,
+        "xpass": 0
+      },
+      {
+        "error": 0,
+        "fail": 0,
+        "pass": 301,
+        "skip": 43,
+        "total": 344,
+        "xfail": 0,
+        "xpass": 0
+      }
+    ],
+    "upstream_total": 377,
+    "valgrind": {
+      "clean": {
+        "cmp": {
+          "errors": 0,
+          "log_sha256": "3e5fd256832f1aa1cd3f255de2b517736b7754c0d4a1d10f26a07f6bc8d83f2f"
+        },
+        "diff": {
+          "errors": 0,
+          "log_sha256": "f57552b013d6e1cb387f451d2a985566a9e82c14692afd4c64443e1d2ca72359"
+        },
+        "sdiff": {
+          "errors": 0,
+          "log_sha256": "24a467c4a14a89394a872dd80906bb072f2bf6560a964b667fcbbefae5a18d86"
+        }
+      },
+      "diff3": {
+        "allocation_lifecycle_exact": true,
+        "canonical_log_sha256": "e0c74772ada5592c39dde48cec49f49f2dbbcc2a5e8fdafee796b0ecf2801af4",
+        "classification_difference": "optimized Rust drops the final stack root before process exit, so Valgrind classifies the canonical intentionally retained 112-byte graph root and its 48 bytes of children as lost rather than reachable",
+        "heap_summary": [
+          "in use at exit: 8,456 bytes in 14 blocks",
+          "total heap usage: 20 allocs, 6 frees, 12,675 bytes allocated"
+        ],
+        "translated_log_sha256": "6cae1466500c66c45fbc037a524231c26eb0d761f93afd64acfac50ce1556060"
+      }
+    }
+  },
+  "implementation": {
+    "generated_rust_repairs": 0,
+    "public_names": [
+      "cmp",
+      "diff",
+      "diff3",
+      "sdiff"
+    ],
+    "rust_files": 141,
+    "rust_production_sources": 139
+  },
+  "input_evidence": {
+    "diffutils-3.12-analysis.json": "cc9fc7b37f2c8c8a2505d35165f3aff2c622ab639a58317374b9896b6b5ee2ce",
+    "diffutils-3.12-c2rust.json": "7ce028e2c0907245423b7b9f4c83cab02d2ff471725cb4051561452e30a34da2",
+    "diffutils-3.12-normalization.json": "1fa3c2b9359029498a50c05ad2dd3cbf5d33cd942b69f595417b302605bbce8c",
+    "diffutils-3.12-oracle.json": "afde4249a0cab61a51b8c287fec447d47305d5311769213861da9c222e2a8a4b"
+  },
+  "next_gate": "link cmp, diff, diff3, and sdiff into Rustbox and replay combined regressions",
+  "recorded_at": "2026-11-21",
+  "release": "3.12",
+  "runtime_linkage": {
+    "current_dynamic_needed": [
+      "libm.so.6",
+      "libgcc_s.so.1",
+      "libc.so.6",
+      "ld-linux-x86-64.so.2"
+    ],
+    "final_no_dt_needed_gate": "pending Rustbox-owned static runtime",
+    "selinux": false,
+    "systemd": false
+  },
+  "schema": 1,
+  "size": {
+    "binaries": {
+      "cmp": {
+        "canonical_stripped_bytes": 47928,
+        "dynamic_needed": [
+          "libm.so.6",
+          "libgcc_s.so.1",
+          "libc.so.6",
+          "ld-linux-x86-64.so.2"
+        ],
+        "entrypoint": "rustbox_cmp_main",
+        "linked_sections": {
+          "bss": 92240,
+          "data": 3136,
+          "rodata": 45620,
+          "text": 283460
+        },
+        "linked_sha256": "37aa25b8c0c44556f3b6c5237fd180cbe3e9f74483f5846f348b489badb1e56c",
+        "linked_stripped_bytes": 398920,
+        "linked_unstripped_bytes": 4566048,
+        "stripped_sha256": "02291017066bd01a52a36e957936d1aae3ee5ab7d9ab530344df32d93d3de50d"
+      },
+      "diff": {
+        "canonical_stripped_bytes": 138568,
+        "dynamic_needed": [
+          "libm.so.6",
+          "libgcc_s.so.1",
+          "libc.so.6",
+          "ld-linux-x86-64.so.2"
+        ],
+        "entrypoint": "rustbox_diff_main",
+        "linked_sections": {
+          "bss": 94200,
+          "data": 5024,
+          "rodata": 56216,
+          "text": 363010
+        },
+        "linked_sha256": "c7f50d8bb32d684a926b988ee4683928b4242420439ee845efc6b98b1c354796",
+        "linked_stripped_bytes": 507304,
+        "linked_unstripped_bytes": 4693528,
+        "stripped_sha256": "3bdbc443bba41c46a27ffe5187dd4a12ee7688d67aa08398eac3619d5440a719"
+      },
+      "diff3": {
+        "canonical_stripped_bytes": 52056,
+        "dynamic_needed": [
+          "libm.so.6",
+          "libgcc_s.so.1",
+          "libc.so.6",
+          "ld-linux-x86-64.so.2"
+        ],
+        "entrypoint": "rustbox_diff3_main",
+        "linked_sections": {
+          "bss": 91864,
+          "data": 3192,
+          "rodata": 46420,
+          "text": 285924
+        },
+        "linked_sha256": "9f0bb7a1e1a98f4de2d604da4d7704f320848d3e18dae87b648c2cf6d0f09802",
+        "linked_stripped_bytes": 403072,
+        "linked_unstripped_bytes": 4570328,
+        "stripped_sha256": "5955d8131a3817a5cf3e3942f018415578ba517de3fc82a98031ffdd7cefd181"
+      },
+      "sdiff": {
+        "canonical_stripped_bytes": 56240,
+        "dynamic_needed": [
+          "libm.so.6",
+          "libgcc_s.so.1",
+          "libc.so.6",
+          "ld-linux-x86-64.so.2"
+        ],
+        "entrypoint": "rustbox_sdiff_main",
+        "linked_sections": {
+          "bss": 93152,
+          "data": 3422,
+          "rodata": 44782,
+          "text": 287814
+        },
+        "linked_sha256": "55822497755734c0df1c32348a87b9489c6db16d9906dac2a731a3a8e7e094f2",
+        "linked_stripped_bytes": 407400,
+        "linked_unstripped_bytes": 4576160,
+        "stripped_sha256": "e8aae35e75cc34b1c18581487078de5d0bbb61277225a7b601dedc836e29ecb5"
+      }
+    },
+    "interpretation": "The static archive is link inventory, not release size.",
+    "translation_static_archive_bytes": 24342302
+  },
+  "status": "complete translated hybrids at canonical parity; multicall integration pending"
+}

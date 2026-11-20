@@ -357,8 +357,14 @@ or generated-Rust repairs.  Both the raw pinned-nightly
 crate and its mechanically modernized Rust 1.99 archive compile; all four
 multicall entrypoints are exported exactly once.  Source, declaration-map,
 pointer/unsafe, toolchain, modernization, and archive inventories are recorded
-in `evidence/diffutils-3.12-c2rust.json`.  Hybrid linkage and parity are the
-next gate.
+in `evidence/diffutils-3.12-c2rust.json`.  The four translated hybrids then
+pass both upstream suites, 48 exact differentials, and Valgrind checks.  Diff3
+has the exact canonical allocation lifecycle—20 allocations, six frees, and
+8,456 bytes in 14 blocks at exit—while optimized Rust drops the last stack
+root sooner and therefore changes Valgrind's reachable/lost classification for
+160 of those intentionally retained bytes.  Per-command sizes, hashes,
+dependencies, and the full parity record are in
+`evidence/diffutils-3.12-hybrid.json`.  Multicall integration is the next gate.
 
 ## Work queue after util-linux
 
@@ -394,8 +400,8 @@ Library-only checkpoints (outside the active utility order):
    - [x] GNU patch 2.8 — `patch`; integrated at canonical parity.
    - [x] GNU sed 4.10 — `sed`; integrated at canonical parity.
    - [ ] Diffutils 3.12 — `cmp`, `diff`, `diff3`, `sdiff`; signed canonical
-     oracle, production analysis, and deterministic normalization complete;
-     complete hole-free C2Rust translation compiles; hybrid parity next.
+     oracle, analysis, normalization, hole-free C2Rust translation, and hybrid
+     canonical parity complete; multicall integration next.
    - [ ] Grep — `grep`, `egrep`, `fgrep`.
    - [ ] bc — `bc`, `dc`.
    - [ ] attr — `attr`, `getfattr`, `setfattr`.
