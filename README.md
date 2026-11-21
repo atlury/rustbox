@@ -821,6 +821,23 @@ compression is byte-identical and both engine directions have zero Valgrind
 errors and no lost bytes.  Unified linkage and resource evidence is in
 `evidence/rustbox-multicall.json`.
 
+zstd 1.5.7 is pinned to Meta's canonical checksum-authenticated release and
+annotated release commit.  Its exact 45-source production closure (56,648
+lines) builds independently under GCC, Clang, and ASan/UBSan with all native
+compression, decompression, dictionary, benchmark, legacy-decoder, and POSIX
+thread functionality enabled.  All three builds pass the complete upstream
+`make check` suite.  The two optimized oracles agree on all 17 public command
+comparisons across `zstd`, `zstdmt`, `unzstd`, `zstdcat`, `zstdgrep`, and
+`zstdless`, and produce byte-identical frames.  The physical command depends
+only on libc: optional zlib, liblzma, and liblz4 foreign-format backends are
+deliberately disabled because Rustbox already owns those formats and must not
+gain external runtime dependencies.  Both Valgrind directions report zero
+errors and no definite, indirect, or possible loss.  Reproducible details are
+in `evidence/zstd-1.5.7-oracle.json`.  `kim-em/lean-zstd` is recorded as a
+reusable pure-Lean decompression/proof source, while canonical C remains the
+oracle for compression and the complete CLI.  Static audit and deterministic
+normalization are the next gate.
+
 ## Work queue after util-linux
 
 This queue starts only after all in-scope util-linux applets reach canonical
@@ -874,8 +891,9 @@ Library-only checkpoints (outside the active utility order):
      `lzmainfo`, `xzcmp`, `xzdiff`, `xzegrep`, `xzfgrep`, `xzgrep`, `xzless`,
      `xzmore`, `lzcmp`, `lzdiff`, `lzegrep`, `lzfgrep`, `lzgrep`, `lzless`, and
      `lzmore`; all native frontends are internal and canonical parity is complete.
-   - [ ] zstd — `zstd`, `zstdmt`, `unzstd`, `zstdcat`, `zstdgrep`,
-     `zstdless`.
+   - [ ] zstd 1.5.7 — canonical checksum oracle finished for `zstd`, `zstdmt`,
+     `unzstd`, `zstdcat`, `zstdgrep`, and `zstdless`; static audit,
+     normalization, translation, and multicall integration remain.
    - [ ] tar — `tar`, `rmt`.
    - [ ] Ncurses — `captoinfo`, `clear`, `infocmp`, `infotocap`, `tabs`,
      `tic`, `toe`, `tput`, `tset`, `reset`, and the generated

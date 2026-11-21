@@ -1,0 +1,233 @@
+{
+  "behavior": {
+    "byte_identical_compiler_streams": true,
+    "differential": {
+      "cases": 17,
+      "passed": 17
+    },
+    "differential_sha256": "3f33e7ee84103220d86d400263aa21ce447ddef82d8b27c1fb136c6000cc8dae",
+    "valgrind": {
+      "compress": {
+        "allocated_bytes": 3875071,
+        "allocations": 73,
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "frees": 72,
+        "indirectly_lost_bytes": 0,
+        "log_sha256": "edebacd58bec43c446047f658123de2e349672876da500c976d2c2b879501ee3",
+        "possibly_lost_bytes": 0,
+        "still_reachable_bytes": 48
+      },
+      "decompress": {
+        "allocated_bytes": 2992018,
+        "allocations": 72,
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "frees": 71,
+        "indirectly_lost_bytes": 0,
+        "log_sha256": "85c5b6f8f012f4c58fc32e602b1f1b610929c899a766cc82afef0b89ee24a1a4",
+        "possibly_lost_bytes": 0,
+        "still_reachable_bytes": 38
+      }
+    }
+  },
+  "binaries": {
+    "clang": {
+      "bytes": 4739592,
+      "dynamic_needed": [
+        "libc.so.6"
+      ],
+      "sha256": "a28f7d40e34b65d85e0210647bcd2da8919d7e72e0728a1d68884a187b5ef9d1",
+      "stripped_bytes": 1343320,
+      "stripped_sha256": "544c86748b347d52aa8436307595e166d2e2479e229e6b15bbc8e3ae7f1400e1"
+    },
+    "gcc": {
+      "bytes": 8438624,
+      "dynamic_needed": [
+        "libc.so.6"
+      ],
+      "sha256": "0afcd6e2cde977894237d85a02734d54a1fd06bf2a6fc82ae64a3fdb67893f4e",
+      "stripped_bytes": 1389872,
+      "stripped_sha256": "d53f4889a4d2f3cf82ee4309c9b4906c0a1c7667271102efcb4b68e68112dec9"
+    }
+  },
+  "compilers": {
+    "clang": {
+      "compile_actions": 45,
+      "compile_database_sha256": "323bfccddb2202d80e874439a114bae35e0abdaf4f2b114f11965d064a00f4bb",
+      "passed": true,
+      "production_sources": 45,
+      "upstream_test_log_sha256": "5dddfd4599f665a38f67c4b699cf52121af1c7d4f477050936958f6fb1d296a2",
+      "upstream_tests": "complete upstream make check"
+    },
+    "gcc": {
+      "compile_actions": 45,
+      "compile_database_sha256": "fe807f9662ca85d9780352eca3114a1f608ea74966f6fd0f1f8ebbb24f0442b6",
+      "passed": true,
+      "production_sources": 45,
+      "upstream_test_log_sha256": "fb6c15c32385ee2ab8e75d40283b72d1350dcc29bab4585243f50862fae16356",
+      "upstream_tests": "complete upstream make check"
+    },
+    "sanitizer": {
+      "compile_actions": 45,
+      "compile_database_sha256": "9305528825fb98be4ad6ff178da0bd457ed2bb819b20e90e1927b87fe1f01568",
+      "passed": true,
+      "production_sources": 45,
+      "upstream_test_log_sha256": "dc2775bf168f943b1007a407c92834bfab8ea2425b18f0dcd4d1b3368c794250",
+      "upstream_tests": "complete upstream make check"
+    }
+  },
+  "configuration": {
+    "benchmarks": true,
+    "compression": "all",
+    "decompression": "all",
+    "dictionaries": true,
+    "external_lz4": false,
+    "external_lzma": false,
+    "external_zlib": false,
+    "legacy_decoders": [
+      "v0.5",
+      "v0.6",
+      "v0.7"
+    ],
+    "selinux": false,
+    "systemd": false,
+    "threads": "posix"
+  },
+  "inventory": {
+    "canonical_scripts": [
+      "zstdgrep",
+      "zstdless"
+    ],
+    "physical_c_executables": [
+      "zstd"
+    ],
+    "production_closure_sha256": "b958ac0c7b62e90253c92959748cf1b577f0292ccc4be6cb1058dcb215f6de8c",
+    "production_source_count": 45,
+    "production_sources": [
+      "lib/common/debug.c",
+      "lib/common/entropy_common.c",
+      "lib/common/error_private.c",
+      "lib/common/fse_decompress.c",
+      "lib/common/pool.c",
+      "lib/common/threading.c",
+      "lib/common/xxhash.c",
+      "lib/common/zstd_common.c",
+      "lib/compress/fse_compress.c",
+      "lib/compress/hist.c",
+      "lib/compress/huf_compress.c",
+      "lib/compress/zstd_compress.c",
+      "lib/compress/zstd_compress_literals.c",
+      "lib/compress/zstd_compress_sequences.c",
+      "lib/compress/zstd_compress_superblock.c",
+      "lib/compress/zstd_double_fast.c",
+      "lib/compress/zstd_fast.c",
+      "lib/compress/zstd_lazy.c",
+      "lib/compress/zstd_ldm.c",
+      "lib/compress/zstd_opt.c",
+      "lib/compress/zstd_preSplit.c",
+      "lib/compress/zstdmt_compress.c",
+      "lib/decompress/huf_decompress.c",
+      "lib/decompress/huf_decompress_amd64.S",
+      "lib/decompress/zstd_ddict.c",
+      "lib/decompress/zstd_decompress.c",
+      "lib/decompress/zstd_decompress_block.c",
+      "lib/dictBuilder/cover.c",
+      "lib/dictBuilder/divsufsort.c",
+      "lib/dictBuilder/fastcover.c",
+      "lib/dictBuilder/zdict.c",
+      "lib/legacy/zstd_v05.c",
+      "lib/legacy/zstd_v06.c",
+      "lib/legacy/zstd_v07.c",
+      "programs/benchfn.c",
+      "programs/benchzstd.c",
+      "programs/datagen.c",
+      "programs/dibio.c",
+      "programs/fileio.c",
+      "programs/fileio_asyncio.c",
+      "programs/lorem.c",
+      "programs/timefn.c",
+      "programs/util.c",
+      "programs/zstdcli.c",
+      "programs/zstdcli_trace.c"
+    ],
+    "public_name_count": 6,
+    "public_names": [
+      "zstd",
+      "zstdmt",
+      "unzstd",
+      "zstdcat",
+      "zstdgrep",
+      "zstdless"
+    ],
+    "source_lines": {
+      "lib/common/debug.c": 30,
+      "lib/common/entropy_common.c": 340,
+      "lib/common/error_private.c": 64,
+      "lib/common/fse_decompress.c": 315,
+      "lib/common/pool.c": 371,
+      "lib/common/threading.c": 182,
+      "lib/common/xxhash.c": 18,
+      "lib/common/zstd_common.c": 48,
+      "lib/compress/fse_compress.c": 625,
+      "lib/compress/hist.c": 191,
+      "lib/compress/huf_compress.c": 1464,
+      "lib/compress/zstd_compress.c": 7843,
+      "lib/compress/zstd_compress_literals.c": 235,
+      "lib/compress/zstd_compress_sequences.c": 442,
+      "lib/compress/zstd_compress_superblock.c": 688,
+      "lib/compress/zstd_double_fast.c": 778,
+      "lib/compress/zstd_fast.c": 985,
+      "lib/compress/zstd_lazy.c": 2199,
+      "lib/compress/zstd_ldm.c": 745,
+      "lib/compress/zstd_opt.c": 1580,
+      "lib/compress/zstd_preSplit.c": 238,
+      "lib/compress/zstdmt_compress.c": 1923,
+      "lib/decompress/huf_decompress.c": 1944,
+      "lib/decompress/huf_decompress_amd64.S": 602,
+      "lib/decompress/zstd_ddict.c": 244,
+      "lib/decompress/zstd_decompress.c": 2410,
+      "lib/decompress/zstd_decompress_block.c": 2209,
+      "lib/dictBuilder/cover.c": 1302,
+      "lib/dictBuilder/divsufsort.c": 1913,
+      "lib/dictBuilder/fastcover.c": 766,
+      "lib/dictBuilder/zdict.c": 1133,
+      "lib/legacy/zstd_v05.c": 4005,
+      "lib/legacy/zstd_v06.c": 4110,
+      "lib/legacy/zstd_v07.c": 4490,
+      "programs/benchfn.c": 256,
+      "programs/benchzstd.c": 1281,
+      "programs/datagen.c": 186,
+      "programs/dibio.c": 440,
+      "programs/fileio.c": 3464,
+      "programs/fileio_asyncio.c": 663,
+      "programs/lorem.c": 285,
+      "programs/timefn.c": 168,
+      "programs/util.c": 1643,
+      "programs/zstdcli.c": 1658,
+      "programs/zstdcli_trace.c": 172
+    },
+    "total_source_lines": 56648
+  },
+  "next_gate": "static audit and deterministic normalization of the exact 45-source closure",
+  "recorded_at": "2026-11-22",
+  "release": "1.5.7",
+  "schema": 1,
+  "source": {
+    "archive": "zstd-1.5.7.tar.gz",
+    "archive_members": 743,
+    "archive_sha256": "eb33e51f49a15e023950cd7825ca74a4a2b43db8354825ac24fc1b7ee09e6fa3",
+    "checksum_sha256": "954fa350e59ac782eaba5e04db608a0252b465eb3fc9dd02c426050956520161",
+    "checksum_verified": true,
+    "commit": "f8745da6ff1ad1e7bab384bd1f9d742439278e99",
+    "kind": "checksum-release",
+    "state_sha256": "a2d334c08ac68c4a87f8c8ca793274452aac38435ade0c928c6a4467cd003f49",
+    "tag": "v1.5.7"
+  },
+  "status": "complete canonical checksum oracle; deterministic normalization pending",
+  "upstream_lean_reuse": {
+    "limitation": "compression and the complete CLI still require the canonical C oracle",
+    "repository": "https://github.com/kim-em/lean-zstd",
+    "usable_scope": "pure Lean decompression, frame/block/FSE/Huffman/XXHash and proofs"
+  }
+}
