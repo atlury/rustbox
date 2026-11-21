@@ -6,7 +6,7 @@
         "libpcre2-8.so.0",
         "libc.so.6"
       ],
-      "sha256": "c3e8a7545b667f2aba5e8efee2f9429b3835847062190d5b46be402cf78f5dfe"
+      "sha256": "b243fbd9ca1ed053d192b502de84d91e2e8b3525648eae7ffbe0b6ef112aa501"
     },
     "gcc": {
       "bytes": 790440,
@@ -14,7 +14,7 @@
         "libpcre2-8.so.0",
         "libc.so.6"
       ],
-      "sha256": "b2ab945b71b32a7ac8d1399922769a30540db3829a36013a16c029f236f7c049"
+      "sha256": "4daed9bf104442e4e3df887980cb17458d69d3c62c550ff9c13cfc53da1714e2"
     }
   },
   "canonical_normalized_differential": {
@@ -39,14 +39,14 @@
         "main",
         "rustbox_grep_main"
       ],
-      "sha256": "0ee4b11438e37a1a5f7d120448188ae00771d771556a7b04b9acd6c9991713c5"
+      "sha256": "2e77047f3c92c632f8d720e827d1072163687f42829cc2205bf1512a5c902857"
     },
     "gcc": {
       "entrypoints": [
         "main",
         "rustbox_grep_main"
       ],
-      "sha256": "3522628bc7d518e0e8ac9f9514c2d3378ad70bbc2e79fdd24c382303b5a60fd6"
+      "sha256": "b845dc938bbc67f7cb7ea353fd74c9c91ade229866ad6fce9bb5878f3ea15081"
     }
   },
   "next_gate": "translate the exact 129-source normalized production closure with C2Rust",
@@ -54,6 +54,7 @@
     "canonical_archive_sha256": "2649b27c0e90e632eadcd757be06c6e9a4f48d941de51e7c0f83ff76408a07b9",
     "canonical_tree_sha256": "4e8aed0febfc6ee2c802a9efd0954c0b320b5178dc8727dcadf91db91d52d641",
     "changed_sources": [
+      "lib/c-stack.c",
       "lib/dfa.c",
       "lib/malloca.c",
       "lib/realloc.c",
@@ -66,10 +67,17 @@
     ],
     "conditional": "RUSTBOX_MULTICALL",
     "engine": "exact deterministic source rewrite",
-    "normalized_tree_sha256": "84f5b39f55b7ca37efd0872489a188c1c378843c3262127998c4c6ce27b47d0e",
+    "normalized_tree_sha256": "8020e86affa682a65fe10c51df2cd43259e9e2a51eca6c93e69f907f656d6dfc",
     "release": "3.12",
     "schema": 1,
     "transformations": [
+      {
+        "canonical_sha256": "9d287fac8d4e516b25c56ab52928bfecb115b44d9628f31651c48baafdff6fe3",
+        "engine": "exact deterministic translator-compatibility rewrite",
+        "normalized_sha256": "1e0a146841f9542ee377fd7456499f5ffdf683cce399afd235c5e05316d1e120",
+        "operation": "make checked-integer widths or Boolean accumulation explicit for C2Rust",
+        "source": "lib/c-stack.c"
+      },
       {
         "canonical_sha256": "c3a1a5f0f3399018fe63265b6f5caf8fdc5ba0ff00931bd11f96005d9e218864",
         "engine": "exact deterministic translator-compatibility rewrite",
@@ -115,7 +123,7 @@
       {
         "canonical_sha256": "22ff6b93485baa033ebd3469ded5695d49b5c9aba89dcdb41cc67237a7ad94a0",
         "engine": "exact deterministic translator-compatibility rewrite",
-        "normalized_sha256": "e7f18f7f9f6f153bcbc87380823473a8f81afeb2b890151801d48a118559429a",
+        "normalized_sha256": "6c5031765b513614f55dc594d3e3f51bee13b7c3ce554d13ec381f9eb5cb4c9c",
         "operation": "export the multicall entrypoint and make eager Boolean accumulation explicit",
         "source": "src/grep.c"
       },
@@ -145,9 +153,9 @@
       "sanitizer": 169
     },
     "compile_database_sha256": {
-      "clang": "d3592e50cf5e2ac9207b74be9898b329d5e652c88e45c141e6b2179452eba234",
-      "gcc": "adf35ad84df9347ba16899ac11c1ad9354e62da64aae91d0239a5527da3526cf",
-      "sanitizer": "b6992fe85314e899ead1b181616ea709af620f64ead93065f11c728a43cb193b"
+      "clang": "b5ad9326feda267292609c497713f2ec980c44e2b29c25734d98e5df0f7eae20",
+      "gcc": "2d1c6dc55fbd49ab24063105e8ab9d0f54a87406b7e0d18c134d55658e7998ce",
+      "sanitizer": "cf93a6e617c99afae1018e33c3ab299c1a5bac03507a6f27197524c7818477e3"
     },
     "production_sources": 129,
     "source_closure_matches_canonical": true,
@@ -177,7 +185,7 @@
         "xfail": 2,
         "xpass": 0
       },
-      "log_sha256": "ed6be46a72aec28c57312960b3d2f9cd279c6136ed921e6451c2de4cc1487697"
+      "log_sha256": "f6c08666dc32cf5f069fa7ebb58e89ca95606cc9bcac490f9e53fed536c37993"
     },
     "gcc": {
       "gnulib": {
@@ -198,7 +206,7 @@
         "xfail": 2,
         "xpass": 0
       },
-      "log_sha256": "dd9bbd9e398c23a1347849054d977dacf76a13088e3bfa8e12fa426dea3a36ce"
+      "log_sha256": "a8f7e39904ef9631300f49f1dce61603be4c5b16a9e615f37fc551fbc6fdf7dc"
     },
     "sanitizer": {
       "gnulib": {
@@ -219,11 +227,11 @@
         "xfail": 2,
         "xpass": 0
       },
-      "log_sha256": "87e5b03aedc9af7d2c3f24b2909841a6ce124e4762377fbd8a42d691a1f4d77a"
+      "log_sha256": "47debc5031c92f8d539ac50f95240cbf13b8a49bb5bf5bcb5fc53f3fe152eeb3"
     }
   },
   "valgrind": {
-    "log_sha256": "f9284f454bdc3aae56c997181737e763114ab925da8c8ca608390c74be33a127",
+    "log_sha256": "396c75f7f2339afa618e96ad3b204a8f18307f9289d898f131f964925e88279a",
     "matches_canonical_summary": true
   }
 }

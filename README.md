@@ -400,10 +400,11 @@ The reviewed immutable inventory has zero blocking findings and is recorded
 in `evidence/grep-3.12-analysis.json`.  The one compiler precedence diagnostic
 is retained as an explicit parenthesization task for deterministic
 normalization.
-Deterministic normalization changes nine source files to export
+Deterministic normalization changes ten source files to export
 `rustbox_grep_main`, parenthesize the audited conditional, make checked
-integer widths explicit, and preserve eager Boolean call order in forms that
-C2Rust translates directly.  GCC, Clang, and ASan/UBSan retain every
+integer widths explicit, preserve eager Boolean call order, and make two
+unreachable post-`die` returns explicit in forms that C2Rust translates
+without fallback panics.  GCC, Clang, and ASan/UBSan retain every
 canonical suite total; the canonical process-exit allocation baseline is
 unchanged; and all 72 canonical-versus-normalized behavior comparisons are
 byte-exact.  The exact source closure, rewrites, symbols, dependencies, and

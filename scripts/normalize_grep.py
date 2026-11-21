@@ -100,6 +100,9 @@ def main() -> int:
             ("status &= grep_command_line_arg (*files++);",
              "status = grep_command_line_arg (*files++) && status;", 1),
             ("out_invert ^= true;", "out_invert = !out_invert;", 1),
+            ('  die (EXIT_TROUBLE, 0, _("invalid matcher %s"), m);\n}',
+             '  die (EXIT_TROUBLE, 0, _("invalid matcher %s"), m);\n'
+             '  return 0;\n}', 1),
         ])
         replace_exact(staged / "src/dfasearch.c", [
             ("dc->begline |= dm->begline;",
@@ -118,6 +121,9 @@ def main() -> int:
             ("  idx_t nplus;\n  if (!ckd_add (&nplus, n, plus) && !xalloc_oversized (nplus, 1))",
              "  idx_t nplus;\n  if (n <= (size_t) (IDX_MAX - plus)\n"
              "      && (nplus = (idx_t) n + plus, !xalloc_oversized (nplus, 1)))", 1),
+        ])
+        replace_exact(staged / "lib/c-stack.c", [
+            ("  die (SIGSEGV);\n}", "  die (SIGSEGV);\n  return 0;\n}", 1),
         ])
         replace_exact(staged / "lib/xstrtol.c", [
             ("ckd_mul (&scaled, *x, scale_factor)",
@@ -162,9 +168,9 @@ def main() -> int:
             if sha256(canonical / name) != sha256(staged / name)
         )
         expected_changed = [
-            "lib/dfa.c", "lib/malloca.c", "lib/realloc.c", "lib/strstr.c",
-            "lib/xstrtol.c", "src/dfasearch.c", "src/grep.c", "src/kwset.c",
-            "src/pcresearch.c",
+            "lib/c-stack.c", "lib/dfa.c", "lib/malloca.c", "lib/realloc.c",
+            "lib/strstr.c", "lib/xstrtol.c", "src/dfasearch.c", "src/grep.c",
+            "src/kwset.c", "src/pcresearch.c",
         ]
         if changed != expected_changed:
             raise RuntimeError(f"unexpected GNU Grep normalized sources: {changed}")
@@ -203,7 +209,7 @@ def main() -> int:
 
     args.manifest.parent.mkdir(parents=True, exist_ok=True)
     args.manifest.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
-    print(json.dumps({"changed_sources": 9, "entrypoints": 1}, sort_keys=True))
+    print(json.dumps({"changed_sources": 10, "entrypoints": 1}, sort_keys=True))
     return 0
 
 

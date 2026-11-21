@@ -73,7 +73,7 @@ def main() -> int:
     oracle = json.loads((repository / "evidence/grep-3.12-oracle.json").read_text())
     manifest_path = base / "normalization.json"
     manifest = json.loads(manifest_path.read_text())
-    if len(manifest["changed_sources"]) != 9 or "src/grep.c" not in manifest["changed_sources"]:
+    if len(manifest["changed_sources"]) != 10 or "src/grep.c" not in manifest["changed_sources"]:
         raise RuntimeError("GNU Grep normalization manifest changed")
 
     expected = {
@@ -178,7 +178,7 @@ def main() -> int:
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")
-    print(json.dumps({"changed_sources": 9, "differential": 72, "production_sources": 129}, sort_keys=True))
+    print(json.dumps({"changed_sources": 10, "differential": 72, "production_sources": 129}, sort_keys=True))
     return 0
 
 
