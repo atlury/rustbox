@@ -1,0 +1,127 @@
+{
+  "binaries": {
+    "clang": {
+      "bytes": 998168,
+      "embedded_liblz4_and_xxhash": true,
+      "entrypoints": [
+        "main",
+        "rustbox_lz4_main"
+      ],
+      "needed": [
+        "libc.so.6"
+      ],
+      "sha256": "531fe4b187e0a21a90c88b61c819a2b6ee53db45a38de915cc2cc673febc27c6",
+      "stripped_bytes": 285592,
+      "stripped_sha256": "50a3ea6a7c5a346afc529d21a6402d53d05926ea6aef6694043444955df747ad"
+    },
+    "gcc": {
+      "bytes": 1793424,
+      "embedded_liblz4_and_xxhash": true,
+      "entrypoints": [
+        "main",
+        "rustbox_lz4_main"
+      ],
+      "needed": [
+        "libc.so.6"
+      ],
+      "sha256": "8a6adb022056461835ffdc87b54b7b30f8ee229b92cdd8d2a54e03a4bfa7f9e8",
+      "stripped_bytes": 282848,
+      "stripped_sha256": "7fb0afa24e3214c83af326eccc503988366b1e30b794259ce722b757a70f3d14"
+    }
+  },
+  "canonical_normalized_differential": {
+    "comparisons": 54,
+    "compilers": {
+      "clang": {
+        "comparisons": 27,
+        "exact": true,
+        "sha256": "cbf88eb2b2e6aaee7e79fbf11ea62d6ffa2f291f66daacfc03b6628d3f275047"
+      },
+      "gcc": {
+        "comparisons": 27,
+        "exact": true,
+        "sha256": "cbf88eb2b2e6aaee7e79fbf11ea62d6ffa2f291f66daacfc03b6628d3f275047"
+      }
+    },
+    "exact": true
+  },
+  "configuration": {
+    "external_liblz4": false,
+    "force_memory_access": 0,
+    "multithreaded": true,
+    "selinux": false,
+    "systemd": false
+  },
+  "manifest_sha256": "fefb27524b1f88d897cc1380704053c310f9a2ccf154aed6796fa852946887c8",
+  "next_gate": "translate the exact 12-source normalized LZ4 production closure with C2Rust",
+  "normalization": {
+    "canonical_archive_sha256": "683fed08a844ad012196381e40badf80c0bbe4962959761416d41c9e67d77ec7",
+    "canonical_tree_sha256": "29027f0d40a1c09e15351978202f61ca4dd213296a6b4782b5e6c2723c1147bb",
+    "changed_sources": [
+      "lib/lz4frame.c",
+      "programs/lz4cli.c"
+    ],
+    "compiler_normalization": "LZ4_FORCE_MEMORY_ACCESS=0 selects the upstream portable memcpy implementation",
+    "conditional": "RUSTBOX_MULTICALL",
+    "engine": "exact deterministic source rewrite",
+    "normalized_tree_sha256": "ac3d17123486412c153926f4936f56fdfe89cc09a72c731bd71290bcd504f867",
+    "release": "1.11.1",
+    "schema": 1,
+    "transformations": [
+      {
+        "canonical_sha256": "33cfe96e2b373ef1d0e73a4d87ec9ef14937432ba0340eab4f8a464c74f44bdc",
+        "normalized_sha256": "0b9d4a8bde4fa5376ee3d7eed0dfbffaa361df7e68c3935509c802fa7cab49c8",
+        "operation": "make zero-length public dictionary copies explicit before invoking memcpy",
+        "source": "lib/lz4frame.c"
+      },
+      {
+        "canonical_sha256": "79fc51cd0558b745ce172d12446aaddb19501513d63127501525fab307d8278c",
+        "normalized_sha256": "6906e5f479d8097960d47c948b0eacad6a35efa75505200d6d503018b02503b8",
+        "operation": "export a standard char** multicall entrypoint while retaining a standalone wrapper; match the unsigned help vararg; replace output-name strcpy/strcat with exact memcpy",
+        "source": "programs/lz4cli.c"
+      }
+    ]
+  },
+  "recorded_at": "2026-11-21",
+  "release": "1.11.1",
+  "resources": {
+    "compress": {
+      "heap_summary": "total heap usage: 9 allocs, 9 frees, 8,410,567 bytes allocated",
+      "log_sha256": "5b0c312e6533d923e80a3dc4f367bd84bc39b6af86d912c59111546f65d38712",
+      "matches_canonical_summary": true
+    },
+    "decompress": {
+      "heap_summary": "total heap usage: 29 allocs, 29 frees, 29,633,156 bytes allocated",
+      "log_sha256": "48e36bb334d77762b98ebc7acfbe1f2c245e86c52105b64a00cf0fce21cb3aa1",
+      "matches_canonical_summary": true
+    }
+  },
+  "schema": 1,
+  "scope": {
+    "compilers": {
+      "clang": {
+        "compile_actions": 24,
+        "compile_database_sha256": "ff6591ecb2cf519899d32be856edd4f950f1ffdfee22d1edebed91bcaa6a6b2d",
+        "passed": true,
+        "production_sources": 12,
+        "upstream_essentials_log_sha256": "ae31869a0513a000e96da8285b68c3874f290cac246b4b8f2d9ad0139de14bed"
+      },
+      "gcc": {
+        "compile_actions": 24,
+        "compile_database_sha256": "d62b0d16fdd3d08983dc00f1f89d8770eb3b81c2a83aeea7ca20bea8f1b313c9",
+        "passed": true,
+        "production_sources": 12,
+        "upstream_essentials_log_sha256": "d0c6831936023a760be453c23d736cea9fa66a68775d36baee54f748e781dfcb"
+      },
+      "sanitizer": {
+        "compile_actions": 24,
+        "compile_database_sha256": "9661f987d00ebd92ddd42f53f2ed3e39195e114d2a24a263569550230498b6b5",
+        "passed": true,
+        "production_sources": 12,
+        "upstream_essentials_log_sha256": "5430457497b8f4bbe43c0994d2e3d29278e911614bf85ea4a8356bf16cb6f1bf"
+      }
+    },
+    "production_sources": 12,
+    "source_closure_matches_canonical": true
+  }
+}

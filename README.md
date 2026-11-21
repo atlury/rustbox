@@ -632,6 +632,15 @@ realloc double free and constructor-local resource leaks are path-model
 artifacts; both supported compilers, sanitizers, and Valgrind independently
 close those paths.  Exact finding counts and review decisions are pinned in
 `evidence/lz4-1.11.1-analysis.json`.
+The deterministic normalization changes only `programs/lz4cli.c` and
+`lib/lz4frame.c`, exposes `rustbox_lz4_main`, and selects upstream's portable
+`memcpy` memory-access implementation.  GCC, Clang, and GCC ASan/UBSan each
+pass the complete essentials suite after normalization.  Both optimized builds
+match their corresponding canonical compiler across all 27 cases (54 exact
+comparisons), while Valgrind retains the canonical allocation/free counts for
+both compression and decompression.  Exact transformations, source closure,
+entrypoints, dependencies, sizes, and parity are recorded in
+`evidence/lz4-1.11.1-normalization.json`.
 
 ## Work queue after util-linux
 
