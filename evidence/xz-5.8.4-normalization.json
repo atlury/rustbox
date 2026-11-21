@@ -1,0 +1,86 @@
+{
+  "behavior": {
+    "byte_identical_lzma_streams": true,
+    "byte_identical_xz_streams": true,
+    "cases_per_compiler": 70,
+    "passed": 140,
+    "total_comparisons": 140
+  },
+  "canonical_normalized_differential": {
+    "clang": {
+      "cases": 70,
+      "passed": 70,
+      "sha256": "b29bfe92fe52c5325e0f7bcb8780a7cec5a7e258ebd47dcd3fe21d770cbf9c9c"
+    },
+    "gcc": {
+      "cases": 70,
+      "passed": 70,
+      "sha256": "8a3bc5afeb74fddd4ad597fc54dfdc584ff92359fa377f4961226d190b05f517"
+    }
+  },
+  "compilers": {
+    "clang": {
+      "compile_actions": 113,
+      "compile_database_sha256": "46470afdfb06fc60234d4c4aaafe3a9696369326e9cb42e8fc2a46d95e328104",
+      "landlock": true,
+      "passed": true,
+      "unique_sources": 101,
+      "upstream_test_log_sha256": "03ede98c3897c55c36f7c7b63f8baee3fdb7b676e5c500a84df18a282a960917",
+      "upstream_tests": {
+        "passed": 22,
+        "skipped": 0,
+        "total": 22
+      }
+    },
+    "gcc": {
+      "compile_actions": 113,
+      "compile_database_sha256": "0d11920950b7914840f996d543d5c117dad32432ba1e9fe10373cbcbb986b280",
+      "landlock": true,
+      "passed": true,
+      "unique_sources": 101,
+      "upstream_test_log_sha256": "0f700698dace455f85fd705d9fe325a1fde460398d9cd9980b2ba9270c043c6a",
+      "upstream_tests": {
+        "passed": 22,
+        "skipped": 0,
+        "total": 22
+      }
+    },
+    "sanitizer": {
+      "compile_actions": 113,
+      "compile_database_sha256": "a5d9283cef090f0b34e457bea0b68f0c2d17e9a14340b93ccfe93ccd1cad93ec",
+      "landlock": false,
+      "passed": true,
+      "unique_sources": 101,
+      "upstream_test_log_sha256": "b84ea2424a48e60aa1d9471f8b72dedb9bd6f51e5139adef308f1839185c66d4",
+      "upstream_tests": {
+        "passed": 22,
+        "skipped": 0,
+        "total": 22
+      }
+    }
+  },
+  "next_gate": "translate the exact normalized closure with complete declaration maps and no holes",
+  "normalization": {
+    "algorithm_changes": 0,
+    "canonical_tree_sha256": "f599e7dcf4d5d486296d11e58b4c5ed99a5827d1d7d7657049ea13ef86c255a3",
+    "changed_sources": [
+      "src/lzmainfo/lzmainfo.c",
+      "src/xz/main.c",
+      "src/xzdec/xzdec.c"
+    ],
+    "compiler_configuration": "upstream --disable-clmul-crc portable CRC implementation",
+    "entrypoints_exported": 4,
+    "manifest_sha256": "3206983faaecbc546042cc077720c9b3e8c4855d7ae616d4e5a052486950d63b",
+    "normalized_tree_sha256": "d9549fa08db1119c29c92ade16209be368a5cecd184cd88474c7c984554e9480",
+    "source_rewrites": "entrypoint identity only"
+  },
+  "production_closure": {
+    "compile_actions": 113,
+    "sha256": "1d9270fb42e95e59fd9bbc00a583d21d5cf84896cac89b4a5ab429d38cb7f7a2",
+    "sources": 101
+  },
+  "recorded_at": "2026-11-22",
+  "release": "5.8.4",
+  "schema": 1,
+  "status": "complete deterministic normalization at canonical parity; C2Rust translation pending"
+}

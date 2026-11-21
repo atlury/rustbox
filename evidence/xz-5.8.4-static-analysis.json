@@ -1,0 +1,124 @@
+{
+  "artifacts": {
+    "clang-analyzer-tidy.log": "074f8a42fe3bd270b7ea3dd6297f27c75ebacc81e478940d86290215ad2ee6ea",
+    "compile_commands.json": "d08c02529419cdf7d15480b8ca246b023d6a4c65d09451afcc8dd5ba55884dac",
+    "cppcheck.log": "ffb6187f5fc027c790d8462875a8e6eca21b364ae62c49f798f36f34a2447ed8",
+    "flawfinder.log": "b04307e35f87c668f891aa349af2b98e263ba6d08b821c36405e24bb637150e2",
+    "gcc-analyzer-configure.log": "cbb91fdc3406221368ed38204b64bc4be73896a01dfc2ae300fc744643ac7ad3",
+    "gcc-analyzer.log": "a9c1c7868cc797907ad975e889a21f511fa7790c1ab4ccab0cc76a6212ca1f4d",
+    "sources.list": "dc2891caf4213a9cb14643b30d492f71cacbec72ee8dd9ca9c3f91667d653bfe",
+    "sparse.log": "83237200c973a013dc57c0db2c022b2fe99425b5ed14b7506c318e12923a0880",
+    "sparse.status": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "recorded_at": "2026-11-22",
+  "release": "5.8.4",
+  "review": {
+    "canonical_source_changes": 0,
+    "demonstrated_canonical_defects": 0,
+    "notes": [
+      "Cppcheck's xzdec stack-buffer reports confuse lzma_stream's borrowed next_in/next_out pointers with escaped ownership; both buffers remain live for the whole decoding loop.",
+      "Cppcheck's division report follows the multiplier==0 path beyond message_fatal(), which is declared noreturn.",
+      "GCC and Clang index-tree null reports ignore assertions and invariants established by successful tree lookup; the public tests, sanitizers, and malformed-input corpus exercise those paths without error.",
+      "GCC's file-descriptor report is the intentional repair of missing standard descriptors: when open returns exactly descriptor 0, 1, or 2, ownership transfers to the process standard stream until exit.",
+      "Clang's x86 shift report cannot reach i==0 because MASK_TO_BIT_NUMBER is indexed only after prev_mask is nonzero; the portable C filter is still retained and differentially tested.",
+      "The va_list report ignores the local va_start before vfprintf and va_end after it.",
+      "Remaining findings are pointer, macro, conversion, and C buffer-API inventory rather than demonstrated behavioral defects."
+    ],
+    "required_normalization": [
+      "Export the four physical command entrypoints while retaining standalone wrappers.",
+      "Disable the optional CLMUL CRC optimization only in the translation configuration; retain the same CRC behavior through canonical portable C."
+    ]
+  },
+  "schema": 1,
+  "scope": {
+    "compile_actions": 113,
+    "public_names": [
+      "xz",
+      "unxz",
+      "xzcat",
+      "lzma",
+      "unlzma",
+      "lzcat",
+      "xzdec",
+      "lzmadec",
+      "lzmainfo",
+      "xzdiff",
+      "xzcmp",
+      "xzegrep",
+      "xzfgrep",
+      "xzgrep",
+      "xzless",
+      "xzmore",
+      "lzdiff",
+      "lzcmp",
+      "lzgrep",
+      "lzegrep",
+      "lzfgrep",
+      "lzmore",
+      "lzless"
+    ],
+    "tests_examples_and_nonselected_sources_excluded": true,
+    "unique_sources": 101
+  },
+  "status": "complete production audit; deterministic normalization pending",
+  "tools": {
+    "clang_analyzer_tidy": {
+      "all_findings_by_check": {
+        "bugprone-branch-clone": 1,
+        "bugprone-easily-swappable-parameters": 65,
+        "bugprone-implicit-widening-of-multiplication-result": 16,
+        "bugprone-inc-dec-in-conditions": 1,
+        "bugprone-macro-parentheses": 58,
+        "bugprone-multi-level-implicit-pointer-conversion": 2,
+        "bugprone-narrowing-conversions": 3,
+        "bugprone-switch-missing-default-case": 5,
+        "clang-analyzer-core.BitwiseShift": 1,
+        "clang-analyzer-core.NullDereference": 2,
+        "clang-analyzer-core.StackAddressEscape": 2,
+        "clang-analyzer-core.UndefinedBinaryOperatorResult": 1,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 96,
+        "clang-analyzer-valist.Uninitialized": 1
+      },
+      "analyzer_findings_by_check": {
+        "clang-analyzer-core.BitwiseShift": 1,
+        "clang-analyzer-core.NullDereference": 2,
+        "clang-analyzer-core.StackAddressEscape": 2,
+        "clang-analyzer-core.UndefinedBinaryOperatorResult": 1,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 96,
+        "clang-analyzer-valist.Uninitialized": 1
+      }
+    },
+    "cppcheck": {
+      "findings_by_id": {
+        "autoVariables": 3,
+        "constParameterPointer": 3,
+        "constVariablePointer": 1,
+        "duplicateCondition": 2,
+        "duplicateExpressionTernary": 1,
+        "uninitvar": 1,
+        "zerodiv": 1
+      },
+      "findings_by_severity": {
+        "error": 5,
+        "style": 7
+      }
+    },
+    "flawfinder": {
+      "hits_at_level_1_or_higher": 110,
+      "lines_analyzed": 34216
+    },
+    "gcc_fanalyzer": {
+      "findings_by_check": {
+        "analyzer-fd-leak": 1,
+        "analyzer-null-dereference": 2
+      },
+      "warnings": 3
+    },
+    "sparse": {
+      "exit_status": 0,
+      "limitation": "Sparse cannot model GCC x86 CLMUL intrinsics or __builtin_assume_aligned in this configured closure; the portable translation configuration disables CLMUL and is independently compared",
+      "parser_errors": 106,
+      "warnings": 313
+    }
+  }
+}

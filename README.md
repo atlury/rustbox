@@ -792,8 +792,15 @@ the 23 installed command and compatibility names, and emit byte-identical
 liblzma is built internally.  Valgrind reports no definite, indirect, or
 possible loss and no memory errors; canonical XZ intentionally retains its
 codec state until process exit.  Reproducible oracle details are in
-`evidence/xz-5.8.4-oracle.json`; deterministic normalization, static analysis,
-translation, and multicall integration remain in progress.
+`evidence/xz-5.8.4-oracle.json`.  The five-tool production audit found no
+demonstrated canonical defect.  Deterministic normalization changes only three
+entrypoint source files to export four physical command personalities, and
+selects upstream's portable C CRC implementation for translation.  All three
+normalized compiler suites pass, and both canonical compiler baselines agree
+with normalization across 140/140 comparisons.  Audit and normalization
+evidence is in `evidence/xz-5.8.4-static-analysis.json` and
+`evidence/xz-5.8.4-normalization.json`; translation and multicall integration
+remain in progress.
 
 ## Work queue after util-linux
 
@@ -846,7 +853,8 @@ Library-only checkpoints (outside the active utility order):
      `xz`, `unxz`, `xzcat`, `lzma`, `unlzma`, `lzcat`, `xzdec`, `lzmadec`,
      `lzmainfo`, `xzcmp`, `xzdiff`, `xzegrep`, `xzfgrep`, `xzgrep`, `xzless`,
      `xzmore`, `lzcmp`, `lzdiff`, `lzegrep`, `lzfgrep`, `lzgrep`, `lzless`, and
-     `lzmore`; deterministic normalization is next.
+     `lzmore`; deterministic normalization and production audit are complete,
+     with translation next.
    - [ ] zstd — `zstd`, `zstdmt`, `unzstd`, `zstdcat`, `zstdgrep`,
      `zstdless`.
    - [ ] tar — `tar`, `rmt`.
