@@ -82,6 +82,14 @@ def main() -> int:
             "}\n"
             "#endif\n"
         ))
+        replace_once(
+            entry,
+            "    do_exit(exit_code);\n}",
+            "    do_exit(exit_code);\n"
+            "    return exit_code;\n"
+            "}",
+            "explicit nonreturning main tail",
+        )
 
         replace_once(
             staged / "deflate.c",
@@ -105,6 +113,15 @@ def main() -> int:
             "        memcpy (r_ptr, a_ptr, a_len * sizeof (mp_limb_t));",
             "zero-length null memcpy guard",
         )
+        replace_once(
+            staged / "lib/malloca.c",
+            "  idx_t nplus;\n"
+            "  if (!ckd_add (&nplus, n, plus) && !xalloc_oversized (nplus, 1))",
+            "  idx_t nplus;\n"
+            "  if (n <= (size_t) (IDX_MAX - plus)\n"
+            "      && (nplus = (idx_t) n + plus, !xalloc_oversized (nplus, 1)))",
+            "explicit checked malloc size width",
+        )
 
         canonical_files = {
             path.relative_to(canonical).as_posix()
@@ -120,7 +137,7 @@ def main() -> int:
             name for name in canonical_files
             if sha256(canonical / name) != sha256(staged / name)
         )
-        expected = ["deflate.c", "gzip.c", "lib/vasnprintf.c"]
+        expected = ["deflate.c", "gzip.c", "lib/malloca.c", "lib/vasnprintf.c"]
         if changed != expected:
             raise RuntimeError(f"unexpected GNU Gzip normalized sources: {changed}")
 
@@ -129,10 +146,13 @@ def main() -> int:
                 "make the nonreturning invalid pack-level path explicit before the configuration-table index"
             ),
             "gzip.c": (
-                "export rustbox_gzip_main and retain a conditional standalone main wrapper"
+                "export rustbox_gzip_main, retain a conditional standalone main wrapper, and make the unreachable return after do_exit explicit to translation tools"
             ),
             "lib/vasnprintf.c": (
                 "do not pass a possibly null source to memcpy when the multi-precision copy length is zero"
+            ),
+            "lib/malloca.c": (
+                "replace the generic checked-add expression with the equivalent explicit idx_t range check and assignment"
             ),
         }
         manifest = {

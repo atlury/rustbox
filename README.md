@@ -57,7 +57,7 @@ scoring, and correctness gates.
 | attr 2.6.0 | 3 | 3 | 3 | 3 |
 | acl 2.4.0 | 3 | 3 | 3 | 3 |
 | LZ4 1.11.1 | 4 | 4 | 4 | 4 |
-| GNU Gzip 1.14 | 14 | 14 | 0 | 0 |
+| GNU Gzip 1.14 | 14 | 14 | 14 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -694,9 +694,10 @@ flow explicit, split legacy condition side effects, bound name-buffer copies,
 and select the canonical portable CRC implementation if C2Rust cannot express
 the x86 PCLMUL intrinsics.  Sparse's intrinsic parser failures and the reviewed
 path-model false positives remain recorded rather than silently discarded.
-Deterministic normalization changes only `gzip.c`, `deflate.c`, and
-`lib/vasnprintf.c`: it exports `rustbox_gzip_main`, makes the fatal pack-level
-range boundary explicit, and guards the demonstrated zero-length null copy.
+Deterministic normalization changes only `gzip.c`, `deflate.c`,
+`lib/malloca.c`, and `lib/vasnprintf.c`: it exports `rustbox_gzip_main`, makes
+the fatal pack-level range boundary explicit, guards the demonstrated
+zero-length null copy, and materializes the checked allocation-size width.
 The build selects upstream's portable slice-by-8 CRC implementation through
 its configure cache instead of translating the optional x86 PCLMUL intrinsics.
 GCC and Clang each retain all 29 runnable upstream passes and compare exactly
@@ -707,6 +708,28 @@ suppression.  Compression and decompression retain the exact canonical
 Valgrind allocation lifecycles.  The resulting 68-unit translation closure,
 all 108 canonical comparisons, exact transformations, compiler results, and
 resource evidence are in `evidence/gzip-1.14-normalization.json`.
+C2Rust translates the complete 68-source portable production closure with no
+generated holes.  Its untouched full audit isolates one unrepresentable ABI:
+x86-64 C `long double` in variadic arguments becomes the `f128` crate, which
+cannot implement Rust's sealed `VaArgSafe` trait.  The compile-clean reachable
+partition therefore translates 64 sources and retains only `vasnprintf`,
+`printf-args`, and `printf-parse` as canonical C objects; the optional
+`printf-frexpl` helper is neither translated nor linked.  Both the untouched
+reachable crate on C2Rust's historical nightly and the mechanically modernized
+crate on stable Rust 1.99 compile without holes or generated semantic repairs.
+The 66 stable Rust files contain 25,282 lines and 4,086 raw-pointer type
+occurrences for the later safety phase.  Complete translation, diagnostics,
+partition, modernization, dependency, and unsafe inventory is in
+`evidence/gzip-1.14-c2rust.json`.
+The linked hybrid extracts exactly those three C archive members and retains
+the twelve canonical shell interfaces around the translated `gzip` engine.
+It passes the complete 29-runnable-case upstream suite with the canonical one
+skip, all 54 command/stream/filesystem comparisons across all 14 installed
+names, byte-identical compression, and exact canonical Valgrind allocation
+lifecycles.  The standalone translated executable strips to about 0.4 MB;
+the much larger static archive is link inventory rather than release size.
+Full behavior, bridge, resource, dependency, symbol, and size evidence is in
+`evidence/gzip-1.14-hybrid.json`.
 
 ## Work queue after util-linux
 
@@ -752,8 +775,8 @@ Library-only checkpoints (outside the active utility order):
    - [x] LZ4 1.11.1 — `lz4`, `lz4c`, `lz4cat`, `unlz4`; integrated at
      canonical parity.
 2. Compression, archive, and terminal foundations:
-   - [ ] GNU Gzip 1.14 — canonical oracle, analyzer audit, and normalization
-     complete; C2Rust translation pending for `gzip`, `gunzip`, `zcat`,
+   - [ ] GNU Gzip 1.14 — translated hybrid at canonical parity; internal-shell
+     replacement and multicall integration pending for `gzip`, `gunzip`, `zcat`,
      `uncompress`, `gzexe`, `zcmp`,
      `zdiff`, `zegrep`, `zfgrep`, `zforce`, `zgrep`, `zless`, `zmore`, `znew`.
    - [ ] xz — `xz`, `unxz`, `xzcat`, `lzma`, `unlzma`, `lzcat`, `xzdec`,

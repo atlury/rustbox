@@ -83,7 +83,9 @@ def main() -> int:
     oracle = json.loads((repository / "evidence/gzip-1.14-oracle.json").read_text())
     manifest_path = base / "normalization.json"
     manifest = json.loads(manifest_path.read_text())
-    if manifest["changed_sources"] != ["deflate.c", "gzip.c", "lib/vasnprintf.c"]:
+    if manifest["changed_sources"] != [
+        "deflate.c", "gzip.c", "lib/malloca.c", "lib/vasnprintf.c",
+    ]:
         raise RuntimeError("GNU Gzip normalization source set changed")
 
     expected_suite = {
@@ -197,12 +199,12 @@ def main() -> int:
             "selinux": False,
             "systemd": False,
         },
-        "next_gate": "translate the exact 68-source normalized GNU Gzip production closure with C2Rust",
+        "next_gate": "audit all 68 normalized sources with C2Rust, then isolate any unrepresentable ABI behind the smallest canonical C bridge",
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")
     print(json.dumps({
-        "changed_sources": 3,
+        "changed_sources": 4,
         "differential": 108,
         "portable_sources": 68,
         "upstream_passes": 29,

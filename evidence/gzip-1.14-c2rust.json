@@ -1,0 +1,1000 @@
+{
+  "complete_translation": {
+    "cargo_check": {
+      "build_finished_success": false,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "7740c8f3f1c58828bf6839324a3e7fe3de4b5e7850e8bebab52fb5c4bd986557",
+      "cargo_toml_sha256": "f41b7e6e4b78a2f3c39c9d7687333518e0cb790ce8cfcf3b14dbc72408d5af6d",
+      "diagnostics_by_level": {
+        "error": 2,
+        "failure-note": 1,
+        "warning": 19
+      },
+      "errors": [
+        {
+          "code": "E0277",
+          "column": 51,
+          "file": "src/normalized_source/lib/printf_args.rs",
+          "line": 324,
+          "message": "the trait bound `f128::f128: core::ffi::sealed_trait::VaArgSafe` is not satisfied"
+        },
+        {
+          "code": null,
+          "column": null,
+          "file": null,
+          "line": null,
+          "message": "aborting due to previous error; 19 warnings emitted"
+        }
+      ],
+      "exit_status": 101,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "cc9a15b57ebbde850fb2cf4d095da087ff18b2b9742cb72725a02250b0fa3dc2",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "E0277": 1,
+        "stable_features": 2,
+        "unused_imports": 3,
+        "unused_parens": 14
+      }
+    },
+    "compile_error_macros": 0,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "3966f2fbbbd59e7e5c6c924ee403d5ac16942567733c8eb96f9fe928d9fcb66a",
+      "src/normalized_clang/version.rs": "a6376c0bcde01e1026e7d09f8cd0e223d09342b47ff7ad93b952bc6b1942364e",
+      "src/normalized_source/bits.rs": "ac0765dad72854da42b5b80dc854325c45ab54507efa293d9346d5e48dbd4b38",
+      "src/normalized_source/deflate.rs": "8e188cd99be4ea82a48f10fe8a164404cb637b4bded9cf6d92089b2fca96fc1e",
+      "src/normalized_source/gzip.rs": "ea0f7b8c1f93220c6aa96403d79108a6f726a97695c2fa771234ffafa03076f8",
+      "src/normalized_source/inflate.rs": "49e522f1e694ba5a5d828cc4cfddbd0252e75b1b836aeda15ad921db4705f1a6",
+      "src/normalized_source/lib/asnprintf.rs": "180037dcb5b3e2fe92126b15ddc86edef2f18182ca3d37adf34be0a90058583d",
+      "src/normalized_source/lib/basename_lgpl.rs": "cb1fa4e5a84bee286be67b13140e33f8a33c41ea97a4728c8537e41c7a2df287",
+      "src/normalized_source/lib/chdir_long.rs": "0a545e54866451f3f19737e19392ae0e0d645534fd6b3c456cf7b4baf2c182c3",
+      "src/normalized_source/lib/cloexec.rs": "5b9b5aa492d6e9cbd9a6112be06483a071f1422ed0c4fe540f739a8b504b7816",
+      "src/normalized_source/lib/crc.rs": "9d7b98826357b807bc2798c61667da86b287cda504e874f46d891ba5f0215007",
+      "src/normalized_source/lib/creat_safer.rs": "bbfe1742a0b520f72d6b6093000ae7850bca0a6a8999b9d02724e39f84c0b491",
+      "src/normalized_source/lib/dirname_lgpl.rs": "7c41655189cd29d653dd1a640cd335f1ef09fd06e07c68f127f03538380fc2d9",
+      "src/normalized_source/lib/dup_safer.rs": "59346bd93ba590315e4a9bf4d78cac61ac134beee77c51adbe51a27e5007e2b9",
+      "src/normalized_source/lib/endian.rs": "f9fb9dff3276cbb3905f91425f2aae84d3ef8c5183f28915c27aee75403018a7",
+      "src/normalized_source/lib/exitfail.rs": "4c180a27ab18c2e2ef3d9ce31f9048cbcdc3bf6ee5086fc7cc90fc2a6ff3fe64",
+      "src/normalized_source/lib/fclose.rs": "dd0dc44e24efe7edc2243562348d2214949d108c949b16140899a41693ee9066",
+      "src/normalized_source/lib/fcntl.rs": "6ae0b98d02e824b92e96f3afc9aeb151a40103fa6c5ec44e1877610171a1cb42",
+      "src/normalized_source/lib/fd_hook.rs": "5b00b7730be9f635f38b096a55b6896d3aa985e424b43459d67132f656a3986f",
+      "src/normalized_source/lib/fd_safer.rs": "3dcfd0d67fae9220ccbc38b607f323f2e28d91943e3e8ef29aee0f9ef90c0531",
+      "src/normalized_source/lib/fflush.rs": "1a80d736a592c0354039af9d95e7d24fb385c70f0f707501db6e12e6fddcc810",
+      "src/normalized_source/lib/filenamecat_lgpl.rs": "3b2c1f4510543259ce1b123a5361814733b3e1da7d9bf96fd23b53e8d87be362",
+      "src/normalized_source/lib/float.rs": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/normalized_source/lib/fopen.rs": "0acc8e6b759fb4d2c8c8fd4d5ca59c84c42ca6abaeec0d549d4a30802915e104",
+      "src/normalized_source/lib/fpurge.rs": "986bd5507acb5fc13a406e9122a0122413d14709e791650b94a7a4e75f9938a3",
+      "src/normalized_source/lib/freading.rs": "e147ba95d34248a163e207d0b4b2c1a955ff8fa9406b0e95ca5e1eafe9a342a4",
+      "src/normalized_source/lib/fseek.rs": "1226cf0b176034aef05413cb714c2c61fc5d0e0f866a65d1cc119347d25ba993",
+      "src/normalized_source/lib/fseeko.rs": "aeef362bed96b7d9854f41e1799536b511fa98c01879174c18c0b61df5abca32",
+      "src/normalized_source/lib/fseterr.rs": "4a29ff72754a9da9a72ea21cf11b69d4b715184f02bb15a87456ae4d6cfc063b",
+      "src/normalized_source/lib/getprogname.rs": "b9aa8e17d6fe12b84b9b9e02ec92eb508fd579977cab7fb1227d314a792b4ad5",
+      "src/normalized_source/lib/gettime.rs": "3b4b7549ed842d3ff9b366a084748de31c13cebae690d2fc40d8a566fcb38675",
+      "src/normalized_source/lib/ialloc.rs": "6bbfd52d76b762b7e2a1154b545ead9c99dae288c4e5efd250a2c4003c064ff6",
+      "src/normalized_source/lib/malloca.rs": "acdf5fc21ffd7e93cff45d5452a727280f9465c8d8c15bb9cc00905187269075",
+      "src/normalized_source/lib/math.rs": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/normalized_source/lib/mbszero.rs": "d5fdfccf1bebed78df7f505ff2b4da1d30316684f1c7a511dcfb9eada1954e56",
+      "src/normalized_source/lib/open_safer.rs": "afc0741f83b4c5f1dfd353cd95daea5919ac09eb548a521d0827c8e79fd3cfb6",
+      "src/normalized_source/lib/openat_die.rs": "06b15e26ac5ea217e09560fff54d77ef502d57a0e07b80e7f9cc6510ea8ca55e",
+      "src/normalized_source/lib/openat_proc.rs": "8e21927be78aa3841b2978a410f98f478673d9eaf416f808f948bcee837e40d6",
+      "src/normalized_source/lib/openat_safer.rs": "2642ae0d384668d58750b78b3cf705241a7fd9d44b66fdbb6b3f2a800f3dbe3d",
+      "src/normalized_source/lib/pipe_safer.rs": "e90f285b583722037e2b48db3be303797b5517219b60bb19a0b4fc33b607ca23",
+      "src/normalized_source/lib/printf_args.rs": "a38367ead060270ab1198ecc01b20db3a22ea601b2481ec768d48889e0f82b22",
+      "src/normalized_source/lib/printf_frexp.rs": "43fb23848e0374dfc550933970e4e328690d1de2f0d3e896ea97a5ce1055ef7c",
+      "src/normalized_source/lib/printf_frexpl.rs": "cc8bc1bb3ca1fe8f0d5c4f4a7ccc17ff93d43785a24778da362aeb1a09cac0ec",
+      "src/normalized_source/lib/printf_parse.rs": "95922fc6ff589d7daf5a6e11caedb935fb4f4c286d043c5d10b5460304ddf882",
+      "src/normalized_source/lib/realloc.rs": "42a439a3fa1ee81209eb8589753859e236e7699fe251507a4eb6211e06413162",
+      "src/normalized_source/lib/reallocarray.rs": "73b8848b20d068e7ef6a7d11fcb8087ab726efe386c7dd3e9e701b60eab92e36",
+      "src/normalized_source/lib/save_cwd.rs": "dc28ad2b589358881192c81484f9dc3fc7607ac1ced4ccaa3cdb54238f369dd8",
+      "src/normalized_source/lib/savedir.rs": "5b9ca4821c7437011c43dcb74da46160db5feb1282f3a9a818c7cbae3d482a67",
+      "src/normalized_source/lib/sig_handler.rs": "29ef29614a058c63f8d22b4803cba7e90feb4998da5aca7175672699bdd459a9",
+      "src/normalized_source/lib/stat_time.rs": "b345f1412b8e895e35ed14043f12101b0c06d0e22068d9dd912ccc9e9b120be5",
+      "src/normalized_source/lib/stdlib.rs": "5b00b7730be9f635f38b096a55b6896d3aa985e424b43459d67132f656a3986f",
+      "src/normalized_source/lib/stripslash.rs": "e649aac25e4e1c3cef4cfa36d3ff366b62f8da85307efd485afdf92b3aecde77",
+      "src/normalized_source/lib/time.rs": "22816d65c8fb48ca1d72e70b32223329f540efba8c303f04cab97e9ab5903e45",
+      "src/normalized_source/lib/timespec.rs": "d68ecb0423dc6d4e44721343d1539b8e3259525c4902ce0ba386b87006475164",
+      "src/normalized_source/lib/unistd.rs": "f9fb9dff3276cbb3905f91425f2aae84d3ef8c5183f28915c27aee75403018a7",
+      "src/normalized_source/lib/utimens.rs": "cedb655285e6104a9117ec74d351011b8aeed20f57ce83b7df3d3ce594eb347a",
+      "src/normalized_source/lib/vasnprintf.rs": "6d588e33b0f71c69db9471b1d1b928439ae36ea75093dac1de4e9eeb8aef74c7",
+      "src/normalized_source/lib/vfzprintf.rs": "3e595b2b732b2f5e6ee16ebe6d8c224bc5a6740a7402bae8dcdd053f33a8d385",
+      "src/normalized_source/lib/xalloc_die.rs": "8ec78f437030bc77c151b63a18acb72b90b7b10ba5a6ae60bddca786e5d26fae",
+      "src/normalized_source/lib/xmalloc.rs": "d46aef991a33e846ed892fcfc0c7a4fe811523cb8cbf8ce8343a66ea7fc03064",
+      "src/normalized_source/lib/xsize.rs": "643bf5170effd24289ab46fb8b1d89ed17ad339549560e4dd5ffe8402bfe236d",
+      "src/normalized_source/lib/yesno.rs": "9ebca6d065a4ca3ad47e2bf3427f1a726076dfb3013a6e480f0265fe64548167",
+      "src/normalized_source/trees.rs": "be40a32e4a60f3f02ce9f04f72cc0ddfa0f4ba330f212a2a6f903d8e80be01b7",
+      "src/normalized_source/unlzh.rs": "43fc163280f7561a88866dd8240bacd3d1d25cabbeb9c56fe46e72bfedac9319",
+      "src/normalized_source/unlzw.rs": "54f23e114f70a6ed7d1dd01987d6587db5e36c329759e52521c91ac6bdf44a7e",
+      "src/normalized_source/unpack.rs": "9f5020a45e7e9fd6b29a1b5610848842ca3efcfd395bfa79705f0a30239401c0",
+      "src/normalized_source/unzip.rs": "310e4c0adfaa07cd5f29a7d52f90db6f228395bb38325712166c7a37adf230f2",
+      "src/normalized_source/util.rs": "7d386363d4c3494c09007a1ccb84774d04815e37afe40951a6cb1f12c497649c",
+      "src/normalized_source/zip.rs": "c9a1813fd18f8a4c399a6085449e0b5759b12bc2c7c88ded4395a3e07eaa7e99"
+    },
+    "panic_macros": 0,
+    "raw_pointer_type_occurrences": 4526,
+    "rust_bytes": 1227110,
+    "rust_files": 70,
+    "rust_lines": 30367,
+    "todo_macros": 0,
+    "unimplemented_macros": 0,
+    "unsafe_block_occurrences": 18,
+    "unsafe_function_occurrences": 1208
+  },
+  "dependencies": {
+    "f128": false,
+    "rust_crates": [
+      "libc"
+    ]
+  },
+  "hardening": {
+    "later_order": [
+      "eliminate raw pointers and unsafe",
+      "replace std and libc crate use with Rustbox-owned no_std runtime"
+    ],
+    "raw_pointers_and_unsafe_are_inventory_only": true
+  },
+  "input": {
+    "complete_compile_commands": 68,
+    "complete_compile_database_sha256": "252079b63c5ec1e825ff9d618e806ccc25f3767afe5e84509bb5b51da84fde58",
+    "normalization_evidence_sha256": "68c498b9825ae43239f8cdb09b02005c1c06889ea71f9613342735393c6444ab",
+    "normalization_tree_sha256": "29cf112e347a5ff5ca6b0af03a572430192cf26caff5d1f4a6675fa435a3174f",
+    "reachable_compile_commands": 64,
+    "reachable_compile_database_sha256": "30c33417a38c33937601bf401cb564eb29b78f907378389129f75e846ed0f2e3"
+  },
+  "next_gate": "link the stable Rust archive with the three canonical variadic objects and retain all 14 names at canonical parity",
+  "reachable_translation": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "74dbc0f365b43cae3f9350eaf53bd288f43ae2c12fb5c7f347112d8658bc5a56",
+      "cargo_toml_sha256": "02a2721be57912eec234738c1b59ce9815c9a9d922840d2ec798253663e9330e",
+      "diagnostics_by_level": {
+        "warning": 49
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "b1748e1140f24391f26e7f0e63a65828da78919b704514455d52e389c2712005",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "stable_features": 1,
+        "unused_imports": 1,
+        "unused_must_use": 3,
+        "unused_parens": 12,
+        "unused_unsafe": 2,
+        "unused_variables": 29
+      }
+    },
+    "compile_error_macros": 0,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "06e74e40cd6c788e515cb2992cafe8ab34f84507061e6a1e397807130e7e2dcc",
+      "src/normalized_clang/version.rs": "a6376c0bcde01e1026e7d09f8cd0e223d09342b47ff7ad93b952bc6b1942364e",
+      "src/normalized_source/bits.rs": "ac0765dad72854da42b5b80dc854325c45ab54507efa293d9346d5e48dbd4b38",
+      "src/normalized_source/deflate.rs": "8e188cd99be4ea82a48f10fe8a164404cb637b4bded9cf6d92089b2fca96fc1e",
+      "src/normalized_source/gzip.rs": "ea0f7b8c1f93220c6aa96403d79108a6f726a97695c2fa771234ffafa03076f8",
+      "src/normalized_source/inflate.rs": "49e522f1e694ba5a5d828cc4cfddbd0252e75b1b836aeda15ad921db4705f1a6",
+      "src/normalized_source/lib/asnprintf.rs": "180037dcb5b3e2fe92126b15ddc86edef2f18182ca3d37adf34be0a90058583d",
+      "src/normalized_source/lib/basename_lgpl.rs": "cb1fa4e5a84bee286be67b13140e33f8a33c41ea97a4728c8537e41c7a2df287",
+      "src/normalized_source/lib/chdir_long.rs": "0a545e54866451f3f19737e19392ae0e0d645534fd6b3c456cf7b4baf2c182c3",
+      "src/normalized_source/lib/cloexec.rs": "5b9b5aa492d6e9cbd9a6112be06483a071f1422ed0c4fe540f739a8b504b7816",
+      "src/normalized_source/lib/crc.rs": "9d7b98826357b807bc2798c61667da86b287cda504e874f46d891ba5f0215007",
+      "src/normalized_source/lib/creat_safer.rs": "bbfe1742a0b520f72d6b6093000ae7850bca0a6a8999b9d02724e39f84c0b491",
+      "src/normalized_source/lib/dirname_lgpl.rs": "7c41655189cd29d653dd1a640cd335f1ef09fd06e07c68f127f03538380fc2d9",
+      "src/normalized_source/lib/dup_safer.rs": "59346bd93ba590315e4a9bf4d78cac61ac134beee77c51adbe51a27e5007e2b9",
+      "src/normalized_source/lib/endian.rs": "f9fb9dff3276cbb3905f91425f2aae84d3ef8c5183f28915c27aee75403018a7",
+      "src/normalized_source/lib/exitfail.rs": "4c180a27ab18c2e2ef3d9ce31f9048cbcdc3bf6ee5086fc7cc90fc2a6ff3fe64",
+      "src/normalized_source/lib/fclose.rs": "dd0dc44e24efe7edc2243562348d2214949d108c949b16140899a41693ee9066",
+      "src/normalized_source/lib/fcntl.rs": "6ae0b98d02e824b92e96f3afc9aeb151a40103fa6c5ec44e1877610171a1cb42",
+      "src/normalized_source/lib/fd_hook.rs": "5b00b7730be9f635f38b096a55b6896d3aa985e424b43459d67132f656a3986f",
+      "src/normalized_source/lib/fd_safer.rs": "3dcfd0d67fae9220ccbc38b607f323f2e28d91943e3e8ef29aee0f9ef90c0531",
+      "src/normalized_source/lib/fflush.rs": "1a80d736a592c0354039af9d95e7d24fb385c70f0f707501db6e12e6fddcc810",
+      "src/normalized_source/lib/filenamecat_lgpl.rs": "3b2c1f4510543259ce1b123a5361814733b3e1da7d9bf96fd23b53e8d87be362",
+      "src/normalized_source/lib/float.rs": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/normalized_source/lib/fopen.rs": "0acc8e6b759fb4d2c8c8fd4d5ca59c84c42ca6abaeec0d549d4a30802915e104",
+      "src/normalized_source/lib/fpurge.rs": "986bd5507acb5fc13a406e9122a0122413d14709e791650b94a7a4e75f9938a3",
+      "src/normalized_source/lib/freading.rs": "e147ba95d34248a163e207d0b4b2c1a955ff8fa9406b0e95ca5e1eafe9a342a4",
+      "src/normalized_source/lib/fseek.rs": "1226cf0b176034aef05413cb714c2c61fc5d0e0f866a65d1cc119347d25ba993",
+      "src/normalized_source/lib/fseeko.rs": "aeef362bed96b7d9854f41e1799536b511fa98c01879174c18c0b61df5abca32",
+      "src/normalized_source/lib/fseterr.rs": "4a29ff72754a9da9a72ea21cf11b69d4b715184f02bb15a87456ae4d6cfc063b",
+      "src/normalized_source/lib/getprogname.rs": "b9aa8e17d6fe12b84b9b9e02ec92eb508fd579977cab7fb1227d314a792b4ad5",
+      "src/normalized_source/lib/gettime.rs": "3b4b7549ed842d3ff9b366a084748de31c13cebae690d2fc40d8a566fcb38675",
+      "src/normalized_source/lib/ialloc.rs": "6bbfd52d76b762b7e2a1154b545ead9c99dae288c4e5efd250a2c4003c064ff6",
+      "src/normalized_source/lib/malloca.rs": "acdf5fc21ffd7e93cff45d5452a727280f9465c8d8c15bb9cc00905187269075",
+      "src/normalized_source/lib/math.rs": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/normalized_source/lib/mbszero.rs": "d5fdfccf1bebed78df7f505ff2b4da1d30316684f1c7a511dcfb9eada1954e56",
+      "src/normalized_source/lib/open_safer.rs": "afc0741f83b4c5f1dfd353cd95daea5919ac09eb548a521d0827c8e79fd3cfb6",
+      "src/normalized_source/lib/openat_die.rs": "06b15e26ac5ea217e09560fff54d77ef502d57a0e07b80e7f9cc6510ea8ca55e",
+      "src/normalized_source/lib/openat_proc.rs": "8e21927be78aa3841b2978a410f98f478673d9eaf416f808f948bcee837e40d6",
+      "src/normalized_source/lib/openat_safer.rs": "2642ae0d384668d58750b78b3cf705241a7fd9d44b66fdbb6b3f2a800f3dbe3d",
+      "src/normalized_source/lib/pipe_safer.rs": "e90f285b583722037e2b48db3be303797b5517219b60bb19a0b4fc33b607ca23",
+      "src/normalized_source/lib/printf_frexp.rs": "43fb23848e0374dfc550933970e4e328690d1de2f0d3e896ea97a5ce1055ef7c",
+      "src/normalized_source/lib/realloc.rs": "42a439a3fa1ee81209eb8589753859e236e7699fe251507a4eb6211e06413162",
+      "src/normalized_source/lib/reallocarray.rs": "73b8848b20d068e7ef6a7d11fcb8087ab726efe386c7dd3e9e701b60eab92e36",
+      "src/normalized_source/lib/save_cwd.rs": "dc28ad2b589358881192c81484f9dc3fc7607ac1ced4ccaa3cdb54238f369dd8",
+      "src/normalized_source/lib/savedir.rs": "5b9ca4821c7437011c43dcb74da46160db5feb1282f3a9a818c7cbae3d482a67",
+      "src/normalized_source/lib/sig_handler.rs": "29ef29614a058c63f8d22b4803cba7e90feb4998da5aca7175672699bdd459a9",
+      "src/normalized_source/lib/stat_time.rs": "b345f1412b8e895e35ed14043f12101b0c06d0e22068d9dd912ccc9e9b120be5",
+      "src/normalized_source/lib/stdlib.rs": "5b00b7730be9f635f38b096a55b6896d3aa985e424b43459d67132f656a3986f",
+      "src/normalized_source/lib/stripslash.rs": "e649aac25e4e1c3cef4cfa36d3ff366b62f8da85307efd485afdf92b3aecde77",
+      "src/normalized_source/lib/time.rs": "22816d65c8fb48ca1d72e70b32223329f540efba8c303f04cab97e9ab5903e45",
+      "src/normalized_source/lib/timespec.rs": "d68ecb0423dc6d4e44721343d1539b8e3259525c4902ce0ba386b87006475164",
+      "src/normalized_source/lib/unistd.rs": "f9fb9dff3276cbb3905f91425f2aae84d3ef8c5183f28915c27aee75403018a7",
+      "src/normalized_source/lib/utimens.rs": "cedb655285e6104a9117ec74d351011b8aeed20f57ce83b7df3d3ce594eb347a",
+      "src/normalized_source/lib/vfzprintf.rs": "3e595b2b732b2f5e6ee16ebe6d8c224bc5a6740a7402bae8dcdd053f33a8d385",
+      "src/normalized_source/lib/xalloc_die.rs": "8ec78f437030bc77c151b63a18acb72b90b7b10ba5a6ae60bddca786e5d26fae",
+      "src/normalized_source/lib/xmalloc.rs": "d46aef991a33e846ed892fcfc0c7a4fe811523cb8cbf8ce8343a66ea7fc03064",
+      "src/normalized_source/lib/xsize.rs": "643bf5170effd24289ab46fb8b1d89ed17ad339549560e4dd5ffe8402bfe236d",
+      "src/normalized_source/lib/yesno.rs": "9ebca6d065a4ca3ad47e2bf3427f1a726076dfb3013a6e480f0265fe64548167",
+      "src/normalized_source/trees.rs": "be40a32e4a60f3f02ce9f04f72cc0ddfa0f4ba330f212a2a6f903d8e80be01b7",
+      "src/normalized_source/unlzh.rs": "43fc163280f7561a88866dd8240bacd3d1d25cabbeb9c56fe46e72bfedac9319",
+      "src/normalized_source/unlzw.rs": "54f23e114f70a6ed7d1dd01987d6587db5e36c329759e52521c91ac6bdf44a7e",
+      "src/normalized_source/unpack.rs": "9f5020a45e7e9fd6b29a1b5610848842ca3efcfd395bfa79705f0a30239401c0",
+      "src/normalized_source/unzip.rs": "310e4c0adfaa07cd5f29a7d52f90db6f228395bb38325712166c7a37adf230f2",
+      "src/normalized_source/util.rs": "7d386363d4c3494c09007a1ccb84774d04815e37afe40951a6cb1f12c497649c",
+      "src/normalized_source/zip.rs": "c9a1813fd18f8a4c399a6085449e0b5759b12bc2c7c88ded4395a3e07eaa7e99"
+    },
+    "panic_macros": 0,
+    "raw_pointer_type_occurrences": 4086,
+    "rust_bytes": 961420,
+    "rust_files": 66,
+    "rust_lines": 25063,
+    "todo_macros": 0,
+    "unimplemented_macros": 0,
+    "unsafe_block_occurrences": 18,
+    "unsafe_function_occurrences": 1146
+  },
+  "recorded_at": "2026-11-21",
+  "release": "1.14",
+  "schema": 1,
+  "stable_translation": {
+    "archive": {
+      "bytes": 23668496,
+      "entrypoint_definition_counts": {
+        "rustbox_gzip_main": 1
+      },
+      "sha256": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd"
+    },
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+      "cargo_lock_sha256": "99c8dc317dfa8256e77e3c16450723043b1cdf794485bb263103ff5304aaa143",
+      "cargo_toml_sha256": "02a2721be57912eec234738c1b59ce9815c9a9d922840d2ec798253663e9330e",
+      "diagnostics_by_level": {
+        "warning": 79
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+      "schema": 1,
+      "stderr_sha256": "5824803774271ddaf8edc51ceca056cfc81a28fa4ab999a54c4f3da04c2cd768",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "suspicious_runtime_symbol_definitions": 2,
+        "unpredictable_function_pointer_comparisons": 1,
+        "unused_attributes": 26,
+        "unused_imports": 1,
+        "unused_must_use": 3,
+        "unused_parens": 12,
+        "unused_unsafe": 5,
+        "unused_variables": 29
+      }
+    },
+    "compile_error_macros": 0,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "4a110cc634edb926ceeb60865f58d7026a4c31f3c49305165efd63d6f1722abc",
+      "src/normalized_clang/version.rs": "a6376c0bcde01e1026e7d09f8cd0e223d09342b47ff7ad93b952bc6b1942364e",
+      "src/normalized_source/bits.rs": "56bf684387e692c9212f8de002fecc601d5897fceee459da6f1fb65593d24831",
+      "src/normalized_source/deflate.rs": "114a41fa8ab4ca661e42975c4a2ad63eae215bee970d573cbf958fb4c1927f78",
+      "src/normalized_source/gzip.rs": "ac6972d4086d95f301ddf30d485db84cce1c8010e26075fadd59f18dbef176dc",
+      "src/normalized_source/inflate.rs": "df1307be0462733b046a75f29d434213f50f06b66f10e08205a3c37445d8450f",
+      "src/normalized_source/lib/asnprintf.rs": "21c13a8faf963700d09aac00d46e80563c22e3438f6078692383aa23ad2b7b4e",
+      "src/normalized_source/lib/basename_lgpl.rs": "cb1fa4e5a84bee286be67b13140e33f8a33c41ea97a4728c8537e41c7a2df287",
+      "src/normalized_source/lib/chdir_long.rs": "b277db927fb9a12c27a4b692a5b22eca28998e6559e4f3b7f8e36f9814e32766",
+      "src/normalized_source/lib/cloexec.rs": "5b9b5aa492d6e9cbd9a6112be06483a071f1422ed0c4fe540f739a8b504b7816",
+      "src/normalized_source/lib/crc.rs": "9d7b98826357b807bc2798c61667da86b287cda504e874f46d891ba5f0215007",
+      "src/normalized_source/lib/creat_safer.rs": "bbfe1742a0b520f72d6b6093000ae7850bca0a6a8999b9d02724e39f84c0b491",
+      "src/normalized_source/lib/dirname_lgpl.rs": "7c41655189cd29d653dd1a640cd335f1ef09fd06e07c68f127f03538380fc2d9",
+      "src/normalized_source/lib/dup_safer.rs": "59346bd93ba590315e4a9bf4d78cac61ac134beee77c51adbe51a27e5007e2b9",
+      "src/normalized_source/lib/endian.rs": "f9fb9dff3276cbb3905f91425f2aae84d3ef8c5183f28915c27aee75403018a7",
+      "src/normalized_source/lib/exitfail.rs": "4c180a27ab18c2e2ef3d9ce31f9048cbcdc3bf6ee5086fc7cc90fc2a6ff3fe64",
+      "src/normalized_source/lib/fclose.rs": "674aa66a7f051b7d8fd5ad283b7bdbb26d3eeca044d04c925b4dcccbc110d458",
+      "src/normalized_source/lib/fcntl.rs": "b8a62fc5878bef305654182c97feb4bee0b2a1575378d8fe0bdb2eb6bf0aa36d",
+      "src/normalized_source/lib/fd_hook.rs": "5b00b7730be9f635f38b096a55b6896d3aa985e424b43459d67132f656a3986f",
+      "src/normalized_source/lib/fd_safer.rs": "3dcfd0d67fae9220ccbc38b607f323f2e28d91943e3e8ef29aee0f9ef90c0531",
+      "src/normalized_source/lib/fflush.rs": "43cce2e7933a124336f801319ce53e27f3b425cf8c97aab453df866c987946a6",
+      "src/normalized_source/lib/filenamecat_lgpl.rs": "3b2c1f4510543259ce1b123a5361814733b3e1da7d9bf96fd23b53e8d87be362",
+      "src/normalized_source/lib/float.rs": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "src/normalized_source/lib/fopen.rs": "5dd842fb0679d87c8cd2f8d0ee522a7377bf5f732e34464bddeb51033c837f8a",
+      "src/normalized_source/lib/fpurge.rs": "0fe53e2f74874dbf63d1ef9355496cf5081d7757a2f38d6e2eda30df31468df1",
+      "src/normalized_source/lib/freading.rs": "9648abe244005a83cf707efcd883aa29c5f6e67c841770676e2a09ef5807b68c",
+      "src/normalized_source/lib/fseek.rs": "66c8db3b6ecfabe13607f80848fc630eeab5989a9d52eb3749d575a77048e402",
+      "src/normalized_source/lib/fseeko.rs": "57054a084df58179d0fe788f4c50226302f7e63bd7e396a4d07dd17ad0b48893",
+      "src/normalized_source/lib/fseterr.rs": "7f5812253a272e9d4c288de745033a637bc64971d23b95af579ae4f8af237c91",
+      "src/normalized_source/lib/getprogname.rs": "b9aa8e17d6fe12b84b9b9e02ec92eb508fd579977cab7fb1227d314a792b4ad5",
+      "src/normalized_source/lib/gettime.rs": "3b4b7549ed842d3ff9b366a084748de31c13cebae690d2fc40d8a566fcb38675",
+      "src/normalized_source/lib/ialloc.rs": "1adacedc7efe45e93bf5aa8fa76e3829d5b5ce05baa3beb20bbd0115c8a3a121",
+      "src/normalized_source/lib/malloca.rs": "acdf5fc21ffd7e93cff45d5452a727280f9465c8d8c15bb9cc00905187269075",
+      "src/normalized_source/lib/math.rs": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "src/normalized_source/lib/mbszero.rs": "b9b16b298668d3fe40dfd8fcf540ee593978cd97bdb66549815278ffb20a2e47",
+      "src/normalized_source/lib/open_safer.rs": "48562c028baaabb67f6de5f292c19ed24a88d81a6e1326ded506ed3b3fa239d3",
+      "src/normalized_source/lib/openat_die.rs": "4edc7f208834ad5bce20472250d69485b828178d036ebb9ae11b73a3b271ce5f",
+      "src/normalized_source/lib/openat_proc.rs": "693e71d6fa5a07fdfc4af3cc6a4017c4a7dec8331619bf93e70429cd698b28a0",
+      "src/normalized_source/lib/openat_safer.rs": "030bcf123f1954da940ae5d47b5f00e7b534668e0a2361f92b8bd66cd6ab6294",
+      "src/normalized_source/lib/pipe_safer.rs": "e90f285b583722037e2b48db3be303797b5517219b60bb19a0b4fc33b607ca23",
+      "src/normalized_source/lib/printf_frexp.rs": "43fb23848e0374dfc550933970e4e328690d1de2f0d3e896ea97a5ce1055ef7c",
+      "src/normalized_source/lib/realloc.rs": "c856177584df4683fc59845f4d10d738b8123809b4aeb79dd624e3e6c8e94a5d",
+      "src/normalized_source/lib/reallocarray.rs": "73b8848b20d068e7ef6a7d11fcb8087ab726efe386c7dd3e9e701b60eab92e36",
+      "src/normalized_source/lib/save_cwd.rs": "1f8694c9b32a301550e85f33366efdb2adb1db64387fd6a67d6f95fe1b78e817",
+      "src/normalized_source/lib/savedir.rs": "f77ff1ffd8c9de7c19f39f72536fccdb3c726201643d98a338b0ab5b451b8a8d",
+      "src/normalized_source/lib/sig_handler.rs": "4769cdfd8aee270c6573db8c95958d325b2e095c2fc7e6e30b2ebfb00fa12fea",
+      "src/normalized_source/lib/stat_time.rs": "570e89dac3bbdbc07546166baa9702bfaa52c9a854310de59e396d31841fe728",
+      "src/normalized_source/lib/stdlib.rs": "5b00b7730be9f635f38b096a55b6896d3aa985e424b43459d67132f656a3986f",
+      "src/normalized_source/lib/stripslash.rs": "e649aac25e4e1c3cef4cfa36d3ff366b62f8da85307efd485afdf92b3aecde77",
+      "src/normalized_source/lib/time.rs": "22816d65c8fb48ca1d72e70b32223329f540efba8c303f04cab97e9ab5903e45",
+      "src/normalized_source/lib/timespec.rs": "b8012495b024ba6040a977d6926f1da109c3e94fc649ee6a12cf3d3a2218e84a",
+      "src/normalized_source/lib/unistd.rs": "f9fb9dff3276cbb3905f91425f2aae84d3ef8c5183f28915c27aee75403018a7",
+      "src/normalized_source/lib/utimens.rs": "cedb655285e6104a9117ec74d351011b8aeed20f57ce83b7df3d3ce594eb347a",
+      "src/normalized_source/lib/vfzprintf.rs": "342dd46b662721c9d6b6a315263e42d13c3b950c1aff37c335bd34cf9d6ca6ef",
+      "src/normalized_source/lib/xalloc_die.rs": "56e32a7da2811bd6362b6187dcace6398e8ea9f8068f95c09fc075348348657b",
+      "src/normalized_source/lib/xmalloc.rs": "db3c742ad7f22cf89d5e27ecf30d8cb548a536830a7265511db4e364982a5625",
+      "src/normalized_source/lib/xsize.rs": "892fdd05f9635e56756dd8fd38d713ba61bbee1a5f4b4f968afaec5cc809b53f",
+      "src/normalized_source/lib/yesno.rs": "8ce90627c662110212d74a2d20fc685b9d9ba15e2f919250dd3e40c4ee2f1210",
+      "src/normalized_source/trees.rs": "bb381700574a84de513c40a7347e93b3df7267064f1775a304efc2872520e3bd",
+      "src/normalized_source/unlzh.rs": "d43f0ee3ac14d61baa741f91a6b0faa7611205cd7aeeb19c425b6dd6698fe845",
+      "src/normalized_source/unlzw.rs": "519aab51b4748738f9c1432cfa4334ccd1e757c1dece30576c425c6b14d4dab3",
+      "src/normalized_source/unpack.rs": "970538cc365b9e5675fb0c9eb2861d1cbc9a5ed3119cb8a37c9241eb45e40c99",
+      "src/normalized_source/unzip.rs": "20450c88e46e8ddb396285b979d5ee2cc834ca2e943d6214e3968badca64ea4f",
+      "src/normalized_source/util.rs": "b90aa4a43b6db4a620e776149d7f1e22f181621b39e735774d848bd7841f0335",
+      "src/normalized_source/zip.rs": "29231b7d4f8edb787168a3f5e2e465fc2cb35d44872337bc3f5c96866edad617"
+    },
+    "modernization": {
+      "changes": [
+        {
+          "after_sha256": "4a110cc634edb926ceeb60865f58d7026a4c31f3c49305165efd63d6f1722abc",
+          "as_va_list_rewrites": 0,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "06e74e40cd6c788e515cb2992cafe8ab34f84507061e6a1e397807130e7e2dcc",
+          "opaque_pointer_types": [],
+          "path": "lib.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "56bf684387e692c9212f8de002fecc601d5897fceee459da6f1fb65593d24831",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "ac0765dad72854da42b5b80dc854325c45ab54507efa293d9346d5e48dbd4b38",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/normalized_source/bits.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "114a41fa8ab4ca661e42975c4a2ad63eae215bee970d573cbf958fb4c1927f78",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "8e188cd99be4ea82a48f10fe8a164404cb637b4bded9cf6d92089b2fca96fc1e",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/normalized_source/deflate.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "ac6972d4086d95f301ddf30d485db84cce1c8010e26075fadd59f18dbef176dc",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "ea0f7b8c1f93220c6aa96403d79108a6f726a97695c2fa771234ffafa03076f8",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "__dirstream"
+          ],
+          "path": "src/normalized_source/gzip.rs",
+          "raw_static_pointer_rewrites": [
+            "remove_ofname_fd",
+            "remove_ofname_fd",
+            "remove_ofname_fd"
+          ],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "df1307be0462733b046a75f29d434213f50f06b66f10e08205a3c37445d8450f",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "49e522f1e694ba5a5d828cc4cfddbd0252e75b1b836aeda15ad921db4705f1a6",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/normalized_source/inflate.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "21c13a8faf963700d09aac00d46e80563c22e3438f6078692383aa23ad2b7b4e",
+          "as_va_list_rewrites": 2,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "180037dcb5b3e2fe92126b15ddc86edef2f18182ca3d37adf34be0a90058583d",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/normalized_source/lib/asnprintf.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 1
+        },
+        {
+          "after_sha256": "b277db927fb9a12c27a4b692a5b22eca28998e6559e4f3b7f8e36f9814e32766",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "0a545e54866451f3f19737e19392ae0e0d645534fd6b3c456cf7b4baf2c182c3",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/normalized_source/lib/chdir_long.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "674aa66a7f051b7d8fd5ad283b7bdbb26d3eeca044d04c925b4dcccbc110d458",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "dd0dc44e24efe7edc2243562348d2214949d108c949b16140899a41693ee9066",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/normalized_source/lib/fclose.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "b8a62fc5878bef305654182c97feb4bee0b2a1575378d8fe0bdb2eb6bf0aa36d",
+          "as_va_list_rewrites": 0,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "6ae0b98d02e824b92e96f3afc9aeb151a40103fa6c5ec44e1877610171a1cb42",
+          "opaque_pointer_types": [],
+          "path": "src/normalized_source/lib/fcntl.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 4,
+          "va_list_impl_rewrites": 1
+        },
+        {
+          "after_sha256": "43cce2e7933a124336f801319ce53e27f3b425cf8c97aab453df866c987946a6",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "1a80d736a592c0354039af9d95e7d24fb385c70f0f707501db6e12e6fddcc810",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/normalized_source/lib/fflush.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+          "as_va_list_rewrites": 0,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "opaque_pointer_types": [],
+          "path": "src/normalized_source/lib/float.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "5dd842fb0679d87c8cd2f8d0ee522a7377bf5f732e34464bddeb51033c837f8a",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "0acc8e6b759fb4d2c8c8fd4d5ca59c84c42ca6abaeec0d549d4a30802915e104",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/normalized_source/lib/fopen.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "0fe53e2f74874dbf63d1ef9355496cf5081d7757a2f38d6e2eda30df31468df1",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "986bd5507acb5fc13a406e9122a0122413d14709e791650b94a7a4e75f9938a3",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/normalized_source/lib/fpurge.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "9648abe244005a83cf707efcd883aa29c5f6e67c841770676e2a09ef5807b68c",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "e147ba95d34248a163e207d0b4b2c1a955ff8fa9406b0e95ca5e1eafe9a342a4",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/normalized_source/lib/freading.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "66c8db3b6ecfabe13607f80848fc630eeab5989a9d52eb3749d575a77048e402",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "1226cf0b176034aef05413cb714c2c61fc5d0e0f866a65d1cc119347d25ba993",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/normalized_source/lib/fseek.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "57054a084df58179d0fe788f4c50226302f7e63bd7e396a4d07dd17ad0b48893",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "aeef362bed96b7d9854f41e1799536b511fa98c01879174c18c0b61df5abca32",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/normalized_source/lib/fseeko.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "7f5812253a272e9d4c288de745033a637bc64971d23b95af579ae4f8af237c91",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "4a29ff72754a9da9a72ea21cf11b69d4b715184f02bb15a87456ae4d6cfc063b",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/normalized_source/lib/fseterr.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "1adacedc7efe45e93bf5aa8fa76e3829d5b5ce05baa3beb20bbd0115c8a3a121",
+          "as_va_list_rewrites": 0,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "6bbfd52d76b762b7e2a1154b545ead9c99dae288c4e5efd250a2c4003c064ff6",
+          "external_linkage_attributes_removed": 5,
+          "opaque_pointer_types": [],
+          "path": "src/normalized_source/lib/ialloc.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+          "as_va_list_rewrites": 0,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "opaque_pointer_types": [],
+          "path": "src/normalized_source/lib/math.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "b9b16b298668d3fe40dfd8fcf540ee593978cd97bdb66549815278ffb20a2e47",
+          "as_va_list_rewrites": 0,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "d5fdfccf1bebed78df7f505ff2b4da1d30316684f1c7a511dcfb9eada1954e56",
+          "external_linkage_attributes_removed": 1,
+          "opaque_pointer_types": [],
+          "path": "src/normalized_source/lib/mbszero.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "48562c028baaabb67f6de5f292c19ed24a88d81a6e1326ded506ed3b3fa239d3",
+          "as_va_list_rewrites": 0,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "afc0741f83b4c5f1dfd353cd95daea5919ac09eb548a521d0827c8e79fd3cfb6",
+          "opaque_pointer_types": [],
+          "path": "src/normalized_source/lib/open_safer.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 1,
+          "va_list_impl_rewrites": 1
+        },
+        {
+          "after_sha256": "4edc7f208834ad5bce20472250d69485b828178d036ebb9ae11b73a3b271ce5f",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "06b15e26ac5ea217e09560fff54d77ef502d57a0e07b80e7f9cc6510ea8ca55e",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/normalized_source/lib/openat_die.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "693e71d6fa5a07fdfc4af3cc6a4017c4a7dec8331619bf93e70429cd698b28a0",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "8e21927be78aa3841b2978a410f98f478673d9eaf416f808f948bcee837e40d6",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/normalized_source/lib/openat_proc.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "030bcf123f1954da940ae5d47b5f00e7b534668e0a2361f92b8bd66cd6ab6294",
+          "as_va_list_rewrites": 0,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "2642ae0d384668d58750b78b3cf705241a7fd9d44b66fdbb6b3f2a800f3dbe3d",
+          "opaque_pointer_types": [],
+          "path": "src/normalized_source/lib/openat_safer.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 1,
+          "va_list_impl_rewrites": 1
+        },
+        {
+          "after_sha256": "c856177584df4683fc59845f4d10d738b8123809b4aeb79dd624e3e6c8e94a5d",
+          "as_va_list_rewrites": 0,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "42a439a3fa1ee81209eb8589753859e236e7699fe251507a4eb6211e06413162",
+          "external_linkage_attributes_removed": 1,
+          "opaque_pointer_types": [],
+          "path": "src/normalized_source/lib/realloc.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "1f8694c9b32a301550e85f33366efdb2adb1db64387fd6a67d6f95fe1b78e817",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "dc28ad2b589358881192c81484f9dc3fc7607ac1ced4ccaa3cdb54238f369dd8",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/normalized_source/lib/save_cwd.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "f77ff1ffd8c9de7c19f39f72536fccdb3c726201643d98a338b0ab5b451b8a8d",
+          "as_va_list_rewrites": 0,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "5b9ca4821c7437011c43dcb74da46160db5feb1282f3a9a818c7cbae3d482a67",
+          "opaque_pointer_types": [
+            "__dirstream"
+          ],
+          "path": "src/normalized_source/lib/savedir.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "4769cdfd8aee270c6573db8c95958d325b2e095c2fc7e6e30b2ebfb00fa12fea",
+          "as_va_list_rewrites": 0,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "29ef29614a058c63f8d22b4803cba7e90feb4998da5aca7175672699bdd459a9",
+          "external_linkage_attributes_removed": 1,
+          "opaque_pointer_types": [],
+          "path": "src/normalized_source/lib/sig_handler.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "570e89dac3bbdbc07546166baa9702bfaa52c9a854310de59e396d31841fe728",
+          "as_va_list_rewrites": 0,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "b345f1412b8e895e35ed14043f12101b0c06d0e22068d9dd912ccc9e9b120be5",
+          "external_linkage_attributes_removed": 9,
+          "opaque_pointer_types": [],
+          "path": "src/normalized_source/lib/stat_time.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "b8012495b024ba6040a977d6926f1da109c3e94fc649ee6a12cf3d3a2218e84a",
+          "as_va_list_rewrites": 0,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "d68ecb0423dc6d4e44721343d1539b8e3259525c4902ce0ba386b87006475164",
+          "external_linkage_attributes_removed": 4,
+          "opaque_pointer_types": [],
+          "path": "src/normalized_source/lib/timespec.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "342dd46b662721c9d6b6a315263e42d13c3b950c1aff37c335bd34cf9d6ca6ef",
+          "as_va_list_rewrites": 2,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "3e595b2b732b2f5e6ee16ebe6d8c224bc5a6740a7402bae8dcdd053f33a8d385",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/normalized_source/lib/vfzprintf.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "56e32a7da2811bd6362b6187dcace6398e8ea9f8068f95c09fc075348348657b",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "8ec78f437030bc77c151b63a18acb72b90b7b10ba5a6ae60bddca786e5d26fae",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/normalized_source/lib/xalloc_die.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "db3c742ad7f22cf89d5e27ecf30d8cb548a536830a7265511db4e364982a5625",
+          "as_va_list_rewrites": 0,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "d46aef991a33e846ed892fcfc0c7a4fe811523cb8cbf8ce8343a66ea7fc03064",
+          "external_linkage_attributes_removed": 1,
+          "opaque_pointer_types": [],
+          "path": "src/normalized_source/lib/xmalloc.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "892fdd05f9635e56756dd8fd38d713ba61bbee1a5f4b4f968afaec5cc809b53f",
+          "as_va_list_rewrites": 0,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "643bf5170effd24289ab46fb8b1d89ed17ad339549560e4dd5ffe8402bfe236d",
+          "external_linkage_attributes_removed": 4,
+          "opaque_pointer_types": [],
+          "path": "src/normalized_source/lib/xsize.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "8ce90627c662110212d74a2d20fc685b9d9ba15e2f919250dd3e40c4ee2f1210",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "9ebca6d065a4ca3ad47e2bf3427f1a726076dfb3013a6e480f0265fe64548167",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/normalized_source/lib/yesno.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "bb381700574a84de513c40a7347e93b3df7267064f1775a304efc2872520e3bd",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "be40a32e4a60f3f02ce9f04f72cc0ddfa0f4ba330f212a2a6f903d8e80be01b7",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/normalized_source/trees.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "d43f0ee3ac14d61baa741f91a6b0faa7611205cd7aeeb19c425b6dd6698fe845",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "43fc163280f7561a88866dd8240bacd3d1d25cabbeb9c56fe46e72bfedac9319",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/normalized_source/unlzh.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "519aab51b4748738f9c1432cfa4334ccd1e757c1dece30576c425c6b14d4dab3",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "54f23e114f70a6ed7d1dd01987d6587db5e36c329759e52521c91ac6bdf44a7e",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/normalized_source/unlzw.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "970538cc365b9e5675fb0c9eb2861d1cbc9a5ed3119cb8a37c9241eb45e40c99",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "9f5020a45e7e9fd6b29a1b5610848842ca3efcfd395bfa79705f0a30239401c0",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/normalized_source/unpack.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "20450c88e46e8ddb396285b979d5ee2cc834ca2e943d6214e3968badca64ea4f",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "310e4c0adfaa07cd5f29a7d52f90db6f228395bb38325712166c7a37adf230f2",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/normalized_source/unzip.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "c9b6b9e1cf9e04bfb3c4d37ac5d8c5739caabb3138403dde2a1b9d44c472e8bb",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "7d386363d4c3494c09007a1ccb84774d04815e37afe40951a6cb1f12c497649c",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/normalized_source/util.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "29231b7d4f8edb787168a3f5e2e465fc2cb35d44872337bc3f5c96866edad617",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "c9a1813fd18f8a4c399a6085449e0b5759b12bc2c7c88ded4395a3e07eaa7e99",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/normalized_source/zip.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        }
+      ],
+      "duplicate_exports_mangled": [
+        {
+          "kept": "src/normalized_source/lib/xalloc_die.rs",
+          "mangled": "src/normalized_source/util.rs",
+          "symbol": "xalloc_die"
+        }
+      ],
+      "input_cargo_sha256": "02a2721be57912eec234738c1b59ce9815c9a9d922840d2ec798253663e9330e",
+      "schema": 1,
+      "stable_toolchain": "1.99.0"
+    },
+    "modernization_manifest_sha256": "928bd0c1c21408c7b24a6a9e241cf8f9ecd652be0f75ad21db380e92a74afb14",
+    "panic_macros": 0,
+    "raw_pointer_type_occurrences": 4086,
+    "rust_bytes": 963445,
+    "rust_files": 66,
+    "rust_lines": 25282,
+    "todo_macros": 0,
+    "unimplemented_macros": 0,
+    "unsafe_block_occurrences": 18,
+    "unsafe_function_occurrences": 1146
+  },
+  "status": "complete stable reachable translation without holes; hybrid parity verified separately",
+  "translator": {
+    "complete_audit": {
+      "all_68_sources_translated": true,
+      "compile_diagnostic": {
+        "code": "E0277",
+        "column": 51,
+        "file": "src/normalized_source/lib/printf_args.rs",
+        "line": 324,
+        "message": "the trait bound `f128::f128: core::ffi::sealed_trait::VaArgSafe` is not satisfied"
+      },
+      "holes": 0,
+      "reason": "C2Rust maps x86-64 C long double variadics to the f128 crate, which cannot implement Rust's sealed VaArgSafe ABI trait."
+    },
+    "fail_on_error": true,
+    "generated_rust_semantic_repairs": 0,
+    "name": "C2Rust",
+    "normalized_c_sources": 4,
+    "preserve_unused_functions": true,
+    "reachable_partition": {
+      "canonical_c_bridge_sources": [
+        "lib/printf-args.c",
+        "lib/printf-parse.c",
+        "lib/vasnprintf.c"
+      ],
+      "excluded_sources": [
+        "lib/printf-args.c",
+        "lib/printf-frexpl.c",
+        "lib/printf-parse.c",
+        "lib/vasnprintf.c"
+      ],
+      "rust_sources": 64,
+      "unlinked_canonical_helper": "lib/printf-frexpl.c"
+    },
+    "version": "0.22.1"
+  }
+}

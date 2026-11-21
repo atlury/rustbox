@@ -9,9 +9,9 @@
       "needed": [
         "libc.so.6"
       ],
-      "sha256": "0d1a2730c4fe21ebc4cccd5717c042a15de75e307cc3952805e7e79fb8060197",
+      "sha256": "191408527be8cfef8d1a856de7256eec59f1cd3beeda24d0a2ff2bdcd89e059a",
       "stripped_bytes": 89768,
-      "stripped_sha256": "b0ff18f1498365abd0f3e05e5601a5e53ec36507d5453cd46ce42c1c53adbf4d"
+      "stripped_sha256": "ab896b491cb0297f7d740fd2396119ca909b92118a70758a46de1b856e2bd2c3"
     },
     "gcc": {
       "bytes": 302752,
@@ -22,9 +22,9 @@
       "needed": [
         "libc.so.6"
       ],
-      "sha256": "aeff16d2f8598c7ebe941dae8bee3e76e99e55873366fa228c0210576016aaee",
+      "sha256": "8fe960270821597d9d3139bf5c880e6ff6670850824bd34eade7f00e1efb4526",
       "stripped_bytes": 93376,
-      "stripped_sha256": "175d02ab6cabb0b0b7c5155453e7a1a52f0aecc4873210c34ee54186409219f9"
+      "stripped_sha256": "5383730904ea869d4c07e3d370999f91be49e651044031882195f23124176009"
     }
   },
   "canonical_normalized_differential": {
@@ -33,12 +33,12 @@
       "clang": {
         "comparisons": 54,
         "exact": true,
-        "sha256": "b47ac6660f48c3d874e807a342fc4d3b75f07ddb138351951470cdc4c5967c10"
+        "sha256": "d971e4db167bc9b281681231811262ffcaff646f89ddebd5529ea86f1b7c1aca"
       },
       "gcc": {
         "comparisons": 54,
         "exact": true,
-        "sha256": "337936e88916bc4fb67446f35a4f666e08395c30efff61c3636fac897e5a8bdc"
+        "sha256": "d8a87ba6dfc09f9c68efe06f07a0551b244de769b20a5047a3b69e0afc42015f"
       }
     },
     "exact": true
@@ -50,20 +50,21 @@
     "selinux": false,
     "systemd": false
   },
-  "manifest_sha256": "cb15db1fbefe3eda351ba114188e1c025b308a3495bbd57f7afd1e624e21b1c7",
-  "next_gate": "translate the exact 68-source normalized GNU Gzip production closure with C2Rust",
+  "manifest_sha256": "59a83720693a19564cc40dcf86d0b1ec5b3a8c5e401362ce6840e03992a9b73d",
+  "next_gate": "audit all 68 normalized sources with C2Rust, then isolate any unrepresentable ABI behind the smallest canonical C bridge",
   "normalization": {
     "canonical_archive_sha256": "01a7b881bd220bfdf615f97b8718f80bdfd3f6add385b993dcf6efd14e8c0ac6",
     "canonical_tree_sha256": "cf6e5392441004076a440a8d5c0f509deeec59168afd854c12c5505264e4fe16",
     "changed_sources": [
       "deflate.c",
       "gzip.c",
+      "lib/malloca.c",
       "lib/vasnprintf.c"
     ],
     "compiler_normalization": "gl_cv_crc_pclmul=no selects GNU Gzip's canonical portable CRC path for C2Rust",
     "conditional": "RUSTBOX_MULTICALL",
     "engine": "exact deterministic source rewrite",
-    "normalized_tree_sha256": "9f3697e1afd8517aed589a6dcbcd2292bbcb27b73f3ce2bc3d5602b4cab60e67",
+    "normalized_tree_sha256": "29cf112e347a5ff5ca6b0af03a572430192cf26caff5d1f4a6675fa435a3174f",
     "release": "1.14",
     "schema": 1,
     "transformations": [
@@ -75,9 +76,15 @@
       },
       {
         "canonical_sha256": "e8ab9e54c5e242bed181c35b73e51c32f05c363b2d3f218a00d2eadd3bda9e9f",
-        "normalized_sha256": "57e7aeb10e5e09ef776e1b290d7f9cbf2c81588999b3ae45b0896d3e62f31275",
-        "operation": "export rustbox_gzip_main and retain a conditional standalone main wrapper",
+        "normalized_sha256": "9d76fee689600965346cc90f7b43021292c453f8828ff5d27aafc926c0aa4e62",
+        "operation": "export rustbox_gzip_main, retain a conditional standalone main wrapper, and make the unreachable return after do_exit explicit to translation tools",
         "source": "gzip.c"
+      },
+      {
+        "canonical_sha256": "af669118e496cb4ae83b655e46817f387c0c21ee96b109fa359800f3ef4f9bf0",
+        "normalized_sha256": "6934c42ef9c90861e3f9d995bdd490ecc841914187aee4babe65396da20316a1",
+        "operation": "replace the generic checked-add expression with the equivalent explicit idx_t range check and assignment",
+        "source": "lib/malloca.c"
       },
       {
         "canonical_sha256": "3dc6019108c6756153087a882a2ec8cdbbb105b75fba0df13aaa7a998f6f589e",
@@ -92,12 +99,12 @@
   "resources": {
     "compress": {
       "heap_summary": "total heap usage: 0 allocs, 0 frees, 0 bytes allocated",
-      "log_sha256": "a5cf2251673e7b872d208028c07e176b6c02a65248fda52c9217504a7b1763ee",
+      "log_sha256": "573ac8ccbf66cb23ee4d1e22a8bd70c00658d5525ecc045de53690a94443e9c1",
       "matches_canonical_summary": true
     },
     "decompress": {
       "heap_summary": "total heap usage: 3 allocs, 3 frees, 848 bytes allocated",
-      "log_sha256": "329cde29882d249eb7bb4f91d18a25227d9568dff4d19bc2321d3ec48e12b8f4",
+      "log_sha256": "ffb84bfb391ae209633af2320999e5f6964767ebafe1bfdfab156ca5e4296346",
       "matches_canonical_summary": true
     }
   },
@@ -133,7 +140,7 @@
           "xfail": 0,
           "xpass": 0
         },
-        "upstream_suite_log_sha256": "65459bdb0b3e41b5d149bc979d178ef70f2771aaf97efb62a12ec5767f939e3c"
+        "upstream_suite_log_sha256": "b795679999e7ff79245563d071993de0e615896f354636179be5ea48fba04768"
       },
       "gcc": {
         "compile_actions": 68,
@@ -148,7 +155,7 @@
           "xfail": 0,
           "xpass": 0
         },
-        "upstream_suite_log_sha256": "caa9840587e42984032e43a42fd459f22f348df10d11e6497a318d7aa776ea07"
+        "upstream_suite_log_sha256": "ea45aea2209049ab2d5af7b32f68651be0f86e3b45c80836cde3098478cc1687"
       },
       "sanitizer": {
         "compile_actions": 71,
@@ -163,7 +170,7 @@
           "xfail": 0,
           "xpass": 0
         },
-        "upstream_suite_log_sha256": "0e3578c06c716c1b997c775ffed44ea51170ab710862907de50bdbbc833c48df"
+        "upstream_suite_log_sha256": "a7d48b9273a49e890ab3daed7c3cdc06dd1bc679aeb8cb5eeecc1542b471b28f"
       }
     },
     "excluded_selected_optimization": "lib/crc-x86_64-pclmul.c",
