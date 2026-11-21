@@ -31,6 +31,7 @@ def main() -> int:
     parser.add_argument("--diffutils-report-directory", type=Path, required=True)
     parser.add_argument("--grep-report-directory", type=Path, required=True)
     parser.add_argument("--bc-report-directory", type=Path, required=True)
+    parser.add_argument("--attr-report-directory", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     binary = args.binary.resolve()
@@ -45,10 +46,11 @@ def main() -> int:
     diffutils_directory = args.diffutils_report_directory.resolve()
     grep_directory = args.grep_report_directory.resolve()
     bc_directory = args.bc_report_directory.resolve()
+    attr_directory = args.attr_report_directory.resolve()
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
-    if dispatch["cases"] != 558 or dispatch["passed"] != 558 or dispatch["failures"]:
+    if dispatch["cases"] != 564 or dispatch["passed"] != 564 or dispatch["failures"]:
         raise RuntimeError("unified dispatcher comparison is incomplete")
     if (
         differential["batches"] != 38
@@ -258,6 +260,41 @@ def main() -> int:
         or "checklib.b pass" not in bc_workloads
     ):
         raise RuntimeError("unified GNU bc/dc integration comparison is incomplete")
+    attr_differential_path = attr_directory / "differential.json"
+    attr_differential = json.loads(attr_differential_path.read_text())
+    attr_upstream_path = attr_directory / "upstream-tests.log"
+    attr_upstream = attr_upstream_path.read_text(errors="replace")
+    attr_summary = {
+        name.lower(): int(match.group(1))
+        for name in ("TOTAL", "PASS", "SKIP", "XFAIL", "FAIL", "XPASS", "ERROR")
+        if (match := re.search(rf"^# {name}:\s+(\d+)$", attr_upstream, re.MULTILINE))
+    }
+    attr_valgrind_paths = {
+        name: attr_directory / f"valgrind-{name}.log"
+        for name in ("setfattr", "getfattr")
+    }
+    attr_expected_heaps = {
+        "setfattr": [
+            "in use at exit: 256 bytes in 1 blocks",
+            "total heap usage: 1 allocs, 0 frees, 256 bytes allocated",
+        ],
+        "getfattr": [
+            "in use at exit: 2,152 bytes in 42 blocks",
+            "total heap usage: 48 allocs, 6 frees, 7,264 bytes allocated",
+        ],
+    }
+    for name, path in attr_valgrind_paths.items():
+        text = path.read_text(errors="replace")
+        heap = (attr_directory / f"valgrind-{name}-heap").read_text().splitlines()[1:]
+        if "ERROR SUMMARY: 0 errors" not in text or heap != attr_expected_heaps[name]:
+            raise RuntimeError(f"unified attr {name} Valgrind comparison is incomplete")
+    if (
+        attr_summary != {"total": 3, "pass": 2, "skip": 1, "xfail": 0,
+                         "fail": 0, "xpass": 0, "error": 0}
+        or attr_differential["cases"] != 22
+        or attr_differential["passed"] != 22
+    ):
+        raise RuntimeError("unified attr integration comparison is incomplete")
     if sha256(binary) != link["binary"]["sha256"]:
         raise RuntimeError("unified binary changed after link evidence")
     with tempfile.TemporaryDirectory(prefix="rustbox-strip-") as temporary:
@@ -283,7 +320,7 @@ def main() -> int:
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-21",
-        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, and GNU dc integrated canonical parity",
+        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, and attr integrated canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
@@ -295,7 +332,8 @@ def main() -> int:
             "diffutils": 4,
             "grep": 3,
             "bc": 2,
-            "dispatch_names": 279,
+            "attr": 3,
+            "dispatch_names": 282,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -378,6 +416,16 @@ def main() -> int:
                 name: sha256(path) for name, path in bc_valgrind_paths.items()
             },
         },
+        "attr_integration": {
+            "upstream_suite": attr_summary,
+            "differential": attr_differential,
+            "valgrind_allocation_lifecycle_matches_canonical": True,
+            "upstream_log_sha256": sha256(attr_upstream_path),
+            "differential_sha256": sha256(attr_differential_path),
+            "valgrind_log_sha256": {
+                name: sha256(path) for name, path in attr_valgrind_paths.items()
+            },
+        },
         "collision_isolation": {
             "translated_libraries": len(link["source_library_sha256"]),
             "namespaced_libraries": len(link["namespaced_symbols"]),
@@ -394,6 +442,7 @@ def main() -> int:
             "grep_abi_bridge_symbols": len(link["grep_abi_bridge"]["symbols"]),
             "grep_error_bridge_symbols": len(link["grep_error_bridge"]["symbols"]),
             "bc_namespaced_symbols": len(link["bc_namespaced_symbols"]),
+            "attr_namespaced_symbols": len(link["attr_namespaced_symbols"]),
             "manifest": link,
         },
     }

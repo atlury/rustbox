@@ -54,7 +54,7 @@ scoring, and correctness gates.
 | GNU Diffutils 3.12 | 4 | 4 | 4 | 4 |
 | GNU Grep 3.12 | 3 | 3 | 3 | 3 |
 | GNU bc 1.08.2 / dc 1.5.2 | 2 | 2 | 2 | 2 |
-| attr 2.6.0 | 3 | 3 | 3 | 0 |
+| attr 2.6.0 | 3 | 3 | 3 | 3 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -116,11 +116,11 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 279
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 282
 distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, five
 pkgconf names, File, GNU patch, GNU sed, four GNU Diffutils applets, and GNU
-Grep's three public names, plus GNU bc and dc; `kill` is shared and
-`util-linux-kill` remains available explicitly).  It passes all 558
+Grep's three public names, GNU bc and dc, plus attr, getfattr, and setfattr;
+`kill` is shared and `util-linux-kill` remains available explicitly).  It passes all 564
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
 check, 108-case differential suite, and Valgrind.  Pkgconf also passes all 429
@@ -133,7 +133,9 @@ its complete 443-case upstream replay, 36 exact differential comparisons, and
 the canonical allocation lifecycle through the same dispatcher.  GNU bc and
 dc pass all 18 shipped arbitrary-precision workloads, 46 exact differential
 comparisons, and canonical allocation lifecycles through the same dispatcher.
-The stripped 279-name executable is 6,692,272 bytes.  `chcon` and `runcon`
+Attr's three tools retain their upstream result, 22 exact differential cases,
+and canonical allocation lifecycles through the same dispatcher.  The stripped
+282-name executable is 6,717,616 bytes.  `chcon` and `runcon`
 remain absent, and the linked binary has no SELinux or systemd dependency.
 
 The final Rustbox executable is required to be self-contained: utility
@@ -546,7 +548,10 @@ in `evidence/attr-2.6.0-c2rust.json`.  The linked translated tools retain the
 cases, and match canonical output and Valgrind allocation lifecycles exactly.
 Their separate stripped executables total 693,152 bytes before multicall
 runtime sharing.  Full linkage, behavior, resource, and size evidence is in
-`evidence/attr-2.6.0-hybrid.json`; multicall integration is next.
+`evidence/attr-2.6.0-hybrid.json`.  All 46 non-entrypoint C symbols are private
+in the unified link; integration adds only 25,344 stripped bytes and retains
+the complete upstream, differential, and resource gates in
+`evidence/rustbox-multicall.json`.
 
 ## Work queue after util-linux
 

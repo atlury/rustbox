@@ -467,6 +467,53 @@ def namespace_bc_library(
     return mapped, symbols
 
 
+def namespace_attr_library(
+    rust_library: Path, build: Path
+) -> tuple[Path, list[str]]:
+    """Keep attr, getfattr, setfattr, libattr, and walk support private."""
+    public = {"rustbox_attr_main", "rustbox_getfattr_main", "rustbox_setfattr_main"}
+    strong_types = {"B", "C", "D", "G", "R", "S", "T"}
+    compiler_math = re.compile(
+        r"^(?:cbrt|ceil|copysign|fabs|fdim|floor|fma|fmax|fmaximum|fmin|fminimum|fmod|rint|round|sqrt|trunc)(?:f|f16|f128)?$"
+    )
+    output = subprocess.run(
+        ["nm", "-g", "--defined-only", str(rust_library)],
+        check=True, text=True, stdout=subprocess.PIPE,
+    ).stdout
+    symbols = sorted({
+        fields[-1]
+        for line in output.splitlines()
+        if len(fields := line.split()) >= 3
+        and fields[-2] in strong_types
+        and re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", fields[-1])
+        and fields[-1] not in public
+        and not fields[-1].startswith("rust_")
+        and not compiler_math.fullmatch(fields[-1])
+    })
+    if not symbols:
+        raise RuntimeError("attr archive exports no namespaceable C symbols")
+    destination = build / "src/.rustbox-attr"
+    destination.mkdir(parents=True, exist_ok=True)
+    mapped = destination / rust_library.name
+    mapping = destination / "symbols.map"
+    mapping.write_text(
+        "".join(f"{symbol} rustbox_attr_private_{symbol}\n" for symbol in symbols),
+        encoding="utf-8",
+    )
+    shutil.copy2(rust_library, mapped)
+    subprocess.run(["objcopy", "--redefine-syms", str(mapping), str(mapped)], check=True)
+    mapped_definitions = defined_symbols(mapped)
+    definitions = set(mapped_definitions)
+    for symbol in public:
+        if mapped_definitions.count(symbol) != 1:
+            raise RuntimeError(f"attr symbol isolation damaged {symbol}")
+    if any(symbol in definitions for symbol in symbols):
+        raise RuntimeError("attr symbol isolation left an unprefixed definition")
+    if any(f"rustbox_attr_private_{symbol}" not in definitions for symbol in symbols):
+        raise RuntimeError("attr symbol isolation lost a definition")
+    return mapped, symbols
+
+
 def util_linux_link_inputs(
     repository: Path, build: Path, rust_defined: set[str]
 ) -> tuple[list[Path], list[str], dict[str, list[str]]]:
@@ -622,6 +669,9 @@ extern int rustbox_sdiff_main(int, char **);
 extern int rustbox_grep_main(int, char **);
 extern int rustbox_bc_main(int, char **);
 extern int rustbox_dc_main(int, char **);
+extern int rustbox_attr_main(int, char **);
+extern int rustbox_getfattr_main(int, char **);
+extern int rustbox_setfattr_main(int, char **);
 """
         + declarations
         + """
@@ -731,6 +781,12 @@ int main(int argc, char **argv)
         return rustbox_bc_main(argc, argv);
     if (!force_util_linux && strcmp(name, "dc") == 0)
         return rustbox_dc_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "attr") == 0)
+        return rustbox_attr_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "getfattr") == 0)
+        return rustbox_getfattr_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "setfattr") == 0)
+        return rustbox_setfattr_main(argc, argv);
 """
         + selections
         + """
@@ -757,6 +813,7 @@ def main() -> int:
     parser.add_argument("--diffutils-rust-library", type=Path, required=True)
     parser.add_argument("--grep-rust-library", type=Path, required=True)
     parser.add_argument("--bc-rust-library", type=Path, required=True)
+    parser.add_argument("--attr-rust-library", type=Path, required=True)
     parser.add_argument("--link-report", type=Path, required=True)
     args = parser.parse_args()
     repository = args.repository.resolve()
@@ -771,6 +828,7 @@ def main() -> int:
     diffutils_rust_library = args.diffutils_rust_library.resolve()
     grep_rust_library = args.grep_rust_library.resolve()
     bc_rust_library = args.bc_rust_library.resolve()
+    attr_rust_library = args.attr_rust_library.resolve()
     makefile = build / "Makefile"
     if not makefile.is_file():
         raise RuntimeError("canonical Coreutils build is missing")
@@ -853,6 +911,7 @@ def main() -> int:
         m4_rust_library, m4_support_library, pkgconf_rust_library,
         file_rust_library, patch_rust_library, sed_rust_library,
         diffutils_rust_library, grep_rust_library, bc_rust_library,
+        attr_rust_library,
     ):
         if not path.is_file():
             raise RuntimeError(f"multicall input is missing: {path}")
@@ -871,6 +930,8 @@ def main() -> int:
     grep_library_index = len(libraries) - 1
     libraries.append(bc_rust_library)
     bc_library_index = len(libraries) - 1
+    libraries.append(attr_rust_library)
+    attr_library_index = len(libraries) - 1
     source_library_hashes = {str(path.relative_to(repository)): sha256(path) for path in libraries}
     source_library_hashes[str(m4_support_library)] = sha256(m4_support_library)
     expected_symbols.update(f"rustbox_{symbol}_main" for symbol in util_dispatch.values())
@@ -890,6 +951,9 @@ def main() -> int:
         "rustbox_grep_main",
         "rustbox_bc_main",
         "rustbox_dc_main",
+        "rustbox_attr_main",
+        "rustbox_getfattr_main",
+        "rustbox_setfattr_main",
     })
 
     mapped_file_rust, file_symbols = namespace_file_library(
@@ -921,6 +985,11 @@ def main() -> int:
         libraries[bc_library_index], build
     )
     libraries[bc_library_index] = mapped_bc_rust
+
+    mapped_attr_rust, attr_symbols = namespace_attr_library(
+        libraries[attr_library_index], build
+    )
+    libraries[attr_library_index] = mapped_attr_rust
 
     canonical_dispatch_symbols = set(defined_symbols(build / "src/coreutils-coreutils.o"))
     libraries, namespaced_symbols = namespace_duplicate_c_symbols(
@@ -1100,11 +1169,13 @@ def main() -> int:
         "diffutils_applets": 4,
         "grep_applets": 3,
         "bc_applets": 2,
+        "attr_applets": 3,
         "total_dispatch_names": len(
             set(applets)
             | set(util_dispatch)
             | {"m4", "pkgconf", "pkg-config", "bomtool", "pccritic", "spdxtool", "file", "patch", "sed",
-               "cmp", "diff", "diff3", "sdiff", "grep", "egrep", "fgrep", "bc", "dc"}
+               "cmp", "diff", "diff3", "sdiff", "grep", "egrep", "fgrep", "bc", "dc",
+               "attr", "getfattr", "setfattr"}
         ),
         "excluded": ["chcon", "runcon"],
         "public_name_precedence": {"kill": "GNU Coreutils", "util-linux-kill": "util-linux"},
@@ -1124,6 +1195,7 @@ def main() -> int:
         "diffutils_namespaced_symbols": diffutils_symbols,
         "grep_namespaced_symbols": grep_symbols,
         "bc_namespaced_symbols": bc_symbols,
+        "attr_namespaced_symbols": attr_symbols,
         "diffutils_error_bridge": {
             "object": str(diffutils_error_object.relative_to(build)),
             "symbols": ["rustbox_diffutils_error"],
@@ -1164,6 +1236,7 @@ def main() -> int:
         "diffutils_applets": 4,
         "grep_applets": 3,
         "bc_applets": 2,
+        "attr_applets": 3,
         "output": str(output),
     }))
     return 0

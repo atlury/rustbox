@@ -17,4 +17,5 @@ RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
     --diffutils-report-directory /work/work/analysis/diffutils-3.12/multicall \
     --grep-report-directory /work/work/analysis/grep-3.12/multicall \
     --bc-report-directory /work/work/analysis/bc-1.08.2/multicall \
+    --attr-report-directory /work/work/analysis/attr-2.6.0/multicall \
     --output /work/evidence/rustbox-multicall.json
