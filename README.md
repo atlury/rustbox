@@ -568,7 +568,13 @@ four instances of the same canonical null-pointer-offset defect at
 `__libobj.c:82`; its exact failing test log is retained as a required
 normalization target rather than suppressed.  Source, compiler, test,
 differential, dependency, sanitizer, and resource evidence is in
-`evidence/acl-2.4.0-oracle.json`.
+`evidence/acl-2.4.0-oracle.json`.  Cppcheck, GCC `-fanalyzer`, Clang
+analyzer/Tidy, Flawfinder, and Sparse then audit exactly the same 72-unit
+production closure.  Their reviewed baseline has one demonstrated blocker:
+the UBSan pointer-before-null-check ordering.  The matching `acl_free`
+ordering and realloc ownership repair are mandatory mechanical normalization;
+infeasible internal-API paths and hardening inventories remain recorded rather
+than silently discarded in `evidence/acl-2.4.0-analysis.json`.
 
 ## Work queue after util-linux
 

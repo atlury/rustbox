@@ -1,0 +1,112 @@
+{
+  "artifacts": {
+    "clang-analyzer-tidy.log": "12a8195944844555239db78339bb6679930358cb165b9de84ec38554682abf36",
+    "compile_commands.json": "b70c667428d6b8b188ce17ddeafe6af008e14c68f7879bb2e7e45a0c8cedbedb",
+    "cppcheck.log": "65678b08b78d97dfd24a1471d282136a714e0eb0d1e3a5709fbc1bec58605bc5",
+    "flawfinder.log": "4e0ffdc0179453aada16abcf35b37f34bb3fe85220f80b5dc7913ba954d9a2fd",
+    "gcc-analyzer-setup.log": "0623f67b3a328b3b855f7c0fc3178c563fc130ec5c7df7807d33acf7b05c3366",
+    "gcc-analyzer.log": "ab732e1254c3f198b7e162c6dcb7bce597a3b32f840ad6935c28c247cbb04c90",
+    "sources.list": "8193bbc4a37a2a9662239e83f9f8e2aa0643415d16fdb91655fa990b7f9c1612",
+    "sparse.log": "c9bef70eff7f3818b3910b9ad46247566523fcb0a16a187d74eeafd045119536",
+    "sparse.status": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "recorded_at": "2026-11-21",
+  "release": "2.4.0",
+  "review": {
+    "blocking_findings": 1,
+    "canonical_source_changes": 0,
+    "notes": [
+      "The restore dirname allocation is freed at the shared resume label; GCC and Clang reports do not model that goto cleanup precisely.",
+      "The tabular getfacl ACL/name lists advance together, making reported tag and list null paths infeasible under the internal invariant exercised by upstream tests.",
+      "read_acl_comments and read_acl_seq are internal APIs whose callers provide line and source-offset storage; the analyzer explores unsupported null output arguments.",
+      "The zero-valued walk flag is a valid empty bitmask even though Clang models the enum as excluding zero.",
+      "Remaining Tidy, Flawfinder, and Sparse output is API-hardening, macro, conversion, and pointer inventory rather than a demonstrated behavioral defect."
+    ],
+    "required_normalization": [
+      "Move both external-to-internal object pointer subtractions after their null checks; UBSan demonstrates the __libobj instance and Cppcheck finds the matching acl_free instance.",
+      "Retain restore_args ownership across realloc failure so the original allocation remains available to cleanup."
+    ]
+  },
+  "schema": 1,
+  "scope": {
+    "compile_actions": 137,
+    "targets": [
+      "chacl",
+      "getfacl",
+      "setfacl",
+      "libacl"
+    ],
+    "tests_examples_and_nonselected_sources_excluded": true,
+    "unique_sources": 72
+  },
+  "status": "complete production audit; deterministic normalization pending",
+  "tools": {
+    "clang_analyzer_tidy": {
+      "all_findings_by_check": {
+        "bugprone-assignment-in-if-condition": 4,
+        "bugprone-branch-clone": 2,
+        "bugprone-easily-swappable-parameters": 13,
+        "bugprone-macro-parentheses": 102,
+        "bugprone-multi-level-implicit-pointer-conversion": 6,
+        "bugprone-narrowing-conversions": 37,
+        "bugprone-reserved-identifier": 1222,
+        "bugprone-sizeof-expression": 1,
+        "bugprone-suspicious-realloc-usage": 1,
+        "bugprone-switch-missing-default-case": 6,
+        "clang-analyzer-core.NonNullParamChecker": 7,
+        "clang-analyzer-core.NullDereference": 1,
+        "clang-analyzer-core.UndefinedBinaryOperatorResult": 2,
+        "clang-analyzer-deadcode.DeadStores": 2,
+        "clang-analyzer-optin.core.EnumCastOutOfRange": 1,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 83,
+        "clang-analyzer-security.insecureAPI.strcpy": 3,
+        "clang-analyzer-unix.Malloc": 3
+      },
+      "analyzer_findings_by_check": {
+        "clang-analyzer-core.NonNullParamChecker": 7,
+        "clang-analyzer-core.NullDereference": 1,
+        "clang-analyzer-core.UndefinedBinaryOperatorResult": 2,
+        "clang-analyzer-deadcode.DeadStores": 2,
+        "clang-analyzer-optin.core.EnumCastOutOfRange": 1,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 83,
+        "clang-analyzer-security.insecureAPI.strcpy": 3,
+        "clang-analyzer-unix.Malloc": 3
+      }
+    },
+    "cppcheck": {
+      "findings_by_id": {
+        "allocaCalled": 3,
+        "constParameterPointer": 2,
+        "constVariablePointer": 9,
+        "knownConditionTrueFalse": 1,
+        "memleakOnRealloc": 1,
+        "nullPointer": 2,
+        "nullPointerArithmeticRedundantCheck": 2,
+        "sizeofDivisionMemfunc": 2,
+        "uninitvar": 1,
+        "unreadVariable": 2,
+        "variableScope": 6
+      },
+      "findings_by_severity": {
+        "error": 1,
+        "style": 20,
+        "warning": 10
+      }
+    },
+    "flawfinder": {
+      "hits_at_level_1_or_higher": 48,
+      "lines_analyzed": 8250
+    },
+    "gcc_fanalyzer": {
+      "findings_by_check": {
+        "analyzer-malloc-leak": 1
+      },
+      "warnings": 1
+    },
+    "sparse": {
+      "exit_status": 0,
+      "parser_errors": 0,
+      "warnings": 37
+    }
+  }
+}
