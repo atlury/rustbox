@@ -4,8 +4,10 @@
 from __future__ import annotations
 
 import hashlib
+import gzip as gzip_module
 import json
 import os
+import re
 import shutil
 import stat
 import subprocess
@@ -110,9 +112,17 @@ def invoke(directory: Path, case: Case, root: Path) -> dict[str, object]:
         [str(commands / case.applet), *case.arguments], cwd=workspace, env=env,
         input=case.stdin, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=30,
     )
+    stdout = process.stdout
+    if case.applet == "zdiff":
+        stdout = re.sub(
+            rb"^(---|\+\+\+) ([^\t\n]+)\t[^\n]+$",
+            rb"\1 \2\t<pipe-timestamp>",
+            stdout,
+            flags=re.MULTILINE,
+        )
     return {
         "status": process.returncode,
-        "stdout_sha256": digest(process.stdout), "stdout_length": len(process.stdout),
+        "stdout_sha256": digest(stdout), "stdout_length": len(stdout),
         "stderr_sha256": digest(process.stderr), "stderr_length": len(process.stderr),
         "tree": snapshot(workspace),
     }
@@ -158,6 +168,42 @@ def cases() -> list[Case]:
         Case("zdiff-different", "zdiff", ("text.gz", "other.gz"), files=files,
              setup=(Setup("gzip", ("-n", "-c", "text"), "text.gz"),
                     Setup("gzip", ("-n", "-c", "other"), "other.gz"))),
+        Case("zcmp-one-operand", "zcmp", ("text.gz",), files=files,
+             setup=(Setup("gzip", ("-n", "-c", "text"), "text.gz"),)),
+        Case("zdiff-one-operand", "zdiff", ("text.gz",), files=files,
+             setup=(Setup("gzip", ("-n", "-c", "text"), "text.gz"),)),
+        Case("zcmp-plain", "zcmp", ("text", "other"), files=files),
+        Case("zdiff-plain", "zdiff", ("text", "other"), files=files),
+        Case("zcmp-silent", "zcmp", ("-s", "text.gz", "other.gz"), files=files,
+             setup=(Setup("gzip", ("-n", "-c", "text"), "text.gz"),
+                    Setup("gzip", ("-n", "-c", "other"), "other.gz"))),
+        Case("zcmp-skip-option", "zcmp", ("-i", "0", "text.gz", "other.gz"), files=files,
+             setup=(Setup("gzip", ("-n", "-c", "text"), "text.gz"),
+                    Setup("gzip", ("-n", "-c", "other"), "other.gz"))),
+        Case("zdiff-unified", "zdiff", ("-u", "text.gz", "other.gz"), files=files,
+             setup=(Setup("gzip", ("-n", "-c", "text"), "text.gz"),
+                    Setup("gzip", ("-n", "-c", "other"), "other.gz"))),
+        Case("zdiff-context-operand", "zdiff", ("-U", "1", "text.gz", "other.gz"), files=files,
+             setup=(Setup("gzip", ("-n", "-c", "text"), "text.gz"),
+                    Setup("gzip", ("-n", "-c", "other"), "other.gz"))),
+        Case("zdiff-labels", "zdiff",
+             ("-u", "--label=left", "--label=right", "text.gz", "other.gz"), files=files,
+             setup=(Setup("gzip", ("-n", "-c", "text"), "text.gz"),
+                    Setup("gzip", ("-n", "-c", "other"), "other.gz"))),
+        Case("zcmp-stdin", "zcmp", ("-", "text"), files=files,
+             stdin=gzip_module.compress(text, mtime=0)),
+        Case("zdiff-stdin", "zdiff", ("-", "text"), files=files,
+             stdin=gzip_module.compress(text, mtime=0)),
+        Case("zcmp-unusual-name", "zcmp", ("odd ' name.gz", "text.gz"),
+             files={**files, "odd ' name": text},
+             setup=(Setup("gzip", ("-n", "-c", "odd ' name"), "odd ' name.gz"),
+                    Setup("gzip", ("-n", "-c", "text"), "text.gz"))),
+        Case("zdiff-tgz", "zdiff", ("text.tgz", "other.gz"), files=files,
+             setup=(Setup("gzip", ("-n", "-c", "text"), "text.tgz"),
+                    Setup("gzip", ("-n", "-c", "other"), "other.gz"))),
+        Case("zcmp-unknown-extension", "zcmp", ("text",), files=files),
+        Case("zdiff-missing", "zdiff", ()),
+        Case("zcmp-extra-operand", "zcmp", ("text", "other", "binary"), files=files),
         Case("zgrep", "zgrep", ("-n", "beta", "text.gz"), files=files,
              setup=(Setup("gzip", ("-n", "-c", "text"), "text.gz"),)),
         Case("zegrep", "zegrep", ("-n", "alpha|gamma", "text.gz"), files=files,

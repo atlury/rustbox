@@ -1,11 +1,18 @@
 /* SPDX-License-Identifier: GPL-3.0-or-later
    Native equivalents of GNU Gzip 1.14's gunzip and zcat shell frontends. */
+#include <errno.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
 
 extern char *program_invocation_name;
 extern char *program_invocation_short_name;
 extern int rustbox_gzip_main(int, char **);
+extern int rustbox_cmp_main(int, char **);
+extern int rustbox_diff_main(int, char **);
 
 static int
 run_gzip_mode(int argc, char **argv, char const *mode)
@@ -84,4 +91,325 @@ rustbox_zcat_main(int argc, char **argv)
   if (1 < argc && strcmp(argv[1], "--version") == 0)
     return print_version("zcat");
   return run_gzip_mode(argc, argv, "-cd");
+}
+
+static int
+has_compressed_suffix(char const *name)
+{
+  char const *p;
+  size_t length = strlen(name);
+  if (strcmp(name, "-") == 0)
+    return 1;
+  for (p = name; *p; p++)
+    if ((*p == '-' || *p == '.') && p[1] == 'g' && p[2] == 'z')
+      return 1;
+  return (2 <= length
+          && (name[length - 2] == '-' || name[length - 2] == '.')
+          && (name[length - 1] == 'z' || name[length - 1] == 'Z'))
+         || (4 <= length && name[length - 4] == '.' && name[length - 3] == 't'
+             && (name[length - 2] == 'g' || name[length - 2] == 'a')
+             && name[length - 1] == 'z');
+}
+
+static char *
+uncompressed_name(char const *name)
+{
+  char *copy = strdup(name);
+  char *suffix = NULL;
+  char *p;
+  if (!copy)
+    return NULL;
+  for (p = copy; *p; p++)
+    if (*p == '-' || *p == '.')
+      suffix = p;
+  if (!suffix)
+    {
+      free(copy);
+      return NULL;
+    }
+  for (p = suffix + 1; *p; p++)
+    if (!strchr("zZtga", *p))
+      {
+        free(copy);
+        return NULL;
+      }
+  *suffix = '\0';
+  return copy;
+}
+
+static pid_t
+start_gzip(char const *name, int output, int close_fd)
+{
+  pid_t child;
+  fflush(NULL);
+  child = fork();
+  if (child != 0)
+    return child;
+  if (dup2(output, STDOUT_FILENO) < 0)
+    _exit(2);
+  close(output);
+  if (0 <= close_fd)
+    close(close_fd);
+  {
+    char *gzip_argv[] = {
+      (char *) "gzip", (char *) "-cdfq", (char *) "--", (char *) name, NULL
+    };
+    program_invocation_name = gzip_argv[0];
+    program_invocation_short_name = gzip_argv[0];
+    _exit(rustbox_gzip_main(4, gzip_argv));
+  }
+}
+
+static int
+wait_gzip(pid_t child)
+{
+  int status;
+  while (waitpid(child, &status, 0) < 0)
+    if (errno != EINTR)
+      return 2;
+  return WIFEXITED(status) && WEXITSTATUS(status) == 0 ? 0 : 2;
+}
+
+static int
+print_zdiff_version(char const *name, char const *author)
+{
+  return printf(
+    "%s (gzip) 1.14\n"
+    "Copyright (C) 2025 Free Software Foundation, Inc.\n"
+    "This is free software.  You may redistribute copies of it under the terms of\n"
+    "the GNU General Public License <https://www.gnu.org/licenses/gpl.html>.\n"
+    "There is NO WARRANTY, to the extent permitted by law.\n\n"
+    "Written by %s.\n", name, author) < 0 ? 2 : 0;
+}
+
+static int
+print_zdiff_usage(char const *invocation, char const *program)
+{
+  return printf(
+    "Usage: %s [OPTION]... FILE1 [FILE2]\n"
+    "Compare FILE1 to FILE2, using their uncompressed contents if they are\n"
+    "compressed.  If FILE2 is omitted, compare FILE1 to the uncompressed\n"
+    "contents of FILE1.gz.  Do comparisons like '%s' does.\n\n"
+    "OPTIONs are the same as for '%s'.\n\n"
+    "Report bugs to <bug-gzip@gnu.org>.\n", invocation, program, program) < 0 ? 2 : 0;
+}
+
+static int
+run_zdiff(int argc, char **argv, int use_cmp)
+{
+  char *compare_argv[argc + 4];
+  char const *file1 = NULL;
+  char const *file2 = NULL;
+  char *derived = NULL;
+  char const *program = use_cmp ? "cmp" : "diff";
+  int compare_argc = 1;
+  int files_only = 0;
+  int need_operand = 0;
+  int index;
+  int first_compressed;
+  int second_compressed;
+  int first_pipe[2] = {-1, -1};
+  int second_pipe[2] = {-1, -1};
+  pid_t first_child = -1;
+  pid_t second_child = -1;
+  int compare_status;
+  int gzip_status = 0;
+
+  compare_argv[0] = (char *) program;
+  for (index = 1; index < argc; index++)
+    {
+      char *argument = argv[index];
+      if (!files_only && !need_operand
+          && (strncmp(argument, "--h", 3) == 0
+              || strncmp(argument, "--v", 3) == 0))
+        return argument[2] == 'h'
+               ? print_zdiff_usage(argv[0], program)
+               : print_zdiff_version(use_cmp ? "zcmp" : "zdiff",
+                                     "Jean-loup Gailly");
+      if (!files_only && !need_operand && strcmp(argument, "--") == 0)
+        {
+          files_only = 1;
+          compare_argv[compare_argc++] = argument;
+          continue;
+        }
+      if (need_operand)
+        {
+          compare_argv[compare_argc++] = argument;
+          need_operand = 0;
+          continue;
+        }
+      if (!files_only && argument[0] == '-' && argument[1] != '\0')
+        {
+          compare_argv[compare_argc++] = argument;
+          if (argument[2] == '\0' && strchr("CDFISUWXx", argument[1]))
+            need_operand = 1;
+          continue;
+        }
+      if (argument[0] == '\0')
+        {
+          fprintf(stderr, "%s: empty file name\n", argv[0]);
+          return 2;
+        }
+      if (!file1)
+        file1 = argument;
+      else if (!file2)
+        file2 = argument;
+      else
+        {
+          fprintf(stderr, "%s: extra operand '%s'\n", argv[0], argument);
+          return 2;
+        }
+    }
+  if (need_operand)
+    {
+      fprintf(stderr, "%s: option requires an argument\n", argv[0]);
+      return 2;
+    }
+  if (!file1)
+    {
+      fprintf(stderr, "%s: missing operand\n", argv[0]);
+      return 2;
+    }
+  if (strcmp(file1, "-") != 0 && access(file1, R_OK) != 0)
+    return 2;
+  if (file2 && strcmp(file2, "-") != 0 && access(file2, R_OK) != 0)
+    return 2;
+  if (!file2)
+    {
+      if (!has_compressed_suffix(file1) || strcmp(file1, "-") == 0)
+        {
+          fprintf(stderr, "%s: %s: unknown compressed file extension\n",
+                  argv[0], file1);
+          return 2;
+        }
+      derived = uncompressed_name(file1);
+      if (!derived)
+        return 2;
+      file2 = derived;
+      if (access(file2, R_OK) != 0)
+        {
+          free(derived);
+          return 2;
+        }
+    }
+
+  first_compressed = has_compressed_suffix(file1);
+  second_compressed = has_compressed_suffix(file2);
+  if (first_compressed && second_compressed
+      && strcmp(file1, "-") == 0 && strcmp(file2, "-") == 0)
+    second_compressed = 0;
+
+  if (first_compressed && pipe(first_pipe) < 0)
+    goto system_error;
+  if (second_compressed && pipe(second_pipe) < 0)
+    goto system_error;
+  if (first_compressed)
+    {
+      first_child = start_gzip(file1, first_pipe[1], first_pipe[0]);
+      if (first_child < 0)
+        goto system_error;
+      close(first_pipe[1]);
+      first_pipe[1] = -1;
+    }
+  if (second_compressed)
+    {
+      second_child = start_gzip(file2, second_pipe[1], second_pipe[0]);
+      if (second_child < 0)
+        goto system_error;
+      close(second_pipe[1]);
+      second_pipe[1] = -1;
+    }
+
+  if (first_compressed && second_compressed)
+    {
+      /* The second pipe commonly occupies fd 5.  Preserve it on stdin before
+         installing the first stream at the canonical /dev/fd/5 name. */
+      if (dup2(second_pipe[0], STDIN_FILENO) < 0 || dup2(first_pipe[0], 5) < 0)
+        goto system_error;
+      compare_argv[compare_argc++] = (char *) "/dev/fd/5";
+      compare_argv[compare_argc++] = (char *) "-";
+    }
+  else if (first_compressed)
+    {
+      if (dup2(first_pipe[0], STDIN_FILENO) < 0)
+        goto system_error;
+      compare_argv[compare_argc++] = (char *) "-";
+      compare_argv[compare_argc++] = (char *) file2;
+    }
+  else if (second_compressed)
+    {
+      if (dup2(second_pipe[0], STDIN_FILENO) < 0)
+        goto system_error;
+      compare_argv[compare_argc++] = (char *) file1;
+      compare_argv[compare_argc++] = (char *) "-";
+    }
+  else
+    {
+      compare_argv[compare_argc++] = (char *) file1;
+      compare_argv[compare_argc++] = (char *) file2;
+    }
+  compare_argv[compare_argc] = NULL;
+  if (0 <= first_pipe[0] && first_pipe[0] != STDIN_FILENO && first_pipe[0] != 5)
+    close(first_pipe[0]);
+  if (0 <= second_pipe[0] && second_pipe[0] != STDIN_FILENO && second_pipe[0] != 5)
+    close(second_pipe[0]);
+  program_invocation_name = compare_argv[0];
+  program_invocation_short_name = compare_argv[0];
+  compare_status = use_cmp
+                     ? rustbox_cmp_main(compare_argc, compare_argv)
+                     : rustbox_diff_main(compare_argc, compare_argv);
+  if (0 < first_child)
+    gzip_status |= wait_gzip(first_child);
+  if (0 < second_child)
+    gzip_status |= wait_gzip(second_child);
+  free(derived);
+  return gzip_status ? 2 : compare_status;
+
+system_error:
+  if (0 <= first_pipe[0]) close(first_pipe[0]);
+  if (0 <= first_pipe[1]) close(first_pipe[1]);
+  if (0 <= second_pipe[0]) close(second_pipe[0]);
+  if (0 <= second_pipe[1]) close(second_pipe[1]);
+  if (0 < first_child) wait_gzip(first_child);
+  if (0 < second_child) wait_gzip(second_child);
+  free(derived);
+  return 2;
+}
+
+int
+rustbox_zcmp_main(int argc, char **argv)
+{
+  char const *slash;
+  int index;
+  size_t prefix;
+  if (1 < argc && strcmp(argv[1], "--help") == 0)
+    return printf(
+      "Usage: %s [OPTION]... FILE1 [FILE2]\n"
+      "Compare FILE1 to FILE2 byte by byte, using their uncompressed contents\n"
+      "if they are compressed.  If FILE2 is omitted, compare FILE1 to the\n"
+      "uncompressed contents of FILE1.gz.  Do comparisons like 'cmp' does.\n\n"
+      "Options are the same as for 'cmp'.\n\n"
+      "If a FILE is '-' or missing, read standard input.\n\n"
+      "Report bugs to <bug-gzip@gnu.org>.\n", argv[0]) < 0 ? 2 : 0;
+  if (1 < argc && strcmp(argv[1], "--version") == 0)
+    return print_zdiff_version("zcmp", "Paul Eggert");
+  slash = strrchr(argv[0], '/');
+  prefix = slash ? (size_t) (slash - argv[0] + 1) : 0;
+  {
+    char backend_name[prefix + sizeof "zdiff"];
+    char *backend_argv[argc + 1];
+    if (prefix)
+      memcpy(backend_name, argv[0], prefix);
+    memcpy(backend_name + prefix, "zdiff", sizeof "zdiff");
+    backend_argv[0] = backend_name;
+    for (index = 1; index <= argc; index++)
+      backend_argv[index] = argv[index];
+    return run_zdiff(argc, backend_argv, 1);
+  }
+}
+
+int
+rustbox_zdiff_main(int argc, char **argv)
+{
+  return run_zdiff(argc, argv, 0);
 }

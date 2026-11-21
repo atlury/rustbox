@@ -56,7 +56,7 @@ def main() -> int:
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
-    if dispatch["cases"] != 586 or dispatch["passed"] != 586 or dispatch["failures"]:
+    if dispatch["cases"] != 590 or dispatch["passed"] != 590 or dispatch["failures"]:
         raise RuntimeError("unified dispatcher comparison is incomplete")
     if (
         differential["batches"] != 38
@@ -392,16 +392,22 @@ def main() -> int:
     gzip_differential = json.loads(gzip_differential_path.read_text())
     gzip_valgrind_paths = {
         operation: gzip_directory / f"valgrind-{operation}.log"
-        for operation in ("compress", "decompress")
+        for operation in ("compress", "decompress", "zcmp", "zdiff")
     }
     for operation, path in gzip_valgrind_paths.items():
         text = path.read_text(errors="replace")
-        if (
-            "ERROR SUMMARY: 0 errors" not in text
-            or "All heap blocks were freed -- no leaks are possible" not in text
-        ):
+        required = ["ERROR SUMMARY: 0 errors"]
+        if operation in {"compress", "decompress"}:
+            required.append("All heap blocks were freed -- no leaks are possible")
+        else:
+            required.extend([
+                "definitely lost: 0 bytes in 0 blocks",
+                "indirectly lost: 0 bytes in 0 blocks",
+                "possibly lost: 0 bytes in 0 blocks",
+            ])
+        if any(marker not in text for marker in required):
             raise RuntimeError(f"unified GNU Gzip {operation} Valgrind comparison is incomplete")
-    if gzip_differential.get("cases") != 24 or gzip_differential.get("passed") != 24:
+    if gzip_differential.get("cases") != 47 or gzip_differential.get("passed") != 47:
         raise RuntimeError("unified GNU Gzip integration comparison is incomplete")
     if sha256(binary) != link["binary"]["sha256"]:
         raise RuntimeError("unified binary changed after link evidence")
@@ -428,7 +434,7 @@ def main() -> int:
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-21",
-        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, and four GNU Gzip engine interfaces integrated at canonical parity",
+        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, and six GNU Gzip interfaces integrated at canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
@@ -443,8 +449,8 @@ def main() -> int:
             "attr": 3,
             "acl": 3,
             "lz4": 4,
-            "gzip_native_engine_names": 4,
-            "dispatch_names": 293,
+            "gzip_integrated_names": 6,
+            "dispatch_names": 295,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -566,14 +572,19 @@ def main() -> int:
             },
         },
         "gzip_integration": {
-            "native_engine_names": 4,
-            "native_shell_replacements": ["gunzip", "uncompress", "zcat"],
+            "integrated_public_names": 6,
+            "native_shell_replacements": ["gunzip", "uncompress", "zcat", "zcmp", "zdiff"],
             "alias_bridge": link["gzip_alias_bridge"],
             "differential": gzip_differential,
             "byte_identical_compression": True,
             "decompression_matches_canonical": True,
             "valgrind_errors": 0,
-            "all_allocations_freed": True,
+            "gzip_engine_all_allocations_freed": True,
+            "comparison_frontend_lost_bytes": 0,
+            "comparison_frontend_still_reachable_bytes": {
+                "zcmp": 8208,
+                "zdiff": 147,
+            },
             "differential_sha256": sha256(gzip_differential_path),
             "valgrind_log_sha256": {
                 operation: sha256(path)
