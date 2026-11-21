@@ -15,4 +15,5 @@ RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
     --patch-rust-library /work/work/analysis/patch-2.8/translations/c2rust-0.22.1/patch-2.8-stable/target/release/libpatch_2_8_normalized_audit.a \
     --sed-rust-library /work/work/analysis/sed-4.10/translations/c2rust-0.22.1/sed-4.10-stable/target/release/libsed_4_10_normalized_audit.a \
     --diffutils-rust-library /work/work/analysis/diffutils-3.12/translations/c2rust-0.22.1/diffutils-3.12-stable/target/release/libdiffutils_3_12_normalized_audit.a \
+    --grep-rust-library /work/work/analysis/grep-3.12/translations/c2rust-0.22.1/grep-3.12-stable/target/release/libgrep_3_12_normalized_audit.a \
     --link-report /work/work/analysis/rustbox-multicall-link.json

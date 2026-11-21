@@ -1,7 +1,7 @@
 {
   "artifacts": {
     "differential_sha256": "178032d09c44a592b1fff674bba84dd33bf5906356056a25cd88bbfea9b1d3ac",
-    "upstream_log_sha256": "764b8795c99ceeecc4bcc8f83806d74a276fcf5c3a20c43c35ba8507360aa0b5"
+    "upstream_log_sha256": "b37711e0ca2e021bf78e137d4c01ac5b25ae89c7dc30581eb7d711e2a8ab4b88"
   },
   "behavior": {
     "differential": {
@@ -502,7 +502,7 @@
     "grep-3.12-normalization.json": "7875eb3560cbfc84db438e87110eb377140cef304c70c41fa09067d2cfb65281",
     "grep-3.12-oracle.json": "c5a144577f5afdf80b2b3ff2b7acd9d7130d6059ae847aa950efc97150694e5f"
   },
-  "next_gate": "link grep, egrep, and fgrep into Rustbox and replay combined regressions",
+  "next_gate": "continue the utility queue; static PCRE2/runtime integration remains release hardening",
   "recorded_at": "2026-11-21",
   "release": "3.12",
   "runtime_linkage": {
@@ -528,11 +528,11 @@
       "rodata": 50461,
       "text": 413570
     },
-    "linked_sha256": "efcfcfcb27b56de1e5f0cf952bf0fcc1e526239a0c4362959a459e3e19c79ccd",
+    "linked_sha256": "1fb45169b605d772ebef52af675422d37e419085a1964c2109799d9dc53ad8aa",
     "linked_stripped_bytes": 560424,
-    "linked_unstripped_bytes": 4754560,
-    "stripped_sha256": "e9b224aa7f65bd20f917d90316acc98457d688a9b2bc1f2824a3389f97973ab4",
+    "linked_unstripped_bytes": 4754864,
+    "stripped_sha256": "9482d7a491239e5d188d212b09867732f3be78df82054116e2f52924a17aaa80",
     "translation_static_archive_bytes": 24216926
   },
-  "status": "complete translated hybrid at canonical parity; multicall integration pending"
+  "status": "complete translated hybrid at canonical parity; multicall integration complete"
 }

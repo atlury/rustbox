@@ -362,6 +362,64 @@ def namespace_diffutils_library(
     return mapped, symbols
 
 
+def namespace_grep_library(
+    rust_library: Path, build: Path
+) -> tuple[Path, list[str]]:
+    """Keep GNU Grep's configured gnulib/internal C surface private."""
+    strong_types = {"B", "C", "D", "G", "R", "S", "T"}
+    compiler_math = re.compile(
+        r"^(?:cbrt|ceil|copysign|fabs|fdim|floor|fma|fmax|fmaximum|fmin|fminimum|fmod|rint|round|sqrt|trunc)(?:f|f16|f128)?$"
+    )
+    output = subprocess.run(
+        ["nm", "-g", "--defined-only", str(rust_library)],
+        check=True, text=True, stdout=subprocess.PIPE,
+    ).stdout
+    symbols = sorted({
+        fields[-1]
+        for line in output.splitlines()
+        if len(fields := line.split()) >= 3
+        and fields[-2] in strong_types
+        and (
+            re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", fields[-1])
+            or fields[-1].startswith("_gl_")
+            or fields[-1] in {"__gl_setmode", "__xargmatch_internal"}
+        )
+        and fields[-1] != "rustbox_grep_main"
+        and not fields[-1].startswith("rust_")
+        and not compiler_math.fullmatch(fields[-1])
+    })
+    if not symbols:
+        raise RuntimeError("GNU Grep archive exports no namespaceable C symbols")
+    destination = build / "src/.rustbox-grep"
+    destination.mkdir(parents=True, exist_ok=True)
+    mapped = destination / rust_library.name
+    mapping = destination / "symbols.map"
+    mapping.write_text(
+        "".join(f"{symbol} rustbox_grep_private_{symbol}\n" for symbol in symbols),
+        encoding="utf-8",
+    )
+    shutil.copy2(rust_library, mapped)
+    subprocess.run(["objcopy", "--redefine-syms", str(mapping), str(mapped)], check=True)
+    subprocess.run(
+        ["objcopy", "--redefine-sym", "error=rustbox_grep_error", str(mapped)],
+        check=True,
+    )
+    mapped_definitions = defined_symbols(mapped)
+    definitions = set(mapped_definitions)
+    if mapped_definitions.count("rustbox_grep_main") != 1:
+        raise RuntimeError("GNU Grep symbol isolation damaged its public entrypoint")
+    if any(symbol in definitions for symbol in symbols):
+        raise RuntimeError("GNU Grep symbol isolation left an unprefixed definition")
+    if any(f"rustbox_grep_private_{symbol}" not in definitions for symbol in symbols):
+        raise RuntimeError("GNU Grep symbol isolation lost a definition")
+    undefined = subprocess.run(
+        ["nm", "-u", str(mapped)], check=True, text=True, stdout=subprocess.PIPE
+    ).stdout.split()
+    if "error" in undefined or "rustbox_grep_error" not in undefined:
+        raise RuntimeError("GNU Grep error ABI redirection is incomplete")
+    return mapped, symbols
+
+
 def util_linux_link_inputs(
     repository: Path, build: Path, rust_defined: set[str]
 ) -> tuple[list[Path], list[str], dict[str, list[str]]]:
@@ -514,6 +572,7 @@ extern int rustbox_cmp_main(int, char **);
 extern int rustbox_diff_main(int, char **);
 extern int rustbox_diff3_main(int, char **);
 extern int rustbox_sdiff_main(int, char **);
+extern int rustbox_grep_main(int, char **);
 """
         + declarations
         + """
@@ -602,6 +661,23 @@ int main(int argc, char **argv)
     if (!force_util_linux && strcmp(name, "sdiff") == 0) {
         return rustbox_sdiff_main(argc, argv);
     }
+    if (!force_util_linux && strcmp(name, "grep") == 0) {
+        return rustbox_grep_main(argc, argv);
+    }
+    if (!force_util_linux && (strcmp(name, "egrep") == 0 || strcmp(name, "fgrep") == 0)) {
+        const char *option = name[0] == 'e' ? "-E" : "-F";
+        char *alias_argv[argc + 2];
+        int index;
+        fprintf(stderr, "%s: warning: %s is obsolescent; using grep %s\\n",
+                name, name, option);
+        alias_argv[0] = "grep";
+        alias_argv[1] = (char *) option;
+        for (index = 1; index <= argc; index++)
+            alias_argv[index + 1] = argv[index];
+        program_invocation_name = alias_argv[0];
+        program_invocation_short_name = alias_argv[0];
+        return rustbox_grep_main(argc + 1, alias_argv);
+    }
 """
         + selections
         + """
@@ -626,6 +702,7 @@ def main() -> int:
     parser.add_argument("--patch-rust-library", type=Path, required=True)
     parser.add_argument("--sed-rust-library", type=Path, required=True)
     parser.add_argument("--diffutils-rust-library", type=Path, required=True)
+    parser.add_argument("--grep-rust-library", type=Path, required=True)
     parser.add_argument("--link-report", type=Path, required=True)
     args = parser.parse_args()
     repository = args.repository.resolve()
@@ -638,6 +715,7 @@ def main() -> int:
     patch_rust_library = args.patch_rust_library.resolve()
     sed_rust_library = args.sed_rust_library.resolve()
     diffutils_rust_library = args.diffutils_rust_library.resolve()
+    grep_rust_library = args.grep_rust_library.resolve()
     makefile = build / "Makefile"
     if not makefile.is_file():
         raise RuntimeError("canonical Coreutils build is missing")
@@ -719,7 +797,7 @@ def main() -> int:
     for path in (
         m4_rust_library, m4_support_library, pkgconf_rust_library,
         file_rust_library, patch_rust_library, sed_rust_library,
-        diffutils_rust_library,
+        diffutils_rust_library, grep_rust_library,
     ):
         if not path.is_file():
             raise RuntimeError(f"multicall input is missing: {path}")
@@ -734,6 +812,8 @@ def main() -> int:
     sed_library_index = len(libraries) - 1
     libraries.append(diffutils_rust_library)
     diffutils_library_index = len(libraries) - 1
+    libraries.append(grep_rust_library)
+    grep_library_index = len(libraries) - 1
     source_library_hashes = {str(path.relative_to(repository)): sha256(path) for path in libraries}
     source_library_hashes[str(m4_support_library)] = sha256(m4_support_library)
     expected_symbols.update(f"rustbox_{symbol}_main" for symbol in util_dispatch.values())
@@ -750,6 +830,7 @@ def main() -> int:
         "rustbox_diff_main",
         "rustbox_diff3_main",
         "rustbox_sdiff_main",
+        "rustbox_grep_main",
     })
 
     mapped_file_rust, file_symbols = namespace_file_library(
@@ -771,6 +852,11 @@ def main() -> int:
         libraries[diffutils_library_index], build
     )
     libraries[diffutils_library_index] = mapped_diffutils_rust
+
+    mapped_grep_rust, grep_symbols = namespace_grep_library(
+        libraries[grep_library_index], build
+    )
+    libraries[grep_library_index] = mapped_grep_rust
 
     canonical_dispatch_symbols = set(defined_symbols(build / "src/coreutils-coreutils.o"))
     libraries, namespaced_symbols = namespace_duplicate_c_symbols(
@@ -806,6 +892,25 @@ def main() -> int:
     )
     if defined_symbols(diffutils_error_object) != ["rustbox_diffutils_error"]:
         raise RuntimeError("GNU Diffutils error ABI bridge exports the wrong symbols")
+    grep_abi_object = build / "src/.rustbox-grep-abi.o"
+    subprocess.run(
+        ["clang-18", "-O2", "-g", "-DRUSTBOX_BTOWC_ONLY=1", "-c",
+         str(repository / "bridges/grep_abi.c"),
+         "-o", str(grep_abi_object)],
+        cwd=build,
+        check=True,
+    )
+    if defined_symbols(grep_abi_object) != ["__btowc_alias"]:
+        raise RuntimeError("GNU Grep ABI bridge exports the wrong symbols")
+    grep_error_object = build / "src/.rustbox-grep-error.o"
+    subprocess.run(
+        ["clang-18", "-O2", "-g", "-c", str(repository / "bridges/grep_error.c"),
+         "-o", str(grep_error_object)],
+        cwd=build,
+        check=True,
+    )
+    if defined_symbols(grep_error_object) != ["rustbox_grep_error"]:
+        raise RuntimeError("GNU Grep error ABI bridge exports the wrong symbols")
     bridge_archives: dict[str, Path] = {}
     for archive, members in bridge_members.items():
         source = build / archive
@@ -849,6 +954,8 @@ def main() -> int:
                 rewritten.extend(str(path) for path in typed_bridge_objects)
                 rewritten.append(str(sed_abi_object))
                 rewritten.append(str(diffutils_error_object))
+                rewritten.append(str(grep_abi_object))
+                rewritten.append(str(grep_error_object))
                 rewritten.extend(str(path) for path in util_inputs)
                 rewritten.append(str(mapped_m4_support))
                 inserted = True
@@ -891,7 +998,7 @@ def main() -> int:
         "single_binary_deps=" + " ".join(rewritten),
         "src_coreutils_OBJECTS=" + str(dispatcher_object) + " " + str(renamed_dispatch),
         "src_libsinglebin_false_a_ldadd=$(src_true_LDADD) -ldl -lpthread -lm -lrt -lutil "
-        "-lbz2 -llz -llzma -lseccomp -lz -lzstd -lattr",
+        "-lbz2 -llz -llzma -lseccomp -lz -lzstd -lattr -lpcre2-8",
         "src_coreutils_LDADD=$(single_binary_deps) $(LDADD) $(single_binary_libs) "
         + " ".join(util_link_libraries),
         "src_coreutils_LINK=" + link,
@@ -927,11 +1034,12 @@ def main() -> int:
         "patch_applets": 1,
         "sed_applets": 1,
         "diffutils_applets": 4,
+        "grep_applets": 3,
         "total_dispatch_names": len(
             set(applets)
             | set(util_dispatch)
             | {"m4", "pkgconf", "pkg-config", "bomtool", "pccritic", "spdxtool", "file", "patch", "sed",
-               "cmp", "diff", "diff3", "sdiff"}
+               "cmp", "diff", "diff3", "sdiff", "grep", "egrep", "fgrep"}
         ),
         "excluded": ["chcon", "runcon"],
         "public_name_precedence": {"kill": "GNU Coreutils", "util-linux-kill": "util-linux"},
@@ -949,9 +1057,19 @@ def main() -> int:
         "patch_namespaced_symbols": patch_symbols,
         "sed_namespaced_symbols": sed_symbols,
         "diffutils_namespaced_symbols": diffutils_symbols,
+        "grep_namespaced_symbols": grep_symbols,
         "diffutils_error_bridge": {
             "object": str(diffutils_error_object.relative_to(build)),
             "symbols": ["rustbox_diffutils_error"],
+        },
+        "grep_abi_bridge": {
+            "object": str(grep_abi_object.relative_to(build)),
+            "symbols": ["__btowc_alias"],
+            "shared_existing_symbol": "__wctob_alias",
+        },
+        "grep_error_bridge": {
+            "object": str(grep_error_object.relative_to(build)),
+            "symbols": ["rustbox_grep_error"],
         },
         "sed_abi_bridge": {
             "object": str(sed_abi_object.relative_to(build)),
@@ -978,6 +1096,7 @@ def main() -> int:
         "patch_applets": 1,
         "sed_applets": 1,
         "diffutils_applets": 4,
+        "grep_applets": 3,
         "output": str(output),
     }))
     return 0

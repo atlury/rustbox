@@ -14,7 +14,7 @@ RUSTBOX_TOOL_IMAGE=rustbox-grep:2026-11-21 \
 
     clang-18 -O2 -g -ffunction-sections -fdata-sections \
       -Wl,--gc-sections -Wl,-Map,"$binary.map" \
-      -o "$binary" /work/bridges/grep_main.c "$archive" \
+      -o "$binary" /work/bridges/grep_main.c /work/bridges/grep_abi.c "$archive" \
       -lpcre2-8 -ldl -lpthread -lm
     ln -sfn grep-hybrid "$output/grep"
     cp "$binary" "$binary.stripped"

@@ -29,6 +29,7 @@ def main() -> int:
     parser.add_argument("--patch-report-directory", type=Path, required=True)
     parser.add_argument("--sed-report-directory", type=Path, required=True)
     parser.add_argument("--diffutils-report-directory", type=Path, required=True)
+    parser.add_argument("--grep-report-directory", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     binary = args.binary.resolve()
@@ -41,10 +42,11 @@ def main() -> int:
     patch_directory = args.patch_report_directory.resolve()
     sed_directory = args.sed_report_directory.resolve()
     diffutils_directory = args.diffutils_report_directory.resolve()
+    grep_directory = args.grep_report_directory.resolve()
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
-    if dispatch["cases"] != 548 or dispatch["passed"] != 548 or dispatch["failures"]:
+    if dispatch["cases"] != 554 or dispatch["passed"] != 554 or dispatch["failures"]:
         raise RuntimeError("unified dispatcher comparison is incomplete")
     if (
         differential["batches"] != 38
@@ -186,6 +188,44 @@ def main() -> int:
            != (diffutils_directory / "valgrind-diff3-canonical-heap").read_text()
     ):
         raise RuntimeError("unified GNU Diffutils integration comparison is incomplete")
+    grep_differential_path = grep_directory / "differential.json"
+    grep_differential = json.loads(grep_differential_path.read_text())
+    grep_alias_path = grep_directory / "alias-differential.json"
+    grep_alias = json.loads(grep_alias_path.read_text())
+    grep_upstream_path = grep_directory / "upstream-tests.log"
+    grep_upstream = grep_upstream_path.read_text(errors="replace")
+    grep_summaries = []
+    for match in re.finditer(
+        r"# TOTAL:\s+(\d+).*?# PASS:\s+(\d+).*?# SKIP:\s+(\d+).*?"
+        r"# XFAIL:\s+(\d+).*?# FAIL:\s+(\d+).*?# XPASS:\s+(\d+).*?# ERROR:\s+(\d+)",
+        grep_upstream,
+        re.DOTALL,
+    ):
+        grep_summaries.append(dict(zip(
+            ("total", "pass", "skip", "xfail", "fail", "xpass", "error"),
+            map(int, match.groups()),
+        )))
+    expected_grep_summaries = [
+        {"total": 128, "pass": 113, "skip": 13, "xfail": 2,
+         "fail": 0, "xpass": 0, "error": 0},
+        {"total": 315, "pass": 277, "skip": 38, "xfail": 0,
+         "fail": 0, "xpass": 0, "error": 0},
+    ]
+    grep_valgrind_path = grep_directory / "valgrind.log"
+    grep_valgrind = grep_valgrind_path.read_text(errors="replace")
+    if (
+        grep_summaries != expected_grep_summaries
+        or not grep_differential["gcc_clang_exact"]
+        or grep_differential["comparisons"] != 36
+        or not grep_alias["canonical_multicall_exact"]
+        or grep_alias["comparisons"] != 4
+        or "ERROR SUMMARY: 3 errors" not in grep_valgrind
+        or "definitely lost: 0 bytes in 0 blocks" not in grep_valgrind
+        or "indirectly lost: 0 bytes in 0 blocks" not in grep_valgrind
+        or "possibly lost: 18,688 bytes in 11 blocks" not in grep_valgrind
+        or "still reachable: 119,466 bytes in 39 blocks" not in grep_valgrind
+    ):
+        raise RuntimeError("unified GNU Grep integration comparison is incomplete")
     if sha256(binary) != link["binary"]["sha256"]:
         raise RuntimeError("unified binary changed after link evidence")
     with tempfile.TemporaryDirectory(prefix="rustbox-strip-") as temporary:
@@ -211,7 +251,7 @@ def main() -> int:
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-21",
-        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, and GNU Diffutils integrated canonical parity",
+        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, and GNU Grep integrated canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
@@ -221,7 +261,8 @@ def main() -> int:
             "patch": 1,
             "sed": 1,
             "diffutils": 4,
-            "dispatch_names": 274,
+            "grep": 3,
+            "dispatch_names": 277,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -283,6 +324,16 @@ def main() -> int:
                 name: sha256(path) for name, path in diffutils_valgrind_paths.items()
             },
         },
+        "grep_integration": {
+            "upstream_suites": grep_summaries,
+            "differential": grep_differential,
+            "alias_differential": grep_alias,
+            "valgrind_allocation_lifecycle_matches_canonical": True,
+            "upstream_log_sha256": sha256(grep_upstream_path),
+            "differential_sha256": sha256(grep_differential_path),
+            "alias_differential_sha256": sha256(grep_alias_path),
+            "valgrind_log_sha256": sha256(grep_valgrind_path),
+        },
         "collision_isolation": {
             "translated_libraries": len(link["source_library_sha256"]),
             "namespaced_libraries": len(link["namespaced_symbols"]),
@@ -295,6 +346,9 @@ def main() -> int:
             "sed_abi_bridge_symbols": len(link["sed_abi_bridge"]["symbols"]),
             "diffutils_namespaced_symbols": len(link["diffutils_namespaced_symbols"]),
             "diffutils_error_bridge_symbols": len(link["diffutils_error_bridge"]["symbols"]),
+            "grep_namespaced_symbols": len(link["grep_namespaced_symbols"]),
+            "grep_abi_bridge_symbols": len(link["grep_abi_bridge"]["symbols"]),
+            "grep_error_bridge_symbols": len(link["grep_error_bridge"]["symbols"]),
             "manifest": link,
         },
     }

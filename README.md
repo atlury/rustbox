@@ -113,10 +113,11 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 274
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 277
 distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, five
-pkgconf names, File, GNU patch, GNU sed, and four GNU Diffutils applets, with
-`kill` shared and `util-linux-kill` available explicitly).  It passes all 548
+pkgconf names, File, GNU patch, GNU sed, four GNU Diffutils applets, and GNU
+Grep's three public names; `kill` is shared and `util-linux-kill` remains
+available explicitly).  It passes all 554
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
 check, 108-case differential suite, and Valgrind.  Pkgconf also passes all 429
@@ -124,8 +125,10 @@ CLI fixture checks, 55 exact differential comparisons, and Valgrind through
 the unified dispatcher.  Sed passes its complete 362-case upstream replay,
 30 exact differential comparisons, and Valgrind through the same dispatcher.
 Diffutils passes its complete 377-case upstream replay, 48 exact differential
-comparisons, and resource checks through the same dispatcher.  The stripped
-274-name executable is 6,340,800 bytes.  `chcon` and `runcon`
+comparisons, and resource checks through the same dispatcher.  Grep passes
+its complete 443-case upstream replay, 36 exact differential comparisons, and
+the canonical allocation lifecycle through the same dispatcher.  The stripped
+277-name executable is 6,568,416 bytes.  `chcon` and `runcon`
 remain absent, and the linked binary has no SELinux or systemd dependency.
 
 The final Rustbox executable is required to be self-contained: utility
@@ -429,6 +432,16 @@ the two gnulib libc aliases for `btowc` and `wctob`.  The standalone hybrid is
 dead-code sharing is measured only after integration.  Reproducible linkage,
 size, dependency, suite, differential, and resource evidence is in
 `evidence/grep-3.12-hybrid.json`.
+Grep's 421 configured C/gnulib definitions are privately namespaced in the
+unified multicall.  Dedicated libc-compatible error and character-conversion
+bridges prevent binding to another package's gnulib policy; `egrep` and
+`fgrep` reproduce the canonical wrapper warnings and inject `-E` and `-F`
+without heap allocation.  The resulting 277-name binary is 6,568,416 bytes
+stripped—227,616 bytes above the Diffutils checkpoint—and passes all 554
+dispatcher comparisons, all 14,022 prior batch cases, every previously
+integrated package gate, both Grep upstream suites, 36 exact Grep comparisons,
+four direct `egrep`/`fgrep` wrapper comparisons, and the resource checks
+recorded in `evidence/rustbox-multicall.json`.
 
 ## Work queue after util-linux
 
@@ -465,7 +478,7 @@ Library-only checkpoints (outside the active utility order):
    - [x] GNU sed 4.10 — `sed`; integrated at canonical parity.
    - [x] Diffutils 3.12 — `cmp`, `diff`, `diff3`, `sdiff`; integrated at
      canonical parity.
-   - [ ] Grep — `grep`, `egrep`, `fgrep`.
+   - [x] Grep 3.12 — `grep`, `egrep`, `fgrep`; integrated at canonical parity.
    - [ ] bc — `bc`, `dc`.
    - [ ] attr — `attr`, `getfattr`, `setfattr`.
    - [ ] acl — `chacl`, `getfacl`, `setfacl`.
