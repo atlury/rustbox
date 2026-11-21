@@ -532,8 +532,16 @@ ASan/UBSan retain the 2-pass/1-capability-skip upstream result; 44 independent
 canonical-versus-normalized differential comparisons are exact, and the
 Valgrind heap lifecycles remain identical to the canonical builds.  The exact
 rewrites, entrypoint symbols, compiler closures, and parity evidence are in
-`evidence/attr-2.6.0-normalization.json`.  Translation of that exact 21-unit
-closure is next.
+`evidence/attr-2.6.0-normalization.json`.  C2Rust then translates that exact
+21-unit closure with unused functions preserved.  The untouched audit output
+and mechanically modernized Rust 1.99 crate both compile with no translation
+holes and no generated-Rust source repairs; the historical-nightly check
+injects only the `c_variadic` crate feature that C2Rust omitted for its emitted
+`VaList` declarations.  The 23 Rust files contain 10,952 lines and 2,259
+raw-pointer type occurrences for the later safety phase.  All three multicall
+entrypoints are unique in the 23,461,086-byte intermediate archive.  Complete
+hashes, compile diagnostics, modernization records, and unsafe inventory are
+in `evidence/attr-2.6.0-c2rust.json`; hybrid parity is next.
 
 ## Work queue after util-linux
 
