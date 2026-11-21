@@ -56,7 +56,7 @@ def main() -> int:
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
-    if dispatch["cases"] != 600 or dispatch["passed"] != 600 or dispatch["failures"]:
+    if dispatch["cases"] != 602 or dispatch["passed"] != 602 or dispatch["failures"]:
         raise RuntimeError("unified dispatcher comparison is incomplete")
     if (
         differential["batches"] != 38
@@ -392,7 +392,7 @@ def main() -> int:
     gzip_differential = json.loads(gzip_differential_path.read_text())
     gzip_valgrind_paths = {
         operation: gzip_directory / f"valgrind-{operation}.log"
-        for operation in ("compress", "decompress", "zcmp", "zdiff", "zgrep", "zmore")
+        for operation in ("compress", "decompress", "zcmp", "zdiff", "zgrep", "zmore", "znew")
     }
     for operation, path in gzip_valgrind_paths.items():
         text = path.read_text(errors="replace")
@@ -405,7 +405,7 @@ def main() -> int:
                 "possibly lost: 128 bytes in 1 blocks",
                 "still reachable: 112,870 bytes in 19 blocks",
             ])
-        elif operation in {"compress", "decompress", "zmore"}:
+        elif operation in {"compress", "decompress", "zmore", "znew"}:
             required.extend([
                 "ERROR SUMMARY: 0 errors",
                 "All heap blocks were freed -- no leaks are possible",
@@ -419,7 +419,7 @@ def main() -> int:
             ])
         if any(marker not in text for marker in required):
             raise RuntimeError(f"unified GNU Gzip {operation} Valgrind comparison is incomplete")
-    if gzip_differential.get("cases") != 83 or gzip_differential.get("passed") != 83:
+    if gzip_differential.get("cases") != 92 or gzip_differential.get("passed") != 92:
         raise RuntimeError("unified GNU Gzip integration comparison is incomplete")
     if sha256(binary) != link["binary"]["sha256"]:
         raise RuntimeError("unified binary changed after link evidence")
@@ -446,7 +446,7 @@ def main() -> int:
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-22",
-        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, and eleven GNU Gzip interfaces integrated at canonical parity",
+        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, and twelve GNU Gzip interfaces integrated at canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
@@ -461,8 +461,8 @@ def main() -> int:
             "attr": 3,
             "acl": 3,
             "lz4": 4,
-            "gzip_integrated_names": 11,
-            "dispatch_names": 300,
+            "gzip_integrated_names": 12,
+            "dispatch_names": 301,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -584,8 +584,8 @@ def main() -> int:
             },
         },
         "gzip_integration": {
-            "integrated_public_names": 11,
-            "native_shell_replacements": ["gunzip", "uncompress", "zcat", "zcmp", "zdiff", "zforce", "zgrep", "zegrep", "zfgrep", "zmore"],
+            "integrated_public_names": 12,
+            "native_shell_replacements": ["gunzip", "uncompress", "zcat", "zcmp", "zdiff", "zforce", "zgrep", "zegrep", "zfgrep", "zmore", "znew"],
             "alias_bridge": link["gzip_alias_bridge"],
             "differential": gzip_differential,
             "byte_identical_compression": True,
@@ -601,6 +601,7 @@ def main() -> int:
             "search_frontend_canonical_possibly_lost_bytes": 128,
             "search_frontend_canonical_still_reachable_bytes": 112870,
             "pager_frontend_all_allocations_freed": True,
+            "recompression_frontend_all_allocations_freed": True,
             "differential_sha256": sha256(gzip_differential_path),
             "valgrind_log_sha256": {
                 operation: sha256(path)

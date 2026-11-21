@@ -210,7 +210,7 @@ def main() -> int:
                 failures.append({"suite": "lz4", "applet": name, "option": option, "oracle": oracle, "actual": actual})
 
     gzip_names = ["gzip", "gunzip", "zcat", "uncompress", "zcmp", "zdiff", "zforce",
-                  "zgrep", "zegrep", "zfgrep", "zmore"]
+                  "zgrep", "zegrep", "zfgrep", "zmore", "znew"]
     for name in gzip_names:
         for option in ("--help", "--version"):
             cases += 1

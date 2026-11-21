@@ -11,13 +11,13 @@ RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
     dispatch=/rustbox-gzip/multicall-dispatch
     rm -rf "$output" "$dispatch"
     mkdir -p "$output" "$dispatch"
-    for utility in gzip gunzip zcat uncompress zcmp zdiff zforce zgrep zegrep zfgrep zmore; do
+    for utility in gzip gunzip zcat uncompress zcmp zdiff zforce zgrep zegrep zfgrep zmore znew; do
       ln -s "$rustbox" "$dispatch/$utility"
     done
 
     python3 /work/tests/gzip-oracle-differential.py \
       --gcc-directory "$canonical" --clang-directory "$dispatch" \
-      --applets gzip gunzip zcat uncompress zcmp zdiff zforce zgrep zegrep zfgrep zmore \
+      --applets gzip gunzip zcat uncompress zcmp zdiff zforce zgrep zegrep zfgrep zmore znew \
       --output "$output/differential.json"
 
     printf "alpha beta gamma\n%.0s" $(seq 1 2048) >"$output/input"
@@ -58,11 +58,18 @@ RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
       --log-file="$output/valgrind-zmore.log" \
       "$rustbox" zmore "$output/other.gz" >/dev/null
     zmore_status=$?
+    cp "$output/canonical.gz" "$output/legacy.Z"
+    valgrind --leak-check=full --show-leak-kinds=all \
+      --errors-for-leak-kinds=definite,indirect,possible --error-exitcode=99 \
+      --log-file="$output/valgrind-znew.log" \
+      "$rustbox" znew -Pt "$output/legacy" >/dev/null
+    znew_status=$?
     set -e
     test "$zcmp_status" -eq 1
     test "$zdiff_status" -eq 1
     test "$zgrep_status" -eq 99
     test "$zmore_status" -eq 0
+    test "$znew_status" -eq 0
     for operation in zcmp zdiff; do
       grep -q "ERROR SUMMARY: 0 errors" "$output/valgrind-$operation.log"
       grep -q "definitely lost: 0 bytes in 0 blocks" "$output/valgrind-$operation.log"
@@ -77,6 +84,9 @@ RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
     grep -q "ERROR SUMMARY: 0 errors" "$output/valgrind-zmore.log"
     grep -q "All heap blocks were freed -- no leaks are possible" \
       "$output/valgrind-zmore.log"
+    grep -q "ERROR SUMMARY: 0 errors" "$output/valgrind-znew.log"
+    grep -q "All heap blocks were freed -- no leaks are possible" \
+      "$output/valgrind-znew.log"
     cmp "$output/canonical.gz" "$output/multicall.gz"
     cmp "$output/input" "$output/multicall.out"
   '

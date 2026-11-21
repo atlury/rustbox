@@ -8,6 +8,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
+#include <utime.h>
 #include <unistd.h>
 
 extern char *program_invocation_name;
@@ -959,4 +960,343 @@ rustbox_zmore_main(int argc, char **argv)
   pager_status = wait_program(pager);
   wait_program(producer);
   return pager_status;
+}
+
+static int
+run_gzip_process(int argc, char **argv, int input, int output)
+{
+  pid_t child;
+  fflush(NULL);
+  child = fork();
+  if (child < 0)
+    return 1;
+  if (child == 0)
+    {
+      int status;
+      if ((0 <= input && input != STDIN_FILENO
+           && dup2(input, STDIN_FILENO) < 0)
+          || (0 <= output && output != STDOUT_FILENO
+              && dup2(output, STDOUT_FILENO) < 0))
+        _exit(1);
+      if (2 < input)
+        close(input);
+      if (2 < output && output != input)
+        close(output);
+      program_invocation_name = argv[0];
+      program_invocation_short_name = argv[0];
+      status = rustbox_gzip_main(argc, argv);
+      fflush(NULL);
+      _exit(status);
+    }
+  return wait_program(child);
+}
+
+static int
+copy_regular_file(char const *source, char const *destination)
+{
+  struct stat status;
+  struct utimbuf times;
+  char buffer[32768];
+  int input = open(source, O_RDONLY);
+  int output;
+  ssize_t count;
+  if (input < 0 || fstat(input, &status) != 0)
+    {
+      if (0 <= input)
+        close(input);
+      return 1;
+    }
+  output = open(destination, O_WRONLY | O_CREAT | O_TRUNC,
+                status.st_mode & 07777);
+  if (output < 0)
+    {
+      close(input);
+      return 1;
+    }
+  while ((count = read(input, buffer, sizeof buffer)) > 0)
+    {
+      char *position = buffer;
+      ssize_t remaining = count;
+      while (0 < remaining)
+        {
+          ssize_t written = write(output, position, (size_t) remaining);
+          if (written <= 0)
+            goto failure;
+          position += written;
+          remaining -= written;
+        }
+    }
+  if (count < 0 || fchmod(output, status.st_mode & 07777) != 0
+      || close(input) != 0 || close(output) != 0)
+    return 1;
+  times.actime = status.st_atime;
+  times.modtime = status.st_mtime;
+  return utime(destination, &times) != 0;
+
+failure:
+  close(input);
+  close(output);
+  return 1;
+}
+
+static int
+znew_pipe(char const *old_name, char const *new_name, char const *option)
+{
+  int stream[2];
+  int input;
+  int output;
+  pid_t decompressor;
+  pid_t compressor;
+  int first_status;
+  int second_status;
+  char *decompress_argv[] = {(char *) "gzip", (char *) "-d", NULL};
+  char *compress_argv[] = {(char *) "gzip", (char *) option, NULL};
+  int compress_argc = option[0] ? 2 : 1;
+  if (pipe(stream) < 0)
+    return 1;
+  input = open(old_name, O_RDONLY);
+  output = open(new_name, O_WRONLY | O_CREAT | O_TRUNC, 0600);
+  if (input < 0 || output < 0)
+    {
+      if (0 <= input) close(input);
+      if (0 <= output) close(output);
+      close(stream[0]);
+      close(stream[1]);
+      return 1;
+    }
+  fflush(NULL);
+  decompressor = fork();
+  if (decompressor == 0)
+    {
+      int status;
+      close(stream[0]);
+      if (dup2(input, STDIN_FILENO) < 0 || dup2(stream[1], STDOUT_FILENO) < 0)
+        _exit(1);
+      close(input);
+      close(output);
+      close(stream[1]);
+      program_invocation_name = decompress_argv[0];
+      program_invocation_short_name = decompress_argv[0];
+      status = rustbox_gzip_main(2, decompress_argv);
+      fflush(NULL);
+      _exit(status);
+    }
+  if (decompressor < 0)
+    goto failure;
+  compressor = fork();
+  if (compressor == 0)
+    {
+      int status;
+      close(stream[1]);
+      if (dup2(stream[0], STDIN_FILENO) < 0 || dup2(output, STDOUT_FILENO) < 0)
+        _exit(1);
+      close(input);
+      close(output);
+      close(stream[0]);
+      program_invocation_name = compress_argv[0];
+      program_invocation_short_name = compress_argv[0];
+      status = rustbox_gzip_main(compress_argc, compress_argv);
+      fflush(NULL);
+      _exit(status);
+    }
+  if (compressor < 0)
+    {
+      close(input);
+      close(output);
+      close(stream[0]);
+      close(stream[1]);
+      wait_program(decompressor);
+      return 1;
+    }
+  close(input);
+  close(output);
+  close(stream[0]);
+  close(stream[1]);
+  first_status = wait_program(decompressor);
+  second_status = wait_program(compressor);
+  return first_status != 0 || second_status != 0;
+
+failure:
+  close(input);
+  close(output);
+  close(stream[0]);
+  close(stream[1]);
+  return 1;
+}
+
+static int
+znew_help(char const *invocation)
+{
+  return printf(
+    "Usage: %s [OPTION]... [FILE]...\n"
+    "Recompress files from .Z (compress) format to .gz (gzip) format.\n\n"
+    "Options:\n\n"
+    "  -f     Force recompression even if a .gz file already exists.\n"
+    "  -t     Test the new files before deleting originals.\n"
+    "  -v     Verbose; display name and statistics for each file compressed.\n"
+    "  -9     Use the slowest compression method (optimal compression).\n"
+    "  -P     Use pipes for the conversion to reduce disk space usage.\n"
+    "  -K     Keep a .Z file when it is smaller than the .gz file; implies -t.\n"
+    "      --help     display this help and exit\n"
+    "      --version  output version information and exit\n\n"
+    "Report bugs to <bug-gzip@gnu.org>.\n", invocation) < 0;
+}
+
+static int
+znew_version(void)
+{
+  return printf(
+    "znew (gzip) 1.14\n"
+    "Copyright (C) 2025 Free Software Foundation, Inc.\n"
+    "This is free software.  You may redistribute copies of it under the terms of\n"
+    "the GNU General Public License <https://www.gnu.org/licenses/gpl.html>.\n"
+    "There is NO WARRANTY, to the extent permitted by law.\n\n"
+    "Written by Jean-loup Gailly.\n") < 0;
+}
+
+int
+rustbox_znew_main(int argc, char **argv)
+{
+  size_t option_capacity = 1;
+  int first = 1;
+  int check = 0;
+  int use_pipe = 0;
+  int keep = 0;
+  int result = 0;
+  int index;
+  for (index = 1; index < argc && argv[index][0] == '-'; index++)
+    option_capacity += strlen(argv[index]);
+  {
+    char options[option_capacity + 2];
+    size_t option_length = 0;
+    options[option_length++] = '-';
+    while (first < argc && argv[first][0] == '-')
+      {
+        char const *p;
+        if (strcmp(argv[first], "--help") == 0)
+          return znew_help(argv[0]);
+        if (strcmp(argv[first], "--version") == 0)
+          return znew_version();
+        for (p = argv[first]; *p; p++)
+          if (*p != '-')
+            {
+              if (*p == 't') check = 1;
+              else if (*p == 'K') { keep = 1; check = 1; }
+              else if (*p == 'P') use_pipe = 1;
+              else options[option_length++] = *p;
+            }
+        first++;
+      }
+    options[option_length] = '\0';
+    if (option_length == 1)
+      options[0] = '\0';
+    if (first == argc)
+      {
+        fprintf(stderr,
+                "%s: invalid number of operands; try `%s --help' for help\n",
+                argv[0], argv[0]);
+        return 1;
+      }
+    for (index = first; index < argc; index++)
+      {
+        char const *argument = argv[index];
+        size_t length = strlen(argument);
+        size_t base_length = 2 <= length && strcmp(argument + length - 2, ".Z") == 0
+                               ? length - 2 : length;
+        char base[base_length + 1];
+        char old_name[base_length + sizeof ".Z"];
+        char new_name[base_length + sizeof ".gz"];
+        char backup[base_length + 32];
+        struct stat old_status;
+        struct stat new_status;
+        int conversion_status;
+        memcpy(base, argument, base_length);
+        base[base_length] = '\0';
+        snprintf(old_name, sizeof old_name, "%s.Z", base);
+        snprintf(new_name, sizeof new_name, "%s.gz", base);
+        snprintf(backup, sizeof backup, "%s%ld", base, (long) getpid());
+        if (stat(old_name, &old_status) != 0 || !S_ISREG(old_status.st_mode))
+          {
+            printf("%s not found\n", old_name);
+            result = 1;
+            continue;
+          }
+        if (!use_pipe && check && copy_regular_file(old_name, backup) != 0)
+          {
+            printf("cannot backup %s\n", old_name);
+            result = 1;
+            continue;
+          }
+        if (use_pipe)
+          conversion_status = znew_pipe(old_name, new_name, options);
+        else
+          {
+            char *decompress_argv[] = {
+              (char *) "gzip", (char *) "-d", old_name, NULL
+            };
+            char *compress_argv[] = {
+              (char *) "gzip", options, base, NULL
+            };
+            conversion_status = run_gzip_process(3, decompress_argv, -1, -1);
+            if (conversion_status == 0)
+              conversion_status = run_gzip_process(options[0] ? 3 : 2,
+                                                    options[0]
+                                                      ? compress_argv
+                                                      : (char *[]){(char *) "gzip", base, NULL},
+                                                    -1, -1);
+          }
+        if (conversion_status != 0)
+          {
+            if (!use_pipe && check)
+              rename(backup, old_name);
+            printf("error while recompressing %s\n", old_name);
+            result = 1;
+            continue;
+          }
+        if (use_pipe)
+          {
+            chmod(new_name, old_status.st_mode & 07777);
+            {
+              struct utimbuf times = {old_status.st_atime, old_status.st_mtime};
+              utime(new_name, &times);
+            }
+          }
+        if (keep && stat(new_name, &new_status) == 0
+            && (old_status.st_size + 1023) / 1024
+                 < (new_status.st_size + 1023) / 1024)
+          {
+            if (use_pipe)
+              unlink(new_name);
+            else
+              {
+                rename(backup, old_name);
+                unlink(new_name);
+              }
+            printf("%s smaller than %s -- unchanged\n", old_name, new_name);
+          }
+        else if (check)
+          {
+            char *test_argv[] = {
+              (char *) "gzip", (char *) "-t", new_name, NULL
+            };
+            if (run_gzip_process(3, test_argv, -1, -1) == 0)
+              {
+                unlink(backup);
+                unlink(old_name);
+              }
+            else
+              {
+                if (!use_pipe)
+                  rename(backup, old_name);
+                unlink(new_name);
+                printf("error while testing %s, %s unchanged\n",
+                       new_name, old_name);
+                result = 1;
+              }
+          }
+        else if (use_pipe)
+          unlink(old_name);
+      }
+    return result;
+  }
 }
