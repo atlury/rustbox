@@ -20,6 +20,7 @@ exec docker run --rm \
   --volume rustbox-diffutils-3.12:/rustbox-diffutils \
   --volume rustbox-grep-3.12:/rustbox-grep \
   --volume rustbox-bc-1.08.2:/rustbox-bc \
+  --volume rustbox-attr-2.6.0:/rustbox-attr \
   --workdir /work \
   "$tool_image" "$@"
 

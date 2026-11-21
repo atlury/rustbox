@@ -54,6 +54,7 @@ scoring, and correctness gates.
 | GNU Diffutils 3.12 | 4 | 4 | 4 | 4 |
 | GNU Grep 3.12 | 3 | 3 | 3 | 3 |
 | GNU bc 1.08.2 / dc 1.5.2 | 2 | 2 | 2 | 2 |
+| attr 2.6.0 | 3 | 3 | 0 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -503,6 +504,19 @@ in `evidence/bc-1.08.2-hybrid.json`.  All 248 non-entrypoint C symbols are
 private in the unified link.  The resulting two applets add 123,856 stripped
 bytes to Rustbox and retain the full hybrid parity gates; integration evidence
 is in `evidence/rustbox-multicall.json`.
+
+attr 2.6.0 is pinned to its canonical signed Savannah release.  The configured
+static, no-NLS production closure is 21 C units and 3,702 lines across
+`attr`, `getfattr`, `setfattr`, libattr, and their filesystem-walk support.
+Independent GCC and Clang builds pass both ordinary upstream components and
+agree byte-for-byte and state-for-state across 22 CLI, encoding, recursive,
+mutation, and error cases; ASan/UBSan repeats the upstream suite.  The one
+upstream root-only `trusted.*` symlink component is intentionally skipped
+because container root lacks the required kernel capability.  The ordinary
+`user.*` coverage runs on a Linux xattr-capable Docker volume, and Valgrind
+reports zero errors or lost bytes for mutation and query paths.  Exact source,
+compiler, test, binary, dependency, differential, and resource evidence is in
+`evidence/attr-2.6.0-oracle.json`; production static analysis is next.
 
 ## Work queue after util-linux
 
