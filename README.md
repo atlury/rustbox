@@ -465,7 +465,15 @@ the dc byte-output traversal checks its node before each access.  The reviewed
 inventory has zero blocking findings and no canonical source changes.  Exact
 tool counts, artifact hashes, process-exit resource baselines, and finding
 dispositions are in `evidence/bc-1.08.2-analysis.json`; deterministic
-normalization is the next gate.
+normalization changes only `bc/main.c` and `dc/dc.c`, exporting
+`rustbox_bc_main` and `rustbox_dc_main` while retaining conditional standalone
+wrappers.  GCC and Clang reproduce all 18 canonical workload outputs exactly,
+ASan/UBSan repeats the bounded 17-workload set, 92 canonical-versus-normalized
+comparisons are byte-exact, and both Valgrind allocation summaries match the
+canonical baselines.  The exact tree hashes, entrypoint symbols, source
+closure, binaries, and parity record are in
+`evidence/bc-1.08.2-normalization.json`; translation of the unchanged 21-unit
+closure is the next gate.
 
 ## Work queue after util-linux
 

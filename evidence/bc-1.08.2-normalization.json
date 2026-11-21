@@ -1,0 +1,180 @@
+{
+  "binaries": {
+    "clang": {
+      "bc": {
+        "bytes": 251280,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "8bbc6b947e85eb31080cf446e8a41b3df06d99c0eaf599dd1cb255150603375f"
+      },
+      "dc": {
+        "bytes": 176248,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "b7dc7f136106cb669b5627d9f73aa1d92530d43119fbffbeda6e2b25064cecb7"
+      }
+    },
+    "gcc": {
+      "bc": {
+        "bytes": 289680,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "b4e9c4080aef980b7f15e9812f4c4857a5b05d14f3e3074afb5de984b43ece27"
+      },
+      "dc": {
+        "bytes": 201624,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "fd8ce323f15bd2635e8526f94cc0c9e1308263b33ee326c7fdf52847f648eb2f"
+      }
+    }
+  },
+  "bundled_dc_release": "1.5.2",
+  "canonical_normalized_differential": {
+    "comparisons": 92,
+    "compilers": {
+      "clang": {
+        "comparisons": 46,
+        "exact": true,
+        "sha256": "576d9a4a083eab63acdbdb21137158cd2a228fc20f89dd4c4981ba3c9c3c2f58"
+      },
+      "gcc": {
+        "comparisons": 46,
+        "exact": true,
+        "sha256": "576d9a4a083eab63acdbdb21137158cd2a228fc20f89dd4c4981ba3c9c3c2f58"
+      }
+    },
+    "exact": true
+  },
+  "entrypoint_objects": {
+    "clang": {
+      "bc": {
+        "entrypoints": [
+          "main",
+          "rustbox_bc_main"
+        ],
+        "sha256": "07ed4c2b1305f1349f589b31a364202f78d62cf3a3006f80414d1764bb9ae266"
+      },
+      "dc": {
+        "entrypoints": [
+          "main",
+          "rustbox_dc_main"
+        ],
+        "sha256": "652d817912fab87b898c597ac17bc46d1e4df90aed6b789f5bc47373891fe902"
+      }
+    },
+    "gcc": {
+      "bc": {
+        "entrypoints": [
+          "main",
+          "rustbox_bc_main"
+        ],
+        "sha256": "8b701dc7e5e850eeacfc0ac78de54ee3687adac9257582a403eacc2388a63491"
+      },
+      "dc": {
+        "entrypoints": [
+          "main",
+          "rustbox_dc_main"
+        ],
+        "sha256": "6116be872c527eff12b296808250987c1fe904a8657595ecd55c718d72bbcd65"
+      }
+    }
+  },
+  "manifest_sha256": "8829f2e83597fe8114a73e726d6e18090db3e520905df151d2dee29710fb5633",
+  "next_gate": "translate the exact 21-source normalized production closure with C2Rust",
+  "normalization": {
+    "bundled_dc_release": "1.5.2",
+    "canonical_archive_sha256": "ae470fec429775653e042015edc928d07c8c3b2fc59765172a330d3d87785f86",
+    "canonical_tree_sha256": "52d9ac6999ff446a8cc21c8351498ab2b46ff930887c9f47fd62f06678d2785f",
+    "changed_sources": [
+      "bc/main.c",
+      "dc/dc.c"
+    ],
+    "conditional": "RUSTBOX_MULTICALL",
+    "engine": "exact deterministic source rewrite",
+    "normalized_tree_sha256": "e943c4b5e86bd593c051705a0795d3e07c6f508a8b28652aaaf5ee6f64c908ef",
+    "release": "1.08.2",
+    "schema": 1,
+    "transformations": [
+      {
+        "canonical_sha256": "95880c007a0db461b9adbba2e8f9efc25c1aaad7c348661e62c8328fefb8c68a",
+        "normalized_sha256": "a397133bf494d7955e14aabefca2305d675945a960898c0eea155220ecb1bae9",
+        "operation": "export a Rustbox multicall entrypoint while retaining a conditional standalone main wrapper",
+        "source": "bc/main.c"
+      },
+      {
+        "canonical_sha256": "3e8b10f89231095d3349310b33ea20e7b3b6cd6c4c3329cee7fa92d5208ddca1",
+        "normalized_sha256": "c2323171cb0c4be7729949a02e665370655d8dcd31242d7ac42301432d4cce8d",
+        "operation": "export a Rustbox multicall entrypoint while retaining a conditional standalone main wrapper",
+        "source": "dc/dc.c"
+      }
+    ]
+  },
+  "recorded_at": "2026-11-21",
+  "release": "1.08.2",
+  "schema": 1,
+  "scope": {
+    "captured_compile_actions": {
+      "clang": 21,
+      "gcc": 21,
+      "sanitizer": 21
+    },
+    "compile_database_sha256": {
+      "clang": "ccfe65e7dfe389d63f0c98c6648d5a32c6a77018c8518f5bf34ec0e4ab4e254b",
+      "gcc": "54f8f64c08c80b009071b4631ee5d7d844c1a31a212a9cd77a3442e94eb9729b",
+      "sanitizer": "f210ebe1ca6325ab35df8c9b71825774b5c4471b18a422a691cf28bc219325de"
+    },
+    "production_sources": 21,
+    "source_closure_matches_canonical": true
+  },
+  "tests": {
+    "clang": {
+      "automake_check_log_sha256": "6ac40bc10b5f5b6962aa6b6d62162cd9deb297ed83508af85ca023caa2a4076d",
+      "canonical_outputs_exact": true,
+      "log_sha256": "86fc9f9bc75c2c9b9602c5a8a8b1b9b1da1a9121a3fb214396bffa3a264df849",
+      "shipped_cases": 18
+    },
+    "gcc": {
+      "automake_check_log_sha256": "5cc24ff1ca3c3695c5f4495dc678a7600b476a38b6315622aa62155b9a6e3fa6",
+      "canonical_outputs_exact": true,
+      "log_sha256": "86fc9f9bc75c2c9b9602c5a8a8b1b9b1da1a9121a3fb214396bffa3a264df849",
+      "shipped_cases": 18
+    },
+    "sanitizer": {
+      "automake_check_log_sha256": "846abca3d26dad63710c75f41e4e4235bad53134f0e423f0c8717dd811282fcb",
+      "canonical_outputs_exact": true,
+      "log_sha256": "19817654ab3bac0c62aefa972e04bdd75edbc7682cffceb5b9daef315d9cfc2a",
+      "shipped_cases": 17
+    }
+  },
+  "valgrind": {
+    "bc": {
+      "log_sha256": "087ab5cb2b0e87449ded2fe3b767ac8b61ca24aa692209cf980d45c786db7863",
+      "matches_canonical_summary": true,
+      "summary": {
+        "allocations": 66,
+        "blocks_at_exit": 53,
+        "bytes_allocated": 56826,
+        "bytes_at_exit": 52619,
+        "errors": 0,
+        "frees": 13
+      }
+    },
+    "dc": {
+      "log_sha256": "5c2d830b3c4ec8c12ff0e99d1516e023aaf31ac2b0bf9fc9f79844b89a2229bb",
+      "matches_canonical_summary": true,
+      "summary": {
+        "allocations": 37,
+        "blocks_at_exit": 13,
+        "bytes_allocated": 8774,
+        "bytes_at_exit": 376,
+        "errors": 0,
+        "frees": 24
+      }
+    }
+  }
+}
