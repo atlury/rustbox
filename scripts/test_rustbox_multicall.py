@@ -209,15 +209,23 @@ def main() -> int:
             if oracle != actual:
                 failures.append({"suite": "lz4", "applet": name, "option": option, "oracle": oracle, "actual": actual})
 
-    gzip_names = ["gzip", "gunzip", "zcat", "uncompress", "zcmp", "zdiff", "zforce"]
+    gzip_names = ["gzip", "gunzip", "zcat", "uncompress", "zcmp", "zdiff", "zforce",
+                  "zgrep", "zegrep", "zfgrep"]
     for name in gzip_names:
         for option in ("--help", "--version"):
             cases += 1
-            oracle = invoke([name, option], executable=gzip_oracle_dir / name)
+            if name in {"zegrep", "zfgrep"}:
+                matcher = "-E" if name == "zegrep" else "-F"
+                oracle = invoke(
+                    ["zgrep", matcher, option], executable=gzip_oracle_dir / "zgrep"
+                )
+            else:
+                oracle = invoke([name, option], executable=gzip_oracle_dir / name)
             if option == "--help" and name != "gzip":
+                help_name = "zgrep" if name in {"zegrep", "zfgrep"} else name
                 oracle["stdout"] = oracle["stdout"].replace(
-                    f"Usage: {gzip_oracle_dir / name} ".encode(),
-                    f"Usage: {name} ".encode(),
+                    f"Usage: {gzip_oracle_dir / help_name} ".encode(),
+                    f"Usage: {help_name} ".encode(),
                     1,
                 )
             actual = invoke([str(rustbox), name, option])

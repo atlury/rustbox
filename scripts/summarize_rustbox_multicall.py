@@ -56,7 +56,7 @@ def main() -> int:
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
-    if dispatch["cases"] != 592 or dispatch["passed"] != 592 or dispatch["failures"]:
+    if dispatch["cases"] != 598 or dispatch["passed"] != 598 or dispatch["failures"]:
         raise RuntimeError("unified dispatcher comparison is incomplete")
     if (
         differential["batches"] != 38
@@ -392,14 +392,26 @@ def main() -> int:
     gzip_differential = json.loads(gzip_differential_path.read_text())
     gzip_valgrind_paths = {
         operation: gzip_directory / f"valgrind-{operation}.log"
-        for operation in ("compress", "decompress", "zcmp", "zdiff")
+        for operation in ("compress", "decompress", "zcmp", "zdiff", "zgrep")
     }
     for operation, path in gzip_valgrind_paths.items():
         text = path.read_text(errors="replace")
-        required = ["ERROR SUMMARY: 0 errors"]
-        if operation in {"compress", "decompress"}:
-            required.append("All heap blocks were freed -- no leaks are possible")
+        required = []
+        if operation == "zgrep":
+            required.extend([
+                "ERROR SUMMARY: 1 errors",
+                "definitely lost: 0 bytes in 0 blocks",
+                "indirectly lost: 0 bytes in 0 blocks",
+                "possibly lost: 128 bytes in 1 blocks",
+                "still reachable: 112,870 bytes in 19 blocks",
+            ])
+        elif operation in {"compress", "decompress"}:
+            required.extend([
+                "ERROR SUMMARY: 0 errors",
+                "All heap blocks were freed -- no leaks are possible",
+            ])
         else:
+            required.append("ERROR SUMMARY: 0 errors")
             required.extend([
                 "definitely lost: 0 bytes in 0 blocks",
                 "indirectly lost: 0 bytes in 0 blocks",
@@ -407,7 +419,7 @@ def main() -> int:
             ])
         if any(marker not in text for marker in required):
             raise RuntimeError(f"unified GNU Gzip {operation} Valgrind comparison is incomplete")
-    if gzip_differential.get("cases") != 54 or gzip_differential.get("passed") != 54:
+    if gzip_differential.get("cases") != 77 or gzip_differential.get("passed") != 77:
         raise RuntimeError("unified GNU Gzip integration comparison is incomplete")
     if sha256(binary) != link["binary"]["sha256"]:
         raise RuntimeError("unified binary changed after link evidence")
@@ -433,8 +445,8 @@ def main() -> int:
         raise RuntimeError("unified binary retains a forbidden SELinux/systemd dependency")
     evidence = {
         "schema": 1,
-        "recorded_at": "2026-11-21",
-        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, and seven GNU Gzip interfaces integrated at canonical parity",
+        "recorded_at": "2026-11-22",
+        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, and ten GNU Gzip interfaces integrated at canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
@@ -449,8 +461,8 @@ def main() -> int:
             "attr": 3,
             "acl": 3,
             "lz4": 4,
-            "gzip_integrated_names": 7,
-            "dispatch_names": 296,
+            "gzip_integrated_names": 10,
+            "dispatch_names": 299,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -572,19 +584,22 @@ def main() -> int:
             },
         },
         "gzip_integration": {
-            "integrated_public_names": 7,
-            "native_shell_replacements": ["gunzip", "uncompress", "zcat", "zcmp", "zdiff", "zforce"],
+            "integrated_public_names": 10,
+            "native_shell_replacements": ["gunzip", "uncompress", "zcat", "zcmp", "zdiff", "zforce", "zgrep", "zegrep", "zfgrep"],
             "alias_bridge": link["gzip_alias_bridge"],
             "differential": gzip_differential,
             "byte_identical_compression": True,
             "decompression_matches_canonical": True,
-            "valgrind_errors": 0,
+            "engine_and_comparison_valgrind_errors": 0,
             "gzip_engine_all_allocations_freed": True,
             "comparison_frontend_lost_bytes": 0,
             "comparison_frontend_still_reachable_bytes": {
                 "zcmp": 8208,
                 "zdiff": 147,
             },
+            "search_frontend_canonical_valgrind_errors": 1,
+            "search_frontend_canonical_possibly_lost_bytes": 128,
+            "search_frontend_canonical_still_reachable_bytes": 112870,
             "differential_sha256": sha256(gzip_differential_path),
             "valgrind_log_sha256": {
                 operation: sha256(path)

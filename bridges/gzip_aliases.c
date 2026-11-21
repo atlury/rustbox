@@ -1,5 +1,5 @@
 /* SPDX-License-Identifier: GPL-3.0-or-later
-   Native equivalents of GNU Gzip 1.14's gunzip and zcat shell frontends. */
+   Native equivalents of GNU Gzip 1.14's shell frontends. */
 #include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
@@ -15,6 +15,7 @@ extern char *program_invocation_short_name;
 extern int rustbox_gzip_main(int, char **);
 extern int rustbox_cmp_main(int, char **);
 extern int rustbox_diff_main(int, char **);
+extern int rustbox_grep_main(int, char **);
 
 static int
 run_gzip_mode(int argc, char **argv, char const *mode)
@@ -538,4 +539,308 @@ rustbox_zforce_main(int argc, char **argv)
         }
     }
   return result;
+}
+
+static int
+zgrep_usage(char const *invocation)
+{
+  return printf(
+    "Usage: %s [OPTION]... [-e] PATTERN [FILE]...\n"
+    "Look for instances of PATTERN in the input FILEs, using their\n"
+    "uncompressed contents if they are compressed.\n\n"
+    "OPTIONs are the same as for 'grep', except that the following 'grep'\n"
+    "options are not supported: --dereference-recursive (-R), --directories (-d),\n"
+    "--exclude, --exclude-from, --exclude-dir, --include, --null (-Z),\n"
+    "--null-data (-z), and --recursive (-r).\n\n"
+    "Report bugs to <bug-gzip@gnu.org>.\n", invocation) < 0 ? 2 : 0;
+}
+
+static int
+zgrep_version(void)
+{
+  return printf(
+    "zgrep (gzip) 1.14\n"
+    "Copyright (C) 2025 Free Software Foundation, Inc.\n"
+    "This is free software.  You may redistribute copies of it under the terms of\n"
+    "the GNU General Public License <https://www.gnu.org/licenses/gpl.html>.\n"
+    "There is NO WARRANTY, to the extent permitted by law.\n\n"
+    "Written by Jean-loup Gailly.\n") < 0 ? 2 : 0;
+}
+
+static int
+wait_program(pid_t child)
+{
+  int status;
+  while (waitpid(child, &status, 0) < 0)
+    if (errno != EINTR)
+      return 2;
+  if (WIFEXITED(status))
+    return WEXITSTATUS(status);
+  if (WIFSIGNALED(status))
+    return 128 + WTERMSIG(status);
+  return 2;
+}
+
+static int
+zgrep_file(char const *name, int grep_argc, char **grep_argv,
+           int with_filename, int files_with_matches,
+           int files_without_matches)
+{
+  int stream[2];
+  int nullfd = -1;
+  pid_t gzip_child;
+  pid_t grep_child;
+  int gzip_status;
+  int grep_status;
+  if (pipe(stream) < 0)
+    return 2;
+  gzip_child = start_gzip(name, stream[1], stream[0]);
+  if (gzip_child < 0)
+    {
+      close(stream[0]);
+      close(stream[1]);
+      return 2;
+    }
+  close(stream[1]);
+  fflush(NULL);
+  grep_child = fork();
+  if (grep_child < 0)
+    {
+      close(stream[0]);
+      wait_program(gzip_child);
+      return 2;
+    }
+  if (grep_child == 0)
+    {
+      char *child_argv[grep_argc + 4];
+      char label[strlen(name) + sizeof "--label="];
+      int child_argc = 0;
+      int index;
+      if (dup2(stream[0], STDIN_FILENO) < 0)
+        _exit(2);
+      close(stream[0]);
+      if (files_with_matches || files_without_matches)
+        {
+          nullfd = open("/dev/null", O_WRONLY);
+          if (nullfd < 0 || dup2(nullfd, STDOUT_FILENO) < 0)
+            _exit(2);
+          close(nullfd);
+        }
+      child_argv[child_argc++] = (char *) "grep";
+      if (with_filename)
+        {
+          child_argv[child_argc++] = (char *) "-H";
+          if (strcmp(name, "-") != 0)
+            {
+              memcpy(label, "--label=", sizeof "--label=" - 1);
+              strcpy(label + sizeof "--label=" - 1, name);
+              child_argv[child_argc++] = label;
+            }
+        }
+      for (index = 1; index < grep_argc; index++)
+        child_argv[child_argc++] = grep_argv[index];
+      child_argv[child_argc] = NULL;
+      program_invocation_name = child_argv[0];
+      program_invocation_short_name = child_argv[0];
+      grep_status = rustbox_grep_main(child_argc, child_argv);
+      fflush(NULL);
+      exit(grep_status);
+    }
+  close(stream[0]);
+  grep_status = wait_program(grep_child);
+  gzip_status = wait_program(gzip_child);
+  if (gzip_status == 2 || gzip_status == 141)
+    gzip_status = 0;
+  else if (gzip_status == 1)
+    gzip_status = 2;
+  else if (gzip_status != 0)
+    gzip_status = 2;
+  if (files_with_matches && grep_status == 0)
+    {
+      if (printf("%s\n", name) < 0)
+        grep_status = 2;
+    }
+  else if (files_without_matches && grep_status == 1)
+    {
+      if (printf("%s\n", name) < 0)
+        grep_status = 2;
+      else
+        grep_status = 0;
+    }
+  return grep_status < gzip_status ? gzip_status : grep_status;
+}
+
+static int
+zgrep_abbreviation(char const *option, char const *full, size_t minimum)
+{
+  size_t length = strlen(option);
+  return minimum <= length && length <= strlen(full)
+         && memcmp(option, full, length) == 0;
+}
+
+static int
+zgrep_unsupported(char const *option)
+{
+  return strcmp(option, "-d") == 0 || strcmp(option, "-r") == 0
+         || strcmp(option, "-R") == 0 || strcmp(option, "-z") == 0
+         || strcmp(option, "-Z") == 0
+         || strncmp(option, "--di", 4) == 0
+         || strncmp(option, "--exclude", 9) == 0
+         || strncmp(option, "--include", 9) == 0
+         || strncmp(option, "--rec", 5) == 0
+         || strncmp(option, "--nu", 4) == 0;
+}
+
+static int
+zgrep_option_takes_argument(char const *option)
+{
+  return strcmp(option, "-A") == 0 || strcmp(option, "-B") == 0
+         || strcmp(option, "-C") == 0 || strcmp(option, "-D") == 0
+         || strcmp(option, "-X") == 0 || strcmp(option, "-e") == 0
+         || strcmp(option, "-f") == 0 || strcmp(option, "-m") == 0
+         || strcmp(option, "--binary-files") == 0
+         || strcmp(option, "--label") == 0
+         || strcmp(option, "--max-count") == 0
+         || strcmp(option, "--regexp") == 0
+         || strcmp(option, "--file") == 0;
+}
+
+static int
+run_zgrep(int argc, char **argv, char const *personality)
+{
+  char *grep_argv[argc + 4];
+  char *files[argc + 1];
+  char invocation[strlen(argv[0]) + 1];
+  char *pattern = NULL;
+  int grep_argc = 1;
+  int file_count = 0;
+  int options = 1;
+  int have_pattern = 0;
+  int with_filename = 0;
+  int no_filename = 0;
+  int files_with_matches = 0;
+  int files_without_matches = 0;
+  int result = 1;
+  int index;
+  if (personality)
+    {
+      char const *slash = strrchr(argv[0], '/');
+      size_t prefix = slash ? (size_t) (slash - argv[0] + 1) : 0;
+      if (prefix)
+        memcpy(invocation, argv[0], prefix);
+      memcpy(invocation + prefix, "zgrep", sizeof "zgrep");
+    }
+  else
+    strcpy(invocation, argv[0]);
+  grep_argv[0] = (char *) "grep";
+  if (personality)
+    grep_argv[grep_argc++] = (char *) personality;
+  for (index = 1; index < argc; index++)
+    {
+      char *argument = argv[index];
+      if (options && strcmp(argument, "--") == 0)
+        {
+          options = 0;
+          continue;
+        }
+      if (options && argument[0] == '-' && argument[1] != '\0')
+        {
+          if (zgrep_abbreviation(argument, "--help", 3))
+            return zgrep_usage(invocation);
+          if (strcmp(argument, "-V") == 0
+              || zgrep_abbreviation(argument, "--version", 3))
+            return zgrep_version();
+          if (zgrep_unsupported(argument))
+            {
+              fprintf(stderr, "%s: %s: option not supported\n", invocation,
+                      argument);
+              return 2;
+            }
+          if (strcmp(argument, "-H") == 0
+              || zgrep_abbreviation(argument, "--with-filename", 4))
+            with_filename = 1;
+          if (strcmp(argument, "-h") == 0
+              || zgrep_abbreviation(argument, "--no-filename", 6))
+            no_filename = 1;
+          if (strcmp(argument, "-l") == 0
+              || zgrep_abbreviation(argument, "--files-with-matches", 14))
+            files_with_matches = 1;
+          if (strcmp(argument, "-L") == 0
+              || zgrep_abbreviation(argument, "--files-without-match", 15))
+            files_without_matches = 1;
+          if (strncmp(argument, "-e", 2) == 0
+              || strncmp(argument, "-f", 2) == 0
+              || strncmp(argument, "--regexp", 8) == 0
+              || strncmp(argument, "--file", 6) == 0)
+            have_pattern = 1;
+          grep_argv[grep_argc++] = argument;
+          if (zgrep_option_takes_argument(argument))
+            {
+              if (++index == argc)
+                {
+                  fprintf(stderr, "%s: %s option requires an argument\n",
+                          invocation, argument);
+                  return 2;
+                }
+              grep_argv[grep_argc++] = argv[index];
+            }
+          continue;
+        }
+      if (!have_pattern)
+        {
+          pattern = argument;
+          have_pattern = 1;
+        }
+      else
+        files[file_count++] = argument;
+    }
+  if (!have_pattern)
+    {
+      fprintf(stderr, "%s: missing pattern; try `%s --help' for help\n",
+              invocation, invocation);
+      return 2;
+    }
+  if (pattern)
+    {
+      grep_argv[grep_argc++] = (char *) "--";
+      grep_argv[grep_argc++] = pattern;
+    }
+  grep_argv[grep_argc] = NULL;
+  if (file_count == 0)
+    files[file_count++] = (char *) "-";
+  else if (1 < file_count && !no_filename)
+    with_filename = 1;
+  for (index = 0; index < file_count; index++)
+    {
+      int status = zgrep_file(files[index], grep_argc, grep_argv, with_filename,
+                              files_with_matches, files_without_matches);
+      if (status <= 1 && result <= 1)
+        {
+          if (status < result)
+            result = status;
+        }
+      else if (result < status)
+        result = status;
+      if (126 <= result)
+        break;
+    }
+  return result;
+}
+
+int
+rustbox_zgrep_main(int argc, char **argv)
+{
+  return run_zgrep(argc, argv, NULL);
+}
+
+int
+rustbox_zegrep_main(int argc, char **argv)
+{
+  return run_zgrep(argc, argv, "-E");
+}
+
+int
+rustbox_zfgrep_main(int argc, char **argv)
+{
+  return run_zgrep(argc, argv, "-F");
 }

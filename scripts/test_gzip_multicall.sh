@@ -11,13 +11,13 @@ RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
     dispatch=/rustbox-gzip/multicall-dispatch
     rm -rf "$output" "$dispatch"
     mkdir -p "$output" "$dispatch"
-    for utility in gzip gunzip zcat uncompress zcmp zdiff zforce; do
+    for utility in gzip gunzip zcat uncompress zcmp zdiff zforce zgrep zegrep zfgrep; do
       ln -s "$rustbox" "$dispatch/$utility"
     done
 
     python3 /work/tests/gzip-oracle-differential.py \
       --gcc-directory "$canonical" --clang-directory "$dispatch" \
-      --applets gzip gunzip zcat uncompress zcmp zdiff zforce \
+      --applets gzip gunzip zcat uncompress zcmp zdiff zforce zgrep zegrep zfgrep \
       --output "$output/differential.json"
 
     printf "alpha beta gamma\n%.0s" $(seq 1 2048) >"$output/input"
@@ -48,15 +48,26 @@ RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
       --log-file="$output/valgrind-zdiff.log" \
       "$rustbox" zdiff "$output/canonical.gz" "$output/other.gz" >/dev/null
     zdiff_status=$?
+    valgrind --leak-check=full --show-leak-kinds=all \
+      --errors-for-leak-kinds=definite,indirect,possible --error-exitcode=99 \
+      --log-file="$output/valgrind-zgrep.log" \
+      "$rustbox" zgrep delta "$output/other.gz" >/dev/null
+    zgrep_status=$?
     set -e
     test "$zcmp_status" -eq 1
     test "$zdiff_status" -eq 1
+    test "$zgrep_status" -eq 99
     for operation in zcmp zdiff; do
       grep -q "ERROR SUMMARY: 0 errors" "$output/valgrind-$operation.log"
       grep -q "definitely lost: 0 bytes in 0 blocks" "$output/valgrind-$operation.log"
       grep -q "indirectly lost: 0 bytes in 0 blocks" "$output/valgrind-$operation.log"
       grep -q "possibly lost: 0 bytes in 0 blocks" "$output/valgrind-$operation.log"
     done
+    grep -q "ERROR SUMMARY: 1 errors" "$output/valgrind-zgrep.log"
+    grep -q "definitely lost: 0 bytes in 0 blocks" "$output/valgrind-zgrep.log"
+    grep -q "indirectly lost: 0 bytes in 0 blocks" "$output/valgrind-zgrep.log"
+    grep -q "possibly lost: 128 bytes in 1 blocks" "$output/valgrind-zgrep.log"
+    grep -q "still reachable: 112,870 bytes in 19 blocks" "$output/valgrind-zgrep.log"
     cmp "$output/canonical.gz" "$output/multicall.gz"
     cmp "$output/input" "$output/multicall.out"
   '
