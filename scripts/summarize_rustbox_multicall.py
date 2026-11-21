@@ -56,7 +56,7 @@ def main() -> int:
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
-    if dispatch["cases"] != 580 or dispatch["passed"] != 580 or dispatch["failures"]:
+    if dispatch["cases"] != 586 or dispatch["passed"] != 586 or dispatch["failures"]:
         raise RuntimeError("unified dispatcher comparison is incomplete")
     if (
         differential["batches"] != 38
@@ -401,7 +401,7 @@ def main() -> int:
             or "All heap blocks were freed -- no leaks are possible" not in text
         ):
             raise RuntimeError(f"unified GNU Gzip {operation} Valgrind comparison is incomplete")
-    if gzip_differential.get("cases") != 14 or gzip_differential.get("passed") != 14:
+    if gzip_differential.get("cases") != 24 or gzip_differential.get("passed") != 24:
         raise RuntimeError("unified GNU Gzip integration comparison is incomplete")
     if sha256(binary) != link["binary"]["sha256"]:
         raise RuntimeError("unified binary changed after link evidence")
@@ -428,7 +428,7 @@ def main() -> int:
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-21",
-        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, and GNU Gzip's native engine integrated at canonical parity",
+        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, and four GNU Gzip engine interfaces integrated at canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
@@ -443,8 +443,8 @@ def main() -> int:
             "attr": 3,
             "acl": 3,
             "lz4": 4,
-            "gzip_native_engine": 1,
-            "dispatch_names": 290,
+            "gzip_native_engine_names": 4,
+            "dispatch_names": 293,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -566,7 +566,9 @@ def main() -> int:
             },
         },
         "gzip_integration": {
-            "native_engine_names": 1,
+            "native_engine_names": 4,
+            "native_shell_replacements": ["gunzip", "uncompress", "zcat"],
+            "alias_bridge": link["gzip_alias_bridge"],
             "differential": gzip_differential,
             "byte_identical_compression": True,
             "decompression_matches_canonical": True,
@@ -598,6 +600,7 @@ def main() -> int:
             "acl_namespaced_symbols": len(link["acl_namespaced_symbols"]),
             "lz4_namespaced_symbols": len(link["lz4_namespaced_symbols"]),
             "gzip_namespaced_symbols": len(link["gzip_namespaced_symbols"]),
+            "gzip_alias_bridge_symbols": len(link["gzip_alias_bridge"]["symbols"]),
             "manifest": link,
         },
     }

@@ -57,7 +57,7 @@ scoring, and correctness gates.
 | attr 2.6.0 | 3 | 3 | 3 | 3 |
 | acl 2.4.0 | 3 | 3 | 3 | 3 |
 | LZ4 1.11.1 | 4 | 4 | 4 | 4 |
-| GNU Gzip 1.14 | 14 | 14 | 14 | 1 |
+| GNU Gzip 1.14 | 14 | 14 | 14 | 4 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -119,12 +119,13 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 290
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 293
 distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, five
 pkgconf names, File, GNU patch, GNU sed, four GNU Diffutils applets, and GNU
 Grep's three public names, GNU bc and dc, attr's three tools, plus chacl,
-getfacl, and setfacl, plus LZ4's four public names and GNU Gzip's native engine;
-`kill` is shared and `util-linux-kill` remains available explicitly).  It passes all 580
+getfacl, and setfacl, plus LZ4's four public names and GNU Gzip's four native
+engine interfaces; `kill` is shared and `util-linux-kill` remains available
+explicitly).  It passes all 586
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
 check, 108-case differential suite, and Valgrind.  Pkgconf also passes all 429
@@ -144,9 +145,10 @@ tools retain 13 upstream passes and two canonical NFS expected failures, all
 lifecycles through the same dispatcher.  LZ4 passes all 27 byte-and-filesystem
 differential cases, its complete upstream essentials suite, and leak-free
 resource checks through the same dispatcher.  GNU Gzip's translated native
-engine passes all 14 engine-only byte, filesystem, failure, help, and version
+engine and three native shell replacements pass all 24 relevant byte,
+filesystem, failure, help, and version
 comparisons, emits byte-identical compressed streams, and is leak-free through
-the same dispatcher.  The stripped 290-name executable is 7,431,696 bytes.
+the same dispatcher.  The stripped 293-name executable is 7,431,696 bytes.
 `chcon` and `runcon`
 remain absent, and the linked binary has no SELinux or systemd dependency.
 
@@ -734,14 +736,16 @@ the much larger static archive is link inventory rather than release size.
 Full behavior, bridge, resource, dependency, symbol, and size evidence is in
 `evidence/gzip-1.14-hybrid.json`.
 The translated native `gzip` engine is also integrated into the unified
-Rustbox dispatcher.  Its complete 14-case engine-only differential passes,
+Rustbox dispatcher.  Native equivalents of upstream's `gunzip` and `zcat`
+shell frontends provide `gunzip`, `uncompress`, and `zcat` without `/bin/sh`.
+Their complete 24-case differential passes,
 compression is byte-identical, decompression matches canonical bytes, and
 Valgrind reports zero errors with every allocation freed.  All Gzip and gnulib
-symbols except `rustbox_gzip_main` are private to the applet, including its
-independent Rust personality symbol.  The remaining thirteen names require
-internal replacements for upstream's shell interfaces.  Unified evidence is
-in `evidence/rustbox-multicall.json`; native Gzip integration adds 377,088
-stripped bytes to the previous multicall checkpoint.
+symbols except the three deliberate entrypoints are private to the applet,
+including its independent Rust personality symbol.  The remaining ten names
+require internal replacements for upstream's shell interfaces.  Unified
+evidence is in `evidence/rustbox-multicall.json`.  The three native frontend
+names add no stripped bytes beyond the already integrated Gzip engine.
 
 ## Work queue after util-linux
 
@@ -787,9 +791,9 @@ Library-only checkpoints (outside the active utility order):
    - [x] LZ4 1.11.1 — `lz4`, `lz4c`, `lz4cat`, `unlz4`; integrated at
      canonical parity.
 2. Compression, archive, and terminal foundations:
-   - [ ] GNU Gzip 1.14 — translated hybrid at canonical parity; native `gzip`
-     integrated; internal-shell replacement and multicall integration pending for `gunzip`, `zcat`,
-     `uncompress`, `gzexe`, `zcmp`,
+   - [ ] GNU Gzip 1.14 — translated hybrid at canonical parity; native `gzip`,
+     `gunzip`, `zcat`, and `uncompress` integrated; internal-shell replacement
+     and multicall integration pending for `gzexe`, `zcmp`,
      `zdiff`, `zegrep`, `zfgrep`, `zforce`, `zgrep`, `zless`, `zmore`, `znew`.
    - [ ] xz — `xz`, `unxz`, `xzcat`, `lzma`, `unlzma`, `lzcat`, `xzdec`,
      `lzmadec`, `lzmainfo`, `xzcmp`, `xzdiff`, `xzegrep`, `xzfgrep`, `xzgrep`,

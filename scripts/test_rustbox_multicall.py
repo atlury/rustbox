@@ -50,7 +50,7 @@ def main() -> int:
     parser.add_argument("--attr-oracle-dir", type=Path, required=True)
     parser.add_argument("--acl-oracle-dir", type=Path, required=True)
     parser.add_argument("--lz4-oracle-dir", type=Path, required=True)
-    parser.add_argument("--gzip-oracle", type=Path, required=True)
+    parser.add_argument("--gzip-oracle-dir", type=Path, required=True)
     parser.add_argument("--rustbox", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
@@ -69,7 +69,7 @@ def main() -> int:
     attr_oracle_dir = args.attr_oracle_dir.resolve()
     acl_oracle_dir = args.acl_oracle_dir.resolve()
     lz4_oracle_dir = args.lz4_oracle_dir.resolve()
-    gzip_oracle = args.gzip_oracle.resolve()
+    gzip_oracle_dir = args.gzip_oracle_dir.resolve()
     failures: list[dict[str, object]] = []
     cases = 0
 
@@ -209,12 +209,20 @@ def main() -> int:
             if oracle != actual:
                 failures.append({"suite": "lz4", "applet": name, "option": option, "oracle": oracle, "actual": actual})
 
-    for option in ("--help", "--version"):
-        cases += 1
-        oracle = invoke(["gzip", option], executable=gzip_oracle)
-        actual = invoke([str(rustbox), "gzip", option])
-        if oracle != actual:
-            failures.append({"suite": "gzip", "applet": "gzip", "option": option, "oracle": oracle, "actual": actual})
+    gzip_names = ["gzip", "gunzip", "zcat", "uncompress"]
+    for name in gzip_names:
+        for option in ("--help", "--version"):
+            cases += 1
+            oracle = invoke([name, option], executable=gzip_oracle_dir / name)
+            if option == "--help" and name != "gzip":
+                oracle["stdout"] = oracle["stdout"].replace(
+                    f"Usage: {gzip_oracle_dir / name} ".encode(),
+                    f"Usage: {name} ".encode(),
+                    1,
+                )
+            actual = invoke([str(rustbox), name, option])
+            if oracle != actual:
+                failures.append({"suite": "gzip", "applet": name, "option": option, "oracle": oracle, "actual": actual})
 
     result = {
         "schema": 1,
@@ -233,7 +241,8 @@ def main() -> int:
         "attr_applets": len(attr_names),
         "acl_applets": len(acl_names),
         "lz4_public_names": len(lz4_names),
-        "gzip_public_names": 1,
+        "gzip_public_names": len(gzip_names),
+        "gzip_help_oracle_path_normalized": True,
         "failures": failures,
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)

@@ -822,6 +822,8 @@ extern int rustbox_getfacl_main(int, char **);
 extern int rustbox_setfacl_main(int, char **);
 extern int rustbox_lz4_main(int, char **);
 extern int rustbox_gzip_main(int, char **);
+extern int rustbox_gunzip_main(int, char **);
+extern int rustbox_zcat_main(int, char **);
 """
         + declarations
         + """
@@ -948,6 +950,10 @@ int main(int argc, char **argv)
         return rustbox_lz4_main(argc, argv);
     if (!force_util_linux && strcmp(name, "gzip") == 0)
         return rustbox_gzip_main(argc, argv);
+    if (!force_util_linux && (strcmp(name, "gunzip") == 0 || strcmp(name, "uncompress") == 0))
+        return rustbox_gunzip_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "zcat") == 0)
+        return rustbox_zcat_main(argc, argv);
 """
         + selections
         + """
@@ -1136,6 +1142,8 @@ def main() -> int:
         "rustbox_setfacl_main",
         "rustbox_lz4_main",
         "rustbox_gzip_main",
+        "rustbox_gunzip_main",
+        "rustbox_zcat_main",
     })
 
     mapped_file_rust, file_symbols = namespace_file_library(
@@ -1241,6 +1249,17 @@ def main() -> int:
     )
     if defined_symbols(grep_error_object) != ["rustbox_grep_error"]:
         raise RuntimeError("GNU Grep error ABI bridge exports the wrong symbols")
+    gzip_aliases_object = build / "src/.rustbox-gzip-aliases.o"
+    subprocess.run(
+        ["clang-18", "-O2", "-g", "-c", str(repository / "bridges/gzip_aliases.c"),
+         "-o", str(gzip_aliases_object)],
+        cwd=build,
+        check=True,
+    )
+    if set(defined_symbols(gzip_aliases_object)) != {
+        "rustbox_gunzip_main", "rustbox_zcat_main"
+    }:
+        raise RuntimeError("GNU Gzip alias bridge exports the wrong symbols")
     bridge_archives: dict[str, Path] = {}
     for archive, members in bridge_members.items():
         source = build / archive
@@ -1286,6 +1305,7 @@ def main() -> int:
                 rewritten.append(str(diffutils_error_object))
                 rewritten.append(str(grep_abi_object))
                 rewritten.append(str(grep_error_object))
+                rewritten.append(str(gzip_aliases_object))
                 rewritten.extend(str(path) for path in util_inputs)
                 rewritten.append(str(mapped_m4_support))
                 rewritten.append(str(mapped_gzip_support))
@@ -1370,14 +1390,14 @@ def main() -> int:
         "attr_applets": 3,
         "acl_applets": 3,
         "lz4_public_names": 4,
-        "gzip_public_names": 1,
+        "gzip_public_names": 4,
         "total_dispatch_names": len(
             set(applets)
             | set(util_dispatch)
             | {"m4", "pkgconf", "pkg-config", "bomtool", "pccritic", "spdxtool", "file", "patch", "sed",
                "cmp", "diff", "diff3", "sdiff", "grep", "egrep", "fgrep", "bc", "dc",
                "attr", "getfattr", "setfattr", "chacl", "getfacl", "setfacl",
-               "lz4", "lz4c", "lz4cat", "unlz4", "gzip"}
+               "lz4", "lz4c", "lz4cat", "unlz4", "gzip", "gunzip", "zcat", "uncompress"}
         ),
         "excluded": ["chcon", "runcon"],
         "public_name_precedence": {"kill": "GNU Coreutils", "util-linux-kill": "util-linux"},
@@ -1414,6 +1434,11 @@ def main() -> int:
             "object": str(grep_error_object.relative_to(build)),
             "symbols": ["rustbox_grep_error"],
         },
+        "gzip_alias_bridge": {
+            "object": str(gzip_aliases_object.relative_to(build)),
+            "symbols": ["rustbox_gunzip_main", "rustbox_zcat_main"],
+            "public_names": ["gunzip", "uncompress", "zcat"],
+        },
         "sed_abi_bridge": {
             "object": str(sed_abi_object.relative_to(build)),
             "symbols": ["__wctob_alias"],
@@ -1444,7 +1469,7 @@ def main() -> int:
         "attr_applets": 3,
         "acl_applets": 3,
         "lz4_public_names": 4,
-        "gzip_public_names": 1,
+        "gzip_public_names": 4,
         "output": str(output),
     }))
     return 0
