@@ -1,0 +1,1048 @@
+{
+  "binaries": {
+    "chacl": {
+      "clang": {
+        "bytes": 130544,
+        "embedded_libacl": true,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "6eeeb2f55feb54a2577755d654bc4bf17672821f3c72cca1d9a1a4c7f701b650"
+      },
+      "gcc": {
+        "bytes": 154776,
+        "embedded_libacl": true,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "2b6915fd65d41b6bfe0ca9a9b4df0d3527690ae9de26fa89e170c558e4d04e03"
+      }
+    },
+    "getfacl": {
+      "clang": {
+        "bytes": 122576,
+        "embedded_libacl": true,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "0d488012298e92ad9853158d87dd26466d1b24820090c3ec034d6c6147c6aa09"
+      },
+      "gcc": {
+        "bytes": 150280,
+        "embedded_libacl": true,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "2ad9438d6d47a13ea7d7f94ac87f96afbeeea78a809071595df7a4075ead7cc4"
+      }
+    },
+    "setfacl": {
+      "clang": {
+        "bytes": 203440,
+        "embedded_libacl": true,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "005b51c33dc43ab78a1e422389867f11609d9655a2433ad3a4b62c0c4dfdd1e6"
+      },
+      "gcc": {
+        "bytes": 238096,
+        "embedded_libacl": true,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "5bd479f4eb751f885ac0b1b1210ce002648139096f1fa9b5239d5e3287c32ad7"
+      }
+    }
+  },
+  "compilers": {
+    "clang": {
+      "compile_actions": 137,
+      "compile_database_sha256": "b70c667428d6b8b188ce17ddeafe6af008e14c68f7879bb2e7e45a0c8cedbedb",
+      "platform_log_sha256": "839e7a934c857a8bd50aee9e8957d18600194e3e6facd7458694636d626eacfb",
+      "platform_test": {
+        "error": 0,
+        "fail": 1,
+        "pass": 0,
+        "skip": 0,
+        "total": 1,
+        "xfail": 0,
+        "xpass": 0
+      },
+      "test_log_sha256": "2b27774b7774517193ec47e792e5e3d11a0ae929eefd2e40dba1c0c5316f8c10",
+      "upstream_tests": {
+        "error": 0,
+        "fail": 0,
+        "pass": 13,
+        "skip": 0,
+        "total": 15,
+        "xfail": 2,
+        "xpass": 0
+      }
+    },
+    "gcc": {
+      "compile_actions": 137,
+      "compile_database_sha256": "5d64a2c2b2e48abdd38986ee991c8a59ff83c256fd4ff1d4c64bf97f0aa92f26",
+      "platform_log_sha256": "020fa9664b29c9dd2d871905710293151811ed4be4d7ea4dafd0e3ad0bba3017",
+      "platform_test": {
+        "error": 0,
+        "fail": 1,
+        "pass": 0,
+        "skip": 0,
+        "total": 1,
+        "xfail": 0,
+        "xpass": 0
+      },
+      "test_log_sha256": "f0920b5d373c027c42bee859a962e02412504f8bd5ab5a5e0c323a82575d05cb",
+      "upstream_tests": {
+        "error": 0,
+        "fail": 0,
+        "pass": 13,
+        "skip": 0,
+        "total": 15,
+        "xfail": 2,
+        "xpass": 0
+      }
+    },
+    "sanitizer": {
+      "compile_actions": 137,
+      "compile_database_sha256": "f2e92a5d668d9075889bd0b0a01bd1cc7dfb3a27cda7178c0f20106cdf6d8b22",
+      "platform_log_sha256": "045f4b5025ef466a47130cd3cde204ae833c8e0233909fc16425692a00c8b1d9",
+      "platform_test": {
+        "error": 0,
+        "fail": 1,
+        "pass": 0,
+        "skip": 0,
+        "total": 1,
+        "xfail": 0,
+        "xpass": 0
+      },
+      "test_log_sha256": "88333417069705888d4789b59a2822b245e6b7cd5d212df4eed1c9a4ac7f6432",
+      "upstream_tests": {
+        "error": 0,
+        "fail": 1,
+        "pass": 12,
+        "skip": 0,
+        "total": 15,
+        "xfail": 2,
+        "xpass": 0
+      }
+    }
+  },
+  "configuration": {
+    "nls": false,
+    "selinux": false,
+    "shared_library_during_tests": true,
+    "standalone_oracles_embed_libacl": true,
+    "systemd": false
+  },
+  "cross_compiler_differential": {
+    "cases": 30,
+    "passed": 30,
+    "records": [
+      {
+        "applet": "getfacl",
+        "name": "getfacl-help",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 994,
+          "stdout_sha256": "2d74cb48d0ab067fa4e718a256497c13e4ebf918b404b451925e4a549c0447a7",
+          "tree": []
+        }
+      },
+      {
+        "applet": "getfacl",
+        "name": "getfacl-version",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 14,
+          "stdout_sha256": "2059857057db05687e416a6f4780a010cadb6dd9ffd18b9a93eb9144c8e99d33",
+          "tree": []
+        }
+      },
+      {
+        "applet": "setfacl",
+        "name": "setfacl-help",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 1237,
+          "stdout_sha256": "f54b6abc93fca70f11d9ba852f7126e78fd568aede752a84275c607a29afcac8",
+          "tree": []
+        }
+      },
+      {
+        "applet": "setfacl",
+        "name": "setfacl-version",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 14,
+          "stdout_sha256": "acd1d8dd26da79e4c413afa0259ac8c4c9e27b3c454742195179b8f253e80daf",
+          "tree": []
+        }
+      },
+      {
+        "applet": "getfacl",
+        "name": "get-base",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 74,
+          "stdout_sha256": "11ae64964e1bd728346bdd059adba60767d2c63eb382858f475b58da1313dde2",
+          "tree": [
+            {
+              "bytes": 8,
+              "kind": "file",
+              "mode": 416,
+              "path": "file",
+              "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+              "xattrs": []
+            }
+          ]
+        }
+      },
+      {
+        "applet": "getfacl",
+        "name": "get-omit-header",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 33,
+          "stdout_sha256": "82423033d591a8c3228661facec8c2cb4e95625a13269e802dcd08ac98e7d9cb",
+          "tree": [
+            {
+              "bytes": 8,
+              "kind": "file",
+              "mode": 420,
+              "path": "file",
+              "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+              "xattrs": []
+            }
+          ]
+        }
+      },
+      {
+        "applet": "getfacl",
+        "name": "get-numeric",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 68,
+          "stdout_sha256": "cb4f0c907b56d1323885cf35b6dfe2c05e973882022c7b98ced1336cd9cd1d85",
+          "tree": [
+            {
+              "bytes": 8,
+              "kind": "file",
+              "mode": 420,
+              "path": "file",
+              "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+              "xattrs": []
+            }
+          ]
+        }
+      },
+      {
+        "applet": "getfacl",
+        "name": "get-tabular",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 92,
+          "stdout_sha256": "e56401faa2491b92282edb80d229461fbf1a14d99093c4a5add842cd30019093",
+          "tree": [
+            {
+              "bytes": 8,
+              "kind": "file",
+              "mode": 420,
+              "path": "file",
+              "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+              "xattrs": []
+            }
+          ]
+        }
+      },
+      {
+        "applet": "getfacl",
+        "name": "get-effective",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 74,
+          "stdout_sha256": "7a2da2681a84b940ba9d51663faaaedf0459bf12e36447cb0a10c1c40c71a1c4",
+          "tree": [
+            {
+              "bytes": 8,
+              "kind": "file",
+              "mode": 420,
+              "path": "file",
+              "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+              "xattrs": []
+            }
+          ]
+        }
+      },
+      {
+        "applet": "getfacl",
+        "name": "get-no-effective",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 99,
+          "stdout_sha256": "87e35d201d7ce6977a3cc3ea077e582811860887975382791c0b9b579332e020",
+          "tree": [
+            {
+              "bytes": 8,
+              "kind": "file",
+              "mode": 420,
+              "path": "file",
+              "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+              "xattrs": [
+                [
+                  "system.posix_acl_access",
+                  44,
+                  "976683eafe250ace5268aa16df4a987fd85e6fd9a33c397ed4bd9aa144c978ee"
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "applet": "getfacl",
+        "name": "get-skip-base",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tree": [
+            {
+              "bytes": 8,
+              "kind": "file",
+              "mode": 420,
+              "path": "file",
+              "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+              "xattrs": []
+            }
+          ]
+        }
+      },
+      {
+        "applet": "getfacl",
+        "name": "get-recursive",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 308,
+          "stdout_sha256": "67bf325ab81e1238d6a943d17c59a9ecf1b675b1564dd39ef29139a36797a07c",
+          "tree": [
+            {
+              "bytes": 0,
+              "kind": "directory",
+              "mode": 493,
+              "path": "tree",
+              "sha256": null,
+              "xattrs": []
+            },
+            {
+              "bytes": 1,
+              "kind": "file",
+              "mode": 420,
+              "path": "tree/a",
+              "sha256": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+              "xattrs": []
+            },
+            {
+              "bytes": 0,
+              "kind": "directory",
+              "mode": 493,
+              "path": "tree/sub",
+              "sha256": null,
+              "xattrs": []
+            },
+            {
+              "bytes": 1,
+              "kind": "file",
+              "mode": 420,
+              "path": "tree/sub/b",
+              "sha256": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+              "xattrs": []
+            }
+          ]
+        }
+      },
+      {
+        "applet": "getfacl",
+        "name": "get-missing",
+        "result": {
+          "status": 1,
+          "stderr_length": 44,
+          "stderr_sha256": "f0f0c636fc274092b3994fe59276dc25da7ae77e3e8c2b7390e7326724208ece",
+          "stdout_length": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tree": []
+        }
+      },
+      {
+        "applet": "getfacl",
+        "name": "get-stdin-list",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 74,
+          "stdout_sha256": "7a2da2681a84b940ba9d51663faaaedf0459bf12e36447cb0a10c1c40c71a1c4",
+          "tree": [
+            {
+              "bytes": 8,
+              "kind": "file",
+              "mode": 420,
+              "path": "file",
+              "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+              "xattrs": []
+            }
+          ]
+        }
+      },
+      {
+        "applet": "setfacl",
+        "name": "set-modify",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tree": [
+            {
+              "bytes": 8,
+              "kind": "file",
+              "mode": 436,
+              "path": "file",
+              "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+              "xattrs": [
+                [
+                  "system.posix_acl_access",
+                  44,
+                  "7bb1aca7bb1162667fadae4043eebe3ab6410b9e8a717579e3700e819ca2384f"
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "applet": "setfacl",
+        "name": "set-numeric-perms",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tree": [
+            {
+              "bytes": 8,
+              "kind": "file",
+              "mode": 428,
+              "path": "file",
+              "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+              "xattrs": [
+                [
+                  "system.posix_acl_access",
+                  44,
+                  "51308e547b1a5492f345a7e9c4adb2e735400bf718d865f1fe06b6a42df13d7b"
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "applet": "setfacl",
+        "name": "set-remove",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tree": [
+            {
+              "bytes": 8,
+              "kind": "file",
+              "mode": 420,
+              "path": "file",
+              "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+              "xattrs": [
+                [
+                  "system.posix_acl_access",
+                  36,
+                  "0631e609ba9cc2f51734825bcaa5581e8dd6774df69f8e87cfa2b2e4cdf349b8"
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "applet": "setfacl",
+        "name": "set-remove-all",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tree": [
+            {
+              "bytes": 8,
+              "kind": "file",
+              "mode": 420,
+              "path": "file",
+              "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+              "xattrs": []
+            }
+          ]
+        }
+      },
+      {
+        "applet": "setfacl",
+        "name": "set-no-mask",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tree": [
+            {
+              "bytes": 8,
+              "kind": "file",
+              "mode": 420,
+              "path": "file",
+              "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+              "xattrs": [
+                [
+                  "system.posix_acl_access",
+                  44,
+                  "976683eafe250ace5268aa16df4a987fd85e6fd9a33c397ed4bd9aa144c978ee"
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "applet": "setfacl",
+        "name": "set-test",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 48,
+          "stdout_sha256": "991567d4647d5520b899c7bb533a11a9330b133ba3b903ff777c12a873785cc9",
+          "tree": [
+            {
+              "bytes": 8,
+              "kind": "file",
+              "mode": 420,
+              "path": "file",
+              "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+              "xattrs": []
+            }
+          ]
+        }
+      },
+      {
+        "applet": "setfacl",
+        "name": "set-default",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tree": [
+            {
+              "bytes": 0,
+              "kind": "directory",
+              "mode": 493,
+              "path": "dir",
+              "sha256": null,
+              "xattrs": [
+                [
+                  "system.posix_acl_default",
+                  36,
+                  "fce239caeb6939fd7a5fe19a068c9813211f8aea7c37cf2b7ea9aee9e96b4dc2"
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "applet": "setfacl",
+        "name": "set-remove-default",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tree": [
+            {
+              "bytes": 0,
+              "kind": "directory",
+              "mode": 493,
+              "path": "dir",
+              "sha256": null,
+              "xattrs": []
+            }
+          ]
+        }
+      },
+      {
+        "applet": "setfacl",
+        "name": "set-recursive",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tree": [
+            {
+              "bytes": 0,
+              "kind": "directory",
+              "mode": 493,
+              "path": "tree",
+              "sha256": null,
+              "xattrs": [
+                [
+                  "system.posix_acl_access",
+                  44,
+                  "f61c85b160336e9792990ffc439689a0e86519a8520a5eb24b056ff6ced07052"
+                ]
+              ]
+            },
+            {
+              "bytes": 1,
+              "kind": "file",
+              "mode": 420,
+              "path": "tree/a",
+              "sha256": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+              "xattrs": [
+                [
+                  "system.posix_acl_access",
+                  44,
+                  "bbc03c8ac94552ad3afc6be2d3b0bcdd91a4a0eb4411b30eb790e5eceb7be80f"
+                ]
+              ]
+            },
+            {
+              "bytes": 0,
+              "kind": "directory",
+              "mode": 493,
+              "path": "tree/sub",
+              "sha256": null,
+              "xattrs": [
+                [
+                  "system.posix_acl_access",
+                  44,
+                  "f61c85b160336e9792990ffc439689a0e86519a8520a5eb24b056ff6ced07052"
+                ]
+              ]
+            },
+            {
+              "bytes": 1,
+              "kind": "file",
+              "mode": 420,
+              "path": "tree/sub/b",
+              "sha256": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+              "xattrs": [
+                [
+                  "system.posix_acl_access",
+                  44,
+                  "bbc03c8ac94552ad3afc6be2d3b0bcdd91a4a0eb4411b30eb790e5eceb7be80f"
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "applet": "setfacl",
+        "name": "set-missing",
+        "result": {
+          "status": 1,
+          "stderr_length": 44,
+          "stderr_sha256": "dfb7250b37243827401ce5e7d1dfb8403ff4c22421d5b872e0de1795e53f52e5",
+          "stdout_length": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tree": []
+        }
+      },
+      {
+        "applet": "chacl",
+        "name": "chacl-set",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tree": [
+            {
+              "bytes": 8,
+              "kind": "file",
+              "mode": 416,
+              "path": "file",
+              "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+              "xattrs": [
+                [
+                  "system.posix_acl_access",
+                  44,
+                  "a7b02e3eeb7a91d9fc028c7780cd5fdc81bb08ab0c5bdab4ade8047c0b166dc0"
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "applet": "chacl",
+        "name": "chacl-list",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 47,
+          "stdout_sha256": "6289e74a686253cc62b024a3f3be885e959bac223cae813e40c560431309dcb9",
+          "tree": [
+            {
+              "bytes": 8,
+              "kind": "file",
+              "mode": 416,
+              "path": "file",
+              "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+              "xattrs": [
+                [
+                  "system.posix_acl_access",
+                  44,
+                  "a7b02e3eeb7a91d9fc028c7780cd5fdc81bb08ab0c5bdab4ade8047c0b166dc0"
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "applet": "chacl",
+        "name": "chacl-remove",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tree": [
+            {
+              "bytes": 8,
+              "kind": "file",
+              "mode": 416,
+              "path": "file",
+              "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+              "xattrs": []
+            }
+          ]
+        }
+      },
+      {
+        "applet": "chacl",
+        "name": "chacl-default",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tree": [
+            {
+              "bytes": 0,
+              "kind": "directory",
+              "mode": 493,
+              "path": "dir",
+              "sha256": null,
+              "xattrs": [
+                [
+                  "system.posix_acl_default",
+                  36,
+                  "fce239caeb6939fd7a5fe19a068c9813211f8aea7c37cf2b7ea9aee9e96b4dc2"
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "applet": "chacl",
+        "name": "chacl-both",
+        "result": {
+          "status": 0,
+          "stderr_length": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_length": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tree": [
+            {
+              "bytes": 0,
+              "kind": "directory",
+              "mode": 416,
+              "path": "dir",
+              "sha256": null,
+              "xattrs": [
+                [
+                  "system.posix_acl_access",
+                  44,
+                  "a7b02e3eeb7a91d9fc028c7780cd5fdc81bb08ab0c5bdab4ade8047c0b166dc0"
+                ],
+                [
+                  "system.posix_acl_default",
+                  36,
+                  "fce239caeb6939fd7a5fe19a068c9813211f8aea7c37cf2b7ea9aee9e96b4dc2"
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "applet": "chacl",
+        "name": "chacl-invalid",
+        "result": {
+          "status": 1,
+          "stderr_length": 37,
+          "stderr_sha256": "da86d985bd65f5130dc6723e47eaaba606856a4cf28c2e187e8dad2987e38d53",
+          "stdout_length": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tree": [
+            {
+              "bytes": 8,
+              "kind": "file",
+              "mode": 420,
+              "path": "file",
+              "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+              "xattrs": []
+            }
+          ]
+        }
+      }
+    ],
+    "report_sha256": "fcbc1330de086cf12820e7188ae1a02c69abffe48dfa6809caf432167a17d250",
+    "schema": 1
+  },
+  "next_gate": "audit the exact 72-unit production closure with independent analyzers",
+  "recorded_at": "2026-11-21",
+  "release": "2.4.0",
+  "resource_checks": {
+    "getfacl": {
+      "errors": 0,
+      "heap_summary": "4 allocs, 4 frees, 4,596 bytes allocated",
+      "log_sha256": "54aae76486d4acb3ca733dc34739d5afa9ee67bb49df591551c7ff4d8d28fae1"
+    },
+    "setfacl": {
+      "errors": 0,
+      "heap_summary": "10 allocs, 10 frees, 786 bytes allocated",
+      "log_sha256": "1e202bd13dde15960fd55ac9fdf407167eafdeb70b4fe8df1cc006521517f136"
+    }
+  },
+  "schema": 1,
+  "scope": {
+    "production_lines": 8250,
+    "production_source_count": 72,
+    "production_sources": [
+      "libacl/__acl_apply_mask_to_mode.c",
+      "libacl/__acl_from_xattr.c",
+      "libacl/__acl_reorder_obj_p.c",
+      "libacl/__acl_to_any_text.c",
+      "libacl/__acl_to_xattr.c",
+      "libacl/__libobj.c",
+      "libacl/acl_add_perm.c",
+      "libacl/acl_calc_mask.c",
+      "libacl/acl_check.c",
+      "libacl/acl_clear_perms.c",
+      "libacl/acl_cmp.c",
+      "libacl/acl_copy_entry.c",
+      "libacl/acl_copy_ext.c",
+      "libacl/acl_copy_int.c",
+      "libacl/acl_create_entry.c",
+      "libacl/acl_delete_def_file.c",
+      "libacl/acl_delete_def_file_at.c",
+      "libacl/acl_delete_entry.c",
+      "libacl/acl_delete_perm.c",
+      "libacl/acl_dup.c",
+      "libacl/acl_entries.c",
+      "libacl/acl_equiv_mode.c",
+      "libacl/acl_error.c",
+      "libacl/acl_extended_fd.c",
+      "libacl/acl_extended_file.c",
+      "libacl/acl_extended_file_at.c",
+      "libacl/acl_extended_file_nofollow.c",
+      "libacl/acl_free.c",
+      "libacl/acl_from_mode.c",
+      "libacl/acl_from_text.c",
+      "libacl/acl_get_entry.c",
+      "libacl/acl_get_fd.c",
+      "libacl/acl_get_file.c",
+      "libacl/acl_get_file_at.c",
+      "libacl/acl_get_perm.c",
+      "libacl/acl_get_permset.c",
+      "libacl/acl_get_qualifier.c",
+      "libacl/acl_get_tag_type.c",
+      "libacl/acl_init.c",
+      "libacl/acl_set_fd.c",
+      "libacl/acl_set_file.c",
+      "libacl/acl_set_file_at.c",
+      "libacl/acl_set_permset.c",
+      "libacl/acl_set_qualifier.c",
+      "libacl/acl_set_tag_type.c",
+      "libacl/acl_size.c",
+      "libacl/acl_to_any_text.c",
+      "libacl/acl_to_text.c",
+      "libacl/acl_valid.c",
+      "libacl/perm_copy_fd.c",
+      "libacl/perm_copy_file.c",
+      "libmisc/fchmodat_compat.c",
+      "libmisc/getxattrat_compat.c",
+      "libmisc/high_water_alloc.c",
+      "libmisc/listxattrat_compat.c",
+      "libmisc/next_line.c",
+      "libmisc/openat2.c",
+      "libmisc/proc-self-fd.c",
+      "libmisc/quote.c",
+      "libmisc/removexattrat_compat.c",
+      "libmisc/setxattrat_compat.c",
+      "libmisc/uid_gid_lookup.c",
+      "libmisc/unquote.c",
+      "libmisc/walk_tree.c",
+      "libmisc/xattrat.c",
+      "tools/chacl.c",
+      "tools/do_set.c",
+      "tools/getfacl.c",
+      "tools/parse.c",
+      "tools/sequence.c",
+      "tools/setfacl.c",
+      "tools/user_group.c"
+    ],
+    "public_names": [
+      "chacl",
+      "getfacl",
+      "setfacl"
+    ],
+    "source_lines": {
+      "libacl/__acl_apply_mask_to_mode.c": 61,
+      "libacl/__acl_from_xattr.c": 95,
+      "libacl/__acl_reorder_obj_p.c": 134,
+      "libacl/__acl_to_any_text.c": 349,
+      "libacl/__acl_to_xattr.c": 64,
+      "libacl/__libobj.c": 93,
+      "libacl/acl_add_perm.c": 39,
+      "libacl/acl_calc_mask.c": 67,
+      "libacl/acl_check.c": 127,
+      "libacl/acl_clear_perms.c": 35,
+      "libacl/acl_cmp.c": 53,
+      "libacl/acl_copy_entry.c": 40,
+      "libacl/acl_copy_ext.c": 52,
+      "libacl/acl_copy_int.c": 65,
+      "libacl/acl_create_entry.c": 74,
+      "libacl/acl_delete_def_file.c": 38,
+      "libacl/acl_delete_def_file_at.c": 45,
+      "libacl/acl_delete_entry.c": 47,
+      "libacl/acl_delete_perm.c": 39,
+      "libacl/acl_dup.c": 54,
+      "libacl/acl_entries.c": 33,
+      "libacl/acl_equiv_mode.c": 71,
+      "libacl/acl_error.c": 43,
+      "libacl/acl_extended_fd.c": 45,
+      "libacl/acl_extended_file.c": 31,
+      "libacl/acl_extended_file_at.c": 53,
+      "libacl/acl_extended_file_nofollow.c": 30,
+      "libacl/acl_free.c": 76,
+      "libacl/acl_from_mode.c": 72,
+      "libacl/acl_from_text.c": 259,
+      "libacl/acl_get_entry.c": 59,
+      "libacl/acl_get_fd.c": 74,
+      "libacl/acl_get_file.c": 30,
+      "libacl/acl_get_file_at.c": 107,
+      "libacl/acl_get_perm.c": 37,
+      "libacl/acl_get_permset.c": 42,
+      "libacl/acl_get_qualifier.c": 48,
+      "libacl/acl_get_tag_type.c": 39,
+      "libacl/acl_init.c": 69,
+      "libacl/acl_set_fd.c": 48,
+      "libacl/acl_set_file.c": 30,
+      "libacl/acl_set_file_at.c": 71,
+      "libacl/acl_set_permset.c": 36,
+      "libacl/acl_set_qualifier.c": 48,
+      "libacl/acl_set_tag_type.c": 47,
+      "libacl/acl_size.c": 35,
+      "libacl/acl_to_any_text.c": 33,
+      "libacl/acl_to_text.c": 32,
+      "libacl/acl_valid.c": 41,
+      "libacl/perm_copy_fd.c": 135,
+      "libacl/perm_copy_file.c": 140,
+      "libmisc/fchmodat_compat.c": 88,
+      "libmisc/getxattrat_compat.c": 108,
+      "libmisc/high_water_alloc.c": 45,
+      "libmisc/listxattrat_compat.c": 107,
+      "libmisc/next_line.c": 58,
+      "libmisc/openat2.c": 30,
+      "libmisc/proc-self-fd.c": 92,
+      "libmisc/quote.c": 62,
+      "libmisc/removexattrat_compat.c": 107,
+      "libmisc/setxattrat_compat.c": 108,
+      "libmisc/uid_gid_lookup.c": 149,
+      "libmisc/unquote.c": 57,
+      "libmisc/walk_tree.c": 340,
+      "libmisc/xattrat.c": 89,
+      "tools/chacl.c": 400,
+      "tools/do_set.c": 561,
+      "tools/getfacl.c": 791,
+      "tools/parse.c": 529,
+      "tools/sequence.c": 169,
+      "tools/setfacl.c": 815,
+      "tools/user_group.c": 60
+    }
+  },
+  "source": {
+    "archive_members_verified": 274,
+    "archive_sha256": "e661131456d2708a01c614a0f400e11d7d1bfaeb6f3e74b75bb980b72f0161a3",
+    "signature_sha256": "5f4f0b9b78821764fe6b88e32aef6ec519628522c211c36706bcb78d6f3f036b",
+    "signer_fingerprint": "259B3792B3D6D319212CC4DCD5BF9FEB0313653A",
+    "state_sha256": "19c308370abbb35fb5321c3168800e460adb24d0f2aba8c6838fc847b1fec207"
+  },
+  "status": "complete canonical oracle; production static analysis pending",
+  "test_policy": {
+    "asan_preload_policy": "verify_asan_link_order is disabled only because the canonical identity fixture deliberately preloads libtestlookup",
+    "canonical_nfs_xfails": 2,
+    "canonical_undefined_behavior": "four null-pointer offset diagnostics at __libobj.c:82 make the root setfacl test fail under UBSan; the exact log is pinned and the ordering fix is required in deterministic normalization",
+    "container_platform_failure": "root permission/device case requires host kernel semantics absent from the Docker environment; its exact one-test failure is pinned",
+    "ordinary_tests_passed": 13
+  }
+}

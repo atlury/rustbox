@@ -55,7 +55,7 @@ scoring, and correctness gates.
 | GNU Grep 3.12 | 3 | 3 | 3 | 3 |
 | GNU bc 1.08.2 / dc 1.5.2 | 2 | 2 | 2 | 2 |
 | attr 2.6.0 | 3 | 3 | 3 | 3 |
-| acl 2.4.0 | 3 | 0 | 0 | 0 |
+| acl 2.4.0 | 3 | 3 | 0 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -557,7 +557,18 @@ the complete upstream, differential, and resource gates in
 acl 2.4.0 is pinned to its canonical signed Savannah release.  The archive,
 detached signature, release-key fingerprint, and all 274 archive members are
 verified before its `chacl`, `getfacl`, and `setfacl` production closure is
-built or translated.
+built or translated.  That closure is 72 unique C units: 51 libacl, 14
+filesystem/support, and seven tool sources.  Independent GCC and Clang builds
+each pass all 13 runnable upstream tests with the two canonical NFS expected
+failures; one root permission/device test has a separately pinned Docker
+platform failure.  Their standalone oracles embed the release's own libacl
+and depend only on libc, agree across 30 CLI and filesystem-state comparisons,
+and pass exact Valgrind leak/error gates.  ASan is clean, while UBSan exposes
+four instances of the same canonical null-pointer-offset defect at
+`__libobj.c:82`; its exact failing test log is retained as a required
+normalization target rather than suppressed.  Source, compiler, test,
+differential, dependency, sanitizer, and resource evidence is in
+`evidence/acl-2.4.0-oracle.json`.
 
 ## Work queue after util-linux
 
