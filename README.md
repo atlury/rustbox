@@ -59,7 +59,7 @@ scoring, and correctness gates.
 | LZ4 1.11.1 | 4 | 4 | 4 | 4 |
 | GNU Gzip 1.14 | 14 | 14 | 14 | 14 |
 | Less 710 | 2 | 2 | 2 | 2 |
-| XZ Utils 5.8.4 | 23 | 23 | 23 | 0 |
+| XZ Utils 5.8.4 | 23 | 23 | 23 | 23 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -121,13 +121,13 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 305
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 328
 distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, five
 pkgconf names, File, GNU patch, GNU sed, four GNU Diffutils applets, and GNU
 Grep's three public names, GNU bc and dc, attr's three tools, plus chacl,
 getfacl, and setfacl, plus LZ4's four public names, Less and lessecho, and all
-fourteen GNU Gzip interfaces; `kill` is shared and `util-linux-kill` remains
-available explicitly).  It passes all 610
+fourteen GNU Gzip interfaces, and all 23 XZ Utils names; `kill` is shared and
+`util-linux-kill` remains available explicitly).  It passes all 656
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
 check, 108-case differential suite, and Valgrind.  Pkgconf also passes all 429
@@ -155,9 +155,14 @@ allocation lifecycle exactly, while `zmore` frees every allocation in its
 internal Gzip-to-`more` pipeline and `zless` does the same through the
 integrated Less engine; `znew` also frees every allocation while
 recompressing.  `gzexe` emits the exact canonical 932-byte launcher, executes
-and decompresses its result, and frees all allocations.  The stripped 305-name
-executable is 8,060,400
-bytes.
+and decompresses its result, and frees all allocations.  XZ Utils adds all 23
+physical, compatibility, comparison, search, and pager names without installing
+its shell scripts.  Its native frontends pipe the translated XZ engine into the
+already integrated Diffutils, Grep, Less, and util-linux `more` implementations.
+All 70 public comparisons pass, `.xz` compression is byte-identical,
+decompression matches, and Valgrind reports zero errors and no lost bytes.  The
+resulting 328-name executable is 8,402,144 bytes stripped, a 341,744-byte
+increase over the 8,060,400-byte Gzip checkpoint.
 `chcon` and `runcon`
 remain absent, and the linked binary has no SELinux or systemd dependency.
 
@@ -172,7 +177,7 @@ replace `std` with Rustbox-owned `no_std` runtime facilities.  Pointer and
 `unsafe` inventories are recorded now, but they do not block the current
 utility-completion tranche.
 
-The next canonical oracle is zlib 1.4.  Its signed release, independent GCC
+The isolated zlib 1.4 library checkpoint uses its signed release, independent GCC
 and Clang builds, 18-case upstream CTest suite, sanitizer and Valgrind gates,
 111-symbol ABI comparison, and reviewed static-analysis findings are recorded
 in `evidence/zlib-1.4-oracle.json`.  Zlib then passes a narrow Coccinelle
@@ -809,7 +814,12 @@ audited repairs also restore four integer truth tests, five `size_t` arithmetic
 orders, one shadowed binding, and two local static tables.  The complete
 104-file crate checks and release-builds on stable Rust 1.99.  Translation,
 repair, unsafe inventory, and build evidence is in
-`evidence/xz-5.8.4-c2rust.json`; multicall integration is next.
+`evidence/xz-5.8.4-c2rust.json`.  The translated archive and fourteen native
+shell replacements are now privately integrated into Rustbox.  All 70 XZ
+public comparisons and all 656 aggregate help/version comparisons pass;
+compression is byte-identical and both engine directions have zero Valgrind
+errors and no lost bytes.  Unified linkage and resource evidence is in
+`evidence/rustbox-multicall.json`.
 
 ## Work queue after util-linux
 
@@ -858,13 +868,12 @@ Library-only checkpoints (outside the active utility order):
    - [x] GNU Gzip 1.14 — translated hybrid at canonical parity; native `gzip`,
      `gunzip`, `zcat`, `uncompress`, `zcmp`, `zdiff`, `zforce`, `zgrep`,
      `zegrep`, `zfgrep`, `zless`, `zmore`, `znew`, and `gzexe` integrated.
-   - [ ] XZ Utils 5.8.4 — signed canonical oracle, normalization, static audit,
-     and complete stable translation finished for all 23 names:
+   - [x] XZ Utils 5.8.4 — signed canonical oracle, normalization, static audit,
+     complete stable translation, and multicall integration finished for all 23 names:
      `xz`, `unxz`, `xzcat`, `lzma`, `unlzma`, `lzcat`, `xzdec`, `lzmadec`,
      `lzmainfo`, `xzcmp`, `xzdiff`, `xzegrep`, `xzfgrep`, `xzgrep`, `xzless`,
      `xzmore`, `lzcmp`, `lzdiff`, `lzegrep`, `lzfgrep`, `lzgrep`, `lzless`, and
-     `lzmore`; deterministic normalization and production audit are complete,
-     with translation next.
+     `lzmore`; all native frontends are internal and canonical parity is complete.
    - [ ] zstd — `zstd`, `zstdmt`, `unzstd`, `zstdcat`, `zstdgrep`,
      `zstdless`.
    - [ ] tar — `tar`, `rmt`.

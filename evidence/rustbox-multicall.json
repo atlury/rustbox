@@ -2924,8 +2924,8 @@
     "workload_log_sha256": "86fc9f9bc75c2c9b9602c5a8a8b1b9b1da1a9121a3fb214396bffa3a264df849"
   },
   "binary": {
-    "bytes": 20607968,
-    "link_map_sha256": "73ac0768fe21a88482d69e90150bae17fa8ce00695432fd9cb40abb66e106e01",
+    "bytes": 21027744,
+    "link_map_sha256": "6ee56676bcb1829e6003fdf94ce83e02e803d73091bb8f2c590503500e5890aa",
     "needed_libraries": [
       "ld-linux-x86-64.so.2",
       "libacl.so.1",
@@ -2955,9 +2955,9 @@
       "libzstd.so.1"
     ],
     "selinux_dependencies": [],
-    "sha256": "2d76af9ddf3489324832e69c4097f8914dd72a12c5405e5c79a45fad9a29f90e",
-    "stripped_bytes": 8060400,
-    "stripped_sha256": "086f95859faac5ac07e512bee481a684757c5a784a85b3ee77c3ae72aa4b0a53",
+    "sha256": "9ad1ac86165cdde7de99f749ba9bc4d9b9a2628d6d0ec2db662e81015062c1e3",
+    "stripped_bytes": 8402144,
+    "stripped_sha256": "81b16fa5b49190b91da9931bac97a38bc1ac3cec44aca945ef5a87745e622b1c",
     "systemd_dependencies": []
   },
   "collision_isolation": {
@@ -3362,9 +3362,9 @@
         "yywrap"
       ],
       "binary": {
-        "bytes": 20607968,
-        "link_map_sha256": "73ac0768fe21a88482d69e90150bae17fa8ce00695432fd9cb40abb66e106e01",
-        "sha256": "2d76af9ddf3489324832e69c4097f8914dd72a12c5405e5c79a45fad9a29f90e"
+        "bytes": 21027744,
+        "link_map_sha256": "6ee56676bcb1829e6003fdf94ce83e02e803d73091bb8f2c590503500e5890aa",
+        "sha256": "9ad1ac86165cdde7de99f749ba9bc4d9b9a2628d6d0ec2db662e81015062c1e3"
       },
       "coreutils_applets": 106,
       "diffutils_applets": 4,
@@ -6849,7 +6849,7 @@
         "zip"
       ],
       "gzip_public_names": 14,
-      "isolation_cache_version": 1,
+      "isolation_cache_version": 2,
       "less_namespaced_symbols": [
         "add_back_pos",
         "add_forw_pos",
@@ -9443,10 +9443,378 @@
         "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-11-stable/target/release/libutil_linux_small_11_normalized_reachable.a": "1b854a7f59b79fb8007d7623d6e9cad19ee3e66c457f25348458e8f32c99b007",
         "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-12-stable/target/release/libutil_linux_small_12_normalized_reachable.a": "42e96d62388f3e16ed87b95b92f4f9b34eff8eeae5737efbdea60cb2df533c64",
         "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-13-stable/target/release/libutil_linux_small_13_normalized_reachable.a": "655b8e12e5048dcd5c1511de0877ad4b38a338358f00f19fdef5594d7fbaa099",
-        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-14-stable/target/release/libutil_linux_small_14_normalized_reachable.a": "5c6587cf76610e5bd220c38c10896e1eb6d021ed6e85e4cebe75057d48e4aab3"
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-14-stable/target/release/libutil_linux_small_14_normalized_reachable.a": "5c6587cf76610e5bd220c38c10896e1eb6d021ed6e85e4cebe75057d48e4aab3",
+        "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a": "7ae834c8b5389c80495e6f8dc81c3291484df8d2a56d55f7d311d41bc4a43ef7"
       },
-      "total_dispatch_names": 305,
-      "util_linux_applets": 155
+      "total_dispatch_names": 328,
+      "util_linux_applets": 155,
+      "xz_alias_bridge": {
+        "object": "src/.rustbox-xz-aliases.o",
+        "public_names": [
+          "xzdiff",
+          "xzcmp",
+          "xzegrep",
+          "xzfgrep",
+          "xzgrep",
+          "xzless",
+          "xzmore",
+          "lzdiff",
+          "lzcmp",
+          "lzgrep",
+          "lzegrep",
+          "lzfgrep",
+          "lzmore",
+          "lzless"
+        ],
+        "symbols": [
+          "rustbox_xzdiff_main",
+          "rustbox_xzgrep_main",
+          "rustbox_xzless_main",
+          "rustbox_xzmore_main"
+        ]
+      },
+      "xz_namespaced_symbols": [
+        "args_parse",
+        "block_list_chain_mask",
+        "block_list_largest",
+        "coder_add_block_filters",
+        "coder_add_filter",
+        "coder_add_filters_from_str",
+        "coder_run",
+        "coder_set_check",
+        "coder_set_compression_settings",
+        "coder_set_extreme",
+        "coder_set_preset",
+        "hardware_init",
+        "hardware_memlimit_get",
+        "hardware_memlimit_mtdec_get",
+        "hardware_memlimit_mtenc_get",
+        "hardware_memlimit_mtenc_is_default",
+        "hardware_memlimit_set",
+        "hardware_memlimit_show",
+        "hardware_threads_get",
+        "hardware_threads_is_mt",
+        "hardware_threads_set",
+        "io_close",
+        "io_fix_src_pos",
+        "io_init",
+        "io_no_sparse",
+        "io_open_dest",
+        "io_open_src",
+        "io_pread",
+        "io_read",
+        "io_seek_src",
+        "io_write",
+        "io_write_to_user_abort_pipe",
+        "is_tty",
+        "is_tty_stdin",
+        "is_tty_stdout",
+        "list_file",
+        "list_totals",
+        "lzma_alloc",
+        "lzma_alloc_zero",
+        "lzma_alone_decoder",
+        "lzma_alone_decoder_init",
+        "lzma_alone_encoder",
+        "lzma_auto_decoder",
+        "lzma_bcj_arm64_decode",
+        "lzma_bcj_arm64_encode",
+        "lzma_bcj_riscv_decode",
+        "lzma_bcj_riscv_encode",
+        "lzma_bcj_x86_decode",
+        "lzma_bcj_x86_encode",
+        "lzma_block_buffer_bound",
+        "lzma_block_buffer_bound64",
+        "lzma_block_buffer_decode",
+        "lzma_block_buffer_encode",
+        "lzma_block_compressed_size",
+        "lzma_block_decoder",
+        "lzma_block_decoder_init",
+        "lzma_block_encoder",
+        "lzma_block_encoder_init",
+        "lzma_block_header_decode",
+        "lzma_block_header_encode",
+        "lzma_block_header_size",
+        "lzma_block_total_size",
+        "lzma_block_uncomp_encode",
+        "lzma_block_unpadded_size",
+        "lzma_bufcpy",
+        "lzma_check_finish",
+        "lzma_check_init",
+        "lzma_check_is_supported",
+        "lzma_check_size",
+        "lzma_check_update",
+        "lzma_code",
+        "lzma_cputhreads",
+        "lzma_crc32",
+        "lzma_crc32_table",
+        "lzma_crc64",
+        "lzma_crc64_table",
+        "lzma_delta_coder_init",
+        "lzma_delta_coder_memusage",
+        "lzma_delta_decoder_init",
+        "lzma_delta_encoder_init",
+        "lzma_delta_props_decode",
+        "lzma_delta_props_encode",
+        "lzma_easy_buffer_encode",
+        "lzma_easy_decoder_memusage",
+        "lzma_easy_encoder",
+        "lzma_easy_encoder_memusage",
+        "lzma_easy_preset",
+        "lzma_end",
+        "lzma_fastpos",
+        "lzma_file_info_decoder",
+        "lzma_filter_decoder_is_supported",
+        "lzma_filter_encoder_is_supported",
+        "lzma_filter_flags_decode",
+        "lzma_filter_flags_encode",
+        "lzma_filter_flags_size",
+        "lzma_filters_copy",
+        "lzma_filters_free",
+        "lzma_filters_update",
+        "lzma_footer_magic",
+        "lzma_free",
+        "lzma_get_check",
+        "lzma_get_progress",
+        "lzma_header_magic",
+        "lzma_index_append",
+        "lzma_index_block_count",
+        "lzma_index_buffer_decode",
+        "lzma_index_buffer_encode",
+        "lzma_index_cat",
+        "lzma_index_checks",
+        "lzma_index_decoder",
+        "lzma_index_decoder_init",
+        "lzma_index_dup",
+        "lzma_index_encoder",
+        "lzma_index_encoder_init",
+        "lzma_index_end",
+        "lzma_index_file_size",
+        "lzma_index_hash_append",
+        "lzma_index_hash_decode",
+        "lzma_index_hash_end",
+        "lzma_index_hash_init",
+        "lzma_index_hash_size",
+        "lzma_index_init",
+        "lzma_index_iter_init",
+        "lzma_index_iter_locate",
+        "lzma_index_iter_next",
+        "lzma_index_iter_rewind",
+        "lzma_index_memusage",
+        "lzma_index_memused",
+        "lzma_index_padding_size",
+        "lzma_index_prealloc",
+        "lzma_index_size",
+        "lzma_index_stream_count",
+        "lzma_index_stream_flags",
+        "lzma_index_stream_padding",
+        "lzma_index_stream_size",
+        "lzma_index_total_size",
+        "lzma_index_uncompressed_size",
+        "lzma_lz_decoder_init",
+        "lzma_lz_decoder_memusage",
+        "lzma_lz_encoder_init",
+        "lzma_lz_encoder_memusage",
+        "lzma_lzip_decoder",
+        "lzma_lzip_decoder_init",
+        "lzma_lzma2_block_size",
+        "lzma_lzma2_decoder_init",
+        "lzma_lzma2_decoder_memusage",
+        "lzma_lzma2_encoder_init",
+        "lzma_lzma2_encoder_memusage",
+        "lzma_lzma2_props_decode",
+        "lzma_lzma2_props_encode",
+        "lzma_lzma_decoder_create",
+        "lzma_lzma_decoder_init",
+        "lzma_lzma_decoder_memusage",
+        "lzma_lzma_decoder_memusage_nocheck",
+        "lzma_lzma_encode",
+        "lzma_lzma_encoder_create",
+        "lzma_lzma_encoder_init",
+        "lzma_lzma_encoder_memusage",
+        "lzma_lzma_encoder_reset",
+        "lzma_lzma_lclppb_decode",
+        "lzma_lzma_lclppb_encode",
+        "lzma_lzma_optimum_fast",
+        "lzma_lzma_optimum_normal",
+        "lzma_lzma_preset",
+        "lzma_lzma_props_decode",
+        "lzma_lzma_props_encode",
+        "lzma_memlimit_get",
+        "lzma_memlimit_set",
+        "lzma_memusage",
+        "lzma_mf_bt2_find",
+        "lzma_mf_bt2_skip",
+        "lzma_mf_bt3_find",
+        "lzma_mf_bt3_skip",
+        "lzma_mf_bt4_find",
+        "lzma_mf_bt4_skip",
+        "lzma_mf_find",
+        "lzma_mf_hc3_find",
+        "lzma_mf_hc3_skip",
+        "lzma_mf_hc4_find",
+        "lzma_mf_hc4_skip",
+        "lzma_mf_is_supported",
+        "lzma_microlzma_decoder",
+        "lzma_microlzma_encoder",
+        "lzma_mode_is_supported",
+        "lzma_mt_block_size",
+        "lzma_next_end",
+        "lzma_next_filter_init",
+        "lzma_next_filter_update",
+        "lzma_outq_clear_cache",
+        "lzma_outq_clear_cache2",
+        "lzma_outq_enable_partial_output",
+        "lzma_outq_end",
+        "lzma_outq_get_buf",
+        "lzma_outq_init",
+        "lzma_outq_is_readable",
+        "lzma_outq_memusage",
+        "lzma_outq_prealloc_buf",
+        "lzma_outq_read",
+        "lzma_physmem",
+        "lzma_properties_decode",
+        "lzma_properties_encode",
+        "lzma_properties_size",
+        "lzma_raw_buffer_decode",
+        "lzma_raw_buffer_encode",
+        "lzma_raw_coder_init",
+        "lzma_raw_coder_memusage",
+        "lzma_raw_decoder",
+        "lzma_raw_decoder_init",
+        "lzma_raw_decoder_memusage",
+        "lzma_raw_encoder",
+        "lzma_raw_encoder_init",
+        "lzma_raw_encoder_memusage",
+        "lzma_rc_prices",
+        "lzma_sha256_finish",
+        "lzma_sha256_init",
+        "lzma_sha256_update",
+        "lzma_simple_arm64_decoder_init",
+        "lzma_simple_arm64_encoder_init",
+        "lzma_simple_arm_decoder_init",
+        "lzma_simple_arm_encoder_init",
+        "lzma_simple_armthumb_decoder_init",
+        "lzma_simple_armthumb_encoder_init",
+        "lzma_simple_coder_init",
+        "lzma_simple_ia64_decoder_init",
+        "lzma_simple_ia64_encoder_init",
+        "lzma_simple_powerpc_decoder_init",
+        "lzma_simple_powerpc_encoder_init",
+        "lzma_simple_props_decode",
+        "lzma_simple_props_encode",
+        "lzma_simple_props_size",
+        "lzma_simple_riscv_decoder_init",
+        "lzma_simple_riscv_encoder_init",
+        "lzma_simple_sparc_decoder_init",
+        "lzma_simple_sparc_encoder_init",
+        "lzma_simple_x86_decoder_init",
+        "lzma_simple_x86_encoder_init",
+        "lzma_str_from_filters",
+        "lzma_str_list_filters",
+        "lzma_str_to_filters",
+        "lzma_stream_buffer_bound",
+        "lzma_stream_buffer_decode",
+        "lzma_stream_buffer_encode",
+        "lzma_stream_decoder",
+        "lzma_stream_decoder_init",
+        "lzma_stream_decoder_mt",
+        "lzma_stream_encoder",
+        "lzma_stream_encoder_mt",
+        "lzma_stream_encoder_mt_memusage",
+        "lzma_stream_flags_compare",
+        "lzma_stream_footer_decode",
+        "lzma_stream_footer_encode",
+        "lzma_stream_header_decode",
+        "lzma_stream_header_encode",
+        "lzma_strm_init",
+        "lzma_tuklib_cpucores",
+        "lzma_tuklib_physmem",
+        "lzma_validate_chain",
+        "lzma_version_number",
+        "lzma_version_string",
+        "lzma_vli_decode",
+        "lzma_vli_encode",
+        "lzma_vli_size",
+        "message",
+        "message_bug",
+        "message_error",
+        "message_fatal",
+        "message_filename",
+        "message_filters_help",
+        "message_filters_show",
+        "message_help",
+        "message_init",
+        "message_mem_needed",
+        "message_progress_end",
+        "message_progress_sigs",
+        "message_progress_start",
+        "message_progress_update",
+        "message_set_files",
+        "message_signal_handler",
+        "message_strm",
+        "message_try_help",
+        "message_verbosity_decrease",
+        "message_verbosity_get",
+        "message_verbosity_increase",
+        "message_version",
+        "message_warning",
+        "my_snprintf",
+        "mytime_get_elapsed",
+        "mytime_get_flush_timeout",
+        "mytime_set_flush_time",
+        "mytime_set_start_time",
+        "mytime_sigtstp_handler",
+        "opt_auto_adjust",
+        "opt_block_list",
+        "opt_block_size",
+        "opt_flush_timeout",
+        "opt_force",
+        "opt_format",
+        "opt_ignore_check",
+        "opt_keep_original",
+        "opt_mode",
+        "opt_robot",
+        "opt_single_stream",
+        "opt_stdout",
+        "opt_synchronous",
+        "options_bcj",
+        "options_delta",
+        "options_lzma",
+        "round_up_to_mib",
+        "sandbox_allow_strict",
+        "sandbox_enable_read_only",
+        "sandbox_enable_strict_if_allowed",
+        "sandbox_init",
+        "set_exit_no_warn",
+        "set_exit_status",
+        "signals_block",
+        "signals_exit",
+        "signals_init",
+        "signals_unblock",
+        "stdin_filename",
+        "str_to_uint64",
+        "suffix_get_dest_name",
+        "suffix_is_set",
+        "suffix_set",
+        "tuklib_exit",
+        "tuklib_has_nonprint",
+        "tuklib_mask_nonprint",
+        "tuklib_mask_nonprint_r",
+        "tuklib_mbstr_fw",
+        "tuklib_mbstr_width",
+        "tuklib_mbstr_width_mem",
+        "tuklib_open_stdxxx",
+        "tuklib_progname_init",
+        "tuklib_wrapf",
+        "tuklib_wraps",
+        "uint64_to_nicestr",
+        "uint64_to_str",
+        "user_abort",
+        "xrealloc",
+        "xstrdup"
+      ],
+      "xz_public_names": 23
     },
     "namespaced_libraries": 13,
     "namespaced_support_objects": 16,
@@ -9454,7 +9822,9 @@
     "patch_namespaced_symbols": 454,
     "sed_abi_bridge_symbols": 1,
     "sed_namespaced_symbols": 399,
-    "translated_libraries": 53
+    "translated_libraries": 54,
+    "xz_alias_bridge_symbols": 4,
+    "xz_namespaced_symbols": 339
   },
   "diffutils_integration": {
     "diff3_allocation_lifecycle_exact": true,
@@ -10660,7 +11030,7 @@
     "acl_applets": 3,
     "attr_applets": 3,
     "bc_applets": 2,
-    "cases": 610,
+    "cases": 656,
     "coreutils_applets": 106,
     "diffutils_applets": 4,
     "failures": [],
@@ -10671,12 +11041,13 @@
     "less_public_names": 2,
     "lz4_public_names": 4,
     "m4_applets": 1,
-    "passed": 610,
+    "passed": 656,
     "patch_applets": 1,
     "pkgconf_public_names": 5,
     "schema": 1,
     "sed_applets": 1,
-    "util_linux_applets": 155
+    "util_linux_applets": 155,
+    "xz_public_names": 23
   },
   "file_integration": {
     "differential": {
@@ -18650,7 +19021,7 @@
     "bc": 2,
     "coreutils": 106,
     "diffutils": 4,
-    "dispatch_names": 305,
+    "dispatch_names": 328,
     "excluded": [
       "chcon",
       "runcon"
@@ -18664,7 +19035,8 @@
     "patch": 1,
     "pkgconf_public_names": 5,
     "sed": 1,
-    "util_linux": 155
+    "util_linux": 155,
+    "xz_integrated_names": 23
   },
   "sed_integration": {
     "differential": {
@@ -19097,5 +19469,1651 @@
     "valgrind_errors": 0,
     "valgrind_log_sha256": "3b9688d3d14582709f223e2b6a6da1440bc8885c5615fb3a781b1689359d34a5"
   },
-  "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, and all fourteen GNU Gzip interfaces integrated at canonical parity"
+  "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, and XZ Utils integrated at canonical parity",
+  "xz_integration": {
+    "alias_bridge": {
+      "object": "src/.rustbox-xz-aliases.o",
+      "public_names": [
+        "xzdiff",
+        "xzcmp",
+        "xzegrep",
+        "xzfgrep",
+        "xzgrep",
+        "xzless",
+        "xzmore",
+        "lzdiff",
+        "lzcmp",
+        "lzgrep",
+        "lzegrep",
+        "lzfgrep",
+        "lzmore",
+        "lzless"
+      ],
+      "symbols": [
+        "rustbox_xzdiff_main",
+        "rustbox_xzgrep_main",
+        "rustbox_xzless_main",
+        "rustbox_xzmore_main"
+      ]
+    },
+    "byte_identical_xz_compression": true,
+    "decompression_matches_canonical": true,
+    "definitely_lost_bytes": 0,
+    "differential": {
+      "cases": 70,
+      "passed": 70,
+      "public_names": [
+        "xz",
+        "unxz",
+        "xzcat",
+        "lzma",
+        "unlzma",
+        "lzcat",
+        "xzdec",
+        "lzmadec",
+        "lzmainfo",
+        "xzdiff",
+        "xzcmp",
+        "xzegrep",
+        "xzfgrep",
+        "xzgrep",
+        "xzless",
+        "xzmore",
+        "lzdiff",
+        "lzcmp",
+        "lzgrep",
+        "lzegrep",
+        "lzfgrep",
+        "lzmore",
+        "lzless"
+      ],
+      "release": "5.8.4",
+      "results": [
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 1500,
+            "stdout_sha256": "48a895570de22949fba266e17bf3369300e76a5eee01f07e81c10894f3f3bdd3"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 1500,
+            "stdout_sha256": "48a895570de22949fba266e17bf3369300e76a5eee01f07e81c10894f3f3bdd3"
+          },
+          "label": "xz-help",
+          "name": "xz",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 34,
+            "stdout_sha256": "6b11db44120a6b8d1b75f9becd565a2d4e86f3bd75d369e80a40f19a32ed1c88"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 34,
+            "stdout_sha256": "6b11db44120a6b8d1b75f9becd565a2d4e86f3bd75d369e80a40f19a32ed1c88"
+          },
+          "label": "xz-version",
+          "name": "xz",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 1502,
+            "stdout_sha256": "dd62730d76e3ce827a6bf28a528ffebd6bcbaacf13e29cdec49c651ddc59bb16"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 1502,
+            "stdout_sha256": "dd62730d76e3ce827a6bf28a528ffebd6bcbaacf13e29cdec49c651ddc59bb16"
+          },
+          "label": "unxz-help",
+          "name": "unxz",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 34,
+            "stdout_sha256": "6b11db44120a6b8d1b75f9becd565a2d4e86f3bd75d369e80a40f19a32ed1c88"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 34,
+            "stdout_sha256": "6b11db44120a6b8d1b75f9becd565a2d4e86f3bd75d369e80a40f19a32ed1c88"
+          },
+          "label": "unxz-version",
+          "name": "unxz",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 1503,
+            "stdout_sha256": "69c496da9e3dfc5e8fc23f9efb9ef4196616869cc1e15ef1dae3b9f6759479fd"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 1503,
+            "stdout_sha256": "69c496da9e3dfc5e8fc23f9efb9ef4196616869cc1e15ef1dae3b9f6759479fd"
+          },
+          "label": "xzcat-help",
+          "name": "xzcat",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 34,
+            "stdout_sha256": "6b11db44120a6b8d1b75f9becd565a2d4e86f3bd75d369e80a40f19a32ed1c88"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 34,
+            "stdout_sha256": "6b11db44120a6b8d1b75f9becd565a2d4e86f3bd75d369e80a40f19a32ed1c88"
+          },
+          "label": "xzcat-version",
+          "name": "xzcat",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 1502,
+            "stdout_sha256": "dc31735c3c361b55577715bdfbf58e3761c4dae99ec4910ba10c5a2b74aa62d1"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 1502,
+            "stdout_sha256": "dc31735c3c361b55577715bdfbf58e3761c4dae99ec4910ba10c5a2b74aa62d1"
+          },
+          "label": "lzma-help",
+          "name": "lzma",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 34,
+            "stdout_sha256": "6b11db44120a6b8d1b75f9becd565a2d4e86f3bd75d369e80a40f19a32ed1c88"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 34,
+            "stdout_sha256": "6b11db44120a6b8d1b75f9becd565a2d4e86f3bd75d369e80a40f19a32ed1c88"
+          },
+          "label": "lzma-version",
+          "name": "lzma",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 1504,
+            "stdout_sha256": "9169197d879d02cd02e0b58918fbda97c855ae0e889cef9324c5509e5967f294"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 1504,
+            "stdout_sha256": "9169197d879d02cd02e0b58918fbda97c855ae0e889cef9324c5509e5967f294"
+          },
+          "label": "unlzma-help",
+          "name": "unlzma",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 34,
+            "stdout_sha256": "6b11db44120a6b8d1b75f9becd565a2d4e86f3bd75d369e80a40f19a32ed1c88"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 34,
+            "stdout_sha256": "6b11db44120a6b8d1b75f9becd565a2d4e86f3bd75d369e80a40f19a32ed1c88"
+          },
+          "label": "unlzma-version",
+          "name": "unlzma",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 1503,
+            "stdout_sha256": "06311e524dfa32e590cd2d351292d9bca83f430632132e06ff0a506715a3bcd7"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 1503,
+            "stdout_sha256": "06311e524dfa32e590cd2d351292d9bca83f430632132e06ff0a506715a3bcd7"
+          },
+          "label": "lzcat-help",
+          "name": "lzcat",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 34,
+            "stdout_sha256": "6b11db44120a6b8d1b75f9becd565a2d4e86f3bd75d369e80a40f19a32ed1c88"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 34,
+            "stdout_sha256": "6b11db44120a6b8d1b75f9becd565a2d4e86f3bd75d369e80a40f19a32ed1c88"
+          },
+          "label": "lzcat-version",
+          "name": "lzcat",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 673,
+            "stdout_sha256": "aa4cee2cd82952467b39c8f1b2e95b90bbb562902d36d3fef865e8aff38304e6"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 673,
+            "stdout_sha256": "aa4cee2cd82952467b39c8f1b2e95b90bbb562902d36d3fef865e8aff38304e6"
+          },
+          "label": "xzdec-help",
+          "name": "xzdec",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 37,
+            "stdout_sha256": "68ccbacb0c9f0407d393aad5f9d63acfd1715a3db22086ef900f5f63a48c5960"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 37,
+            "stdout_sha256": "68ccbacb0c9f0407d393aad5f9d63acfd1715a3db22086ef900f5f63a48c5960"
+          },
+          "label": "xzdec-version",
+          "name": "xzdec",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 677,
+            "stdout_sha256": "a26c047943a9c54819435b69140b8eb4733ad6e5e7b541f30f571bb04bf543a5"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 677,
+            "stdout_sha256": "a26c047943a9c54819435b69140b8eb4733ad6e5e7b541f30f571bb04bf543a5"
+          },
+          "label": "lzmadec-help",
+          "name": "lzmadec",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 39,
+            "stdout_sha256": "911b13b0992a3677b9a8ee4197cbafac8f7d2dc174acc99609b8dae91b82408f"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 39,
+            "stdout_sha256": "911b13b0992a3677b9a8ee4197cbafac8f7d2dc174acc99609b8dae91b82408f"
+          },
+          "label": "lzmadec-version",
+          "name": "lzmadec",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 257,
+            "stdout_sha256": "ecf9ffcab2c6d0c4cfd0626661caf0e4a3c3a90a1c9b0e08583cce6d5ef2c54f"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 257,
+            "stdout_sha256": "ecf9ffcab2c6d0c4cfd0626661caf0e4a3c3a90a1c9b0e08583cce6d5ef2c54f"
+          },
+          "label": "lzmainfo-help",
+          "name": "lzmainfo",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 26,
+            "stdout_sha256": "85573f22b5daf14a2b259b07cb7d154c6b3493864b1fc5cc6c8910ab8a992c7c"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 26,
+            "stdout_sha256": "85573f22b5daf14a2b259b07cb7d154c6b3493864b1fc5cc6c8910ab8a992c7c"
+          },
+          "label": "lzmainfo-version",
+          "name": "lzmainfo",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 353,
+            "stdout_sha256": "b8101f2df1716bbc61c50886736c28b15d6167681185fdcebca1dd8454347df5"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 353,
+            "stdout_sha256": "b8101f2df1716bbc61c50886736c28b15d6167681185fdcebca1dd8454347df5"
+          },
+          "label": "xzdiff-help",
+          "name": "xzdiff",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 24,
+            "stdout_sha256": "78e282fb8dbbfd5cd453f1b1650ca0a57ef7b014eae3aae8317c5933920c1154"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 24,
+            "stdout_sha256": "78e282fb8dbbfd5cd453f1b1650ca0a57ef7b014eae3aae8317c5933920c1154"
+          },
+          "label": "xzdiff-version",
+          "name": "xzdiff",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 350,
+            "stdout_sha256": "a41fe719f3d7da16c2b746d41a187c7580c9b0cde4e3cda2bd6796cc9b2dd559"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 350,
+            "stdout_sha256": "a41fe719f3d7da16c2b746d41a187c7580c9b0cde4e3cda2bd6796cc9b2dd559"
+          },
+          "label": "xzcmp-help",
+          "name": "xzcmp",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 23,
+            "stdout_sha256": "ddd900c3b533a65334b06c967757ecbfd37967c5261c71c418ee5ecf4ca8c51b"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 23,
+            "stdout_sha256": "ddd900c3b533a65334b06c967757ecbfd37967c5261c71c418ee5ecf4ca8c51b"
+          },
+          "label": "xzcmp-version",
+          "name": "xzcmp",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 232,
+            "stdout_sha256": "3d4fb315a09bb465f2ee936b9e7496d588f0796b8c218f9f0a460c24668911da"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 232,
+            "stdout_sha256": "3d4fb315a09bb465f2ee936b9e7496d588f0796b8c218f9f0a460c24668911da"
+          },
+          "label": "xzegrep-help",
+          "name": "xzegrep",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 25,
+            "stdout_sha256": "8e602113c7abf78c9e78c08ddf54344b5cdc746f64d963314f2d0e7615c48dbd"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 25,
+            "stdout_sha256": "8e602113c7abf78c9e78c08ddf54344b5cdc746f64d963314f2d0e7615c48dbd"
+          },
+          "label": "xzegrep-version",
+          "name": "xzegrep",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 232,
+            "stdout_sha256": "96c68896538b597b1d5e144342587f01822175e804d42fe4994bf92b755e78d0"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 232,
+            "stdout_sha256": "96c68896538b597b1d5e144342587f01822175e804d42fe4994bf92b755e78d0"
+          },
+          "label": "xzfgrep-help",
+          "name": "xzfgrep",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 25,
+            "stdout_sha256": "dbe4490bdc598130c195cc790e8bf8d5e72ddddaf5359c0ef5027016f0d1b5f9"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 25,
+            "stdout_sha256": "dbe4490bdc598130c195cc790e8bf8d5e72ddddaf5359c0ef5027016f0d1b5f9"
+          },
+          "label": "xzfgrep-version",
+          "name": "xzfgrep",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 228,
+            "stdout_sha256": "f88ae9edd1d348f9c36db7fc2b8b64604b98e556b9e66bd16b91dcf5585aa48e"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 228,
+            "stdout_sha256": "f88ae9edd1d348f9c36db7fc2b8b64604b98e556b9e66bd16b91dcf5585aa48e"
+          },
+          "label": "xzgrep-help",
+          "name": "xzgrep",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 24,
+            "stdout_sha256": "f6e71597e0c19edd254454535abecaf5c0af5cc3b73df06e6c9b095e5878c8ea"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 24,
+            "stdout_sha256": "f6e71597e0c19edd254454535abecaf5c0af5cc3b73df06e6c9b095e5878c8ea"
+          },
+          "label": "xzgrep-version",
+          "name": "xzgrep",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 185,
+            "stdout_sha256": "8bebff51d59dfc00c7d7f4238a7a8114addf66dc5bcdad92a22120792fc1fc2c"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 185,
+            "stdout_sha256": "8bebff51d59dfc00c7d7f4238a7a8114addf66dc5bcdad92a22120792fc1fc2c"
+          },
+          "label": "xzless-help",
+          "name": "xzless",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 24,
+            "stdout_sha256": "413bb1bda2f7e33c4eed75adbea62068b09b6af68cea665a82e7ebc75f29d2c3"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 24,
+            "stdout_sha256": "413bb1bda2f7e33c4eed75adbea62068b09b6af68cea665a82e7ebc75f29d2c3"
+          },
+          "label": "xzless-version",
+          "name": "xzless",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 148,
+            "stdout_sha256": "e00448627ecca15c69189726f4b768412d65e0da97f79aedfa1767b36f049f17"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 148,
+            "stdout_sha256": "e00448627ecca15c69189726f4b768412d65e0da97f79aedfa1767b36f049f17"
+          },
+          "label": "xzmore-help",
+          "name": "xzmore",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 24,
+            "stdout_sha256": "89b288d8613a5972286daa72bd41a2d3e4428c99ef5d440d047b7c31db1e7783"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 24,
+            "stdout_sha256": "89b288d8613a5972286daa72bd41a2d3e4428c99ef5d440d047b7c31db1e7783"
+          },
+          "label": "xzmore-version",
+          "name": "xzmore",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 353,
+            "stdout_sha256": "7d875873e2501a04d30b9b8d1f5e9c3cb6aba98459160f8537d295177c09709d"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 353,
+            "stdout_sha256": "7d875873e2501a04d30b9b8d1f5e9c3cb6aba98459160f8537d295177c09709d"
+          },
+          "label": "lzdiff-help",
+          "name": "lzdiff",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 24,
+            "stdout_sha256": "78e282fb8dbbfd5cd453f1b1650ca0a57ef7b014eae3aae8317c5933920c1154"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 24,
+            "stdout_sha256": "78e282fb8dbbfd5cd453f1b1650ca0a57ef7b014eae3aae8317c5933920c1154"
+          },
+          "label": "lzdiff-version",
+          "name": "lzdiff",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 350,
+            "stdout_sha256": "ea5d892daa0528539c8bd988151dc4625f0c0b65e357ef8f6e9679d2dac342e1"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 350,
+            "stdout_sha256": "ea5d892daa0528539c8bd988151dc4625f0c0b65e357ef8f6e9679d2dac342e1"
+          },
+          "label": "lzcmp-help",
+          "name": "lzcmp",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 23,
+            "stdout_sha256": "ddd900c3b533a65334b06c967757ecbfd37967c5261c71c418ee5ecf4ca8c51b"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 23,
+            "stdout_sha256": "ddd900c3b533a65334b06c967757ecbfd37967c5261c71c418ee5ecf4ca8c51b"
+          },
+          "label": "lzcmp-version",
+          "name": "lzcmp",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 228,
+            "stdout_sha256": "14c48c2d3f951853022d8dd3628e8c71434358cdcefce3439d97e9e57614e1b3"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 228,
+            "stdout_sha256": "14c48c2d3f951853022d8dd3628e8c71434358cdcefce3439d97e9e57614e1b3"
+          },
+          "label": "lzgrep-help",
+          "name": "lzgrep",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 24,
+            "stdout_sha256": "f6e71597e0c19edd254454535abecaf5c0af5cc3b73df06e6c9b095e5878c8ea"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 24,
+            "stdout_sha256": "f6e71597e0c19edd254454535abecaf5c0af5cc3b73df06e6c9b095e5878c8ea"
+          },
+          "label": "lzgrep-version",
+          "name": "lzgrep",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 232,
+            "stdout_sha256": "5040adb9e2bd80b0bfa489307c75e05472a32b1d32d3b150b1f9a276383b4a88"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 232,
+            "stdout_sha256": "5040adb9e2bd80b0bfa489307c75e05472a32b1d32d3b150b1f9a276383b4a88"
+          },
+          "label": "lzegrep-help",
+          "name": "lzegrep",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 25,
+            "stdout_sha256": "8e602113c7abf78c9e78c08ddf54344b5cdc746f64d963314f2d0e7615c48dbd"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 25,
+            "stdout_sha256": "8e602113c7abf78c9e78c08ddf54344b5cdc746f64d963314f2d0e7615c48dbd"
+          },
+          "label": "lzegrep-version",
+          "name": "lzegrep",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 232,
+            "stdout_sha256": "91430f95ae6322d4bd294e75c4f32d7f15acb73dd194d821dd19a46d0cba6659"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 232,
+            "stdout_sha256": "91430f95ae6322d4bd294e75c4f32d7f15acb73dd194d821dd19a46d0cba6659"
+          },
+          "label": "lzfgrep-help",
+          "name": "lzfgrep",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 25,
+            "stdout_sha256": "dbe4490bdc598130c195cc790e8bf8d5e72ddddaf5359c0ef5027016f0d1b5f9"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 25,
+            "stdout_sha256": "dbe4490bdc598130c195cc790e8bf8d5e72ddddaf5359c0ef5027016f0d1b5f9"
+          },
+          "label": "lzfgrep-version",
+          "name": "lzfgrep",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 148,
+            "stdout_sha256": "cec833717c63b4959d93c492fa11d3a7b7113cbf55ed9d20416ebf6f2bbbfe0f"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 148,
+            "stdout_sha256": "cec833717c63b4959d93c492fa11d3a7b7113cbf55ed9d20416ebf6f2bbbfe0f"
+          },
+          "label": "lzmore-help",
+          "name": "lzmore",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 24,
+            "stdout_sha256": "89b288d8613a5972286daa72bd41a2d3e4428c99ef5d440d047b7c31db1e7783"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 24,
+            "stdout_sha256": "89b288d8613a5972286daa72bd41a2d3e4428c99ef5d440d047b7c31db1e7783"
+          },
+          "label": "lzmore-version",
+          "name": "lzmore",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 185,
+            "stdout_sha256": "1d851bbc718daf4241ae677e008e41166093af8f1095b7304ecf3e895a3784a9"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 185,
+            "stdout_sha256": "1d851bbc718daf4241ae677e008e41166093af8f1095b7304ecf3e895a3784a9"
+          },
+          "label": "lzless-help",
+          "name": "lzless",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 24,
+            "stdout_sha256": "413bb1bda2f7e33c4eed75adbea62068b09b6af68cea665a82e7ebc75f29d2c3"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 24,
+            "stdout_sha256": "413bb1bda2f7e33c4eed75adbea62068b09b6af68cea665a82e7ebc75f29d2c3"
+          },
+          "label": "lzless-version",
+          "name": "lzless",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--decompress",
+            "--stdout"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 7452,
+            "stdout_sha256": "78a00d10407af3015271c92e0daa0ddde4a1627a643917fef5730bdbab55c9d8"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 7452,
+            "stdout_sha256": "78a00d10407af3015271c92e0daa0ddde4a1627a643917fef5730bdbab55c9d8"
+          },
+          "label": "xz-stdin-roundtrip",
+          "name": "xz",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--stdout",
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input-gcc.xz"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 7452,
+            "stdout_sha256": "78a00d10407af3015271c92e0daa0ddde4a1627a643917fef5730bdbab55c9d8"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 7452,
+            "stdout_sha256": "78a00d10407af3015271c92e0daa0ddde4a1627a643917fef5730bdbab55c9d8"
+          },
+          "label": "unxz-file",
+          "name": "unxz",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input-gcc.xz"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 7452,
+            "stdout_sha256": "78a00d10407af3015271c92e0daa0ddde4a1627a643917fef5730bdbab55c9d8"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 7452,
+            "stdout_sha256": "78a00d10407af3015271c92e0daa0ddde4a1627a643917fef5730bdbab55c9d8"
+          },
+          "label": "xzcat-file",
+          "name": "xzcat",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--test",
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input-gcc.xz"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "label": "xz-test",
+          "name": "xz",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--list",
+            "--verbose",
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input-gcc.xz"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 684,
+            "stdout_sha256": "344e0606d6457538f347b0d00b817d119cb6eb6323408aef2e080f632f7f2738"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 684,
+            "stdout_sha256": "344e0606d6457538f347b0d00b817d119cb6eb6323408aef2e080f632f7f2738"
+          },
+          "label": "xz-list",
+          "name": "xz",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--stdout",
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input-gcc.lzma"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 7452,
+            "stdout_sha256": "78a00d10407af3015271c92e0daa0ddde4a1627a643917fef5730bdbab55c9d8"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 7452,
+            "stdout_sha256": "78a00d10407af3015271c92e0daa0ddde4a1627a643917fef5730bdbab55c9d8"
+          },
+          "label": "unlzma-file",
+          "name": "unlzma",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input-gcc.lzma"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 7452,
+            "stdout_sha256": "78a00d10407af3015271c92e0daa0ddde4a1627a643917fef5730bdbab55c9d8"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 7452,
+            "stdout_sha256": "78a00d10407af3015271c92e0daa0ddde4a1627a643917fef5730bdbab55c9d8"
+          },
+          "label": "lzcat-file",
+          "name": "lzcat",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input-gcc.xz"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 7452,
+            "stdout_sha256": "78a00d10407af3015271c92e0daa0ddde4a1627a643917fef5730bdbab55c9d8"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 7452,
+            "stdout_sha256": "78a00d10407af3015271c92e0daa0ddde4a1627a643917fef5730bdbab55c9d8"
+          },
+          "label": "xzdec-file",
+          "name": "xzdec",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input-gcc.lzma"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 7452,
+            "stdout_sha256": "78a00d10407af3015271c92e0daa0ddde4a1627a643917fef5730bdbab55c9d8"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 7452,
+            "stdout_sha256": "78a00d10407af3015271c92e0daa0ddde4a1627a643917fef5730bdbab55c9d8"
+          },
+          "label": "lzmadec-file",
+          "name": "lzmadec",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input-gcc.lzma"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 242,
+            "stdout_sha256": "36fd2f55f0c9b869bcec5e0357e1d5e3655629ec5fb0dc082c81eada4245a2c1"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 242,
+            "stdout_sha256": "36fd2f55f0c9b869bcec5e0357e1d5e3655629ec5fb0dc082c81eada4245a2c1"
+          },
+          "label": "lzmainfo-file",
+          "name": "lzmainfo",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "needle",
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input-gcc.xz"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 44,
+            "stderr_sha256": "226b55c6ba02edfa2c25197193f1fc2fe0dcfa77f80ff00fb660031539232658",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 44,
+            "stderr_sha256": "226b55c6ba02edfa2c25197193f1fc2fe0dcfa77f80ff00fb660031539232658",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "label": "xzgrep-match",
+          "name": "xzgrep",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "needle",
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input-gcc.xz"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 44,
+            "stderr_sha256": "226b55c6ba02edfa2c25197193f1fc2fe0dcfa77f80ff00fb660031539232658",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 44,
+            "stderr_sha256": "226b55c6ba02edfa2c25197193f1fc2fe0dcfa77f80ff00fb660031539232658",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "label": "xzegrep-match",
+          "name": "xzegrep",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "needle",
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input-gcc.xz"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 44,
+            "stderr_sha256": "226b55c6ba02edfa2c25197193f1fc2fe0dcfa77f80ff00fb660031539232658",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 44,
+            "stderr_sha256": "226b55c6ba02edfa2c25197193f1fc2fe0dcfa77f80ff00fb660031539232658",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "label": "xzfgrep-match",
+          "name": "xzfgrep",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "needle",
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input-gcc.lzma"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 44,
+            "stderr_sha256": "226b55c6ba02edfa2c25197193f1fc2fe0dcfa77f80ff00fb660031539232658",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 44,
+            "stderr_sha256": "226b55c6ba02edfa2c25197193f1fc2fe0dcfa77f80ff00fb660031539232658",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "label": "lzgrep-match",
+          "name": "lzgrep",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "needle",
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input-gcc.lzma"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 44,
+            "stderr_sha256": "226b55c6ba02edfa2c25197193f1fc2fe0dcfa77f80ff00fb660031539232658",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 44,
+            "stderr_sha256": "226b55c6ba02edfa2c25197193f1fc2fe0dcfa77f80ff00fb660031539232658",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "label": "lzegrep-match",
+          "name": "lzegrep",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "needle",
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input-gcc.lzma"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 44,
+            "stderr_sha256": "226b55c6ba02edfa2c25197193f1fc2fe0dcfa77f80ff00fb660031539232658",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 44,
+            "stderr_sha256": "226b55c6ba02edfa2c25197193f1fc2fe0dcfa77f80ff00fb660031539232658",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "label": "lzfgrep-match",
+          "name": "lzfgrep",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input-gcc.xz",
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input.txt"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "label": "xzdiff-equal",
+          "name": "xzdiff",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input-gcc.xz",
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input.txt"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "label": "xzcmp-equal",
+          "name": "xzcmp",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input-gcc.lzma",
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input.txt"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "label": "lzdiff-equal",
+          "name": "lzdiff",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input-gcc.lzma",
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input.txt"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "label": "lzcmp-equal",
+          "name": "lzcmp",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input-gcc.xz"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 7452,
+            "stdout_sha256": "78a00d10407af3015271c92e0daa0ddde4a1627a643917fef5730bdbab55c9d8"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 7452,
+            "stdout_sha256": "78a00d10407af3015271c92e0daa0ddde4a1627a643917fef5730bdbab55c9d8"
+          },
+          "label": "xzless-view",
+          "name": "xzless",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input-gcc.xz"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 7519,
+            "stdout_sha256": "5724440ab9b77dcfb70fb38a1f54cabb83f4cef3f31d2db4a5b0df203026e94f"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 7519,
+            "stdout_sha256": "5724440ab9b77dcfb70fb38a1f54cabb83f4cef3f31d2db4a5b0df203026e94f"
+          },
+          "label": "xzmore-view",
+          "name": "xzmore",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input-gcc.lzma"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 7452,
+            "stdout_sha256": "78a00d10407af3015271c92e0daa0ddde4a1627a643917fef5730bdbab55c9d8"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 7452,
+            "stdout_sha256": "78a00d10407af3015271c92e0daa0ddde4a1627a643917fef5730bdbab55c9d8"
+          },
+          "label": "lzless-view",
+          "name": "lzless",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "/tmp/rustbox-xz-differential-v3ypbfgk/input-gcc.lzma"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 7521,
+            "stdout_sha256": "195fa04fe7fb0edcbcd1b21fa12ad26cdac7a800596ba0b5d3f5160ab3d09511"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 7521,
+            "stdout_sha256": "195fa04fe7fb0edcbcd1b21fa12ad26cdac7a800596ba0b5d3f5160ab3d09511"
+          },
+          "label": "lzmore-view",
+          "name": "lzmore",
+          "passed": true
+        }
+      ],
+      "schema": 1
+    },
+    "differential_sha256": "a77f50d4fccc3d150568aa81b1d1d80a8da3e0616cf5c5ecfa7476ccc5246304",
+    "engine_valgrind_errors": 0,
+    "indirectly_lost_bytes": 0,
+    "integrated_public_names": 23,
+    "native_shell_replacements": [
+      "xzdiff",
+      "xzcmp",
+      "xzegrep",
+      "xzfgrep",
+      "xzgrep",
+      "xzless",
+      "xzmore",
+      "lzdiff",
+      "lzcmp",
+      "lzgrep",
+      "lzegrep",
+      "lzfgrep",
+      "lzmore",
+      "lzless"
+    ],
+    "possibly_lost_bytes": 0,
+    "upstream_script_log_sha256": "9073bd20880678441b5b29ce7572dd6bde4155c26cfce9bf1efb51734986abc8",
+    "upstream_script_suite": "pass",
+    "valgrind_log_sha256": {
+      "compress": "74cf23c5deee75e61d02deeb5386498aa31572eaedc194f2eef3f401d186906f",
+      "decompress": "e889b105622bc78a7b695718140b584a12110a139b289c0c467863ebc12e11d3"
+    }
+  }
 }

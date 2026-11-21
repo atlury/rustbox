@@ -36,6 +36,7 @@ def main() -> int:
     parser.add_argument("--lz4-report-directory", type=Path, required=True)
     parser.add_argument("--less-report-directory", type=Path, required=True)
     parser.add_argument("--gzip-report-directory", type=Path, required=True)
+    parser.add_argument("--xz-report-directory", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     binary = args.binary.resolve()
@@ -55,10 +56,11 @@ def main() -> int:
     lz4_directory = args.lz4_report_directory.resolve()
     less_directory = args.less_report_directory.resolve()
     gzip_directory = args.gzip_report_directory.resolve()
+    xz_directory = args.xz_report_directory.resolve()
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
-    if dispatch["cases"] != 610 or dispatch["passed"] != 610 or dispatch["failures"]:
+    if dispatch["cases"] != 656 or dispatch["passed"] != 656 or dispatch["failures"]:
         raise RuntimeError("unified dispatcher comparison is incomplete")
     if (
         differential["batches"] != 38
@@ -445,6 +447,30 @@ def main() -> int:
             raise RuntimeError(f"unified GNU Gzip {operation} Valgrind comparison is incomplete")
     if gzip_differential.get("cases") != 108 or gzip_differential.get("passed") != 108:
         raise RuntimeError("unified GNU Gzip integration comparison is incomplete")
+    xz_differential_path = xz_directory / "differential.json"
+    xz_differential = json.loads(xz_differential_path.read_text())
+    xz_upstream_path = xz_directory / "upstream-scripts.log"
+    xz_upstream = xz_upstream_path.read_text(errors="replace")
+    xz_valgrind_paths = {
+        operation: xz_directory / f"valgrind-{operation}.log"
+        for operation in ("compress", "decompress")
+    }
+    for operation, path in xz_valgrind_paths.items():
+        text = path.read_text(errors="replace")
+        required = [
+            "ERROR SUMMARY: 0 errors",
+            "definitely lost: 0 bytes in 0 blocks",
+            "indirectly lost: 0 bytes in 0 blocks",
+            "possibly lost: 0 bytes in 0 blocks",
+        ]
+        if any(marker not in text for marker in required):
+            raise RuntimeError(f"unified XZ {operation} Valgrind comparison is incomplete")
+    if (
+        xz_differential.get("cases") != 70
+        or xz_differential.get("passed") != 70
+        or "test_scripts.sh: PASS" not in xz_upstream
+    ):
+        raise RuntimeError("unified XZ integration comparison is incomplete")
     if sha256(binary) != link["binary"]["sha256"]:
         raise RuntimeError("unified binary changed after link evidence")
     with tempfile.TemporaryDirectory(prefix="rustbox-strip-") as temporary:
@@ -470,7 +496,7 @@ def main() -> int:
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-22",
-        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, and all fourteen GNU Gzip interfaces integrated at canonical parity",
+        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, and XZ Utils integrated at canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
@@ -487,7 +513,8 @@ def main() -> int:
             "lz4": 4,
             "less": 2,
             "gzip_integrated_names": 14,
-            "dispatch_names": 305,
+            "xz_integrated_names": 23,
+            "dispatch_names": 328,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -649,6 +676,29 @@ def main() -> int:
                 for operation, path in gzip_valgrind_paths.items()
             },
         },
+        "xz_integration": {
+            "integrated_public_names": 23,
+            "native_shell_replacements": [
+                "xzdiff", "xzcmp", "xzegrep", "xzfgrep", "xzgrep", "xzless",
+                "xzmore", "lzdiff", "lzcmp", "lzgrep", "lzegrep", "lzfgrep",
+                "lzmore", "lzless",
+            ],
+            "alias_bridge": link["xz_alias_bridge"],
+            "upstream_script_suite": "pass",
+            "differential": xz_differential,
+            "byte_identical_xz_compression": True,
+            "decompression_matches_canonical": True,
+            "engine_valgrind_errors": 0,
+            "definitely_lost_bytes": 0,
+            "indirectly_lost_bytes": 0,
+            "possibly_lost_bytes": 0,
+            "differential_sha256": sha256(xz_differential_path),
+            "upstream_script_log_sha256": sha256(xz_upstream_path),
+            "valgrind_log_sha256": {
+                operation: sha256(path)
+                for operation, path in xz_valgrind_paths.items()
+            },
+        },
         "collision_isolation": {
             "translated_libraries": len(link["source_library_sha256"]),
             "namespaced_libraries": len(link["namespaced_symbols"]),
@@ -671,6 +721,8 @@ def main() -> int:
             "less_namespaced_symbols": len(link["less_namespaced_symbols"]),
             "gzip_namespaced_symbols": len(link["gzip_namespaced_symbols"]),
             "gzip_alias_bridge_symbols": len(link["gzip_alias_bridge"]["symbols"]),
+            "xz_namespaced_symbols": len(link["xz_namespaced_symbols"]),
+            "xz_alias_bridge_symbols": len(link["xz_alias_bridge"]["symbols"]),
             "manifest": link,
         },
     }

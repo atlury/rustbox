@@ -12,7 +12,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-ISOLATION_CACHE_VERSION = 1
+ISOLATION_CACHE_VERSION = 2
 
 
 def sha256(path: Path) -> str:
@@ -656,6 +656,56 @@ def namespace_less_library(
     return mapped, symbols
 
 
+def namespace_xz_library(
+    rust_library: Path, build: Path
+) -> tuple[Path, list[str]]:
+    """Keep XZ's four programs and embedded liblzma implementation private."""
+    public = {
+        "rustbox_xz_main", "rustbox_xzdec_main",
+        "rustbox_lzmadec_main", "rustbox_lzmainfo_main",
+    }
+    strong_types = {"B", "C", "D", "G", "R", "S", "T"}
+    compiler_math = re.compile(
+        r"^(?:cbrt|ceil|copysign|fabs|fdim|floor|fma|fmax|fmaximum|fmin|fminimum|fmod|rint|round|sqrt|trunc)(?:f|f16|f128)?$"
+    )
+    output = subprocess.run(
+        ["nm", "-g", "--defined-only", str(rust_library)],
+        check=True, text=True, stdout=subprocess.PIPE,
+    ).stdout
+    symbols = sorted({
+        fields[-1]
+        for line in output.splitlines()
+        if len(fields := line.split()) >= 3
+        and fields[-2] in strong_types
+        and re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", fields[-1])
+        and fields[-1] not in public
+        and not fields[-1].startswith("rust_")
+        and not compiler_math.fullmatch(fields[-1])
+    })
+    if not symbols:
+        raise RuntimeError("XZ archive exports no namespaceable C symbols")
+    destination = build / "src/.rustbox-xz"
+    destination.mkdir(parents=True, exist_ok=True)
+    mapped = destination / rust_library.name
+    mapping = destination / "symbols.map"
+    mapping.write_text(
+        "".join(f"{symbol} rustbox_xz_private_{symbol}\n" for symbol in symbols),
+        encoding="utf-8",
+    )
+    shutil.copy2(rust_library, mapped)
+    subprocess.run(["objcopy", "--redefine-syms", str(mapping), str(mapped)], check=True)
+    mapped_definitions = defined_symbols(mapped)
+    definitions = set(mapped_definitions)
+    for symbol in public:
+        if mapped_definitions.count(symbol) != 1:
+            raise RuntimeError(f"XZ symbol isolation damaged {symbol}")
+    if any(symbol in definitions for symbol in symbols):
+        raise RuntimeError("XZ symbol isolation left an unprefixed definition")
+    if any(f"rustbox_xz_private_{symbol}" not in definitions for symbol in symbols):
+        raise RuntimeError("XZ symbol isolation lost a definition")
+    return mapped, symbols
+
+
 def namespace_gzip_libraries(
     rust_library: Path, support_library: Path, build: Path
 ) -> tuple[Path, Path, list[str]]:
@@ -932,6 +982,14 @@ extern int rustbox_zless_main(int, char **);
 extern int rustbox_zmore_main(int, char **);
 extern int rustbox_znew_main(int, char **);
 extern int rustbox_gzexe_main(int, char **);
+extern int rustbox_xz_main(int, char **);
+extern int rustbox_xzdec_main(int, char **);
+extern int rustbox_lzmadec_main(int, char **);
+extern int rustbox_lzmainfo_main(int, char **);
+extern int rustbox_xzdiff_main(int, char **);
+extern int rustbox_xzgrep_main(int, char **);
+extern int rustbox_xzless_main(int, char **);
+extern int rustbox_xzmore_main(int, char **);
 """
         + declarations
         + """
@@ -1086,6 +1144,32 @@ int main(int argc, char **argv)
         return rustbox_znew_main(argc, argv);
     if (!force_util_linux && strcmp(name, "gzexe") == 0)
         return rustbox_gzexe_main(argc, argv);
+    if (!force_util_linux &&
+        (strcmp(name, "xz") == 0 || strcmp(name, "unxz") == 0 ||
+         strcmp(name, "xzcat") == 0 || strcmp(name, "lzma") == 0 ||
+         strcmp(name, "unlzma") == 0 || strcmp(name, "lzcat") == 0))
+        return rustbox_xz_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "xzdec") == 0)
+        return rustbox_xzdec_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "lzmadec") == 0)
+        return rustbox_lzmadec_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "lzmainfo") == 0)
+        return rustbox_lzmainfo_main(argc, argv);
+    if (!force_util_linux &&
+        (strcmp(name, "xzdiff") == 0 || strcmp(name, "xzcmp") == 0 ||
+         strcmp(name, "lzdiff") == 0 || strcmp(name, "lzcmp") == 0))
+        return rustbox_xzdiff_main(argc, argv);
+    if (!force_util_linux &&
+        (strcmp(name, "xzgrep") == 0 || strcmp(name, "xzegrep") == 0 ||
+         strcmp(name, "xzfgrep") == 0 || strcmp(name, "lzgrep") == 0 ||
+         strcmp(name, "lzegrep") == 0 || strcmp(name, "lzfgrep") == 0))
+        return rustbox_xzgrep_main(argc, argv);
+    if (!force_util_linux &&
+        (strcmp(name, "xzless") == 0 || strcmp(name, "lzless") == 0))
+        return rustbox_xzless_main(argc, argv);
+    if (!force_util_linux &&
+        (strcmp(name, "xzmore") == 0 || strcmp(name, "lzmore") == 0))
+        return rustbox_xzmore_main(argc, argv);
 """
         + selections
         + """
@@ -1118,6 +1202,7 @@ def main() -> int:
     parser.add_argument("--less-rust-library", type=Path, required=True)
     parser.add_argument("--gzip-rust-library", type=Path, required=True)
     parser.add_argument("--gzip-support-library", type=Path, required=True)
+    parser.add_argument("--xz-rust-library", type=Path, required=True)
     parser.add_argument("--link-report", type=Path, required=True)
     parser.add_argument("--reuse-isolation", action="store_true")
     args = parser.parse_args()
@@ -1139,6 +1224,7 @@ def main() -> int:
     less_rust_library = args.less_rust_library.resolve()
     gzip_rust_library = args.gzip_rust_library.resolve()
     gzip_support_library = args.gzip_support_library.resolve()
+    xz_rust_library = args.xz_rust_library.resolve()
     makefile = build / "Makefile"
     if not makefile.is_file():
         raise RuntimeError("canonical Coreutils build is missing")
@@ -1222,7 +1308,7 @@ def main() -> int:
         file_rust_library, patch_rust_library, sed_rust_library,
         diffutils_rust_library, grep_rust_library, bc_rust_library,
         attr_rust_library, acl_rust_library, lz4_rust_library, less_rust_library,
-        gzip_rust_library,
+        gzip_rust_library, xz_rust_library,
         gzip_support_library,
     ):
         if not path.is_file():
@@ -1252,6 +1338,8 @@ def main() -> int:
     less_library_index = len(libraries) - 1
     libraries.append(gzip_rust_library)
     gzip_library_index = len(libraries) - 1
+    libraries.append(xz_rust_library)
+    xz_library_index = len(libraries) - 1
     source_library_hashes = {str(path.relative_to(repository)): sha256(path) for path in libraries}
     source_library_hashes[str(m4_support_library)] = sha256(m4_support_library)
     source_library_hashes[str(gzip_support_library)] = sha256(gzip_support_library)
@@ -1294,6 +1382,14 @@ def main() -> int:
         "rustbox_zmore_main",
         "rustbox_znew_main",
         "rustbox_gzexe_main",
+        "rustbox_xz_main",
+        "rustbox_xzdec_main",
+        "rustbox_lzmadec_main",
+        "rustbox_lzmainfo_main",
+        "rustbox_xzdiff_main",
+        "rustbox_xzgrep_main",
+        "rustbox_xzless_main",
+        "rustbox_xzmore_main",
     })
 
     cached_report = None
@@ -1405,6 +1501,15 @@ def main() -> int:
         )
     libraries[gzip_library_index] = mapped_gzip_rust
 
+    if cached_report:
+        mapped_xz_rust = build / "src/.rustbox-xz" / libraries[xz_library_index].name
+        xz_symbols = cached_report["xz_namespaced_symbols"]
+    else:
+        mapped_xz_rust, xz_symbols = namespace_xz_library(
+            libraries[xz_library_index], build
+        )
+    libraries[xz_library_index] = mapped_xz_rust
+
     canonical_dispatch_symbols = set(defined_symbols(build / "src/coreutils-coreutils.o"))
     if cached_report:
         namespaced_symbols = cached_report["namespaced_symbols"]
@@ -1500,6 +1605,18 @@ def main() -> int:
         "rustbox_gzexe_main",
     }:
         raise RuntimeError("GNU Gzip alias bridge exports the wrong symbols")
+    xz_aliases_object = build / "src/.rustbox-xz-aliases.o"
+    subprocess.run(
+        ["clang-18", "-O2", "-g", "-c", str(repository / "bridges/xz_aliases.c"),
+         "-o", str(xz_aliases_object)],
+        cwd=build,
+        check=True,
+    )
+    if set(defined_symbols(xz_aliases_object)) != {
+        "rustbox_xzdiff_main", "rustbox_xzgrep_main",
+        "rustbox_xzless_main", "rustbox_xzmore_main",
+    }:
+        raise RuntimeError("XZ alias bridge exports the wrong symbols")
     bridge_archives: dict[str, Path] = {}
     for archive, members in bridge_members.items():
         source = build / archive
@@ -1546,6 +1663,7 @@ def main() -> int:
                 rewritten.append(str(grep_abi_object))
                 rewritten.append(str(grep_error_object))
                 rewritten.append(str(gzip_aliases_object))
+                rewritten.append(str(xz_aliases_object))
                 rewritten.extend(str(path) for path in util_inputs)
                 rewritten.append(str(mapped_m4_support))
                 rewritten.append(str(mapped_gzip_support))
@@ -1633,6 +1751,7 @@ def main() -> int:
         "lz4_public_names": 4,
         "less_public_names": 2,
         "gzip_public_names": 14,
+        "xz_public_names": 23,
         "total_dispatch_names": len(
             set(applets)
             | set(util_dispatch)
@@ -1642,7 +1761,11 @@ def main() -> int:
                "lz4", "lz4c", "lz4cat", "unlz4", "less", "lessecho",
                "gzip", "gunzip", "zcat", "uncompress",
                "zcmp", "zdiff", "zforce", "zgrep", "zegrep", "zfgrep", "zless",
-               "zmore", "znew", "gzexe"}
+               "zmore", "znew", "gzexe",
+               "xz", "unxz", "xzcat", "lzma", "unlzma", "lzcat", "xzdec",
+               "lzmadec", "lzmainfo", "xzdiff", "xzcmp", "xzegrep", "xzfgrep",
+               "xzgrep", "xzless", "xzmore", "lzdiff", "lzcmp", "lzgrep",
+               "lzegrep", "lzfgrep", "lzmore", "lzless"}
         ),
         "excluded": ["chcon", "runcon"],
         "public_name_precedence": {"kill": "GNU Coreutils", "util-linux-kill": "util-linux"},
@@ -1667,6 +1790,7 @@ def main() -> int:
         "lz4_namespaced_symbols": lz4_symbols,
         "less_namespaced_symbols": less_symbols,
         "gzip_namespaced_symbols": gzip_symbols,
+        "xz_namespaced_symbols": xz_symbols,
         "diffutils_error_bridge": {
             "object": str(diffutils_error_object.relative_to(build)),
             "symbols": ["rustbox_diffutils_error"],
@@ -1689,6 +1813,14 @@ def main() -> int:
                         "rustbox_zmore_main", "rustbox_znew_main", "rustbox_gzexe_main"],
             "public_names": ["gunzip", "uncompress", "zcat", "zcmp", "zdiff", "zforce",
                              "zgrep", "zegrep", "zfgrep", "zless", "zmore", "znew", "gzexe"],
+        },
+        "xz_alias_bridge": {
+            "object": str(xz_aliases_object.relative_to(build)),
+            "symbols": ["rustbox_xzdiff_main", "rustbox_xzgrep_main",
+                        "rustbox_xzless_main", "rustbox_xzmore_main"],
+            "public_names": ["xzdiff", "xzcmp", "xzegrep", "xzfgrep", "xzgrep",
+                             "xzless", "xzmore", "lzdiff", "lzcmp", "lzgrep",
+                             "lzegrep", "lzfgrep", "lzmore", "lzless"],
         },
         "sed_abi_bridge": {
             "object": str(sed_abi_object.relative_to(build)),
@@ -1722,6 +1854,7 @@ def main() -> int:
         "lz4_public_names": 4,
         "less_public_names": 2,
         "gzip_public_names": 14,
+        "xz_public_names": 23,
         "output": str(output),
     }))
     return 0
