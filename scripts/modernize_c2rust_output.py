@@ -29,6 +29,11 @@ NO_MANGLE_FUNCTION = re.compile(
     r'(?=(?:#\[[^\n]+\]\n)*pub\s+(?:(?:unsafe|extern\s+"C")\s+)*fn\s+'
     r'([A-Za-z_][A-Za-z0-9_]*))'
 )
+NO_MANGLE_STATIC = re.compile(
+    r'(?m)^#\[no_mangle\]\n'
+    r'(?=(?:#\[[^\n]+\]\n)*pub\s+static\s+(?:mut\s+)?'
+    r'([A-Za-z_][A-Za-z0-9_]*)\s*:)'
+)
 REMOVED_FEATURES = {
     "#![feature(c_variadic)]",
     "#![feature(extern_types)]",
@@ -144,6 +149,43 @@ def deduplicate_no_mangle_functions(root: Path) -> list[dict[str, object]]:
                        if match.group(1) == name]
             if len(matches) != 1:
                 raise RuntimeError(f"cannot uniquely mangle duplicate export {name} in {path}")
+            match = matches[0]
+            text = text[:match.start()] + text[match.start() + len("#[no_mangle]\n"):]
+            path.write_text(text, encoding="utf-8")
+            changes.append({
+                "symbol": name,
+                "kept": kept.relative_to(root).as_posix(),
+                "mangled": path.relative_to(root).as_posix(),
+            })
+    return changes
+
+
+def deduplicate_no_mangle_statics(root: Path) -> list[dict[str, object]]:
+    """Mangle duplicate globals that came from separate C executables.
+
+    C2Rust combines every compilation-database action into one crate.  Two
+    canonical programs can therefore contribute same-named public globals
+    that never collided in C.  Keep the first deterministic definition at its
+    C ABI name and give later definitions ordinary Rust-mangled linkage.
+    """
+    definitions: dict[str, list[Path]] = {}
+    for path in sorted(root.rglob("*.rs")):
+        text = path.read_text(encoding="utf-8")
+        for match in NO_MANGLE_STATIC.finditer(text):
+            definitions.setdefault(match.group(1), []).append(path)
+
+    changes = []
+    for name, paths in sorted(definitions.items()):
+        if len(paths) == 1:
+            continue
+        ordered = sorted(paths, key=lambda path: path.relative_to(root).as_posix())
+        kept = ordered[0]
+        for path in ordered[1:]:
+            text = path.read_text(encoding="utf-8")
+            matches = [match for match in NO_MANGLE_STATIC.finditer(text)
+                       if match.group(1) == name]
+            if len(matches) != 1:
+                raise RuntimeError(f"cannot uniquely mangle duplicate static {name} in {path}")
             match = matches[0]
             text = text[:match.start()] + text[match.start() + len("#[no_mangle]\n"):]
             path.write_text(text, encoding="utf-8")
@@ -283,7 +325,10 @@ def main() -> int:
             if change is not None:
                 change["path"] = str(path.relative_to(staged))
                 changes.append(change)
-        duplicate_exports_mangled = deduplicate_no_mangle_functions(staged)
+        duplicate_exports_mangled = [
+            *deduplicate_no_mangle_functions(staged),
+            *deduplicate_no_mangle_statics(staged),
+        ]
         (staged / "rust-toolchain.toml").write_text(
             '[toolchain]\nchannel = "1.99.0"\nprofile = "minimal"\n', encoding="utf-8"
         )

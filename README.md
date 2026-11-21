@@ -474,8 +474,21 @@ ASan/UBSan repeats the bounded 17-workload set, 92 canonical-versus-normalized
 comparisons are byte-exact, and both Valgrind allocation summaries match the
 canonical baselines.  The exact tree hashes, entrypoint symbols, source
 closure, binaries, and parity record are in
-`evidence/bc-1.08.2-normalization.json`; translation of the unchanged 21-unit
-closure is the next gate.
+`evidence/bc-1.08.2-normalization.json`.
+The exact normalized 21-unit closure now translates completely with C2Rust
+0.22.1 under `--fail-on-error` and `--preserve-unused-functions`.  Both the
+historical nightly output and its deterministic Rust 1.99 modernization
+compile without `compile_error!`, `todo!`, `unimplemented!`, or fallback
+`panic!` holes, and the release archive exports exactly one each of
+`rustbox_bc_main` and `rustbox_dc_main`.  C2Rust's optional declaration-map
+export is disabled because its metadata-only foreign-item pass panics after
+successfully translating all 21 units; no partial maps are accepted and no
+generated Rust is hand-repaired.  The 23 generated Rust files contain 24,740
+lines and 3,468 raw-pointer type occurrences, recorded for the later safety
+phase.  The 23,726,090-byte pre-link archive, exact source and output hashes,
+toolchain checks, linkage deduplication, and complete unsafe inventory are in
+`evidence/bc-1.08.2-c2rust.json`; canonical translated-executable parity is
+the next gate.
 
 ## Work queue after util-linux
 

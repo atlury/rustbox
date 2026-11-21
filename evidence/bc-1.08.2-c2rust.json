@@ -1,0 +1,542 @@
+{
+  "bundled_dc_release": "1.5.2",
+  "configuration": {
+    "libedit": false,
+    "readline": false,
+    "selinux": false,
+    "systemd": false
+  },
+  "hardening": {
+    "later_order": [
+      "eliminate raw pointers and unsafe",
+      "replace std with Rustbox-owned no_std runtime"
+    ],
+    "raw_pointers_and_unsafe_are_inventory_only": true
+  },
+  "input": {
+    "compile_commands": 21,
+    "compile_database_sha256": "b8dddf50fdc043caaed69924b43c0cd57aee4cc6fae5925fed02390cb324f78b",
+    "normalization_evidence_sha256": "d0f425c987020bc7438b0058312ca92b6d42dad7c5ba061da74bde7823c18468",
+    "normalization_tree_sha256": "fbfb746137b23437ac7c324170d561322cd930db72762717945b328c04eb5bc0",
+    "production_sources": [
+      "bc/bc.c",
+      "bc/execute.c",
+      "bc/global.c",
+      "bc/load.c",
+      "bc/main.c",
+      "bc/scan.c",
+      "bc/storage.c",
+      "bc/util.c",
+      "bc/warranty.c",
+      "dc/array.c",
+      "dc/dc.c",
+      "dc/eval.c",
+      "dc/input.c",
+      "dc/misc.c",
+      "dc/numeric.c",
+      "dc/stack.c",
+      "dc/string.c",
+      "lib/getopt.c",
+      "lib/getopt1.c",
+      "lib/number.c",
+      "lib/vfprintf.c"
+    ]
+  },
+  "next_gate": "link the complete Rust archive and pass canonical GNU bc and dc differential tests",
+  "raw_translation": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "1c82d1121385f0ea8914146ccfb9c3d29af71d69ed6179aff054fbad492e6228",
+      "cargo_toml_sha256": "a97b03cb35c2fada9a051406c27f8e9e3e6337c7ba4665c1da1d82ab4c2c5f46",
+      "diagnostics_by_level": {
+        "warning": 13
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "1a65c97fb4909a852b5f0d9983d416562ca2248144ba1bd3b3735e8eace4b022",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "stable_features": 1,
+        "unused_imports": 2,
+        "unused_must_use": 2,
+        "unused_parens": 1,
+        "unused_variables": 6
+      }
+    },
+    "compile_error_macros": 0,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "5cc3d065da04f747f1dda8b2ee4b006683833bc96cccf1764df3551b7f283fd7",
+      "src/bc/bc.rs": "e672a01d080c52f6edd284078a06caed59331f90a882ba9b7a57a7e72238cc69",
+      "src/bc/execute.rs": "c17596df18094fafeea9d3c2d99b685ad38c9a06ef4b198d4693528f22a54d0e",
+      "src/bc/global.rs": "25e58d615c43dd6e1a2ae5316792e55165fb92d85cc3de2917861b539e5458b0",
+      "src/bc/load.rs": "05098395afdc0a51b5e85ec10c4bb83f4261b211124ee3b48c31f4d885ba47ef",
+      "src/bc/main.rs": "9aabf3ce0d0268ea4bafd4f887f6b85ab411c7e48d8e56ad99a297925dfd7792",
+      "src/bc/scan.rs": "ecc90450a43e5649d8d0260fae802997cc70dde67c33a176ae0c41a6daf8ab03",
+      "src/bc/storage.rs": "61d39bb36bd6c4a3de42dc543fca0386adad29892293f1fff078be76825ea9ce",
+      "src/bc/util.rs": "52311401ab8324a305bafdbcc452af92691af2c49d3e58c5733866ec609d324a",
+      "src/bc/warranty.rs": "7e22dbd4ed7a6bd0dfad5af7b7487b324868b49de406cd807c404359ad88fd24",
+      "src/dc/array.rs": "5161abb83d604e4286cba5efa6224c0189e630b7ec0a3af0425fefd853b4b498",
+      "src/dc/dc.rs": "91e47bf148ff9e0173168b21712f6a18b3d28025ed78d1cfa53f14b8e7d29e24",
+      "src/dc/eval.rs": "d74d94aabb96b195bc062e6f6162a5bd7d8748ede9b8368a27443138006416db",
+      "src/dc/input.rs": "791d7ca303bf499f911c811b6b54ece5eb610540875504f46918a59da217ce96",
+      "src/dc/misc.rs": "860477a8da07280997447cbb72f8035f5217e595667411e17d3a526121210462",
+      "src/dc/numeric.rs": "d08b294627987e1828a202b3f17362756128b9e7fc7da4c48d8b804555ff62c8",
+      "src/dc/stack.rs": "b843fec316c8176618afeff5ca2ecae8a51e46189d411416f40b6c57c365e3a6",
+      "src/dc/string.rs": "b3505b06022ffe456190af600dbb8b540f3d50be7e1e29653c169aced4109d5a",
+      "src/lib/getopt.rs": "f26f2e13f92d7026298ed548fa704df9c920c85505821175efe7f5fc6969adf5",
+      "src/lib/getopt1.rs": "7829e15d344b73b48b08216d9acd65059669293b2fc675900c0f41dcdde193d2",
+      "src/lib/number.rs": "f6f37edfeff1246efc5329dbbe607b198e62417c2f82bef74df098288cfd63fa",
+      "src/lib/vfprintf.rs": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "panic_macros": 0,
+    "raw_pointer_type_occurrences": 3468,
+    "rust_bytes": 977475,
+    "rust_files": 23,
+    "rust_lines": 24528,
+    "todo_macros": 0,
+    "unimplemented_macros": 0,
+    "unsafe_block_occurrences": 10,
+    "unsafe_function_occurrences": 758
+  },
+  "recorded_at": "2026-11-21",
+  "release": "1.08.2",
+  "schema": 1,
+  "stable_translation": {
+    "archive": {
+      "bytes": 23726090,
+      "exported_definition_counts": {
+        "out_of_memory": 1,
+        "rt_error": 1,
+        "rt_warn": 1,
+        "rustbox_bc_main": 1,
+        "rustbox_dc_main": 1,
+        "std_only": 1
+      },
+      "sha256": "680d2ac1f89b928561fe802da797746d2ea98d2bb30531625b1cc6c2941b9e8d"
+    },
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+      "cargo_lock_sha256": "7ee3736c1e1db342335fa32210e99dfdb5bdc58337ec7d19083a6bd641836372",
+      "cargo_toml_sha256": "a97b03cb35c2fada9a051406c27f8e9e3e6337c7ba4665c1da1d82ab4c2c5f46",
+      "diagnostics_by_level": {
+        "warning": 14
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+      "schema": 1,
+      "stderr_sha256": "8429bb57f482c60f0910527bb1dd5b3d0e2c2d7bcc9d47156c10ccf532973a45",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "suspicious_runtime_symbol_definitions": 2,
+        "unused_imports": 2,
+        "unused_must_use": 2,
+        "unused_parens": 1,
+        "unused_unsafe": 1,
+        "unused_variables": 6
+      }
+    },
+    "compile_error_macros": 0,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "668e93b250976c7075259832dcd0a392adb6cdeb82146f09e1f41dfca7903829",
+      "src/bc/bc.rs": "84289f9c39afadf7a00fe7fa2c708c7f0dfa7d05e3be56a5650676dcac575d77",
+      "src/bc/execute.rs": "a5806c97533eeb1f4d61ae9838356d44024fb021f42b79632ac0c9fe4e0d7741",
+      "src/bc/global.rs": "bbabdbb1fbf31e59644a4c5ae5dfeb2f9aacd72f4e5bed60d62535a29b8e7661",
+      "src/bc/load.rs": "2b64cfe31b59e12ff8d7c721eddb6ade63e80ac266288633038a79dec01b7cc9",
+      "src/bc/main.rs": "041daff9c9d8f2020f8073f424557ccc50b19a063ae014a6eb31f9c079bf7399",
+      "src/bc/scan.rs": "c621b4ac2c64459277edc7ee87891916ed4073975fbfb81da3aed2471d3de215",
+      "src/bc/storage.rs": "a34944bea95aca05dd808568082329b32d93d8e3efccb814809b0e33ea3cf39d",
+      "src/bc/util.rs": "ff8753e310dc6f3d2c2ada81b2ceefa9f9f5a7ae5d357bb464636976c1ddc3c2",
+      "src/bc/warranty.rs": "737f959307bda15d67e24a45f78d301b7064afac4bdf3b6462ef83241b1c191a",
+      "src/dc/array.rs": "657a7a0bd3ad169eee7c6b48c00985b2e5f7863764d596563fc03a3d0e7e053f",
+      "src/dc/dc.rs": "f087e2adb38ec32fa06e9531023035c081672b976a77d3d159bc3f058df35113",
+      "src/dc/eval.rs": "5b0a73aed62caaba4e810a6d83e3d36bcb0d4d0b4841031f67e430502cd99f68",
+      "src/dc/input.rs": "f865890c5c9517611ae893d1a4ecbefe53edb5a08d424c73ff92649d957ea11b",
+      "src/dc/misc.rs": "8261af5d5232b77c011b8abe936defb1d30fc3af072c40421edbf6773c12845b",
+      "src/dc/numeric.rs": "747dd4aea6302a886098974cb6d1909f4122b6a23b8e5ea884cec292e13c8678",
+      "src/dc/stack.rs": "c6791b66fcce2109883ddff15eee01fd4d6f7d0b55e27fe094380e8519134144",
+      "src/dc/string.rs": "634f21810a7866045820c34af50ad5884231bcbf320f30302405cb197c4a4007",
+      "src/lib/getopt.rs": "fa5fff2793fbb40aac631080c31b865113b4874b51cd252c94e3e848bfd5d4cb",
+      "src/lib/getopt1.rs": "0cb3a33503ac34ab517d69eaedb03154404edd1ebb267e74a43fa8f4e64c158d",
+      "src/lib/number.rs": "310512fe2b13f4f501e8528186b8d4eab46e9bd1efa49ca23718325fa08268e1",
+      "src/lib/vfprintf.rs": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    "modernization": {
+      "changes": [
+        {
+          "after_sha256": "668e93b250976c7075259832dcd0a392adb6cdeb82146f09e1f41dfca7903829",
+          "as_va_list_rewrites": 0,
+          "before_sha256": "5cc3d065da04f747f1dda8b2ee4b006683833bc96cccf1764df3551b7f283fd7",
+          "opaque_pointer_types": [],
+          "path": "lib.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "84289f9c39afadf7a00fe7fa2c708c7f0dfa7d05e3be56a5650676dcac575d77",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "e672a01d080c52f6edd284078a06caed59331f90a882ba9b7a57a7e72238cc69",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/bc/bc.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "a5806c97533eeb1f4d61ae9838356d44024fb021f42b79632ac0c9fe4e0d7741",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "c17596df18094fafeea9d3c2d99b685ad38c9a06ef4b198d4693528f22a54d0e",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/bc/execute.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "bbabdbb1fbf31e59644a4c5ae5dfeb2f9aacd72f4e5bed60d62535a29b8e7661",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "25e58d615c43dd6e1a2ae5316792e55165fb92d85cc3de2917861b539e5458b0",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/bc/global.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "2b64cfe31b59e12ff8d7c721eddb6ade63e80ac266288633038a79dec01b7cc9",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "05098395afdc0a51b5e85ec10c4bb83f4261b211124ee3b48c31f4d885ba47ef",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/bc/load.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "041daff9c9d8f2020f8073f424557ccc50b19a063ae014a6eb31f9c079bf7399",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "9aabf3ce0d0268ea4bafd4f887f6b85ab411c7e48d8e56ad99a297925dfd7792",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/bc/main.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "c621b4ac2c64459277edc7ee87891916ed4073975fbfb81da3aed2471d3de215",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "ecc90450a43e5649d8d0260fae802997cc70dde67c33a176ae0c41a6daf8ab03",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/bc/scan.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "a34944bea95aca05dd808568082329b32d93d8e3efccb814809b0e33ea3cf39d",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "61d39bb36bd6c4a3de42dc543fca0386adad29892293f1fff078be76825ea9ce",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/bc/storage.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "ff8753e310dc6f3d2c2ada81b2ceefa9f9f5a7ae5d357bb464636976c1ddc3c2",
+          "as_va_list_rewrites": 6,
+          "before_sha256": "52311401ab8324a305bafdbcc452af92691af2c49d3e58c5733866ec609d324a",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/bc/util.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 4
+        },
+        {
+          "after_sha256": "737f959307bda15d67e24a45f78d301b7064afac4bdf3b6462ef83241b1c191a",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "7e22dbd4ed7a6bd0dfad5af7b7487b324868b49de406cd807c404359ad88fd24",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/bc/warranty.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "657a7a0bd3ad169eee7c6b48c00985b2e5f7863764d596563fc03a3d0e7e053f",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "5161abb83d604e4286cba5efa6224c0189e630b7ec0a3af0425fefd853b4b498",
+          "opaque_pointer_types": [
+            "dc_number",
+            "dc_string",
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/dc/array.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "f087e2adb38ec32fa06e9531023035c081672b976a77d3d159bc3f058df35113",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "91e47bf148ff9e0173168b21712f6a18b3d28025ed78d1cfa53f14b8e7d29e24",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/dc/dc.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "5b0a73aed62caaba4e810a6d83e3d36bcb0d4d0b4841031f67e430502cd99f68",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "d74d94aabb96b195bc062e6f6162a5bd7d8748ede9b8368a27443138006416db",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "dc_number",
+            "dc_string"
+          ],
+          "path": "src/dc/eval.rs",
+          "raw_static_pointer_rewrites": [
+            "interrupt_seen",
+            "interrupt_seen",
+            "interrupt_seen",
+            "interrupt_seen"
+          ],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "f865890c5c9517611ae893d1a4ecbefe53edb5a08d424c73ff92649d957ea11b",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "791d7ca303bf499f911c811b6b54ece5eb610540875504f46918a59da217ce96",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "dc_number",
+            "dc_string"
+          ],
+          "path": "src/dc/input.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "8261af5d5232b77c011b8abe936defb1d30fc3af072c40421edbf6773c12845b",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "860477a8da07280997447cbb72f8035f5217e595667411e17d3a526121210462",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "dc_number",
+            "dc_string"
+          ],
+          "path": "src/dc/misc.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "0f184a3cbe34d98049bf128bcf4487e7a2000f2e19f375a1c08749b22c6300c9",
+          "as_va_list_rewrites": 3,
+          "before_sha256": "d08b294627987e1828a202b3f17362756128b9e7fc7da4c48d8b804555ff62c8",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "dc_string"
+          ],
+          "path": "src/dc/numeric.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 2
+        },
+        {
+          "after_sha256": "c6791b66fcce2109883ddff15eee01fd4d6f7d0b55e27fe094380e8519134144",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "b843fec316c8176618afeff5ca2ecae8a51e46189d411416f40b6c57c365e3a6",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "dc_number",
+            "dc_string",
+            "dc_array"
+          ],
+          "path": "src/dc/stack.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "634f21810a7866045820c34af50ad5884231bcbf320f30302405cb197c4a4007",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "b3505b06022ffe456190af600dbb8b540f3d50be7e1e29653c169aced4109d5a",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "dc_number"
+          ],
+          "path": "src/dc/string.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "fa5fff2793fbb40aac631080c31b865113b4874b51cd252c94e3e848bfd5d4cb",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "f26f2e13f92d7026298ed548fa704df9c920c85505821175efe7f5fc6969adf5",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/lib/getopt.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "0cb3a33503ac34ab517d69eaedb03154404edd1ebb267e74a43fa8f4e64c158d",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "7829e15d344b73b48b08216d9acd65059669293b2fc675900c0f41dcdde193d2",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/lib/getopt1.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "310512fe2b13f4f501e8528186b8d4eab46e9bd1efa49ca23718325fa08268e1",
+          "as_va_list_rewrites": 1,
+          "before_sha256": "f6f37edfeff1246efc5329dbbe607b198e62417c2f82bef74df098288cfd63fa",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/lib/number.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+          "as_va_list_rewrites": 0,
+          "before_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "opaque_pointer_types": [],
+          "path": "src/lib/vfprintf.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        }
+      ],
+      "duplicate_exports_mangled": [
+        {
+          "kept": "src/bc/util.rs",
+          "mangled": "src/dc/numeric.rs",
+          "symbol": "out_of_memory"
+        },
+        {
+          "kept": "src/bc/util.rs",
+          "mangled": "src/dc/numeric.rs",
+          "symbol": "rt_error"
+        },
+        {
+          "kept": "src/bc/util.rs",
+          "mangled": "src/dc/numeric.rs",
+          "symbol": "rt_warn"
+        },
+        {
+          "kept": "src/bc/global.rs",
+          "mangled": "src/dc/numeric.rs",
+          "symbol": "std_only"
+        }
+      ],
+      "input_cargo_sha256": "a97b03cb35c2fada9a051406c27f8e9e3e6337c7ba4665c1da1d82ab4c2c5f46",
+      "schema": 1,
+      "stable_toolchain": "1.99.0"
+    },
+    "modernization_manifest_sha256": "114f846685e48d489e38e269db3f7880fdade03bba9021789262607f686fccbb",
+    "panic_macros": 0,
+    "raw_pointer_type_occurrences": 3468,
+    "rust_bytes": 979731,
+    "rust_files": 23,
+    "rust_lines": 24740,
+    "todo_macros": 0,
+    "unimplemented_macros": 0,
+    "unsafe_block_occurrences": 10,
+    "unsafe_function_occurrences": 758
+  },
+  "status": "complete stable translation compiles without holes; hybrid parity pending",
+  "translator": {
+    "declaration_map_emission": {
+      "enabled": false,
+      "partial_maps_accepted": false,
+      "reason": "all 21 units translate; C2Rust 0.22.1 then panics in optional foreign-item declaration-map metadata export"
+    },
+    "fail_on_error": true,
+    "generated_rust_repairs": 0,
+    "name": "C2Rust",
+    "normalized_c_sources": 3,
+    "preserve_unused_functions": true,
+    "version": "0.22.1"
+  }
+}

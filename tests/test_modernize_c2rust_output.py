@@ -167,6 +167,25 @@ class OpaqueUseTests(unittest.TestCase):
             self.assertIn("#[no_mangle]", program.read_text(encoding="utf-8"))
             self.assertNotIn("#[no_mangle]", library.read_text(encoding="utf-8"))
 
+    def test_separate_program_globals_receive_private_linkage(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            first = root / "src/bc/global.rs"
+            second = root / "src/dc/numeric.rs"
+            first.parent.mkdir(parents=True)
+            second.parent.mkdir(parents=True)
+            definition = "#[no_mangle]\npub static mut std_only: i32 = 0;\n"
+            first.write_text(definition, encoding="utf-8")
+            second.write_text(definition, encoding="utf-8")
+            changes = MODULE.deduplicate_no_mangle_statics(root)
+            self.assertEqual(changes, [{
+                "symbol": "std_only",
+                "kept": "src/bc/global.rs",
+                "mangled": "src/dc/numeric.rs",
+            }])
+            self.assertIn("#[no_mangle]", first.read_text(encoding="utf-8"))
+            self.assertNotIn("#[no_mangle]", second.read_text(encoding="utf-8"))
+
 
 if __name__ == "__main__":
     unittest.main()
