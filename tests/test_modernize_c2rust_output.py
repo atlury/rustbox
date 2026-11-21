@@ -53,6 +53,24 @@ class OpaqueUseTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, "non-pointer use"):
             self.transform("pub type opaque;\nfn f(value: opaque) {}\n")
 
+    def test_local_may_shadow_opaque_type_name(self) -> None:
+        output = self.transform(
+            "pub type opaque;\n"
+            "pub type opaque_t = *mut opaque;\n"
+            "fn consume(_: opaque_t) {}\n"
+            "fn f() { let mut opaque: opaque_t = core::ptr::null_mut::<opaque>(); "
+            "opaque = core::ptr::null_mut(); consume(opaque); }\n"
+        )
+        self.assertIn("pub struct opaque", output)
+
+    def test_shadowing_local_does_not_mask_by_value_type_use(self) -> None:
+        with self.assertRaisesRegex(RuntimeError, "non-pointer use"):
+            self.transform(
+                "pub type opaque;\n"
+                "fn f() { let mut opaque: *mut opaque = core::ptr::null_mut(); }\n"
+                "fn bad(value: opaque) {}\n"
+            )
+
     def test_pointer_use_does_not_mask_by_value_use_on_same_line(self) -> None:
         with self.assertRaisesRegex(RuntimeError, "non-pointer use"):
             self.transform(

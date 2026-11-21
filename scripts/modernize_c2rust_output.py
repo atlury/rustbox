@@ -18,6 +18,9 @@ TYPE_ALIAS = re.compile(
     r"^\s*pub\s+type\s+([A-Za-z_][A-Za-z0-9_]*)\s*=\s*"
     r"([A-Za-z_][A-Za-z0-9_]*)\s*;\s*$"
 )
+LOCAL_VALUE_BINDING = re.compile(
+    r"\blet\s+(?:mut\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*:"
+)
 RUST_LITERAL = re.compile(
     r"(?:b|c)?r\#*\".*?\"\#*|(?:b|c)?\"(?:\\.|[^\"\\])*\"|b?'(?:\\.|[^'\\])*'"
 )
@@ -59,6 +62,33 @@ def has_only_pointer_uses(line: str, name: str) -> bool:
     for pattern in allowed:
         residual = re.sub(pattern, "", residual)
     return re.search(rf"\b{escaped}\b", residual) is None
+
+
+def has_by_value_type_use(text: str, name: str) -> bool:
+    """Detect type-position uses after a local shadows an opaque C tag.
+
+    Rust keeps type and value identifiers in separate namespaces.  C2Rust can
+    therefore emit both ``pub type kwset;`` and ``let mut kwset: kwset_t`` in
+    one module.  Bare occurrences in that local's expressions are values, but
+    the constructs below still denote a by-value type and must remain fatal.
+    """
+    escaped = re.escape(name)
+    residual = RUST_LITERAL.sub("", text)
+    residual = "\n".join(line.split("//", 1)[0] for line in residual.splitlines())
+    residual = re.sub(rf"\*(?:mut|const)\s+{escaped}\b", "", residual)
+    residual = re.sub(
+        rf"\bnull(?:_mut)?\s*::\s*<\s*{escaped}\s*,?\s*>", "", residual
+    )
+    forbidden = (
+        rf"(?<!:):\s*{escaped}\b",
+        rf"->\s*{escaped}\b",
+        rf"\bas\s+{escaped}\b",
+        rf"::\s*<\s*{escaped}\b",
+        rf"\btype\s+[A-Za-z_][A-Za-z0-9_]*\s*=[^;\n]*\b{escaped}\b",
+        rf"\bstruct\s+[A-Za-z_][A-Za-z0-9_]*\s*\([^;\n]*\b{escaped}\b",
+        rf"\[\s*{escaped}\s*;",
+    )
+    return any(re.search(pattern, residual, re.DOTALL) for pattern in forbidden)
 
 
 def alias_has_only_pointer_uses(
@@ -142,6 +172,9 @@ def transform_rust(path: Path) -> dict[str, object] | None:
     mutable_statics = {
         match.group(1) for line in kept if (match := STATIC_MUT.match(line))
     }
+    local_value_bindings = {
+        match.group(1) for line in kept if (match := LOCAL_VALUE_BINDING.search(line))
+    }
     raw_static_pointer_rewrites: list[str] = []
     for name in sorted(mutable_statics):
         mutable_pattern = re.compile(rf"&mut\s+{re.escape(name)}\s+as\s+\*mut\b")
@@ -175,6 +208,8 @@ def transform_rust(path: Path) -> dict[str, object] | None:
             if not has_only_pointer_uses(line, name):
                 context = "\n".join(kept[max(0, index - 2):index + 3])
                 if not has_only_pointer_uses(context, name):
+                    if name in local_value_bindings and not has_by_value_type_use(context, name):
+                        continue
                     raise RuntimeError(f"{path}: opaque type {name} has non-pointer use: {line}")
 
     # C variadics are stable now, but C2Rust 0.22 emitted the old internal

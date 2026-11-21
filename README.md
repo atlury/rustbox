@@ -409,6 +409,17 @@ canonical suite total; the canonical process-exit allocation baseline is
 unchanged; and all 72 canonical-versus-normalized behavior comparisons are
 byte-exact.  The exact source closure, rewrites, symbols, dependencies, and
 parity record are in `evidence/grep-3.12-normalization.json`.
+The exact 129-unit closure then translates with C2Rust 0.22.1 under
+`--fail-on-error` and `--preserve-unused-functions`; all 129 declaration maps
+are present.  Both the raw nightly crate and the deterministic Rust 1.99
+modernization compile, and the release archive exports exactly one
+`rustbox_grep_main`.  The 131 generated Rust files contain 101,710 lines and
+no `compile_error!`, `todo!`, `unimplemented!`, or fallback `panic!` holes;
+the current 10,249 raw-pointer type occurrences are recorded for later
+hardening rather than silently treated as safe.  No generated Rust was
+hand-repaired.  Reproducible inventories, hashes, compiler diagnostics, and
+the 24,216,926-byte pre-link archive are in
+`evidence/grep-3.12-c2rust.json`; canonical hybrid parity is the next gate.
 
 ## Work queue after util-linux
 
