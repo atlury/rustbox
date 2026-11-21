@@ -60,10 +60,13 @@ RUSTBOX_TOOL_IMAGE=rustbox-grep:2026-11-21 \
         ASAN_OPTIONS=detect_leaks=0:halt_on_error=1:allocator_may_return_null=1 \
         UBSAN_OPTIONS=halt_on_error=1 \
         make -C tests -j"$(nproc)" check TESTS="$sanitizer_tests"
+      # Gnulib test-strstr has a fixed SIGALRM performance deadline.  ASan
+      # allocator overhead plus a fully parallel suite can consume that budget;
+      # serialize this instrumented suite while retaining every test.
       runuser --user=nobody -- env \
         ASAN_OPTIONS=detect_leaks=0:halt_on_error=1:allocator_may_return_null=1 \
         UBSAN_OPTIONS=halt_on_error=1 \
-        make -C gnulib-tests -j"$(nproc)" check
+        make -C gnulib-tests -j1 check
     } >"$output/sanitizer-check.log" 2>&1 || {
       status=$?
       cat "$output/sanitizer-check.log"

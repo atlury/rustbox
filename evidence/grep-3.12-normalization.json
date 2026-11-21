@@ -14,7 +14,7 @@
         "libpcre2-8.so.0",
         "libc.so.6"
       ],
-      "sha256": "479b085a027b1bf80a81e7f16a12a6859f615659a8fee06a69f5154596d490ac"
+      "sha256": "b2ab945b71b32a7ac8d1399922769a30540db3829a36013a16c029f236f7c049"
     }
   },
   "canonical_normalized_differential": {
@@ -46,7 +46,7 @@
         "main",
         "rustbox_grep_main"
       ],
-      "sha256": "ba170677146d6cc84ac43343fa28dce24ba6fd135a90e8889ef78d452972fc58"
+      "sha256": "3522628bc7d518e0e8ac9f9514c2d3378ad70bbc2e79fdd24c382303b5a60fd6"
     }
   },
   "next_gate": "translate the exact 129-source normalized production closure with C2Rust",
@@ -66,7 +66,7 @@
     ],
     "conditional": "RUSTBOX_MULTICALL",
     "engine": "exact deterministic source rewrite",
-    "normalized_tree_sha256": "c33178f2312f34671a407b3bca3174fb7b56f82c180d4e6952330c846bef1fa3",
+    "normalized_tree_sha256": "84f5b39f55b7ca37efd0872489a188c1c378843c3262127998c4c6ce27b47d0e",
     "release": "3.12",
     "schema": 1,
     "transformations": [
@@ -115,7 +115,7 @@
       {
         "canonical_sha256": "22ff6b93485baa033ebd3469ded5695d49b5c9aba89dcdb41cc67237a7ad94a0",
         "engine": "exact deterministic translator-compatibility rewrite",
-        "normalized_sha256": "a89f44e85e576344bf111d2163550ce477e6776324c1cfe95751ecb1fb71ed48",
+        "normalized_sha256": "e7f18f7f9f6f153bcbc87380823473a8f81afeb2b890151801d48a118559429a",
         "operation": "export the multicall entrypoint and make eager Boolean accumulation explicit",
         "source": "src/grep.c"
       },
@@ -145,9 +145,9 @@
       "sanitizer": 169
     },
     "compile_database_sha256": {
-      "clang": "99e1aa5282cb6e1dddd51468b08905ca97e6ff7b7f70653e18ba4b4ee50a9dd7",
-      "gcc": "2a93ff99200e9855688ab0ca1e24f347054f8298d8ba96657b55d3a262e4cda4",
-      "sanitizer": "341f0262f0fa613660327608c567212bb1f92068bbd90d645058ae9a1d3df186"
+      "clang": "d3592e50cf5e2ac9207b74be9898b329d5e652c88e45c141e6b2179452eba234",
+      "gcc": "adf35ad84df9347ba16899ac11c1ad9354e62da64aae91d0239a5527da3526cf",
+      "sanitizer": "b6992fe85314e899ead1b181616ea709af620f64ead93065f11c728a43cb193b"
     },
     "production_sources": 129,
     "source_closure_matches_canonical": true,
@@ -177,7 +177,7 @@
         "xfail": 2,
         "xpass": 0
       },
-      "log_sha256": "ee4abf7a9c22b4ee9a01af93def59c73651d4444b99bed081523822837c64ce5"
+      "log_sha256": "ed6be46a72aec28c57312960b3d2f9cd279c6136ed921e6451c2de4cc1487697"
     },
     "gcc": {
       "gnulib": {
@@ -198,7 +198,7 @@
         "xfail": 2,
         "xpass": 0
       },
-      "log_sha256": "321892e94452cb89a0e45e2973453d48d7b5098245c442691a0d29aa0aaeacf8"
+      "log_sha256": "dd9bbd9e398c23a1347849054d977dacf76a13088e3bfa8e12fa426dea3a36ce"
     },
     "sanitizer": {
       "gnulib": {
@@ -219,11 +219,11 @@
         "xfail": 2,
         "xpass": 0
       },
-      "log_sha256": "d47e749076423ff0d88e09315fb6b9cdb7b340725d452d21db8474b90e7a73ea"
+      "log_sha256": "87e5b03aedc9af7d2c3f24b2909841a6ce124e4762377fbd8a42d691a1f4d77a"
     }
   },
   "valgrind": {
-    "log_sha256": "d74c389d33e162bbd0f142a780ee9592dfe028322f5377cd2f5477ca54e2efe5",
+    "log_sha256": "f9284f454bdc3aae56c997181737e763114ab925da8c8ca608390c74be33a127",
     "matches_canonical_summary": true
   }
 }

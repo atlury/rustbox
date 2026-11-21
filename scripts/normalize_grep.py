@@ -99,6 +99,7 @@ def main() -> int:
              "status = grepdirent (fts, ent, command_line) && status;", 1),
             ("status &= grep_command_line_arg (*files++);",
              "status = grep_command_line_arg (*files++) && status;", 1),
+            ("out_invert ^= true;", "out_invert = !out_invert;", 1),
         ])
         replace_exact(staged / "src/dfasearch.c", [
             ("dc->begline |= dm->begline;",
