@@ -1,0 +1,120 @@
+{
+  "artifacts": {
+    "clang-analyzer-tidy.log": "e8cc263d61cc77560545ec7867d7277f1f34b530945022590bf88f36fb0bcb03",
+    "compile_commands.json": "41acb9e90da4a5409cea997de5dee06355a4e21a01aea42b39c834381b70e444",
+    "cppcheck.log": "3278657278948acf99e65cded178a721add5eefc6313d53ca0aa7f7d9613d9a3",
+    "flawfinder.log": "92c2ee560c03ea8f6d51d3f5d52096fff346d129c8c3a9485314e03b6ae50b0f",
+    "gcc-analyzer-setup.log": "0aaa292ecebe1d12480fe2654ee7620eaecb92e960a6e157e6d5a83c07d57b25",
+    "gcc-analyzer.log": "2b8259e22bb5c48aa42f0bfd9e18d08ae1532b69e6b3a4c9c06b173d3d050d20",
+    "sources.list": "355a69ebf4ebdfa2154fd90833e9cb2aa99833af2bd39f664f90d957db94f7e1",
+    "sparse.log": "6f88852b17b6eaee50bd9e695c4af54f12eb539a7a8a69c33a2434116a16a83b",
+    "sparse.status": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "bundled_dc_release": "1.5.2",
+  "recorded_at": "2026-11-21",
+  "release": "1.08.2",
+  "review": {
+    "blocking_findings": 0,
+    "canonical_source_changes": 0,
+    "known_canonical_resource_baseline": {
+      "bc_bytes_at_exit": 52619,
+      "dc_bytes_at_exit": 376,
+      "definite_indirect_or_possible_leaks": 0
+    },
+    "notes": [
+      "The Cppcheck dangling-lifetime report follows strcpy's returned heap pointer through a local pointer variable; strcopyof allocates that storage with bc_malloc.",
+      "Number-library null reports assume out_of_memory can return.  Both bc and dc implementations terminate the process, so successful paths retain non-null allocation invariants.",
+      "Flex scanner null and buffer-leak reports likewise lose YY_FATAL_ERROR's non-returning behavior and generated scanner ownership; shipped scanner workloads and Valgrind exercise cleanup behavior.",
+      "Bison stack uninitialized-value reports are generated-parser dataflow false positives; both compilers and ASan/UBSan execute all bounded parser workloads.",
+      "dc_dump_num's loop condition guarantees cur is non-null before its digit and link are read.",
+      "dc input FILE reports follow explicit process-exit commands that intentionally bypass local close; the operating system owns exit cleanup and Valgrind records no definite, indirect, or possible leak.",
+      "bc execute dead stores advance the bytecode program counter while handling compact single-value encodings; parser and numerical suites cover those paths.",
+      "Signed/unsigned printf and comparison diagnostics are retained as explicit deterministic-normalization candidates, with canonical behavior fixed by the configured Linux ABI.",
+      "Remaining Tidy, Flawfinder, and Sparse output is pointer, macro, naming, generated-code, and hardening inventory rather than a demonstrated functional defect."
+    ]
+  },
+  "schema": 1,
+  "scope": {
+    "compile_actions": 21,
+    "targets": [
+      "bc",
+      "dc"
+    ],
+    "tests_examples_and_nonselected_sources_excluded": true,
+    "unique_sources": 21
+  },
+  "tools": {
+    "clang_analyzer_tidy": {
+      "all_findings_by_check": {
+        "bugprone-assignment-in-if-condition": 8,
+        "bugprone-branch-clone": 7,
+        "bugprone-easily-swappable-parameters": 14,
+        "bugprone-inc-dec-in-conditions": 1,
+        "bugprone-macro-parentheses": 31,
+        "bugprone-misplaced-widening-cast": 3,
+        "bugprone-multi-level-implicit-pointer-conversion": 14,
+        "bugprone-narrowing-conversions": 41,
+        "bugprone-reserved-identifier": 119,
+        "bugprone-signal-handler": 2,
+        "bugprone-signed-char-misuse": 2,
+        "bugprone-switch-missing-default-case": 14,
+        "clang-analyzer-core.NonNullParamChecker": 3,
+        "clang-analyzer-core.NullDereference": 10,
+        "clang-analyzer-deadcode.DeadStores": 3,
+        "clang-analyzer-optin.performance.Padding": 2,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 61,
+        "clang-analyzer-security.insecureAPI.strcpy": 2
+      },
+      "analyzer_findings_by_check": {
+        "clang-analyzer-core.NonNullParamChecker": 3,
+        "clang-analyzer-core.NullDereference": 10,
+        "clang-analyzer-deadcode.DeadStores": 3,
+        "clang-analyzer-optin.performance.Padding": 2,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 61,
+        "clang-analyzer-security.insecureAPI.strcpy": 2
+      }
+    },
+    "cppcheck": {
+      "findings_by_id": {
+        "constVariablePointer": 7,
+        "invalidPrintfArgType_sint": 2,
+        "knownConditionTrueFalse": 4,
+        "nullPointer": 2,
+        "nullPointerArithmeticRedundantCheck": 2,
+        "nullPointerRedundantCheck": 17,
+        "redundantContinue": 1,
+        "returnDanglingLifetime": 1,
+        "unreadVariable": 4,
+        "uselessAssignmentPtrArg": 1,
+        "variableScope": 31
+      },
+      "findings_by_severity": {
+        "error": 1,
+        "style": 47,
+        "warning": 24
+      }
+    },
+    "flawfinder": {
+      "hits_at_level_1_or_higher": 86,
+      "lines_analyzed": 14783
+    },
+    "gcc_fanalyzer": {
+      "findings_by_check": {
+        "analyzer-deref-before-check": 1,
+        "analyzer-file-leak": 1,
+        "analyzer-malloc-leak": 4,
+        "analyzer-null-argument": 1,
+        "analyzer-null-dereference": 5,
+        "analyzer-use-of-uninitialized-value": 2,
+        "sign-compare": 1,
+        "unused-parameter": 2
+      },
+      "warnings": 17
+    },
+    "sparse": {
+      "exit_status": 0,
+      "parser_errors": 0,
+      "warnings": 57
+    }
+  }
+}

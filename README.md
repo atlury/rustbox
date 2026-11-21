@@ -456,8 +456,16 @@ either executable; the process-lifetime storage still reachable at exit is
 recorded rather than hidden.  The oracle deliberately disables optional
 Readline and libedit, so its sole dynamic dependency is libc.  Reproducible
 source, build, suite, differential, binary, and resource evidence is in
-`evidence/bc-1.08.2-oracle.json`; production-only static analysis is the next
-gate before deterministic normalization.
+`evidence/bc-1.08.2-oracle.json`.
+Cppcheck, GCC `-fanalyzer`, Clang analyzer/Tidy, Flawfinder, and Sparse then
+review exactly those 21 production units.  Allocation-failure paths terminate
+through `out_of_memory`/`dc_memfail`; generated Flex and Bison ownership and
+dataflow account for the apparent null, leak, and uninitialized reports; and
+the dc byte-output traversal checks its node before each access.  The reviewed
+inventory has zero blocking findings and no canonical source changes.  Exact
+tool counts, artifact hashes, process-exit resource baselines, and finding
+dispositions are in `evidence/bc-1.08.2-analysis.json`; deterministic
+normalization is the next gate.
 
 ## Work queue after util-linux
 
