@@ -590,7 +590,8 @@ Library-only checkpoints (outside the active utility order):
      canonical parity.
    - [x] Grep 3.12 — `grep`, `egrep`, `fgrep`; integrated at canonical parity.
    - [x] bc 1.08.2 / dc 1.5.2 — `bc`, `dc`; integrated at canonical parity.
-   - [ ] attr — `attr`, `getfattr`, `setfattr`.
+   - [x] attr 2.6.0 — `attr`, `getfattr`, `setfattr`; integrated at canonical
+     parity.
    - [ ] acl — `chacl`, `getfacl`, `setfacl`.
    - [ ] lz4 — `lz4`, `lz4c`, `lz4cat`, `unlz4`.
 2. Compression, archive, and terminal foundations:
