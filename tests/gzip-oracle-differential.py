@@ -60,7 +60,9 @@ def snapshot(root: Path) -> list[dict[str, object]]:
     return records
 
 
-def prepare(root: Path, directory: Path, case: Case) -> tuple[Path, Path]:
+def prepare(
+    root: Path, directory: Path, case: Case, canonical_less: Path | None
+) -> tuple[Path, Path]:
     workspace = root / "workspace"
     commands = root / "commands"
     shutil.rmtree(workspace, ignore_errors=True)
@@ -69,6 +71,11 @@ def prepare(root: Path, directory: Path, case: Case) -> tuple[Path, Path]:
     commands.mkdir()
     for name in NAMES:
         (commands / name).symlink_to(directory / name)
+    integrated_less = directory / "less"
+    if integrated_less.exists():
+        (commands / "less").symlink_to(integrated_less)
+    elif canonical_less is not None:
+        (commands / "less").symlink_to(canonical_less)
     for name, content in case.files.items():
         path = workspace / name
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -86,8 +93,10 @@ def environment(commands: Path) -> dict[str, str]:
     }
 
 
-def invoke(directory: Path, case: Case, root: Path) -> dict[str, object]:
-    workspace, commands = prepare(root, directory, case)
+def invoke(
+    directory: Path, case: Case, root: Path, canonical_less: Path | None = None
+) -> dict[str, object]:
+    workspace, commands = prepare(root, directory, case, canonical_less)
     env = environment(commands)
     for setup in case.setup:
         output = subprocess.PIPE
@@ -269,6 +278,18 @@ def cases() -> list[Case]:
         Case("znew-no-operands", "znew", ()),
         Case("zless", "zless", ("text.gz",), files=files,
              setup=(Setup("gzip", ("-n", "-c", "text"), "text.gz"),)),
+        Case("zless-option", "zless", ("-N", "text.gz"), files=files,
+             setup=(Setup("gzip", ("-n", "-c", "text"), "text.gz"),)),
+        Case("zless-option-argument", "zless", ("-x", "4", "text.gz"), files=files,
+             setup=(Setup("gzip", ("-n", "-c", "text"), "text.gz"),)),
+        Case("zless-stdin", "zless", (),
+             stdin=gzip_module.compress(text, mtime=0)),
+        Case("zless-plain", "zless", ("text",), files=files),
+        Case("zless-plus-command", "zless", ("+1", "text.gz"), files=files,
+             setup=(Setup("gzip", ("-n", "-c", "text"), "text.gz"),)),
+        Case("zless-multiple", "zless", ("text.gz", "other.gz"), files=files,
+             setup=(Setup("gzip", ("-n", "-c", "text"), "text.gz"),
+                    Setup("gzip", ("-n", "-c", "other"), "other.gz"))),
         Case("gzexe-compress", "gzexe", ("tool",),
              files={"tool": b"#!/bin/sh\nprintf 'payload\\n'\n"},
              executable_files=("tool",)),
@@ -291,6 +312,7 @@ def main() -> int:
     parser.add_argument("--gcc-directory", type=Path, required=True)
     parser.add_argument("--clang-directory", type=Path, required=True)
     parser.add_argument("--applets", nargs="+", choices=NAMES)
+    parser.add_argument("--canonical-less", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     selected = set(args.applets or NAMES)
@@ -298,7 +320,7 @@ def main() -> int:
     with tempfile.TemporaryDirectory(prefix="rustbox-gzip-differential-") as temporary:
         root = Path(temporary)
         for case in (case for case in cases() if case.applet in selected):
-            gcc = invoke(args.gcc_directory.resolve(), case, root)
+            gcc = invoke(args.gcc_directory.resolve(), case, root, args.canonical_less)
             clang = invoke(args.clang_directory.resolve(), case, root)
             if gcc != clang:
                 raise RuntimeError(f"gzip/{case.name}: GCC {gcc} != Clang {clang}")

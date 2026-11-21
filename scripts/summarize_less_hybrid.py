@@ -88,7 +88,7 @@ def main() -> int:
         "schema": 1,
         "recorded_at": "2026-11-22",
         "release": "710",
-        "status": "complete translated hybrid at canonical parity; multicall integration pending",
+        "status": "complete translated hybrid at canonical parity; both names integrated into Rustbox",
         "implementation": {
             "production_sources": 38,
             "rust_files": translation["stable_translation"]["rust_files"],
@@ -125,7 +125,7 @@ def main() -> int:
                 "less-710-normalization.json", "less-710-c2rust.json",
             )
         },
-        "next_gate": "namespace Less symbols and integrate both names into the unified multicall",
+        "next_gate": "complete; unified dispatch evidence is in evidence/rustbox-multicall.json",
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")

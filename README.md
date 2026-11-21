@@ -57,8 +57,8 @@ scoring, and correctness gates.
 | attr 2.6.0 | 3 | 3 | 3 | 3 |
 | acl 2.4.0 | 3 | 3 | 3 | 3 |
 | LZ4 1.11.1 | 4 | 4 | 4 | 4 |
-| GNU Gzip 1.14 | 14 | 14 | 14 | 13 |
-| Less 710 | 2 | 2 | 2 | 0 |
+| GNU Gzip 1.14 | 14 | 14 | 14 | 14 |
+| Less 710 | 2 | 2 | 2 | 2 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -120,12 +120,13 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 302
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 305
 distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, five
 pkgconf names, File, GNU patch, GNU sed, four GNU Diffutils applets, and GNU
 Grep's three public names, GNU bc and dc, attr's three tools, plus chacl,
-getfacl, and setfacl, plus LZ4's four public names and thirteen GNU Gzip interfaces;
-`kill` is shared and `util-linux-kill` remains available explicitly).  It passes all 604
+getfacl, and setfacl, plus LZ4's four public names, Less and lessecho, and all
+fourteen GNU Gzip interfaces; `kill` is shared and `util-linux-kill` remains
+available explicitly).  It passes all 610
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
 check, 108-case differential suite, and Valgrind.  Pkgconf also passes all 429
@@ -145,15 +146,16 @@ tools retain 13 upstream passes and two canonical NFS expected failures, all
 lifecycles through the same dispatcher.  LZ4 passes all 27 byte-and-filesystem
 differential cases, its complete upstream essentials suite, and leak-free
 resource checks through the same dispatcher.  GNU Gzip's translated native
-engine and twelve native frontend names pass all 99 relevant byte,
+engine and thirteen native frontend names pass all 108 relevant byte,
 filesystem, failure, help, and version
 comparisons and emit byte-identical compressed streams.  The Gzip engine and
 comparison frontends have zero lost bytes; `zgrep` matches GNU Grep's canonical
 allocation lifecycle exactly, while `zmore` frees every allocation in its
-internal Gzip-to-`more` pipeline; `znew` also frees every allocation while
+internal Gzip-to-`more` pipeline and `zless` does the same through the
+integrated Less engine; `znew` also frees every allocation while
 recompressing.  `gzexe` emits the exact canonical 932-byte launcher, executes
-and decompresses its result, and frees all allocations.  The stripped 302-name
-executable is 7,460,384
+and decompresses its result, and frees all allocations.  The stripped 305-name
+executable is 8,060,400
 bytes.
 `chcon` and `runcon`
 remain absent, and the linked binary has no SELinux or systemd dependency.
@@ -744,16 +746,15 @@ Full behavior, bridge, resource, dependency, symbol, and size evidence is in
 The translated native `gzip` engine is also integrated into the unified
 Rustbox dispatcher.  Native equivalents of upstream's `gunzip`, `zcat`,
 `zcmp`, `zdiff`, `zforce`, `zgrep`, `zegrep`, `zfgrep`, `zmore`, `znew`, and
-`gzexe` shell frontends provide thirteen public names without invoking a shell
-inside Rustbox.  The comparison, search,
-and pager
-frontends reuse the integrated GNU Diffutils and Grep engines and Util-linux
-`more` through internal Gzip pipes.  Their expanded 99-case differential passes,
+`gzexe` shell frontends, plus an internal Gzip-to-Less `zless`, provide all
+fourteen public names without invoking a shell inside Rustbox.  The comparison,
+search, and pager frontends reuse the integrated GNU Diffutils and Grep engines,
+Util-linux `more`, and Less through internal Gzip pipes.  Their expanded
+108-case differential passes,
 compression is byte-identical, decompression matches canonical bytes, and
 Valgrind matches the canonical engine lifecycles.  All Gzip and gnulib
 symbols except the three deliberate entrypoints are private to the applet,
-including its independent Rust personality symbol.  The remaining name
-require internal replacements for upstream's shell interfaces.  Unified
+including its independent Rust personality symbol.  Unified
 evidence is in `evidence/rustbox-multicall.json`.  The first three native
 frontend names add no stripped bytes beyond the Gzip engine; `zcmp` and `zdiff`
 add 8,192 stripped bytes, and the three `zgrep` personalities add 4,096 bytes;
@@ -775,6 +776,9 @@ versus 304,552 bytes for the canonical standalone binary; terminal-info code
 is still a fixture-time shared dependency and must be internalized at the
 final static release gate.  Translation and hybrid evidence is in
 `evidence/less-710-c2rust.json` and `evidence/less-710-hybrid.json`.
+Both names are privately namespaced and integrated into Rustbox; their 22-case
+multicall differential and resource checks pass, and Less also supplies the
+final internal `zless` frontend.
 
 ## Work queue after util-linux
 
@@ -820,10 +824,9 @@ Library-only checkpoints (outside the active utility order):
    - [x] LZ4 1.11.1 — `lz4`, `lz4c`, `lz4cat`, `unlz4`; integrated at
      canonical parity.
 2. Compression, archive, and terminal foundations:
-   - [ ] GNU Gzip 1.14 — translated hybrid at canonical parity; native `gzip`,
+   - [x] GNU Gzip 1.14 — translated hybrid at canonical parity; native `gzip`,
      `gunzip`, `zcat`, `uncompress`, `zcmp`, `zdiff`, `zforce`, `zgrep`,
-     `zegrep`, `zfgrep`, `zmore`, `znew`, and `gzexe` integrated; canonical
-     Less integration and the final `zless` frontend remain pending.
+     `zegrep`, `zfgrep`, `zless`, `zmore`, `znew`, and `gzexe` integrated.
    - [ ] xz — `xz`, `unxz`, `xzcat`, `lzma`, `unlzma`, `lzcat`, `xzdec`,
      `lzmadec`, `lzmainfo`, `xzcmp`, `xzdiff`, `xzegrep`, `xzfgrep`, `xzgrep`,
      `xzless`, `xzmore`.
@@ -834,9 +837,9 @@ Library-only checkpoints (outside the active utility order):
      `tic`, `toe`, `tput`, `tset`, `reset`, and the generated
      `ncurses*-config` helper; shared `ncurses`, `panel`, `form`, and `menu`
      libraries are part of the same integration.
-   - [ ] Less 710 — canonical `less` and private-runtime `lessecho`; full
-     translation and standalone hybrid parity are complete, with unified
-     multicall integration pending.  Upstream removed the standalone
+   - [x] Less 710 — canonical `less` and private-runtime `lessecho`; full
+     translation, standalone hybrid parity, and unified multicall integration
+     are complete.  Upstream removed the standalone
      `lesskey` program in version 706 and now parses lesskey source directly
      inside `less`, so it is intentionally not resurrected.
 3. Multi-tool text processing and source generators:

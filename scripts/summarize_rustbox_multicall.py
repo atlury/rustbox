@@ -34,6 +34,7 @@ def main() -> int:
     parser.add_argument("--attr-report-directory", type=Path, required=True)
     parser.add_argument("--acl-report-directory", type=Path, required=True)
     parser.add_argument("--lz4-report-directory", type=Path, required=True)
+    parser.add_argument("--less-report-directory", type=Path, required=True)
     parser.add_argument("--gzip-report-directory", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
@@ -52,11 +53,12 @@ def main() -> int:
     attr_directory = args.attr_report_directory.resolve()
     acl_directory = args.acl_report_directory.resolve()
     lz4_directory = args.lz4_report_directory.resolve()
+    less_directory = args.less_report_directory.resolve()
     gzip_directory = args.gzip_report_directory.resolve()
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
-    if dispatch["cases"] != 604 or dispatch["passed"] != 604 or dispatch["failures"]:
+    if dispatch["cases"] != 610 or dispatch["passed"] != 610 or dispatch["failures"]:
         raise RuntimeError("unified dispatcher comparison is incomplete")
     if (
         differential["batches"] != 38
@@ -388,11 +390,33 @@ def main() -> int:
         or any(marker not in lz4_upstream for marker in lz4_markers)
     ):
         raise RuntimeError("unified LZ4 integration comparison is incomplete")
+    less_differential_path = less_directory / "differential.json"
+    less_differential = json.loads(less_differential_path.read_text())
+    less_valgrind_paths = {
+        applet: less_directory / f"valgrind-{applet}.log"
+        for applet in ("less", "lessecho")
+    }
+    less_markers = {
+        "less": [
+            "ERROR SUMMARY: 0 errors", "definitely lost: 0 bytes",
+            "indirectly lost: 0 bytes", "still reachable: 5,952 bytes in 22 blocks",
+        ],
+        "lessecho": [
+            "ERROR SUMMARY: 0 errors",
+            "All heap blocks were freed -- no leaks are possible",
+        ],
+    }
+    for applet, path in less_valgrind_paths.items():
+        text = path.read_text(errors="replace")
+        if any(marker not in text for marker in less_markers[applet]):
+            raise RuntimeError(f"unified Less {applet} Valgrind comparison is incomplete")
+    if less_differential.get("cases") != 22 or less_differential.get("passed") != 22:
+        raise RuntimeError("unified Less integration comparison is incomplete")
     gzip_differential_path = gzip_directory / "differential.json"
     gzip_differential = json.loads(gzip_differential_path.read_text())
     gzip_valgrind_paths = {
         operation: gzip_directory / f"valgrind-{operation}.log"
-        for operation in ("compress", "decompress", "zcmp", "zdiff", "zgrep", "zmore", "znew", "gzexe")
+        for operation in ("compress", "decompress", "zcmp", "zdiff", "zgrep", "zless", "zmore", "znew", "gzexe")
     }
     for operation, path in gzip_valgrind_paths.items():
         text = path.read_text(errors="replace")
@@ -405,7 +429,7 @@ def main() -> int:
                 "possibly lost: 128 bytes in 1 blocks",
                 "still reachable: 112,870 bytes in 19 blocks",
             ])
-        elif operation in {"compress", "decompress", "zmore", "znew", "gzexe"}:
+        elif operation in {"compress", "decompress", "zless", "zmore", "znew", "gzexe"}:
             required.extend([
                 "ERROR SUMMARY: 0 errors",
                 "All heap blocks were freed -- no leaks are possible",
@@ -419,7 +443,7 @@ def main() -> int:
             ])
         if any(marker not in text for marker in required):
             raise RuntimeError(f"unified GNU Gzip {operation} Valgrind comparison is incomplete")
-    if gzip_differential.get("cases") != 99 or gzip_differential.get("passed") != 99:
+    if gzip_differential.get("cases") != 108 or gzip_differential.get("passed") != 108:
         raise RuntimeError("unified GNU Gzip integration comparison is incomplete")
     if sha256(binary) != link["binary"]["sha256"]:
         raise RuntimeError("unified binary changed after link evidence")
@@ -446,7 +470,7 @@ def main() -> int:
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-22",
-        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, and thirteen GNU Gzip interfaces integrated at canonical parity",
+        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, and all fourteen GNU Gzip interfaces integrated at canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
@@ -461,8 +485,9 @@ def main() -> int:
             "attr": 3,
             "acl": 3,
             "lz4": 4,
-            "gzip_integrated_names": 13,
-            "dispatch_names": 302,
+            "less": 2,
+            "gzip_integrated_names": 14,
+            "dispatch_names": 305,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -583,9 +608,21 @@ def main() -> int:
                 for operation, path in lz4_valgrind_paths.items()
             },
         },
+        "less_integration": {
+            "differential": less_differential,
+            "valgrind_errors": 0,
+            "less_lost_bytes": 0,
+            "less_still_reachable_bytes": 5952,
+            "lessecho_all_allocations_freed": True,
+            "differential_sha256": sha256(less_differential_path),
+            "valgrind_log_sha256": {
+                applet: sha256(path)
+                for applet, path in less_valgrind_paths.items()
+            },
+        },
         "gzip_integration": {
-            "integrated_public_names": 13,
-            "native_shell_replacements": ["gunzip", "uncompress", "zcat", "zcmp", "zdiff", "zforce", "zgrep", "zegrep", "zfgrep", "zmore", "znew", "gzexe"],
+            "integrated_public_names": 14,
+            "native_shell_replacements": ["gunzip", "uncompress", "zcat", "zcmp", "zdiff", "zforce", "zgrep", "zegrep", "zfgrep", "zless", "zmore", "znew", "gzexe"],
             "alias_bridge": link["gzip_alias_bridge"],
             "differential": gzip_differential,
             "byte_identical_compression": True,
@@ -600,6 +637,7 @@ def main() -> int:
             "search_frontend_canonical_valgrind_errors": 1,
             "search_frontend_canonical_possibly_lost_bytes": 128,
             "search_frontend_canonical_still_reachable_bytes": 112870,
+            "less_frontend_all_allocations_freed": True,
             "pager_frontend_all_allocations_freed": True,
             "recompression_frontend_all_allocations_freed": True,
             "executable_frontend_all_allocations_freed": True,
@@ -630,6 +668,7 @@ def main() -> int:
             "attr_namespaced_symbols": len(link["attr_namespaced_symbols"]),
             "acl_namespaced_symbols": len(link["acl_namespaced_symbols"]),
             "lz4_namespaced_symbols": len(link["lz4_namespaced_symbols"]),
+            "less_namespaced_symbols": len(link["less_namespaced_symbols"]),
             "gzip_namespaced_symbols": len(link["gzip_namespaced_symbols"]),
             "gzip_alias_bridge_symbols": len(link["gzip_alias_bridge"]["symbols"]),
             "manifest": link,

@@ -114,7 +114,7 @@ def main() -> int:
         "schema": 1,
         "recorded_at": "2026-11-21",
         "release": "1.14",
-        "status": "complete translated hybrid at canonical parity; multicall integration pending",
+        "status": "complete translated hybrid at canonical parity; all fourteen names integrated into Rustbox",
         "implementation": {
             "complete_audit_sources": 68,
             "rust_production_sources": 64,
@@ -161,7 +161,7 @@ def main() -> int:
                 "gzip-1.14-normalization.json", "gzip-1.14-c2rust.json",
             )
         },
-        "next_gate": "replace canonical shell interfaces with internal dispatch and integrate all 14 names into Rustbox",
+        "next_gate": "complete; unified dispatch evidence is in evidence/rustbox-multicall.json",
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")

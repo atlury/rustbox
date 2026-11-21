@@ -18,6 +18,7 @@ extern int rustbox_cmp_main(int, char **);
 extern int rustbox_diff_main(int, char **);
 extern int rustbox_grep_main(int, char **);
 extern int rustbox_more_main(int, char **);
+extern int rustbox_less_main(int, char **);
 
 static int
 run_gzip_mode(int argc, char **argv, char const *mode)
@@ -857,6 +858,156 @@ zmore_help(char const *invocation)
     "Usage: %s [OPTION]... [FILE]...\n"
     "Like 'more', but operate on the uncompressed contents of any compressed FILEs.\n\n"
     "Report bugs to <bug-gzip@gnu.org>.\n", invocation) < 0;
+}
+
+static int
+zless_help(char const *invocation)
+{
+  return printf(
+    "Usage: %s [OPTION]... [FILE]...\n"
+    "Like 'less', but operate on the uncompressed contents of any compressed FILEs.\n\n"
+    "Options are the same as for 'less'.\n\n"
+    "Report bugs to <bug-gzip@gnu.org>.\n", invocation) < 0;
+}
+
+static int
+zless_version(void)
+{
+  return printf(
+    "zless (gzip) 1.14\n"
+    "Copyright (C) 2025 Free Software Foundation, Inc.\n"
+    "This is free software.  You may redistribute copies of it under the terms of\n"
+    "the GNU General Public License <https://www.gnu.org/licenses/gpl.html>.\n"
+    "There is NO WARRANTY, to the extent permitted by law.\n\n"
+    "Written by Paul Eggert.\n") < 0;
+}
+
+static int
+zless_option_takes_argument(char const *option)
+{
+  static char const *const long_options[] = {
+    "buffers", "color", "max-back-scroll", "jump-target",
+    "lesskey-file", "lesskey-src", "lesskey-content", "log-file",
+    "LOG-FILE", "pattern", "prompt", "tag", "tag-file", "tabs",
+    "max-forw-scroll", "window", "quotes", "shift", "rscroll",
+    "emouse", "wheel-lines", "line-num-width", "status-col-width",
+    "header", "search-options", "modelines", "intr", "cmd",
+    "match-shift", "autosave", "end-prompt", "tty"
+  };
+  size_t index;
+  size_t length;
+  int matches = 0;
+  if (option[0] != '-' || option[1] == '\0')
+    return 0;
+  if (option[1] != '-')
+    {
+      if (strcmp(option, "-kc") == 0 || strcmp(option, "-ks") == 0)
+        return 1;
+      return option[2] == '\0'
+             && strchr("bDhjkoOpPtTxyz\"#", option[1]) != NULL;
+    }
+  if (option[2] == '\0' || strchr(option + 2, '=') != NULL)
+    return 0;
+  length = strlen(option + 2);
+  for (index = 0; index < sizeof long_options / sizeof long_options[0]; index++)
+    if (strncmp(long_options[index], option + 2, length) == 0)
+      matches++;
+  return matches == 1;
+}
+
+int
+rustbox_zless_main(int argc, char **argv)
+{
+  int first = 1;
+  int stream[2];
+  pid_t producer;
+  pid_t pager;
+  int index;
+  int pager_status;
+  char *less_argv[argc + 1];
+  int less_argc = 1;
+  if (1 < argc && strcmp(argv[1], "--help") == 0)
+    return zless_help(argv[0]);
+  if (1 < argc && strcmp(argv[1], "--version") == 0)
+    return zless_version();
+  less_argv[0] = (char *) "less";
+  while (first < argc)
+    {
+      if (strcmp(argv[first], "--") == 0)
+        {
+          first++;
+          break;
+        }
+      if (argv[first][0] != '-' || argv[first][1] == '\0')
+        {
+          if (argv[first][0] == '+')
+            {
+              less_argv[less_argc++] = argv[first++];
+              continue;
+            }
+          break;
+        }
+      less_argv[less_argc++] = argv[first++];
+      if (zless_option_takes_argument(less_argv[less_argc - 1]) && first < argc)
+        less_argv[less_argc++] = argv[first++];
+    }
+  less_argv[less_argc] = NULL;
+  if (pipe(stream) < 0)
+    return 1;
+  fflush(NULL);
+  producer = fork();
+  if (producer < 0)
+    {
+      close(stream[0]);
+      close(stream[1]);
+      return 1;
+    }
+  if (producer == 0)
+    {
+      int file_count = argc - first;
+      close(stream[0]);
+      if (dup2(stream[1], STDOUT_FILENO) < 0)
+        _exit(1);
+      close(stream[1]);
+      if (file_count == 0)
+        {
+          pid_t child = start_gzip("-", STDOUT_FILENO, -1);
+          _exit(child < 0 ? 1 : wait_program(child));
+        }
+      for (index = first; index < argc; index++)
+        {
+          pid_t child = start_gzip(argv[index], STDOUT_FILENO, -1);
+          if (child < 0 || wait_program(child) != 0)
+            _exit(1);
+        }
+      _exit(0);
+    }
+  close(stream[1]);
+  fflush(NULL);
+  pager = fork();
+  if (pager < 0)
+    {
+      close(stream[0]);
+      wait_program(producer);
+      return 1;
+    }
+  if (pager == 0)
+    {
+      int status;
+      if (dup2(stream[0], STDIN_FILENO) < 0)
+        _exit(1);
+      close(stream[0]);
+      program_invocation_name = less_argv[0];
+      program_invocation_short_name = less_argv[0];
+      status = rustbox_less_main(less_argc, less_argv);
+      fflush(NULL);
+      exit(status);
+    }
+  close(stream[0]);
+  pager_status = wait_program(pager);
+  if (wait_program(producer) != 0 && pager_status == 0)
+    return 1;
+  return pager_status;
 }
 
 static int

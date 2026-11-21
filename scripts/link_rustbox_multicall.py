@@ -609,6 +609,53 @@ def namespace_lz4_library(
     return mapped, symbols
 
 
+def namespace_less_library(
+    rust_library: Path, build: Path
+) -> tuple[Path, list[str]]:
+    """Keep Less's terminal, regex, and pager implementation private."""
+    public = {"rustbox_less_main", "rustbox_lessecho_main"}
+    strong_types = {"B", "C", "D", "G", "R", "S", "T"}
+    compiler_math = re.compile(
+        r"^(?:cbrt|ceil|copysign|fabs|fdim|floor|fma|fmax|fmaximum|fmin|fminimum|fmod|rint|round|sqrt|trunc)(?:f|f16|f128)?$"
+    )
+    output = subprocess.run(
+        ["nm", "-g", "--defined-only", str(rust_library)],
+        check=True, text=True, stdout=subprocess.PIPE,
+    ).stdout
+    symbols = sorted({
+        fields[-1]
+        for line in output.splitlines()
+        if len(fields := line.split()) >= 3
+        and fields[-2] in strong_types
+        and re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", fields[-1])
+        and fields[-1] not in public
+        and not fields[-1].startswith("rust_")
+        and not compiler_math.fullmatch(fields[-1])
+    })
+    if not symbols:
+        raise RuntimeError("Less archive exports no namespaceable C symbols")
+    destination = build / "src/.rustbox-less"
+    destination.mkdir(parents=True, exist_ok=True)
+    mapped = destination / rust_library.name
+    mapping = destination / "symbols.map"
+    mapping.write_text(
+        "".join(f"{symbol} rustbox_less_private_{symbol}\n" for symbol in symbols),
+        encoding="utf-8",
+    )
+    shutil.copy2(rust_library, mapped)
+    subprocess.run(["objcopy", "--redefine-syms", str(mapping), str(mapped)], check=True)
+    mapped_definitions = defined_symbols(mapped)
+    definitions = set(mapped_definitions)
+    for symbol in public:
+        if mapped_definitions.count(symbol) != 1:
+            raise RuntimeError(f"Less symbol isolation damaged {symbol}")
+    if any(symbol in definitions for symbol in symbols):
+        raise RuntimeError("Less symbol isolation left an unprefixed definition")
+    if any(f"rustbox_less_private_{symbol}" not in definitions for symbol in symbols):
+        raise RuntimeError("Less symbol isolation lost a definition")
+    return mapped, symbols
+
+
 def namespace_gzip_libraries(
     rust_library: Path, support_library: Path, build: Path
 ) -> tuple[Path, Path, list[str]]:
@@ -870,6 +917,8 @@ extern int rustbox_chacl_main(int, char **);
 extern int rustbox_getfacl_main(int, char **);
 extern int rustbox_setfacl_main(int, char **);
 extern int rustbox_lz4_main(int, char **);
+extern int rustbox_less_main(int, char **);
+extern int rustbox_lessecho_main(int, char **);
 extern int rustbox_gzip_main(int, char **);
 extern int rustbox_gunzip_main(int, char **);
 extern int rustbox_zcat_main(int, char **);
@@ -879,6 +928,7 @@ extern int rustbox_zforce_main(int, char **);
 extern int rustbox_zgrep_main(int, char **);
 extern int rustbox_zegrep_main(int, char **);
 extern int rustbox_zfgrep_main(int, char **);
+extern int rustbox_zless_main(int, char **);
 extern int rustbox_zmore_main(int, char **);
 extern int rustbox_znew_main(int, char **);
 extern int rustbox_gzexe_main(int, char **);
@@ -1006,6 +1056,10 @@ int main(int argc, char **argv)
     if (!force_util_linux && (strcmp(name, "lz4") == 0 || strcmp(name, "lz4c") == 0 ||
                               strcmp(name, "lz4cat") == 0 || strcmp(name, "unlz4") == 0))
         return rustbox_lz4_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "less") == 0)
+        return rustbox_less_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "lessecho") == 0)
+        return rustbox_lessecho_main(argc, argv);
     if (!force_util_linux && strcmp(name, "gzip") == 0)
         return rustbox_gzip_main(argc, argv);
     if (!force_util_linux && (strcmp(name, "gunzip") == 0 || strcmp(name, "uncompress") == 0))
@@ -1024,6 +1078,8 @@ int main(int argc, char **argv)
         return rustbox_zegrep_main(argc, argv);
     if (!force_util_linux && strcmp(name, "zfgrep") == 0)
         return rustbox_zfgrep_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "zless") == 0)
+        return rustbox_zless_main(argc, argv);
     if (!force_util_linux && strcmp(name, "zmore") == 0)
         return rustbox_zmore_main(argc, argv);
     if (!force_util_linux && strcmp(name, "znew") == 0)
@@ -1059,6 +1115,7 @@ def main() -> int:
     parser.add_argument("--attr-rust-library", type=Path, required=True)
     parser.add_argument("--acl-rust-library", type=Path, required=True)
     parser.add_argument("--lz4-rust-library", type=Path, required=True)
+    parser.add_argument("--less-rust-library", type=Path, required=True)
     parser.add_argument("--gzip-rust-library", type=Path, required=True)
     parser.add_argument("--gzip-support-library", type=Path, required=True)
     parser.add_argument("--link-report", type=Path, required=True)
@@ -1079,6 +1136,7 @@ def main() -> int:
     attr_rust_library = args.attr_rust_library.resolve()
     acl_rust_library = args.acl_rust_library.resolve()
     lz4_rust_library = args.lz4_rust_library.resolve()
+    less_rust_library = args.less_rust_library.resolve()
     gzip_rust_library = args.gzip_rust_library.resolve()
     gzip_support_library = args.gzip_support_library.resolve()
     makefile = build / "Makefile"
@@ -1163,7 +1221,8 @@ def main() -> int:
         m4_rust_library, m4_support_library, pkgconf_rust_library,
         file_rust_library, patch_rust_library, sed_rust_library,
         diffutils_rust_library, grep_rust_library, bc_rust_library,
-        attr_rust_library, acl_rust_library, lz4_rust_library, gzip_rust_library,
+        attr_rust_library, acl_rust_library, lz4_rust_library, less_rust_library,
+        gzip_rust_library,
         gzip_support_library,
     ):
         if not path.is_file():
@@ -1189,6 +1248,8 @@ def main() -> int:
     acl_library_index = len(libraries) - 1
     libraries.append(lz4_rust_library)
     lz4_library_index = len(libraries) - 1
+    libraries.append(less_rust_library)
+    less_library_index = len(libraries) - 1
     libraries.append(gzip_rust_library)
     gzip_library_index = len(libraries) - 1
     source_library_hashes = {str(path.relative_to(repository)): sha256(path) for path in libraries}
@@ -1218,6 +1279,8 @@ def main() -> int:
         "rustbox_getfacl_main",
         "rustbox_setfacl_main",
         "rustbox_lz4_main",
+        "rustbox_less_main",
+        "rustbox_lessecho_main",
         "rustbox_gzip_main",
         "rustbox_gunzip_main",
         "rustbox_zcat_main",
@@ -1227,6 +1290,7 @@ def main() -> int:
         "rustbox_zgrep_main",
         "rustbox_zegrep_main",
         "rustbox_zfgrep_main",
+        "rustbox_zless_main",
         "rustbox_zmore_main",
         "rustbox_znew_main",
         "rustbox_gzexe_main",
@@ -1321,6 +1385,15 @@ def main() -> int:
             libraries[lz4_library_index], build
         )
     libraries[lz4_library_index] = mapped_lz4_rust
+
+    if cached_report:
+        mapped_less_rust = build / "src/.rustbox-less" / libraries[less_library_index].name
+        less_symbols = cached_report["less_namespaced_symbols"]
+    else:
+        mapped_less_rust, less_symbols = namespace_less_library(
+            libraries[less_library_index], build
+        )
+    libraries[less_library_index] = mapped_less_rust
 
     if cached_report:
         mapped_gzip_rust = build / "src/.rustbox-gzip" / libraries[gzip_library_index].name
@@ -1421,6 +1494,7 @@ def main() -> int:
         "rustbox_gunzip_main", "rustbox_zcat_main",
         "rustbox_zcmp_main", "rustbox_zdiff_main", "rustbox_zforce_main",
         "rustbox_zgrep_main", "rustbox_zegrep_main", "rustbox_zfgrep_main",
+        "rustbox_zless_main",
         "rustbox_zmore_main",
         "rustbox_znew_main",
         "rustbox_gzexe_main",
@@ -1514,7 +1588,7 @@ def main() -> int:
         "src/coreutils",
         "single_binary_deps=" + " ".join(rewritten),
         "src_coreutils_OBJECTS=" + str(dispatcher_object) + " " + str(renamed_dispatch),
-        "src_libsinglebin_false_a_ldadd=$(src_true_LDADD) -ldl -lpthread -lm -lrt -lutil "
+        "src_libsinglebin_false_a_ldadd=$(src_true_LDADD) -ldl -lpthread -lm -lrt -lutil -ltinfo "
         "-lbz2 -llz -llzma -lseccomp -lz -lzstd -lattr -lpcre2-8",
         "src_coreutils_LDADD=$(single_binary_deps) $(LDADD) $(single_binary_libs) "
         + " ".join(util_link_libraries),
@@ -1557,15 +1631,18 @@ def main() -> int:
         "attr_applets": 3,
         "acl_applets": 3,
         "lz4_public_names": 4,
-        "gzip_public_names": 13,
+        "less_public_names": 2,
+        "gzip_public_names": 14,
         "total_dispatch_names": len(
             set(applets)
             | set(util_dispatch)
             | {"m4", "pkgconf", "pkg-config", "bomtool", "pccritic", "spdxtool", "file", "patch", "sed",
                "cmp", "diff", "diff3", "sdiff", "grep", "egrep", "fgrep", "bc", "dc",
                "attr", "getfattr", "setfattr", "chacl", "getfacl", "setfacl",
-               "lz4", "lz4c", "lz4cat", "unlz4", "gzip", "gunzip", "zcat", "uncompress",
-               "zcmp", "zdiff", "zforce", "zgrep", "zegrep", "zfgrep", "zmore", "znew", "gzexe"}
+               "lz4", "lz4c", "lz4cat", "unlz4", "less", "lessecho",
+               "gzip", "gunzip", "zcat", "uncompress",
+               "zcmp", "zdiff", "zforce", "zgrep", "zegrep", "zfgrep", "zless",
+               "zmore", "znew", "gzexe"}
         ),
         "excluded": ["chcon", "runcon"],
         "public_name_precedence": {"kill": "GNU Coreutils", "util-linux-kill": "util-linux"},
@@ -1588,6 +1665,7 @@ def main() -> int:
         "attr_namespaced_symbols": attr_symbols,
         "acl_namespaced_symbols": acl_symbols,
         "lz4_namespaced_symbols": lz4_symbols,
+        "less_namespaced_symbols": less_symbols,
         "gzip_namespaced_symbols": gzip_symbols,
         "diffutils_error_bridge": {
             "object": str(diffutils_error_object.relative_to(build)),
@@ -1607,9 +1685,10 @@ def main() -> int:
             "symbols": ["rustbox_gunzip_main", "rustbox_zcat_main",
                         "rustbox_zcmp_main", "rustbox_zdiff_main", "rustbox_zforce_main",
                         "rustbox_zgrep_main", "rustbox_zegrep_main", "rustbox_zfgrep_main",
+                        "rustbox_zless_main",
                         "rustbox_zmore_main", "rustbox_znew_main", "rustbox_gzexe_main"],
             "public_names": ["gunzip", "uncompress", "zcat", "zcmp", "zdiff", "zforce",
-                             "zgrep", "zegrep", "zfgrep", "zmore", "znew", "gzexe"],
+                             "zgrep", "zegrep", "zfgrep", "zless", "zmore", "znew", "gzexe"],
         },
         "sed_abi_bridge": {
             "object": str(sed_abi_object.relative_to(build)),
@@ -1641,7 +1720,8 @@ def main() -> int:
         "attr_applets": 3,
         "acl_applets": 3,
         "lz4_public_names": 4,
-        "gzip_public_names": 13,
+        "less_public_names": 2,
+        "gzip_public_names": 14,
         "output": str(output),
     }))
     return 0
