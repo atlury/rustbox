@@ -1,0 +1,363 @@
+{
+  "behavior": {
+    "differential": {
+      "cases": 22,
+      "passed": 22,
+      "records": [
+        {
+          "applet": "less",
+          "name": "less-version-short",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 287,
+            "stdout_sha256": "fb52843783f2ecb5ba890f55a054a82f4fadfb6fcca3488e9fddb4bb02191038"
+          }
+        },
+        {
+          "applet": "less",
+          "name": "less-version-long",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 287,
+            "stdout_sha256": "fb52843783f2ecb5ba890f55a054a82f4fadfb6fcca3488e9fddb4bb02191038"
+          }
+        },
+        {
+          "applet": "less",
+          "name": "less-help-short",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 17499,
+            "stdout_sha256": "58e245fe68fbb2e6c34c061a796c031a29d538158549c13438b63c52e82bb952"
+          }
+        },
+        {
+          "applet": "less",
+          "name": "less-help-long",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 17499,
+            "stdout_sha256": "58e245fe68fbb2e6c34c061a796c031a29d538158549c13438b63c52e82bb952"
+          }
+        },
+        {
+          "applet": "less",
+          "name": "less-invalid-option",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 65,
+            "stderr_sha256": "59b1d444c07646e47f7d8568d774e5c2f9b6199ad752ddbf5e240228eaa71a71",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        {
+          "applet": "less",
+          "name": "less-stdin",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 23,
+            "stdout_sha256": "6de7f908a3c6392b98b47a44350da7747ab8bfd70d0e34b6e38d7d717d5b2e58"
+          }
+        },
+        {
+          "applet": "less",
+          "name": "less-empty-stdin",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        {
+          "applet": "less",
+          "name": "less-file",
+          "result": {
+            "files": {
+              "input": "6de7f908a3c6392b98b47a44350da7747ab8bfd70d0e34b6e38d7d717d5b2e58"
+            },
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 23,
+            "stdout_sha256": "6de7f908a3c6392b98b47a44350da7747ab8bfd70d0e34b6e38d7d717d5b2e58"
+          }
+        },
+        {
+          "applet": "less",
+          "name": "less-multiple-files",
+          "result": {
+            "files": {
+              "one": "6de7f908a3c6392b98b47a44350da7747ab8bfd70d0e34b6e38d7d717d5b2e58",
+              "two": "067a0ae9ed9eef4b493bc286dc4f8b1ec088c0f75f222cd93cfde316390edf2f"
+            },
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 231,
+            "stdout_sha256": "b28347f8ae124e00f72690f5fa783a4d5fd28b9b20ef32c222f6ab3630b52dda"
+          }
+        },
+        {
+          "applet": "less",
+          "name": "less-squeeze",
+          "result": {
+            "files": {
+              "input": "6de7f908a3c6392b98b47a44350da7747ab8bfd70d0e34b6e38d7d717d5b2e58"
+            },
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 23,
+            "stdout_sha256": "6de7f908a3c6392b98b47a44350da7747ab8bfd70d0e34b6e38d7d717d5b2e58"
+          }
+        },
+        {
+          "applet": "less",
+          "name": "less-chop",
+          "result": {
+            "files": {
+              "input": "067a0ae9ed9eef4b493bc286dc4f8b1ec088c0f75f222cd93cfde316390edf2f"
+            },
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 208,
+            "stdout_sha256": "067a0ae9ed9eef4b493bc286dc4f8b1ec088c0f75f222cd93cfde316390edf2f"
+          }
+        },
+        {
+          "applet": "less",
+          "name": "less-search",
+          "result": {
+            "files": {
+              "input": "6de7f908a3c6392b98b47a44350da7747ab8bfd70d0e34b6e38d7d717d5b2e58"
+            },
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 23,
+            "stdout_sha256": "6de7f908a3c6392b98b47a44350da7747ab8bfd70d0e34b6e38d7d717d5b2e58"
+          }
+        },
+        {
+          "applet": "less",
+          "name": "less-missing",
+          "result": {
+            "files": {},
+            "status": 1,
+            "stderr_bytes": 35,
+            "stderr_sha256": "fbdfc316996a7f5e898adc205f024033847a223e3d8ef3ac1c9d7372263bf75b",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        {
+          "applet": "less",
+          "name": "less-double-dash",
+          "result": {
+            "files": {
+              "-input": "6de7f908a3c6392b98b47a44350da7747ab8bfd70d0e34b6e38d7d717d5b2e58"
+            },
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 23,
+            "stdout_sha256": "6de7f908a3c6392b98b47a44350da7747ab8bfd70d0e34b6e38d7d717d5b2e58"
+          }
+        },
+        {
+          "applet": "lessecho",
+          "name": "lessecho-version",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 5,
+            "stdout_sha256": "2a7832af2969e717ea4cbf8ea1a04161903e301b393bbdfa86359cdb0161dabe"
+          }
+        },
+        {
+          "applet": "lessecho",
+          "name": "lessecho-help",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 78,
+            "stderr_sha256": "9310ffb010f530ffc6491fcb6d83d9b37762ff26728c4433ae3e5ea5b3479e13",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        {
+          "applet": "lessecho",
+          "name": "lessecho-plain",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 17,
+            "stdout_sha256": "adf7157c8a5bbb4b099d39ba5ef34b73a3787f5e9326b3eb24ac8b86fd03ff96"
+          }
+        },
+        {
+          "applet": "lessecho",
+          "name": "lessecho-quote-all",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 21,
+            "stdout_sha256": "5afc7c6cc212574c546efa3dba7a9a478007e59d3e853ae6bffab4c7f3a7a2b9"
+          }
+        },
+        {
+          "applet": "lessecho",
+          "name": "lessecho-metachar",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 18,
+            "stdout_sha256": "5afe14864d9b85d4bcb87efc3a5fd0533b30f89a7fb04575ab52baa69cd543b2"
+          }
+        },
+        {
+          "applet": "lessecho",
+          "name": "lessecho-no-escape",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 13,
+            "stdout_sha256": "086f4c9827740dcb152c44f5062b0cb75dd0fb7078ef3ba86499adfd94c0278f"
+          }
+        },
+        {
+          "applet": "lessecho",
+          "name": "lessecho-numeric-quotes",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 8,
+            "stdout_sha256": "ef920357059a50a7c37ec956bf25348248d9c766812bef81eaa2a4aec5059b05"
+          }
+        },
+        {
+          "applet": "lessecho",
+          "name": "lessecho-invalid",
+          "result": {
+            "files": {},
+            "status": 1,
+            "stderr_bytes": 24,
+            "stderr_sha256": "aed65c8572236f07d1b267085329034821709ee8a20e15c2ca38c442114f8200",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        }
+      ],
+      "schema": 1
+    },
+    "differential_sha256": "bb8977ec148eba7d1aef69f98b4f3f481f7408432460846d65e4909926a7d1e1",
+    "valgrind": {
+      "less": {
+        "canonical": {
+          "heap_summary": "total heap usage: 41 allocs, 19 frees, 64,263 bytes allocated",
+          "log_sha256": "011c16a088bebe4960a03c09e3c27aa63739ae4eced1690115ac32cae46d8121"
+        },
+        "hybrid": {
+          "heap_summary": "total heap usage: 41 allocs, 19 frees, 64,263 bytes allocated",
+          "log_sha256": "e770de260056663346ef6c9eb216cfc0169d4c886cc3e3f0a4dfa69d68ac92ba"
+        }
+      },
+      "lessecho": {
+        "canonical": {
+          "heap_summary": "total heap usage: 1 allocs, 1 frees, 4,096 bytes allocated",
+          "log_sha256": "9c494d0a7e01f732194874920d97a038f90a3eb55598e77baaf894ea23d468e3"
+        },
+        "hybrid": {
+          "heap_summary": "total heap usage: 1 allocs, 1 frees, 4,096 bytes allocated",
+          "log_sha256": "634e9c1becbb9691387b3a7cf2170f7c344f03684167d012cdf6beaeb3808def"
+        }
+      }
+    }
+  },
+  "configuration": {
+    "selinux": false,
+    "systemd": false
+  },
+  "implementation": {
+    "c_abi_glue": "argv0 dispatch only",
+    "entrypoints": [
+      "rustbox_less_main",
+      "rustbox_lessecho_main"
+    ],
+    "generated_rust_semantic_repairs": 0,
+    "production_sources": 38,
+    "public_names": [
+      "less",
+      "lessecho"
+    ],
+    "rust_files": 40,
+    "type_directed_promotion_repairs": 8
+  },
+  "input_evidence": {
+    "less-710-analysis.json": "b32dfb57c8ce1bb5f5a2d005f01e794c757e3e04e7a18f3a668cf9fd0f3a2aed",
+    "less-710-c2rust.json": "31d242606bca346f4dce15383f90796396e41ffc020c943b1856d4d16526fc2a",
+    "less-710-normalization.json": "163958cadc86b8add2290af5497cefea07e252c15485bc79189cf9b7b17aee53",
+    "less-710-oracle.json": "7e24c79f5e320caf2efb4c6860e2b4088f7ac929dd9f627852e0933528000dc9"
+  },
+  "next_gate": "namespace Less symbols and integrate both names into the unified multicall",
+  "recorded_at": "2026-11-22",
+  "release": "710",
+  "schema": 1,
+  "size": {
+    "canonical_stripped_bytes": 304552,
+    "dynamic_needed": [
+      "libtinfo.so.6",
+      "libm.so.6",
+      "libgcc_s.so.1",
+      "libc.so.6",
+      "ld-linux-x86-64.so.2"
+    ],
+    "interpretation": "libtinfo is allowed only for this parity fixture and must be internalized before the final static release gate",
+    "linked_sha256": "134fd138b708c748fa0d8da02dfdd863ebc4d2ae6f8e31783e69b774bc9d36f6",
+    "linked_stripped_bytes": 924648,
+    "linked_unstripped_bytes": 5140904,
+    "sections": {
+      "bss": 54952,
+      "data": 45530,
+      "rodata": 60405,
+      "text": 691198
+    },
+    "stripped_sha256": "5cb751cf4eca4d5912e45b6791a5d529b7c5a32849a7fa5275a78cf1db9ee811",
+    "translation_static_archive_bytes": 24962600
+  },
+  "status": "complete translated hybrid at canonical parity; multicall integration pending"
+}

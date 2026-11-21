@@ -1,0 +1,266 @@
+{
+  "configuration": {
+    "selinux": false,
+    "systemd": false
+  },
+  "dependencies": {
+    "rust_crates": [
+      "libc"
+    ]
+  },
+  "hardening": {
+    "later_order": [
+      "eliminate raw pointers and unsafe",
+      "replace std and libc crate use with Rustbox-owned no_std runtime"
+    ],
+    "raw_pointers_and_unsafe_are_inventory_only": true
+  },
+  "input": {
+    "compile_commands": 38,
+    "compile_database_sha256": "da11eed755a479b9d47959162cd57540631752e27f8a9ac01e41bc9f631c5ac6",
+    "declaration_maps": 38,
+    "production_sources": [
+      "brac.c",
+      "ch.c",
+      "charset.c",
+      "cmdbuf.c",
+      "command.c",
+      "cvt.c",
+      "decode.c",
+      "edit.c",
+      "evar.c",
+      "filename.c",
+      "forwback.c",
+      "help.c",
+      "ifile.c",
+      "input.c",
+      "jump.c",
+      "lessecho.c",
+      "lesskey_parse.c",
+      "line.c",
+      "linenum.c",
+      "lmsg.c",
+      "lsystem.c",
+      "main.c",
+      "mark.c",
+      "optfunc.c",
+      "option.c",
+      "opttbl.c",
+      "os.c",
+      "output.c",
+      "pattern.c",
+      "position.c",
+      "prompt.c",
+      "screen.c",
+      "search.c",
+      "signal.c",
+      "tags.c",
+      "ttyin.c",
+      "version.c",
+      "xbuf.c"
+    ]
+  },
+  "next_gate": "integrate less and lessecho into the unified multicall executable",
+  "raw_translation": {
+    "cargo_check": {
+      "build_finished_success": false,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "05b71302fc4882e6145990b7ab35922f16b354da2162b685547b2d50473f7583",
+      "cargo_toml_sha256": "53c0ed807404b3c27994441e7b8f4475073218de4b8579262369363a8ad3c763",
+      "diagnostics_by_level": {
+        "error": 9,
+        "failure-note": 1,
+        "warning": 2
+      },
+      "errors": [
+        {
+          "code": "E0308",
+          "column": 52,
+          "file": "src/cmdbuf.rs",
+          "line": 2054,
+          "message": "mismatched types"
+        },
+        {
+          "code": "E0308",
+          "column": 38,
+          "file": "src/cmdbuf.rs",
+          "line": 2059,
+          "message": "mismatched types"
+        },
+        {
+          "code": "E0308",
+          "column": 38,
+          "file": "src/line.rs",
+          "line": 1421,
+          "message": "mismatched types"
+        },
+        {
+          "code": "E0308",
+          "column": 46,
+          "file": "src/line.rs",
+          "line": 1427,
+          "message": "mismatched types"
+        },
+        {
+          "code": "E0308",
+          "column": 62,
+          "file": "src/output.rs",
+          "line": 1031,
+          "message": "mismatched types"
+        },
+        {
+          "code": "E0308",
+          "column": 62,
+          "file": "src/output.rs",
+          "line": 1037,
+          "message": "mismatched types"
+        },
+        {
+          "code": "E0308",
+          "column": 62,
+          "file": "src/output.rs",
+          "line": 1142,
+          "message": "mismatched types"
+        },
+        {
+          "code": "E0308",
+          "column": 62,
+          "file": "src/output.rs",
+          "line": 1148,
+          "message": "mismatched types"
+        },
+        {
+          "code": null,
+          "column": null,
+          "file": null,
+          "line": null,
+          "message": "aborting due to 8 previous errors; 2 warnings emitted"
+        }
+      ],
+      "exit_status": 101,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "aa82a1387c2b7aeccd350e4a7069d738aba53a40c5d1f09c484e3c69cfb4082b",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "E0308": 8,
+        "unused_imports": 2
+      }
+    },
+    "holes": {
+      "compile_error": 0,
+      "panic": 0,
+      "todo": 0,
+      "unimplemented": 0
+    },
+    "raw_pointer_type_occurrences": 10041,
+    "rust_bytes": 2998742,
+    "rust_files": 40,
+    "rust_lines": 76735,
+    "unsafe_function_occurrences": 1862
+  },
+  "recorded_at": "2026-11-22",
+  "release": "710",
+  "schema": 1,
+  "stable_translation": {
+    "archive": {
+      "bytes": 24962600,
+      "entrypoint_definition_counts": {
+        "rustbox_less_main": 1,
+        "rustbox_lessecho_main": 1
+      },
+      "sha256": "8bc04efc48267bec72b1ee58f01dc78d2826527efdf64de082ca416768aae689"
+    },
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+      "cargo_lock_sha256": "6c27a1045d0dcb0051e05e0823b8a5f354930d0dd1572eb461bf2cf2ec761718",
+      "cargo_toml_sha256": "53c0ed807404b3c27994441e7b8f4475073218de4b8579262369363a8ad3c763",
+      "diagnostics_by_level": {
+        "warning": 47
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+      "schema": 1,
+      "stderr_sha256": "b8ab2e60971c7c4c7dde91d035d3e0a46d77fedbac43adcf319638a9b6cfcb24",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "unused_imports": 2,
+        "unused_must_use": 1,
+        "unused_unsafe": 17,
+        "unused_variables": 27
+      }
+    },
+    "holes": {
+      "compile_error": 0,
+      "panic": 0,
+      "todo": 0,
+      "unimplemented": 0
+    },
+    "modernization_manifest_sha256": "c656b397de01dcdc6fafb1e6f700c335f194490110b79729d70358bd21b8d652",
+    "raw_pointer_type_occurrences": 10041,
+    "repair_manifest_sha256": "d3a33b38dd035fa46fbe5ed142d6ae08357a2ef410a9e177ce4dfb588e4a0c4d",
+    "rust_bytes": 3002735,
+    "rust_files": 40,
+    "rust_lines": 77087,
+    "unsafe_function_occurrences": 1862
+  },
+  "status": "complete stable translation compiles without holes; hybrid parity verified separately",
+  "translator": {
+    "fail_on_error": true,
+    "generated_holes": 0,
+    "name": "C2Rust",
+    "omitted_sources": [],
+    "preserve_unused_functions": true,
+    "raw_compile_type_errors": 8,
+    "stable_repairs": {
+      "changes": [
+        {
+          "file_before_sha256": "af1e21e4e93d9f801100756728a239fe622f5f82f5eb9d0926b0759e5ac78a7c",
+          "path": "src/cmdbuf.rs",
+          "reason": "ckd_mul LINENUM operand promotion"
+        },
+        {
+          "file_after_sha256": "347c0203bdd0ab583f511f94d5d7db14d4f33aa646eadc1323a0026c43a2e0d8",
+          "path": "src/cmdbuf.rs",
+          "reason": "ckd_add LINENUM operand promotion"
+        },
+        {
+          "file_before_sha256": "629f5eafb1fbd9d4c3f47a12d4d271052088950a85e8191e7fbc01abd301a9c1",
+          "path": "src/line.rs",
+          "reason": "ckd_mul unsigned-int operand promotion"
+        },
+        {
+          "file_after_sha256": "5acec24c3ae4603d37dd95a0c3f04ef7c51c3d647d91601b3e014dec0aed1c0d",
+          "path": "src/line.rs",
+          "reason": "ckd_add unsigned-int operand promotion"
+        },
+        {
+          "file_before_sha256": "1c0da8cefcc00ff455903bde9d83c8766f9f22e785318159830e3dd9d1d0eaa1",
+          "path": "src/output.rs",
+          "reason": "ckd_mul POSITION operand promotion"
+        },
+        {
+          "path": "src/output.rs",
+          "reason": "ckd_add POSITION operand promotion"
+        },
+        {
+          "path": "src/output.rs",
+          "reason": "ckd_mul unsigned-long operand promotion"
+        },
+        {
+          "file_after_sha256": "93e6fc3a1010fd4ea63c4a6a49a404e9fc2a3a4f78e1b834c76ac59d3191718e",
+          "path": "src/output.rs",
+          "reason": "ckd_add unsigned-long operand promotion"
+        }
+      ],
+      "kind": "type-directed C integer promotions",
+      "repair_count": 8,
+      "schema": 1,
+      "semantic_algorithm_changes": 0,
+      "translator": "c2rust 0.22.1"
+    },
+    "version": "0.22.1"
+  }
+}

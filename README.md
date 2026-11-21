@@ -58,7 +58,7 @@ scoring, and correctness gates.
 | acl 2.4.0 | 3 | 3 | 3 | 3 |
 | LZ4 1.11.1 | 4 | 4 | 4 | 4 |
 | GNU Gzip 1.14 | 14 | 14 | 14 | 13 |
-| Less 710 | 2 | 2 | 0 | 0 |
+| Less 710 | 2 | 2 | 2 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -760,6 +760,22 @@ add 8,192 stripped bytes, and the three `zgrep` personalities add 4,096 bytes;
 `zmore` adds no further stripped bytes, `znew` adds 8,208 bytes, and `gzexe`
 adds 8,192 bytes.
 
+Less 710 is pinned to Mark Nudelman's signed canonical release.  Its complete
+38-source production closure passes the 19-case upstream terminal suite under
+GCC, Clang, and ASan/UBSan, and the two independent builds agree across 22
+public `less` and `lessecho` comparisons.  The six-tool static audit and
+deterministic entrypoint normalization retain those results.  C2Rust emits all
+38 sources and all 38 declaration maps without holes.  Eight mechanically
+reviewed casts restore the destination-type promotions used by C23 `ckd_mul`
+and `ckd_add`; no algorithm is changed.  The stable crate contains 77,087 Rust
+lines and 10,041 raw-pointer type occurrences for the later safety phase.  The
+linked translated fixture passes all 22 comparisons and exactly matches both
+canonical allocation lifecycles under Valgrind.  It strips to 924,648 bytes
+versus 304,552 bytes for the canonical standalone binary; terminal-info code
+is still a fixture-time shared dependency and must be internalized at the
+final static release gate.  Translation and hybrid evidence is in
+`evidence/less-710-c2rust.json` and `evidence/less-710-hybrid.json`.
+
 ## Work queue after util-linux
 
 This queue starts only after all in-scope util-linux applets reach canonical
@@ -818,11 +834,11 @@ Library-only checkpoints (outside the active utility order):
      `tic`, `toe`, `tput`, `tset`, `reset`, and the generated
      `ncurses*-config` helper; shared `ncurses`, `panel`, `form`, and `menu`
      libraries are part of the same integration.
-   - [ ] Less 710 — canonical `less` and private-runtime `lessecho`; the
-     authenticated GCC/Clang/sanitizer oracle, six-tool static audit, and
-     deterministic multicall normalization are complete.  Upstream removed
-     the standalone `lesskey` program in version 706 and now parses lesskey
-     source directly inside `less`, so it is intentionally not resurrected.
+   - [ ] Less 710 — canonical `less` and private-runtime `lessecho`; full
+     translation and standalone hybrid parity are complete, with unified
+     multicall integration pending.  Upstream removed the standalone
+     `lesskey` program in version 706 and now parses lesskey source directly
+     inside `less`, so it is intentionally not resurrected.
 3. Multi-tool text processing and source generators:
    - [ ] Findutils — `find`, `xargs`, `locate`, `updatedb`.
    - [ ] Gawk — `gawk`, `awk`, `gawkbug`.
