@@ -419,7 +419,16 @@ the current 10,249 raw-pointer type occurrences are recorded for later
 hardening rather than silently treated as safe.  No generated Rust was
 hand-repaired.  Reproducible inventories, hashes, compiler diagnostics, and
 the 24,216,926-byte pre-link archive are in
-`evidence/grep-3.12-c2rust.json`; canonical hybrid parity is the next gate.
+`evidence/grep-3.12-c2rust.json`.
+The linked translated hybrid preserves PCRE2 support and passes the complete
+128-case Grep and 315-case gnulib suites, all 36 canonical-versus-translated
+byte-exact comparisons, and an allocation-for-allocation exact Valgrind
+comparison with canonical Grep.  Its only C ABI glue is the entrypoint and
+the two gnulib libc aliases for `btowc` and `wctob`.  The standalone hybrid is
+560,424 bytes stripped versus 163,240 bytes for canonical Grep; multicall
+dead-code sharing is measured only after integration.  Reproducible linkage,
+size, dependency, suite, differential, and resource evidence is in
+`evidence/grep-3.12-hybrid.json`.
 
 ## Work queue after util-linux
 
