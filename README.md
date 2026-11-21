@@ -42,7 +42,7 @@ scoring, and correctness gates.
 
 ## Current progress
 
-| Upstream | Inventory | Signed source oracle | Hybrid canonical parity | Integrated Rust applets |
+| Upstream | Inventory | Pinned source oracle | Hybrid canonical parity | Integrated Rust applets |
 |---|---:|---:|---:|---:|
 | GNU Coreutils 9.12 | 108 | 108 | 106 | 106 |
 | util-linux 2.42.4 | 155 | 155 | 155 | 155 |
@@ -56,6 +56,7 @@ scoring, and correctness gates.
 | GNU bc 1.08.2 / dc 1.5.2 | 2 | 2 | 2 | 2 |
 | attr 2.6.0 | 3 | 3 | 3 | 3 |
 | acl 2.4.0 | 3 | 3 | 3 | 3 |
+| LZ4 1.11.1 | 4 | 4 | 0 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -608,6 +609,29 @@ Full behavior, resource, dependency, and size evidence is in
 in the unified link; integration adds 66,656 stripped bytes and retains the
 complete help/version, upstream, differential, platform-baseline, and Valgrind
 gates in `evidence/rustbox-multicall.json`.
+
+LZ4 1.11.1 is pinned to its canonical GitHub release asset and the separate
+upstream SHA-256 asset.  Upstream publishes no cryptographic release signature
+and uses a lightweight tag, so that authentication limitation is explicit
+rather than described as a signed release.  Its four installed command names
+share one executable built from an exact 12-source, 16,809-line closure with
+the release's own liblz4 and xxhash embedded.  Independent GCC and Clang builds
+and GCC ASan/UBSan each pass the broad upstream essentials suite; GCC and Clang
+also agree across 27 byte-and-filesystem differential cases covering aliases,
+frame and legacy compression, decompression, streams, list mode, options, and
+errors.  Compression and decompression Valgrind gates report zero errors and
+free every allocation, and both oracles depend only on libc.  Source,
+compiler, dependency, differential, sanitizer, and resource evidence is in
+`evidence/lz4-1.11.1-oracle.json`.  Cppcheck, GCC's path-sensitive analyzer,
+Clang Analyzer/Tidy, Flawfinder, and Sparse then audit that exact closure.  The
+one demonstrated canonical defect is a signed `int` passed to an unsigned
+printf conversion in help output.  The normalization gate also requires
+explicit zero-length dictionary-copy guards and replaces an exactly-sized
+`strcpy`/`strcat` output-name construction with a bounded copy.  GCC's reported
+realloc double free and constructor-local resource leaks are path-model
+artifacts; both supported compilers, sanitizers, and Valgrind independently
+close those paths.  Exact finding counts and review decisions are pinned in
+`evidence/lz4-1.11.1-analysis.json`.
 
 ## Work queue after util-linux
 

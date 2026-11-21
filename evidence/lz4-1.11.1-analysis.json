@@ -1,0 +1,112 @@
+{
+  "artifacts": {
+    "clang-analyzer-tidy.log": "4ca9600e963a1e8e21af941e941779c6dfed3915896d04ea5feca4992b0b1544",
+    "compile_commands.json": "1b676d4f34896a9866681786e5e742008800397abdb73d1a50b3a9b326897c00",
+    "cppcheck.log": "41efdcc6b48df0bb87fb414b4bc62f3cb5898624636671b50887a52501cb1e93",
+    "flawfinder.log": "b282255464cb270fcd93e0c8c8233871a55f5054104f37874d892131ad3652f2",
+    "gcc-analyzer.log": "1c605771f55e018f0122de2bea5d1e8e8f8e7f41af4455990b7f5db95bc00ce3",
+    "sources.list": "76a41695e1aa2f293a6c2edbbc9250fc7cbc46cfcc180fd8d3ab6a649796af54",
+    "sparse.log": "c0721b41acc7b921d2ef7f5eba5266ba9e22aee83d4a3a81ea565704039e6df1",
+    "sparse.status": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "recorded_at": "2026-11-21",
+  "release": "1.11.1",
+  "review": {
+    "blocking_findings": 1,
+    "canonical_source_changes": 0,
+    "notes": [
+      "GCC's UTIL_realloc double-free paths are infeasible: successful realloc returns immediately, while failed realloc leaves the original allocation valid for the documented free.",
+      "GCC's six decompression-resource leaks stop at the resource constructor return and do not follow the caller to LZ4IO_freeDResources; Valgrind observes all resources freed in compression and decompression.",
+      "The LZ4F error-code table reports are analyzer range-model artifacts over negative size_t-encoded error values, not buffer reads selected by production control flow.",
+      "The packed unaligned-load null reports require invalid internal match pointers; the portable memcpy implementation will be selected for translation and independently compared.",
+      "The enum increment reaches analyzer value 8 only for an invalid requested block-size identifier; supported identifiers stop at LZ4F_max4MB.",
+      "The automatic output name allocates strlen(input)+5 bytes for the four-byte .lz4 suffix and terminator, so the reported strcpy/strcat calls are bounded but are normalized for explicitness.",
+      "Remaining Tidy, Flawfinder, and Sparse output is macro, conversion, buffer-API, and pointer inventory rather than a demonstrated behavioral defect."
+    ],
+    "required_normalization": [
+      "Make LZ4_CLEVEL_DEFAULT match the help format's unsigned vararg type; Cppcheck identifies the canonical signed-int/%u mismatch.",
+      "Guard the two dictionary memcpy calls whose modeled public API paths permit a null destination with zero length.",
+      "Replace the exactly-sized automatic output-name strcpy/strcat pair with one bounded copy sequence before translation."
+    ]
+  },
+  "schema": 1,
+  "scope": {
+    "compile_actions": 24,
+    "targets": [
+      "lz4",
+      "lz4c",
+      "lz4cat",
+      "unlz4",
+      "embedded liblz4",
+      "embedded xxhash"
+    ],
+    "tests_examples_and_nonselected_sources_excluded": true,
+    "unique_sources": 12
+  },
+  "status": "complete production audit; deterministic normalization pending",
+  "tools": {
+    "clang_analyzer_tidy": {
+      "all_findings_by_check": {
+        "bugprone-branch-clone": 6,
+        "bugprone-casting-through-void": 1,
+        "bugprone-easily-swappable-parameters": 65,
+        "bugprone-implicit-widening-of-multiplication-result": 102,
+        "bugprone-macro-parentheses": 27,
+        "bugprone-multi-level-implicit-pointer-conversion": 3,
+        "bugprone-narrowing-conversions": 4,
+        "bugprone-reserved-identifier": 1,
+        "bugprone-suspicious-include": 1,
+        "bugprone-suspicious-string-compare": 1,
+        "bugprone-switch-missing-default-case": 2,
+        "clang-analyzer-core.NonNullParamChecker": 2,
+        "clang-analyzer-optin.core.EnumCastOutOfRange": 1,
+        "clang-analyzer-optin.portability.UnixAPI": 1,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 566,
+        "clang-analyzer-security.insecureAPI.strcpy": 2,
+        "clang-analyzer-unix.cstring.NullArg": 4,
+        "performance-no-int-to-ptr": 2
+      },
+      "analyzer_findings_by_check": {
+        "clang-analyzer-core.NonNullParamChecker": 2,
+        "clang-analyzer-optin.core.EnumCastOutOfRange": 1,
+        "clang-analyzer-optin.portability.UnixAPI": 1,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 566,
+        "clang-analyzer-security.insecureAPI.strcpy": 2,
+        "clang-analyzer-unix.cstring.NullArg": 4
+      }
+    },
+    "cppcheck": {
+      "findings_by_id": {
+        "constParameterPointer": 4,
+        "constVariablePointer": 15,
+        "invalidPrintfArgType_uint": 1,
+        "knownConditionTrueFalse": 7,
+        "unsignedLessThanZero": 1,
+        "unusedStructMember": 4
+      },
+      "findings_by_severity": {
+        "style": 31,
+        "warning": 1
+      }
+    },
+    "flawfinder": {
+      "hits_at_level_1_or_higher": 114,
+      "lines_analyzed": 16809
+    },
+    "gcc_fanalyzer": {
+      "findings_by_check": {
+        "analyzer-double-free": 2,
+        "analyzer-malloc-leak": 6,
+        "analyzer-null-argument": 4,
+        "analyzer-null-dereference": 2,
+        "analyzer-out-of-bounds": 26
+      },
+      "warnings": 40
+    },
+    "sparse": {
+      "exit_status": 0,
+      "parser_errors": 0,
+      "warnings": 12
+    }
+  }
+}
