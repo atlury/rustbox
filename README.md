@@ -57,7 +57,7 @@ scoring, and correctness gates.
 | attr 2.6.0 | 3 | 3 | 3 | 3 |
 | acl 2.4.0 | 3 | 3 | 3 | 3 |
 | LZ4 1.11.1 | 4 | 4 | 4 | 4 |
-| GNU Gzip 1.14 | 14 | 14 | 14 | 10 |
+| GNU Gzip 1.14 | 14 | 14 | 14 | 11 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -119,12 +119,12 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 299
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 300
 distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, five
 pkgconf names, File, GNU patch, GNU sed, four GNU Diffutils applets, and GNU
 Grep's three public names, GNU bc and dc, attr's three tools, plus chacl,
-getfacl, and setfacl, plus LZ4's four public names and ten GNU Gzip interfaces;
-`kill` is shared and `util-linux-kill` remains available explicitly).  It passes all 598
+getfacl, and setfacl, plus LZ4's four public names and eleven GNU Gzip interfaces;
+`kill` is shared and `util-linux-kill` remains available explicitly).  It passes all 600
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
 check, 108-case differential suite, and Valgrind.  Pkgconf also passes all 429
@@ -144,11 +144,12 @@ tools retain 13 upstream passes and two canonical NFS expected failures, all
 lifecycles through the same dispatcher.  LZ4 passes all 27 byte-and-filesystem
 differential cases, its complete upstream essentials suite, and leak-free
 resource checks through the same dispatcher.  GNU Gzip's translated native
-engine and nine native frontend names pass all 77 relevant byte,
+engine and ten native frontend names pass all 83 relevant byte,
 filesystem, failure, help, and version
 comparisons and emit byte-identical compressed streams.  The Gzip engine and
 comparison frontends have zero lost bytes; `zgrep` matches GNU Grep's canonical
-allocation lifecycle exactly.  The stripped 299-name executable is 7,443,984
+allocation lifecycle exactly, while `zmore` frees every allocation in its
+internal Gzip-to-`more` pipeline.  The stripped 300-name executable is 7,443,984
 bytes.
 `chcon` and `runcon`
 remain absent, and the linked binary has no SELinux or systemd dependency.
@@ -738,18 +739,20 @@ Full behavior, bridge, resource, dependency, symbol, and size evidence is in
 `evidence/gzip-1.14-hybrid.json`.
 The translated native `gzip` engine is also integrated into the unified
 Rustbox dispatcher.  Native equivalents of upstream's `gunzip`, `zcat`,
-`zcmp`, `zdiff`, `zforce`, `zgrep`, `zegrep`, and `zfgrep` shell frontends
-provide all ten public names without `/bin/sh`.  The comparison and search
-frontends reuse the integrated GNU Diffutils and Grep engines through internal
-Gzip pipes.  Their expanded 77-case differential passes,
+`zcmp`, `zdiff`, `zforce`, `zgrep`, `zegrep`, `zfgrep`, and `zmore` shell
+frontends provide all eleven public names without `/bin/sh`.  The comparison, search,
+and pager
+frontends reuse the integrated GNU Diffutils and Grep engines and Util-linux
+`more` through internal Gzip pipes.  Their expanded 83-case differential passes,
 compression is byte-identical, decompression matches canonical bytes, and
 Valgrind matches the canonical engine lifecycles.  All Gzip and gnulib
 symbols except the three deliberate entrypoints are private to the applet,
-including its independent Rust personality symbol.  The remaining four names
+including its independent Rust personality symbol.  The remaining three names
 require internal replacements for upstream's shell interfaces.  Unified
 evidence is in `evidence/rustbox-multicall.json`.  The first three native
 frontend names add no stripped bytes beyond the Gzip engine; `zcmp` and `zdiff`
-add 8,192 stripped bytes, and the three `zgrep` personalities add 4,096 bytes.
+add 8,192 stripped bytes, and the three `zgrep` personalities add 4,096 bytes;
+`zmore` adds no further stripped bytes.
 
 ## Work queue after util-linux
 
@@ -797,8 +800,8 @@ Library-only checkpoints (outside the active utility order):
 2. Compression, archive, and terminal foundations:
    - [ ] GNU Gzip 1.14 — translated hybrid at canonical parity; native `gzip`,
      `gunzip`, `zcat`, `uncompress`, `zcmp`, `zdiff`, `zforce`, `zgrep`,
-     `zegrep`, and `zfgrep` integrated; internal-shell replacement and
-     multicall integration pending for `gzexe`, `zless`, `zmore`, `znew`.
+     `zegrep`, `zfgrep`, and `zmore` integrated; internal-shell replacement and
+     multicall integration pending for `gzexe`, `zless`, `znew`.
    - [ ] xz — `xz`, `unxz`, `xzcat`, `lzma`, `unlzma`, `lzcat`, `xzdec`,
      `lzmadec`, `lzmainfo`, `xzcmp`, `xzdiff`, `xzegrep`, `xzfgrep`, `xzgrep`,
      `xzless`, `xzmore`.

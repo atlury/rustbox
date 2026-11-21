@@ -12,6 +12,8 @@ import shutil
 import subprocess
 from pathlib import Path
 
+ISOLATION_CACHE_VERSION = 1
+
 
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -735,6 +737,53 @@ def util_linux_link_inputs(
     return rewritten_objects + rewritten_archives, link_libraries, report
 
 
+def cached_util_linux_link_inputs(
+    repository: Path, build: Path, report: dict[str, list[str]]
+) -> tuple[list[Path], list[str]]:
+    """Reuse verified util-linux support objects when all source hashes match."""
+    text = (repository / "scripts/build_util_linux_batch_hybrid.sh").read_text(
+        encoding="utf-8"
+    )
+    declarations = re.findall(
+        r"util-linux-small-[0-9]+\).*?extra_objects='([^']*)'.*?extra_libraries='([^']*)'",
+        text,
+        flags=re.DOTALL,
+    )
+    if len(declarations) != 14:
+        raise RuntimeError(f"expected 14 util-linux linker declarations, found {len(declarations)}")
+    tokens: list[str] = []
+    link_libraries: list[str] = []
+    for objects, libraries in declarations:
+        for token in objects.split():
+            if token not in tokens:
+                tokens.append(token)
+        for token in libraries.split():
+            if token not in link_libraries:
+                link_libraries.append(token)
+    paths = [(build / token).resolve() for token in tokens]
+    objects = [path for path in paths if path.suffix == ".o"]
+    archives = [path for path in paths if path.suffix == ".a"]
+    reused: list[Path] = []
+    for index, path in enumerate(objects):
+        relative = str(path.relative_to(build))
+        reused.append(
+            build / f"rustbox-support-all/{index:03d}-{path.name}"
+            if relative in report
+            else path
+        )
+    for path in archives:
+        relative = str(path.relative_to(build))
+        reused.append(
+            build / "rustbox-support-all/libsmartcols-parser-namespaced.a"
+            if relative in report
+            else path
+        )
+    missing = [str(path) for path in reused if not path.is_file()]
+    if missing:
+        raise RuntimeError(f"cached util-linux support inputs are missing: {missing}")
+    return reused, link_libraries
+
+
 def compile_typed_bridges(
     repository: Path, build: Path, manifests: list[dict[str, object]]
 ) -> list[Path]:
@@ -830,6 +879,7 @@ extern int rustbox_zforce_main(int, char **);
 extern int rustbox_zgrep_main(int, char **);
 extern int rustbox_zegrep_main(int, char **);
 extern int rustbox_zfgrep_main(int, char **);
+extern int rustbox_zmore_main(int, char **);
 """
         + declarations
         + """
@@ -972,6 +1022,8 @@ int main(int argc, char **argv)
         return rustbox_zegrep_main(argc, argv);
     if (!force_util_linux && strcmp(name, "zfgrep") == 0)
         return rustbox_zfgrep_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "zmore") == 0)
+        return rustbox_zmore_main(argc, argv);
 """
         + selections
         + """
@@ -1004,6 +1056,7 @@ def main() -> int:
     parser.add_argument("--gzip-rust-library", type=Path, required=True)
     parser.add_argument("--gzip-support-library", type=Path, required=True)
     parser.add_argument("--link-report", type=Path, required=True)
+    parser.add_argument("--reuse-isolation", action="store_true")
     args = parser.parse_args()
     repository = args.repository.resolve()
     build = args.coreutils_build.resolve()
@@ -1168,72 +1221,148 @@ def main() -> int:
         "rustbox_zgrep_main",
         "rustbox_zegrep_main",
         "rustbox_zfgrep_main",
+        "rustbox_zmore_main",
     })
 
-    mapped_file_rust, file_symbols = namespace_file_library(
-        libraries[file_library_index], build
-    )
+    cached_report = None
+    if args.reuse_isolation and args.link_report.is_file():
+        candidate = json.loads(args.link_report.read_text(encoding="utf-8"))
+        if (
+            candidate.get("source_library_sha256") == source_library_hashes
+            and candidate.get("isolation_cache_version", 1) == ISOLATION_CACHE_VERSION
+        ):
+            cached_report = candidate
+
+    if cached_report:
+        mapped_file_rust = build / "src/.rustbox-file" / libraries[file_library_index].name
+        file_symbols = cached_report["file_namespaced_symbols"]
+    else:
+        mapped_file_rust, file_symbols = namespace_file_library(
+            libraries[file_library_index], build
+        )
     libraries[file_library_index] = mapped_file_rust
 
-    mapped_patch_rust, patch_symbols = namespace_patch_library(
-        libraries[patch_library_index], build
-    )
+    if cached_report:
+        mapped_patch_rust = build / "src/.rustbox-patch" / libraries[patch_library_index].name
+        patch_symbols = cached_report["patch_namespaced_symbols"]
+    else:
+        mapped_patch_rust, patch_symbols = namespace_patch_library(
+            libraries[patch_library_index], build
+        )
     libraries[patch_library_index] = mapped_patch_rust
 
-    mapped_sed_rust, sed_symbols = namespace_sed_library(
-        libraries[sed_library_index], build
-    )
+    if cached_report:
+        mapped_sed_rust = build / "src/.rustbox-sed" / libraries[sed_library_index].name
+        sed_symbols = cached_report["sed_namespaced_symbols"]
+    else:
+        mapped_sed_rust, sed_symbols = namespace_sed_library(
+            libraries[sed_library_index], build
+        )
     libraries[sed_library_index] = mapped_sed_rust
 
-    mapped_diffutils_rust, diffutils_symbols = namespace_diffutils_library(
-        libraries[diffutils_library_index], build
-    )
+    if cached_report:
+        mapped_diffutils_rust = build / "src/.rustbox-diffutils" / libraries[diffutils_library_index].name
+        diffutils_symbols = cached_report["diffutils_namespaced_symbols"]
+    else:
+        mapped_diffutils_rust, diffutils_symbols = namespace_diffutils_library(
+            libraries[diffutils_library_index], build
+        )
     libraries[diffutils_library_index] = mapped_diffutils_rust
 
-    mapped_grep_rust, grep_symbols = namespace_grep_library(
-        libraries[grep_library_index], build
-    )
+    if cached_report:
+        mapped_grep_rust = build / "src/.rustbox-grep" / libraries[grep_library_index].name
+        grep_symbols = cached_report["grep_namespaced_symbols"]
+    else:
+        mapped_grep_rust, grep_symbols = namespace_grep_library(
+            libraries[grep_library_index], build
+        )
     libraries[grep_library_index] = mapped_grep_rust
 
-    mapped_bc_rust, bc_symbols = namespace_bc_library(
-        libraries[bc_library_index], build
-    )
+    if cached_report:
+        mapped_bc_rust = build / "src/.rustbox-bc" / libraries[bc_library_index].name
+        bc_symbols = cached_report["bc_namespaced_symbols"]
+    else:
+        mapped_bc_rust, bc_symbols = namespace_bc_library(
+            libraries[bc_library_index], build
+        )
     libraries[bc_library_index] = mapped_bc_rust
 
-    mapped_attr_rust, attr_symbols = namespace_attr_library(
-        libraries[attr_library_index], build
-    )
+    if cached_report:
+        mapped_attr_rust = build / "src/.rustbox-attr" / libraries[attr_library_index].name
+        attr_symbols = cached_report["attr_namespaced_symbols"]
+    else:
+        mapped_attr_rust, attr_symbols = namespace_attr_library(
+            libraries[attr_library_index], build
+        )
     libraries[attr_library_index] = mapped_attr_rust
 
-    mapped_acl_rust, acl_symbols = namespace_acl_library(
-        libraries[acl_library_index], build
-    )
+    if cached_report:
+        mapped_acl_rust = build / "src/.rustbox-acl" / libraries[acl_library_index].name
+        acl_symbols = cached_report["acl_namespaced_symbols"]
+    else:
+        mapped_acl_rust, acl_symbols = namespace_acl_library(
+            libraries[acl_library_index], build
+        )
     libraries[acl_library_index] = mapped_acl_rust
 
-    mapped_lz4_rust, lz4_symbols = namespace_lz4_library(
-        libraries[lz4_library_index], build
-    )
+    if cached_report:
+        mapped_lz4_rust = build / "src/.rustbox-lz4" / libraries[lz4_library_index].name
+        lz4_symbols = cached_report["lz4_namespaced_symbols"]
+    else:
+        mapped_lz4_rust, lz4_symbols = namespace_lz4_library(
+            libraries[lz4_library_index], build
+        )
     libraries[lz4_library_index] = mapped_lz4_rust
 
-    mapped_gzip_rust, mapped_gzip_support, gzip_symbols = namespace_gzip_libraries(
-        libraries[gzip_library_index], gzip_support_library, build
-    )
+    if cached_report:
+        mapped_gzip_rust = build / "src/.rustbox-gzip" / libraries[gzip_library_index].name
+        mapped_gzip_support = build / "src/.rustbox-gzip" / gzip_support_library.name
+        gzip_symbols = cached_report["gzip_namespaced_symbols"]
+    else:
+        mapped_gzip_rust, mapped_gzip_support, gzip_symbols = namespace_gzip_libraries(
+            libraries[gzip_library_index], gzip_support_library, build
+        )
     libraries[gzip_library_index] = mapped_gzip_rust
 
     canonical_dispatch_symbols = set(defined_symbols(build / "src/coreutils-coreutils.o"))
-    libraries, namespaced_symbols = namespace_duplicate_c_symbols(
-        libraries, expected_symbols, canonical_dispatch_symbols, build
-    )
-    mapped_m4_rust, mapped_m4_support, m4_support_symbols = namespace_m4_support(
-        libraries[m4_library_index], m4_support_library, build
-    )
+    if cached_report:
+        namespaced_symbols = cached_report["namespaced_symbols"]
+        libraries = [
+            build / "src" / f".rustbox-namespaced-{index:02d}-{library.name}"
+            if library.name in namespaced_symbols
+            else library
+            for index, library in enumerate(libraries)
+        ]
+    else:
+        libraries, namespaced_symbols = namespace_duplicate_c_symbols(
+            libraries, expected_symbols, canonical_dispatch_symbols, build
+        )
+    if cached_report:
+        mapped_m4_rust = build / "src/.rustbox-m4-support" / libraries[m4_library_index].name
+        mapped_m4_support = build / "src/.rustbox-m4-support" / m4_support_library.name
+        m4_support_symbols = cached_report["m4_namespaced_support_symbols"]
+    else:
+        mapped_m4_rust, mapped_m4_support, m4_support_symbols = namespace_m4_support(
+            libraries[m4_library_index], m4_support_library, build
+        )
     libraries[m4_library_index] = mapped_m4_rust
-    rust_defined = canonical_dispatch_symbols | set().union(
-        *(set(defined_symbols(path)) for path in libraries)
-    )
-    util_inputs, util_link_libraries, namespaced_support = util_linux_link_inputs(
-        repository, util_build, rust_defined
-    )
+    if cached_report:
+        namespaced_support = cached_report["namespaced_support_symbols"]
+        util_inputs, util_link_libraries = cached_util_linux_link_inputs(
+            repository, util_build, namespaced_support
+        )
+    else:
+        rust_defined = canonical_dispatch_symbols | set().union(
+            *(set(defined_symbols(path)) for path in libraries)
+        )
+        util_inputs, util_link_libraries, namespaced_support = util_linux_link_inputs(
+            repository, util_build, rust_defined
+        )
+
+    cached_paths = [*libraries, mapped_m4_support, mapped_gzip_support, *util_inputs]
+    missing_cached = [str(path) for path in cached_paths if not path.is_file()]
+    if missing_cached:
+        raise RuntimeError(f"isolated linker inputs are missing: {missing_cached}")
 
     typed_bridge_objects = compile_typed_bridges(repository, build, manifests)
     sed_abi_object = build / "src/.rustbox-sed-abi.o"
@@ -1284,6 +1413,7 @@ def main() -> int:
         "rustbox_gunzip_main", "rustbox_zcat_main",
         "rustbox_zcmp_main", "rustbox_zdiff_main", "rustbox_zforce_main",
         "rustbox_zgrep_main", "rustbox_zegrep_main", "rustbox_zfgrep_main",
+        "rustbox_zmore_main",
     }:
         raise RuntimeError("GNU Gzip alias bridge exports the wrong symbols")
     bridge_archives: dict[str, Path] = {}
@@ -1403,6 +1533,7 @@ def main() -> int:
         raise RuntimeError("combined dispatcher symbols are incomplete")
     report = {
         "schema": 1,
+        "isolation_cache_version": ISOLATION_CACHE_VERSION,
         "coreutils_applets": len(applets),
         "util_linux_applets": 155,
         "m4_applets": 1,
@@ -1416,7 +1547,7 @@ def main() -> int:
         "attr_applets": 3,
         "acl_applets": 3,
         "lz4_public_names": 4,
-        "gzip_public_names": 10,
+        "gzip_public_names": 11,
         "total_dispatch_names": len(
             set(applets)
             | set(util_dispatch)
@@ -1424,7 +1555,7 @@ def main() -> int:
                "cmp", "diff", "diff3", "sdiff", "grep", "egrep", "fgrep", "bc", "dc",
                "attr", "getfattr", "setfattr", "chacl", "getfacl", "setfacl",
                "lz4", "lz4c", "lz4cat", "unlz4", "gzip", "gunzip", "zcat", "uncompress",
-               "zcmp", "zdiff", "zforce", "zgrep", "zegrep", "zfgrep"}
+               "zcmp", "zdiff", "zforce", "zgrep", "zegrep", "zfgrep", "zmore"}
         ),
         "excluded": ["chcon", "runcon"],
         "public_name_precedence": {"kill": "GNU Coreutils", "util-linux-kill": "util-linux"},
@@ -1465,9 +1596,10 @@ def main() -> int:
             "object": str(gzip_aliases_object.relative_to(build)),
             "symbols": ["rustbox_gunzip_main", "rustbox_zcat_main",
                         "rustbox_zcmp_main", "rustbox_zdiff_main", "rustbox_zforce_main",
-                        "rustbox_zgrep_main", "rustbox_zegrep_main", "rustbox_zfgrep_main"],
+                        "rustbox_zgrep_main", "rustbox_zegrep_main", "rustbox_zfgrep_main",
+                        "rustbox_zmore_main"],
             "public_names": ["gunzip", "uncompress", "zcat", "zcmp", "zdiff", "zforce",
-                             "zgrep", "zegrep", "zfgrep"],
+                             "zgrep", "zegrep", "zfgrep", "zmore"],
         },
         "sed_abi_bridge": {
             "object": str(sed_abi_object.relative_to(build)),
@@ -1499,7 +1631,7 @@ def main() -> int:
         "attr_applets": 3,
         "acl_applets": 3,
         "lz4_public_names": 4,
-        "gzip_public_names": 10,
+        "gzip_public_names": 11,
         "output": str(output),
     }))
     return 0

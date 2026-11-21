@@ -16,6 +16,7 @@ extern int rustbox_gzip_main(int, char **);
 extern int rustbox_cmp_main(int, char **);
 extern int rustbox_diff_main(int, char **);
 extern int rustbox_grep_main(int, char **);
+extern int rustbox_more_main(int, char **);
 
 static int
 run_gzip_mode(int argc, char **argv, char const *mode)
@@ -148,9 +149,12 @@ start_gzip(char const *name, int output, int close_fd)
   child = fork();
   if (child != 0)
     return child;
-  if (dup2(output, STDOUT_FILENO) < 0)
-    _exit(2);
-  close(output);
+  if (output != STDOUT_FILENO)
+    {
+      if (dup2(output, STDOUT_FILENO) < 0)
+        _exit(2);
+      close(output);
+    }
   if (0 <= close_fd)
     close(close_fd);
   {
@@ -843,4 +847,116 @@ int
 rustbox_zfgrep_main(int argc, char **argv)
 {
   return run_zgrep(argc, argv, "-F");
+}
+
+static int
+zmore_help(char const *invocation)
+{
+  return printf(
+    "Usage: %s [OPTION]... [FILE]...\n"
+    "Like 'more', but operate on the uncompressed contents of any compressed FILEs.\n\n"
+    "Report bugs to <bug-gzip@gnu.org>.\n", invocation) < 0;
+}
+
+static int
+zmore_version(void)
+{
+  return printf(
+    "zmore (gzip) 1.14\n"
+    "Copyright (C) 2025 Free Software Foundation, Inc.\n"
+    "This is free software.  You may redistribute copies of it under the terms of\n"
+    "the GNU General Public License <https://www.gnu.org/licenses/gpl.html>.\n"
+    "There is NO WARRANTY, to the extent permitted by law.\n\n"
+    "Written by Jean-loup Gailly.\n") < 0;
+}
+
+int
+rustbox_zmore_main(int argc, char **argv)
+{
+  int first = 1;
+  int stream[2];
+  pid_t producer;
+  pid_t pager;
+  int index;
+  int pager_status;
+  if (1 < argc && strncmp(argv[1], "--h", 3) == 0)
+    return zmore_help(argv[0]);
+  if (1 < argc && strncmp(argv[1], "--v", 3) == 0)
+    return zmore_version();
+  if (1 < argc && strcmp(argv[1], "--") == 0)
+    first++;
+  else if (1 < argc && argv[1][0] == '-' && argv[1][1] != '\0')
+    {
+      fprintf(stderr, "%s: %s: unknown option; try '%s --help' for help\n",
+              argv[0], argv[1], argv[0]);
+      return 1;
+    }
+  if (first == argc && isatty(STDIN_FILENO))
+    {
+      fprintf(stderr, "%s: missing operands; try '%s --help' for help\n",
+              argv[0], argv[0]);
+      return 1;
+    }
+  if (pipe(stream) < 0)
+    return 1;
+  fflush(NULL);
+  producer = fork();
+  if (producer < 0)
+    {
+      close(stream[0]);
+      close(stream[1]);
+      return 1;
+    }
+  if (producer == 0)
+    {
+      int file_count = argc - first;
+      close(stream[0]);
+      if (dup2(stream[1], STDOUT_FILENO) < 0
+          || dup2(stream[1], STDERR_FILENO) < 0)
+        _exit(1);
+      close(stream[1]);
+      if (file_count == 0)
+        {
+          pid_t child = start_gzip("-", STDOUT_FILENO, -1);
+          _exit(child < 0 ? 1 : wait_program(child));
+        }
+      for (index = first; index < argc; index++)
+        {
+          pid_t child;
+          if (1 < file_count
+              && dprintf(STDOUT_FILENO,
+                         "::::::::::::::\n%s\n::::::::::::::\n", argv[index]) < 0)
+            _exit(1);
+          child = start_gzip(argv[index], STDOUT_FILENO, -1);
+          if (child < 0 || wait_program(child) != 0)
+            continue;
+        }
+      _exit(0);
+    }
+  close(stream[1]);
+  fflush(NULL);
+  pager = fork();
+  if (pager < 0)
+    {
+      close(stream[0]);
+      wait_program(producer);
+      return 1;
+    }
+  if (pager == 0)
+    {
+      char *more_argv[] = {(char *) "more", NULL};
+      int status;
+      if (dup2(stream[0], STDIN_FILENO) < 0)
+        _exit(1);
+      close(stream[0]);
+      program_invocation_name = more_argv[0];
+      program_invocation_short_name = more_argv[0];
+      status = rustbox_more_main(1, more_argv);
+      fflush(NULL);
+      exit(status);
+    }
+  close(stream[0]);
+  pager_status = wait_program(pager);
+  wait_program(producer);
+  return pager_status;
 }
