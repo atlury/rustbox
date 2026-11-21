@@ -516,7 +516,13 @@ because container root lacks the required kernel capability.  The ordinary
 `user.*` coverage runs on a Linux xattr-capable Docker volume, and Valgrind
 reports zero errors or lost bytes for mutation and query paths.  Exact source,
 compiler, test, binary, dependency, differential, and resource evidence is in
-`evidence/attr-2.6.0-oracle.json`; production static analysis is next.
+`evidence/attr-2.6.0-oracle.json`.  Cppcheck, GCC `-fanalyzer`, Clang
+analyzer/Tidy, Flawfinder, and Sparse then review exactly those 21 production
+units.  The reviewed inventory has zero blocking findings and no canonical
+source changes; the allocation-exit paths, zero-element qsort call, analyzer
+parser limitation, conversion candidates, and public libattr surface are
+recorded explicitly in `evidence/attr-2.6.0-analysis.json`.  Deterministic
+normalization is next.
 
 ## Work queue after util-linux
 

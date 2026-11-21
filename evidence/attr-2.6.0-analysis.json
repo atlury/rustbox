@@ -1,0 +1,100 @@
+{
+  "artifacts": {
+    "clang-analyzer-tidy.log": "b8aa14c29820965d34a3356d5ffb40697d4b1499648e5b217b4525cdb454c350",
+    "compile_commands.json": "3890795184080c8209ece3dd4548398d53f520ba92f693868da8b6ae804d282f",
+    "cppcheck.log": "d84ac3103633159de65a3de3892fff7e7698d72cff41ac0bc490ed12a4ec405f",
+    "flawfinder.log": "bdb594685d6955f07c5266cc9344cfb3131e020cf58437732ec34c4fb8e81a79",
+    "gcc-analyzer-setup.log": "8b0c3b8113223f37d1cc2b9fd2c2cd0bd6b51442c627afd242390b1c9517beea",
+    "gcc-analyzer.log": "282e433e8c9a08fb54b719250ac7a2dc376961753ca9fcec8196deba42dab588",
+    "sources.list": "6414a4bb8408c951d8f52073648d65591e33eb537066cadf8e0c6347fbc492f2",
+    "sparse.log": "8ecf404b5fe91ef722dbda97ec7c7abec9bf4c32b34009633a8c3eb1aa5910fa",
+    "sparse.status": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "recorded_at": "2026-11-21",
+  "release": "2.6.0",
+  "review": {
+    "blocking_findings": 0,
+    "canonical_source_changes": 0,
+    "notes": [
+      "Cppcheck's internal AST error is its parser losing the configured no-NLS do/while macro structure in attr_copy_action; GCC, Clang, Clang's analyzer, and Sparse parse that unit.",
+      "setfattr's realloc warning describes losing process-lifetime storage only on allocation failure immediately followed by exit; successful restore mode increments the count and enforces non-null storage before indexing.",
+      "The help-path allocation report crosses a switch arm that returns from main immediately after help; no subsequent use occurs.",
+      "getfattr can call glibc qsort with a null base only when the element count is zero after regex filtering; the configured Linux ABI accepts this, and a guarded call is retained as a deterministic normalization candidate.",
+      "The dead dirfd store is cleanup bookkeeping after close and has no later read.",
+      "The printf signedness diagnostic, implicit integer conversions, and explicit pointer casts are retained as deterministic normalization candidates.",
+      "Remaining Tidy, Flawfinder, and Sparse output is API-hardening, public libattr linkage, macro, and pointer inventory rather than a demonstrated functional defect.",
+      "Both ordinary upstream components, 22 cross-compiler cases, ASan/UBSan, and Valgrind exercise attribute mutation, query, traversal, encoding, restore, and error paths."
+    ]
+  },
+  "schema": 1,
+  "scope": {
+    "compile_actions": 21,
+    "targets": [
+      "attr",
+      "getfattr",
+      "setfattr",
+      "libattr"
+    ],
+    "tests_examples_and_nonselected_sources_excluded": true,
+    "unique_sources": 21
+  },
+  "status": "complete production audit; deterministic normalization pending",
+  "tools": {
+    "clang_analyzer_tidy": {
+      "all_findings_by_check": {
+        "bugprone-assignment-in-if-condition": 8,
+        "bugprone-easily-swappable-parameters": 13,
+        "bugprone-implicit-widening-of-multiplication-result": 4,
+        "bugprone-inc-dec-in-conditions": 3,
+        "bugprone-multi-level-implicit-pointer-conversion": 6,
+        "bugprone-narrowing-conversions": 34,
+        "bugprone-reserved-identifier": 7,
+        "bugprone-sizeof-expression": 1,
+        "bugprone-suspicious-realloc-usage": 1,
+        "clang-analyzer-core.NonNullParamChecker": 1,
+        "clang-analyzer-core.NullDereference": 1,
+        "clang-analyzer-deadcode.DeadStores": 1,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 53,
+        "clang-analyzer-security.insecureAPI.strcpy": 7,
+        "clang-analyzer-unix.Malloc": 1,
+        "clang-diagnostic-unknown-warning-option": 1
+      },
+      "analyzer_findings_by_check": {
+        "clang-analyzer-core.NonNullParamChecker": 1,
+        "clang-analyzer-core.NullDereference": 1,
+        "clang-analyzer-deadcode.DeadStores": 1,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 53,
+        "clang-analyzer-security.insecureAPI.strcpy": 7,
+        "clang-analyzer-unix.Malloc": 1
+      }
+    },
+    "cppcheck": {
+      "findings_by_id": {
+        "constParameterPointer": 1,
+        "constVariablePointer": 5,
+        "internalAstError": 1,
+        "invalidPrintfArgType_sint": 1,
+        "unreadVariable": 2,
+        "variableScope": 3
+      },
+      "findings_by_severity": {
+        "error": 1,
+        "style": 11,
+        "warning": 1
+      }
+    },
+    "flawfinder": {
+      "hits_at_level_1_or_higher": 45,
+      "lines_analyzed": 3702
+    },
+    "gcc_fanalyzer": {
+      "findings_by_check": {},
+      "warnings": 0
+    },
+    "sparse": {
+      "exit_status": 0,
+      "parser_errors": 0,
+      "warnings": 36
+    }
+  }
+}
