@@ -18,6 +18,7 @@ exec docker run --rm \
   --volume rustbox-patch-2.8:/rustbox-patch \
   --volume rustbox-sed-4.10:/rustbox-sed \
   --volume rustbox-diffutils-3.12:/rustbox-diffutils \
+  --volume rustbox-grep-3.12:/rustbox-grep \
   --workdir /work \
   "$tool_image" "$@"
 

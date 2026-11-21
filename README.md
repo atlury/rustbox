@@ -377,6 +377,21 @@ comparisons, all 14,022 prior batch cases, both Diffutils upstream suites, 48
 exact Diffutils comparisons, and the resource checks recorded in
 `evidence/rustbox-multicall.json`.
 
+GNU Grep 3.12 is pinned to its canonical signed release.  Its configured
+Linux production closure is 129 C translation units: six Grep engine files,
+122 configured gnulib sources, and the generated POSIX colorize selector.
+GCC and Clang each pass the 128-case Grep suite (113 pass, 13
+platform/expensive skips, two expected glibc failures) and the 315-case
+gnulib suite (277 pass, 38 platform skips).  ASan/UBSan passes all 127
+functional Grep cases selected for instrumentation and the complete gnulib
+suite; the sole excluded case is a ten-million-record throughput test with
+fixed wall-clock deadlines.  Independent GCC-versus-Clang behavior checks
+pass 36/36 across byte, locale-neutral regex, fixed-string, PCRE, recursive,
+binary, NUL-record, context, error, and option paths.  The canonical
+process-exit DFA/PCRE allocation baseline is recorded rather than hidden.
+Reproducible details are in `evidence/grep-3.12-oracle.json`; production-only
+static analysis and normalization are the next gates.
+
 ## Work queue after util-linux
 
 This queue starts only after all in-scope util-linux applets reach canonical
