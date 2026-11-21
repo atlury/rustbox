@@ -694,6 +694,19 @@ flow explicit, split legacy condition side effects, bound name-buffer copies,
 and select the canonical portable CRC implementation if C2Rust cannot express
 the x86 PCLMUL intrinsics.  Sparse's intrinsic parser failures and the reviewed
 path-model false positives remain recorded rather than silently discarded.
+Deterministic normalization changes only `gzip.c`, `deflate.c`, and
+`lib/vasnprintf.c`: it exports `rustbox_gzip_main`, makes the fatal pack-level
+range boundary explicit, and guards the demonstrated zero-length null copy.
+The build selects upstream's portable slice-by-8 CRC implementation through
+its configure cache instead of translating the optional x86 PCLMUL intrinsics.
+GCC and Clang each retain all 29 runnable upstream passes and compare exactly
+to their corresponding canonical oracle across all 54 cases.  The normalized
+ASan/UBSan build also passes the full runnable suite with the nonnull-attribute
+checker enabled, confirming that the source repair replaces the earlier
+suppression.  Compression and decompression retain the exact canonical
+Valgrind allocation lifecycles.  The resulting 68-unit translation closure,
+all 108 canonical comparisons, exact transformations, compiler results, and
+resource evidence are in `evidence/gzip-1.14-normalization.json`.
 
 ## Work queue after util-linux
 
@@ -739,8 +752,9 @@ Library-only checkpoints (outside the active utility order):
    - [x] LZ4 1.11.1 — `lz4`, `lz4c`, `lz4cat`, `unlz4`; integrated at
      canonical parity.
 2. Compression, archive, and terminal foundations:
-   - [ ] GNU Gzip 1.14 — canonical oracle and analyzer audit complete;
-     normalization pending for `gzip`, `gunzip`, `zcat`, `uncompress`, `gzexe`, `zcmp`,
+   - [ ] GNU Gzip 1.14 — canonical oracle, analyzer audit, and normalization
+     complete; C2Rust translation pending for `gzip`, `gunzip`, `zcat`,
+     `uncompress`, `gzexe`, `zcmp`,
      `zdiff`, `zegrep`, `zfgrep`, `zforce`, `zgrep`, `zless`, `zmore`, `znew`.
    - [ ] xz — `xz`, `unxz`, `xzcat`, `lzma`, `unlzma`, `lzcat`, `xzdec`,
      `lzmadec`, `lzmainfo`, `xzcmp`, `xzdiff`, `xzegrep`, `xzfgrep`, `xzgrep`,
