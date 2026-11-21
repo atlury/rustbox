@@ -574,7 +574,16 @@ production closure.  Their reviewed baseline has one demonstrated blocker:
 the UBSan pointer-before-null-check ordering.  The matching `acl_free`
 ordering and realloc ownership repair are mandatory mechanical normalization;
 infeasible internal-API paths and hardening inventories remain recorded rather
-than silently discarded in `evidence/acl-2.4.0-analysis.json`.
+than silently discarded in `evidence/acl-2.4.0-analysis.json`.  Deterministic
+normalization changes five files: the two object-pointer conversions now occur
+after their null checks, `setfacl` retains realloc ownership on failure, and
+the three tools export conditional multicall entrypoints.  GCC, Clang, and
+ASan/UBSan retain the complete runnable upstream result with no undefined-
+behavior diagnostic; 60 canonical-versus-normalized comparisons are exact and
+Valgrind allocation summaries match the canonical tools.  LeakSanitizer alone
+is disabled in the root test because that fixture runs under ptrace; Valgrind
+remains the leak gate.  Exact rewrites, source closure, symbols, and parity are
+recorded in `evidence/acl-2.4.0-normalization.json`.
 
 ## Work queue after util-linux
 
