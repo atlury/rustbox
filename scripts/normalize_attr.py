@@ -131,15 +131,42 @@ def main() -> int:
             "owned realloc result",
         )
 
+        syscalls = staged / "libattr/syscalls.c"
+        replace_once(
+            syscalls,
+            "#if defined(HAVE_SYMVER_ATTRIBUTE)\n",
+            "#ifdef RUSTBOX_MULTICALL\n"
+            "# define SYMVER(cn, vn)\n"
+            "#else\n"
+            "#if defined(HAVE_SYMVER_ATTRIBUTE)\n",
+            "translation-safe compatibility symbol prelude",
+        )
+        replace_once(
+            syscalls,
+            "#ifndef SYMVER\n"
+            "#  define SYMVER(cn, vn) __asm__(\".symver \" #cn \",\" vn)\n"
+            "#endif\n\n"
+            "#ifdef HAVE_VISIBILITY_ATTRIBUTE\n",
+            "#ifndef SYMVER\n"
+            "#  define SYMVER(cn, vn) __asm__(\".symver \" #cn \",\" vn)\n"
+            "#endif\n"
+            "#endif\n\n"
+            "#ifdef HAVE_VISIBILITY_ATTRIBUTE\n",
+            "translation-safe compatibility symbol epilogue",
+        )
+
         canonical_files = {path.relative_to(canonical).as_posix() for path in canonical.rglob("*") if path.is_file()}
         staged_files = {path.relative_to(staged).as_posix() for path in staged.rglob("*") if path.is_file()}
         if canonical_files != staged_files:
             raise RuntimeError("normalization added or removed attr source-tree files")
         changed = sorted(name for name in canonical_files if sha256(canonical / name) != sha256(staged / name))
-        if changed != ["tools/attr.c", "tools/getfattr.c", "tools/setfattr.c"]:
+        if changed != [
+            "libattr/syscalls.c", "tools/attr.c", "tools/getfattr.c", "tools/setfattr.c"
+        ]:
             raise RuntimeError(f"unexpected attr normalized sources: {changed}")
 
         operations = {
+            "libattr/syscalls.c": "omit ELF symbol-version alias declarations only in the multicall translation configuration",
             "tools/attr.c": "export multicall entrypoint and print the unsigned attribute length with its matching format",
             "tools/getfattr.c": "export multicall entrypoint and guard the configured-libc zero-element qsort call",
             "tools/setfattr.c": "export multicall entrypoint and retain realloc ownership until allocation succeeds",

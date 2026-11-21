@@ -116,22 +116,29 @@
       }
     }
   },
-  "manifest_sha256": "78549852ce33141beed6539187fc225aba22ba953e73e60c54cb6222631fe52c",
+  "manifest_sha256": "f94ef40e98a4a9998f82a59219b0a53a2b82ce2425c2a6331c44a85d52480a2b",
   "next_gate": "translate the exact 21-source normalized attr production closure with C2Rust",
   "normalization": {
     "canonical_archive_sha256": "6c8a2148a7b85043b68492bce43316b0e2e214fc4e628c7ede078e76e216330b",
     "canonical_tree_sha256": "102f533cdae3667fe01ffe0b46c159db6b56867e706edd68c28de769ffd4710c",
     "changed_sources": [
+      "libattr/syscalls.c",
       "tools/attr.c",
       "tools/getfattr.c",
       "tools/setfattr.c"
     ],
     "conditional": "RUSTBOX_MULTICALL",
     "engine": "exact deterministic source rewrite",
-    "normalized_tree_sha256": "303e366704a7ba0a59e0586c0daec5b13d1f07c1569d65fd3ec526f4d38bc043",
+    "normalized_tree_sha256": "3ee7f790af0ea3a09f28c0ca018e74de18b1dfc07ac6a8fdbd6dabb732632ad5",
     "release": "2.6.0",
     "schema": 1,
     "transformations": [
+      {
+        "canonical_sha256": "14ee430d691178ea7b331118ab4612b1b2eec835c31903751482d9b04987206c",
+        "normalized_sha256": "97a336c848b901e7d3d92d14771bef4b9939d4bf213bc0879fd3964246653082",
+        "operation": "omit ELF symbol-version alias declarations only in the multicall translation configuration",
+        "source": "libattr/syscalls.c"
+      },
       {
         "canonical_sha256": "14d35c610a3c48a46bf4d28c9e159885010fb3d051280ee905d3199f04128704",
         "normalized_sha256": "9421babbc14e144352b182e1a2d00821ff1d45d34974945392b9a724731efd2c",
@@ -161,7 +168,7 @@
         "total heap usage: 48 allocs, 6 frees, 7,264 bytes allocated",
         "still reachable: 2,152 bytes in 42 blocks"
       ],
-      "log_sha256": "2806ae13147f264f2072590156a0e1d661be781b437ba41585020f0de80cf41a",
+      "log_sha256": "04583461259f589f8b7b9efb7d7323cd551818f06338c5e34b984c38d9e16afa",
       "matches_canonical_summary": true
     },
     "setfattr": {
@@ -170,7 +177,7 @@
         "total heap usage: 1 allocs, 0 frees, 256 bytes allocated",
         "still reachable: 256 bytes in 1 blocks"
       ],
-      "log_sha256": "9f3380efb7e116b17a55147484ff3dce1f0558063e79e28a626389830a6b1c8f",
+      "log_sha256": "ece29c88aadbc5536ac961772298462005b71c124db753911c732b12a5355ce3",
       "matches_canonical_summary": true
     }
   },
@@ -179,7 +186,7 @@
     "compilers": {
       "clang": {
         "compile_actions": 21,
-        "compile_database_sha256": "c306606774c38c0e5edbba705e64a6f7753f631cca57bbabb2fec9132b72adaa",
+        "compile_database_sha256": "4d69377e7d4fc690740dc61dee89e8ff1ed102c7b555436c56bc6e1d88dc557d",
         "test_log_sha256": "700d5382378203106554031862a997b93255a8738c27bf24cf1a39b322fe2594",
         "upstream_tests": {
           "error": 0,
@@ -193,7 +200,7 @@
       },
       "gcc": {
         "compile_actions": 21,
-        "compile_database_sha256": "65bcc0dae8bf59720ebec67cd3498377cf7eb6e946a94ee0ef432d3c7a1a6a52",
+        "compile_database_sha256": "3c90b68f3aea5c1cfd772005aa4c18ea166621af25762bdd1fe17400a13adc04",
         "test_log_sha256": "7fbc16dc7b7c46db80b6b0c86d4304addff81538029ac512c850465df55d67b0",
         "upstream_tests": {
           "error": 0,
@@ -207,7 +214,7 @@
       },
       "sanitizer": {
         "compile_actions": 21,
-        "compile_database_sha256": "6f57ad8b842f671c56294b9199ec272b127b560a5e4ceed81292fefbcae141cb",
+        "compile_database_sha256": "13dcbf126c1c873050698c45f3f00966a2dda983cf1eff319cfe09f8cbbc1d22",
         "test_log_sha256": "941a0122f4314937f90a977f7e4fe49de3c67695516f778f00bbacf15696cd99",
         "upstream_tests": {
           "error": 0,

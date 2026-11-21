@@ -78,7 +78,9 @@ def main() -> int:
     oracle = json.loads((repository / "evidence/attr-2.6.0-oracle.json").read_text())
     manifest_path = base / "normalization.json"
     manifest = json.loads(manifest_path.read_text())
-    expected_changed = ["tools/attr.c", "tools/getfattr.c", "tools/setfattr.c"]
+    expected_changed = [
+        "libattr/syscalls.c", "tools/attr.c", "tools/getfattr.c", "tools/setfattr.c"
+    ]
     if manifest["changed_sources"] != expected_changed:
         raise RuntimeError("attr normalization source set changed")
 
@@ -171,7 +173,7 @@ def main() -> int:
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")
-    print(json.dumps({"changed_sources": 3, "differential": 44, "production_sources": 21}, sort_keys=True))
+    print(json.dumps({"changed_sources": 4, "differential": 44, "production_sources": 21}, sort_keys=True))
     return 0
 
 

@@ -522,10 +522,12 @@ units.  The reviewed inventory has zero blocking findings and no canonical
 source changes; the allocation-exit paths, zero-element qsort call, analyzer
 parser limitation, conversion candidates, and public libattr surface are
 recorded explicitly in `evidence/attr-2.6.0-analysis.json`.  Deterministic
-normalization changes only the three public-tool sources: it exports
-conditional multicall entrypoints, gives the unsigned attribute length its
-matching format, guards the configured-libc zero-element qsort call, and
-retains realloc ownership until allocation succeeds.  GCC, Clang, and
+normalization changes the three public-tool sources plus the compatibility
+syscall wrapper: it exports conditional multicall entrypoints, gives the
+unsigned attribute length its matching format, guards the configured-libc
+zero-element qsort call, retains realloc ownership until allocation succeeds,
+and omits ELF symbol-version aliases only in the multicall translation
+configuration because C2Rust cannot represent them.  GCC, Clang, and
 ASan/UBSan retain the 2-pass/1-capability-skip upstream result; 44 independent
 canonical-versus-normalized differential comparisons are exact, and the
 Valgrind heap lifecycles remain identical to the canonical builds.  The exact
