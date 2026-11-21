@@ -57,7 +57,7 @@ scoring, and correctness gates.
 | attr 2.6.0 | 3 | 3 | 3 | 3 |
 | acl 2.4.0 | 3 | 3 | 3 | 3 |
 | LZ4 1.11.1 | 4 | 4 | 4 | 4 |
-| GNU Gzip 1.14 | 14 | 14 | 14 | 0 |
+| GNU Gzip 1.14 | 14 | 14 | 14 | 1 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -119,12 +119,12 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 289
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 290
 distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, five
 pkgconf names, File, GNU patch, GNU sed, four GNU Diffutils applets, and GNU
 Grep's three public names, GNU bc and dc, attr's three tools, plus chacl,
-getfacl, and setfacl, plus LZ4's four public names;
-`kill` is shared and `util-linux-kill` remains available explicitly).  It passes all 578
+getfacl, and setfacl, plus LZ4's four public names and GNU Gzip's native engine;
+`kill` is shared and `util-linux-kill` remains available explicitly).  It passes all 580
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
 check, 108-case differential suite, and Valgrind.  Pkgconf also passes all 429
@@ -143,8 +143,11 @@ tools retain 13 upstream passes and two canonical NFS expected failures, all
 30 state-aware differential cases, and leak-free translated allocation
 lifecycles through the same dispatcher.  LZ4 passes all 27 byte-and-filesystem
 differential cases, its complete upstream essentials suite, and leak-free
-resource checks through the same dispatcher.  The stripped 289-name executable
-is 7,054,608 bytes.  `chcon` and `runcon`
+resource checks through the same dispatcher.  GNU Gzip's translated native
+engine passes all 14 engine-only byte, filesystem, failure, help, and version
+comparisons, emits byte-identical compressed streams, and is leak-free through
+the same dispatcher.  The stripped 290-name executable is 7,431,696 bytes.
+`chcon` and `runcon`
 remain absent, and the linked binary has no SELinux or systemd dependency.
 
 The final Rustbox executable is required to be self-contained: utility
@@ -666,7 +669,7 @@ Rust startup allocation.  Its stripped standalone size is 586,784 bytes before
 multicall sharing.  Full behavior, resource, dependency, and size evidence is
 in `evidence/lz4-1.11.1-hybrid.json`.
 All four names are integrated into Rustbox.  The unified link keeps all 206
-non-entrypoint LZ4, liblz4, and XXH C symbols private, passes 578/578 aggregate
+non-entrypoint LZ4, liblz4, and XXH C symbols private, passes 580/580 aggregate
 help/version comparisons and all 14,022 prior batch cases, and repeats the full
 LZ4 behavior suite.  Compression retains the standalone allocation lifecycle;
 subcommand dispatch adds only 32 allocated-and-freed bytes during decompression.
@@ -730,6 +733,15 @@ lifecycles.  The standalone translated executable strips to about 0.4 MB;
 the much larger static archive is link inventory rather than release size.
 Full behavior, bridge, resource, dependency, symbol, and size evidence is in
 `evidence/gzip-1.14-hybrid.json`.
+The translated native `gzip` engine is also integrated into the unified
+Rustbox dispatcher.  Its complete 14-case engine-only differential passes,
+compression is byte-identical, decompression matches canonical bytes, and
+Valgrind reports zero errors with every allocation freed.  All Gzip and gnulib
+symbols except `rustbox_gzip_main` are private to the applet, including its
+independent Rust personality symbol.  The remaining thirteen names require
+internal replacements for upstream's shell interfaces.  Unified evidence is
+in `evidence/rustbox-multicall.json`; native Gzip integration adds 377,088
+stripped bytes to the previous multicall checkpoint.
 
 ## Work queue after util-linux
 
@@ -775,8 +787,8 @@ Library-only checkpoints (outside the active utility order):
    - [x] LZ4 1.11.1 — `lz4`, `lz4c`, `lz4cat`, `unlz4`; integrated at
      canonical parity.
 2. Compression, archive, and terminal foundations:
-   - [ ] GNU Gzip 1.14 — translated hybrid at canonical parity; internal-shell
-     replacement and multicall integration pending for `gzip`, `gunzip`, `zcat`,
+   - [ ] GNU Gzip 1.14 — translated hybrid at canonical parity; native `gzip`
+     integrated; internal-shell replacement and multicall integration pending for `gunzip`, `zcat`,
      `uncompress`, `gzexe`, `zcmp`,
      `zdiff`, `zegrep`, `zfgrep`, `zforce`, `zgrep`, `zless`, `zmore`, `znew`.
    - [ ] xz — `xz`, `unxz`, `xzcat`, `lzma`, `unlzma`, `lzcat`, `xzdec`,

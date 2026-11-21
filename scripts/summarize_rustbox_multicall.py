@@ -34,6 +34,7 @@ def main() -> int:
     parser.add_argument("--attr-report-directory", type=Path, required=True)
     parser.add_argument("--acl-report-directory", type=Path, required=True)
     parser.add_argument("--lz4-report-directory", type=Path, required=True)
+    parser.add_argument("--gzip-report-directory", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     binary = args.binary.resolve()
@@ -51,10 +52,11 @@ def main() -> int:
     attr_directory = args.attr_report_directory.resolve()
     acl_directory = args.acl_report_directory.resolve()
     lz4_directory = args.lz4_report_directory.resolve()
+    gzip_directory = args.gzip_report_directory.resolve()
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
-    if dispatch["cases"] != 578 or dispatch["passed"] != 578 or dispatch["failures"]:
+    if dispatch["cases"] != 580 or dispatch["passed"] != 580 or dispatch["failures"]:
         raise RuntimeError("unified dispatcher comparison is incomplete")
     if (
         differential["batches"] != 38
@@ -386,6 +388,21 @@ def main() -> int:
         or any(marker not in lz4_upstream for marker in lz4_markers)
     ):
         raise RuntimeError("unified LZ4 integration comparison is incomplete")
+    gzip_differential_path = gzip_directory / "differential.json"
+    gzip_differential = json.loads(gzip_differential_path.read_text())
+    gzip_valgrind_paths = {
+        operation: gzip_directory / f"valgrind-{operation}.log"
+        for operation in ("compress", "decompress")
+    }
+    for operation, path in gzip_valgrind_paths.items():
+        text = path.read_text(errors="replace")
+        if (
+            "ERROR SUMMARY: 0 errors" not in text
+            or "All heap blocks were freed -- no leaks are possible" not in text
+        ):
+            raise RuntimeError(f"unified GNU Gzip {operation} Valgrind comparison is incomplete")
+    if gzip_differential.get("cases") != 14 or gzip_differential.get("passed") != 14:
+        raise RuntimeError("unified GNU Gzip integration comparison is incomplete")
     if sha256(binary) != link["binary"]["sha256"]:
         raise RuntimeError("unified binary changed after link evidence")
     with tempfile.TemporaryDirectory(prefix="rustbox-strip-") as temporary:
@@ -411,7 +428,7 @@ def main() -> int:
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-21",
-        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, and LZ4 integrated canonical parity",
+        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, and GNU Gzip's native engine integrated at canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
@@ -426,7 +443,8 @@ def main() -> int:
             "attr": 3,
             "acl": 3,
             "lz4": 4,
-            "dispatch_names": 289,
+            "gzip_native_engine": 1,
+            "dispatch_names": 290,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -547,6 +565,19 @@ def main() -> int:
                 for operation, path in lz4_valgrind_paths.items()
             },
         },
+        "gzip_integration": {
+            "native_engine_names": 1,
+            "differential": gzip_differential,
+            "byte_identical_compression": True,
+            "decompression_matches_canonical": True,
+            "valgrind_errors": 0,
+            "all_allocations_freed": True,
+            "differential_sha256": sha256(gzip_differential_path),
+            "valgrind_log_sha256": {
+                operation: sha256(path)
+                for operation, path in gzip_valgrind_paths.items()
+            },
+        },
         "collision_isolation": {
             "translated_libraries": len(link["source_library_sha256"]),
             "namespaced_libraries": len(link["namespaced_symbols"]),
@@ -566,6 +597,7 @@ def main() -> int:
             "attr_namespaced_symbols": len(link["attr_namespaced_symbols"]),
             "acl_namespaced_symbols": len(link["acl_namespaced_symbols"]),
             "lz4_namespaced_symbols": len(link["lz4_namespaced_symbols"]),
+            "gzip_namespaced_symbols": len(link["gzip_namespaced_symbols"]),
             "manifest": link,
         },
     }

@@ -183,12 +183,14 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--gcc-directory", type=Path, required=True)
     parser.add_argument("--clang-directory", type=Path, required=True)
+    parser.add_argument("--applets", nargs="+", choices=NAMES)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
+    selected = set(args.applets or NAMES)
     records = []
     with tempfile.TemporaryDirectory(prefix="rustbox-gzip-differential-") as temporary:
         root = Path(temporary)
-        for case in cases():
+        for case in (case for case in cases() if case.applet in selected):
             gcc = invoke(args.gcc_directory.resolve(), case, root)
             clang = invoke(args.clang_directory.resolve(), case, root)
             if gcc != clang:

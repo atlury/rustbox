@@ -20,4 +20,6 @@ RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
     --attr-rust-library /work/work/analysis/attr-2.6.0/translations/c2rust-0.22.1/attr-2.6.0-stable/target/release/libattr_2_6_0_normalized_audit.a \
     --acl-rust-library /work/work/analysis/acl-2.4.0/translations/c2rust-0.22.1/acl-2.4.0-stable/target/release/libacl_2_4_0_normalized_audit.a \
     --lz4-rust-library /work/work/analysis/lz4-1.11.1/translations/c2rust-0.22.1/lz4-1.11.1-stable/target/release/liblz4_1_11_1_normalized_audit.a \
+    --gzip-rust-library /work/work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a \
+    --gzip-support-library /rustbox-gzip/normalized-clang/lib/libgzip.a \
     --link-report /work/work/analysis/rustbox-multicall-link.json

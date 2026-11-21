@@ -50,6 +50,7 @@ def main() -> int:
     parser.add_argument("--attr-oracle-dir", type=Path, required=True)
     parser.add_argument("--acl-oracle-dir", type=Path, required=True)
     parser.add_argument("--lz4-oracle-dir", type=Path, required=True)
+    parser.add_argument("--gzip-oracle", type=Path, required=True)
     parser.add_argument("--rustbox", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
@@ -68,6 +69,7 @@ def main() -> int:
     attr_oracle_dir = args.attr_oracle_dir.resolve()
     acl_oracle_dir = args.acl_oracle_dir.resolve()
     lz4_oracle_dir = args.lz4_oracle_dir.resolve()
+    gzip_oracle = args.gzip_oracle.resolve()
     failures: list[dict[str, object]] = []
     cases = 0
 
@@ -207,6 +209,13 @@ def main() -> int:
             if oracle != actual:
                 failures.append({"suite": "lz4", "applet": name, "option": option, "oracle": oracle, "actual": actual})
 
+    for option in ("--help", "--version"):
+        cases += 1
+        oracle = invoke(["gzip", option], executable=gzip_oracle)
+        actual = invoke([str(rustbox), "gzip", option])
+        if oracle != actual:
+            failures.append({"suite": "gzip", "applet": "gzip", "option": option, "oracle": oracle, "actual": actual})
+
     result = {
         "schema": 1,
         "cases": cases,
@@ -224,6 +233,7 @@ def main() -> int:
         "attr_applets": len(attr_names),
         "acl_applets": len(acl_names),
         "lz4_public_names": len(lz4_names),
+        "gzip_public_names": 1,
         "failures": failures,
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
@@ -236,7 +246,7 @@ def main() -> int:
         + "\n",
         encoding="utf-8",
     )
-    print(json.dumps({key: result[key] for key in ("cases", "passed", "coreutils_applets", "util_linux_applets", "m4_applets", "pkgconf_public_names", "file_applets", "patch_applets", "sed_applets", "diffutils_applets", "grep_applets", "bc_applets", "attr_applets", "acl_applets", "lz4_public_names")}))
+    print(json.dumps({key: result[key] for key in ("cases", "passed", "coreutils_applets", "util_linux_applets", "m4_applets", "pkgconf_public_names", "file_applets", "patch_applets", "sed_applets", "diffutils_applets", "grep_applets", "bc_applets", "attr_applets", "acl_applets", "lz4_public_names", "gzip_public_names")}))
     return 1 if failures else 0
 
 

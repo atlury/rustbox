@@ -607,6 +607,58 @@ def namespace_lz4_library(
     return mapped, symbols
 
 
+def namespace_gzip_libraries(
+    rust_library: Path, support_library: Path, build: Path
+) -> tuple[Path, Path, list[str]]:
+    """Keep Gzip's engine and three variadic support members private."""
+    public = {"rustbox_gzip_main"}
+    strong_types = {"B", "C", "D", "G", "R", "S", "T"}
+    compiler_math = re.compile(
+        r"^(?:cbrt|ceil|copysign|fabs|fdim|floor|fma|fmax|fmaximum|fmin|fminimum|fmod|rint|round|sqrt|trunc)(?:f|f16|f128)?$"
+    )
+    symbols: set[str] = set()
+    for library in (rust_library, support_library):
+        output = subprocess.run(
+            ["nm", "-g", "--defined-only", str(library)], check=True, text=True,
+            stdout=subprocess.PIPE,
+        ).stdout
+        symbols.update({
+            fields[-1]
+            for line in output.splitlines()
+            if len(fields := line.split()) >= 3
+            and fields[-2] in strong_types
+            and re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", fields[-1])
+            and fields[-1] not in public
+            and (
+                not fields[-1].startswith("rust_")
+                or fields[-1] == "rust_eh_personality"
+            )
+            and not compiler_math.fullmatch(fields[-1])
+        })
+    selected = sorted(symbols)
+    if not selected:
+        raise RuntimeError("GNU Gzip archives export no namespaceable C symbols")
+    destination = build / "src/.rustbox-gzip"
+    destination.mkdir(parents=True, exist_ok=True)
+    mapped_rust = destination / rust_library.name
+    mapped_support = destination / support_library.name
+    mapping = destination / "symbols.map"
+    mapping.write_text(
+        "".join(f"{symbol} rustbox_gzip_private_{symbol}\n" for symbol in selected),
+        encoding="utf-8",
+    )
+    shutil.copy2(rust_library, mapped_rust)
+    shutil.copy2(support_library, mapped_support)
+    subprocess.run(["objcopy", "--redefine-syms", str(mapping), str(mapped_rust)], check=True)
+    subprocess.run(["objcopy", "--redefine-syms", str(mapping), str(mapped_support)], check=True)
+    if defined_symbols(mapped_rust).count("rustbox_gzip_main") != 1:
+        raise RuntimeError("GNU Gzip symbol isolation damaged rustbox_gzip_main")
+    definitions = set(defined_symbols(mapped_rust)) | set(defined_symbols(mapped_support))
+    if any(symbol in definitions for symbol in selected):
+        raise RuntimeError("GNU Gzip symbol isolation left an unprefixed definition")
+    return mapped_rust, mapped_support, selected
+
+
 def util_linux_link_inputs(
     repository: Path, build: Path, rust_defined: set[str]
 ) -> tuple[list[Path], list[str], dict[str, list[str]]]:
@@ -769,6 +821,7 @@ extern int rustbox_chacl_main(int, char **);
 extern int rustbox_getfacl_main(int, char **);
 extern int rustbox_setfacl_main(int, char **);
 extern int rustbox_lz4_main(int, char **);
+extern int rustbox_gzip_main(int, char **);
 """
         + declarations
         + """
@@ -893,6 +946,8 @@ int main(int argc, char **argv)
     if (!force_util_linux && (strcmp(name, "lz4") == 0 || strcmp(name, "lz4c") == 0 ||
                               strcmp(name, "lz4cat") == 0 || strcmp(name, "unlz4") == 0))
         return rustbox_lz4_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "gzip") == 0)
+        return rustbox_gzip_main(argc, argv);
 """
         + selections
         + """
@@ -922,6 +977,8 @@ def main() -> int:
     parser.add_argument("--attr-rust-library", type=Path, required=True)
     parser.add_argument("--acl-rust-library", type=Path, required=True)
     parser.add_argument("--lz4-rust-library", type=Path, required=True)
+    parser.add_argument("--gzip-rust-library", type=Path, required=True)
+    parser.add_argument("--gzip-support-library", type=Path, required=True)
     parser.add_argument("--link-report", type=Path, required=True)
     args = parser.parse_args()
     repository = args.repository.resolve()
@@ -939,6 +996,8 @@ def main() -> int:
     attr_rust_library = args.attr_rust_library.resolve()
     acl_rust_library = args.acl_rust_library.resolve()
     lz4_rust_library = args.lz4_rust_library.resolve()
+    gzip_rust_library = args.gzip_rust_library.resolve()
+    gzip_support_library = args.gzip_support_library.resolve()
     makefile = build / "Makefile"
     if not makefile.is_file():
         raise RuntimeError("canonical Coreutils build is missing")
@@ -1021,7 +1080,8 @@ def main() -> int:
         m4_rust_library, m4_support_library, pkgconf_rust_library,
         file_rust_library, patch_rust_library, sed_rust_library,
         diffutils_rust_library, grep_rust_library, bc_rust_library,
-        attr_rust_library, acl_rust_library, lz4_rust_library,
+        attr_rust_library, acl_rust_library, lz4_rust_library, gzip_rust_library,
+        gzip_support_library,
     ):
         if not path.is_file():
             raise RuntimeError(f"multicall input is missing: {path}")
@@ -1046,8 +1106,11 @@ def main() -> int:
     acl_library_index = len(libraries) - 1
     libraries.append(lz4_rust_library)
     lz4_library_index = len(libraries) - 1
+    libraries.append(gzip_rust_library)
+    gzip_library_index = len(libraries) - 1
     source_library_hashes = {str(path.relative_to(repository)): sha256(path) for path in libraries}
     source_library_hashes[str(m4_support_library)] = sha256(m4_support_library)
+    source_library_hashes[str(gzip_support_library)] = sha256(gzip_support_library)
     expected_symbols.update(f"rustbox_{symbol}_main" for symbol in util_dispatch.values())
     expected_symbols.add("rustbox_m4_main")
     expected_symbols.update({
@@ -1072,6 +1135,7 @@ def main() -> int:
         "rustbox_getfacl_main",
         "rustbox_setfacl_main",
         "rustbox_lz4_main",
+        "rustbox_gzip_main",
     })
 
     mapped_file_rust, file_symbols = namespace_file_library(
@@ -1118,6 +1182,11 @@ def main() -> int:
         libraries[lz4_library_index], build
     )
     libraries[lz4_library_index] = mapped_lz4_rust
+
+    mapped_gzip_rust, mapped_gzip_support, gzip_symbols = namespace_gzip_libraries(
+        libraries[gzip_library_index], gzip_support_library, build
+    )
+    libraries[gzip_library_index] = mapped_gzip_rust
 
     canonical_dispatch_symbols = set(defined_symbols(build / "src/coreutils-coreutils.o"))
     libraries, namespaced_symbols = namespace_duplicate_c_symbols(
@@ -1219,6 +1288,7 @@ def main() -> int:
                 rewritten.append(str(grep_error_object))
                 rewritten.extend(str(path) for path in util_inputs)
                 rewritten.append(str(mapped_m4_support))
+                rewritten.append(str(mapped_gzip_support))
                 inserted = True
             if dependency in bridge_archives:
                 rewritten.append(str(bridge_archives[dependency]))
@@ -1300,13 +1370,14 @@ def main() -> int:
         "attr_applets": 3,
         "acl_applets": 3,
         "lz4_public_names": 4,
+        "gzip_public_names": 1,
         "total_dispatch_names": len(
             set(applets)
             | set(util_dispatch)
             | {"m4", "pkgconf", "pkg-config", "bomtool", "pccritic", "spdxtool", "file", "patch", "sed",
                "cmp", "diff", "diff3", "sdiff", "grep", "egrep", "fgrep", "bc", "dc",
                "attr", "getfattr", "setfattr", "chacl", "getfacl", "setfacl",
-               "lz4", "lz4c", "lz4cat", "unlz4"}
+               "lz4", "lz4c", "lz4cat", "unlz4", "gzip"}
         ),
         "excluded": ["chcon", "runcon"],
         "public_name_precedence": {"kill": "GNU Coreutils", "util-linux-kill": "util-linux"},
@@ -1329,6 +1400,7 @@ def main() -> int:
         "attr_namespaced_symbols": attr_symbols,
         "acl_namespaced_symbols": acl_symbols,
         "lz4_namespaced_symbols": lz4_symbols,
+        "gzip_namespaced_symbols": gzip_symbols,
         "diffutils_error_bridge": {
             "object": str(diffutils_error_object.relative_to(build)),
             "symbols": ["rustbox_diffutils_error"],
@@ -1372,6 +1444,7 @@ def main() -> int:
         "attr_applets": 3,
         "acl_applets": 3,
         "lz4_public_names": 4,
+        "gzip_public_names": 1,
         "output": str(output),
     }))
     return 0
