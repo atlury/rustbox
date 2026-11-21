@@ -488,7 +488,15 @@ lines and 3,468 raw-pointer type occurrences, recorded for the later safety
 phase.  The 23,726,090-byte pre-link archive, exact source and output hashes,
 toolchain checks, linkage deduplication, and complete unsafe inventory are in
 `evidence/bc-1.08.2-c2rust.json`; canonical translated-executable parity is
-the next gate.
+the next gate.  The linked translated bc and dc now pass all 18 shipped
+arbitrary-precision workloads, including the exhaustive `checklib.b`, all 46
+bc/dc language, CLI, diagnostic, and error comparisons, and exact canonical
+Valgrind allocation-lifecycle comparisons with zero errors.  The only C ABI
+glue is the entrypoint.  The standalone stripped binaries are 423,592 bytes
+for bc and 378,168 bytes for dc, versus canonical C's 93,016 and 55,528 bytes;
+multicall dead-code sharing is measured only after integration.  Reproducible
+linkage, dependency, size, differential, workload, and resource evidence is
+in `evidence/bc-1.08.2-hybrid.json`.
 
 ## Work queue after util-linux
 

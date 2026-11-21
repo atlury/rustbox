@@ -1,0 +1,622 @@
+{
+  "behavior": {
+    "differential": {
+      "cases": 46,
+      "passed": 46,
+      "records": [
+        {
+          "applet": "bc",
+          "name": "empty",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        {
+          "applet": "bc",
+          "name": "addition",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 2,
+            "stdout_sha256": "f0b5c2c2211c8d67ed15e75e656c7862d086e9245420892a7de62cd9ec582a06"
+          }
+        },
+        {
+          "applet": "bc",
+          "name": "precedence",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 6,
+            "stdout_sha256": "93e22ea443e428d079ee421934e3477b2e477397ebda8edc6cfba1a1b18479f7"
+          }
+        },
+        {
+          "applet": "bc",
+          "name": "scale",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 22,
+            "stdout_sha256": "6bb27633f8a9e0ed5749c40a25c36ea45bb659a93bf44df29b76db0ffff483d8"
+          }
+        },
+        {
+          "applet": "bc",
+          "name": "ibase-obase",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 6,
+            "stdout_sha256": "7e8e107638cb988f8026fbeae87c98118ee5891a088b2af5a18aba7998a98ce6"
+          }
+        },
+        {
+          "applet": "bc",
+          "name": "large-integer",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 318,
+            "stdout_sha256": "f1e41a95f0afa197fe7253fd0796b1e938d9e3db647018151c8b2966deab8027"
+          }
+        },
+        {
+          "applet": "bc",
+          "name": "sqrt",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 53,
+            "stdout_sha256": "4d8f4a872d299529a9133a10075e74a52daf6c1a64073c18f54092bbfa6370a2"
+          }
+        },
+        {
+          "applet": "bc",
+          "name": "function",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 49,
+            "stdout_sha256": "6e50406dd4f6a6f300562379d5fc3db502568d102235cbb5df4a16688202fc05"
+          }
+        },
+        {
+          "applet": "bc",
+          "name": "array",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 11,
+            "stdout_sha256": "2332be584812c1fa6a7db57beab02d8f2c0c931a2e8db8ed86c286f4c2f97c62"
+          }
+        },
+        {
+          "applet": "bc",
+          "name": "auto",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 3,
+            "stdout_sha256": "917df3320d778ddbaa5c5c7742bc4046bf803c36ed2b050f30844ed206783469"
+          }
+        },
+        {
+          "applet": "bc",
+          "name": "boolean",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 6,
+            "stdout_sha256": "76fe9f61152f4c08745cab737f023db2c534642e01b7fe8c86032d7fe3724b0d"
+          }
+        },
+        {
+          "applet": "bc",
+          "name": "strings",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 13,
+            "stdout_sha256": "d3dfbe98b3cac68152a381b4f8a3c2c996556e278cf4c48f29e5ee471b7ecc33"
+          }
+        },
+        {
+          "applet": "bc",
+          "name": "print",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 4,
+            "stdout_sha256": "a274dd5c057346f9ef97380a70ed61ab567bcde91fa866853ca5fb84381580b9"
+          }
+        },
+        {
+          "applet": "bc",
+          "name": "last",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 6,
+            "stdout_sha256": "81d0bc9bd29b08dd1785fa6ba2d36f2855bb3fffe97da49c9448c37e06867229"
+          }
+        },
+        {
+          "applet": "bc",
+          "name": "math-library",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 193,
+            "stdout_sha256": "8bf3cabdaefe015ac0594b9d5abbe94366dcedd7bc0b1fa5a2a21424c11c3d38"
+          }
+        },
+        {
+          "applet": "bc",
+          "name": "warn-extension",
+          "result": {
+            "status": 0,
+            "stderr_length": 43,
+            "stderr_sha256": "d556a0ce2f472aec9eff5d0685500b8f54d17414c8013f7709283f737ebefdbb",
+            "stdout_length": 2,
+            "stdout_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+          }
+        },
+        {
+          "applet": "bc",
+          "name": "standard-reject",
+          "result": {
+            "status": 0,
+            "stderr_length": 40,
+            "stderr_sha256": "e6dc2788ed2300d9f1fcefb5fd11cb6e1b435eb0d8152f4a802f77b9b5c6e910",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        {
+          "applet": "bc",
+          "name": "syntax-error",
+          "result": {
+            "status": 0,
+            "stderr_length": 30,
+            "stderr_sha256": "c1e037a4bfe366e0a35cf5046544ecbb1563564cf8037a1261b6b54112f965be",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        {
+          "applet": "bc",
+          "name": "runtime-divzero",
+          "result": {
+            "status": 0,
+            "stderr_length": 51,
+            "stderr_sha256": "efc2364596e641a406863764cdcd58d4bcff50e9535f81d93e57934290925d2d",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        {
+          "applet": "bc",
+          "name": "quit",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 2,
+            "stdout_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+          }
+        },
+        {
+          "applet": "bc",
+          "name": "halt",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 2,
+            "stdout_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+          }
+        },
+        {
+          "applet": "bc",
+          "name": "version",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 114,
+            "stdout_sha256": "0439ac55a8449cf64d5f5c9c6d3355fc278396630e5bdec173de45aa3d32bfe4"
+          }
+        },
+        {
+          "applet": "bc",
+          "name": "help",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 438,
+            "stdout_sha256": "6dcdee872ae0924ea3081852bbada29a99738c931474762a0f09cfc169210a2d"
+          }
+        },
+        {
+          "applet": "bc",
+          "name": "bad-option",
+          "result": {
+            "status": 1,
+            "stderr_length": 47,
+            "stderr_sha256": "6a437fcbd67fac1b91e6f4218297af0195657754c87a25fdf95894f2b57d44b0",
+            "stdout_length": 438,
+            "stdout_sha256": "6dcdee872ae0924ea3081852bbada29a99738c931474762a0f09cfc169210a2d"
+          }
+        },
+        {
+          "applet": "dc",
+          "name": "empty",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        {
+          "applet": "dc",
+          "name": "addition",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 2,
+            "stdout_sha256": "f0b5c2c2211c8d67ed15e75e656c7862d086e9245420892a7de62cd9ec582a06"
+          }
+        },
+        {
+          "applet": "dc",
+          "name": "subtraction",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 3,
+            "stdout_sha256": "0b2f06dddfa807ee574a78468d3a05904873b97f44377eb93481e091c257b800"
+          }
+        },
+        {
+          "applet": "dc",
+          "name": "multiply",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 19,
+            "stdout_sha256": "adcbe9b56ef31f993402717142da47326d9f1cf058895be2e3f75cc2783b4365"
+          }
+        },
+        {
+          "applet": "dc",
+          "name": "divide",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 22,
+            "stdout_sha256": "6bb27633f8a9e0ed5749c40a25c36ea45bb659a93bf44df29b76db0ffff483d8"
+          }
+        },
+        {
+          "applet": "dc",
+          "name": "remainder",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 2,
+            "stdout_sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+          }
+        },
+        {
+          "applet": "dc",
+          "name": "power",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 81,
+            "stdout_sha256": "b2362b0b52ed79c5dd6022ac05ad1be59978de542583cf73eef4e3b4d0124131"
+          }
+        },
+        {
+          "applet": "dc",
+          "name": "sqrt",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 43,
+            "stdout_sha256": "185e7b8b4a4e4f6a69d04b5082e27f076aa2f598510e410e9ceff3aba71d7354"
+          }
+        },
+        {
+          "applet": "dc",
+          "name": "stack",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 6,
+            "stdout_sha256": "43f0a1612c71da4ce54ba9674d19a915a8cb3e15a38027b23953bbc3991d164f"
+          }
+        },
+        {
+          "applet": "dc",
+          "name": "clear",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 2,
+            "stdout_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+          }
+        },
+        {
+          "applet": "dc",
+          "name": "register",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 3,
+            "stdout_sha256": "084c799cd551dd1d8d5c5f9a5d593b2e931f5e36122ee5c793c1d08a19839cc0"
+          }
+        },
+        {
+          "applet": "dc",
+          "name": "register-stack",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 4,
+            "stdout_sha256": "451d660bc5f37a981539cf07c4c6a182693a7d165b4589ecb1165a72555ff90a"
+          }
+        },
+        {
+          "applet": "dc",
+          "name": "array",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 3,
+            "stdout_sha256": "917df3320d778ddbaa5c5c7742bc4046bf803c36ed2b050f30844ed206783469"
+          }
+        },
+        {
+          "applet": "dc",
+          "name": "macro",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 2,
+            "stdout_sha256": "f0b5c2c2211c8d67ed15e75e656c7862d086e9245420892a7de62cd9ec582a06"
+          }
+        },
+        {
+          "applet": "dc",
+          "name": "conditional",
+          "result": {
+            "status": 0,
+            "stderr_length": 29,
+            "stderr_sha256": "bdd3a7ceb02212f824baf2972cafd1510506aa516027af30240fc5f9fb20f628",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        {
+          "applet": "dc",
+          "name": "string",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 11,
+            "stdout_sha256": "87de0dca21b2429312a4b9a9150097c67d3eb2dc2167e862e1055a531b52d248"
+          }
+        },
+        {
+          "applet": "dc",
+          "name": "base",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 6,
+            "stdout_sha256": "7e8e107638cb988f8026fbeae87c98118ee5891a088b2af5a18aba7998a98ce6"
+          }
+        },
+        {
+          "applet": "dc",
+          "name": "precision",
+          "result": {
+            "status": 1,
+            "stderr_length": 373,
+            "stderr_sha256": "0690df08d0b407aaaf72b044d2d0a272abad42bfb15cd52abca4010a1945282c",
+            "stdout_length": 40,
+            "stdout_sha256": "bb098941bc288ccfb35cc5879b282042aa753e9facadcf4895316bbd70da0bc8"
+          }
+        },
+        {
+          "applet": "dc",
+          "name": "syntax-error",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        {
+          "applet": "dc",
+          "name": "version",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 325,
+            "stdout_sha256": "d1e383405c51816f76c93328db51aaa74e60bccbcbb85917340f8d8e95221610"
+          }
+        },
+        {
+          "applet": "dc",
+          "name": "help",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 387,
+            "stdout_sha256": "c9d617751c704d7aa56a6c9295a8d7a344165d77ffa6ab450aff3a488b95b57c"
+          }
+        },
+        {
+          "applet": "dc",
+          "name": "bad-option",
+          "result": {
+            "status": 1,
+            "stderr_length": 394,
+            "stderr_sha256": "bc50cc391f37b6a7f931788592f61d5740d2267f5c9e32395930fe0f4722e8dd",
+            "stdout_length": 40,
+            "stdout_sha256": "bb098941bc288ccfb35cc5879b282042aa753e9facadcf4895316bbd70da0bc8"
+          }
+        }
+      ],
+      "schema": 1
+    },
+    "exhaustive_checklib": true,
+    "shipped_workloads": 18,
+    "valgrind": {
+      "bc": {
+        "allocation_lifecycle_exact": true,
+        "errors": 0,
+        "heap_summary": [
+          "in use at exit: 52,619 bytes in 53 blocks",
+          "total heap usage: 66 allocs, 13 frees, 56,826 bytes allocated"
+        ],
+        "log_sha256": {
+          "canonical": "c25cd6f42aabcc37675d7cd9e21b378bc6ab8307b1c2348a3d4812818505c5e3",
+          "hybrid": "3a95945d9bb3b584493f769b0f761cf79244ac859cac2f9ec0f9f4a27d7e344c"
+        }
+      },
+      "dc": {
+        "allocation_lifecycle_exact": true,
+        "errors": 0,
+        "heap_summary": [
+          "in use at exit: 376 bytes in 13 blocks",
+          "total heap usage: 37 allocs, 24 frees, 8,774 bytes allocated"
+        ],
+        "log_sha256": {
+          "canonical": "e5db684dab87030e5963d489e3c49ea9bbddc00c2d4fc886d6f8b21bbfbee1ba",
+          "hybrid": "8b2497e888de8c3bc768f7f6c8d25b407d91f437af8318609b4e387d874db92f"
+        }
+      }
+    },
+    "workload_log_sha256": "86fc9f9bc75c2c9b9602c5a8a8b1b9b1da1a9121a3fb214396bffa3a264df849"
+  },
+  "bundled_dc_release": "1.5.2",
+  "configuration": {
+    "libedit": false,
+    "readline": false,
+    "selinux": false,
+    "systemd": false
+  },
+  "implementation": {
+    "c_abi_glue": "entrypoint only",
+    "entrypoints": [
+      "rustbox_bc_main",
+      "rustbox_dc_main"
+    ],
+    "generated_rust_repairs": 0,
+    "public_names": [
+      "bc",
+      "dc"
+    ],
+    "rust_files": 23,
+    "rust_production_sources": 21
+  },
+  "input_evidence": {
+    "bc-1.08.2-analysis.json": "2c6d7ba3780878a9bf78daf657dc7a8bfea2c585a806523183e3c418655ada75",
+    "bc-1.08.2-c2rust.json": "219dc1f97152dc77d0468d54662a9b1729695878d4a9f21156cfa69759b6635f",
+    "bc-1.08.2-normalization.json": "d0f425c987020bc7438b0058312ca92b6d42dad7c5ba061da74bde7823c18468",
+    "bc-1.08.2-oracle.json": "7310d26ade6989494d5d7771fed8c888e5a19fe36e6bad92de9ddfdc531891de"
+  },
+  "next_gate": "namespace and link bc and dc into the unified Rustbox dispatcher",
+  "recorded_at": "2026-11-21",
+  "release": "1.08.2",
+  "schema": 1,
+  "size": {
+    "binaries": {
+      "bc": {
+        "canonical_stripped_bytes": 93016,
+        "dynamic_needed": [
+          "libm.so.6",
+          "libgcc_s.so.1",
+          "libc.so.6",
+          "ld-linux-x86-64.so.2"
+        ],
+        "linked_sha256": "560ad8f628491c4ef1266b8900102b9032ceadffff11fa41227dcabbe043dd6b",
+        "linked_stripped_bytes": 423592,
+        "linked_unstripped_bytes": 4583152,
+        "sections": {
+          "bss": 560,
+          "data": 3228,
+          "rodata": 50204,
+          "text": 295190
+        },
+        "stripped_sha256": "44c2666a2abc887df1a8b6812a829d0cad770ed82466db6a0a69b78ec5250aeb"
+      },
+      "dc": {
+        "canonical_stripped_bytes": 55528,
+        "dynamic_needed": [
+          "libm.so.6",
+          "libgcc_s.so.1",
+          "libc.so.6",
+          "ld-linux-x86-64.so.2"
+        ],
+        "linked_sha256": "64b1c697639b003a7aece2a4bac630a23404c70ce3ad522c313f5f2c193e368e",
+        "linked_stripped_bytes": 378168,
+        "linked_unstripped_bytes": 4536344,
+        "sections": {
+          "bss": 2344,
+          "data": 2860,
+          "rodata": 37957,
+          "text": 267198
+        },
+        "stripped_sha256": "9c72e80ab7c066076d7cb7769220076c48ae004655140328016e113f89d2c146"
+      }
+    },
+    "interpretation": "The static archive is link inventory, not release size.",
+    "translation_static_archive_bytes": 23726090
+  },
+  "status": "complete translated hybrid at canonical parity; multicall integration pending"
+}
