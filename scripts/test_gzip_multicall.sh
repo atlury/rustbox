@@ -11,13 +11,13 @@ RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
     dispatch=/rustbox-gzip/multicall-dispatch
     rm -rf "$output" "$dispatch"
     mkdir -p "$output" "$dispatch"
-    for utility in gzip gunzip zcat uncompress zcmp zdiff; do
+    for utility in gzip gunzip zcat uncompress zcmp zdiff zforce; do
       ln -s "$rustbox" "$dispatch/$utility"
     done
 
     python3 /work/tests/gzip-oracle-differential.py \
       --gcc-directory "$canonical" --clang-directory "$dispatch" \
-      --applets gzip gunzip zcat uncompress zcmp zdiff \
+      --applets gzip gunzip zcat uncompress zcmp zdiff zforce \
       --output "$output/differential.json"
 
     printf "alpha beta gamma\n%.0s" $(seq 1 2048) >"$output/input"

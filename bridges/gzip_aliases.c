@@ -1,10 +1,12 @@
 /* SPDX-License-Identifier: GPL-3.0-or-later
    Native equivalents of GNU Gzip 1.14's gunzip and zcat shell frontends. */
 #include <errno.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <sys/wait.h>
 #include <unistd.h>
 
@@ -154,9 +156,12 @@ start_gzip(char const *name, int output, int close_fd)
     char *gzip_argv[] = {
       (char *) "gzip", (char *) "-cdfq", (char *) "--", (char *) name, NULL
     };
+    int status;
     program_invocation_name = gzip_argv[0];
     program_invocation_short_name = gzip_argv[0];
-    _exit(rustbox_gzip_main(4, gzip_argv));
+    status = rustbox_gzip_main(4, gzip_argv);
+    fflush(NULL);
+    _exit(status);
   }
 }
 
@@ -412,4 +417,125 @@ int
 rustbox_zdiff_main(int argc, char **argv)
 {
   return run_zdiff(argc, argv, 0);
+}
+
+static int
+has_zforce_suffix(char const *name)
+{
+  size_t length = strlen(name);
+  return (2 <= length
+          && (name[length - 2] == '-' || name[length - 2] == '.')
+          && name[length - 1] == 'z')
+         || (3 <= length
+             && (name[length - 3] == '-' || name[length - 3] == '.')
+             && name[length - 2] == 'g' && name[length - 1] == 'z')
+         || (4 <= length && name[length - 4] == '.' && name[length - 3] == 't'
+             && (name[length - 2] == 'a' || name[length - 2] == 'g')
+             && name[length - 1] == 'z');
+}
+
+static int
+gzip_lists_deflate(char const *name)
+{
+  int output[2];
+  pid_t child;
+  char listing[4096];
+  size_t used = 0;
+  char discard[256];
+  ssize_t count;
+  int input;
+  int nullfd;
+  if (pipe(output) < 0)
+    return 0;
+  fflush(NULL);
+  child = fork();
+  if (child < 0)
+    {
+      close(output[0]);
+      close(output[1]);
+      return 0;
+    }
+  if (child == 0)
+    {
+      char *gzip_argv[] = {(char *) "gzip", (char *) "-lv", NULL};
+      int gzip_status;
+      close(output[0]);
+      input = open(name, O_RDONLY);
+      nullfd = open("/dev/null", O_WRONLY);
+      if (input < 0 || nullfd < 0
+          || dup2(input, STDIN_FILENO) < 0
+          || dup2(output[1], STDOUT_FILENO) < 0
+          || dup2(nullfd, STDERR_FILENO) < 0)
+        _exit(1);
+      close(input);
+      close(nullfd);
+      close(output[1]);
+      program_invocation_name = gzip_argv[0];
+      program_invocation_short_name = gzip_argv[0];
+      gzip_status = rustbox_gzip_main(2, gzip_argv);
+      fflush(NULL);
+      _exit(gzip_status);
+    }
+  close(output[1]);
+  while (used + 1 < sizeof listing
+         && (count = read(output[0], listing + used,
+                          sizeof listing - used - 1)) > 0)
+    used += (size_t) count;
+  while (read(output[0], discard, sizeof discard) > 0)
+    continue;
+  close(output[0]);
+  wait_gzip(child);
+  listing[used] = '\0';
+  return (used >= 4 && memcmp(listing, "defl", 4) == 0)
+         || strstr(listing, "\ndefl") != NULL;
+}
+
+int
+rustbox_zforce_main(int argc, char **argv)
+{
+  int result = 0;
+  int index;
+  if (argc == 1)
+    {
+      fprintf(stderr,
+              "%s: invalid number of operands; try `%s --help' for help\n",
+              argv[0], argv[0]);
+      return 1;
+    }
+  for (index = 1; index < argc; index++)
+    {
+      char const *name = argv[index];
+      struct stat status;
+      size_t length;
+      if (strncmp(name, "--h", 3) == 0)
+        return printf(
+          "Usage: %s [FILE]...\n"
+          "Force a .gz extension on all compressed FILEs so that gzip will\n"
+          "not compress them twice.\n\n"
+          "Report bugs to <bug-gzip@gnu.org>.\n", argv[0]) < 0;
+      if (strncmp(name, "--v", 3) == 0)
+        return print_zdiff_version("zforce", "Jean-loup Gailly") == 2;
+      if (has_zforce_suffix(name))
+        continue;
+      if (stat(name, &status) != 0 || !S_ISREG(status.st_mode))
+        {
+          printf("zforce: %s not a file\n", name);
+          result = 1;
+          continue;
+        }
+      if (gzip_lists_deflate(name))
+        {
+          length = strlen(name);
+          {
+            char replacement[length + sizeof ".gz"];
+            memcpy(replacement, name, length);
+            memcpy(replacement + length, ".gz", sizeof ".gz");
+            if (rename(name, replacement) == 0)
+              printf("%s -- replaced with %s\n", name, replacement);
+            else
+              result = 1;
+          }
+        }
+    }
+  return result;
 }

@@ -209,7 +209,7 @@ def main() -> int:
             if oracle != actual:
                 failures.append({"suite": "lz4", "applet": name, "option": option, "oracle": oracle, "actual": actual})
 
-    gzip_names = ["gzip", "gunzip", "zcat", "uncompress", "zcmp", "zdiff"]
+    gzip_names = ["gzip", "gunzip", "zcat", "uncompress", "zcmp", "zdiff", "zforce"]
     for name in gzip_names:
         for option in ("--help", "--version"):
             cases += 1

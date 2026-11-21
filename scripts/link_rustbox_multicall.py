@@ -826,6 +826,7 @@ extern int rustbox_gunzip_main(int, char **);
 extern int rustbox_zcat_main(int, char **);
 extern int rustbox_zcmp_main(int, char **);
 extern int rustbox_zdiff_main(int, char **);
+extern int rustbox_zforce_main(int, char **);
 """
         + declarations
         + """
@@ -960,6 +961,8 @@ int main(int argc, char **argv)
         return rustbox_zcmp_main(argc, argv);
     if (!force_util_linux && strcmp(name, "zdiff") == 0)
         return rustbox_zdiff_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "zforce") == 0)
+        return rustbox_zforce_main(argc, argv);
 """
         + selections
         + """
@@ -1152,6 +1155,7 @@ def main() -> int:
         "rustbox_zcat_main",
         "rustbox_zcmp_main",
         "rustbox_zdiff_main",
+        "rustbox_zforce_main",
     })
 
     mapped_file_rust, file_symbols = namespace_file_library(
@@ -1266,7 +1270,7 @@ def main() -> int:
     )
     if set(defined_symbols(gzip_aliases_object)) != {
         "rustbox_gunzip_main", "rustbox_zcat_main",
-        "rustbox_zcmp_main", "rustbox_zdiff_main",
+        "rustbox_zcmp_main", "rustbox_zdiff_main", "rustbox_zforce_main",
     }:
         raise RuntimeError("GNU Gzip alias bridge exports the wrong symbols")
     bridge_archives: dict[str, Path] = {}
@@ -1399,7 +1403,7 @@ def main() -> int:
         "attr_applets": 3,
         "acl_applets": 3,
         "lz4_public_names": 4,
-        "gzip_public_names": 6,
+        "gzip_public_names": 7,
         "total_dispatch_names": len(
             set(applets)
             | set(util_dispatch)
@@ -1407,7 +1411,7 @@ def main() -> int:
                "cmp", "diff", "diff3", "sdiff", "grep", "egrep", "fgrep", "bc", "dc",
                "attr", "getfattr", "setfattr", "chacl", "getfacl", "setfacl",
                "lz4", "lz4c", "lz4cat", "unlz4", "gzip", "gunzip", "zcat", "uncompress",
-               "zcmp", "zdiff"}
+               "zcmp", "zdiff", "zforce"}
         ),
         "excluded": ["chcon", "runcon"],
         "public_name_precedence": {"kill": "GNU Coreutils", "util-linux-kill": "util-linux"},
@@ -1447,8 +1451,8 @@ def main() -> int:
         "gzip_alias_bridge": {
             "object": str(gzip_aliases_object.relative_to(build)),
             "symbols": ["rustbox_gunzip_main", "rustbox_zcat_main",
-                        "rustbox_zcmp_main", "rustbox_zdiff_main"],
-            "public_names": ["gunzip", "uncompress", "zcat", "zcmp", "zdiff"],
+                        "rustbox_zcmp_main", "rustbox_zdiff_main", "rustbox_zforce_main"],
+            "public_names": ["gunzip", "uncompress", "zcat", "zcmp", "zdiff", "zforce"],
         },
         "sed_abi_bridge": {
             "object": str(sed_abi_object.relative_to(build)),
@@ -1480,7 +1484,7 @@ def main() -> int:
         "attr_applets": 3,
         "acl_applets": 3,
         "lz4_public_names": 4,
-        "gzip_public_names": 6,
+        "gzip_public_names": 7,
         "output": str(output),
     }))
     return 0
