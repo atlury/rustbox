@@ -1,0 +1,109 @@
+{
+  "dependencies": {
+    "rust_crates": [
+      "libc"
+    ]
+  },
+  "hardening": {
+    "later_order": [
+      "eliminate raw pointers and unsafe",
+      "replace std and libc crate use with Rustbox-owned no_std runtime"
+    ],
+    "raw_pointers_and_unsafe_are_inventory_only": true
+  },
+  "input": {
+    "compile_commands": 102,
+    "compile_database_sha256": "3abbd8e2eb5e92212facaf74f582bc263a0a7da8a709761e5be374980fb70ce5",
+    "decoder_personalities": 2,
+    "portable_source_differential": {
+      "cases": 70,
+      "passed": 70,
+      "sha256": "6c455d34108480a6c62be1bcfd9f4d88bf5b04e1ccd831cec30bd651ab4bf2fb"
+    },
+    "production_sources": 101
+  },
+  "next_gate": "integrate all 23 XZ command and compatibility names into rustbox",
+  "raw_translation": {
+    "cargo_check_sha256": "ece2ef3d406f7627d0dfbd38552b111ea74fc4a61857a6304bccad841c5dd8a5",
+    "compile_error_macros": 0,
+    "compiler_repair_classes": {
+      "E0054": 4,
+      "E0308": 480,
+      "E0425": 2,
+      "E0530": 1
+    },
+    "raw_pointer_type_occurrences": 21765,
+    "rust_bytes": 4847076,
+    "rust_files": 104,
+    "rust_lines": 130692,
+    "todo_macros": 0,
+    "unimplemented_macros": 0,
+    "unreachable_c_fallthrough_panics": 5,
+    "unsafe_function_occurrences": 6709
+  },
+  "recorded_at": "2026-11-22",
+  "release": "5.8.4",
+  "schema": 1,
+  "stable_translation": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+      "cargo_lock_sha256": "3f4b2d44b27641a6cf0643fb15b5f54db0aa558d334b177ab5d40419c04f6299",
+      "cargo_toml_sha256": "543a644d16e53259980d10c060ad7f3ea7258320233a2a7ebd7b9aec5803bd0b",
+      "diagnostics_by_level": {
+        "warning": 875
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+      "schema": 1,
+      "stderr_sha256": "4da5ce9accbc2dceffe1929d71558ed74a08c7bf217cffe1dabf83fb86ee596b",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "clashing_extern_declarations": 97,
+        "unpredictable_function_pointer_comparisons": 2,
+        "unused_imports": 1,
+        "unused_parens": 12,
+        "unused_variables": 763
+      }
+    },
+    "compile_error_macros": 0,
+    "modernization_changes": 28,
+    "modernization_manifest_sha256": "6e313781057705cc8deb8479113a055c46ef1ec2af0e460e4600f369e83e5eae",
+    "raw_pointer_type_occurrences": 22239,
+    "release_archive": {
+      "bytes": 24244466,
+      "sha256": "7ae834c8b5389c80495e6f8dc81c3291484df8d2a56d55f7d311d41bc4a43ef7"
+    },
+    "repair_manifest_sha256": "6eaa4a11467834a6f4ea33ee7cfc48c9a7f7bc13deb1c02f94647687904a09cc",
+    "repair_records": 85,
+    "repair_totals": {
+      "const_void_pointer_casts": 237,
+      "integer_to_bool_repairs": 4,
+      "mut_void_pointer_casts": 237,
+      "size_arithmetic_repairs": 5
+    },
+    "rust_bytes": 4862900,
+    "rust_files": 104,
+    "rust_lines": 130895,
+    "todo_macros": 0,
+    "unimplemented_macros": 0,
+    "unreachable_c_fallthrough_panics": 5,
+    "unsafe_function_occurrences": 6709
+  },
+  "status": "complete stable translation without holes; multicall integration next",
+  "translator": {
+    "all_102_actions_translated": true,
+    "fail_on_error": true,
+    "holes": 0,
+    "name": "C2Rust",
+    "portable_configuration": [
+      "upstream pure-C CRC",
+      "upstream pure-C range decoder",
+      "omit optional x86 immintrin implementation",
+      "omit one optional Clang vectorization hint"
+    ],
+    "preserve_unused_functions": true,
+    "version": "0.22.1"
+  }
+}

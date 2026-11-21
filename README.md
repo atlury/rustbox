@@ -59,7 +59,7 @@ scoring, and correctness gates.
 | LZ4 1.11.1 | 4 | 4 | 4 | 4 |
 | GNU Gzip 1.14 | 14 | 14 | 14 | 14 |
 | Less 710 | 2 | 2 | 2 | 2 |
-| XZ Utils 5.8.4 | 23 | 23 | 0 | 0 |
+| XZ Utils 5.8.4 | 23 | 23 | 23 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -799,8 +799,17 @@ selects upstream's portable C CRC implementation for translation.  All three
 normalized compiler suites pass, and both canonical compiler baselines agree
 with normalization across 140/140 comparisons.  Audit and normalization
 evidence is in `evidence/xz-5.8.4-static-analysis.json` and
-`evidence/xz-5.8.4-normalization.json`; translation and multicall integration
-remain in progress.
+`evidence/xz-5.8.4-normalization.json`.  C2Rust translates all 101 production
+sources and both decoder personalities as 102 actions without holes.  The
+translation-source build retains all 22 upstream tests and all 70 public
+comparisons after selecting XZ's documented pure-C range decoder and omitting
+two optional compiler-specific optimizations.  One repeated aligned-copy type
+pattern accounts for 474 of 487 raw compiler diagnostics; deterministic,
+audited repairs also restore four integer truth tests, five `size_t` arithmetic
+orders, one shadowed binding, and two local static tables.  The complete
+104-file crate checks and release-builds on stable Rust 1.99.  Translation,
+repair, unsafe inventory, and build evidence is in
+`evidence/xz-5.8.4-c2rust.json`; multicall integration is next.
 
 ## Work queue after util-linux
 
@@ -849,7 +858,8 @@ Library-only checkpoints (outside the active utility order):
    - [x] GNU Gzip 1.14 — translated hybrid at canonical parity; native `gzip`,
      `gunzip`, `zcat`, `uncompress`, `zcmp`, `zdiff`, `zforce`, `zgrep`,
      `zegrep`, `zfgrep`, `zless`, `zmore`, `znew`, and `gzexe` integrated.
-   - [ ] XZ Utils 5.8.4 — signed canonical oracle complete for all 23 names:
+   - [ ] XZ Utils 5.8.4 — signed canonical oracle, normalization, static audit,
+     and complete stable translation finished for all 23 names:
      `xz`, `unxz`, `xzcat`, `lzma`, `unlzma`, `lzcat`, `xzdec`, `lzmadec`,
      `lzmainfo`, `xzcmp`, `xzdiff`, `xzegrep`, `xzfgrep`, `xzgrep`, `xzless`,
      `xzmore`, `lzcmp`, `lzdiff`, `lzegrep`, `lzfgrep`, `lzgrep`, `lzless`, and
