@@ -52,6 +52,8 @@ scoring, and correctness gates.
 | GNU patch 2.8 | 1 | 1 | 1 | 1 |
 | GNU sed 4.10 | 1 | 1 | 1 | 1 |
 | GNU Diffutils 3.12 | 4 | 4 | 4 | 4 |
+| GNU Grep 3.12 | 3 | 3 | 3 | 3 |
+| GNU bc 1.08.2 / dc 1.5.2 | 2 | 2 | 2 | 2 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -113,11 +115,11 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 277
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 279
 distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, five
 pkgconf names, File, GNU patch, GNU sed, four GNU Diffutils applets, and GNU
-Grep's three public names; `kill` is shared and `util-linux-kill` remains
-available explicitly).  It passes all 554
+Grep's three public names, plus GNU bc and dc; `kill` is shared and
+`util-linux-kill` remains available explicitly).  It passes all 558
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
 check, 108-case differential suite, and Valgrind.  Pkgconf also passes all 429
@@ -127,8 +129,10 @@ the unified dispatcher.  Sed passes its complete 362-case upstream replay,
 Diffutils passes its complete 377-case upstream replay, 48 exact differential
 comparisons, and resource checks through the same dispatcher.  Grep passes
 its complete 443-case upstream replay, 36 exact differential comparisons, and
-the canonical allocation lifecycle through the same dispatcher.  The stripped
-277-name executable is 6,568,416 bytes.  `chcon` and `runcon`
+the canonical allocation lifecycle through the same dispatcher.  GNU bc and
+dc pass all 18 shipped arbitrary-precision workloads, 46 exact differential
+comparisons, and canonical allocation lifecycles through the same dispatcher.
+The stripped 279-name executable is 6,692,272 bytes.  `chcon` and `runcon`
 remain absent, and the linked binary has no SELinux or systemd dependency.
 
 The final Rustbox executable is required to be self-contained: utility
@@ -487,8 +491,7 @@ generated Rust is hand-repaired.  The 23 generated Rust files contain 24,740
 lines and 3,468 raw-pointer type occurrences, recorded for the later safety
 phase.  The 23,726,090-byte pre-link archive, exact source and output hashes,
 toolchain checks, linkage deduplication, and complete unsafe inventory are in
-`evidence/bc-1.08.2-c2rust.json`; canonical translated-executable parity is
-the next gate.  The linked translated bc and dc now pass all 18 shipped
+`evidence/bc-1.08.2-c2rust.json`.  The linked translated bc and dc pass all 18 shipped
 arbitrary-precision workloads, including the exhaustive `checklib.b`, all 46
 bc/dc language, CLI, diagnostic, and error comparisons, and exact canonical
 Valgrind allocation-lifecycle comparisons with zero errors.  The only C ABI
@@ -496,7 +499,10 @@ glue is the entrypoint.  The standalone stripped binaries are 423,592 bytes
 for bc and 378,168 bytes for dc, versus canonical C's 93,016 and 55,528 bytes;
 multicall dead-code sharing is measured only after integration.  Reproducible
 linkage, dependency, size, differential, workload, and resource evidence is
-in `evidence/bc-1.08.2-hybrid.json`.
+in `evidence/bc-1.08.2-hybrid.json`.  All 248 non-entrypoint C symbols are
+private in the unified link.  The resulting two applets add 123,856 stripped
+bytes to Rustbox and retain the full hybrid parity gates; integration evidence
+is in `evidence/rustbox-multicall.json`.
 
 ## Work queue after util-linux
 
@@ -534,7 +540,7 @@ Library-only checkpoints (outside the active utility order):
    - [x] Diffutils 3.12 — `cmp`, `diff`, `diff3`, `sdiff`; integrated at
      canonical parity.
    - [x] Grep 3.12 — `grep`, `egrep`, `fgrep`; integrated at canonical parity.
-   - [ ] bc — `bc`, `dc`.
+   - [x] bc 1.08.2 / dc 1.5.2 — `bc`, `dc`; integrated at canonical parity.
    - [ ] attr — `attr`, `getfattr`, `setfattr`.
    - [ ] acl — `chacl`, `getfacl`, `setfacl`.
    - [ ] lz4 — `lz4`, `lz4c`, `lz4cat`, `unlz4`.

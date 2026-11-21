@@ -420,6 +420,53 @@ def namespace_grep_library(
     return mapped, symbols
 
 
+def namespace_bc_library(
+    rust_library: Path, build: Path
+) -> tuple[Path, list[str]]:
+    """Keep GNU bc and dc's parser, scanner, and arithmetic C surface private."""
+    public = {"rustbox_bc_main", "rustbox_dc_main"}
+    strong_types = {"B", "C", "D", "G", "R", "S", "T"}
+    compiler_math = re.compile(
+        r"^(?:cbrt|ceil|copysign|fabs|fdim|floor|fma|fmax|fmaximum|fmin|fminimum|fmod|rint|round|sqrt|trunc)(?:f|f16|f128)?$"
+    )
+    output = subprocess.run(
+        ["nm", "-g", "--defined-only", str(rust_library)],
+        check=True, text=True, stdout=subprocess.PIPE,
+    ).stdout
+    symbols = sorted({
+        fields[-1]
+        for line in output.splitlines()
+        if len(fields := line.split()) >= 3
+        and fields[-2] in strong_types
+        and re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", fields[-1])
+        and fields[-1] not in public
+        and not fields[-1].startswith("rust_")
+        and not compiler_math.fullmatch(fields[-1])
+    })
+    if not symbols:
+        raise RuntimeError("GNU bc archive exports no namespaceable C symbols")
+    destination = build / "src/.rustbox-bc"
+    destination.mkdir(parents=True, exist_ok=True)
+    mapped = destination / rust_library.name
+    mapping = destination / "symbols.map"
+    mapping.write_text(
+        "".join(f"{symbol} rustbox_bc_private_{symbol}\n" for symbol in symbols),
+        encoding="utf-8",
+    )
+    shutil.copy2(rust_library, mapped)
+    subprocess.run(["objcopy", "--redefine-syms", str(mapping), str(mapped)], check=True)
+    mapped_definitions = defined_symbols(mapped)
+    definitions = set(mapped_definitions)
+    for symbol in public:
+        if mapped_definitions.count(symbol) != 1:
+            raise RuntimeError(f"GNU bc symbol isolation damaged {symbol}")
+    if any(symbol in definitions for symbol in symbols):
+        raise RuntimeError("GNU bc symbol isolation left an unprefixed definition")
+    if any(f"rustbox_bc_private_{symbol}" not in definitions for symbol in symbols):
+        raise RuntimeError("GNU bc symbol isolation lost a definition")
+    return mapped, symbols
+
+
 def util_linux_link_inputs(
     repository: Path, build: Path, rust_defined: set[str]
 ) -> tuple[list[Path], list[str], dict[str, list[str]]]:
@@ -573,6 +620,8 @@ extern int rustbox_diff_main(int, char **);
 extern int rustbox_diff3_main(int, char **);
 extern int rustbox_sdiff_main(int, char **);
 extern int rustbox_grep_main(int, char **);
+extern int rustbox_bc_main(int, char **);
+extern int rustbox_dc_main(int, char **);
 """
         + declarations
         + """
@@ -678,6 +727,10 @@ int main(int argc, char **argv)
         program_invocation_short_name = alias_argv[0];
         return rustbox_grep_main(argc + 1, alias_argv);
     }
+    if (!force_util_linux && strcmp(name, "bc") == 0)
+        return rustbox_bc_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "dc") == 0)
+        return rustbox_dc_main(argc, argv);
 """
         + selections
         + """
@@ -703,6 +756,7 @@ def main() -> int:
     parser.add_argument("--sed-rust-library", type=Path, required=True)
     parser.add_argument("--diffutils-rust-library", type=Path, required=True)
     parser.add_argument("--grep-rust-library", type=Path, required=True)
+    parser.add_argument("--bc-rust-library", type=Path, required=True)
     parser.add_argument("--link-report", type=Path, required=True)
     args = parser.parse_args()
     repository = args.repository.resolve()
@@ -716,6 +770,7 @@ def main() -> int:
     sed_rust_library = args.sed_rust_library.resolve()
     diffutils_rust_library = args.diffutils_rust_library.resolve()
     grep_rust_library = args.grep_rust_library.resolve()
+    bc_rust_library = args.bc_rust_library.resolve()
     makefile = build / "Makefile"
     if not makefile.is_file():
         raise RuntimeError("canonical Coreutils build is missing")
@@ -797,7 +852,7 @@ def main() -> int:
     for path in (
         m4_rust_library, m4_support_library, pkgconf_rust_library,
         file_rust_library, patch_rust_library, sed_rust_library,
-        diffutils_rust_library, grep_rust_library,
+        diffutils_rust_library, grep_rust_library, bc_rust_library,
     ):
         if not path.is_file():
             raise RuntimeError(f"multicall input is missing: {path}")
@@ -814,6 +869,8 @@ def main() -> int:
     diffutils_library_index = len(libraries) - 1
     libraries.append(grep_rust_library)
     grep_library_index = len(libraries) - 1
+    libraries.append(bc_rust_library)
+    bc_library_index = len(libraries) - 1
     source_library_hashes = {str(path.relative_to(repository)): sha256(path) for path in libraries}
     source_library_hashes[str(m4_support_library)] = sha256(m4_support_library)
     expected_symbols.update(f"rustbox_{symbol}_main" for symbol in util_dispatch.values())
@@ -831,6 +888,8 @@ def main() -> int:
         "rustbox_diff3_main",
         "rustbox_sdiff_main",
         "rustbox_grep_main",
+        "rustbox_bc_main",
+        "rustbox_dc_main",
     })
 
     mapped_file_rust, file_symbols = namespace_file_library(
@@ -857,6 +916,11 @@ def main() -> int:
         libraries[grep_library_index], build
     )
     libraries[grep_library_index] = mapped_grep_rust
+
+    mapped_bc_rust, bc_symbols = namespace_bc_library(
+        libraries[bc_library_index], build
+    )
+    libraries[bc_library_index] = mapped_bc_rust
 
     canonical_dispatch_symbols = set(defined_symbols(build / "src/coreutils-coreutils.o"))
     libraries, namespaced_symbols = namespace_duplicate_c_symbols(
@@ -1035,11 +1099,12 @@ def main() -> int:
         "sed_applets": 1,
         "diffutils_applets": 4,
         "grep_applets": 3,
+        "bc_applets": 2,
         "total_dispatch_names": len(
             set(applets)
             | set(util_dispatch)
             | {"m4", "pkgconf", "pkg-config", "bomtool", "pccritic", "spdxtool", "file", "patch", "sed",
-               "cmp", "diff", "diff3", "sdiff", "grep", "egrep", "fgrep"}
+               "cmp", "diff", "diff3", "sdiff", "grep", "egrep", "fgrep", "bc", "dc"}
         ),
         "excluded": ["chcon", "runcon"],
         "public_name_precedence": {"kill": "GNU Coreutils", "util-linux-kill": "util-linux"},
@@ -1058,6 +1123,7 @@ def main() -> int:
         "sed_namespaced_symbols": sed_symbols,
         "diffutils_namespaced_symbols": diffutils_symbols,
         "grep_namespaced_symbols": grep_symbols,
+        "bc_namespaced_symbols": bc_symbols,
         "diffutils_error_bridge": {
             "object": str(diffutils_error_object.relative_to(build)),
             "symbols": ["rustbox_diffutils_error"],
@@ -1097,6 +1163,7 @@ def main() -> int:
         "sed_applets": 1,
         "diffutils_applets": 4,
         "grep_applets": 3,
+        "bc_applets": 2,
         "output": str(output),
     }))
     return 0

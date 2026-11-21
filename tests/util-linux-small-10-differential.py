@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import stat
 import subprocess
 import tempfile
@@ -58,7 +59,13 @@ def invoke(command: list[str], case: Case, root: Path, *, executable: Optional[P
         stderr=subprocess.PIPE, timeout=20,
         preexec_fn=drop_privileges if case.unprivileged and os.geteuid() == 0 else None,
     )
-    return {"status": process.returncode, "stdout": process.stdout, "stderr": process.stderr, "tree": tree(root)}
+    stdout = process.stdout
+    # An empty wtmp has no timestamp of its own, so last prints the wall clock
+    # at which each independently launched comparison reached EOF.  Preserve
+    # the message while removing this scheduler-dependent second.
+    if case.applet in {"last", "lastb"} and case.files == {"empty": b""}:
+        stdout = re.sub(rb"(?m)^(empty begins) .+$", rb"\1 <wall-clock>", stdout)
+    return {"status": process.returncode, "stdout": stdout, "stderr": process.stderr, "tree": tree(root)}
 
 
 def cases() -> list[Case]:
