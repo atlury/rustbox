@@ -819,7 +819,8 @@ Library-only checkpoints (outside the active utility order):
      `ncurses*-config` helper; shared `ncurses`, `panel`, `form`, and `menu`
      libraries are part of the same integration.
    - [ ] Less 710 — canonical `less` and private-runtime `lessecho`; the
-     authenticated GCC/Clang/sanitizer oracle is complete.  Upstream removed
+     authenticated GCC/Clang/sanitizer oracle, six-tool static audit, and
+     deterministic multicall normalization are complete.  Upstream removed
      the standalone `lesskey` program in version 706 and now parses lesskey
      source directly inside `less`, so it is intentionally not resurrected.
 3. Multi-tool text processing and source generators:

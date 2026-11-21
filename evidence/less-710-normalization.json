@@ -1,0 +1,101 @@
+{
+  "algorithm_changes": 0,
+  "behavior": {
+    "canonical_comparisons": 44,
+    "canonical_differential": {
+      "clang": {
+        "cases": 22,
+        "passed": 22,
+        "sha256": "bb8977ec148eba7d1aef69f98b4f3f481f7408432460846d65e4909926a7d1e1"
+      },
+      "gcc": {
+        "cases": 22,
+        "passed": 22,
+        "sha256": "bb8977ec148eba7d1aef69f98b4f3f481f7408432460846d65e4909926a7d1e1"
+      }
+    },
+    "upstream_tests": {
+      "clang": 19,
+      "gcc": 19,
+      "sanitizer": 19
+    },
+    "valgrind": {
+      "less": {
+        "all_allocations_freed": false,
+        "errors": 0,
+        "heap_summary": "total heap usage: 41 allocs, 19 frees, 64,275 bytes allocated",
+        "log_sha256": "504d81fcc120ff1f59e3c65ac208a420b97b7be7efa1e9ca47db54c84872402e",
+        "matches_canonical_ownership": true,
+        "path_length_note": "normalized executable pathname accounts for 12 additional allocated bytes"
+      },
+      "lessecho": {
+        "all_allocations_freed": true,
+        "errors": 0,
+        "heap_summary": "total heap usage: 1 allocs, 1 frees, 4,096 bytes allocated",
+        "log_sha256": "c725877fc1be9287295320a077fa31db301f9063778375fbbf23fd9402895de1",
+        "matches_canonical_ownership": true,
+        "path_length_note": null
+      }
+    }
+  },
+  "compilers": {
+    "clang": {
+      "compile_actions": 38,
+      "compile_database_sha256": "5ea3897b83b656f505709d30851ab50d3290d609a742248c3033813f19f9be25",
+      "production_sources": 38,
+      "upstream_log_sha256": "c6bea0bc9905f0f84a28b1e76accc554958dcb2dd8a9d90b511df452ddd2554d",
+      "upstream_tests": 19
+    },
+    "gcc": {
+      "compile_actions": 38,
+      "compile_database_sha256": "a2dc7f4739bf6a3ec3f4f3290ce9e9439515ed01ef98ca9a9082b1faf259efdc",
+      "production_sources": 38,
+      "upstream_log_sha256": "d546dff5ca8674fa38b356ed4be54c6fe3034b4562087e4385260d046ed9146f",
+      "upstream_tests": 19
+    },
+    "sanitizer": {
+      "compile_actions": 38,
+      "compile_database_sha256": "e956ebf106eaabddb7d5408683301662cc7f18ef6205789bb8a97e9caab46a4c",
+      "production_sources": 38,
+      "upstream_log_sha256": "881f5be0315ab740ae243766fddcd2be0ad59aa39d6f07edeba9647e85149314",
+      "upstream_tests": 19
+    }
+  },
+  "entrypoints": [
+    "rustbox_less_main",
+    "rustbox_lessecho_main"
+  ],
+  "next_gate": "translate the exact 38-source RUSTBOX_MULTICALL closure with C2Rust --fail-on-error",
+  "normalization": {
+    "canonical_archive_sha256": "d1008fb78dcae1323ddab664bcb352a61f022b1b131bd8018548e021d975ec7a",
+    "canonical_tree_sha256": "a638faca9d3ce85a2329d0ac6bbded70d64e66508450a1c9dc250197464295ed",
+    "changed_sources": [
+      "lessecho.c",
+      "main.c"
+    ],
+    "conditional": "RUSTBOX_MULTICALL",
+    "engine": "exact deterministic source rewrite",
+    "normalized_tree_sha256": "d30afcd44aa4f7b213edf04cb23f0921c668d4c45901c268f4cf65157e80e6c5",
+    "release": "710",
+    "schema": 1,
+    "transformations": [
+      {
+        "canonical_sha256": "ffc7b30d6d8d51d6827fe83361f006c545c3ad25fe9c59c783c98f18fa670e66",
+        "normalized_sha256": "cc86b66da443f4198417d5517ad4cc420bfbb09aa71c925eb2d86a16ffdb1f03",
+        "operation": "export rustbox_lessecho_main with char** ABI and retain a conditional standalone wrapper",
+        "source": "lessecho.c"
+      },
+      {
+        "canonical_sha256": "c1018fb4f64c25326677131140d6a1c5af2e9a18d9de85a2ff639f7861982a44",
+        "normalized_sha256": "9c3939e37cb93a66f523578f1f0760257a3ca2e5c49f4198cf22e7e2f8cd6239",
+        "operation": "export rustbox_less_main with char** ABI and retain a conditional standalone wrapper",
+        "source": "main.c"
+      }
+    ]
+  },
+  "normalization_manifest_sha256": "3c52abf1fc79a9e09ecf5520736fcae631a6ff09fdfdedaa6795aa70c413a11e",
+  "recorded_at": "2026-11-22",
+  "release": "710",
+  "schema": 1,
+  "status": "complete deterministic normalization at canonical parity; translation pending"
+}

@@ -1,0 +1,50 @@
+{
+  "closure": {
+    "matches_oracle_sources": true,
+    "oracle_evidence_sha256": "7e24c79f5e320caf2efb4c6860e2b4088f7ac929dd9f627852e0933528000dc9",
+    "production_sources": 38,
+    "source_list_sha256": "0f33bcc72c12e82e316bf56900db7ce6446fb097a145e3f98559d21a79214014"
+  },
+  "next_gate": "deterministic two-entrypoint normalization, then full-closure C2Rust translation",
+  "recorded_at": "2026-11-22",
+  "release": "710",
+  "review": {
+    "policy": "retain diagnostics as candidates; do not change algorithms during multicall normalization",
+    "resource_context": "canonical Valgrind has zero errors and zero definite/indirect loss",
+    "sanitizer_context": "canonical GCC ASan/UBSan passes all 19 upstream tests"
+  },
+  "schema": 1,
+  "status": "complete six-tool canonical-source audit; findings retained for translation review",
+  "tools": {
+    "clang_analyzer_tidy": {
+      "errors": 0,
+      "log_sha256": "95d9e598a6f1a36e57b7e6226f1e72427b5bc43d38f15b60ea4e1c5667246df2",
+      "warnings": 393
+    },
+    "cppcheck": {
+      "diagnostics": 77,
+      "log_sha256": "13412aa94d7e1d6ba10f9d44a58deeee7ef0df49b9d7e354a9cd3baeae44df26",
+      "syntax_limitations": 2
+    },
+    "flawfinder": {
+      "hits": 304,
+      "log_sha256": "c4b1251e70a1a00774f42e1065108b4c225f28c27d242a1d6d7137e546f5ee84"
+    },
+    "gcc_fanalyzer": {
+      "build_complete": true,
+      "log_sha256": "2c91613cae34c9bf1fe2c3352cd4f26e3bbce9b44b56a0662a2322fe2da6d94f",
+      "path_sensitive_warnings": 11,
+      "warnings": 16
+    },
+    "sparse": {
+      "log_sha256": "99aa848378f1026f333a05296c0d04c8131c0d220ece340dddd415fe03c9b61e",
+      "status": 0,
+      "warnings": 183
+    },
+    "splint": {
+      "limitation": "per-translation-unit preprocessing stops where Clang 18 enables stdckdint.h but Splint cannot locate it",
+      "log_sha256": "46ba300bb8508523cfcda3e22079a0cc8db338389c1f90dcaaed62b3080fa760",
+      "status": 123
+    }
+  }
+}
