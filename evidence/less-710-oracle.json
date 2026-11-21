@@ -1,0 +1,494 @@
+{
+  "authentication": {
+    "archive": "less-710.tar.gz",
+    "archive_sha256": "d1008fb78dcae1323ddab664bcb352a61f022b1b131bd8018548e021d975ec7a",
+    "signature_sha256": "71c3c59dd776fc5afdaee05d43d963d277de5c53d6c61826d6dda6dda282d624",
+    "signature_verified": true,
+    "signer_fingerprint": "AE27252BD6846E7D6EAE1DD6F153A7C833235259",
+    "state_sha256": "2c20dc832d1239985d779ab794ddf0d1c4f903e29b35173234e1a34153c079f1"
+  },
+  "behavior": {
+    "differential": {
+      "cases": 22,
+      "passed": 22,
+      "records": [
+        {
+          "applet": "less",
+          "name": "less-version-short",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 287,
+            "stdout_sha256": "fb52843783f2ecb5ba890f55a054a82f4fadfb6fcca3488e9fddb4bb02191038"
+          }
+        },
+        {
+          "applet": "less",
+          "name": "less-version-long",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 287,
+            "stdout_sha256": "fb52843783f2ecb5ba890f55a054a82f4fadfb6fcca3488e9fddb4bb02191038"
+          }
+        },
+        {
+          "applet": "less",
+          "name": "less-help-short",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 17499,
+            "stdout_sha256": "58e245fe68fbb2e6c34c061a796c031a29d538158549c13438b63c52e82bb952"
+          }
+        },
+        {
+          "applet": "less",
+          "name": "less-help-long",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 17499,
+            "stdout_sha256": "58e245fe68fbb2e6c34c061a796c031a29d538158549c13438b63c52e82bb952"
+          }
+        },
+        {
+          "applet": "less",
+          "name": "less-invalid-option",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 65,
+            "stderr_sha256": "59b1d444c07646e47f7d8568d774e5c2f9b6199ad752ddbf5e240228eaa71a71",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        {
+          "applet": "less",
+          "name": "less-stdin",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 23,
+            "stdout_sha256": "6de7f908a3c6392b98b47a44350da7747ab8bfd70d0e34b6e38d7d717d5b2e58"
+          }
+        },
+        {
+          "applet": "less",
+          "name": "less-empty-stdin",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        {
+          "applet": "less",
+          "name": "less-file",
+          "result": {
+            "files": {
+              "input": "6de7f908a3c6392b98b47a44350da7747ab8bfd70d0e34b6e38d7d717d5b2e58"
+            },
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 23,
+            "stdout_sha256": "6de7f908a3c6392b98b47a44350da7747ab8bfd70d0e34b6e38d7d717d5b2e58"
+          }
+        },
+        {
+          "applet": "less",
+          "name": "less-multiple-files",
+          "result": {
+            "files": {
+              "one": "6de7f908a3c6392b98b47a44350da7747ab8bfd70d0e34b6e38d7d717d5b2e58",
+              "two": "067a0ae9ed9eef4b493bc286dc4f8b1ec088c0f75f222cd93cfde316390edf2f"
+            },
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 231,
+            "stdout_sha256": "b28347f8ae124e00f72690f5fa783a4d5fd28b9b20ef32c222f6ab3630b52dda"
+          }
+        },
+        {
+          "applet": "less",
+          "name": "less-squeeze",
+          "result": {
+            "files": {
+              "input": "6de7f908a3c6392b98b47a44350da7747ab8bfd70d0e34b6e38d7d717d5b2e58"
+            },
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 23,
+            "stdout_sha256": "6de7f908a3c6392b98b47a44350da7747ab8bfd70d0e34b6e38d7d717d5b2e58"
+          }
+        },
+        {
+          "applet": "less",
+          "name": "less-chop",
+          "result": {
+            "files": {
+              "input": "067a0ae9ed9eef4b493bc286dc4f8b1ec088c0f75f222cd93cfde316390edf2f"
+            },
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 208,
+            "stdout_sha256": "067a0ae9ed9eef4b493bc286dc4f8b1ec088c0f75f222cd93cfde316390edf2f"
+          }
+        },
+        {
+          "applet": "less",
+          "name": "less-search",
+          "result": {
+            "files": {
+              "input": "6de7f908a3c6392b98b47a44350da7747ab8bfd70d0e34b6e38d7d717d5b2e58"
+            },
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 23,
+            "stdout_sha256": "6de7f908a3c6392b98b47a44350da7747ab8bfd70d0e34b6e38d7d717d5b2e58"
+          }
+        },
+        {
+          "applet": "less",
+          "name": "less-missing",
+          "result": {
+            "files": {},
+            "status": 1,
+            "stderr_bytes": 35,
+            "stderr_sha256": "fbdfc316996a7f5e898adc205f024033847a223e3d8ef3ac1c9d7372263bf75b",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        {
+          "applet": "less",
+          "name": "less-double-dash",
+          "result": {
+            "files": {
+              "-input": "6de7f908a3c6392b98b47a44350da7747ab8bfd70d0e34b6e38d7d717d5b2e58"
+            },
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 23,
+            "stdout_sha256": "6de7f908a3c6392b98b47a44350da7747ab8bfd70d0e34b6e38d7d717d5b2e58"
+          }
+        },
+        {
+          "applet": "lessecho",
+          "name": "lessecho-version",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 5,
+            "stdout_sha256": "2a7832af2969e717ea4cbf8ea1a04161903e301b393bbdfa86359cdb0161dabe"
+          }
+        },
+        {
+          "applet": "lessecho",
+          "name": "lessecho-help",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 78,
+            "stderr_sha256": "9310ffb010f530ffc6491fcb6d83d9b37762ff26728c4433ae3e5ea5b3479e13",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        {
+          "applet": "lessecho",
+          "name": "lessecho-plain",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 17,
+            "stdout_sha256": "adf7157c8a5bbb4b099d39ba5ef34b73a3787f5e9326b3eb24ac8b86fd03ff96"
+          }
+        },
+        {
+          "applet": "lessecho",
+          "name": "lessecho-quote-all",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 21,
+            "stdout_sha256": "5afc7c6cc212574c546efa3dba7a9a478007e59d3e853ae6bffab4c7f3a7a2b9"
+          }
+        },
+        {
+          "applet": "lessecho",
+          "name": "lessecho-metachar",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 18,
+            "stdout_sha256": "5afe14864d9b85d4bcb87efc3a5fd0533b30f89a7fb04575ab52baa69cd543b2"
+          }
+        },
+        {
+          "applet": "lessecho",
+          "name": "lessecho-no-escape",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 13,
+            "stdout_sha256": "086f4c9827740dcb152c44f5062b0cb75dd0fb7078ef3ba86499adfd94c0278f"
+          }
+        },
+        {
+          "applet": "lessecho",
+          "name": "lessecho-numeric-quotes",
+          "result": {
+            "files": {},
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 8,
+            "stdout_sha256": "ef920357059a50a7c37ec956bf25348248d9c766812bef81eaa2a4aec5059b05"
+          }
+        },
+        {
+          "applet": "lessecho",
+          "name": "lessecho-invalid",
+          "result": {
+            "files": {},
+            "status": 1,
+            "stderr_bytes": 24,
+            "stderr_sha256": "aed65c8572236f07d1b267085329034821709ee8a20e15c2ca38c442114f8200",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        }
+      ],
+      "schema": 1
+    },
+    "differential_sha256": "bb8977ec148eba7d1aef69f98b4f3f481f7408432460846d65e4909926a7d1e1",
+    "upstream_tests": {
+      "clang": 19,
+      "gcc": 19,
+      "sanitizer": 19
+    },
+    "valgrind": {
+      "less": {
+        "all_allocations_freed": false,
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "exit_summary": "in use at exit: 5,946 bytes in 22 blocks",
+        "heap_summary": "total heap usage: 41 allocs, 19 frees, 64,263 bytes allocated",
+        "indirectly_lost_bytes": 0,
+        "log_sha256": "cf5e0f2b79811cbb72cbf5b7b64c9bc61cfcd4741587902ab5f3e70005b47ff6"
+      },
+      "lessecho": {
+        "all_allocations_freed": true,
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "exit_summary": "in use at exit: 0 bytes in 0 blocks",
+        "heap_summary": "total heap usage: 1 allocs, 1 frees, 4,096 bytes allocated",
+        "indirectly_lost_bytes": 0,
+        "log_sha256": "c02b1711544c5f57c1b45de3e3ea1a28aa77bb252bab66918682e3a21e6f6536"
+      }
+    }
+  },
+  "binaries": {
+    "clang": {
+      "less": {
+        "bytes": 907664,
+        "dynamic_needed": [
+          "libtinfo.so.6",
+          "libc.so.6"
+        ],
+        "sha256": "73aa3635e7d890e1e2e980a4f9ff579746dc32ea9efb5a7be947dd2a854f8da6",
+        "stripped_bytes": 300824,
+        "stripped_sha256": "209dd0846fc92beaba917e0a4bf59766b17779d422198fc166c65258ed2dfc2b"
+      },
+      "lessecho": {
+        "bytes": 25368,
+        "dynamic_needed": [
+          "libtinfo.so.6",
+          "libc.so.6"
+        ],
+        "sha256": "5788cf3b6d77e42e1d01a8e9f8343440c738d00e521f344f7462b503f8380398",
+        "stripped_bytes": 14624,
+        "stripped_sha256": "e60ee43747f67c5cfe80e080a009a01c67e84f0cee40c6cd4bc6a2e605006c7b"
+      }
+    },
+    "gcc": {
+      "less": {
+        "bytes": 1039480,
+        "dynamic_needed": [
+          "libtinfo.so.6",
+          "libc.so.6"
+        ],
+        "sha256": "d20654e087fd64ca668531519940aeb59037121dcfc2dff4d1e257428b66b939",
+        "stripped_bytes": 304552,
+        "stripped_sha256": "65754819dca3ddab5a504dd172747514a30b328a9bed02193ebfe3f7beed653a"
+      },
+      "lessecho": {
+        "bytes": 26872,
+        "dynamic_needed": [
+          "libc.so.6"
+        ],
+        "sha256": "f1874b6001fdc5b48da8073c2115e5e90b7ac637bd996aea09d9114ef16ab2df",
+        "stripped_bytes": 14496,
+        "stripped_sha256": "7ac1302253b5f822aff92f360188e817185df344fa1cacac4f604ee6fd25d94f"
+      }
+    }
+  },
+  "compilers": {
+    "clang": {
+      "compile_actions": 38,
+      "compile_database_sha256": "1a3cff7facbf875999a9e3ca891bfa9333a33f4e2742bc3ac0a8c57a14c44116",
+      "production_sources": 38,
+      "upstream_log_sha256": "66d1cdb3e48a4c77d495ab2ebe281abdc63a753c9d6eceb8a0d8078a31890663",
+      "upstream_tests": 19
+    },
+    "gcc": {
+      "compile_actions": 38,
+      "compile_database_sha256": "c4cff7c7a398a5165f59e03f40533cd8472be991c6f786b3c64d870dbd1faebe",
+      "production_sources": 38,
+      "upstream_log_sha256": "08f2816711e0bb5fe940bd8bfa068608206d9651917e09cd565a8d621e6b8f73",
+      "upstream_tests": 19
+    },
+    "sanitizer": {
+      "compile_actions": 38,
+      "compile_database_sha256": "508d53bddee19a41e3992f60d6b26ea4ed0052b614919ffeeb51731f0390661a",
+      "production_sources": 38,
+      "upstream_log_sha256": "e3927e8d81c1085a50703adba9c3ff02f1f91a77ab70f50060846c501ae06f5f",
+      "upstream_tests": 19
+    }
+  },
+  "configuration": {
+    "regex": "POSIX",
+    "selinux": false,
+    "systemd": false,
+    "terminal_library": "tinfo"
+  },
+  "inventory": {
+    "private_installed_helper": "less-osc8-open",
+    "production_source_count": 38,
+    "production_sources": [
+      "brac.c",
+      "ch.c",
+      "charset.c",
+      "cmdbuf.c",
+      "command.c",
+      "cvt.c",
+      "decode.c",
+      "edit.c",
+      "evar.c",
+      "filename.c",
+      "forwback.c",
+      "help.c",
+      "ifile.c",
+      "input.c",
+      "jump.c",
+      "lessecho.c",
+      "lesskey_parse.c",
+      "line.c",
+      "linenum.c",
+      "lmsg.c",
+      "lsystem.c",
+      "main.c",
+      "mark.c",
+      "optfunc.c",
+      "option.c",
+      "opttbl.c",
+      "os.c",
+      "output.c",
+      "pattern.c",
+      "position.c",
+      "prompt.c",
+      "screen.c",
+      "search.c",
+      "signal.c",
+      "tags.c",
+      "ttyin.c",
+      "version.c",
+      "xbuf.c"
+    ],
+    "public_name_count": 2,
+    "public_names": [
+      "less",
+      "lessecho"
+    ],
+    "removed_upstream": {
+      "lesskey": "standalone program removed by canonical upstream in version 706; source parsing is built into less"
+    },
+    "source_lines": {
+      "brac.c": 98,
+      "ch.c": 998,
+      "charset.c": 955,
+      "cmdbuf.c": 1812,
+      "command.c": 2540,
+      "cvt.c": 112,
+      "decode.c": 1607,
+      "edit.c": 1040,
+      "evar.c": 192,
+      "filename.c": 1203,
+      "forwback.c": 571,
+      "help.c": 344,
+      "ifile.c": 365,
+      "input.c": 626,
+      "jump.c": 371,
+      "lessecho.c": 283,
+      "lesskey_parse.c": 768,
+      "line.c": 2047,
+      "linenum.c": 523,
+      "lmsg.c": 218,
+      "lsystem.c": 369,
+      "main.c": 624,
+      "mark.c": 515,
+      "optfunc.c": 1463,
+      "option.c": 791,
+      "opttbl.c": 1064,
+      "os.c": 617,
+      "output.c": 790,
+      "pattern.c": 525,
+      "position.c": 331,
+      "prompt.c": 655,
+      "screen.c": 3624,
+      "search.c": 2433,
+      "signal.c": 302,
+      "tags.c": 766,
+      "ttyin.c": 286,
+      "version.c": 1134,
+      "xbuf.c": 207
+    },
+    "total_source_lines": 33169
+  },
+  "next_gate": "five-analyzer audit and deterministic multicall normalization of the exact 38-source closure",
+  "recorded_at": "2026-11-22",
+  "release": "710",
+  "schema": 1,
+  "status": "complete authenticated canonical oracle; analysis and normalization pending"
+}

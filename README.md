@@ -58,6 +58,7 @@ scoring, and correctness gates.
 | acl 2.4.0 | 3 | 3 | 3 | 3 |
 | LZ4 1.11.1 | 4 | 4 | 4 | 4 |
 | GNU Gzip 1.14 | 14 | 14 | 14 | 13 |
+| Less 710 | 2 | 2 | 0 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -817,7 +818,10 @@ Library-only checkpoints (outside the active utility order):
      `tic`, `toe`, `tput`, `tset`, `reset`, and the generated
      `ncurses*-config` helper; shared `ncurses`, `panel`, `form`, and `menu`
      libraries are part of the same integration.
-   - [ ] less — `less`, `lesskey`, `lessecho`.
+   - [ ] Less 710 — canonical `less` and private-runtime `lessecho`; the
+     authenticated GCC/Clang/sanitizer oracle is complete.  Upstream removed
+     the standalone `lesskey` program in version 706 and now parses lesskey
+     source directly inside `less`, so it is intentionally not resurrected.
 3. Multi-tool text processing and source generators:
    - [ ] Findutils — `find`, `xargs`, `locate`, `updatedb`.
    - [ ] Gawk — `gawk`, `awk`, `gawkbug`.
