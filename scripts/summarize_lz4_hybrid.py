@@ -100,7 +100,7 @@ def main() -> int:
         "schema": 1,
         "recorded_at": "2026-11-21",
         "release": "1.11.1",
-        "status": "complete translated hybrid at canonical parity; multicall integration pending",
+        "status": "complete translated hybrid at canonical parity; all four names integrated into Rustbox",
         "implementation": {
             "rust_production_sources": 12,
             "rust_files": translation["stable_translation"]["rust_files"],
@@ -143,7 +143,7 @@ def main() -> int:
                 "lz4-1.11.1-normalization.json", "lz4-1.11.1-c2rust.json",
             )
         },
-        "next_gate": "link all four public names through the unified Rustbox dispatcher",
+        "next_gate": "complete; unified dispatch evidence is in evidence/rustbox-multicall.json",
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")

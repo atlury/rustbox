@@ -19,4 +19,5 @@ RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
     --bc-report-directory /work/work/analysis/bc-1.08.2/multicall \
     --attr-report-directory /work/work/analysis/attr-2.6.0/multicall \
     --acl-report-directory /work/work/analysis/acl-2.4.0/multicall \
+    --lz4-report-directory /work/work/analysis/lz4-1.11.1/multicall \
     --output /work/evidence/rustbox-multicall.json

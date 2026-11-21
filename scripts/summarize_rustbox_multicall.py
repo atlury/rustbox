@@ -33,6 +33,7 @@ def main() -> int:
     parser.add_argument("--bc-report-directory", type=Path, required=True)
     parser.add_argument("--attr-report-directory", type=Path, required=True)
     parser.add_argument("--acl-report-directory", type=Path, required=True)
+    parser.add_argument("--lz4-report-directory", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     binary = args.binary.resolve()
@@ -49,10 +50,11 @@ def main() -> int:
     bc_directory = args.bc_report_directory.resolve()
     attr_directory = args.attr_report_directory.resolve()
     acl_directory = args.acl_report_directory.resolve()
+    lz4_directory = args.lz4_report_directory.resolve()
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
-    if dispatch["cases"] != 570 or dispatch["passed"] != 570 or dispatch["failures"]:
+    if dispatch["cases"] != 578 or dispatch["passed"] != 578 or dispatch["failures"]:
         raise RuntimeError("unified dispatcher comparison is incomplete")
     if (
         differential["batches"] != 38
@@ -345,6 +347,45 @@ def main() -> int:
         or acl_differential["passed"] != 30
     ):
         raise RuntimeError("unified acl integration comparison is incomplete")
+    lz4_differential_path = lz4_directory / "differential.json"
+    lz4_differential = json.loads(lz4_differential_path.read_text())
+    lz4_upstream_path = lz4_directory / "upstream-tests.log"
+    lz4_upstream = lz4_upstream_path.read_text(errors="replace")
+    lz4_markers = [
+        "test lz4 basic compression/decompression", "test command line options",
+        "test --list", "test lz4 multithreaded compression",
+        "make: Leaving directory",
+    ]
+    lz4_expected_heaps = {
+        "compress": [
+            "in use at exit: 0 bytes in 0 blocks",
+            "total heap usage: 9 allocs, 9 frees, 8,410,567 bytes allocated",
+        ],
+        "decompress": [
+            "in use at exit: 0 bytes in 0 blocks",
+            "total heap usage: 29 allocs, 29 frees, 29,633,252 bytes allocated",
+        ],
+    }
+    lz4_valgrind_paths = {
+        operation: lz4_directory / f"valgrind-{operation}.log"
+        for operation in ("compress", "decompress")
+    }
+    for operation, path in lz4_valgrind_paths.items():
+        text = path.read_text(errors="replace")
+        heap = (lz4_directory / f"valgrind-{operation}-heap").read_text().splitlines()[1:]
+        if (
+            "ERROR SUMMARY: 0 errors" not in text
+            or "All heap blocks were freed -- no leaks are possible" not in text
+            or heap != lz4_expected_heaps[operation]
+        ):
+            raise RuntimeError(f"unified LZ4 {operation} Valgrind comparison is incomplete")
+    if (
+        lz4_differential.get("cases") != 27
+        or lz4_differential.get("passed") != 27
+        or "make: ***" in lz4_upstream
+        or any(marker not in lz4_upstream for marker in lz4_markers)
+    ):
+        raise RuntimeError("unified LZ4 integration comparison is incomplete")
     if sha256(binary) != link["binary"]["sha256"]:
         raise RuntimeError("unified binary changed after link evidence")
     with tempfile.TemporaryDirectory(prefix="rustbox-strip-") as temporary:
@@ -370,7 +411,7 @@ def main() -> int:
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-21",
-        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, and acl integrated canonical parity",
+        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, and LZ4 integrated canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
@@ -384,7 +425,8 @@ def main() -> int:
             "bc": 2,
             "attr": 3,
             "acl": 3,
-            "dispatch_names": 285,
+            "lz4": 4,
+            "dispatch_names": 289,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -490,6 +532,21 @@ def main() -> int:
                 name: sha256(path) for name, path in acl_valgrind_paths.items()
             },
         },
+        "lz4_integration": {
+            "upstream_essentials": "pass",
+            "upstream_markers": lz4_markers,
+            "differential": lz4_differential,
+            "valgrind_errors": 0,
+            "all_allocations_freed": True,
+            "compression_allocation_lifecycle_matches_translated_hybrid": True,
+            "decompression_multicall_argv_overhead_bytes": 32,
+            "upstream_log_sha256": sha256(lz4_upstream_path),
+            "differential_sha256": sha256(lz4_differential_path),
+            "valgrind_log_sha256": {
+                operation: sha256(path)
+                for operation, path in lz4_valgrind_paths.items()
+            },
+        },
         "collision_isolation": {
             "translated_libraries": len(link["source_library_sha256"]),
             "namespaced_libraries": len(link["namespaced_symbols"]),
@@ -508,6 +565,7 @@ def main() -> int:
             "bc_namespaced_symbols": len(link["bc_namespaced_symbols"]),
             "attr_namespaced_symbols": len(link["attr_namespaced_symbols"]),
             "acl_namespaced_symbols": len(link["acl_namespaced_symbols"]),
+            "lz4_namespaced_symbols": len(link["lz4_namespaced_symbols"]),
             "manifest": link,
         },
     }
