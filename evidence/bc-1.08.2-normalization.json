@@ -2,11 +2,11 @@
   "binaries": {
     "clang": {
       "bc": {
-        "bytes": 251280,
+        "bytes": 251464,
         "needed": [
           "libc.so.6"
         ],
-        "sha256": "8bbc6b947e85eb31080cf446e8a41b3df06d99c0eaf599dd1cb255150603375f"
+        "sha256": "44afef839b1c22c55b3a454b1b090b544a5a2bfeca33aae9727aca2c508e8933"
       },
       "dc": {
         "bytes": 176248,
@@ -18,11 +18,11 @@
     },
     "gcc": {
       "bc": {
-        "bytes": 289680,
+        "bytes": 289576,
         "needed": [
           "libc.so.6"
         ],
-        "sha256": "b4e9c4080aef980b7f15e9812f4c4857a5b05d14f3e3074afb5de984b43ece27"
+        "sha256": "5f56bbe6799288dcd77dbd0a5e5d3ecb5cb1e8ba0c331b7c4a635e2ec3f5707c"
       },
       "dc": {
         "bytes": 201624,
@@ -84,7 +84,7 @@
       }
     }
   },
-  "manifest_sha256": "8829f2e83597fe8114a73e726d6e18090db3e520905df151d2dee29710fb5633",
+  "manifest_sha256": "188b51c125c9e0b070494b970ad9ecc4a05ae85eb60524ec70fdc417044d3a8d",
   "next_gate": "translate the exact 21-source normalized production closure with C2Rust",
   "normalization": {
     "bundled_dc_release": "1.5.2",
@@ -92,11 +92,12 @@
     "canonical_tree_sha256": "52d9ac6999ff446a8cc21c8351498ab2b46ff930887c9f47fd62f06678d2785f",
     "changed_sources": [
       "bc/main.c",
+      "bc/scan.c",
       "dc/dc.c"
     ],
     "conditional": "RUSTBOX_MULTICALL",
     "engine": "exact deterministic source rewrite",
-    "normalized_tree_sha256": "e943c4b5e86bd593c051705a0795d3e07c6f508a8b28652aaaf5ee6f64c908ef",
+    "normalized_tree_sha256": "fbfb746137b23437ac7c324170d561322cd930db72762717945b328c04eb5bc0",
     "release": "1.08.2",
     "schema": 1,
     "transformations": [
@@ -105,6 +106,12 @@
         "normalized_sha256": "a397133bf494d7955e14aabefca2305d675945a960898c0eea155220ecb1bae9",
         "operation": "export a Rustbox multicall entrypoint while retaining a conditional standalone main wrapper",
         "source": "bc/main.c"
+      },
+      {
+        "canonical_sha256": "a89da54d6ece65c939cd852c563d76d98ec4736d1dcf3a318a2d5f4dd4d88a9d",
+        "normalized_sha256": "7efc0cc2654d90bb1d729708eb7a20c31494306421f8401ea985b285ea97b5d8",
+        "operation": "remove 55 Flex diagnostic line-control directives so C2Rust declaration-map ranges use monotonic physical offsets",
+        "source": "bc/scan.c"
       },
       {
         "canonical_sha256": "3e8b10f89231095d3349310b33ea20e7b3b6cd6c4c3329cee7fa92d5208ddca1",
@@ -124,9 +131,9 @@
       "sanitizer": 21
     },
     "compile_database_sha256": {
-      "clang": "ccfe65e7dfe389d63f0c98c6648d5a32c6a77018c8518f5bf34ec0e4ab4e254b",
-      "gcc": "54f8f64c08c80b009071b4631ee5d7d844c1a31a212a9cd77a3442e94eb9729b",
-      "sanitizer": "f210ebe1ca6325ab35df8c9b71825774b5c4471b18a422a691cf28bc219325de"
+      "clang": "5b451bd837bcb37103334af45c72420085343380f97fe9fa8dcf24836ae23a5d",
+      "gcc": "c5308de5a23057b3836bb9480dec95539396660f94854afecdf1743dcdffda7b",
+      "sanitizer": "654594689328cca4f4dc0454b940b57b562ed1ece12ab6e48117568e0b0544a8"
     },
     "production_sources": 21,
     "source_closure_matches_canonical": true
@@ -153,7 +160,7 @@
   },
   "valgrind": {
     "bc": {
-      "log_sha256": "087ab5cb2b0e87449ded2fe3b767ac8b61ca24aa692209cf980d45c786db7863",
+      "log_sha256": "542b16db5f0a4ebde6f72eaabe3ca510a163ba9f2ec0b13e6c1bcd3634702a13",
       "matches_canonical_summary": true,
       "summary": {
         "allocations": 66,
@@ -165,7 +172,7 @@
       }
     },
     "dc": {
-      "log_sha256": "5c2d830b3c4ec8c12ff0e99d1516e023aaf31ac2b0bf9fc9f79844b89a2229bb",
+      "log_sha256": "5d3aa4caefeb29ea17d86feac3764379e6a76bd247ad72a66f71aa63d73cb67c",
       "matches_canonical_summary": true,
       "summary": {
         "allocations": 37,

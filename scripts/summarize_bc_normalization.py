@@ -82,7 +82,7 @@ def main() -> int:
     oracle = json.loads((repository / "evidence/bc-1.08.2-oracle.json").read_text())
     manifest_path = base / "normalization.json"
     manifest = json.loads(manifest_path.read_text())
-    if manifest["changed_sources"] != ["bc/main.c", "dc/dc.c"]:
+    if manifest["changed_sources"] != ["bc/main.c", "bc/scan.c", "dc/dc.c"]:
         raise RuntimeError("GNU bc normalization manifest changed")
 
     source_sets: dict[str, list[str]] = {}
@@ -187,7 +187,7 @@ def main() -> int:
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")
-    print(json.dumps({"changed_sources": 2, "differential": 92, "production_sources": 21}, sort_keys=True))
+    print(json.dumps({"changed_sources": 3, "differential": 92, "production_sources": 21}, sort_keys=True))
     return 0
 
 

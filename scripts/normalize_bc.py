@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import shutil
 import tempfile
 from pathlib import Path
@@ -85,6 +86,15 @@ def main() -> int:
             "rustbox_dc_main",
         )
 
+        scanner = staged / "bc/scan.c"
+        scanner_text = scanner.read_text()
+        line_controls = re.findall(r'^#line\s+\d+\s+"[^"]+"\s*\n', scanner_text, re.MULTILINE)
+        if len(line_controls) != 55 or "__LINE__" in scanner_text or "__FILE__" in scanner_text:
+            raise RuntimeError("GNU bc generated-scanner line-control precondition failed")
+        scanner.write_text(
+            re.sub(r'^#line\s+\d+\s+"[^"]+"\s*\n', "", scanner_text, flags=re.MULTILINE)
+        )
+
         canonical_files = {
             path.relative_to(canonical).as_posix()
             for path in canonical.rglob("*") if path.is_file()
@@ -99,7 +109,7 @@ def main() -> int:
             name for name in canonical_files
             if sha256(canonical / name) != sha256(staged / name)
         )
-        if changed != ["bc/main.c", "dc/dc.c"]:
+        if changed != ["bc/main.c", "bc/scan.c", "dc/dc.c"]:
             raise RuntimeError(f"unexpected GNU bc normalized sources: {changed}")
 
         manifest = {
@@ -117,7 +127,11 @@ def main() -> int:
                     "source": name,
                     "canonical_sha256": sha256(canonical / name),
                     "normalized_sha256": sha256(staged / name),
-                    "operation": "export a Rustbox multicall entrypoint while retaining a conditional standalone main wrapper",
+                    "operation": (
+                        "remove 55 Flex diagnostic line-control directives so C2Rust declaration-map ranges use monotonic physical offsets"
+                        if name == "bc/scan.c" else
+                        "export a Rustbox multicall entrypoint while retaining a conditional standalone main wrapper"
+                    ),
                 }
                 for name in changed
             ],
