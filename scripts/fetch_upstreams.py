@@ -180,49 +180,73 @@ def main() -> int:
             print(f"{name} {release['version']}: {state['commit']}")
             continue
         archive_path = cache / release["archive"]
-        signature_path = cache / (release["archive"] + ".signature")
-        key_path = cache / release["key"]
         download(release["url"], archive_path, args.offline)
         actual = digest(archive_path)
         if actual != release["sha256"]:
             raise RuntimeError(
                 f"{name}: SHA-256 {actual}, expected {release['sha256']}"
             )
-        download(release["signature_url"], signature_path, args.offline)
-        signature_digest = digest(signature_path)
-        if signature_digest != release["signature_sha256"]:
-            raise RuntimeError(
-                f"{name}: signature SHA-256 {signature_digest}, "
-                f"expected {release['signature_sha256']}"
-            )
-        download(release["key_url"], key_path, args.offline)
-        key_digest = digest(key_path)
-        if key_digest != release["key_sha256"]:
-            raise RuntimeError(
-                f"{name}: key SHA-256 {key_digest}, expected {release['key_sha256']}"
-            )
         destination = extract(archive_path, release["source_directory"], sources)
-        state = {
+        state: dict[str, object] = {
             "name": name,
             "version": release["version"],
+            "source_kind": release.get("source_kind", "signed-release-archive"),
             "archive": release["archive"],
             "sha256": actual,
             "source": str(destination.relative_to(root)),
-            "signature": str(signature_path.relative_to(root)),
-            "signature_sha256": signature_digest,
-            "signer_fingerprint": release["signer_fingerprint"],
-            "key": str(key_path.relative_to(root)),
-            "key_sha256": key_digest,
             "signature_verified": False,
         }
+        if release.get("source_kind") == "checksum-release":
+            checksum_path = cache / (release["archive"] + ".sha256")
+            download(release["checksum_url"], checksum_path, args.offline)
+            checksum_digest = digest(checksum_path)
+            if checksum_digest != release["checksum_sha256"]:
+                raise RuntimeError(
+                    f"{name}: checksum-file SHA-256 {checksum_digest}, "
+                    f"expected {release['checksum_sha256']}"
+                )
+            fields = checksum_path.read_text(encoding="utf-8").split()
+            if not fields or fields[0].lower() != actual:
+                raise RuntimeError(f"{name}: upstream checksum file does not name the pinned archive digest")
+            state.update({
+                "checksum": str(checksum_path.relative_to(root)),
+                "checksum_sha256": checksum_digest,
+                "checksum_verified": True,
+                "tag": release["tag"],
+                "commit": release["commit"],
+                "authentication": release["authentication"],
+            })
+        else:
+            signature_path = cache / (release["archive"] + ".signature")
+            key_path = cache / release["key"]
+            download(release["signature_url"], signature_path, args.offline)
+            signature_digest = digest(signature_path)
+            if signature_digest != release["signature_sha256"]:
+                raise RuntimeError(
+                    f"{name}: signature SHA-256 {signature_digest}, "
+                    f"expected {release['signature_sha256']}"
+                )
+            download(release["key_url"], key_path, args.offline)
+            key_digest = digest(key_path)
+            if key_digest != release["key_sha256"]:
+                raise RuntimeError(
+                    f"{name}: key SHA-256 {key_digest}, expected {release['key_sha256']}"
+                )
+            state.update({
+                "signature": str(signature_path.relative_to(root)),
+                "signature_sha256": signature_digest,
+                "signer_fingerprint": release["signer_fingerprint"],
+                "key": str(key_path.relative_to(root)),
+                "key_sha256": key_digest,
+            })
         (state_directory / f"{name}.json").write_text(
             json.dumps(state, indent=2, sort_keys=True) + "\n", encoding="utf-8"
         )
         print(f"{name} {release['version']}: {actual}")
 
     print(
-        "Detached signatures and pinned keys downloaded; run "
-        "scripts/verify_signatures.py in the tool container.",
+        "Pinned source-authentication artifacts downloaded; run "
+        "scripts/verify_signatures.py to complete verification.",
         file=sys.stderr,
     )
     return 0

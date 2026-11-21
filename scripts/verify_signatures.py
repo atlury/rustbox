@@ -40,6 +40,17 @@ def record_verification(root: Path, name: str, release: dict[str, str]) -> None:
             "key_sha256": release["key_sha256"],
             "signer_fingerprint": release["signer_fingerprint"],
         }
+    elif release.get("source_kind") == "checksum-release":
+        expected = {
+            "version": release["version"],
+            "source_kind": "checksum-release",
+            "sha256": release["sha256"],
+            "checksum_sha256": release["checksum_sha256"],
+            "checksum_verified": True,
+            "tag": release["tag"],
+            "commit": release["commit"],
+            "authentication": release["authentication"],
+        }
     else:
         expected = {
             "version": release["version"],
@@ -53,7 +64,10 @@ def record_verification(root: Path, name: str, release: dict[str, str]) -> None:
             raise RuntimeError(
                 f"{name} state {field}={state.get(field)!r}, expected {value!r}"
             )
-    state["signature_verified"] = True
+    if release.get("source_kind") == "checksum-release":
+        state["integrity_verified"] = True
+    else:
+        state["signature_verified"] = True
     temporary = state_path.with_suffix(".json.tmp")
     temporary.write_text(
         json.dumps(state, indent=2, sort_keys=True) + "\n", encoding="utf-8"
@@ -161,6 +175,17 @@ def main() -> int:
             verify_signed_git(root, name, release, key)
             record_verification(root, name, release)
             print(f"{name} {release['version']}: valid signature {release['signer_fingerprint']}")
+            continue
+        if release.get("source_kind") == "checksum-release":
+            archive = cache / release["archive"]
+            checksum = cache / (release["archive"] + ".sha256")
+            checked(archive, release["sha256"], f"{name} archive")
+            checked(checksum, release["checksum_sha256"], f"{name} checksum file")
+            fields = checksum.read_text(encoding="utf-8").split()
+            if not fields or fields[0].lower() != release["sha256"]:
+                raise RuntimeError(f"{name}: upstream checksum file does not match archive")
+            record_verification(root, name, release)
+            print(f"{name} {release['version']}: canonical checksum {release['sha256']}")
             continue
         archive = cache / release["archive"]
         signature = cache / (release["archive"] + ".signature")
