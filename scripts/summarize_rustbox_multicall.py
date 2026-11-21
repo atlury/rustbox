@@ -32,6 +32,7 @@ def main() -> int:
     parser.add_argument("--grep-report-directory", type=Path, required=True)
     parser.add_argument("--bc-report-directory", type=Path, required=True)
     parser.add_argument("--attr-report-directory", type=Path, required=True)
+    parser.add_argument("--acl-report-directory", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     binary = args.binary.resolve()
@@ -47,10 +48,11 @@ def main() -> int:
     grep_directory = args.grep_report_directory.resolve()
     bc_directory = args.bc_report_directory.resolve()
     attr_directory = args.attr_report_directory.resolve()
+    acl_directory = args.acl_report_directory.resolve()
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
-    if dispatch["cases"] != 564 or dispatch["passed"] != 564 or dispatch["failures"]:
+    if dispatch["cases"] != 570 or dispatch["passed"] != 570 or dispatch["failures"]:
         raise RuntimeError("unified dispatcher comparison is incomplete")
     if (
         differential["batches"] != 38
@@ -295,6 +297,54 @@ def main() -> int:
         or attr_differential["passed"] != 22
     ):
         raise RuntimeError("unified attr integration comparison is incomplete")
+    acl_differential_path = acl_directory / "differential.json"
+    acl_differential = json.loads(acl_differential_path.read_text())
+    acl_upstream_path = acl_directory / "upstream-tests.log"
+    acl_platform_path = acl_directory / "platform-permissions.log"
+    acl_upstream = acl_upstream_path.read_text(errors="replace")
+    acl_platform = acl_platform_path.read_text(errors="replace")
+    acl_summary = {
+        name.lower(): int(match.group(1))
+        for name in ("TOTAL", "PASS", "SKIP", "XFAIL", "FAIL", "XPASS", "ERROR")
+        if (match := re.search(rf"^# {name}:\s+(\d+)$", acl_upstream, re.MULTILINE))
+    }
+    acl_platform_summary = {
+        name.lower(): int(match.group(1))
+        for name in ("TOTAL", "PASS", "SKIP", "XFAIL", "FAIL", "XPASS", "ERROR")
+        if (match := re.search(rf"^# {name}:\s+(\d+)$", acl_platform, re.MULTILINE))
+    }
+    acl_valgrind_paths = {
+        name: acl_directory / f"valgrind-{name}.log"
+        for name in ("setfacl", "getfacl")
+    }
+    acl_expected_heaps = {
+        "setfacl": [
+            "in use at exit: 0 bytes in 0 blocks",
+            "total heap usage: 12 allocs, 12 frees, 950 bytes allocated",
+        ],
+        "getfacl": [
+            "in use at exit: 0 bytes in 0 blocks",
+            "total heap usage: 8 allocs, 8 frees, 4,920 bytes allocated",
+        ],
+    }
+    for name, path in acl_valgrind_paths.items():
+        text = path.read_text(errors="replace")
+        heap = (acl_directory / f"valgrind-{name}-heap").read_text().splitlines()[1:]
+        if (
+            "ERROR SUMMARY: 0 errors" not in text
+            or "All heap blocks were freed -- no leaks are possible" not in text
+            or heap != acl_expected_heaps[name]
+        ):
+            raise RuntimeError(f"unified acl {name} Valgrind comparison is incomplete")
+    if (
+        acl_summary != {"total": 15, "pass": 13, "skip": 0, "xfail": 2,
+                        "fail": 0, "xpass": 0, "error": 0}
+        or acl_platform_summary != {"total": 1, "pass": 0, "skip": 0, "xfail": 0,
+                                   "fail": 1, "xpass": 0, "error": 0}
+        or acl_differential["cases"] != 30
+        or acl_differential["passed"] != 30
+    ):
+        raise RuntimeError("unified acl integration comparison is incomplete")
     if sha256(binary) != link["binary"]["sha256"]:
         raise RuntimeError("unified binary changed after link evidence")
     with tempfile.TemporaryDirectory(prefix="rustbox-strip-") as temporary:
@@ -320,7 +370,7 @@ def main() -> int:
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-21",
-        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, and attr integrated canonical parity",
+        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, and acl integrated canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
@@ -333,7 +383,8 @@ def main() -> int:
             "grep": 3,
             "bc": 2,
             "attr": 3,
-            "dispatch_names": 282,
+            "acl": 3,
+            "dispatch_names": 285,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -426,6 +477,19 @@ def main() -> int:
                 name: sha256(path) for name, path in attr_valgrind_paths.items()
             },
         },
+        "acl_integration": {
+            "upstream_suite": acl_summary,
+            "platform_suite": acl_platform_summary,
+            "differential": acl_differential,
+            "valgrind_allocation_lifecycle_matches_translated_hybrid": True,
+            "all_allocations_freed": True,
+            "upstream_log_sha256": sha256(acl_upstream_path),
+            "platform_log_sha256": sha256(acl_platform_path),
+            "differential_sha256": sha256(acl_differential_path),
+            "valgrind_log_sha256": {
+                name: sha256(path) for name, path in acl_valgrind_paths.items()
+            },
+        },
         "collision_isolation": {
             "translated_libraries": len(link["source_library_sha256"]),
             "namespaced_libraries": len(link["namespaced_symbols"]),
@@ -443,6 +507,7 @@ def main() -> int:
             "grep_error_bridge_symbols": len(link["grep_error_bridge"]["symbols"]),
             "bc_namespaced_symbols": len(link["bc_namespaced_symbols"]),
             "attr_namespaced_symbols": len(link["attr_namespaced_symbols"]),
+            "acl_namespaced_symbols": len(link["acl_namespaced_symbols"]),
             "manifest": link,
         },
     }

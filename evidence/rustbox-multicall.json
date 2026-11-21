@@ -1,4 +1,753 @@
 {
+  "acl_integration": {
+    "all_allocations_freed": true,
+    "differential": {
+      "cases": 30,
+      "passed": 30,
+      "records": [
+        {
+          "applet": "getfacl",
+          "name": "getfacl-help",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 994,
+            "stdout_sha256": "2d74cb48d0ab067fa4e718a256497c13e4ebf918b404b451925e4a549c0447a7",
+            "tree": []
+          }
+        },
+        {
+          "applet": "getfacl",
+          "name": "getfacl-version",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 14,
+            "stdout_sha256": "2059857057db05687e416a6f4780a010cadb6dd9ffd18b9a93eb9144c8e99d33",
+            "tree": []
+          }
+        },
+        {
+          "applet": "setfacl",
+          "name": "setfacl-help",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 1237,
+            "stdout_sha256": "f54b6abc93fca70f11d9ba852f7126e78fd568aede752a84275c607a29afcac8",
+            "tree": []
+          }
+        },
+        {
+          "applet": "setfacl",
+          "name": "setfacl-version",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 14,
+            "stdout_sha256": "acd1d8dd26da79e4c413afa0259ac8c4c9e27b3c454742195179b8f253e80daf",
+            "tree": []
+          }
+        },
+        {
+          "applet": "getfacl",
+          "name": "get-base",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 74,
+            "stdout_sha256": "11ae64964e1bd728346bdd059adba60767d2c63eb382858f475b58da1313dde2",
+            "tree": [
+              {
+                "bytes": 8,
+                "kind": "file",
+                "mode": 416,
+                "path": "file",
+                "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+                "xattrs": []
+              }
+            ]
+          }
+        },
+        {
+          "applet": "getfacl",
+          "name": "get-omit-header",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 33,
+            "stdout_sha256": "82423033d591a8c3228661facec8c2cb4e95625a13269e802dcd08ac98e7d9cb",
+            "tree": [
+              {
+                "bytes": 8,
+                "kind": "file",
+                "mode": 420,
+                "path": "file",
+                "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+                "xattrs": []
+              }
+            ]
+          }
+        },
+        {
+          "applet": "getfacl",
+          "name": "get-numeric",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 68,
+            "stdout_sha256": "cb4f0c907b56d1323885cf35b6dfe2c05e973882022c7b98ced1336cd9cd1d85",
+            "tree": [
+              {
+                "bytes": 8,
+                "kind": "file",
+                "mode": 420,
+                "path": "file",
+                "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+                "xattrs": []
+              }
+            ]
+          }
+        },
+        {
+          "applet": "getfacl",
+          "name": "get-tabular",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 92,
+            "stdout_sha256": "e56401faa2491b92282edb80d229461fbf1a14d99093c4a5add842cd30019093",
+            "tree": [
+              {
+                "bytes": 8,
+                "kind": "file",
+                "mode": 420,
+                "path": "file",
+                "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+                "xattrs": []
+              }
+            ]
+          }
+        },
+        {
+          "applet": "getfacl",
+          "name": "get-effective",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 74,
+            "stdout_sha256": "7a2da2681a84b940ba9d51663faaaedf0459bf12e36447cb0a10c1c40c71a1c4",
+            "tree": [
+              {
+                "bytes": 8,
+                "kind": "file",
+                "mode": 420,
+                "path": "file",
+                "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+                "xattrs": []
+              }
+            ]
+          }
+        },
+        {
+          "applet": "getfacl",
+          "name": "get-no-effective",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 99,
+            "stdout_sha256": "87e35d201d7ce6977a3cc3ea077e582811860887975382791c0b9b579332e020",
+            "tree": [
+              {
+                "bytes": 8,
+                "kind": "file",
+                "mode": 420,
+                "path": "file",
+                "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+                "xattrs": [
+                  [
+                    "system.posix_acl_access",
+                    44,
+                    "976683eafe250ace5268aa16df4a987fd85e6fd9a33c397ed4bd9aa144c978ee"
+                  ]
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "applet": "getfacl",
+          "name": "get-skip-base",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 8,
+                "kind": "file",
+                "mode": 420,
+                "path": "file",
+                "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+                "xattrs": []
+              }
+            ]
+          }
+        },
+        {
+          "applet": "getfacl",
+          "name": "get-recursive",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 308,
+            "stdout_sha256": "67bf325ab81e1238d6a943d17c59a9ecf1b675b1564dd39ef29139a36797a07c",
+            "tree": [
+              {
+                "bytes": 0,
+                "kind": "directory",
+                "mode": 493,
+                "path": "tree",
+                "sha256": null,
+                "xattrs": []
+              },
+              {
+                "bytes": 1,
+                "kind": "file",
+                "mode": 420,
+                "path": "tree/a",
+                "sha256": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+                "xattrs": []
+              },
+              {
+                "bytes": 0,
+                "kind": "directory",
+                "mode": 493,
+                "path": "tree/sub",
+                "sha256": null,
+                "xattrs": []
+              },
+              {
+                "bytes": 1,
+                "kind": "file",
+                "mode": 420,
+                "path": "tree/sub/b",
+                "sha256": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+                "xattrs": []
+              }
+            ]
+          }
+        },
+        {
+          "applet": "getfacl",
+          "name": "get-missing",
+          "result": {
+            "status": 1,
+            "stderr_length": 44,
+            "stderr_sha256": "f0f0c636fc274092b3994fe59276dc25da7ae77e3e8c2b7390e7326724208ece",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": []
+          }
+        },
+        {
+          "applet": "getfacl",
+          "name": "get-stdin-list",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 74,
+            "stdout_sha256": "7a2da2681a84b940ba9d51663faaaedf0459bf12e36447cb0a10c1c40c71a1c4",
+            "tree": [
+              {
+                "bytes": 8,
+                "kind": "file",
+                "mode": 420,
+                "path": "file",
+                "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+                "xattrs": []
+              }
+            ]
+          }
+        },
+        {
+          "applet": "setfacl",
+          "name": "set-modify",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 8,
+                "kind": "file",
+                "mode": 436,
+                "path": "file",
+                "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+                "xattrs": [
+                  [
+                    "system.posix_acl_access",
+                    44,
+                    "7bb1aca7bb1162667fadae4043eebe3ab6410b9e8a717579e3700e819ca2384f"
+                  ]
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "applet": "setfacl",
+          "name": "set-numeric-perms",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 8,
+                "kind": "file",
+                "mode": 428,
+                "path": "file",
+                "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+                "xattrs": [
+                  [
+                    "system.posix_acl_access",
+                    44,
+                    "51308e547b1a5492f345a7e9c4adb2e735400bf718d865f1fe06b6a42df13d7b"
+                  ]
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "applet": "setfacl",
+          "name": "set-remove",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 8,
+                "kind": "file",
+                "mode": 420,
+                "path": "file",
+                "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+                "xattrs": [
+                  [
+                    "system.posix_acl_access",
+                    36,
+                    "0631e609ba9cc2f51734825bcaa5581e8dd6774df69f8e87cfa2b2e4cdf349b8"
+                  ]
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "applet": "setfacl",
+          "name": "set-remove-all",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 8,
+                "kind": "file",
+                "mode": 420,
+                "path": "file",
+                "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+                "xattrs": []
+              }
+            ]
+          }
+        },
+        {
+          "applet": "setfacl",
+          "name": "set-no-mask",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 8,
+                "kind": "file",
+                "mode": 420,
+                "path": "file",
+                "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+                "xattrs": [
+                  [
+                    "system.posix_acl_access",
+                    44,
+                    "976683eafe250ace5268aa16df4a987fd85e6fd9a33c397ed4bd9aa144c978ee"
+                  ]
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "applet": "setfacl",
+          "name": "set-test",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 48,
+            "stdout_sha256": "991567d4647d5520b899c7bb533a11a9330b133ba3b903ff777c12a873785cc9",
+            "tree": [
+              {
+                "bytes": 8,
+                "kind": "file",
+                "mode": 420,
+                "path": "file",
+                "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+                "xattrs": []
+              }
+            ]
+          }
+        },
+        {
+          "applet": "setfacl",
+          "name": "set-default",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 0,
+                "kind": "directory",
+                "mode": 493,
+                "path": "dir",
+                "sha256": null,
+                "xattrs": [
+                  [
+                    "system.posix_acl_default",
+                    36,
+                    "fce239caeb6939fd7a5fe19a068c9813211f8aea7c37cf2b7ea9aee9e96b4dc2"
+                  ]
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "applet": "setfacl",
+          "name": "set-remove-default",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 0,
+                "kind": "directory",
+                "mode": 493,
+                "path": "dir",
+                "sha256": null,
+                "xattrs": []
+              }
+            ]
+          }
+        },
+        {
+          "applet": "setfacl",
+          "name": "set-recursive",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 0,
+                "kind": "directory",
+                "mode": 493,
+                "path": "tree",
+                "sha256": null,
+                "xattrs": [
+                  [
+                    "system.posix_acl_access",
+                    44,
+                    "f61c85b160336e9792990ffc439689a0e86519a8520a5eb24b056ff6ced07052"
+                  ]
+                ]
+              },
+              {
+                "bytes": 1,
+                "kind": "file",
+                "mode": 420,
+                "path": "tree/a",
+                "sha256": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+                "xattrs": [
+                  [
+                    "system.posix_acl_access",
+                    44,
+                    "bbc03c8ac94552ad3afc6be2d3b0bcdd91a4a0eb4411b30eb790e5eceb7be80f"
+                  ]
+                ]
+              },
+              {
+                "bytes": 0,
+                "kind": "directory",
+                "mode": 493,
+                "path": "tree/sub",
+                "sha256": null,
+                "xattrs": [
+                  [
+                    "system.posix_acl_access",
+                    44,
+                    "f61c85b160336e9792990ffc439689a0e86519a8520a5eb24b056ff6ced07052"
+                  ]
+                ]
+              },
+              {
+                "bytes": 1,
+                "kind": "file",
+                "mode": 420,
+                "path": "tree/sub/b",
+                "sha256": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+                "xattrs": [
+                  [
+                    "system.posix_acl_access",
+                    44,
+                    "bbc03c8ac94552ad3afc6be2d3b0bcdd91a4a0eb4411b30eb790e5eceb7be80f"
+                  ]
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "applet": "setfacl",
+          "name": "set-missing",
+          "result": {
+            "status": 1,
+            "stderr_length": 44,
+            "stderr_sha256": "dfb7250b37243827401ce5e7d1dfb8403ff4c22421d5b872e0de1795e53f52e5",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": []
+          }
+        },
+        {
+          "applet": "chacl",
+          "name": "chacl-set",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 8,
+                "kind": "file",
+                "mode": 416,
+                "path": "file",
+                "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+                "xattrs": [
+                  [
+                    "system.posix_acl_access",
+                    44,
+                    "a7b02e3eeb7a91d9fc028c7780cd5fdc81bb08ab0c5bdab4ade8047c0b166dc0"
+                  ]
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "applet": "chacl",
+          "name": "chacl-list",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 47,
+            "stdout_sha256": "6289e74a686253cc62b024a3f3be885e959bac223cae813e40c560431309dcb9",
+            "tree": [
+              {
+                "bytes": 8,
+                "kind": "file",
+                "mode": 416,
+                "path": "file",
+                "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+                "xattrs": [
+                  [
+                    "system.posix_acl_access",
+                    44,
+                    "a7b02e3eeb7a91d9fc028c7780cd5fdc81bb08ab0c5bdab4ade8047c0b166dc0"
+                  ]
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "applet": "chacl",
+          "name": "chacl-remove",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 8,
+                "kind": "file",
+                "mode": 416,
+                "path": "file",
+                "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+                "xattrs": []
+              }
+            ]
+          }
+        },
+        {
+          "applet": "chacl",
+          "name": "chacl-default",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 0,
+                "kind": "directory",
+                "mode": 493,
+                "path": "dir",
+                "sha256": null,
+                "xattrs": [
+                  [
+                    "system.posix_acl_default",
+                    36,
+                    "fce239caeb6939fd7a5fe19a068c9813211f8aea7c37cf2b7ea9aee9e96b4dc2"
+                  ]
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "applet": "chacl",
+          "name": "chacl-both",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 0,
+                "kind": "directory",
+                "mode": 416,
+                "path": "dir",
+                "sha256": null,
+                "xattrs": [
+                  [
+                    "system.posix_acl_access",
+                    44,
+                    "a7b02e3eeb7a91d9fc028c7780cd5fdc81bb08ab0c5bdab4ade8047c0b166dc0"
+                  ],
+                  [
+                    "system.posix_acl_default",
+                    36,
+                    "fce239caeb6939fd7a5fe19a068c9813211f8aea7c37cf2b7ea9aee9e96b4dc2"
+                  ]
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "applet": "chacl",
+          "name": "chacl-invalid",
+          "result": {
+            "status": 1,
+            "stderr_length": 37,
+            "stderr_sha256": "da86d985bd65f5130dc6723e47eaaba606856a4cf28c2e187e8dad2987e38d53",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 8,
+                "kind": "file",
+                "mode": 420,
+                "path": "file",
+                "sha256": "d4e4877bac978b7952f0d544fc52ebff5411d351d129f1f056fa43f11da9af2b",
+                "xattrs": []
+              }
+            ]
+          }
+        }
+      ],
+      "schema": 1
+    },
+    "differential_sha256": "fcbc1330de086cf12820e7188ae1a02c69abffe48dfa6809caf432167a17d250",
+    "platform_log_sha256": "10bcf540afe7a4881d9dc2ab3be9f84768cc28e42e7c7108a98769c1a9f64c43",
+    "platform_suite": {
+      "error": 0,
+      "fail": 1,
+      "pass": 0,
+      "skip": 0,
+      "total": 1,
+      "xfail": 0,
+      "xpass": 0
+    },
+    "upstream_log_sha256": "6a2c34ba19d9a67cc77fc43f9e9c872ad8cc025e06fe5b8c3a52bce3824c4f4d",
+    "upstream_suite": {
+      "error": 0,
+      "fail": 0,
+      "pass": 13,
+      "skip": 0,
+      "total": 15,
+      "xfail": 2,
+      "xpass": 0
+    },
+    "valgrind_allocation_lifecycle_matches_translated_hybrid": true,
+    "valgrind_log_sha256": {
+      "getfacl": "25f5ac0594c5da8f7c4b13dcf7ebee8ba1e9f43ac636baf666fcc2e82dfb3824",
+      "setfacl": "a1a91afc04239c7c3a4ed3e120a8db8d96e47cbde1ba9156c0ab5ef718b0f135"
+    }
+  },
   "attr_integration": {
     "differential": {
       "cases": 22,
@@ -1347,7 +2096,7 @@
           "--canonical-directory",
           "/rustbox-util-linux/canonical-clang-compdb",
           "--hybrid",
-          "/tmp/rustbox-unified-batches-te7m66pv/rustbox-util-linux-small-01",
+          "/tmp/rustbox-unified-batches-v05poa8p/rustbox-util-linux-small-01",
           "--output",
           "/work/work/analysis/rustbox-multicall-differential/util-linux-small-01.json"
         ],
@@ -1369,7 +2118,7 @@
           "--canonical-directory",
           "/rustbox-util-linux/canonical-clang-compdb",
           "--hybrid",
-          "/tmp/rustbox-unified-batches-te7m66pv/rustbox-util-linux-small-02",
+          "/tmp/rustbox-unified-batches-v05poa8p/rustbox-util-linux-small-02",
           "--output",
           "/work/work/analysis/rustbox-multicall-differential/util-linux-small-02.json"
         ],
@@ -1391,7 +2140,7 @@
           "--canonical-directory",
           "/rustbox-util-linux/canonical-clang-compdb",
           "--hybrid",
-          "/tmp/rustbox-unified-batches-te7m66pv/rustbox-util-linux-small-03",
+          "/tmp/rustbox-unified-batches-v05poa8p/rustbox-util-linux-small-03",
           "--output",
           "/work/work/analysis/rustbox-multicall-differential/util-linux-small-03.json"
         ],
@@ -1413,7 +2162,7 @@
           "--canonical-directory",
           "/rustbox-util-linux/canonical-clang-compdb",
           "--hybrid",
-          "/tmp/rustbox-unified-batches-te7m66pv/rustbox-util-linux-small-04",
+          "/tmp/rustbox-unified-batches-v05poa8p/rustbox-util-linux-small-04",
           "--output",
           "/work/work/analysis/rustbox-multicall-differential/util-linux-small-04.json"
         ],
@@ -1435,7 +2184,7 @@
           "--canonical-directory",
           "/rustbox-util-linux/canonical-clang-compdb",
           "--hybrid",
-          "/tmp/rustbox-unified-batches-te7m66pv/rustbox-util-linux-small-05",
+          "/tmp/rustbox-unified-batches-v05poa8p/rustbox-util-linux-small-05",
           "--output",
           "/work/work/analysis/rustbox-multicall-differential/util-linux-small-05.json"
         ],
@@ -1457,7 +2206,7 @@
           "--canonical-directory",
           "/rustbox-util-linux/canonical-clang-compdb",
           "--hybrid",
-          "/tmp/rustbox-unified-batches-te7m66pv/rustbox-util-linux-small-06",
+          "/tmp/rustbox-unified-batches-v05poa8p/rustbox-util-linux-small-06",
           "--output",
           "/work/work/analysis/rustbox-multicall-differential/util-linux-small-06.json"
         ],
@@ -1479,7 +2228,7 @@
           "--canonical-directory",
           "/rustbox-util-linux/canonical-clang-compdb",
           "--hybrid",
-          "/tmp/rustbox-unified-batches-te7m66pv/rustbox-util-linux-small-07",
+          "/tmp/rustbox-unified-batches-v05poa8p/rustbox-util-linux-small-07",
           "--output",
           "/work/work/analysis/rustbox-multicall-differential/util-linux-small-07.json"
         ],
@@ -1501,7 +2250,7 @@
           "--canonical-directory",
           "/rustbox-util-linux/canonical-clang-compdb",
           "--hybrid",
-          "/tmp/rustbox-unified-batches-te7m66pv/rustbox-util-linux-small-08",
+          "/tmp/rustbox-unified-batches-v05poa8p/rustbox-util-linux-small-08",
           "--output",
           "/work/work/analysis/rustbox-multicall-differential/util-linux-small-08.json"
         ],
@@ -1523,7 +2272,7 @@
           "--canonical-directory",
           "/rustbox-util-linux/canonical-clang-compdb",
           "--hybrid",
-          "/tmp/rustbox-unified-batches-te7m66pv/rustbox-util-linux-small-09",
+          "/tmp/rustbox-unified-batches-v05poa8p/rustbox-util-linux-small-09",
           "--output",
           "/work/work/analysis/rustbox-multicall-differential/util-linux-small-09.json"
         ],
@@ -1545,7 +2294,7 @@
           "--canonical-directory",
           "/rustbox-util-linux/canonical-clang-compdb",
           "--hybrid",
-          "/tmp/rustbox-unified-batches-te7m66pv/rustbox-util-linux-small-10",
+          "/tmp/rustbox-unified-batches-v05poa8p/rustbox-util-linux-small-10",
           "--output",
           "/work/work/analysis/rustbox-multicall-differential/util-linux-small-10.json"
         ],
@@ -1567,7 +2316,7 @@
           "--canonical-directory",
           "/rustbox-util-linux/canonical-clang-compdb",
           "--hybrid",
-          "/tmp/rustbox-unified-batches-te7m66pv/rustbox-util-linux-small-11",
+          "/tmp/rustbox-unified-batches-v05poa8p/rustbox-util-linux-small-11",
           "--output",
           "/work/work/analysis/rustbox-multicall-differential/util-linux-small-11.json"
         ],
@@ -1589,7 +2338,7 @@
           "--canonical-directory",
           "/rustbox-util-linux/canonical-clang-compdb",
           "--hybrid",
-          "/tmp/rustbox-unified-batches-te7m66pv/rustbox-util-linux-small-12",
+          "/tmp/rustbox-unified-batches-v05poa8p/rustbox-util-linux-small-12",
           "--output",
           "/work/work/analysis/rustbox-multicall-differential/util-linux-small-12.json"
         ],
@@ -1611,7 +2360,7 @@
           "--canonical-directory",
           "/rustbox-util-linux/canonical-clang-compdb",
           "--hybrid",
-          "/tmp/rustbox-unified-batches-te7m66pv/rustbox-util-linux-small-13",
+          "/tmp/rustbox-unified-batches-v05poa8p/rustbox-util-linux-small-13",
           "--output",
           "/work/work/analysis/rustbox-multicall-differential/util-linux-small-13.json"
         ],
@@ -1633,7 +2382,7 @@
           "--canonical-directory",
           "/rustbox-util-linux/canonical-clang-compdb",
           "--hybrid",
-          "/tmp/rustbox-unified-batches-te7m66pv/rustbox-util-linux-small-14",
+          "/tmp/rustbox-unified-batches-v05poa8p/rustbox-util-linux-small-14",
           "--output",
           "/work/work/analysis/rustbox-multicall-differential/util-linux-small-14.json"
         ],
@@ -2175,8 +2924,8 @@
     "workload_log_sha256": "86fc9f9bc75c2c9b9602c5a8a8b1b9b1da1a9121a3fb214396bffa3a264df849"
   },
   "binary": {
-    "bytes": 16877432,
-    "link_map_sha256": "3608db82cb62b223a1684d56608d474c08f4e65554d22600558969197113fe7a",
+    "bytes": 16955992,
+    "link_map_sha256": "8c29de4404e4839e668a5583e02c6b238f2ee74b21cfb7173cc42f570067de69",
     "needed_libraries": [
       "ld-linux-x86-64.so.2",
       "libacl.so.1",
@@ -2205,12 +2954,13 @@
       "libzstd.so.1"
     ],
     "selinux_dependencies": [],
-    "sha256": "f5e9b865c797517bcd9ed09cbbfa956f787e537f16e6a740d853ba2582f8316d",
-    "stripped_bytes": 6717616,
-    "stripped_sha256": "1cb20f887e911088d0aab00a3528c1242649463186d908930ab34da057e45afe",
+    "sha256": "5bf1a0cf38c5669979355cec858a754efbd6063f534e5bfe8309a3d2fe7bb1c2",
+    "stripped_bytes": 6784272,
+    "stripped_sha256": "e862bfa95ab6d112947f66b4d6d004e81dbe4f34a8b456bedb012775730d78a7",
     "systemd_dependencies": []
   },
   "collision_isolation": {
+    "acl_namespaced_symbols": 82,
     "attr_namespaced_symbols": 46,
     "bc_namespaced_symbols": 248,
     "diffutils_error_bridge_symbols": 1,
@@ -2221,6 +2971,91 @@
     "grep_namespaced_symbols": 421,
     "m4_namespaced_support_symbols": 436,
     "manifest": {
+      "acl_applets": 3,
+      "acl_namespaced_symbols": [
+        "acl_add_perm",
+        "acl_calc_mask",
+        "acl_check",
+        "acl_clear_perms",
+        "acl_cmp",
+        "acl_copy_entry",
+        "acl_copy_ext",
+        "acl_copy_int",
+        "acl_create_entry",
+        "acl_delete_def_file",
+        "acl_delete_def_file_at",
+        "acl_delete_entry",
+        "acl_delete_perm",
+        "acl_dup",
+        "acl_entries",
+        "acl_equiv_mode",
+        "acl_error",
+        "acl_extended_fd",
+        "acl_extended_file",
+        "acl_extended_file_at",
+        "acl_extended_file_nofollow",
+        "acl_free",
+        "acl_from_mode",
+        "acl_from_text",
+        "acl_get_entry",
+        "acl_get_fd",
+        "acl_get_file",
+        "acl_get_file_at",
+        "acl_get_perm",
+        "acl_get_permset",
+        "acl_get_qualifier",
+        "acl_get_tag_type",
+        "acl_init",
+        "acl_set_fd",
+        "acl_set_file",
+        "acl_set_file_at",
+        "acl_set_permset",
+        "acl_set_qualifier",
+        "acl_set_tag_type",
+        "acl_size",
+        "acl_to_any_text",
+        "acl_to_text",
+        "acl_valid",
+        "cmd_free",
+        "cmd_init",
+        "do_set",
+        "fchmodat_compat",
+        "getxattrat",
+        "getxattrat_compat",
+        "group_name",
+        "listxattrat",
+        "listxattrat_compat",
+        "need_slow_empty_paths",
+        "openat2",
+        "openat_with_flags",
+        "opt_recalculate",
+        "opt_test",
+        "parse_acl_cmd",
+        "parse_acl_seq",
+        "perm_copy_fd",
+        "perm_copy_file",
+        "proc_self_fd_free",
+        "proc_self_fd_path",
+        "proc_self_fd_realpath",
+        "read_acl_comments",
+        "read_acl_seq",
+        "removexattrat",
+        "removexattrat_compat",
+        "rustbox_getfacl_progname",
+        "rustbox_setfacl_progname",
+        "seq_append",
+        "seq_append_cmd",
+        "seq_delete_cmd",
+        "seq_empty",
+        "seq_free",
+        "seq_get_cmd",
+        "seq_init",
+        "setxattrat",
+        "setxattrat_compat",
+        "slow_empty_paths",
+        "user_name",
+        "walk_tree"
+      ],
       "attr_applets": 3,
       "attr_namespaced_symbols": [
         "attr_copy_action",
@@ -2522,9 +3357,9 @@
         "yywrap"
       ],
       "binary": {
-        "bytes": 16877432,
-        "link_map_sha256": "3608db82cb62b223a1684d56608d474c08f4e65554d22600558969197113fe7a",
-        "sha256": "f5e9b865c797517bcd9ed09cbbfa956f787e537f16e6a740d853ba2582f8316d"
+        "bytes": 16955992,
+        "link_map_sha256": "8c29de4404e4839e668a5583e02c6b238f2ee74b21cfb7173cc42f570067de69",
+        "sha256": "5bf1a0cf38c5669979355cec858a754efbd6063f534e5bfe8309a3d2fe7bb1c2"
       },
       "coreutils_applets": 106,
       "diffutils_applets": 4,
@@ -5263,6 +6098,7 @@
       ],
       "source_library_sha256": {
         "/rustbox-m4/normalized-clang/lib/libm4.a": "1b0f3b092ef73afc638043b116ef0dcb4388375101e4d08811e355509a084e20",
+        "work/analysis/acl-2.4.0/translations/c2rust-0.22.1/acl-2.4.0-stable/target/release/libacl_2_4_0_normalized_audit.a": "a3bfbedb671c868ac50f9b03099de138ce290efd419363481e900399f72fa3b7",
         "work/analysis/attr-2.6.0/translations/c2rust-0.22.1/attr-2.6.0-stable/target/release/libattr_2_6_0_normalized_audit.a": "24b7b65e2508ae5ad2d292532bbccc1575a37fca3ae059df2f80b69403f6f6d9",
         "work/analysis/bc-1.08.2/translations/c2rust-0.22.1/bc-1.08.2-stable/target/release/libbc_1_08_2_normalized_audit.a": "680d2ac1f89b928561fe802da797746d2ea98d2bb30531625b1cc6c2941b9e8d",
         "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-01-stable/target/release/libcoreutils_small_01_reachable.a": "786810212c942c575ef671c8c8ccd003b84b1204919657fa506c1904de668090",
@@ -5311,7 +6147,7 @@
         "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-13-stable/target/release/libutil_linux_small_13_normalized_reachable.a": "655b8e12e5048dcd5c1511de0877ad4b38a338358f00f19fdef5594d7fbaa099",
         "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-14-stable/target/release/libutil_linux_small_14_normalized_reachable.a": "5c6587cf76610e5bd220c38c10896e1eb6d021ed6e85e4cebe75057d48e4aab3"
       },
-      "total_dispatch_names": 282,
+      "total_dispatch_names": 285,
       "util_linux_applets": 155
     },
     "namespaced_libraries": 13,
@@ -5320,7 +6156,7 @@
     "patch_namespaced_symbols": 454,
     "sed_abi_bridge_symbols": 1,
     "sed_namespaced_symbols": 399,
-    "translated_libraries": 48
+    "translated_libraries": 49
   },
   "diffutils_integration": {
     "diff3_allocation_lifecycle_exact": true,
@@ -6523,16 +7359,17 @@
     }
   },
   "dispatch": {
+    "acl_applets": 3,
     "attr_applets": 3,
     "bc_applets": 2,
-    "cases": 564,
+    "cases": 570,
     "coreutils_applets": 106,
     "diffutils_applets": 4,
     "failures": [],
     "file_applets": 1,
     "grep_applets": 3,
     "m4_applets": 1,
-    "passed": 564,
+    "passed": 570,
     "patch_applets": 1,
     "pkgconf_public_names": 5,
     "schema": 1,
@@ -10054,11 +10891,12 @@
   "recorded_at": "2026-11-21",
   "schema": 1,
   "scope": {
+    "acl": 3,
     "attr": 3,
     "bc": 2,
     "coreutils": 106,
     "diffutils": 4,
-    "dispatch_names": 282,
+    "dispatch_names": 285,
     "excluded": [
       "chcon",
       "runcon"
@@ -10502,5 +11340,5 @@
     "valgrind_errors": 0,
     "valgrind_log_sha256": "3b9688d3d14582709f223e2b6a6da1440bc8885c5615fb3a781b1689359d34a5"
   },
-  "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, and attr integrated canonical parity"
+  "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, and acl integrated canonical parity"
 }

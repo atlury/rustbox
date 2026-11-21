@@ -48,6 +48,7 @@ def main() -> int:
     parser.add_argument("--grep-oracle", type=Path, required=True)
     parser.add_argument("--bc-oracle-dir", type=Path, required=True)
     parser.add_argument("--attr-oracle-dir", type=Path, required=True)
+    parser.add_argument("--acl-oracle-dir", type=Path, required=True)
     parser.add_argument("--rustbox", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
@@ -64,6 +65,7 @@ def main() -> int:
     grep_oracle = args.grep_oracle.resolve()
     bc_oracle_dir = args.bc_oracle_dir.resolve()
     attr_oracle_dir = args.attr_oracle_dir.resolve()
+    acl_oracle_dir = args.acl_oracle_dir.resolve()
     failures: list[dict[str, object]] = []
     cases = 0
 
@@ -184,6 +186,16 @@ def main() -> int:
             if oracle != actual:
                 failures.append({"suite": "attr", "applet": name, "option": option, "oracle": oracle, "actual": actual})
 
+    acl_names = ["chacl", "getfacl", "setfacl"]
+    for name in acl_names:
+        oracle_binary = acl_oracle_dir / name
+        for option in ("--help", "--version"):
+            cases += 1
+            oracle = invoke([name, option], executable=oracle_binary)
+            actual = invoke([str(rustbox), name, option])
+            if oracle != actual:
+                failures.append({"suite": "acl", "applet": name, "option": option, "oracle": oracle, "actual": actual})
+
     result = {
         "schema": 1,
         "cases": cases,
@@ -199,6 +211,7 @@ def main() -> int:
         "grep_applets": len(grep_names),
         "bc_applets": len(bc_names),
         "attr_applets": len(attr_names),
+        "acl_applets": len(acl_names),
         "failures": failures,
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
@@ -211,7 +224,7 @@ def main() -> int:
         + "\n",
         encoding="utf-8",
     )
-    print(json.dumps({key: result[key] for key in ("cases", "passed", "coreutils_applets", "util_linux_applets", "m4_applets", "pkgconf_public_names", "file_applets", "patch_applets", "sed_applets", "diffutils_applets", "grep_applets", "bc_applets", "attr_applets")}))
+    print(json.dumps({key: result[key] for key in ("cases", "passed", "coreutils_applets", "util_linux_applets", "m4_applets", "pkgconf_public_names", "file_applets", "patch_applets", "sed_applets", "diffutils_applets", "grep_applets", "bc_applets", "attr_applets", "acl_applets")}))
     return 1 if failures else 0
 
 

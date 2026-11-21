@@ -55,7 +55,7 @@ scoring, and correctness gates.
 | GNU Grep 3.12 | 3 | 3 | 3 | 3 |
 | GNU bc 1.08.2 / dc 1.5.2 | 2 | 2 | 2 | 2 |
 | attr 2.6.0 | 3 | 3 | 3 | 3 |
-| acl 2.4.0 | 3 | 3 | 0 | 0 |
+| acl 2.4.0 | 3 | 3 | 3 | 3 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -117,11 +117,12 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 282
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 285
 distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, five
 pkgconf names, File, GNU patch, GNU sed, four GNU Diffutils applets, and GNU
-Grep's three public names, GNU bc and dc, plus attr, getfattr, and setfattr;
-`kill` is shared and `util-linux-kill` remains available explicitly).  It passes all 564
+Grep's three public names, GNU bc and dc, attr's three tools, plus chacl,
+getfacl, and setfacl;
+`kill` is shared and `util-linux-kill` remains available explicitly).  It passes all 570
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
 check, 108-case differential suite, and Valgrind.  Pkgconf also passes all 429
@@ -135,8 +136,11 @@ the canonical allocation lifecycle through the same dispatcher.  GNU bc and
 dc pass all 18 shipped arbitrary-precision workloads, 46 exact differential
 comparisons, and canonical allocation lifecycles through the same dispatcher.
 Attr's three tools retain their upstream result, 22 exact differential cases,
-and canonical allocation lifecycles through the same dispatcher.  The stripped
-282-name executable is 6,717,616 bytes.  `chcon` and `runcon`
+and canonical allocation lifecycles through the same dispatcher.  ACL's three
+tools retain 13 upstream passes and two canonical NFS expected failures, all
+30 state-aware differential cases, and leak-free translated allocation
+lifecycles through the same dispatcher.  The stripped 285-name executable is
+6,784,272 bytes.  `chcon` and `runcon`
 remain absent, and the linked binary has no SELinux or systemd dependency.
 
 The final Rustbox executable is required to be self-contained: utility
@@ -600,7 +604,10 @@ adds two short-lived allocations to setfacl and four to getfacl, recorded
 explicitly rather than misreported as an exact allocation lifecycle.  Their
 separate stripped executables total 1,069,184 bytes before multicall sharing.
 Full behavior, resource, dependency, and size evidence is in
-`evidence/acl-2.4.0-hybrid.json`.
+`evidence/acl-2.4.0-hybrid.json`.  All 82 non-entrypoint C symbols are private
+in the unified link; integration adds 66,656 stripped bytes and retains the
+complete help/version, upstream, differential, platform-baseline, and Valgrind
+gates in `evidence/rustbox-multicall.json`.
 
 ## Work queue after util-linux
 
@@ -641,7 +648,8 @@ Library-only checkpoints (outside the active utility order):
    - [x] bc 1.08.2 / dc 1.5.2 — `bc`, `dc`; integrated at canonical parity.
    - [x] attr 2.6.0 — `attr`, `getfattr`, `setfattr`; integrated at canonical
      parity.
-   - [ ] acl 2.4.0 — `chacl`, `getfacl`, `setfacl`.
+   - [x] acl 2.4.0 — `chacl`, `getfacl`, `setfacl`; integrated at canonical
+     parity.
    - [ ] lz4 — `lz4`, `lz4c`, `lz4cat`, `unlz4`.
 2. Compression, archive, and terminal foundations:
    - [ ] Gzip — `gzip`, `gunzip`, `zcat`, `uncompress`, `gzexe`, `zcmp`,
