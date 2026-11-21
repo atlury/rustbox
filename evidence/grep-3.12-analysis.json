@@ -1,0 +1,125 @@
+{
+  "artifacts": {
+    "clang-analyzer-tidy.log": "a5ccc2ca7fd79d8e4584c7bfb98dfc87f337e0bb1056ce793c14f86e44071c8c",
+    "compile_commands.json": "c4b59bc301ff07875c58380f8b54b1879bc87215379476d9d3a22a3494b666ca",
+    "cppcheck.log": "4423dc1f30365e253dcf118a43a9a4b9290248dfcebe77966a8a0fe7d2d47aa0",
+    "flawfinder.log": "2c6518be8399cd3c91f3504a007b1d13bb3d8da8b5472d369260ccd337150005",
+    "gcc-analyzer-setup.log": "5093045d53d4dee0da25b0ee6e1d2b2bf078b72b8598d00345b3936abb0afa96",
+    "gcc-analyzer.log": "c2a9ab42ebb4f9f62bd9f586acda7ff6667d9a390c9f58113e2743216a150820",
+    "sources.list": "bab4a0997b44247105e764827858418c502bf6dce3fa8532d98658544cf5fc2d",
+    "sparse.log": "5a7dafb00c3ffa31224443ecf1f18a496145e75929d7ec8bccb69444924d5e4f",
+    "sparse.status": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "recorded_at": "2026-11-21",
+  "release": "3.12",
+  "review": {
+    "blocking_findings": 0,
+    "canonical_source_changes": 0,
+    "known_canonical_resource_baseline": {
+      "possibly_lost_bytes": 18688,
+      "still_reachable_bytes": 119466
+    },
+    "notes": [
+      "Cppcheck's chdir-long preprocessor error omits the configured PATH_MAX selection; the production compile database selects the valid branch.",
+      "Cppcheck's dfa internal AST error is a parser limitation at a C23 checked-add expression; GCC, Clang, and sanitizer builds compile and exercise it.",
+      "GCC's xmalloc-family and searchutils reports stop at allocation-returning functions; ownership is transferred to the caller.  exclude.c transfers its string to a hash table.",
+      "GCC's fts directory-stream report does not follow the FTS traversal object's retained ownership; the null cp path also assumes xrealloc can return, although the wrapper exits on allocation failure.",
+      "Clang's kwsearch and dfasearch memcpy reports likewise do not model the xmalloc-family as non-returning on allocation failure.",
+      "Clang's color-string reports lose initialization invariants: every color slot and the line-color argument are initialized to non-null empty strings before output paths run.",
+      "Clang's kwset null reports lose the trie-construction invariant: kwsprep runs only after at least one inserted keyword, and the traversal stack contains constructed trie nodes.",
+      "Clang's dfa trans report loses the state-index invariant that selects either the allocated transition table or the separate fails table.",
+      "Dead-store findings are deliberate parser/lookahead state updates or expression-local indexing and are covered by upstream DFA/kwset tests.",
+      "The dfasearch bitwise/conditional precedence warning is semantically intentional but will be parenthesized during deterministic normalization for translation clarity.",
+      "Remaining Tidy and Flawfinder results are portability, buffer-hardening, and pointer-modernization inventory rather than demonstrated defects.",
+      "Sparse parser errors arise from configured gnulib attributes and C23 syntax outside its grammar and are recorded rather than suppressed."
+    ]
+  },
+  "schema": 1,
+  "scope": {
+    "compile_actions": 129,
+    "targets": [
+      "grep",
+      "egrep",
+      "fgrep"
+    ],
+    "tests_examples_and_nonselected_sources_excluded": true,
+    "unique_sources": 129
+  },
+  "tools": {
+    "clang_analyzer_tidy": {
+      "all_findings_by_check": {
+        "bugprone-assignment-in-if-condition": 19,
+        "bugprone-branch-clone": 5,
+        "bugprone-casting-through-void": 2,
+        "bugprone-easily-swappable-parameters": 99,
+        "bugprone-implicit-widening-of-multiplication-result": 3,
+        "bugprone-inc-dec-in-conditions": 5,
+        "bugprone-macro-parentheses": 30,
+        "bugprone-multi-level-implicit-pointer-conversion": 24,
+        "bugprone-narrowing-conversions": 125,
+        "bugprone-not-null-terminated-result": 1,
+        "bugprone-reserved-identifier": 1125,
+        "bugprone-signed-char-misuse": 1,
+        "bugprone-sizeof-expression": 2,
+        "bugprone-suspicious-include": 4,
+        "bugprone-suspicious-string-compare": 2,
+        "bugprone-switch-missing-default-case": 14,
+        "clang-analyzer-core.NonNullParamChecker": 2,
+        "clang-analyzer-core.NullDereference": 6,
+        "clang-analyzer-deadcode.DeadStores": 3,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 132,
+        "clang-analyzer-security.insecureAPI.strcpy": 7,
+        "clang-diagnostic-bitwise-conditional-parentheses": 1,
+        "performance-no-int-to-ptr": 7
+      },
+      "analyzer_findings_by_check": {
+        "clang-analyzer-core.NonNullParamChecker": 2,
+        "clang-analyzer-core.NullDereference": 6,
+        "clang-analyzer-deadcode.DeadStores": 3,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 132,
+        "clang-analyzer-security.insecureAPI.strcpy": 7
+      }
+    },
+    "cppcheck": {
+      "findings_by_id": {
+        "clarifyCalculation": 4,
+        "clarifyCondition": 11,
+        "constParameterPointer": 6,
+        "constVariablePointer": 3,
+        "duplicateExpressionTernary": 2,
+        "internalAstError": 1,
+        "knownConditionTrueFalse": 9,
+        "nullPointerRedundantCheck": 1,
+        "preprocessorErrorDirective": 1,
+        "redundantAssignment": 1,
+        "redundantContinue": 3,
+        "unsignedLessThanZero": 1,
+        "unusedStructMember": 2,
+        "variableScope": 2
+      },
+      "findings_by_severity": {
+        "error": 2,
+        "style": 44,
+        "warning": 1
+      }
+    },
+    "flawfinder": {
+      "hits_at_level_1_or_higher": 259,
+      "lines_analyzed": 30066
+    },
+    "gcc_fanalyzer": {
+      "findings_by_check": {
+        "analyzer-malloc-leak": 10,
+        "analyzer-null-argument": 1,
+        "sign-compare": 4,
+        "unused-parameter": 32
+      },
+      "warnings": 47
+    },
+    "sparse": {
+      "exit_status": 0,
+      "parser_errors": 7,
+      "warnings": 161
+    }
+  }
+}

@@ -21,10 +21,10 @@ source_db,output_db,output_list=map(Path,sys.argv[1:])
 records=json.loads(source_db.read_text())
 records=[record for record in records if "/gnulib-tests/" not in record["file"]]
 sources=sorted({Path(record["file"]).resolve() for record in records})
-root=Path("/rustbox-grep/source")
+roots=(Path("/rustbox-grep/source"),Path("/rustbox-grep/oracle-clang/lib"))
 if len(records) != 129 or len(sources) != 129:
     raise SystemExit("GNU Grep production closure changed")
-if any(not source.is_relative_to(root) for source in sources):
+if any(not any(source.is_relative_to(root) for root in roots) for source in sources):
     raise SystemExit("GNU Grep production closure escapes signed source")
 output_db.write_text(json.dumps(records,indent=2)+"\n")
 output_list.write_text("".join(f"{source}\n" for source in sources))

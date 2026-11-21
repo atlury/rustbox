@@ -391,6 +391,15 @@ binary, NUL-record, context, error, and option paths.  The canonical
 process-exit DFA/PCRE allocation baseline is recorded rather than hidden.
 Reproducible details are in `evidence/grep-3.12-oracle.json`; production-only
 static analysis and normalization are the next gates.
+Cppcheck, GCC `-fanalyzer`, Clang analyzer/Tidy, Flawfinder, and Sparse then
+review exactly those 129 production translation units.  Ownership-transfer,
+allocation-failure, initialized-color, trie-construction, and DFA state
+invariants account for the apparent null/leak reports; the upstream,
+sanitizer, differential, and resource gates exercise the corresponding paths.
+The reviewed immutable inventory has zero blocking findings and is recorded
+in `evidence/grep-3.12-analysis.json`.  The one compiler precedence diagnostic
+is retained as an explicit parenthesization task for deterministic
+normalization.
 
 ## Work queue after util-linux
 
