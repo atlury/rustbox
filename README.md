@@ -522,7 +522,16 @@ units.  The reviewed inventory has zero blocking findings and no canonical
 source changes; the allocation-exit paths, zero-element qsort call, analyzer
 parser limitation, conversion candidates, and public libattr surface are
 recorded explicitly in `evidence/attr-2.6.0-analysis.json`.  Deterministic
-normalization is next.
+normalization changes only the three public-tool sources: it exports
+conditional multicall entrypoints, gives the unsigned attribute length its
+matching format, guards the configured-libc zero-element qsort call, and
+retains realloc ownership until allocation succeeds.  GCC, Clang, and
+ASan/UBSan retain the 2-pass/1-capability-skip upstream result; 44 independent
+canonical-versus-normalized differential comparisons are exact, and the
+Valgrind heap lifecycles remain identical to the canonical builds.  The exact
+rewrites, entrypoint symbols, compiler closures, and parity evidence are in
+`evidence/attr-2.6.0-normalization.json`.  Translation of that exact 21-unit
+closure is next.
 
 ## Work queue after util-linux
 

@@ -112,12 +112,14 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--gcc-directory", type=Path, required=True)
     parser.add_argument("--clang-directory", type=Path, required=True)
+    parser.add_argument("--gcc-suffix", default="gcc")
+    parser.add_argument("--clang-suffix", default="clang")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     records = []
     for case in cases():
-        gcc = invoke(args.gcc_directory, "gcc", case)
-        clang = invoke(args.clang_directory, "clang", case)
+        gcc = invoke(args.gcc_directory, args.gcc_suffix, case)
+        clang = invoke(args.clang_directory, args.clang_suffix, case)
         if gcc != clang:
             raise RuntimeError(f"attr/{case.name}: GCC {gcc} != Clang {clang}")
         records.append({"name": case.name, "applet": case.applet, "result": gcc})

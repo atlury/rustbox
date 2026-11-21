@@ -1,0 +1,226 @@
+{
+  "binaries": {
+    "clang": {
+      "attr": {
+        "bytes": 44008,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "3d2b41479db89f96e85ec093ad28c03b3d61731ec7fe5b65dea1b3a0d97cbf01"
+      },
+      "getfattr": {
+        "bytes": 72888,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "4afcbe8713b07b318cea00c3e5994581a963f71118fc878d25b18a336d38b9ae"
+      },
+      "setfattr": {
+        "bytes": 66848,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "3d9149cc2a009da6fc0697ee5584f0b9940a4588bdd8a38d79f9f1a97a90e6ab"
+      }
+    },
+    "gcc": {
+      "attr": {
+        "bytes": 49504,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "f8c5bd2a08bb236086dcd67691ae77ab94fd34bb1a5e95f8a5c7fd1d0f004cb5"
+      },
+      "getfattr": {
+        "bytes": 87240,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "2e014bb36fe63298f7b248fcd772edab6f8f0df3ebb63088816f1147d9ed3706"
+      },
+      "setfattr": {
+        "bytes": 84336,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "3e34bc3ec882be79b194d173b5fac24d28fe298166b4a359b576371dc19eb45d"
+      }
+    }
+  },
+  "canonical_normalized_differential": {
+    "comparisons": 44,
+    "compilers": {
+      "clang": {
+        "comparisons": 22,
+        "exact": true,
+        "sha256": "02b4a852cc36839cfe216a354b9acec2e0b35e6093908f2e9f778c691c8a0ca4"
+      },
+      "gcc": {
+        "comparisons": 22,
+        "exact": true,
+        "sha256": "02b4a852cc36839cfe216a354b9acec2e0b35e6093908f2e9f778c691c8a0ca4"
+      }
+    },
+    "exact": true
+  },
+  "configuration": {
+    "nls": false,
+    "selinux": false,
+    "systemd": false
+  },
+  "entrypoint_objects": {
+    "clang": {
+      "attr": {
+        "entrypoints": [
+          "main",
+          "rustbox_attr_main"
+        ],
+        "sha256": "519a6f7e15e23c782c0b3133adc9cd74cf3378b82de48981f1835bf0cab65f1e"
+      },
+      "getfattr": {
+        "entrypoints": [
+          "main",
+          "rustbox_getfattr_main"
+        ],
+        "sha256": "081b600b630a2f32ddf15fb29458ddac111b98ab466915ead7273cfe049a3107"
+      },
+      "setfattr": {
+        "entrypoints": [
+          "main",
+          "rustbox_setfattr_main"
+        ],
+        "sha256": "ad132a6c77ec57357c13c0449da3a5f77aeba29abd686d362afb3c025f01fb02"
+      }
+    },
+    "gcc": {
+      "attr": {
+        "entrypoints": [
+          "main",
+          "rustbox_attr_main"
+        ],
+        "sha256": "91ec10b60cbd53f6958d888a0d2e379ad3fb3dd50411428818f3b3f65ef116d3"
+      },
+      "getfattr": {
+        "entrypoints": [
+          "main",
+          "rustbox_getfattr_main"
+        ],
+        "sha256": "68bbad2388b80d78f57a25dd5b51482a129029f1e34930eec8cb3486a6814b34"
+      },
+      "setfattr": {
+        "entrypoints": [
+          "main",
+          "rustbox_setfattr_main"
+        ],
+        "sha256": "9f0b728a4c137f29492c364439527236381b9726a79fc1792b689116495881bc"
+      }
+    }
+  },
+  "manifest_sha256": "78549852ce33141beed6539187fc225aba22ba953e73e60c54cb6222631fe52c",
+  "next_gate": "translate the exact 21-source normalized attr production closure with C2Rust",
+  "normalization": {
+    "canonical_archive_sha256": "6c8a2148a7b85043b68492bce43316b0e2e214fc4e628c7ede078e76e216330b",
+    "canonical_tree_sha256": "102f533cdae3667fe01ffe0b46c159db6b56867e706edd68c28de769ffd4710c",
+    "changed_sources": [
+      "tools/attr.c",
+      "tools/getfattr.c",
+      "tools/setfattr.c"
+    ],
+    "conditional": "RUSTBOX_MULTICALL",
+    "engine": "exact deterministic source rewrite",
+    "normalized_tree_sha256": "303e366704a7ba0a59e0586c0daec5b13d1f07c1569d65fd3ec526f4d38bc043",
+    "release": "2.6.0",
+    "schema": 1,
+    "transformations": [
+      {
+        "canonical_sha256": "14d35c610a3c48a46bf4d28c9e159885010fb3d051280ee905d3199f04128704",
+        "normalized_sha256": "9421babbc14e144352b182e1a2d00821ff1d45d34974945392b9a724731efd2c",
+        "operation": "export multicall entrypoint and print the unsigned attribute length with its matching format",
+        "source": "tools/attr.c"
+      },
+      {
+        "canonical_sha256": "ea1de68e40eaeb0224824e200f47b7fe8c7ec36c61ca15a3178c88731f5f8564",
+        "normalized_sha256": "711fee8f94123cf32979177719045fe5dc83dda5e0f327cccfa153901c5cbc5d",
+        "operation": "export multicall entrypoint and guard the configured-libc zero-element qsort call",
+        "source": "tools/getfattr.c"
+      },
+      {
+        "canonical_sha256": "036aa35d764aba2b170db42188d494b3a42686861f717b88683875e0aaba757f",
+        "normalized_sha256": "8d90857b2b0d4157fdeec49694e892a8311c67a629a6093bc7ef929496e3f17a",
+        "operation": "export multicall entrypoint and retain realloc ownership until allocation succeeds",
+        "source": "tools/setfattr.c"
+      }
+    ]
+  },
+  "recorded_at": "2026-11-21",
+  "release": "2.6.0",
+  "resources": {
+    "getfattr": {
+      "heap_summary": [
+        "in use at exit: 2,152 bytes in 42 blocks",
+        "total heap usage: 48 allocs, 6 frees, 7,264 bytes allocated",
+        "still reachable: 2,152 bytes in 42 blocks"
+      ],
+      "log_sha256": "2806ae13147f264f2072590156a0e1d661be781b437ba41585020f0de80cf41a",
+      "matches_canonical_summary": true
+    },
+    "setfattr": {
+      "heap_summary": [
+        "in use at exit: 256 bytes in 1 blocks",
+        "total heap usage: 1 allocs, 0 frees, 256 bytes allocated",
+        "still reachable: 256 bytes in 1 blocks"
+      ],
+      "log_sha256": "9f3380efb7e116b17a55147484ff3dce1f0558063e79e28a626389830a6b1c8f",
+      "matches_canonical_summary": true
+    }
+  },
+  "schema": 1,
+  "scope": {
+    "compilers": {
+      "clang": {
+        "compile_actions": 21,
+        "compile_database_sha256": "c306606774c38c0e5edbba705e64a6f7753f631cca57bbabb2fec9132b72adaa",
+        "test_log_sha256": "700d5382378203106554031862a997b93255a8738c27bf24cf1a39b322fe2594",
+        "upstream_tests": {
+          "error": 0,
+          "fail": 0,
+          "pass": 2,
+          "skip": 1,
+          "total": 3,
+          "xfail": 0,
+          "xpass": 0
+        }
+      },
+      "gcc": {
+        "compile_actions": 21,
+        "compile_database_sha256": "65bcc0dae8bf59720ebec67cd3498377cf7eb6e946a94ee0ef432d3c7a1a6a52",
+        "test_log_sha256": "7fbc16dc7b7c46db80b6b0c86d4304addff81538029ac512c850465df55d67b0",
+        "upstream_tests": {
+          "error": 0,
+          "fail": 0,
+          "pass": 2,
+          "skip": 1,
+          "total": 3,
+          "xfail": 0,
+          "xpass": 0
+        }
+      },
+      "sanitizer": {
+        "compile_actions": 21,
+        "compile_database_sha256": "6f57ad8b842f671c56294b9199ec272b127b560a5e4ceed81292fefbcae141cb",
+        "test_log_sha256": "941a0122f4314937f90a977f7e4fe49de3c67695516f778f00bbacf15696cd99",
+        "upstream_tests": {
+          "error": 0,
+          "fail": 0,
+          "pass": 2,
+          "skip": 1,
+          "total": 3,
+          "xfail": 0,
+          "xpass": 0
+        }
+      }
+    },
+    "production_sources": 21,
+    "source_closure_matches_canonical": true
+  }
+}
