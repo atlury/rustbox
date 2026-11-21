@@ -37,7 +37,7 @@ def main() -> int:
     expected: set[str] = set()
     checked = 0
     prefix = release["source_directory"] + "/"
-    with tarfile.open(archive_path, "r:xz") as archive:
+    with tarfile.open(archive_path, "r:*") as archive:
         for member in archive.getmembers():
             if member.name == release["source_directory"]:
                 continue
