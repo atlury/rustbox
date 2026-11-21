@@ -1300,3 +1300,310 @@ rustbox_znew_main(int argc, char **argv)
     return result;
   }
 }
+
+static char const gzexe_stub[] =
+  "#!/bin/bash\n"
+  "skip=49\n"
+  "\n"
+  "tab='\t'\n"
+  "nl='\n"
+  "'\n"
+  "IFS=\" $tab$nl\"\n"
+  "\n"
+  "umask=`umask`\n"
+  "umask 77\n"
+  "\n"
+  "gztmpdir=\n"
+  "trap 'res=$?\n"
+  "  test -n \"$gztmpdir\" && rm -fr \"$gztmpdir\"\n"
+  "  (exit $res); exit $res\n"
+  "' 0 1 2 3 5 10 13 15\n"
+  "\n"
+  "case $TMPDIR in\n"
+  "  / | /*/) ;;\n"
+  "  /*) TMPDIR=$TMPDIR/;;\n"
+  "  *) TMPDIR=/tmp/;;\n"
+  "esac\n"
+  "if command -v mktemp >/dev/null 2>&1; then\n"
+  "  gztmpdir=`mktemp -d \"${TMPDIR}gztmpXXXXXXXXX\"`\n"
+  "else\n"
+  "  gztmpdir=${TMPDIR}gztmp$$; mkdir $gztmpdir\n"
+  "fi || { (exit 127); exit 127; }\n"
+  "\n"
+  "gztmp=$gztmpdir/$0\n"
+  "case $0 in\n"
+  "-* | */*'\n"
+  "') mkdir -p \"$gztmp\" && rm -r \"$gztmp\";;\n"
+  "*/*) gztmp=$gztmpdir/`basename \"$0\"`;;\n"
+  "esac || { (exit 127); exit 127; }\n"
+  "\n"
+  "case `printf 'X\\n' | tail -n +1 2>/dev/null` in\n"
+  "X) tail_n=-n;;\n"
+  "*) tail_n=;;\n"
+  "esac\n"
+  "if tail $tail_n +$skip <\"$0\" | gzip -cd > \"$gztmp\"; then\n"
+  "  umask $umask\n"
+  "  chmod 700 \"$gztmp\"\n"
+  "  (sleep 5; rm -fr \"$gztmpdir\") 2>/dev/null &\n"
+  "  \"$gztmp\" ${1+\"$@\"}; res=$?\n"
+  "else\n"
+  "  printf >&2 '%s\\n' \"Cannot decompress $0\"\n"
+  "  (exit 127); res=127\n"
+  "fi; exit $res\n";
+
+static int
+gzexe_help(char const *invocation)
+{
+  return printf(
+    "Usage: %s [OPTION] FILE...\n"
+    "Replace each executable FILE with a compressed version of itself.\n"
+    "Make a backup FILE~ of the old version of FILE.\n\n"
+    "  -d             Decompress each FILE instead of compressing it.\n"
+    "      --help     display this help and exit\n"
+    "      --version  output version information and exit\n\n"
+    "Report bugs to <bug-gzip@gnu.org>.\n", invocation) < 0;
+}
+
+static int
+gzexe_version(void)
+{
+  return printf(
+    "gzexe (gzip) 1.14\n"
+    "Copyright (C) 2025 Free Software Foundation, Inc.\n"
+    "This is free software.  You may redistribute copies of it under the terms of\n"
+    "the GNU General Public License <https://www.gnu.org/licenses/gpl.html>.\n"
+    "There is NO WARRANTY, to the extent permitted by law.\n\n"
+    "Written by Jean-loup Gailly.\n") < 0;
+}
+
+static int
+gzexe_already_wrapped(char const *name, unsigned *skip)
+{
+  FILE *stream = fopen(name, "r");
+  char line[64];
+  unsigned value;
+  char extra;
+  int result = 0;
+  if (!stream)
+    return 0;
+  if (fgets(line, sizeof line, stream)
+      && fgets(line, sizeof line, stream)
+      && sscanf(line, "skip=%u%c", &value, &extra) == 2
+      && extra == '\n' && value <= 999)
+    {
+      if (skip)
+        *skip = value;
+      result = 1;
+    }
+  fclose(stream);
+  return result;
+}
+
+static int
+gzexe_depends_on_self(char const *name)
+{
+  static char const *const commands[] = {
+    "basename", "bash", "cat", "chmod", "cp", "dirname", "expr", "gzip",
+    "ln", "mkdir", "mktemp", "mv", "printf", "rm", "sed", "sh", "sleep",
+    "test", "tail", NULL
+  };
+  char const *base = strrchr(name, '/');
+  int index;
+  base = base ? base + 1 : name;
+  for (index = 0; commands[index]; index++)
+    if (strcmp(base, commands[index]) == 0)
+      return 1;
+  return 0;
+}
+
+static int
+write_all(int descriptor, void const *data, size_t length)
+{
+  char const *position = data;
+  while (length)
+    {
+      ssize_t count = write(descriptor, position, length);
+      if (count <= 0)
+        return 1;
+      position += count;
+      length -= (size_t) count;
+    }
+  return 0;
+}
+
+int
+rustbox_gzexe_main(int argc, char **argv)
+{
+  int decompress = 0;
+  int first = 1;
+  int result = 0;
+  int index;
+  while (first < argc)
+    {
+      if (strcmp(argv[first], "-d") == 0)
+        {
+          decompress = 1;
+          first++;
+        }
+      else if (strncmp(argv[first], "--h", 3) == 0)
+        return gzexe_help(argv[0]);
+      else if (strncmp(argv[first], "--v", 3) == 0)
+        return gzexe_version();
+      else if (strcmp(argv[first], "--") == 0)
+        {
+          first++;
+          break;
+        }
+      else
+        break;
+    }
+  if (first == argc)
+    {
+      fprintf(stderr, "%s: missing operand\nTry `%s --help' for more information.\n",
+              argv[0], argv[0]);
+      return 1;
+    }
+  for (index = first; index < argc; index++)
+    {
+      char const *argument = argv[index];
+      size_t length = strlen(argument);
+      char local_name[length + 3];
+      char backup[length + 2];
+      char temporary[length + sizeof ".gzexeXXXXXX"];
+      char const *name = argument;
+      struct stat status;
+      unsigned skip = 44;
+      int descriptor;
+      int writable;
+      int operation_status = 0;
+      if (argument[0] == '-')
+        {
+          memcpy(local_name, "./", 2);
+          memcpy(local_name + 2, argument, length + 1);
+          name = local_name;
+          length += 2;
+        }
+      if (stat(name, &status) != 0 || !S_ISREG(status.st_mode)
+          || access(name, R_OK) != 0)
+        {
+          fprintf(stderr, "%s: %s is not a readable regular file\n",
+                  argv[0], argument);
+          continue;
+        }
+      if (!decompress && gzexe_already_wrapped(name, NULL))
+        {
+          fprintf(stderr, "%s: %s is already gzexe'd\n", argv[0], argument);
+          continue;
+        }
+      if (status.st_mode & S_ISUID)
+        {
+          fprintf(stderr, "%s: %s has setuid permission, unchanged\n",
+                  argv[0], argument);
+          continue;
+        }
+      if (status.st_mode & S_ISGID)
+        {
+          fprintf(stderr, "%s: %s has setgid permission, unchanged\n",
+                  argv[0], argument);
+          continue;
+        }
+      if (gzexe_depends_on_self(name))
+        {
+          fprintf(stderr, "%s: %s might depend on itself\n", argv[0], argument);
+          continue;
+        }
+      snprintf(temporary, sizeof temporary, "%s.gzexeXXXXXX", name);
+      descriptor = mkstemp(temporary);
+      if (descriptor < 0)
+        {
+          fprintf(stderr, "%s: cannot copy %s\n", argv[0], name);
+          result = 1;
+          continue;
+        }
+      close(descriptor);
+      if (copy_regular_file(name, temporary) != 0)
+        {
+          unlink(temporary);
+          fprintf(stderr, "%s: cannot copy %s\n", argv[0], name);
+          result = 1;
+          continue;
+        }
+      writable = (status.st_mode & S_IWUSR) != 0;
+      if (!writable && chmod(temporary, status.st_mode | S_IWUSR) != 0)
+        {
+          unlink(temporary);
+          fprintf(stderr, "%s: cannot chmod %s\n", argv[0], temporary);
+          result = 1;
+          continue;
+        }
+      descriptor = open(temporary, O_WRONLY | O_TRUNC);
+      if (descriptor < 0)
+        operation_status = 1;
+      else if (!decompress)
+        {
+          char *gzip_argv[] = {
+            (char *) "gzip", (char *) "-cv9", (char *) name, NULL
+          };
+          if (sizeof gzexe_stub - 1 != 932
+              || write_all(descriptor, gzexe_stub, sizeof gzexe_stub - 1) != 0
+              || run_gzip_process(3, gzip_argv, -1, descriptor) != 0)
+            operation_status = 1;
+        }
+      else
+        {
+          int input = open(name, O_RDONLY);
+          unsigned lines = 0;
+          char byte;
+          char *gzip_argv[] = {
+            (char *) "gzip", (char *) "-cd", NULL
+          };
+          if (gzexe_already_wrapped(name, &skip))
+            ;
+          while (0 <= input && lines + 1 < skip && read(input, &byte, 1) == 1)
+            if (byte == '\n')
+              lines++;
+          if (input < 0 || lines + 1 != skip
+              || run_gzip_process(2, gzip_argv, input, descriptor) != 0)
+            operation_status = 1;
+          if (0 <= input)
+            close(input);
+        }
+      if (0 <= descriptor)
+        close(descriptor);
+      if (operation_status)
+        {
+          unlink(temporary);
+          fprintf(stderr, decompress
+                  ? "%s: %s probably not in gzexe format, file unchanged.\n"
+                  : "%s: compression not possible for %s, file unchanged.\n",
+                  argv[0], argument);
+          result = 1;
+          continue;
+        }
+      if (!writable && chmod(temporary, status.st_mode & ~S_IWUSR) != 0)
+        {
+          unlink(temporary);
+          fprintf(stderr, "%s: %s: cannot chmod\n", argv[0], temporary);
+          result = 1;
+          continue;
+        }
+      snprintf(backup, sizeof backup, "%s~", name);
+      unlink(backup);
+      if (link(name, backup) != 0 && copy_regular_file(name, backup) != 0)
+        {
+          unlink(temporary);
+          fprintf(stderr, "%s: cannot backup %s as %s~\n",
+                  argv[0], argument, argument);
+          result = 1;
+          continue;
+        }
+      if (rename(temporary, name) != 0)
+        {
+          unlink(temporary);
+          fprintf(stderr, "%s: cannot rename %s to %s\n",
+                  argv[0], temporary, argument);
+          result = 1;
+        }
+    }
+  return result;
+}

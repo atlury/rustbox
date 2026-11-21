@@ -11,13 +11,13 @@ RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
     dispatch=/rustbox-gzip/multicall-dispatch
     rm -rf "$output" "$dispatch"
     mkdir -p "$output" "$dispatch"
-    for utility in gzip gunzip zcat uncompress zcmp zdiff zforce zgrep zegrep zfgrep zmore znew; do
+    for utility in gzip gunzip zcat uncompress zcmp zdiff zforce zgrep zegrep zfgrep zmore znew gzexe; do
       ln -s "$rustbox" "$dispatch/$utility"
     done
 
     python3 /work/tests/gzip-oracle-differential.py \
       --gcc-directory "$canonical" --clang-directory "$dispatch" \
-      --applets gzip gunzip zcat uncompress zcmp zdiff zforce zgrep zegrep zfgrep zmore znew \
+      --applets gzip gunzip zcat uncompress zcmp zdiff zforce zgrep zegrep zfgrep zmore znew gzexe \
       --output "$output/differential.json"
 
     printf "alpha beta gamma\n%.0s" $(seq 1 2048) >"$output/input"
@@ -87,6 +87,23 @@ RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
     grep -q "ERROR SUMMARY: 0 errors" "$output/valgrind-znew.log"
     grep -q "All heap blocks were freed -- no leaks are possible" \
       "$output/valgrind-znew.log"
+    mkdir "$output/gzexe-runtime"
+    printf "#!/bin/sh\nprintf \"gzexe payload\\n\"\n" \
+      > "$output/gzexe-runtime/tool"
+    chmod 755 "$output/gzexe-runtime/tool"
+    cp "$output/gzexe-runtime/tool" "$output/gzexe-runtime/original"
+    valgrind --leak-check=full --show-leak-kinds=all \
+      --errors-for-leak-kinds=definite,indirect,possible --error-exitcode=99 \
+      --log-file="$output/valgrind-gzexe.log" \
+      "$rustbox" gzexe "$output/gzexe-runtime/tool" >/dev/null
+    grep -q "ERROR SUMMARY: 0 errors" "$output/valgrind-gzexe.log"
+    grep -q "All heap blocks were freed -- no leaks are possible" \
+      "$output/valgrind-gzexe.log"
+    PATH="$dispatch:/usr/bin:/bin" "$output/gzexe-runtime/tool" \
+      > "$output/gzexe-runtime.out"
+    grep -qx "gzexe payload" "$output/gzexe-runtime.out"
+    "$rustbox" gzexe -d "$output/gzexe-runtime/tool" >/dev/null
+    cmp "$output/gzexe-runtime/original" "$output/gzexe-runtime/tool"
     cmp "$output/canonical.gz" "$output/multicall.gz"
     cmp "$output/input" "$output/multicall.out"
   '

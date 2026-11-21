@@ -881,6 +881,7 @@ extern int rustbox_zegrep_main(int, char **);
 extern int rustbox_zfgrep_main(int, char **);
 extern int rustbox_zmore_main(int, char **);
 extern int rustbox_znew_main(int, char **);
+extern int rustbox_gzexe_main(int, char **);
 """
         + declarations
         + """
@@ -1027,6 +1028,8 @@ int main(int argc, char **argv)
         return rustbox_zmore_main(argc, argv);
     if (!force_util_linux && strcmp(name, "znew") == 0)
         return rustbox_znew_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "gzexe") == 0)
+        return rustbox_gzexe_main(argc, argv);
 """
         + selections
         + """
@@ -1226,6 +1229,7 @@ def main() -> int:
         "rustbox_zfgrep_main",
         "rustbox_zmore_main",
         "rustbox_znew_main",
+        "rustbox_gzexe_main",
     })
 
     cached_report = None
@@ -1419,6 +1423,7 @@ def main() -> int:
         "rustbox_zgrep_main", "rustbox_zegrep_main", "rustbox_zfgrep_main",
         "rustbox_zmore_main",
         "rustbox_znew_main",
+        "rustbox_gzexe_main",
     }:
         raise RuntimeError("GNU Gzip alias bridge exports the wrong symbols")
     bridge_archives: dict[str, Path] = {}
@@ -1552,7 +1557,7 @@ def main() -> int:
         "attr_applets": 3,
         "acl_applets": 3,
         "lz4_public_names": 4,
-        "gzip_public_names": 12,
+        "gzip_public_names": 13,
         "total_dispatch_names": len(
             set(applets)
             | set(util_dispatch)
@@ -1560,7 +1565,7 @@ def main() -> int:
                "cmp", "diff", "diff3", "sdiff", "grep", "egrep", "fgrep", "bc", "dc",
                "attr", "getfattr", "setfattr", "chacl", "getfacl", "setfacl",
                "lz4", "lz4c", "lz4cat", "unlz4", "gzip", "gunzip", "zcat", "uncompress",
-               "zcmp", "zdiff", "zforce", "zgrep", "zegrep", "zfgrep", "zmore", "znew"}
+               "zcmp", "zdiff", "zforce", "zgrep", "zegrep", "zfgrep", "zmore", "znew", "gzexe"}
         ),
         "excluded": ["chcon", "runcon"],
         "public_name_precedence": {"kill": "GNU Coreutils", "util-linux-kill": "util-linux"},
@@ -1602,9 +1607,9 @@ def main() -> int:
             "symbols": ["rustbox_gunzip_main", "rustbox_zcat_main",
                         "rustbox_zcmp_main", "rustbox_zdiff_main", "rustbox_zforce_main",
                         "rustbox_zgrep_main", "rustbox_zegrep_main", "rustbox_zfgrep_main",
-                        "rustbox_zmore_main", "rustbox_znew_main"],
+                        "rustbox_zmore_main", "rustbox_znew_main", "rustbox_gzexe_main"],
             "public_names": ["gunzip", "uncompress", "zcat", "zcmp", "zdiff", "zforce",
-                             "zgrep", "zegrep", "zfgrep", "zmore", "znew"],
+                             "zgrep", "zegrep", "zfgrep", "zmore", "znew", "gzexe"],
         },
         "sed_abi_bridge": {
             "object": str(sed_abi_object.relative_to(build)),
@@ -1636,7 +1641,7 @@ def main() -> int:
         "attr_applets": 3,
         "acl_applets": 3,
         "lz4_public_names": 4,
-        "gzip_public_names": 12,
+        "gzip_public_names": 13,
         "output": str(output),
     }))
     return 0

@@ -108,6 +108,8 @@ def invoke(directory: Path, case: Case, root: Path) -> dict[str, object]:
             raise RuntimeError(
                 f"setup {setup.applet} {setup.arguments!r} failed: {process.stderr!r}"
             )
+        if setup.stdout_path:
+            os.utime(workspace / setup.stdout_path, (946684800, 946684800))
     process = subprocess.run(
         [str(commands / case.applet), *case.arguments], cwd=workspace, env=env,
         input=case.stdin, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=30,
@@ -270,6 +272,14 @@ def cases() -> list[Case]:
         Case("gzexe-compress", "gzexe", ("tool",),
              files={"tool": b"#!/bin/sh\nprintf 'payload\\n'\n"},
              executable_files=("tool",)),
+        Case("gzexe-decompress", "gzexe", ("-d", "tool"),
+             files={"tool": b"#!/bin/sh\nprintf 'payload\\n'\n"},
+             executable_files=("tool",), setup=(Setup("gzexe", ("tool",)),)),
+        Case("gzexe-already", "gzexe", ("tool",),
+             files={"tool": b"#!/bin/sh\nprintf 'payload\\n'\n"},
+             executable_files=("tool",), setup=(Setup("gzexe", ("tool",)),)),
+        Case("gzexe-missing", "gzexe", ("missing",)),
+        Case("gzexe-no-operands", "gzexe", ()),
         Case("missing", "gzip", ("missing",)),
         Case("invalid", "gzip", ("-dc", "invalid"), files={"invalid": b"not gzip\n"}),
     ])
