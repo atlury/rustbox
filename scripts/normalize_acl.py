@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import shutil
 import tempfile
 from pathlib import Path
@@ -37,6 +38,14 @@ def replace_once(path: Path, old: str, new: str, label: str) -> None:
     if text.count(old) != 1:
         raise RuntimeError(f"acl {label} precondition failed in {path}")
     path.write_text(text.replace(old, new))
+
+
+def replace_word(path: Path, old: str, new: str, expected: int, label: str) -> None:
+    text = path.read_text()
+    pattern = re.compile(rf"\b{re.escape(old)}\b")
+    if len(pattern.findall(text)) != expected:
+        raise RuntimeError(f"acl {label} precondition failed in {path}")
+    path.write_text(pattern.sub(new, text))
 
 
 def export_entrypoint(path: Path, signature: str, replacement: str, name: str) -> None:
@@ -152,6 +161,22 @@ def main() -> int:
             "#define ERRNO_ERROR(s) \\\n\tdo { status = (s); goto errno_error; } while (0)",
             "translator-safe error macro",
         )
+        replace_word(
+            getfacl, "progname", "rustbox_getfacl_progname", 13,
+            "getfacl program-name namespace",
+        )
+        replace_word(
+            setfacl, "progname", "rustbox_setfacl_progname", 27,
+            "setfacl program-name namespace",
+        )
+        replace_word(
+            staged / "tools/do_set.c", "progname", "rustbox_setfacl_progname", 6,
+            "setfacl helper program-name namespace",
+        )
+        replace_word(
+            staged / "tools/do_set.h", "progname", "rustbox_setfacl_progname", 1,
+            "setfacl helper declaration namespace",
+        )
 
         canonical_files = {
             path.relative_to(canonical).as_posix() for path in canonical.rglob("*") if path.is_file()
@@ -166,7 +191,8 @@ def main() -> int:
         )
         expected = [
             "libacl/__libobj.c", "libacl/acl_free.c", "tools/chacl.c",
-            "tools/getfacl.c", "tools/setfacl.c",
+            "tools/do_set.c", "tools/do_set.h", "tools/getfacl.c",
+            "tools/setfacl.c",
         ]
         if changed != expected:
             raise RuntimeError(f"unexpected acl normalized sources: {changed}")
@@ -175,8 +201,10 @@ def main() -> int:
             "libacl/__libobj.c": "perform external-object pointer subtraction only after validating non-null input",
             "libacl/acl_free.c": "perform internal-object pointer subtraction only after validating non-null input",
             "tools/chacl.c": "export the chacl multicall entrypoint while retaining the standalone wrapper",
-            "tools/getfacl.c": "export the getfacl multicall entrypoint while retaining the standalone wrapper",
-            "tools/setfacl.c": "export the setfacl multicall entrypoint, retain realloc ownership until allocation succeeds, and express its goto error macro as a standard statement",
+            "tools/do_set.c": "bind setfacl helper diagnostics to the setfacl-specific program-name namespace",
+            "tools/do_set.h": "declare the setfacl-specific program-name namespace for helper units",
+            "tools/getfacl.c": "export the getfacl multicall entrypoint and namespace its process-name state",
+            "tools/setfacl.c": "export the setfacl multicall entrypoint, namespace its process-name state, retain realloc ownership until allocation succeeds, and express its goto error macro as a standard statement",
         }
         manifest = {
             "schema": 1,

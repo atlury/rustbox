@@ -121,7 +121,7 @@ def main() -> int:
             "fail_on_error": True,
             "preserve_unused_functions": True,
             "generated_rust_repairs": 0,
-            "normalized_c_sources": 5,
+            "normalized_c_sources": 7,
             "translator_cfg_rewrite": (
                 "GNU statement-expression goto macro expressed as its equivalent "
                 "standard do/while statement before translation"

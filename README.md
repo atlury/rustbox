@@ -575,9 +575,10 @@ the UBSan pointer-before-null-check ordering.  The matching `acl_free`
 ordering and realloc ownership repair are mandatory mechanical normalization;
 infeasible internal-API paths and hardening inventories remain recorded rather
 than silently discarded in `evidence/acl-2.4.0-analysis.json`.  Deterministic
-normalization changes five files: the two object-pointer conversions now occur
-after their null checks, `setfacl` retains realloc ownership on failure, and
-the three tools export conditional multicall entrypoints.  GCC, Clang, and
+normalization changes seven files: the two object-pointer conversions now
+occur after their null checks, `setfacl` retains realloc ownership on failure,
+the three tools export conditional multicall entrypoints, and getfacl/setfacl
+diagnostic state is placed in explicit per-applet namespaces.  GCC, Clang, and
 ASan/UBSan retain the complete runnable upstream result with no undefined-
 behavior diagnostic; 60 canonical-versus-normalized comparisons are exact and
 Valgrind allocation summaries match the canonical tools.  LeakSanitizer alone
@@ -588,10 +589,18 @@ all 72 production units with unused functions preserved.  Its initial CFG
 panic is eliminated by the verified standard-statement macro rewrite; the
 untouched audit output and mechanically modernized Rust 1.99 crate compile
 with no translation holes and no generated-Rust source repairs.  The 74 Rust
-files contain 38,631 lines and 7,482 raw-pointer type occurrences for the
+files contain 38,636 lines and 7,482 raw-pointer type occurrences for the
 later safety phase.  All three entrypoints are unique in the 23 MB intermediate
 archive.  Complete input hashes, diagnostics, modernization records, and
-unsafe inventory are in `evidence/acl-2.4.0-c2rust.json`.
+unsafe inventory are in `evidence/acl-2.4.0-c2rust.json`.  The three linked
+translated tools pass all 13 runnable upstream tests, both canonical NFS
+expected failures, and all 30 state-aware differential cases.  Valgrind finds
+zero errors and frees every allocation; generated temporary aggregate storage
+adds two short-lived allocations to setfacl and four to getfacl, recorded
+explicitly rather than misreported as an exact allocation lifecycle.  Their
+separate stripped executables total 1,069,184 bytes before multicall sharing.
+Full behavior, resource, dependency, and size evidence is in
+`evidence/acl-2.4.0-hybrid.json`.
 
 ## Work queue after util-linux
 

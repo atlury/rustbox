@@ -14,8 +14,8 @@
   "input": {
     "compile_commands": 72,
     "compile_database_sha256": "b3940e20d6c2f68bd3282c70ba62aa7e0c7ea274e7c2d86be79d703f139a0491",
-    "normalization_evidence_sha256": "e2b80d7371a2e0f37a0f5d1398b26331fd322ac55b4c27893b6aa88759b51dc3",
-    "normalization_tree_sha256": "6514ec09b6808b8aeea13e10fbd53a73f98bfb15b0c6f13be3e780ead13d121a",
+    "normalization_evidence_sha256": "1c31c74b29d36d7c6ea26bfeaed856af37f37c2b22a123d91957b66f1b79962a",
+    "normalization_tree_sha256": "6dba98f794afd928a79b29d2b75f43ab5e8b554b37ce67476dec3e2ee7a982a8",
     "production_sources": [
       "libacl/__acl_apply_mask_to_mode.c",
       "libacl/__acl_from_xattr.c",
@@ -105,7 +105,7 @@
       "exit_status": 0,
       "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
       "schema": 1,
-      "stderr_sha256": "3604ac013a2bc2264fcdb25801300ce61a5cb498357d3600e64f21136f07614b",
+      "stderr_sha256": "cac3fd7effd358e3bb9793cfc314d356206327eaedfaa3d92cae3e47fbd00e90",
       "toolchain_request": "crate default",
       "warning_codes": {
         "clashing_extern_declarations": 26,
@@ -184,18 +184,18 @@
       "src/libmisc/walk_tree.rs": "022c185600a20b8563b3c8867e736baa49eac41f805df048007211cdd2e0acd1",
       "src/libmisc/xattrat.rs": "193b5849f68407cd2516d2d2d130542d7437c6248f6d712c9498b55a9442713d",
       "src/tools/chacl.rs": "f84065c15e1048ed8ce6886911a808b12fb641f95742428e0859a02db8642eb0",
-      "src/tools/do_set.rs": "da1a175c0f1e81caba55fad1a3a8ed2e2ee4e42f3c765dc3a843bb432a07eb35",
-      "src/tools/getfacl.rs": "e8458a7786f225431769627791a631c909e4a231e139b71e9034de1cb63d3c07",
+      "src/tools/do_set.rs": "16f504600cddde56526df51c83d2d84f1a414f61a3994a477adde8d72f031308",
+      "src/tools/getfacl.rs": "90bda72725d1b43fe3f9b1e5d2ee5d93c27b284339d924be1ceff8cfaeaa9d14",
       "src/tools/parse.rs": "b58a624f4ac03866bc390e97555dda1a2f096dd4e1d5433c2458007083a492f9",
       "src/tools/sequence.rs": "ee6492669a195ff6e3ddfe7eed6bbc3ea54683f1b35e6957890482b35a89388a",
-      "src/tools/setfacl.rs": "47a9fc34f17d9f20e23c56021df9a43858adda5ada69292a7beaf55c6a746cac",
+      "src/tools/setfacl.rs": "87e0e6fff7c26b93d63a2432ae504c8a222f9443d3cdbb6d31a15c2bbb5622ef",
       "src/tools/user_group.rs": "e5a9327da2b62658dc9c3500defe534517aee3561e2de4652bb5ad50e428e2bb"
     },
     "panic_macros": 0,
     "raw_pointer_type_occurrences": 7482,
-    "rust_bytes": 1390654,
+    "rust_bytes": 1391436,
     "rust_files": 74,
-    "rust_lines": 38019,
+    "rust_lines": 38023,
     "todo_macros": 0,
     "unimplemented_macros": 0,
     "unsafe_block_occurrences": 24,
@@ -206,13 +206,13 @@
   "schema": 1,
   "stable_translation": {
     "archive": {
-      "bytes": 23607160,
+      "bytes": 23607096,
       "entrypoint_definition_counts": {
         "rustbox_chacl_main": 1,
         "rustbox_getfacl_main": 1,
         "rustbox_setfacl_main": 1
       },
-      "sha256": "8dd6ebc95204d02c4dc243bbc4ad579794b48c339aa9c02c159eff7c36cf4d7a"
+      "sha256": "a3bfbedb671c868ac50f9b03099de138ce290efd419363481e900399f72fa3b7"
     },
     "cargo_check": {
       "build_finished_success": true,
@@ -226,7 +226,7 @@
       "exit_status": 0,
       "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
       "schema": 1,
-      "stderr_sha256": "546ea0b6ab9d5bef3005c7d83e0519a67ab47705000640517d86ce30cda0f348",
+      "stderr_sha256": "aaceff88f02ee20d7d96e49d1c5c0ee7c1a95cf9856dba99e21c888d7aac8651",
       "toolchain_request": "crate default",
       "warning_codes": {
         "clashing_extern_declarations": 28,
@@ -305,11 +305,11 @@
       "src/libmisc/walk_tree.rs": "f4091b0cad027ff9740ac01bb318e2196919cdacc56a2176d8d29675a9340ea5",
       "src/libmisc/xattrat.rs": "193b5849f68407cd2516d2d2d130542d7437c6248f6d712c9498b55a9442713d",
       "src/tools/chacl.rs": "fdf84983e042ccfbf2ae3189a6e93f524aee43144a9ce310967647e29a36d48f",
-      "src/tools/do_set.rs": "3185e9a3ec2292e31453d39b895d46ed1f8e69e2c7e7c25329ddc062ef804412",
-      "src/tools/getfacl.rs": "dd32cbe55da737dbadf5c583b8fb0f43edd8af7fc69b229a7e303da8ea4b59b4",
+      "src/tools/do_set.rs": "0078cd23da3d87a130eb984b2ad963b67c6859854397d4dd8d33c83fde8de35d",
+      "src/tools/getfacl.rs": "b2899b2c07418bfa5d924f3b55fac8a8eab1fe1f90f8b7b2598fc113c9f938fc",
       "src/tools/parse.rs": "0dd5ace5b43d5e2b0f0b6d55c647c0daf84851ad774cebcc59db551bcd875677",
       "src/tools/sequence.rs": "ee6492669a195ff6e3ddfe7eed6bbc3ea54683f1b35e6957890482b35a89388a",
-      "src/tools/setfacl.rs": "c70ea1fcf01a60c95116a648c9b705a30f1bd38c885bd92b3a4ec40b338eea91",
+      "src/tools/setfacl.rs": "88522115eba3561e42a34679489dcedb7c68e9ff6a67ff4fae3e3236d4ab691b",
       "src/tools/user_group.rs": "56733a1e53028d192bbce5615ce40fd3cfebd83a24cd773f5d793129e81d4d17"
     },
     "modernization": {
@@ -1169,9 +1169,9 @@
           "va_list_impl_rewrites": 0
         },
         {
-          "after_sha256": "3185e9a3ec2292e31453d39b895d46ed1f8e69e2c7e7c25329ddc062ef804412",
+          "after_sha256": "0078cd23da3d87a130eb984b2ad963b67c6859854397d4dd8d33c83fde8de35d",
           "as_va_list_rewrites": 1,
-          "before_sha256": "da1a175c0f1e81caba55fad1a3a8ed2e2ee4e42f3c765dc3a843bb432a07eb35",
+          "before_sha256": "16f504600cddde56526df51c83d2d84f1a414f61a3994a477adde8d72f031308",
           "opaque_pointer_types": [
             "_IO_wide_data",
             "_IO_codecvt",
@@ -1186,9 +1186,9 @@
           "va_list_impl_rewrites": 0
         },
         {
-          "after_sha256": "dd32cbe55da737dbadf5c583b8fb0f43edd8af7fc69b229a7e303da8ea4b59b4",
+          "after_sha256": "b2899b2c07418bfa5d924f3b55fac8a8eab1fe1f90f8b7b2598fc113c9f938fc",
           "as_va_list_rewrites": 1,
-          "before_sha256": "e8458a7786f225431769627791a631c909e4a231e139b71e9034de1cb63d3c07",
+          "before_sha256": "90bda72725d1b43fe3f9b1e5d2ee5d93c27b284339d924be1ceff8cfaeaa9d14",
           "opaque_pointer_types": [
             "_IO_wide_data",
             "_IO_codecvt",
@@ -1217,9 +1217,9 @@
           "va_list_impl_rewrites": 0
         },
         {
-          "after_sha256": "8b40d11ed14d9b85f718afa5e3c29eaaff1ca66364a48312b24b4a5a21f56d33",
+          "after_sha256": "88522115eba3561e42a34679489dcedb7c68e9ff6a67ff4fae3e3236d4ab691b",
           "as_va_list_rewrites": 1,
-          "before_sha256": "47a9fc34f17d9f20e23c56021df9a43858adda5ada69292a7beaf55c6a746cac",
+          "before_sha256": "87e0e6fff7c26b93d63a2432ae504c8a222f9443d3cdbb6d31a15c2bbb5622ef",
           "opaque_pointer_types": [
             "_IO_wide_data",
             "_IO_codecvt",
@@ -1245,23 +1245,16 @@
           "va_list_impl_rewrites": 0
         }
       ],
-      "duplicate_exports_mangled": [
-        {
-          "kept": "src/tools/getfacl.rs",
-          "mangled": "src/tools/setfacl.rs",
-          "symbol": "progname"
-        }
-      ],
       "input_cargo_sha256": "1cd8cdc9428a691b672519bfd602942d773b0e029e635dc1ae909e83d01aa5e6",
       "schema": 1,
       "stable_toolchain": "1.99.0"
     },
-    "modernization_manifest_sha256": "8bb5ccdefaafbb675da0fe8ffc621b1091f4249415edff0236c1190c08f1ba89",
+    "modernization_manifest_sha256": "ec6e216cf7ae05ee3c1c1fd1f5473efc0a86715fa61b5bef6eba0117674dab18",
     "panic_macros": 0,
     "raw_pointer_type_occurrences": 7482,
-    "rust_bytes": 1397441,
+    "rust_bytes": 1398236,
     "rust_files": 74,
-    "rust_lines": 38631,
+    "rust_lines": 38636,
     "todo_macros": 0,
     "unimplemented_macros": 0,
     "unsafe_block_occurrences": 24,
@@ -1276,7 +1269,7 @@
     "fail_on_error": true,
     "generated_rust_repairs": 0,
     "name": "C2Rust",
-    "normalized_c_sources": 5,
+    "normalized_c_sources": 7,
     "preserve_unused_functions": true,
     "raw_compile_metadata": {
       "compiler_crate_attribute": "feature(c_variadic)",

@@ -73,7 +73,8 @@ def main() -> int:
     manifest = json.loads(manifest_path.read_text())
     expected_changed = [
         "libacl/__libobj.c", "libacl/acl_free.c", "tools/chacl.c",
-        "tools/getfacl.c", "tools/setfacl.c",
+        "tools/do_set.c", "tools/do_set.h", "tools/getfacl.c",
+        "tools/setfacl.c",
     ]
     if manifest["changed_sources"] != expected_changed:
         raise RuntimeError("acl normalization source set changed")
@@ -195,7 +196,7 @@ def main() -> int:
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")
     print(json.dumps({
-        "changed_sources": 5, "differential": 60, "production_sources": 72,
+        "changed_sources": 7, "differential": 60, "production_sources": 72,
     }, sort_keys=True))
     return 0
 

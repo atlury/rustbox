@@ -10,20 +10,20 @@
         "sha256": "27a1b889c4840a0b92fd084fb25c7d6ea7ce54a431885f5eaba0795ef6fe19df"
       },
       "getfacl": {
-        "bytes": 123416,
+        "bytes": 123448,
         "embedded_libacl": true,
         "needed": [
           "libc.so.6"
         ],
-        "sha256": "7ccfd41b1fdc94022d0ad1e08ece94c8a3fa56f58d87d6b518e6210193afbb18"
+        "sha256": "6b4f2cee8f5b0c7d2305c918a663f14300a9a83fa8929205838e2e5becb7e4c6"
       },
       "setfacl": {
-        "bytes": 204864,
+        "bytes": 204896,
         "embedded_libacl": true,
         "needed": [
           "libc.so.6"
         ],
-        "sha256": "7d96c9059b3b08de66adb2edb4c851019de4777dd42435ec0f3f280cdaf1c0de"
+        "sha256": "714b89366ddf824e23809c00866161569440e43939b4f3a49a9e483aebbf056b"
       }
     },
     "gcc": {
@@ -36,20 +36,20 @@
         "sha256": "f212da07b36285deee8bbe3336ef7e3957e58877584dbb4609ec97deebac155b"
       },
       "getfacl": {
-        "bytes": 150792,
+        "bytes": 150824,
         "embedded_libacl": true,
         "needed": [
           "libc.so.6"
         ],
-        "sha256": "a521d760e3c75e87d584a880cb9cbe9a3c945bafb9e33db12c290876f36f9eb9"
+        "sha256": "ab54071def5991f033808327e279becb12d0afe014ce14ed3e0b352c22053371"
       },
       "setfacl": {
-        "bytes": 238664,
+        "bytes": 238696,
         "embedded_libacl": true,
         "needed": [
           "libc.so.6"
         ],
-        "sha256": "37289daefc4e509746a216e89cdeadf074984ae76a2e7b0c29a5081201ac3573"
+        "sha256": "bc7d7626345418aa46df5476928a8514861f62ed64f35d73671a6ff807569aa3"
       }
     }
   },
@@ -90,14 +90,14 @@
           "main",
           "rustbox_getfacl_main"
         ],
-        "sha256": "c99e81e40d850c0329da1dfc9a95c1320b679ad0eae8e2d3aa3cfbf7222be9ec"
+        "sha256": "7bdccdb7ae6ed06b8fe862d20b3814e6fbb967126c446bb8d6f18a0bccce3642"
       },
       "setfacl": {
         "entrypoints": [
           "main",
           "rustbox_setfacl_main"
         ],
-        "sha256": "fba2c6c9ae0feffb7dbf375d7135b2fc81ee323404bebb8f0dccb7bae3dba159"
+        "sha256": "48cdc9c78c338c7c3b58428cafb60533decf766fed65b4a12fdcb24df84f7b38"
       }
     },
     "gcc": {
@@ -113,18 +113,18 @@
           "main",
           "rustbox_getfacl_main"
         ],
-        "sha256": "2ac86a596b1d97f2dbcc39189810aac13db68c8c64bf44e8721f4e74543a36c3"
+        "sha256": "3543d876fc58400a7c9b4ccd05abdb8c712acc311d726de5db2cef4dfca79f90"
       },
       "setfacl": {
         "entrypoints": [
           "main",
           "rustbox_setfacl_main"
         ],
-        "sha256": "6646ebeb76242414551b6410a08f61e90545688722d8df78eddba2795e46c529"
+        "sha256": "5ba0a80b6ce1c32b1efebea2db9e905441f7fc08a9cc6e197cb89844b77cab97"
       }
     }
   },
-  "manifest_sha256": "c33fa4aeac3cd0c91eadee74fcde131e771aa9fae487cef8c0303d2eb0cebf10",
+  "manifest_sha256": "ca00f9d7a596da314c6b387c82d97831cc0a07e0b27640175ecee394a19deda5",
   "next_gate": "translate the exact 72-source normalized acl production closure with C2Rust",
   "normalization": {
     "canonical_archive_sha256": "e661131456d2708a01c614a0f400e11d7d1bfaeb6f3e74b75bb980b72f0161a3",
@@ -133,12 +133,14 @@
       "libacl/__libobj.c",
       "libacl/acl_free.c",
       "tools/chacl.c",
+      "tools/do_set.c",
+      "tools/do_set.h",
       "tools/getfacl.c",
       "tools/setfacl.c"
     ],
     "conditional": "RUSTBOX_MULTICALL",
     "engine": "exact deterministic source rewrite",
-    "normalized_tree_sha256": "6514ec09b6808b8aeea13e10fbd53a73f98bfb15b0c6f13be3e780ead13d121a",
+    "normalized_tree_sha256": "6dba98f794afd928a79b29d2b75f43ab5e8b554b37ce67476dec3e2ee7a982a8",
     "release": "2.4.0",
     "schema": 1,
     "transformations": [
@@ -161,15 +163,27 @@
         "source": "tools/chacl.c"
       },
       {
+        "canonical_sha256": "ecbfa7e00ac994f6b92d7629d30d656d47d3cef7608936242902929dd847fb3b",
+        "normalized_sha256": "c7e9d0568712d1bd5a5d9d0c741af0b527cf4e26fa86b53e2100f091d315cf09",
+        "operation": "bind setfacl helper diagnostics to the setfacl-specific program-name namespace",
+        "source": "tools/do_set.c"
+      },
+      {
+        "canonical_sha256": "89c1c60b3094a0c581014d1082a6ccd5275b66d6425d8c88464fabdb4869125b",
+        "normalized_sha256": "4cf987d4baeff2decbea252770e15b99e62593113f286b3f092703ff887032c8",
+        "operation": "declare the setfacl-specific program-name namespace for helper units",
+        "source": "tools/do_set.h"
+      },
+      {
         "canonical_sha256": "0d92c79425758994738479a47a570c3277709ae9a2025292610f8d0a70927790",
-        "normalized_sha256": "7292c5dbd584be7a020b92f2754a4685d8f889d687949b3480250931a0741a4b",
-        "operation": "export the getfacl multicall entrypoint while retaining the standalone wrapper",
+        "normalized_sha256": "b39700ae956c0b30aef940cf2429548da372856ec7645e813ca5bf13842173a8",
+        "operation": "export the getfacl multicall entrypoint and namespace its process-name state",
         "source": "tools/getfacl.c"
       },
       {
         "canonical_sha256": "52565f6a2bcc4c24aa4d3776cd61d85b35d3a5be52d9874457f00a24ae8bd049",
-        "normalized_sha256": "920392191592acc9c01b2437d5d948ac0400628d756a6e1027f7a311e526b1a6",
-        "operation": "export the setfacl multicall entrypoint, retain realloc ownership until allocation succeeds, and express its goto error macro as a standard statement",
+        "normalized_sha256": "9027663849c5d3d5c2ef6bd6fa87fafa0c4cac8d3a86be55c2fe3a5f6b4f385a",
+        "operation": "export the setfacl multicall entrypoint, namespace its process-name state, retain realloc ownership until allocation succeeds, and express its goto error macro as a standard statement",
         "source": "tools/setfacl.c"
       }
     ]
@@ -179,12 +193,12 @@
   "resources": {
     "getfacl": {
       "heap_summary": "total heap usage: 4 allocs, 4 frees, 4,596 bytes allocated",
-      "log_sha256": "a8c99fee8222de58ff5313206bd38598f4d7f9a30348bcd80fd476e592c09ff8",
+      "log_sha256": "567b5f15bd7f554532b0e7b2fd3aa1eb356478599b2bfe5a19db864adeb079cf",
       "matches_canonical_summary": true
     },
     "setfacl": {
       "heap_summary": "total heap usage: 10 allocs, 10 frees, 786 bytes allocated",
-      "log_sha256": "c72d9ae09bc947f308bcb35cae1c20400989a619e114167382329bb9e447d4ee",
+      "log_sha256": "0fae3a8a474aabb9d785eb54e2547f1e71f608ccb2cbcf05e2b2f07d955e4d85",
       "matches_canonical_summary": true
     }
   },
@@ -193,7 +207,7 @@
     "compilers": {
       "clang": {
         "compile_actions": 137,
-        "compile_database_sha256": "e3e705c1a082bd233d10d904dc3715f2e4a99d07ef1f1d44e038ad4dd1fab94e",
+        "compile_database_sha256": "354ed5247f4f391ae0ee48cb1d12cdc282bac2c3a46b88355f2d32f9c5a966fd",
         "platform_test": {
           "error": 0,
           "fail": 1,
@@ -203,7 +217,7 @@
           "xfail": 0,
           "xpass": 0
         },
-        "test_log_sha256": "3eac040726fa35de733d6e5ff5a9e7546328d90f6d3e17f4b2089e532418e8f8",
+        "test_log_sha256": "31518e18137e1f80bdda6be73cf736d9f1d5fa44c7a93885d2f9d74db3a56426",
         "upstream_tests": {
           "error": 0,
           "fail": 0,
@@ -216,7 +230,7 @@
       },
       "gcc": {
         "compile_actions": 137,
-        "compile_database_sha256": "ec5f3e185d3e9eb0460daa3a3359a4ff7ce14652c73768e4e4f07bbd79b66737",
+        "compile_database_sha256": "a908b9221198f2b7e04de35fc4c52135013c9b1419efb7c57194d22543b3ed6b",
         "platform_test": {
           "error": 0,
           "fail": 1,
@@ -226,7 +240,7 @@
           "xfail": 0,
           "xpass": 0
         },
-        "test_log_sha256": "7f558da5dbc143085277f23387742f1e5bcce5a3d7a62f208c73fad3888904e5",
+        "test_log_sha256": "d16953bb1847f32e9ac29f54998c467dbf8fbf0cc911349cb1d2cd0a42119b1e",
         "upstream_tests": {
           "error": 0,
           "fail": 0,
@@ -239,7 +253,7 @@
       },
       "sanitizer": {
         "compile_actions": 137,
-        "compile_database_sha256": "ed931ebbc5a70321526749470a4dd5ccb356b712641f7a8abcc15c4324e0206d",
+        "compile_database_sha256": "69bdb2a9ce15a9dea5034d5b8f337a05d5402ef6a5164bfd77e7128680a06572",
         "platform_test": {
           "error": 0,
           "fail": 1,
@@ -249,7 +263,7 @@
           "xfail": 0,
           "xpass": 0
         },
-        "test_log_sha256": "4a22d4c46616205df65514156c817b4a013abb8cddbd0f258325200c13e2a78d",
+        "test_log_sha256": "0e15659b29684e1561caf00779ce2799641c8084534815b8fa13dd8073ad280c",
         "upstream_tests": {
           "error": 0,
           "fail": 0,
