@@ -23,6 +23,7 @@ exec docker run --rm \
   --volume rustbox-attr-2.6.0:/rustbox-attr \
   --volume rustbox-acl-2.4.0:/rustbox-acl \
   --volume rustbox-lz4-1.11.1:/rustbox-lz4 \
+  --volume rustbox-gzip-1.14:/rustbox-gzip \
   --workdir /work \
   "$tool_image" "$@"
 

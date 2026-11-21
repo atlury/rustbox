@@ -1,0 +1,130 @@
+{
+  "artifacts": {
+    "clang-analyzer-tidy.log": "45febc321ef3dd70e74dcfeee30d81f912da2bcba88a413b2b01f4896845f1e1",
+    "compile_commands.json": "d7d4810b2b290a2a8cfff5fe890d7247d85586b589246ed43e326f8083f14790",
+    "cppcheck.log": "2b657b1a513c17b6043b9d223195fdec1c83c50cd07bf3363cc86b4b5246c849",
+    "flawfinder.log": "e4be6fd33a8ebc870daae8ab725531f05601f7f7447dc96e8edf6dc5f3532dfa",
+    "gcc-analyzer-setup.log": "fe62e934bb675ccf1886598badeb0b78ae52da47d15844467d79425bc64a056d",
+    "gcc-analyzer.log": "96df22f3f4a2a07bade56b24e940589e5046b9eee84da21fdd2b966fe46f8f56",
+    "sources.list": "82492ec37c24be51f79d9f29af926686f41ee81f932c2ab109799646a6bd420f",
+    "sparse.log": "929ec4350d204c2114d00fdd4dcdc7098cca672a1bb75790420902540c2ce48f",
+    "sparse.status": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "recorded_at": "2026-11-21",
+  "release": "1.14",
+  "review": {
+    "blocking_findings": 1,
+    "canonical_source_changes": 0,
+    "notes": [
+      "The vasnprintf null reports agree with the UBSan nonnull-attribute diagnostic observed by the canonical sanitizer run; the zero-length operation is behaviorally inert but must be normalized rather than hidden.",
+      "Cppcheck's pack-level reports do not follow gzip_error's nonreturning contract; supported levels are 1 through 9 and all canonical tests pass, but an explicit control-flow boundary reduces translator ambiguity.",
+      "GCC's seven xalloc leak reports stop at allocation-wrapper returns and do not follow ownership into callers; Valgrind observes every decompression allocation freed.",
+      "GCC's savedir null report misses the mandatory xpalloc branch before the first memcpy, and its two ZIP trailer reports miss get_byte's fatal EOF path.",
+      "Cppcheck's four errors are three inactive gnulib #error alternatives plus one parser failure, not compiler diagnostics from either production build.",
+      "Sparse's 69 parser errors are confined to GCC x86 intrinsic headers and crc-x86_64-pclmul.c; GCC, Clang, sanitizers, and runtime comparisons all execute that selected implementation successfully.",
+      "Remaining Tidy and Flawfinder output is primarily gnulib reserved identifiers, explicit legacy state-machine conversions, and bounded buffer-API inventory rather than a demonstrated runtime defect."
+    ],
+    "required_normalization": [
+      "Guard the zero-length vasnprintf memset/memcpy paths so no null pointer is formed or passed to a nonnull-declared libc primitive.",
+      "Make the fatal pack-level range check explicit to translation tools before indexing configuration_table.",
+      "Split assignment and increment side effects out of conditions in the legacy codec state machines without changing their order.",
+      "Replace the fixed-buffer strcpy/strcat name rewrites with explicit bounded copies before translation.",
+      "Use the canonical portable CRC implementation for C2Rust if its x86 PCLMUL intrinsic source cannot be represented by the translator."
+    ]
+  },
+  "schema": 1,
+  "scope": {
+    "compile_actions": 69,
+    "targets": [
+      "gzip",
+      "gunzip",
+      "zcat",
+      "uncompress",
+      "gzexe",
+      "zcmp",
+      "zdiff",
+      "zegrep",
+      "zfgrep",
+      "zforce",
+      "zgrep",
+      "zless",
+      "zmore",
+      "znew"
+    ],
+    "tests_and_nonselected_sources_excluded": true,
+    "unique_sources": 69
+  },
+  "status": "complete production audit; deterministic normalization pending",
+  "tools": {
+    "clang_analyzer_tidy": {
+      "all_findings_by_check": {
+        "bugprone-assignment-in-if-condition": 21,
+        "bugprone-branch-clone": 2,
+        "bugprone-easily-swappable-parameters": 25,
+        "bugprone-implicit-widening-of-multiplication-result": 5,
+        "bugprone-inc-dec-in-conditions": 17,
+        "bugprone-macro-parentheses": 14,
+        "bugprone-misplaced-widening-cast": 1,
+        "bugprone-multi-level-implicit-pointer-conversion": 2,
+        "bugprone-narrowing-conversions": 57,
+        "bugprone-reserved-identifier": 189,
+        "bugprone-signed-char-misuse": 1,
+        "bugprone-sizeof-expression": 8,
+        "bugprone-suspicious-include": 1,
+        "clang-analyzer-core.NonNullParamChecker": 2,
+        "clang-analyzer-deadcode.DeadStores": 8,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 86,
+        "clang-analyzer-security.insecureAPI.strcpy": 15
+      },
+      "analyzer_findings_by_check": {
+        "clang-analyzer-core.NonNullParamChecker": 2,
+        "clang-analyzer-deadcode.DeadStores": 8,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 86,
+        "clang-analyzer-security.insecureAPI.strcpy": 15
+      }
+    },
+    "cppcheck": {
+      "findings_by_id": {
+        "allocaCalled": 1,
+        "arrayIndexOutOfBoundsCond": 4,
+        "constParameterPointer": 6,
+        "constVariablePointer": 4,
+        "internalAstError": 1,
+        "knownConditionTrueFalse": 1,
+        "nullPointerRedundantCheck": 3,
+        "preprocessorErrorDirective": 3,
+        "redundantContinue": 3,
+        "redundantInitialization": 3,
+        "shadowVariable": 4,
+        "truncLongCastAssignment": 1,
+        "unreadVariable": 9,
+        "unusedStructMember": 3,
+        "variableScope": 23
+      },
+      "findings_by_severity": {
+        "error": 4,
+        "style": 57,
+        "warning": 8
+      }
+    },
+    "flawfinder": {
+      "hits_at_level_1_or_higher": 205,
+      "lines_analyzed": 21466
+    },
+    "gcc_fanalyzer": {
+      "findings_by_check": {
+        "analyzer-malloc-leak": 7,
+        "analyzer-null-argument": 1,
+        "analyzer-use-of-uninitialized-value": 2,
+        "sign-compare": 3,
+        "unused-parameter": 1
+      },
+      "warnings": 14
+    },
+    "sparse": {
+      "exit_status": 0,
+      "parser_errors": 69,
+      "warnings": 115
+    }
+  }
+}

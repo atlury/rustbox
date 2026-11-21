@@ -57,6 +57,7 @@ scoring, and correctness gates.
 | attr 2.6.0 | 3 | 3 | 3 | 3 |
 | acl 2.4.0 | 3 | 3 | 3 | 3 |
 | LZ4 1.11.1 | 4 | 4 | 4 | 4 |
+| GNU Gzip 1.14 | 14 | 14 | 0 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -673,6 +674,27 @@ Integration adds 270,336 stripped bytes, substantially less than the 586,784-byt
 standalone translated executable.  Unified evidence is in
 `evidence/rustbox-multicall.json`.
 
+GNU Gzip 1.14 is pinned to its signed canonical Savannah release.  Its full
+installed surface is 14 names: one native `gzip` executable, the hard-linked
+`uncompress` alias, and twelve upstream shell interfaces.  Independent GCC,
+Clang, and GCC ASan/UBSan builds each pass all 29 runnable upstream tests with
+the same one root/platform skip.  GCC and Clang agree across 54 exact command,
+byte-stream, and filesystem comparisons; both optimized builds emit identical
+compressed bytes.  Compression and decompression Valgrind gates report zero
+errors and free every allocation, and the oracle executable depends only on
+libc.  The two compilers select the same exact 69-translation-unit production
+closure.  Authentication, source, compiler, dependency, differential,
+sanitizer, and resource evidence is in `evidence/gzip-1.14-oracle.json`.
+Cppcheck, GCC `-fanalyzer`, Clang Analyzer/Tidy, Flawfinder, and Sparse audit
+that same closure in `evidence/gzip-1.14-analysis.json`.  The demonstrated
+normalization blocker is gnulib `vasnprintf` forming or passing a null pointer
+for zero-length operations, matching the canonical UBSan nonnull-attribute
+diagnostic.  Other required translation preparations make fatal range control
+flow explicit, split legacy condition side effects, bound name-buffer copies,
+and select the canonical portable CRC implementation if C2Rust cannot express
+the x86 PCLMUL intrinsics.  Sparse's intrinsic parser failures and the reviewed
+path-model false positives remain recorded rather than silently discarded.
+
 ## Work queue after util-linux
 
 This queue starts only after all in-scope util-linux applets reach canonical
@@ -717,7 +739,8 @@ Library-only checkpoints (outside the active utility order):
    - [x] LZ4 1.11.1 — `lz4`, `lz4c`, `lz4cat`, `unlz4`; integrated at
      canonical parity.
 2. Compression, archive, and terminal foundations:
-   - [ ] Gzip — `gzip`, `gunzip`, `zcat`, `uncompress`, `gzexe`, `zcmp`,
+   - [ ] GNU Gzip 1.14 — canonical oracle and analyzer audit complete;
+     normalization pending for `gzip`, `gunzip`, `zcat`, `uncompress`, `gzexe`, `zcmp`,
      `zdiff`, `zegrep`, `zfgrep`, `zforce`, `zgrep`, `zless`, `zmore`, `znew`.
    - [ ] xz — `xz`, `unxz`, `xzcat`, `lzma`, `unlzma`, `lzcat`, `xzdec`,
      `lzmadec`, `lzmainfo`, `xzcmp`, `xzdiff`, `xzegrep`, `xzfgrep`, `xzgrep`,
