@@ -59,6 +59,7 @@ scoring, and correctness gates.
 | LZ4 1.11.1 | 4 | 4 | 4 | 4 |
 | GNU Gzip 1.14 | 14 | 14 | 14 | 14 |
 | Less 710 | 2 | 2 | 2 | 2 |
+| XZ Utils 5.8.4 | 23 | 23 | 0 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -780,6 +781,20 @@ Both names are privately namespaced and integrated into Rustbox; their 22-case
 multicall differential and resource checks pass, and Less also supplies the
 final internal `zless` frontend.
 
+XZ Utils 5.8.4 is pinned to Lasse Collin's signed canonical release, including
+the September 2026 security fix.  Its exact 101-source production closure
+(34,216 lines) builds independently with GCC and Clang with Landlock enabled;
+the sanitizer build follows upstream's requirement to disable only the
+sandbox instrumentation conflict.  All three builds pass the 22-case upstream
+suite.  The compiler oracles agree on 70 behavioral cases across every one of
+the 23 installed command and compatibility names, and emit byte-identical
+`.xz` and `.lzma` streams.  Each physical command depends only on libc because
+liblzma is built internally.  Valgrind reports no definite, indirect, or
+possible loss and no memory errors; canonical XZ intentionally retains its
+codec state until process exit.  Reproducible oracle details are in
+`evidence/xz-5.8.4-oracle.json`; deterministic normalization, static analysis,
+translation, and multicall integration remain in progress.
+
 ## Work queue after util-linux
 
 This queue starts only after all in-scope util-linux applets reach canonical
@@ -827,9 +842,11 @@ Library-only checkpoints (outside the active utility order):
    - [x] GNU Gzip 1.14 — translated hybrid at canonical parity; native `gzip`,
      `gunzip`, `zcat`, `uncompress`, `zcmp`, `zdiff`, `zforce`, `zgrep`,
      `zegrep`, `zfgrep`, `zless`, `zmore`, `znew`, and `gzexe` integrated.
-   - [ ] xz — `xz`, `unxz`, `xzcat`, `lzma`, `unlzma`, `lzcat`, `xzdec`,
-     `lzmadec`, `lzmainfo`, `xzcmp`, `xzdiff`, `xzegrep`, `xzfgrep`, `xzgrep`,
-     `xzless`, `xzmore`.
+   - [ ] XZ Utils 5.8.4 — signed canonical oracle complete for all 23 names:
+     `xz`, `unxz`, `xzcat`, `lzma`, `unlzma`, `lzcat`, `xzdec`, `lzmadec`,
+     `lzmainfo`, `xzcmp`, `xzdiff`, `xzegrep`, `xzfgrep`, `xzgrep`, `xzless`,
+     `xzmore`, `lzcmp`, `lzdiff`, `lzegrep`, `lzfgrep`, `lzgrep`, `lzless`, and
+     `lzmore`; deterministic normalization is next.
    - [ ] zstd — `zstd`, `zstdmt`, `unzstd`, `zstdcat`, `zstdgrep`,
      `zstdless`.
    - [ ] tar — `tar`, `rmt`.
