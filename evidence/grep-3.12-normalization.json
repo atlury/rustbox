@@ -1,0 +1,229 @@
+{
+  "binaries": {
+    "clang": {
+      "bytes": 568472,
+      "needed": [
+        "libpcre2-8.so.0",
+        "libc.so.6"
+      ],
+      "sha256": "c3e8a7545b667f2aba5e8efee2f9429b3835847062190d5b46be402cf78f5dfe"
+    },
+    "gcc": {
+      "bytes": 790440,
+      "needed": [
+        "libpcre2-8.so.0",
+        "libc.so.6"
+      ],
+      "sha256": "479b085a027b1bf80a81e7f16a12a6859f615659a8fee06a69f5154596d490ac"
+    }
+  },
+  "canonical_normalized_differential": {
+    "comparisons": 72,
+    "compilers": {
+      "clang": {
+        "comparisons": 36,
+        "exact": true,
+        "sha256": "178032d09c44a592b1fff674bba84dd33bf5906356056a25cd88bbfea9b1d3ac"
+      },
+      "gcc": {
+        "comparisons": 36,
+        "exact": true,
+        "sha256": "178032d09c44a592b1fff674bba84dd33bf5906356056a25cd88bbfea9b1d3ac"
+      }
+    },
+    "exact": true
+  },
+  "entrypoint_objects": {
+    "clang": {
+      "entrypoints": [
+        "main",
+        "rustbox_grep_main"
+      ],
+      "sha256": "0ee4b11438e37a1a5f7d120448188ae00771d771556a7b04b9acd6c9991713c5"
+    },
+    "gcc": {
+      "entrypoints": [
+        "main",
+        "rustbox_grep_main"
+      ],
+      "sha256": "ba170677146d6cc84ac43343fa28dce24ba6fd135a90e8889ef78d452972fc58"
+    }
+  },
+  "next_gate": "translate the exact 129-source normalized production closure with C2Rust",
+  "normalization": {
+    "canonical_archive_sha256": "2649b27c0e90e632eadcd757be06c6e9a4f48d941de51e7c0f83ff76408a07b9",
+    "canonical_tree_sha256": "4e8aed0febfc6ee2c802a9efd0954c0b320b5178dc8727dcadf91db91d52d641",
+    "changed_sources": [
+      "lib/dfa.c",
+      "lib/malloca.c",
+      "lib/realloc.c",
+      "lib/strstr.c",
+      "lib/xstrtol.c",
+      "src/dfasearch.c",
+      "src/grep.c",
+      "src/kwset.c",
+      "src/pcresearch.c"
+    ],
+    "conditional": "RUSTBOX_MULTICALL",
+    "engine": "exact deterministic source rewrite",
+    "normalized_tree_sha256": "c33178f2312f34671a407b3bca3174fb7b56f82c180d4e6952330c846bef1fa3",
+    "release": "3.12",
+    "schema": 1,
+    "transformations": [
+      {
+        "canonical_sha256": "c3a1a5f0f3399018fe63265b6f5caf8fdc5ba0ff00931bd11f96005d9e218864",
+        "engine": "exact deterministic translator-compatibility rewrite",
+        "normalized_sha256": "2cf340c262672c421552536b57ab100bc6e5ee65c7b26bddd44fa9deb9b308cd",
+        "operation": "make checked-integer widths or Boolean accumulation explicit for C2Rust",
+        "source": "lib/dfa.c"
+      },
+      {
+        "canonical_sha256": "af669118e496cb4ae83b655e46817f387c0c21ee96b109fa359800f3ef4f9bf0",
+        "engine": "exact deterministic translator-compatibility rewrite",
+        "normalized_sha256": "6934c42ef9c90861e3f9d995bdd490ecc841914187aee4babe65396da20316a1",
+        "operation": "make checked-integer widths or Boolean accumulation explicit for C2Rust",
+        "source": "lib/malloca.c"
+      },
+      {
+        "canonical_sha256": "320023c6aff612630bcb850d1bf2c143d15eb5b5ae48c5ee9efd61c56d073227",
+        "engine": "exact deterministic translator-compatibility rewrite",
+        "normalized_sha256": "bdd32e74657fbb5308281405f530a355118730b2dcaf54b7dd4cc32794e9cd32",
+        "operation": "make checked-integer widths or Boolean accumulation explicit for C2Rust",
+        "source": "lib/realloc.c"
+      },
+      {
+        "canonical_sha256": "1d31254c26938315d716611d6bde382a0e31d9d57516260d3550e40f1ed9a000",
+        "engine": "exact deterministic translator-compatibility rewrite",
+        "normalized_sha256": "e632f70442e00d60cfe9ad98fc48437f0bcd49cc2f535b2ab272a4fd8e1aaa89",
+        "operation": "make checked-integer widths or Boolean accumulation explicit for C2Rust",
+        "source": "lib/strstr.c"
+      },
+      {
+        "canonical_sha256": "0c3d503d35a4a7c14df51fe8a290c05f13793bc4a1adb34364823853101931e8",
+        "engine": "exact deterministic translator-compatibility rewrite",
+        "normalized_sha256": "3344c6904caf0135daf030c85c10f6bc7f50171579323103cf66f55086b9013e",
+        "operation": "make checked-integer widths or Boolean accumulation explicit for C2Rust",
+        "source": "lib/xstrtol.c"
+      },
+      {
+        "canonical_sha256": "9f55ef1f43ad36b44e2ff6fee4471c11aca522cdcc4fb71fca0e58c97c46f065",
+        "engine": "exact deterministic translator-compatibility rewrite",
+        "normalized_sha256": "dd0350907595d6a20cff25995258996af39f9ea6927554b3a37cfe23d3eb7d48",
+        "operation": "parenthesize audited precedence and make Boolean accumulation explicit",
+        "source": "src/dfasearch.c"
+      },
+      {
+        "canonical_sha256": "22ff6b93485baa033ebd3469ded5695d49b5c9aba89dcdb41cc67237a7ad94a0",
+        "engine": "exact deterministic translator-compatibility rewrite",
+        "normalized_sha256": "a89f44e85e576344bf111d2163550ce477e6776324c1cfe95751ecb1fb71ed48",
+        "operation": "export the multicall entrypoint and make eager Boolean accumulation explicit",
+        "source": "src/grep.c"
+      },
+      {
+        "canonical_sha256": "b610063c6ad6e445d5aca87e479d4fbeab907d84889dc361d1657479825e110a",
+        "engine": "exact deterministic translator-compatibility rewrite",
+        "normalized_sha256": "ff846507d3d0613a98d955bdb2857cdbb9b434210cf0c5157379169d2550807d",
+        "operation": "make checked-integer widths or Boolean accumulation explicit for C2Rust",
+        "source": "src/kwset.c"
+      },
+      {
+        "canonical_sha256": "5eb7ae6c7f0efc0e6642c19f82572c35316f45718622d7f56e1bc6873a2aa98f",
+        "engine": "exact deterministic translator-compatibility rewrite",
+        "normalized_sha256": "7c90f0c52d44180030053ee722de1f82e18ce16e1418dd0f8d211b6ddb5a5654",
+        "operation": "make checked-integer widths or Boolean accumulation explicit for C2Rust",
+        "source": "src/pcresearch.c"
+      }
+    ]
+  },
+  "recorded_at": "2026-11-21",
+  "release": "3.12",
+  "schema": 1,
+  "scope": {
+    "captured_compile_actions": {
+      "clang": 169,
+      "gcc": 169,
+      "sanitizer": 169
+    },
+    "compile_database_sha256": {
+      "clang": "99e1aa5282cb6e1dddd51468b08905ca97e6ff7b7f70653e18ba4b4ee50a9dd7",
+      "gcc": "2a93ff99200e9855688ab0ca1e24f347054f8298d8ba96657b55d3a262e4cda4",
+      "sanitizer": "341f0262f0fa613660327608c567212bb1f92068bbd90d645058ae9a1d3df186"
+    },
+    "production_sources": 129,
+    "source_closure_matches_canonical": true,
+    "test_support_compile_actions": {
+      "clang": 40,
+      "gcc": 40,
+      "sanitizer": 40
+    }
+  },
+  "tests": {
+    "clang": {
+      "gnulib": {
+        "error": 0,
+        "fail": 0,
+        "pass": 277,
+        "skip": 38,
+        "total": 315,
+        "xfail": 0,
+        "xpass": 0
+      },
+      "grep": {
+        "error": 0,
+        "fail": 0,
+        "pass": 113,
+        "skip": 13,
+        "total": 128,
+        "xfail": 2,
+        "xpass": 0
+      },
+      "log_sha256": "ee4abf7a9c22b4ee9a01af93def59c73651d4444b99bed081523822837c64ce5"
+    },
+    "gcc": {
+      "gnulib": {
+        "error": 0,
+        "fail": 0,
+        "pass": 277,
+        "skip": 38,
+        "total": 315,
+        "xfail": 0,
+        "xpass": 0
+      },
+      "grep": {
+        "error": 0,
+        "fail": 0,
+        "pass": 113,
+        "skip": 13,
+        "total": 128,
+        "xfail": 2,
+        "xpass": 0
+      },
+      "log_sha256": "321892e94452cb89a0e45e2973453d48d7b5098245c442691a0d29aa0aaeacf8"
+    },
+    "sanitizer": {
+      "gnulib": {
+        "error": 0,
+        "fail": 0,
+        "pass": 273,
+        "skip": 42,
+        "total": 315,
+        "xfail": 0,
+        "xpass": 0
+      },
+      "grep": {
+        "error": 0,
+        "fail": 0,
+        "pass": 111,
+        "skip": 14,
+        "total": 127,
+        "xfail": 2,
+        "xpass": 0
+      },
+      "log_sha256": "d47e749076423ff0d88e09315fb6b9cdb7b340725d452d21db8474b90e7a73ea"
+    }
+  },
+  "valgrind": {
+    "log_sha256": "d74c389d33e162bbd0f142a780ee9592dfe028322f5377cd2f5477ca54e2efe5",
+    "matches_canonical_summary": true
+  }
+}
