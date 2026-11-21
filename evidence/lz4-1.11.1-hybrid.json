@@ -1,0 +1,942 @@
+{
+  "behavior": {
+    "differential": {
+      "cases": 27,
+      "passed": 27,
+      "records": [
+        {
+          "applet": "lz4",
+          "name": "help-short",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 2578,
+            "stdout_sha256": "7ecf2ef0551757e03fe77b6de09cd3242c457c9305ba4a11c1028fa923ff9f8a",
+            "tree": []
+          }
+        },
+        {
+          "applet": "lz4",
+          "name": "help-long",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 2578,
+            "stdout_sha256": "7ecf2ef0551757e03fe77b6de09cd3242c457c9305ba4a11c1028fa923ff9f8a",
+            "tree": []
+          }
+        },
+        {
+          "applet": "lz4",
+          "name": "help-advanced",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 4387,
+            "stdout_sha256": "9b2c2c4ba3674bbf9edf2acb63ea288e669f8bd15ed63445301eb855189e4872",
+            "tree": []
+          }
+        },
+        {
+          "applet": "lz4",
+          "name": "version",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 55,
+            "stdout_sha256": "a324f8d9e8db130eb4378b290006f7fe5dbf77bea177c31979b47c9cdb9ac153",
+            "tree": []
+          }
+        },
+        {
+          "applet": "lz4c",
+          "name": "lz4c-help",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 2734,
+            "stdout_sha256": "43a0ddc60b6ce3b5058a1ab8799235744147b8ae23d2ed3cfc7f39aad7e2a575",
+            "tree": []
+          }
+        },
+        {
+          "applet": "unlz4",
+          "name": "unlz4-help",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 2580,
+            "stdout_sha256": "f112256abb456363f53843902dc6bc9602616ae898789fefeb38a5f5d4bdaea6",
+            "tree": []
+          }
+        },
+        {
+          "applet": "lz4cat",
+          "name": "lz4cat-help",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 2581,
+            "stdout_sha256": "3655f3407f9592e45b421c70fd7792aa6ab3642548c955113b50d1085b9ba2e2",
+            "tree": []
+          }
+        },
+        {
+          "applet": "lz4",
+          "name": "compress-text",
+          "result": {
+            "status": 0,
+            "stderr_length": 157,
+            "stderr_sha256": "a77cfb42e5ed10af2d87acacf91c8b77b64c0ed135d60daaa3c170436649c22a",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 8448,
+                "mode": 420,
+                "path": "binary",
+                "sha256": "2b787fd8a97e93a673e76a1758cd98d99e7709e0fc2ef029a1a610c6477303cc"
+              },
+              {
+                "bytes": 0,
+                "mode": 420,
+                "path": "empty",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              {
+                "bytes": 32771,
+                "mode": 420,
+                "path": "random",
+                "sha256": "5e2936d3f993f969bd08b401e42b60e7a596c37da11012bac50962b4cb9e76d4"
+              },
+              {
+                "bytes": 11308,
+                "mode": 420,
+                "path": "text",
+                "sha256": "00b3645c5fdf8713522cb3eb9c6f27bd79347eb88f33abdb6729703752433539"
+              },
+              {
+                "bytes": 120,
+                "mode": 420,
+                "path": "text.lz4",
+                "sha256": "d13b8185065ff96d73132f20af1f4aa9d3c477334f36876a3422dae615cc04eb"
+              }
+            ]
+          }
+        },
+        {
+          "applet": "lz4",
+          "name": "compress-binary",
+          "result": {
+            "status": 0,
+            "stderr_length": 156,
+            "stderr_sha256": "ea1dfc5e48aaf200787f4f7ee31cbe9c15d119e82d3f0c579846ed1529716947",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 8448,
+                "mode": 420,
+                "path": "binary",
+                "sha256": "2b787fd8a97e93a673e76a1758cd98d99e7709e0fc2ef029a1a610c6477303cc"
+              },
+              {
+                "bytes": 318,
+                "mode": 420,
+                "path": "binary.lz4",
+                "sha256": "3c936e798342b73882e8ab68bb360b1d7130f447036748e5594aabfd55a25549"
+              },
+              {
+                "bytes": 0,
+                "mode": 420,
+                "path": "empty",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              {
+                "bytes": 32771,
+                "mode": 420,
+                "path": "random",
+                "sha256": "5e2936d3f993f969bd08b401e42b60e7a596c37da11012bac50962b4cb9e76d4"
+              },
+              {
+                "bytes": 11308,
+                "mode": 420,
+                "path": "text",
+                "sha256": "00b3645c5fdf8713522cb3eb9c6f27bd79347eb88f33abdb6729703752433539"
+              }
+            ]
+          }
+        },
+        {
+          "applet": "lz4",
+          "name": "compress-empty",
+          "result": {
+            "status": 0,
+            "stderr_length": 158,
+            "stderr_sha256": "59588cec5855e5c143732dbbe01ccd4a0887717de466219b4d32c02cbc6ef13c",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 8448,
+                "mode": 420,
+                "path": "binary",
+                "sha256": "2b787fd8a97e93a673e76a1758cd98d99e7709e0fc2ef029a1a610c6477303cc"
+              },
+              {
+                "bytes": 0,
+                "mode": 420,
+                "path": "empty",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              {
+                "bytes": 15,
+                "mode": 420,
+                "path": "empty.lz4",
+                "sha256": "a01ab6c73734fbe3eac2971567666b6cd7d9586d5becc29c4a57b2c5a9225237"
+              },
+              {
+                "bytes": 32771,
+                "mode": 420,
+                "path": "random",
+                "sha256": "5e2936d3f993f969bd08b401e42b60e7a596c37da11012bac50962b4cb9e76d4"
+              },
+              {
+                "bytes": 11308,
+                "mode": 420,
+                "path": "text",
+                "sha256": "00b3645c5fdf8713522cb3eb9c6f27bd79347eb88f33abdb6729703752433539"
+              }
+            ]
+          }
+        },
+        {
+          "applet": "lz4",
+          "name": "compress-high",
+          "result": {
+            "status": 0,
+            "stderr_length": 157,
+            "stderr_sha256": "639fdbcccd7fc82a5fe85a72b607ce389631cac6d6fb8817baca1fde9840b86b",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 8448,
+                "mode": 420,
+                "path": "binary",
+                "sha256": "2b787fd8a97e93a673e76a1758cd98d99e7709e0fc2ef029a1a610c6477303cc"
+              },
+              {
+                "bytes": 0,
+                "mode": 420,
+                "path": "empty",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              {
+                "bytes": 413,
+                "mode": 420,
+                "path": "high.lz4",
+                "sha256": "6aeac82543d41ac4c9bbf5e950bcf3343f755a450f407328a6c6ddc19bed220e"
+              },
+              {
+                "bytes": 32771,
+                "mode": 420,
+                "path": "random",
+                "sha256": "5e2936d3f993f969bd08b401e42b60e7a596c37da11012bac50962b4cb9e76d4"
+              },
+              {
+                "bytes": 11308,
+                "mode": 420,
+                "path": "text",
+                "sha256": "00b3645c5fdf8713522cb3eb9c6f27bd79347eb88f33abdb6729703752433539"
+              }
+            ]
+          }
+        },
+        {
+          "applet": "lz4",
+          "name": "compress-fast",
+          "result": {
+            "status": 0,
+            "stderr_length": 157,
+            "stderr_sha256": "feace33f775cb7c51037817cce421790de8612ba60c6ca45945b2b5ecdad673f",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 8448,
+                "mode": 420,
+                "path": "binary",
+                "sha256": "2b787fd8a97e93a673e76a1758cd98d99e7709e0fc2ef029a1a610c6477303cc"
+              },
+              {
+                "bytes": 0,
+                "mode": 420,
+                "path": "empty",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              {
+                "bytes": 205,
+                "mode": 420,
+                "path": "fast.lz4",
+                "sha256": "db8e67215c7a3d1d6389cd0bf9ff7a8a6fdd47aa731ca73929c270a93b752c11"
+              },
+              {
+                "bytes": 32771,
+                "mode": 420,
+                "path": "random",
+                "sha256": "5e2936d3f993f969bd08b401e42b60e7a596c37da11012bac50962b4cb9e76d4"
+              },
+              {
+                "bytes": 11308,
+                "mode": 420,
+                "path": "text",
+                "sha256": "00b3645c5fdf8713522cb3eb9c6f27bd79347eb88f33abdb6729703752433539"
+              }
+            ]
+          }
+        },
+        {
+          "applet": "lz4",
+          "name": "compress-independent",
+          "result": {
+            "status": 0,
+            "stderr_length": 185,
+            "stderr_sha256": "237d1ab00a4d1515affc070ed888baae3a863cf5bc0d19f2aa134e8b4548f910",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 8448,
+                "mode": 420,
+                "path": "binary",
+                "sha256": "2b787fd8a97e93a673e76a1758cd98d99e7709e0fc2ef029a1a610c6477303cc"
+              },
+              {
+                "bytes": 0,
+                "mode": 420,
+                "path": "empty",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              {
+                "bytes": 124,
+                "mode": 420,
+                "path": "independent.lz4",
+                "sha256": "aebf24c75d9c2bb376606d9cfd27f708c5b1104785cd31b98b9fa7c1202341ea"
+              },
+              {
+                "bytes": 32771,
+                "mode": 420,
+                "path": "random",
+                "sha256": "5e2936d3f993f969bd08b401e42b60e7a596c37da11012bac50962b4cb9e76d4"
+              },
+              {
+                "bytes": 11308,
+                "mode": 420,
+                "path": "text",
+                "sha256": "00b3645c5fdf8713522cb3eb9c6f27bd79347eb88f33abdb6729703752433539"
+              }
+            ]
+          }
+        },
+        {
+          "applet": "lz4c",
+          "name": "compress-legacy",
+          "result": {
+            "status": 0,
+            "stderr_length": 156,
+            "stderr_sha256": "418e48876c662891c0d45e0cf6ea30220baea05f5f77441c692bc4fc08638c9a",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 8448,
+                "mode": 420,
+                "path": "binary",
+                "sha256": "2b787fd8a97e93a673e76a1758cd98d99e7709e0fc2ef029a1a610c6477303cc"
+              },
+              {
+                "bytes": 0,
+                "mode": 420,
+                "path": "empty",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              {
+                "bytes": 109,
+                "mode": 420,
+                "path": "legacy.lz4",
+                "sha256": "9d0fc3d0cabd0c3fd3caba4d2d878815e4ecda33a6a30cfb741bc34a3a2683dd"
+              },
+              {
+                "bytes": 32771,
+                "mode": 420,
+                "path": "random",
+                "sha256": "5e2936d3f993f969bd08b401e42b60e7a596c37da11012bac50962b4cb9e76d4"
+              },
+              {
+                "bytes": 11308,
+                "mode": 420,
+                "path": "text",
+                "sha256": "00b3645c5fdf8713522cb3eb9c6f27bd79347eb88f33abdb6729703752433539"
+              }
+            ]
+          }
+        },
+        {
+          "applet": "lz4",
+          "name": "compress-stdout",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 318,
+            "stdout_sha256": "3c936e798342b73882e8ab68bb360b1d7130f447036748e5594aabfd55a25549",
+            "tree": [
+              {
+                "bytes": 8448,
+                "mode": 420,
+                "path": "binary",
+                "sha256": "2b787fd8a97e93a673e76a1758cd98d99e7709e0fc2ef029a1a610c6477303cc"
+              },
+              {
+                "bytes": 0,
+                "mode": 420,
+                "path": "empty",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              {
+                "bytes": 32771,
+                "mode": 420,
+                "path": "random",
+                "sha256": "5e2936d3f993f969bd08b401e42b60e7a596c37da11012bac50962b4cb9e76d4"
+              },
+              {
+                "bytes": 11308,
+                "mode": 420,
+                "path": "text",
+                "sha256": "00b3645c5fdf8713522cb3eb9c6f27bd79347eb88f33abdb6729703752433539"
+              }
+            ]
+          }
+        },
+        {
+          "applet": "lz4",
+          "name": "compress-stdin",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 120,
+            "stdout_sha256": "d13b8185065ff96d73132f20af1f4aa9d3c477334f36876a3422dae615cc04eb",
+            "tree": []
+          }
+        },
+        {
+          "applet": "lz4",
+          "name": "decompress-file",
+          "result": {
+            "status": 0,
+            "stderr_length": 158,
+            "stderr_sha256": "9b10e5cae3d704e3a89d5c29148cc386da6692dfcf5f9225555268f1b31041e9",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 8448,
+                "mode": 420,
+                "path": "binary",
+                "sha256": "2b787fd8a97e93a673e76a1758cd98d99e7709e0fc2ef029a1a610c6477303cc"
+              },
+              {
+                "bytes": 11308,
+                "mode": 420,
+                "path": "decoded",
+                "sha256": "00b3645c5fdf8713522cb3eb9c6f27bd79347eb88f33abdb6729703752433539"
+              },
+              {
+                "bytes": 0,
+                "mode": 420,
+                "path": "empty",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              {
+                "bytes": 32771,
+                "mode": 420,
+                "path": "random",
+                "sha256": "5e2936d3f993f969bd08b401e42b60e7a596c37da11012bac50962b4cb9e76d4"
+              },
+              {
+                "bytes": 11308,
+                "mode": 420,
+                "path": "text",
+                "sha256": "00b3645c5fdf8713522cb3eb9c6f27bd79347eb88f33abdb6729703752433539"
+              },
+              {
+                "bytes": 120,
+                "mode": 420,
+                "path": "text.lz4",
+                "sha256": "d13b8185065ff96d73132f20af1f4aa9d3c477334f36876a3422dae615cc04eb"
+              }
+            ]
+          }
+        },
+        {
+          "applet": "lz4",
+          "name": "decompress-stdout",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 8448,
+            "stdout_sha256": "2b787fd8a97e93a673e76a1758cd98d99e7709e0fc2ef029a1a610c6477303cc",
+            "tree": [
+              {
+                "bytes": 8448,
+                "mode": 420,
+                "path": "binary",
+                "sha256": "2b787fd8a97e93a673e76a1758cd98d99e7709e0fc2ef029a1a610c6477303cc"
+              },
+              {
+                "bytes": 318,
+                "mode": 420,
+                "path": "binary.lz4",
+                "sha256": "3c936e798342b73882e8ab68bb360b1d7130f447036748e5594aabfd55a25549"
+              },
+              {
+                "bytes": 0,
+                "mode": 420,
+                "path": "empty",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              {
+                "bytes": 32771,
+                "mode": 420,
+                "path": "random",
+                "sha256": "5e2936d3f993f969bd08b401e42b60e7a596c37da11012bac50962b4cb9e76d4"
+              },
+              {
+                "bytes": 11308,
+                "mode": 420,
+                "path": "text",
+                "sha256": "00b3645c5fdf8713522cb3eb9c6f27bd79347eb88f33abdb6729703752433539"
+              }
+            ]
+          }
+        },
+        {
+          "applet": "unlz4",
+          "name": "unlz4-file",
+          "result": {
+            "status": 0,
+            "stderr_length": 158,
+            "stderr_sha256": "9b10e5cae3d704e3a89d5c29148cc386da6692dfcf5f9225555268f1b31041e9",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 8448,
+                "mode": 420,
+                "path": "binary",
+                "sha256": "2b787fd8a97e93a673e76a1758cd98d99e7709e0fc2ef029a1a610c6477303cc"
+              },
+              {
+                "bytes": 11308,
+                "mode": 420,
+                "path": "decoded",
+                "sha256": "00b3645c5fdf8713522cb3eb9c6f27bd79347eb88f33abdb6729703752433539"
+              },
+              {
+                "bytes": 0,
+                "mode": 420,
+                "path": "empty",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              {
+                "bytes": 32771,
+                "mode": 420,
+                "path": "random",
+                "sha256": "5e2936d3f993f969bd08b401e42b60e7a596c37da11012bac50962b4cb9e76d4"
+              },
+              {
+                "bytes": 11308,
+                "mode": 420,
+                "path": "text",
+                "sha256": "00b3645c5fdf8713522cb3eb9c6f27bd79347eb88f33abdb6729703752433539"
+              },
+              {
+                "bytes": 120,
+                "mode": 420,
+                "path": "text.lz4",
+                "sha256": "d13b8185065ff96d73132f20af1f4aa9d3c477334f36876a3422dae615cc04eb"
+              }
+            ]
+          }
+        },
+        {
+          "applet": "lz4cat",
+          "name": "lz4cat-file",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 11308,
+            "stdout_sha256": "00b3645c5fdf8713522cb3eb9c6f27bd79347eb88f33abdb6729703752433539",
+            "tree": [
+              {
+                "bytes": 8448,
+                "mode": 420,
+                "path": "binary",
+                "sha256": "2b787fd8a97e93a673e76a1758cd98d99e7709e0fc2ef029a1a610c6477303cc"
+              },
+              {
+                "bytes": 0,
+                "mode": 420,
+                "path": "empty",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              {
+                "bytes": 32771,
+                "mode": 420,
+                "path": "random",
+                "sha256": "5e2936d3f993f969bd08b401e42b60e7a596c37da11012bac50962b4cb9e76d4"
+              },
+              {
+                "bytes": 11308,
+                "mode": 420,
+                "path": "text",
+                "sha256": "00b3645c5fdf8713522cb3eb9c6f27bd79347eb88f33abdb6729703752433539"
+              },
+              {
+                "bytes": 120,
+                "mode": 420,
+                "path": "text.lz4",
+                "sha256": "d13b8185065ff96d73132f20af1f4aa9d3c477334f36876a3422dae615cc04eb"
+              }
+            ]
+          }
+        },
+        {
+          "applet": "lz4",
+          "name": "list-frame",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 156,
+            "stdout_sha256": "e4e99124e2917cb6df04946ea8922f2f186286cda0004abac768dff3b642f115",
+            "tree": [
+              {
+                "bytes": 8448,
+                "mode": 420,
+                "path": "binary",
+                "sha256": "2b787fd8a97e93a673e76a1758cd98d99e7709e0fc2ef029a1a610c6477303cc"
+              },
+              {
+                "bytes": 0,
+                "mode": 420,
+                "path": "empty",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              {
+                "bytes": 32771,
+                "mode": 420,
+                "path": "random",
+                "sha256": "5e2936d3f993f969bd08b401e42b60e7a596c37da11012bac50962b4cb9e76d4"
+              },
+              {
+                "bytes": 11308,
+                "mode": 420,
+                "path": "text",
+                "sha256": "00b3645c5fdf8713522cb3eb9c6f27bd79347eb88f33abdb6729703752433539"
+              },
+              {
+                "bytes": 120,
+                "mode": 420,
+                "path": "text.lz4",
+                "sha256": "d13b8185065ff96d73132f20af1f4aa9d3c477334f36876a3422dae615cc04eb"
+              }
+            ]
+          }
+        },
+        {
+          "applet": "lz4",
+          "name": "list-legacy",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 158,
+            "stdout_sha256": "23a73dc7ee3311f6d5aab2a807ba20393a4b5d34522549003df90f72aa79afd0",
+            "tree": [
+              {
+                "bytes": 8448,
+                "mode": 420,
+                "path": "binary",
+                "sha256": "2b787fd8a97e93a673e76a1758cd98d99e7709e0fc2ef029a1a610c6477303cc"
+              },
+              {
+                "bytes": 0,
+                "mode": 420,
+                "path": "empty",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              {
+                "bytes": 109,
+                "mode": 420,
+                "path": "legacy.lz4",
+                "sha256": "9d0fc3d0cabd0c3fd3caba4d2d878815e4ecda33a6a30cfb741bc34a3a2683dd"
+              },
+              {
+                "bytes": 32771,
+                "mode": 420,
+                "path": "random",
+                "sha256": "5e2936d3f993f969bd08b401e42b60e7a596c37da11012bac50962b4cb9e76d4"
+              },
+              {
+                "bytes": 11308,
+                "mode": 420,
+                "path": "text",
+                "sha256": "00b3645c5fdf8713522cb3eb9c6f27bd79347eb88f33abdb6729703752433539"
+              }
+            ]
+          }
+        },
+        {
+          "applet": "lz4",
+          "name": "multiple-inputs",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 8448,
+                "mode": 420,
+                "path": "binary",
+                "sha256": "2b787fd8a97e93a673e76a1758cd98d99e7709e0fc2ef029a1a610c6477303cc"
+              },
+              {
+                "bytes": 318,
+                "mode": 420,
+                "path": "binary.lz4",
+                "sha256": "3c936e798342b73882e8ab68bb360b1d7130f447036748e5594aabfd55a25549"
+              },
+              {
+                "bytes": 0,
+                "mode": 420,
+                "path": "empty",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              {
+                "bytes": 32771,
+                "mode": 420,
+                "path": "random",
+                "sha256": "5e2936d3f993f969bd08b401e42b60e7a596c37da11012bac50962b4cb9e76d4"
+              },
+              {
+                "bytes": 11308,
+                "mode": 420,
+                "path": "text",
+                "sha256": "00b3645c5fdf8713522cb3eb9c6f27bd79347eb88f33abdb6729703752433539"
+              },
+              {
+                "bytes": 120,
+                "mode": 420,
+                "path": "text.lz4",
+                "sha256": "d13b8185065ff96d73132f20af1f4aa9d3c477334f36876a3422dae615cc04eb"
+              }
+            ]
+          }
+        },
+        {
+          "applet": "lz4",
+          "name": "force-output",
+          "result": {
+            "status": 0,
+            "stderr_length": 157,
+            "stderr_sha256": "a77cfb42e5ed10af2d87acacf91c8b77b64c0ed135d60daaa3c170436649c22a",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 8448,
+                "mode": 420,
+                "path": "binary",
+                "sha256": "2b787fd8a97e93a673e76a1758cd98d99e7709e0fc2ef029a1a610c6477303cc"
+              },
+              {
+                "bytes": 0,
+                "mode": 420,
+                "path": "empty",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              {
+                "bytes": 120,
+                "mode": 420,
+                "path": "output.lz4",
+                "sha256": "d13b8185065ff96d73132f20af1f4aa9d3c477334f36876a3422dae615cc04eb"
+              },
+              {
+                "bytes": 32771,
+                "mode": 420,
+                "path": "random",
+                "sha256": "5e2936d3f993f969bd08b401e42b60e7a596c37da11012bac50962b4cb9e76d4"
+              },
+              {
+                "bytes": 11308,
+                "mode": 420,
+                "path": "text",
+                "sha256": "00b3645c5fdf8713522cb3eb9c6f27bd79347eb88f33abdb6729703752433539"
+              }
+            ]
+          }
+        },
+        {
+          "applet": "lz4",
+          "name": "missing-input",
+          "result": {
+            "status": 1,
+            "stderr_length": 36,
+            "stderr_sha256": "87b130c4c3cdf0e68177626f7898d1fb66fdb9675e3aa3a834498db2175dab9c",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": []
+          }
+        },
+        {
+          "applet": "lz4",
+          "name": "invalid-frame",
+          "result": {
+            "status": 44,
+            "stderr_length": 57,
+            "stderr_sha256": "5f7b01bab7000d85ce45cc6316c06ce2a0898b479178788f52a521c23a6eb84f",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 17,
+                "mode": 420,
+                "path": "invalid",
+                "sha256": "65a0430abd6a675156d5c067c6135877ebe14732f91b6fc73db2f4a56bfaca88"
+              }
+            ]
+          }
+        },
+        {
+          "applet": "lz4",
+          "name": "unknown-option",
+          "result": {
+            "status": 1,
+            "stderr_length": 567,
+            "stderr_sha256": "99ccec2747980f29da9cead015b7f2d2ea4c082ffadb60f1ef66f323691d68c8",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": []
+          }
+        }
+      ],
+      "schema": 1
+    },
+    "differential_sha256": "cbf88eb2b2e6aaee7e79fbf11ea62d6ffa2f291f66daacfc03b6628d3f275047",
+    "upstream_essentials": "pass",
+    "upstream_log_sha256": "f15fb657569c75867ba9a46d8109c08e151cb45fc2946c3331db6835e89a0fb2",
+    "upstream_markers": [
+      "test lz4 basic compression/decompression",
+      "test command line options",
+      "test --list",
+      "test lz4 multithreaded compression",
+      "make: Leaving directory"
+    ],
+    "valgrind": {
+      "compress": {
+        "all_allocations_freed": true,
+        "errors": 0,
+        "heap_summary": {
+          "canonical": "total heap usage: 9 allocs, 9 frees, 8,410,567 bytes allocated",
+          "hybrid": "total heap usage: 9 allocs, 9 frees, 8,410,567 bytes allocated"
+        },
+        "log_sha256": {
+          "canonical": "ec5810b6ec22e3c0e6e8b76482a67ab018b6ebe70d9357829dece152b661382d",
+          "hybrid": "dcb36760241a36a512f54a9a8734ae43244a6ad5239955c7a0f85a3ddcfc9f1e"
+        },
+        "translation_overhead": "none"
+      },
+      "decompress": {
+        "all_allocations_freed": true,
+        "errors": 0,
+        "heap_summary": {
+          "canonical": "total heap usage: 29 allocs, 29 frees, 29,633,156 bytes allocated",
+          "hybrid": "total heap usage: 29 allocs, 29 frees, 29,633,220 bytes allocated"
+        },
+        "log_sha256": {
+          "canonical": "07a460396ef71d25462bfcf3a35a2b233e6c55938f3b34abd7800f24cf4a9a60",
+          "hybrid": "f718d3785b5a297fc0795798da54514706d716f357726b7cdf2b55219407e331"
+        },
+        "translation_overhead": "one fully freed 64-byte Rust process-startup allocation"
+      }
+    }
+  },
+  "configuration": {
+    "external_liblz4": false,
+    "f128": false,
+    "selinux": false,
+    "systemd": false
+  },
+  "implementation": {
+    "c_abi_glue": "entrypoint only",
+    "embedded_liblz4_and_xxhash": true,
+    "entrypoints": [
+      "rustbox_lz4_main"
+    ],
+    "generated_rust_semantic_repairs": 0,
+    "public_names": [
+      "lz4",
+      "lz4c",
+      "lz4cat",
+      "unlz4"
+    ],
+    "rust_files": 14,
+    "rust_production_sources": 12
+  },
+  "input_evidence": {
+    "lz4-1.11.1-analysis.json": "d6a2a5c3f4adfb523f004afadd765668953ddd80f14ff85e1bd7b2fe0e3713a0",
+    "lz4-1.11.1-c2rust.json": "2b5004de8e6ab11854aea0bfd344dacc72179b3e4d4bfab41e960e24542f8dbe",
+    "lz4-1.11.1-normalization.json": "e36599b936bfd5e774ffd79b5dbcea234e3c80748838e0f8105828c2ce82892f",
+    "lz4-1.11.1-oracle.json": "2d71aad50fd3a5121292ea4f7834c3e8c9ef1b4400a3ffd854358eef1b3ffba3"
+  },
+  "next_gate": "link all four public names through the unified Rustbox dispatcher",
+  "recorded_at": "2026-11-21",
+  "release": "1.11.1",
+  "schema": 1,
+  "size": {
+    "canonical_stripped_bytes": 282848,
+    "dynamic_needed": [
+      "libm.so.6",
+      "libgcc_s.so.1",
+      "libc.so.6",
+      "ld-linux-x86-64.so.2"
+    ],
+    "interpretation": "The static archive is link inventory, not release size; Rust runtime code is shared after multicall integration.",
+    "linked_sha256": "422e72ee0800ec853af7dee685d4240a276b91823e842bf128fe9122dd95bdcd",
+    "linked_stripped_bytes": 586784,
+    "linked_unstripped_bytes": 4754272,
+    "sections": {
+      "bss": 6592,
+      "data": 2584,
+      "rodata": 48624,
+      "text": 452638
+    },
+    "stripped_sha256": "8ba321d6f8930d582b08e472e891c37f6ec9a88dd5aa88a1e40bd38521ddc82a",
+    "translation_static_archive_bytes": 23956122
+  },
+  "status": "complete translated hybrid at canonical parity; multicall integration pending"
+}

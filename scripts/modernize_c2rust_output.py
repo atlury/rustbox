@@ -34,8 +34,15 @@ NO_MANGLE_STATIC = re.compile(
     r'(?=(?:#\[[^\n]+\]\n)*pub\s+static\s+(?:mut\s+)?'
     r'([A-Za-z_][A-Za-z0-9_]*)\s*:)'
 )
+ATOMIC_XCHG_ACQUIRE_I32 = re.compile(
+    r"::core::intrinsics::atomic_xchg_acquire\(\n"
+    r"(?P<indent>\s*)&raw mut (?P<name>[A-Za-z_][A-Za-z0-9_]*),\n"
+    r"(?P=indent)(?P<value>[^\n]+ as ::core::ffi::c_int),\n"
+    r"(?P<close>\s*)\)"
+)
 REMOVED_FEATURES = {
     "#![feature(c_variadic)]",
+    "#![feature(core_intrinsics)]",
     "#![feature(extern_types)]",
     "#![feature(label_break_value)]",
     "#![feature(linkage)]",
@@ -103,7 +110,7 @@ def alias_has_only_pointer_uses(
     if name in visited:
         return False
     descendants = visited | {name}
-    for line in lines:
+    for index, line in enumerate(lines):
         if not re.search(rf"\b{re.escape(name)}\b", line):
             continue
         alias = TYPE_ALIAS.match(line)
@@ -114,7 +121,12 @@ def alias_has_only_pointer_uses(
                 return False
             continue
         if not has_only_pointer_uses(line, name):
-            return False
+            # C2Rust can line-wrap null_mut::<Opaque,>() and raw-pointer type
+            # arguments.  Classify the complete local construct rather than
+            # treating the continuation line as a by-value opaque use.
+            context = "\n".join(lines[max(0, index - 2):index + 3])
+            if not has_only_pointer_uses(context, name):
+                return False
     return True
 
 
@@ -269,6 +281,31 @@ def transform_rust(path: Path) -> dict[str, object] | None:
         for line in kept
     ]
 
+    # GCC's __sync_lock_test_and_set on a volatile sig_atomic_t becomes the
+    # old internal atomic_xchg_acquire intrinsic.  For C int, AtomicI32::swap
+    # has the same aligned atomic exchange and acquire ordering on stable Rust.
+    # Keep this deliberately narrow: any other type/shape remains visible as
+    # an unsupported intrinsic instead of being guessed at.
+    joined = "\n".join(kept)
+    atomic_xchg_acquire_rewrites = 0
+
+    def stable_atomic_exchange(match: re.Match[str]) -> str:
+        nonlocal atomic_xchg_acquire_rewrites
+        atomic_xchg_acquire_rewrites += 1
+        indent = match.group("indent")
+        return (
+            "::core::sync::atomic::AtomicI32::from_ptr(\n"
+            f"{indent}&raw mut {match.group('name')},\n"
+            f"{match.group('close')})\n"
+            f"{indent}.swap(\n"
+            f"{indent}    {match.group('value')},\n"
+            f"{indent}    ::core::sync::atomic::Ordering::Acquire,\n"
+            f"{indent})"
+        )
+
+    joined = ATOMIC_XCHG_ACQUIRE_I32.sub(stable_atomic_exchange, joined)
+    kept = joined.splitlines()
+
     definitions: list[str] = []
     for name in opaque:
         definitions.extend(
@@ -292,6 +329,7 @@ def transform_rust(path: Path) -> dict[str, object] | None:
         "va_list_impl_rewrites": va_list_impl_rewrites,
         "as_va_list_rewrites": as_va_list_rewrites,
         "va_arg_rewrites": va_arg_rewrites,
+        "atomic_xchg_acquire_i32_rewrites": atomic_xchg_acquire_rewrites,
     }
     if external_linkage_attributes:
         result["external_linkage_attributes_removed"] = external_linkage_attributes

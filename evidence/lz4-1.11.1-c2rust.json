@@ -1,0 +1,299 @@
+{
+  "configuration": {
+    "external_liblz4": false,
+    "selinux": false,
+    "systemd": false
+  },
+  "dependencies": {
+    "f128_removed_by_verified_c_normalization": true,
+    "rust_crates": [
+      "libc"
+    ]
+  },
+  "hardening": {
+    "later_order": [
+      "eliminate raw pointers and unsafe",
+      "replace std and libc crate use with Rustbox-owned no_std runtime"
+    ],
+    "raw_pointers_and_unsafe_are_inventory_only": true
+  },
+  "input": {
+    "compile_commands": 12,
+    "compile_database_sha256": "8d01603c35de2a1ab3a47af06cdefb37085f464b2ee0fc72f9e019551ce397ea",
+    "normalization_evidence_sha256": "e36599b936bfd5e774ffd79b5dbcea234e3c80748838e0f8105828c2ce82892f",
+    "normalization_tree_sha256": "d9c2b182c50a6fa814d71fdd7eaca9699b532e4efbd5deb3b8ad50477a59ebe1",
+    "production_sources": [
+      "lib/lz4.c",
+      "lib/lz4file.c",
+      "lib/lz4frame.c",
+      "lib/lz4hc.c",
+      "lib/xxhash.c",
+      "programs/bench.c",
+      "programs/lorem.c",
+      "programs/lz4cli.c",
+      "programs/lz4io.c",
+      "programs/threadpool.c",
+      "programs/timefn.c",
+      "programs/util.c"
+    ]
+  },
+  "next_gate": "link rustbox_lz4_main and retain canonical parity in the unified multicall executable",
+  "raw_translation": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "04c51456db4169dfe8c00616fea918555d0ee89c83ac1bd6b65e9cd25e62b75d",
+      "cargo_toml_sha256": "34ba208b41303e5feba8c612d27bfef9079f9596790268cff092202bf5ea0562",
+      "diagnostics_by_level": {
+        "warning": 40
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "00ef980094b360abdeb70836200a6751d21119bc5951bf74b887b7e6795bc5e7",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "stable_features": 1,
+        "unreachable_code": 2,
+        "unused_imports": 2,
+        "unused_must_use": 6,
+        "unused_parens": 5,
+        "unused_variables": 23
+      }
+    },
+    "compile_error_macros": 0,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "14cfde86c17420c07a45b2f56f7839380a95bee9601f0edd55f5884ea03f8536",
+      "src/lib/lz4.rs": "3686422db63d591a624ac3745f0654cc8c219c8ed764a4f07b7ea5cd0ab1064b",
+      "src/lib/lz4file.rs": "22e29ef0c063438988263eea4c35e4e0fb631d8b5b59a948c5e17613a56cccf7",
+      "src/lib/lz4frame.rs": "1ac49b82138e5140119b1984c4f309b25a29023ba2952e0b900cd6ac4f46e3a8",
+      "src/lib/lz4hc.rs": "7d193b8f8c03361bfcb1fc545a74ce0cc79263ba7ec47fd5411991fc5a248d12",
+      "src/lib/xxhash.rs": "036c71f984c5e7d10aea56cee61a0aeaf7d1255441531b7699c3b8a984ace067",
+      "src/programs/bench.rs": "b80a9c02ea17e55495e038b5c261dc88564b1f94605efba18e15c15bd623d013",
+      "src/programs/lorem.rs": "33ab65b16ac2d0244d88d9c05029429f1929124365c237a966d009f682eaea66",
+      "src/programs/lz4cli.rs": "f2225c5b9a0d89c8f1e9afb40d17620fec74b958ae63b535d084e287c3793138",
+      "src/programs/lz4io.rs": "14a08342c6f23e628b94c764d5ed7db6555701b851aad52398af915677390a06",
+      "src/programs/threadpool.rs": "e4e554b8b87f7d033bfbd1d8d813d13930bbe53a9243eef936b6dcd00e3c4499",
+      "src/programs/timefn.rs": "78e376bb53ed859f2ccc7814e54e57be4c5dc97a6e8cb659ed5b8b8f8800bdb9",
+      "src/programs/util.rs": "03656c1c7746d361c3e50dc8bda72ef343e6167b5049e520cbe1177395b951eb"
+    },
+    "panic_macros": 0,
+    "raw_pointer_type_occurrences": 7103,
+    "rust_bytes": 1428843,
+    "rust_files": 14,
+    "rust_lines": 36046,
+    "todo_macros": 0,
+    "unimplemented_macros": 0,
+    "unsafe_block_occurrences": 18,
+    "unsafe_function_occurrences": 870
+  },
+  "recorded_at": "2026-11-21",
+  "release": "1.11.1",
+  "schema": 1,
+  "stable_translation": {
+    "archive": {
+      "bytes": 23956122,
+      "entrypoint_definition_counts": {
+        "rustbox_lz4_main": 1
+      },
+      "sha256": "779209b0e860728ce9bc73fad12a8df323af367c245c9ffd5ac0ae4b303bb39b"
+    },
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+      "cargo_lock_sha256": "11d21e90bf64c9160d4e066b858a6c515fe33fc18140064d76df21f0b4f55652",
+      "cargo_toml_sha256": "34ba208b41303e5feba8c612d27bfef9079f9596790268cff092202bf5ea0562",
+      "diagnostics_by_level": {
+        "warning": 39
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+      "schema": 1,
+      "stderr_sha256": "0a0c4b652a365d360d70d8be9bd8afcc9b4a4ef4b6f2aa897e34e6542ed022b7",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "suspicious_runtime_symbol_definitions": 1,
+        "unreachable_code": 2,
+        "unused_imports": 2,
+        "unused_must_use": 6,
+        "unused_parens": 5,
+        "unused_variables": 23
+      }
+    },
+    "compile_error_macros": 0,
+    "file_sha256": {
+      "build.rs": "d8d8a186067c32010920faeaa773571dba8c14fb40b95eb7de41af240b70d5e3",
+      "lib.rs": "711b3c91d0c2f48e28b0c23121595c8560b4cabc303c380e0cf621a618de2b01",
+      "src/lib/lz4.rs": "3686422db63d591a624ac3745f0654cc8c219c8ed764a4f07b7ea5cd0ab1064b",
+      "src/lib/lz4file.rs": "f3597bff838bd3eb60dc32d3cd2009799f8f1ddd8aae8d7b9d0a9925ebe14fc9",
+      "src/lib/lz4frame.rs": "1ac49b82138e5140119b1984c4f309b25a29023ba2952e0b900cd6ac4f46e3a8",
+      "src/lib/lz4hc.rs": "7d193b8f8c03361bfcb1fc545a74ce0cc79263ba7ec47fd5411991fc5a248d12",
+      "src/lib/xxhash.rs": "036c71f984c5e7d10aea56cee61a0aeaf7d1255441531b7699c3b8a984ace067",
+      "src/programs/bench.rs": "f020cc28721988071ba99812cb3133daced50026334798c812d7e93a547f15da",
+      "src/programs/lorem.rs": "33ab65b16ac2d0244d88d9c05029429f1929124365c237a966d009f682eaea66",
+      "src/programs/lz4cli.rs": "e17721a9d793f0c03a271164d3d3a479b77957ea74ba71ccbf8fe359537c6450",
+      "src/programs/lz4io.rs": "b38451ac6ca122a34ab816f2b57dca669b345f00364aae043252b0083242a830",
+      "src/programs/threadpool.rs": "e4e554b8b87f7d033bfbd1d8d813d13930bbe53a9243eef936b6dcd00e3c4499",
+      "src/programs/timefn.rs": "2425e34588b81c21b01a0f48f4897b0443b358c04c1de342663e5a3dfaefae00",
+      "src/programs/util.rs": "06b0ecdeda70773bb5d6ef0b490ec78c5a73d51c6242943b2da55a6a7e79e1aa"
+    },
+    "modernization": {
+      "changes": [
+        {
+          "after_sha256": "711b3c91d0c2f48e28b0c23121595c8560b4cabc303c380e0cf621a618de2b01",
+          "as_va_list_rewrites": 0,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "14cfde86c17420c07a45b2f56f7839380a95bee9601f0edd55f5884ea03f8536",
+          "opaque_pointer_types": [],
+          "path": "lib.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "f3597bff838bd3eb60dc32d3cd2009799f8f1ddd8aae8d7b9d0a9925ebe14fc9",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "22e29ef0c063438988263eea4c35e4e0fb631d8b5b59a948c5e17613a56cccf7",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "LZ4F_cctx_s",
+            "LZ4F_dctx_s"
+          ],
+          "path": "src/lib/lz4file.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "f020cc28721988071ba99812cb3133daced50026334798c812d7e93a547f15da",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "b80a9c02ea17e55495e038b5c261dc88564b1f94605efba18e15c15bd623d013",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "__dirstream",
+            "LZ4F_cctx_s",
+            "LZ4F_dctx_s",
+            "LZ4F_CDict_s"
+          ],
+          "path": "src/programs/bench.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "e17721a9d793f0c03a271164d3d3a479b77957ea74ba71ccbf8fe359537c6450",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "f2225c5b9a0d89c8f1e9afb40d17620fec74b958ae63b535d084e287c3793138",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "__dirstream",
+            "LZ4IO_prefs_s"
+          ],
+          "path": "src/programs/lz4cli.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "b38451ac6ca122a34ab816f2b57dca669b345f00364aae043252b0083242a830",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 1,
+          "before_sha256": "14a08342c6f23e628b94c764d5ed7db6555701b851aad52398af915677390a06",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "__dirstream",
+            "LZ4F_cctx_s",
+            "LZ4F_dctx_s",
+            "LZ4F_CDict_s",
+            "TPool_s"
+          ],
+          "path": "src/programs/lz4io.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "2425e34588b81c21b01a0f48f4897b0443b358c04c1de342663e5a3dfaefae00",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "78e376bb53ed859f2ccc7814e54e57be4c5dc97a6e8cb659ed5b8b8f8800bdb9",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker"
+          ],
+          "path": "src/programs/timefn.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        },
+        {
+          "after_sha256": "06b0ecdeda70773bb5d6ef0b490ec78c5a73d51c6242943b2da55a6a7e79e1aa",
+          "as_va_list_rewrites": 1,
+          "atomic_xchg_acquire_i32_rewrites": 0,
+          "before_sha256": "03656c1c7746d361c3e50dc8bda72ef343e6167b5049e520cbe1177395b951eb",
+          "opaque_pointer_types": [
+            "_IO_wide_data",
+            "_IO_codecvt",
+            "_IO_marker",
+            "__dirstream"
+          ],
+          "path": "src/programs/util.rs",
+          "raw_static_pointer_rewrites": [],
+          "va_arg_rewrites": 0,
+          "va_list_impl_rewrites": 0
+        }
+      ],
+      "input_cargo_sha256": "34ba208b41303e5feba8c612d27bfef9079f9596790268cff092202bf5ea0562",
+      "schema": 1,
+      "stable_toolchain": "1.99.0"
+    },
+    "modernization_manifest_sha256": "f72e9c42094686ee8cf2f96baa1d04acb51f66fc531073bd4064b89ad51044b3",
+    "panic_macros": 0,
+    "raw_pointer_type_occurrences": 7103,
+    "rust_bytes": 1429907,
+    "rust_files": 14,
+    "rust_lines": 36141,
+    "todo_macros": 0,
+    "unimplemented_macros": 0,
+    "unsafe_block_occurrences": 18,
+    "unsafe_function_occurrences": 870
+  },
+  "status": "complete stable translation compiles without holes; hybrid parity verified separately",
+  "translator": {
+    "declaration_map_emission": {
+      "enabled": false,
+      "partial_maps_accepted": false
+    },
+    "fail_on_error": true,
+    "generated_rust_semantic_repairs": 0,
+    "name": "C2Rust",
+    "normalized_c_sources": 3,
+    "preserve_unused_functions": true,
+    "raw_compile_metadata": {
+      "compiler_crate_attribute": "feature(c_variadic)",
+      "reason": "C2Rust emitted VaList declarations but omitted their historical-nightly crate feature",
+      "source_unchanged": true
+    },
+    "stable_atomic_mapping": {
+      "count": 1,
+      "from": "core::intrinsics::atomic_xchg_acquire on C sig_atomic_t",
+      "to": "AtomicI32::swap with Ordering::Acquire"
+    },
+    "version": "0.22.1"
+  }
+}

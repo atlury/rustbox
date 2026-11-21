@@ -103,6 +103,20 @@ def main() -> int:
             ),
         ):
             replace_once(frame, line, line.replace("memcpy", "if (dstSize != 0) memcpy"), label)
+        io = staged / "programs/lz4io.c"
+        replace_once(
+            io,
+            "static const char* LZ4IO_toHuman(long double size, char* buf)",
+            "static const char* LZ4IO_toHuman(double size, char* buf)",
+            "variadic-compatible human-size value",
+        )
+        text = io.read_text()
+        if text.count("(long double)") != 2:
+            raise RuntimeError("LZ4 human-size call-site precondition failed")
+        text = text.replace("(long double)", "(double)")
+        if text.count('"%.2Lf%c"') != 1:
+            raise RuntimeError("LZ4 human-size format precondition failed")
+        io.write_text(text.replace('"%.2Lf%c"', '"%.2f%c"'))
 
         canonical_files = {
             path.relative_to(canonical).as_posix() for path in canonical.rglob("*") if path.is_file()
@@ -115,7 +129,7 @@ def main() -> int:
         changed = sorted(
             name for name in canonical_files if sha256(canonical / name) != sha256(staged / name)
         )
-        expected = ["lib/lz4frame.c", "programs/lz4cli.c"]
+        expected = ["lib/lz4frame.c", "programs/lz4cli.c", "programs/lz4io.c"]
         if changed != expected:
             raise RuntimeError(f"unexpected LZ4 normalized sources: {changed}")
 
@@ -126,6 +140,9 @@ def main() -> int:
             "programs/lz4cli.c": (
                 "export a standard char** multicall entrypoint while retaining a standalone wrapper; "
                 "match the unsigned help vararg; replace output-name strcpy/strcat with exact memcpy"
+            ),
+            "programs/lz4io.c": (
+                "use double for the uint64 human-size display path so translated C variadics retain the native ABI"
             ),
         }
         manifest = {

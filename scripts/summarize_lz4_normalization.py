@@ -60,7 +60,9 @@ def main() -> int:
     oracle = json.loads((repository / "evidence/lz4-1.11.1-oracle.json").read_text())
     manifest_path = base / "normalization.json"
     manifest = json.loads(manifest_path.read_text())
-    if manifest["changed_sources"] != ["lib/lz4frame.c", "programs/lz4cli.c"]:
+    if manifest["changed_sources"] != [
+        "lib/lz4frame.c", "programs/lz4cli.c", "programs/lz4io.c",
+    ]:
         raise RuntimeError("LZ4 normalization source set changed")
 
     expected_sources = oracle["inventory"]["production_sources"]
@@ -179,7 +181,7 @@ def main() -> int:
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")
     print(json.dumps({
-        "changed_sources": 2, "differential": 54, "production_sources": 12,
+        "changed_sources": 3, "differential": 54, "production_sources": 12,
     }, sort_keys=True))
     return 0
 

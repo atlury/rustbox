@@ -56,7 +56,7 @@ scoring, and correctness gates.
 | GNU bc 1.08.2 / dc 1.5.2 | 2 | 2 | 2 | 2 |
 | attr 2.6.0 | 3 | 3 | 3 | 3 |
 | acl 2.4.0 | 3 | 3 | 3 | 3 |
-| LZ4 1.11.1 | 4 | 4 | 0 | 0 |
+| LZ4 1.11.1 | 4 | 4 | 4 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -632,15 +632,36 @@ realloc double free and constructor-local resource leaks are path-model
 artifacts; both supported compilers, sanitizers, and Valgrind independently
 close those paths.  Exact finding counts and review decisions are pinned in
 `evidence/lz4-1.11.1-analysis.json`.
-The deterministic normalization changes only `programs/lz4cli.c` and
-`lib/lz4frame.c`, exposes `rustbox_lz4_main`, and selects upstream's portable
-`memcpy` memory-access implementation.  GCC, Clang, and GCC ASan/UBSan each
+The deterministic normalization changes only `programs/lz4cli.c`,
+`programs/lz4io.c`, and `lib/lz4frame.c`, exposes `rustbox_lz4_main`, and
+selects upstream's portable `memcpy` memory-access implementation.  Its
+human-size formatter uses `double` for the integer-derived two-decimal display,
+avoiding C2Rust's non-C-compatible `f128` variadic representation.  GCC,
+Clang, and GCC ASan/UBSan each
 pass the complete essentials suite after normalization.  Both optimized builds
 match their corresponding canonical compiler across all 27 cases (54 exact
 comparisons), while Valgrind retains the canonical allocation/free counts for
 both compression and decompression.  Exact transformations, source closure,
 entrypoints, dependencies, sizes, and parity are recorded in
 `evidence/lz4-1.11.1-normalization.json`.
+C2Rust translates all 12 multithreaded production units with unused functions
+preserved and no holes.  The untouched generated crate compiles on its pinned
+historical nightly; the mechanical stable-Rust pass maps its one GCC atomic
+exchange to `AtomicI32::swap(Acquire)` and otherwise uses the same shared
+opaque-type, variadic, and raw-static transformations as earlier applets.  The
+14 stable Rust files contain 36,141 lines and 7,103 raw-pointer type
+occurrences for the later safety phase.  No generated semantic repair is
+needed, `f128` is absent, and `rustbox_lz4_main` is unique in the release
+archive.  Complete inputs, diagnostics, modernization, dependency, and unsafe
+inventory are in `evidence/lz4-1.11.1-c2rust.json`.
+The linked translated executable passes all 27 byte-and-filesystem cases and
+the complete upstream essentials suite, including multithreading, mmap source
+mutation, custom block sizes, legacy frames, and list formatting.  Valgrind
+finds zero errors and frees every allocation; compression exactly retains the
+canonical heap lifecycle, while decompression adds one fully freed 64-byte
+Rust startup allocation.  Its stripped standalone size is 586,784 bytes before
+multicall sharing.  Full behavior, resource, dependency, and size evidence is
+in `evidence/lz4-1.11.1-hybrid.json`.
 
 ## Work queue after util-linux
 
