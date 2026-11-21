@@ -92,6 +92,7 @@ RUSTBOX_TOOL_IMAGE=rustbox-acl:2026-11-21 \
       --output "$output/canonical-normalized-clang-differential.json"
 
     cd "$volume"
+    rm -f normalized-valgrind-target
     printf "payload\n" > normalized-valgrind-target
     valgrind --leak-check=full --show-leak-kinds=all \
       --errors-for-leak-kinds=definite,indirect,possible --error-exitcode=99 \

@@ -103,6 +103,7 @@ RUSTBOX_TOOL_IMAGE=rustbox-acl:2026-11-21 \
       --output "$evidence/differential.json"
 
     cd "$volume"
+    rm -f valgrind-target
     printf "payload\n" > valgrind-target
     valgrind --leak-check=full --show-leak-kinds=all \
       --errors-for-leak-kinds=definite,indirect,possible --error-exitcode=99 \

@@ -583,7 +583,15 @@ behavior diagnostic; 60 canonical-versus-normalized comparisons are exact and
 Valgrind allocation summaries match the canonical tools.  LeakSanitizer alone
 is disabled in the root test because that fixture runs under ptrace; Valgrind
 remains the leak gate.  Exact rewrites, source closure, symbols, and parity are
-recorded in `evidence/acl-2.4.0-normalization.json`.
+recorded in `evidence/acl-2.4.0-normalization.json`.  C2Rust then translates
+all 72 production units with unused functions preserved.  Its initial CFG
+panic is eliminated by the verified standard-statement macro rewrite; the
+untouched audit output and mechanically modernized Rust 1.99 crate compile
+with no translation holes and no generated-Rust source repairs.  The 74 Rust
+files contain 38,631 lines and 7,482 raw-pointer type occurrences for the
+later safety phase.  All three entrypoints are unique in the 23 MB intermediate
+archive.  Complete input hashes, diagnostics, modernization records, and
+unsafe inventory are in `evidence/acl-2.4.0-c2rust.json`.
 
 ## Work queue after util-linux
 

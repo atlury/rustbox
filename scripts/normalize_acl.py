@@ -146,6 +146,12 @@ def main() -> int:
             "\t\t\t\t}\n",
             "owned realloc result",
         )
+        replace_once(
+            setfacl,
+            "#define ERRNO_ERROR(s) \\\n\t({status = (s); goto errno_error; })",
+            "#define ERRNO_ERROR(s) \\\n\tdo { status = (s); goto errno_error; } while (0)",
+            "translator-safe error macro",
+        )
 
         canonical_files = {
             path.relative_to(canonical).as_posix() for path in canonical.rglob("*") if path.is_file()
@@ -170,7 +176,7 @@ def main() -> int:
             "libacl/acl_free.c": "perform internal-object pointer subtraction only after validating non-null input",
             "tools/chacl.c": "export the chacl multicall entrypoint while retaining the standalone wrapper",
             "tools/getfacl.c": "export the getfacl multicall entrypoint while retaining the standalone wrapper",
-            "tools/setfacl.c": "export the setfacl multicall entrypoint and retain realloc ownership until allocation succeeds",
+            "tools/setfacl.c": "export the setfacl multicall entrypoint, retain realloc ownership until allocation succeeds, and express its goto error macro as a standard statement",
         }
         manifest = {
             "schema": 1,
