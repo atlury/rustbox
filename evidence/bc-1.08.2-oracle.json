@@ -1,0 +1,205 @@
+{
+  "binaries": {
+    "clang": {
+      "bc": {
+        "bytes": 250792,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "5f3051ed36ca90a6c99fabd1fe789cfcee7f5272ffa3ae9b4a287d02736ec2ad"
+      },
+      "dc": {
+        "bytes": 175800,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "1b7de1f3c97d6f9fea84e35d2ece8ec1c57fdaad2ea93fb589629f587e812f36"
+      }
+    },
+    "gcc": {
+      "bc": {
+        "bytes": 289256,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "bf73fecf74c986659c0acb9b84d926ad3dec8467dc49d790a765471ad87d1a7f"
+      },
+      "dc": {
+        "bytes": 200944,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "2081a9c356cfb7ab0a828c2fc2abf3a9248d6a71f36863f4adf1216d09699ae1"
+      }
+    }
+  },
+  "configuration": {
+    "generated_release_parser_and_scanner_used": true,
+    "libedit": false,
+    "oracle_dynamic_dependencies": [
+      "libc.so.6"
+    ],
+    "readline": false,
+    "sanitizer_policy": {
+      "asan": "detect_leaks=1:halt_on_error=1",
+      "excluded_throughput_case": "checklib.b",
+      "reason": "full high-precision transcendental workload runs under both canonical compilers; sanitizer covers every smaller shipped workload",
+      "ubsan": "halt_on_error=1"
+    }
+  },
+  "cross_compiler_differential": {
+    "comparisons": 46,
+    "exact": true,
+    "report_sha256": "576d9a4a083eab63acdbdb21137158cd2a228fc20f89dd4c4981ba3c9c3c2f58"
+  },
+  "next_gate": "production-only static analysis followed by deterministic multicall-entrypoint normalization",
+  "recorded_at": "2026-11-21",
+  "release": {
+    "archive": "bc-1.08.2.tar.gz",
+    "bundled_dc_version": "1.5.2",
+    "sha256": "ae470fec429775653e042015edc928d07c8c3b2fc59765172a330d3d87785f86",
+    "signature_sha256": "525a1c5d47341ec705cb9e365d341aa6bcb7f1cd82a19ad06fb7cf57b15d60a1",
+    "signature_verified": true,
+    "signer_fingerprint": "325B54E4653F935A25CF32BDA186278D426A38E9",
+    "signing_key_sha256": "29a79ac4df3aad4d41c599e4ae207e998180322792b7141f3e60f5e982afeec7",
+    "version": "1.08.2"
+  },
+  "schema": 1,
+  "scope": {
+    "captured_compile_actions": {
+      "clang": 21,
+      "gcc": 21,
+      "sanitizer": 21
+    },
+    "compile_database_sha256": {
+      "clang": "41acb9e90da4a5409cea997de5dee06355a4e21a01aea42b39c834381b70e444",
+      "gcc": "b42cef880df7448ec998a9bd940ef3b502d9e5e906ee5f2f1bb8ccc02ae92e2c",
+      "sanitizer": "9ba74072f6a98e92e6ce8614e974f8633aa8af2fc0200d745871b096c0da277a"
+    },
+    "executables": [
+      "bc",
+      "dc"
+    ],
+    "production_lines": 14826,
+    "production_source_count": 21,
+    "production_sources": [
+      "bc/bc.c",
+      "bc/execute.c",
+      "bc/global.c",
+      "bc/load.c",
+      "bc/main.c",
+      "bc/scan.c",
+      "bc/storage.c",
+      "bc/util.c",
+      "bc/warranty.c",
+      "dc/array.c",
+      "dc/dc.c",
+      "dc/eval.c",
+      "dc/input.c",
+      "dc/misc.c",
+      "dc/numeric.c",
+      "dc/stack.c",
+      "dc/string.c",
+      "lib/getopt.c",
+      "lib/getopt1.c",
+      "lib/number.c",
+      "lib/vfprintf.c"
+    ]
+  },
+  "tests": {
+    "clang": {
+      "automake_check_log_sha256": "c269396d8fdd9e89e7d3edaf24a7a8160e527d3d29478734e3d350554050f988",
+      "shipped_case_names": [
+        "array.b",
+        "arrayp.b",
+        "aryprm.b",
+        "atan.b",
+        "checklib.b",
+        "div.b",
+        "exp.b",
+        "fact.b",
+        "jn.b",
+        "ln.b",
+        "mul.b",
+        "raise.b",
+        "sine.b",
+        "sqrt.b",
+        "sqrt1.b",
+        "sqrt2.b",
+        "testfn.b",
+        "BUG.bc"
+      ],
+      "shipped_cases": 18,
+      "shipped_log_sha256": "86fc9f9bc75c2c9b9602c5a8a8b1b9b1da1a9121a3fb214396bffa3a264df849"
+    },
+    "gcc": {
+      "automake_check_log_sha256": "f0516ab550a7b603af48115b83674292d4e5e34b133f3ce09b782d7f9cea5234",
+      "shipped_case_names": [
+        "array.b",
+        "arrayp.b",
+        "aryprm.b",
+        "atan.b",
+        "checklib.b",
+        "div.b",
+        "exp.b",
+        "fact.b",
+        "jn.b",
+        "ln.b",
+        "mul.b",
+        "raise.b",
+        "sine.b",
+        "sqrt.b",
+        "sqrt1.b",
+        "sqrt2.b",
+        "testfn.b",
+        "BUG.bc"
+      ],
+      "shipped_cases": 18,
+      "shipped_log_sha256": "86fc9f9bc75c2c9b9602c5a8a8b1b9b1da1a9121a3fb214396bffa3a264df849"
+    },
+    "sanitizer": {
+      "automake_check_log_sha256": "d7edb5fa0ee0568b0857e5199a29b048cda27754312e816a272eff4aebf0c827",
+      "shipped_case_names": [
+        "array.b",
+        "arrayp.b",
+        "aryprm.b",
+        "atan.b",
+        "div.b",
+        "exp.b",
+        "fact.b",
+        "jn.b",
+        "ln.b",
+        "mul.b",
+        "raise.b",
+        "sine.b",
+        "sqrt.b",
+        "sqrt1.b",
+        "sqrt2.b",
+        "testfn.b",
+        "BUG.bc"
+      ],
+      "shipped_cases": 17,
+      "shipped_log_sha256": "19817654ab3bac0c62aefa972e04bdd75edbc7682cffceb5b9daef315d9cfc2a"
+    }
+  },
+  "valgrind": {
+    "bc": {
+      "allocations": 66,
+      "blocks_at_exit": 53,
+      "bytes_allocated": 56826,
+      "bytes_at_exit": 52619,
+      "errors": 0,
+      "frees": 13,
+      "log_sha256": "3bfe3587e4f6183abfacb4333a7634993e43a521e787ac1aba9a19bf3cad60b1"
+    },
+    "dc": {
+      "allocations": 37,
+      "blocks_at_exit": 13,
+      "bytes_allocated": 8774,
+      "bytes_at_exit": 376,
+      "errors": 0,
+      "frees": 24,
+      "log_sha256": "4e1693d8720d0f84de6f606afd83c4dd1474c0a465a7067ba71200323b41d16e"
+    }
+  }
+}

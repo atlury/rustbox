@@ -443,6 +443,22 @@ integrated package gate, both Grep upstream suites, 36 exact Grep comparisons,
 four direct `egrep`/`fgrep` wrapper comparisons, and the resource checks
 recorded in `evidence/rustbox-multicall.json`.
 
+GNU bc 1.08.2, bundling dc 1.5.2, is pinned to its canonical signed release.
+The configured Linux production closure is 21 C translation units and 14,826
+lines.  Independent GCC and Clang builds each complete all 18 shipped
+arbitrary-precision workloads—including the exhaustive transcendental
+`checklib.b` pass—and agree byte-for-byte across a further 46 bc/dc language,
+CLI, diagnostic, and error cases.  ASan/UBSan covers the 17 bounded shipped
+workloads; only `checklib.b` is omitted from instrumentation because its full
+high-precision throughput pass already runs under both canonical compilers.
+Valgrind reports no definite, indirect, or possible leak and no errors for
+either executable; the process-lifetime storage still reachable at exit is
+recorded rather than hidden.  The oracle deliberately disables optional
+Readline and libedit, so its sole dynamic dependency is libc.  Reproducible
+source, build, suite, differential, binary, and resource evidence is in
+`evidence/bc-1.08.2-oracle.json`; production-only static analysis is the next
+gate before deterministic normalization.
+
 ## Work queue after util-linux
 
 This queue starts only after all in-scope util-linux applets reach canonical
