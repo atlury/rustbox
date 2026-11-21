@@ -54,7 +54,7 @@ scoring, and correctness gates.
 | GNU Diffutils 3.12 | 4 | 4 | 4 | 4 |
 | GNU Grep 3.12 | 3 | 3 | 3 | 3 |
 | GNU bc 1.08.2 / dc 1.5.2 | 2 | 2 | 2 | 2 |
-| attr 2.6.0 | 3 | 3 | 0 | 0 |
+| attr 2.6.0 | 3 | 3 | 3 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -541,7 +541,12 @@ injects only the `c_variadic` crate feature that C2Rust omitted for its emitted
 raw-pointer type occurrences for the later safety phase.  All three multicall
 entrypoints are unique in the 23,461,086-byte intermediate archive.  Complete
 hashes, compile diagnostics, modernization records, and unsafe inventory are
-in `evidence/attr-2.6.0-c2rust.json`; hybrid parity is next.
+in `evidence/attr-2.6.0-c2rust.json`.  The linked translated tools retain the
+2-pass/1-capability-skip upstream result, pass all 22 exact differential
+cases, and match canonical output and Valgrind allocation lifecycles exactly.
+Their separate stripped executables total 693,152 bytes before multicall
+runtime sharing.  Full linkage, behavior, resource, and size evidence is in
+`evidence/attr-2.6.0-hybrid.json`; multicall integration is next.
 
 ## Work queue after util-linux
 

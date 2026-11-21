@@ -1,0 +1,629 @@
+{
+  "behavior": {
+    "differential": {
+      "cases": 22,
+      "passed": 22,
+      "records": [
+        {
+          "applet": "attr",
+          "name": "attr-help",
+          "result": {
+            "status": 1,
+            "stderr_length": 397,
+            "stderr_sha256": "52918436cea40c08546c44a34aeaa38486f3fe061f8eaacee2e289d6b35335b1",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": []
+          }
+        },
+        {
+          "applet": "attr",
+          "name": "attr-version",
+          "result": {
+            "status": 1,
+            "stderr_length": 397,
+            "stderr_sha256": "52918436cea40c08546c44a34aeaa38486f3fe061f8eaacee2e289d6b35335b1",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": []
+          }
+        },
+        {
+          "applet": "getfattr",
+          "name": "getfattr-help",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 892,
+            "stdout_sha256": "578554eb83fe2d609beb354bf394900f4b87370ab12323bc8584a61d2e83cd89",
+            "tree": []
+          }
+        },
+        {
+          "applet": "getfattr",
+          "name": "getfattr-version",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 15,
+            "stdout_sha256": "0212bb77e05bf18db6bbedb0b6ef1a77e72d36e95ebcdefda8c0c7aef9dc394a",
+            "tree": []
+          }
+        },
+        {
+          "applet": "setfattr",
+          "name": "setfattr-help",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 696,
+            "stdout_sha256": "42df2c2c9e2fad78d445b83af31d30c1439a83eb83278ff8bcdd0163701d85c8",
+            "tree": []
+          }
+        },
+        {
+          "applet": "setfattr",
+          "name": "setfattr-version",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 15,
+            "stdout_sha256": "6ddb89260af8922621f120aa6ebe60ae225f82247eab4bb6874104a2954166eb",
+            "tree": []
+          }
+        },
+        {
+          "applet": "setfattr",
+          "name": "set-text",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 7,
+                "kind": "file",
+                "path": "file",
+                "sha256": "239f59ed55e737c77147cf55ad0c1b030b6d7ee748a7426952f9b852d5a935e5",
+                "xattrs": [
+                  [
+                    "user.name",
+                    5,
+                    "cd42404d52ad55ccfa9aca4adc828aa5800ad9d385a0671fbcbf724118320619"
+                  ]
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "applet": "setfattr",
+          "name": "set-hex",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 0,
+                "kind": "file",
+                "path": "file",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "xattrs": [
+                  [
+                    "user.bytes",
+                    3,
+                    "2da45f2cd1f9c8e69a67abf7a6b26c282533d0a7686787a9533265418680d4d2"
+                  ]
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "applet": "setfattr",
+          "name": "set-base64",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 0,
+                "kind": "file",
+                "path": "file",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "xattrs": [
+                  [
+                    "user.bytes",
+                    3,
+                    "2da45f2cd1f9c8e69a67abf7a6b26c282533d0a7686787a9533265418680d4d2"
+                  ]
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "applet": "setfattr",
+          "name": "remove",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 0,
+                "kind": "file",
+                "path": "file",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "xattrs": []
+              }
+            ]
+          }
+        },
+        {
+          "applet": "setfattr",
+          "name": "set-missing",
+          "result": {
+            "status": 1,
+            "stderr_length": 45,
+            "stderr_sha256": "88015832c883cd4518d8f32a63b8e2472adce82f7c18b470caee3280e3d460ef",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": []
+          }
+        },
+        {
+          "applet": "getfattr",
+          "name": "get-name",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 32,
+            "stdout_sha256": "9990dfc97a22969dfa16026705996c8dccad9a4a75c88fdc4a0bb42faad826d5",
+            "tree": [
+              {
+                "bytes": 0,
+                "kind": "file",
+                "path": "file",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "xattrs": [
+                  [
+                    "user.name",
+                    5,
+                    "cd42404d52ad55ccfa9aca4adc828aa5800ad9d385a0671fbcbf724118320619"
+                  ]
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "applet": "getfattr",
+          "name": "get-dump",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 47,
+            "stdout_sha256": "f89c4865df16b85e6ccd8c232041cd7157ad197014488f8707928a2d3b79f988",
+            "tree": [
+              {
+                "bytes": 0,
+                "kind": "file",
+                "path": "file",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "xattrs": [
+                  [
+                    "user.alpha",
+                    3,
+                    "7692c3ad3540bb803c020b3aee66cd8887123234ea0c6e7143c0add73ff431ed"
+                  ],
+                  [
+                    "user.beta",
+                    3,
+                    "3fc4ccfe745870e2c0d99f71f30ff0656c8dedd41cc1d7d3d376b0dbe685e2f3"
+                  ]
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "applet": "getfattr",
+          "name": "get-only-values",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 5,
+            "stdout_sha256": "cd42404d52ad55ccfa9aca4adc828aa5800ad9d385a0671fbcbf724118320619",
+            "tree": [
+              {
+                "bytes": 0,
+                "kind": "file",
+                "path": "file",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "xattrs": [
+                  [
+                    "user.name",
+                    5,
+                    "cd42404d52ad55ccfa9aca4adc828aa5800ad9d385a0671fbcbf724118320619"
+                  ]
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "applet": "getfattr",
+          "name": "get-hex",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 34,
+            "stdout_sha256": "ad249e41d17155ec6f9248e2fa97f4db277757b065acae723b4e731e545d1722",
+            "tree": [
+              {
+                "bytes": 0,
+                "kind": "file",
+                "path": "file",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "xattrs": [
+                  [
+                    "user.bytes",
+                    3,
+                    "2da45f2cd1f9c8e69a67abf7a6b26c282533d0a7686787a9533265418680d4d2"
+                  ]
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "applet": "getfattr",
+          "name": "get-base64",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 32,
+            "stdout_sha256": "8cfc7e1515c29e68582731ad5b54a3aeb13680d6459c3e83280867bdf95ed2a9",
+            "tree": [
+              {
+                "bytes": 0,
+                "kind": "file",
+                "path": "file",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "xattrs": [
+                  [
+                    "user.bytes",
+                    3,
+                    "2da45f2cd1f9c8e69a67abf7a6b26c282533d0a7686787a9533265418680d4d2"
+                  ]
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "applet": "getfattr",
+          "name": "get-recursive",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 62,
+            "stdout_sha256": "90ceb1e9c3d86e664f1ab7a6309a6a766d5a71530bb6b1757119b70bea8b5365",
+            "tree": [
+              {
+                "bytes": 0,
+                "kind": "directory",
+                "path": "tree",
+                "sha256": null,
+                "xattrs": []
+              },
+              {
+                "bytes": 1,
+                "kind": "file",
+                "path": "tree/a",
+                "sha256": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+                "xattrs": [
+                  [
+                    "user.one",
+                    1,
+                    "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+                  ]
+                ]
+              },
+              {
+                "bytes": 0,
+                "kind": "directory",
+                "path": "tree/sub",
+                "sha256": null,
+                "xattrs": []
+              },
+              {
+                "bytes": 1,
+                "kind": "file",
+                "path": "tree/sub/b",
+                "sha256": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+                "xattrs": [
+                  [
+                    "user.two",
+                    1,
+                    "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+                  ]
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "applet": "getfattr",
+          "name": "get-missing",
+          "result": {
+            "status": 1,
+            "stderr_length": 46,
+            "stderr_sha256": "e49e705ea3691cb72ea9f0d5ed5ce9124a764815d2c83d70ab75530c37e1a7be",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": []
+          }
+        },
+        {
+          "applet": "attr",
+          "name": "attr-set",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 58,
+            "stdout_sha256": "49f214075d6f875b10babe559d42966fa1db6157c422c3d300f718c382a6b3e3",
+            "tree": [
+              {
+                "bytes": 0,
+                "kind": "file",
+                "path": "file",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "xattrs": [
+                  [
+                    "user.rustbox",
+                    5,
+                    "cd42404d52ad55ccfa9aca4adc828aa5800ad9d385a0671fbcbf724118320619"
+                  ]
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "applet": "attr",
+          "name": "attr-get",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 55,
+            "stdout_sha256": "9562b8852ebe402acefecf83ce9b3538dbefb272e4df093b49e53bdd12aceabd",
+            "tree": [
+              {
+                "bytes": 0,
+                "kind": "file",
+                "path": "file",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "xattrs": [
+                  [
+                    "user.rustbox",
+                    5,
+                    "cd42404d52ad55ccfa9aca4adc828aa5800ad9d385a0671fbcbf724118320619"
+                  ]
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "applet": "attr",
+          "name": "attr-list",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 91,
+            "stdout_sha256": "fdc2aae7aeb51950b4d299ea2e26f9e7e05da1ae6a7cf760cc591d6f0fbdc066",
+            "tree": [
+              {
+                "bytes": 0,
+                "kind": "file",
+                "path": "file",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "xattrs": [
+                  [
+                    "user.alpha",
+                    3,
+                    "7692c3ad3540bb803c020b3aee66cd8887123234ea0c6e7143c0add73ff431ed"
+                  ],
+                  [
+                    "user.beta",
+                    3,
+                    "3fc4ccfe745870e2c0d99f71f30ff0656c8dedd41cc1d7d3d376b0dbe685e2f3"
+                  ]
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "applet": "attr",
+          "name": "attr-remove",
+          "result": {
+            "status": 0,
+            "stderr_length": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_length": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "tree": [
+              {
+                "bytes": 0,
+                "kind": "file",
+                "path": "file",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "xattrs": []
+              }
+            ]
+          }
+        }
+      ],
+      "schema": 1
+    },
+    "differential_sha256": "02b4a852cc36839cfe216a354b9acec2e0b35e6093908f2e9f778c691c8a0ca4",
+    "upstream_log_sha256": "91de836100bff3238347f4a0ba509763c25931e13f246ced030dac778354c966",
+    "upstream_tests": {
+      "error": 0,
+      "fail": 0,
+      "pass": 2,
+      "skip": 1,
+      "total": 3,
+      "xfail": 0,
+      "xpass": 0
+    },
+    "valgrind": {
+      "getfattr": {
+        "allocation_lifecycle_exact": true,
+        "errors": 0,
+        "heap_summary": [
+          "in use at exit: 2,152 bytes in 42 blocks",
+          "total heap usage: 48 allocs, 6 frees, 7,264 bytes allocated"
+        ],
+        "log_sha256": {
+          "canonical": "10691b88d5e25e3fdc4fb980be34b3e60aa8503e0adff90fefc02eea163b9577",
+          "hybrid": "6d90bf6bd8b167f956365c7fc326ebccc2b05be4e972f07cec00dade31c710ea"
+        }
+      },
+      "setfattr": {
+        "allocation_lifecycle_exact": true,
+        "errors": 0,
+        "heap_summary": [
+          "in use at exit: 256 bytes in 1 blocks",
+          "total heap usage: 1 allocs, 0 frees, 256 bytes allocated"
+        ],
+        "log_sha256": {
+          "canonical": "2a74be67d333d0cf13c0b5bf85aa9b53ef797862990355e24cd625f34eb1c125",
+          "hybrid": "1f8f56dbe2b9af300781941016be7d521384b800ca77f93ce1aac55d79117238"
+        }
+      }
+    }
+  },
+  "configuration": {
+    "nls": false,
+    "selinux": false,
+    "systemd": false
+  },
+  "implementation": {
+    "c_abi_glue": "entrypoint only",
+    "entrypoints": [
+      "rustbox_attr_main",
+      "rustbox_getfattr_main",
+      "rustbox_setfattr_main"
+    ],
+    "generated_rust_repairs": 0,
+    "public_names": [
+      "attr",
+      "getfattr",
+      "setfattr"
+    ],
+    "rust_files": 23,
+    "rust_production_sources": 21
+  },
+  "input_evidence": {
+    "attr-2.6.0-analysis.json": "343dfdac5d0a10329bc91b40a66d4606079de6918e8acf756982dd906bca60de",
+    "attr-2.6.0-c2rust.json": "57860d7feadad355e5436727c1c3c6ecbae9b3259f6bde8345fa1f8e5b2cceac",
+    "attr-2.6.0-normalization.json": "f47b7bf525c54cdf80a488079e9abd05d5439a7d68c866e21f286ee466b07774",
+    "attr-2.6.0-oracle.json": "d1ca370027b193a92bfbb344bc88ea2ed0d06c3041b5f256969f03337a38356d"
+  },
+  "next_gate": "namespace and link attr, getfattr, and setfattr into the unified Rustbox dispatcher",
+  "recorded_at": "2026-11-21",
+  "release": "2.6.0",
+  "schema": 1,
+  "size": {
+    "binaries": {
+      "attr": {
+        "canonical_stripped_bytes": 18568,
+        "dynamic_needed": [
+          "libm.so.6",
+          "libgcc_s.so.1",
+          "libc.so.6",
+          "ld-linux-x86-64.so.2"
+        ],
+        "linked_sha256": "17bbbcd8d4061cc0577c2e105c573630a90debc89a8aa706ae6cf7930f9cf621",
+        "linked_stripped_bytes": 328712,
+        "linked_unstripped_bytes": 4471744,
+        "sections": {
+          "bss": 128,
+          "data": 2560,
+          "rodata": 31299,
+          "text": 233310
+        },
+        "stripped_sha256": "abcec019da3b57a7f73b9e9746fccc8e05073c1a0dfd1953439f89785d51b2f6"
+      },
+      "getfattr": {
+        "canonical_stripped_bytes": 30952,
+        "dynamic_needed": [
+          "libm.so.6",
+          "libgcc_s.so.1",
+          "libc.so.6",
+          "ld-linux-x86-64.so.2"
+        ],
+        "linked_sha256": "421b8e57acb153d30ec8d3678caa556a1517e3aa44fb0a75a8f85f62d51d594d",
+        "linked_stripped_bytes": 333264,
+        "linked_unstripped_bytes": 4480304,
+        "sections": {
+          "bss": 344,
+          "data": 3016,
+          "rodata": 32984,
+          "text": 235942
+        },
+        "stripped_sha256": "57abb311649ae53d06d6f0cd3867e3a1a04a1f5ed5178b5220d9167240553b6d"
+      },
+      "setfattr": {
+        "canonical_stripped_bytes": 30936,
+        "dynamic_needed": [
+          "libm.so.6",
+          "libgcc_s.so.1",
+          "libc.so.6",
+          "ld-linux-x86-64.so.2"
+        ],
+        "linked_sha256": "f7f930ff6ea968597dbd5d69da0eafc62de985a42d33200bb4f5cc787f53d11e",
+        "linked_stripped_bytes": 31176,
+        "linked_unstripped_bytes": 4093368,
+        "sections": {
+          "bss": 152,
+          "data": 328,
+          "rodata": 3868,
+          "text": 8698
+        },
+        "stripped_sha256": "9f2ef9b2f09a39f54da45cd0f8314811a479a0fa4639723acd53301784668229"
+      }
+    },
+    "interpretation": "The static archive is link inventory, not release size; Rust runtime code is shared after multicall integration.",
+    "separate_stripped_total_bytes": 693152,
+    "translation_static_archive_bytes": 23461086
+  },
+  "status": "complete translated hybrid at canonical parity; multicall integration pending"
+}
