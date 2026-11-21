@@ -55,6 +55,7 @@ scoring, and correctness gates.
 | GNU Grep 3.12 | 3 | 3 | 3 | 3 |
 | GNU bc 1.08.2 / dc 1.5.2 | 2 | 2 | 2 | 2 |
 | attr 2.6.0 | 3 | 3 | 3 | 3 |
+| acl 2.4.0 | 3 | 0 | 0 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -553,6 +554,11 @@ in the unified link; integration adds only 25,344 stripped bytes and retains
 the complete upstream, differential, and resource gates in
 `evidence/rustbox-multicall.json`.
 
+acl 2.4.0 is pinned to its canonical signed Savannah release.  The archive,
+detached signature, release-key fingerprint, and all 274 archive members are
+verified before its `chacl`, `getfacl`, and `setfacl` production closure is
+built or translated.
+
 ## Work queue after util-linux
 
 This queue starts only after all in-scope util-linux applets reach canonical
@@ -592,7 +598,7 @@ Library-only checkpoints (outside the active utility order):
    - [x] bc 1.08.2 / dc 1.5.2 — `bc`, `dc`; integrated at canonical parity.
    - [x] attr 2.6.0 — `attr`, `getfattr`, `setfattr`; integrated at canonical
      parity.
-   - [ ] acl — `chacl`, `getfacl`, `setfacl`.
+   - [ ] acl 2.4.0 — `chacl`, `getfacl`, `setfacl`.
    - [ ] lz4 — `lz4`, `lz4c`, `lz4cat`, `unlz4`.
 2. Compression, archive, and terminal foundations:
    - [ ] Gzip — `gzip`, `gunzip`, `zcat`, `uncompress`, `gzexe`, `zcmp`,
