@@ -1015,6 +1015,16 @@ with defined signed-16-bit arithmetic while preserving database bytes and all
 behavior.  Reproducible evidence is in
 `evidence/findutils-4.10.0-oracle.json`.
 
+Deterministic normalization changes exactly that one source.  The decoder now
+constructs the unsigned 16-bit value from two bytes with defined arithmetic
+and explicitly maps values above `0x7fff` into the signed range; it no longer
+left-shifts a negative operand or relies on implementation-defined narrowing.
+GCC, Clang, and ASan/UBSan each retain the complete 218-source production
+closure and pass all upstream suites.  All 76 canonical-versus-normalized
+stateful comparisons pass, the sanitizer reports no undefined behavior or
+address errors, and all four normalized programs pass Valgrind.  Reproducible
+evidence is in `evidence/findutils-4.10.0-normalization.json`.
+
 ## Work queue after util-linux
 
 This queue starts only after all in-scope util-linux applets reach canonical
@@ -1091,9 +1101,11 @@ Library-only checkpoints (outside the active utility order):
      inside `less`, so it is intentionally not resurrected.
 3. Multi-tool text processing and source generators:
    - [ ] GNU Findutils 4.10.0 — signed canonical GCC/Clang/sanitizer oracle
-     complete for `find`, `xargs`, `locate`, and `updatedb`; 38/38
-     differential cases pass.  One sanitizer-confirmed signed-shift defect in
-     LOCATE02 decoding is queued for deterministic normalization.
+     and deterministic normalization complete for `find`, `xargs`, `locate`,
+     and `updatedb`; 76/76 canonical-versus-normalized differential cases
+     pass.  The sanitizer-confirmed LOCATE02 signed-shift defect is removed
+     with defined arithmetic.  Multicall entrypoint export and complete C2Rust
+     probing are next.
    - [ ] Gawk — `gawk`, `awk`, `gawkbug`.
    - [ ] Flex — `flex`, `flex++`, `lex`.
    - [ ] Bison — `bison`, `yacc` (C/C++ skeletons only; Java output is out of
