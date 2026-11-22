@@ -1,0 +1,163 @@
+{
+  "artifacts": {
+    "c-sources.list": "cce1c1982644c550c79c5f68d789ed3bb92d689d4d41444519f391a56dc76474",
+    "clang-analyzer-tidy.log": "16ffcc16c533f8ec625a65bb22acffaeab5fbe2c1b55bb1647e58c496b8cb960",
+    "clang-analyzer-tidy.status": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "compile_commands.json": "671a85cb397cb38b678bdd8a080dad3b3265b29489f9ea0e3d256ae6f6904f02",
+    "cppcheck.log": "c1b46b3de125e20c7ff342881d29674344f8cba88139fb596f007e8abe311e72",
+    "flawfinder.log": "f22e998c6a251aa00af4a690bece2438d07822f7a78b936fe8d4b422107b0735",
+    "flawfinder.status": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "gcc-analyzer.log": "60034b6fcf74d0e89f208a318089e5324a426a174b2743b60bc6f93abffa2531",
+    "gcc-analyzer.status": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "sources.list": "cce1c1982644c550c79c5f68d789ed3bb92d689d4d41444519f391a56dc76474",
+    "sparse.log": "c6c7feee38867bcf83ea3bbdf7abab64678ee80b6df19316414d739b1bdd2515",
+    "sparse.status": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "recorded_at": "2026-11-22",
+  "release": "1.35",
+  "review": {
+    "canonical_source_changes": 0,
+    "demonstrated_canonical_defects": 0,
+    "notes": [
+      "Cppcheck's error-severity items are inactive portability #error branches, parser failures in generated macro expressions, obstack compile-time branch expansion, and interprocedural preconditions; GCC, Clang, ASan/UBSan, and upstream tests do not corroborate a defect.",
+      "The map orig_id report loses the invariant that the only owner/group map callers always pass a nonnull name-to-id function.",
+      "GCC allocation reports model returned ownership, xmalloc-family success, registered cleanup, or deliberate process-exit state as leaks; the exact Valgrind baseline is recorded separately.",
+      "GCC's sys_exec_info_script fdopen report is an unconfirmed allocation-failure diagnostic gap, not a demonstrated normal-path defect; it remains explicit audit inventory.",
+      "Clang's name-list and wordsplit linked-list reports lose same-order and remove/insert invariants; all upstream wordsplit, name-selection, sanitizer, and differential paths pass.",
+      "Clang buffer, string, conversion, adjacent-parameter, macro, and dead-store findings are translation inventory, not demonstrated behavioral defects.",
+      "Sparse uses the exact configured build through cgcc. Its sole analyzer-only rewrite substitutes long double for generated max_align_t scratch storage; both have 16-byte alignment on the selected x86_64 ABI. It then reports no parser error."
+    ],
+    "required_normalization": [
+      "Export tar and rmt entrypoints while retaining standalone wrappers.",
+      "Keep the complete 197-source configured closure; do not replace gnulib support with translation holes.",
+      "Make only translator-required checked widths, ownership, and macro expansions explicit after a failed C2Rust diagnostic demonstrates the need."
+    ]
+  },
+  "schema": 1,
+  "scope": {
+    "c_sources": 197,
+    "compile_actions": 197,
+    "public_names": [
+      "tar",
+      "rmt"
+    ],
+    "tests_examples_and_nonselected_sources_excluded": true,
+    "unique_sources": 197
+  },
+  "status": "complete production audit; deterministic normalization in progress",
+  "tools": {
+    "clang_analyzer_tidy": {
+      "all_findings_by_check": {
+        "bugprone-assignment-in-if-condition": 50,
+        "bugprone-branch-clone": 13,
+        "bugprone-casting-through-void": 1,
+        "bugprone-easily-swappable-parameters": 81,
+        "bugprone-implicit-widening-of-multiplication-result": 15,
+        "bugprone-macro-parentheses": 33,
+        "bugprone-multi-level-implicit-pointer-conversion": 40,
+        "bugprone-narrowing-conversions": 280,
+        "bugprone-not-null-terminated-result": 3,
+        "bugprone-reserved-identifier": 68,
+        "bugprone-signal-handler": 2,
+        "bugprone-signed-char-misuse": 25,
+        "bugprone-sizeof-expression": 13,
+        "bugprone-suspicious-include": 24,
+        "bugprone-suspicious-string-compare": 13,
+        "bugprone-switch-missing-default-case": 17,
+        "clang-analyzer-core.NonNullParamChecker": 7,
+        "clang-analyzer-core.NullDereference": 6,
+        "clang-analyzer-core.UndefinedBinaryOperatorResult": 1,
+        "clang-analyzer-core.uninitialized.Assign": 1,
+        "clang-analyzer-core.uninitialized.Branch": 2,
+        "clang-analyzer-deadcode.DeadStores": 5,
+        "clang-analyzer-optin.portability.UnixAPI": 2,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 243,
+        "clang-analyzer-security.insecureAPI.strcpy": 52,
+        "clang-analyzer-unix.Malloc": 6,
+        "clang-diagnostic-c23-extensions": 11,
+        "clang-diagnostic-implicit-const-int-float-conversion": 1,
+        "performance-no-int-to-ptr": 4
+      },
+      "analyzer_findings_by_check": {
+        "clang-analyzer-core.NonNullParamChecker": 7,
+        "clang-analyzer-core.NullDereference": 6,
+        "clang-analyzer-core.UndefinedBinaryOperatorResult": 1,
+        "clang-analyzer-core.uninitialized.Assign": 1,
+        "clang-analyzer-core.uninitialized.Branch": 2,
+        "clang-analyzer-deadcode.DeadStores": 5,
+        "clang-analyzer-optin.portability.UnixAPI": 2,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 243,
+        "clang-analyzer-security.insecureAPI.strcpy": 52,
+        "clang-analyzer-unix.Malloc": 6
+      },
+      "exit_status": 0
+    },
+    "cppcheck": {
+      "findings_by_id": {
+        "allocaCalled": 6,
+        "clarifyCalculation": 11,
+        "clarifyCondition": 4,
+        "constParameterCallback": 2,
+        "constParameterPointer": 40,
+        "constVariable": 1,
+        "constVariablePointer": 48,
+        "duplicateValueTernary": 1,
+        "ignoredReturnValue": 1,
+        "integerOverflowCond": 1,
+        "internalAstError": 2,
+        "knownConditionTrueFalse": 14,
+        "legacyUninitvar": 1,
+        "nullPointerArithmetic": 12,
+        "nullPointerRedundantCheck": 2,
+        "preprocessorErrorDirective": 2,
+        "redundantAssignment": 1,
+        "redundantContinue": 12,
+        "redundantInitialization": 4,
+        "returnDanglingLifetime": 1,
+        "shadowFunction": 3,
+        "shadowVariable": 4,
+        "shiftTooManyBitsSigned": 1,
+        "signConversion": 12,
+        "signConversionCond": 2,
+        "sizeofwithnumericparameter": 1,
+        "unknownEvaluationOrder": 9,
+        "unreadVariable": 5,
+        "unsignedLessThanZero": 135,
+        "unsignedPositive": 2,
+        "unusedStructMember": 4,
+        "variableScope": 36
+      },
+      "findings_by_severity": {
+        "error": 27,
+        "portability": 1,
+        "style": 327,
+        "warning": 25
+      }
+    },
+    "flawfinder": {
+      "exit_status": 0,
+      "hits_at_level_1_or_higher": 745,
+      "lines_analyzed": 67055
+    },
+    "gcc_fanalyzer": {
+      "exit_status": 0,
+      "findings_by_check": {
+        "analyzer-deref-before-check": 1,
+        "analyzer-fd-leak": 3,
+        "analyzer-malloc-leak": 14,
+        "analyzer-null-argument": 1,
+        "analyzer-possible-null-argument": 1,
+        "missing-field-initializers": 2,
+        "sign-compare": 44,
+        "type-limits": 5,
+        "unused-parameter": 1
+      }
+    },
+    "sparse": {
+      "analyzer_only_compatibility": "spell generated max_align_t scratch storage as same-alignment long double on x86_64",
+      "exit_status": 0,
+      "parser_errors": 0,
+      "warnings": 480
+    }
+  }
+}

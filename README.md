@@ -879,8 +879,13 @@ and one indirect byte, which the multicall integration must improve rather
 than inherit.  The canonical oracle uses libacl and external compressors only
 as test fixtures; the final executable must reuse Rustbox's integrated ACL and
 compression engines and add no external runtime dependency.  Reproducible
-evidence is in `evidence/tar-1.35-oracle.json`; the five-tool audit and
-deterministic two-entrypoint normalization are the next gate.
+evidence is in `evidence/tar-1.35-oracle.json`.  The complete 197-unit
+Cppcheck, GCC `-fanalyzer`, Clang analyzer/tidy, Flawfinder, and configured
+Sparse audit found no demonstrated canonical defect; Sparse finishes with no
+parser error after one analyzer-only same-alignment spelling for gnulib scratch
+storage.  Its locked findings and ownership review are in
+`evidence/tar-1.35-static-analysis.json`.  Deterministic two-entrypoint
+normalization is the next gate.
 
 ## Work queue after util-linux
 
