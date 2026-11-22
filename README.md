@@ -965,8 +965,10 @@ without changing the intended bit pattern.  GCC and Clang each pass all 27
 canonical comparisons, both complete installed terminfo trees are
 byte-identical, ASan/UBSan installation is clean, and all ten normalized native
 personalities pass Valgrind.  Reproducible evidence is in
-`evidence/ncurses-6.6-normalization.json`; strict per-unit C2Rust probing is
-next.
+`evidence/ncurses-6.6-normalization.json`.  Strict independent C2Rust 0.22.1
+probing translates all 264/264 normalized production sources with
+`--fail-on-error` and `--preserve-unused-functions`, without a generated-Rust
+repair.  Combined translation and stable-Rust compilation are next.
 
 ## Work queue after util-linux
 

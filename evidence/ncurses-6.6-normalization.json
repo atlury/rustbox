@@ -200,7 +200,7 @@
     ]
   },
   "manifest_sha256": "0119aa2377f4264a43e2a0e348ed622ba598dd42e17d5385b6ab53caf2229882",
-  "next_gate": "strict per-unit C2Rust translation probe of the exact normalized closure",
+  "next_gate": "combined C2Rust translation and stable-Rust compilation of the exact normalized closure",
   "recorded_at": "2026-11-22",
   "release": "6.6",
   "schema": 1,
@@ -233,7 +233,7 @@
     "production_closure_sha256": "1bc8f0759a62f64488c020bf908e391bd35cc5b637959b3b837d022696609eaf",
     "production_sources": 264
   },
-  "status": "complete deterministic normalization; strict C2Rust probe next",
+  "status": "complete deterministic normalization and strict per-unit C2Rust probe",
   "translation_contract": {
     "alias_personalities": {
       "rustbox_tic_main": [
@@ -249,5 +249,18 @@
     "config_helper": "translate the generated shell helper separately; it has no C entrypoint",
     "multicall_conditional": "RUSTBOX_MULTICALL",
     "standalone_wrappers_retained": true
+  },
+  "translator_compatibility": {
+    "all_unit_probe": {
+      "commands": 264,
+      "failed": 0,
+      "passed": 264,
+      "seconds": 135.397,
+      "sha256": "9b7f3dc162539629ae92c656874f2ff58a1fc0576e90b30858c24190bcbb41e8"
+    },
+    "backend": "C2Rust 0.22.1",
+    "fail_on_error": true,
+    "generated_rust_repairs": 0,
+    "preserve_unused_functions": true
   }
 }

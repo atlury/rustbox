@@ -68,6 +68,13 @@ def main() -> int:
     if (len(manifest.get("changed_sources", [])), manifest.get("entrypoints")) != (8, 7):
         raise RuntimeError("Ncurses normalization manifest changed")
 
+    probe_path = normalized / "c2rust-probe/results.json"
+    probe = json.loads(probe_path.read_text())
+    if (probe.get("commands"), probe.get("passed"), probe.get("failed")) != (264, 264, 0):
+        raise RuntimeError("Ncurses per-unit C2Rust probe is incomplete")
+    if probe.get("normalization_manifest_sha256") != sha256(manifest_path):
+        raise RuntimeError("Ncurses C2Rust probe used a different normalization")
+
     production_sources: list[str] | None = None
     compilers: dict[str, object] = {}
     for compiler in ("gcc", "clang", "sanitizer"):
@@ -117,7 +124,7 @@ def main() -> int:
         "schema": 1,
         "recorded_at": "2026-11-22",
         "release": "6.6",
-        "status": "complete deterministic normalization; strict C2Rust probe next",
+        "status": "complete deterministic normalization and strict per-unit C2Rust probe",
         "manifest": manifest,
         "manifest_sha256": sha256(manifest_path),
         "scope": {
@@ -149,13 +156,23 @@ def main() -> int:
             },
             "config_helper": "translate the generated shell helper separately; it has no C entrypoint",
         },
-        "next_gate": "strict per-unit C2Rust translation probe of the exact normalized closure",
+        "translator_compatibility": {
+            "backend": "C2Rust 0.22.1",
+            "fail_on_error": True,
+            "preserve_unused_functions": True,
+            "generated_rust_repairs": 0,
+            "all_unit_probe": {
+                "commands": 264, "passed": 264, "failed": 0,
+                "seconds": probe["seconds"], "sha256": sha256(probe_path),
+            },
+        },
+        "next_gate": "combined C2Rust translation and stable-Rust compilation of the exact normalized closure",
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")
     print(json.dumps({
         "changed_sources": 8, "differential": 54, "entrypoints": 7,
-        "production_sources": 264, "ubsan": 0, "valgrind": 10,
+        "production_sources": 264, "strict_c2rust": 264, "ubsan": 0, "valgrind": 10,
     }, sort_keys=True))
     return 0
 
