@@ -148,6 +148,39 @@ class OpaqueUseTests(unittest.TestCase):
         self.assertNotIn("VaListImpl", output)
         self.assertNotIn("as_va_list", output)
 
+    def test_checked_arithmetic_uses_mixed_type_compatibility_helper(self) -> None:
+        output = self.transform(
+            "fn f(left: i64, right: i32) {\n"
+            "    let (value, overflow) = left.overflowing_add(right);\n"
+            "    consume(value, overflow);\n"
+            "}\n"
+        )
+        self.assertIn("crate::rustbox_c2rust_ckd_add(left, right)", output)
+        self.assertNotIn(".overflowing_add(", output)
+
+    def test_checked_arithmetic_rewrite_handles_multiline_operands(self) -> None:
+        output = self.transform(
+            "fn f(left: i64, right: i32) {\n"
+            "    let (value, overflow) = left\n"
+            "        .overflowing_mul(\n"
+            "            right.wrapping_add(1),\n"
+            "        );\n"
+            "    consume(value, overflow);\n"
+            "}\n"
+        )
+        self.assertIn("crate::rustbox_c2rust_ckd_mul(left,", output)
+        self.assertIn("right.wrapping_add(1)", output)
+        self.assertNotIn(".overflowing_mul(", output)
+
+    def test_checked_arithmetic_support_preserves_wrapped_destination(self) -> None:
+        support = MODULE.CHECKED_ARITHMETIC_SUPPORT
+        self.assertIn("left.wrapping_add(right)", support)
+        self.assertIn("left.wrapping_sub(right)", support)
+        self.assertIn("left.wrapping_mul(right)", support)
+        self.assertIn("O::rustbox_from_i128_wrapping(low_bits)", support)
+        self.assertIn("value < O::MIN_I128", support)
+        self.assertIn("O::MAX_I128 < value", support)
+
     def test_archive_override_keeps_program_export_and_mangles_library_copy(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)

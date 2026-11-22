@@ -894,7 +894,17 @@ layout.  GCC, Clang, and ASan/UBSan each reproduce the complete 224-test result,
 both canonical-versus-normalized differentials pass 18/18, and a strict
 per-unit C2Rust probe translates all 197 production actions with zero failures.
 Reproducible details are in `evidence/tar-1.35-normalization.json`; combined
-no-hole translation is the next gate.
+strict translation covers all 197 production actions.  The 199-file stable
+Rust 1.99 crate builds with no placeholder or compile-error holes after one
+reusable C23 checked-arithmetic modernization handles 80 mixed-type
+`ckd_add`, `ckd_sub`, and `ckd_mul` sites.  Five C2Rust fallthrough guards are
+all unreachable immediately after canonical `_Noreturn` calls.  GNU's four
+x86-64 SysV long-double/variadic units remain canonical C because Rust's
+stable `VaList` and the translator's `f128` wrapper cannot represent that ABI
+faithfully; their translated forms remain in the audit inventory.  The
+25,081 raw-pointer type occurrences and 5,775 unsafe functions are recorded
+for the later safety phase.  Reproducible translation evidence is in
+`evidence/tar-1.35-c2rust.json`; hybrid linkage and parity are the next gate.
 
 ## Work queue after util-linux
 

@@ -40,6 +40,10 @@ ATOMIC_XCHG_ACQUIRE_I32 = re.compile(
     r"(?P=indent)(?P<value>[^\n]+ as ::core::ffi::c_int),\n"
     r"(?P<close>\s*)\)"
 )
+WRITE_VOLATILE_BEFORE_IF = re.compile(
+    r"(?ms)(?P<call>^(?P<indent>[ \t]*)::core::ptr::write_volatile\(\n"
+    r".*?^(?P=indent)\))\n(?P=indent)if "
+)
 REMOVED_FEATURES = {
     "#![feature(asm)]",
     "#![feature(c_variadic)]",
@@ -50,9 +54,155 @@ REMOVED_FEATURES = {
     "#![feature(raw_ref_op)]",
 }
 
+CHECKED_ARITHMETIC_SUPPORT = r'''
+
+// C23 stdckdint operations evaluate their operands at infinite precision,
+// store the low destination bits, and report whether the mathematical result
+// fits the destination type.  C2Rust 0.22 instead emits Rust's same-type
+// overflowing_* methods, which reject valid C calls with mixed integer types.
+// Keep this compatibility layer private to mechanically modernized crates.
+#[doc(hidden)]
+pub trait RustboxC2RustCkdInt: Copy {
+    const MIN_I128: i128;
+    const MAX_I128: i128;
+    fn rustbox_to_i128(self) -> i128;
+    fn rustbox_from_i128_wrapping(value: i128) -> Self;
+}
+
+macro_rules! rustbox_c2rust_ckd_signed {
+    ($($type:ty),+ $(,)?) => {$ (
+        impl RustboxC2RustCkdInt for $type {
+            const MIN_I128: i128 = <$type>::MIN as i128;
+            const MAX_I128: i128 = <$type>::MAX as i128;
+            fn rustbox_to_i128(self) -> i128 { self as i128 }
+            fn rustbox_from_i128_wrapping(value: i128) -> Self { value as Self }
+        }
+    )+};
+}
+
+macro_rules! rustbox_c2rust_ckd_unsigned {
+    ($($type:ty),+ $(,)?) => {$ (
+        impl RustboxC2RustCkdInt for $type {
+            const MIN_I128: i128 = 0;
+            const MAX_I128: i128 = <$type>::MAX as i128;
+            fn rustbox_to_i128(self) -> i128 { self as i128 }
+            fn rustbox_from_i128_wrapping(value: i128) -> Self { value as Self }
+        }
+    )+};
+}
+
+rustbox_c2rust_ckd_signed!(i8, i16, i32, i64, isize);
+rustbox_c2rust_ckd_unsigned!(u8, u16, u32, u64, usize);
+
+#[doc(hidden)]
+pub fn rustbox_c2rust_ckd_add<O, A, B>(left: A, right: B) -> (O, bool)
+where
+    O: RustboxC2RustCkdInt,
+    A: RustboxC2RustCkdInt,
+    B: RustboxC2RustCkdInt,
+{
+    let left = left.rustbox_to_i128();
+    let right = right.rustbox_to_i128();
+    let exact = left.checked_add(right);
+    let low_bits = left.wrapping_add(right);
+    let overflow = exact.is_none_or(|value| value < O::MIN_I128 || O::MAX_I128 < value);
+    (O::rustbox_from_i128_wrapping(low_bits), overflow)
+}
+
+#[doc(hidden)]
+pub fn rustbox_c2rust_ckd_sub<O, A, B>(left: A, right: B) -> (O, bool)
+where
+    O: RustboxC2RustCkdInt,
+    A: RustboxC2RustCkdInt,
+    B: RustboxC2RustCkdInt,
+{
+    let left = left.rustbox_to_i128();
+    let right = right.rustbox_to_i128();
+    let exact = left.checked_sub(right);
+    let low_bits = left.wrapping_sub(right);
+    let overflow = exact.is_none_or(|value| value < O::MIN_I128 || O::MAX_I128 < value);
+    (O::rustbox_from_i128_wrapping(low_bits), overflow)
+}
+
+#[doc(hidden)]
+pub fn rustbox_c2rust_ckd_mul<O, A, B>(left: A, right: B) -> (O, bool)
+where
+    O: RustboxC2RustCkdInt,
+    A: RustboxC2RustCkdInt,
+    B: RustboxC2RustCkdInt,
+{
+    let left = left.rustbox_to_i128();
+    let right = right.rustbox_to_i128();
+    let exact = left.checked_mul(right);
+    let low_bits = left.wrapping_mul(right);
+    let overflow = exact.is_none_or(|value| value < O::MIN_I128 || O::MAX_I128 < value);
+    (O::rustbox_from_i128_wrapping(low_bits), overflow)
+}
+'''
+
 
 def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def matching_parenthesis(text: str, opening: int) -> int:
+    """Find a generated Rust call's close delimiter without parsing its AST."""
+    depth = 1
+    quote: str | None = None
+    escaped = False
+    index = opening + 1
+    while index < len(text):
+        char = text[index]
+        if quote is not None:
+            if escaped:
+                escaped = False
+            elif char == "\\":
+                escaped = True
+            elif char == quote:
+                quote = None
+        elif char in "\"'":
+            quote = char
+        elif char == "(":
+            depth += 1
+        elif char == ")":
+            depth -= 1
+            if depth == 0:
+                return index
+        index += 1
+    raise RuntimeError("unterminated C2Rust overflowing arithmetic call")
+
+
+def rewrite_checked_arithmetic(text: str) -> tuple[str, int]:
+    """Replace C2Rust's invalid same-type spelling of C23 ckd_* calls."""
+    pattern = re.compile(r"\.overflowing_(add|sub|mul)\(")
+    rewrites = 0
+    search_from = 0
+    while match := pattern.search(text, search_from):
+        statement = text.rfind("let (", 0, match.start())
+        previous_semicolon = text.rfind(";", 0, match.start())
+        if statement < 0 or statement < previous_semicolon:
+            raise RuntimeError("overflowing arithmetic is not in C2Rust tuple form")
+        equals = text.find("=", statement, match.start())
+        if equals < 0:
+            raise RuntimeError("C2Rust overflowing arithmetic has no result binding")
+        receiver_start = equals + 1
+        while text[receiver_start].isspace():
+            receiver_start += 1
+        receiver = text[receiver_start:match.start()].strip()
+        if not receiver:
+            raise RuntimeError("C2Rust overflowing arithmetic has no receiver")
+        opening = match.end() - 1
+        closing = matching_parenthesis(text, opening)
+        argument = text[opening + 1:closing].strip()
+        operation = match.group(1)
+        replacement = (
+            f"crate::rustbox_c2rust_ckd_{operation}("
+            f"{receiver}, {argument})"
+        )
+        text = text[:receiver_start] + replacement + text[closing + 1:]
+        rewrites += 1
+        search_from = receiver_start + len(replacement)
+    return text, rewrites
 
 
 def has_only_pointer_uses(line: str, name: str) -> bool:
@@ -210,7 +360,9 @@ def deduplicate_no_mangle_statics(root: Path) -> list[dict[str, object]]:
     return changes
 
 
-def transform_rust(path: Path) -> dict[str, object] | None:
+def transform_rust(
+    path: Path, *, install_checked_arithmetic_support: bool = False
+) -> dict[str, object] | None:
     before = path.read_text(encoding="utf-8")
     lines = before.splitlines()
     opaque = [match.group(1) for line in lines if (match := EXTERN_TYPE.match(line))]
@@ -305,6 +457,30 @@ def transform_rust(path: Path) -> dict[str, object] | None:
         )
 
     joined = ATOMIC_XCHG_ACQUIRE_I32.sub(stable_atomic_exchange, joined)
+
+    # Rust has no integer-to-bool cast.  C2Rust emits this spelling for C's
+    # exact `_Bool` conversion (zero is false, every nonzero value is true).
+    # Preserve that conversion directly instead of guessing at the integer
+    # expression that produced it.
+    joined, integer_to_bool_rewrites = re.subn(
+        r"\)\s+as bool", ") != 0", joined
+    )
+
+    # C2Rust 0.22 can omit the statement terminator between an expanded
+    # volatile decrement and the following loop condition.  Match only a
+    # complete write_volatile call whose closing delimiter and `if` share the
+    # same indentation.
+    def terminate_write_volatile(match: re.Match[str]) -> str:
+        return f"{match.group('call')};\n{match.group('indent')}if "
+
+    joined, write_volatile_semicolon_rewrites = WRITE_VOLATILE_BEFORE_IF.subn(
+        terminate_write_volatile, joined
+    )
+    joined, checked_arithmetic_rewrites = rewrite_checked_arithmetic(joined)
+    if install_checked_arithmetic_support:
+        if "pub trait RustboxC2RustCkdInt" in joined:
+            raise RuntimeError(f"{path}: checked-arithmetic support already exists")
+        joined += CHECKED_ARITHMETIC_SUPPORT
     kept = joined.splitlines()
 
     definitions: list[str] = []
@@ -331,6 +507,10 @@ def transform_rust(path: Path) -> dict[str, object] | None:
         "as_va_list_rewrites": as_va_list_rewrites,
         "va_arg_rewrites": va_arg_rewrites,
         "atomic_xchg_acquire_i32_rewrites": atomic_xchg_acquire_rewrites,
+        "integer_to_bool_rewrites": integer_to_bool_rewrites,
+        "write_volatile_semicolon_rewrites": write_volatile_semicolon_rewrites,
+        "checked_arithmetic_rewrites": checked_arithmetic_rewrites,
+        "checked_arithmetic_support": install_checked_arithmetic_support,
     }
     if external_linkage_attributes:
         result["external_linkage_attributes_removed"] = external_linkage_attributes
@@ -358,9 +538,19 @@ def main() -> int:
             staged,
             ignore=shutil.ignore_patterns("target", "Cargo.lock"),
         )
+        rust_sources = sorted(staged.rglob("*.rs"))
+        has_checked_arithmetic = any(
+            ".overflowing_" in path.read_text(encoding="utf-8")
+            for path in rust_sources
+        )
         changes: list[dict[str, object]] = []
-        for path in sorted(staged.rglob("*.rs")):
-            change = transform_rust(path)
+        for path in rust_sources:
+            change = transform_rust(
+                path,
+                install_checked_arithmetic_support=(
+                    has_checked_arithmetic and path == staged / "lib.rs"
+                ),
+            )
             if change is not None:
                 change["path"] = str(path.relative_to(staged))
                 changes.append(change)

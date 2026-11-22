@@ -1,0 +1,116 @@
+{
+  "canonical_c_abi_residue": {
+    "count": 4,
+    "reason": "x86_64 SysV long double and variadic va_list ABI must remain in canonical C; Rust's stable VaList does not accept the translator's f128 wrapper and the wrapper is not an ABI substitute for C long double",
+    "sources": [
+      "gnu/human.c",
+      "gnu/printf-args.c",
+      "gnu/printf-parse.c",
+      "gnu/vasnprintf.c"
+    ],
+    "translated_versions_retained_for_audit": true
+  },
+  "dependencies": {
+    "external_runtime_libraries": [],
+    "rust_crates": [
+      "c2rust-bitfields",
+      "f128",
+      "num-traits",
+      "libc"
+    ]
+  },
+  "fallthrough_guard_audit": {
+    "basis": "each generated guard immediately follows a canonical _Noreturn call and is reachable only if that upstream contract is violated",
+    "immediate_predecessors": {
+      "fatal_exit": 1,
+      "wait_for_grandchild": 2,
+      "xexec": 2
+    },
+    "occurrences": 5,
+    "semantic_holes": 0
+  },
+  "hardening": {
+    "later_order": [
+      "eliminate raw pointers and unsafe",
+      "replace std and Rust crates with Rustbox-owned no_std runtime"
+    ],
+    "raw_pointers_and_unsafe_are_inventory_only": true
+  },
+  "input": {
+    "compile_commands": 197,
+    "compile_database_sha256": "100da3ede1e210c4e7935e061a177df5d0835f1bb85aba29d5262027d3ce942f",
+    "production_c_sources": 197
+  },
+  "next_gate": "link and differentially verify tar and rmt hybrid entrypoints",
+  "raw_translation": {
+    "c2rust_fallthrough_guards": 5,
+    "compile_error_macros": 0,
+    "inline_assembly_occurrences": 0,
+    "raw_pointer_type_occurrences": 25081,
+    "rust_bytes": 7543467,
+    "rust_files": 199,
+    "rust_lines": 187152,
+    "todo_macros": 0,
+    "unimplemented_macros": 0,
+    "unsafe_function_occurrences": 5775
+  },
+  "recorded_at": "2026-11-22",
+  "release": "1.35",
+  "schema": 1,
+  "stable_translation": {
+    "c2rust_fallthrough_guards": 5,
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+      "cargo_lock_sha256": "78ebfd1c59af969a5f14e64d3b1a048df1e5c205c4c01fa842580590df836da7",
+      "cargo_toml_sha256": "641cab2f5920ac9948339195f0b14513dc12c21fcf82c3bf3a9ba0004ec5b964",
+      "diagnostics_by_level": {
+        "warning": 881
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+      "schema": 1,
+      "stderr_sha256": "aed4d48cda0b873f906d10a4f9efac9916b4f7f4c7fad71f8a44b6919f497ff1",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "clashing_extern_declarations": 29,
+        "static_mut_refs": 286,
+        "unpredictable_function_pointer_comparisons": 1,
+        "unused_attributes": 115,
+        "unused_imports": 4,
+        "unused_parens": 72,
+        "unused_unsafe": 22,
+        "unused_variables": 352
+      }
+    },
+    "cargo_check_sha256": "3806d6bb5d4a35df6f171b6190ef32211a64ff053759f3e4fa2a5f2c6dba5b94",
+    "checked_arithmetic_rewrites": 80,
+    "compile_error_macros": 0,
+    "inline_assembly_occurrences": 0,
+    "integer_to_bool_rewrites": 17,
+    "modernization_manifest_sha256": "ae3d088089f1c07f1158247e9be218375df23e1458ec4af8bb6d99af2f0338f4",
+    "package_boundary_manifest_sha256": "e12377b12cd1290cd5eb042e86ef39904a4f04b4b0d3bbac4156b800407707fe",
+    "raw_pointer_type_occurrences": 25081,
+    "release_archive": {
+      "bytes": 25283152,
+      "sha256": "9bd24c99e985aeffe8fe1129eb2575b9f85d12774bdb0e033ee2932eecbcb66b"
+    },
+    "rust_bytes": 7552537,
+    "rust_files": 199,
+    "rust_lines": 187938,
+    "todo_macros": 0,
+    "unimplemented_macros": 0,
+    "unsafe_function_occurrences": 5775,
+    "volatile_statement_terminator_rewrites": 1
+  },
+  "status": "complete stable translation; four canonical C ABI units retained; hybrid parity is the next gate",
+  "translator": {
+    "all_197_actions_translated": true,
+    "compile_error_or_placeholder_holes": 0,
+    "fail_on_error": true,
+    "name": "C2Rust",
+    "preserve_unused_functions": true,
+    "version": "0.22.1"
+  }
+}
