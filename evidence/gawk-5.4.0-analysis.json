@@ -1,0 +1,124 @@
+{
+  "artifacts": {
+    "clang-analyzer-tidy.log": "8e3f933458fb614558a9f05f0b6689d7dba44226f7f1a8d41ef7800eccf4668d",
+    "compile_commands.json": "2a089fbc2f2b622a0c79446ebfb75491b1fce1d517285b83acd5de2bdf5b426f",
+    "cppcheck.log": "e23b5868e42d03ffc0507107952edbf8608895c68f375a3a29f405d35a190d43",
+    "flawfinder.log": "229f605f72b4243c0dc770f8b577f80afc582dcd27964c2da43a1320c2c0af16",
+    "gcc-analyzer-setup.log": "bae1db2b7248e3209f723f53389448678c2fd8f6d1562d525100412bd1fe536a",
+    "gcc-analyzer.log": "743f960ec4c7afbbe215484dbd42053286eb3d546c7cdcec36480851e19c6da8",
+    "sources.list": "00b536c830818c60a618d0146eb302cf390259a4b72da8f61055c34f1d86a8c5",
+    "sparse.log": "a0ddb0af1ff67290a4185d2e14848cc46e1b9f900d329c7a9df5780897cebc6f",
+    "sparse.status": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "recorded_at": "2026-11-22",
+  "release": "5.4.0",
+  "review": {
+    "blocking_findings": 1,
+    "canonical_source_changes": 0,
+    "normalization_targets": [
+      "extension/readdir.c flexible-array declaration proven out of bounds by UBSan",
+      "export main through a stable multicall entrypoint without changing standalone behavior"
+    ],
+    "notes": [
+      "Cppcheck cannot expand Gawk's generated dynarray macros and configured C89 guard; GCC, Clang, and sanitizer builds are authoritative for those four parser diagnostics.",
+      "Sparse lacks the configured generated grammar and macro model; its output is retained as a pointer/type inventory rather than a correctness oracle.",
+      "The sanitizer-confirmed readdir field-array declaration is the only demonstrated memory-safety defect and is mandatory normalization work.",
+      "GCC descriptor reports cross deliberate ownership transfer through pipe and inplace state; canonical suites and Valgrind cover the exercised lifetimes.",
+      "Most Clang null and enum paths lose parser/opcode invariants; they remain recorded for later per-function substitution review rather than being bulk-edited.",
+      "Signal-handler and environment-pointer reports identify interfaces that must stay in C residue until a semantics-preserving Rust replacement is proven."
+    ],
+    "oracle_differential_passes": 26
+  },
+  "schema": 1,
+  "scope": {
+    "compile_actions": 55,
+    "targets": [
+      "gawk",
+      "awk",
+      "gawkbug",
+      "GNU extension modules"
+    ],
+    "unique_sources": 55
+  },
+  "tools": {
+    "clang_analyzer_tidy": {
+      "all_findings_by_check": {
+        "bugprone-assignment-in-if-condition": 192,
+        "bugprone-branch-clone": 38,
+        "bugprone-easily-swappable-parameters": 332,
+        "bugprone-implicit-widening-of-multiplication-result": 17,
+        "bugprone-inc-dec-in-conditions": 8,
+        "bugprone-macro-parentheses": 501,
+        "bugprone-macro-repeated-side-effects": 1,
+        "bugprone-misplaced-widening-cast": 2,
+        "bugprone-multi-level-implicit-pointer-conversion": 114,
+        "bugprone-narrowing-conversions": 408,
+        "bugprone-not-null-terminated-result": 1,
+        "bugprone-reserved-identifier": 2716,
+        "bugprone-signal-handler": 32,
+        "bugprone-signed-char-misuse": 23,
+        "bugprone-sizeof-expression": 4,
+        "bugprone-suspicious-include": 6,
+        "bugprone-suspicious-string-compare": 1,
+        "bugprone-switch-missing-default-case": 13,
+        "bugprone-unsafe-functions": 3,
+        "clang-analyzer-core.CallAndMessage": 1,
+        "clang-analyzer-core.DivideZero": 1,
+        "clang-analyzer-core.NonNullParamChecker": 7,
+        "clang-analyzer-core.NullDereference": 60,
+        "clang-analyzer-deadcode.DeadStores": 26,
+        "clang-analyzer-optin.core.EnumCastOutOfRange": 68,
+        "clang-analyzer-optin.performance.Padding": 1,
+        "clang-analyzer-security.cert.env.InvalidPtr": 1,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 1001,
+        "clang-analyzer-security.insecureAPI.strcpy": 22,
+        "performance-no-int-to-ptr": 34
+      },
+      "analyzer_findings_by_check": {
+        "clang-analyzer-core.CallAndMessage": 1,
+        "clang-analyzer-core.DivideZero": 1,
+        "clang-analyzer-core.NonNullParamChecker": 7,
+        "clang-analyzer-core.NullDereference": 60,
+        "clang-analyzer-deadcode.DeadStores": 26,
+        "clang-analyzer-optin.core.EnumCastOutOfRange": 68,
+        "clang-analyzer-optin.performance.Padding": 1,
+        "clang-analyzer-security.cert.env.InvalidPtr": 1,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 1001,
+        "clang-analyzer-security.insecureAPI.strcpy": 22
+      }
+    },
+    "cppcheck": {
+      "findings_by_id": {
+        "preprocessorErrorDirective": 2,
+        "syntaxError": 2
+      },
+      "findings_by_severity": {
+        "error": 4
+      }
+    },
+    "flawfinder": {
+      "hits_at_level_1_or_higher": 627,
+      "lines_analyzed": 66858
+    },
+    "gcc_fanalyzer": {
+      "findings_by_check": {
+        "analyzer-fd-leak": 3,
+        "analyzer-null-argument": 1,
+        "analyzer-null-dereference": 3,
+        "analyzer-unsafe-call-within-signal-handler": 1,
+        "analyzer-use-of-uninitialized-value": 3,
+        "cast-function-type": 3,
+        "implicit-fallthrough=": 13,
+        "missing-field-initializers": 9,
+        "sign-compare": 138,
+        "unused-parameter": 147
+      },
+      "warnings": 321
+    },
+    "sparse": {
+      "exit_status": 0,
+      "parser_errors": 515,
+      "warnings": 338
+    }
+  }
+}
