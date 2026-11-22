@@ -1015,10 +1015,13 @@ with defined signed-16-bit arithmetic while preserving database bytes and all
 behavior.  Reproducible evidence is in
 `evidence/findutils-4.10.0-oracle.json`.
 
-Deterministic normalization changes exactly that one source.  The decoder now
+Deterministic normalization changes exactly four sources.  The decoder now
 constructs the unsigned 16-bit value from two bytes with defined arithmetic
 and explicitly maps values above `0x7fff` into the signed range; it no longer
 left-shifts a negative operand or relies on implementation-defined narrowing.
+The same mechanical pass exports narrow C ABI entrypoints for `find`, `xargs`,
+`locate`, and private `frcode` while retaining their conditional standalone
+wrappers.
 GCC, Clang, and ASan/UBSan each retain the complete 218-source production
 closure and pass all upstream suites.  All 76 canonical-versus-normalized
 stateful comparisons pass, the sanitizer reports no undefined behavior or
@@ -1104,8 +1107,9 @@ Library-only checkpoints (outside the active utility order):
      and deterministic normalization complete for `find`, `xargs`, `locate`,
      and `updatedb`; 76/76 canonical-versus-normalized differential cases
      pass.  The sanitizer-confirmed LOCATE02 signed-shift defect is removed
-     with defined arithmetic.  Multicall entrypoint export and complete C2Rust
-     probing are next.
+     with defined arithmetic, and all four compiled programs export multicall
+     entrypoints while retaining standalone wrappers.  Complete C2Rust probing
+     is next.
    - [ ] Gawk — `gawk`, `awk`, `gawkbug`.
    - [ ] Flex — `flex`, `flex++`, `lex`.
    - [ ] Bison — `bison`, `yacc` (C/C++ skeletons only; Java output is out of

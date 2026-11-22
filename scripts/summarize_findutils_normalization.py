@@ -44,7 +44,10 @@ def summaries(text: str) -> tuple[dict[str, dict[str, int]], list[dict[str, int]
 def main() -> int:
     manifest_path = ROOT / "work/analysis/findutils-4.10.0/normalization-manifest.json"
     manifest = json.loads(manifest_path.read_text())
-    if manifest["changed_sources"] != ["locate/locate.c"]:
+    expected_changed = [
+        "find/ftsfind.c", "locate/frcode.c", "locate/locate.c", "xargs/xargs.c",
+    ]
+    if manifest["changed_sources"] != expected_changed or manifest.get("entrypoints") != 4:
         raise RuntimeError("Findutils normalization changed an unexpected source")
     expected_dejagnu = {
         "find": {"pass": 487, "fail": 0},
@@ -125,12 +128,13 @@ def main() -> int:
         "schema": 1,
         "release": "4.10.0",
         "recorded_at": "2026-11-22",
-        "status": "complete deterministic defined-arithmetic normalization",
+        "status": "complete deterministic defined-arithmetic and multicall normalization",
         "manifest": manifest,
         "manifest_sha256": sha256(manifest_path),
         "scope": {
             "production_sources": source_count,
-            "changed_sources": ["locate/locate.c"],
+            "changed_sources": expected_changed,
+            "translated_entrypoints": ["find", "frcode", "locate", "xargs"],
             "public_names": ["find", "xargs", "locate", "updatedb"],
         },
         "compilers": compilers,
@@ -143,12 +147,12 @@ def main() -> int:
             },
             "valgrind": valgrind,
         },
-        "next_gate": "export multicall entrypoints and probe the exact production closure with C2Rust",
+        "next_gate": "probe the exact production closure with C2Rust",
     }
     output = ROOT / "evidence/findutils-4.10.0-normalization.json"
     output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")
     print(json.dumps({
-        "changed_sources": 1, "differential": 76,
+        "changed_sources": 4, "differential": 76, "entrypoints": 4,
         "production_sources": source_count, "ubsan": 0, "valgrind": 4,
     }, sort_keys=True))
     return 0

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stage GNU Findutils with one deterministic defined-arithmetic repair."""
+"""Stage GNU Findutils with defined arithmetic and multicall entrypoints."""
 
 from __future__ import annotations
 
@@ -32,6 +32,31 @@ def tree_digest(root: Path) -> str:
     return digest.hexdigest()
 
 
+def replace_once(path: Path, old: str, new: str, label: str) -> None:
+    text = path.read_text()
+    if text.count(old) != 1:
+        raise RuntimeError(f"Findutils {label} precondition failed in {path}")
+    path.write_text(text.replace(old, new))
+
+
+def export_entrypoint(path: Path, name: str) -> None:
+    replace_once(
+        path,
+        "int\nmain (int argc, char **argv)\n{",
+        f"int\nrustbox_{name}_main (int argc, char **argv)\n{{",
+        f"{name} multicall entrypoint",
+    )
+    with path.open("a") as output:
+        output.write(
+            "\n#ifndef RUSTBOX_MULTICALL\n"
+            "int\nmain (int argc, char **argv)\n"
+            "{\n"
+            f"  return rustbox_{name}_main (argc, argv);\n"
+            "}\n"
+            "#endif\n"
+        )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repository", type=Path, required=True)
@@ -54,8 +79,8 @@ def main() -> int:
     staged = temporary / output.name
     try:
         shutil.copytree(canonical, staged, symlinks=True)
-        relative = "locate/locate.c"
-        path = staged / relative
+        locate_relative = "locate/locate.c"
+        path = staged / locate_relative
         before = path.read_text()
         old = """  register short x;
 
@@ -72,6 +97,14 @@ def main() -> int:
         if before.count(old) != 1:
             raise RuntimeError("Findutils signed-prefix precondition failed")
         path.write_text(before.replace(old, new))
+        entrypoints = {
+            "find/ftsfind.c": "find",
+            "xargs/xargs.c": "xargs",
+            "locate/locate.c": "locate",
+            "locate/frcode.c": "frcode",
+        }
+        for relative, name in entrypoints.items():
+            export_entrypoint(staged / relative, name)
 
         canonical_files = {
             item.relative_to(canonical).as_posix()
@@ -87,8 +120,14 @@ def main() -> int:
             name for name in canonical_files
             if sha256(canonical / name) != sha256(staged / name)
         )
-        if changed != [relative]:
+        expected_changed = sorted(entrypoints)
+        if changed != expected_changed:
             raise RuntimeError(f"unexpected normalized Findutils sources: {changed}")
+        operations = {
+            "find/ftsfind.c": "export rustbox_find_main and retain a conditional standalone wrapper",
+            "xargs/xargs.c": "export rustbox_xargs_main and retain a conditional standalone wrapper",
+            "locate/frcode.c": "export rustbox_frcode_main and retain a conditional standalone wrapper",
+        }
         manifest = {
             "schema": 1,
             "release": "4.10.0",
@@ -96,18 +135,30 @@ def main() -> int:
             "canonical_tree_sha256": tree_digest(canonical),
             "normalized_tree_sha256": tree_digest(staged),
             "changed_sources": changed,
+            "entrypoints": 4,
+            "conditional": "RUSTBOX_MULTICALL",
             "engine": "exact deterministic source rewrite",
-            "transformations": [{
-                "source": relative,
-                "canonical_sha256": sha256(canonical / relative),
-                "normalized_sha256": sha256(path),
-                "operation": "decode the signed 16-bit big-endian prefix with defined arithmetic",
-                "semantic_basis": (
-                    "high and low are bytes; high*256+low constructs the unsigned 16-bit value, "
-                    "and subtracting 65536 above 0x7fff yields the same signed value without "
-                    "left-shifting a negative operand or relying on unsigned-to-short conversion"
-                ),
-            }],
+            "transformations": [
+                {
+                    "source": name,
+                    "canonical_sha256": sha256(canonical / name),
+                    "normalized_sha256": sha256(staged / name),
+                    "operation": operations.get(
+                        name,
+                        "decode the signed 16-bit big-endian prefix with defined arithmetic and "
+                        "export rustbox_locate_main with a conditional standalone wrapper",
+                    ),
+                    **({
+                        "semantic_basis": (
+                            "high and low are bytes; high*256+low constructs the unsigned 16-bit "
+                            "value, and subtracting 65536 above 0x7fff yields the same signed value "
+                            "without left-shifting a negative operand or relying on "
+                            "unsigned-to-short conversion"
+                        ),
+                    } if name == locate_relative else {}),
+                }
+                for name in changed
+            ],
         }
         if output.exists():
             shutil.rmtree(output)
@@ -117,8 +168,8 @@ def main() -> int:
 
     args.manifest.parent.mkdir(parents=True, exist_ok=True)
     args.manifest.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
-    print(json.dumps({"changed_sources": ["locate/locate.c"], "undefined_behavior": 0},
-                     sort_keys=True))
+    print(json.dumps({"changed_sources": changed, "entrypoints": 4,
+                      "undefined_behavior": 0}, sort_keys=True))
     return 0
 
 

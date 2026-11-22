@@ -4,12 +4,12 @@
       "clang": {
         "cases": 38,
         "passed": 38,
-        "sha256": "0223414298023e73ee6f0a505045dbd8b53c48c98c7b47d76138a28c08a06404"
+        "sha256": "11ad7c643008db4217a1c882b6295b4acfd8d21f68a678718a3f8be85bce31c9"
       },
       "gcc": {
         "cases": 38,
         "passed": 38,
-        "sha256": "602473deab7c6f3a5bdfe2f0377c25467bff37831959f2a5a268427ca576496e"
+        "sha256": "592b107cac9b19a82aaef0bd1ac618d7a97fd14c15b90a29d4b0c2fecea53ceb"
       }
     },
     "sanitizer": {
@@ -20,19 +20,19 @@
     "valgrind": {
       "find": {
         "errors": 0,
-        "log_sha256": "b28f296f66928d59a94eb150a1cda9eaae6f496283f120dc0714961a4c5c3b27"
+        "log_sha256": "c52d8c4779bbaa754350529395c4cb83808d10827ed3e0dcf9e826e4f5cce2a7"
       },
       "frcode": {
         "errors": 0,
-        "log_sha256": "94f83aae2ab84eb53911cf3a0d6225e0f7abfa479a73f31deba72752c1fa3a49"
+        "log_sha256": "220c7ae74a7d4e3d95526b7e9a10a653b4538daa3c655b85af9626c01a564927"
       },
       "locate": {
         "errors": 0,
-        "log_sha256": "e66ee0261283bf1e25c8417e393b6c2f194aab1dcd9ba4f70dbf12a7e4285557"
+        "log_sha256": "08cf508b31c763fbf4be93add93fcc7621fc1f58b9811b689103274a97d708d3"
       },
       "xargs": {
         "errors": 0,
-        "log_sha256": "5e0ef1b761cc7fd6d22808d73dbe9311522922854a2f858d51d45d0c74224438"
+        "log_sha256": "120eecc8e54cbc2a536a79bb30bafd4b4bf5b67b33fabbd985961c553ac05b37"
       }
     }
   },
@@ -67,9 +67,9 @@
           "xpass": 0
         }
       ],
-      "check_log_sha256": "c727a82574716960cca60e15f5815216b6178dfad61a690c9586b86135a1512e",
+      "check_log_sha256": "8e947b7f3a5f51ce68a00771a28c7d132426ebacd460908fea867db426d1ae75",
       "compile_actions": 218,
-      "compile_database_sha256": "5ed32caa66810bd81df9f9d7eaebb638b9ff17f7510604e0a5899fadf2a2f286",
+      "compile_database_sha256": "b6bc383c958d195e146015dd64fe7ed6a7c08c95bc20bfe43bf5655faebf0c14",
       "dejagnu": {
         "find": {
           "fail": 0,
@@ -116,9 +116,9 @@
           "xpass": 0
         }
       ],
-      "check_log_sha256": "4f9d0b757c98e8ff3585bef2d0408e78ae5ea87b2345b2644385f3b8b4daf21e",
+      "check_log_sha256": "34f93626ad53bfec26270042e9ef71423d0eec831b09a927c030a2aea0aeb7b6",
       "compile_actions": 218,
-      "compile_database_sha256": "652cd88ece5d5675f3fdb3d7352f17f15b99a3a9034709b445b1ed49c0e14cef",
+      "compile_database_sha256": "46f186affb3903657f6a02bbd2193b0df76fbca9721f95e43baef9736fe021e9",
       "dejagnu": {
         "find": {
           "fail": 0,
@@ -165,9 +165,9 @@
           "xpass": 0
         }
       ],
-      "check_log_sha256": "d5e9d710802f4b172ce08e77b95df66e48243ea6700f83cb6502f69ce86729a5",
+      "check_log_sha256": "957c62069a57f5d8293d2e9f3a1fed09f1c516a303697646e08b843af2f546f2",
       "compile_actions": 218,
-      "compile_database_sha256": "d820813f07d78a4cd60c7c9de7b2623366ac4ab7be789094ec99670da85b2922",
+      "compile_database_sha256": "f573753db3ad32215cc9789156ed6705f83b8dc82cce363fcc644bd0ea773eda",
       "dejagnu": {
         "find": {
           "fail": 0,
@@ -189,30 +189,56 @@
     "canonical_archive_sha256": "1387e0b67ff247d2abde998f90dfbf70c1491391a59ddfecb8ae698789f0a4f5",
     "canonical_tree_sha256": "075cdaa3c7e77cc804007e4ca9b106ec2d7e80684b1c0a3df94f69a52ae0c7a2",
     "changed_sources": [
-      "locate/locate.c"
+      "find/ftsfind.c",
+      "locate/frcode.c",
+      "locate/locate.c",
+      "xargs/xargs.c"
     ],
+    "conditional": "RUSTBOX_MULTICALL",
     "engine": "exact deterministic source rewrite",
-    "normalized_tree_sha256": "e02daaeb22548c281bc509c55f3908cf309a60d1485701aefca199cc655416b9",
+    "entrypoints": 4,
+    "normalized_tree_sha256": "012d56c1ccb1ca69ac14cf173233a0674785fd2ae8b0ee65ccf9fcccb78588f2",
     "release": "4.10.0",
     "schema": 1,
     "transformations": [
       {
+        "canonical_sha256": "7f2d6b557310562df8e66074c6dc694780d0ae79d4825020cb156fb31e7d62ce",
+        "normalized_sha256": "33b62cd2b3d015d8086cff401b121dd804d4311b397eeea109ec8367a30b4c1a",
+        "operation": "export rustbox_find_main and retain a conditional standalone wrapper",
+        "source": "find/ftsfind.c"
+      },
+      {
+        "canonical_sha256": "a18ab8ddc0ddad1789f79448fc4b53a23088a4721345ac76410d15bd513ef664",
+        "normalized_sha256": "7cbd835486cc7e54de9db8553bc74145f5b57f9450008e0a33f6a659800da945",
+        "operation": "export rustbox_frcode_main and retain a conditional standalone wrapper",
+        "source": "locate/frcode.c"
+      },
+      {
         "canonical_sha256": "ba824ebd369242d74e43ab0e6c1f1aad0e667bb0504b4cad601ee05bd6ce12c6",
-        "normalized_sha256": "02daf94a7ceebf0150ea74aae69d9298664bbb10cbf692acdc814dc8ccd94ca7",
-        "operation": "decode the signed 16-bit big-endian prefix with defined arithmetic",
+        "normalized_sha256": "607f76f2b721e5a1b12f12dfc2e8f6264ecb72b151b0b35883f92ddd08aa5f4b",
+        "operation": "decode the signed 16-bit big-endian prefix with defined arithmetic and export rustbox_locate_main with a conditional standalone wrapper",
         "semantic_basis": "high and low are bytes; high*256+low constructs the unsigned 16-bit value, and subtracting 65536 above 0x7fff yields the same signed value without left-shifting a negative operand or relying on unsigned-to-short conversion",
         "source": "locate/locate.c"
+      },
+      {
+        "canonical_sha256": "a823a6be7b9f16fbdf310bd8d32c3569684ab48061a1297b3ef8b62b55e9efa2",
+        "normalized_sha256": "531851754894d58c25586495c72138592ecf1e0c325115da051ce00a62df184e",
+        "operation": "export rustbox_xargs_main and retain a conditional standalone wrapper",
+        "source": "xargs/xargs.c"
       }
     ]
   },
-  "manifest_sha256": "b44b2461d2c5f973fb1980944b47ba63f97d7f1d376e06f06d8c8b2b13484c5a",
-  "next_gate": "export multicall entrypoints and probe the exact production closure with C2Rust",
+  "manifest_sha256": "9d8569674b6d59c48eeca0b533d9cfe652c0b8c3bdcbcad0e235487710b11315",
+  "next_gate": "probe the exact production closure with C2Rust",
   "recorded_at": "2026-11-22",
   "release": "4.10.0",
   "schema": 1,
   "scope": {
     "changed_sources": [
-      "locate/locate.c"
+      "find/ftsfind.c",
+      "locate/frcode.c",
+      "locate/locate.c",
+      "xargs/xargs.c"
     ],
     "production_sources": 218,
     "public_names": [
@@ -220,7 +246,13 @@
       "xargs",
       "locate",
       "updatedb"
+    ],
+    "translated_entrypoints": [
+      "find",
+      "frcode",
+      "locate",
+      "xargs"
     ]
   },
-  "status": "complete deterministic defined-arithmetic normalization"
+  "status": "complete deterministic defined-arithmetic and multicall normalization"
 }

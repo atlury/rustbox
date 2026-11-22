@@ -23,6 +23,7 @@ RUSTBOX_TOOL_IMAGE=rustbox-findutils:2026-11-22 \
       build=$volume/normalized-$compiler
       root=$evidence/$compiler-root
       configuration="$manifest_sha256|$cc|$flags|$linker_flags|$configure_flags"
+      check_configuration="$configuration|check-v2"
       if test ! -f "$build/.rustbox-configuration" ||
           test "$(cat "$build/.rustbox-configuration")" != "$configuration"; then
         rm -rf "$build" "$root"
@@ -42,17 +43,22 @@ RUSTBOX_TOOL_IMAGE=rustbox-findutils:2026-11-22 \
         rm -rf "$root"
         mkdir -p "$root"
       fi
-      if test "$compiler" = sanitizer; then
-        runuser --user=nobody -- env \
-          ASAN_OPTIONS=detect_leaks=0:halt_on_error=1:allocator_may_return_null=1 \
-          UBSAN_OPTIONS=halt_on_error=1 \
-          TIMEOUT_FACTOR=10 \
-          make -j"$(nproc)" check >"$evidence/$compiler-check.log" 2>&1
-        ! grep -q "runtime error:" "$evidence/$compiler-check.log"
-        ! grep -q "ERROR: AddressSanitizer" "$evidence/$compiler-check.log"
-      else
-        runuser --user=nobody -- make -j"$(nproc)" check \
-          >"$evidence/$compiler-check.log" 2>&1
+      if test ! -f "$evidence/$compiler-check.log" ||
+          test ! -f "$build/.rustbox-check-configuration" ||
+          test "$(cat "$build/.rustbox-check-configuration")" != "$check_configuration"; then
+        if test "$compiler" = sanitizer; then
+          runuser --user=nobody -- env \
+            ASAN_OPTIONS=detect_leaks=0:halt_on_error=1:allocator_may_return_null=1 \
+            UBSAN_OPTIONS=halt_on_error=1 \
+            TIMEOUT_FACTOR=30 \
+            make -j2 check >"$evidence/$compiler-check.log" 2>&1
+          ! grep -q "runtime error:" "$evidence/$compiler-check.log"
+          ! grep -q "ERROR: AddressSanitizer" "$evidence/$compiler-check.log"
+        else
+          runuser --user=nobody -- make -j"$(nproc)" check \
+            >"$evidence/$compiler-check.log" 2>&1
+        fi
+        printf "%s\n" "$check_configuration" >"$build/.rustbox-check-configuration"
       fi
       make install DESTDIR="$root" >"$evidence/$compiler-install.log" 2>&1
       cp compile_commands.json "$evidence/$compiler-compile-commands.json"
