@@ -1,0 +1,121 @@
+{
+  "behavior": {
+    "canonical_differentials": {
+      "clang": {
+        "cases": 26,
+        "passed": 26,
+        "sha256": "e825a858c61e4a7607cefc74d09673156678d8b2721392b5a922051866cc0457"
+      },
+      "gcc": {
+        "cases": 26,
+        "passed": 26,
+        "sha256": "ffc4f51b45cda88713b1f146441ba981ff2c6060c6ce0b2dd2a428e4ed8c0a73"
+      }
+    },
+    "sanitizer": {
+      "address_errors": 0,
+      "canonical_readdir_bounds_defect_removed": true,
+      "undefined_behavior_diagnostics": 0
+    },
+    "valgrind": {
+      "help": {
+        "errors": 0,
+        "log_sha256": "7973679b1f07b2a15ff87752bbca2773b6436d1683e32be11a238c1097559acd"
+      },
+      "version": {
+        "errors": 0,
+        "log_sha256": "791081014e52febf2e73e5de260c7eb827d0fa536737fea77b29c4a7cab1d57f"
+      }
+    }
+  },
+  "compilers": {
+    "clang": {
+      "compile_actions": 55,
+      "compile_database_sha256": "efd84c93f1ce834b72ff58b95276925045c459304b047c4b688ce4e7503b21b3",
+      "production_sources": 55,
+      "suite": {
+        "log_sha256": "c2c354a2e01fc2b67129f593fc6c03a49d22ae0662041e533cb548e9b5a2bcf2",
+        "output_differences": 0,
+        "pma_virtualization_failures": 1,
+        "runtime_diagnostics": 0
+      }
+    },
+    "gcc": {
+      "compile_actions": 55,
+      "compile_database_sha256": "8f4b7f8c235c90c23521ca3a2ee965104d9165b35a156a60e863acc37755d9c6",
+      "production_sources": 55,
+      "suite": {
+        "log_sha256": "d8cdb3ff16f81f62808c1ce7920723836c8bb2b23ef70558485f613e487bb893",
+        "output_differences": 0,
+        "pma_virtualization_failures": 1,
+        "runtime_diagnostics": 0
+      }
+    },
+    "sanitizer": {
+      "compile_actions": 55,
+      "compile_database_sha256": "c3ec47c0f80fcfa8212c2d388c32d5e241987d9b5c24aed08fc300d955b6f20a",
+      "production_sources": 55,
+      "suite": {
+        "log_sha256": "09e7348122ac48477390daf86a11d6c1d2f2d8e925226473351ce030e21873c6",
+        "output_differences": 0,
+        "pma_virtualization_failures": 1,
+        "runtime_diagnostics": 0
+      }
+    }
+  },
+  "entrypoint": {
+    "standalone_wrapper": true,
+    "symbol": "rustbox_gawk_main"
+  },
+  "manifest": {
+    "canonical_archive_sha256": "3dd430f0cd3b4428c6c3f6afc021b9cd3c1f8c93f7a688dc268ca428a90b4ac1",
+    "canonical_tree_sha256": "e78751ba83fed1c1fd01c42cb5d2e4f3db68754fc5354ac4a09e4233958a1321",
+    "changed_sources": [
+      "extension/readdir.c",
+      "main.c"
+    ],
+    "conditional": "RUSTBOX_MULTICALL",
+    "engine": "exact deterministic source rewrite",
+    "entrypoints": 1,
+    "normalized_tree_sha256": "0f9ddf62864fa0df0b01d59a1976609c89f7447b2cc4df98bebc6cbe1bbc08b6",
+    "release": "5.4.0",
+    "schema": 1,
+    "transformations": [
+      {
+        "canonical_sha256": "399b7663cbc7a1b62371516a1fe1e76fa9fbeca27b74e33b607069d74e1b3d62",
+        "normalized_sha256": "ffab04201ef665b5a2b6e13c04def56040810d6c12166b757ac09e8b3a1b5b9c",
+        "operation": "store fields two and three in declared trailing awk_field_info objects",
+        "semantic_basis": "the API allocation remains exactly awk_fieldwidth_info_size(3); only accesses beyond the public one-element compatibility member are redirected to declared adjacent objects",
+        "source": "extension/readdir.c"
+      },
+      {
+        "canonical_sha256": "b1d2c721f98cb60bc82b937481a8880a8da07e65af979b6c28762005ab271499",
+        "normalized_sha256": "079fc92d4ef05494b13fd4cb69b93e6fdfaeb517b1358bd2bf14aea54ca77707",
+        "operation": "export rustbox_gawk_main and retain a conditional standalone wrapper",
+        "source": "main.c"
+      }
+    ]
+  },
+  "manifest_sha256": "90a9230e24c1e471b84026b602678fd8ff6fdca51bc12075e0a1331da455b625",
+  "next_gate": "probe the exact production closure with C2Rust",
+  "recorded_at": "2026-11-22",
+  "release": "5.4.0",
+  "schema": 1,
+  "scope": {
+    "changed_sources": [
+      "extension/readdir.c",
+      "main.c"
+    ],
+    "extensions": 12,
+    "production_sources": 55,
+    "public_names": [
+      "gawk",
+      "awk",
+      "gawkbug"
+    ],
+    "translated_entrypoints": [
+      "gawk"
+    ]
+  },
+  "status": "complete deterministic defined-storage and multicall normalization"
+}
