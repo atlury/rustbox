@@ -12,6 +12,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / "work/analysis/gawk-5.4.0"
 AUDIT = BASE / "translations/c2rust-0.22.1/gawk-5.4.0-normalized-audit"
+TRANSLATIONS = BASE / "translations/c2rust-0.22.1"
+STABLE = TRANSLATIONS / "gawk-5.4.0-stable"
 
 
 def sha256(path: Path) -> str:
@@ -53,6 +55,22 @@ def main() -> int:
     }
     if inventory != expected_inventory:
         raise RuntimeError("GNU Gawk generated pointer inventory changed")
+    combination_path = STABLE / "rustbox-combination.json"
+    modernization_path = STABLE / "rustbox-modernization.json"
+    cargo_log_path = TRANSLATIONS / "stable-cargo-check.log"
+    combination = json.loads(combination_path.read_text())
+    modernization = json.loads(modernization_path.read_text())
+    cargo_log = cargo_log_path.read_text(errors="replace")
+    if (combination["batches"], combination["modules"],
+            combination["declaration_maps"]) != (7, 55, 53):
+        raise RuntimeError("combined GNU Gawk crate coverage changed")
+    if modernization["stable_toolchain"] != "1.99.0":
+        raise RuntimeError("GNU Gawk stable toolchain changed")
+    finished = re.findall(r"Finished `dev` profile .*", cargo_log)
+    errors = len(re.findall(r"(?m)^error(?:\[|:)", cargo_log))
+    warning_summary = re.findall(r"generated ([0-9]+) warnings", cargo_log)
+    if len(finished) != 1 or errors != 0 or warning_summary != ["747"]:
+        raise RuntimeError("GNU Gawk stable cargo check result changed")
     evidence = {
         "schema": 1,
         "release": "5.4.0",
@@ -70,6 +88,15 @@ def main() -> int:
             "declaration_maps": len(maps),
             "declaration_map_exceptions": missing_maps,
             "exception_reason": "C2Rust source-offset assertion in Bison-generated parser metadata; code translation remains strict and complete",
+            "combined_stable_crate": {
+                "cargo_check": "pass",
+                "cargo_check_errors": errors,
+                "cargo_check_warnings": int(warning_summary[0]),
+                "stable_toolchain": modernization["stable_toolchain"],
+                "modernized_files": len(modernization["changes"]),
+                "duplicate_extension_exports_mangled": len(
+                    modernization["duplicate_exports_mangled"]),
+            },
         },
         "generated_inventory": inventory,
         "policy": {
@@ -80,12 +107,16 @@ def main() -> int:
         "artifacts": {
             "batch_manifest_sha256": sha256(batch_manifest_path),
             "module_sha256": {str(path.relative_to(AUDIT)): sha256(path) for path in modules},
+            "combination_manifest_sha256": sha256(combination_path),
+            "modernization_manifest_sha256": sha256(modernization_path),
+            "stable_cargo_check_sha256": sha256(cargo_log_path),
         },
     }
     output = ROOT / "evidence/gawk-5.4.0-translation.json"
     output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")
-    print(json.dumps({"batches": 7, "declaration_maps": 53, "holes": 0,
-                      "modules": 55, "rust_source_bytes": evidence["scope"]["rust_source_bytes"]},
+    print(json.dumps({"batches": 7, "cargo_check": "pass",
+                      "declaration_maps": 53, "holes": 0, "modules": 55,
+                      "rust_source_bytes": evidence["scope"]["rust_source_bytes"]},
                      sort_keys=True))
     return 0
 

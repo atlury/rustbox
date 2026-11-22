@@ -19,7 +19,7 @@ TYPE_ALIAS = re.compile(
     r"([A-Za-z_][A-Za-z0-9_]*)\s*;\s*$"
 )
 LOCAL_VALUE_BINDING = re.compile(
-    r"\blet\s+(?:mut\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*:"
+    r"\b(?:let\s+(?:mut\s+)?|mut\s+)([A-Za-z_][A-Za-z0-9_]*)\s*:"
 )
 RUST_LITERAL = re.compile(
     r"(?:b|c)?r\#*\".*?\"\#*|(?:b|c)?\"(?:\\.|[^\"\\])*\"|b?'(?:\\.|[^'\\])*'"

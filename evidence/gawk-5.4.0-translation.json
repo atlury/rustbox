@@ -1,6 +1,8 @@
 {
   "artifacts": {
     "batch_manifest_sha256": "2ad6bf63ec2a441cc802507b9077fdbb0f24171a9cf56950acc54ff7c55a9c17",
+    "combination_manifest_sha256": "3fc3ed23c16431a7a0fac0c0b78fb4e1115d9f342be1432b0ff0b45e21520456",
+    "modernization_manifest_sha256": "41a7d0e566f6494761ec3029c5970fe02e4cd50b79589757bd5f39dde1b6c4b2",
     "module_sha256": {
       "batch-000/src/array.rs": "9515d31aecd7a5e2027b2a8cd29c6d640d6d9ef77045b1e2c2561dc6a0b9ad45",
       "batch-000/src/cint_array.rs": "2211875f2471e3e81d30fd3f881afa23c399721a9dac8ddeb78f88197c9736b5",
@@ -57,7 +59,8 @@
       "batch-006/src/awklib/eg/lib/pwcat.rs": "13f7a253ffd92e87b1a9c9a3feac7f102cd4a660bdc9adbff0d7cc43f5c91a66",
       "batch-006/src/extension/ordchr.rs": "ca1bcd4639e9fe369df61465c38426ffe7618475c51895e206b41f3de23ca58d",
       "batch-006/src/extension/revtwoway.rs": "de0efde40ac948cd2c1dfa4053447665a189db7f7291117dd554d990b80ce504"
-    }
+    },
+    "stable_cargo_check_sha256": "3f531038474fee6f698c33c0d319c7e8103272b157600f0ccecbedae8d6e8ecb"
   },
   "generated_inventory": {
     "const_raw_pointer_types": 20162,
@@ -74,6 +77,14 @@
   "release": "5.4.0",
   "result": {
     "code_translation_failures": 0,
+    "combined_stable_crate": {
+      "cargo_check": "pass",
+      "cargo_check_errors": 0,
+      "cargo_check_warnings": 747,
+      "duplicate_extension_exports_mangled": 24,
+      "modernized_files": 51,
+      "stable_toolchain": "1.99.0"
+    },
     "declaration_map_exceptions": [
       "awkgram",
       "command"

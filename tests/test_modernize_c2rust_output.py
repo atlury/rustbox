@@ -63,6 +63,13 @@ class OpaqueUseTests(unittest.TestCase):
         )
         self.assertIn("pub struct opaque", output)
 
+    def test_mutable_parameter_may_shadow_opaque_type_name(self) -> None:
+        output = self.transform(
+            "pub type dfa;\n"
+            "fn f(mut dfa: bool, pointer: *mut dfa) { dfa = !dfa; consume(dfa, pointer); }\n"
+        )
+        self.assertIn("pub struct dfa", output)
+
     def test_shadowing_local_does_not_mask_by_value_type_use(self) -> None:
         with self.assertRaisesRegex(RuntimeError, "non-pointer use"):
             self.transform(
