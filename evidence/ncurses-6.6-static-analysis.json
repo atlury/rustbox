@@ -1,0 +1,148 @@
+{
+  "artifacts": {
+    "clang-analyzer-tidy.log": "d257c7f8907c36519759cfd1ed29d29f36ae38c18a59dec77ca370a9cc55affe",
+    "clang-analyzer-tidy.status": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "compile_commands.json": "e782fde4247cf02f4a78516ce33e0a5e674cbadb8310b7a0b4378db2ef81d3d8",
+    "cppcheck.log": "ecfbaab401bef2832b3715c371e8a23df6ba18876f8aebfcae18062b2bb50515",
+    "flawfinder.log": "033e85df458269b890854aaa768858093ba97782c68a03926d8624ae89824476",
+    "flawfinder.status": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "gcc-analyzer.log": "dba5b9901d0ac56f37ec501363a6922a226f668a858e759ba6a63c1ce8629200",
+    "gcc-analyzer.status": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "sources.list": "e4dc30c2ab91db116197faef1250262c6d8c7ded25f0ffcc2ec1971b3b6dc673",
+    "sparse.log": "8c728db549b286e7971889c1eabd9f3dc6207e965f34e4e10c180297db3eb9f8",
+    "sparse.status": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "recorded_at": "2026-11-22",
+  "release": "6.6",
+  "review": {
+    "canonical_source_changes": 0,
+    "demonstrated_canonical_defects": 1,
+    "demonstrated_defects": [
+      {
+        "evidence": "UBSan while canonical tic installs the terminfo database",
+        "kind": "signed left-shift undefined behavior",
+        "line": 92,
+        "normalization": "assemble the four input bytes through unsigned arithmetic without changing decoded values",
+        "source": "ncurses/tinfo/read_entry.c"
+      }
+    ],
+    "notes": [
+      "Cppcheck's eight double-free paths lose ret_error's branch invariant: each free is followed by return or the noreturn ExitTerminfo path.",
+      "GCC's write_entry uninitialized report loses the six LITTLE_ENDIAN macro writes that initialize all 12 header bytes before fake_write.",
+      "GCC's soft-label null reports lose _nc_slk_initialize's screen and allocation invariants; the GCC/Clang differentials, sanitizer oracle, and public Valgrind paths do not corroborate a defect.",
+      "GCC's tabs skip_list report loses the argv parser invariant that the helper receives a nonnull pointer inside the current argument.",
+      "GCC allocation reports are duplicated across shared/static models and describe cached library state or process-exit argv storage; public version paths have no direct or indirect Valgrind loss.",
+      "Clang's named analyzer findings are insecure-API portability inventory; it reports no core path-sensitive null, lifetime, or uninitialized defect.",
+      "Sparse's repeated initializer warnings describe the selected terminal-driver dispatch table across static/shared models; it has no parser error."
+    ],
+    "required_normalization": [
+      "Remove the sanitizer-confirmed signed shift while preserving compiled terminfo bytes.",
+      "Export the ten native utility entrypoints while retaining standalone wrappers.",
+      "Keep the complete 264-source configured closure; do not replace library support with translation holes.",
+      "Make only translator-demonstrated ownership, width, macro, and generated-code constraints explicit."
+    ]
+  },
+  "schema": 1,
+  "scope": {
+    "c_sources": 264,
+    "compile_actions": 264,
+    "public_names": [
+      "captoinfo",
+      "clear",
+      "infocmp",
+      "infotocap",
+      "tabs",
+      "tic",
+      "toe",
+      "tput",
+      "tset",
+      "reset",
+      "ncursesw6-config"
+    ],
+    "shared_static_duplicate_actions_deduplicated": true,
+    "tests_examples_and_nonselected_sources_excluded": true,
+    "unique_sources": 264
+  },
+  "status": "complete production audit; deterministic normalization next",
+  "tools": {
+    "clang_analyzer_tidy": {
+      "all_findings_by_check": {
+        "bugprone-assignment-in-if-condition": 265,
+        "bugprone-branch-clone": 31,
+        "bugprone-casting-through-void": 25,
+        "bugprone-easily-swappable-parameters": 70,
+        "bugprone-implicit-widening-of-multiplication-result": 30,
+        "bugprone-inc-dec-in-conditions": 18,
+        "bugprone-integer-division": 1,
+        "bugprone-macro-parentheses": 115,
+        "bugprone-misplaced-widening-cast": 3,
+        "bugprone-multi-level-implicit-pointer-conversion": 36,
+        "bugprone-narrowing-conversions": 7,
+        "bugprone-reserved-identifier": 37,
+        "bugprone-signed-char-misuse": 36,
+        "bugprone-suspicious-include": 2,
+        "bugprone-suspicious-memory-comparison": 2,
+        "bugprone-suspicious-realloc-usage": 1,
+        "bugprone-suspicious-semicolon": 1,
+        "bugprone-suspicious-string-compare": 16,
+        "bugprone-switch-missing-default-case": 37,
+        "bugprone-unsafe-functions": 1,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 335,
+        "clang-analyzer-security.insecureAPI.strcpy": 73,
+        "clang-diagnostic-unused-command-line-argument": 264,
+        "performance-no-int-to-ptr": 332
+      },
+      "analyzer_findings_by_check": {
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 335,
+        "clang-analyzer-security.insecureAPI.strcpy": 73
+      },
+      "exit_status": 0
+    },
+    "cppcheck": {
+      "findings_by_id": {
+        "constParameter": 1,
+        "constParameterPointer": 32,
+        "constVariablePointer": 8,
+        "doubleFree": 8,
+        "duplicateCondition": 1,
+        "duplicateExpression": 3,
+        "knownConditionTrueFalse": 9,
+        "nullPointerArithmeticRedundantCheck": 1,
+        "nullPointerRedundantCheck": 13,
+        "redundantAssignment": 9,
+        "redundantContinue": 1,
+        "redundantPointerOp": 9,
+        "uninitvar": 1,
+        "unknownMacro": 1,
+        "unreadVariable": 7,
+        "unsignedLessThanZero": 7,
+        "unusedStructMember": 3,
+        "variableScope": 6
+      },
+      "findings_by_severity": {
+        "error": 9,
+        "style": 96,
+        "warning": 15
+      }
+    },
+    "flawfinder": {
+      "exit_status": 0,
+      "hits_at_level_1_or_higher": 520,
+      "lines_analyzed": 82898
+    },
+    "gcc_fanalyzer": {
+      "exit_status": 0,
+      "findings_by_check": {
+        "analyzer-malloc-leak": 8,
+        "analyzer-null-dereference": 2,
+        "analyzer-possible-null-dereference": 1,
+        "analyzer-use-of-uninitialized-value": 2
+      }
+    },
+    "sparse": {
+      "exit_status": 0,
+      "parser_errors": 0,
+      "warnings": 34
+    }
+  }
+}

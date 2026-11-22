@@ -948,8 +948,16 @@ terminfo installation: `read_entry.c:92` left-shifts byte value 255 into a
 signed `int`.  Only that exact diagnostic is allowlisted for the canonical
 install; normalization must remove the signed-shift UB while retaining
 byte-identical terminfo output and behavior.  Reproducible evidence is in
-`evidence/ncurses-6.6-oracle.json`.  Static analysis and deterministic
-normalization of the locked 264-source closure are next.
+`evidence/ncurses-6.6-oracle.json`.  The production-only
+Cppcheck, GCC `-fanalyzer`, Clang analyzer/tidy, Flawfinder, and Sparse audit
+is now complete and reproducibly locked in
+`evidence/ncurses-6.6-static-analysis.json`.  It confirms the sanitizer's one
+signed-shift defect and finds no second demonstrated canonical defect; Sparse
+has no parser error.  The remaining reports are explicit translation and
+ownership inventory, including analyzer paths disproved by control-flow
+macros, initialization macros, configured invariants, and the zero-loss
+public Valgrind paths.
+Deterministic normalization of the locked 264-source closure is next.
 
 ## Work queue after util-linux
 
@@ -1014,7 +1022,8 @@ Library-only checkpoints (outside the active utility order):
      `clear`, `infocmp`, `infotocap`, `tabs`, `tic`, `toe`, `tput`, `tset`,
      `reset`, and generated `ncursesw6-config`; shared/static `ncursesw`,
      `panelw`, `formw`, `menuw`, `tinfow`, and `ticw` are included.  Static
-     audit, normalization, translation, and multicall integration remain.
+     Static audit is complete with one sanitizer-confirmed signed-shift defect;
+     normalization, translation, and multicall integration remain.
    - [x] Less 710 — canonical `less` and private-runtime `lessecho`; full
      translation, standalone hybrid parity, and unified multicall integration
      are complete.  Upstream removed the standalone
