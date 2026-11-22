@@ -41,6 +41,7 @@ def main() -> int:
     parser.add_argument("--tar-report-directory", type=Path, required=True)
     parser.add_argument("--ncurses-report-directory", type=Path, required=True)
     parser.add_argument("--findutils-report-directory", type=Path, required=True)
+    parser.add_argument("--gawk-report-directory", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     binary = args.binary.resolve()
@@ -65,6 +66,7 @@ def main() -> int:
     tar_directory = args.tar_report_directory.resolve()
     ncurses_directory = args.ncurses_report_directory.resolve()
     findutils_directory = args.findutils_report_directory.resolve()
+    gawk_directory = args.gawk_report_directory.resolve()
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
@@ -551,6 +553,27 @@ def main() -> int:
     for name, path in findutils_valgrind_paths.items():
         if "ERROR SUMMARY: 0 errors" not in path.read_text(errors="replace"):
             raise RuntimeError(f"unified Findutils {name} Valgrind result is incomplete")
+    gawk_differential_path = gawk_directory / "differential.json"
+    gawk_differential = json.loads(gawk_differential_path.read_text())
+    gawk_upstream_path = gawk_directory / "upstream-tests.log"
+    gawk_upstream = gawk_upstream_path.read_text(errors="replace")
+    if (
+        gawk_differential.get("cases") != 26
+        or gawk_differential.get("passed") != 26
+        or len(re.findall(r"Segmentation fault.*GAWK_PERSIST_FILE=test\.pma", gawk_upstream)) != 1
+        or len(re.findall(r"Error 139", gawk_upstream)) != 1
+    ):
+        raise RuntimeError("unified GNU Gawk integration comparison is incomplete")
+    gawk_valgrind_paths = {
+        name: gawk_directory / f"valgrind-{name}.log" for name in ("gawk", "awk")
+    }
+    for name, path in gawk_valgrind_paths.items():
+        text = path.read_text(errors="replace")
+        if any(marker not in text for marker in (
+            "ERROR SUMMARY: 0 errors", "definitely lost: 0 bytes",
+            "indirectly lost: 0 bytes", "possibly lost: 0 bytes",
+        )):
+            raise RuntimeError(f"unified GNU Gawk {name} Valgrind result is incomplete")
     if sha256(binary) != link["binary"]["sha256"]:
         raise RuntimeError("unified binary changed after link evidence")
     with tempfile.TemporaryDirectory(prefix="rustbox-strip-") as temporary:
@@ -579,7 +602,7 @@ def main() -> int:
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-22",
-        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, GNU tar, Ncurses, and GNU Findutils integrated at canonical parity",
+        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, GNU tar, Ncurses, GNU Findutils, and GNU Gawk core integrated at canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
@@ -601,7 +624,8 @@ def main() -> int:
             "tar_integrated_names": 2,
             "ncurses_integrated_names": 10,
             "findutils_integrated_names": 4,
-            "dispatch_names": 350,
+            "gawk_integrated_names": 2,
+            "dispatch_names": 352,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -672,6 +696,21 @@ def main() -> int:
             "differential_sha256": sha256(grep_differential_path),
             "alias_differential_sha256": sha256(grep_alias_path),
             "valgrind_log_sha256": sha256(grep_valgrind_path),
+        },
+        "gawk_integration": {
+            "integrated_public_names": 2,
+            "differential": gawk_differential,
+            "complete_upstream_suite": True,
+            "pma_virtualization_failure_matches_canonical": True,
+            "valgrind_errors": 0,
+            "definitely_lost_bytes": 0,
+            "indirectly_lost_bytes": 0,
+            "possibly_lost_bytes": 0,
+            "differential_sha256": sha256(gawk_differential_path),
+            "upstream_log_sha256": sha256(gawk_upstream_path),
+            "valgrind_log_sha256": {
+                name: sha256(path) for name, path in gawk_valgrind_paths.items()
+            },
         },
         "bc_integration": {
             "shipped_workloads": len(bc_workloads),

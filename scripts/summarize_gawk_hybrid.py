@@ -146,7 +146,7 @@ def main() -> int:
         "schema": 1,
         "recorded_at": "2026-11-22",
         "release": "5.4.0",
-        "status": "translated core and extensions at complete canonical test parity; multicall integration pending",
+        "status": "translated core and extensions at complete canonical test parity; gawk and awk integrated into the unified multicall",
         "implementation": {
             "core_rust_modules": combination["modules"],
             "separate_translated_modules": 18,
@@ -216,7 +216,7 @@ def main() -> int:
             "linked_sha256": sha256(binary),
             "stripped_sha256": sha256(stripped),
         },
-        "next_gate": "register gawk and awk in Rustbox and preserve gawkbug as its canonical shell frontend",
+        "next_gate": "replace the installed gawkbug shell frontend with an in-binary implementation",
     }
     output = ROOT / "evidence/gawk-5.4.0-hybrid.json"
     output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")
