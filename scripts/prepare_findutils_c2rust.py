@@ -24,7 +24,7 @@ def main() -> int:
     normalization = json.loads(args.normalization.read_text())
     if (
         normalization.get("entrypoints") != 4
-        or len(normalization.get("changed_sources", [])) != 4
+        or len(normalization.get("changed_sources", [])) != 5
     ):
         raise RuntimeError("Findutils normalization manifest changed")
     if len(records) != 218:

@@ -1,0 +1,79 @@
+{
+  "behavior": {
+    "canonical_differential": {
+      "cases": 38,
+      "passed": 38,
+      "sha256": "196a51943877862333318b9fb22c7c859b46ff7ad1233f3cea08a99bc4ba4b6e"
+    },
+    "valgrind": {
+      "find": {
+        "errors": 0
+      },
+      "frcode": {
+        "errors": 0
+      },
+      "locate": {
+        "errors": 0
+      },
+      "xargs": {
+        "errors": 0
+      }
+    }
+  },
+  "binaries": {
+    "find": {
+      "container_path": "/rustbox-findutils/hybrid/find/find",
+      "sections_sha256": "58de59e87cdccb878bfd1488123d8dd15115ce42cd2bacc4d90f15521e1a142a",
+      "symbols_sha256": "71baab0e63fee74c4e58df7f9951f867f30164d0a13075d29f2b679f6c1c0951",
+      "valgrind_errors": 0
+    },
+    "frcode": {
+      "container_path": "/rustbox-findutils/hybrid/locate/frcode",
+      "sections_sha256": "82f5b7548c966969908e8f8d6a5a7368d2d40b8dbafd84199bcab08c5123d95d",
+      "symbols_sha256": "b9312e11c74608957ae6beb5e84a61e6f68adcd4e136684b5370357388f92831",
+      "valgrind_errors": 0
+    },
+    "locate": {
+      "container_path": "/rustbox-findutils/hybrid/locate/locate",
+      "sections_sha256": "d0397d8f204b719f6ee410360175c08abd986e07e619732b2c946a1bc0efac04",
+      "symbols_sha256": "497a6816f2dd0197cc656e5e4da17dc5ccd4b90f944ba0288eb59c778503eeae",
+      "valgrind_errors": 0
+    },
+    "xargs": {
+      "container_path": "/rustbox-findutils/hybrid/xargs/xargs",
+      "sections_sha256": "d942e67b143c079c887cff36692e41d7bd9d1bcb79693932c3084573ff26acad",
+      "symbols_sha256": "fcfcc280c4822d8a102c7047f1ea7d5bf4b62e810c1214ffcc1433838b4068aa",
+      "valgrind_errors": 0
+    }
+  },
+  "canonical_c_abi_residue": {
+    "manifest_sha256": "239a2fc154a9ec8cd15dea35ea13b9105d69aa59457dbe9e130d43735d3e917b",
+    "objects": 3,
+    "reason": "preserve x86_64 SysV C long double variadic ABI",
+    "sources": [
+      "gl/lib/printf-args.c",
+      "gl/lib/printf-parse.c",
+      "gl/lib/vasnprintf.c"
+    ]
+  },
+  "next_gate": "unified Rustbox multicall integration",
+  "recorded_at": "2026-11-22",
+  "release": "4.10.0",
+  "rust_archive_evidence_sha256": "dc24f105a5eea383d15b082c7cef1e7126beb89e4f1e1a317fa700d3b81837f5",
+  "schema": 1,
+  "scope": {
+    "public_names": [
+      "find",
+      "xargs",
+      "locate",
+      "updatedb"
+    ],
+    "translated_entrypoints": [
+      "find",
+      "xargs",
+      "locate",
+      "frcode"
+    ]
+  },
+  "status": "complete translated-hybrid parity"
+}

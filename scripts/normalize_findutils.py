@@ -57,6 +57,26 @@ def export_entrypoint(path: Path, name: str) -> None:
         )
 
 
+def normalize_long_double_uintmax(path: Path) -> None:
+    """Spell one same-range cast in a form C2Rust can represent on LP64."""
+    replace_once(
+        path,
+        "#include <locale.h>\n",
+        "#include <limits.h>\n#include <locale.h>\n",
+        "human-number limits include",
+    )
+    replace_once(
+        path,
+        "      uintmax_t u = value;\n",
+        "#if UINTMAX_MAX == ULONG_MAX\n"
+        "      unsigned long u = value;\n"
+        "#else\n"
+        "      uintmax_t u = value;\n"
+        "#endif\n",
+        "human-number same-range cast",
+    )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repository", type=Path, required=True)
@@ -105,6 +125,8 @@ def main() -> int:
         }
         for relative, name in entrypoints.items():
             export_entrypoint(staged / relative, name)
+        human_relative = "gl/lib/human.c"
+        normalize_long_double_uintmax(staged / human_relative)
 
         canonical_files = {
             item.relative_to(canonical).as_posix()
@@ -120,13 +142,17 @@ def main() -> int:
             name for name in canonical_files
             if sha256(canonical / name) != sha256(staged / name)
         )
-        expected_changed = sorted(entrypoints)
+        expected_changed = sorted([*entrypoints, human_relative])
         if changed != expected_changed:
             raise RuntimeError(f"unexpected normalized Findutils sources: {changed}")
         operations = {
             "find/ftsfind.c": "export rustbox_find_main and retain a conditional standalone wrapper",
             "xargs/xargs.c": "export rustbox_xargs_main and retain a conditional standalone wrapper",
             "locate/frcode.c": "export rustbox_frcode_main and retain a conditional standalone wrapper",
+            human_relative: (
+                "on targets where uintmax_t and unsigned long have the same range, make the "
+                "existing long-double conversion's unsigned-long type explicit"
+            ),
         }
         manifest = {
             "schema": 1,
@@ -155,7 +181,13 @@ def main() -> int:
                             "without left-shifting a negative operand or relying on "
                             "unsigned-to-short conversion"
                         ),
-                    } if name == locate_relative else {}),
+                    } if name == locate_relative else ({
+                        "semantic_basis": (
+                            "UINTMAX_MAX == ULONG_MAX proves the selected conversion has the "
+                            "same range and C conversion semantics; other targets retain the "
+                            "canonical cast"
+                        ),
+                    } if name == human_relative else {})),
                 }
                 for name in changed
             ],

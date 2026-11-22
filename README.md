@@ -1015,18 +1015,37 @@ with defined signed-16-bit arithmetic while preserving database bytes and all
 behavior.  Reproducible evidence is in
 `evidence/findutils-4.10.0-oracle.json`.
 
-Deterministic normalization changes exactly four sources.  The decoder now
+Deterministic normalization changes exactly five sources.  The decoder now
 constructs the unsigned 16-bit value from two bytes with defined arithmetic
 and explicitly maps values above `0x7fff` into the signed range; it no longer
 left-shifts a negative operand or relies on implementation-defined narrowing.
 The same mechanical pass exports narrow C ABI entrypoints for `find`, `xargs`,
 `locate`, and private `frcode` while retaining their conditional standalone
 wrappers.
+On LP64 targets, the existing `long double` to `uintmax_t` conversion in
+`gl/lib/human.c` is spelled as an `unsigned long` conversion under the proven
+`UINTMAX_MAX == ULONG_MAX` condition so C2Rust can represent the same range
+and C conversion semantics; other targets retain the canonical cast.
 GCC, Clang, and ASan/UBSan each retain the complete 218-source production
 closure and pass all upstream suites.  All 76 canonical-versus-normalized
 stateful comparisons pass, the sanitizer reports no undefined behavior or
 address errors, and all four normalized programs pass Valgrind.  Reproducible
 evidence is in `evidence/findutils-4.10.0-normalization.json`.
+
+Strict C2Rust 0.22.1 translates all 193 installed-runtime sources with
+`--fail-on-error` and `--preserve-unused-functions`; 24 gnulib test-only
+sources and the standalone `getlimits` build helper are excluded from the
+runtime closure.  Bison-generated `parse-datetime.c` is translated in a
+singleton batch because its `#line` spans break only C2Rust's optional
+declaration-map emitter; the translated code itself is complete.  The
+no-hole stable crate contains 190 translated sources and exports all four
+entrypoints exactly once.  The complete audit retains the three remaining
+sources and records Rust's sealed `VaArgSafe` rejection of C2Rust's `f128`
+wrapper; the hybrid therefore keeps only canonical `printf-args.c`,
+`printf-parse.c`, and `vasnprintf.c` for the x86_64 SysV `long double`
+variadic ABI.  All 38 hybrid stateful comparisons and all four Valgrind paths
+pass.  Reproducible evidence is in `evidence/findutils-4.10.0-c2rust.json`
+and `evidence/findutils-4.10.0-hybrid.json`.
 
 ## Work queue after util-linux
 
@@ -1108,8 +1127,9 @@ Library-only checkpoints (outside the active utility order):
      and `updatedb`; 76/76 canonical-versus-normalized differential cases
      pass.  The sanitizer-confirmed LOCATE02 signed-shift defect is removed
      with defined arithmetic, and all four compiled programs export multicall
-     entrypoints while retaining standalone wrappers.  Complete C2Rust probing
-     is next.
+     entrypoints while retaining standalone wrappers.  Complete no-hole
+     translation, stable reachable compilation, four-program hybrid parity,
+     and Valgrind verification pass; unified multicall integration is next.
    - [ ] Gawk — `gawk`, `awk`, `gawkbug`.
    - [ ] Flex — `flex`, `flex++`, `lex`.
    - [ ] Bison — `bison`, `yacc` (C/C++ skeletons only; Java output is out of

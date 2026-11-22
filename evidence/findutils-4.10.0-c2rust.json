@@ -1,0 +1,70 @@
+{
+  "complete_translation": {
+    "holes": {
+      "C2Rust Translation Error": 0,
+      "compile_error!": 0,
+      "todo!": 0,
+      "unimplemented!": 0
+    },
+    "rust_bytes": 6170574,
+    "rust_files": 195
+  },
+  "input": {
+    "batch_manifest_sha256": "aff18718498fee8adcb9a8b09d65305831e807329d437079748c0e5a7d1503dc",
+    "batches": 8,
+    "compile_commands": 193,
+    "compile_database_sha256": "47146c386cd0627daecec3ca81b6fae74b7f96b615ca37b913de5fffe8eb67e5"
+  },
+  "next_gate": "integrate the verified hybrid personalities into the unified dispatcher",
+  "recorded_at": "2026-11-22",
+  "release": "4.10.0",
+  "schema": 1,
+  "stable_translation": {
+    "archive": {
+      "bytes": 24679922,
+      "entrypoint_definition_counts": {
+        "rustbox_find_main": 1,
+        "rustbox_frcode_main": 1,
+        "rustbox_locate_main": 1,
+        "rustbox_xargs_main": 1
+      },
+      "sha256": "b6def5e6a86efc3bc82d66f15829b5fd0c3e19a46dfc6d0dd973202be2780da7"
+    },
+    "cargo_check": "pass",
+    "holes": {
+      "C2Rust Translation Error": 0,
+      "compile_error!": 0,
+      "todo!": 0,
+      "unimplemented!": 0
+    },
+    "modernization_manifest_sha256": "290a5ab4de393b95b043c2e1fb2c4b182e98a80322fddc6bb3080a4dd4779575",
+    "modernized_files": 113,
+    "rust_bytes": 5952247,
+    "rust_files": 192,
+    "toolchain": "Rust 1.99.0"
+  },
+  "status": "complete no-hole audit and stable reachable translation",
+  "translator": {
+    "complete_compile_diagnostic": {
+      "code": "E0277",
+      "message": "the trait bound `f128::f128: VaArgSafe` is not satisfied",
+      "reason": "Rust's sealed VaArgSafe ABI trait does not accept C2Rust's f128 wrapper for x86_64 SysV C long double variadics"
+    },
+    "declaration_map_exception": "gl/lib/parse-datetime.c Bison #line spans",
+    "declaration_maps": 192,
+    "fail_on_error": true,
+    "name": "C2Rust",
+    "preserve_unused_functions": true,
+    "reachable_partition": {
+      "canonical_c_bridge_sources": [
+        "gl/lib/printf-args.c",
+        "gl/lib/printf-parse.c",
+        "gl/lib/vasnprintf.c"
+      ],
+      "rust_sources": 190
+    },
+    "translated_sources": 193,
+    "translation_holes": 0,
+    "version": "0.22.1"
+  }
+}

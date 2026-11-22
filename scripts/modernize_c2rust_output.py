@@ -172,6 +172,32 @@ def matching_parenthesis(text: str, opening: int) -> int:
     raise RuntimeError("unterminated C2Rust overflowing arithmetic call")
 
 
+def remove_bool_call_integer_comparisons(text: str) -> tuple[str, int]:
+    """Remove C2Rust's redundant integer comparison from bool-returning calls."""
+    names = set()
+    signature = re.compile(r"\bfn\s+([A-Za-z_][A-Za-z0-9_]*)\s*\(")
+    for match in signature.finditer(text):
+        opening = text.find("(", match.start())
+        closing = matching_parenthesis(text, opening)
+        if re.match(r"\s*->\s*bool\b", text[closing + 1:]):
+            names.add(match.group(1))
+    rewrites = 0
+    for name in sorted(names):
+        pattern = re.compile(rf"\b{re.escape(name)}\s*\(")
+        search_from = 0
+        while match := pattern.search(text, search_from):
+            opening = text.find("(", match.start())
+            closing = matching_parenthesis(text, opening)
+            suffix = re.match(r"\s*!=\s*0\b", text[closing + 1:])
+            if suffix is None:
+                search_from = closing + 1
+                continue
+            text = text[:closing + 1] + text[closing + 1 + suffix.end():]
+            rewrites += 1
+            search_from = closing + 1
+    return text, rewrites
+
+
 def rewrite_checked_arithmetic(text: str) -> tuple[str, int]:
     """Replace C2Rust's invalid same-type spelling of C23 ckd_* calls."""
     pattern = re.compile(r"\.overflowing_(add|sub|mul)\(")
@@ -465,6 +491,7 @@ def transform_rust(
     joined, integer_to_bool_rewrites = re.subn(
         r"\)\s+as bool", ") != 0", joined
     )
+    joined, bool_call_comparison_rewrites = remove_bool_call_integer_comparisons(joined)
 
     # C2Rust 0.22 can omit the statement terminator between an expanded
     # volatile decrement and the following loop condition.  Match only a
@@ -508,6 +535,7 @@ def transform_rust(
         "va_arg_rewrites": va_arg_rewrites,
         "atomic_xchg_acquire_i32_rewrites": atomic_xchg_acquire_rewrites,
         "integer_to_bool_rewrites": integer_to_bool_rewrites,
+        "bool_call_comparison_rewrites": bool_call_comparison_rewrites,
         "write_volatile_semicolon_rewrites": write_volatile_semicolon_rewrites,
         "checked_arithmetic_rewrites": checked_arithmetic_rewrites,
         "checked_arithmetic_support": install_checked_arithmetic_support,

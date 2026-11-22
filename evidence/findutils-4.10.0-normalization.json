@@ -4,12 +4,12 @@
       "clang": {
         "cases": 38,
         "passed": 38,
-        "sha256": "11ad7c643008db4217a1c882b6295b4acfd8d21f68a678718a3f8be85bce31c9"
+        "sha256": "9d7f96f48d14859e5e1a332f6f0837768b3aa2241c3c75ebbefad92a8743981c"
       },
       "gcc": {
         "cases": 38,
         "passed": 38,
-        "sha256": "592b107cac9b19a82aaef0bd1ac618d7a97fd14c15b90a29d4b0c2fecea53ceb"
+        "sha256": "27ac6a124a4b949f918d61207731052d9cbadbbc7d81227138c174dcb81e69eb"
       }
     },
     "sanitizer": {
@@ -20,19 +20,19 @@
     "valgrind": {
       "find": {
         "errors": 0,
-        "log_sha256": "c52d8c4779bbaa754350529395c4cb83808d10827ed3e0dcf9e826e4f5cce2a7"
+        "log_sha256": "cf4699cf294bb50513ba1ceb98be4f267c8a54f9b33cac1059587c5be2a99dc1"
       },
       "frcode": {
         "errors": 0,
-        "log_sha256": "220c7ae74a7d4e3d95526b7e9a10a653b4538daa3c655b85af9626c01a564927"
+        "log_sha256": "fbc7905240a18cc11211fba6d10becdea8ad7bace0ca78de87dd596c265fe3b1"
       },
       "locate": {
         "errors": 0,
-        "log_sha256": "08cf508b31c763fbf4be93add93fcc7621fc1f58b9811b689103274a97d708d3"
+        "log_sha256": "be68bcc6f0ac84258e4ef826b78e1307eebf89aa3b9acbe9285ff42a350d2e30"
       },
       "xargs": {
         "errors": 0,
-        "log_sha256": "120eecc8e54cbc2a536a79bb30bafd4b4bf5b67b33fabbd985961c553ac05b37"
+        "log_sha256": "0ff047b2531ba408e66b17a640a3deade06dd40099dd83eb383efe0d63555e1d"
       }
     }
   },
@@ -60,16 +60,16 @@
         {
           "error": 0,
           "fail": 0,
-          "pass": 21,
-          "skip": 2,
+          "pass": 20,
+          "skip": 3,
           "total": 23,
           "xfail": 0,
           "xpass": 0
         }
       ],
-      "check_log_sha256": "8e947b7f3a5f51ce68a00771a28c7d132426ebacd460908fea867db426d1ae75",
+      "check_log_sha256": "e13073fca647a921c69f36b354cafa8238fb2f1df43806d4d2a6b6aaa3330aa0",
       "compile_actions": 218,
-      "compile_database_sha256": "b6bc383c958d195e146015dd64fe7ed6a7c08c95bc20bfe43bf5655faebf0c14",
+      "compile_database_sha256": "db2cbd8b6bfb66f2be15759ead56f84981312b893102b7c2e2f86af3f23abd4c",
       "dejagnu": {
         "find": {
           "fail": 0,
@@ -109,16 +109,16 @@
         {
           "error": 0,
           "fail": 0,
-          "pass": 21,
-          "skip": 2,
+          "pass": 20,
+          "skip": 3,
           "total": 23,
           "xfail": 0,
           "xpass": 0
         }
       ],
-      "check_log_sha256": "34f93626ad53bfec26270042e9ef71423d0eec831b09a927c030a2aea0aeb7b6",
+      "check_log_sha256": "910f14365dbe9b07fb765b7c9bd5d9be1e106249f040b92829070272c9591bc1",
       "compile_actions": 218,
-      "compile_database_sha256": "46f186affb3903657f6a02bbd2193b0df76fbca9721f95e43baef9736fe021e9",
+      "compile_database_sha256": "1756a96ccda3e6f2975b9e27b8fccdb73372d929b67cd962c399db7a6eedf510",
       "dejagnu": {
         "find": {
           "fail": 0,
@@ -165,9 +165,9 @@
           "xpass": 0
         }
       ],
-      "check_log_sha256": "957c62069a57f5d8293d2e9f3a1fed09f1c516a303697646e08b843af2f546f2",
+      "check_log_sha256": "8a981c99a66a30708bbb58327c25ce2669574ee45fa4350673a658e5108f99f9",
       "compile_actions": 218,
-      "compile_database_sha256": "f573753db3ad32215cc9789156ed6705f83b8dc82cce363fcc644bd0ea773eda",
+      "compile_database_sha256": "9552b588e81d66885ee01c8b06cd3358b81df8587c23746d2a7981d07d4350fd",
       "dejagnu": {
         "find": {
           "fail": 0,
@@ -190,6 +190,7 @@
     "canonical_tree_sha256": "075cdaa3c7e77cc804007e4ca9b106ec2d7e80684b1c0a3df94f69a52ae0c7a2",
     "changed_sources": [
       "find/ftsfind.c",
+      "gl/lib/human.c",
       "locate/frcode.c",
       "locate/locate.c",
       "xargs/xargs.c"
@@ -197,7 +198,7 @@
     "conditional": "RUSTBOX_MULTICALL",
     "engine": "exact deterministic source rewrite",
     "entrypoints": 4,
-    "normalized_tree_sha256": "012d56c1ccb1ca69ac14cf173233a0674785fd2ae8b0ee65ccf9fcccb78588f2",
+    "normalized_tree_sha256": "6f6fb222b0a2e6d60f809ee4adf8b09cdda6835977d06f416f565836cf8fb0e4",
     "release": "4.10.0",
     "schema": 1,
     "transformations": [
@@ -206,6 +207,13 @@
         "normalized_sha256": "33b62cd2b3d015d8086cff401b121dd804d4311b397eeea109ec8367a30b4c1a",
         "operation": "export rustbox_find_main and retain a conditional standalone wrapper",
         "source": "find/ftsfind.c"
+      },
+      {
+        "canonical_sha256": "d5601920cbe3cf6dc68a9df762ebce491858eb634dc1799fad802b5690933a09",
+        "normalized_sha256": "7b19ed966c40e9e2d3d712483d216c6ad7572ca033fec6604d5045f4e33db048",
+        "operation": "on targets where uintmax_t and unsigned long have the same range, make the existing long-double conversion's unsigned-long type explicit",
+        "semantic_basis": "UINTMAX_MAX == ULONG_MAX proves the selected conversion has the same range and C conversion semantics; other targets retain the canonical cast",
+        "source": "gl/lib/human.c"
       },
       {
         "canonical_sha256": "a18ab8ddc0ddad1789f79448fc4b53a23088a4721345ac76410d15bd513ef664",
@@ -228,7 +236,7 @@
       }
     ]
   },
-  "manifest_sha256": "9d8569674b6d59c48eeca0b533d9cfe652c0b8c3bdcbcad0e235487710b11315",
+  "manifest_sha256": "93bf3d3f9aba7bce6dc050170f19c054661de2e1bc33b179c84e9e27e2ff98e5",
   "next_gate": "probe the exact production closure with C2Rust",
   "recorded_at": "2026-11-22",
   "release": "4.10.0",
@@ -236,6 +244,7 @@
   "scope": {
     "changed_sources": [
       "find/ftsfind.c",
+      "gl/lib/human.c",
       "locate/frcode.c",
       "locate/locate.c",
       "xargs/xargs.c"

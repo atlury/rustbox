@@ -148,6 +148,21 @@ class OpaqueUseTests(unittest.TestCase):
         self.assertNotIn("VaListImpl", output)
         self.assertNotIn("as_va_list", output)
 
+    def test_integer_to_bool_cast_compares_with_zero(self) -> None:
+        output = self.transform(
+            "fn f(value: i32) { let flag: bool = (value & 1) as bool; }\n"
+        )
+        self.assertIn("let flag: bool = (value & 1) != 0;", output)
+
+    def test_redundant_cast_of_bool_returning_call_is_removed(self) -> None:
+        output = self.transform(
+            "extern \"C\" { fn predicate(value: Option<unsafe extern \"C\" fn(i32) -> bool>) -> bool; }\n"
+            "fn f(callback: Option<unsafe extern \"C\" fn(i32) -> bool>) {\n"
+            "    let flag: bool = predicate(callback) as bool;\n"
+            "}\n"
+        )
+        self.assertIn("let flag: bool = predicate(callback);", output)
+
     def test_checked_arithmetic_uses_mixed_type_compatibility_helper(self) -> None:
         output = self.transform(
             "fn f(left: i64, right: i32) {\n"
