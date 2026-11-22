@@ -905,6 +905,14 @@ faithfully; their translated forms remain in the audit inventory.  The
 25,081 raw-pointer type occurrences and 5,775 unsafe functions are recorded
 for the later safety phase.  Reproducible translation evidence is in
 `evidence/tar-1.35-c2rust.json`; hybrid linkage and parity are the next gate.
+The first linked hybrid passes all 18 canonical comparisons for `tar` and
+`rmt`, including byte-identical deterministic archives, extraction trees, the
+remote-tape protocol, and gzip/xz/zstd personalities.  Create, list, and
+`rmt` have zero Valgrind errors or lost bytes; extract exactly matches the
+canonical 152 direct plus one indirect byte process-exit cleanup baseline.
+The temporary bridge still links system libacl, so owned extraction cleanup,
+replacement with Rustbox's translated ACL engine, and unified dispatch remain
+explicit gates.  Hybrid evidence is in `evidence/tar-1.35-hybrid.json`.
 
 ## Work queue after util-linux
 

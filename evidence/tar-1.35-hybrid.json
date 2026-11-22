@@ -1,0 +1,554 @@
+{
+  "behavior": {
+    "deterministic_archive_bytes_match": true,
+    "differential": {
+      "cases": 18,
+      "passed": 18,
+      "public_names": [
+        "tar",
+        "rmt"
+      ],
+      "release": "1.35",
+      "results": [
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 16641,
+            "stdout_sha256": "ee4b1831f57c6a0e5e8d113c886605003c2c33dbf40569e95b2331408b4d5117"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 16641,
+            "stdout_sha256": "ee4b1831f57c6a0e5e8d113c886605003c2c33dbf40569e95b2331408b4d5117"
+          },
+          "label": "tar-help",
+          "name": "tar",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 313,
+            "stdout_sha256": "b112e5578260c103cafae7150e33b8fe1b5d0720a158d88be5ea8f6d9d26f478"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 313,
+            "stdout_sha256": "b112e5578260c103cafae7150e33b8fe1b5d0720a158d88be5ea8f6d9d26f478"
+          },
+          "label": "tar-version",
+          "name": "tar",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "-tf",
+            "does-not-exist.tar"
+          ],
+          "clang": {
+            "status": 2,
+            "stderr_bytes": 107,
+            "stderr_sha256": "dafa3d7dd290388bd8b15a18121aaa0bfb21f7c3889eae0d63fa8ba4bb7f9dba",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 2,
+            "stderr_bytes": 107,
+            "stderr_sha256": "dafa3d7dd290388bd8b15a18121aaa0bfb21f7c3889eae0d63fa8ba4bb7f9dba",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "label": "tar-missing-file",
+          "name": "tar",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "-cxtf",
+            "archive.tar"
+          ],
+          "clang": {
+            "status": 2,
+            "stderr_bytes": 144,
+            "stderr_sha256": "e8bad9d6bb9b34ebf9ce6efd9331d50ade3c68d4bee27201e05b97cca6841c92",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 2,
+            "stderr_bytes": 144,
+            "stderr_sha256": "e8bad9d6bb9b34ebf9ce6efd9331d50ade3c68d4bee27201e05b97cca6841c92",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "label": "tar-conflicting-operation",
+          "name": "tar",
+          "passed": true
+        },
+        {
+          "arguments": [],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "label": "rmt-empty-protocol",
+          "name": "rmt",
+          "passed": true
+        },
+        {
+          "arguments": [],
+          "clang": {
+            "status": 1,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 20,
+            "stdout_sha256": "d9c5e79f7a46cfecfc4273df61a4171a435041d60d94dd269db275bfd2db21ca"
+          },
+          "gcc": {
+            "status": 1,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 20,
+            "stdout_sha256": "d9c5e79f7a46cfecfc4273df61a4171a435041d60d94dd269db275bfd2db21ca"
+          },
+          "label": "rmt-invalid-command",
+          "name": "rmt",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--format=ustar",
+            "--sort=name",
+            "--owner=0",
+            "--group=0",
+            "--numeric-owner",
+            "--mtime=@0",
+            "-cf",
+            "-",
+            "-C",
+            "/tmp/rustbox-tar-differential-f_p1cn_v/source",
+            "."
+          ],
+          "byte_identical_archive": true,
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 20480,
+            "stdout_sha256": "a128e8e5cb7891b9128ffe6b234822e1e7948a138bfdde7039794fcd0a3ed6ff"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 20480,
+            "stdout_sha256": "a128e8e5cb7891b9128ffe6b234822e1e7948a138bfdde7039794fcd0a3ed6ff"
+          },
+          "label": "tar-create-deterministic",
+          "name": "tar",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "-tf",
+            "/tmp/rustbox-tar-differential-f_p1cn_v/archive.tar"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 86,
+            "stdout_sha256": "6785586d00f265e34e9235ccb79bfd0252a5cc1db83d63b2227656bc31e57eed"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 86,
+            "stdout_sha256": "6785586d00f265e34e9235ccb79bfd0252a5cc1db83d63b2227656bc31e57eed"
+          },
+          "label": "tar-list",
+          "name": "tar",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--numeric-owner",
+            "-tvf",
+            "/tmp/rustbox-tar-differential-f_p1cn_v/archive.tar"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 469,
+            "stdout_sha256": "ccd0de45f307a7ad9dc30dbbb8b60a81208a90b67e70e48f86c0668620b61963"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 469,
+            "stdout_sha256": "ccd0de45f307a7ad9dc30dbbb8b60a81208a90b67e70e48f86c0668620b61963"
+          },
+          "label": "tar-list-verbose",
+          "name": "tar",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "-tf",
+            "-"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 86,
+            "stdout_sha256": "6785586d00f265e34e9235ccb79bfd0252a5cc1db83d63b2227656bc31e57eed"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 86,
+            "stdout_sha256": "6785586d00f265e34e9235ccb79bfd0252a5cc1db83d63b2227656bc31e57eed"
+          },
+          "label": "tar-list-stdin",
+          "name": "tar",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--test-label",
+            "-f",
+            "/tmp/rustbox-tar-differential-f_p1cn_v/archive.tar"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "label": "tar-test-label-failure",
+          "name": "tar",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "-xf"
+          ],
+          "filesystem_entries": 6,
+          "label": "tar-extract-tree",
+          "name": "tar",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--gzip"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 642,
+            "stdout_sha256": "bd3be1409cedd2cf36841e9ecfe1a4893d482ba324de07a8edf1e7c5ea666354"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 642,
+            "stdout_sha256": "bd3be1409cedd2cf36841e9ecfe1a4893d482ba324de07a8edf1e7c5ea666354"
+          },
+          "label": "tar-create-gz",
+          "name": "tar",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "-tf",
+            "-"
+          ],
+          "clang": {
+            "status": 2,
+            "stderr_bytes": 85,
+            "stderr_sha256": "2575ba03f6c99b81abd453ae7c7fdb8d767204ab02f2c4eb485f062f17ba8028",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 2,
+            "stderr_bytes": 85,
+            "stderr_sha256": "2575ba03f6c99b81abd453ae7c7fdb8d767204ab02f2c4eb485f062f17ba8028",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "label": "tar-list-gz",
+          "name": "tar",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--xz"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 556,
+            "stdout_sha256": "a60f2173e64183ba64e79fa345cc46c676c834b897a8daa808b59818ceafdba8"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 556,
+            "stdout_sha256": "a60f2173e64183ba64e79fa345cc46c676c834b897a8daa808b59818ceafdba8"
+          },
+          "label": "tar-create-xz",
+          "name": "tar",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "-tf",
+            "-"
+          ],
+          "clang": {
+            "status": 2,
+            "stderr_bytes": 85,
+            "stderr_sha256": "4247c0dbf0ea38e9cb643dc0c5b1366f1011ccb813e900f3b911fddd006a8b22",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 2,
+            "stderr_bytes": 85,
+            "stderr_sha256": "4247c0dbf0ea38e9cb643dc0c5b1366f1011ccb813e900f3b911fddd006a8b22",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "label": "tar-list-xz",
+          "name": "tar",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--zstd"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 543,
+            "stdout_sha256": "0fcab3eb0d94d2eaf95e0261d3a22af6acdc6228238f2f1f41a03e4f7d49f635"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 543,
+            "stdout_sha256": "0fcab3eb0d94d2eaf95e0261d3a22af6acdc6228238f2f1f41a03e4f7d49f635"
+          },
+          "label": "tar-create-zst",
+          "name": "tar",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "-tf",
+            "-"
+          ],
+          "clang": {
+            "status": 2,
+            "stderr_bytes": 89,
+            "stderr_sha256": "f41766020244d4ad965383785b77b2a1570bc938cefc869534bb79b881a9c36f",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 2,
+            "stderr_bytes": 89,
+            "stderr_sha256": "f41766020244d4ad965383785b77b2a1570bc938cefc869534bb79b881a9c36f",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "label": "tar-list-zst",
+          "name": "tar",
+          "passed": true
+        }
+      ],
+      "schema": 1
+    },
+    "differential_sha256": "10df406b0fab5c7c479df0c6f62d9fb2094a340014170a3e495f432839e5699a",
+    "extraction_cleanup_matches_canonical_baseline": true,
+    "extraction_trees_match": true,
+    "resources": {
+      "create": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "heap_summary": "total heap usage: 80 allocs, 70 frees, 95,975 bytes allocated",
+        "indirectly_lost_bytes": 0,
+        "log_sha256": "80997d38c3285907bba733047ea810a1866e12648e30de0f593aaab7d89d5db3",
+        "possibly_lost_bytes": 0
+      },
+      "extract": {
+        "definitely_lost_bytes": 152,
+        "errors": 3,
+        "heap_summary": "total heap usage: 70 allocs, 59 frees, 48,719 bytes allocated",
+        "indirectly_lost_bytes": 1,
+        "log_sha256": "0550f138a9fde27114f904c1ee370e6a2ac123470966d400757f0a2065dfd8e6",
+        "possibly_lost_bytes": 0
+      },
+      "list": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "heap_summary": "total heap usage: 63 allocs, 57 frees, 52,322 bytes allocated",
+        "indirectly_lost_bytes": 0,
+        "log_sha256": "5e102845c634e25cd8240c6d5daf6547139d6262a07c7d266670588602ea36a5",
+        "possibly_lost_bytes": 0
+      },
+      "rmt": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "heap_summary": "total heap usage: 7 allocs, 6 frees, 9,183 bytes allocated",
+        "indirectly_lost_bytes": 0,
+        "log_sha256": "820582f6359569aabcf735319df35313e2b05ded6edf3ea96ca9042ac69709f4",
+        "possibly_lost_bytes": 0
+      }
+    }
+  },
+  "canonical_c_abi_residue": {
+    "schema": 1,
+    "sources": [
+      {
+        "compiler": "/usr/lib/llvm-18/bin/clang-18",
+        "object": "human.o",
+        "object_sha256": "f5d1381cd9d7a3d5bea263058fd8759c72299e9df6d506c753e57acbb8d7eed3",
+        "source": "gnu/human.c",
+        "source_sha256": "f970bb2b0e95778bc460fd95ccc05b6e50f6ab0a57c20165c6d2d1727ebccc57"
+      },
+      {
+        "compiler": "/usr/lib/llvm-18/bin/clang-18",
+        "object": "printf-args.o",
+        "object_sha256": "ced28fcb235c8f9461d130d60a4b7db0657ac1fe744240350e36228347deda63",
+        "source": "gnu/printf-args.c",
+        "source_sha256": "367123f0d4fdf8066897b7ec9b90c8b87b26ac80b1e6cd400d45afea24ae90a9"
+      },
+      {
+        "compiler": "/usr/lib/llvm-18/bin/clang-18",
+        "object": "printf-parse.o",
+        "object_sha256": "d12cd41564c62997e982232f2962721ade778b7953cc6ad5175d940768773042",
+        "source": "gnu/printf-parse.c",
+        "source_sha256": "e97c867d8c371f46d0c1e91cad71880dbd218d02875a4813f3368c74725a66f5"
+      },
+      {
+        "compiler": "/usr/lib/llvm-18/bin/clang-18",
+        "object": "vasnprintf.o",
+        "object_sha256": "62fb37c8bb14b7d6a7c2a94fb8b61350aebac9d1c4824fff1a23e4ae4d1dda8a",
+        "source": "gnu/vasnprintf.c",
+        "source_sha256": "58dc1594b09657fa0c2a7f916019f02116445215791b4de127bb81e72d76cb03"
+      }
+    ]
+  },
+  "implementation": {
+    "canonical_c_abi_residue_sources": 4,
+    "compile_error_or_placeholder_holes": 0,
+    "entrypoints": [
+      "rustbox_tar_main",
+      "rustbox_rmt_main"
+    ],
+    "public_names": [
+      "tar",
+      "rmt"
+    ],
+    "translated_production_sources": 197
+  },
+  "next_gate": "free extraction-owned state, replace libacl with Rustbox ACL, and integrate both names into the unified dispatcher",
+  "recorded_at": "2026-11-22",
+  "release": "1.35",
+  "schema": 1,
+  "size": {
+    "binaries": {
+      "rmt": {
+        "dynamic_needed": [
+          "libacl.so.1",
+          "libm.so.6",
+          "libgcc_s.so.1",
+          "libc.so.6",
+          "ld-linux-x86-64.so.2"
+        ],
+        "sections": {
+          "bss": 41896,
+          "data": 3612,
+          "rodata": 50597,
+          "text": 297618
+        },
+        "sha256": "cc4a25ab26a916b86cb2040e65e7a9d66724b439532128f10165c87ff74ed39a",
+        "stripped_bytes": 423976,
+        "stripped_sha256": "d1126f8b09fce961ce0d254eaa2439c6386cae05e03af9919fc091763eb9859f",
+        "unstripped_bytes": 4626240
+      },
+      "tar": {
+        "dynamic_needed": [
+          "libacl.so.1",
+          "libm.so.6",
+          "libgcc_s.so.1",
+          "libc.so.6",
+          "ld-linux-x86-64.so.2"
+        ],
+        "sections": {
+          "bss": 46336,
+          "data": 17340,
+          "rodata": 77322,
+          "text": 630265
+        },
+        "sha256": "92b18c81770ceedac1183bd3de02de018580a053d637675e1fbd2321e9524e42",
+        "stripped_bytes": 876000,
+        "stripped_sha256": "3aa80f7fa78e9e0c0353b3e5fb8d947cb8062e7de8b7c252924434cfb3ade21f",
+        "unstripped_bytes": 5166264
+      }
+    },
+    "translation_static_archive_bytes": 25283152
+  },
+  "status": "translated hybrid at canonical parity; extraction cleanup, internal ACL linkage, and multicall integration remain",
+  "temporary_runtime_dependencies": {
+    "libacl": true,
+    "other_non_libc_system_libraries": [],
+    "replacement": "Rustbox's already translated ACL implementation"
+  }
+}
