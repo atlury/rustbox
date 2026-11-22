@@ -12,7 +12,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-ISOLATION_CACHE_VERSION = 4
+ISOLATION_CACHE_VERSION = 5
 
 
 def sha256(path: Path) -> str:
@@ -671,6 +671,60 @@ def namespace_less_library(
     return mapped, symbols
 
 
+def namespace_ncurses_library(
+    rust_library: Path, build: Path
+) -> tuple[Path, list[str]]:
+    """Keep Ncurses' programs, terminal database, and tty engine private."""
+    public = {
+        "rustbox_clear_main", "rustbox_infocmp_main", "rustbox_tabs_main",
+        "rustbox_tic_main", "rustbox_toe_main", "rustbox_tput_main",
+        "rustbox_tset_main",
+    }
+    strong_types = {"B", "C", "D", "G", "R", "S", "T"}
+    compiler_math = re.compile(
+        r"^(?:cbrt|ceil|copysign|fabs|fdim|floor|fma|fmax|fmaximum|fmin|fminimum|fmod|rint|round|sqrt|trunc)(?:f|f16|f128)?$"
+    )
+    output = subprocess.run(
+        ["nm", "-g", "--defined-only", str(rust_library)],
+        check=True, text=True, stdout=subprocess.PIPE,
+    ).stdout
+    symbols = sorted({
+        fields[-1]
+        for line in output.splitlines()
+        if len(fields := line.split()) >= 3
+        and fields[-2] in strong_types
+        and (
+            re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", fields[-1])
+            or re.fullmatch(r"_[a-z][A-Za-z0-9_]*", fields[-1])
+        )
+        and fields[-1] not in public
+        and not fields[-1].startswith("rust_")
+        and not compiler_math.fullmatch(fields[-1])
+    })
+    if not symbols:
+        raise RuntimeError("Ncurses archive exports no namespaceable C symbols")
+    destination = build / "src/.rustbox-ncurses"
+    destination.mkdir(parents=True, exist_ok=True)
+    mapped = destination / rust_library.name
+    mapping = destination / "symbols.map"
+    mapping.write_text(
+        "".join(f"{symbol} rustbox_ncurses_private_{symbol}\n" for symbol in symbols),
+        encoding="utf-8",
+    )
+    shutil.copy2(rust_library, mapped)
+    subprocess.run(["objcopy", "--redefine-syms", str(mapping), str(mapped)], check=True)
+    mapped_definitions = defined_symbols(mapped)
+    definitions = set(mapped_definitions)
+    for symbol in public:
+        if mapped_definitions.count(symbol) != 1:
+            raise RuntimeError(f"Ncurses symbol isolation damaged {symbol}")
+    if any(symbol in definitions for symbol in symbols):
+        raise RuntimeError("Ncurses symbol isolation left an unprefixed definition")
+    if any(f"rustbox_ncurses_private_{symbol}" not in definitions for symbol in symbols):
+        raise RuntimeError("Ncurses symbol isolation lost a definition")
+    return mapped, symbols
+
+
 def namespace_xz_library(
     rust_library: Path, build: Path
 ) -> tuple[Path, list[str]]:
@@ -1149,6 +1203,13 @@ extern int rustbox_zstdgrep_main(int, char **);
 extern int rustbox_zstdless_main(int, char **);
 extern int rustbox_tar_main(int, char **);
 extern int rustbox_rmt_main(int, char **);
+extern int rustbox_clear_main(int, char **);
+extern int rustbox_infocmp_main(int, char **);
+extern int rustbox_tabs_main(int, char **);
+extern int rustbox_tic_main(int, char **);
+extern int rustbox_toe_main(int, char **);
+extern int rustbox_tput_main(int, char **);
+extern int rustbox_tset_main(int, char **);
 """
         + declarations
         + """
@@ -1341,6 +1402,22 @@ int main(int argc, char **argv)
         return rustbox_tar_main(argc, argv);
     if (!force_util_linux && strcmp(name, "rmt") == 0)
         return rustbox_rmt_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "clear") == 0)
+        return rustbox_clear_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "infocmp") == 0)
+        return rustbox_infocmp_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "tabs") == 0)
+        return rustbox_tabs_main(argc, argv);
+    if (!force_util_linux &&
+        (strcmp(name, "tic") == 0 || strcmp(name, "captoinfo") == 0 ||
+         strcmp(name, "infotocap") == 0))
+        return rustbox_tic_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "toe") == 0)
+        return rustbox_toe_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "tput") == 0)
+        return rustbox_tput_main(argc, argv);
+    if (!force_util_linux && (strcmp(name, "tset") == 0 || strcmp(name, "reset") == 0))
+        return rustbox_tset_main(argc, argv);
 """
         + selections
         + """
@@ -1376,6 +1453,7 @@ def main() -> int:
     parser.add_argument("--xz-rust-library", type=Path, required=True)
     parser.add_argument("--zstd-rust-library", type=Path, required=True)
     parser.add_argument("--tar-rust-library", type=Path, required=True)
+    parser.add_argument("--ncurses-rust-library", type=Path, required=True)
     parser.add_argument("--tar-c-residue-directory", type=Path, required=True)
     parser.add_argument("--link-report", type=Path, required=True)
     parser.add_argument("--reuse-isolation", action="store_true")
@@ -1401,6 +1479,7 @@ def main() -> int:
     xz_rust_library = args.xz_rust_library.resolve()
     zstd_rust_library = args.zstd_rust_library.resolve()
     tar_rust_library = args.tar_rust_library.resolve()
+    ncurses_rust_library = args.ncurses_rust_library.resolve()
     tar_residue_directory = args.tar_c_residue_directory.resolve()
     tar_residue_objects = [
         tar_residue_directory / name
@@ -1490,6 +1569,7 @@ def main() -> int:
         diffutils_rust_library, grep_rust_library, bc_rust_library,
         attr_rust_library, acl_rust_library, lz4_rust_library, less_rust_library,
         gzip_rust_library, xz_rust_library, zstd_rust_library, tar_rust_library,
+        ncurses_rust_library,
         gzip_support_library,
         *tar_residue_objects,
     ):
@@ -1526,6 +1606,8 @@ def main() -> int:
     xz_library_index = len(libraries) - 1
     libraries.append(zstd_rust_library)
     zstd_library_index = len(libraries) - 1
+    libraries.append(ncurses_rust_library)
+    ncurses_library_index = len(libraries) - 1
     source_library_hashes = {str(path.relative_to(repository)): sha256(path) for path in libraries}
     source_library_hashes[str(m4_support_library)] = sha256(m4_support_library)
     source_library_hashes[str(gzip_support_library)] = sha256(gzip_support_library)
@@ -1584,6 +1666,13 @@ def main() -> int:
         "rustbox_zstdless_main",
         "rustbox_tar_main",
         "rustbox_rmt_main",
+        "rustbox_clear_main",
+        "rustbox_infocmp_main",
+        "rustbox_tabs_main",
+        "rustbox_tic_main",
+        "rustbox_toe_main",
+        "rustbox_tput_main",
+        "rustbox_tset_main",
     })
 
     cached_report = None
@@ -1725,6 +1814,15 @@ def main() -> int:
             libraries[zstd_library_index], build
         )
     libraries[zstd_library_index] = mapped_zstd_rust
+
+    if cached_report:
+        mapped_ncurses_rust = build / "src/.rustbox-ncurses" / libraries[ncurses_library_index].name
+        ncurses_symbols = cached_report["ncurses_namespaced_symbols"]
+    else:
+        mapped_ncurses_rust, ncurses_symbols = namespace_ncurses_library(
+            libraries[ncurses_library_index], build
+        )
+    libraries[ncurses_library_index] = mapped_ncurses_rust
 
     canonical_dispatch_symbols = set(defined_symbols(build / "src/coreutils-coreutils.o"))
     if cached_report:
@@ -2022,6 +2120,7 @@ def main() -> int:
         "xz_public_names": 23,
         "zstd_public_names": 6,
         "tar_applets": 2,
+        "ncurses_public_names": 10,
         "total_dispatch_names": len(
             set(applets)
             | set(util_dispatch)
@@ -2037,7 +2136,8 @@ def main() -> int:
                "xzgrep", "xzless", "xzmore", "lzdiff", "lzcmp", "lzgrep",
                "lzegrep", "lzfgrep", "lzmore", "lzless",
                "zstd", "zstdmt", "unzstd", "zstdcat", "zstdgrep", "zstdless",
-               "tar", "rmt"}
+               "tar", "rmt", "captoinfo", "clear", "infocmp", "infotocap",
+               "reset", "tabs", "tic", "toe", "tput", "tset"}
         ),
         "excluded": ["chcon", "runcon"],
         "public_name_precedence": {"kill": "GNU Coreutils", "util-linux-kill": "util-linux"},
@@ -2065,6 +2165,7 @@ def main() -> int:
         "xz_namespaced_symbols": xz_symbols,
         "zstd_namespaced_symbols": zstd_symbols,
         "tar_namespaced_symbols": tar_symbols,
+        "ncurses_namespaced_symbols": ncurses_symbols,
         "tar_acl_imports": tar_acl_imports,
         "coreutils_acl_imports": coreutils_acl_imports,
         "diffutils_error_bridge": {
@@ -2139,6 +2240,7 @@ def main() -> int:
         "xz_public_names": 23,
         "zstd_public_names": 6,
         "tar_applets": 2,
+        "ncurses_public_names": 10,
         "output": str(output),
     }))
     return 0

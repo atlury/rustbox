@@ -39,6 +39,7 @@ def main() -> int:
     parser.add_argument("--xz-report-directory", type=Path, required=True)
     parser.add_argument("--zstd-report-directory", type=Path, required=True)
     parser.add_argument("--tar-report-directory", type=Path, required=True)
+    parser.add_argument("--ncurses-report-directory", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     binary = args.binary.resolve()
@@ -61,10 +62,11 @@ def main() -> int:
     xz_directory = args.xz_report_directory.resolve()
     zstd_directory = args.zstd_report_directory.resolve()
     tar_directory = args.tar_report_directory.resolve()
+    ncurses_directory = args.ncurses_report_directory.resolve()
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
-    if dispatch["cases"] != 672 or dispatch["passed"] != 672 or dispatch["failures"]:
+    if dispatch["cases"] != 682 or dispatch["passed"] != 682 or dispatch["failures"]:
         raise RuntimeError("unified dispatcher comparison is incomplete")
     if (
         differential["batches"] != 38
@@ -506,6 +508,33 @@ def main() -> int:
             raise RuntimeError(f"unified GNU tar {operation} Valgrind comparison is incomplete")
     if tar_differential.get("cases") != 18 or tar_differential.get("passed") != 18:
         raise RuntimeError("unified GNU tar integration comparison is incomplete")
+    ncurses_differential_path = ncurses_directory / "differential.json"
+    ncurses_differential = json.loads(ncurses_differential_path.read_text())
+    ncurses_names = [
+        "captoinfo", "clear", "infocmp", "infotocap", "reset", "tabs",
+        "tic", "toe", "tput", "tset",
+    ]
+    ncurses_valgrind_paths = {
+        name: ncurses_directory / f"valgrind-{name}.log"
+        for name in ncurses_names
+    }
+    for name, path in ncurses_valgrind_paths.items():
+        text = path.read_text(errors="replace")
+        required = ["ERROR SUMMARY: 0 errors"]
+        if any(marker not in text for marker in required) or not (
+            "All heap blocks were freed" in text
+            or (
+                "definitely lost: 0 bytes" in text
+                and "indirectly lost: 0 bytes" in text
+                and "possibly lost: 0 bytes" in text
+            )
+        ):
+            raise RuntimeError(f"unified Ncurses {name} Valgrind comparison is incomplete")
+    if (
+        ncurses_differential.get("cases") != 27
+        or ncurses_differential.get("passed") != 27
+    ):
+        raise RuntimeError("unified Ncurses integration comparison is incomplete")
     if sha256(binary) != link["binary"]["sha256"]:
         raise RuntimeError("unified binary changed after link evidence")
     with tempfile.TemporaryDirectory(prefix="rustbox-strip-") as temporary:
@@ -534,7 +563,7 @@ def main() -> int:
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-22",
-        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, and GNU tar integrated at canonical parity",
+        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, GNU tar, and Ncurses integrated at canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
@@ -554,7 +583,8 @@ def main() -> int:
             "xz_integrated_names": 23,
             "zstd_integrated_names": 6,
             "tar_integrated_names": 2,
-            "dispatch_names": 336,
+            "ncurses_integrated_names": 10,
+            "dispatch_names": 346,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -775,6 +805,22 @@ def main() -> int:
                 for operation, path in tar_valgrind_paths.items()
             },
         },
+        "ncurses_integration": {
+            "integrated_public_names": 10,
+            "retained_entrypoints": 7,
+            "canonical_c_abi_residue_units": 0,
+            "external_ncurses_library_required_by_translated_applets": False,
+            "differential": ncurses_differential,
+            "valgrind_errors": 0,
+            "definitely_lost_bytes": 0,
+            "indirectly_lost_bytes": 0,
+            "possibly_lost_bytes": 0,
+            "differential_sha256": sha256(ncurses_differential_path),
+            "valgrind_log_sha256": {
+                name: sha256(path)
+                for name, path in ncurses_valgrind_paths.items()
+            },
+        },
         "collision_isolation": {
             "translated_libraries": len(link["source_library_sha256"]),
             "namespaced_libraries": len(link["namespaced_symbols"]),
@@ -802,6 +848,7 @@ def main() -> int:
             "zstd_namespaced_symbols": len(link["zstd_namespaced_symbols"]),
             "zstd_alias_bridge_symbols": len(link["zstd_alias_bridge"]["symbols"]),
             "tar_namespaced_symbols": len(link["tar_namespaced_symbols"]),
+            "ncurses_namespaced_symbols": len(link["ncurses_namespaced_symbols"]),
             "tar_acl_imports": len(link["tar_acl_imports"]),
             "coreutils_acl_imports": len(link["coreutils_acl_imports"]),
             "manifest": link,

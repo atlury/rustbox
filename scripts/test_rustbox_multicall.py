@@ -10,7 +10,15 @@ import subprocess
 from pathlib import Path
 
 
-def invoke(argv: list[str], *, executable: Path | None = None) -> dict[str, object]:
+def invoke(
+    argv: list[str], *, executable: Path | None = None,
+    extra_environment: dict[str, str] | None = None,
+) -> dict[str, object]:
+    environment = {
+        "LC_ALL": "C", "LANG": "C", "PATH": "/usr/bin:/bin", "TERM": "dumb",
+    }
+    if extra_environment:
+        environment.update(extra_environment)
     try:
         process = subprocess.run(
             argv,
@@ -19,7 +27,7 @@ def invoke(argv: list[str], *, executable: Path | None = None) -> dict[str, obje
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             timeout=15,
-            env={"LC_ALL": "C", "LANG": "C", "PATH": "/usr/bin:/bin", "TERM": "dumb"},
+            env=environment,
         )
         return {
             "status": process.returncode,
@@ -55,6 +63,7 @@ def main() -> int:
     parser.add_argument("--xz-oracle-dir", type=Path, required=True)
     parser.add_argument("--zstd-oracle-dir", type=Path, required=True)
     parser.add_argument("--tar-oracle-root", type=Path, required=True)
+    parser.add_argument("--ncurses-oracle-root", type=Path, required=True)
     parser.add_argument("--rustbox", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
@@ -78,6 +87,7 @@ def main() -> int:
     xz_oracle_dir = args.xz_oracle_dir.resolve()
     zstd_oracle_dir = args.zstd_oracle_dir.resolve()
     tar_oracle_root = args.tar_oracle_root.resolve()
+    ncurses_oracle_root = args.ncurses_oracle_root.resolve()
     failures: list[dict[str, object]] = []
     cases = 0
 
@@ -302,6 +312,21 @@ def main() -> int:
                 failures.append({"suite": "tar", "applet": name, "option": option,
                                  "oracle": oracle, "actual": actual})
 
+    ncurses_names = [
+        "captoinfo", "clear", "infocmp", "infotocap", "reset", "tabs",
+        "tic", "toe", "tput", "tset",
+    ]
+    for name in ncurses_names:
+        cases += 1
+        oracle = invoke(
+            [name, "-V"], executable=ncurses_oracle_root / "usr/bin" / name,
+            extra_environment={"LD_LIBRARY_PATH": str(ncurses_oracle_root / "usr/lib")},
+        )
+        actual = invoke([str(rustbox), name, "-V"])
+        if oracle != actual:
+            failures.append({"suite": "ncurses", "applet": name, "option": "-V",
+                             "oracle": oracle, "actual": actual})
+
     result = {
         "schema": 1,
         "cases": cases,
@@ -324,6 +349,7 @@ def main() -> int:
         "xz_public_names": len(xz_names),
         "zstd_public_names": len(zstd_names),
         "tar_applets": len(tar_names),
+        "ncurses_public_names": len(ncurses_names),
         "gzip_help_oracle_path_normalized": True,
         "failures": failures,
     }
@@ -337,7 +363,7 @@ def main() -> int:
         + "\n",
         encoding="utf-8",
     )
-    print(json.dumps({key: result[key] for key in ("cases", "passed", "coreutils_applets", "util_linux_applets", "m4_applets", "pkgconf_public_names", "file_applets", "patch_applets", "sed_applets", "diffutils_applets", "grep_applets", "bc_applets", "attr_applets", "acl_applets", "lz4_public_names", "less_public_names", "gzip_public_names", "xz_public_names", "zstd_public_names", "tar_applets")}))
+    print(json.dumps({key: result[key] for key in ("cases", "passed", "coreutils_applets", "util_linux_applets", "m4_applets", "pkgconf_public_names", "file_applets", "patch_applets", "sed_applets", "diffutils_applets", "grep_applets", "bc_applets", "attr_applets", "acl_applets", "lz4_public_names", "less_public_names", "gzip_public_names", "xz_public_names", "zstd_public_names", "tar_applets", "ncurses_public_names")}))
     return 1 if failures else 0
 
 

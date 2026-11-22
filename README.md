@@ -985,7 +985,13 @@ cases and all ten Valgrind version paths pass.  `toe -a` compares exact record
 multisets because upstream deliberately emits filesystem `readdir` order;
 running both binaries against the same terminfo tree is byte-identical.
 Reproducible hybrid evidence is in `evidence/ncurses-6.6-hybrid.json`;
-Rustbox multicall integration is next.
+all ten native names are now integrated into the unified Rustbox dispatcher.
+The shared executable retains the seven translated entrypoints exactly once,
+isolates 1,063 Ncurses implementation symbols, and has no canonical C residue
+or external Ncurses dependency for those translated applets.  All 27 canonical
+multicall comparisons, ten multicall Valgrind paths, and the complete 682-case
+cross-package dispatcher audit pass.  Reproducible unified evidence is in
+`evidence/rustbox-multicall.json`.
 
 ## Work queue after util-linux
 
@@ -1046,14 +1052,16 @@ Library-only checkpoints (outside the active utility order):
      `zstdgrep`, and `zstdless`; multicall integration is complete.
    - [x] GNU tar 1.35 — `tar`, `rmt`; translated hybrid and unified multicall
      integration at canonical parity with internal translated ACL linkage.
-   - [ ] Ncurses 6.6 — signed canonical oracle complete for `captoinfo`,
+   - [x] Ncurses 6.6 — signed canonical oracle complete for `captoinfo`,
      `clear`, `infocmp`, `infotocap`, `tabs`, `tic`, `toe`, `tput`, `tset`,
      `reset`, and generated `ncursesw6-config`; shared/static `ncursesw`,
      `panelw`, `formw`, `menuw`, `tinfow`, and `ticw` are included.  Static
-     audit, deterministic normalization, complete stable translation, and
-     ten-name hybrid parity are complete; the one
+     audit, deterministic normalization, complete stable translation,
+     ten-name hybrid parity, and unified multicall integration are complete;
+     the one
      sanitizer-confirmed signed-shift defect is removed with byte-identical
-     terminfo output.  Only unified multicall integration remains.
+     terminfo output.  All 27 multicall differential cases and all ten
+     multicall Valgrind version paths pass.
    - [x] Less 710 — canonical `less` and private-runtime `lessecho`; full
      translation, standalone hybrid parity, and unified multicall integration
      are complete.  Upstream removed the standalone
