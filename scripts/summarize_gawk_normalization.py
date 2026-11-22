@@ -43,7 +43,7 @@ def validate_suite(compiler: str) -> dict[str, object]:
 def main() -> int:
     manifest_path = ROOT / "work/analysis/gawk-5.4.0/normalization-manifest.json"
     manifest = json.loads(manifest_path.read_text())
-    if manifest["changed_sources"] != ["extension/readdir.c", "main.c"]:
+    if manifest["changed_sources"] != ["extension/readdir.c", "main.c", "support/pma.c"]:
         raise RuntimeError("GNU Gawk normalization source set changed")
 
     compilers = {}
@@ -122,7 +122,7 @@ def main() -> int:
     output = ROOT / "evidence/gawk-5.4.0-normalization.json"
     output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")
     print(json.dumps({
-        "changed_sources": 2, "differential": 52, "entrypoints": 1,
+        "changed_sources": 3, "differential": 52, "entrypoints": 1,
         "production_sources": 55, "ubsan": 0, "valgrind": 2,
     }, sort_keys=True))
     return 0

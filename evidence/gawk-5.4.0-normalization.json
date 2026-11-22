@@ -4,12 +4,12 @@
       "clang": {
         "cases": 26,
         "passed": 26,
-        "sha256": "e825a858c61e4a7607cefc74d09673156678d8b2721392b5a922051866cc0457"
+        "sha256": "751f47a2e40c49551fe5142aeddbd387534baf55f66efae69ba0c65c53d30f6f"
       },
       "gcc": {
         "cases": 26,
         "passed": 26,
-        "sha256": "ffc4f51b45cda88713b1f146441ba981ff2c6060c6ce0b2dd2a428e4ed8c0a73"
+        "sha256": "0f3b011876766431aa83985630cd1f8d2b278c07c1efc427a431a55f9d55543b"
       }
     },
     "sanitizer": {
@@ -20,21 +20,21 @@
     "valgrind": {
       "help": {
         "errors": 0,
-        "log_sha256": "7973679b1f07b2a15ff87752bbca2773b6436d1683e32be11a238c1097559acd"
+        "log_sha256": "dabcd837e4656671d0baa7b33495b883d1846a086ab280503bcba3f63ea1333f"
       },
       "version": {
         "errors": 0,
-        "log_sha256": "791081014e52febf2e73e5de260c7eb827d0fa536737fea77b29c4a7cab1d57f"
+        "log_sha256": "3f4907eb070bb573b02ae506526d566aab5d59ca3b0ad27d2efea17f4f7d5655"
       }
     }
   },
   "compilers": {
     "clang": {
       "compile_actions": 55,
-      "compile_database_sha256": "efd84c93f1ce834b72ff58b95276925045c459304b047c4b688ce4e7503b21b3",
+      "compile_database_sha256": "719c800fc319ebf3365e193f7e8c3ae71e8fbad7a2bb37c252dcfb2fc0b2ad88",
       "production_sources": 55,
       "suite": {
-        "log_sha256": "c2c354a2e01fc2b67129f593fc6c03a49d22ae0662041e533cb548e9b5a2bcf2",
+        "log_sha256": "2b1f43b974e36f2549c49d8ff7b3b72e76b758070a18deabbd2faca3b62734b7",
         "output_differences": 0,
         "pma_virtualization_failures": 1,
         "runtime_diagnostics": 0
@@ -42,10 +42,10 @@
     },
     "gcc": {
       "compile_actions": 55,
-      "compile_database_sha256": "8f4b7f8c235c90c23521ca3a2ee965104d9165b35a156a60e863acc37755d9c6",
+      "compile_database_sha256": "0ccf6208d52c48b51006942416ab57d08241e08dfb82355a48515007f9942486",
       "production_sources": 55,
       "suite": {
-        "log_sha256": "d8cdb3ff16f81f62808c1ce7920723836c8bb2b23ef70558485f613e487bb893",
+        "log_sha256": "1dde04ebc7e74c587368a7596a0155122d6cbc8ea14fddbc0e820117560de888",
         "output_differences": 0,
         "pma_virtualization_failures": 1,
         "runtime_diagnostics": 0
@@ -53,10 +53,10 @@
     },
     "sanitizer": {
       "compile_actions": 55,
-      "compile_database_sha256": "c3ec47c0f80fcfa8212c2d388c32d5e241987d9b5c24aed08fc300d955b6f20a",
+      "compile_database_sha256": "d26119ed54c82c5e63cf636e0681e6a6d83d1fd7613ee39b64208dbd9da2b044",
       "production_sources": 55,
       "suite": {
-        "log_sha256": "09e7348122ac48477390daf86a11d6c1d2f2d8e925226473351ce030e21873c6",
+        "log_sha256": "d8049cf92040bfe5b1442db594a5b79870393ab0c64e1d5b23c1ae7833a057ba",
         "output_differences": 0,
         "pma_virtualization_failures": 1,
         "runtime_diagnostics": 0
@@ -72,12 +72,13 @@
     "canonical_tree_sha256": "e78751ba83fed1c1fd01c42cb5d2e4f3db68754fc5354ac4a09e4233958a1321",
     "changed_sources": [
       "extension/readdir.c",
-      "main.c"
+      "main.c",
+      "support/pma.c"
     ],
     "conditional": "RUSTBOX_MULTICALL",
     "engine": "exact deterministic source rewrite",
     "entrypoints": 1,
-    "normalized_tree_sha256": "0f9ddf62864fa0df0b01d59a1976609c89f7447b2cc4df98bebc6cbe1bbc08b6",
+    "normalized_tree_sha256": "d569e180f0ab268ba43d54c32a40397e9c27b0fdd5168485ed50e4d7ddfd06cc",
     "release": "5.4.0",
     "schema": 1,
     "transformations": [
@@ -93,10 +94,17 @@
         "normalized_sha256": "079fc92d4ef05494b13fd4cb69b93e6fdfaeb517b1358bd2bf14aea54ca77707",
         "operation": "export rustbox_gawk_main and retain a conditional standalone wrapper",
         "source": "main.c"
+      },
+      {
+        "canonical_sha256": "18f7ec3de02a482497a4329ca88553de466ff9379021afde8fd7f9896169bd07",
+        "normalized_sha256": "b6cef8fedb815de812a0ddf0cf52f60f155c8341cece79e9381b1c14e511cdca",
+        "operation": "spell the long-double conversion through unsigned long when it is the size_t underlying range",
+        "semantic_basis": "SIZE_MAX == ULONG_MAX proves identical representable values and C conversion semantics; other targets retain the canonical size_t cast",
+        "source": "support/pma.c"
       }
     ]
   },
-  "manifest_sha256": "90a9230e24c1e471b84026b602678fd8ff6fdca51bc12075e0a1331da455b625",
+  "manifest_sha256": "56053b0aa7d7bb3e40327f2adf39fc09184e674dc323ed93c73d249e855c437f",
   "next_gate": "probe the exact production closure with C2Rust",
   "recorded_at": "2026-11-22",
   "release": "5.4.0",
@@ -104,7 +112,8 @@
   "scope": {
     "changed_sources": [
       "extension/readdir.c",
-      "main.c"
+      "main.c",
+      "support/pma.c"
     ],
     "extensions": 12,
     "production_sources": 55,

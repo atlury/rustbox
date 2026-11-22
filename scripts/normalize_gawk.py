@@ -77,6 +77,20 @@ def main() -> int:
                 "#endif\n"
             )
 
+        pma = staged / "support/pma.c"
+        replace_once(
+            pma,
+            "      else                               UB[c] = (size_t)hi;\n",
+            "      else {\n"
+            "#if SIZE_MAX == ULONG_MAX\n"
+            "        UB[c] = (unsigned long) hi;\n"
+            "#else\n"
+            "        UB[c] = (size_t) hi;\n"
+            "#endif\n"
+            "      }\n",
+            "same-range persistent-size conversion",
+        )
+
         readdir = staged / "extension/readdir.c"
         replace_once(
             readdir,
@@ -121,7 +135,7 @@ def main() -> int:
             raise RuntimeError("normalization changed the GNU Gawk file set")
         changed = sorted(name for name in canonical_files
                          if sha256(canonical / name) != sha256(staged / name))
-        if changed != ["extension/readdir.c", "main.c"]:
+        if changed != ["extension/readdir.c", "main.c", "support/pma.c"]:
             raise RuntimeError(f"unexpected normalized GNU Gawk sources: {changed}")
         manifest = {
             "schema": 1,
@@ -146,6 +160,13 @@ def main() -> int:
                     "canonical_sha256": sha256(canonical / "main.c"),
                     "normalized_sha256": sha256(staged / "main.c"),
                     "operation": "export rustbox_gawk_main and retain a conditional standalone wrapper",
+                },
+                {
+                    "source": "support/pma.c",
+                    "canonical_sha256": sha256(canonical / "support/pma.c"),
+                    "normalized_sha256": sha256(staged / "support/pma.c"),
+                    "operation": "spell the long-double conversion through unsigned long when it is the size_t underlying range",
+                    "semantic_basis": "SIZE_MAX == ULONG_MAX proves identical representable values and C conversion semantics; other targets retain the canonical size_t cast",
                 },
             ],
         }
