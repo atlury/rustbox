@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create GNU Findutils' exact 194-source production C2Rust database."""
+"""Create GNU Findutils' exact 193-source installed-runtime C2Rust database."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from pathlib import Path
 
 
 SOURCE_ROOT = Path("/work/work/normalized/findutils-4.10.0")
-EXPECTED_CLOSURE = "af1eb62bc9f6a1edec5a3a2ef38e5d0b159c9f16a3b33bef35e2cf169da7140d"
+EXPECTED_CLOSURE = "d5375c42acf093b50f488674802cf26b386202ae993a44f00ceeaff2a8c63dbb"
 
 
 def main() -> int:
@@ -32,6 +32,7 @@ def main() -> int:
 
     selected: dict[str, dict[str, object]] = {}
     test_sources: list[str] = []
+    build_helpers: list[str] = []
     for original in records:
         source = Path(str(original["file"])).resolve()
         if not source.is_relative_to(SOURCE_ROOT):
@@ -39,6 +40,9 @@ def main() -> int:
         relative = source.relative_to(SOURCE_ROOT).as_posix()
         if relative.startswith("gnulib-tests/"):
             test_sources.append(relative)
+            continue
+        if relative == "find/getlimits.c":
+            build_helpers.append(relative)
             continue
         if relative in selected:
             raise RuntimeError(f"duplicate Findutils production action: {relative}")
@@ -50,10 +54,11 @@ def main() -> int:
     for name in names:
         group = name.split("/", 1)[0]
         groups[group] = groups.get(group, 0) + 1
-    expected_groups = {"find": 11, "gl": 167, "lib": 12, "locate": 3, "xargs": 1}
+    expected_groups = {"find": 10, "gl": 167, "lib": 12, "locate": 3, "xargs": 1}
     if (
-        len(names) != 194
+        len(names) != 193
         or len(test_sources) != 24
+        or build_helpers != ["find/getlimits.c"]
         or closure != EXPECTED_CLOSURE
         or groups != expected_groups
     ):
@@ -76,6 +81,7 @@ def main() -> int:
     args.output.write_text(json.dumps(output_records, indent=2) + "\n")
     print(json.dumps({
         "commands": len(output_records),
+        "excluded_build_helpers": build_helpers,
         "excluded_test_sources": len(test_sources),
         "groups": groups,
         "multicall_define": True,
