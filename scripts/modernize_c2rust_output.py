@@ -41,6 +41,7 @@ ATOMIC_XCHG_ACQUIRE_I32 = re.compile(
     r"(?P<close>\s*)\)"
 )
 REMOVED_FEATURES = {
+    "#![feature(asm)]",
     "#![feature(c_variadic)]",
     "#![feature(core_intrinsics)]",
     "#![feature(extern_types)]",

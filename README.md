@@ -60,6 +60,7 @@ scoring, and correctness gates.
 | GNU Gzip 1.14 | 14 | 14 | 14 | 14 |
 | Less 710 | 2 | 2 | 2 | 2 |
 | XZ Utils 5.8.4 | 23 | 23 | 23 | 23 |
+| zstd 1.5.7 | 6 | 6 | 6 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -844,8 +845,18 @@ closure passes all three complete upstream suites and 34/34 canonical versus
 normalized command comparisons, with no external runtime library beyond
 libc.  Audit and normalization evidence is in
 `evidence/zstd-1.5.7-static-analysis.json` and
-`evidence/zstd-1.5.7-normalization.json`.  Complete C2Rust translation is the
-next gate.
+`evidence/zstd-1.5.7-normalization.json`.  C2Rust then translates every one of
+the 44 portable production sources with `--fail-on-error` and
+`--preserve-unused-functions`: the 46-file, 217,221-line stable Rust 1.99
+crate contains no translation holes or generated semantic repairs.  Its
+25,255 raw-pointer type occurrences and 7,643 unsafe functions are recorded
+for the later safety phase.  Fourteen retained upstream assembly directives
+are reviewed loop alignment, padding, and one compiler-ordering barrier—not
+algorithm holes.  The linked hybrid passes all 17 public comparisons, emits
+byte-identical frames, and has zero Valgrind errors or lost bytes in both
+directions.  Translation and hybrid evidence is in
+`evidence/zstd-1.5.7-c2rust.json` and `evidence/zstd-1.5.7-hybrid.json`;
+unified multicall integration is the next gate.
 
 ## Work queue after util-linux
 
@@ -900,10 +911,10 @@ Library-only checkpoints (outside the active utility order):
      `lzmainfo`, `xzcmp`, `xzdiff`, `xzegrep`, `xzfgrep`, `xzgrep`, `xzless`,
      `xzmore`, `lzcmp`, `lzdiff`, `lzegrep`, `lzfgrep`, `lzgrep`, `lzless`, and
      `lzmore`; all native frontends are internal and canonical parity is complete.
-   - [ ] zstd 1.5.7 — canonical checksum oracle, five-tool audit, and verified
-     portable-C normalization finished for `zstd`, `zstdmt`, `unzstd`,
-     `zstdcat`, `zstdgrep`, and `zstdless`; translation and multicall
-     integration remain.
+   - [ ] zstd 1.5.7 — canonical checksum oracle, five-tool audit, verified
+     portable-C normalization, complete no-hole stable translation, and
+     hybrid parity finished for `zstd`, `zstdmt`, `unzstd`, `zstdcat`,
+     `zstdgrep`, and `zstdless`; multicall integration remains.
    - [ ] tar — `tar`, `rmt`.
    - [ ] Ncurses — `captoinfo`, `clear`, `infocmp`, `infotocap`, `tabs`,
      `tic`, `toe`, `tput`, `tset`, `reset`, and the generated

@@ -1,0 +1,122 @@
+{
+  "assembly_review": {
+    "classes": [
+      "upstream loop-alignment directives",
+      "upstream no-op padding directives",
+      "one upstream compiler-ordering barrier"
+    ],
+    "decision": "retain and inventory the ordering barrier instead of weakening canonical semantics",
+    "occurrences": 14,
+    "semantic_algorithm_assembly": false
+  },
+  "dependencies": {
+    "rust_crates": [
+      "libc"
+    ]
+  },
+  "hardening": {
+    "later_order": [
+      "eliminate raw pointers and unsafe",
+      "replace std and libc crate use with Rustbox-owned no_std runtime"
+    ],
+    "raw_pointers_and_unsafe_are_inventory_only": true
+  },
+  "input": {
+    "compile_commands": 44,
+    "compile_database_sha256": "8359171d9e2f4ed18f0e8732a04231448afbd16b16ca6f268faeeeedb28303e3",
+    "portable_source_differential": {
+      "cases": 17,
+      "passed": 17,
+      "sha256": "45961002a7537f2e062264bdd8a564552609030f55171dede59a73e37fcc33e6"
+    },
+    "production_c_sources": 44
+  },
+  "next_gate": "integrate all six zstd command names into rustbox",
+  "raw_translation": {
+    "compile_error_macros": 0,
+    "inline_assembly_occurrences": 14,
+    "raw_pointer_type_occurrences": 25255,
+    "rust_bytes": 7122966,
+    "rust_files": 46,
+    "rust_lines": 216971,
+    "todo_macros": 0,
+    "unimplemented_macros": 0,
+    "unreachable_c_fallthrough_panics": 0,
+    "unsafe_function_occurrences": 7643
+  },
+  "recorded_at": "2026-11-22",
+  "release": "1.5.7",
+  "schema": 1,
+  "stable_translation": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+      "cargo_lock_sha256": "9aa03544d5ef1a2d30e7d88646e047ab9c547c2f4146abd97cf62a35f8319936",
+      "cargo_toml_sha256": "90ed7662419a8ec9cf4eaa4a659d0f44831ea7feceb0956adecca6cb0ddd9bb7",
+      "diagnostics_by_level": {
+        "warning": 320
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+      "schema": 1,
+      "stderr_sha256": "7e901af2d1282b29f16c566f5f1d4484e07269deb48206dcb050f278d05f97a9",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "clashing_extern_declarations": 5,
+        "unreachable_code": 3,
+        "unused_imports": 26,
+        "unused_must_use": 46,
+        "unused_parens": 66,
+        "unused_unsafe": 7,
+        "unused_variables": 167
+      }
+    },
+    "cargo_check_sha256": "4968e0fe664c88d262c0d9c39a3d009ca3c3d1c4185cf0b09193c53a91f3d025",
+    "compile_error_macros": 0,
+    "inline_assembly_occurrences": 14,
+    "modernization_changes": 21,
+    "modernization_manifest_sha256": "aa3a4470cbec66b63a87079155f163362a0021d0046bde889d138b3549f51c09",
+    "raw_pointer_type_occurrences": 25255,
+    "release_archive": {
+      "bytes": 25192318,
+      "sha256": "91146c566f13c2058e0cb10ecebbcebb2ee3925e6708cf14a1b17a6b4a8c97d8"
+    },
+    "rust_bytes": 7125749,
+    "rust_files": 46,
+    "rust_lines": 217221,
+    "todo_macros": 0,
+    "unimplemented_macros": 0,
+    "unreachable_c_fallthrough_panics": 0,
+    "unsafe_function_occurrences": 7643
+  },
+  "status": "complete stable translation without holes; hybrid parity verified separately",
+  "translator": {
+    "all_44_actions_translated": true,
+    "fail_on_error": true,
+    "holes": 0,
+    "name": "C2Rust",
+    "portable_configuration": [
+      "upstream pure-C Huffman decoder",
+      "disable runtime BMI2 and compiler intrinsics",
+      "scalar xxHash with checked assertions",
+      "constant zero CPUID because runtime BMI2 is disabled",
+      "equivalent C address selection instead of x86 cmova"
+    ],
+    "preserve_unused_functions": true,
+    "version": "0.22.1"
+  },
+  "upstream_lean_reuse": {
+    "limitation": "does not provide the canonical compressor or complete zstd CLI",
+    "policy": "reuse applicable Lean components later without replacing canonical zstd as the oracle",
+    "repository": "kim-em/lean-zstd",
+    "usable_scope": [
+      "decompression",
+      "frame parsing",
+      "FSE",
+      "Huffman",
+      "XXHash",
+      "proofs"
+    ]
+  }
+}

@@ -1,0 +1,477 @@
+{
+  "behavior": {
+    "deterministic_compressed_bytes_match": true,
+    "differential": {
+      "cases": 17,
+      "configuration": {
+        "lz4": false,
+        "lzma": false,
+        "threads": true,
+        "zlib": false
+      },
+      "passed": 17,
+      "public_names": [
+        "zstd",
+        "zstdmt",
+        "unzstd",
+        "zstdcat",
+        "zstdgrep",
+        "zstdless"
+      ],
+      "release": "1.5.7",
+      "results": [
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 6363,
+            "stdout_sha256": "9c0b912b58fdbaeba8a2f7cba554dcd1c4274e62200bfd9dfdd0ff811f97860d"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 6363,
+            "stdout_sha256": "9c0b912b58fdbaeba8a2f7cba554dcd1c4274e62200bfd9dfdd0ff811f97860d"
+          },
+          "label": "zstd-help",
+          "name": "zstd",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 54,
+            "stdout_sha256": "f6d344e585f9a9ceb9500ff65355ce23bcc39dec9e4164aceab9da0a5ac3113e"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 54,
+            "stdout_sha256": "f6d344e585f9a9ceb9500ff65355ce23bcc39dec9e4164aceab9da0a5ac3113e"
+          },
+          "label": "zstd-version",
+          "name": "zstd",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 6365,
+            "stdout_sha256": "c8a07d69de0f8b549dccd412d0b395b9681851de273206d56351388441d366e4"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 6365,
+            "stdout_sha256": "c8a07d69de0f8b549dccd412d0b395b9681851de273206d56351388441d366e4"
+          },
+          "label": "zstdmt-help",
+          "name": "zstdmt",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 54,
+            "stdout_sha256": "f6d344e585f9a9ceb9500ff65355ce23bcc39dec9e4164aceab9da0a5ac3113e"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 54,
+            "stdout_sha256": "f6d344e585f9a9ceb9500ff65355ce23bcc39dec9e4164aceab9da0a5ac3113e"
+          },
+          "label": "zstdmt-version",
+          "name": "zstdmt",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 6365,
+            "stdout_sha256": "845ddc637a73d0bd1e3132469a3940e7347b48c70d8f2631ef5854c6d0b31788"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 6365,
+            "stdout_sha256": "845ddc637a73d0bd1e3132469a3940e7347b48c70d8f2631ef5854c6d0b31788"
+          },
+          "label": "unzstd-help",
+          "name": "unzstd",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 54,
+            "stdout_sha256": "f6d344e585f9a9ceb9500ff65355ce23bcc39dec9e4164aceab9da0a5ac3113e"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 54,
+            "stdout_sha256": "f6d344e585f9a9ceb9500ff65355ce23bcc39dec9e4164aceab9da0a5ac3113e"
+          },
+          "label": "unzstd-version",
+          "name": "unzstd",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 6365,
+            "stdout_sha256": "26ec00096ffa2958cb2a529e824d0c4da4ec4cbd07e711a9718b27b40bfdffda"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 6365,
+            "stdout_sha256": "26ec00096ffa2958cb2a529e824d0c4da4ec4cbd07e711a9718b27b40bfdffda"
+          },
+          "label": "zstdcat-help",
+          "name": "zstdcat",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 6,
+            "stdout_sha256": "2ba0c4acefd378988cd7a510eb0ab4a45857306a5f54c3627a688d7e48240a3e"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 6,
+            "stdout_sha256": "2ba0c4acefd378988cd7a510eb0ab4a45857306a5f54c3627a688d7e48240a3e"
+          },
+          "label": "zstdcat-version",
+          "name": "zstdcat",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--decompress",
+            "--stdout"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 28928,
+            "stdout_sha256": "4a9cb4e662f967c47f97a71ae7a5d46d57396457fa52a0898a7451948a775637"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 28928,
+            "stdout_sha256": "4a9cb4e662f967c47f97a71ae7a5d46d57396457fa52a0898a7451948a775637"
+          },
+          "label": "zstd-stdin-roundtrip",
+          "name": "zstd",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--stdout",
+            "/tmp/rustbox-zstd-differential-fp0czsq9/input.zst"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 28928,
+            "stdout_sha256": "4a9cb4e662f967c47f97a71ae7a5d46d57396457fa52a0898a7451948a775637"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 28928,
+            "stdout_sha256": "4a9cb4e662f967c47f97a71ae7a5d46d57396457fa52a0898a7451948a775637"
+          },
+          "label": "unzstd-file",
+          "name": "unzstd",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "/tmp/rustbox-zstd-differential-fp0czsq9/input.zst"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 28928,
+            "stdout_sha256": "4a9cb4e662f967c47f97a71ae7a5d46d57396457fa52a0898a7451948a775637"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 28928,
+            "stdout_sha256": "4a9cb4e662f967c47f97a71ae7a5d46d57396457fa52a0898a7451948a775637"
+          },
+          "label": "zstdcat-file",
+          "name": "zstdcat",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--test",
+            "/tmp/rustbox-zstd-differential-fp0czsq9/input.zst"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 64,
+            "stderr_sha256": "90906793b86046952c37c362b8f0ba67f60162c6484731618393054b90d0a387",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 64,
+            "stderr_sha256": "90906793b86046952c37c362b8f0ba67f60162c6484731618393054b90d0a387",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "label": "zstd-test",
+          "name": "zstd",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "--list",
+            "/tmp/rustbox-zstd-differential-fp0czsq9/input.zst"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 170,
+            "stdout_sha256": "b071d7201952bab8b1c80119c2964d7f8fb4a0126233c350fc686037a48aed40"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 170,
+            "stdout_sha256": "b071d7201952bab8b1c80119c2964d7f8fb4a0126233c350fc686037a48aed40"
+          },
+          "label": "zstd-list",
+          "name": "zstd",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "-T1",
+            "--stdout",
+            "/tmp/rustbox-zstd-differential-fp0czsq9/input.txt"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 307,
+            "stdout_sha256": "ed57b24c35d129aadb7d1846342eb52a49975720c5f7e53cf74840b1e0b3dee0"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 307,
+            "stdout_sha256": "ed57b24c35d129aadb7d1846342eb52a49975720c5f7e53cf74840b1e0b3dee0"
+          },
+          "label": "zstdmt-compress",
+          "name": "zstdmt",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "needle",
+            "/tmp/rustbox-zstd-differential-fp0czsq9/input.zst"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 11264,
+            "stdout_sha256": "54299c0e36f4701e92b6c925d52bcef15af798a0ba3bdc37ce1019e25e5a747f"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 11264,
+            "stdout_sha256": "54299c0e36f4701e92b6c925d52bcef15af798a0ba3bdc37ce1019e25e5a747f"
+          },
+          "label": "zstdgrep-match",
+          "name": "zstdgrep",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "absent-pattern",
+            "/tmp/rustbox-zstd-differential-fp0czsq9/input.zst"
+          ],
+          "clang": {
+            "status": 1,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 1,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "label": "zstdgrep-no-match",
+          "name": "zstdgrep",
+          "passed": true
+        },
+        {
+          "arguments": [
+            "/tmp/rustbox-zstd-differential-fp0czsq9/input.zst"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 28928,
+            "stdout_sha256": "4a9cb4e662f967c47f97a71ae7a5d46d57396457fa52a0898a7451948a775637"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 28928,
+            "stdout_sha256": "4a9cb4e662f967c47f97a71ae7a5d46d57396457fa52a0898a7451948a775637"
+          },
+          "label": "zstdless-view",
+          "name": "zstdless",
+          "passed": true
+        }
+      ],
+      "schema": 1
+    },
+    "differential_sha256": "404fec915430ffafe64aa97de697a0b7986177106d26b0007336942c44059519",
+    "valgrind": {
+      "compress": {
+        "errors": 0,
+        "heap_summary": "total heap usage: 64 allocs, 63 frees, 3,764,415 bytes allocated",
+        "log_sha256": "87d5fa792124afc5a9380ac9c16cb9e2351d73dfa4a778f7999e08d138307c93",
+        "lost_bytes": 0
+      },
+      "decompress": {
+        "errors": 0,
+        "heap_summary": "total heap usage: 63 allocs, 62 frees, 2,992,010 bytes allocated",
+        "log_sha256": "fc7f563a83006340ee49fe4cdb0ebb9386a06a4b8b0cf35f55d814641043223a",
+        "lost_bytes": 0
+      }
+    }
+  },
+  "configuration": {
+    "dictionaries": true,
+    "legacy_formats": true,
+    "lz4": false,
+    "lzma": false,
+    "selinux": false,
+    "systemd": false,
+    "threads": true,
+    "zlib": false
+  },
+  "implementation": {
+    "canonical_shell_interfaces": [
+      "zstdgrep",
+      "zstdless"
+    ],
+    "embedded_compression_implementation": true,
+    "entrypoints": [
+      "rustbox_zstd_main"
+    ],
+    "generated_rust_semantic_repairs": 0,
+    "public_names": [
+      "zstd",
+      "zstdmt",
+      "unzstd",
+      "zstdcat",
+      "zstdgrep",
+      "zstdless"
+    ],
+    "rust_production_sources": 44
+  },
+  "next_gate": "integrate all six names into the unified rustbox dispatcher",
+  "recorded_at": "2026-11-22",
+  "release": "1.5.7",
+  "schema": 1,
+  "size": {
+    "dynamic_needed": [
+      "libgcc_s.so.1",
+      "libc.so.6",
+      "ld-linux-x86-64.so.2"
+    ],
+    "linked_sha256": "f8bedce2f07517229af6a52b9032c9694653c923aee38daea3e9e6b953459027",
+    "linked_stripped_bytes": 2064848,
+    "linked_unstripped_bytes": 6567920,
+    "sections": {
+      "bss": 3176,
+      "data": 6212,
+      "rodata": 165148,
+      "text": 1580730
+    },
+    "stripped_sha256": "ad8dc85b71e4d2c8c44bcae10786ae890f4120f739c7c1ed44f1ce4892c77c1b",
+    "translation_static_archive_bytes": 25192318
+  },
+  "status": "complete translated hybrid at canonical parity; multicall integration next"
+}
