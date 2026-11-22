@@ -1168,9 +1168,12 @@ Library-only checkpoints (outside the active utility order):
    - [ ] Flex 2.6.4 — signed canonical release and full oracle complete for
      `flex` and upstream's `flex++` link; GCC, Clang, and ASan/UBSan each pass
      all 114 upstream tests, and all 14 independent compiler/generator cases
-     pass.  The canonical early-exit `scanopt` leak is pinned for deterministic
-     normalization; translation, multicall integration, and Rustbox's native
-     `lex` compatibility frontend remain.
+     pass.  Deterministic one-file normalization preserves another 228
+     upstream test passes and all 14 canonical differential cases, exports the
+     multicall entrypoint, and removes the three canonical early-exit `scanopt`
+     leaks with zero lost bytes on help, version, and error paths.  Translation,
+     multicall integration, and Rustbox's native `lex` compatibility frontend
+     remain.
    - [ ] Bison — `bison`, `yacc` (C/C++ skeletons only; Java output is out of
      scope).
 4. Network-facing suites:
