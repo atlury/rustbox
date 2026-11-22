@@ -33,7 +33,7 @@ def main() -> int:
     args = parser.parse_args()
     records = json.loads(args.database.read_text())
     normalization = json.loads(args.normalization.read_text())
-    if (len(normalization.get("changed_sources", [])), normalization.get("entrypoints")) != (8, 7):
+    if (len(normalization.get("changed_sources", [])), normalization.get("entrypoints")) != (9, 7):
         raise RuntimeError("Ncurses normalization manifest changed")
     if len(records) != 515:
         raise RuntimeError("Ncurses Clang compile-action count changed")

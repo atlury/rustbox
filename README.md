@@ -957,18 +957,26 @@ has no parser error.  The remaining reports are explicit translation and
 ownership inventory, including analyzer paths disproved by control-flow
 macros, initialization macros, configured invariants, and the zero-loss
 public Valgrind paths.
-Deterministic normalization changes exactly eight files: seven installed-tool
-sources export multicall entrypoints while retaining standalone wrappers, and
-all three compiled-number byte-assembly sites promote the input byte to
-`unsigned` before shifting.  The latter removes the canonical signed-shift UB
-without changing the intended bit pattern.  GCC and Clang each pass all 27
+Deterministic normalization changes exactly nine files: seven installed-tool
+sources export multicall entrypoints while retaining standalone wrappers, all
+three compiled-number byte-assembly sites promote the input byte to `unsigned`
+before shifting, and four function-local static blank values receive unique
+internal names so C2Rust can hoist them without colliding with ordinary C
+locals.  These changes remove the canonical signed-shift UB and a Rust naming
+restriction without changing values, storage duration, or control flow.  GCC
+and Clang each pass all 27
 canonical comparisons, both complete installed terminfo trees are
 byte-identical, ASan/UBSan installation is clean, and all ten normalized native
 personalities pass Valgrind.  Reproducible evidence is in
 `evidence/ncurses-6.6-normalization.json`.  Strict independent C2Rust 0.22.1
 probing translates all 264/264 normalized production sources with
-`--fail-on-error` and `--preserve-unused-functions`, without a generated-Rust
-repair.  Combined translation and stable-Rust compilation are next.
+`--fail-on-error` and `--preserve-unused-functions`.  The complete combined
+266-file Rust crate has no translation-hole macros and compiles with zero
+errors on stable Rust 1.99.0 after the shared deterministic modernization
+pass.  It required no Ncurses-specific generated-Rust repair.  Complete
+translation, pointer/unsafe, modernization, and compiler evidence is in
+`evidence/ncurses-6.6-c2rust.json`; stable archive linkage and canonical hybrid
+parity are next.
 
 ## Work queue after util-linux
 

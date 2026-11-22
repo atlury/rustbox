@@ -72,6 +72,76 @@ def normalize_byte_shifts(path: Path) -> int:
     return count
 
 
+def rename_hoisted_function_statics(path: Path) -> int:
+    """Give block-local statics names that remain unique after C2Rust hoists them."""
+    text = path.read_text()
+    rewrites = {
+        """\tstatic const NCURSES_CH_T blank = NewChar(BLANK_TEXT);
+
+\t/*
+\t * If the character falls into any of these special cases, do
+""": """\tstatic const NCURSES_CH_T rustbox_putattr_blank = NewChar(BLANK_TEXT);
+
+\t/*
+\t * If the character falls into any of these special cases, do
+""",
+        """\t    ch = CHREF(blank);
+\t    TR(TRACE_CHARPUT, ("forced to blank"));
+""": """\t    ch = CHREF(rustbox_putattr_blank);
+\t    TR(TRACE_CHARPUT, ("forced to blank"));
+""",
+        """\t    static const NCURSES_CH_T blank2 = NewChar(BLANK_TEXT);
+\t    if (bot == maxy && clr_eos) {
+\t\tGoTo(NCURSES_SP_ARGx bot - n + 1, 0);
+\t\tClrToEOS(NCURSES_SP_ARGx blank2);
+\t    } else {
+\t\tfor (i = 0; i < n; i++) {
+\t\t    GoTo(NCURSES_SP_ARGx bot - i, 0);
+\t\t    ClrToEOL(NCURSES_SP_ARGx blank2, FALSE);
+\t\t}
+\t    }
+""": """\t    static const NCURSES_CH_T rustbox_scroll_up_blank = NewChar(BLANK_TEXT);
+\t    if (bot == maxy && clr_eos) {
+\t\tGoTo(NCURSES_SP_ARGx bot - n + 1, 0);
+\t\tClrToEOS(NCURSES_SP_ARGx rustbox_scroll_up_blank);
+\t    } else {
+\t\tfor (i = 0; i < n; i++) {
+\t\t    GoTo(NCURSES_SP_ARGx bot - i, 0);
+\t\t    ClrToEOL(NCURSES_SP_ARGx rustbox_scroll_up_blank, FALSE);
+\t\t}
+\t    }
+""",
+        """\t    static const NCURSES_CH_T blank2 = NewChar(BLANK_TEXT);
+\t    for (i = 0; i < -n; i++) {
+\t\tGoTo(NCURSES_SP_ARGx i + top, 0);
+\t\tClrToEOL(NCURSES_SP_ARGx blank2, FALSE);
+\t    }
+""": """\t    static const NCURSES_CH_T rustbox_scroll_down_blank = NewChar(BLANK_TEXT);
+\t    for (i = 0; i < -n; i++) {
+\t\tGoTo(NCURSES_SP_ARGx i + top, 0);
+\t\tClrToEOL(NCURSES_SP_ARGx rustbox_scroll_down_blank, FALSE);
+\t    }
+""",
+        """\t    static const NCURSES_CH_T blank = NewChar(BLANK_TEXT);
+\t    SP_PARM->_default_color = TRUE;
+""": """\t    static const NCURSES_CH_T rustbox_wrap_blank = NewChar(BLANK_TEXT);
+\t    SP_PARM->_default_color = TRUE;
+""",
+        """\t    ClrToEOL(NCURSES_SP_ARGx blank, TRUE);
+""": """\t    ClrToEOL(NCURSES_SP_ARGx rustbox_wrap_blank, TRUE);
+""",
+    }
+    for old, new in rewrites.items():
+        count = text.count(old)
+        if count != 1:
+            raise RuntimeError(
+                f"Ncurses function-static rename precondition failed: {path}: {count}"
+            )
+        text = text.replace(old, new)
+    path.write_text(text)
+    return 4
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repository", required=True, type=Path)
@@ -120,6 +190,19 @@ def main() -> int:
             "semantic_basis": "the input is unsigned char; unsigned promotion preserves the intended bit pattern while removing signed-left-shift UB",
         })
 
+        relative = "ncurses/tty/tty_update.c"
+        path = staged / relative
+        canonical_digest = sha256(canonical / relative)
+        statics = rename_hoisted_function_statics(path)
+        transformations.append({
+            "source": relative,
+            "canonical_sha256": canonical_digest,
+            "normalized_sha256": sha256(path),
+            "operation": "rename block-local static blanks uniquely before C2Rust module-scope hoisting",
+            "sites": statics,
+            "semantic_basis": "the four identifiers have internal linkage and their scoped uses are renamed with no type, value, storage-duration, or control-flow change",
+        })
+
         canonical_files = {
             path.relative_to(canonical).as_posix()
             for path in canonical.rglob("*") if path.is_file()
@@ -134,7 +217,11 @@ def main() -> int:
             name for name in canonical_files
             if sha256(canonical / name) != sha256(staged / name)
         )
-        expected = sorted([*ENTRYPOINTS, "ncurses/tinfo/read_entry.c"])
+        expected = sorted([
+            *ENTRYPOINTS,
+            "ncurses/tinfo/read_entry.c",
+            "ncurses/tty/tty_update.c",
+        ])
         if changed != expected:
             raise RuntimeError(f"unexpected Ncurses normalized sources: {changed}")
 

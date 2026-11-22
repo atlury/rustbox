@@ -10,6 +10,7 @@ RUSTBOX_TOOL_IMAGE=rustbox-tar:2026-11-22 \
     oracle=/work/work/analysis/ncurses-6.6/oracle
     evidence=/work/work/analysis/ncurses-6.6/normalized
     configure_flags="--prefix=/usr --with-shared --with-normal --with-termlib --with-ticlib --without-debug --without-ada --without-cxx-binding --without-tests --enable-pc-files --disable-stripping"
+    normalization_sha256=$(sha256sum /work/work/analysis/ncurses-6.6/normalization-manifest.json | cut -d" " -f1)
     rm -rf "$evidence"
     mkdir -p "$evidence"
 
@@ -21,7 +22,7 @@ RUSTBOX_TOOL_IMAGE=rustbox-tar:2026-11-22 \
       linker_flags=$4
       source=$volume/normalized-$compiler
       root=$evidence/$compiler-root
-      configuration="$cc|$flags|$linker_flags|$configure_flags"
+      configuration="$normalization_sha256|$cc|$flags|$linker_flags|$configure_flags"
       rm -rf "$root"
       if test ! -f "$source/.rustbox-normalized-configuration" ||
           test "$(cat "$source/.rustbox-normalized-configuration")" != "$configuration"; then

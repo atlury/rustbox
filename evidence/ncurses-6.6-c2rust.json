@@ -1,0 +1,138 @@
+{
+  "dependencies": {
+    "rust_crates": [
+      "c2rust-bitfields",
+      "libc"
+    ]
+  },
+  "hardening": {
+    "later_order": [
+      "pass canonical C/Rust hybrid differential tests",
+      "integrate the ten native personalities into rustbox",
+      "eliminate raw pointers and unsafe",
+      "replace std and libc crate use with Rustbox-owned no_std runtime"
+    ],
+    "raw_pointers_and_unsafe_are_inventory_only": true
+  },
+  "input": {
+    "compile_commands": 264,
+    "compile_database_sha256": "059c1dffe36b838ac2e8e4c53652a1c29aeee652d344bd8c80b3951e2b182d22",
+    "native_public_names": 10,
+    "normalization_evidence_sha256": "119a77044779704f9de6c009ac23d702cdc83611bf05a869cfa16a4de1754f12",
+    "normalization_manifest_sha256": "23e09c45ee693b635e40f18b1743bbede0b3aaf25fedc5956d066227ca713ceb",
+    "production_sources": 264
+  },
+  "next_gate": "build the stable archive and link canonical C ABI residue only where required for hybrid parity",
+  "raw_translation": {
+    "compile_error_macros": 0,
+    "panic_macros": 0,
+    "raw_pointer_type_occurrences": 48439,
+    "rust_bytes": 9666799,
+    "rust_files": 266,
+    "rust_lines": 267070,
+    "todo_macros": 0,
+    "unimplemented_macros": 0,
+    "unsafe_block_occurrences": 98,
+    "unsafe_function_occurrences": 10868
+  },
+  "recorded_at": "2026-11-22",
+  "release": "6.6",
+  "schema": 1,
+  "stable_translation": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+      "cargo_lock_sha256": "361715ef1b6cb725b8bb1b4a42645efb2851ce5c31e3ac7aff2e5c11cbba3caa",
+      "cargo_toml_sha256": "a1741428a77eafaec6941d8edfe906a55177d81e613080d230067abcdb90673e",
+      "diagnostics_by_level": {
+        "warning": 354
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+      "schema": 1,
+      "stderr_sha256": "1371f576361e3bcb2ec6b87e0d1ddaea5c034e030151f64f2ed9e01c0f7bb221",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "clashing_extern_declarations": 167,
+        "path_statements": 2,
+        "static_mut_refs": 9,
+        "unpredictable_function_pointer_comparisons": 10,
+        "unused_imports": 1,
+        "unused_must_use": 11,
+        "unused_parens": 87,
+        "unused_unsafe": 23,
+        "unused_variables": 44
+      }
+    },
+    "cargo_check_sha256": "3989d985e89552026c6e934bf113c0aba52cc85f91fe04ca2aaea23091255cc2",
+    "compile_error_macros": 0,
+    "duplicate_program_globals_mangled": [
+      {
+        "kept": "src/progs/clear.rs",
+        "mangled": "src/progs/infocmp.rs",
+        "symbol": "_nc_progname"
+      },
+      {
+        "kept": "src/progs/clear.rs",
+        "mangled": "src/progs/tabs.rs",
+        "symbol": "_nc_progname"
+      },
+      {
+        "kept": "src/progs/clear.rs",
+        "mangled": "src/progs/tic.rs",
+        "symbol": "_nc_progname"
+      },
+      {
+        "kept": "src/progs/clear.rs",
+        "mangled": "src/progs/toe.rs",
+        "symbol": "_nc_progname"
+      },
+      {
+        "kept": "src/progs/clear.rs",
+        "mangled": "src/progs/tput.rs",
+        "symbol": "_nc_progname"
+      },
+      {
+        "kept": "src/progs/clear.rs",
+        "mangled": "src/progs/tset.rs",
+        "symbol": "_nc_progname"
+      }
+    ],
+    "modernization_changes": 265,
+    "modernization_manifest_sha256": "03c95916e8f4bda57339d6ac2937f5bcc24db03e06e3adef5f32b5ceb974dc20",
+    "modernization_rewrite_totals": {
+      "as_va_list_rewrites": 287,
+      "integer_to_bool_rewrites": 14,
+      "va_arg_rewrites": 15,
+      "va_list_impl_rewrites": 73,
+      "write_volatile_semicolon_rewrites": 1
+    },
+    "panic_macros": 0,
+    "raw_pointer_type_occurrences": 48439,
+    "rust_bytes": 9702229,
+    "rust_files": 266,
+    "rust_lines": 270256,
+    "todo_macros": 0,
+    "unimplemented_macros": 0,
+    "unsafe_block_occurrences": 98,
+    "unsafe_function_occurrences": 10868
+  },
+  "status": "complete stable translation compiles without holes; hybrid parity next",
+  "translator": {
+    "combined_translation": true,
+    "fail_on_error": true,
+    "holes": 0,
+    "name": "C2Rust",
+    "ncurses_specific_generated_rust_repairs": 0,
+    "preserve_unused_functions": true,
+    "strict_unit_probe": {
+      "commands": 264,
+      "failed": 0,
+      "passed": 264,
+      "seconds": 166.911,
+      "sha256": "164c086694d17e1273535281846ea0568f55a7e7234781d0e5b02de33f2552f6"
+    },
+    "version": "0.22.1"
+  }
+}

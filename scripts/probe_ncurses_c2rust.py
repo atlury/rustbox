@@ -31,7 +31,7 @@ def main() -> int:
         raise RuntimeError("Ncurses C2Rust probe closure changed")
     source_root = args.source_root.resolve()
     normalization = json.loads(args.normalization.read_text())
-    if (len(normalization.get("changed_sources", [])), normalization.get("entrypoints")) != (8, 7):
+    if (len(normalization.get("changed_sources", [])), normalization.get("entrypoints")) != (9, 7):
         raise RuntimeError("Ncurses C2Rust probe normalization changed")
 
     def probe(record: dict[str, object]) -> dict[str, object]:

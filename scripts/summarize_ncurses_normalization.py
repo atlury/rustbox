@@ -65,7 +65,7 @@ def main() -> int:
     normalized = repository / "work/analysis/ncurses-6.6/normalized"
     manifest_path = repository / "work/analysis/ncurses-6.6/normalization-manifest.json"
     manifest = json.loads(manifest_path.read_text())
-    if (len(manifest.get("changed_sources", [])), manifest.get("entrypoints")) != (8, 7):
+    if (len(manifest.get("changed_sources", [])), manifest.get("entrypoints")) != (9, 7):
         raise RuntimeError("Ncurses normalization manifest changed")
 
     probe_path = normalized / "c2rust-probe/results.json"
@@ -131,7 +131,7 @@ def main() -> int:
             "production_sources": 264,
             "production_closure_sha256": EXPECTED_CLOSURE,
             "changed_sources": manifest["changed_sources"],
-            "changed_source_count": 8,
+            "changed_source_count": 9,
             "exported_entrypoints": 7,
             "native_public_names": NATIVE_NAMES,
             "generated_config_helper": "ncursesw6-config",
@@ -171,7 +171,7 @@ def main() -> int:
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")
     print(json.dumps({
-        "changed_sources": 8, "differential": 54, "entrypoints": 7,
+        "changed_sources": 9, "differential": 54, "entrypoints": 7,
         "production_sources": 264, "strict_c2rust": 264, "ubsan": 0, "valgrind": 10,
     }, sort_keys=True))
     return 0
