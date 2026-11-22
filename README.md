@@ -63,6 +63,7 @@ scoring, and correctness gates.
 | zstd 1.5.7 | 6 | 6 | 6 | 6 |
 | GNU tar 1.35 | 2 | 2 | 2 | 2 |
 | Flex 2.6.4 | 3 | 3 | 3 | 3 |
+| Bison 3.8.2 | 2 | 2 | 0 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -1182,8 +1183,8 @@ Library-only checkpoints (outside the active utility order):
      and leak-free help, version, and error exits.  Unified multicall
      integration is complete for `flex`, `flex++`, and native `lex`; all 708
      dispatcher comparisons and all 14,022 prior batch regressions pass.
-   - [ ] Bison — `bison`, `yacc` (C/C++ skeletons only; Java output is out of
-     scope).
+   - [ ] Bison 3.8.2 — `bison`, `yacc` (C/C++ skeletons only; Java output is
+     out of scope); signed canonical release pinned.
 4. Network-facing suites:
    - [ ] curl — `curl`, `curl-config`, plus the shared `libcurl` runtime.
    - [ ] Inetutils — `dnsdomainname`, `ftp`, `hostname`, `ifconfig`, `logger`,
