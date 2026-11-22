@@ -1148,7 +1148,8 @@ Library-only checkpoints (outside the active utility order):
      translation and unified multicall parity; the installed `gawkbug` shell
      workflow is replaced by a native in-binary frontend with canonical
      editor, mailer, and dead-letter recovery parity.
-   - [ ] Flex — `flex`, `flex++`, `lex`.
+   - [ ] Flex 2.6.4 — signed canonical release pinned for `flex`, `flex++`,
+     and `lex`.
    - [ ] Bison — `bison`, `yacc` (C/C++ skeletons only; Java output is out of
      scope).
 4. Network-facing suites:
