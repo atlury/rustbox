@@ -35,7 +35,7 @@ CARGO = """[workspace]
 members = []
 
 [package]
-name = "gawk_5_4_0_combined"
+name = "{package}"
 authors = ["C2Rust", "Rustbox"]
 version = "0.0.0"
 publish = false
@@ -43,7 +43,7 @@ edition = "2021"
 autobins = false
 
 [lib]
-name = "gawk_5_4_0_combined"
+name = "{package}"
 path = "lib.rs"
 crate-type = ["staticlib", "rlib"]
 
@@ -64,6 +64,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--scope", choices=("complete", "core"), default="complete")
     args = parser.parse_args()
     source, output = args.input.resolve(), args.output.resolve()
     batches = sorted(path for path in source.glob("batch-*") if path.is_dir())
@@ -79,6 +80,10 @@ def main() -> int:
     try:
         for batch in batches:
             for rust in sorted((batch / "src").rglob("*.rs")):
+                relative = rust.relative_to(batch / "src")
+                if args.scope == "core" and (
+                        "extension" in relative.parts or "awklib" in relative.parts):
+                    continue
                 module = rust.stem
                 if module in modules:
                     raise RuntimeError(f"duplicate flattened GNU Gawk module: {module}")
@@ -91,7 +96,8 @@ def main() -> int:
                     declaration_maps += 1
                 modules[module] = {"batch": batch.name, "sha256": sha256(target),
                                    "declaration_map": has_map}
-        if len(modules) != 55 or declaration_maps != 53:
+        expected = (55, 53) if args.scope == "complete" else (38, 36)
+        if (len(modules), declaration_maps) != expected:
             raise RuntimeError("combined GNU Gawk module coverage changed")
         missing = sorted(name for name, data in modules.items() if not data["declaration_map"])
         if missing != ["awkgram", "command"]:
@@ -100,13 +106,14 @@ def main() -> int:
             f'#[path = "src/{name}.rs"]\npub mod {name};\n' for name in sorted(modules)
         )
         (staged / "lib.rs").write_text(PREAMBLE + declarations)
-        (staged / "Cargo.toml").write_text(CARGO)
+        package = "gawk_5_4_0_combined" if args.scope == "complete" else "gawk_5_4_0_core"
+        (staged / "Cargo.toml").write_text(CARGO.format(package=package))
         (staged / "build.rs").write_text("fn main() {}\n")
         (staged / "rust-toolchain.toml").write_text(
             '[toolchain]\nchannel = "nightly-2023-04-15"\ncomponents = ["rustfmt"]\n'
         )
         (staged / "rustbox-combination.json").write_text(json.dumps({
-            "schema": 1, "batches": 7, "modules": 55,
+            "schema": 1, "scope": args.scope, "batches": 7, "modules": len(modules),
             "declaration_maps": declaration_maps,
             "declaration_map_exceptions": missing, "module_inventory": modules,
         }, indent=2, sort_keys=True) + "\n")
@@ -116,7 +123,7 @@ def main() -> int:
     finally:
         shutil.rmtree(temporary, ignore_errors=True)
     print(json.dumps({"batches": 7, "declaration_maps": declaration_maps,
-                      "modules": len(modules)}, sort_keys=True))
+                      "modules": len(modules), "scope": args.scope}, sort_keys=True))
     return 0
 
 
