@@ -1,0 +1,144 @@
+{
+  "binaries": {
+    "clang": {
+      "bytes": 4742544,
+      "dynamic_needed": [
+        "libc.so.6"
+      ],
+      "sha256": "e632964ec135d472668c0c0c430fdbccdfca47b1290ca9015f0a5b5c9d9c857e",
+      "stripped_bytes": 1347416,
+      "stripped_sha256": "054d358bb1a49bbd2302167a52731ca6d3a19423a1f03e6c2b79bb13ed0174c8"
+    },
+    "gcc": {
+      "bytes": 8443112,
+      "dynamic_needed": [
+        "libc.so.6"
+      ],
+      "sha256": "47212acfb45c34b5095d8e7de7a593ee10bbee42004fc7dc0b82cf36e3cc3fd3",
+      "stripped_bytes": 1389872,
+      "stripped_sha256": "10e7441fc7cf72fe6bdb6004c9677e66b963252e76e31a4c406a16d187cbb32d"
+    }
+  },
+  "canonical_normalized_differential": {
+    "clang": {
+      "cases": 17,
+      "passed": 17,
+      "sha256": "d218150ba5784a3821ea994b30b1e5c13d02954f11541f113258cf9736e75aab"
+    },
+    "gcc": {
+      "cases": 17,
+      "passed": 17,
+      "sha256": "903fbb64fa963e6126cb562864137de7a5d2fd24078b4483506d1f5e64867773"
+    }
+  },
+  "compilers": {
+    "clang": {
+      "compile_actions": 44,
+      "compile_database_sha256": "93a7b1748bff64b8f1f55a5f3ec775c19e8f41c92129649aca3c59f39ebd7717",
+      "passed": true,
+      "production_sources": 44,
+      "upstream_test_log_sha256": "5ce67779079ffca75acb1ad91cb524f64319ccc1e000871e789a5ae2bb697f52",
+      "upstream_tests": "complete upstream make check"
+    },
+    "gcc": {
+      "compile_actions": 44,
+      "compile_database_sha256": "e421ac39c3774b8ce8f24a53465031ae2e2d86a88b957c688e411091d349ffa0",
+      "passed": true,
+      "production_sources": 44,
+      "upstream_test_log_sha256": "84ec6da09e73bf677e27803773395941b9882827b924c8873450bb535ec09263",
+      "upstream_tests": "complete upstream make check"
+    },
+    "sanitizer": {
+      "compile_actions": 44,
+      "compile_database_sha256": "4bbc9c5b91c7bfc4b9e346227ff3e9cda12e6584cca3e0d269e3634797da6694",
+      "passed": true,
+      "production_sources": 44,
+      "upstream_test_log_sha256": "eb266668f2a77bcf45b1fd292cdc61f7089d7a12d296a892ca6313c4738352c7",
+      "upstream_tests": "complete upstream make check"
+    }
+  },
+  "manifest": {
+    "canonical_archive_sha256": "eb33e51f49a15e023950cd7825ca74a4a2b43db8354825ac24fc1b7ee09e6fa3",
+    "canonical_tree_sha256": "09662b6d9d4d970705ebd83ac3131af44db912621a845f93fab8b155517c23e4",
+    "changed_sources": [
+      "programs/zstdcli.c"
+    ],
+    "compiler_normalization": "ZSTD_NO_ASM=1 selects upstream portable C Huffman decoding and excludes the optional x86-64 assembly unit",
+    "conditional": "RUSTBOX_MULTICALL",
+    "engine": "exact deterministic source rewrite",
+    "entrypoints": 1,
+    "normalized_tree_sha256": "3a05062e7808ee5ff0880c21b5254ebb84bd4242320c151762c41bbe913df7cc",
+    "release": "1.5.7",
+    "schema": 1,
+    "transformations": [
+      {
+        "canonical_sha256": "7865c42b7fbe79bc586d603e9dbd90f99a41de5070e59b6798fb36acd07269c7",
+        "normalized_sha256": "cbbead37d5a085888091246d4817747ca08d97b4296faddd378570171b590dae",
+        "operation": "export rustbox_zstd_main and retain a conditional standalone main wrapper",
+        "source": "programs/zstdcli.c"
+      }
+    ]
+  },
+  "manifest_sha256": "16c84268056e7989b6ef674e7c73ab325b9b48c24f848e4ce24fda5ed77ffad8",
+  "next_gate": "translate all 44 portable production C units with C2Rust and repair mechanically without holes",
+  "production_closure_sha256": "23c71282b9622802be36fdf7109b3542885e8f9a0b34734005ec6834d9821a2a",
+  "production_source_count": 44,
+  "production_sources": [
+    "lib/common/debug.c",
+    "lib/common/entropy_common.c",
+    "lib/common/error_private.c",
+    "lib/common/fse_decompress.c",
+    "lib/common/pool.c",
+    "lib/common/threading.c",
+    "lib/common/xxhash.c",
+    "lib/common/zstd_common.c",
+    "lib/compress/fse_compress.c",
+    "lib/compress/hist.c",
+    "lib/compress/huf_compress.c",
+    "lib/compress/zstd_compress.c",
+    "lib/compress/zstd_compress_literals.c",
+    "lib/compress/zstd_compress_sequences.c",
+    "lib/compress/zstd_compress_superblock.c",
+    "lib/compress/zstd_double_fast.c",
+    "lib/compress/zstd_fast.c",
+    "lib/compress/zstd_lazy.c",
+    "lib/compress/zstd_ldm.c",
+    "lib/compress/zstd_opt.c",
+    "lib/compress/zstd_preSplit.c",
+    "lib/compress/zstdmt_compress.c",
+    "lib/decompress/huf_decompress.c",
+    "lib/decompress/zstd_ddict.c",
+    "lib/decompress/zstd_decompress.c",
+    "lib/decompress/zstd_decompress_block.c",
+    "lib/dictBuilder/cover.c",
+    "lib/dictBuilder/divsufsort.c",
+    "lib/dictBuilder/fastcover.c",
+    "lib/dictBuilder/zdict.c",
+    "lib/legacy/zstd_v05.c",
+    "lib/legacy/zstd_v06.c",
+    "lib/legacy/zstd_v07.c",
+    "programs/benchfn.c",
+    "programs/benchzstd.c",
+    "programs/datagen.c",
+    "programs/dibio.c",
+    "programs/fileio.c",
+    "programs/fileio_asyncio.c",
+    "programs/lorem.c",
+    "programs/timefn.c",
+    "programs/util.c",
+    "programs/zstdcli.c",
+    "programs/zstdcli_trace.c"
+  ],
+  "recorded_at": "2026-11-22",
+  "release": "1.5.7",
+  "review": {
+    "algorithm_changes": 0,
+    "all_six_public_names_retained": true,
+    "canonical_source_files_changed": 1,
+    "entrypoint": "rustbox_zstd_main with conditional standalone wrapper",
+    "external_runtime_libraries": [],
+    "portable_substitution": "upstream ZSTD_NO_ASM=1 C implementation replaces optional x86-64 Huffman assembly"
+  },
+  "schema": 1,
+  "status": "complete deterministic normalization; C2Rust translation pending"
+}

@@ -1,0 +1,149 @@
+{
+  "artifacts": {
+    "c-sources.list": "53455757eba18b761150fa22244b3f148b5dc801804c427cb3bef5eca273b0fe",
+    "clang-analyzer-tidy.log": "3395241d3936bf35db75e336640930a70797bd9b308f6009de6ed9f1592792d1",
+    "clang-analyzer-tidy.status": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "compile_commands.json": "323bfccddb2202d80e874439a114bae35e0abdaf4f2b114f11965d064a00f4bb",
+    "cppcheck.log": "991fa9f327d942b682ffbf3a093dc15abc66b077e058e2ac33c7d7affb6fa2ba",
+    "flawfinder.log": "48d0def4a0e1f3f380fb0b15f2d73629206893aeeb98a7c5e138efdd27a61598",
+    "flawfinder.status": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "gcc-analyzer.log": "d4d43943706482392dca31ad53aafb17d16d502de6e91dd13b1120290a2f67ec",
+    "sources.list": "fa40c66515167d5c742a3bf24552bbd38675cc4c7648f729b623fa67ff49939a",
+    "sparse.log": "16bb0ad8980882c5b9a9441ee81abf13699e3c6199fc5d0f07b17b398814ec75",
+    "sparse.status": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "recorded_at": "2026-11-22",
+  "release": "1.5.7",
+  "review": {
+    "canonical_source_changes": 0,
+    "demonstrated_canonical_defects": 0,
+    "notes": [
+      "The Clang wrapper status is caused by treating the selected preprocessed assembly unit as C; the native compiler and upstream tests assemble it successfully, and translation selects the upstream portable C path.",
+      "Cppcheck uninitialized-field reports cross tagged-struct or successful-return invariants; the complete GCC, Clang, and sanitizer suites exercise these paths without a failure.",
+      "GCC cover/benchmark reports follow allocation-failure or loop-bound paths that conflict with checked allocation and count invariants; no paired sanitizer, Clang, or upstream failure demonstrates them.",
+      "GCC's zstdmt leak report follows ownership transfer into the thread-pool job structure; upstream resource tests and Valgrind show no lost allocation.",
+      "Clang buffer-API, macro, conversion, adjacent-parameter, and dead-store findings are translation inventory, not demonstrated behavioral defects.",
+      "Sparse reports only address-space and non-ANSI constant-expression warnings; it reports no parser error in the C closure."
+    ],
+    "required_normalization": [
+      "Export zstd's physical CLI entrypoint while retaining a standalone wrapper.",
+      "Select upstream portable C Huffman decoding instead of x86-64 assembly for C2Rust.",
+      "Retain the canonical self-contained configuration without optional foreign-format libraries."
+    ]
+  },
+  "schema": 1,
+  "scope": {
+    "assembly_sources": 1,
+    "c_sources": 44,
+    "compile_actions": 45,
+    "public_names": [
+      "zstd",
+      "zstdmt",
+      "unzstd",
+      "zstdcat",
+      "zstdgrep",
+      "zstdless"
+    ],
+    "tests_examples_and_nonselected_sources_excluded": true,
+    "unique_sources": 45
+  },
+  "status": "complete production audit; deterministic normalization pending",
+  "tools": {
+    "clang_analyzer_tidy": {
+      "all_findings_by_check": {
+        "bugprone-assignment-in-if-condition": 31,
+        "bugprone-branch-clone": 13,
+        "bugprone-casting-through-void": 2,
+        "bugprone-easily-swappable-parameters": 540,
+        "bugprone-implicit-widening-of-multiplication-result": 131,
+        "bugprone-inc-dec-in-conditions": 19,
+        "bugprone-macro-parentheses": 302,
+        "bugprone-misplaced-widening-cast": 1,
+        "bugprone-multi-level-implicit-pointer-conversion": 7,
+        "bugprone-narrowing-conversions": 141,
+        "bugprone-not-null-terminated-result": 4,
+        "bugprone-reserved-identifier": 55,
+        "bugprone-signal-handler": 9,
+        "bugprone-suspicious-string-compare": 10,
+        "bugprone-switch-missing-default-case": 5,
+        "clang-analyzer-core.BitwiseShift": 1,
+        "clang-analyzer-core.NonNullParamChecker": 5,
+        "clang-analyzer-core.NullDereference": 1,
+        "clang-analyzer-core.UndefinedBinaryOperatorResult": 1,
+        "clang-analyzer-core.uninitialized.Assign": 1,
+        "clang-analyzer-deadcode.DeadStores": 7,
+        "clang-analyzer-optin.core.EnumCastOutOfRange": 1,
+        "clang-analyzer-optin.portability.UnixAPI": 6,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 1358,
+        "clang-analyzer-security.insecureAPI.strcpy": 1,
+        "clang-diagnostic-error": 8,
+        "clang-diagnostic-implicit-int": 1,
+        "clang-diagnostic-strict-prototypes": 1,
+        "performance-no-int-to-ptr": 12
+      },
+      "analyzer_findings_by_check": {
+        "clang-analyzer-core.BitwiseShift": 1,
+        "clang-analyzer-core.NonNullParamChecker": 5,
+        "clang-analyzer-core.NullDereference": 1,
+        "clang-analyzer-core.UndefinedBinaryOperatorResult": 1,
+        "clang-analyzer-core.uninitialized.Assign": 1,
+        "clang-analyzer-deadcode.DeadStores": 7,
+        "clang-analyzer-optin.core.EnumCastOutOfRange": 1,
+        "clang-analyzer-optin.portability.UnixAPI": 6,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 1358,
+        "clang-analyzer-security.insecureAPI.strcpy": 1
+      },
+      "assembly_parse_diagnostics": 10,
+      "wrapper_exit_status": 1
+    },
+    "cppcheck": {
+      "findings_by_id": {
+        "arrayIndexOutOfBoundsCond": 3,
+        "badBitmaskCheck": 1,
+        "clarifyCondition": 4,
+        "constParameterCallback": 1,
+        "constParameterPointer": 53,
+        "constVariable": 1,
+        "constVariablePointer": 69,
+        "duplicateExpression": 1,
+        "invalidPrintfArgType_sint": 6,
+        "invalidPrintfArgType_uint": 19,
+        "knownConditionTrueFalse": 55,
+        "legacyUninitvar": 1,
+        "nullPointerArithmeticRedundantCheck": 1,
+        "nullPointerRedundantCheck": 10,
+        "redundantCondition": 2,
+        "redundantContinue": 4,
+        "redundantInitialization": 1,
+        "truncLongCastReturn": 5,
+        "uninitvar": 4,
+        "unreadVariable": 9,
+        "unsignedLessThanZero": 2,
+        "unusedStructMember": 118,
+        "variableScope": 20
+      },
+      "findings_by_severity": {
+        "error": 5,
+        "style": 346,
+        "warning": 39
+      }
+    },
+    "flawfinder": {
+      "hits_at_level_1_or_higher": 191,
+      "lines_analyzed": 56046
+    },
+    "gcc_fanalyzer": {
+      "findings_by_check": {
+        "analyzer-malloc-leak": 2,
+        "analyzer-out-of-bounds": 3,
+        "analyzer-use-of-uninitialized-value": 1
+      },
+      "warnings": 6
+    },
+    "sparse": {
+      "exit_status": 0,
+      "parser_errors": 0,
+      "warnings": 13
+    }
+  }
+}

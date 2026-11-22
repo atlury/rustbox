@@ -835,8 +835,17 @@ gain external runtime dependencies.  Both Valgrind directions report zero
 errors and no definite, indirect, or possible loss.  Reproducible details are
 in `evidence/zstd-1.5.7-oracle.json`.  `kim-em/lean-zstd` is recorded as a
 reusable pure-Lean decompression/proof source, while canonical C remains the
-oracle for compression and the complete CLI.  Static audit and deterministic
-normalization are the next gate.
+oracle for compression and the complete CLI.  The five-tool production audit
+found no demonstrated canonical defect.  Deterministic normalization changes
+only `programs/zstdcli.c` to export `rustbox_zstd_main`, and zstd's documented
+`ZSTD_NO_ASM=1` configuration selects its portable C Huffman implementation in
+place of one optional x86-64 assembly unit.  The exact 44-source portable
+closure passes all three complete upstream suites and 34/34 canonical versus
+normalized command comparisons, with no external runtime library beyond
+libc.  Audit and normalization evidence is in
+`evidence/zstd-1.5.7-static-analysis.json` and
+`evidence/zstd-1.5.7-normalization.json`.  Complete C2Rust translation is the
+next gate.
 
 ## Work queue after util-linux
 
@@ -891,9 +900,10 @@ Library-only checkpoints (outside the active utility order):
      `lzmainfo`, `xzcmp`, `xzdiff`, `xzegrep`, `xzfgrep`, `xzgrep`, `xzless`,
      `xzmore`, `lzcmp`, `lzdiff`, `lzegrep`, `lzfgrep`, `lzgrep`, `lzless`, and
      `lzmore`; all native frontends are internal and canonical parity is complete.
-   - [ ] zstd 1.5.7 — canonical checksum oracle finished for `zstd`, `zstdmt`,
-     `unzstd`, `zstdcat`, `zstdgrep`, and `zstdless`; static audit,
-     normalization, translation, and multicall integration remain.
+   - [ ] zstd 1.5.7 — canonical checksum oracle, five-tool audit, and verified
+     portable-C normalization finished for `zstd`, `zstdmt`, `unzstd`,
+     `zstdcat`, `zstdgrep`, and `zstdless`; translation and multicall
+     integration remain.
    - [ ] tar — `tar`, `rmt`.
    - [ ] Ncurses — `captoinfo`, `clear`, `infocmp`, `infotocap`, `tabs`,
      `tic`, `toe`, `tput`, `tset`, `reset`, and the generated
