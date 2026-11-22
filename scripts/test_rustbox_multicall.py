@@ -64,6 +64,7 @@ def main() -> int:
     parser.add_argument("--zstd-oracle-dir", type=Path, required=True)
     parser.add_argument("--tar-oracle-root", type=Path, required=True)
     parser.add_argument("--ncurses-oracle-root", type=Path, required=True)
+    parser.add_argument("--findutils-oracle-root", type=Path, required=True)
     parser.add_argument("--rustbox", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
@@ -88,6 +89,7 @@ def main() -> int:
     zstd_oracle_dir = args.zstd_oracle_dir.resolve()
     tar_oracle_root = args.tar_oracle_root.resolve()
     ncurses_oracle_root = args.ncurses_oracle_root.resolve()
+    findutils_oracle_root = args.findutils_oracle_root.resolve()
     failures: list[dict[str, object]] = []
     cases = 0
 
@@ -327,6 +329,25 @@ def main() -> int:
             failures.append({"suite": "ncurses", "applet": name, "option": "-V",
                              "oracle": oracle, "actual": actual})
 
+    findutils_names = {
+        "find": findutils_oracle_root / "find/find",
+        "xargs": findutils_oracle_root / "xargs/xargs",
+        "locate": findutils_oracle_root / "locate/locate",
+        "updatedb": findutils_oracle_root / "locate/updatedb",
+    }
+    for name, oracle_binary in findutils_names.items():
+        for option in ("--help", "--version"):
+            cases += 1
+            oracle = invoke([name, option], executable=oracle_binary)
+            if name == "updatedb" and option == "--help":
+                oracle["stdout"] = oracle["stdout"].replace(
+                    f"Usage: {oracle_binary} ".encode(), b"Usage: updatedb ", 1
+                )
+            actual = invoke([str(rustbox), name, option])
+            if oracle != actual:
+                failures.append({"suite": "findutils", "applet": name,
+                                 "option": option, "oracle": oracle, "actual": actual})
+
     result = {
         "schema": 1,
         "cases": cases,
@@ -350,6 +371,7 @@ def main() -> int:
         "zstd_public_names": len(zstd_names),
         "tar_applets": len(tar_names),
         "ncurses_public_names": len(ncurses_names),
+        "findutils_public_names": len(findutils_names),
         "gzip_help_oracle_path_normalized": True,
         "failures": failures,
     }
@@ -363,7 +385,7 @@ def main() -> int:
         + "\n",
         encoding="utf-8",
     )
-    print(json.dumps({key: result[key] for key in ("cases", "passed", "coreutils_applets", "util_linux_applets", "m4_applets", "pkgconf_public_names", "file_applets", "patch_applets", "sed_applets", "diffutils_applets", "grep_applets", "bc_applets", "attr_applets", "acl_applets", "lz4_public_names", "less_public_names", "gzip_public_names", "xz_public_names", "zstd_public_names", "tar_applets", "ncurses_public_names")}))
+    print(json.dumps({key: result[key] for key in ("cases", "passed", "coreutils_applets", "util_linux_applets", "m4_applets", "pkgconf_public_names", "file_applets", "patch_applets", "sed_applets", "diffutils_applets", "grep_applets", "bc_applets", "attr_applets", "acl_applets", "lz4_public_names", "less_public_names", "gzip_public_names", "xz_public_names", "zstd_public_names", "tar_applets", "ncurses_public_names", "findutils_public_names")}))
     return 1 if failures else 0
 
 

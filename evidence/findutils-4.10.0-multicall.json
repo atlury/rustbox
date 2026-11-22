@@ -1,0 +1,86 @@
+{
+  "behavior": {
+    "canonical_differential": {
+      "cases": 38,
+      "passed": 38,
+      "sha256": "43281f788fef6fba59a6a7201e1306d341a0262a8b20d46ded478dad692b6124"
+    },
+    "valgrind": {
+      "find": {
+        "errors": 0,
+        "sha256": "4a86c2b22da7fc24a0d199e65521bea34831a3a9d922e00bee744e7492dcc8d8"
+      },
+      "locate": {
+        "errors": 0,
+        "sha256": "c260b6da6bb5efd392d3fd250df916ab436f29eaefaf5bdd923766fc462a8d14"
+      },
+      "updatedb": {
+        "errors": 0,
+        "sha256": "82b4055ff3cc89db5a9a9ae08d355e4a56768c947826c25b80a56f0e7a89c96b"
+      },
+      "xargs": {
+        "errors": 0,
+        "sha256": "bc1a6bed1265d865c4ab73f713044aa9e78200710fe9aa95a881c89c0aacf360"
+      }
+    }
+  },
+  "binary": {
+    "bytes": 23760256,
+    "dynamic_needed": [
+      "ld-linux-x86-64.so.2",
+      "libattr.so.1",
+      "libbz2.so.1.0",
+      "libc.so.6",
+      "libcap-ng.so.0",
+      "libcap.so.2",
+      "libcrypt.so.1",
+      "libcrypto.so.3",
+      "libeconf.so.0",
+      "libgcc_s.so.1",
+      "libgmp.so.10",
+      "liblz.so.1",
+      "liblzma.so.5",
+      "libm.so.6",
+      "libmagic.so.1",
+      "libncursesw.so.6",
+      "libpam.so.0",
+      "libpam_misc.so.0",
+      "libpcre2-8.so.0",
+      "libreadline.so.8",
+      "libseccomp.so.2",
+      "libsqlite3.so.0",
+      "libtinfo.so.6",
+      "libz.so.1",
+      "libzstd.so.1"
+    ],
+    "link_map_sha256": "14ead7da8f9b2128be9db5ab158f86b644a5bd255b302de7c35dabbee8585c6d",
+    "sha256": "6e18fc077a0cb1bb4d5b5e2d6ab7a84ae9527f02d18e15bec327295c47db6519"
+  },
+  "link_report_sha256": "1a2a59a9ae5b46da1d1533dc1f3f1f64ec7cb267bac1ff6e1569148044d88c0c",
+  "linked_entrypoints": [
+    "find",
+    "frcode",
+    "locate",
+    "xargs"
+  ],
+  "next_gate": "complete; unified evidence is included in rustbox-multicall.json",
+  "public_names": [
+    "find",
+    "locate",
+    "updatedb",
+    "xargs"
+  ],
+  "recorded_at": "2026-11-22",
+  "release": "4.10.0",
+  "schema": 1,
+  "status": "complete unified multicall integration",
+  "updatedb": {
+    "external_script": false,
+    "implementation": "in-binary C coordinator",
+    "pipeline": [
+      "translated find",
+      "translated GNU sort",
+      "translated frcode"
+    ]
+  }
+}

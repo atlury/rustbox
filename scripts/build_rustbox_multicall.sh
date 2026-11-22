@@ -28,5 +28,7 @@ RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
     --tar-rust-library /work/work/analysis/tar-1.35/translations/c2rust-0.22.1/tar-1.35-stable/target/release/libtar_1_35_normalized_audit.a \
     --ncurses-rust-library /work/work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a \
     --tar-c-residue-directory /work/work/analysis/tar-1.35/hybrid-artifacts/c-residue \
+    --findutils-rust-library /work/work/analysis/findutils-4.10.0/translations/c2rust-0.22.1/findutils-4.10.0-stable/target/release/libfindutils_4_10_0_combined.a \
+    --findutils-c-residue-directory /work/work/analysis/findutils-4.10.0/hybrid-artifacts/c-residue \
     --reuse-isolation \
     --link-report /work/work/analysis/rustbox-multicall-link.json

@@ -26,4 +26,5 @@ RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
     --zstd-report-directory /work/work/analysis/zstd-1.5.7/multicall \
     --tar-report-directory /work/work/analysis/tar-1.35/multicall \
     --ncurses-report-directory /work/work/analysis/ncurses-6.6/multicall \
+    --findutils-report-directory /work/work/analysis/findutils-4.10.0/multicall \
     --output /work/evidence/rustbox-multicall.json

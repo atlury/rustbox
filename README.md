@@ -123,15 +123,16 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 336
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 350
 distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, five
 pkgconf names, File, GNU patch, GNU sed, four GNU Diffutils applets, and GNU
 Grep's three public names, GNU bc and dc, attr's three tools, plus chacl,
 getfacl, and setfacl, plus LZ4's four public names, Less and lessecho, and all
 fourteen GNU Gzip interfaces, all 23 XZ Utils names, zstd's six public names,
-and GNU `tar` and `rmt`; `kill` is shared and `util-linux-kill` remains
+GNU `tar` and `rmt`, ten Ncurses names, and GNU Findutils' `find`, `xargs`,
+`locate`, and `updatedb`; `kill` is shared and `util-linux-kill` remains
 available explicitly).
-It passes all 672
+It passes all 690
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
 check, 108-case differential suite, and Valgrind.  Pkgconf also passes all 429
@@ -171,8 +172,9 @@ both Valgrind directions.  GNU tar and rmt add all 18 archive, extraction,
 compression-personality, and remote-protocol comparisons plus four zero-error,
 zero-loss Valgrind paths.  Their ACL calls resolve to Rustbox's translated ACL
 archive, including Coreutils' existing ACL consumers, and `libacl.so` is absent
-from the ELF dependency set.  The resulting 336-name executable is 9,895,072
-bytes stripped, a 535,168-byte increase over the 9,359,904-byte zstd checkpoint.
+from the ELF dependency set.  The resulting 350-name executable is 23,760,256
+bytes unstripped and 10,606,528 bytes stripped; exact hashes and section/link
+evidence are recorded in `evidence/rustbox-multicall.json`.
 `chcon` and `runcon`
 remain absent, and the linked binary has no SELinux or systemd dependency.
 
@@ -826,7 +828,7 @@ orders, one shadowed binding, and two local static tables.  The complete
 repair, unsafe inventory, and build evidence is in
 `evidence/xz-5.8.4-c2rust.json`.  The translated archive and fourteen native
 shell replacements are now privately integrated into Rustbox.  All 70 XZ
-public comparisons and all 672 aggregate help/version comparisons pass;
+public comparisons and all 690 aggregate help/version comparisons pass;
 compression is byte-identical and both engine directions have zero Valgrind
 errors and no lost bytes.  Unified linkage and resource evidence is in
 `evidence/rustbox-multicall.json`.
@@ -864,7 +866,7 @@ byte-identical frames, and has zero Valgrind errors or lost bytes in both
 directions.  Translation and hybrid evidence is in
 `evidence/zstd-1.5.7-c2rust.json` and `evidence/zstd-1.5.7-hybrid.json`.
 All six names are now integrated with privately namespaced engine symbols and
-native frontends.  The unified executable passes all 672 help/version checks,
+native frontends.  The unified executable passes all 690 help/version checks,
 all 14,022 pre-existing batch regressions, the 17-case zstd differential, and
 both zstd Valgrind directions; combined evidence is in
 `evidence/rustbox-multicall.json`.
@@ -926,7 +928,7 @@ are namespaced with the translated archive.  A deterministic rmt repair routes
 program metadata through gnulib argp's single shared globals, removing archive
 member-order sensitivity without changing standalone tar help.  The integrated
 binary passes all 18 tar/rmt comparisons, all four zero-loss Valgrind paths,
-all 672 aggregate dispatcher comparisons, and all 14,022 pre-existing batch
+all 690 aggregate dispatcher comparisons, and all 14,022 pre-existing batch
 regressions.  Hybrid and unified evidence is in
 `evidence/tar-1.35-hybrid.json` and `evidence/rustbox-multicall.json`.
 
@@ -989,7 +991,7 @@ all ten native names are now integrated into the unified Rustbox dispatcher.
 The shared executable retains the seven translated entrypoints exactly once,
 isolates 1,063 Ncurses implementation symbols, and has no canonical C residue
 or external Ncurses dependency for those translated applets.  All 27 canonical
-multicall comparisons, ten multicall Valgrind paths, and the complete 682-case
+multicall comparisons, ten multicall Valgrind paths, and the complete 690-case
 cross-package dispatcher audit pass.  Reproducible unified evidence is in
 `evidence/rustbox-multicall.json`.
 
@@ -1046,6 +1048,14 @@ wrapper; the hybrid therefore keeps only canonical `printf-args.c`,
 variadic ABI.  All 38 hybrid stateful comparisons and all four Valgrind paths
 pass.  Reproducible evidence is in `evidence/findutils-4.10.0-c2rust.json`
 and `evidence/findutils-4.10.0-hybrid.json`.
+All four public names are integrated into the unified dispatcher.  `updatedb`
+is no longer an installed shell dependency: an in-binary C coordinator streams
+the translated `find` through the already linked translated GNU `sort` and the
+translated private `frcode` encoder.  All 38 stateful canonical-versus-multicall
+cases, including byte-identical database generation, and all four multicall
+Valgrind paths pass.  Reproducible evidence is in
+`evidence/findutils-4.10.0-multicall.json` and
+`evidence/rustbox-multicall.json`.
 
 ## Work queue after util-linux
 
@@ -1122,14 +1132,15 @@ Library-only checkpoints (outside the active utility order):
      `lesskey` program in version 706 and now parses lesskey source directly
      inside `less`, so it is intentionally not resurrected.
 3. Multi-tool text processing and source generators:
-   - [ ] GNU Findutils 4.10.0 — signed canonical GCC/Clang/sanitizer oracle
+   - [x] GNU Findutils 4.10.0 — signed canonical GCC/Clang/sanitizer oracle
      and deterministic normalization complete for `find`, `xargs`, `locate`,
      and `updatedb`; 76/76 canonical-versus-normalized differential cases
      pass.  The sanitizer-confirmed LOCATE02 signed-shift defect is removed
      with defined arithmetic, and all four compiled programs export multicall
      entrypoints while retaining standalone wrappers.  Complete no-hole
      translation, stable reachable compilation, four-program hybrid parity,
-     and Valgrind verification pass; unified multicall integration is next.
+     Valgrind verification, native in-binary `updatedb`, and unified multicall
+     integration all pass.
    - [ ] Gawk — `gawk`, `awk`, `gawkbug`.
    - [ ] Flex — `flex`, `flex++`, `lex`.
    - [ ] Bison — `bison`, `yacc` (C/C++ skeletons only; Java output is out of

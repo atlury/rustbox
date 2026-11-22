@@ -25,5 +25,6 @@ RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
     --zstd-oracle-dir /rustbox-zstd/normalized-gcc/programs \
     --tar-oracle-root /work/work/analysis/tar-1.35/normalized/clang-root \
     --ncurses-oracle-root /work/work/analysis/ncurses-6.6/normalized/gcc-root \
+    --findutils-oracle-root /rustbox-findutils/hybrid \
     --rustbox /rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox \
     --output /work/work/analysis/rustbox-multicall-dispatch.json

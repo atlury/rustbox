@@ -10,10 +10,11 @@ RUSTBOX_TOOL_IMAGE=rustbox-findutils:2026-11-22 \
     database=/work/work/analysis/findutils-4.10.0/normalized/c2rust-compdb/compile_commands.json
     output=/rustbox-findutils/hybrid
     evidence=/work/work/analysis/findutils-4.10.0/hybrid
+    artifacts=/work/work/analysis/findutils-4.10.0/hybrid-artifacts
     canonical=/rustbox-findutils/normalized-gcc
-    rm -rf "$output" "$evidence"
+    rm -rf "$output" "$evidence" "$artifacts"
     mkdir -p "$output/find" "$output/xargs" "$output/locate" \
-      "$output/c-residue" "$evidence"
+      "$output/c-residue" "$evidence" "$artifacts/c-residue"
 
     cd "$crate"
     cargo build --release
@@ -43,6 +44,8 @@ RUSTBOX_TOOL_IMAGE=rustbox-findutils:2026-11-22 \
     cp /rustbox-findutils/normalized-clang/locate/updatedb "$output/locate/updatedb"
     chmod +x "$output/locate/updatedb"
     cp "$output/c-residue/manifest.json" "$evidence/c-residue.json"
+    cp "$output/c-residue/"*.o "$output/c-residue/manifest.json" \
+      "$artifacts/c-residue/"
 
     python3 /work/tests/findutils-oracle-differential.py \
       --gcc-build "$canonical" --clang-build "$output" \

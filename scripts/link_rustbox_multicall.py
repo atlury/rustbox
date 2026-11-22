@@ -12,7 +12,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-ISOLATION_CACHE_VERSION = 5
+ISOLATION_CACHE_VERSION = 6
 
 
 def sha256(path: Path) -> str:
@@ -914,6 +914,75 @@ def namespace_tar_inputs(
     return mapped_library, mapped_residue, private_symbols, acl_imports
 
 
+def namespace_findutils_inputs(
+    rust_library: Path, residue_objects: list[Path], build: Path
+) -> tuple[Path, list[Path], list[str]]:
+    """Keep Findutils and its C long-double variadic ABI units private."""
+    public = {
+        "rustbox_find_main", "rustbox_xargs_main",
+        "rustbox_locate_main", "rustbox_frcode_main",
+    }
+    strong_types = {"B", "C", "D", "G", "R", "S", "T"}
+    compiler_math = re.compile(
+        r"^(?:cbrt|ceil|copysign|fabs|fdim|floor|fma|fmax|fmaximum|fmin|fminimum|fmod|rint|round|sqrt|trunc)(?:f|f16|f128)?$"
+    )
+    inputs = [rust_library, *residue_objects]
+    symbols: set[str] = set()
+    for source in inputs:
+        output = subprocess.run(
+            ["nm", "-g", "--defined-only", str(source)],
+            check=True, text=True, stdout=subprocess.PIPE,
+        ).stdout
+        symbols.update(
+            fields[-1]
+            for line in output.splitlines()
+            if len(fields := line.split()) >= 3
+            and fields[-2] in strong_types
+            and (
+                re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", fields[-1])
+                or re.fullmatch(r"_[a-z][A-Za-z0-9_]*", fields[-1])
+                or fields[-1] == "__xargmatch_internal"
+            )
+            and fields[-1] not in public
+            and not fields[-1].startswith("rust_")
+            and not compiler_math.fullmatch(fields[-1])
+        )
+    if not symbols:
+        raise RuntimeError("GNU Findutils inputs export no namespaceable C symbols")
+    destination = build / "src/.rustbox-findutils"
+    destination.mkdir(parents=True, exist_ok=True)
+    mapping = destination / "symbols.map"
+    private_symbols = sorted(symbols)
+    mapping.write_text(
+        "".join(
+            f"{symbol} rustbox_findutils_private_{symbol}\n"
+            for symbol in private_symbols
+        ),
+        encoding="utf-8",
+    )
+    mapped_inputs: list[Path] = []
+    for source in inputs:
+        mapped = destination / source.name
+        shutil.copy2(source, mapped)
+        subprocess.run(["objcopy", "--redefine-syms", str(mapping), str(mapped)], check=True)
+        mapped_inputs.append(mapped)
+    mapped_library, *mapped_residue = mapped_inputs
+    mapped_definitions = set().union(
+        *(set(defined_symbols(source)) for source in mapped_inputs)
+    )
+    for symbol in public:
+        if sum(defined_symbols(source).count(symbol) for source in mapped_inputs) != 1:
+            raise RuntimeError(f"GNU Findutils symbol isolation damaged {symbol}")
+    if symbols & mapped_definitions:
+        raise RuntimeError("GNU Findutils symbol isolation left an unprefixed definition")
+    if any(
+        f"rustbox_findutils_private_{symbol}" not in mapped_definitions
+        for symbol in symbols
+    ):
+        raise RuntimeError("GNU Findutils symbol isolation lost a definition")
+    return mapped_library, mapped_residue, private_symbols
+
+
 def namespace_gzip_libraries(
     rust_library: Path, support_library: Path, build: Path
 ) -> tuple[Path, Path, list[str]]:
@@ -1210,6 +1279,10 @@ extern int rustbox_tic_main(int, char **);
 extern int rustbox_toe_main(int, char **);
 extern int rustbox_tput_main(int, char **);
 extern int rustbox_tset_main(int, char **);
+extern int rustbox_find_main(int, char **);
+extern int rustbox_xargs_main(int, char **);
+extern int rustbox_locate_main(int, char **);
+extern int rustbox_updatedb_main(int, char **);
 """
         + declarations
         + """
@@ -1418,6 +1491,14 @@ int main(int argc, char **argv)
         return rustbox_tput_main(argc, argv);
     if (!force_util_linux && (strcmp(name, "tset") == 0 || strcmp(name, "reset") == 0))
         return rustbox_tset_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "find") == 0)
+        return rustbox_find_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "xargs") == 0)
+        return rustbox_xargs_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "locate") == 0)
+        return rustbox_locate_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "updatedb") == 0)
+        return rustbox_updatedb_main(argc, argv);
 """
         + selections
         + """
@@ -1455,6 +1536,8 @@ def main() -> int:
     parser.add_argument("--tar-rust-library", type=Path, required=True)
     parser.add_argument("--ncurses-rust-library", type=Path, required=True)
     parser.add_argument("--tar-c-residue-directory", type=Path, required=True)
+    parser.add_argument("--findutils-rust-library", type=Path, required=True)
+    parser.add_argument("--findutils-c-residue-directory", type=Path, required=True)
     parser.add_argument("--link-report", type=Path, required=True)
     parser.add_argument("--reuse-isolation", action="store_true")
     args = parser.parse_args()
@@ -1484,6 +1567,12 @@ def main() -> int:
     tar_residue_objects = [
         tar_residue_directory / name
         for name in ("human.o", "printf-args.o", "printf-parse.o", "vasnprintf.o")
+    ]
+    findutils_rust_library = args.findutils_rust_library.resolve()
+    findutils_residue_directory = args.findutils_c_residue_directory.resolve()
+    findutils_residue_objects = [
+        findutils_residue_directory / name
+        for name in ("printf-args.o", "printf-parse.o", "vasnprintf.o")
     ]
     makefile = build / "Makefile"
     if not makefile.is_file():
@@ -1569,9 +1658,10 @@ def main() -> int:
         diffutils_rust_library, grep_rust_library, bc_rust_library,
         attr_rust_library, acl_rust_library, lz4_rust_library, less_rust_library,
         gzip_rust_library, xz_rust_library, zstd_rust_library, tar_rust_library,
-        ncurses_rust_library,
+        ncurses_rust_library, findutils_rust_library,
         gzip_support_library,
         *tar_residue_objects,
+        *findutils_residue_objects,
     ):
         if not path.is_file():
             raise RuntimeError(f"multicall input is missing: {path}")
@@ -1608,11 +1698,16 @@ def main() -> int:
     zstd_library_index = len(libraries) - 1
     libraries.append(ncurses_rust_library)
     ncurses_library_index = len(libraries) - 1
+    libraries.append(findutils_rust_library)
+    findutils_library_index = len(libraries) - 1
     source_library_hashes = {str(path.relative_to(repository)): sha256(path) for path in libraries}
     source_library_hashes[str(m4_support_library)] = sha256(m4_support_library)
     source_library_hashes[str(gzip_support_library)] = sha256(gzip_support_library)
     source_library_hashes.update(
         {str(path.relative_to(repository)): sha256(path) for path in tar_residue_objects}
+    )
+    source_library_hashes.update(
+        {str(path.relative_to(repository)): sha256(path) for path in findutils_residue_objects}
     )
     expected_symbols.update(f"rustbox_{symbol}_main" for symbol in util_dispatch.values())
     expected_symbols.add("rustbox_m4_main")
@@ -1673,6 +1768,11 @@ def main() -> int:
         "rustbox_toe_main",
         "rustbox_tput_main",
         "rustbox_tset_main",
+        "rustbox_find_main",
+        "rustbox_xargs_main",
+        "rustbox_locate_main",
+        "rustbox_frcode_main",
+        "rustbox_updatedb_main",
     })
 
     cached_report = None
@@ -1824,6 +1924,25 @@ def main() -> int:
         )
     libraries[ncurses_library_index] = mapped_ncurses_rust
 
+    if cached_report:
+        mapped_findutils_rust = (
+            build / "src/.rustbox-findutils" / libraries[findutils_library_index].name
+        )
+        mapped_findutils_residue = [
+            build / "src/.rustbox-findutils" / path.name
+            for path in findutils_residue_objects
+        ]
+        findutils_symbols = cached_report["findutils_namespaced_symbols"]
+    else:
+        (
+            mapped_findutils_rust,
+            mapped_findutils_residue,
+            findutils_symbols,
+        ) = namespace_findutils_inputs(
+            libraries[findutils_library_index], findutils_residue_objects, build
+        )
+    libraries[findutils_library_index] = mapped_findutils_rust
+
     canonical_dispatch_symbols = set(defined_symbols(build / "src/coreutils-coreutils.o"))
     if cached_report:
         namespaced_symbols = cached_report["namespaced_symbols"]
@@ -1860,7 +1979,7 @@ def main() -> int:
         )
 
     cached_paths = [
-        *libraries, *mapped_tar_residue,
+        *libraries, *mapped_tar_residue, *mapped_findutils_residue,
         mapped_m4_support, mapped_gzip_support, *util_inputs,
     ]
     missing_cached = [str(path) for path in cached_paths if not path.is_file()]
@@ -1945,6 +2064,16 @@ def main() -> int:
         "rustbox_zstdgrep_main", "rustbox_zstdless_main",
     }:
         raise RuntimeError("zstd alias bridge exports the wrong symbols")
+    findutils_updatedb_object = build / "src/.rustbox-findutils-updatedb.o"
+    subprocess.run(
+        ["clang-18", "-O2", "-g", "-c",
+         str(repository / "bridges/findutils_updatedb.c"),
+         "-o", str(findutils_updatedb_object)],
+        cwd=build,
+        check=True,
+    )
+    if defined_symbols(findutils_updatedb_object) != ["rustbox_updatedb_main"]:
+        raise RuntimeError("GNU Findutils updatedb bridge exports the wrong symbols")
     bridge_archives: dict[str, Path] = {}
     for archive, members in bridge_members.items():
         source = build / archive
@@ -2012,6 +2141,7 @@ def main() -> int:
             if not inserted:
                 rewritten.extend(str(path) for path in libraries)
                 rewritten.extend(str(path) for path in mapped_tar_residue)
+                rewritten.extend(str(path) for path in mapped_findutils_residue)
                 rewritten.extend(str(path) for path in typed_bridge_objects)
                 rewritten.append(str(sed_abi_object))
                 rewritten.append(str(diffutils_error_object))
@@ -2020,6 +2150,7 @@ def main() -> int:
                 rewritten.append(str(gzip_aliases_object))
                 rewritten.append(str(xz_aliases_object))
                 rewritten.append(str(zstd_aliases_object))
+                rewritten.append(str(findutils_updatedb_object))
                 rewritten.extend(str(path) for path in util_inputs)
                 rewritten.append(str(mapped_m4_support))
                 rewritten.append(str(mapped_gzip_support))
@@ -2121,6 +2252,7 @@ def main() -> int:
         "zstd_public_names": 6,
         "tar_applets": 2,
         "ncurses_public_names": 10,
+        "findutils_public_names": 4,
         "total_dispatch_names": len(
             set(applets)
             | set(util_dispatch)
@@ -2137,7 +2269,8 @@ def main() -> int:
                "lzegrep", "lzfgrep", "lzmore", "lzless",
                "zstd", "zstdmt", "unzstd", "zstdcat", "zstdgrep", "zstdless",
                "tar", "rmt", "captoinfo", "clear", "infocmp", "infotocap",
-               "reset", "tabs", "tic", "toe", "tput", "tset"}
+               "reset", "tabs", "tic", "toe", "tput", "tset",
+               "find", "xargs", "locate", "updatedb"}
         ),
         "excluded": ["chcon", "runcon"],
         "public_name_precedence": {"kill": "GNU Coreutils", "util-linux-kill": "util-linux"},
@@ -2166,6 +2299,7 @@ def main() -> int:
         "zstd_namespaced_symbols": zstd_symbols,
         "tar_namespaced_symbols": tar_symbols,
         "ncurses_namespaced_symbols": ncurses_symbols,
+        "findutils_namespaced_symbols": findutils_symbols,
         "tar_acl_imports": tar_acl_imports,
         "coreutils_acl_imports": coreutils_acl_imports,
         "diffutils_error_bridge": {
@@ -2208,6 +2342,11 @@ def main() -> int:
             "object": str(sed_abi_object.relative_to(build)),
             "symbols": ["__wctob_alias"],
         },
+        "findutils_updatedb_bridge": {
+            "object": str(findutils_updatedb_object.relative_to(build)),
+            "symbols": ["rustbox_updatedb_main"],
+            "public_names": ["updatedb"],
+        },
         "binary": {
             "bytes": output.stat().st_size,
             "sha256": sha256(output),
@@ -2241,6 +2380,7 @@ def main() -> int:
         "zstd_public_names": 6,
         "tar_applets": 2,
         "ncurses_public_names": 10,
+        "findutils_public_names": 4,
         "output": str(output),
     }))
     return 0
