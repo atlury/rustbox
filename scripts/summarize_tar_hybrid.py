@@ -96,13 +96,23 @@ def main() -> int:
     translation = json.loads(
         (repository / "evidence/tar-1.35-c2rust.json").read_text()
     )
+    multicall = json.loads(
+        (repository / "evidence/rustbox-multicall.json").read_text()
+    )
+    tar_integration = multicall.get("tar_integration", {})
+    if (
+        tar_integration.get("integrated_public_names") != 2
+        or tar_integration.get("system_libacl_dependency") is not False
+        or tar_integration.get("differential", {}).get("passed") != 18
+    ):
+        raise RuntimeError("GNU tar unified integration evidence is incomplete")
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-22",
         "release": "1.35",
         "status": (
-            "translated hybrid at canonical parity with owned extraction "
-            "cleanup; internal ACL linkage and multicall integration remain"
+            "standalone translated hybrid and unified multicall integration "
+            "at canonical parity with owned extraction cleanup"
         ),
         "implementation": {
             "translated_production_sources": 197,
@@ -127,14 +137,13 @@ def main() -> int:
         },
         "canonical_c_abi_residue": residue,
         "temporary_runtime_dependencies": {
+            "scope": "standalone hybrid only",
             "libacl": True,
             "replacement": "Rustbox's already translated ACL implementation",
             "other_non_libc_system_libraries": [],
         },
-        "next_gate": (
-            "replace libacl with Rustbox ACL and integrate both names into "
-            "the unified dispatcher"
-        ),
+        "unified_integration": tar_integration,
+        "next_gate": "later pointer-safety and no-std hardening phase",
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")

@@ -61,7 +61,7 @@ scoring, and correctness gates.
 | Less 710 | 2 | 2 | 2 | 2 |
 | XZ Utils 5.8.4 | 23 | 23 | 23 | 23 |
 | zstd 1.5.7 | 6 | 6 | 6 | 6 |
-| GNU tar 1.35 | 2 | 2 | 0 | 0 |
+| GNU tar 1.35 | 2 | 2 | 2 | 2 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -123,14 +123,15 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 334
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 336
 distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, five
 pkgconf names, File, GNU patch, GNU sed, four GNU Diffutils applets, and GNU
 Grep's three public names, GNU bc and dc, attr's three tools, plus chacl,
 getfacl, and setfacl, plus LZ4's four public names, Less and lessecho, and all
-fourteen GNU Gzip interfaces, all 23 XZ Utils names, and zstd's six public
-names; `kill` is shared and `util-linux-kill` remains available explicitly).
-It passes all 668
+fourteen GNU Gzip interfaces, all 23 XZ Utils names, zstd's six public names,
+and GNU `tar` and `rmt`; `kill` is shared and `util-linux-kill` remains
+available explicitly).
+It passes all 672
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
 check, 108-case differential suite, and Valgrind.  Pkgconf also passes all 429
@@ -166,8 +167,12 @@ All 70 public comparisons pass, `.xz` compression is byte-identical,
 decompression matches, and Valgrind reports zero errors and no lost bytes.  The
 zstd's native engine and native `zstdgrep`/`zstdless` frontends pass all 17
 public comparisons, emit byte-identical frames, and free every allocation in
-both Valgrind directions.  The resulting 334-name executable is 9,359,904
-bytes stripped, a 957,760-byte increase over the 8,402,144-byte XZ checkpoint.
+both Valgrind directions.  GNU tar and rmt add all 18 archive, extraction,
+compression-personality, and remote-protocol comparisons plus four zero-error,
+zero-loss Valgrind paths.  Their ACL calls resolve to Rustbox's translated ACL
+archive, including Coreutils' existing ACL consumers, and `libacl.so` is absent
+from the ELF dependency set.  The resulting 336-name executable is 9,895,072
+bytes stripped, a 535,168-byte increase over the 9,359,904-byte zstd checkpoint.
 `chcon` and `runcon`
 remain absent, and the linked binary has no SELinux or systemd dependency.
 
@@ -821,7 +826,7 @@ orders, one shadowed binding, and two local static tables.  The complete
 repair, unsafe inventory, and build evidence is in
 `evidence/xz-5.8.4-c2rust.json`.  The translated archive and fourteen native
 shell replacements are now privately integrated into Rustbox.  All 70 XZ
-public comparisons and all 668 aggregate help/version comparisons pass;
+public comparisons and all 672 aggregate help/version comparisons pass;
 compression is byte-identical and both engine directions have zero Valgrind
 errors and no lost bytes.  Unified linkage and resource evidence is in
 `evidence/rustbox-multicall.json`.
@@ -859,7 +864,7 @@ byte-identical frames, and has zero Valgrind errors or lost bytes in both
 directions.  Translation and hybrid evidence is in
 `evidence/zstd-1.5.7-c2rust.json` and `evidence/zstd-1.5.7-hybrid.json`.
 All six names are now integrated with privately namespaced engine symbols and
-native frontends.  The unified executable passes all 668 help/version checks,
+native frontends.  The unified executable passes all 672 help/version checks,
 all 14,022 pre-existing batch regressions, the 17-case zstd differential, and
 both zstd Valgrind directions; combined evidence is in
 `evidence/rustbox-multicall.json`.
@@ -904,7 +909,7 @@ stable `VaList` and the translator's `f128` wrapper cannot represent that ABI
 faithfully; their translated forms remain in the audit inventory.  The
 25,082 raw-pointer type occurrences and 5,775 unsafe functions are recorded
 for the later safety phase.  Reproducible translation evidence is in
-`evidence/tar-1.35-c2rust.json`; hybrid linkage and parity are the next gate.
+`evidence/tar-1.35-c2rust.json`.
 The first linked hybrid passes all 18 canonical comparisons for `tar` and
 `rmt`, including byte-identical deterministic archives, extraction trees, the
 remote-tape protocol, and gzip/xz/zstd personalities.  Create, list, and
@@ -912,9 +917,18 @@ remote-tape protocol, and gzip/xz/zstd personalities.  Create, list, and
 repair also frees the three name-list allocations that canonical tar leaves
 for process exit, reducing extract from 152 direct plus one indirect lost byte
 to zero without changing any of the 18 behavior comparisons.  The temporary
-bridge still links system libacl, so replacement with Rustbox's translated ACL
-engine and unified dispatch remain explicit gates.  Hybrid evidence is in
-`evidence/tar-1.35-hybrid.json`.
+standalone bridge links system libacl only as an independent oracle fixture.
+In the unified executable, tar's 13 ACL API imports and Coreutils' ten ACL
+imports are deterministically rebound to Rustbox's privately namespaced
+translated ACL archive; the final ELF has no `libacl.so` dependency.  Tar's
+GNU underscore helpers and four canonical long-double/variadic residue objects
+are namespaced with the translated archive.  A deterministic rmt repair routes
+program metadata through gnulib argp's single shared globals, removing archive
+member-order sensitivity without changing standalone tar help.  The integrated
+binary passes all 18 tar/rmt comparisons, all four zero-loss Valgrind paths,
+all 672 aggregate dispatcher comparisons, and all 14,022 pre-existing batch
+regressions.  Hybrid and unified evidence is in
+`evidence/tar-1.35-hybrid.json` and `evidence/rustbox-multicall.json`.
 
 ## Work queue after util-linux
 
@@ -973,7 +987,8 @@ Library-only checkpoints (outside the active utility order):
      portable-C normalization, complete no-hole stable translation, and
      hybrid parity finished for `zstd`, `zstdmt`, `unzstd`, `zstdcat`,
      `zstdgrep`, and `zstdless`; multicall integration is complete.
-   - [ ] tar — `tar`, `rmt`.
+   - [x] GNU tar 1.35 — `tar`, `rmt`; translated hybrid and unified multicall
+     integration at canonical parity with internal translated ACL linkage.
    - [ ] Ncurses — `captoinfo`, `clear`, `infocmp`, `infotocap`, `tabs`,
      `tic`, `toe`, `tput`, `tset`, `reset`, and the generated
      `ncurses*-config` helper; shared `ncurses`, `panel`, `form`, and `menu`

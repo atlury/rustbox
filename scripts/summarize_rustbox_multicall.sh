@@ -24,4 +24,5 @@ RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
     --gzip-report-directory /work/work/analysis/gzip-1.14/multicall \
     --xz-report-directory /work/work/analysis/xz-5.8.4/multicall \
     --zstd-report-directory /work/work/analysis/zstd-1.5.7/multicall \
+    --tar-report-directory /work/work/analysis/tar-1.35/multicall \
     --output /work/evidence/rustbox-multicall.json
