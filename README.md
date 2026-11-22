@@ -884,8 +884,17 @@ Cppcheck, GCC `-fanalyzer`, Clang analyzer/tidy, Flawfinder, and configured
 Sparse audit found no demonstrated canonical defect; Sparse finishes with no
 parser error after one analyzer-only same-alignment spelling for gnulib scratch
 storage.  Its locked findings and ownership review are in
-`evidence/tar-1.35-static-analysis.json`.  Deterministic two-entrypoint
-normalization is the next gate.
+`evidence/tar-1.35-static-analysis.json`.  Deterministic normalization changes
+only `src/tar.c`, `rmt/rmt.c`, and gnulib `human.c`: the first two export the
+multicall entrypoints while retaining standalone wrappers, and the third uses
+an equivalent `unsigned long` local only where
+`UINTMAX_MAX == ULONG_MAX`.  That target-guarded spelling removes C2Rust's one
+unsupported long-double conversion without changing an algorithm or data
+layout.  GCC, Clang, and ASan/UBSan each reproduce the complete 224-test result,
+both canonical-versus-normalized differentials pass 18/18, and a strict
+per-unit C2Rust probe translates all 197 production actions with zero failures.
+Reproducible details are in `evidence/tar-1.35-normalization.json`; combined
+no-hole translation is the next gate.
 
 ## Work queue after util-linux
 

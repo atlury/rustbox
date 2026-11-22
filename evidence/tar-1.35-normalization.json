@@ -1,0 +1,122 @@
+{
+  "canonical_normalized_differential": {
+    "clang": {
+      "cases": 18,
+      "passed": 18,
+      "sha256": "7095112966fec178671059a1582fbc9aa110e621144db16071f70c63d3219668"
+    },
+    "gcc": {
+      "cases": 18,
+      "passed": 18,
+      "sha256": "5a0a93b311a39a8f9f049e7eb83fa32df1afe59efb0cececc0e266b4bcf38bf7"
+    }
+  },
+  "compilers": {
+    "clang": {
+      "compile_actions": 197,
+      "compile_database_sha256": "e03076d4b03f505345a6668bd00c9520aef4f22f5b99c3a873badaa5e6a3f3b8",
+      "production_sources": 197,
+      "upstream_test_log_sha256": "f06242ad781fcbc9e726a7d5c07350f0f565d5d180f5ff7ddf233e463d60ff22",
+      "upstream_tests": {
+        "capability_limited_failures": 2,
+        "passed": 202,
+        "run": 224,
+        "skipped": 20
+      }
+    },
+    "gcc": {
+      "compile_actions": 197,
+      "compile_database_sha256": "d97658bcb47b17883d7fcdc60f78ccc793e97a7e538327bd57d44058bffdde9e",
+      "production_sources": 197,
+      "upstream_test_log_sha256": "bf3e251e85027a4e1c90720fa879b9551630fffdff57b6b99a85825d6ef988d7",
+      "upstream_tests": {
+        "capability_limited_failures": 2,
+        "passed": 202,
+        "run": 224,
+        "skipped": 20
+      }
+    },
+    "sanitizer": {
+      "compile_actions": 197,
+      "compile_database_sha256": "7a7e8d30424b873e10578b767c1699ce4b3e552d412b05d47ad6e9a59856ecac",
+      "production_sources": 197,
+      "upstream_test_log_sha256": "f7c67a2e47455f3522ca2cf103a45701c399e95a9421c116c6c696d4199c5ad8",
+      "upstream_tests": {
+        "capability_limited_failures": 2,
+        "passed": 202,
+        "run": 224,
+        "skipped": 20
+      }
+    }
+  },
+  "next_gate": "C2Rust translation of the exact 197-source normalized closure",
+  "normalization": {
+    "canonical_archive_sha256": "4d62ff37342ec7aed748535323930c7cf94acf71c3591882b26a7ea50f3edc16",
+    "canonical_tree_sha256": "1c3b24dddf892958718b0c3bbdeb817e9d819140a468a99218352fb91ce7022a",
+    "changed_sources": [
+      "gnu/human.c",
+      "rmt/rmt.c",
+      "src/tar.c"
+    ],
+    "conditional": "RUSTBOX_MULTICALL",
+    "engine": "exact deterministic source rewrite",
+    "entrypoints": 2,
+    "normalized_tree_sha256": "99d587c91f73a084511d16e51548c710c3f1e83d3b69554d5410ec46890b25de",
+    "release": "1.35",
+    "schema": 1,
+    "transformations": [
+      {
+        "canonical_sha256": "cc5fad63d3ae5b7610cb3a30a670edb2e27baacd2d7668703e464a69577c86d5",
+        "normalized_sha256": "fc705575187282348f43a8a1a11a2f7c425ded7cbd712ec02ff2d794c61c142b",
+        "operation": "export rustbox_tar_main and retain a conditional standalone main wrapper",
+        "source": "src/tar.c"
+      },
+      {
+        "canonical_sha256": "6e3d1f5c1761aeb73c35688bc6df71afe010fb5a9ab960ed10124f2d503bd8d4",
+        "normalized_sha256": "95ebe297900705da296f130dccfd0b6b864705b263ced78edf70bf7401ee4597",
+        "operation": "export rustbox_rmt_main and retain a conditional standalone main wrapper",
+        "source": "rmt/rmt.c"
+      },
+      {
+        "canonical_sha256": "826c78de9388f2bc5e63e9ae72bcbe3fdef4fd19b85091a80629e3ce960b3616",
+        "normalized_sha256": "f970bb2b0e95778bc460fd95ccc05b6e50f6ab0a57c20165c6d2d1727ebccc57",
+        "operation": "on targets where uintmax_t and unsigned long have the same range, make the existing long-double conversion's unsigned-long type explicit",
+        "semantic_basis": "UINTMAX_MAX == ULONG_MAX proves the selected conversion has the same range and C conversion semantics; other targets retain the canonical cast",
+        "source": "gnu/human.c"
+      }
+    ]
+  },
+  "normalization_manifest_sha256": "10ff64d78b656ae13daf4bab0a80fb55e6d174f0479b89b26bae4ba69d09c079",
+  "production_closure_sha256": "31dd9e972f2643378de2dda2d1b9f8b615549ed254648c9e2cdd57c453a28175",
+  "recorded_at": "2026-11-22",
+  "release": "1.35",
+  "review": {
+    "canonical_algorithms_changed": false,
+    "canonical_data_layout_changed": false,
+    "changed_sources": [
+      "gnu/human.c",
+      "rmt/rmt.c",
+      "src/tar.c"
+    ],
+    "changes": [
+      "export two multicall entrypoints while preserving standalone main wrappers",
+      "make one same-range LP64 long-double-to-uintmax conversion explicit for C2Rust"
+    ]
+  },
+  "schema": 1,
+  "status": "deterministic normalization complete; translation pending",
+  "translator_compatibility": {
+    "all_unit_probe": {
+      "commands": 197,
+      "failed": 0,
+      "passed": 197,
+      "sha256": "ed01b697c2c2b24a52a93048a7e49d44ca4440e965a8b57fdf856749d9b8e5d9"
+    },
+    "backend": "C2Rust 0.22.1",
+    "generated_rust_repairs": 0,
+    "original_failure": "gnu/human.c adjust_value: direct long double to uintmax_t conversion",
+    "resolution": "deterministic same-range C normalization",
+    "targeted_c_compile_passed": true,
+    "targeted_translation_passed": true
+  }
+}
