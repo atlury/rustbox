@@ -1,0 +1,312 @@
+{
+  "binary": {
+    "bytes": 913152,
+    "dynamic_needed": [
+      "libc.so.6",
+      "libm.so.6"
+    ],
+    "sha256": "82c98517bd3997d49d4662154e20671238b7cb4d54a4d5f4f89dae8342320cc2",
+    "version": "flex 2.6.4"
+  },
+  "canonical_defects": [
+    {
+      "definitely_lost_bytes": 48,
+      "diagnostic": "help, version, and option-error exits bypass scanopt_destroy",
+      "indirectly_lost_bytes": 1368,
+      "normalization_required": true,
+      "source": "src/main.c:flexinit"
+    }
+  ],
+  "compile_databases": {
+    "clang": {
+      "commands": 46,
+      "generated_sources": 1,
+      "sha256": "91540a8cdecca5a8160ead74f68cd64ec8119a5e862f9818b4f88353a22f7d4c",
+      "signed_sources": 23,
+      "sources": 24
+    },
+    "gcc": {
+      "commands": 46,
+      "generated_sources": 1,
+      "sha256": "82f4b30fe98375b515a79ea128d4a3d5271d29ad44a07685d9980f12118481c9",
+      "signed_sources": 23,
+      "sources": 24
+    },
+    "sanitizer": {
+      "commands": 46,
+      "generated_sources": 1,
+      "sha256": "2cb0024453e353bb947ba6663aec07038244b2efdefee56de8ab3971ce39dc5e",
+      "signed_sources": 23,
+      "sources": 24
+    }
+  },
+  "differential": {
+    "cases": 14,
+    "generated_scanners": 10,
+    "passed": 14,
+    "records": [
+      {
+        "kind": "cli",
+        "name": "version",
+        "passed": true,
+        "status": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "0b71b9cbea2df209ca42958e8f8c149ee5c090a644b6a2a32b67725506aa353f"
+      },
+      {
+        "kind": "cli",
+        "name": "help",
+        "passed": true,
+        "status": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "96ac5c3ca57b9bc8ddabaec47d5906e48c21c5c6c5a61d74a23907791997500b"
+      },
+      {
+        "kind": "cli",
+        "name": "invalid-option",
+        "passed": true,
+        "status": 1,
+        "stderr_sha256": "bdd81b2ebb68807a6000fc4a8b21618cb5cc8b337ef48f400034a0c10d0ce814",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "kind": "cli",
+        "name": "malformed-spec",
+        "passed": true,
+        "status": 1,
+        "stderr_sha256": "f754ae28bc961c4bb80e8fc5af1b570884d8e834d9db351c6b1798812c21007f",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "generated_files": [
+          "lex.yy.c"
+        ],
+        "generator_status": 0,
+        "kind": "generated-scanner",
+        "name": "default-c",
+        "passed": true,
+        "runtime_status": 0,
+        "runtime_stdout_sha256": "c07c33d72281c55801f95a91f4711947a870b2cc5e86b5b6b3cdc33eed2e42a9"
+      },
+      {
+        "generated_files": [
+          "lex.yy.c"
+        ],
+        "generator_status": 0,
+        "kind": "generated-scanner",
+        "name": "full-table",
+        "passed": true,
+        "runtime_status": 0,
+        "runtime_stdout_sha256": "c07c33d72281c55801f95a91f4711947a870b2cc5e86b5b6b3cdc33eed2e42a9"
+      },
+      {
+        "generated_files": [
+          "lex.yy.c"
+        ],
+        "generator_status": 0,
+        "kind": "generated-scanner",
+        "name": "fast-table",
+        "passed": true,
+        "runtime_status": 0,
+        "runtime_stdout_sha256": "c07c33d72281c55801f95a91f4711947a870b2cc5e86b5b6b3cdc33eed2e42a9"
+      },
+      {
+        "generated_files": [
+          "lex.yy.c"
+        ],
+        "generator_status": 0,
+        "kind": "generated-scanner",
+        "name": "compressed-meta",
+        "passed": true,
+        "runtime_status": 0,
+        "runtime_stdout_sha256": "c07c33d72281c55801f95a91f4711947a870b2cc5e86b5b6b3cdc33eed2e42a9"
+      },
+      {
+        "generated_files": [
+          "lex.yy.c"
+        ],
+        "generator_status": 0,
+        "kind": "generated-scanner",
+        "name": "lex-compat",
+        "passed": true,
+        "runtime_status": 0,
+        "runtime_stdout_sha256": "c07c33d72281c55801f95a91f4711947a870b2cc5e86b5b6b3cdc33eed2e42a9"
+      },
+      {
+        "generated_files": [
+          "lex.yy.c"
+        ],
+        "generator_status": 0,
+        "kind": "generated-scanner",
+        "name": "reentrant",
+        "passed": true,
+        "runtime_status": 0,
+        "runtime_stdout_sha256": "c07c33d72281c55801f95a91f4711947a870b2cc5e86b5b6b3cdc33eed2e42a9"
+      },
+      {
+        "generated_files": [
+          "lex.foo.c"
+        ],
+        "generator_status": 0,
+        "kind": "generated-scanner",
+        "name": "prefix",
+        "passed": true,
+        "runtime_status": 0,
+        "runtime_stdout_sha256": "c07c33d72281c55801f95a91f4711947a870b2cc5e86b5b6b3cdc33eed2e42a9"
+      },
+      {
+        "generated_files": [
+          "scanner.c",
+          "scanner.h"
+        ],
+        "generator_status": 0,
+        "kind": "generated-scanner",
+        "name": "explicit-output-header",
+        "passed": true,
+        "runtime_status": 0,
+        "runtime_stdout_sha256": "c07c33d72281c55801f95a91f4711947a870b2cc5e86b5b6b3cdc33eed2e42a9"
+      },
+      {
+        "generated_files": [],
+        "generator_status": 0,
+        "kind": "generated-scanner",
+        "name": "stdout",
+        "passed": true,
+        "runtime_status": 0,
+        "runtime_stdout_sha256": "c07c33d72281c55801f95a91f4711947a870b2cc5e86b5b6b3cdc33eed2e42a9"
+      },
+      {
+        "generated_files": [
+          "lex.yy.cc"
+        ],
+        "generator_status": 0,
+        "kind": "generated-scanner",
+        "name": "cxx",
+        "passed": true,
+        "runtime_status": 0,
+        "runtime_stdout_sha256": "c07c33d72281c55801f95a91f4711947a870b2cc5e86b5b6b3cdc33eed2e42a9"
+      }
+    ],
+    "schema": 1
+  },
+  "installed_files": [
+    "/usr/bin/flex",
+    "/usr/bin/flex++",
+    "/usr/include/FlexLexer.h",
+    "/usr/lib/libfl.a",
+    "/usr/lib/libfl.la",
+    "/usr/lib/libfl.so",
+    "/usr/lib/libfl.so.2",
+    "/usr/lib/libfl.so.2.0.0",
+    "/usr/share/doc/flex/AUTHORS",
+    "/usr/share/doc/flex/COPYING",
+    "/usr/share/doc/flex/NEWS",
+    "/usr/share/doc/flex/ONEWS",
+    "/usr/share/doc/flex/README.md",
+    "/usr/share/info/flex.info",
+    "/usr/share/info/flex.info-1",
+    "/usr/share/info/flex.info-2",
+    "/usr/share/locale/ca/LC_MESSAGES/flex.mo",
+    "/usr/share/locale/da/LC_MESSAGES/flex.mo",
+    "/usr/share/locale/de/LC_MESSAGES/flex.mo",
+    "/usr/share/locale/en@boldquot/LC_MESSAGES/flex.mo",
+    "/usr/share/locale/en@quot/LC_MESSAGES/flex.mo",
+    "/usr/share/locale/eo/LC_MESSAGES/flex.mo",
+    "/usr/share/locale/es/LC_MESSAGES/flex.mo",
+    "/usr/share/locale/fi/LC_MESSAGES/flex.mo",
+    "/usr/share/locale/fr/LC_MESSAGES/flex.mo",
+    "/usr/share/locale/ga/LC_MESSAGES/flex.mo",
+    "/usr/share/locale/hr/LC_MESSAGES/flex.mo",
+    "/usr/share/locale/ko/LC_MESSAGES/flex.mo",
+    "/usr/share/locale/nl/LC_MESSAGES/flex.mo",
+    "/usr/share/locale/pl/LC_MESSAGES/flex.mo",
+    "/usr/share/locale/pt_BR/LC_MESSAGES/flex.mo",
+    "/usr/share/locale/ro/LC_MESSAGES/flex.mo",
+    "/usr/share/locale/ru/LC_MESSAGES/flex.mo",
+    "/usr/share/locale/sr/LC_MESSAGES/flex.mo",
+    "/usr/share/locale/sv/LC_MESSAGES/flex.mo",
+    "/usr/share/locale/tr/LC_MESSAGES/flex.mo",
+    "/usr/share/locale/vi/LC_MESSAGES/flex.mo",
+    "/usr/share/locale/zh_CN/LC_MESSAGES/flex.mo",
+    "/usr/share/locale/zh_TW/LC_MESSAGES/flex.mo",
+    "/usr/share/man/man1/flex.1"
+  ],
+  "recorded_at": "2026-11-22",
+  "release": "2.6.4",
+  "schema": 1,
+  "scope": {
+    "c_scanners": true,
+    "canonical_installed_frontends": [
+      "flex",
+      "flex++"
+    ],
+    "cxx_scanners": true,
+    "java_scanners": false,
+    "rustbox_compatibility_frontends": [
+      "lex"
+    ],
+    "selinux": false,
+    "systemd": false
+  },
+  "source": {
+    "archive": "flex-2.6.4.tar.gz",
+    "entries": 333,
+    "key": ".cache/downloads/flex-release-key.asc",
+    "key_sha256": "41dd311dd998581a981e96fe6bc24907d447c150a4b30c07ef41bb1cb5535f1b",
+    "name": "flex",
+    "sha256": "e87aae032bf07c26f85ac0ed3250998c37621d95f8bd748b31f15b33c45ee995",
+    "signature": ".cache/downloads/flex-2.6.4.tar.gz.signature",
+    "signature_sha256": "c61ccc11286e1eb2ceeb0f0a8f8437e86f1e41840991566351f438de7eb5a9a2",
+    "signature_verified": true,
+    "signer_fingerprint": "56C67868E93390AA1039AD1CE4B29C8D64885307",
+    "source": "work/upstream/flex-2.6.4",
+    "source_kind": "signed-release-archive",
+    "version": "2.6.4"
+  },
+  "upstream_suites": {
+    "clang": {
+      "error": 0,
+      "fail": 0,
+      "log_sha256": "af37aad55439e191131d000e4776f56b4260b89bbd4d515cbc5078f053a03d79",
+      "pass": 114,
+      "skip": 0,
+      "total": 114,
+      "xfail": 0,
+      "xpass": 0
+    },
+    "gcc": {
+      "error": 0,
+      "fail": 0,
+      "log_sha256": "72cbd567d880195f4a20997921fa0aaf59c987f4daa57fa33d5c8eee71e5f9b2",
+      "pass": 114,
+      "skip": 0,
+      "total": 114,
+      "xfail": 0,
+      "xpass": 0
+    },
+    "sanitizer": {
+      "error": 0,
+      "fail": 0,
+      "log_sha256": "84c400b6e747fa68d4c2325de146f80f5a1e6243b5c157c4e23d663c9bd4848e",
+      "pass": 114,
+      "skip": 0,
+      "total": 114,
+      "xfail": 0,
+      "xpass": 0
+    }
+  },
+  "valgrind": {
+    "help": {
+      "definitely_lost_bytes": 48,
+      "indirectly_lost_bytes": 1368,
+      "log_sha256": "f017b7537e951c03219391b60f2ffa91f877415c420d2684a6b955d49c87fc48",
+      "possibly_lost_bytes": 0
+    },
+    "version": {
+      "definitely_lost_bytes": 48,
+      "indirectly_lost_bytes": 1368,
+      "log_sha256": "bcbf132c88dca1ac22a71dc096ec48e4ec36fd181d4f34be1db0cc53a6741b6e",
+      "possibly_lost_bytes": 0
+    }
+  }
+}

@@ -1165,8 +1165,12 @@ Library-only checkpoints (outside the active utility order):
      translation and unified multicall parity; the installed `gawkbug` shell
      workflow is replaced by a native in-binary frontend with canonical
      editor, mailer, and dead-letter recovery parity.
-   - [ ] Flex 2.6.4 — signed canonical release pinned for `flex`, `flex++`,
-     and `lex`.
+   - [ ] Flex 2.6.4 — signed canonical release and full oracle complete for
+     `flex` and upstream's `flex++` link; GCC, Clang, and ASan/UBSan each pass
+     all 114 upstream tests, and all 14 independent compiler/generator cases
+     pass.  The canonical early-exit `scanopt` leak is pinned for deterministic
+     normalization; translation, multicall integration, and Rustbox's native
+     `lex` compatibility frontend remain.
    - [ ] Bison — `bison`, `yacc` (C/C++ skeletons only; Java output is out of
      scope).
 4. Network-facing suites:
