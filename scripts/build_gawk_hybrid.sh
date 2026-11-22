@@ -9,6 +9,7 @@ RUSTBOX_TOOL_IMAGE=rustbox-gawk:2026-11-22 \
   exec "$root/scripts/run_tool.sh" sh -eu -c '
     crate=/work/work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-core-stable
     archive=$crate/target/release/libgawk_5_4_0_core.a
+    extensions=/work/work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-extensions/target/release
     output=/work/build/gawk-5.4.0-hybrid
     binary=$output/gawk
     canonical=/rustbox-gawk/normalized-clang
@@ -30,7 +31,10 @@ RUSTBOX_TOOL_IMAGE=rustbox-gawk:2026-11-22 \
 
     rm -rf "$output/extension"
     mkdir -p "$output/extension/.libs"
-    cp "$canonical/extension/.libs/"*.so* "$output/extension/.libs/"
+    for name in filefuncs fnmatch fork inplace intdiv ordchr readdir readfile \
+      revoutput revtwoway rwarray testext time; do
+      cp "$extensions/lib$name.so" "$output/extension/.libs/$name.so"
+    done
     cp "$binary" "$binary.stripped"
     strip --strip-all "$binary.stripped"
     cp "$canonical/gawk" "$output/gawk.canonical-stripped"

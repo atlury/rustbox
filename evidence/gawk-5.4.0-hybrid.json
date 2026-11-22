@@ -2,35 +2,49 @@
   "artifacts": {
     "combination_manifest_sha256": "e7f2bd6e84d384ca6bd32a7966336377680c03dcf140b4e7e127fabb852890d3",
     "core_release_log_sha256": "2fe5b3ca8107699e2f7b03f57b4a8efdefee455665446fe9ef6797eba51b8ae4",
-    "differential_sha256": "1f7fa19c956fe81a1eb26ba462000ba60d20da7986deca5b85086dd559bb8977",
+    "differential_sha256": "4850e7b471194398a1a16d1d6aec2d842830fecb3f237ed67b1a99af3ee26589",
+    "extension_manifest_sha256": "6c06c245526386d4d46d53b80d691a67ec06605dca83aac32fea3b74bdb73fa4",
+    "extension_release_log_sha256": "91051bd3b4cc5eeaa985c197d71ac7796e764ef883961300abfe052a3ba46f8c",
+    "extension_symbol_sha256": {
+      "filefuncs": "c6201c3267e51efde07e1861fc79ea9ddb69d6adf51060b095a55c65911e2201",
+      "fnmatch": "de5301039e2ccb79d8104afd4852ad7e0b6b3c21b56aaf82041ab7c08e620798",
+      "fork": "ac884bc98e89484b082480fd094e54ff6f2d5bbb9b4e5eab4879dd8f25f2d626",
+      "inplace": "9c20168ad0c7870dff91d4fbb961597aba036a6d1d69f53ef5233d062521bdad",
+      "intdiv": "1faf3a9243c846c5c1f6cad8cc8343a85515dd874407d3735bc97cfd839be97c",
+      "ordchr": "a59bea721e4c17e38e0fab48acf3dbed523c998193e917b8b1b1ca7879b6f3f0",
+      "readdir": "9744134a740188996e199649b915d90929f9796f8defd438d112400762309a76",
+      "readfile": "869d60584ba76f892476c973e9a5a7de6bf857db7e4b763337b59f6b47632eb0",
+      "revoutput": "c0ebc1984ed6cd61bfeb4581cdbe99c8228455f5de592f1102c7be9ae9e0cf85",
+      "revtwoway": "61f6a1327cba99cac1d6e956faa6aeecb355bbb486a37443aba485addf723bf4",
+      "rwarray": "f7040b563d7c42986afd90a45d86cf14bbddd7ff519220ebd7c1f069bf8daa6c",
+      "testext": "0135cb68e3a628d49c7d20a761bc0873d8bc93b4fffdb02e304ab8ecabc62d54",
+      "time": "2d7512113c100631ee49cd7749077593b2ed798cb2852f3e6804df76a1c02586"
+    },
     "linked_sha256": "afd66c3e4efe57aa399a3599d1f952971f15b4cd00255fc81cbc0486f588de96",
     "modernization_manifest_sha256": "895af60cae76efcf17cfe29d7c6f74757006e952dc6d4de7f1b03970a8cb98c1",
     "pma_residue_sha256": "39c413a912be4589e444509ba072b35b04578ff6dd44b775e48274589bce6e70",
     "pma_residue_symbols_sha256": "6d3af0f08495247b100abdc862bfa22ed8d64d2875b93c383cb23803c39592f7",
     "stripped_sha256": "667b3ae42ee966127fc95230ba5c78b8873a521d97d8fcd1352447982c15ab5f",
-    "upstream_suite_sha256": "834f918e0ca89995cc9182ce624c0d59d8bb3507811b7489ae1655d50124da42"
+    "upstream_suite_sha256": "d8bbf8f32a54bff2b10f1dbbe95fd0b12a293951e7a6eb4435e6d87e412a8269"
   },
   "behavior": {
     "canonical_extension_loaded": "ordchr.so",
     "complete_upstream_suite": {
-      "ignored_scheduling_transcripts": 1,
+      "ignored_scheduling_transcripts": 0,
       "output_differences": 0,
       "passed": true,
       "pma_failure_matches_canonical": true,
       "pma_virtualization_failures": 1,
-      "timeout_artifacts": {
-        "actual_sha256": "e956743696780d38d84be42b28197ab5c3e4d80ff383b9dc2a6911f688373ec8",
-        "expected_sha256": "5b9ef77539a8501a1fbaa7ab41ae49ff261dc882ee03fe5ed2a86aaa6b8262eb"
-      },
-      "timeout_scheduling_variant": true
+      "timeout_artifacts": {},
+      "timeout_scheduling_variant": false
     },
     "differential": {
       "cases": 26,
       "passed": 26
     },
     "valgrind_log_sha256": {
-      "canonical": "cf0b23cbfd407e6245b4815fdeb0247d73e046a7757a7b3f8c681601db727658",
-      "hybrid": "bd109780cb81bd80dae3b86f8adab2c31160a06699a7f2dd56fd1f09e3da7904"
+      "canonical": "e59748e66cd7ae7aebada99e17cd1b4cb9908f7fee4e6a8196b0509020c5ba5f",
+      "hybrid": "8fec86358921ce2a8ad3d6852c85f1a3bbc6b3d735a23cd8cd56645806dfff8d"
     },
     "valgrind_zero_errors_and_leaks": true
   },
@@ -60,9 +74,48 @@
     },
     "extension_architecture": "separate shared objects, matching canonical GNU Gawk",
     "generated_rust_repairs": 0,
-    "separate_translated_modules": 18
+    "separate_translated_modules": 18,
+    "translated_extensions": {
+      "cargo_warnings": {
+        "filefuncs": 12,
+        "fnmatch": 7,
+        "fork": 10,
+        "inplace": 9,
+        "intdiv": 6,
+        "ordchr": 8,
+        "readdir": 6,
+        "readfile": 11,
+        "revoutput": 6,
+        "revtwoway": 14,
+        "rwarray": 14,
+        "testext": 28,
+        "time": 10
+      },
+      "libraries": [
+        "filefuncs",
+        "fnmatch",
+        "fork",
+        "inplace",
+        "intdiv",
+        "ordchr",
+        "readdir",
+        "readfile",
+        "revoutput",
+        "revtwoway",
+        "rwarray",
+        "testext",
+        "time"
+      ],
+      "production_libraries": 12,
+      "required_exports_verified": [
+        "dl_load",
+        "plugin_is_GPL_compatible"
+      ],
+      "source_modules": 15,
+      "test_libraries": 1
+    }
   },
-  "next_gate": "link each translated dynamic extension separately, then register gawk and awk in Rustbox",
+  "next_gate": "register gawk and awk in Rustbox and preserve gawkbug as its canonical shell frontend",
   "recorded_at": "2026-11-22",
   "release": "5.4.0",
   "runtime_linkage": {
@@ -91,7 +144,23 @@
     },
     "linked_stripped_bytes": 1821032,
     "linked_unstripped_bytes": 6219640,
+    "translated_extension_bytes": {
+      "filefuncs": 443896,
+      "fnmatch": 416336,
+      "fork": 416944,
+      "inplace": 421856,
+      "intdiv": 418312,
+      "ordchr": 415848,
+      "readdir": 417320,
+      "readfile": 417096,
+      "revoutput": 414712,
+      "revtwoway": 416832,
+      "rwarray": 428808,
+      "testext": 446032,
+      "time": 416584
+    },
+    "translated_extension_total_bytes": 5490576,
     "translation_static_archive_bytes": 26913722
   },
-  "status": "translated core at complete canonical test parity; multicall integration pending"
+  "status": "translated core and extensions at complete canonical test parity; multicall integration pending"
 }

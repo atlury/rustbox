@@ -3,6 +3,7 @@
 set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
+"$root/scripts/build_gawk_extensions.sh"
 "$root/scripts/build_gawk_hybrid.sh"
 
 RUSTBOX_TOOL_IMAGE=rustbox-gawk:2026-11-22 \

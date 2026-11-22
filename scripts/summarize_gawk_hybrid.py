@@ -14,6 +14,7 @@ BUILD = ROOT / "build/gawk-5.4.0-hybrid"
 ANALYSIS = ROOT / "work/analysis/gawk-5.4.0/hybrid"
 TRANSLATIONS = ROOT / "work/analysis/gawk-5.4.0/translations/c2rust-0.22.1"
 CORE = TRANSLATIONS / "gawk-5.4.0-core-stable"
+EXTENSIONS = TRANSLATIONS / "gawk-5.4.0-extensions"
 
 
 def sha256(path: Path) -> str:
@@ -106,12 +107,46 @@ def main() -> int:
     ]
     if residue_symbols != expected_residue_symbols:
         raise RuntimeError(f"GNU Gawk PMA C residue changed: {residue_symbols!r}")
+    extension_manifest_path = EXTENSIONS / "rustbox-extensions.json"
+    extension_manifest = json.loads(extension_manifest_path.read_text())
+    extension_names = sorted(extension_manifest["extensions"])
+    expected_extensions = [
+        "filefuncs", "fnmatch", "fork", "inplace", "intdiv", "ordchr",
+        "readdir", "readfile", "revoutput", "revtwoway", "rwarray",
+        "testext", "time",
+    ]
+    if (extension_names != expected_extensions or
+            extension_manifest["libraries"] != 13 or extension_manifest["modules"] != 15):
+        raise RuntimeError("GNU Gawk translated extension surface changed")
+    extension_build_log_path = TRANSLATIONS / "extensions-cargo-release.log"
+    extension_build_log = extension_build_log_path.read_text(errors="replace")
+    extension_warnings = {
+        name: int(count) for name, count in re.findall(
+            r"warning: `gawk_ext_([a-z]+)` \(lib\) generated (\d+) warnings",
+            extension_build_log,
+        )
+    }
+    if (sorted(extension_warnings) != extension_names or
+            len(re.findall(r"Finished `release` profile", extension_build_log)) != 1 or
+            re.search(r"(?m)^error(?:\[|:)", extension_build_log)):
+        raise RuntimeError("GNU Gawk translated extension build changed")
+    extension_sizes = {}
+    extension_symbol_hashes = {}
+    for name in extension_names:
+        library = EXTENSIONS / f"target/release/lib{name}.so"
+        symbols = EXTENSIONS / f"target/release/{name}.symbols"
+        text = symbols.read_text()
+        if (len(re.findall(r" T dl_load$", text, re.MULTILINE)) != 1 or
+                len(re.findall(r" [BD] plugin_is_GPL_compatible$", text, re.MULTILINE)) != 1):
+            raise RuntimeError(f"GNU Gawk extension export surface changed: {name}")
+        extension_sizes[name] = library.stat().st_size
+        extension_symbol_hashes[name] = sha256(symbols)
 
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-22",
         "release": "5.4.0",
-        "status": "translated core at complete canonical test parity; multicall integration pending",
+        "status": "translated core and extensions at complete canonical test parity; multicall integration pending",
         "implementation": {
             "core_rust_modules": combination["modules"],
             "separate_translated_modules": 18,
@@ -124,6 +159,14 @@ def main() -> int:
             },
             "abi_wrappers": {"__btowc_alias": "btowc", "__wctob_alias": "wctob"},
             "extension_architecture": "separate shared objects, matching canonical GNU Gawk",
+            "translated_extensions": {
+                "libraries": extension_names,
+                "production_libraries": 12,
+                "test_libraries": 1,
+                "source_modules": extension_manifest["modules"],
+                "cargo_warnings": extension_warnings,
+                "required_exports_verified": ["dl_load", "plugin_is_GPL_compatible"],
+            },
         },
         "behavior": {
             "differential": {"cases": 26, "passed": 26},
@@ -142,6 +185,8 @@ def main() -> int:
         },
         "size": {
             "translation_static_archive_bytes": archive.stat().st_size,
+            "translated_extension_bytes": extension_sizes,
+            "translated_extension_total_bytes": sum(extension_sizes.values()),
             "linked_unstripped_bytes": binary.stat().st_size,
             "linked_stripped_bytes": stripped.stat().st_size,
             "canonical_stripped_bytes": canonical.stat().st_size,
@@ -165,10 +210,13 @@ def main() -> int:
             "upstream_suite_sha256": sha256(upstream_path),
             "pma_residue_sha256": sha256(residue_object),
             "pma_residue_symbols_sha256": sha256(residue_symbols_path),
+            "extension_manifest_sha256": sha256(extension_manifest_path),
+            "extension_release_log_sha256": sha256(extension_build_log_path),
+            "extension_symbol_sha256": extension_symbol_hashes,
             "linked_sha256": sha256(binary),
             "stripped_sha256": sha256(stripped),
         },
-        "next_gate": "link each translated dynamic extension separately, then register gawk and awk in Rustbox",
+        "next_gate": "register gawk and awk in Rustbox and preserve gawkbug as its canonical shell frontend",
     }
     output = ROOT / "evidence/gawk-5.4.0-hybrid.json"
     output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")
