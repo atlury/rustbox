@@ -74,7 +74,7 @@ def main() -> int:
         "schema": 1,
         "recorded_at": "2026-11-22",
         "release": "1.5.7",
-        "status": "complete translated hybrid at canonical parity; multicall integration next",
+        "status": "complete translated hybrid at canonical parity; all six names integrated into Rustbox",
         "implementation": {
             "rust_production_sources": 44,
             "public_names": expected_names,
@@ -111,7 +111,7 @@ def main() -> int:
             "selinux": False,
             "systemd": False,
         },
-        "next_gate": "integrate all six names into the unified rustbox dispatcher",
+        "next_gate": "complete; unified dispatch evidence is in evidence/rustbox-multicall.json",
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")

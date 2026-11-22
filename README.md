@@ -60,7 +60,7 @@ scoring, and correctness gates.
 | GNU Gzip 1.14 | 14 | 14 | 14 | 14 |
 | Less 710 | 2 | 2 | 2 | 2 |
 | XZ Utils 5.8.4 | 23 | 23 | 23 | 23 |
-| zstd 1.5.7 | 6 | 6 | 6 | 0 |
+| zstd 1.5.7 | 6 | 6 | 6 | 6 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -122,13 +122,14 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 328
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 334
 distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, five
 pkgconf names, File, GNU patch, GNU sed, four GNU Diffutils applets, and GNU
 Grep's three public names, GNU bc and dc, attr's three tools, plus chacl,
 getfacl, and setfacl, plus LZ4's four public names, Less and lessecho, and all
-fourteen GNU Gzip interfaces, and all 23 XZ Utils names; `kill` is shared and
-`util-linux-kill` remains available explicitly).  It passes all 656
+fourteen GNU Gzip interfaces, all 23 XZ Utils names, and zstd's six public
+names; `kill` is shared and `util-linux-kill` remains available explicitly).
+It passes all 668
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
 check, 108-case differential suite, and Valgrind.  Pkgconf also passes all 429
@@ -162,8 +163,10 @@ its shell scripts.  Its native frontends pipe the translated XZ engine into the
 already integrated Diffutils, Grep, Less, and util-linux `more` implementations.
 All 70 public comparisons pass, `.xz` compression is byte-identical,
 decompression matches, and Valgrind reports zero errors and no lost bytes.  The
-resulting 328-name executable is 8,402,144 bytes stripped, a 341,744-byte
-increase over the 8,060,400-byte Gzip checkpoint.
+zstd's native engine and native `zstdgrep`/`zstdless` frontends pass all 17
+public comparisons, emit byte-identical frames, and free every allocation in
+both Valgrind directions.  The resulting 334-name executable is 9,359,904
+bytes stripped, a 957,760-byte increase over the 8,402,144-byte XZ checkpoint.
 `chcon` and `runcon`
 remain absent, and the linked binary has no SELinux or systemd dependency.
 
@@ -817,7 +820,7 @@ orders, one shadowed binding, and two local static tables.  The complete
 repair, unsafe inventory, and build evidence is in
 `evidence/xz-5.8.4-c2rust.json`.  The translated archive and fourteen native
 shell replacements are now privately integrated into Rustbox.  All 70 XZ
-public comparisons and all 656 aggregate help/version comparisons pass;
+public comparisons and all 668 aggregate help/version comparisons pass;
 compression is byte-identical and both engine directions have zero Valgrind
 errors and no lost bytes.  Unified linkage and resource evidence is in
 `evidence/rustbox-multicall.json`.
@@ -855,8 +858,12 @@ are reviewed loop alignment, padding, and one compiler-ordering barrier—not
 algorithm holes.  The linked hybrid passes all 17 public comparisons, emits
 byte-identical frames, and has zero Valgrind errors or lost bytes in both
 directions.  Translation and hybrid evidence is in
-`evidence/zstd-1.5.7-c2rust.json` and `evidence/zstd-1.5.7-hybrid.json`;
-unified multicall integration is the next gate.
+`evidence/zstd-1.5.7-c2rust.json` and `evidence/zstd-1.5.7-hybrid.json`.
+All six names are now integrated with privately namespaced engine symbols and
+native frontends.  The unified executable passes all 668 help/version checks,
+all 14,022 pre-existing batch regressions, the 17-case zstd differential, and
+both zstd Valgrind directions; combined evidence is in
+`evidence/rustbox-multicall.json`.
 
 ## Work queue after util-linux
 
@@ -911,10 +918,10 @@ Library-only checkpoints (outside the active utility order):
      `lzmainfo`, `xzcmp`, `xzdiff`, `xzegrep`, `xzfgrep`, `xzgrep`, `xzless`,
      `xzmore`, `lzcmp`, `lzdiff`, `lzegrep`, `lzfgrep`, `lzgrep`, `lzless`, and
      `lzmore`; all native frontends are internal and canonical parity is complete.
-   - [ ] zstd 1.5.7 — canonical checksum oracle, five-tool audit, verified
+   - [x] zstd 1.5.7 — canonical checksum oracle, five-tool audit, verified
      portable-C normalization, complete no-hole stable translation, and
      hybrid parity finished for `zstd`, `zstdmt`, `unzstd`, `zstdcat`,
-     `zstdgrep`, and `zstdless`; multicall integration remains.
+     `zstdgrep`, and `zstdless`; multicall integration is complete.
    - [ ] tar — `tar`, `rmt`.
    - [ ] Ncurses — `captoinfo`, `clear`, `infocmp`, `infotocap`, `tabs`,
      `tic`, `toe`, `tput`, `tset`, `reset`, and the generated

@@ -24,5 +24,6 @@ RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
     --gzip-rust-library /work/work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a \
     --gzip-support-library /rustbox-gzip/normalized-clang/lib/libgzip.a \
     --xz-rust-library /work/work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a \
+    --zstd-rust-library /work/work/analysis/zstd-1.5.7/translations/c2rust-0.22.1/zstd-1.5.7-stable/target/release/libzstd_1_5_7_normalized_audit.a \
     --reuse-isolation \
     --link-report /work/work/analysis/rustbox-multicall-link.json

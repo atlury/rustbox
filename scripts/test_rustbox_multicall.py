@@ -53,6 +53,7 @@ def main() -> int:
     parser.add_argument("--less-oracle-dir", type=Path, required=True)
     parser.add_argument("--gzip-oracle-dir", type=Path, required=True)
     parser.add_argument("--xz-oracle-dir", type=Path, required=True)
+    parser.add_argument("--zstd-oracle-dir", type=Path, required=True)
     parser.add_argument("--rustbox", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
@@ -74,6 +75,7 @@ def main() -> int:
     less_oracle_dir = args.less_oracle_dir.resolve()
     gzip_oracle_dir = args.gzip_oracle_dir.resolve()
     xz_oracle_dir = args.xz_oracle_dir.resolve()
+    zstd_oracle_dir = args.zstd_oracle_dir.resolve()
     failures: list[dict[str, object]] = []
     cases = 0
 
@@ -267,6 +269,24 @@ def main() -> int:
                 failures.append({"suite": "xz", "applet": name, "option": option,
                                  "oracle": oracle, "actual": actual})
 
+    zstd_names = ["zstd", "zstdmt", "unzstd", "zstdcat", "zstdgrep", "zstdless"]
+    for name in zstd_names:
+        for option in ("--help", "--version"):
+            cases += 1
+            if name == "zstdless":
+                oracle = invoke(["less", option], executable=less_oracle_dir / "less")
+            else:
+                oracle_binary = (
+                    zstd_oracle_dir / name
+                    if name in {"zstdgrep", "zstdless"}
+                    else zstd_oracle_dir / "zstd"
+                )
+                oracle = invoke([name, option], executable=oracle_binary)
+            actual = invoke([str(rustbox), name, option])
+            if oracle != actual:
+                failures.append({"suite": "zstd", "applet": name, "option": option,
+                                 "oracle": oracle, "actual": actual})
+
     result = {
         "schema": 1,
         "cases": cases,
@@ -287,6 +307,7 @@ def main() -> int:
         "less_public_names": len(less_names),
         "gzip_public_names": len(gzip_names),
         "xz_public_names": len(xz_names),
+        "zstd_public_names": len(zstd_names),
         "gzip_help_oracle_path_normalized": True,
         "failures": failures,
     }
@@ -300,7 +321,7 @@ def main() -> int:
         + "\n",
         encoding="utf-8",
     )
-    print(json.dumps({key: result[key] for key in ("cases", "passed", "coreutils_applets", "util_linux_applets", "m4_applets", "pkgconf_public_names", "file_applets", "patch_applets", "sed_applets", "diffutils_applets", "grep_applets", "bc_applets", "attr_applets", "acl_applets", "lz4_public_names", "less_public_names", "gzip_public_names", "xz_public_names")}))
+    print(json.dumps({key: result[key] for key in ("cases", "passed", "coreutils_applets", "util_linux_applets", "m4_applets", "pkgconf_public_names", "file_applets", "patch_applets", "sed_applets", "diffutils_applets", "grep_applets", "bc_applets", "attr_applets", "acl_applets", "lz4_public_names", "less_public_names", "gzip_public_names", "xz_public_names", "zstd_public_names")}))
     return 1 if failures else 0
 
 

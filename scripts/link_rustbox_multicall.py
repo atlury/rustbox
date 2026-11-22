@@ -12,7 +12,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-ISOLATION_CACHE_VERSION = 2
+ISOLATION_CACHE_VERSION = 3
 
 
 def sha256(path: Path) -> str:
@@ -706,6 +706,52 @@ def namespace_xz_library(
     return mapped, symbols
 
 
+def namespace_zstd_library(
+    rust_library: Path, build: Path
+) -> tuple[Path, list[str]]:
+    """Keep zstd's CLI and embedded compression implementation private."""
+    public = {"rustbox_zstd_main"}
+    strong_types = {"B", "C", "D", "G", "R", "S", "T"}
+    compiler_math = re.compile(
+        r"^(?:cbrt|ceil|copysign|fabs|fdim|floor|fma|fmax|fmaximum|fmin|fminimum|fmod|rint|round|sqrt|trunc)(?:f|f16|f128)?$"
+    )
+    output = subprocess.run(
+        ["nm", "-g", "--defined-only", str(rust_library)],
+        check=True, text=True, stdout=subprocess.PIPE,
+    ).stdout
+    symbols = sorted({
+        fields[-1]
+        for line in output.splitlines()
+        if len(fields := line.split()) >= 3
+        and fields[-2] in strong_types
+        and re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", fields[-1])
+        and fields[-1] not in public
+        and not fields[-1].startswith("rust_")
+        and not compiler_math.fullmatch(fields[-1])
+    })
+    if not symbols:
+        raise RuntimeError("zstd archive exports no namespaceable C symbols")
+    destination = build / "src/.rustbox-zstd"
+    destination.mkdir(parents=True, exist_ok=True)
+    mapped = destination / rust_library.name
+    mapping = destination / "symbols.map"
+    mapping.write_text(
+        "".join(f"{symbol} rustbox_zstd_private_{symbol}\n" for symbol in symbols),
+        encoding="utf-8",
+    )
+    shutil.copy2(rust_library, mapped)
+    subprocess.run(["objcopy", "--redefine-syms", str(mapping), str(mapped)], check=True)
+    mapped_definitions = defined_symbols(mapped)
+    definitions = set(mapped_definitions)
+    if mapped_definitions.count("rustbox_zstd_main") != 1:
+        raise RuntimeError("zstd symbol isolation damaged rustbox_zstd_main")
+    if any(symbol in definitions for symbol in symbols):
+        raise RuntimeError("zstd symbol isolation left an unprefixed definition")
+    if any(f"rustbox_zstd_private_{symbol}" not in definitions for symbol in symbols):
+        raise RuntimeError("zstd symbol isolation lost a definition")
+    return mapped, symbols
+
+
 def namespace_gzip_libraries(
     rust_library: Path, support_library: Path, build: Path
 ) -> tuple[Path, Path, list[str]]:
@@ -990,6 +1036,9 @@ extern int rustbox_xzdiff_main(int, char **);
 extern int rustbox_xzgrep_main(int, char **);
 extern int rustbox_xzless_main(int, char **);
 extern int rustbox_xzmore_main(int, char **);
+extern int rustbox_zstd_main(int, char **);
+extern int rustbox_zstdgrep_main(int, char **);
+extern int rustbox_zstdless_main(int, char **);
 """
         + declarations
         + """
@@ -1170,6 +1219,14 @@ int main(int argc, char **argv)
     if (!force_util_linux &&
         (strcmp(name, "xzmore") == 0 || strcmp(name, "lzmore") == 0))
         return rustbox_xzmore_main(argc, argv);
+    if (!force_util_linux &&
+        (strcmp(name, "zstd") == 0 || strcmp(name, "zstdmt") == 0 ||
+         strcmp(name, "unzstd") == 0 || strcmp(name, "zstdcat") == 0))
+        return rustbox_zstd_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "zstdgrep") == 0)
+        return rustbox_zstdgrep_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "zstdless") == 0)
+        return rustbox_zstdless_main(argc, argv);
 """
         + selections
         + """
@@ -1203,6 +1260,7 @@ def main() -> int:
     parser.add_argument("--gzip-rust-library", type=Path, required=True)
     parser.add_argument("--gzip-support-library", type=Path, required=True)
     parser.add_argument("--xz-rust-library", type=Path, required=True)
+    parser.add_argument("--zstd-rust-library", type=Path, required=True)
     parser.add_argument("--link-report", type=Path, required=True)
     parser.add_argument("--reuse-isolation", action="store_true")
     args = parser.parse_args()
@@ -1225,6 +1283,7 @@ def main() -> int:
     gzip_rust_library = args.gzip_rust_library.resolve()
     gzip_support_library = args.gzip_support_library.resolve()
     xz_rust_library = args.xz_rust_library.resolve()
+    zstd_rust_library = args.zstd_rust_library.resolve()
     makefile = build / "Makefile"
     if not makefile.is_file():
         raise RuntimeError("canonical Coreutils build is missing")
@@ -1308,7 +1367,7 @@ def main() -> int:
         file_rust_library, patch_rust_library, sed_rust_library,
         diffutils_rust_library, grep_rust_library, bc_rust_library,
         attr_rust_library, acl_rust_library, lz4_rust_library, less_rust_library,
-        gzip_rust_library, xz_rust_library,
+        gzip_rust_library, xz_rust_library, zstd_rust_library,
         gzip_support_library,
     ):
         if not path.is_file():
@@ -1340,6 +1399,8 @@ def main() -> int:
     gzip_library_index = len(libraries) - 1
     libraries.append(xz_rust_library)
     xz_library_index = len(libraries) - 1
+    libraries.append(zstd_rust_library)
+    zstd_library_index = len(libraries) - 1
     source_library_hashes = {str(path.relative_to(repository)): sha256(path) for path in libraries}
     source_library_hashes[str(m4_support_library)] = sha256(m4_support_library)
     source_library_hashes[str(gzip_support_library)] = sha256(gzip_support_library)
@@ -1390,6 +1451,9 @@ def main() -> int:
         "rustbox_xzgrep_main",
         "rustbox_xzless_main",
         "rustbox_xzmore_main",
+        "rustbox_zstd_main",
+        "rustbox_zstdgrep_main",
+        "rustbox_zstdless_main",
     })
 
     cached_report = None
@@ -1510,6 +1574,15 @@ def main() -> int:
         )
     libraries[xz_library_index] = mapped_xz_rust
 
+    if cached_report:
+        mapped_zstd_rust = build / "src/.rustbox-zstd" / libraries[zstd_library_index].name
+        zstd_symbols = cached_report["zstd_namespaced_symbols"]
+    else:
+        mapped_zstd_rust, zstd_symbols = namespace_zstd_library(
+            libraries[zstd_library_index], build
+        )
+    libraries[zstd_library_index] = mapped_zstd_rust
+
     canonical_dispatch_symbols = set(defined_symbols(build / "src/coreutils-coreutils.o"))
     if cached_report:
         namespaced_symbols = cached_report["namespaced_symbols"]
@@ -1617,6 +1690,17 @@ def main() -> int:
         "rustbox_xzless_main", "rustbox_xzmore_main",
     }:
         raise RuntimeError("XZ alias bridge exports the wrong symbols")
+    zstd_aliases_object = build / "src/.rustbox-zstd-aliases.o"
+    subprocess.run(
+        ["clang-18", "-O2", "-g", "-c", str(repository / "bridges/zstd_aliases.c"),
+         "-o", str(zstd_aliases_object)],
+        cwd=build,
+        check=True,
+    )
+    if set(defined_symbols(zstd_aliases_object)) != {
+        "rustbox_zstdgrep_main", "rustbox_zstdless_main",
+    }:
+        raise RuntimeError("zstd alias bridge exports the wrong symbols")
     bridge_archives: dict[str, Path] = {}
     for archive, members in bridge_members.items():
         source = build / archive
@@ -1664,6 +1748,7 @@ def main() -> int:
                 rewritten.append(str(grep_error_object))
                 rewritten.append(str(gzip_aliases_object))
                 rewritten.append(str(xz_aliases_object))
+                rewritten.append(str(zstd_aliases_object))
                 rewritten.extend(str(path) for path in util_inputs)
                 rewritten.append(str(mapped_m4_support))
                 rewritten.append(str(mapped_gzip_support))
@@ -1752,6 +1837,7 @@ def main() -> int:
         "less_public_names": 2,
         "gzip_public_names": 14,
         "xz_public_names": 23,
+        "zstd_public_names": 6,
         "total_dispatch_names": len(
             set(applets)
             | set(util_dispatch)
@@ -1765,7 +1851,8 @@ def main() -> int:
                "xz", "unxz", "xzcat", "lzma", "unlzma", "lzcat", "xzdec",
                "lzmadec", "lzmainfo", "xzdiff", "xzcmp", "xzegrep", "xzfgrep",
                "xzgrep", "xzless", "xzmore", "lzdiff", "lzcmp", "lzgrep",
-               "lzegrep", "lzfgrep", "lzmore", "lzless"}
+               "lzegrep", "lzfgrep", "lzmore", "lzless",
+               "zstd", "zstdmt", "unzstd", "zstdcat", "zstdgrep", "zstdless"}
         ),
         "excluded": ["chcon", "runcon"],
         "public_name_precedence": {"kill": "GNU Coreutils", "util-linux-kill": "util-linux"},
@@ -1791,6 +1878,7 @@ def main() -> int:
         "less_namespaced_symbols": less_symbols,
         "gzip_namespaced_symbols": gzip_symbols,
         "xz_namespaced_symbols": xz_symbols,
+        "zstd_namespaced_symbols": zstd_symbols,
         "diffutils_error_bridge": {
             "object": str(diffutils_error_object.relative_to(build)),
             "symbols": ["rustbox_diffutils_error"],
@@ -1821,6 +1909,11 @@ def main() -> int:
             "public_names": ["xzdiff", "xzcmp", "xzegrep", "xzfgrep", "xzgrep",
                              "xzless", "xzmore", "lzdiff", "lzcmp", "lzgrep",
                              "lzegrep", "lzfgrep", "lzmore", "lzless"],
+        },
+        "zstd_alias_bridge": {
+            "object": str(zstd_aliases_object.relative_to(build)),
+            "symbols": ["rustbox_zstdgrep_main", "rustbox_zstdless_main"],
+            "public_names": ["zstdgrep", "zstdless"],
         },
         "sed_abi_bridge": {
             "object": str(sed_abi_object.relative_to(build)),
@@ -1855,6 +1948,7 @@ def main() -> int:
         "less_public_names": 2,
         "gzip_public_names": 14,
         "xz_public_names": 23,
+        "zstd_public_names": 6,
         "output": str(output),
     }))
     return 0
