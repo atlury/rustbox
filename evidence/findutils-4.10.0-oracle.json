@@ -1,0 +1,1178 @@
+{
+  "binaries": {
+    "find": {
+      "bytes": 1002896,
+      "dynamic_needed": [
+        "libc.so.6",
+        "libm.so.6"
+      ],
+      "sha256": "502256edb8cd6a3be123596beae872bad8584110a72e47f54fb9a15003c02963"
+    },
+    "frcode": {
+      "bytes": 158520,
+      "dynamic_needed": [
+        "libc.so.6"
+      ],
+      "sha256": "4a28c0ac2ff611f8621e89cd6906ca05366851ffa10c56ba3ab3b349b18b4b3c"
+    },
+    "locate": {
+      "bytes": 370176,
+      "dynamic_needed": [
+        "libc.so.6"
+      ],
+      "sha256": "ab9386bdb9b2010d9b659835e8e3171e2bc73e94120f6b3fdf8004db3b658ef9"
+    },
+    "xargs": {
+      "bytes": 321080,
+      "dynamic_needed": [
+        "libc.so.6"
+      ],
+      "sha256": "c7e6f04a317b2fba09d026c65b7b142bc27e668ea62185b7c54a58804a887815"
+    }
+  },
+  "canonical_defects": [
+    {
+      "diagnostic": "locate.c:200:32: runtime error: left shift of negative value -1",
+      "line": 200,
+      "log_sha256": "d23ad24df3ad36ebb99eb844563956e6995e49a3adb0cb5a1b9b0d1de82ccc9a",
+      "normalization_required": true,
+      "source": "locate/locate.c",
+      "trigger": "negative LOCATE02 prefix delta encoded as a signed high byte"
+    }
+  ],
+  "compile_databases": {
+    "clang": {
+      "commands": 218,
+      "sha256": "9705fbc3cfa8d053e324fa09a5ca992ad3a029cc5a9b2b825ad3fa03294b4e9e",
+      "sources": 218
+    },
+    "gcc": {
+      "commands": 218,
+      "sha256": "683bceb35d1f7de3f930ec8d8db987deabeb3383e114dfb63d5355f6e9d58ef0",
+      "sources": 218
+    },
+    "sanitizer": {
+      "commands": 218,
+      "sha256": "bba52172232eb2552cc12801b4ddf3f90be63ad9f0e15a42ca984f2971397207",
+      "sources": 218
+    }
+  },
+  "differential": {
+    "cases": 38,
+    "passed": 38,
+    "release": "4.10.0",
+    "results": [
+      {
+        "arguments": [
+          "--help"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 2110,
+          "stdout_sha256": "d7051d0c43da5a3a4bbde4d1d022941f7b41c7e1f93bcd3b81b9b308b30f94bf"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 2110,
+          "stdout_sha256": "d7051d0c43da5a3a4bbde4d1d022941f7b41c7e1f93bcd3b81b9b308b30f94bf"
+        },
+        "label": "find-help",
+        "passed": true,
+        "utility": "find"
+      },
+      {
+        "arguments": [
+          "--version"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 433,
+          "stdout_sha256": "f75f436d7177719bbb0eddd65560f95d844826727566dcc829d7267808afef9a"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 433,
+          "stdout_sha256": "f75f436d7177719bbb0eddd65560f95d844826727566dcc829d7267808afef9a"
+        },
+        "label": "find-version",
+        "passed": true,
+        "utility": "find"
+      },
+      {
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "clang": {
+          "status": 1,
+          "stderr_bytes": 47,
+          "stderr_sha256": "89c51861adedb1af74c168e4d9826cf8f001cc4f18fe698f79a0cec04efd92bf",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "status": 1,
+          "stderr_bytes": 47,
+          "stderr_sha256": "89c51861adedb1af74c168e4d9826cf8f001cc4f18fe698f79a0cec04efd92bf",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "label": "find-definitely_invalid",
+        "passed": true,
+        "utility": "find"
+      },
+      {
+        "arguments": [
+          "."
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 109,
+          "stdout_sha256": "aa2de5c1cf5da208486dc25a5f749abc21efc48db4dcec2d49dab13132bf1da7"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 109,
+          "stdout_sha256": "aa2de5c1cf5da208486dc25a5f749abc21efc48db4dcec2d49dab13132bf1da7"
+        },
+        "label": "find-default",
+        "passed": true,
+        "utility": "find"
+      },
+      {
+        "arguments": [
+          ".",
+          "-name",
+          "*.txt"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 16,
+          "stdout_sha256": "884e4b768a42eaf9f5440aaee69c114e8317f7dfeba0c162becb7577c9fe7e1e"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 16,
+          "stdout_sha256": "884e4b768a42eaf9f5440aaee69c114e8317f7dfeba0c162becb7577c9fe7e1e"
+        },
+        "label": "find-name",
+        "passed": true,
+        "utility": "find"
+      },
+      {
+        "arguments": [
+          ".",
+          "-iname",
+          "*.txt"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 39,
+          "stdout_sha256": "02073021bbda7c5aad0cd4dd3a97ef8f59cbfdfab8f86fe8212a305198f77388"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 39,
+          "stdout_sha256": "02073021bbda7c5aad0cd4dd3a97ef8f59cbfdfab8f86fe8212a305198f77388"
+        },
+        "label": "find-iname",
+        "passed": true,
+        "utility": "find"
+      },
+      {
+        "arguments": [
+          ".",
+          "-type",
+          "f"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 64,
+          "stdout_sha256": "b79d39369a0257547a918157cae18a8fc2e26046a515646c407393b5329b8a0f"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 64,
+          "stdout_sha256": "b79d39369a0257547a918157cae18a8fc2e26046a515646c407393b5329b8a0f"
+        },
+        "label": "find-type",
+        "passed": true,
+        "utility": "find"
+      },
+      {
+        "arguments": [
+          ".",
+          "-mindepth",
+          "2",
+          "-maxdepth",
+          "2",
+          "-print"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 61,
+          "stdout_sha256": "b35e8c7f989f20a35437b6ed7503906c805c8a145e3013b5fa13e93d351ef755"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 61,
+          "stdout_sha256": "b35e8c7f989f20a35437b6ed7503906c805c8a145e3013b5fa13e93d351ef755"
+        },
+        "label": "find-depth",
+        "passed": true,
+        "utility": "find"
+      },
+      {
+        "arguments": [
+          ".",
+          "-type",
+          "f",
+          "-printf",
+          "%P:%s\\n"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 64,
+          "stdout_sha256": "3a5ce0dba789f0ede3b1d033da15be5b6f0e78c75d209ad7f119a2275a3e9a1a"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 64,
+          "stdout_sha256": "3a5ce0dba789f0ede3b1d033da15be5b6f0e78c75d209ad7f119a2275a3e9a1a"
+        },
+        "label": "find-printf",
+        "passed": true,
+        "utility": "find"
+      },
+      {
+        "arguments": [
+          ".",
+          "-type",
+          "f",
+          "-print0"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 64,
+          "stdout_sha256": "eea79129e5dee1abf65510e74add60e9cc8eb7aa7a06d44d5d295d00ce2a67f1"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 64,
+          "stdout_sha256": "eea79129e5dee1abf65510e74add60e9cc8eb7aa7a06d44d5d295d00ce2a67f1"
+        },
+        "label": "find-print0",
+        "passed": true,
+        "utility": "find"
+      },
+      {
+        "arguments": [
+          ".",
+          "-type",
+          "l",
+          "-printf",
+          "%P->%l\\n"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 20,
+          "stdout_sha256": "bee31bc99244c9a7f52d6b47c03b6fd089a918de6e6264ff667c23695f952f8a"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 20,
+          "stdout_sha256": "bee31bc99244c9a7f52d6b47c03b6fd089a918de6e6264ff667c23695f952f8a"
+        },
+        "label": "find-links",
+        "passed": true,
+        "utility": "find"
+      },
+      {
+        "arguments": [
+          ".",
+          "-empty",
+          "-print"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 8,
+          "stdout_sha256": "220b449b74c098d2158029b5678ef06376dac32451c61f8535c81a4bee07b376"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 8,
+          "stdout_sha256": "220b449b74c098d2158029b5678ef06376dac32451c61f8535c81a4bee07b376"
+        },
+        "label": "find-empty",
+        "passed": true,
+        "utility": "find"
+      },
+      {
+        "arguments": [
+          ".",
+          "-type",
+          "f",
+          "-exec",
+          "/usr/bin/printf",
+          "<%s>\\n",
+          "{}",
+          ";"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 72,
+          "stdout_sha256": "ee85ec81f05153a875378ab6f72e9e9bbd135a5a849a82571a1caa3dfdeaa93a"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 72,
+          "stdout_sha256": "ee85ec81f05153a875378ab6f72e9e9bbd135a5a849a82571a1caa3dfdeaa93a"
+        },
+        "label": "find-exec",
+        "passed": true,
+        "utility": "find"
+      },
+      {
+        "arguments": [
+          "--help"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 3121,
+          "stdout_sha256": "00688678b42110a326c878b565e609e76688fd40ce2b4d4a5405bede92d3d78d"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 3121,
+          "stdout_sha256": "00688678b42110a326c878b565e609e76688fd40ce2b4d4a5405bede92d3d78d"
+        },
+        "label": "xargs-help",
+        "passed": true,
+        "utility": "xargs"
+      },
+      {
+        "arguments": [
+          "--version"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 342,
+          "stdout_sha256": "bf09bcb311890e77606c77d0e5085bfd952063c786e44b1494ed7ab97c435a75"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 342,
+          "stdout_sha256": "bf09bcb311890e77606c77d0e5085bfd952063c786e44b1494ed7ab97c435a75"
+        },
+        "label": "xargs-version",
+        "passed": true,
+        "utility": "xargs"
+      },
+      {
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "clang": {
+          "status": 1,
+          "stderr_bytes": 91,
+          "stderr_sha256": "0e0e71a6bcb85fe1a0c976b512562d402f7a0ec6e6a29d17dcecf36990117b70",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "status": 1,
+          "stderr_bytes": 91,
+          "stderr_sha256": "0e0e71a6bcb85fe1a0c976b512562d402f7a0ec6e6a29d17dcecf36990117b70",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "label": "xargs-definitely_invalid",
+        "passed": true,
+        "utility": "xargs"
+      },
+      {
+        "arguments": [
+          "/usr/bin/printf",
+          "<%s>\\n"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 15,
+          "stdout_sha256": "29bf679b3e430f9fd6a4d19ac3a4469250380a4f70aefb413012bee5a14f645c"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 15,
+          "stdout_sha256": "29bf679b3e430f9fd6a4d19ac3a4469250380a4f70aefb413012bee5a14f645c"
+        },
+        "label": "xargs-basic",
+        "passed": true,
+        "utility": "xargs"
+      },
+      {
+        "arguments": [
+          "-0",
+          "/usr/bin/printf",
+          "<%s>\\n"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 10,
+          "stdout_sha256": "8d37581ecc0e682bb15bff72a4f2e8b733431d79b5b41551bc3e339eb44af15a"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 10,
+          "stdout_sha256": "8d37581ecc0e682bb15bff72a4f2e8b733431d79b5b41551bc3e339eb44af15a"
+        },
+        "label": "xargs-null",
+        "passed": true,
+        "utility": "xargs"
+      },
+      {
+        "arguments": [
+          "-n",
+          "2",
+          "/usr/bin/printf",
+          "[%s][%s]\\n"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 14,
+          "stdout_sha256": "4d15af91178cc9c09c6e71e33377005aec6f56f1d4d731dd590569d2a7678bab"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 14,
+          "stdout_sha256": "4d15af91178cc9c09c6e71e33377005aec6f56f1d4d731dd590569d2a7678bab"
+        },
+        "label": "xargs-batch",
+        "passed": true,
+        "utility": "xargs"
+      },
+      {
+        "arguments": [
+          "-I",
+          "{}",
+          "/usr/bin/printf",
+          "x{%s}x\\n",
+          "{}"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 12,
+          "stdout_sha256": "e9432b0f30d4d3d6d94d4fb7a00f01503e3c878b65e4f8ee3a733b9dca6500c2"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 12,
+          "stdout_sha256": "e9432b0f30d4d3d6d94d4fb7a00f01503e3c878b65e4f8ee3a733b9dca6500c2"
+        },
+        "label": "xargs-replace",
+        "passed": true,
+        "utility": "xargs"
+      },
+      {
+        "arguments": [
+          "-L",
+          "1",
+          "/usr/bin/printf",
+          "<%s>\\n"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 16,
+          "stdout_sha256": "6723982a890093b703cc3a84ec22bdc70239841c7a74204309bd146012fe34fb"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 16,
+          "stdout_sha256": "6723982a890093b703cc3a84ec22bdc70239841c7a74204309bd146012fe34fb"
+        },
+        "label": "xargs-lines",
+        "passed": true,
+        "utility": "xargs"
+      },
+      {
+        "arguments": [
+          "-d",
+          ":",
+          "/usr/bin/printf",
+          "<%s>\\n"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 14,
+          "stdout_sha256": "54893a090c7a50a2f656c1330c9e73ff46ed67c078cc8a7cd2a1159aa6b41638"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 14,
+          "stdout_sha256": "54893a090c7a50a2f656c1330c9e73ff46ed67c078cc8a7cd2a1159aa6b41638"
+        },
+        "label": "xargs-delimiter",
+        "passed": true,
+        "utility": "xargs"
+      },
+      {
+        "arguments": [
+          "-r",
+          "/usr/bin/printf",
+          "unexpected"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "label": "xargs-empty",
+        "passed": true,
+        "utility": "xargs"
+      },
+      {
+        "arguments": [
+          "-0"
+        ],
+        "bytes": 120,
+        "label": "frcode-database",
+        "passed": true,
+        "sha256": "4540549db9f997fa54b22d06130e7a00da12338d55b7cbac1d9bf455b501cd31",
+        "utility": "frcode"
+      },
+      {
+        "arguments": [
+          "--help"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 739,
+          "stdout_sha256": "8d77fdf563c4cbd664a5a840ddf19c224f2d77bb63481594d1ff851befaefdc0"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 739,
+          "stdout_sha256": "8d77fdf563c4cbd664a5a840ddf19c224f2d77bb63481594d1ff851befaefdc0"
+        },
+        "label": "locate-help",
+        "passed": true,
+        "utility": "locate"
+      },
+      {
+        "arguments": [
+          "--version"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 343,
+          "stdout_sha256": "e5919f4495c5afa2971cd359fca64edae8a08c2499d44ff56fa4cf73feb78b70"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 343,
+          "stdout_sha256": "e5919f4495c5afa2971cd359fca64edae8a08c2499d44ff56fa4cf73feb78b70"
+        },
+        "label": "locate-version",
+        "passed": true,
+        "utility": "locate"
+      },
+      {
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "clang": {
+          "status": 1,
+          "stderr_bytes": 93,
+          "stderr_sha256": "565cc52d8ee896f6f9fd36761820b3a275d4e943242d8b420ad2ef014b454883",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "status": 1,
+          "stderr_bytes": 93,
+          "stderr_sha256": "565cc52d8ee896f6f9fd36761820b3a275d4e943242d8b420ad2ef014b454883",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "label": "locate-definitely_invalid",
+        "passed": true,
+        "utility": "locate"
+      },
+      {
+        "arguments": [
+          "one.txt"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 58,
+          "stdout_sha256": "92154fb243feb8e5a542ee6703c4406a438165ad94cacc41b6cd8a539f312eac"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 58,
+          "stdout_sha256": "92154fb243feb8e5a542ee6703c4406a438165ad94cacc41b6cd8a539f312eac"
+        },
+        "label": "locate-name",
+        "passed": true,
+        "utility": "locate"
+      },
+      {
+        "arguments": [
+          "-i",
+          "two.txt"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 65,
+          "stdout_sha256": "0a365152e224f55f6c30a03c6d04a848185a057cd396bde0dc12442197bf11be"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 65,
+          "stdout_sha256": "0a365152e224f55f6c30a03c6d04a848185a057cd396bde0dc12442197bf11be"
+        },
+        "label": "locate-ignore-case",
+        "passed": true,
+        "utility": "locate"
+      },
+      {
+        "arguments": [
+          "-b",
+          "three.bin"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 59,
+          "stdout_sha256": "7f0cfc0b83031f9c186dc612853d06911cb563a1e971f50c71ac29feecd36b37"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 59,
+          "stdout_sha256": "7f0cfc0b83031f9c186dc612853d06911cb563a1e971f50c71ac29feecd36b37"
+        },
+        "label": "locate-basename",
+        "passed": true,
+        "utility": "locate"
+      },
+      {
+        "arguments": [
+          "--regex",
+          ".*\\.txt$"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 58,
+          "stdout_sha256": "92154fb243feb8e5a542ee6703c4406a438165ad94cacc41b6cd8a539f312eac"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 58,
+          "stdout_sha256": "92154fb243feb8e5a542ee6703c4406a438165ad94cacc41b6cd8a539f312eac"
+        },
+        "label": "locate-regex",
+        "passed": true,
+        "utility": "locate"
+      },
+      {
+        "arguments": [
+          "-c",
+          "txt"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 2,
+          "stdout_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 2,
+          "stdout_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+        },
+        "label": "locate-count",
+        "passed": true,
+        "utility": "locate"
+      },
+      {
+        "arguments": [
+          "-l",
+          "1",
+          "txt"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 58,
+          "stdout_sha256": "92154fb243feb8e5a542ee6703c4406a438165ad94cacc41b6cd8a539f312eac"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 58,
+          "stdout_sha256": "92154fb243feb8e5a542ee6703c4406a438165ad94cacc41b6cd8a539f312eac"
+        },
+        "label": "locate-limit",
+        "passed": true,
+        "utility": "locate"
+      },
+      {
+        "arguments": [
+          "not-present-anywhere"
+        ],
+        "clang": {
+          "status": 1,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "status": 1,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "label": "locate-missing",
+        "passed": true,
+        "utility": "locate"
+      },
+      {
+        "arguments": [
+          "--localpaths",
+          "--output"
+        ],
+        "bytes": 122,
+        "label": "updatedb-functional",
+        "passed": true,
+        "sha256": "a591a527ae338500427ea1a238a2d71f36caa28c4f10cb337c65fd6da54373a8",
+        "utility": "updatedb"
+      },
+      {
+        "arguments": [
+          "--help"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 598,
+          "stdout_sha256": "f034cdf85d40ec3106d354c5f2177e297a3632b089b7c14df3cf1496e41d6f7e"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 598,
+          "stdout_sha256": "f034cdf85d40ec3106d354c5f2177e297a3632b089b7c14df3cf1496e41d6f7e"
+        },
+        "label": "updatedb-help",
+        "passed": true,
+        "utility": "updatedb"
+      },
+      {
+        "arguments": [
+          "--version"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 351,
+          "stdout_sha256": "bd4617cebf2c1c92667634ceae10898ba4204f03068aa0b8d4a554e150f07425"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 351,
+          "stdout_sha256": "bd4617cebf2c1c92667634ceae10898ba4204f03068aa0b8d4a554e150f07425"
+        },
+        "label": "updatedb-version",
+        "passed": true,
+        "utility": "updatedb"
+      },
+      {
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "clang": {
+          "status": 1,
+          "stderr_bytes": 90,
+          "stderr_sha256": "5909be817e740dfa28189178fff496d21af04aee9e7ab1f75fcf3cd6fb9708c6",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "status": 1,
+          "stderr_bytes": 90,
+          "stderr_sha256": "5909be817e740dfa28189178fff496d21af04aee9e7ab1f75fcf3cd6fb9708c6",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "label": "updatedb-definitely_invalid",
+        "passed": true,
+        "utility": "updatedb"
+      }
+    ],
+    "schema": 1
+  },
+  "installed_files": [
+    "/usr/bin/find",
+    "/usr/bin/locate",
+    "/usr/bin/updatedb",
+    "/usr/bin/xargs",
+    "/usr/libexec/frcode",
+    "/usr/share/info/find-maint.info",
+    "/usr/share/info/find.info",
+    "/usr/share/locale/be/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/bg/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/ca/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/cs/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/da/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/de/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/el/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/eo/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/es/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/et/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/fi/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/fr/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/ga/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/gl/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/hr/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/hu/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/id/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/it/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/ja/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/ka/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/ko/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/lg/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/lt/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/ms/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/nb/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/nl/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/pl/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/pt/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/pt_BR/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/ro/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/ru/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/sk/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/sl/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/sr/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/sv/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/tr/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/uk/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/vi/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/zh_CN/LC_MESSAGES/findutils.mo",
+    "/usr/share/locale/zh_TW/LC_MESSAGES/findutils.mo",
+    "/usr/share/man/man1/find.1",
+    "/usr/share/man/man1/locate.1",
+    "/usr/share/man/man1/updatedb.1",
+    "/usr/share/man/man1/xargs.1",
+    "/usr/share/man/man5/locatedb.5"
+  ],
+  "recorded_at": "2026-11-22",
+  "release": "4.10.0",
+  "schema": 1,
+  "scope": {
+    "private_programs": [
+      "frcode"
+    ],
+    "public_names": [
+      "find",
+      "xargs",
+      "locate",
+      "updatedb"
+    ],
+    "selinux": false
+  },
+  "source": {
+    "archive": "findutils-4.10.0.tar.xz",
+    "entries": 2214,
+    "key": ".cache/downloads/findutils-release-key.asc",
+    "key_sha256": "4a33851cf0a4649faa1a8a55ddeead1dfddb649ca0ee9d82e553a0615dbc403b",
+    "name": "findutils",
+    "sha256": "1387e0b67ff247d2abde998f90dfbf70c1491391a59ddfecb8ae698789f0a4f5",
+    "signature": ".cache/downloads/findutils-4.10.0.tar.xz.signature",
+    "signature_sha256": "7f53670eea6bd114e014571221eb652855c1129a3ed99f2a9257c2a313cc216f",
+    "signature_verified": true,
+    "signer_fingerprint": "A5189DB69C1164D33002936646502EF796917195",
+    "source": "work/upstream/findutils-4.10.0",
+    "source_kind": "signed-release-archive",
+    "version": "4.10.0"
+  },
+  "upstream_suites": {
+    "clang": {
+      "autotest": [
+        {
+          "error": 0,
+          "fail": 0,
+          "pass": 2,
+          "skip": 0,
+          "total": 2,
+          "xfail": 0,
+          "xpass": 0
+        },
+        {
+          "error": 0,
+          "fail": 0,
+          "pass": 323,
+          "skip": 39,
+          "total": 362,
+          "xfail": 0,
+          "xpass": 0
+        },
+        {
+          "error": 0,
+          "fail": 0,
+          "pass": 21,
+          "skip": 2,
+          "total": 23,
+          "xfail": 0,
+          "xpass": 0
+        }
+      ],
+      "dejagnu": {
+        "find": {
+          "fail": 0,
+          "pass": 487
+        },
+        "locate": {
+          "fail": 0,
+          "pass": 32
+        },
+        "xargs": {
+          "fail": 0,
+          "pass": 96
+        }
+      },
+      "log_sha256": "392a66d7804607851990855fef1049de18d8caddb5a83b08d5958be635686ec3"
+    },
+    "gcc": {
+      "autotest": [
+        {
+          "error": 0,
+          "fail": 0,
+          "pass": 2,
+          "skip": 0,
+          "total": 2,
+          "xfail": 0,
+          "xpass": 0
+        },
+        {
+          "error": 0,
+          "fail": 0,
+          "pass": 323,
+          "skip": 39,
+          "total": 362,
+          "xfail": 0,
+          "xpass": 0
+        },
+        {
+          "error": 0,
+          "fail": 0,
+          "pass": 21,
+          "skip": 2,
+          "total": 23,
+          "xfail": 0,
+          "xpass": 0
+        }
+      ],
+      "dejagnu": {
+        "find": {
+          "fail": 0,
+          "pass": 487
+        },
+        "locate": {
+          "fail": 0,
+          "pass": 32
+        },
+        "xargs": {
+          "fail": 0,
+          "pass": 96
+        }
+      },
+      "log_sha256": "77983ed70fedc0252d9c39d50afcea787f5e54a216451fd7f659a2a786cad913"
+    },
+    "sanitizer": {
+      "autotest": [
+        {
+          "error": 0,
+          "fail": 0,
+          "pass": 2,
+          "skip": 0,
+          "total": 2,
+          "xfail": 0,
+          "xpass": 0
+        },
+        {
+          "error": 0,
+          "fail": 0,
+          "pass": 323,
+          "skip": 39,
+          "total": 362,
+          "xfail": 0,
+          "xpass": 0
+        },
+        {
+          "error": 0,
+          "fail": 0,
+          "pass": 21,
+          "skip": 2,
+          "total": 23,
+          "xfail": 0,
+          "xpass": 0
+        }
+      ],
+      "dejagnu": {
+        "find": {
+          "fail": 0,
+          "pass": 487
+        },
+        "locate": {
+          "fail": 1,
+          "pass": 31
+        },
+        "xargs": {
+          "fail": 0,
+          "pass": 96
+        }
+      },
+      "log_sha256": "b95bba85bebccdcda573bf7c2882d82220ab24aed5ba291cbb18a7d6dfef1f95"
+    }
+  },
+  "valgrind": {
+    "find": {
+      "errors": 0,
+      "log_sha256": "b39fcb6ba61fc58e80a30cbd5b3d745d155c153e8eb594fd98e2719d70f34978"
+    },
+    "frcode": {
+      "errors": 0,
+      "log_sha256": "3ec7aa783b7eb88ba69cf8c38e3ded6efcd11ffb98bd13639a97b457eabc97a5"
+    },
+    "locate": {
+      "errors": 0,
+      "log_sha256": "4febe7bafd9a2028f50de7a3460f5c1b662e75bc6d3f807ac687245c82ae85d2"
+    },
+    "xargs": {
+      "errors": 0,
+      "log_sha256": "97d546f92d3f32a5d2ddba42e07de4867d1ec7cb25ace4296b1bfe3538b8f330"
+    }
+  }
+}

@@ -29,6 +29,7 @@ exec docker run --rm \
   --volume rustbox-zstd-1.5.7:/rustbox-zstd \
   --volume rustbox-tar-1.35:/rustbox-tar \
   --volume rustbox-ncurses-6.6:/rustbox-ncurses \
+  --volume rustbox-findutils-4.10.0:/rustbox-findutils \
   --workdir /work \
   "$tool_image" "$@"
 

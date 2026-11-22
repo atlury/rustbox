@@ -993,6 +993,28 @@ multicall comparisons, ten multicall Valgrind paths, and the complete 682-case
 cross-package dispatcher audit pass.  Reproducible unified evidence is in
 `evidence/rustbox-multicall.json`.
 
+GNU Findutils 4.10.0 is pinned to the latest canonical stable release from the
+GNU archive.  The archive, detached signature, Bernhard Voelker release-key
+fingerprint, and all 2,214 extracted source paths are authenticated before use.
+The public scope is `find`, `xargs`, `locate`, and the generated `updatedb`
+frontend; `frcode` is retained as a private database encoder.  SELinux is
+explicitly disabled.  GCC, Clang, and ASan/UBSan independently compile the
+same 218-source production closure.  GCC and Clang each pass 615 DejaGNU
+checks plus the complete gnulib and shell suites with only the 41 identical
+platform/expense skips, and all 38 stateful compiler differentials pass,
+including filesystem traversal, `-exec`, null-delimited `xargs`, LOCATE02
+encoding, and a functional `updatedb` rebuild.  The four compiled programs
+have zero Valgrind errors and no direct, indirect, or possible loss on their
+version/empty-input paths.
+
+The sanitizer oracle demonstrates one canonical upstream defect:
+`locate/locate.c:200` left-shifts signed `-1` while decoding a negative
+LOCATE02 prefix delta.  Its minimal reproducer and exact diagnostic are locked
+in the evidence; deterministic normalization must replace that expression
+with defined signed-16-bit arithmetic while preserving database bytes and all
+behavior.  Reproducible evidence is in
+`evidence/findutils-4.10.0-oracle.json`.
+
 ## Work queue after util-linux
 
 This queue starts only after all in-scope util-linux applets reach canonical
@@ -1068,7 +1090,10 @@ Library-only checkpoints (outside the active utility order):
      `lesskey` program in version 706 and now parses lesskey source directly
      inside `less`, so it is intentionally not resurrected.
 3. Multi-tool text processing and source generators:
-   - [ ] Findutils — `find`, `xargs`, `locate`, `updatedb`.
+   - [ ] GNU Findutils 4.10.0 — signed canonical GCC/Clang/sanitizer oracle
+     complete for `find`, `xargs`, `locate`, and `updatedb`; 38/38
+     differential cases pass.  One sanitizer-confirmed signed-shift defect in
+     LOCATE02 decoding is queued for deterministic normalization.
    - [ ] Gawk — `gawk`, `awk`, `gawkbug`.
    - [ ] Flex — `flex`, `flex++`, `lex`.
    - [ ] Bison — `bison`, `yacc` (C/C++ skeletons only; Java output is out of
