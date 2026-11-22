@@ -72,7 +72,7 @@ RUSTBOX_TOOL_IMAGE=rustbox-tar:2026-11-22 \
         --log-file="$evidence/valgrind-extract.log" \
         "$tar_bin" -xf "$scratch/archive.tar" -C "$scratch/extracted"
     then extract_status=0; else extract_status=$?; fi
-    test "$extract_status" -eq 99
+    test "$extract_status" -eq 0
     if printf "X\n" | valgrind --leak-check=full --show-leak-kinds=all \
         --errors-for-leak-kinds=definite,indirect,possible --error-exitcode=99 \
         --log-file="$evidence/valgrind-rmt.log" "$rmt_bin" \
@@ -82,18 +82,10 @@ RUSTBOX_TOOL_IMAGE=rustbox-tar:2026-11-22 \
     cmp "$scratch/source/payload" "$scratch/extracted/payload"
     cmp "$scratch/source/sparse" "$scratch/extracted/sparse"
     test "$(readlink "$scratch/extracted/link")" = payload
-    for operation in create list rmt; do
+    for operation in create list extract rmt; do
       grep -q "ERROR SUMMARY: 0 errors" "$evidence/valgrind-$operation.log"
       grep -q "definitely lost: 0 bytes in 0 blocks" "$evidence/valgrind-$operation.log"
       grep -q "indirectly lost: 0 bytes in 0 blocks" "$evidence/valgrind-$operation.log"
       grep -q "possibly lost: 0 bytes in 0 blocks" "$evidence/valgrind-$operation.log"
     done
-    grep -q "definitely lost: 152 bytes in 2 blocks" \
-      "$evidence/valgrind-extract.log"
-    grep -q "indirectly lost: 1 bytes in 1 blocks" \
-      "$evidence/valgrind-extract.log"
-    grep -q "possibly lost: 0 bytes in 0 blocks" \
-      "$evidence/valgrind-extract.log"
-    grep -q "ERROR SUMMARY: 3 errors from 3 contexts" \
-      "$evidence/valgrind-extract.log"
   '

@@ -1,5 +1,6 @@
 {
   "behavior": {
+    "canonical_extraction_loss_bytes": 153,
     "deterministic_archive_bytes_match": true,
     "differential": {
       "cases": 18,
@@ -151,7 +152,7 @@
             "-cf",
             "-",
             "-C",
-            "/tmp/rustbox-tar-differential-f_p1cn_v/source",
+            "/tmp/rustbox-tar-differential-4vjbjpo6/source",
             "."
           ],
           "byte_identical_archive": true,
@@ -176,7 +177,7 @@
         {
           "arguments": [
             "-tf",
-            "/tmp/rustbox-tar-differential-f_p1cn_v/archive.tar"
+            "/tmp/rustbox-tar-differential-4vjbjpo6/archive.tar"
           ],
           "clang": {
             "status": 0,
@@ -200,7 +201,7 @@
           "arguments": [
             "--numeric-owner",
             "-tvf",
-            "/tmp/rustbox-tar-differential-f_p1cn_v/archive.tar"
+            "/tmp/rustbox-tar-differential-4vjbjpo6/archive.tar"
           ],
           "clang": {
             "status": 0,
@@ -247,7 +248,7 @@
           "arguments": [
             "--test-label",
             "-f",
-            "/tmp/rustbox-tar-differential-f_p1cn_v/archive.tar"
+            "/tmp/rustbox-tar-differential-4vjbjpo6/archive.tar"
           ],
           "clang": {
             "status": 0,
@@ -285,14 +286,14 @@
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 642,
-            "stdout_sha256": "bd3be1409cedd2cf36841e9ecfe1a4893d482ba324de07a8edf1e7c5ea666354"
+            "stdout_sha256": "135c9a8ad61f5348c4d84826a2bddcb018b66654adf3930f99598083bda9bb28"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 642,
-            "stdout_sha256": "bd3be1409cedd2cf36841e9ecfe1a4893d482ba324de07a8edf1e7c5ea666354"
+            "stdout_sha256": "135c9a8ad61f5348c4d84826a2bddcb018b66654adf3930f99598083bda9bb28"
           },
           "label": "tar-create-gz",
           "name": "tar",
@@ -329,15 +330,15 @@
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-            "stdout_bytes": 556,
-            "stdout_sha256": "a60f2173e64183ba64e79fa345cc46c676c834b897a8daa808b59818ceafdba8"
+            "stdout_bytes": 552,
+            "stdout_sha256": "b5474979ac40a5c9f17b56ea6fb7fcdc115ae449165164c63f0be54ec6452d66"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-            "stdout_bytes": 556,
-            "stdout_sha256": "a60f2173e64183ba64e79fa345cc46c676c834b897a8daa808b59818ceafdba8"
+            "stdout_bytes": 552,
+            "stdout_sha256": "b5474979ac40a5c9f17b56ea6fb7fcdc115ae449165164c63f0be54ec6452d66"
           },
           "label": "tar-create-xz",
           "name": "tar",
@@ -375,14 +376,14 @@
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 543,
-            "stdout_sha256": "0fcab3eb0d94d2eaf95e0261d3a22af6acdc6228238f2f1f41a03e4f7d49f635"
+            "stdout_sha256": "84b89d634a248a0ff03ee55bd82a9947f56294e5e218748bf403b97b8a8fe720"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 543,
-            "stdout_sha256": "0fcab3eb0d94d2eaf95e0261d3a22af6acdc6228238f2f1f41a03e4f7d49f635"
+            "stdout_sha256": "84b89d634a248a0ff03ee55bd82a9947f56294e5e218748bf403b97b8a8fe720"
           },
           "label": "tar-create-zst",
           "name": "tar",
@@ -414,24 +415,24 @@
       ],
       "schema": 1
     },
-    "differential_sha256": "10df406b0fab5c7c479df0c6f62d9fb2094a340014170a3e495f432839e5699a",
-    "extraction_cleanup_matches_canonical_baseline": true,
+    "differential_sha256": "dae1558e13fb56a7240453d2b610e6b016e24ac106fe602d2b115d8ba46b71b9",
     "extraction_trees_match": true,
+    "hybrid_extraction_loss_bytes": 0,
     "resources": {
       "create": {
         "definitely_lost_bytes": 0,
         "errors": 0,
         "heap_summary": "total heap usage: 80 allocs, 70 frees, 95,975 bytes allocated",
         "indirectly_lost_bytes": 0,
-        "log_sha256": "80997d38c3285907bba733047ea810a1866e12648e30de0f593aaab7d89d5db3",
+        "log_sha256": "fc68d92045487f64cf66e9f25a535d8138d13a424a8b19ae88c1fa72448bad1f",
         "possibly_lost_bytes": 0
       },
       "extract": {
-        "definitely_lost_bytes": 152,
-        "errors": 3,
-        "heap_summary": "total heap usage: 70 allocs, 59 frees, 48,719 bytes allocated",
-        "indirectly_lost_bytes": 1,
-        "log_sha256": "0550f138a9fde27114f904c1ee370e6a2ac123470966d400757f0a2065dfd8e6",
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "heap_summary": "total heap usage: 70 allocs, 62 frees, 48,719 bytes allocated",
+        "indirectly_lost_bytes": 0,
+        "log_sha256": "bc4d6b5fdfe6249ff83677339a965826a00f96c51b586a7d9dc3976ffbd9af2d",
         "possibly_lost_bytes": 0
       },
       "list": {
@@ -439,7 +440,7 @@
         "errors": 0,
         "heap_summary": "total heap usage: 63 allocs, 57 frees, 52,322 bytes allocated",
         "indirectly_lost_bytes": 0,
-        "log_sha256": "5e102845c634e25cd8240c6d5daf6547139d6262a07c7d266670588602ea36a5",
+        "log_sha256": "dcdd8dfbc1716aeb5c92933dee44246bb26aa0e58bb0e1d6080c8c79d47ff097",
         "possibly_lost_bytes": 0
       },
       "rmt": {
@@ -447,7 +448,7 @@
         "errors": 0,
         "heap_summary": "total heap usage: 7 allocs, 6 frees, 9,183 bytes allocated",
         "indirectly_lost_bytes": 0,
-        "log_sha256": "820582f6359569aabcf735319df35313e2b05ded6edf3ea96ca9042ac69709f4",
+        "log_sha256": "d0fb428210f945e51dd710d660b3d01dfd133a411149c111c1eb80ecff71954f",
         "possibly_lost_bytes": 0
       }
     }
@@ -498,7 +499,7 @@
     ],
     "translated_production_sources": 197
   },
-  "next_gate": "free extraction-owned state, replace libacl with Rustbox ACL, and integrate both names into the unified dispatcher",
+  "next_gate": "replace libacl with Rustbox ACL and integrate both names into the unified dispatcher",
   "recorded_at": "2026-11-22",
   "release": "1.35",
   "schema": 1,
@@ -514,14 +515,14 @@
         ],
         "sections": {
           "bss": 41896,
-          "data": 3612,
-          "rodata": 50597,
-          "text": 297618
+          "data": 3604,
+          "rodata": 47132,
+          "text": 297619
         },
-        "sha256": "cc4a25ab26a916b86cb2040e65e7a9d66724b439532128f10165c87ff74ed39a",
-        "stripped_bytes": 423976,
-        "stripped_sha256": "d1126f8b09fce961ce0d254eaa2439c6386cae05e03af9919fc091763eb9859f",
-        "unstripped_bytes": 4626240
+        "sha256": "ee0402f772aaaed551bc518c1817152a2e4b553a75fc0456edc0456a4fa6439e",
+        "stripped_bytes": 419872,
+        "stripped_sha256": "47ca2b9b51ba04b5670bc09d2dd7fcdce40937e4818d7446b3a7cbcd649cc6b0",
+        "unstripped_bytes": 4620600
       },
       "tar": {
         "dynamic_needed": [
@@ -532,20 +533,20 @@
           "ld-linux-x86-64.so.2"
         ],
         "sections": {
-          "bss": 46336,
-          "data": 17340,
-          "rodata": 77322,
-          "text": 630265
+          "bss": 46320,
+          "data": 17336,
+          "rodata": 77293,
+          "text": 629774
         },
-        "sha256": "92b18c81770ceedac1183bd3de02de018580a053d637675e1fbd2321e9524e42",
-        "stripped_bytes": 876000,
-        "stripped_sha256": "3aa80f7fa78e9e0c0353b3e5fb8d947cb8062e7de8b7c252924434cfb3ade21f",
-        "unstripped_bytes": 5166264
+        "sha256": "e33ea141e2efd0f584f5f74349c0ed00acca45b241953fe13103514ed7b97af8",
+        "stripped_bytes": 875992,
+        "stripped_sha256": "c1fdcde58a0a129d84fab5c671c3a202a6766ddbaa7021452f2c6ce254721a72",
+        "unstripped_bytes": 5166240
       }
     },
-    "translation_static_archive_bytes": 25283152
+    "translation_static_archive_bytes": 25280452
   },
-  "status": "translated hybrid at canonical parity; extraction cleanup, internal ACL linkage, and multicall integration remain",
+  "status": "translated hybrid at canonical parity with owned extraction cleanup; internal ACL linkage and multicall integration remain",
   "temporary_runtime_dependencies": {
     "libacl": true,
     "other_non_libc_system_libraries": [],

@@ -26,6 +26,75 @@ def replace_exact(path: Path, before: str, after: str) -> dict[str, str]:
     }
 
 
+def repair_name_ownership(path: Path) -> dict[str, object]:
+    text = path.read_text(encoding="utf-8")
+    old_digest = sha256(path)
+    helper_anchor = """}
+static mut namelist: *mut name = ::core::ptr::null::<name>() as *mut name;
+"""
+    helper = """}
+unsafe fn rustbox_release_namelist() {
+    while !namelist.is_null() {
+        let next = (*namelist).next;
+        free_name(namelist);
+        namelist = next;
+    }
+    nametail = ::core::ptr::null_mut::<name>();
+}
+static mut namelist: *mut name = ::core::ptr::null::<name>() as *mut name;
+"""
+    if text.count(helper_anchor) != 1:
+        raise RuntimeError(f"name-list helper precondition failed: {path}")
+    text = text.replace(helper_anchor, helper)
+
+    discarded = """        {
+            unconsumed_option_push(elt);
+        }
+    } else {
+"""
+    released = """        {
+            unconsumed_option_push(elt);
+        } else {
+            free(elt as *mut ::core::ffi::c_void);
+        }
+    } else {
+"""
+    if text.count(discarded) != 1:
+        raise RuntimeError(f"name-element ownership precondition failed: {path}")
+    text = text.replace(discarded, released)
+
+    abandoned = """    namelist = ::core::ptr::null_mut::<name>();
+    nametail = ::core::ptr::null_mut::<name>();
+"""
+    if text.count(abandoned) != 2:
+        raise RuntimeError(f"abandoned name-list precondition failed: {path}")
+    text = text.replace(abandoned, "    rustbox_release_namelist();\n")
+    abandoned_nested = """            namelist = ::core::ptr::null_mut::<name>();
+            nametail = ::core::ptr::null_mut::<name>();
+"""
+    if text.count(abandoned_nested) != 1:
+        raise RuntimeError(f"empty-name list precondition failed: {path}")
+    text = text.replace(
+        abandoned_nested, "            rustbox_release_namelist();\n"
+    )
+    path.write_text(text, encoding="utf-8")
+    return {
+        "path": str(path),
+        "before_sha256": old_digest,
+        "after_sha256": sha256(path),
+        "operation": (
+            "release consumed non-create positional elements and free both "
+            "name lists before discarding their heads"
+        ),
+        "semantic_basis": (
+            "the canonical code explicitly discards these allocations only "
+            "because a standalone process is about to exit; freeing them does "
+            "not change archive, diagnostic, status, or filesystem behavior"
+        ),
+        "released_sites": 4,
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--crate", required=True, type=Path)
@@ -49,6 +118,7 @@ def main() -> int:
             "in both uintmax_t and size_t on the audited LP64 target"
         ),
     })
+    name_change = repair_name_ownership(crate / "src/src/names.rs")
 
     modules = ("human", "printf_args", "printf_parse", "vasnprintf")
     library = crate / "lib.rs"
@@ -64,7 +134,7 @@ def main() -> int:
     manifest = {
         "schema": 1,
         "target": "x86_64-unknown-linux-gnu",
-        "transformations": [tar_change],
+        "transformations": [tar_change, name_change],
         "canonical_c_residue": [
             "gnu/human.c",
             "gnu/printf-args.c",

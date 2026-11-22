@@ -60,16 +60,11 @@ def main() -> int:
         operation: heap(analysis / f"valgrind-{operation}.log")
         for operation in ("create", "list", "extract", "rmt")
     }
-    for operation in ("create", "list", "rmt"):
+    for operation in ("create", "list", "extract", "rmt"):
         record = resources[operation]
         if record["errors"] or any(record[f"{kind}_lost_bytes"]
                                    for kind in ("definitely", "indirectly", "possibly")):
             raise RuntimeError(f"GNU tar hybrid resource regression: {operation}")
-    extract = resources["extract"]
-    if (extract["errors"], extract["definitely_lost_bytes"],
-            extract["indirectly_lost_bytes"], extract["possibly_lost_bytes"]) != (3, 152, 1, 0):
-        raise RuntimeError("GNU tar extraction cleanup baseline changed")
-
     sizes = {}
     for utility, entrypoint in (("tar", "rustbox_tar_main"),
                                 ("rmt", "rustbox_rmt_main")):
@@ -106,8 +101,8 @@ def main() -> int:
         "recorded_at": "2026-11-22",
         "release": "1.35",
         "status": (
-            "translated hybrid at canonical parity; extraction cleanup, "
-            "internal ACL linkage, and multicall integration remain"
+            "translated hybrid at canonical parity with owned extraction "
+            "cleanup; internal ACL linkage and multicall integration remain"
         ),
         "implementation": {
             "translated_production_sources": 197,
@@ -122,7 +117,8 @@ def main() -> int:
             "deterministic_archive_bytes_match": True,
             "extraction_trees_match": True,
             "resources": resources,
-            "extraction_cleanup_matches_canonical_baseline": True,
+            "canonical_extraction_loss_bytes": 153,
+            "hybrid_extraction_loss_bytes": 0,
         },
         "size": {
             "translation_static_archive_bytes":
@@ -136,8 +132,8 @@ def main() -> int:
             "other_non_libc_system_libraries": [],
         },
         "next_gate": (
-            "free extraction-owned state, replace libacl with Rustbox ACL, and "
-            "integrate both names into the unified dispatcher"
+            "replace libacl with Rustbox ACL and integrate both names into "
+            "the unified dispatcher"
         ),
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
