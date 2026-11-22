@@ -3,7 +3,7 @@
 set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
-RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
+RUSTBOX_TOOL_IMAGE=rustbox-gawk:2026-11-22 \
   exec "$root/scripts/run_tool.sh" python3 /work/scripts/test_rustbox_multicall.py \
     --repository /work \
     --coreutils-build /rustbox-coreutils/canonical-clang-no-security-compdb \
@@ -15,6 +15,7 @@ RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
     --sed-oracle /rustbox-sed/normalized-clang/sed/sed \
     --diffutils-oracle-dir /rustbox-diffutils/normalized-clang/src \
     --grep-oracle /rustbox-grep/normalized-clang/src/grep \
+    --gawk-oracle /rustbox-gawk/normalized-clang/gawk \
     --bc-oracle-dir /rustbox-bc/normalized-clang \
     --attr-oracle-dir /rustbox-attr/normalized-clang \
     --acl-oracle-dir /rustbox-acl/normalized-clang \

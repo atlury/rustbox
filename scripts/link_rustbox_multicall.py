@@ -12,7 +12,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-ISOLATION_CACHE_VERSION = 6
+ISOLATION_CACHE_VERSION = 7
 
 
 def sha256(path: Path) -> str:
@@ -434,6 +434,54 @@ def namespace_grep_library(
     ).stdout.split()
     if "error" in undefined or "rustbox_grep_error" not in undefined:
         raise RuntimeError("GNU Grep error ABI redirection is incomplete")
+    return mapped, symbols
+
+
+def namespace_gawk_library(
+    rust_library: Path, build: Path
+) -> tuple[Path, list[str]]:
+    """Keep GNU Gawk's parser, runtime, and bundled gnulib surface private."""
+    strong_types = {"B", "C", "D", "G", "R", "S", "T"}
+    compiler_math = re.compile(
+        r"^(?:cbrt|ceil|copysign|fabs|fdim|floor|fma|fmax|fmaximum|fmin|fminimum|fmod|rint|round|sqrt|trunc)(?:f|f16|f128)?$"
+    )
+    output = subprocess.run(
+        ["nm", "-g", "--defined-only", str(rust_library)],
+        check=True, text=True, stdout=subprocess.PIPE,
+    ).stdout
+    symbols = sorted({
+        fields[-1]
+        for line in output.splitlines()
+        if len(fields := line.split()) >= 3
+        and fields[-2] in strong_types
+        and (
+            re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", fields[-1])
+            or fields[-1].startswith("_gl_")
+        )
+        and fields[-1] != "rustbox_gawk_main"
+        and not fields[-1].startswith("rust_")
+        and not compiler_math.fullmatch(fields[-1])
+    })
+    if not symbols:
+        raise RuntimeError("GNU Gawk archive exports no namespaceable C symbols")
+    destination = build / "src/.rustbox-gawk"
+    destination.mkdir(parents=True, exist_ok=True)
+    mapped = destination / rust_library.name
+    mapping = destination / "symbols.map"
+    mapping.write_text(
+        "".join(f"{symbol} rustbox_gawk_private_{symbol}\n" for symbol in symbols),
+        encoding="utf-8",
+    )
+    shutil.copy2(rust_library, mapped)
+    subprocess.run(["objcopy", "--redefine-syms", str(mapping), str(mapped)], check=True)
+    mapped_definitions = defined_symbols(mapped)
+    definitions = set(mapped_definitions)
+    if mapped_definitions.count("rustbox_gawk_main") != 1:
+        raise RuntimeError("GNU Gawk symbol isolation damaged its public entrypoint")
+    if any(symbol in definitions for symbol in symbols):
+        raise RuntimeError("GNU Gawk symbol isolation left an unprefixed definition")
+    if any(f"rustbox_gawk_private_{symbol}" not in definitions for symbol in symbols):
+        raise RuntimeError("GNU Gawk symbol isolation lost a definition")
     return mapped, symbols
 
 
@@ -1235,6 +1283,7 @@ extern int rustbox_diff_main(int, char **);
 extern int rustbox_diff3_main(int, char **);
 extern int rustbox_sdiff_main(int, char **);
 extern int rustbox_grep_main(int, char **);
+extern int rustbox_gawk_main(int, char **);
 extern int rustbox_bc_main(int, char **);
 extern int rustbox_dc_main(int, char **);
 extern int rustbox_attr_main(int, char **);
@@ -1388,6 +1437,8 @@ int main(int argc, char **argv)
         program_invocation_short_name = alias_argv[0];
         return rustbox_grep_main(argc + 1, alias_argv);
     }
+    if (!force_util_linux && (strcmp(name, "gawk") == 0 || strcmp(name, "awk") == 0))
+        return rustbox_gawk_main(argc, argv);
     if (!force_util_linux && strcmp(name, "bc") == 0)
         return rustbox_bc_main(argc, argv);
     if (!force_util_linux && strcmp(name, "dc") == 0)
@@ -1524,6 +1575,8 @@ def main() -> int:
     parser.add_argument("--sed-rust-library", type=Path, required=True)
     parser.add_argument("--diffutils-rust-library", type=Path, required=True)
     parser.add_argument("--grep-rust-library", type=Path, required=True)
+    parser.add_argument("--gawk-rust-library", type=Path, required=True)
+    parser.add_argument("--gawk-pma-residue", type=Path, required=True)
     parser.add_argument("--bc-rust-library", type=Path, required=True)
     parser.add_argument("--attr-rust-library", type=Path, required=True)
     parser.add_argument("--acl-rust-library", type=Path, required=True)
@@ -1552,6 +1605,8 @@ def main() -> int:
     sed_rust_library = args.sed_rust_library.resolve()
     diffutils_rust_library = args.diffutils_rust_library.resolve()
     grep_rust_library = args.grep_rust_library.resolve()
+    gawk_rust_library = args.gawk_rust_library.resolve()
+    gawk_pma_residue = args.gawk_pma_residue.resolve()
     bc_rust_library = args.bc_rust_library.resolve()
     attr_rust_library = args.attr_rust_library.resolve()
     acl_rust_library = args.acl_rust_library.resolve()
@@ -1656,6 +1711,7 @@ def main() -> int:
         m4_rust_library, m4_support_library, pkgconf_rust_library,
         file_rust_library, patch_rust_library, sed_rust_library,
         diffutils_rust_library, grep_rust_library, bc_rust_library,
+        gawk_rust_library, gawk_pma_residue,
         attr_rust_library, acl_rust_library, lz4_rust_library, less_rust_library,
         gzip_rust_library, xz_rust_library, zstd_rust_library, tar_rust_library,
         ncurses_rust_library, findutils_rust_library,
@@ -1678,6 +1734,9 @@ def main() -> int:
     diffutils_library_index = len(libraries) - 1
     libraries.append(grep_rust_library)
     grep_library_index = len(libraries) - 1
+    libraries.append(gawk_rust_library)
+    gawk_library_index = len(libraries) - 1
+    libraries.append(gawk_pma_residue)
     libraries.append(bc_rust_library)
     bc_library_index = len(libraries) - 1
     libraries.append(attr_rust_library)
@@ -1724,6 +1783,7 @@ def main() -> int:
         "rustbox_diff3_main",
         "rustbox_sdiff_main",
         "rustbox_grep_main",
+        "rustbox_gawk_main",
         "rustbox_bc_main",
         "rustbox_dc_main",
         "rustbox_attr_main",
@@ -1828,6 +1888,15 @@ def main() -> int:
             libraries[grep_library_index], build
         )
     libraries[grep_library_index] = mapped_grep_rust
+
+    if cached_report:
+        mapped_gawk_rust = build / "src/.rustbox-gawk" / libraries[gawk_library_index].name
+        gawk_symbols = cached_report["gawk_namespaced_symbols"]
+    else:
+        mapped_gawk_rust, gawk_symbols = namespace_gawk_library(
+            libraries[gawk_library_index], build
+        )
+    libraries[gawk_library_index] = mapped_gawk_rust
 
     if cached_report:
         mapped_bc_rust = build / "src/.rustbox-bc" / libraries[bc_library_index].name
@@ -2196,7 +2265,8 @@ def main() -> int:
         "single_binary_deps=" + " ".join(rewritten),
         "src_coreutils_OBJECTS=" + str(dispatcher_object) + " " + str(renamed_dispatch),
         "src_libsinglebin_false_a_ldadd=$(src_true_LDADD) -ldl -lpthread -lm -lrt -lutil -ltinfo "
-        "-lbz2 -llz -llzma -lseccomp -lz -lzstd -lattr -lpcre2-8",
+        "-lbz2 -llz -llzma -lseccomp -lz -lzstd -lattr -lpcre2-8 "
+        "-lreadline -lmpfr -lgmp",
         "src_coreutils_LDADD=$(single_binary_deps) "
         "$(filter-out -lacl,$(LDADD) $(single_binary_libs)) "
         + " ".join(util_link_libraries),
@@ -2242,6 +2312,7 @@ def main() -> int:
         "sed_applets": 1,
         "diffutils_applets": 4,
         "grep_applets": 3,
+        "gawk_public_names": 2,
         "bc_applets": 2,
         "attr_applets": 3,
         "acl_applets": 3,
@@ -2257,7 +2328,7 @@ def main() -> int:
             set(applets)
             | set(util_dispatch)
             | {"m4", "pkgconf", "pkg-config", "bomtool", "pccritic", "spdxtool", "file", "patch", "sed",
-               "cmp", "diff", "diff3", "sdiff", "grep", "egrep", "fgrep", "bc", "dc",
+               "cmp", "diff", "diff3", "sdiff", "grep", "egrep", "fgrep", "gawk", "awk", "bc", "dc",
                "attr", "getfattr", "setfattr", "chacl", "getfacl", "setfacl",
                "lz4", "lz4c", "lz4cat", "unlz4", "less", "lessecho",
                "gzip", "gunzip", "zcat", "uncompress",
@@ -2289,6 +2360,7 @@ def main() -> int:
         "sed_namespaced_symbols": sed_symbols,
         "diffutils_namespaced_symbols": diffutils_symbols,
         "grep_namespaced_symbols": grep_symbols,
+        "gawk_namespaced_symbols": gawk_symbols,
         "bc_namespaced_symbols": bc_symbols,
         "attr_namespaced_symbols": attr_symbols,
         "acl_namespaced_symbols": acl_symbols,
@@ -2370,6 +2442,7 @@ def main() -> int:
         "sed_applets": 1,
         "diffutils_applets": 4,
         "grep_applets": 3,
+        "gawk_public_names": 2,
         "bc_applets": 2,
         "attr_applets": 3,
         "acl_applets": 3,

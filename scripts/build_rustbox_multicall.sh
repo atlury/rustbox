@@ -3,7 +3,7 @@
 set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
-RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
+RUSTBOX_TOOL_IMAGE=rustbox-gawk:2026-11-22 \
   exec "$root/scripts/run_tool.sh" python3 /work/scripts/link_rustbox_multicall.py \
     --repository /work \
     --coreutils-build /rustbox-coreutils/canonical-clang-no-security-compdb \
@@ -16,6 +16,8 @@ RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
     --sed-rust-library /work/work/analysis/sed-4.10/translations/c2rust-0.22.1/sed-4.10-stable/target/release/libsed_4_10_normalized_audit.a \
     --diffutils-rust-library /work/work/analysis/diffutils-3.12/translations/c2rust-0.22.1/diffutils-3.12-stable/target/release/libdiffutils_3_12_normalized_audit.a \
     --grep-rust-library /work/work/analysis/grep-3.12/translations/c2rust-0.22.1/grep-3.12-stable/target/release/libgrep_3_12_normalized_audit.a \
+    --gawk-rust-library /work/work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-core-stable/target/release/libgawk_5_4_0_core.a \
+    --gawk-pma-residue /work/build/gawk-5.4.0-hybrid/c-residue/pma.o \
     --bc-rust-library /work/work/analysis/bc-1.08.2/translations/c2rust-0.22.1/bc-1.08.2-stable/target/release/libbc_1_08_2_normalized_audit.a \
     --attr-rust-library /work/work/analysis/attr-2.6.0/translations/c2rust-0.22.1/attr-2.6.0-stable/target/release/libattr_2_6_0_normalized_audit.a \
     --acl-rust-library /work/work/analysis/acl-2.4.0/translations/c2rust-0.22.1/acl-2.4.0-stable/target/release/libacl_2_4_0_normalized_audit.a \

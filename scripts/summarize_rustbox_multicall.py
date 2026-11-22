@@ -68,7 +68,7 @@ def main() -> int:
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
-    if dispatch["cases"] != 690 or dispatch["passed"] != 690 or dispatch["failures"]:
+    if dispatch["cases"] != 698 or dispatch["passed"] != 698 or dispatch["failures"]:
         raise RuntimeError("unified dispatcher comparison is incomplete")
     if (
         differential["batches"] != 38
@@ -865,6 +865,7 @@ def main() -> int:
             "diffutils_namespaced_symbols": len(link["diffutils_namespaced_symbols"]),
             "diffutils_error_bridge_symbols": len(link["diffutils_error_bridge"]["symbols"]),
             "grep_namespaced_symbols": len(link["grep_namespaced_symbols"]),
+            "gawk_namespaced_symbols": len(link["gawk_namespaced_symbols"]),
             "grep_abi_bridge_symbols": len(link["grep_abi_bridge"]["symbols"]),
             "grep_error_bridge_symbols": len(link["grep_error_bridge"]["symbols"]),
             "bc_namespaced_symbols": len(link["bc_namespaced_symbols"]),

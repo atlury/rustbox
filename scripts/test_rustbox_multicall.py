@@ -54,6 +54,7 @@ def main() -> int:
     parser.add_argument("--sed-oracle", type=Path, required=True)
     parser.add_argument("--diffutils-oracle-dir", type=Path, required=True)
     parser.add_argument("--grep-oracle", type=Path, required=True)
+    parser.add_argument("--gawk-oracle", type=Path, required=True)
     parser.add_argument("--bc-oracle-dir", type=Path, required=True)
     parser.add_argument("--attr-oracle-dir", type=Path, required=True)
     parser.add_argument("--acl-oracle-dir", type=Path, required=True)
@@ -79,6 +80,7 @@ def main() -> int:
     sed_oracle = args.sed_oracle.resolve()
     diffutils_oracle_dir = args.diffutils_oracle_dir.resolve()
     grep_oracle = args.grep_oracle.resolve()
+    gawk_oracle = args.gawk_oracle.resolve()
     bc_oracle_dir = args.bc_oracle_dir.resolve()
     attr_oracle_dir = args.attr_oracle_dir.resolve()
     acl_oracle_dir = args.acl_oracle_dir.resolve()
@@ -189,6 +191,29 @@ def main() -> int:
             actual = invoke([str(rustbox), name, option])
             if oracle != actual:
                 failures.append({"suite": "grep", "applet": name, "option": option, "oracle": oracle, "actual": actual})
+
+    gawk_names = ["gawk", "awk"]
+    for name in gawk_names:
+        for option in ("--help", "--version"):
+            cases += 1
+            oracle = invoke([name, option], executable=gawk_oracle)
+            actual = invoke([str(rustbox), name, option])
+            if oracle != actual:
+                failures.append({"suite": "gawk", "applet": name, "option": option,
+                                 "oracle": oracle, "actual": actual})
+        cases += 1
+        program = 'BEGIN { printf "%s:%d\\n", ARGV[0], 6 * 7 }'
+        oracle = invoke([name, program], executable=gawk_oracle)
+        actual = invoke([str(rustbox), name, program])
+        if oracle != actual:
+            failures.append({"suite": "gawk", "applet": name, "option": "program",
+                             "oracle": oracle, "actual": actual})
+        cases += 1
+        direct = invoke([name, program], executable=rustbox)
+        if oracle != direct:
+            failures.append({"suite": "gawk", "applet": name,
+                             "option": "direct-invocation", "oracle": oracle,
+                             "actual": direct})
 
     bc_names = ["bc", "dc"]
     for name in bc_names:
@@ -361,6 +386,7 @@ def main() -> int:
         "sed_applets": 1,
         "diffutils_applets": len(diffutils_names),
         "grep_applets": len(grep_names),
+        "gawk_public_names": len(gawk_names),
         "bc_applets": len(bc_names),
         "attr_applets": len(attr_names),
         "acl_applets": len(acl_names),
@@ -385,7 +411,7 @@ def main() -> int:
         + "\n",
         encoding="utf-8",
     )
-    print(json.dumps({key: result[key] for key in ("cases", "passed", "coreutils_applets", "util_linux_applets", "m4_applets", "pkgconf_public_names", "file_applets", "patch_applets", "sed_applets", "diffutils_applets", "grep_applets", "bc_applets", "attr_applets", "acl_applets", "lz4_public_names", "less_public_names", "gzip_public_names", "xz_public_names", "zstd_public_names", "tar_applets", "ncurses_public_names", "findutils_public_names")}))
+    print(json.dumps({key: result[key] for key in ("cases", "passed", "coreutils_applets", "util_linux_applets", "m4_applets", "pkgconf_public_names", "file_applets", "patch_applets", "sed_applets", "diffutils_applets", "grep_applets", "gawk_public_names", "bc_applets", "attr_applets", "acl_applets", "lz4_public_names", "less_public_names", "gzip_public_names", "xz_public_names", "zstd_public_names", "tar_applets", "ncurses_public_names", "findutils_public_names")}))
     return 1 if failures else 0
 
 
