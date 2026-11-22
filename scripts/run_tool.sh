@@ -30,6 +30,7 @@ exec docker run --rm \
   --volume rustbox-tar-1.35:/rustbox-tar \
   --volume rustbox-ncurses-6.6:/rustbox-ncurses \
   --volume rustbox-findutils-4.10.0:/rustbox-findutils \
+  --volume rustbox-gawk-5.4.0:/rustbox-gawk \
   --workdir /work \
   "$tool_image" "$@"
 
