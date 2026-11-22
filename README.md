@@ -192,6 +192,23 @@ replace `std` with Rustbox-owned `no_std` runtime facilities.  Pointer and
 `unsafe` inventories are recorded now, but they do not block the current
 utility-completion tranche.
 
+### Post-applet hardening queue
+
+This queue is intentionally blocked on completion of every in-scope applet;
+none of it may displace utility coverage or canonical differential testing.
+
+1. Eliminate all remaining package shared-library dependencies and require a
+   fully static multicall ELF with zero `DT_NEEDED` entries.
+2. Measure archive, section, symbol, relocation, and reachable-code costs;
+   consolidate duplicate runtimes and apply release LTO, section GC, and
+   symbol-visibility controls before setting the final size budget.
+3. Remove translated raw pointers and `unsafe` incrementally behind the same
+   canonical behavior gates used during translation.
+4. Replace `std` with Rustbox-owned `no_std` facilities without changing the
+   applet ABI or observable behavior.
+5. Re-run every upstream suite, differential case, sanitizer, analyzer,
+   Valgrind, static-link, and stripped-size gate on the hardened artifact.
+
 The isolated zlib 1.4 library checkpoint uses its signed release, independent GCC
 and Clang builds, 18-case upstream CTest suite, sanitizer and Valgrind gates,
 111-symbol ABI comparison, and reviewed static-analysis findings are recorded
