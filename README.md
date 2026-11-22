@@ -62,6 +62,7 @@ scoring, and correctness gates.
 | XZ Utils 5.8.4 | 23 | 23 | 23 | 23 |
 | zstd 1.5.7 | 6 | 6 | 6 | 6 |
 | GNU tar 1.35 | 2 | 2 | 2 | 2 |
+| Flex 2.6.4 | 3 | 3 | 3 | 3 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -123,7 +124,7 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 353
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 356
 distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, five
 pkgconf names, File, GNU patch, GNU sed, four GNU Diffutils applets, and GNU
 Grep's three public names, GNU bc and dc, attr's three tools, plus chacl,
@@ -131,8 +132,9 @@ getfacl, and setfacl, plus LZ4's four public names, Less and lessecho, and all
 fourteen GNU Gzip interfaces, all 23 XZ Utils names, zstd's six public names,
 GNU `tar` and `rmt`, ten Ncurses names, GNU Findutils' `find`, `xargs`,
 `locate`, and `updatedb`; `kill` is shared and `util-linux-kill` remains
-available explicitly, and GNU Gawk's `gawk`, `awk`, and native `gawkbug`).
-It passes all 702
+available explicitly, GNU Gawk's `gawk`, `awk`, and native `gawkbug`, and
+Flex's `flex`, `flex++`, and native `lex` compatibility frontend).
+It passes all 708
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
 check, 108-case differential suite, and Valgrind.  Pkgconf also passes all 429
@@ -175,9 +177,11 @@ both Valgrind directions.  GNU tar and rmt add all 18 archive, extraction,
 compression-personality, and remote-protocol comparisons plus four zero-error,
 zero-loss Valgrind paths.  Their ACL calls resolve to Rustbox's translated ACL
 archive, including Coreutils' existing ACL consumers, and `libacl.so` is absent
-from the ELF dependency set.  The resulting 353-name executable is 25,516,392
-bytes unstripped and 12,102,864 bytes stripped; exact hashes and section/link
-evidence are recorded in `evidence/rustbox-multicall.json`.
+from the ELF dependency set.  Flex adds all three public names with all 114
+upstream tests, 14 generator/scanner comparisons, three frontend comparisons,
+and four leak-free resource paths.  The resulting 356-name executable is
+25,999,360 bytes unstripped and 12,547,936 bytes stripped; exact hashes and
+section/link evidence are recorded in `evidence/rustbox-multicall.json`.
 `chcon` and `runcon`
 remain absent, and the linked binary has no SELinux or systemd dependency.
 
@@ -1165,7 +1169,7 @@ Library-only checkpoints (outside the active utility order):
      translation and unified multicall parity; the installed `gawkbug` shell
      workflow is replaced by a native in-binary frontend with canonical
      editor, mailer, and dead-letter recovery parity.
-   - [ ] Flex 2.6.4 — signed canonical release and full oracle complete for
+   - [x] Flex 2.6.4 — signed canonical release and full oracle complete for
      `flex` and upstream's `flex++` link; GCC, Clang, and ASan/UBSan each pass
      all 114 upstream tests, and all 14 independent compiler/generator cases
      pass.  Deterministic one-file normalization preserves another 228
@@ -1176,7 +1180,8 @@ Library-only checkpoints (outside the active utility order):
      The translated hybrid passes all 114 upstream tests, all 14 generator and
      scanner comparisons, three native `flex++`/`lex` frontend comparisons,
      and leak-free help, version, and error exits.  Unified multicall
-     integration remains.
+     integration is complete for `flex`, `flex++`, and native `lex`; all 708
+     dispatcher comparisons and all 14,022 prior batch regressions pass.
    - [ ] Bison — `bison`, `yacc` (C/C++ skeletons only; Java output is out of
      scope).
 4. Network-facing suites:

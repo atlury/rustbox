@@ -66,6 +66,7 @@ def main() -> int:
     parser.add_argument("--tar-oracle-root", type=Path, required=True)
     parser.add_argument("--ncurses-oracle-root", type=Path, required=True)
     parser.add_argument("--findutils-oracle-root", type=Path, required=True)
+    parser.add_argument("--flex-oracle", type=Path, required=True)
     parser.add_argument("--rustbox", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
@@ -93,6 +94,7 @@ def main() -> int:
     tar_oracle_root = args.tar_oracle_root.resolve()
     ncurses_oracle_root = args.ncurses_oracle_root.resolve()
     findutils_oracle_root = args.findutils_oracle_root.resolve()
+    flex_oracle = args.flex_oracle.resolve()
     failures: list[dict[str, object]] = []
     cases = 0
 
@@ -396,6 +398,17 @@ def main() -> int:
                 failures.append({"suite": "findutils", "applet": name,
                                  "option": option, "oracle": oracle, "actual": actual})
 
+    flex_names = ["flex", "flex++", "lex"]
+    for name in flex_names:
+        for option in ("--help", "--version"):
+            cases += 1
+            arguments = [name, option] if name != "lex" else [name, "-l", option]
+            oracle = invoke(arguments, executable=flex_oracle)
+            actual = invoke([str(rustbox), name, option])
+            if oracle != actual:
+                failures.append({"suite": "flex", "applet": name,
+                                 "option": option, "oracle": oracle, "actual": actual})
+
     result = {
         "schema": 1,
         "cases": cases,
@@ -421,6 +434,7 @@ def main() -> int:
         "tar_applets": len(tar_names),
         "ncurses_public_names": len(ncurses_names),
         "findutils_public_names": len(findutils_names),
+        "flex_public_names": len(flex_names),
         "gzip_help_oracle_path_normalized": True,
         "failures": failures,
     }
@@ -434,7 +448,7 @@ def main() -> int:
         + "\n",
         encoding="utf-8",
     )
-    print(json.dumps({key: result[key] for key in ("cases", "passed", "coreutils_applets", "util_linux_applets", "m4_applets", "pkgconf_public_names", "file_applets", "patch_applets", "sed_applets", "diffutils_applets", "grep_applets", "gawk_public_names", "bc_applets", "attr_applets", "acl_applets", "lz4_public_names", "less_public_names", "gzip_public_names", "xz_public_names", "zstd_public_names", "tar_applets", "ncurses_public_names", "findutils_public_names")}))
+    print(json.dumps({key: result[key] for key in ("cases", "passed", "coreutils_applets", "util_linux_applets", "m4_applets", "pkgconf_public_names", "file_applets", "patch_applets", "sed_applets", "diffutils_applets", "grep_applets", "gawk_public_names", "bc_applets", "attr_applets", "acl_applets", "lz4_public_names", "less_public_names", "gzip_public_names", "xz_public_names", "zstd_public_names", "tar_applets", "ncurses_public_names", "findutils_public_names", "flex_public_names")}))
     return 1 if failures else 0
 
 

@@ -42,6 +42,7 @@ def main() -> int:
     parser.add_argument("--ncurses-report-directory", type=Path, required=True)
     parser.add_argument("--findutils-report-directory", type=Path, required=True)
     parser.add_argument("--gawk-report-directory", type=Path, required=True)
+    parser.add_argument("--flex-report-directory", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     binary = args.binary.resolve()
@@ -67,10 +68,11 @@ def main() -> int:
     ncurses_directory = args.ncurses_report_directory.resolve()
     findutils_directory = args.findutils_report_directory.resolve()
     gawk_directory = args.gawk_report_directory.resolve()
+    flex_directory = args.flex_report_directory.resolve()
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
-    if dispatch["cases"] != 702 or dispatch["passed"] != 702 or dispatch["failures"]:
+    if dispatch["cases"] != 708 or dispatch["passed"] != 708 or dispatch["failures"]:
         raise RuntimeError("unified dispatcher comparison is incomplete")
     if (
         differential["batches"] != 38
@@ -582,6 +584,35 @@ def main() -> int:
             "All heap blocks were freed" in text or zero_loss
         ):
             raise RuntimeError(f"unified GNU Gawk {name} Valgrind result is incomplete")
+    flex_differential_path = flex_directory / "differential.json"
+    flex_differential = json.loads(flex_differential_path.read_text())
+    flex_frontends_path = flex_directory / "frontends.json"
+    flex_frontends = json.loads(flex_frontends_path.read_text())
+    flex_upstream_path = flex_directory / "upstream-tests.log"
+    flex_upstream = flex_upstream_path.read_text(errors="replace")
+    if (
+        flex_differential.get("cases") != 14
+        or flex_differential.get("passed") != 14
+        or flex_frontends.get("cases") != 3
+        or flex_frontends.get("passed") != 3
+        or "# TOTAL: 114" not in flex_upstream
+        or "# PASS:  114" not in flex_upstream
+        or re.search(r"^# (?:FAIL|XPASS|ERROR):\s+[1-9]", flex_upstream, re.MULTILINE)
+    ):
+        raise RuntimeError("unified Flex integration comparison is incomplete")
+    flex_valgrind_paths = {
+        name: flex_directory / f"valgrind-{name}.log"
+        for name in ("flex-version", "flex++-version", "lex-version", "flex-invalid")
+    }
+    for name, path in flex_valgrind_paths.items():
+        text = path.read_text(errors="replace")
+        if "ERROR SUMMARY: 0 errors" not in text or not all(
+            marker in text for marker in (
+                "definitely lost: 0 bytes", "indirectly lost: 0 bytes",
+                "possibly lost: 0 bytes",
+            )
+        ):
+            raise RuntimeError(f"unified Flex {name} Valgrind result is incomplete")
     if sha256(binary) != link["binary"]["sha256"]:
         raise RuntimeError("unified binary changed after link evidence")
     with tempfile.TemporaryDirectory(prefix="rustbox-strip-") as temporary:
@@ -609,8 +640,8 @@ def main() -> int:
         raise RuntimeError("unified binary retains a forbidden security-library dependency")
     evidence = {
         "schema": 1,
-        "recorded_at": "2026-11-22",
-        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, GNU tar, Ncurses, GNU Findutils, and GNU Gawk integrated at canonical parity",
+        "recorded_at": "2026-11-23",
+        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, GNU tar, Ncurses, GNU Findutils, GNU Gawk, and Flex integrated at canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
@@ -633,7 +664,8 @@ def main() -> int:
             "ncurses_integrated_names": 10,
             "findutils_integrated_names": 4,
             "gawk_integrated_names": 3,
-            "dispatch_names": 353,
+            "flex_integrated_names": 3,
+            "dispatch_names": 356,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -901,6 +933,24 @@ def main() -> int:
                 for name, path in findutils_valgrind_paths.items()
             },
         },
+        "flex_integration": {
+            "integrated_public_names": 3,
+            "translated_entrypoint": "rustbox_flex_main",
+            "native_frontends": ["flex++", "lex"],
+            "upstream_tests": 114,
+            "differential": flex_differential,
+            "frontends": flex_frontends,
+            "valgrind_errors": 0,
+            "definitely_lost_bytes": 0,
+            "indirectly_lost_bytes": 0,
+            "possibly_lost_bytes": 0,
+            "upstream_log_sha256": sha256(flex_upstream_path),
+            "differential_sha256": sha256(flex_differential_path),
+            "frontends_sha256": sha256(flex_frontends_path),
+            "valgrind_log_sha256": {
+                name: sha256(path) for name, path in flex_valgrind_paths.items()
+            },
+        },
         "collision_isolation": {
             "translated_libraries": len(link["source_library_sha256"]),
             "namespaced_libraries": len(link["namespaced_symbols"]),
@@ -932,6 +982,7 @@ def main() -> int:
             "tar_namespaced_symbols": len(link["tar_namespaced_symbols"]),
             "ncurses_namespaced_symbols": len(link["ncurses_namespaced_symbols"]),
             "findutils_namespaced_symbols": len(link["findutils_namespaced_symbols"]),
+            "flex_namespaced_symbols": len(link["flex_namespaced_symbols"]),
             "tar_acl_imports": len(link["tar_acl_imports"]),
             "coreutils_acl_imports": len(link["coreutils_acl_imports"]),
             "manifest": link,

@@ -12,7 +12,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-ISOLATION_CACHE_VERSION = 7
+ISOLATION_CACHE_VERSION = 8
 
 
 def sha256(path: Path) -> str:
@@ -482,6 +482,51 @@ def namespace_gawk_library(
         raise RuntimeError("GNU Gawk symbol isolation left an unprefixed definition")
     if any(f"rustbox_gawk_private_{symbol}" not in definitions for symbol in symbols):
         raise RuntimeError("GNU Gawk symbol isolation lost a definition")
+    return mapped, symbols
+
+
+def namespace_flex_library(
+    rust_library: Path, build: Path
+) -> tuple[Path, list[str]]:
+    """Keep Flex's generated scanner, parser, and generator state private."""
+    strong_types = {"B", "C", "D", "G", "R", "S", "T"}
+    compiler_math = re.compile(
+        r"^(?:cbrt|ceil|copysign|fabs|fdim|floor|fma|fmax|fmaximum|fmin|fminimum|fmod|rint|round|sqrt|trunc)(?:f|f16|f128)?$"
+    )
+    output = subprocess.run(
+        ["nm", "-g", "--defined-only", str(rust_library)],
+        check=True, text=True, stdout=subprocess.PIPE,
+    ).stdout
+    symbols = sorted({
+        fields[-1]
+        for line in output.splitlines()
+        if len(fields := line.split()) >= 3
+        and fields[-2] in strong_types
+        and re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", fields[-1])
+        and fields[-1] != "rustbox_flex_main"
+        and not fields[-1].startswith("rust_")
+        and not compiler_math.fullmatch(fields[-1])
+    })
+    if not symbols:
+        raise RuntimeError("Flex archive exports no namespaceable C symbols")
+    destination = build / "src/.rustbox-flex"
+    destination.mkdir(parents=True, exist_ok=True)
+    mapped = destination / rust_library.name
+    mapping = destination / "symbols.map"
+    mapping.write_text(
+        "".join(f"{symbol} rustbox_flex_private_{symbol}\n" for symbol in symbols),
+        encoding="utf-8",
+    )
+    shutil.copy2(rust_library, mapped)
+    subprocess.run(["objcopy", "--redefine-syms", str(mapping), str(mapped)], check=True)
+    mapped_definitions = defined_symbols(mapped)
+    definitions = set(mapped_definitions)
+    if mapped_definitions.count("rustbox_flex_main") != 1:
+        raise RuntimeError("Flex symbol isolation damaged its public entrypoint")
+    if any(symbol in definitions for symbol in symbols):
+        raise RuntimeError("Flex symbol isolation left an unprefixed definition")
+    if any(f"rustbox_flex_private_{symbol}" not in definitions for symbol in symbols):
+        raise RuntimeError("Flex symbol isolation lost a definition")
     return mapped, symbols
 
 
@@ -1333,6 +1378,9 @@ extern int rustbox_find_main(int, char **);
 extern int rustbox_xargs_main(int, char **);
 extern int rustbox_locate_main(int, char **);
 extern int rustbox_updatedb_main(int, char **);
+extern int rustbox_flex_main(int, char **);
+extern int rustbox_flexpp_main(int, char **);
+extern int rustbox_lex_main(int, char **);
 """
         + declarations
         + """
@@ -1553,6 +1601,12 @@ int main(int argc, char **argv)
         return rustbox_locate_main(argc, argv);
     if (!force_util_linux && strcmp(name, "updatedb") == 0)
         return rustbox_updatedb_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "flex") == 0)
+        return rustbox_flex_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "flex++") == 0)
+        return rustbox_flexpp_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "lex") == 0)
+        return rustbox_lex_main(argc, argv);
 """
         + selections
         + """
@@ -1594,6 +1648,7 @@ def main() -> int:
     parser.add_argument("--tar-c-residue-directory", type=Path, required=True)
     parser.add_argument("--findutils-rust-library", type=Path, required=True)
     parser.add_argument("--findutils-c-residue-directory", type=Path, required=True)
+    parser.add_argument("--flex-rust-library", type=Path, required=True)
     parser.add_argument("--link-report", type=Path, required=True)
     parser.add_argument("--reuse-isolation", action="store_true")
     args = parser.parse_args()
@@ -1627,6 +1682,7 @@ def main() -> int:
         for name in ("human.o", "printf-args.o", "printf-parse.o", "vasnprintf.o")
     ]
     findutils_rust_library = args.findutils_rust_library.resolve()
+    flex_rust_library = args.flex_rust_library.resolve()
     findutils_residue_directory = args.findutils_c_residue_directory.resolve()
     findutils_residue_objects = [
         findutils_residue_directory / name
@@ -1718,6 +1774,7 @@ def main() -> int:
         attr_rust_library, acl_rust_library, lz4_rust_library, less_rust_library,
         gzip_rust_library, xz_rust_library, zstd_rust_library, tar_rust_library,
         ncurses_rust_library, findutils_rust_library,
+        flex_rust_library,
         gzip_support_library,
         *tar_residue_objects,
         *findutils_residue_objects,
@@ -1762,6 +1819,8 @@ def main() -> int:
     ncurses_library_index = len(libraries) - 1
     libraries.append(findutils_rust_library)
     findutils_library_index = len(libraries) - 1
+    libraries.append(flex_rust_library)
+    flex_library_index = len(libraries) - 1
     source_library_hashes = {str(path.relative_to(repository)): sha256(path) for path in libraries}
     source_library_hashes[str(m4_support_library)] = sha256(m4_support_library)
     source_library_hashes[str(gzip_support_library)] = sha256(gzip_support_library)
@@ -1837,6 +1896,9 @@ def main() -> int:
         "rustbox_locate_main",
         "rustbox_frcode_main",
         "rustbox_updatedb_main",
+        "rustbox_flex_main",
+        "rustbox_flexpp_main",
+        "rustbox_lex_main",
     })
 
     cached_report = None
@@ -2016,6 +2078,15 @@ def main() -> int:
         )
     libraries[findutils_library_index] = mapped_findutils_rust
 
+    if cached_report:
+        mapped_flex_rust = build / "src/.rustbox-flex" / libraries[flex_library_index].name
+        flex_symbols = cached_report["flex_namespaced_symbols"]
+    else:
+        mapped_flex_rust, flex_symbols = namespace_flex_library(
+            libraries[flex_library_index], build
+        )
+    libraries[flex_library_index] = mapped_flex_rust
+
     canonical_dispatch_symbols = set(defined_symbols(build / "src/coreutils-coreutils.o"))
     if cached_report:
         namespaced_symbols = cached_report["namespaced_symbols"]
@@ -2156,6 +2227,18 @@ def main() -> int:
     )
     if defined_symbols(findutils_updatedb_object) != ["rustbox_updatedb_main"]:
         raise RuntimeError("GNU Findutils updatedb bridge exports the wrong symbols")
+    flex_frontends_object = build / "src/.rustbox-flex-frontends.o"
+    subprocess.run(
+        ["clang-18", "-std=c11", "-Wall", "-Wextra", "-Werror", "-O2", "-g",
+         "-DRUSTBOX_MULTICALL", "-c", str(repository / "bridges/flex_main.c"),
+         "-o", str(flex_frontends_object)],
+        cwd=build,
+        check=True,
+    )
+    if set(defined_symbols(flex_frontends_object)) != {
+        "rustbox_flexpp_main", "rustbox_lex_main",
+    }:
+        raise RuntimeError("Flex compatibility bridge exports the wrong symbols")
     bridge_archives: dict[str, Path] = {}
     for archive, members in bridge_members.items():
         source = build / archive
@@ -2234,6 +2317,7 @@ def main() -> int:
                 rewritten.append(str(xz_aliases_object))
                 rewritten.append(str(zstd_aliases_object))
                 rewritten.append(str(findutils_updatedb_object))
+                rewritten.append(str(flex_frontends_object))
                 rewritten.extend(str(path) for path in util_inputs)
                 rewritten.append(str(mapped_m4_support))
                 rewritten.append(str(mapped_gzip_support))
@@ -2338,6 +2422,7 @@ def main() -> int:
         "tar_applets": 2,
         "ncurses_public_names": 10,
         "findutils_public_names": 4,
+        "flex_public_names": 3,
         "total_dispatch_names": len(
             set(applets)
             | set(util_dispatch)
@@ -2355,7 +2440,7 @@ def main() -> int:
                "zstd", "zstdmt", "unzstd", "zstdcat", "zstdgrep", "zstdless",
                "tar", "rmt", "captoinfo", "clear", "infocmp", "infotocap",
                "reset", "tabs", "tic", "toe", "tput", "tset",
-               "find", "xargs", "locate", "updatedb"}
+               "find", "xargs", "locate", "updatedb", "flex", "flex++", "lex"}
         ),
         "excluded": ["chcon", "runcon"],
         "public_name_precedence": {"kill": "GNU Coreutils", "util-linux-kill": "util-linux"},
@@ -2386,6 +2471,7 @@ def main() -> int:
         "tar_namespaced_symbols": tar_symbols,
         "ncurses_namespaced_symbols": ncurses_symbols,
         "findutils_namespaced_symbols": findutils_symbols,
+        "flex_namespaced_symbols": flex_symbols,
         "tar_acl_imports": tar_acl_imports,
         "coreutils_acl_imports": coreutils_acl_imports,
         "diffutils_error_bridge": {
@@ -2437,6 +2523,11 @@ def main() -> int:
             "symbols": ["rustbox_updatedb_main"],
             "public_names": ["updatedb"],
         },
+        "flex_frontend_bridge": {
+            "object": str(flex_frontends_object.relative_to(build)),
+            "symbols": ["rustbox_flexpp_main", "rustbox_lex_main"],
+            "public_names": ["flex++", "lex"],
+        },
         "binary": {
             "bytes": output.stat().st_size,
             "sha256": sha256(output),
@@ -2472,6 +2563,7 @@ def main() -> int:
         "tar_applets": 2,
         "ncurses_public_names": 10,
         "findutils_public_names": 4,
+        "flex_public_names": 3,
         "output": str(output),
     }))
     return 0

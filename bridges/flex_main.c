@@ -12,13 +12,6 @@ extern int rustbox_flex_main(int, char **);
 #define RUSTBOX_ENTRY
 #endif
 
-static const char *
-base_name(const char *path)
-{
-	const char *slash = strrchr(path, '/');
-	return slash == NULL ? path : slash + 1;
-}
-
 RUSTBOX_ENTRY int
 rustbox_lex_main(int argc, char **argv)
 {
@@ -46,6 +39,13 @@ rustbox_flexpp_main(int argc, char **argv)
 }
 
 #ifndef RUSTBOX_MULTICALL
+static const char *
+base_name(const char *path)
+{
+	const char *slash = strrchr(path, '/');
+	return slash == NULL ? path : slash + 1;
+}
+
 int
 main(int argc, char **argv)
 {

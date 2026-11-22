@@ -28,4 +28,5 @@ RUSTBOX_TOOL_IMAGE=rustbox-gawk:2026-11-22 \
     --ncurses-report-directory /work/work/analysis/ncurses-6.6/multicall \
     --findutils-report-directory /work/work/analysis/findutils-4.10.0/multicall \
     --gawk-report-directory /work/work/analysis/gawk-5.4.0/multicall \
+    --flex-report-directory /work/work/analysis/flex-2.6.4/multicall \
     --output /work/evidence/rustbox-multicall.json
