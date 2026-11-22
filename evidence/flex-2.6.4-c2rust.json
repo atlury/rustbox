@@ -1,0 +1,289 @@
+{
+  "deferred_post_applet_hardening": {
+    "no_std": false,
+    "raw_pointers_and_unsafe_are_inventory_only": true,
+    "size_optimization": false,
+    "static_zero_dt_needed": false
+  },
+  "entrypoints": [
+    "rustbox_flex_main",
+    "rustbox_flexpp_main",
+    "rustbox_lex_main"
+  ],
+  "hybrid": {
+    "bytes": 4944952,
+    "dynamic_dependencies": [
+      "libm.so.6",
+      "libgcc_s.so.1",
+      "libc.so.6",
+      "ld-linux-x86-64.so.2"
+    ],
+    "sha256": "7de54dac3d347ca4aeb25933138ac973a88d64f42308ac9a8be8f55ddccde96e",
+    "stripped_bytes": 765600,
+    "stripped_sha256": "f589c3a296c9b7dbd24c026e237a2f4a3661328ac71b5feac1d09e71f8cc3724"
+  },
+  "normalization_evidence_sha256": "8fe2fc4ba4ca2ae6e2f8984f7107f5486f15260c05315386088e63360d601d41",
+  "recorded_at": "2026-11-23",
+  "release": "2.6.4",
+  "schema": 1,
+  "status": "complete stable reachable translation without holes; hybrid parity verified",
+  "translation": {
+    "archive": {
+      "bytes": 24254402,
+      "sha256": "edb751afc4ae042655c57eb6aedd8afc1cbd15bdd1ea4185aada669914561371"
+    },
+    "compile_commands": 21,
+    "compile_database_sha256": "b7f0469604b47408f15b46de89a089e417fa898a2bd982a92fe8937817c1ad35",
+    "generated_sources": 1,
+    "modernization": {
+      "changed_files": 22,
+      "hand_edited_generated_rust": false,
+      "ledger_sha256": "aabba41bdfffb881446e29330bb5c29c3a7ebb47502d6f063db8fd490d11071f",
+      "rewrites": {
+        "as_va_list_rewrites": 23,
+        "va_arg_rewrites": 1,
+        "va_list_impl_rewrites": 3
+      },
+      "toolchain": "1.99.0"
+    },
+    "normalized_sources": 20,
+    "preserve_unused_functions": true,
+    "production_sources": 21,
+    "raw_audit": {
+      "raw_pointer_type_occurrences": 14292,
+      "rust_bytes": 2280796,
+      "rust_files": 23,
+      "translation_holes": 0,
+      "unsafe_block_occurrences": 12,
+      "unsafe_function_occurrences": 807
+    },
+    "stable": {
+      "raw_pointer_type_occurrences": 14292,
+      "rust_bytes": 2282875,
+      "rust_files": 23,
+      "translation_holes": 0,
+      "unsafe_block_occurrences": 12,
+      "unsafe_function_occurrences": 807
+    },
+    "strict": true,
+    "tool": "c2rust 0.22.1"
+  },
+  "verification": {
+    "canonical_differential": {
+      "cases": 14,
+      "generated_scanners": 10,
+      "passed": 14,
+      "records": [
+        {
+          "kind": "cli",
+          "name": "version",
+          "passed": true,
+          "status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "0b71b9cbea2df209ca42958e8f8c149ee5c090a644b6a2a32b67725506aa353f"
+        },
+        {
+          "kind": "cli",
+          "name": "help",
+          "passed": true,
+          "status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "96ac5c3ca57b9bc8ddabaec47d5906e48c21c5c6c5a61d74a23907791997500b"
+        },
+        {
+          "kind": "cli",
+          "name": "invalid-option",
+          "passed": true,
+          "status": 1,
+          "stderr_sha256": "bdd81b2ebb68807a6000fc4a8b21618cb5cc8b337ef48f400034a0c10d0ce814",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "kind": "cli",
+          "name": "malformed-spec",
+          "passed": true,
+          "status": 1,
+          "stderr_sha256": "f754ae28bc961c4bb80e8fc5af1b570884d8e834d9db351c6b1798812c21007f",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "generated_files": [
+            "lex.yy.c"
+          ],
+          "generator_status": 0,
+          "kind": "generated-scanner",
+          "name": "default-c",
+          "passed": true,
+          "runtime_status": 0,
+          "runtime_stdout_sha256": "c07c33d72281c55801f95a91f4711947a870b2cc5e86b5b6b3cdc33eed2e42a9"
+        },
+        {
+          "generated_files": [
+            "lex.yy.c"
+          ],
+          "generator_status": 0,
+          "kind": "generated-scanner",
+          "name": "full-table",
+          "passed": true,
+          "runtime_status": 0,
+          "runtime_stdout_sha256": "c07c33d72281c55801f95a91f4711947a870b2cc5e86b5b6b3cdc33eed2e42a9"
+        },
+        {
+          "generated_files": [
+            "lex.yy.c"
+          ],
+          "generator_status": 0,
+          "kind": "generated-scanner",
+          "name": "fast-table",
+          "passed": true,
+          "runtime_status": 0,
+          "runtime_stdout_sha256": "c07c33d72281c55801f95a91f4711947a870b2cc5e86b5b6b3cdc33eed2e42a9"
+        },
+        {
+          "generated_files": [
+            "lex.yy.c"
+          ],
+          "generator_status": 0,
+          "kind": "generated-scanner",
+          "name": "compressed-meta",
+          "passed": true,
+          "runtime_status": 0,
+          "runtime_stdout_sha256": "c07c33d72281c55801f95a91f4711947a870b2cc5e86b5b6b3cdc33eed2e42a9"
+        },
+        {
+          "generated_files": [
+            "lex.yy.c"
+          ],
+          "generator_status": 0,
+          "kind": "generated-scanner",
+          "name": "lex-compat",
+          "passed": true,
+          "runtime_status": 0,
+          "runtime_stdout_sha256": "c07c33d72281c55801f95a91f4711947a870b2cc5e86b5b6b3cdc33eed2e42a9"
+        },
+        {
+          "generated_files": [
+            "lex.yy.c"
+          ],
+          "generator_status": 0,
+          "kind": "generated-scanner",
+          "name": "reentrant",
+          "passed": true,
+          "runtime_status": 0,
+          "runtime_stdout_sha256": "c07c33d72281c55801f95a91f4711947a870b2cc5e86b5b6b3cdc33eed2e42a9"
+        },
+        {
+          "generated_files": [
+            "lex.foo.c"
+          ],
+          "generator_status": 0,
+          "kind": "generated-scanner",
+          "name": "prefix",
+          "passed": true,
+          "runtime_status": 0,
+          "runtime_stdout_sha256": "c07c33d72281c55801f95a91f4711947a870b2cc5e86b5b6b3cdc33eed2e42a9"
+        },
+        {
+          "generated_files": [
+            "scanner.c",
+            "scanner.h"
+          ],
+          "generator_status": 0,
+          "kind": "generated-scanner",
+          "name": "explicit-output-header",
+          "passed": true,
+          "runtime_status": 0,
+          "runtime_stdout_sha256": "c07c33d72281c55801f95a91f4711947a870b2cc5e86b5b6b3cdc33eed2e42a9"
+        },
+        {
+          "generated_files": [],
+          "generator_status": 0,
+          "kind": "generated-scanner",
+          "name": "stdout",
+          "passed": true,
+          "runtime_status": 0,
+          "runtime_stdout_sha256": "c07c33d72281c55801f95a91f4711947a870b2cc5e86b5b6b3cdc33eed2e42a9"
+        },
+        {
+          "generated_files": [
+            "lex.yy.cc"
+          ],
+          "generator_status": 0,
+          "kind": "generated-scanner",
+          "name": "cxx",
+          "passed": true,
+          "runtime_status": 0,
+          "runtime_stdout_sha256": "c07c33d72281c55801f95a91f4711947a870b2cc5e86b5b6b3cdc33eed2e42a9"
+        }
+      ],
+      "schema": 1
+    },
+    "compatibility_frontends": {
+      "cases": 3,
+      "passed": 3,
+      "records": [
+        {
+          "generated_files": [
+            "lex.yy.cc"
+          ],
+          "name": "flex++",
+          "passed": true,
+          "runtime_status": 0,
+          "status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "generated_files": [
+            "lex.yy.c"
+          ],
+          "name": "lex",
+          "passed": true,
+          "runtime_status": 0,
+          "status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "generated_files": [
+            "lex.yy.c"
+          ],
+          "name": "lex-raw-filename",
+          "passed": true,
+          "runtime_status": null,
+          "status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "schema": 1
+    },
+    "upstream_suite": {
+      "error": 0,
+      "fail": 0,
+      "log_sha256": "03f734ff5bd9345e44ae6e231a73ee253040cfe48b0e0f4adb465dbbb1b69aaa",
+      "pass": 114,
+      "skip": 0,
+      "total": 114,
+      "xfail": 0,
+      "xpass": 0
+    },
+    "valgrind": {
+      "help": {
+        "errors": 0,
+        "log_sha256": "cd903ac80022c684e8a017a6672d08332102925e867490e14e9ba31116e3d378",
+        "lost_bytes": 0
+      },
+      "invalid": {
+        "errors": 0,
+        "log_sha256": "f29e04a3eee70ff3778278f1736c1872bbc402c2197881d2a82b1114e144ea27",
+        "lost_bytes": 0
+      },
+      "version": {
+        "errors": 0,
+        "log_sha256": "36f8f56a1c887f8efde05da8947f2d576e8f5bdd7788b2b68578387ac0358e0f",
+        "lost_bytes": 0
+      }
+    }
+  }
+}

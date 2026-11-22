@@ -1171,9 +1171,12 @@ Library-only checkpoints (outside the active utility order):
      pass.  Deterministic one-file normalization preserves another 228
      upstream test passes and all 14 canonical differential cases, exports the
      multicall entrypoint, and removes the three canonical early-exit `scanopt`
-     leaks with zero lost bytes on help, version, and error paths.  Translation,
-     multicall integration, and Rustbox's native `lex` compatibility frontend
-     remain.
+     leaks with zero lost bytes on help, version, and error paths.  Its exact
+     21-source production closure has a complete no-hole stable translation.
+     The translated hybrid passes all 114 upstream tests, all 14 generator and
+     scanner comparisons, three native `flex++`/`lex` frontend comparisons,
+     and leak-free help, version, and error exits.  Unified multicall
+     integration remains.
    - [ ] Bison — `bison`, `yacc` (C/C++ skeletons only; Java output is out of
      scope).
 4. Network-facing suites:
