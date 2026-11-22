@@ -12,12 +12,19 @@ RUSTBOX_TOOL_IMAGE=rustbox-gawk:2026-11-22 \
     output=/work/build/gawk-5.4.0-hybrid
     binary=$output/gawk
     canonical=/rustbox-gawk/normalized-clang
+    residue=$output/c-residue
 
     cd "$crate"
-    RUSTUP_TOOLCHAIN=1.99.0 cargo build --release --locked
+    RUSTUP_TOOLCHAIN=1.99.0 cargo build --release --locked \
+      >/work/work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/core-cargo-hybrid.log 2>&1
+    rm -rf "$residue"
+    mkdir -p "$residue"
+    cp "$canonical/support/pma.o" "$residue/pma.o"
+    nm -g --defined-only "$residue/pma.o" >"$residue/pma.symbols"
     clang-18 -O2 -g -ffunction-sections -fdata-sections \
       -Wl,--gc-sections -Wl,-Map,"$binary.map" -o "$binary" \
-      /work/bridges/gawk_main.c /work/bridges/grep_abi.c "$archive" \
+      /work/bridges/gawk_main.c /work/bridges/grep_abi.c \
+      "$residue/pma.o" "$archive" \
       -lreadline -lmpfr -lgmp -ldl -lpthread -lm
     ln -sfn gawk "$output/awk"
 

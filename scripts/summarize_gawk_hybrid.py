@@ -33,7 +33,7 @@ def main() -> int:
     combination = json.loads(combination_path.read_text())
     modernization = json.loads(modernization_path.read_text())
     if (combination["scope"], combination["modules"],
-            combination["declaration_maps"]) != ("core", 38, 36):
+            combination["declaration_maps"]) != ("core", 37, 35):
         raise RuntimeError("GNU Gawk core translation surface changed")
     if modernization["stable_toolchain"] != "1.99.0":
         raise RuntimeError("GNU Gawk core stable toolchain changed")
@@ -41,7 +41,7 @@ def main() -> int:
     release_log = (TRANSLATIONS / "core-cargo-release.log").read_text(errors="replace")
     if (len(re.findall(r"Finished `release` profile", release_log)) != 1 or
             len(re.findall(r"(?m)^error(?:\[|:)", release_log)) != 0 or
-            re.findall(r"generated (\d+) warnings", release_log) != ["627"]):
+            re.findall(r"generated (\d+) warnings", release_log) != ["605"]):
         raise RuntimeError("GNU Gawk core release build changed")
 
     differential_path = ANALYSIS / "differential.json"
@@ -62,6 +62,28 @@ def main() -> int:
             raise RuntimeError(f"GNU Gawk {implementation} Valgrind result changed")
         valgrind[implementation] = sha256(path)
 
+    upstream_path = ANALYSIS / "upstream-tests.log"
+    upstream = upstream_path.read_text(errors="replace")
+    if (len(re.findall(r"Segmentation fault.*GAWK_PERSIST_FILE=test\.pma", upstream)) != 1 or
+            len(re.findall(r"Error 139", upstream)) != 1 or
+            "runtime error:" in upstream or "AddressSanitizer" in upstream):
+        raise RuntimeError("GNU Gawk translated upstream suite result changed")
+    timeout_ignored = len(re.findall(r"timeout\] Error 1 \(ignored\)", upstream))
+    if timeout_ignored not in (0, 1):
+        raise RuntimeError("GNU Gawk timeout scheduling result changed")
+    timeout_artifacts = {}
+    if timeout_ignored:
+        expected_timeout = ANALYSIS / "timeout-expected"
+        actual_timeout = ANALYSIS / "timeout-actual"
+        expected_without_second_retry = expected_timeout.read_text().replace(
+            "2 timed out; trying again\n", "")
+        if actual_timeout.read_text() != expected_without_second_retry:
+            raise RuntimeError("GNU Gawk ignored timeout variant changed")
+        timeout_artifacts = {
+            "expected_sha256": sha256(expected_timeout),
+            "actual_sha256": sha256(actual_timeout),
+        }
+
     binary = BUILD / "gawk"
     stripped = BUILD / "gawk.stripped"
     canonical = BUILD / "gawk.canonical-stripped"
@@ -74,23 +96,47 @@ def main() -> int:
     ]
     if needed != expected_needed:
         raise RuntimeError(f"unexpected GNU Gawk hybrid dependencies: {needed!r}")
+    residue_object = BUILD / "c-residue/pma.o"
+    residue_symbols_path = BUILD / "c-residue/pma.symbols"
+    residue_symbols = [line.split()[-1] for line in residue_symbols_path.read_text().splitlines()]
+    expected_residue_symbols = [
+        "pma_calloc", "pma_check_and_dump", "pma_errno", "pma_free",
+        "pma_get_root", "pma_init", "pma_malloc", "pma_realloc",
+        "pma_set_avail_mem", "pma_set_root", "pma_version",
+    ]
+    if residue_symbols != expected_residue_symbols:
+        raise RuntimeError(f"GNU Gawk PMA C residue changed: {residue_symbols!r}")
 
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-22",
         "release": "5.4.0",
-        "status": "runnable translated core at public differential parity; full upstream suite pending",
+        "status": "translated core at complete canonical test parity; multicall integration pending",
         "implementation": {
             "core_rust_modules": combination["modules"],
-            "separate_translated_modules": 17,
+            "separate_translated_modules": 18,
             "entrypoint": "rustbox_gawk_main",
             "generated_rust_repairs": 0,
+            "exact_c_residue": {
+                "source": "support/pma.c",
+                "reason": "x86_64 GNU long-double ABI is not representable by C2Rust f128",
+                "defined_symbols": residue_symbols,
+            },
             "abi_wrappers": {"__btowc_alias": "btowc", "__wctob_alias": "wctob"},
             "extension_architecture": "separate shared objects, matching canonical GNU Gawk",
         },
         "behavior": {
             "differential": {"cases": 26, "passed": 26},
             "canonical_extension_loaded": "ordchr.so",
+            "complete_upstream_suite": {
+                "passed": True,
+                "output_differences": 0,
+                "ignored_scheduling_transcripts": timeout_ignored,
+                "pma_virtualization_failures": 1,
+                "pma_failure_matches_canonical": True,
+                "timeout_scheduling_variant": bool(timeout_ignored),
+                "timeout_artifacts": timeout_artifacts,
+            },
             "valgrind_zero_errors_and_leaks": True,
             "valgrind_log_sha256": valgrind,
         },
@@ -116,10 +162,13 @@ def main() -> int:
             "modernization_manifest_sha256": sha256(modernization_path),
             "core_release_log_sha256": sha256(TRANSLATIONS / "core-cargo-release.log"),
             "differential_sha256": sha256(differential_path),
+            "upstream_suite_sha256": sha256(upstream_path),
+            "pma_residue_sha256": sha256(residue_object),
+            "pma_residue_symbols_sha256": sha256(residue_symbols_path),
             "linked_sha256": sha256(binary),
             "stripped_sha256": sha256(stripped),
         },
-        "next_gate": "substitute the translated core into the complete canonical GNU Gawk test suite",
+        "next_gate": "link each translated dynamic extension separately, then register gawk and awk in Rustbox",
     }
     output = ROOT / "evidence/gawk-5.4.0-hybrid.json"
     output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")

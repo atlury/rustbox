@@ -82,7 +82,8 @@ def main() -> int:
             for rust in sorted((batch / "src").rglob("*.rs")):
                 relative = rust.relative_to(batch / "src")
                 if args.scope == "core" and (
-                        "extension" in relative.parts or "awklib" in relative.parts):
+                        "extension" in relative.parts or "awklib" in relative.parts or
+                        relative == Path("support/pma.rs")):
                     continue
                 module = rust.stem
                 if module in modules:
@@ -96,7 +97,7 @@ def main() -> int:
                     declaration_maps += 1
                 modules[module] = {"batch": batch.name, "sha256": sha256(target),
                                    "declaration_map": has_map}
-        expected = (55, 53) if args.scope == "complete" else (38, 36)
+        expected = (55, 53) if args.scope == "complete" else (37, 35)
         if (len(modules), declaration_maps) != expected:
             raise RuntimeError("combined GNU Gawk module coverage changed")
         missing = sorted(name for name, data in modules.items() if not data["declaration_map"])

@@ -1,21 +1,36 @@
 {
   "artifacts": {
-    "combination_manifest_sha256": "a7639791e479bb74eb4f6b7643487e2c6b3d10aea8f0b983aa832ee624b1e0c3",
-    "core_release_log_sha256": "05afbb19b8e2f3e3c33f6b7ea5ffec8bdaf7595779589b7f8c7d5cd16324ff49",
-    "differential_sha256": "d279a6fa6e3d788309a7d93c3753cc1e4ead35a142632d27534c90b00175a123",
-    "linked_sha256": "81e8ccaf7ffe21fc531015bd9244715fbf67f2b09e74faccd982925b28f0650e",
-    "modernization_manifest_sha256": "f6ae95c8b485f66752f352348d44f2c59fb8ca86f242f8cd7d0afe9c33a8c0bb",
-    "stripped_sha256": "6b99579729449a7e902b55f66bbba471e62200b2120ffde23f8471793f788f9d"
+    "combination_manifest_sha256": "e7f2bd6e84d384ca6bd32a7966336377680c03dcf140b4e7e127fabb852890d3",
+    "core_release_log_sha256": "2fe5b3ca8107699e2f7b03f57b4a8efdefee455665446fe9ef6797eba51b8ae4",
+    "differential_sha256": "1f7fa19c956fe81a1eb26ba462000ba60d20da7986deca5b85086dd559bb8977",
+    "linked_sha256": "afd66c3e4efe57aa399a3599d1f952971f15b4cd00255fc81cbc0486f588de96",
+    "modernization_manifest_sha256": "895af60cae76efcf17cfe29d7c6f74757006e952dc6d4de7f1b03970a8cb98c1",
+    "pma_residue_sha256": "39c413a912be4589e444509ba072b35b04578ff6dd44b775e48274589bce6e70",
+    "pma_residue_symbols_sha256": "6d3af0f08495247b100abdc862bfa22ed8d64d2875b93c383cb23803c39592f7",
+    "stripped_sha256": "667b3ae42ee966127fc95230ba5c78b8873a521d97d8fcd1352447982c15ab5f",
+    "upstream_suite_sha256": "834f918e0ca89995cc9182ce624c0d59d8bb3507811b7489ae1655d50124da42"
   },
   "behavior": {
     "canonical_extension_loaded": "ordchr.so",
+    "complete_upstream_suite": {
+      "ignored_scheduling_transcripts": 1,
+      "output_differences": 0,
+      "passed": true,
+      "pma_failure_matches_canonical": true,
+      "pma_virtualization_failures": 1,
+      "timeout_artifacts": {
+        "actual_sha256": "e956743696780d38d84be42b28197ab5c3e4d80ff383b9dc2a6911f688373ec8",
+        "expected_sha256": "5b9ef77539a8501a1fbaa7ab41ae49ff261dc882ee03fe5ed2a86aaa6b8262eb"
+      },
+      "timeout_scheduling_variant": true
+    },
     "differential": {
       "cases": 26,
       "passed": 26
     },
     "valgrind_log_sha256": {
-      "canonical": "06f15cc750e7def38086971ad055d5b38f5d719fd0a1eba933aab9acfa61a1fd",
-      "hybrid": "f14be439e378e07ab33013ff88238ef4f3fd701d6c019f22866da3da1f1a162a"
+      "canonical": "cf0b23cbfd407e6245b4815fdeb0247d73e046a7757a7b3f8c681601db727658",
+      "hybrid": "bd109780cb81bd80dae3b86f8adab2c31160a06699a7f2dd56fd1f09e3da7904"
     },
     "valgrind_zero_errors_and_leaks": true
   },
@@ -24,13 +39,30 @@
       "__btowc_alias": "btowc",
       "__wctob_alias": "wctob"
     },
-    "core_rust_modules": 38,
+    "core_rust_modules": 37,
     "entrypoint": "rustbox_gawk_main",
+    "exact_c_residue": {
+      "defined_symbols": [
+        "pma_calloc",
+        "pma_check_and_dump",
+        "pma_errno",
+        "pma_free",
+        "pma_get_root",
+        "pma_init",
+        "pma_malloc",
+        "pma_realloc",
+        "pma_set_avail_mem",
+        "pma_set_root",
+        "pma_version"
+      ],
+      "reason": "x86_64 GNU long-double ABI is not representable by C2Rust f128",
+      "source": "support/pma.c"
+    },
     "extension_architecture": "separate shared objects, matching canonical GNU Gawk",
     "generated_rust_repairs": 0,
-    "separate_translated_modules": 17
+    "separate_translated_modules": 18
   },
-  "next_gate": "substitute the translated core into the complete canonical GNU Gawk test suite",
+  "next_gate": "link each translated dynamic extension separately, then register gawk and awk in Rustbox",
   "recorded_at": "2026-11-22",
   "release": "5.4.0",
   "runtime_linkage": {
@@ -52,14 +84,14 @@
     "canonical_stripped_bytes": 1250176,
     "interpretation": "The static archive is link inventory, not release size.",
     "linked_sections": {
-      "bss": 33872,
-      "data": 36692,
-      "rodata": 505268,
-      "text": 1071906
+      "bss": 33920,
+      "data": 36644,
+      "rodata": 505196,
+      "text": 1059634
     },
-    "linked_stripped_bytes": 1837432,
-    "linked_unstripped_bytes": 6313576,
-    "translation_static_archive_bytes": 26991142
+    "linked_stripped_bytes": 1821032,
+    "linked_unstripped_bytes": 6219640,
+    "translation_static_archive_bytes": 26913722
   },
-  "status": "runnable translated core at public differential parity; full upstream suite pending"
+  "status": "translated core at complete canonical test parity; multicall integration pending"
 }

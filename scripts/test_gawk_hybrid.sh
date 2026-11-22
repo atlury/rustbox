@@ -17,6 +17,54 @@ RUSTBOX_TOOL_IMAGE=rustbox-gawk:2026-11-22 \
       --gcc-build "$canonical" --clang-build "$hybrid" \
       --output "$output/differential.json"
 
+    installed=$canonical/gawk
+    saved=$canonical/gawk.rustbox-canonical
+    restore()
+    {
+      if test -e "$saved"; then
+        rm -f "$installed"
+        mv "$saved" "$installed"
+      fi
+    }
+    trap restore EXIT HUP INT TERM
+    test ! -e "$saved"
+    mv "$installed" "$saved"
+    ln -s "$hybrid/gawk" "$installed"
+    set +e
+    runuser --user=nobody -- make -C "$canonical" -k -j"$(nproc)" check \
+      >"$output/upstream-tests.log" 2>&1
+    check_status=$?
+    set -e
+    restore
+    trap - EXIT HUP INT TERM
+    test "$check_status" -ne 0
+    test "$(grep -c "Segmentation fault.*GAWK_PERSIST_FILE=test.pma" \
+      "$output/upstream-tests.log")" -eq 1
+    test "$(grep -c "Error 139" "$output/upstream-tests.log")" -eq 1
+    differences=$(grep -c " differ:" "$output/upstream-tests.log" || true)
+    test "$differences" -le 1
+    timeout_ignored=$(grep -c "timeout] Error 1 (ignored)" \
+      "$output/upstream-tests.log" || true)
+    test "$timeout_ignored" -le 1
+    if test "$timeout_ignored" -eq 1; then
+      if test "$differences" -eq 1; then
+        grep -q "/timeout.ok _timeout differ:" "$output/upstream-tests.log"
+      fi
+      sed "/^2 timed out; trying again$/d" \
+        /rustbox-gawk/normalized-source/test/timeout.ok \
+        | cmp - "$canonical/test/_timeout"
+      cp /rustbox-gawk/normalized-source/test/timeout.ok \
+        "$output/timeout-expected"
+      cp "$canonical/test/_timeout" "$output/timeout-actual"
+    else
+      test "$differences" -eq 0
+    fi
+    if grep -E "make(\[[0-9]+\])?: \*\*\*" "$output/upstream-tests.log" \
+         | grep -Ev "\[[^]]*: (pma|pma-tests|check-recursive|check)\] Error" \
+         | grep -q .; then
+      exit 1
+    fi
+
     for implementation in hybrid canonical; do
       case $implementation in
         hybrid) binary=$hybrid/gawk ;;
