@@ -14,7 +14,7 @@ RUSTBOX_TOOL_IMAGE=rustbox-tar:2026-11-22 \
     canonical=/work/work/analysis/tar-1.35/normalized/clang-root
     rm -rf "$output" "$evidence" "$artifacts"
     mkdir -p "$output/usr/bin" "$output/usr/libexec" "$output/c-residue" \
-      "$evidence" "$artifacts"
+      "$evidence" "$artifacts/c-residue"
 
     cd "$crate"
     cargo build --release
@@ -43,6 +43,8 @@ RUSTBOX_TOOL_IMAGE=rustbox-tar:2026-11-22 \
       size -A "$binary" > "$evidence/$utility.sections"
       nm -g --defined-only "$binary" > "$evidence/$utility.symbols"
     done
+    cp "$output/c-residue/"*.o "$artifacts/c-residue/"
+    cp "$output/c-residue/manifest.json" "$artifacts/c-residue/manifest.json"
     cp "$output/c-residue/manifest.json" "$evidence/c-residue.json"
 
     python3 /work/tests/tar-oracle-differential.py \

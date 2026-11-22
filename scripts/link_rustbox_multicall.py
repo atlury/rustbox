@@ -12,7 +12,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-ISOLATION_CACHE_VERSION = 3
+ISOLATION_CACHE_VERSION = 4
 
 
 def sha256(path: Path) -> str:
@@ -39,6 +39,21 @@ def defined_symbols(path: Path) -> list[str]:
         stdout=subprocess.PIPE,
     ).stdout
     return [line.split()[-1] for line in output.splitlines() if line.split()]
+
+
+def undefined_symbols(path: Path) -> set[str]:
+    output = subprocess.run(
+        ["nm", "-u", str(path)],
+        check=True,
+        text=True,
+        stdout=subprocess.PIPE,
+    ).stdout
+    return {
+        fields[-1]
+        for line in output.splitlines()
+        if (fields := line.split())
+        and re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", fields[-1])
+    }
 
 
 def namespace_duplicate_c_symbols(
@@ -752,6 +767,99 @@ def namespace_zstd_library(
     return mapped, symbols
 
 
+def namespace_tar_inputs(
+    rust_library: Path,
+    residue_objects: list[Path],
+    acl_symbols: list[str],
+    build: Path,
+) -> tuple[Path, list[Path], list[str], list[str]]:
+    """Keep GNU tar private and bind its ACL calls to translated libacl."""
+    public = {"rustbox_tar_main", "rustbox_rmt_main"}
+    strong_types = {"B", "C", "D", "G", "R", "S", "T"}
+    compiler_math = re.compile(
+        r"^(?:cbrt|ceil|copysign|fabs|fdim|floor|fma|fmax|fmaximum|fmin|fminimum|fmod|rint|round|sqrt|trunc)(?:f|f16|f128)?$"
+    )
+    inputs = [rust_library, *residue_objects]
+    symbols: set[str] = set()
+    for source in inputs:
+        output = subprocess.run(
+            ["nm", "-g", "--defined-only", str(source)],
+            check=True, text=True, stdout=subprocess.PIPE,
+        ).stdout
+        symbols.update(
+            fields[-1]
+            for line in output.splitlines()
+            if len(fields := line.split()) >= 3
+            and fields[-2] in strong_types
+            and (
+                re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", fields[-1])
+                or re.fullmatch(r"_[a-z][A-Za-z0-9_]*", fields[-1])
+                or fields[-1] == "__xargmatch_internal"
+            )
+            and fields[-1] not in public
+            and not fields[-1].startswith("rust_")
+            and not compiler_math.fullmatch(fields[-1])
+        )
+    if not symbols:
+        raise RuntimeError("GNU tar inputs export no namespaceable C symbols")
+
+    acl_imports = sorted(
+        (
+            set().union(*(undefined_symbols(source) for source in inputs))
+            & set(acl_symbols)
+        )
+        - symbols
+    )
+    expected_acl_imports = {
+        "acl_delete_def_file", "acl_entries", "acl_free", "acl_from_mode",
+        "acl_from_text", "acl_get_entry", "acl_get_fd", "acl_get_file",
+        "acl_get_tag_type", "acl_set_fd", "acl_set_file", "acl_to_any_text",
+        "acl_to_text",
+    }
+    if set(acl_imports) != expected_acl_imports:
+        raise RuntimeError(
+            f"GNU tar ACL import closure changed: {acl_imports}"
+        )
+
+    destination = build / "src/.rustbox-tar"
+    destination.mkdir(parents=True, exist_ok=True)
+    mapping = destination / "symbols.map"
+    private_symbols = sorted(symbols)
+    mapping.write_text(
+        "".join(
+            [f"{symbol} rustbox_tar_private_{symbol}\n" for symbol in private_symbols]
+            + [f"{symbol} rustbox_acl_private_{symbol}\n" for symbol in acl_imports]
+        ),
+        encoding="utf-8",
+    )
+    mapped_inputs: list[Path] = []
+    for source in inputs:
+        mapped = destination / source.name
+        shutil.copy2(source, mapped)
+        subprocess.run(["objcopy", "--redefine-syms", str(mapping), str(mapped)], check=True)
+        mapped_inputs.append(mapped)
+
+    mapped_library, *mapped_residue = mapped_inputs
+    mapped_definitions = set().union(
+        *(set(defined_symbols(source)) for source in mapped_inputs)
+    )
+    for symbol in public:
+        if sum(defined_symbols(source).count(symbol) for source in mapped_inputs) != 1:
+            raise RuntimeError(f"GNU tar symbol isolation damaged {symbol}")
+    if symbols & mapped_definitions:
+        raise RuntimeError("GNU tar symbol isolation left an unprefixed definition")
+    if any(f"rustbox_tar_private_{symbol}" not in mapped_definitions for symbol in symbols):
+        raise RuntimeError("GNU tar symbol isolation lost a definition")
+    mapped_undefined = set().union(
+        *(undefined_symbols(source) for source in mapped_inputs)
+    )
+    if set(acl_imports) & mapped_undefined:
+        raise RuntimeError("GNU tar retained unbound system libacl imports")
+    if any(f"rustbox_acl_private_{symbol}" not in mapped_undefined for symbol in acl_imports):
+        raise RuntimeError("GNU tar lost a translated libacl import")
+    return mapped_library, mapped_residue, private_symbols, acl_imports
+
+
 def namespace_gzip_libraries(
     rust_library: Path, support_library: Path, build: Path
 ) -> tuple[Path, Path, list[str]]:
@@ -1039,6 +1147,8 @@ extern int rustbox_xzmore_main(int, char **);
 extern int rustbox_zstd_main(int, char **);
 extern int rustbox_zstdgrep_main(int, char **);
 extern int rustbox_zstdless_main(int, char **);
+extern int rustbox_tar_main(int, char **);
+extern int rustbox_rmt_main(int, char **);
 """
         + declarations
         + """
@@ -1227,6 +1337,10 @@ int main(int argc, char **argv)
         return rustbox_zstdgrep_main(argc, argv);
     if (!force_util_linux && strcmp(name, "zstdless") == 0)
         return rustbox_zstdless_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "tar") == 0)
+        return rustbox_tar_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "rmt") == 0)
+        return rustbox_rmt_main(argc, argv);
 """
         + selections
         + """
@@ -1261,6 +1375,8 @@ def main() -> int:
     parser.add_argument("--gzip-support-library", type=Path, required=True)
     parser.add_argument("--xz-rust-library", type=Path, required=True)
     parser.add_argument("--zstd-rust-library", type=Path, required=True)
+    parser.add_argument("--tar-rust-library", type=Path, required=True)
+    parser.add_argument("--tar-c-residue-directory", type=Path, required=True)
     parser.add_argument("--link-report", type=Path, required=True)
     parser.add_argument("--reuse-isolation", action="store_true")
     args = parser.parse_args()
@@ -1284,6 +1400,12 @@ def main() -> int:
     gzip_support_library = args.gzip_support_library.resolve()
     xz_rust_library = args.xz_rust_library.resolve()
     zstd_rust_library = args.zstd_rust_library.resolve()
+    tar_rust_library = args.tar_rust_library.resolve()
+    tar_residue_directory = args.tar_c_residue_directory.resolve()
+    tar_residue_objects = [
+        tar_residue_directory / name
+        for name in ("human.o", "printf-args.o", "printf-parse.o", "vasnprintf.o")
+    ]
     makefile = build / "Makefile"
     if not makefile.is_file():
         raise RuntimeError("canonical Coreutils build is missing")
@@ -1367,8 +1489,9 @@ def main() -> int:
         file_rust_library, patch_rust_library, sed_rust_library,
         diffutils_rust_library, grep_rust_library, bc_rust_library,
         attr_rust_library, acl_rust_library, lz4_rust_library, less_rust_library,
-        gzip_rust_library, xz_rust_library, zstd_rust_library,
+        gzip_rust_library, xz_rust_library, zstd_rust_library, tar_rust_library,
         gzip_support_library,
+        *tar_residue_objects,
     ):
         if not path.is_file():
             raise RuntimeError(f"multicall input is missing: {path}")
@@ -1389,6 +1512,8 @@ def main() -> int:
     bc_library_index = len(libraries) - 1
     libraries.append(attr_rust_library)
     attr_library_index = len(libraries) - 1
+    libraries.append(tar_rust_library)
+    tar_library_index = len(libraries) - 1
     libraries.append(acl_rust_library)
     acl_library_index = len(libraries) - 1
     libraries.append(lz4_rust_library)
@@ -1404,6 +1529,9 @@ def main() -> int:
     source_library_hashes = {str(path.relative_to(repository)): sha256(path) for path in libraries}
     source_library_hashes[str(m4_support_library)] = sha256(m4_support_library)
     source_library_hashes[str(gzip_support_library)] = sha256(gzip_support_library)
+    source_library_hashes.update(
+        {str(path.relative_to(repository)): sha256(path) for path in tar_residue_objects}
+    )
     expected_symbols.update(f"rustbox_{symbol}_main" for symbol in util_dispatch.values())
     expected_symbols.add("rustbox_m4_main")
     expected_symbols.update({
@@ -1454,6 +1582,8 @@ def main() -> int:
         "rustbox_zstd_main",
         "rustbox_zstdgrep_main",
         "rustbox_zstdless_main",
+        "rustbox_tar_main",
+        "rustbox_rmt_main",
     })
 
     cached_report = None
@@ -1538,6 +1668,19 @@ def main() -> int:
     libraries[acl_library_index] = mapped_acl_rust
 
     if cached_report:
+        mapped_tar_rust = build / "src/.rustbox-tar" / libraries[tar_library_index].name
+        mapped_tar_residue = [
+            build / "src/.rustbox-tar" / path.name for path in tar_residue_objects
+        ]
+        tar_symbols = cached_report["tar_namespaced_symbols"]
+        tar_acl_imports = cached_report["tar_acl_imports"]
+    else:
+        mapped_tar_rust, mapped_tar_residue, tar_symbols, tar_acl_imports = namespace_tar_inputs(
+            libraries[tar_library_index], tar_residue_objects, acl_symbols, build
+        )
+    libraries[tar_library_index] = mapped_tar_rust
+
+    if cached_report:
         mapped_lz4_rust = build / "src/.rustbox-lz4" / libraries[lz4_library_index].name
         lz4_symbols = cached_report["lz4_namespaced_symbols"]
     else:
@@ -1618,7 +1761,10 @@ def main() -> int:
             repository, util_build, rust_defined
         )
 
-    cached_paths = [*libraries, mapped_m4_support, mapped_gzip_support, *util_inputs]
+    cached_paths = [
+        *libraries, *mapped_tar_residue,
+        mapped_m4_support, mapped_gzip_support, *util_inputs,
+    ]
     missing_cached = [str(path) for path in cached_paths if not path.is_file()]
     if missing_cached:
         raise RuntimeError(f"isolated linker inputs are missing: {missing_cached}")
@@ -1730,6 +1876,32 @@ def main() -> int:
     namespaced_coreutils_symbols = defined_symbols(namespaced_coreutils)
     if "crc32" in namespaced_coreutils_symbols or "rustbox_coreutils_gnulib_crc32" not in namespaced_coreutils_symbols:
         raise RuntimeError("failed to isolate Coreutils' gnulib crc32 symbol")
+    coreutils_acl_imports = sorted(
+        (undefined_symbols(canonical_coreutils) & set(acl_symbols))
+        - set(defined_symbols(canonical_coreutils))
+    )
+    if not coreutils_acl_imports:
+        raise RuntimeError("canonical Coreutils exposes no translated ACL imports")
+    coreutils_acl_map = build / "lib/.rustbox-coreutils-acl.map"
+    coreutils_acl_map.write_text(
+        "".join(
+            f"{symbol} rustbox_acl_private_{symbol}\n"
+            for symbol in coreutils_acl_imports
+        ),
+        encoding="utf-8",
+    )
+    subprocess.run(
+        ["objcopy", "--redefine-syms", str(coreutils_acl_map), str(namespaced_coreutils)],
+        check=True,
+    )
+    rebound_coreutils_undefined = undefined_symbols(namespaced_coreutils)
+    if set(coreutils_acl_imports) & rebound_coreutils_undefined:
+        raise RuntimeError("Coreutils retained unbound system libacl imports")
+    if any(
+        f"rustbox_acl_private_{symbol}" not in rebound_coreutils_undefined
+        for symbol in coreutils_acl_imports
+    ):
+        raise RuntimeError("Coreutils lost a translated libacl import")
 
     dependencies = make_assignment(makefile, "single_binary_deps").split()
     for archive in removed:
@@ -1741,6 +1913,7 @@ def main() -> int:
         if dependency in removed:
             if not inserted:
                 rewritten.extend(str(path) for path in libraries)
+                rewritten.extend(str(path) for path in mapped_tar_residue)
                 rewritten.extend(str(path) for path in typed_bridge_objects)
                 rewritten.append(str(sed_abi_object))
                 rewritten.append(str(diffutils_error_object))
@@ -1755,6 +1928,8 @@ def main() -> int:
                 inserted = True
             if dependency in bridge_archives:
                 rewritten.append(str(bridge_archives[dependency]))
+        elif dependency == "-lacl":
+            continue
         elif dependency == "lib/libcoreutils.a":
             rewritten.append(str(namespaced_coreutils))
         else:
@@ -1793,7 +1968,8 @@ def main() -> int:
         "src_coreutils_OBJECTS=" + str(dispatcher_object) + " " + str(renamed_dispatch),
         "src_libsinglebin_false_a_ldadd=$(src_true_LDADD) -ldl -lpthread -lm -lrt -lutil -ltinfo "
         "-lbz2 -llz -llzma -lseccomp -lz -lzstd -lattr -lpcre2-8",
-        "src_coreutils_LDADD=$(single_binary_deps) $(LDADD) $(single_binary_libs) "
+        "src_coreutils_LDADD=$(single_binary_deps) "
+        "$(filter-out -lacl,$(LDADD) $(single_binary_libs)) "
         + " ".join(util_link_libraries),
         "src_coreutils_LINK=" + link,
     ]
@@ -1812,6 +1988,13 @@ def main() -> int:
         os.replace(saved_coreutils_archive, canonical_coreutils)
     if not output.is_file() or not link_map.is_file():
         raise RuntimeError("combined Coreutils multicall was not produced")
+    dynamic = subprocess.run(
+        ["readelf", "-d", str(output)],
+        check=True, text=True, stdout=subprocess.PIPE,
+    ).stdout
+    dynamic_needed = sorted(set(re.findall(r"Shared library: \[([^]]+)\]", dynamic)))
+    if any(name.startswith("libacl.so") for name in dynamic_needed):
+        raise RuntimeError("combined Rustbox still depends on system libacl")
     symbols = defined_symbols(output)
     for symbol in expected_symbols:
         if symbols.count(symbol) != 1:
@@ -1838,6 +2021,7 @@ def main() -> int:
         "gzip_public_names": 14,
         "xz_public_names": 23,
         "zstd_public_names": 6,
+        "tar_applets": 2,
         "total_dispatch_names": len(
             set(applets)
             | set(util_dispatch)
@@ -1852,7 +2036,8 @@ def main() -> int:
                "lzmadec", "lzmainfo", "xzdiff", "xzcmp", "xzegrep", "xzfgrep",
                "xzgrep", "xzless", "xzmore", "lzdiff", "lzcmp", "lzgrep",
                "lzegrep", "lzfgrep", "lzmore", "lzless",
-               "zstd", "zstdmt", "unzstd", "zstdcat", "zstdgrep", "zstdless"}
+               "zstd", "zstdmt", "unzstd", "zstdcat", "zstdgrep", "zstdless",
+               "tar", "rmt"}
         ),
         "excluded": ["chcon", "runcon"],
         "public_name_precedence": {"kill": "GNU Coreutils", "util-linux-kill": "util-linux"},
@@ -1879,6 +2064,9 @@ def main() -> int:
         "gzip_namespaced_symbols": gzip_symbols,
         "xz_namespaced_symbols": xz_symbols,
         "zstd_namespaced_symbols": zstd_symbols,
+        "tar_namespaced_symbols": tar_symbols,
+        "tar_acl_imports": tar_acl_imports,
+        "coreutils_acl_imports": coreutils_acl_imports,
         "diffutils_error_bridge": {
             "object": str(diffutils_error_object.relative_to(build)),
             "symbols": ["rustbox_diffutils_error"],
@@ -1923,6 +2111,7 @@ def main() -> int:
             "bytes": output.stat().st_size,
             "sha256": sha256(output),
             "link_map_sha256": sha256(link_map),
+            "dynamic_needed": dynamic_needed,
         },
     }
     args.link_report.parent.mkdir(parents=True, exist_ok=True)
@@ -1949,6 +2138,7 @@ def main() -> int:
         "gzip_public_names": 14,
         "xz_public_names": 23,
         "zstd_public_names": 6,
+        "tar_applets": 2,
         "output": str(output),
     }))
     return 0

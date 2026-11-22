@@ -79,7 +79,14 @@ def main() -> int:
         cases.append({"label": label, "name": name, "arguments": arguments,
                       "passed": passed, "gcc": serial(left), "clang": serial(right)})
         if not passed:
-            raise RuntimeError(f"GNU tar compiler differential mismatch: {label}")
+            raise RuntimeError(
+                f"GNU tar compiler differential mismatch: {label}: "
+                f"canonical={serial(left)}, translated={serial(right)}, "
+                f"canonical_stdout={left['stdout']!r}, "
+                f"translated_stdout={right['stdout']!r}, "
+                f"canonical_stderr={left['stderr']!r}, "
+                f"translated_stderr={right['stderr']!r}"
+            )
         return left, right
 
     compare("tar-help", "tar", ["--help"])
@@ -144,7 +151,12 @@ def main() -> int:
                           "arguments": [option], "passed": passed,
                           "gcc": serial(outputs[0]), "clang": serial(outputs[1])})
             if not passed:
-                raise RuntimeError(f"GNU tar {suffix} compressor personality differs")
+                raise RuntimeError(
+                    f"GNU tar {suffix} compressor personality differs: "
+                    f"canonical={serial(outputs[0])}, translated={serial(outputs[1])}, "
+                    f"canonical_stderr={outputs[0]['stderr']!r}, "
+                    f"translated_stderr={outputs[1]['stderr']!r}"
+                )
             compare(f"tar-list-{suffix}", "tar", ["-tf", "-"], stdin=outputs[0]["stdout"])
 
     output = {
