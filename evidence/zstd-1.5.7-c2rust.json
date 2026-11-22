@@ -105,18 +105,5 @@
     ],
     "preserve_unused_functions": true,
     "version": "0.22.1"
-  },
-  "upstream_lean_reuse": {
-    "limitation": "does not provide the canonical compressor or complete zstd CLI",
-    "policy": "reuse applicable Lean components later without replacing canonical zstd as the oracle",
-    "repository": "kim-em/lean-zstd",
-    "usable_scope": [
-      "decompression",
-      "frame parsing",
-      "FSE",
-      "Huffman",
-      "XXHash",
-      "proofs"
-    ]
   }
 }

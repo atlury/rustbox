@@ -145,12 +145,6 @@ def main() -> int:
             "decision": "retain and inventory the ordering barrier instead of weakening canonical semantics",
         },
         "dependencies": {"rust_crates": ["libc"]},
-        "upstream_lean_reuse": {
-            "repository": "kim-em/lean-zstd",
-            "usable_scope": ["decompression", "frame parsing", "FSE", "Huffman", "XXHash", "proofs"],
-            "limitation": "does not provide the canonical compressor or complete zstd CLI",
-            "policy": "reuse applicable Lean components later without replacing canonical zstd as the oracle",
-        },
         "hardening": {
             "raw_pointers_and_unsafe_are_inventory_only": True,
             "later_order": [

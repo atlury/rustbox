@@ -61,6 +61,7 @@ scoring, and correctness gates.
 | Less 710 | 2 | 2 | 2 | 2 |
 | XZ Utils 5.8.4 | 23 | 23 | 23 | 23 |
 | zstd 1.5.7 | 6 | 6 | 6 | 6 |
+| GNU tar 1.35 | 2 | 2 | 0 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -837,9 +838,7 @@ only on libc: optional zlib, liblzma, and liblz4 foreign-format backends are
 deliberately disabled because Rustbox already owns those formats and must not
 gain external runtime dependencies.  Both Valgrind directions report zero
 errors and no definite, indirect, or possible loss.  Reproducible details are
-in `evidence/zstd-1.5.7-oracle.json`.  `kim-em/lean-zstd` is recorded as a
-reusable pure-Lean decompression/proof source, while canonical C remains the
-oracle for compression and the complete CLI.  The five-tool production audit
+in `evidence/zstd-1.5.7-oracle.json`.  The five-tool production audit
 found no demonstrated canonical defect.  Deterministic normalization changes
 only `programs/zstdcli.c` to export `rustbox_zstd_main`, and zstd's documented
 `ZSTD_NO_ASM=1` configuration selects its portable C Huffman implementation in
@@ -864,6 +863,24 @@ native frontends.  The unified executable passes all 668 help/version checks,
 all 14,022 pre-existing batch regressions, the 17-case zstd differential, and
 both zstd Valgrind directions; combined evidence is in
 `evidence/rustbox-multicall.json`.
+
+GNU tar 1.35 is pinned to Sergey Poznyakoff's canonical signed release.  Its
+exact 197-source production closure comprises 24 tar units, GNU `rmt`, six tar
+support units, and 166 configured gnulib units (67,232 lines); no configured
+support source is omitted.  GCC, Clang, and ASan/UBSan builds each run all 224
+upstream tests: 202 pass, 20 are upstream-declared skips, and the only two
+failures require Docker capabilities for trusted xattrs and binary capability
+restoration.  Both huge sparse-file cases, including storage above 8 GiB and
+listing above 2^33 bytes, pass in all three builds.  GCC and Clang agree on all
+18 command, protocol, archive, extraction-tree, and compression-personality
+comparisons.  Valgrind reports no lost allocation for create, list, or `rmt`;
+extract records the exact canonical process-exit cleanup baseline of 152 direct
+and one indirect byte, which the multicall integration must improve rather
+than inherit.  The canonical oracle uses libacl and external compressors only
+as test fixtures; the final executable must reuse Rustbox's integrated ACL and
+compression engines and add no external runtime dependency.  Reproducible
+evidence is in `evidence/tar-1.35-oracle.json`; the five-tool audit and
+deterministic two-entrypoint normalization are the next gate.
 
 ## Work queue after util-linux
 

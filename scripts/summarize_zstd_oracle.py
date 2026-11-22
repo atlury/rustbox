@@ -176,11 +176,6 @@ def main() -> int:
             "threads": "posix", "external_zlib": False, "external_lzma": False,
             "external_lz4": False, "selinux": False, "systemd": False,
         },
-        "upstream_lean_reuse": {
-            "repository": "https://github.com/kim-em/lean-zstd",
-            "usable_scope": "pure Lean decompression, frame/block/FSE/Huffman/XXHash and proofs",
-            "limitation": "compression and the complete CLI still require the canonical C oracle",
-        },
         "next_gate": "static audit and deterministic normalization of the exact 45-source closure",
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)

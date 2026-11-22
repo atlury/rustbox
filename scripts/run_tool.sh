@@ -27,6 +27,7 @@ exec docker run --rm \
   --volume rustbox-less-710:/rustbox-less \
   --volume rustbox-xz-5.8.4:/rustbox-xz \
   --volume rustbox-zstd-1.5.7:/rustbox-zstd \
+  --volume rustbox-tar-1.35:/rustbox-tar \
   --workdir /work \
   "$tool_image" "$@"
 
