@@ -957,7 +957,16 @@ has no parser error.  The remaining reports are explicit translation and
 ownership inventory, including analyzer paths disproved by control-flow
 macros, initialization macros, configured invariants, and the zero-loss
 public Valgrind paths.
-Deterministic normalization of the locked 264-source closure is next.
+Deterministic normalization changes exactly eight files: seven installed-tool
+sources export multicall entrypoints while retaining standalone wrappers, and
+all three compiled-number byte-assembly sites promote the input byte to
+`unsigned` before shifting.  The latter removes the canonical signed-shift UB
+without changing the intended bit pattern.  GCC and Clang each pass all 27
+canonical comparisons, both complete installed terminfo trees are
+byte-identical, ASan/UBSan installation is clean, and all ten normalized native
+personalities pass Valgrind.  Reproducible evidence is in
+`evidence/ncurses-6.6-normalization.json`; strict per-unit C2Rust probing is
+next.
 
 ## Work queue after util-linux
 
@@ -1022,8 +1031,9 @@ Library-only checkpoints (outside the active utility order):
      `clear`, `infocmp`, `infotocap`, `tabs`, `tic`, `toe`, `tput`, `tset`,
      `reset`, and generated `ncursesw6-config`; shared/static `ncursesw`,
      `panelw`, `formw`, `menuw`, `tinfow`, and `ticw` are included.  Static
-     Static audit is complete with one sanitizer-confirmed signed-shift defect;
-     normalization, translation, and multicall integration remain.
+     Static audit and deterministic normalization are complete; the one
+     sanitizer-confirmed signed-shift defect is removed with byte-identical
+     terminfo output.  Translation and multicall integration remain.
    - [x] Less 710 — canonical `less` and private-runtime `lessecho`; full
      translation, standalone hybrid parity, and unified multicall integration
      are complete.  Upstream removed the standalone

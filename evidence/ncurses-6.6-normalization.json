@@ -1,0 +1,253 @@
+{
+  "behavior": {
+    "canonical_differentials": {
+      "clang": {
+        "cases": 27,
+        "complete_installed_terminfo_tree_byte_identical": true,
+        "passed": 27,
+        "sha256": "7bac55f6ba09624dc592ab508dae13f83df1f1229fbbb83920623293846bcad5"
+      },
+      "gcc": {
+        "cases": 27,
+        "complete_installed_terminfo_tree_byte_identical": true,
+        "passed": 27,
+        "sha256": "843634a290fb1defe40f39de2e5eb0c9e864c7771ad536d70b35df755457c670"
+      }
+    },
+    "sanitizer": {
+      "address_errors": 0,
+      "canonical_read_entry_signed_shift_removed": true,
+      "install_log_sha256": "8d1875ced0d7d215689ef15a7ff466f71f247b85fae0661b265b561c3930f540",
+      "undefined_behavior_diagnostics": 0
+    },
+    "valgrind": {
+      "captoinfo": {
+        "all_heap_freed": true,
+        "allocated_bytes": 4096,
+        "allocations": 1,
+        "errors": 0,
+        "frees": 1,
+        "log_sha256": "bea873b90e488f5f7b909fb5fcd602d14a6b450c3bbf514ca43df99c5d05f5b7"
+      },
+      "clear": {
+        "all_heap_freed": true,
+        "allocated_bytes": 4096,
+        "allocations": 1,
+        "errors": 0,
+        "frees": 1,
+        "log_sha256": "ebbb32c99cd781a76f4bb27824b113696c58f8b8ed4584ae8efe74bac0422073"
+      },
+      "infocmp": {
+        "all_heap_freed": false,
+        "allocated_bytes": 4136,
+        "allocations": 2,
+        "errors": 0,
+        "frees": 1,
+        "log_sha256": "24d474f040fff51dae3e17671692a1c8fc5c8876e2523521950653eeaefbcd00"
+      },
+      "infotocap": {
+        "all_heap_freed": true,
+        "allocated_bytes": 4096,
+        "allocations": 1,
+        "errors": 0,
+        "frees": 1,
+        "log_sha256": "f0f873092290934b909a1a2f2332dd626de5e52586122d0054ce3d6ec7481aa0"
+      },
+      "reset": {
+        "all_heap_freed": true,
+        "allocated_bytes": 4096,
+        "allocations": 1,
+        "errors": 0,
+        "frees": 1,
+        "log_sha256": "68bd152cf18f8863b731aa8936cf51f0a3d11a7f3d971e337539f6bdcb37bc8b"
+      },
+      "tabs": {
+        "all_heap_freed": true,
+        "allocated_bytes": 4096,
+        "allocations": 1,
+        "errors": 0,
+        "frees": 1,
+        "log_sha256": "5e3e935c1b52c559fdcd59e4e888362b0fbead06270eaa490ac0a938c60fbcd5"
+      },
+      "tic": {
+        "all_heap_freed": true,
+        "allocated_bytes": 4096,
+        "allocations": 1,
+        "errors": 0,
+        "frees": 1,
+        "log_sha256": "8cf13cd8c5f1d1b4a79c5bc591679798eebdaf5c2ab7623fc3991d0d3c59afed"
+      },
+      "toe": {
+        "all_heap_freed": true,
+        "allocated_bytes": 4096,
+        "allocations": 1,
+        "errors": 0,
+        "frees": 1,
+        "log_sha256": "ddf07a1b3319063d462d7ae3e509112aa30a92d01fffe74d16a47648a975ff59"
+      },
+      "tput": {
+        "all_heap_freed": true,
+        "allocated_bytes": 4096,
+        "allocations": 1,
+        "errors": 0,
+        "frees": 1,
+        "log_sha256": "47991c10deedc39138fbe74ec89a8df48d50a28ab52591290a00f40eb5e417e7"
+      },
+      "tset": {
+        "all_heap_freed": true,
+        "allocated_bytes": 4096,
+        "allocations": 1,
+        "errors": 0,
+        "frees": 1,
+        "log_sha256": "440a0c94cf070975d666b6b156d5939696c1b6f8fea9071f36dc3bd781662894"
+      }
+    }
+  },
+  "compilers": {
+    "clang": {
+      "compile_actions": 515,
+      "compile_database_sha256": "086ab7d482b88d9e52f04dd3a5ec721f8d491f5703a7bc69c968a322708b001c",
+      "header_check_log_sha256": "70fc1a9ff8e9c6c8bc480d26f7c2939b5ac867875f9cf84ae8c6eed57a7fde3d",
+      "header_checks": 33,
+      "production_sources": 264
+    },
+    "gcc": {
+      "compile_actions": 514,
+      "compile_database_sha256": "95e04108fb0ed49401bcbe9d9c68d892d60fd42209fbb1cafe1c1ce0170cf575",
+      "header_check_log_sha256": "f6f6bdc7d4bcf5e7ec61406ac444ece5311cd4ea4f9029c3867e6aadf89d7e64",
+      "header_checks": 33,
+      "production_sources": 264
+    },
+    "sanitizer": {
+      "compile_actions": 514,
+      "compile_database_sha256": "21c3fe67337c5ea3c049a665a5b741d75190d845961c25c67f013a7dd9c4990b",
+      "header_check_log_sha256": "558523825ab977f3506fcbf4892d491e29d748b4c282009221794eea2f80410b",
+      "header_checks": 33,
+      "production_sources": 264
+    }
+  },
+  "manifest": {
+    "canonical_archive_sha256": "355b4cbbed880b0381a04c46617b7656e362585d52e9cf84a67e2009b749ff11",
+    "canonical_tree_sha256": "29913d2e2768567db8cd9bc5acee08c1aae77e4094768c638989e3a3c63a5a23",
+    "changed_sources": [
+      "ncurses/tinfo/read_entry.c",
+      "progs/clear.c",
+      "progs/infocmp.c",
+      "progs/tabs.c",
+      "progs/tic.c",
+      "progs/toe.c",
+      "progs/tput.c",
+      "progs/tset.c"
+    ],
+    "conditional": "RUSTBOX_MULTICALL",
+    "engine": "exact deterministic source rewrite",
+    "entrypoints": 7,
+    "normalized_tree_sha256": "23f530e5e86b88e8e9161bbd887baec4d45a15a91211ae442fd82546b0c5ceda",
+    "public_native_names": 10,
+    "release": "6.6",
+    "schema": 1,
+    "transformations": [
+      {
+        "canonical_sha256": "4f0f7e636f26f7ddfa3e472df52784ddf29c4a5d6ece232b44e04afd94ab3601",
+        "normalized_sha256": "84387b139ab8b69ef870ed6ee3c984eafbce51ed35f5d6198204891e59926685",
+        "operation": "export rustbox_clear_main and retain a conditional standalone main wrapper",
+        "source": "progs/clear.c"
+      },
+      {
+        "canonical_sha256": "2b9371c18bdb2ecc833e5a2d8c8caba1bf1f8da4f0965a72c1d69ba203615b1a",
+        "normalized_sha256": "4b9d8bcd3cfbac77559c999fa0058aa72c1c35c584ffae18e3504cbb6b6dcefc",
+        "operation": "export rustbox_infocmp_main and retain a conditional standalone main wrapper",
+        "source": "progs/infocmp.c"
+      },
+      {
+        "canonical_sha256": "5fe2399f1d4b6cb2869d83efe330623e355eb578de74db73e043beeeddbb6ec9",
+        "normalized_sha256": "1fb57f01e20cd81a04064c784594cd314316c3944452a2e9fe46956efade3a04",
+        "operation": "export rustbox_tabs_main and retain a conditional standalone main wrapper",
+        "source": "progs/tabs.c"
+      },
+      {
+        "canonical_sha256": "69117d4604305867f4870d1e0896ee6920e4027c535a1780346d4510b75d9919",
+        "normalized_sha256": "fe268924b88d5973e125bf6e8f4a799458152e74375ef7512ebad23c2c1047a8",
+        "operation": "export rustbox_tic_main and retain a conditional standalone main wrapper",
+        "source": "progs/tic.c"
+      },
+      {
+        "canonical_sha256": "04dd8b20d4d1e07637567dfc92bb3d02dbd2745753213fb4791fa4746d4fa604",
+        "normalized_sha256": "f38a49efced550c8d0a1f54a0a2fd9399f127d841277b9d8a03184ffaf149013",
+        "operation": "export rustbox_toe_main and retain a conditional standalone main wrapper",
+        "source": "progs/toe.c"
+      },
+      {
+        "canonical_sha256": "37ff1022978fb51dacaf210867314b67b0141e7f13a8eb3e45580191a78785fa",
+        "normalized_sha256": "0779915ecd6dd7ae20bf34142847a18d601978652020d501aa86a0c87c618574",
+        "operation": "export rustbox_tput_main and retain a conditional standalone main wrapper",
+        "source": "progs/tput.c"
+      },
+      {
+        "canonical_sha256": "0ec4be284393f138508206f9c1a0c5a983e16ce59a815cc8fc939712fd7acbf6",
+        "normalized_sha256": "276c97609498c8827d753f106c94bccdf66b85e6886ea3f9fe1460f74584e197",
+        "operation": "export rustbox_tset_main and retain a conditional standalone main wrapper",
+        "source": "progs/tset.c"
+      },
+      {
+        "canonical_sha256": "161ede223dbabeb8137c4ddcbca7f6fe8d4edea2f4d0bcb9132c6f0c990cbd56",
+        "normalized_sha256": "de0421ef7b1c9c26c9b6ea6898c0861ac28cb0612cf9ae790e7416055aaf233c",
+        "operation": "promote each input byte to unsigned before left shift",
+        "semantic_basis": "the input is unsigned char; unsigned promotion preserves the intended bit pattern while removing signed-left-shift UB",
+        "sites": 3,
+        "source": "ncurses/tinfo/read_entry.c"
+      }
+    ]
+  },
+  "manifest_sha256": "0119aa2377f4264a43e2a0e348ed622ba598dd42e17d5385b6ab53caf2229882",
+  "next_gate": "strict per-unit C2Rust translation probe of the exact normalized closure",
+  "recorded_at": "2026-11-22",
+  "release": "6.6",
+  "schema": 1,
+  "scope": {
+    "changed_source_count": 8,
+    "changed_sources": [
+      "ncurses/tinfo/read_entry.c",
+      "progs/clear.c",
+      "progs/infocmp.c",
+      "progs/tabs.c",
+      "progs/tic.c",
+      "progs/toe.c",
+      "progs/tput.c",
+      "progs/tset.c"
+    ],
+    "exported_entrypoints": 7,
+    "generated_config_helper": "ncursesw6-config",
+    "native_public_names": [
+      "captoinfo",
+      "clear",
+      "infocmp",
+      "infotocap",
+      "tabs",
+      "tic",
+      "toe",
+      "tput",
+      "tset",
+      "reset"
+    ],
+    "production_closure_sha256": "1bc8f0759a62f64488c020bf908e391bd35cc5b637959b3b837d022696609eaf",
+    "production_sources": 264
+  },
+  "status": "complete deterministic normalization; strict C2Rust probe next",
+  "translation_contract": {
+    "alias_personalities": {
+      "rustbox_tic_main": [
+        "tic",
+        "captoinfo",
+        "infotocap"
+      ],
+      "rustbox_tset_main": [
+        "tset",
+        "reset"
+      ]
+    },
+    "config_helper": "translate the generated shell helper separately; it has no C entrypoint",
+    "multicall_conditional": "RUSTBOX_MULTICALL",
+    "standalone_wrappers_retained": true
+  }
+}
