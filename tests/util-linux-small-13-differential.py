@@ -68,7 +68,7 @@ def invoke(command: list[str], case: Case, root: Path, *, executable: Optional[P
     stdout = process.stdout
     if case.applet == "hwclock":
         stdout = re.sub(br"System Time: [-+0-9.]+", b"System Time: <sampled>", stdout)
-    if case.applet == "lsns" and "NPROCS" in case.arguments:
+    if case.applet == "lsns" and any("NPROCS" in argument for argument in case.arguments):
         # The two programs run sequentially while unrelated harness workers
         # enter and leave the PID namespace.  Preserve the output shape and
         # numeric-field check without comparing two different live samples.

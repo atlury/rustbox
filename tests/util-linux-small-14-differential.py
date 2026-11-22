@@ -10,7 +10,7 @@ import os
 import stat
 import subprocess
 import tempfile
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from pathlib import Path
 from typing import Optional
 
@@ -101,10 +101,26 @@ def main() -> int:
     failures = []
     all_cases = cases()
     for number, case in enumerate(all_cases, 1):
-        with tempfile.TemporaryDirectory(prefix="rustbox-util-c-") as left, tempfile.TemporaryDirectory(prefix="rustbox-util-r-") as right:
-            canonical_name = "vipw" if case.applet == "vigr" else case.applet
-            canonical = invoke([case.applet], case, Path(left), executable=args.canonical_directory / canonical_name)
-            hybrid = invoke([str(args.hybrid), case.applet], case, Path(right))
+        fixture = None
+        effective_case = case
+        if case.applet == "lsfd" and case.arguments[:2] == ("--pid", "1"):
+            fixture = subprocess.Popen(
+                ["/bin/sleep", "30"], stdin=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+            )
+            effective_case = replace(
+                case,
+                arguments=("--pid", str(fixture.pid), *case.arguments[2:]),
+            )
+        try:
+            with tempfile.TemporaryDirectory(prefix="rustbox-util-c-") as left, tempfile.TemporaryDirectory(prefix="rustbox-util-r-") as right:
+                canonical_name = "vipw" if case.applet == "vigr" else case.applet
+                canonical = invoke([case.applet], effective_case, Path(left), executable=args.canonical_directory / canonical_name)
+                hybrid = invoke([str(args.hybrid), case.applet], effective_case, Path(right))
+        finally:
+            if fixture is not None:
+                fixture.terminate()
+                fixture.wait()
         if canonical != hybrid:
             failures.append({"case": number, "applet": case.applet, "arguments": case.arguments, "canonical": canonical, "hybrid": hybrid})
     result = {"schema": 1, "cases": len(all_cases), "passed": len(all_cases) - len(failures), "failures": failures}

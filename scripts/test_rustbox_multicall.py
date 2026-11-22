@@ -81,6 +81,7 @@ def main() -> int:
     diffutils_oracle_dir = args.diffutils_oracle_dir.resolve()
     grep_oracle = args.grep_oracle.resolve()
     gawk_oracle = args.gawk_oracle.resolve()
+    gawkbug_oracle = gawk_oracle.parent / "gawkbug"
     bc_oracle_dir = args.bc_oracle_dir.resolve()
     attr_oracle_dir = args.attr_oracle_dir.resolve()
     acl_oracle_dir = args.acl_oracle_dir.resolve()
@@ -214,6 +215,28 @@ def main() -> int:
             failures.append({"suite": "gawk", "applet": name,
                              "option": "direct-invocation", "oracle": oracle,
                              "actual": direct})
+
+    for option in ("--help", "--version", "--definitely-invalid"):
+        cases += 1
+        oracle = invoke(["gawkbug", option], executable=gawkbug_oracle)
+        for stream in ("stdout", "stderr"):
+            oracle[stream] = oracle[stream].replace(
+                str(gawkbug_oracle).encode(), b"gawkbug"
+            )
+        actual = invoke([str(rustbox), "gawkbug", option])
+        if oracle != actual:
+            failures.append({"suite": "gawk", "applet": "gawkbug", "option": option,
+                             "oracle": oracle, "actual": actual})
+    cases += 1
+    oracle = invoke(["gawkbug", "--help"], executable=gawkbug_oracle)
+    oracle["stdout"] = oracle["stdout"].replace(
+        str(gawkbug_oracle).encode(), b"gawkbug"
+    )
+    direct = invoke(["gawkbug", "--help"], executable=rustbox)
+    if oracle != direct:
+        failures.append({"suite": "gawk", "applet": "gawkbug",
+                         "option": "direct-invocation", "oracle": oracle,
+                         "actual": direct})
 
     bc_names = ["bc", "dc"]
     for name in bc_names:
@@ -386,7 +409,7 @@ def main() -> int:
         "sed_applets": 1,
         "diffutils_applets": len(diffutils_names),
         "grep_applets": len(grep_names),
-        "gawk_public_names": len(gawk_names),
+        "gawk_public_names": len(gawk_names) + 1,
         "bc_applets": len(bc_names),
         "attr_applets": len(attr_names),
         "acl_applets": len(acl_names),

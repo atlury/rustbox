@@ -14,11 +14,15 @@ RUSTBOX_TOOL_IMAGE=rustbox-gawk:2026-11-22 \
     mkdir -p "$stage/extension" "$output"
     ln -s "$binary" "$stage/gawk"
     ln -s "$binary" "$stage/awk"
+    ln -s "$binary" "$stage/gawkbug"
     ln -s "$extensions" "$stage/extension/.libs"
 
     python3 /work/tests/gawk-oracle-differential.py \
       --gcc-build "$canonical" --clang-build "$stage" \
       --output "$output/differential.json"
+    python3 /work/tests/gawkbug-oracle-differential.py \
+      --canonical /rustbox-gawk/normalized-clang/gawkbug \
+      --rustbox "$binary" --output "$output/gawkbug-differential.json"
 
     installed=$canonical/gawk
     saved=$canonical/gawk.rustbox-canonical
@@ -68,7 +72,7 @@ RUSTBOX_TOOL_IMAGE=rustbox-gawk:2026-11-22 \
       exit 1
     fi
 
-    for name in gawk awk; do
+    for name in gawk awk gawkbug; do
       valgrind --leak-check=full --show-leak-kinds=all \
         --errors-for-leak-kinds=definite,indirect,possible --error-exitcode=99 \
         --log-file="$output/valgrind-$name.log" \

@@ -1284,6 +1284,7 @@ extern int rustbox_diff3_main(int, char **);
 extern int rustbox_sdiff_main(int, char **);
 extern int rustbox_grep_main(int, char **);
 extern int rustbox_gawk_main(int, char **);
+extern int rustbox_gawkbug_main(int, char **);
 extern int rustbox_bc_main(int, char **);
 extern int rustbox_dc_main(int, char **);
 extern int rustbox_attr_main(int, char **);
@@ -1439,6 +1440,8 @@ int main(int argc, char **argv)
     }
     if (!force_util_linux && (strcmp(name, "gawk") == 0 || strcmp(name, "awk") == 0))
         return rustbox_gawk_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "gawkbug") == 0)
+        return rustbox_gawkbug_main(argc, argv);
     if (!force_util_linux && strcmp(name, "bc") == 0)
         return rustbox_bc_main(argc, argv);
     if (!force_util_linux && strcmp(name, "dc") == 0)
@@ -1784,6 +1787,7 @@ def main() -> int:
         "rustbox_sdiff_main",
         "rustbox_grep_main",
         "rustbox_gawk_main",
+        "rustbox_gawkbug_main",
         "rustbox_bc_main",
         "rustbox_dc_main",
         "rustbox_attr_main",
@@ -2093,6 +2097,15 @@ def main() -> int:
     )
     if defined_symbols(grep_error_object) != ["rustbox_grep_error"]:
         raise RuntimeError("GNU Grep error ABI bridge exports the wrong symbols")
+    gawkbug_object = build / "src/.rustbox-gawkbug.o"
+    subprocess.run(
+        ["clang-18", "-std=c11", "-Wall", "-Wextra", "-Werror", "-O2", "-g",
+         "-c", str(repository / "bridges/gawkbug.c"), "-o", str(gawkbug_object)],
+        cwd=build,
+        check=True,
+    )
+    if defined_symbols(gawkbug_object) != ["rustbox_gawkbug_main"]:
+        raise RuntimeError("GNU Gawk bug-report frontend exports the wrong symbols")
     gzip_aliases_object = build / "src/.rustbox-gzip-aliases.o"
     subprocess.run(
         ["clang-18", "-O2", "-g", "-c", str(repository / "bridges/gzip_aliases.c"),
@@ -2216,6 +2229,7 @@ def main() -> int:
                 rewritten.append(str(diffutils_error_object))
                 rewritten.append(str(grep_abi_object))
                 rewritten.append(str(grep_error_object))
+                rewritten.append(str(gawkbug_object))
                 rewritten.append(str(gzip_aliases_object))
                 rewritten.append(str(xz_aliases_object))
                 rewritten.append(str(zstd_aliases_object))
@@ -2312,7 +2326,7 @@ def main() -> int:
         "sed_applets": 1,
         "diffutils_applets": 4,
         "grep_applets": 3,
-        "gawk_public_names": 2,
+        "gawk_public_names": 3,
         "bc_applets": 2,
         "attr_applets": 3,
         "acl_applets": 3,
@@ -2328,7 +2342,7 @@ def main() -> int:
             set(applets)
             | set(util_dispatch)
             | {"m4", "pkgconf", "pkg-config", "bomtool", "pccritic", "spdxtool", "file", "patch", "sed",
-               "cmp", "diff", "diff3", "sdiff", "grep", "egrep", "fgrep", "gawk", "awk", "bc", "dc",
+               "cmp", "diff", "diff3", "sdiff", "grep", "egrep", "fgrep", "gawk", "awk", "gawkbug", "bc", "dc",
                "attr", "getfattr", "setfattr", "chacl", "getfacl", "setfacl",
                "lz4", "lz4c", "lz4cat", "unlz4", "less", "lessecho",
                "gzip", "gunzip", "zcat", "uncompress",
@@ -2387,6 +2401,10 @@ def main() -> int:
             "object": str(grep_error_object.relative_to(build)),
             "symbols": ["rustbox_grep_error"],
         },
+        "gawkbug_bridge": {
+            "object": str(gawkbug_object.relative_to(build)),
+            "symbols": ["rustbox_gawkbug_main"],
+        },
         "gzip_alias_bridge": {
             "object": str(gzip_aliases_object.relative_to(build)),
             "symbols": ["rustbox_gunzip_main", "rustbox_zcat_main",
@@ -2442,7 +2460,7 @@ def main() -> int:
         "sed_applets": 1,
         "diffutils_applets": 4,
         "grep_applets": 3,
-        "gawk_public_names": 2,
+        "gawk_public_names": 3,
         "bc_applets": 2,
         "attr_applets": 3,
         "acl_applets": 3,

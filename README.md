@@ -123,7 +123,7 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 352
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 353
 distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, five
 pkgconf names, File, GNU patch, GNU sed, four GNU Diffutils applets, and GNU
 Grep's three public names, GNU bc and dc, attr's three tools, plus chacl,
@@ -131,8 +131,8 @@ getfacl, and setfacl, plus LZ4's four public names, Less and lessecho, and all
 fourteen GNU Gzip interfaces, all 23 XZ Utils names, zstd's six public names,
 GNU `tar` and `rmt`, ten Ncurses names, GNU Findutils' `find`, `xargs`,
 `locate`, and `updatedb`; `kill` is shared and `util-linux-kill` remains
-available explicitly, and GNU Gawk's `gawk` and `awk`).
-It passes all 698
+available explicitly, and GNU Gawk's `gawk`, `awk`, and native `gawkbug`).
+It passes all 702
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
 check, 108-case differential suite, and Valgrind.  Pkgconf also passes all 429
@@ -166,16 +166,17 @@ its shell scripts.  Its native frontends pipe the translated XZ engine into the
 already integrated Diffutils, Grep, Less, and util-linux `more` implementations.
 All 70 public comparisons pass, `.xz` compression is byte-identical,
 decompression matches, and Valgrind reports zero errors and no lost bytes.  The
-GNU Gawk's two integrated names pass all 26 public behavioral comparisons,
-including CSV, MPFR, NUL input, redirection, and translated extension loading.
+GNU Gawk's three integrated names pass all 26 engine behavioral comparisons,
+including CSV, MPFR, NUL input, redirection, and translated extension loading,
+plus six stateful `gawkbug` editor, mail, and recovery workflows.
 The zstd native engine and native `zstdgrep`/`zstdless` frontends pass all 17
 public comparisons, emit byte-identical frames, and free every allocation in
 both Valgrind directions.  GNU tar and rmt add all 18 archive, extraction,
 compression-personality, and remote-protocol comparisons plus four zero-error,
 zero-loss Valgrind paths.  Their ACL calls resolve to Rustbox's translated ACL
 archive, including Coreutils' existing ACL consumers, and `libacl.so` is absent
-from the ELF dependency set.  The resulting 352-name executable is 25,497,056
-bytes unstripped and 12,098,768 bytes stripped; exact hashes and section/link
+from the ELF dependency set.  The resulting 353-name executable is 25,516,392
+bytes unstripped and 12,102,864 bytes stripped; exact hashes and section/link
 evidence are recorded in `evidence/rustbox-multicall.json`.
 `chcon` and `runcon`
 remain absent, and the linked binary has no SELinux or systemd dependency.
@@ -1143,10 +1144,10 @@ Library-only checkpoints (outside the active utility order):
      translation, stable reachable compilation, four-program hybrid parity,
      Valgrind verification, native in-binary `updatedb`, and unified multicall
      integration all pass.
-   - [ ] Gawk 5.4.0 — `gawk` and `awk` have complete no-hole stable
-     translation and unified multicall parity; the installed `gawkbug`
-     reporting frontend remains to be replaced natively before the package is
-     marked complete.
+   - [x] Gawk 5.4.0 — `gawk` and `awk` have complete no-hole stable
+     translation and unified multicall parity; the installed `gawkbug` shell
+     workflow is replaced by a native in-binary frontend with canonical
+     editor, mailer, and dead-letter recovery parity.
    - [ ] Flex — `flex`, `flex++`, `lex`.
    - [ ] Bison — `bison`, `yacc` (C/C++ skeletons only; Java output is out of
      scope).
