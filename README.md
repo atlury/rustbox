@@ -930,6 +930,27 @@ all 672 aggregate dispatcher comparisons, and all 14,022 pre-existing batch
 regressions.  Hybrid and unified evidence is in
 `evidence/tar-1.35-hybrid.json` and `evidence/rustbox-multicall.json`.
 
+Ncurses 6.6 is pinned to Thomas E. Dickey's canonical signed stable release.
+The archive, detached signature, current release-key fingerprint, and all
+1,298 archive members are authenticated before use.  The scoped wide-character
+oracle builds the ten installed native personalities (`captoinfo`, `clear`,
+`infocmp`, `infotocap`, `tabs`, `tic`, `toe`, `tput`, `tset`, and `reset`),
+the generated `ncursesw6-config` helper, and shared/static `ncursesw`, `panelw`,
+`formw`, `menuw`, `tinfow`, and `ticw` libraries.  Ada, the C++ binding,
+interactive demo binaries, GPM, and PCRE2 are outside this utility tranche.
+GCC, Clang, and ASan/UBSan cover the same 264-source production closure; all
+33 scoped header checks pass per compiler, all 27 functional compiler
+differentials pass, and all ten native personalities report zero Valgrind
+errors with no direct or indirect loss on their version paths.
+
+The sanitizer oracle also records one canonical upstream defect during
+terminfo installation: `read_entry.c:92` left-shifts byte value 255 into a
+signed `int`.  Only that exact diagnostic is allowlisted for the canonical
+install; normalization must remove the signed-shift UB while retaining
+byte-identical terminfo output and behavior.  Reproducible evidence is in
+`evidence/ncurses-6.6-oracle.json`.  Static analysis and deterministic
+normalization of the locked 264-source closure are next.
+
 ## Work queue after util-linux
 
 This queue starts only after all in-scope util-linux applets reach canonical
@@ -989,10 +1010,11 @@ Library-only checkpoints (outside the active utility order):
      `zstdgrep`, and `zstdless`; multicall integration is complete.
    - [x] GNU tar 1.35 — `tar`, `rmt`; translated hybrid and unified multicall
      integration at canonical parity with internal translated ACL linkage.
-   - [ ] Ncurses — `captoinfo`, `clear`, `infocmp`, `infotocap`, `tabs`,
-     `tic`, `toe`, `tput`, `tset`, `reset`, and the generated
-     `ncurses*-config` helper; shared `ncurses`, `panel`, `form`, and `menu`
-     libraries are part of the same integration.
+   - [ ] Ncurses 6.6 — signed canonical oracle complete for `captoinfo`,
+     `clear`, `infocmp`, `infotocap`, `tabs`, `tic`, `toe`, `tput`, `tset`,
+     `reset`, and generated `ncursesw6-config`; shared/static `ncursesw`,
+     `panelw`, `formw`, `menuw`, `tinfow`, and `ticw` are included.  Static
+     audit, normalization, translation, and multicall integration remain.
    - [x] Less 710 — canonical `less` and private-runtime `lessecho`; full
      translation, standalone hybrid parity, and unified multicall integration
      are complete.  Upstream removed the standalone
