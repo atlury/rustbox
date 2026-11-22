@@ -106,8 +106,8 @@ def main() -> int:
     duplicates = modernization.get("duplicate_exports_mangled", [])
     if len(modernization["changes"]) != 265 or totals != expected_totals:
         raise RuntimeError(f"Ncurses reusable stable modernization changed: {totals}")
-    if len(duplicates) != 6 or {item["symbol"] for item in duplicates} != {"_nc_progname"}:
-        raise RuntimeError("Ncurses program-global linkage partition changed")
+    if duplicates:
+        raise RuntimeError("Ncurses shared program-global linkage regressed")
 
     check = json.loads(check_path.read_text())
     if not check["build_finished_success"] or check["exit_status"] or check["errors"]:
@@ -152,6 +152,7 @@ def main() -> int:
             "modernization_changes": len(modernization["changes"]),
             "modernization_rewrite_totals": totals,
             "duplicate_program_globals_mangled": duplicates,
+            "one_shared_multicall_progname_definition": True,
             "modernization_manifest_sha256": sha256(modernization_path),
         },
         "dependencies": {"rust_crates": ["c2rust-bitfields", "libc"]},

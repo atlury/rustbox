@@ -150,15 +150,35 @@ def main() -> int:
         values = [run(root, "toe", ["-a"],
                       extra_environment={"TERMINFO": str(database)})
                   for root, database in zip(roots, database_paths)]
-        normalized = [value["stdout"].replace(str(database_paths[index]).encode(), b"DATABASE")
-                      for index, value in enumerate(values)]
-        passed = (values[0]["status"], normalized[0], values[0]["stderr"]) == (
-            values[1]["status"], normalized[1], values[1]["stderr"])
+        normalized = [
+            value["stdout"].replace(
+                str(database_paths[index]).encode(), b"DATABASE"
+            ).splitlines(keepends=True)
+            for index, value in enumerate(values)
+        ]
+        # toe deliberately emits readdir(3) order.  Independently installed or
+        # copied byte-identical terminfo trees can therefore list the same
+        # records in a different order.  Compare the exact line multiset while
+        # retaining strict status and stderr equality.
+        passed = (
+            values[0]["status"], sorted(normalized[0]), values[0]["stderr"]
+        ) == (
+            values[1]["status"], sorted(normalized[1]), values[1]["stderr"]
+        )
         cases.append({"label": "toe-custom-database", "name": "toe",
                       "arguments": ["-a"], "passed": passed,
-                      "gcc": serial(values[0]), "clang": serial(values[1])})
+                      "gcc": serial(values[0]), "clang": serial(values[1]),
+                      "filesystem_order_ignored": True,
+                      "records": len(normalized[0])})
         if not passed:
-            raise RuntimeError("Ncurses toe custom-database output differs")
+            raise RuntimeError(
+                "Ncurses toe custom-database output differs: "
+                f"gcc={serial(values[0])}, hybrid={serial(values[1])}, "
+                f"gcc_records={len(normalized[0])}, "
+                f"hybrid_records={len(normalized[1])}, "
+                f"gcc_stderr={values[0]['stderr']!r}, "
+                f"hybrid_stderr={values[1]['stderr']!r}"
+            )
 
     output = {
         "schema": 1,

@@ -18,18 +18,18 @@
     "compile_commands": 264,
     "compile_database_sha256": "059c1dffe36b838ac2e8e4c53652a1c29aeee652d344bd8c80b3951e2b182d22",
     "native_public_names": 10,
-    "normalization_evidence_sha256": "119a77044779704f9de6c009ac23d702cdc83611bf05a869cfa16a4de1754f12",
-    "normalization_manifest_sha256": "23e09c45ee693b635e40f18b1743bbede0b3aaf25fedc5956d066227ca713ceb",
+    "normalization_evidence_sha256": "0f525abc0c015e446c688a2a182cc3c53944226bded8d30f7ff1b12cf577e1d9",
+    "normalization_manifest_sha256": "e17ed3f3acf1ec81d14128c9835830a4665492b1d08ff7a462236e688386f269",
     "production_sources": 264
   },
   "next_gate": "build the stable archive and link canonical C ABI residue only where required for hybrid parity",
   "raw_translation": {
     "compile_error_macros": 0,
     "panic_macros": 0,
-    "raw_pointer_type_occurrences": 48439,
-    "rust_bytes": 9666799,
+    "raw_pointer_type_occurrences": 48431,
+    "rust_bytes": 9666381,
     "rust_files": 266,
-    "rust_lines": 267070,
+    "rust_lines": 267056,
     "todo_macros": 0,
     "unimplemented_macros": 0,
     "unsafe_block_occurrences": 98,
@@ -51,7 +51,7 @@
       "exit_status": 0,
       "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
       "schema": 1,
-      "stderr_sha256": "1371f576361e3bcb2ec6b87e0d1ddaea5c034e030151f64f2ed9e01c0f7bb221",
+      "stderr_sha256": "59149ee8684e1e024ac0ef3e67be6600a1d31c4e5c342151e37646ec7693560c",
       "toolchain_request": "crate default",
       "warning_codes": {
         "clashing_extern_declarations": 167,
@@ -65,42 +65,11 @@
         "unused_variables": 44
       }
     },
-    "cargo_check_sha256": "3989d985e89552026c6e934bf113c0aba52cc85f91fe04ca2aaea23091255cc2",
+    "cargo_check_sha256": "aa44464aa491cdf66a4c182b36dd113c65fe58e71cd2acc47d2f538a46edce5b",
     "compile_error_macros": 0,
-    "duplicate_program_globals_mangled": [
-      {
-        "kept": "src/progs/clear.rs",
-        "mangled": "src/progs/infocmp.rs",
-        "symbol": "_nc_progname"
-      },
-      {
-        "kept": "src/progs/clear.rs",
-        "mangled": "src/progs/tabs.rs",
-        "symbol": "_nc_progname"
-      },
-      {
-        "kept": "src/progs/clear.rs",
-        "mangled": "src/progs/tic.rs",
-        "symbol": "_nc_progname"
-      },
-      {
-        "kept": "src/progs/clear.rs",
-        "mangled": "src/progs/toe.rs",
-        "symbol": "_nc_progname"
-      },
-      {
-        "kept": "src/progs/clear.rs",
-        "mangled": "src/progs/tput.rs",
-        "symbol": "_nc_progname"
-      },
-      {
-        "kept": "src/progs/clear.rs",
-        "mangled": "src/progs/tset.rs",
-        "symbol": "_nc_progname"
-      }
-    ],
+    "duplicate_program_globals_mangled": [],
     "modernization_changes": 265,
-    "modernization_manifest_sha256": "03c95916e8f4bda57339d6ac2937f5bcc24db03e06e3adef5f32b5ceb974dc20",
+    "modernization_manifest_sha256": "b3be0372d23a95503da64578058108bf7ed431f2c2640986e1e739eef5639883",
     "modernization_rewrite_totals": {
       "as_va_list_rewrites": 287,
       "integer_to_bool_rewrites": 14,
@@ -108,11 +77,12 @@
       "va_list_impl_rewrites": 73,
       "write_volatile_semicolon_rewrites": 1
     },
+    "one_shared_multicall_progname_definition": true,
     "panic_macros": 0,
-    "raw_pointer_type_occurrences": 48439,
-    "rust_bytes": 9702229,
+    "raw_pointer_type_occurrences": 48431,
+    "rust_bytes": 9701889,
     "rust_files": 266,
-    "rust_lines": 270256,
+    "rust_lines": 270248,
     "todo_macros": 0,
     "unimplemented_macros": 0,
     "unsafe_block_occurrences": 98,
@@ -130,8 +100,8 @@
       "commands": 264,
       "failed": 0,
       "passed": 264,
-      "seconds": 166.911,
-      "sha256": "164c086694d17e1273535281846ea0568f55a7e7234781d0e5b02de33f2552f6"
+      "seconds": 185.473,
+      "sha256": "7d6ad4931d301605a108723d4e1de0f832a73f7f7c3f093b749c9ae96e70262d"
     },
     "version": "0.22.1"
   }

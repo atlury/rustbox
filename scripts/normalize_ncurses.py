@@ -22,6 +22,15 @@ ENTRYPOINTS = {
     "progs/tset.c": ("rustbox_tset_main", "int\nmain(int argc, char **argv)\n{"),
 }
 
+PROGNAME_DEFINITIONS = {
+    "progs/infocmp.c": 'const char *_nc_progname = "infocmp";',
+    "progs/tabs.c": "const char *_nc_progname;",
+    "progs/tic.c": 'const char *_nc_progname = "tic";',
+    "progs/toe.c": "const char *_nc_progname;",
+    "progs/tput.c": 'const char *_nc_progname = "tput";',
+    "progs/tset.c": 'const char *_nc_progname = "tset";',
+}
+
 
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -59,6 +68,21 @@ def export_entrypoint(path: Path, exported: str, signature: str) -> None:
         "#endif\n"
     )
     path.write_text(text)
+
+
+def share_multicall_progname(path: Path, definition: str) -> None:
+    """Use clear's one C ABI program-name cell only in the combined crate."""
+    text = path.read_text()
+    if text.count(definition) != 1:
+        raise RuntimeError(f"Ncurses _nc_progname precondition failed: {path}")
+    replacement = (
+        "#ifdef RUSTBOX_MULTICALL\n"
+        "extern const char *_nc_progname;\n"
+        "#else\n"
+        f"{definition}\n"
+        "#endif"
+    )
+    path.write_text(text.replace(definition, replacement))
 
 
 def normalize_byte_shifts(path: Path) -> int:
@@ -170,11 +194,19 @@ def main() -> int:
             path = staged / relative
             canonical_digest = sha256(canonical / relative)
             export_entrypoint(path, exported, signature)
+            if relative in PROGNAME_DEFINITIONS:
+                share_multicall_progname(path, PROGNAME_DEFINITIONS[relative])
             transformations.append({
                 "source": relative,
                 "canonical_sha256": canonical_digest,
                 "normalized_sha256": sha256(path),
-                "operation": f"export {exported} and retain a conditional standalone main wrapper",
+                "operation": (
+                    f"export {exported}, retain a conditional standalone main wrapper"
+                    + (
+                        ", and share clear's _nc_progname cell only in multicall builds"
+                        if relative in PROGNAME_DEFINITIONS else ""
+                    )
+                ),
             })
 
         relative = "ncurses/tinfo/read_entry.c"
@@ -233,6 +265,7 @@ def main() -> int:
             "normalized_tree_sha256": tree_digest(staged),
             "changed_sources": changed,
             "entrypoints": len(ENTRYPOINTS),
+            "shared_multicall_progname_declarations": len(PROGNAME_DEFINITIONS),
             "public_native_names": 10,
             "conditional": "RUSTBOX_MULTICALL",
             "engine": "exact deterministic source rewrite",

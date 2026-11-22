@@ -962,8 +962,11 @@ sources export multicall entrypoints while retaining standalone wrappers, all
 three compiled-number byte-assembly sites promote the input byte to `unsigned`
 before shifting, and four function-local static blank values receive unique
 internal names so C2Rust can hoist them without colliding with ordinary C
-locals.  These changes remove the canonical signed-shift UB and a Rust naming
-restriction without changing values, storage duration, or control flow.  GCC
+locals.  Six program sources also retain their standalone `_nc_progname`
+definition outside multicall builds but share one exported cell inside the
+combined crate, preserving alias-specific diagnostics without duplicate C ABI
+symbols.  These changes remove the canonical signed-shift UB and Rust naming
+restrictions without changing values, storage duration, or control flow.  GCC
 and Clang each pass all 27
 canonical comparisons, both complete installed terminfo trees are
 byte-identical, ASan/UBSan installation is clean, and all ten normalized native
@@ -975,8 +978,14 @@ probing translates all 264/264 normalized production sources with
 errors on stable Rust 1.99.0 after the shared deterministic modernization
 pass.  It required no Ncurses-specific generated-Rust repair.  Complete
 translation, pointer/unsafe, modernization, and compiler evidence is in
-`evidence/ncurses-6.6-c2rust.json`; stable archive linkage and canonical hybrid
-parity are next.
+`evidence/ncurses-6.6-c2rust.json`.  The optimized archive exports each of the
+seven entrypoints exactly once and links all ten native personalities without
+canonical C residue or an external Ncurses library.  All 27 hybrid differential
+cases and all ten Valgrind version paths pass.  `toe -a` compares exact record
+multisets because upstream deliberately emits filesystem `readdir` order;
+running both binaries against the same terminfo tree is byte-identical.
+Reproducible hybrid evidence is in `evidence/ncurses-6.6-hybrid.json`;
+Rustbox multicall integration is next.
 
 ## Work queue after util-linux
 
@@ -1041,9 +1050,10 @@ Library-only checkpoints (outside the active utility order):
      `clear`, `infocmp`, `infotocap`, `tabs`, `tic`, `toe`, `tput`, `tset`,
      `reset`, and generated `ncursesw6-config`; shared/static `ncursesw`,
      `panelw`, `formw`, `menuw`, `tinfow`, and `ticw` are included.  Static
-     Static audit and deterministic normalization are complete; the one
+     audit, deterministic normalization, complete stable translation, and
+     ten-name hybrid parity are complete; the one
      sanitizer-confirmed signed-shift defect is removed with byte-identical
-     terminfo output.  Translation and multicall integration remain.
+     terminfo output.  Only unified multicall integration remains.
    - [x] Less 710 — canonical `less` and private-runtime `lessecho`; full
      translation, standalone hybrid parity, and unified multicall integration
      are complete.  Upstream removed the standalone

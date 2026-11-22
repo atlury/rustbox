@@ -1,0 +1,239 @@
+{
+  "archive": {
+    "bytes": 25062624,
+    "canonical_c_residue_objects": 0,
+    "entrypoint_definitions": {
+      "rustbox_clear_main": 1,
+      "rustbox_infocmp_main": 1,
+      "rustbox_tabs_main": 1,
+      "rustbox_tic_main": 1,
+      "rustbox_toe_main": 1,
+      "rustbox_tput_main": 1,
+      "rustbox_tset_main": 1
+    },
+    "sections_sha256": "22c533564074d8404c88ef5d056c3bcd3a1931a67abb70e83bfba063a0f71088",
+    "sha256": "ea368da66151d2217604544b72bbef827f2982e0ad2c9b8231aa4d4412c52b97",
+    "symbols_sha256": "9fe55d78232d9f523579f320a40acbc07386d3a9052ea50ed9b8843e6844111f"
+  },
+  "behavior": {
+    "differential": {
+      "basis": "toe exposes readdir order; exact line multiset, status, and stderr are compared for independently installed terminfo trees",
+      "cases": 27,
+      "passed": 27,
+      "sha256": "754f8d02c4ae3d576c6d73086397cfb6570a748d8a5240019073d26fb0fef839",
+      "toe_records_compared_order_independently": 1899
+    },
+    "valgrind": {
+      "captoinfo": {
+        "all_heap_freed": true,
+        "errors": 0,
+        "sha256": "f08b06718bc0add9e147499f002a66cb2a393a57f12ad3b20d815f320778bc7b"
+      },
+      "clear": {
+        "all_heap_freed": true,
+        "errors": 0,
+        "sha256": "aee958796fc816aa8d2fed2ccabfe52148b639cf2dcc1337a2f88f9fb402e526"
+      },
+      "infocmp": {
+        "all_heap_freed": false,
+        "errors": 0,
+        "sha256": "35f39f551b87829e7c5fdf279fc3e06cec23d0d8bb844a9e4dcd138ba52c2ae5"
+      },
+      "infotocap": {
+        "all_heap_freed": true,
+        "errors": 0,
+        "sha256": "af9f5078b5d7c550cf11fc09415d618de7919dcadef0935b7c5ed73ff0a4a045"
+      },
+      "reset": {
+        "all_heap_freed": true,
+        "errors": 0,
+        "sha256": "bf296e3bd7ba92e32cbee2d64a66417e023774637671e881e7723e55a5eecc10"
+      },
+      "tabs": {
+        "all_heap_freed": true,
+        "errors": 0,
+        "sha256": "529ee1c9485e76d76c70367e953f8852c35d3824df32596ca8cc830451d28c4a"
+      },
+      "tic": {
+        "all_heap_freed": true,
+        "errors": 0,
+        "sha256": "7035c01ed46a80f9b13d6f991e14a2ee150c24e27646d48addf92c78ed59df5d"
+      },
+      "toe": {
+        "all_heap_freed": true,
+        "errors": 0,
+        "sha256": "f07b3bf33223bc22c3a66a373c9af21452870a981e738c27ec5b822663713914"
+      },
+      "tput": {
+        "all_heap_freed": true,
+        "errors": 0,
+        "sha256": "17c072826da0883608760f8d66a00cfdfd520558ac9a585e20e8bcc949a991af"
+      },
+      "tset": {
+        "all_heap_freed": true,
+        "errors": 0,
+        "sha256": "9d8223cdebaa85f7fa368704cc1fe4b84dcb98b09763ee9dd1c689c58d304f62"
+      }
+    }
+  },
+  "dependencies": {
+    "external_ncurses_library": false,
+    "rust_crates_inside_archive": [
+      "c2rust-bitfields",
+      "libc"
+    ],
+    "system_dynamic": [
+      "ld-linux-x86-64.so.2",
+      "libc.so.6",
+      "libgcc_s.so.1",
+      "libm.so.6"
+    ]
+  },
+  "hybrid": {
+    "aggregate_stripped_bytes": 3267792,
+    "aggregate_unstripped_bytes": 32462592,
+    "alias_personalities": {
+      "tic": [
+        "captoinfo",
+        "infotocap"
+      ],
+      "tset": [
+        "reset"
+      ]
+    },
+    "binaries": {
+      "clear": {
+        "bytes": 4552288,
+        "dynamic_dependencies": [
+          "ld-linux-x86-64.so.2",
+          "libc.so.6",
+          "libgcc_s.so.1",
+          "libm.so.6"
+        ],
+        "entrypoint": "rustbox_clear_main",
+        "map_sha256": "4d0fcc84a5edb2ebb62b0a686e537a5dcca4ce53d71db06014501237d70e530c",
+        "sections_sha256": "f73b1694cf80888bf3bbc74c53756c099b7960a9404ae2078a34942d9b7465ae",
+        "sha256": "0a235097268f405349eb194bc6f781013787e3fbf38e0128d44ed22c744360d5",
+        "stripped_bytes": 390520,
+        "stripped_sha256": "0e40206079dd8831f61b53b027ec0c21b1172d38d74c826b92240ba87a43e3a2",
+        "symbols_sha256": "cdcf472465f897c52587c16ab8b5255c4b1c96a989b5538b05b9592164bf5901"
+      },
+      "infocmp": {
+        "bytes": 4768416,
+        "dynamic_dependencies": [
+          "ld-linux-x86-64.so.2",
+          "libc.so.6",
+          "libgcc_s.so.1",
+          "libm.so.6"
+        ],
+        "entrypoint": "rustbox_infocmp_main",
+        "map_sha256": "560c62c0d3f3f65025def2ee0d842bfd361edd8fe3a0e7440809ad9531cad0c2",
+        "sections_sha256": "3f58e4111789fc7f6cf9815d0e8d08c2518bfd8f6b4a425826a814974f25f71a",
+        "sha256": "ae0fab67d1ac80536b4de5d742161df33053cc2998b68120371df706e9d2a795",
+        "stripped_bytes": 583664,
+        "stripped_sha256": "efc897d4dfa4ff1ad199b49bd0b63f40f80c2fe1a3641eb1fa6cdd122abecacd",
+        "symbols_sha256": "c03ceb3340f1bf6f735f4de0883bf440e1c32b3d28eec5e1a6ad89bde773807c"
+      },
+      "tabs": {
+        "bytes": 4561704,
+        "dynamic_dependencies": [
+          "ld-linux-x86-64.so.2",
+          "libc.so.6",
+          "libgcc_s.so.1",
+          "libm.so.6"
+        ],
+        "entrypoint": "rustbox_tabs_main",
+        "map_sha256": "d91c507e0c9e38def37917568e1291f7c8e0cb29d9fa5411d389dd5e68232dd1",
+        "sections_sha256": "c658a9d70bf0cc9bb57881ce0df0887a84b755d29b6d38ce8642885bff116608",
+        "sha256": "e0ec428212d27efc9430e83a902adb4210d703d3f6200a9eab81c12b3f0a1c50",
+        "stripped_bytes": 399216,
+        "stripped_sha256": "f63215a3686e0567632448a5b19c4612dc1bdcb85309c187e1faac5492572cd1",
+        "symbols_sha256": "1915539800567e7d8a13af96061529dc3a86ae5eeb395271c4f0853ee8e68823"
+      },
+      "tic": {
+        "bytes": 4798112,
+        "dynamic_dependencies": [
+          "ld-linux-x86-64.so.2",
+          "libc.so.6",
+          "libgcc_s.so.1",
+          "libm.so.6"
+        ],
+        "entrypoint": "rustbox_tic_main",
+        "map_sha256": "a961d3e18bf729fec83b40820a2dc868a629b3b58cce0511ec7bcf3fe112d9ac",
+        "sections_sha256": "0c3e29a2bd50f9dcdeb884874107d2b6af603c7be4dfbaf66d899e2c564f8334",
+        "sha256": "f791bce6170bf9086fdd24eea510e3ad8a07f2ae2a41ae1d9affc4c3199f1bf4",
+        "stripped_bytes": 611240,
+        "stripped_sha256": "377b3651ba42f4a5d039a76cf36963838023d8274281821ccc5d1c91567a4f20",
+        "symbols_sha256": "b7750592013a148a780559fe49a16ee2609beb906e4c8f602ee6cebb56660bc5"
+      },
+      "toe": {
+        "bytes": 4608144,
+        "dynamic_dependencies": [
+          "ld-linux-x86-64.so.2",
+          "libc.so.6",
+          "libgcc_s.so.1",
+          "libm.so.6"
+        ],
+        "entrypoint": "rustbox_toe_main",
+        "map_sha256": "4cbaf25831fb030429db40a46f09374e2c76b7291c4d8cdd50639e1a8ac27088",
+        "sections_sha256": "0c25ec979a237643a7720d14f0d036a02dbeda53da949602977e0c7a0e319f94",
+        "sha256": "79dda30483be7213741e7195208268c71b11cc98e2969d5f72ba0adc6f600f73",
+        "stripped_bytes": 439672,
+        "stripped_sha256": "5ce0b3ef3692f43ed401bed6e2d181873aa548dc0b935436314c19c2d92c6889",
+        "symbols_sha256": "eaf3f3dafbb272273bf3cf68159212f9d22c890d9367c5e2975018dfabe63890"
+      },
+      "tput": {
+        "bytes": 4593320,
+        "dynamic_dependencies": [
+          "ld-linux-x86-64.so.2",
+          "libc.so.6",
+          "libgcc_s.so.1",
+          "libm.so.6"
+        ],
+        "entrypoint": "rustbox_tput_main",
+        "map_sha256": "530e4b38585168b2031aaa7f25f6c9c0803979f8ba181ce85e97d95ba1cd0eb9",
+        "sections_sha256": "5f31a894a58f6336a82e12b51f8c1ae0d60915a624d1b802c592f25494ba494f",
+        "sha256": "604a2b6762b9dab6377b5a4c2cdafd9debff6fa75b701e1e8d7a0f4b92e62d7d",
+        "stripped_bytes": 428016,
+        "stripped_sha256": "82345d1407d79fade5ae482e163f0293ce4a793102dabd933960bf0e3ed1e262",
+        "symbols_sha256": "7a3800940fdcd248f10909a1c2e91e6c9ca6de3b10f92d4cd193bf69102204d5"
+      },
+      "tset": {
+        "bytes": 4580608,
+        "dynamic_dependencies": [
+          "ld-linux-x86-64.so.2",
+          "libc.so.6",
+          "libgcc_s.so.1",
+          "libm.so.6"
+        ],
+        "entrypoint": "rustbox_tset_main",
+        "map_sha256": "c496044d9cf455b72b52883e5b5040c65f17f260614b41ba62b1a47b3e1d565c",
+        "sections_sha256": "af63398042c9d4fe40fa3f7274fd5ed9756ae721ecff7cf7f82877efd7da2b42",
+        "sha256": "5fe00cec2ee42cc4e1171c308b51a20a72fa2692c556652a68ae480be14b2a9e",
+        "stripped_bytes": 415464,
+        "stripped_sha256": "32e296d6e29b5a5a1b05a862aa90faf5590be15e1f7ea7f0407867445768a663",
+        "symbols_sha256": "fbbadc2505d47740a2362d488bdbd81fce6d8d10a3c6244d7a7330cf6f331c27"
+      }
+    },
+    "generated_shell_helper": "ncursesw6-config is copied unchanged",
+    "native_name_count": 10,
+    "native_names": [
+      "captoinfo",
+      "clear",
+      "infocmp",
+      "infotocap",
+      "tabs",
+      "tic",
+      "toe",
+      "tput",
+      "tset",
+      "reset"
+    ]
+  },
+  "next_gate": "link the seven native entrypoints and three aliases into the rustbox multicall dispatcher",
+  "recorded_at": "2026-11-22",
+  "release": "6.6",
+  "schema": 1,
+  "status": "complete translated hybrid parity for ten native names; multicall integration next",
+  "translation_evidence_sha256": "f0b5d9efd1059da5bfe169d8df2ff8f940d4f112e7ac293016a03ff0257a1250"
+}
