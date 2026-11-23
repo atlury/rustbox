@@ -1357,12 +1357,18 @@ Library-only checkpoints (outside the active utility order):
      and module-fixture comparisons again, and are Valgrind-clean.  XZ, zlib, and
      zstd module decompression remains available through the canonical libraries.
    - [ ] Procps-ng 4.0.7 — `free`, `hugetop`, `kill`, `pgrep`, `pidof`,
-     `pkill`, `pmap`, `ps`, `pwait`, `pwdx`, `skill`, `slabtop`, `snice`,
+     `pidwait`, `pkill`, `pmap`, `ps`, `pwdx`, `skill`, `slabtop`, `snice`,
      `sysctl`, `tload`, `top`, `uptime`, `vmstat`, `w`, `watch`, plus the
-     shared `libproc2` runtime; use the canonical GitLab release and exclude
-     optional systemd and SELinux integration.  Duplicate public names such as
-     `kill` and `uptime` remain separately verified until the final dispatcher
-     precedence decision.
+     shared `libproc2` runtime.  The signed canonical 4.0.7 oracle is complete
+     with systemd, elogind, and SELinux disabled while Ncurses and the optional
+     `skill`/`snice` pair remain enabled.  GCC and Clang each pass 158 DejaGNU
+     command checks and eight unit checks; all 51 independent public-interface
+     comparisons agree, all 49 production sources complete five analyzer
+     passes, and all 20 version paths have recorded Valgrind behavior.  Upstream
+     `sysctl --version` retains its canonical 16-byte exit leak; the other 19
+     paths are clean.  Deterministic 20-program entrypoint normalization is
+     next.  Duplicate public names such as `kill` and `uptime` remain separately
+     verified until the final dispatcher precedence decision.
    - [ ] Shadow 4.20.3 — `chage`, `chfn`, `chgpasswd`, `chpasswd`, `chsh`,
      `faillog`, `getsubids`, `gpasswd`, `groupadd`, `groupdel`, `groupmod`,
      `grpck`, `grpconv`, `grpunconv`, `lastlog`, `login`, `newgidmap`,
