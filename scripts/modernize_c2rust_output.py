@@ -572,6 +572,26 @@ def transform_rust(
         terminate_write_volatile, joined
     )
     joined, checked_arithmetic_rewrites = rewrite_checked_arithmetic(joined)
+
+    # gnulib's hash-set prime table is declared as size_t while its values
+    # above INT_MAX are emitted by C2Rust as c_ulong.  Both types have the same
+    # width and representation on the pinned x86_64 GNU target; make that
+    # target fact explicit so stable Rust accepts the array initializer.
+    size_t_array_literal_rewrites = 0
+    size_t_array_sentinel_rewrites = 0
+    if path.name == "gl_hash_set.rs":
+        size_t_array_literal_rewrites = joined.count(
+            "as ::core::ffi::c_ulong,"
+        )
+        size_t_array_sentinel_rewrites = joined.count("    SIZE_MAX,\n];")
+        if size_t_array_literal_rewrites != 126 \
+                or size_t_array_sentinel_rewrites != 1:
+            raise RuntimeError(f"{path}: gnulib size_t prime table changed")
+        joined = joined.replace(
+            "as ::core::ffi::c_ulong,",
+            "as ::core::ffi::c_ulong as size_t,",
+        ).replace("    SIZE_MAX,\n];", "    SIZE_MAX as size_t,\n];")
+
     if install_checked_arithmetic_support:
         if "pub trait RustboxC2RustCkdInt" in joined:
             raise RuntimeError(f"{path}: checked-arithmetic support already exists")
@@ -608,6 +628,8 @@ def transform_rust(
         "bool_call_comparison_rewrites": bool_call_comparison_rewrites,
         "write_volatile_semicolon_rewrites": write_volatile_semicolon_rewrites,
         "checked_arithmetic_rewrites": checked_arithmetic_rewrites,
+        "size_t_array_literal_rewrites": size_t_array_literal_rewrites,
+        "size_t_array_sentinel_rewrites": size_t_array_sentinel_rewrites,
         "checked_arithmetic_support": install_checked_arithmetic_support,
     }
     if external_linkage_attributes:

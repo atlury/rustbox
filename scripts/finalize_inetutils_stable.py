@@ -35,31 +35,6 @@ def main() -> int:
     if not (crate / "rustbox-modernization.json").is_file():
         raise RuntimeError("missing Inetutils stable modernization manifest")
 
-    primes = crate / "src/lib/gl_hash_set.rs"
-    prime_change = rewrite_exact(
-        primes,
-        "as ::core::ffi::c_ulong,",
-        "as ::core::ffi::c_ulong as size_t,",
-        126,
-    )
-    prime_change.update({
-        "operation": "coerce unsigned-long literals to the declared size_t array type",
-        "semantic_basis": (
-            "unsigned long and size_t have identical width and value representation "
-            "on the pinned x86_64 GNU target"
-        ),
-    })
-    sentinel_change = rewrite_exact(
-        primes,
-        "    SIZE_MAX,\n];",
-        "    SIZE_MAX as size_t,\n];",
-        1,
-    )
-    sentinel_change.update({
-        "operation": "coerce the unsigned-long sentinel to the declared size_t array type",
-        "semantic_basis": prime_change["semantic_basis"],
-    })
-
     ftpd = crate / "src/ftpd/ftpd.rs"
     ftpd_type_change = rewrite_exact(
         ftpd,
@@ -103,8 +78,6 @@ def main() -> int:
         "schema": 1,
         "target": "x86_64-unknown-linux-gnu",
         "changes": [
-            prime_change,
-            sentinel_change,
             ftpd_type_change,
             boundary_change,
         ],
@@ -114,7 +87,7 @@ def main() -> int:
     print(json.dumps({
         "canonical_c_sources": 1,
         "rust_sources": 287,
-        "stable_representation_repairs": 127,
+        "stable_representation_repairs": 0,
     }, sort_keys=True))
     return 0
 
