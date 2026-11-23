@@ -37,5 +37,7 @@ RUSTBOX_TOOL_IMAGE=rustbox-gawk:2026-11-22 \
     --bison-c-residue-directory /work/work/analysis/bison-3.8.2/hybrid-artifacts/c-residue \
     --curl-rust-library /work/work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/release/libcurl_8_23_0_normalized_audit.a \
     --curl-c-residue-directory /work/work/analysis/curl-8.23.0/hybrid-artifacts/c-residue \
+    --inetutils-rust-directory /work/work/analysis/inetutils-2.8/program-translations/cargo-target/release \
+    --inetutils-telnet-c-boundary /rustbox-inetutils/normalized-clang/lib/libgnu_a-printf-args.o \
     --reuse-isolation \
     --link-report /work/work/analysis/rustbox-multicall-link.json

@@ -127,7 +127,7 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 360
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 386
 distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, five
 pkgconf names, File, GNU patch, GNU sed, four GNU Diffutils applets, and GNU
 Grep's three public names, GNU bc and dc, attr's three tools, plus chacl,
@@ -137,9 +137,11 @@ GNU `tar` and `rmt`, ten Ncurses names, GNU Findutils' `find`, `xargs`,
 `locate`, and `updatedb`; `kill` is shared and `util-linux-kill` remains
 available explicitly, GNU Gawk's `gawk`, `awk`, and native `gawkbug`, and
 Flex's `flex`, `flex++`, and native `lex` compatibility frontend, and GNU
-Bison's `bison` and native `yacc` compatibility frontend, plus curl and its
-native `curl-config` frontend).
-It passes all 712
+Bison's `bison` and native `yacc` compatibility frontend, curl and its
+native `curl-config` frontend, plus all 26 GNU Inetutils programs; Inetutils
+`hostname` and `logger` use the explicit `inetutils-hostname` and
+`inetutils-logger` names to preserve existing dispatcher precedence).
+It passes all 764
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
 check, 108-case differential suite, and Valgrind.  Pkgconf also passes all 429
@@ -184,8 +186,10 @@ zero-loss Valgrind paths.  Their ACL calls resolve to Rustbox's translated ACL
 archive, including Coreutils' existing ACL consumers, and `libacl.so` is absent
 from the ELF dependency set.  Flex adds all three public names with all 114
 upstream tests, 14 generator/scanner comparisons, three frontend comparisons,
-and four leak-free resource paths.  The resulting 356-name executable is
-25,999,360 bytes unstripped and 12,547,936 bytes stripped; exact hashes and
+and four leak-free resource paths.  GNU Inetutils adds all 26 clients and
+daemons with 133/133 exact behavioral comparisons and 26 clean Valgrind paths.
+The resulting 386-name executable is 31,953,984 bytes unstripped and 17,272,960
+bytes stripped; its exact hashes and
 section/link evidence are recorded in `evidence/rustbox-multicall.json`.
 `chcon` and `runcon`
 remain absent, and the linked binary has no SELinux or systemd dependency.
@@ -1204,9 +1208,13 @@ The daemon slice completes `inetd`, `rexecd`, `rlogind`, `rshd`, `syslogd`,
 269 source instances (86 unique sources), all ten stable Rust hybrids compile
 without holes or C residue, and they pass 40/40 exact canonical CLI comparisons
 plus ten clean Valgrind paths.  All 26 Inetutils programs now have separate
-program-scoped hybrid parity; collision isolation and unified multicall linkage
-remain.  The daemon evidence is
-`evidence/inetutils-2.8-hybrid-daemons-04.json`.
+program-scoped hybrid parity.  Each program's formerly global symbol surface is
+now privately namespaced and all 26 are linked into the unified multicall.
+Every one of the preceding 133 differential cases passes through Rustbox, as do
+26 multicall Valgrind version paths; the complete 764-case cross-package
+dispatcher audit also remains exact.  The daemon and final integration evidence
+are `evidence/inetutils-2.8-hybrid-daemons-04.json` and
+`evidence/inetutils-2.8-multicall.json`.
 
 ## Work queue after util-linux
 
@@ -1307,7 +1315,7 @@ Library-only checkpoints (outside the active utility order):
      The translated hybrid passes all 114 upstream tests, all 14 generator and
      scanner comparisons, three native `flex++`/`lex` frontend comparisons,
      and leak-free help, version, and error exits.  Unified multicall
-     integration is complete for `flex`, `flex++`, and native `lex`; all 712
+     integration is complete for `flex`, `flex++`, and native `lex`; all 764
      dispatcher comparisons and all 14,022 prior batch regressions pass.
    - [x] Bison 3.8.2 — `bison`, `yacc`; signed canonical oracle, deterministic
      normalization, complete no-hole stable translation, embedded C/C++
@@ -1319,10 +1327,10 @@ Library-only checkpoints (outside the active utility order):
      The deliberately dependency-free profile retains 15 built-in protocols;
      optional TLS/compression protocols remain queued with their canonical
      libraries.
-   - [ ] Inetutils 2.8 — signed 26-executable canonical oracle, deterministic
+   - [x] Inetutils 2.8 — signed 26-executable canonical oracle, deterministic
      26-entrypoint normalization, complete 288-source no-hole translation, and
-     stable compile audit and all 26 program-scoped hybrids have canonical
-     parity; collision isolation and multicall integration remain.  Clients:
+     stable compile audit, all 26 program-scoped hybrids at canonical parity,
+     and collision-isolated multicall integration are complete.  Clients:
      `dnsdomainname`, `ftp`,
      `hostname`, `ifconfig`, `logger`,
      `ping`, `ping6`, `rcp`, `rexec`, `rlogin`, `rsh`, `talk`, `telnet`,

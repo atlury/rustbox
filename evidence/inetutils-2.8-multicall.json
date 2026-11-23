@@ -1,0 +1,3355 @@
+{
+  "binary": {
+    "bytes": 31953984,
+    "dynamic_needed": [
+      "ld-linux-x86-64.so.2",
+      "libattr.so.1",
+      "libbz2.so.1.0",
+      "libc.so.6",
+      "libcap-ng.so.0",
+      "libcap.so.2",
+      "libcrypt.so.1",
+      "libcrypto.so.3",
+      "libeconf.so.0",
+      "libgcc_s.so.1",
+      "libgmp.so.10",
+      "liblz.so.1",
+      "liblzma.so.5",
+      "libm.so.6",
+      "libmagic.so.1",
+      "libmpfr.so.6",
+      "libncurses.so.6",
+      "libncursesw.so.6",
+      "libpam.so.0",
+      "libpam_misc.so.0",
+      "libpcre2-8.so.0",
+      "libreadline.so.8",
+      "libseccomp.so.2",
+      "libsqlite3.so.0",
+      "libtinfo.so.6",
+      "libz.so.1",
+      "libzstd.so.1"
+    ],
+    "link_map_sha256": "e5086d71c82a5a7c248ddd1f659a5d5dc3c2f3ba00d50bd58eee574cbacfb2aa",
+    "sha256": "e107d2854ddb99a4f5bad3fb4d7e8ebfcbe201cb2d168e17d3defc6813bf9373"
+  },
+  "collision_isolation": {
+    "program_namespaces": 26,
+    "renamed_symbols": 4625,
+    "symbol_map_sha256": "cd6c42ad07489a209a07db85dcc35c9f1cda6b2b88240a0d40daa4858365d0f6"
+  },
+  "differential": {
+    "applets": 26,
+    "cases": 133,
+    "dispatch_aliases": {
+      "hostname": "inetutils-hostname",
+      "logger": "inetutils-logger"
+    },
+    "passed": 133,
+    "records": [
+      {
+        "applet": "dnsdomainname",
+        "arguments": [],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "dnsdomainname",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "dnsdomainname",
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 477,
+          "stdout_sha256": "c68e8163e55eba55634d1f6fbf93f27984f64849ce7d9ea14e1e019b3c661bc0"
+        },
+        "dispatch_name": "dnsdomainname",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 477,
+          "stdout_sha256": "c68e8163e55eba55634d1f6fbf93f27984f64849ce7d9ea14e1e019b3c661bc0"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "dnsdomainname",
+        "arguments": [
+          "--version"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 314,
+          "stdout_sha256": "fec8bb2d77446df6ffc63bc4f43c3204cf566606d041e964714d67733bf61cf6"
+        },
+        "dispatch_name": "dnsdomainname",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 314,
+          "stdout_sha256": "fec8bb2d77446df6ffc63bc4f43c3204cf566606d041e964714d67733bf61cf6"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "dnsdomainname",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 134,
+          "stderr_sha256": "072ba71be8fabf756bb2ce69ff9052febda74321cce4f5b7654ad5fdb6e1a254",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "dnsdomainname",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 134,
+          "stderr_sha256": "072ba71be8fabf756bb2ce69ff9052febda74321cce4f5b7654ad5fdb6e1a254",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "hostname",
+        "arguments": [],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 13,
+          "stdout_sha256": "55d862591b4bc166ff08733bc6d145e09cbe32ed823d65da34388f7b5cf3c7a4"
+        },
+        "dispatch_name": "inetutils-hostname",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 13,
+          "stdout_sha256": "55d862591b4bc166ff08733bc6d145e09cbe32ed823d65da34388f7b5cf3c7a4"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "hostname",
+        "arguments": [
+          "--short"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 13,
+          "stdout_sha256": "55d862591b4bc166ff08733bc6d145e09cbe32ed823d65da34388f7b5cf3c7a4"
+        },
+        "dispatch_name": "inetutils-hostname",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 13,
+          "stdout_sha256": "55d862591b4bc166ff08733bc6d145e09cbe32ed823d65da34388f7b5cf3c7a4"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "hostname",
+        "arguments": [
+          "--fqdn"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 13,
+          "stdout_sha256": "55d862591b4bc166ff08733bc6d145e09cbe32ed823d65da34388f7b5cf3c7a4"
+        },
+        "dispatch_name": "inetutils-hostname",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 13,
+          "stdout_sha256": "55d862591b4bc166ff08733bc6d145e09cbe32ed823d65da34388f7b5cf3c7a4"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "hostname",
+        "arguments": [
+          "--domain"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 7,
+          "stdout_sha256": "5dfecbf35de344dc6dc4b8a79c4e5327122b2737250403b04abf2060fbc3927f"
+        },
+        "dispatch_name": "inetutils-hostname",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 7,
+          "stdout_sha256": "5dfecbf35de344dc6dc4b8a79c4e5327122b2737250403b04abf2060fbc3927f"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "hostname",
+        "arguments": [
+          "--ip-address"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 11,
+          "stdout_sha256": "acde87621aa67f55331ed7fe9cc84d24340fa91dd57c6d05686961baf3d813a6"
+        },
+        "dispatch_name": "inetutils-hostname",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 11,
+          "stdout_sha256": "acde87621aa67f55331ed7fe9cc84d24340fa91dd57c6d05686961baf3d813a6"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "hostname",
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 745,
+          "stdout_sha256": "1b583e58fdf267960bbb51ca51b31356fb60a9ac5f9c630151564b4a484f00f7"
+        },
+        "dispatch_name": "inetutils-hostname",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 745,
+          "stdout_sha256": "1b583e58fdf267960bbb51ca51b31356fb60a9ac5f9c630151564b4a484f00f7"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "hostname",
+        "arguments": [
+          "--version"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 306,
+          "stdout_sha256": "c33c89291b8591c9de916aa2cb44393000b05c48ea92a0f8461b34eaf6c13f19"
+        },
+        "dispatch_name": "inetutils-hostname",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 306,
+          "stdout_sha256": "c33c89291b8591c9de916aa2cb44393000b05c48ea92a0f8461b34eaf6c13f19"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "hostname",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 119,
+          "stderr_sha256": "044a19665cbc846591883c0285a4c438835aa87128bd12ee8f982e534b1c42aa",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "inetutils-hostname",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 119,
+          "stderr_sha256": "044a19665cbc846591883c0285a4c438835aa87128bd12ee8f982e534b1c42aa",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "logger",
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 971,
+          "stdout_sha256": "491f57b238054bb1193c4c997adbd85a409633028c0da1471ba48ac1cb4edf14"
+        },
+        "dispatch_name": "inetutils-logger",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 971,
+          "stdout_sha256": "491f57b238054bb1193c4c997adbd85a409633028c0da1471ba48ac1cb4edf14"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "logger",
+        "arguments": [
+          "--version"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 309,
+          "stdout_sha256": "7c3635699aee5fcdf2470fc6d964fd77ef51f23944841f14fa63bedec08546bc"
+        },
+        "dispatch_name": "inetutils-logger",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 309,
+          "stdout_sha256": "7c3635699aee5fcdf2470fc6d964fd77ef51f23944841f14fa63bedec08546bc"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "logger",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 113,
+          "stderr_sha256": "1cfee0eb281c9c8e09973a5ada73bcea0c6aa190d06fc11e600a7488bceec2cf",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "inetutils-logger",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 113,
+          "stderr_sha256": "1cfee0eb281c9c8e09973a5ada73bcea0c6aa190d06fc11e600a7488bceec2cf",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "logger",
+        "arguments": [
+          "--stderr",
+          "--no-act",
+          "--tag",
+          "rustbox",
+          "message"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 101,
+          "stderr_sha256": "9749bb6566ee8a69fc0a146be01ae9439539b51a58343500944874ab29be5d16",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "inetutils-logger",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 101,
+          "stderr_sha256": "9749bb6566ee8a69fc0a146be01ae9439539b51a58343500944874ab29be5d16",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "logger",
+        "arguments": [
+          "--stderr",
+          "--no-act",
+          "--priority",
+          "user.notice",
+          "message"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 101,
+          "stderr_sha256": "9749bb6566ee8a69fc0a146be01ae9439539b51a58343500944874ab29be5d16",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "inetutils-logger",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 101,
+          "stderr_sha256": "9749bb6566ee8a69fc0a146be01ae9439539b51a58343500944874ab29be5d16",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "whois",
+        "arguments": [],
+        "canonical": {
+          "status": 1,
+          "stderr_bytes": 28,
+          "stderr_sha256": "a5f1caf0ab728e0d0352d59d7ef357e575598e0be5e14ce3ca5b023b363f2b79",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "whois",
+        "multicall": {
+          "status": 1,
+          "stderr_bytes": 28,
+          "stderr_sha256": "a5f1caf0ab728e0d0352d59d7ef357e575598e0be5e14ce3ca5b023b363f2b79",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "whois",
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 1808,
+          "stdout_sha256": "c17bffb357c14f7af046d5909f5a5067b1a3e0443dcf623a70ef02f0b9a138c3"
+        },
+        "dispatch_name": "whois",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 1808,
+          "stdout_sha256": "c17bffb357c14f7af046d5909f5a5067b1a3e0443dcf623a70ef02f0b9a138c3"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "whois",
+        "arguments": [
+          "--version"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 303,
+          "stdout_sha256": "ef21e2ca786ce66888b981b25a16aca2df012ce895021eff3ac23eca653fab62"
+        },
+        "dispatch_name": "whois",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 303,
+          "stdout_sha256": "ef21e2ca786ce66888b981b25a16aca2df012ce895021eff3ac23eca653fab62"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "whois",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 110,
+          "stderr_sha256": "be3343c906026664788acb9dc6e08877663deff950ce85a4ec4a36445227ffe1",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "whois",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 110,
+          "stderr_sha256": "be3343c906026664788acb9dc6e08877663deff950ce85a4ec4a36445227ffe1",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "whois",
+        "arguments": [
+          "--server=localhost"
+        ],
+        "canonical": {
+          "status": 1,
+          "stderr_bytes": 28,
+          "stderr_sha256": "a5f1caf0ab728e0d0352d59d7ef357e575598e0be5e14ce3ca5b023b363f2b79",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "whois",
+        "multicall": {
+          "status": 1,
+          "stderr_bytes": 28,
+          "stderr_sha256": "a5f1caf0ab728e0d0352d59d7ef357e575598e0be5e14ce3ca5b023b363f2b79",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rexec",
+        "arguments": [],
+        "canonical": {
+          "status": 1,
+          "stderr_bytes": 111,
+          "stderr_sha256": "0e4b5903cc6bb2b9757d78522f88d95656c222538f5fbd9f6ef872d681e3b086",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "rexec",
+        "multicall": {
+          "status": 1,
+          "stderr_bytes": 111,
+          "stderr_sha256": "0e4b5903cc6bb2b9757d78522f88d95656c222538f5fbd9f6ef872d681e3b086",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rexec",
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 866,
+          "stdout_sha256": "ef410d0b08e3b7a2b8d20371b4b35a07a1abe2552d03c9c6c7f2164a29afa74b"
+        },
+        "dispatch_name": "rexec",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 866,
+          "stdout_sha256": "ef410d0b08e3b7a2b8d20371b4b35a07a1abe2552d03c9c6c7f2164a29afa74b"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rexec",
+        "arguments": [
+          "--usage"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 271,
+          "stdout_sha256": "20f5c7863513da9d994e29faed9b3e1ade51548667bb45a15032074dc72b741e"
+        },
+        "dispatch_name": "rexec",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 271,
+          "stdout_sha256": "20f5c7863513da9d994e29faed9b3e1ade51548667bb45a15032074dc72b741e"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rexec",
+        "arguments": [
+          "--version"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 308,
+          "stdout_sha256": "45c5d80201e87494c55c77cb3a82222f6dbc69b71dbc75336dbf6b1f5c4303d8"
+        },
+        "dispatch_name": "rexec",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 308,
+          "stdout_sha256": "45c5d80201e87494c55c77cb3a82222f6dbc69b71dbc75336dbf6b1f5c4303d8"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rexec",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 110,
+          "stderr_sha256": "eb3eafa54f85ead4afcdd5a44dba2a57e1cab731adef5e1e2608b41a560ac74d",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "rexec",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 110,
+          "stderr_sha256": "eb3eafa54f85ead4afcdd5a44dba2a57e1cab731adef5e1e2608b41a560ac74d",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rexec",
+        "arguments": [
+          "--port=bogus",
+          "echo"
+        ],
+        "canonical": {
+          "status": 1,
+          "stderr_bytes": 82,
+          "stderr_sha256": "8b932184b2deeb5c74e5c907f85dcca13fb7990d6fd0adc1d6deddb6cd8fc274",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "rexec",
+        "multicall": {
+          "status": 1,
+          "stderr_bytes": 82,
+          "stderr_sha256": "8b932184b2deeb5c74e5c907f85dcca13fb7990d6fd0adc1d6deddb6cd8fc274",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "tftp",
+        "arguments": [],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "tftp",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "tftp",
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 318,
+          "stdout_sha256": "3b135784edc49aaed918f5fe3b09ecc4fc6fa6707dc3f14bba65713c1b1363ce"
+        },
+        "dispatch_name": "tftp",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 318,
+          "stdout_sha256": "3b135784edc49aaed918f5fe3b09ecc4fc6fa6707dc3f14bba65713c1b1363ce"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "tftp",
+        "arguments": [
+          "--usage"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 76,
+          "stdout_sha256": "14123f8cbae3bf4e848dc55acaa99aedcb9e03eb48211f475ad3fa29e70c0460"
+        },
+        "dispatch_name": "tftp",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 76,
+          "stdout_sha256": "14123f8cbae3bf4e848dc55acaa99aedcb9e03eb48211f475ad3fa29e70c0460"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "tftp",
+        "arguments": [
+          "--version"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 302,
+          "stdout_sha256": "098b332cc4226bddb65b37273841947e2430357d2e9e35e5f9cbb3635d236e26"
+        },
+        "dispatch_name": "tftp",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 302,
+          "stdout_sha256": "098b332cc4226bddb65b37273841947e2430357d2e9e35e5f9cbb3635d236e26"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "tftp",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 107,
+          "stderr_sha256": "c3e6c1e19cf976dfc73e1b81056ee056a06a1abdb284718641ea954889edba60",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "tftp",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 107,
+          "stderr_sha256": "c3e6c1e19cf976dfc73e1b81056ee056a06a1abdb284718641ea954889edba60",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "tftp",
+        "arguments": [
+          "localhost",
+          "bogus"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 23,
+          "stdout_sha256": "5cd27522b26c4477bb71bc53ed7157680db9b099452da88cc9ebebc9007f463a"
+        },
+        "dispatch_name": "tftp",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 23,
+          "stdout_sha256": "5cd27522b26c4477bb71bc53ed7157680db9b099452da88cc9ebebc9007f463a"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "traceroute",
+        "arguments": [],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 103,
+          "stderr_sha256": "ff424a62c1afa561f37fcd8557ae7b83d2ff9d81a418345b561135f604358969",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "traceroute",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 103,
+          "stderr_sha256": "ff424a62c1afa561f37fcd8557ae7b83d2ff9d81a418345b561135f604358969",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "traceroute",
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 1119,
+          "stdout_sha256": "b35d4a5bc9b4a1ff9b34d22663323d41d8a90aea037d1ab88d35fa2fef813a75"
+        },
+        "dispatch_name": "traceroute",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 1119,
+          "stdout_sha256": "b35d4a5bc9b4a1ff9b34d22663323d41d8a90aea037d1ab88d35fa2fef813a75"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "traceroute",
+        "arguments": [
+          "--usage"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 340,
+          "stdout_sha256": "1219cc52b58ba48e944fd89993300b93fd0fda8be63323ed3b997f7c1f993755"
+        },
+        "dispatch_name": "traceroute",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 340,
+          "stdout_sha256": "1219cc52b58ba48e944fd89993300b93fd0fda8be63323ed3b997f7c1f993755"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "traceroute",
+        "arguments": [
+          "--version"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 308,
+          "stdout_sha256": "00d72410f5122bdaaa1d8d6665170f90a8d635e4ac84d56a7e34f8623249f6c6"
+        },
+        "dispatch_name": "traceroute",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 308,
+          "stdout_sha256": "00d72410f5122bdaaa1d8d6665170f90a8d635e4ac84d56a7e34f8623249f6c6"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "traceroute",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 125,
+          "stderr_sha256": "621215fb3b1148cd323aa6abd47c86116d773bf1a047e6587d52253addf0d29c",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "traceroute",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 125,
+          "stderr_sha256": "621215fb3b1148cd323aa6abd47c86116d773bf1a047e6587d52253addf0d29c",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "traceroute",
+        "arguments": [
+          "--max-hop=bogus",
+          "localhost"
+        ],
+        "canonical": {
+          "status": 1,
+          "stderr_bytes": 39,
+          "stderr_sha256": "8bcd03b12f4838c4b3f1220de5536c9e9daceee8836af1cc15854c11b4788d3c",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "traceroute",
+        "multicall": {
+          "status": 1,
+          "stderr_bytes": 39,
+          "stderr_sha256": "8bcd03b12f4838c4b3f1220de5536c9e9daceee8836af1cc15854c11b4788d3c",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "traceroute",
+        "arguments": [
+          "--type=bogus",
+          "localhost"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 97,
+          "stderr_sha256": "4f3265243150a1bd14681ae394be8773d1a52a3a4417e0859bddab5887417a89",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "traceroute",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 97,
+          "stderr_sha256": "4f3265243150a1bd14681ae394be8773d1a52a3a4417e0859bddab5887417a89",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ifconfig",
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 1803,
+          "stdout_sha256": "42d252ff46fa16b3135854ce8286fd85ef687cadbce50ed2edb8997721b55205"
+        },
+        "dispatch_name": "ifconfig",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 1803,
+          "stdout_sha256": "42d252ff46fa16b3135854ce8286fd85ef687cadbce50ed2edb8997721b55205"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ifconfig",
+        "arguments": [
+          "--usage"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 683,
+          "stdout_sha256": "bb126ca1a7b6d35ca5e8328afbb89706c22fe2d2e27fcf1f89cb157184cd9df5"
+        },
+        "dispatch_name": "ifconfig",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 683,
+          "stdout_sha256": "bb126ca1a7b6d35ca5e8328afbb89706c22fe2d2e27fcf1f89cb157184cd9df5"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ifconfig",
+        "arguments": [
+          "--version"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 310,
+          "stdout_sha256": "1580da387f54041abf857beb34481b051a7a805bdd59d99e15785c56cca77435"
+        },
+        "dispatch_name": "ifconfig",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 310,
+          "stdout_sha256": "1580da387f54041abf857beb34481b051a7a805bdd59d99e15785c56cca77435"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ifconfig",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 119,
+          "stderr_sha256": "5c85fa495f6b5f4d426717833e057c2999aad3414415f3b3e6ddb0e8b7314d6d",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "ifconfig",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 119,
+          "stderr_sha256": "5c85fa495f6b5f4d426717833e057c2999aad3414415f3b3e6ddb0e8b7314d6d",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ifconfig",
+        "arguments": [
+          "rustbox-no-such-interface"
+        ],
+        "canonical": {
+          "status": 1,
+          "stderr_bytes": 70,
+          "stderr_sha256": "fc015302714c15c6ed798ae2dc50b97aaeae8bf63a45b842967a7d4ab88ce071",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "ifconfig",
+        "multicall": {
+          "status": 1,
+          "stderr_bytes": 70,
+          "stderr_sha256": "fc015302714c15c6ed798ae2dc50b97aaeae8bf63a45b842967a7d4ab88ce071",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ping",
+        "arguments": [],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 85,
+          "stderr_sha256": "b37457e3b80065abc42728d485af39e31bcdd4ecf1807c3df0bd3cc6e022c16d",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "ping",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 85,
+          "stderr_sha256": "b37457e3b80065abc42728d485af39e31bcdd4ecf1807c3df0bd3cc6e022c16d",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ping",
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 2007,
+          "stdout_sha256": "f0184cce2843ed805d050a2824c27cc327527460e4446b6be3bb31fc15fb4661"
+        },
+        "dispatch_name": "ping",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 2007,
+          "stdout_sha256": "f0184cce2843ed805d050a2824c27cc327527460e4446b6be3bb31fc15fb4661"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ping",
+        "arguments": [
+          "--usage"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 547,
+          "stdout_sha256": "de9b3c6a9f8aee13312cced3abaf220556fa17e435666a9afa3e9ad39481a2f7"
+        },
+        "dispatch_name": "ping",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 547,
+          "stdout_sha256": "de9b3c6a9f8aee13312cced3abaf220556fa17e435666a9afa3e9ad39481a2f7"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ping",
+        "arguments": [
+          "--version"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 307,
+          "stdout_sha256": "ae66f9028d8ae5e29142a602e92bb12b1654624f7890fb52f082c6f5908867f8"
+        },
+        "dispatch_name": "ping",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 307,
+          "stdout_sha256": "ae66f9028d8ae5e29142a602e92bb12b1654624f7890fb52f082c6f5908867f8"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ping",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 107,
+          "stderr_sha256": "a88cb37d390868f2bf1c630cafdd52300bf7ff8b97f780987f3ed9ef727c543f",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "ping",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 107,
+          "stderr_sha256": "a88cb37d390868f2bf1c630cafdd52300bf7ff8b97f780987f3ed9ef727c543f",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ping",
+        "arguments": [
+          "--count=bogus",
+          "localhost"
+        ],
+        "canonical": {
+          "status": 1,
+          "stderr_bytes": 43,
+          "stderr_sha256": "325abba64af77717a5b83efa00a2991630198b60ce92fa488b8d4dc5c296e13f",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "ping",
+        "multicall": {
+          "status": 1,
+          "stderr_bytes": 43,
+          "stderr_sha256": "325abba64af77717a5b83efa00a2991630198b60ce92fa488b8d4dc5c296e13f",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ping",
+        "arguments": [
+          "--type=bogus",
+          "localhost"
+        ],
+        "canonical": {
+          "status": 1,
+          "stderr_bytes": 37,
+          "stderr_sha256": "1a2c0c2bb4c9d9c3631f82d7b93b8430724761e3aa35b7dc7d6f47f0535ca44b",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "ping",
+        "multicall": {
+          "status": 1,
+          "stderr_bytes": 37,
+          "stderr_sha256": "1a2c0c2bb4c9d9c3631f82d7b93b8430724761e3aa35b7dc7d6f47f0535ca44b",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ping6",
+        "arguments": [],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 88,
+          "stderr_sha256": "5e3738d59bf3306876c82544a097a0a2d874a82243b844afa7a96c1648d26d9a",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "ping6",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 88,
+          "stderr_sha256": "5e3738d59bf3306876c82544a097a0a2d874a82243b844afa7a96c1648d26d9a",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ping6",
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 1491,
+          "stdout_sha256": "c39b529efac95f0d06733f667f53cf5d35351575cc4f719e4ac822c0b27d451b"
+        },
+        "dispatch_name": "ping6",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 1491,
+          "stdout_sha256": "c39b529efac95f0d06733f667f53cf5d35351575cc4f719e4ac822c0b27d451b"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ping6",
+        "arguments": [
+          "--usage"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 414,
+          "stdout_sha256": "cdbd55196cb53ab092b5e56240ede883fc070f4b1ab561bd01b535bba3e7d95b"
+        },
+        "dispatch_name": "ping6",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 414,
+          "stdout_sha256": "cdbd55196cb53ab092b5e56240ede883fc070f4b1ab561bd01b535bba3e7d95b"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ping6",
+        "arguments": [
+          "--version"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 305,
+          "stdout_sha256": "d36315e995a62d5659bf10983379a40a94290328dd15a7677ff3bd65d731fce8"
+        },
+        "dispatch_name": "ping6",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 305,
+          "stdout_sha256": "d36315e995a62d5659bf10983379a40a94290328dd15a7677ff3bd65d731fce8"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ping6",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 110,
+          "stderr_sha256": "3d18e5ac0a56cc3f35e2c943f5f37cd8c44c4487108b46dbcd8ecfaf3a96bb5f",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "ping6",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 110,
+          "stderr_sha256": "3d18e5ac0a56cc3f35e2c943f5f37cd8c44c4487108b46dbcd8ecfaf3a96bb5f",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ping6",
+        "arguments": [
+          "--count=bogus",
+          "localhost"
+        ],
+        "canonical": {
+          "status": 1,
+          "stderr_bytes": 44,
+          "stderr_sha256": "fcbff772d98ad04d1c00117136edb6e6fad6d9be6116cab25a59c3264cdc8c2f",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "ping6",
+        "multicall": {
+          "status": 1,
+          "stderr_bytes": 44,
+          "stderr_sha256": "fcbff772d98ad04d1c00117136edb6e6fad6d9be6116cab25a59c3264cdc8c2f",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ping6",
+        "arguments": [
+          "--ttl=bogus",
+          "localhost"
+        ],
+        "canonical": {
+          "status": 1,
+          "stderr_bytes": 44,
+          "stderr_sha256": "fcbff772d98ad04d1c00117136edb6e6fad6d9be6116cab25a59c3264cdc8c2f",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "ping6",
+        "multicall": {
+          "status": 1,
+          "stderr_bytes": 44,
+          "stderr_sha256": "fcbff772d98ad04d1c00117136edb6e6fad6d9be6116cab25a59c3264cdc8c2f",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rcp",
+        "arguments": [],
+        "canonical": {
+          "status": 1,
+          "stderr_bytes": 26,
+          "stderr_sha256": "40120cc905e082309d76a165d621187a6e9a34549ba1eca151b57a27ddd09182",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "rcp",
+        "multicall": {
+          "status": 1,
+          "stderr_bytes": 26,
+          "stderr_sha256": "40120cc905e082309d76a165d621187a6e9a34549ba1eca151b57a27ddd09182",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rcp",
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 1232,
+          "stdout_sha256": "3289cceb20bf812fb1b2141a90e97dbb0cd300fd2f8e69babec8f149a0eae336"
+        },
+        "dispatch_name": "rcp",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 1232,
+          "stdout_sha256": "3289cceb20bf812fb1b2141a90e97dbb0cd300fd2f8e69babec8f149a0eae336"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rcp",
+        "arguments": [
+          "--usage"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 305,
+          "stdout_sha256": "3b9305ad9947000da7d2b1b4fff5b51c1208bc441a4395fb8ad340dce008c375"
+        },
+        "dispatch_name": "rcp",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 305,
+          "stdout_sha256": "3b9305ad9947000da7d2b1b4fff5b51c1208bc441a4395fb8ad340dce008c375"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rcp",
+        "arguments": [
+          "--version"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 301,
+          "stdout_sha256": "d06e53ca658dd581a71a1629dc025734ee36e61c954c5f37aa80e8778f556310"
+        },
+        "dispatch_name": "rcp",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 301,
+          "stdout_sha256": "d06e53ca658dd581a71a1629dc025734ee36e61c954c5f37aa80e8778f556310"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rcp",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 104,
+          "stderr_sha256": "f6cd7cbe87f68adf98d65ee4ba955f9ada02622afc2c1dbcb04eac06ac2657d4",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "rcp",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 104,
+          "stderr_sha256": "f6cd7cbe87f68adf98d65ee4ba955f9ada02622afc2c1dbcb04eac06ac2657d4",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rlogin",
+        "arguments": [],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 91,
+          "stderr_sha256": "0af2d8770590518692cfe2b5eded90ef7ee75b89831e0a538b8cd1466e2bf8c7",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "rlogin",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 91,
+          "stderr_sha256": "0af2d8770590518692cfe2b5eded90ef7ee75b89831e0a538b8cd1466e2bf8c7",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rlogin",
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 927,
+          "stdout_sha256": "25a3a7f365efdd10af827486ba86462b2f333c86afc97fe7455e1e2bfb5ba4c4"
+        },
+        "dispatch_name": "rlogin",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 927,
+          "stdout_sha256": "25a3a7f365efdd10af827486ba86462b2f333c86afc97fe7455e1e2bfb5ba4c4"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rlogin",
+        "arguments": [
+          "--usage"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 187,
+          "stdout_sha256": "b79db0c04d12edddba94896bff26a10c70a2b6f73b8cab10ae0d658b27988a7d"
+        },
+        "dispatch_name": "rlogin",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 187,
+          "stdout_sha256": "b79db0c04d12edddba94896bff26a10c70a2b6f73b8cab10ae0d658b27988a7d"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rlogin",
+        "arguments": [
+          "--version"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 304,
+          "stdout_sha256": "b9f845769e8edc9e7c20f2b359d52813c0a83a9da7fefa3aa58749a23c3fa80c"
+        },
+        "dispatch_name": "rlogin",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 304,
+          "stdout_sha256": "b9f845769e8edc9e7c20f2b359d52813c0a83a9da7fefa3aa58749a23c3fa80c"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rlogin",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 113,
+          "stderr_sha256": "acf6d97a7ad1819f4c1a5eebff2eb8ad4ceb006ae0a87ba9f5a20ebef44ed210",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "rlogin",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 113,
+          "stderr_sha256": "acf6d97a7ad1819f4c1a5eebff2eb8ad4ceb006ae0a87ba9f5a20ebef44ed210",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rsh",
+        "arguments": [],
+        "canonical": {
+          "status": 1,
+          "stderr_bytes": 24,
+          "stderr_sha256": "abf595feff7c30e4d8bab2462fc401ba95889ca996c7d917d5ed9dbcadeebcd9",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "rsh",
+        "multicall": {
+          "status": 1,
+          "stderr_bytes": 24,
+          "stderr_sha256": "abf595feff7c30e4d8bab2462fc401ba95889ca996c7d917d5ed9dbcadeebcd9",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rsh",
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 862,
+          "stdout_sha256": "40ed617a8a24a18ce6377d9466744c09ac78cb24e49995acc5f6a74676bf918d"
+        },
+        "dispatch_name": "rsh",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 862,
+          "stdout_sha256": "40ed617a8a24a18ce6377d9466744c09ac78cb24e49995acc5f6a74676bf918d"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rsh",
+        "arguments": [
+          "--usage"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 209,
+          "stdout_sha256": "0333a175db260982edc56719d1b046500e2f4d6fafa38d7850183a9eb8a982e0"
+        },
+        "dispatch_name": "rsh",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 209,
+          "stdout_sha256": "0333a175db260982edc56719d1b046500e2f4d6fafa38d7850183a9eb8a982e0"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rsh",
+        "arguments": [
+          "--version"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 301,
+          "stdout_sha256": "5057a9f9eca3abb977eb0d66f0f0f0dffdcce4746a96a94eb09491f784c83570"
+        },
+        "dispatch_name": "rsh",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 301,
+          "stdout_sha256": "5057a9f9eca3abb977eb0d66f0f0f0dffdcce4746a96a94eb09491f784c83570"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rsh",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 104,
+          "stderr_sha256": "e7e4ba7a4e109f096af0fe4410a0d6fec64aca3386306e203d3f203d9daa8828",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "rsh",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 104,
+          "stderr_sha256": "e7e4ba7a4e109f096af0fe4410a0d6fec64aca3386306e203d3f203d9daa8828",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ftp",
+        "arguments": [],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "ftp",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ftp",
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 1207,
+          "stdout_sha256": "9d82700c66eef8b1bdad646a3a3556f12697d2333ab5f4f943c4a148a3937d56"
+        },
+        "dispatch_name": "ftp",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 1207,
+          "stdout_sha256": "9d82700c66eef8b1bdad646a3a3556f12697d2333ab5f4f943c4a148a3937d56"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ftp",
+        "arguments": [
+          "--usage"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 280,
+          "stdout_sha256": "9100b21d88afe7eda7f87cc0d48366abf7573f50cc1be8a4055aedaaa8ec9cd7"
+        },
+        "dispatch_name": "ftp",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 280,
+          "stdout_sha256": "9100b21d88afe7eda7f87cc0d48366abf7573f50cc1be8a4055aedaaa8ec9cd7"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ftp",
+        "arguments": [
+          "--version"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 301,
+          "stdout_sha256": "86960c755a3c8a29a05d829e28e29aa44e53021f2ece3c14aa21d4eef7be0bc5"
+        },
+        "dispatch_name": "ftp",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 301,
+          "stdout_sha256": "86960c755a3c8a29a05d829e28e29aa44e53021f2ece3c14aa21d4eef7be0bc5"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ftp",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 104,
+          "stderr_sha256": "cb851227c23a6357d63a3c1ebe3ee279dc9406f2a3e9279ac99a7b04d5528ad9",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "ftp",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 104,
+          "stderr_sha256": "cb851227c23a6357d63a3c1ebe3ee279dc9406f2a3e9279ac99a7b04d5528ad9",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ftp",
+        "arguments": [
+          "--no-login"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "ftp",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ftp",
+        "arguments": [],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 861,
+          "stdout_sha256": "0c9b66eb622b1ea6465f1426463e0abf1c4fa2ea5e886587580918cc11007edf"
+        },
+        "dispatch_name": "ftp",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 861,
+          "stdout_sha256": "0c9b66eb622b1ea6465f1426463e0abf1c4fa2ea5e886587580918cc11007edf"
+        },
+        "passed": true,
+        "stdin_bytes": 17,
+        "stdin_sha256": "6af4b5fd5586007bde7ba0bf179a020183e82d202dc9fd2b52fe87584735be22"
+      },
+      {
+        "applet": "talk",
+        "arguments": [],
+        "canonical": {
+          "status": 255,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 27,
+          "stdout_sha256": "54b7c5d54c7cb3d84db42e5f3d8f287cb0c3b8058e8ff13a0f7b361a1f4c3783"
+        },
+        "dispatch_name": "talk",
+        "multicall": {
+          "status": 255,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 27,
+          "stdout_sha256": "54b7c5d54c7cb3d84db42e5f3d8f287cb0c3b8058e8ff13a0f7b361a1f4c3783"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "talk",
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 261,
+          "stdout_sha256": "26e2e973c94445dca3c102ee8cbe6ff61107d2eec371178ff93c1a1d12c45fdd"
+        },
+        "dispatch_name": "talk",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 261,
+          "stdout_sha256": "26e2e973c94445dca3c102ee8cbe6ff61107d2eec371178ff93c1a1d12c45fdd"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "talk",
+        "arguments": [
+          "--usage"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 66,
+          "stdout_sha256": "210c4a9f53d11158cd1cc27248df4c0e2a7809309019a112b38f419be609546e"
+        },
+        "dispatch_name": "talk",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 66,
+          "stdout_sha256": "210c4a9f53d11158cd1cc27248df4c0e2a7809309019a112b38f419be609546e"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "talk",
+        "arguments": [
+          "--version"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 330,
+          "stdout_sha256": "fa02b0e8f1d8ae132a50212fbc7a97d26066161f4ec65dc307521eef4f0407e6"
+        },
+        "dispatch_name": "talk",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 330,
+          "stdout_sha256": "fa02b0e8f1d8ae132a50212fbc7a97d26066161f4ec65dc307521eef4f0407e6"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "talk",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 107,
+          "stderr_sha256": "e9d2db0462a3626d513d324c4b34831176e84fa29555c80490eb9c2054f9a421",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "talk",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 107,
+          "stderr_sha256": "e9d2db0462a3626d513d324c4b34831176e84fa29555c80490eb9c2054f9a421",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "telnet",
+        "arguments": [],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 9,
+          "stdout_sha256": "07f07bfd90c48c241aa9cfc736b6d817fe0c18293ce7e0ed1501b3876acc0f5f"
+        },
+        "dispatch_name": "telnet",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 9,
+          "stdout_sha256": "07f07bfd90c48c241aa9cfc736b6d817fe0c18293ce7e0ed1501b3876acc0f5f"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "telnet",
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 1271,
+          "stdout_sha256": "120d12e6968d155f9043f78486bef7f25cc9ff64ea34e7c6f79c8c31cb9fc87d"
+        },
+        "dispatch_name": "telnet",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 1271,
+          "stdout_sha256": "120d12e6968d155f9043f78486bef7f25cc9ff64ea34e7c6f79c8c31cb9fc87d"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "telnet",
+        "arguments": [
+          "--usage"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 343,
+          "stdout_sha256": "d84889c78077fb05fe2149f79d378bb3a9b9340d194b1283505d471968046ae9"
+        },
+        "dispatch_name": "telnet",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 343,
+          "stdout_sha256": "d84889c78077fb05fe2149f79d378bb3a9b9340d194b1283505d471968046ae9"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "telnet",
+        "arguments": [
+          "--version"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 304,
+          "stdout_sha256": "bcc783284fc6720ba2cae93de09abd87ad1e9318c38c72902ac8cf54bbb36a58"
+        },
+        "dispatch_name": "telnet",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 304,
+          "stdout_sha256": "bcc783284fc6720ba2cae93de09abd87ad1e9318c38c72902ac8cf54bbb36a58"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "telnet",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 113,
+          "stderr_sha256": "f975c771dddbf3cc8397e2fe1206c28da0545a689eb01604ddaf967ac137700f",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "telnet",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 113,
+          "stderr_sha256": "f975c771dddbf3cc8397e2fe1206c28da0545a689eb01604ddaf967ac137700f",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "telnet",
+        "arguments": [],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 824,
+          "stdout_sha256": "494abc659a740351dfa5d11660e9b4db353cc485f2494bd3a81da088314b9ac8"
+        },
+        "dispatch_name": "telnet",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 824,
+          "stdout_sha256": "494abc659a740351dfa5d11660e9b4db353cc485f2494bd3a81da088314b9ac8"
+        },
+        "passed": true,
+        "stdin_bytes": 17,
+        "stdin_sha256": "6af4b5fd5586007bde7ba0bf179a020183e82d202dc9fd2b52fe87584735be22"
+      },
+      {
+        "applet": "inetd",
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 953,
+          "stdout_sha256": "0e768b97e7057e32ec4113c597c0546a2af78f2ae6333455556f8bbcc2e34fea"
+        },
+        "dispatch_name": "inetd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 953,
+          "stdout_sha256": "0e768b97e7057e32ec4113c597c0546a2af78f2ae6333455556f8bbcc2e34fea"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "inetd",
+        "arguments": [
+          "--usage"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 218,
+          "stdout_sha256": "8122a661c51451fb70c966be7649942760a4c29b9641c57894146a614a31ad19"
+        },
+        "dispatch_name": "inetd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 218,
+          "stdout_sha256": "8122a661c51451fb70c966be7649942760a4c29b9641c57894146a614a31ad19"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "inetd",
+        "arguments": [
+          "--version"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 437,
+          "stdout_sha256": "15cd8414567f2ccead565cadd1c680658b9823086c88a21d09825450eb17e351"
+        },
+        "dispatch_name": "inetd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 437,
+          "stdout_sha256": "15cd8414567f2ccead565cadd1c680658b9823086c88a21d09825450eb17e351"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "inetd",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 110,
+          "stderr_sha256": "0572d9f16b914929c8d2c4d79c5d9680b3efcfe33cebe9b05bc85f9a74552c99",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "inetd",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 110,
+          "stderr_sha256": "0572d9f16b914929c8d2c4d79c5d9680b3efcfe33cebe9b05bc85f9a74552c99",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rexecd",
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 309,
+          "stdout_sha256": "dc94f67ed5c1018b38550bd9b365f879a53da22bfd9b4b08b0fbe832924077ec"
+        },
+        "dispatch_name": "rexecd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 309,
+          "stdout_sha256": "dc94f67ed5c1018b38550bd9b365f879a53da22bfd9b4b08b0fbe832924077ec"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rexecd",
+        "arguments": [
+          "--usage"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 64,
+          "stdout_sha256": "b8078404045e1d854fbe02caa9476393868b5e5a802e69f7d257143c7e241b7e"
+        },
+        "dispatch_name": "rexecd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 64,
+          "stdout_sha256": "b8078404045e1d854fbe02caa9476393868b5e5a802e69f7d257143c7e241b7e"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rexecd",
+        "arguments": [
+          "--version"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 304,
+          "stdout_sha256": "f1bfd03b3d7d62519b846e54e3dc6cfd3ec3d987120c43feeb30462f69943fe8"
+        },
+        "dispatch_name": "rexecd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 304,
+          "stdout_sha256": "f1bfd03b3d7d62519b846e54e3dc6cfd3ec3d987120c43feeb30462f69943fe8"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rexecd",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 113,
+          "stderr_sha256": "84719fb326d68a1953ffede3b6fc728deac3e1f78e0eefe9c26d0de6aba82af9",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "rexecd",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 113,
+          "stderr_sha256": "84719fb326d68a1953ffede3b6fc728deac3e1f78e0eefe9c26d0de6aba82af9",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rlogind",
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 1018,
+          "stdout_sha256": "982247f39fa0e24eae53acaea07fea45e3fb70776a7cebfc19f44abe0173a906"
+        },
+        "dispatch_name": "rlogind",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 1018,
+          "stdout_sha256": "982247f39fa0e24eae53acaea07fea45e3fb70776a7cebfc19f44abe0173a906"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rlogind",
+        "arguments": [
+          "--usage"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 313,
+          "stdout_sha256": "edc4b457dac4099c1d014990ae2bae2fb339607f3c099bf7260edd104eaa441e"
+        },
+        "dispatch_name": "rlogind",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 313,
+          "stdout_sha256": "edc4b457dac4099c1d014990ae2bae2fb339607f3c099bf7260edd104eaa441e"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rlogind",
+        "arguments": [
+          "--version"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 329,
+          "stdout_sha256": "415037affa8a87603bcff71f3b4ec7b06652b3f76a676850f3b0a43ef659d8f7"
+        },
+        "dispatch_name": "rlogind",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 329,
+          "stdout_sha256": "415037affa8a87603bcff71f3b4ec7b06652b3f76a676850f3b0a43ef659d8f7"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rlogind",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 116,
+          "stderr_sha256": "69768e7fc2a7d7c766d01e5242fcef85af3ef1128ca368d4ddf703c2ee315f30",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "rlogind",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 116,
+          "stderr_sha256": "69768e7fc2a7d7c766d01e5242fcef85af3ef1128ca368d4ddf703c2ee315f30",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rshd",
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 528,
+          "stdout_sha256": "23e91e2095ad36dda60771c9829483964bb65a18df4726b8860af85cf18916ed"
+        },
+        "dispatch_name": "rshd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 528,
+          "stdout_sha256": "23e91e2095ad36dda60771c9829483964bb65a18df4726b8860af85cf18916ed"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rshd",
+        "arguments": [
+          "--usage"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 167,
+          "stdout_sha256": "d5258fa16deb7e255f6235e6523f61e8ca7a1562d2c86555c365ba1349b7927b"
+        },
+        "dispatch_name": "rshd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 167,
+          "stdout_sha256": "d5258fa16deb7e255f6235e6523f61e8ca7a1562d2c86555c365ba1349b7927b"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rshd",
+        "arguments": [
+          "--version"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 302,
+          "stdout_sha256": "b80135a84ab07fe61c254a5a63a978d8118edce2248a5f1898a8fdaef06ce89b"
+        },
+        "dispatch_name": "rshd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 302,
+          "stdout_sha256": "b80135a84ab07fe61c254a5a63a978d8118edce2248a5f1898a8fdaef06ce89b"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "rshd",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 107,
+          "stderr_sha256": "c411a2acc28e736f2fba14beb19bbf6bbf8deedd87c4c46767f5680927647ea8",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "rshd",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 107,
+          "stderr_sha256": "c411a2acc28e736f2fba14beb19bbf6bbf8deedd87c4c46767f5680927647ea8",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "syslogd",
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 2211,
+          "stdout_sha256": "de849cb97525d6b9d97c582650dc3680712b707f602039acf65c63ca499adfdf"
+        },
+        "dispatch_name": "syslogd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 2211,
+          "stdout_sha256": "de849cb97525d6b9d97c582650dc3680712b707f602039acf65c63ca499adfdf"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "syslogd",
+        "arguments": [
+          "--usage"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 490,
+          "stdout_sha256": "5e6125407fd13f016f5f28bf8bb7ddc394ac8c546306faada5ff1555601b4bb1"
+        },
+        "dispatch_name": "syslogd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 490,
+          "stdout_sha256": "5e6125407fd13f016f5f28bf8bb7ddc394ac8c546306faada5ff1555601b4bb1"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "syslogd",
+        "arguments": [
+          "--version"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 305,
+          "stdout_sha256": "68540d0ce6cef2789e9e4e4d6c137958d7eca627d29dc94a9f4dc88832fcce3a"
+        },
+        "dispatch_name": "syslogd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 305,
+          "stdout_sha256": "68540d0ce6cef2789e9e4e4d6c137958d7eca627d29dc94a9f4dc88832fcce3a"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "syslogd",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 116,
+          "stderr_sha256": "56b66a5f3d67eae611ec07ccd557e029ef5e40a499253e6c29e172eff52206c5",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "syslogd",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 116,
+          "stderr_sha256": "56b66a5f3d67eae611ec07ccd557e029ef5e40a499253e6c29e172eff52206c5",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "tftpd",
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 935,
+          "stdout_sha256": "27df91400c3e906b487b28d9a8c961fe3d27fdfc3fb987e4de420b44ae65d770"
+        },
+        "dispatch_name": "tftpd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 935,
+          "stdout_sha256": "27df91400c3e906b487b28d9a8c961fe3d27fdfc3fb987e4de420b44ae65d770"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "tftpd",
+        "arguments": [
+          "--usage"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 190,
+          "stdout_sha256": "7aa09289a975d9d3d8a311f168f3a93594c7357bdb7b92d4b9447d40d509168a"
+        },
+        "dispatch_name": "tftpd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 190,
+          "stdout_sha256": "7aa09289a975d9d3d8a311f168f3a93594c7357bdb7b92d4b9447d40d509168a"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "tftpd",
+        "arguments": [
+          "--version"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 303,
+          "stdout_sha256": "e22a77ba253be73bfffe09f3746d8b5fe7ad02497c0b2ec011145917f0bac429"
+        },
+        "dispatch_name": "tftpd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 303,
+          "stdout_sha256": "e22a77ba253be73bfffe09f3746d8b5fe7ad02497c0b2ec011145917f0bac429"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "tftpd",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 110,
+          "stderr_sha256": "d9d35ad178dc9793be017c6d44fe5d36ddff0226cf2c386f6900401287c3693a",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "tftpd",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 110,
+          "stderr_sha256": "d9d35ad178dc9793be017c6d44fe5d36ddff0226cf2c386f6900401287c3693a",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "uucpd",
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 507,
+          "stdout_sha256": "08df0cf0250059360ae66c28f4d0b2d26cb83bed782ae32c7c5d59585d12e538"
+        },
+        "dispatch_name": "uucpd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 507,
+          "stdout_sha256": "08df0cf0250059360ae66c28f4d0b2d26cb83bed782ae32c7c5d59585d12e538"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "uucpd",
+        "arguments": [
+          "--usage"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 96,
+          "stdout_sha256": "e032e3316cd4dc7bc9d5cef99c74d79bf89063ac0d4cabbb11e5150eaa540c02"
+        },
+        "dispatch_name": "uucpd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 96,
+          "stdout_sha256": "e032e3316cd4dc7bc9d5cef99c74d79bf89063ac0d4cabbb11e5150eaa540c02"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "uucpd",
+        "arguments": [
+          "--version"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 303,
+          "stdout_sha256": "c256dfab118bc1d5385cc6c74cbf7d515e567d67b4a3bf7181f5b5b7ecbba8f0"
+        },
+        "dispatch_name": "uucpd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 303,
+          "stdout_sha256": "c256dfab118bc1d5385cc6c74cbf7d515e567d67b4a3bf7181f5b5b7ecbba8f0"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "uucpd",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 110,
+          "stderr_sha256": "12dda24259643037565a8bea894eb08a9e3adc64c5f6eaf9cd11db6f2f74eef9",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "uucpd",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 110,
+          "stderr_sha256": "12dda24259643037565a8bea894eb08a9e3adc64c5f6eaf9cd11db6f2f74eef9",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ftpd",
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 1234,
+          "stdout_sha256": "f5803860ba89facbd0a72ee55138d8456b6f204cc2eb5056b77c7a0be62dcbde"
+        },
+        "dispatch_name": "ftpd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 1234,
+          "stdout_sha256": "f5803860ba89facbd0a72ee55138d8456b6f204cc2eb5056b77c7a0be62dcbde"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ftpd",
+        "arguments": [
+          "--usage"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 392,
+          "stdout_sha256": "65f1574805bf97c5191fd7fecbf66bd7761981c59531a33d14bff7cef2a77024"
+        },
+        "dispatch_name": "ftpd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 392,
+          "stdout_sha256": "65f1574805bf97c5191fd7fecbf66bd7761981c59531a33d14bff7cef2a77024"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ftpd",
+        "arguments": [
+          "--version"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 302,
+          "stdout_sha256": "01966c4d3ba1de06564d33cb4fe61bb1fb52443b8f6ede3aed41e36f8ef0852d"
+        },
+        "dispatch_name": "ftpd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 302,
+          "stdout_sha256": "01966c4d3ba1de06564d33cb4fe61bb1fb52443b8f6ede3aed41e36f8ef0852d"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "ftpd",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 107,
+          "stderr_sha256": "564de864dccaadf80d9b6ab728ec28c2c6d0c27302900b596769409deb06b7c4",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "ftpd",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 107,
+          "stderr_sha256": "564de864dccaadf80d9b6ab728ec28c2c6d0c27302900b596769409deb06b7c4",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "talkd",
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 785,
+          "stdout_sha256": "8e5031054efaca86b81e96de3251d0cb994424071e47d36866861a0f9968175e"
+        },
+        "dispatch_name": "talkd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 785,
+          "stdout_sha256": "8e5031054efaca86b81e96de3251d0cb994424071e47d36866861a0f9968175e"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "talkd",
+        "arguments": [
+          "--usage"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 261,
+          "stdout_sha256": "685771861612f19ca4ad4470eb1022e1ccb27a77aab44553c363b640faae7deb"
+        },
+        "dispatch_name": "talkd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 261,
+          "stdout_sha256": "685771861612f19ca4ad4470eb1022e1ccb27a77aab44553c363b640faae7deb"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "talkd",
+        "arguments": [
+          "--version"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 308,
+          "stdout_sha256": "fc054943fa4872678e4ee7386f7411f540bbb0f0944ab925475f530a43f09302"
+        },
+        "dispatch_name": "talkd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 308,
+          "stdout_sha256": "fc054943fa4872678e4ee7386f7411f540bbb0f0944ab925475f530a43f09302"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "talkd",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 110,
+          "stderr_sha256": "546b994a9aa5735ebad8065168575b91e23e158b08d062f950adb323dfcac1e4",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "talkd",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 110,
+          "stderr_sha256": "546b994a9aa5735ebad8065168575b91e23e158b08d062f950adb323dfcac1e4",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "telnetd",
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 914,
+          "stdout_sha256": "f89d6e0cdc33f5144c3db8c2a21bd00cb4db8f214b60b46b7624735067310adb"
+        },
+        "dispatch_name": "telnetd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 914,
+          "stdout_sha256": "f89d6e0cdc33f5144c3db8c2a21bd00cb4db8f214b60b46b7624735067310adb"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "telnetd",
+        "arguments": [
+          "--usage"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 216,
+          "stdout_sha256": "497748c166befa58837d7eabaa087eacf6261f6f03f7333451e53e6549031944"
+        },
+        "dispatch_name": "telnetd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 216,
+          "stdout_sha256": "497748c166befa58837d7eabaa087eacf6261f6f03f7333451e53e6549031944"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "telnetd",
+        "arguments": [
+          "--version"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 305,
+          "stdout_sha256": "3312889fd647d71449dca85131e0c65e2b0eeb9aa76314d227bb4a4328f0c372"
+        },
+        "dispatch_name": "telnetd",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 305,
+          "stdout_sha256": "3312889fd647d71449dca85131e0c65e2b0eeb9aa76314d227bb4a4328f0c372"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "applet": "telnetd",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "canonical": {
+          "status": 64,
+          "stderr_bytes": 116,
+          "stderr_sha256": "195788ebcb9eda31eff4c14fc0ad8ce8fa11eebb7d9831aa19847c9da1448df6",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "dispatch_name": "telnetd",
+        "multicall": {
+          "status": 64,
+          "stderr_bytes": 116,
+          "stderr_sha256": "195788ebcb9eda31eff4c14fc0ad8ce8fa11eebb7d9831aa19847c9da1448df6",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "stdin_bytes": 0,
+        "stdin_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "schema": 1
+  },
+  "differential_sha256": "99372bdb971fd1df4af0b01af25fa75ef93668487b7dc40d06e5b58f524e7fdf",
+  "dispatch": {
+    "aggregate_names": 386,
+    "aliases": {
+      "hostname": "inetutils-hostname",
+      "logger": "inetutils-logger"
+    },
+    "programs": 26
+  },
+  "recorded_at": "2026-11-24",
+  "schema": 1,
+  "status": "all 26 GNU Inetutils programs integrated at canonical parity",
+  "translation": {
+    "canonical_c_abi_boundaries": [
+      "telnet: lib/printf-args.c"
+    ],
+    "holes": 0,
+    "production_sources": 288,
+    "stable_rust_sources": 287
+  },
+  "valgrind": {
+    "dnsdomainname": {
+      "errors": 0,
+      "sha256": "d5802d7f23dd7c75e9d154e034918354d5627823894889bcb11c552710823f26"
+    },
+    "ftp": {
+      "errors": 0,
+      "sha256": "9266c3660f4b0b0c9824240b2bedf13d747e85a99e5b2f705f334ac599a46081"
+    },
+    "ftpd": {
+      "errors": 0,
+      "sha256": "52f7ad966fc0f5f61f86bdeb4e85184a16b1e8abf6022ebb24f33050c5df0d84"
+    },
+    "hostname": {
+      "errors": 0,
+      "sha256": "f0abff8a625bd6d553dca8f3df92700a108d78f8bb048ee5a7b8f72d3801cc2c"
+    },
+    "ifconfig": {
+      "errors": 0,
+      "sha256": "a27c55b66749e56bae3e4cd59eb32e8c07535a3ee12fff84e3f6d5b78aafd5a4"
+    },
+    "inetd": {
+      "errors": 0,
+      "sha256": "9301e48861d06f1e7e0bd97ef6fb7345827ff75493ca48bd7e0ca21656465cbc"
+    },
+    "logger": {
+      "errors": 0,
+      "sha256": "223fc2c1bf0c444b56442a22a2942b1f1cfc15b91156f6ff4d51b84971194f52"
+    },
+    "ping": {
+      "errors": 0,
+      "sha256": "d05377f22b606ad12156fb4c7d0be3b43bd191d6f6f0d84dc2afe8175c1580e3"
+    },
+    "ping6": {
+      "errors": 0,
+      "sha256": "5705ed623db2b9011697908f03f6de107584c37e7b96f3b0606a321e103629eb"
+    },
+    "rcp": {
+      "errors": 0,
+      "sha256": "171ef6c148e50cb315c80f4d03573c117cb9740d61d1961f053403e06f5e9bc4"
+    },
+    "rexec": {
+      "errors": 0,
+      "sha256": "cb3997424012996dbff4d2798a7e4589d24f96609aec425d669fe331b4062e13"
+    },
+    "rexecd": {
+      "errors": 0,
+      "sha256": "459096adc0a550b81ed82b2476ff4648c9740e94013ab8c4adb67cf325f1a0ca"
+    },
+    "rlogin": {
+      "errors": 0,
+      "sha256": "488a6194a58c32fc628aa1f23836626642c9043c57d5a404f7f92b057d120dcd"
+    },
+    "rlogind": {
+      "errors": 0,
+      "sha256": "b041bee8827ce671c5f8591bb0cae901a91bed3e4a289fb26a70d8f056895d61"
+    },
+    "rsh": {
+      "errors": 0,
+      "sha256": "9181cb706a8ccc24709f476101ffe753e7bd7335cf01e89a85a5d7d03dca36a1"
+    },
+    "rshd": {
+      "errors": 0,
+      "sha256": "241ba441f1b4fe662c2465768d01b2f3b7525b28f6b866ecca6a1a3adb7dc2cc"
+    },
+    "syslogd": {
+      "errors": 0,
+      "sha256": "5a8a18890a947aac8fc54565bc2ff7435a48612aa6e3b801fd7b0cf9d546b444"
+    },
+    "talk": {
+      "errors": 0,
+      "sha256": "131abc793a1abe12f8acfbb812792d83dbb082e93dee48c92e35598d0f9ad434"
+    },
+    "talkd": {
+      "errors": 0,
+      "sha256": "8dd7a7954531611eb0edbad7e1cbaf5853b61aea719e2f414ec890b99a31306d"
+    },
+    "telnet": {
+      "errors": 0,
+      "sha256": "0624cdea5c879af34489cd97e17ce5a2bae1b374f86c5c521fd8518e9bf8f232"
+    },
+    "telnetd": {
+      "errors": 0,
+      "sha256": "85568674874af7aa901ba1f3fd3483350617849933697a400c30aac1158614b7"
+    },
+    "tftp": {
+      "errors": 0,
+      "sha256": "edba4b20b1f64a1ca1f27a51f6088990ba20364069c62286e381bce844558182"
+    },
+    "tftpd": {
+      "errors": 0,
+      "sha256": "2ce3f1613d392a7ca33dfed8f34e7baf100abbcfa356ed587cef6c68a4441139"
+    },
+    "traceroute": {
+      "errors": 0,
+      "sha256": "81ce33732ef56c78d23f6d64ccc7340a1f820909df2b613fbfb79bfde3b60940"
+    },
+    "uucpd": {
+      "errors": 0,
+      "sha256": "3aa1143f772e55ddc53bbceb46241cd50b85d06157bb377dee81847ff02c802e"
+    },
+    "whois": {
+      "errors": 0,
+      "sha256": "f4e2ad7b560cb2844b2a9a35d45fe88b7660cbbb6d39fc6ed688a068c2af1d09"
+    }
+  }
+}
