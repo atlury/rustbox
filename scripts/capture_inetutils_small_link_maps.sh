@@ -19,6 +19,20 @@ RUSTBOX_TOOL_IMAGE=rustbox-inetutils:2026-11-23 \
         LDFLAGS="-Wl,-Map=$output/$name.map" "$name" \
         >"$output/$name-link.log" 2>&1
     done
+    for name in rcp rlogin rsh; do
+      make -C "$build/src" V=1 -W "$source/src/$name.c" \
+        LDFLAGS="-Wl,-Map=$output/$name.map" "$name" \
+        >"$output/$name-link.log" 2>&1
+    done
+    make -C "$build/ftp" V=1 -W "$source/ftp/main.c" \
+      LDFLAGS="-Wl,-Map=$output/ftp.map" ftp \
+      >"$output/ftp-link.log" 2>&1
+    make -C "$build/talk" V=1 -W "$source/talk/talk.c" \
+      LDFLAGS="-Wl,-Map=$output/talk.map" talk \
+      >"$output/talk-link.log" 2>&1
+    make -C "$build/telnet" V=1 -W "$source/telnet/main.c" \
+      LDFLAGS="-Wl,-Map=$output/telnet.map" telnet \
+      >"$output/telnet-link.log" 2>&1
     make -C "$build/ifconfig" V=1 -W "$source/ifconfig/ifconfig.c" \
       LDFLAGS="-Wl,-Map=$output/ifconfig.map" ifconfig \
       >"$output/ifconfig-link.log" 2>&1

@@ -1,0 +1,439 @@
+{
+  "applets": 6,
+  "hardening": {
+    "deferred_until_all_applets_complete": true,
+    "raw_pointers_and_unsafe_are_inventory_only": true
+  },
+  "next_gate": "complete program-scoped hybrid parity for the ten GNU Inetutils daemons, namespace defined symbols, and integrate all 26",
+  "programs": {
+    "ftp": {
+      "binary": {
+        "bytes": 4621664,
+        "entrypoint": "rustbox_inetutils_ftp_main",
+        "needed": [
+          "ld-linux-x86-64.so.2",
+          "libc.so.6",
+          "libgcc_s.so.1",
+          "libm.so.6",
+          "libreadline.so.8"
+        ],
+        "sha256": "24a1ca05d0702b42f91c52fa65431a1d2371b7cf3ddfa0efda77ad88425f26f4"
+      },
+      "boundary_manifest_sha256": null,
+      "canonical_c_residue": null,
+      "cargo_check_sha256": "b8d688fb3d1e5a514e12f4f8099406d19f12afd966e515e9a6b11b5feff72e6b",
+      "closure_manifest_sha256": "7b18a8b38a27dabd9315818c0b9aa9f521af86c282002822f09fcdb1c3e7c613",
+      "direct_objects": [
+        "ftp/cmds.o",
+        "ftp/cmdtab.o",
+        "ftp/domacro.o",
+        "ftp/ftp.o",
+        "ftp/main.o",
+        "ftp/ruserpass.o"
+      ],
+      "holes": {
+        "C2Rust Translation Error": 0,
+        "compile_error!": 0,
+        "todo!": 0,
+        "unimplemented!": 0
+      },
+      "raw_pointer_type_occurrences": 7160,
+      "rust_files": 39,
+      "rust_lines": 32753,
+      "sources": [
+        "ftp/cmds.c",
+        "ftp/cmdtab.c",
+        "ftp/domacro.c",
+        "ftp/ftp.c",
+        "ftp/main.c",
+        "ftp/ruserpass.c",
+        "lib/argp-ba.c",
+        "lib/argp-eexst.c",
+        "lib/argp-fmtstream.c",
+        "lib/argp-help.c",
+        "lib/argp-parse.c",
+        "lib/argp-pv.c",
+        "lib/argp-pvh.c",
+        "lib/argp-version-etc.c",
+        "lib/basename-lgpl.c",
+        "lib/exitfail.c",
+        "lib/fopen.c",
+        "lib/fseeko.c",
+        "lib/getdelim.c",
+        "lib/getline.c",
+        "lib/getopt.c",
+        "lib/getopt1.c",
+        "lib/gettime.c",
+        "lib/glob.c",
+        "lib/globfree.c",
+        "lib/malloc/scratch_buffer_grow.c",
+        "lib/malloc/scratch_buffer_set_array_size.c",
+        "lib/progname.c",
+        "lib/reallocarray.c",
+        "lib/timespec-sub.c",
+        "lib/version-etc-fsf.c",
+        "lib/version-etc.c",
+        "lib/xalloc-die.c",
+        "lib/xgetcwd.c",
+        "lib/xmalloc.c",
+        "libinetutils/defauthors.c",
+        "libinetutils/localhost.c"
+      ],
+      "translated_sources": 37,
+      "valgrind": {
+        "errors": 0,
+        "log_sha256": "08700e818886406715425a6e9be1ffe26a9981f35f95028febd4362a57cb3364"
+      }
+    },
+    "rcp": {
+      "binary": {
+        "bytes": 4525272,
+        "entrypoint": "rustbox_inetutils_rcp_main",
+        "needed": [
+          "ld-linux-x86-64.so.2",
+          "libc.so.6",
+          "libgcc_s.so.1",
+          "libm.so.6"
+        ],
+        "sha256": "37a99f33e13b0a8ee0be481c64b35dc6417707ce2b91b57a5b7771d05e404f79"
+      },
+      "boundary_manifest_sha256": null,
+      "canonical_c_residue": null,
+      "cargo_check_sha256": "2544e04f4a475e68edf4d792c0d7915dc2052955ec69ffdd26ece8cdf1e10832",
+      "closure_manifest_sha256": "a64c56f19eeb17ba102356ea6ac2e7b967462a5b9be9672f2619f5848c7f2f11",
+      "direct_objects": [
+        "src/rcp.o"
+      ],
+      "holes": {
+        "C2Rust Translation Error": 0,
+        "compile_error!": 0,
+        "todo!": 0,
+        "unimplemented!": 0
+      },
+      "raw_pointer_type_occurrences": 3088,
+      "rust_files": 22,
+      "rust_lines": 15063,
+      "sources": [
+        "lib/argp-ba.c",
+        "lib/argp-eexst.c",
+        "lib/argp-fmtstream.c",
+        "lib/argp-help.c",
+        "lib/argp-parse.c",
+        "lib/argp-pv.c",
+        "lib/argp-pvh.c",
+        "lib/argp-version-etc.c",
+        "lib/basename-lgpl.c",
+        "lib/exitfail.c",
+        "lib/getopt.c",
+        "lib/getopt1.c",
+        "lib/progname.c",
+        "lib/reallocarray.c",
+        "lib/version-etc-fsf.c",
+        "lib/version-etc.c",
+        "lib/xalloc-die.c",
+        "lib/xmalloc.c",
+        "libinetutils/defauthors.c",
+        "src/rcp.c"
+      ],
+      "translated_sources": 20,
+      "valgrind": {
+        "errors": 0,
+        "log_sha256": "84b4d658ae5979b17c847926a4dc12bfb41a0cc15f2401ef387c57f7651ef1ad"
+      }
+    },
+    "rlogin": {
+      "binary": {
+        "bytes": 4521008,
+        "entrypoint": "rustbox_inetutils_rlogin_main",
+        "needed": [
+          "ld-linux-x86-64.so.2",
+          "libc.so.6",
+          "libgcc_s.so.1",
+          "libm.so.6"
+        ],
+        "sha256": "05b0105eebf41f98b099d661008f4c31b3264dbc57fc25f100bda63dae909944"
+      },
+      "boundary_manifest_sha256": null,
+      "canonical_c_residue": null,
+      "cargo_check_sha256": "5b5130dea124c2693b5a521e17546affc3e900a722fe6cc5d40c6a3345d665bf",
+      "closure_manifest_sha256": "b767fda1683f7635b97b68768062eedc947ddfb0e881069c359afaf0e7338da0",
+      "direct_objects": [
+        "src/rlogin.o"
+      ],
+      "holes": {
+        "C2Rust Translation Error": 0,
+        "compile_error!": 0,
+        "todo!": 0,
+        "unimplemented!": 0
+      },
+      "raw_pointer_type_occurrences": 2627,
+      "rust_files": 21,
+      "rust_lines": 13748,
+      "sources": [
+        "lib/argp-ba.c",
+        "lib/argp-eexst.c",
+        "lib/argp-fmtstream.c",
+        "lib/argp-help.c",
+        "lib/argp-parse.c",
+        "lib/argp-pv.c",
+        "lib/argp-pvh.c",
+        "lib/argp-version-etc.c",
+        "lib/basename-lgpl.c",
+        "lib/fcntl.c",
+        "lib/getopt.c",
+        "lib/getopt1.c",
+        "lib/ioctl.c",
+        "lib/progname.c",
+        "lib/version-etc-fsf.c",
+        "lib/version-etc.c",
+        "libinetutils/defauthors.c",
+        "libinetutils/setsig.c",
+        "src/rlogin.c"
+      ],
+      "translated_sources": 19,
+      "valgrind": {
+        "errors": 0,
+        "log_sha256": "c9a94621b416f7fb92a18f54413f6dde29ae72efb83f0348c77e041fe960c3eb"
+      }
+    },
+    "rsh": {
+      "binary": {
+        "bytes": 4514968,
+        "entrypoint": "rustbox_inetutils_rsh_main",
+        "needed": [
+          "ld-linux-x86-64.so.2",
+          "libc.so.6",
+          "libgcc_s.so.1",
+          "libm.so.6"
+        ],
+        "sha256": "4f17da4f93fedad4be949bb2d7b9d3966370d8b8205a57476cba3ae8945bae5b"
+      },
+      "boundary_manifest_sha256": null,
+      "canonical_c_residue": null,
+      "cargo_check_sha256": "87a49d8d73bbdf013d58e9b9ac7dd8d12934c4f0d310b21f25433c1fd1d73eb2",
+      "closure_manifest_sha256": "ee1621d6518c05d4749001bddb705aa97a72dc7328793a4aa59197cbc2031281",
+      "direct_objects": [
+        "src/rsh.o"
+      ],
+      "holes": {
+        "C2Rust Translation Error": 0,
+        "compile_error!": 0,
+        "todo!": 0,
+        "unimplemented!": 0
+      },
+      "raw_pointer_type_occurrences": 2498,
+      "rust_files": 19,
+      "rust_lines": 12219,
+      "sources": [
+        "lib/argp-ba.c",
+        "lib/argp-eexst.c",
+        "lib/argp-fmtstream.c",
+        "lib/argp-help.c",
+        "lib/argp-parse.c",
+        "lib/argp-pv.c",
+        "lib/argp-pvh.c",
+        "lib/argp-version-etc.c",
+        "lib/basename-lgpl.c",
+        "lib/getopt.c",
+        "lib/getopt1.c",
+        "lib/ioctl.c",
+        "lib/progname.c",
+        "lib/version-etc-fsf.c",
+        "lib/version-etc.c",
+        "libinetutils/defauthors.c",
+        "src/rsh.c"
+      ],
+      "translated_sources": 17,
+      "valgrind": {
+        "errors": 0,
+        "log_sha256": "38408be3bcf2d7a315968738ebfc2fdda6695b0df290f8178f92b22a16debbfe"
+      }
+    },
+    "talk": {
+      "binary": {
+        "bytes": 4528264,
+        "entrypoint": "rustbox_inetutils_talk_main",
+        "needed": [
+          "ld-linux-x86-64.so.2",
+          "libc.so.6",
+          "libgcc_s.so.1",
+          "libm.so.6",
+          "libncurses.so.6",
+          "libtinfo.so.6"
+        ],
+        "sha256": "f49d19417c39e6bc68505f160682af83cefdd7f69a00a1afe3c14e1acc92ed96"
+      },
+      "boundary_manifest_sha256": null,
+      "canonical_c_residue": null,
+      "cargo_check_sha256": "3328616f68cbc4a0f0b68323ddc9786cac17c51e5ffde292df8204e76071ce4f",
+      "closure_manifest_sha256": "5fb979b1e40cfe682ecf3262675c5b43631c1a7a8354163e873c9a9227ae864e",
+      "direct_objects": [
+        "talk/ctl.o",
+        "talk/ctl_transact.o",
+        "talk/display.o",
+        "talk/get_addrs.o",
+        "talk/get_names.o",
+        "talk/init_disp.o",
+        "talk/invite.o",
+        "talk/io.o",
+        "talk/look_up.o",
+        "talk/msgs.o",
+        "talk/talk.o"
+      ],
+      "holes": {
+        "C2Rust Translation Error": 0,
+        "compile_error!": 0,
+        "todo!": 0,
+        "unimplemented!": 0
+      },
+      "raw_pointer_type_occurrences": 3663,
+      "rust_files": 29,
+      "rust_lines": 18193,
+      "sources": [
+        "lib/argp-ba.c",
+        "lib/argp-eexst.c",
+        "lib/argp-fmtstream.c",
+        "lib/argp-help.c",
+        "lib/argp-parse.c",
+        "lib/argp-pv.c",
+        "lib/argp-pvh.c",
+        "lib/argp-version-etc.c",
+        "lib/basename-lgpl.c",
+        "lib/getopt.c",
+        "lib/getopt1.c",
+        "lib/ioctl.c",
+        "lib/progname.c",
+        "lib/version-etc-fsf.c",
+        "lib/version-etc.c",
+        "libinetutils/localhost.c",
+        "talk/ctl.c",
+        "talk/ctl_transact.c",
+        "talk/display.c",
+        "talk/get_addrs.c",
+        "talk/get_names.c",
+        "talk/init_disp.c",
+        "talk/invite.c",
+        "talk/io.c",
+        "talk/look_up.c",
+        "talk/msgs.c",
+        "talk/talk.c"
+      ],
+      "translated_sources": 27,
+      "valgrind": {
+        "errors": 0,
+        "log_sha256": "4c2e1c23661aa994d6ced07848c12c0819e6529c0ccac1741360391a21412015"
+      }
+    },
+    "telnet": {
+      "binary": {
+        "bytes": 4663480,
+        "entrypoint": "rustbox_inetutils_telnet_main",
+        "needed": [
+          "ld-linux-x86-64.so.2",
+          "libc.so.6",
+          "libcrypt.so.1",
+          "libgcc_s.so.1",
+          "libm.so.6",
+          "libtinfo.so.6"
+        ],
+        "sha256": "b1f0311d8d58edf1f6ecf7c226e1a844bdd8e2c25a6c6b9db4336238396dcafb"
+      },
+      "boundary_manifest_sha256": "216d03f239550386c5c7fc51d4c595901a69de8dea36cb12ad288422ad12ba04",
+      "canonical_c_residue": "lib/printf-args.c",
+      "cargo_check_sha256": "bc7790c3e04f0fa2d24b2e7fec3c9178fe489ef61f57ca751ff0dd9b6edd56eb",
+      "closure_manifest_sha256": "9f5baae7ec457197d7efebc0423d79b7dd97ad5bae4ec88863f20c48e0548867",
+      "direct_objects": [
+        "telnet/authenc.o",
+        "telnet/commands.o",
+        "telnet/main.o",
+        "telnet/network.o",
+        "telnet/ring.o",
+        "telnet/sys_bsd.o",
+        "telnet/telnet.o",
+        "telnet/terminal.o",
+        "telnet/utilities.o"
+      ],
+      "holes": {
+        "C2Rust Translation Error": 0,
+        "compile_error!": 0,
+        "todo!": 0,
+        "unimplemented!": 0
+      },
+      "raw_pointer_type_occurrences": 7391,
+      "rust_files": 41,
+      "rust_lines": 38558,
+      "sources": [
+        "lib/argp-ba.c",
+        "lib/argp-eexst.c",
+        "lib/argp-fmtstream.c",
+        "lib/argp-help.c",
+        "lib/argp-parse.c",
+        "lib/argp-pv.c",
+        "lib/argp-pvh.c",
+        "lib/argp-version-etc.c",
+        "lib/basename-lgpl.c",
+        "lib/exitfail.c",
+        "lib/fopen.c",
+        "lib/getopt.c",
+        "lib/getopt1.c",
+        "lib/ioctl.c",
+        "lib/printf-args.c",
+        "lib/printf-parse.c",
+        "lib/progname.c",
+        "lib/reallocarray.c",
+        "lib/vasnprintf.c",
+        "lib/vaszprintf.c",
+        "lib/version-etc-fsf.c",
+        "lib/version-etc.c",
+        "lib/xalloc-die.c",
+        "lib/xasprintf.c",
+        "lib/xmalloc.c",
+        "lib/xstrtoimax.c",
+        "lib/xvasprintf.c",
+        "libinetutils/defauthors.c",
+        "libinetutils/localhost.c",
+        "libtelnet/genget.c",
+        "telnet/authenc.c",
+        "telnet/commands.c",
+        "telnet/main.c",
+        "telnet/network.c",
+        "telnet/ring.c",
+        "telnet/sys_bsd.c",
+        "telnet/telnet.c",
+        "telnet/terminal.c",
+        "telnet/utilities.c"
+      ],
+      "translated_sources": 39,
+      "valgrind": {
+        "errors": 0,
+        "log_sha256": "02908b7f8f464a20078343e2bdc3204c4d1b9bb4a8ca0928cca85e17be917490"
+      }
+    }
+  },
+  "recorded_at": "2026-11-24",
+  "release": "2.8",
+  "schema": 1,
+  "scope": {
+    "inetutils_clients_with_hybrid_parity": 16,
+    "inetutils_daemons_with_hybrid_parity": 0,
+    "integrated_into_rustbox": false,
+    "program_namespaces_are_separate": true
+  },
+  "status": "all 16 clients have program-scoped hybrid canonical parity",
+  "tests": {
+    "differential_cases": 33,
+    "differential_passed": 33,
+    "differential_sha256": "2a331976e138e1f6b8b258118fe6f8114cf7a92d252871fd19809cf3bb269cd9",
+    "valgrind_errors": 0,
+    "valgrind_programs": 6
+  },
+  "translation": {
+    "canonical_c_residue": [
+      "lib/printf-args.c"
+    ],
+    "canonical_c_residue_sources": 1,
+    "holes": 0,
+    "program_source_instances": 159,
+    "unique_sources": 71
+  }
+}

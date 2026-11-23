@@ -28,6 +28,7 @@ def main() -> int:
     records = json.loads(args.database.read_text())
     by_source: dict[str, dict[str, object]] = {}
     by_object: dict[str, dict[str, object]] = {}
+    archive_member_candidates: dict[tuple[str, str], list[str]] = {}
     for record in records:
         source = Path(str(record["file"])).resolve()
         output = Path(str(record["output"])).resolve()
@@ -39,6 +40,10 @@ def main() -> int:
             raise RuntimeError("duplicate Inetutils compile action")
         by_source[relative_source] = record
         by_object[relative_object] = record
+        object_path = Path(relative_object)
+        archive_member_candidates.setdefault(
+            (object_path.parts[0], object_path.name), []
+        ).append(relative_object)
 
     main_source = args.main_source
     if main_source not in by_source:
@@ -57,7 +62,16 @@ def main() -> int:
         relative_object = f"{archive_dir}/{match.group('member')}"
         record = by_object.get(relative_object)
         if record is None:
-            raise RuntimeError(f"no compile action for map object: {relative_object}")
+            candidates = archive_member_candidates.get(
+                (archive_dir, match.group("member")), []
+            )
+            if len(candidates) != 1:
+                raise RuntimeError(
+                    f"no unique compile action for map object: {relative_object}; "
+                    f"candidates={candidates}"
+                )
+            relative_object = candidates[0]
+            record = by_object[relative_object]
         relative_source = Path(str(record["file"])).relative_to(SOURCE_ROOT).as_posix()
         selected[relative_source] = record
         archive_objects.append(relative_object)

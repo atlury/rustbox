@@ -65,7 +65,7 @@ scoring, and correctness gates.
 | Flex 2.6.4 | 3 | 3 | 3 | 3 |
 | Bison 3.8.2 | 2 | 2 | 2 | 2 |
 | curl 8.23.0 | 2 | 2 | 2 | 2 |
-| GNU Inetutils 2.8 | 26 | 26 | 10 | 0 |
+| GNU Inetutils 2.8 | 26 | 26 | 16 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -1191,6 +1191,14 @@ unique sources), including every directly linked multi-object component of
 hybrids pass 38/38 exact non-network canonical comparisons and six clean
 Valgrind paths.  This brings program-scoped parity to 10/26 and is recorded in
 `evidence/inetutils-2.8-hybrid-small-02.json`.
+The remaining client slice—`rcp`, `rlogin`, `rsh`, `ftp`, `talk`, and
+`telnet`—covers 159 source instances (71 unique sources), passes 33/33 exact
+canonical comparisons including offline FTP and Telnet command loops, and has
+six clean Valgrind paths.  Telnet retains canonical `lib/printf-args.c` as the
+same one-source long-double variadic ABI boundary documented by the full audit;
+all other sources are stable Rust and no translation holes remain.  All 16
+Inetutils clients now have program-scoped hybrid parity, recorded in
+`evidence/inetutils-2.8-hybrid-clients-03.json`; the ten daemons remain.
 
 ## Work queue after util-linux
 
@@ -1305,9 +1313,9 @@ Library-only checkpoints (outside the active utility order):
      libraries.
    - [ ] Inetutils 2.8 — signed 26-executable canonical oracle, deterministic
      26-entrypoint normalization, complete 288-source no-hole translation, and
-     stable compile audit are complete; 10/26 program-scoped hybrids have
-     canonical parity, while the remaining hybrid work and multicall
-     integration continue.  Clients:
+     stable compile audit are complete; all 16 clients (16/26 programs) have
+     program-scoped hybrid parity, while the ten daemons and multicall
+     integration remain.  Clients:
      `dnsdomainname`, `ftp`,
      `hostname`, `ifconfig`, `logger`,
      `ping`, `ping6`, `rcp`, `rexec`, `rlogin`, `rsh`, `talk`, `telnet`,
