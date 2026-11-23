@@ -1,0 +1,108 @@
+{
+  "abi_boundary": {
+    "prime_table_representation_casts": 254,
+    "reason": "stable Rust's sealed VaArgSafe trait cannot represent the x86_64 SysV C long-double va_arg operation emitted as f128 by C2Rust",
+    "target": "x86_64-unknown-linux-gnu"
+  },
+  "complete_translation": {
+    "holes": {
+      "C2Rust Translation Error": 0,
+      "compile_error!": 0,
+      "todo!": 0,
+      "unimplemented!": 0
+    },
+    "raw_pointer_type_occurrences": 30887,
+    "rust_bytes": 7306456,
+    "rust_files": 154,
+    "unsafe_function_occurrences": 8018
+  },
+  "hardening": {
+    "deferred_until_all_applets_complete": true,
+    "raw_pointers_and_unsafe_are_inventory_only": true
+  },
+  "input": {
+    "compile_commands": 152,
+    "compile_database_sha256": "abffa3bf76c88aa96be852cb772e050f34c0c432b38726fce8721e7ea08cee5a",
+    "normalization_evidence_sha256": "4f3d003d58585542b4c9a089d5590fd9f09e7af289e7869bce5625770a973e4a"
+  },
+  "next_gate": "link the four canonical C objects, embed C/C++ skeleton resources, route GNU M4 internally, and run the canonical differential",
+  "recorded_at": "2026-11-23",
+  "release": "3.8.2",
+  "schema": 1,
+  "stable_translation": {
+    "active_translated_c_sources": 148,
+    "archive": {
+      "bytes": 25535218,
+      "entrypoint_definition_counts": {
+        "rustbox_bison_main": 1
+      },
+      "sha256": "77c3e828b16dfad9e1ae3305bfc66ba3b3fa9953ffb402a583c9ea947f4e2ca5"
+    },
+    "canonical_c_bridge_sources": [
+      "lib/printf-args.c",
+      "lib/printf-frexpl.c",
+      "lib/printf-parse.c",
+      "lib/vasnprintf.c"
+    ],
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+      "cargo_lock_sha256": "0c3d4ab25a228df80648f0e9c21f8857f48600d6668b92979c50bf8311e39810",
+      "cargo_toml_sha256": "8c7a0d92d81b1bb4e47ac20caca1ac5a7a5cad6dd6bde5390a744477cc0f3e1c",
+      "diagnostics_by_level": {
+        "warning": 911
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+      "schema": 1,
+      "stderr_sha256": "e3767814f372069d709ec362f6325832b7c7ea7cd9c5e2f9b3027aa8d3cf29ce",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "clashing_extern_declarations": 76,
+        "unpredictable_function_pointer_comparisons": 2,
+        "unreachable_code": 2,
+        "unused_attributes": 133,
+        "unused_imports": 3,
+        "unused_must_use": 6,
+        "unused_parens": 480,
+        "unused_unsafe": 25,
+        "unused_variables": 184
+      }
+    },
+    "cross_module_manifest_sha256": "291b10b33588dc4e17945f7b4397431331e77894a8bdd0bae364a6dbec69cbdf",
+    "finalization_manifest_sha256": "54c3a74b4fc6b6020d583d6e286a14438ca598f57047c2eb56304e9a097c2538",
+    "holes": {
+      "C2Rust Translation Error": 0,
+      "compile_error!": 0,
+      "todo!": 0,
+      "unimplemented!": 0
+    },
+    "modernization_manifest_sha256": "b972e931aeb1357791e22a2fde370ed9de41fd0f46e754e323b2aa2c7decd1ce",
+    "raw_pointer_type_occurrences": 30887,
+    "rust_bytes": 7313510,
+    "rust_files": 154,
+    "rust_module_declarations": 155,
+    "unsafe_function_occurrences": 8018
+  },
+  "status": "complete no-hole translation and stable hybrid-ready Rust archive",
+  "translator": {
+    "cross_module_changed_files": 41,
+    "cross_module_type_links": [
+      "derivation",
+      "gl_map_impl",
+      "gl_oset_impl",
+      "hash_table",
+      "lbitset_elt_struct",
+      "parse_state",
+      "quoting_options",
+      "tbitset_elt_struct"
+    ],
+    "fail_on_error": true,
+    "name": "C2Rust",
+    "preserve_unused_functions": true,
+    "translated_c_sources": 152,
+    "translation_holes": 0,
+    "version": "0.22.1"
+  }
+}
