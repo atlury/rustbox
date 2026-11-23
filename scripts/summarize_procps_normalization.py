@@ -117,7 +117,7 @@ def main() -> int:
         "status": "deterministic Procps-ng entrypoint normalization complete",
         "release": "4.0.7",
         "scope": {
-            "changed_source_files": 17,
+            "changed_source_files": 18,
             "added_files": ["rustbox-normalization.json"],
             "entrypoint_engines": 17,
             "public_programs": 20,
@@ -129,6 +129,7 @@ def main() -> int:
         "differentials": differentials,
         "valgrind": valgrind,
         "binaries": binaries,
+        "portable_status_dispatch_actions": 34,
         "next_gate": "strict no-hole C2Rust translation of the 49-source production closure",
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)

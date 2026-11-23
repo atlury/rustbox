@@ -1370,8 +1370,11 @@ Library-only checkpoints (outside the active utility order):
      all 20 programs while preserving standalone dispatch.  GCC and Clang each
      retain all 166 upstream passes, all 102 compiler-specific canonical
      comparisons pass, every expected exported definition is unique, and all
-     20 normalized resource paths match the canonical allocation baseline.
-     Strict no-hole translation is next.  Duplicate public names such as `kill`
+     20 normalized resource paths match the canonical allocation baseline.  A
+     mechanical portability pass also replaces `readproc.c`'s GNU computed
+     goto with an enum-and-switch dispatch over the same 34 parser actions;
+     this is rechecked by the complete normalized matrix before strict no-hole
+     translation.  Duplicate public names such as `kill`
      and `uptime` remain separately
      verified until the final dispatcher precedence decision.
    - [ ] Shadow 4.20.3 — `chage`, `chfn`, `chgpasswd`, `chpasswd`, `chsh`,

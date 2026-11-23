@@ -257,8 +257,9 @@
       "sha256": "84aa827fc723395a6a64f11ffd8ee11f118a39b81fdc6bce4db0fd576d011969"
     }
   },
-  "manifest_sha256": "5f77999230b2dc5b5ed6cace73f0289b9fbd4775a19899f43077ceb73e4164dc",
+  "manifest_sha256": "b3bffbe5a73d3d2d352db9ec98f1e17d8d098b063ec1020cbf5410a5f0b6cbbc",
   "next_gate": "strict no-hole C2Rust translation of the 49-source production closure",
+  "portable_status_dispatch_actions": 34,
   "recorded_at": "2026-11-24",
   "release": "4.0.7",
   "schema": 1,
@@ -267,6 +268,7 @@
       "rustbox-normalization.json"
     ],
     "changed_paths": [
+      "library/readproc.c",
       "src/free.c",
       "src/hugetop.c",
       "src/kill.c",
@@ -285,7 +287,7 @@
       "src/w.c",
       "src/watch.c"
     ],
-    "changed_source_files": 17,
+    "changed_source_files": 18,
     "entrypoint_engines": 17,
     "public_programs": 20
   },
@@ -304,12 +306,12 @@
   "upstream_suites": {
     "clang": {
       "dejagnu_passes": 158,
-      "log_sha256": "4a2c55e33c169752ee77a9df1797afd51416b4a891b3537d57ec0863e022ee1c",
+      "log_sha256": "2c005a2725ab1bbfd2364893d6b2adad7b5794541f98bfa5a607efc3ddbfe439",
       "unit_passes": 8
     },
     "gcc": {
       "dejagnu_passes": 158,
-      "log_sha256": "bed5980c0195f29763e3f33200fb9e5b296bff86aa81e0b49b639fba235b790d",
+      "log_sha256": "196f5ffaf5a7189acdf47f7704300a36a0a0292e0a46a1eb15b5cee86e22c065",
       "unit_passes": 8
     }
   },
@@ -357,7 +359,7 @@
     "ps": {
       "definitely_lost_bytes": 0,
       "errors": 0,
-      "sha256": "91b5086be250d59ddeafb55206a544dfd2cef210622b5aaa4822fc9695e7ad84"
+      "sha256": "a7351d4bd3d198e11c9ff3f7d178d809d18791f5d7f1b80ef62b46b6735a0121"
     },
     "pwdx": {
       "definitely_lost_bytes": 0,
