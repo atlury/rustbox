@@ -1,0 +1,157 @@
+{
+  "differential": {
+    "cases": 12,
+    "compiled_parsers": 5,
+    "passed": 12
+  },
+  "multicall": {
+    "binary": {
+      "bytes": 27504976,
+      "dynamic_needed": [
+        "ld-linux-x86-64.so.2",
+        "libattr.so.1",
+        "libbz2.so.1.0",
+        "libc.so.6",
+        "libcap-ng.so.0",
+        "libcap.so.2",
+        "libcrypt.so.1",
+        "libcrypto.so.3",
+        "libeconf.so.0",
+        "libgcc_s.so.1",
+        "libgmp.so.10",
+        "liblz.so.1",
+        "liblzma.so.5",
+        "libm.so.6",
+        "libmagic.so.1",
+        "libmpfr.so.6",
+        "libncursesw.so.6",
+        "libpam.so.0",
+        "libpam_misc.so.0",
+        "libpcre2-8.so.0",
+        "libreadline.so.8",
+        "libseccomp.so.2",
+        "libsqlite3.so.0",
+        "libtinfo.so.6",
+        "libz.so.1",
+        "libzstd.so.1"
+      ],
+      "link_map_sha256": "d7c23eceaaf2c4e5add3f273c70e0276435f80e242d262651d05c3ca5a05f498",
+      "sha256": "798a9b8f666c0b7f6b75d8f5763987b5aea073657081db3211d3fd730b1f55c4"
+    },
+    "bison_namespaced_symbols": 1063,
+    "bison_public_names": 2,
+    "stripped_binary": {
+      "bytes": 13869088,
+      "sha256": "3ae234ec604bda6ab2e2a3e5b3ded3f36ecdc26771b5803cccc8f8e537fb5d29"
+    },
+    "total_public_names": 358
+  },
+  "recorded_at": "2026-11-23",
+  "release": "3.8.2",
+  "resources": {
+    "bytes": 679009,
+    "count": 22,
+    "external_datadir_required": false,
+    "m4_route": "/proc/self/exe through a private m4 symlink",
+    "persistent_resource_tag": "d7c97484a552993bc444ea84",
+    "temporary_directories_leaked": 0
+  },
+  "schema": 1,
+  "scope": {
+    "excluded_languages": [
+      "D",
+      "Java"
+    ],
+    "languages": [
+      "C",
+      "C++"
+    ],
+    "optional_html_reporter": "external xsltproc is not bundled",
+    "public_names": [
+      "bison",
+      "yacc"
+    ]
+  },
+  "upstream_suite": {
+    "environmental_skips": 13,
+    "excluded_language_groups": [
+      47,
+      53,
+      58,
+      63,
+      213,
+      465,
+      466,
+      467,
+      468,
+      571,
+      572,
+      573,
+      574,
+      575,
+      576,
+      577,
+      578,
+      579,
+      580,
+      581,
+      582,
+      583,
+      584,
+      585,
+      586,
+      587,
+      588,
+      589,
+      590,
+      591,
+      592,
+      593,
+      594,
+      595,
+      596,
+      597,
+      598,
+      599,
+      600,
+      601,
+      602,
+      603,
+      651,
+      692,
+      693,
+      694,
+      695,
+      696,
+      697,
+      698,
+      699,
+      700,
+      701,
+      702,
+      703,
+      704
+    ],
+    "excluded_language_groups_count": 56,
+    "final_in_scope_passed": 707,
+    "final_in_scope_skipped": 13,
+    "full_sweep_passed_before_targeted_fix": 706,
+    "initial_in_scope_failure": 2,
+    "targeted_final_recheck_passed": true,
+    "total_groups": 776
+  },
+  "valgrind": {
+    "definitely_lost_bytes": 0,
+    "errors": 0,
+    "indirectly_lost_bytes": 0,
+    "paths": [
+      "help"
+    ],
+    "possibly_lost_bytes": 0
+  },
+  "yacc": {
+    "compile_status": 0,
+    "passed": true,
+    "runtime_status": 0
+  }
+}

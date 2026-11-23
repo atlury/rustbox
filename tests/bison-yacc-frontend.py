@@ -30,12 +30,16 @@ def sha256(value: bytes) -> str:
     return hashlib.sha256(value).hexdigest()
 
 
-def exercise(binary: Path, datadir: Path) -> dict[str, object]:
+def exercise(binary: Path, datadir: Path | None) -> dict[str, object]:
     with tempfile.TemporaryDirectory(prefix="rustbox-yacc-") as raw:
         directory = Path(raw)
         (directory / "grammar.y").write_bytes(GRAMMAR)
         environment = dict(os.environ)
-        environment["BISON_PKGDATADIR"] = str(datadir)
+        if datadir is None:
+            environment.pop("BISON_PKGDATADIR", None)
+            environment.pop("M4", None)
+        else:
+            environment["BISON_PKGDATADIR"] = str(datadir)
         result = subprocess.run(
             [str(binary), "-d", "grammar.y"], cwd=directory, env=environment,
             stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False,
@@ -74,13 +78,29 @@ def main() -> int:
     parser.add_argument("--hybrid", required=True, type=Path)
     parser.add_argument("--hybrid-datadir", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument(
+        "--hybrid-embedded", action="store_true",
+        help="run the hybrid with no external Bison datadir or M4",
+    )
     args = parser.parse_args()
+    resource_directories_before = set(Path("/tmp").glob("rustbox-bison.*"))
     canonical = exercise(args.canonical, args.canonical_datadir)
-    hybrid = exercise(args.hybrid, args.hybrid_datadir)
+    hybrid = exercise(
+        args.hybrid, None if args.hybrid_embedded else args.hybrid_datadir
+    )
     if canonical != hybrid:
         raise RuntimeError("native yacc personality differs from GNU yacc")
     if canonical["status"] != 0 or canonical["compile_status"] != 0 or canonical["runtime_status"] != 0:
         raise RuntimeError("canonical yacc exercise did not complete")
+    leaked_resource_directories = sorted(
+        str(path) for path in set(Path("/tmp").glob("rustbox-bison.*"))
+        - resource_directories_before
+    )
+    if leaked_resource_directories:
+        raise RuntimeError(
+            "embedded Bison resource directories were not cleaned: "
+            + ", ".join(leaked_resource_directories)
+        )
     generated = canonical["generated"]
     evidence = {
         "schema": 1,
@@ -88,6 +108,8 @@ def main() -> int:
         "status": canonical["status"],
         "compile_status": canonical["compile_status"],
         "runtime_status": canonical["runtime_status"],
+        "hybrid_embedded": args.hybrid_embedded,
+        "resource_directories_leaked": 0,
         "stdout_sha256": sha256(canonical["stdout"]),
         "stderr_sha256": sha256(canonical["stderr"]),
         "generated_sha256": {

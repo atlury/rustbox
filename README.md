@@ -63,7 +63,7 @@ scoring, and correctness gates.
 | zstd 1.5.7 | 6 | 6 | 6 | 6 |
 | GNU tar 1.35 | 2 | 2 | 2 | 2 |
 | Flex 2.6.4 | 3 | 3 | 3 | 3 |
-| Bison 3.8.2 | 2 | 2 | 0 | 0 |
+| Bison 3.8.2 | 2 | 2 | 2 | 2 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -125,7 +125,7 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 356
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 358
 distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, five
 pkgconf names, File, GNU patch, GNU sed, four GNU Diffutils applets, and GNU
 Grep's three public names, GNU bc and dc, attr's three tools, plus chacl,
@@ -134,7 +134,8 @@ fourteen GNU Gzip interfaces, all 23 XZ Utils names, zstd's six public names,
 GNU `tar` and `rmt`, ten Ncurses names, GNU Findutils' `find`, `xargs`,
 `locate`, and `updatedb`; `kill` is shared and `util-linux-kill` remains
 available explicitly, GNU Gawk's `gawk`, `awk`, and native `gawkbug`, and
-Flex's `flex`, `flex++`, and native `lex` compatibility frontend).
+Flex's `flex`, `flex++`, and native `lex` compatibility frontend, and GNU
+Bison's `bison` and native `yacc` compatibility frontend).
 It passes all 708
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
@@ -1082,6 +1083,32 @@ Valgrind paths pass.  Reproducible evidence is in
 `evidence/findutils-4.10.0-multicall.json` and
 `evidence/rustbox-multicall.json`.
 
+GNU Bison 3.8.2 is complete for its declared C/C++ scope.  The signed oracle's
+exact 152-source production closure has a strict, no-hole C2Rust translation;
+four canonical C files remain only for the x86_64 SysV `long double` variadic
+ABI.  The unified multicall privately namespaces 1,063 Bison symbols and
+exports native `bison` and `yacc` frontends.  Its 22 required skeleton, M4,
+CSS, and XSLT resources (679,009 bytes) are embedded, and Bison invokes the
+already integrated GNU M4 applet through `/proc/self/exe`; no installed Bison
+datadir or external M4 executable is required.  `--print-datadir` materializes
+a verified content-addressed resource directory that remains usable after the
+command exits.  HTML report transformation still follows upstream by using
+the optional external `xsltproc`; it is not part of the C/C++ completion gate.
+
+The final artifact passes all 12 independent canonical comparisons, compiles
+and runs five generated C/C++ parsers, matches native yacc behavior, leaks no
+temporary extraction directories, and is clean under Valgrind.  A complete
+776-group upstream inventory found 707 passing in-scope groups and 13
+environmental skips; the other 56 groups are exactly the declared Java/D
+exclusions.  The one diagnostic-name mismatch found by that sweep was fixed
+and its upstream group passes on the final binary.  The combined executable is
+27,504,976 bytes unstripped and 13,869,088 bytes stripped.  Reproducible
+evidence is in `evidence/bison-3.8.2-oracle.json`,
+`evidence/bison-3.8.2-normalization.json`,
+`evidence/bison-3.8.2-translation.json`,
+`evidence/bison-3.8.2-hybrid.json`, and
+`evidence/bison-3.8.2-multicall.json`.
+
 ## Work queue after util-linux
 
 This queue starts only after all in-scope util-linux applets reach canonical
@@ -1183,8 +1210,10 @@ Library-only checkpoints (outside the active utility order):
      and leak-free help, version, and error exits.  Unified multicall
      integration is complete for `flex`, `flex++`, and native `lex`; all 708
      dispatcher comparisons and all 14,022 prior batch regressions pass.
-   - [ ] Bison 3.8.2 — `bison`, `yacc` (C/C++ skeletons only; Java output is
-     out of scope); signed canonical release pinned.
+   - [x] Bison 3.8.2 — `bison`, `yacc`; signed canonical oracle, deterministic
+     normalization, complete no-hole stable translation, embedded C/C++
+     resource closure, native yacc frontend, and unified multicall parity are
+     complete.  D and Java output remain explicitly out of scope.
 4. Network-facing suites:
    - [ ] curl — `curl`, `curl-config`, plus the shared `libcurl` runtime.
    - [ ] Inetutils — `dnsdomainname`, `ftp`, `hostname`, `ifconfig`, `logger`,

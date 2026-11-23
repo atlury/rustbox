@@ -33,5 +33,7 @@ RUSTBOX_TOOL_IMAGE=rustbox-gawk:2026-11-22 \
     --findutils-rust-library /work/work/analysis/findutils-4.10.0/translations/c2rust-0.22.1/findutils-4.10.0-stable/target/release/libfindutils_4_10_0_combined.a \
     --findutils-c-residue-directory /work/work/analysis/findutils-4.10.0/hybrid-artifacts/c-residue \
     --flex-rust-library /work/work/analysis/flex-2.6.4/translations/c2rust-0.22.1/flex-2.6.4-stable/target/release/libflex_2_6_4_normalized_audit.a \
+    --bison-rust-library /work/work/analysis/bison-3.8.2/translations/c2rust-0.22.1/bison-3.8.2-stable/target/release/libbison_3_8_2_normalized_audit.a \
+    --bison-c-residue-directory /work/work/analysis/bison-3.8.2/hybrid-artifacts/c-residue \
     --reuse-isolation \
     --link-report /work/work/analysis/rustbox-multicall-link.json

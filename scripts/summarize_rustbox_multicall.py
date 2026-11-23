@@ -43,6 +43,7 @@ def main() -> int:
     parser.add_argument("--findutils-report-directory", type=Path, required=True)
     parser.add_argument("--gawk-report-directory", type=Path, required=True)
     parser.add_argument("--flex-report-directory", type=Path, required=True)
+    parser.add_argument("--bison-report-directory", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     binary = args.binary.resolve()
@@ -69,6 +70,7 @@ def main() -> int:
     findutils_directory = args.findutils_report_directory.resolve()
     gawk_directory = args.gawk_report_directory.resolve()
     flex_directory = args.flex_report_directory.resolve()
+    bison_directory = args.bison_report_directory.resolve()
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
@@ -613,6 +615,33 @@ def main() -> int:
             )
         ):
             raise RuntimeError(f"unified Flex {name} Valgrind result is incomplete")
+    bison_differential_path = bison_directory / "differential.json"
+    bison_differential = json.loads(bison_differential_path.read_text())
+    bison_yacc_path = bison_directory / "yacc-frontend.json"
+    bison_yacc = json.loads(bison_yacc_path.read_text())
+    bison_upstream_path = bison_directory / "upstream-tests.log"
+    bison_upstream = bison_upstream_path.read_text(errors="replace")
+    bison_targeted_path = bison_directory / "upstream-tests-targeted.log"
+    bison_targeted = bison_targeted_path.read_text(errors="replace")
+    bison_valgrind_path = bison_directory / "valgrind-help.log"
+    bison_valgrind = bison_valgrind_path.read_text(errors="replace")
+    bison_failed = set(re.findall(
+        r"^\s*(\d+): .*FAILED", bison_upstream, re.MULTILINE
+    ))
+    if (
+        bison_differential.get("cases") != 12
+        or bison_differential.get("passed") != 12
+        or bison_differential.get("compiled_parsers") != 5
+        or bison_differential.get("right_embedded") is not True
+        or bison_yacc.get("passed") is not True
+        or bison_yacc.get("hybrid_embedded") is not True
+        or len(bison_failed) != 57
+        or "2" not in bison_failed
+        or "1 test was successful" not in bison_targeted
+        or "FAILED" in bison_targeted
+        or "ERROR SUMMARY: 0 errors" not in bison_valgrind
+    ):
+        raise RuntimeError("unified Bison integration comparison is incomplete")
     if sha256(binary) != link["binary"]["sha256"]:
         raise RuntimeError("unified binary changed after link evidence")
     with tempfile.TemporaryDirectory(prefix="rustbox-strip-") as temporary:
@@ -641,7 +670,7 @@ def main() -> int:
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-23",
-        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, GNU tar, Ncurses, GNU Findutils, GNU Gawk, and Flex integrated at canonical parity",
+        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, GNU tar, Ncurses, GNU Findutils, GNU Gawk, Flex, and Bison integrated at canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
@@ -665,7 +694,8 @@ def main() -> int:
             "findutils_integrated_names": 4,
             "gawk_integrated_names": 3,
             "flex_integrated_names": 3,
-            "dispatch_names": 356,
+            "bison_integrated_names": 2,
+            "dispatch_names": 358,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -951,6 +981,27 @@ def main() -> int:
                 name: sha256(path) for name, path in flex_valgrind_paths.items()
             },
         },
+        "bison_integration": {
+            "integrated_public_names": 2,
+            "translated_entrypoint": "rustbox_bison_engine_main",
+            "native_frontend": "yacc",
+            "embedded_resources": 22,
+            "embedded_m4_dispatch": True,
+            "external_bison_datadir_required": False,
+            "differential": bison_differential,
+            "yacc": bison_yacc,
+            "full_upstream_inventory_groups": 776,
+            "final_in_scope_passes": 707,
+            "environmental_skips": 13,
+            "excluded_java_d_groups": 56,
+            "targeted_diagnostic_recheck": "pass",
+            "valgrind_errors": 0,
+            "upstream_log_sha256": sha256(bison_upstream_path),
+            "targeted_log_sha256": sha256(bison_targeted_path),
+            "differential_sha256": sha256(bison_differential_path),
+            "yacc_sha256": sha256(bison_yacc_path),
+            "valgrind_log_sha256": sha256(bison_valgrind_path),
+        },
         "collision_isolation": {
             "translated_libraries": len(link["source_library_sha256"]),
             "namespaced_libraries": len(link["namespaced_symbols"]),
@@ -983,6 +1034,7 @@ def main() -> int:
             "ncurses_namespaced_symbols": len(link["ncurses_namespaced_symbols"]),
             "findutils_namespaced_symbols": len(link["findutils_namespaced_symbols"]),
             "flex_namespaced_symbols": len(link["flex_namespaced_symbols"]),
+            "bison_namespaced_symbols": len(link["bison_namespaced_symbols"]),
             "tar_acl_imports": len(link["tar_acl_imports"]),
             "coreutils_acl_imports": len(link["coreutils_acl_imports"]),
             "manifest": link,

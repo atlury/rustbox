@@ -128,7 +128,18 @@ def manifest(directory: Path, inputs: set[str]) -> dict[str, bytes]:
     }
 
 
-def exercise(binary: Path, datadir: Path, source_root: Path, case: Case) -> dict[str, object]:
+def bison_environment(datadir: Path | None) -> dict[str, str]:
+    environment = dict(os.environ)
+    if datadir is None:
+        environment.pop("BISON_PKGDATADIR", None)
+        environment.pop("M4", None)
+    else:
+        environment["BISON_PKGDATADIR"] = str(datadir)
+    return environment
+
+
+def exercise(binary: Path, datadir: Path | None, source_root: Path,
+             case: Case) -> dict[str, object]:
     with tempfile.TemporaryDirectory(prefix=f"rustbox-bison-{case.name}-") as raw:
         directory = Path(raw)
         source_name = Path(case.source).name
@@ -141,11 +152,9 @@ def exercise(binary: Path, datadir: Path, source_root: Path, case: Case) -> dict
             name = Path(item).name
             shutil.copyfile(source_root / item, directory / name)
             copied.add(name)
-        environment = dict(os.environ)
-        environment["BISON_PKGDATADIR"] = str(datadir)
         generated = run(
             [str(binary), *case.arguments, source_name],
-            cwd=directory, environment=environment,
+            cwd=directory, environment=bison_environment(datadir),
         )
         files = manifest(directory, copied)
         runtime: subprocess.CompletedProcess[bytes] | None = None
@@ -181,7 +190,13 @@ def main() -> int:
     parser.add_argument("--clang-datadir", type=Path, required=True)
     parser.add_argument("--source", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument(
+        "--right-embedded", action="store_true",
+        help="run the clang/right binary with no external Bison datadir or M4",
+    )
     args = parser.parse_args()
+    right_datadir = None if args.right_embedded else args.clang_datadir
+    resource_directories_before = set(Path("/tmp").glob("rustbox-bison.*"))
 
     records: list[dict[str, object]] = []
     for name, options, stdin in (
@@ -192,15 +207,14 @@ def main() -> int:
     ):
         values = []
         for binary, datadir in (
-            (args.gcc, args.gcc_datadir), (args.clang, args.clang_datadir),
+            (args.gcc, args.gcc_datadir), (args.clang, right_datadir),
         ):
             with tempfile.TemporaryDirectory(prefix=f"rustbox-bison-cli-{name}-") as raw:
                 directory = Path(raw)
                 os.symlink(binary, directory / "bison")
-                environment = dict(os.environ)
-                environment["BISON_PKGDATADIR"] = str(datadir)
                 values.append(run(
-                    ["./bison", *options], cwd=directory, environment=environment,
+                    ["./bison", *options], cwd=directory,
+                    environment=bison_environment(datadir),
                     input_bytes=stdin,
                 ))
         left, right = values
@@ -219,7 +233,7 @@ def main() -> int:
 
     for case in CASES:
         left = exercise(args.gcc, args.gcc_datadir, args.source, case)
-        right = exercise(args.clang, args.clang_datadir, args.source, case)
+        right = exercise(args.clang, right_datadir, args.source, case)
         if left != right:
             raise RuntimeError(f"Bison generated-parser mismatch: {case.name}")
         if left["status"] != 0:
@@ -251,11 +265,22 @@ def main() -> int:
             "runtime_stderr_sha256": digest(left["runtime_stderr"]),
         })
 
+    leaked_resource_directories = sorted(
+        str(path) for path in set(Path("/tmp").glob("rustbox-bison.*"))
+        - resource_directories_before
+    )
+    if leaked_resource_directories:
+        raise RuntimeError(
+            "embedded Bison resource directories were not cleaned: "
+            + ", ".join(leaked_resource_directories)
+        )
     evidence = {
         "schema": 1,
         "cases": len(records),
         "passed": sum(record["passed"] is True for record in records),
         "compiled_parsers": sum(case.compile_source is not None for case in CASES),
+        "right_embedded": args.right_embedded,
+        "resource_directories_leaked": 0,
         "records": records,
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
