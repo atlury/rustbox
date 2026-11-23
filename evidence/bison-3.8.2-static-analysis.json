@@ -1,0 +1,143 @@
+{
+  "artifacts": {
+    "clang-analyzer-tidy.log": "1582599a832a8fe2adebb5e264ffdd0419d06209656c60154da13cc656a72c57",
+    "clang-analyzer-tidy.status": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "compile_commands.json": "4ebe8323372a8932029badd991926ac76f8ee629f459d662fd67248d512464c7",
+    "cppcheck.log": "abf951ba6c18b00adc6af1846fe0b53c9019fc78ad8a0dc55409abb61660a0ae",
+    "cppcheck.status": "ca2ebdf97d7469496b1f4b78958f9dc8447efdcb623953fee7b6996b762f6fff",
+    "flawfinder.log": "1caea735ad0313b99656e4a466caab2aeca4678a9947abed9ea83a01d5123257",
+    "flawfinder.status": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "gcc-analyzer-summary.json": "cb84ad86f5ca3e130473f7ee1774e8fcb6c89e92ec2270296aed6b8a34f4a306",
+    "gcc-analyzer.log": "f49586a16e18fe0cf1fcf38123c9df3965e1160505f326e30deff16b690dc11d",
+    "gcc-analyzer.status": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "sources.list": "47a4cb08319c6e2158c40db558ad8fa4eaa9ad7b68141293e52960e761324f50",
+    "sparse.log": "8208562785e085ca2751f882fd7512cdaf8161bb758cc3e3a0c3312fd052b85c",
+    "sparse.status": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "recorded_at": "2026-11-23",
+  "release": "3.8.2",
+  "review": {
+    "blocking_findings": 0,
+    "canonical_source_changes": 0,
+    "notes": [
+      "Cppcheck reaches every production file but its strversion.c child does not terminate; the bounded run records the resulting internal error instead of hanging the workflow.",
+      "GCC analysis replays the exact verified 152-command Clang database so generated headers and production defines remain identical; every replay action compiles.",
+      "Generated Flex scanners and Bison parsers account for the conditional array/null diagnostics; five generated parser families and the full in-scope upstream suite pass.",
+      "Gnulib ownership-transfer reports are retained for per-function Rust substitution review; the final multicall is clean under its canonical Valgrind gate.",
+      "Sparse lacks the generated parser state model and is retained as a pointer/type inventory rather than a correctness oracle."
+    ],
+    "oracle_differential_passes": 12,
+    "oracle_generated_parsers": 5
+  },
+  "schema": 1,
+  "scope": {
+    "compile_actions": 152,
+    "targets": [
+      "bison",
+      "yacc",
+      "C skeletons",
+      "C++ skeletons"
+    ],
+    "unique_sources": 152
+  },
+  "tools": {
+    "clang_analyzer_tidy": {
+      "all_findings_by_check": {
+        "bugprone-assignment-in-if-condition": 49,
+        "bugprone-branch-clone": 5,
+        "bugprone-casting-through-void": 4,
+        "bugprone-easily-swappable-parameters": 319,
+        "bugprone-macro-parentheses": 1290,
+        "bugprone-misplaced-widening-cast": 9,
+        "bugprone-multi-level-implicit-pointer-conversion": 113,
+        "bugprone-narrowing-conversions": 125,
+        "bugprone-not-null-terminated-result": 1,
+        "bugprone-reserved-identifier": 3798,
+        "bugprone-signed-char-misuse": 14,
+        "bugprone-sizeof-expression": 35,
+        "bugprone-suspicious-include": 4,
+        "bugprone-suspicious-missing-comma": 1,
+        "bugprone-suspicious-string-compare": 7,
+        "bugprone-switch-missing-default-case": 9,
+        "clang-analyzer-core.NonNullParamChecker": 1,
+        "clang-analyzer-core.NullDereference": 4,
+        "clang-analyzer-deadcode.DeadStores": 7,
+        "clang-analyzer-optin.core.EnumCastOutOfRange": 10,
+        "clang-analyzer-optin.portability.UnixAPI": 2,
+        "clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling": 749,
+        "clang-analyzer-security.insecureAPI.strcpy": 2,
+        "performance-no-int-to-ptr": 28
+      },
+      "analyzer_findings": 775,
+      "exit_status": 0
+    },
+    "cppcheck": {
+      "bounded_exception": "src/strversion.c child terminated after reproducible nontermination",
+      "exit_status": 124,
+      "files_reached": 152,
+      "findings_by_id": {
+        "allocaCalled": 1,
+        "arrayIndexOutOfBoundsCond": 1,
+        "clarifyCalculation": 1,
+        "clarifyCondition": 2,
+        "constParameter": 1,
+        "constParameterCallback": 2,
+        "constParameterPointer": 35,
+        "constVariablePointer": 88,
+        "cppcheckError": 1,
+        "internalAstError": 1,
+        "invalidPrintfArgType_sint": 4,
+        "invalidPrintfArgType_uint": 3,
+        "knownConditionTrueFalse": 8,
+        "memleak": 1,
+        "nullPointer": 6,
+        "nullPointerArithmetic": 112,
+        "nullPointerRedundantCheck": 2,
+        "redundantAssignment": 4,
+        "redundantContinue": 20,
+        "redundantInitialization": 4,
+        "returnNonBoolInBooleanFunction": 2,
+        "uninitvar": 9,
+        "unreadVariable": 5,
+        "unsignedLessThanZero": 7,
+        "unusedStructMember": 5,
+        "uselessAssignmentPtrArg": 2,
+        "variableScope": 6
+      },
+      "findings_by_severity": {
+        "error": 121,
+        "portability": 2,
+        "style": 190,
+        "warning": 20
+      }
+    },
+    "flawfinder": {
+      "exit_status": 0,
+      "hits_at_level_1_or_higher": 306,
+      "lines_analyzed": 51598
+    },
+    "gcc_fanalyzer": {
+      "compile_actions_passed": 152,
+      "exit_status": 0,
+      "findings_by_check": {
+        "analyzer-fd-double-close": 1,
+        "analyzer-malloc-leak": 33,
+        "analyzer-null-argument": 1,
+        "analyzer-null-dereference": 3,
+        "analyzer-possible-null-dereference": 5,
+        "analyzer-use-of-uninitialized-value": 15,
+        "cpp": 4,
+        "maybe-uninitialized": 3,
+        "return-local-addr": 1,
+        "sign-compare": 49,
+        "unused-parameter": 1
+      },
+      "warnings": 116
+    },
+    "sparse": {
+      "exit_status": 0,
+      "parser_errors": 62,
+      "warnings": 489
+    }
+  }
+}

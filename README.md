@@ -1107,7 +1107,11 @@ evidence is in `evidence/bison-3.8.2-oracle.json`,
 `evidence/bison-3.8.2-normalization.json`,
 `evidence/bison-3.8.2-translation.json`,
 `evidence/bison-3.8.2-hybrid.json`, and
-`evidence/bison-3.8.2-multicall.json`.
+`evidence/bison-3.8.2-multicall.json`.  Its exact production-only Cppcheck,
+GCC, Clang, Flawfinder, and Sparse audit is recorded in
+`evidence/bison-3.8.2-static-analysis.json`; Cppcheck reaches all 152 source
+files but its `strversion.c` child is bounded after reproducible nontermination,
+while GCC successfully replays all 152 exact production compile actions.
 
 ## Work queue after util-linux
 
