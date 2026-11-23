@@ -39,6 +39,22 @@ STATUS_ACTIONS = (
     "CapEff", "CapBnd", "VmExe", "Groups", "RssAnon", "RssFile",
 )
 
+PERSONALITY_ACTIONS = (
+    "390", "aix", "bsd", "compaq", "debian", "default", "digital", "gnu",
+    "hp", "hpux", "irix", "linux", "old", "os390", "posix", "s390", "sco",
+    "sgi", "solaris2", "sunos4", "svr4", "sysv", "tru64", "unix", "unix95",
+    "unix98", "unknown",
+)
+
+GNU_OPTION_ACTIONS = (
+    "Group", "User", "cols", "columns", "context", "cumulative", "dateformat",
+    "delimiter", "deselect", "forest", "format", "group", "header", "headers",
+    "heading", "headings", "info", "lines", "no_header", "no_headers",
+    "no_heading", "no_headings", "noheader", "noheaders", "noheading",
+    "noheadings", "pid", "ppid", "pid_quick", "rows", "sid", "signames",
+    "sort", "tty", "user", "version", "width",
+)
+
 STATUS_TABLE_ORIGINAL = """typedef struct status_table_struct {
     unsigned char name[8];        // /proc/*/status field name
     unsigned char len;            // name length
@@ -114,6 +130,76 @@ typedef struct status_table_struct {{
     }
 
 
+def normalize_ps_jump_table(
+    source: Path,
+    *,
+    table_name: str,
+    enum_name: str,
+    enum_prefix: str,
+    actions: tuple[str, ...],
+    findme: str,
+    missing_result: str,
+) -> dict[str, object]:
+    """Replace one sorted ps label-address table with enum-and-switch dispatch."""
+    text = source.read_text()
+    original_type = f"""typedef struct {table_name}_struct {{
+  const char *name; /* {"personality name" if table_name == "personality_table" else "long option name"} */
+  const void *jump; /* See gcc extension info.   :-)   */
+}} {table_name}_struct;
+"""
+    if text.count(original_type) != 1:
+        raise RuntimeError(f"Procps {table_name} type changed")
+    if text.count(findme) != 1:
+        raise RuntimeError(f"Procps {table_name} lookup initializer changed")
+    goto = "  goto *(found->jump);    /* See gcc extension info.  :-)   */"
+    if text.count(goto) != 1:
+        raise RuntimeError(f"Procps {table_name} computed goto changed")
+    for action in actions:
+        label = rf"&&case_{re.escape(action)}(?![A-Za-z0-9_])"
+        if len(re.findall(label, text)) != 1:
+            raise RuntimeError(f"Procps {table_name} action changed: {action}")
+
+    enum_lines = "\n".join(f"  {enum_prefix}_{action}," for action in actions)
+    portable_type = f"""typedef enum {enum_name} {{
+  {enum_prefix}_NONE = 0,
+{enum_lines}
+}} {enum_name};
+
+typedef struct {table_name}_struct {{
+  const char *name; /* {"personality name" if table_name == "personality_table" else "long option name"} */
+  {enum_name} action; /* portable parser dispatch value */
+}} {table_name}_struct;
+"""
+    cases = "\n".join(
+        f"  case {enum_prefix}_{action}: goto case_{action};" for action in actions
+    )
+    portable_dispatch = f"""  switch (found->action) {{
+{cases}
+  case {enum_prefix}_NONE: return {missing_result};
+  }}"""
+    before = sha256(source)
+    text = text.replace(original_type, portable_type, 1)
+    text = text.replace(findme, findme.replace("NULL", f"{enum_prefix}_NONE"), 1)
+    for action in actions:
+        text, count = re.subn(
+            rf"&&case_{re.escape(action)}(?![A-Za-z0-9_])",
+            f"{enum_prefix}_{action}",
+            text,
+            count=1,
+        )
+        if count != 1:
+            raise RuntimeError(f"Procps {table_name} action replacement failed: {action}")
+    text = text.replace(goto, portable_dispatch, 1)
+    source.write_text(text)
+    return {
+        "path": str(source),
+        "before_sha256": before,
+        "after_sha256": sha256(source),
+        "kind": "replace GNU computed goto with enum and switch dispatch",
+        "dispatch_actions": len(actions),
+    }
+
+
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -158,6 +244,28 @@ def main() -> int:
         })
 
     transformations.append(normalize_status_dispatch(output / "library/readproc.c"))
+    personality = normalize_ps_jump_table(
+        output / "src/ps/global.c",
+        table_name="personality_table",
+        enum_name="personality_action",
+        enum_prefix="PERSONALITY",
+        actions=PERSONALITY_ACTIONS,
+        findme="personality_table_struct findme = { buf, NULL};",
+        missing_result='_("environment specified an unknown personality")',
+    )
+    personality["path"] = "src/ps/global.c"
+    transformations.append(personality)
+    gnu_options = normalize_ps_jump_table(
+        output / "src/ps/parser.c",
+        table_name="gnu_table",
+        enum_name="gnu_option_action",
+        enum_prefix="GNU_OPTION",
+        actions=GNU_OPTION_ACTIONS,
+        findme="gnu_table_struct findme = { buf, NULL};",
+        missing_result='_("unknown gnu long option")',
+    )
+    gnu_options["path"] = "src/ps/parser.c"
+    transformations.append(gnu_options)
 
     manifest = {
         "schema": 1,
@@ -175,6 +283,8 @@ def main() -> int:
     manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
     print(json.dumps({
         "entrypoints": len(ENTRYPOINTS),
+        "portable_ps_gnu_option_actions": len(GNU_OPTION_ACTIONS),
+        "portable_ps_personality_actions": len(PERSONALITY_ACTIONS),
         "portable_status_actions": len(STATUS_ACTIONS),
         "programs": 20,
         "transformations": len(transformations),

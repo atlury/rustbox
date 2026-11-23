@@ -50,10 +50,10 @@
         "sha256": "5f53d8963862c129fe6c236dae6e0d3458da666918c881c6714c2d4ff11e137d"
       },
       "ps": {
-        "bytes": 374928,
+        "bytes": 373152,
         "entrypoint": "rustbox_procps_ps_main",
         "entrypoint_definitions": 1,
-        "sha256": "27741ed7b97fa34f5a16bdbf03d8259b2fd21a49b6c03f2fd39ce963ed01f9a6"
+        "sha256": "535e1558321e7848db9836a2c59d7ff8c1ab1d011ac7bde6b508aa406df4fff6"
       },
       "pwdx": {
         "bytes": 30112,
@@ -172,10 +172,10 @@
         "sha256": "1fa2e3b89ae101b8c9295a3b264c999ccc90aae8a64e4881bfcb8ada682dc92e"
       },
       "ps": {
-        "bytes": 469920,
+        "bytes": 463936,
         "entrypoint": "rustbox_procps_ps_main",
         "entrypoint_definitions": 1,
-        "sha256": "5cd0805a02e1c9138343a74bead40547ca6708e596b3be74e448afc89ef010d8"
+        "sha256": "598c3b8f1d625f530782aea0493e239f21feca60367c06a22ebfd16ea263aa08"
       },
       "pwdx": {
         "bytes": 32600,
@@ -257,9 +257,13 @@
       "sha256": "84aa827fc723395a6a64f11ffd8ee11f118a39b81fdc6bce4db0fd576d011969"
     }
   },
-  "manifest_sha256": "b3bffbe5a73d3d2d352db9ec98f1e17d8d098b063ec1020cbf5410a5f0b6cbbc",
+  "manifest_sha256": "ff9bd81c5eb8620ee76799ad4b8d2f39171b8357e730a15e16cbd65714370e7d",
   "next_gate": "strict no-hole C2Rust translation of the 49-source production closure",
-  "portable_status_dispatch_actions": 34,
+  "portable_dispatch_tables": {
+    "ps_gnu_option_actions": 37,
+    "ps_personality_actions": 27,
+    "readproc_status_actions": 34
+  },
   "recorded_at": "2026-11-24",
   "release": "4.0.7",
   "schema": 1,
@@ -276,6 +280,8 @@
       "src/pidof.c",
       "src/pmap.c",
       "src/ps/display.c",
+      "src/ps/global.c",
+      "src/ps/parser.c",
       "src/pwdx.c",
       "src/skill.c",
       "src/slabtop.c",
@@ -287,7 +293,7 @@
       "src/w.c",
       "src/watch.c"
     ],
-    "changed_source_files": 18,
+    "changed_source_files": 20,
     "entrypoint_engines": 17,
     "public_programs": 20
   },
@@ -306,12 +312,12 @@
   "upstream_suites": {
     "clang": {
       "dejagnu_passes": 158,
-      "log_sha256": "2c005a2725ab1bbfd2364893d6b2adad7b5794541f98bfa5a607efc3ddbfe439",
+      "log_sha256": "3481c2b97d3423015ce4fec9efaa200d987d834750c3e390bf5fea09b9b844dd",
       "unit_passes": 8
     },
     "gcc": {
       "dejagnu_passes": 158,
-      "log_sha256": "196f5ffaf5a7189acdf47f7704300a36a0a0292e0a46a1eb15b5cee86e22c065",
+      "log_sha256": "c50120680342e794f091b6e71c94d1b7d809c30c6ddc14f8f3c6807e8907c41f",
       "unit_passes": 8
     }
   },
@@ -359,7 +365,7 @@
     "ps": {
       "definitely_lost_bytes": 0,
       "errors": 0,
-      "sha256": "a7351d4bd3d198e11c9ff3f7d178d809d18791f5d7f1b80ef62b46b6735a0121"
+      "sha256": "79ab28ce77f171d8af1d9f30049f31a4abfc6aae0cb864eabe004bea2262adfc"
     },
     "pwdx": {
       "definitely_lost_bytes": 0,
