@@ -33,6 +33,7 @@ exec docker run --rm \
   --volume rustbox-gawk-5.4.0:/rustbox-gawk \
   --volume rustbox-flex-2.6.4:/rustbox-flex \
   --volume rustbox-bison-3.8.2:/rustbox-bison \
+  --volume rustbox-curl-8.23.0:/rustbox-curl \
   --workdir /work \
   "$tool_image" "$@"
 

@@ -64,6 +64,7 @@ scoring, and correctness gates.
 | GNU tar 1.35 | 2 | 2 | 2 | 2 |
 | Flex 2.6.4 | 3 | 3 | 3 | 3 |
 | Bison 3.8.2 | 2 | 2 | 2 | 2 |
+| curl 8.23.0 | 2 | 2 | 0 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -1112,6 +1113,21 @@ GCC, Clang, Flawfinder, and Sparse audit is recorded in
 `evidence/bison-3.8.2-static-analysis.json`; Cppcheck reaches all 152 source
 files but its `strversion.c` child is bounded after reproducible nontermination,
 while GCC successfully replays all 152 exact production compile actions.
+
+curl 8.23.0 has a complete signed canonical oracle for the `curl` tool,
+generated `curl-config` interface, and static libcurl runtime.  The deliberate
+standalone profile depends only on libc/POSIX threads: external TLS,
+compression, SSH, IDN, PSL, LDAP, GSS, HTTP/2, HTTP/3, and libuv libraries are
+disabled until their canonical queued libraries are integrated.  It retains
+15 built-in protocols (`dict`, `file`, `ftp`, `gopher`, `http`, `imap`, `ipfs`,
+`ipns`, `mqtt`, `pop3`, `rtsp`, `smtp`, `telnet`, `tftp`, and `ws`).  GCC and
+Clang expose the same exact 240-source production closure across 477 compile
+actions each; both pass all 1,601 applicable cases from 2,138 considered
+upstream tests.  All 12 deterministic cross-compiler comparisons and focused
+Valgrind version/file-transfer gates pass with no errors or retained bytes.
+Reproducible evidence is in `evidence/curl-8.23.0-oracle.json`; static analysis,
+normalization, no-hole translation, and multicall integration remain the next
+gates, so curl is not yet counted as an integrated Rust applet.
 
 ## Work queue after util-linux
 
