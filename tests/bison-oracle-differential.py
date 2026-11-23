@@ -16,6 +16,7 @@ from pathlib import Path
 
 CALC_INPUT = b"1 + 2 * 3\n(8 - 2) / 3\n"
 GLR_INPUT = b"T x;\nT (x) = y;\n"
+YACC_INPUT = b"1\n7\n"
 
 
 @dataclass(frozen=True)
@@ -23,6 +24,7 @@ class Case:
     name: str
     source: str
     arguments: tuple[str, ...]
+    contents: bytes | None = None
     compile_source: str | None = None
     compiler: str = "gcc"
     runtime_input: bytes = b""
@@ -34,55 +36,73 @@ CASES = (
         "c-pull",
         "examples/c/calc/calc.y",
         ("--defines=calc.h", "--report=all", "--output=calc.c"),
-        "calc.c",
+        compile_source="calc.c",
         runtime_input=CALC_INPUT,
     ),
     Case(
         "c-push",
         "examples/c/pushcalc/calc.y",
         ("--defines=calc.h", "--report=all", "--output=calc.c"),
-        "calc.c",
+        compile_source="calc.c",
         runtime_input=CALC_INPUT,
     ),
     Case(
         "c-glr",
         "examples/c/glr/c++-types.y",
         ("--defines=c++-types.h", "--output=c++-types.c"),
-        "c++-types.c",
+        compile_source="c++-types.c",
         runtime_input=GLR_INPUT,
     ),
     Case(
         "cxx-lalr",
         "examples/c++/simple.yy",
         ("--output=simple.cc",),
-        "simple.cc",
-        "g++",
+        compile_source="simple.cc",
+        compiler="g++",
     ),
     Case(
         "cxx-glr",
         "examples/c++/glr/c++-types.yy",
         ("--defines=c++-types.hh", "--output=c++-types.cc"),
-        None,
         extra_sources=("examples/c++/glr/ast.hh",),
     ),
     Case(
         "cxx-glr2",
         "examples/c++/glr/c++-types.yy",
         ("--skeleton=glr2.cc", "--defines=c++-types.hh", "--output=c++-types.cc"),
-        None,
         extra_sources=("examples/c++/glr/ast.hh",),
     ),
     Case(
         "yacc-compatible",
-        "examples/c/calc/calc.y",
+        "yacc.y",
         ("--yacc", "--defines",),
-        "y.tab.c",
-        runtime_input=CALC_INPUT,
+        contents=br"""%{
+#include <ctype.h>
+#include <stdio.h>
+int yylex (void);
+void yyerror (const char *message);
+%}
+%token NUM
+%%
+input: %empty | input line;
+line: '\n' | NUM '\n' { printf ("%d\n", $1); };
+%%
+int yylex (void) {
+  int c = getchar ();
+  if (isdigit (c)) { yylval = c - '0'; return NUM; }
+  return c == EOF ? 0 : c;
+}
+void yyerror (const char *message) { fprintf (stderr, "%s\n", message); }
+int main (void) { return yyparse (); }
+""",
+        compile_source="y.tab.c",
+        runtime_input=YACC_INPUT,
     ),
     Case(
         "reports",
         "examples/c/calc/calc.y",
-        ("--xml=calc.xml", "--graph=calc.dot", "--report=all", "--output=calc.c"),
+        ("--defines=calc.h", "--xml=calc.xml", "--graph=calc.dot",
+         "--report=all", "--output=calc.c"),
     ),
 )
 
@@ -111,9 +131,11 @@ def manifest(directory: Path, inputs: set[str]) -> dict[str, bytes]:
 def exercise(binary: Path, datadir: Path, source_root: Path, case: Case) -> dict[str, object]:
     with tempfile.TemporaryDirectory(prefix=f"rustbox-bison-{case.name}-") as raw:
         directory = Path(raw)
-        source = source_root / case.source
         source_name = Path(case.source).name
-        shutil.copyfile(source, directory / source_name)
+        if case.contents is None:
+            shutil.copyfile(source_root / case.source, directory / source_name)
+        else:
+            (directory / source_name).write_bytes(case.contents)
         copied = {source_name}
         for item in case.extra_sources:
             name = Path(item).name
@@ -131,7 +153,7 @@ def exercise(binary: Path, datadir: Path, source_root: Path, case: Case) -> dict
         if generated.returncode == 0 and case.compile_source:
             executable = directory / "parser"
             compile_result = run(
-                [case.compiler, "-O2", "-std=c++17" if case.compiler == "g++" else "-std=c11",
+                [case.compiler, "-O2", "-std=c++17" if case.compiler == "g++" else "-std=gnu11",
                  case.compile_source, "-o", str(executable)],
                 cwd=directory,
             )
@@ -199,11 +221,19 @@ def main() -> int:
         if left != right:
             raise RuntimeError(f"Bison generated-parser mismatch: {case.name}")
         if left["status"] != 0:
-            raise RuntimeError(f"Bison generation failed: {case.name}")
+            raise RuntimeError(
+                f"Bison generation failed: {case.name}: status={left['status']}\n"
+                + bytes(left["stderr"]).decode(errors="replace")
+            )
         if case.compile_source and (
             left["compile_status"] != 0 or left["runtime_status"] != 0
         ):
-            raise RuntimeError(f"Bison generated parser failed: {case.name}")
+            raise RuntimeError(
+                f"Bison generated parser failed: {case.name}: "
+                f"compile={left['compile_status']} runtime={left['runtime_status']}\n"
+                + bytes(left["compile_stderr"]).decode(errors="replace")
+                + bytes(left["runtime_stderr"]).decode(errors="replace")
+            )
         files = left["manifest"]
         assert isinstance(files, dict)
         records.append({
