@@ -28,5 +28,7 @@ RUSTBOX_TOOL_IMAGE=rustbox-gawk:2026-11-22 \
     --ncurses-oracle-root /work/work/analysis/ncurses-6.6/normalized/gcc-root \
     --findutils-oracle-root /rustbox-findutils/hybrid \
     --flex-oracle /rustbox-flex/normalized-gcc/src/flex \
+    --curl-oracle /work/work/analysis/curl-8.23.0/oracle/curl-clang \
+    --curl-config-oracle /work/work/analysis/curl-8.23.0/oracle/curl-config-clang \
     --rustbox /rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox \
     --output /work/work/analysis/rustbox-multicall-dispatch.json

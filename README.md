@@ -64,7 +64,7 @@ scoring, and correctness gates.
 | GNU tar 1.35 | 2 | 2 | 2 | 2 |
 | Flex 2.6.4 | 3 | 3 | 3 | 3 |
 | Bison 3.8.2 | 2 | 2 | 2 | 2 |
-| curl 8.23.0 | 2 | 2 | 2 | 0 |
+| curl 8.23.0 | 2 | 2 | 2 | 2 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -126,7 +126,7 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 358
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 360
 distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, five
 pkgconf names, File, GNU patch, GNU sed, four GNU Diffutils applets, and GNU
 Grep's three public names, GNU bc and dc, attr's three tools, plus chacl,
@@ -136,8 +136,9 @@ GNU `tar` and `rmt`, ten Ncurses names, GNU Findutils' `find`, `xargs`,
 `locate`, and `updatedb`; `kill` is shared and `util-linux-kill` remains
 available explicitly, GNU Gawk's `gawk`, `awk`, and native `gawkbug`, and
 Flex's `flex`, `flex++`, and native `lex` compatibility frontend, and GNU
-Bison's `bison` and native `yacc` compatibility frontend).
-It passes all 708
+Bison's `bison` and native `yacc` compatibility frontend, plus curl and its
+native `curl-config` frontend).
+It passes all 712
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
 check, 108-case differential suite, and Valgrind.  Pkgconf also passes all 429
@@ -1145,9 +1146,12 @@ canonical CLI/file-protocol comparisons and both Valgrind paths with every
 allocation freed.  A native in-process `curl-config` frontend matches the
 generated canonical script in all 24 option and diagnostic cases;
 `evidence/curl-8.23.0-hybrid.json` records both frontends, the one-source C
-boundary, and package-independent dynamic dependency surface.  Unified
-multicall integration remains the next gate, so neither name is counted as an
-integrated Rust applet yet.
+boundary, and package-independent dynamic dependency surface.  Both names are
+now collision-isolated and integrated in the unified multicall executable.
+The multicall curl retains all 12 exact canonical CLI/file comparisons,
+`curl-config` retains all 24 exact option and diagnostic comparisons, and both
+Valgrind paths remain error- and leak-free; this is recorded in
+`evidence/curl-8.23.0-multicall.json` and the global multicall evidence.
 
 ## Work queue after util-linux
 
@@ -1248,14 +1252,18 @@ Library-only checkpoints (outside the active utility order):
      The translated hybrid passes all 114 upstream tests, all 14 generator and
      scanner comparisons, three native `flex++`/`lex` frontend comparisons,
      and leak-free help, version, and error exits.  Unified multicall
-     integration is complete for `flex`, `flex++`, and native `lex`; all 708
+     integration is complete for `flex`, `flex++`, and native `lex`; all 712
      dispatcher comparisons and all 14,022 prior batch regressions pass.
    - [x] Bison 3.8.2 — `bison`, `yacc`; signed canonical oracle, deterministic
      normalization, complete no-hole stable translation, embedded C/C++
      resource closure, native yacc frontend, and unified multicall parity are
      complete.  D and Java output remain explicitly out of scope.
 4. Network-facing suites:
-   - [ ] curl — `curl`, `curl-config`, plus the shared `libcurl` runtime.
+   - [x] curl 8.23.0 — `curl`, native `curl-config`, and the static translated
+     libcurl runtime are collision-isolated in the unified multicall binary.
+     The deliberately dependency-free profile retains 15 built-in protocols;
+     optional TLS/compression protocols remain queued with their canonical
+     libraries.
    - [ ] Inetutils — `dnsdomainname`, `ftp`, `hostname`, `ifconfig`, `logger`,
      `ping`, `ping6`, `rcp`, `rexec`, `rlogin`, `rsh`, `talk`, `telnet`,
      `tftp`, `traceroute`, `whois`; and canonical daemons `ftpd`, `inetd`,

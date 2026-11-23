@@ -12,7 +12,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-ISOLATION_CACHE_VERSION = 9
+ISOLATION_CACHE_VERSION = 10
 
 
 def sha256(path: Path) -> str:
@@ -210,6 +210,53 @@ def namespace_bison_inputs(
         raise RuntimeError("Bison isolation lost its translated engine entrypoint")
     if any(symbol in definitions for symbol in symbols):
         raise RuntimeError("Bison isolation left an unprefixed private definition")
+    return mapped[0], mapped[1:], sorted(symbols)
+
+
+def namespace_curl_inputs(
+    rust_library: Path, residue_objects: list[Path], build: Path
+) -> tuple[Path, list[Path], list[str]]:
+    """Keep curl/libcurl's translated and C ABI surface private."""
+    strong_types = {"B", "C", "D", "G", "R", "S", "T"}
+    inputs = [rust_library, *residue_objects]
+    symbols: set[str] = set()
+    for path in inputs:
+        output = subprocess.run(
+            ["nm", "-g", "--defined-only", str(path)], check=True,
+            text=True, stdout=subprocess.PIPE,
+        ).stdout
+        symbols.update(
+            fields[-1]
+            for line in output.splitlines()
+            if len(fields := line.split()) >= 3
+            and fields[-2] in strong_types
+            and re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", fields[-1])
+            and fields[-1] != "rustbox_curl_main"
+            and not fields[-1].startswith(("_R", "rust_", "__rust", "__llvm"))
+        )
+    if "rustbox_curl_main" not in set(defined_symbols(rust_library)):
+        raise RuntimeError("curl archive exports no translated entrypoint")
+    destination = build / "src/.rustbox-curl"
+    destination.mkdir(parents=True, exist_ok=True)
+    mapping = destination / "symbols.map"
+    mapping.write_text(
+        "".join(
+            f"{symbol} rustbox_curl_private_{symbol}\n"
+            for symbol in sorted(symbols)
+        ),
+        encoding="utf-8",
+    )
+    mapped = []
+    for path in inputs:
+        output = destination / path.name
+        shutil.copy2(path, output)
+        subprocess.run(["objcopy", "--redefine-syms", str(mapping), str(output)], check=True)
+        mapped.append(output)
+    definitions = set().union(*(set(defined_symbols(path)) for path in mapped))
+    if "rustbox_curl_main" not in definitions:
+        raise RuntimeError("curl isolation lost its translated entrypoint")
+    if any(symbol in definitions for symbol in symbols):
+        raise RuntimeError("curl isolation left an unprefixed private definition")
     return mapped[0], mapped[1:], sorted(symbols)
 
 
@@ -1432,6 +1479,8 @@ extern int rustbox_flexpp_main(int, char **);
 extern int rustbox_lex_main(int, char **);
 extern int rustbox_bison_main(int, char **);
 extern int rustbox_yacc_main(int, char **);
+extern int rustbox_curl_main(int, char **);
+extern int rustbox_curl_config_main(int, char **);
 """
         + declarations
         + """
@@ -1662,6 +1711,10 @@ int main(int argc, char **argv)
         return rustbox_bison_main(argc, argv);
     if (!force_util_linux && strcmp(name, "yacc") == 0)
         return rustbox_yacc_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "curl") == 0)
+        return rustbox_curl_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "curl-config") == 0)
+        return rustbox_curl_config_main(argc, argv);
 """
         + selections
         + """
@@ -1706,6 +1759,8 @@ def main() -> int:
     parser.add_argument("--flex-rust-library", type=Path, required=True)
     parser.add_argument("--bison-rust-library", type=Path, required=True)
     parser.add_argument("--bison-c-residue-directory", type=Path, required=True)
+    parser.add_argument("--curl-rust-library", type=Path, required=True)
+    parser.add_argument("--curl-c-residue-directory", type=Path, required=True)
     parser.add_argument("--link-report", type=Path, required=True)
     parser.add_argument("--reuse-isolation", action="store_true")
     args = parser.parse_args()
@@ -1746,6 +1801,9 @@ def main() -> int:
         bison_residue_directory / name
         for name in ("printf-args.o", "printf-frexpl.o", "printf-parse.o", "vasnprintf.o")
     ]
+    curl_rust_library = args.curl_rust_library.resolve()
+    curl_residue_directory = args.curl_c_residue_directory.resolve()
+    curl_residue_objects = [curl_residue_directory / "mprintf.o"]
     findutils_residue_directory = args.findutils_c_residue_directory.resolve()
     findutils_residue_objects = [
         findutils_residue_directory / name
@@ -1839,6 +1897,7 @@ def main() -> int:
         ncurses_rust_library, findutils_rust_library,
         flex_rust_library,
         bison_rust_library, *bison_residue_objects,
+        curl_rust_library, *curl_residue_objects,
         gzip_support_library,
         *tar_residue_objects,
         *findutils_residue_objects,
@@ -1887,6 +1946,8 @@ def main() -> int:
     flex_library_index = len(libraries) - 1
     libraries.append(bison_rust_library)
     bison_library_index = len(libraries) - 1
+    libraries.append(curl_rust_library)
+    curl_library_index = len(libraries) - 1
     source_library_hashes = {str(path.relative_to(repository)): sha256(path) for path in libraries}
     source_library_hashes[str(m4_support_library)] = sha256(m4_support_library)
     source_library_hashes[str(gzip_support_library)] = sha256(gzip_support_library)
@@ -1898,6 +1959,9 @@ def main() -> int:
     )
     source_library_hashes.update(
         {str(path.relative_to(repository)): sha256(path) for path in bison_residue_objects}
+    )
+    source_library_hashes.update(
+        {str(path.relative_to(repository)): sha256(path) for path in curl_residue_objects}
     )
     expected_symbols.update(f"rustbox_{symbol}_main" for symbol in util_dispatch.values())
     expected_symbols.add("rustbox_m4_main")
@@ -1970,6 +2034,8 @@ def main() -> int:
         "rustbox_lex_main",
         "rustbox_bison_main",
         "rustbox_yacc_main",
+        "rustbox_curl_main",
+        "rustbox_curl_config_main",
     })
 
     cached_report = None
@@ -2170,6 +2236,18 @@ def main() -> int:
         )
     libraries[bison_library_index] = mapped_bison_rust
 
+    if cached_report:
+        mapped_curl_rust = build / "src/.rustbox-curl" / libraries[curl_library_index].name
+        mapped_curl_residue = [
+            build / "src/.rustbox-curl" / path.name for path in curl_residue_objects
+        ]
+        curl_symbols = cached_report["curl_namespaced_symbols"]
+    else:
+        mapped_curl_rust, mapped_curl_residue, curl_symbols = namespace_curl_inputs(
+            libraries[curl_library_index], curl_residue_objects, build
+        )
+    libraries[curl_library_index] = mapped_curl_rust
+
     canonical_dispatch_symbols = set(defined_symbols(build / "src/coreutils-coreutils.o"))
     if cached_report:
         namespaced_symbols = cached_report["namespaced_symbols"]
@@ -2207,6 +2285,7 @@ def main() -> int:
 
     cached_paths = [
         *libraries, *mapped_tar_residue, *mapped_findutils_residue, *mapped_bison_residue,
+        *mapped_curl_residue,
         mapped_m4_support, mapped_gzip_support, *util_inputs,
     ]
     missing_cached = [str(path) for path in cached_paths if not path.is_file()]
@@ -2358,6 +2437,15 @@ def main() -> int:
         "rustbox_bison_main", "rustbox_yacc_main",
     }:
         raise RuntimeError("Bison embedded frontend bridge exports the wrong symbols")
+    curl_config_object = build / "src/.rustbox-curl-config.o"
+    subprocess.run(
+        ["clang-18", "-O2", "-g", "-DRUSTBOX_MULTICALL", "-c",
+         str(repository / "bridges/curl_config.c"), "-o", str(curl_config_object)],
+        cwd=build,
+        check=True,
+    )
+    if defined_symbols(curl_config_object) != ["rustbox_curl_config_main"]:
+        raise RuntimeError("curl-config frontend bridge exports the wrong symbols")
     bridge_archives: dict[str, Path] = {}
     for archive, members in bridge_members.items():
         source = build / archive
@@ -2431,6 +2519,7 @@ def main() -> int:
                 rewritten.extend(str(path) for path in mapped_tar_residue)
                 rewritten.extend(str(path) for path in mapped_findutils_residue)
                 rewritten.extend(str(path) for path in mapped_bison_residue)
+                rewritten.extend(str(path) for path in mapped_curl_residue)
                 rewritten.extend(str(path) for path in typed_bridge_objects)
                 rewritten.append(str(sed_abi_object))
                 rewritten.append(str(diffutils_error_object))
@@ -2443,6 +2532,7 @@ def main() -> int:
                 rewritten.append(str(findutils_updatedb_object))
                 rewritten.append(str(flex_frontends_object))
                 rewritten.append(str(bison_resource_object))
+                rewritten.append(str(curl_config_object))
                 rewritten.extend(str(path) for path in util_inputs)
                 rewritten.append(str(mapped_m4_support))
                 rewritten.append(str(mapped_gzip_support))
@@ -2549,6 +2639,7 @@ def main() -> int:
         "findutils_public_names": 4,
         "flex_public_names": 3,
         "bison_public_names": 2,
+        "curl_public_names": 2,
         "total_dispatch_names": len(
             set(applets)
             | set(util_dispatch)
@@ -2567,7 +2658,7 @@ def main() -> int:
                "tar", "rmt", "captoinfo", "clear", "infocmp", "infotocap",
                "reset", "tabs", "tic", "toe", "tput", "tset",
                "find", "xargs", "locate", "updatedb", "flex", "flex++", "lex",
-               "bison", "yacc"}
+               "bison", "yacc", "curl", "curl-config"}
         ),
         "excluded": ["chcon", "runcon"],
         "public_name_precedence": {"kill": "GNU Coreutils", "util-linux-kill": "util-linux"},
@@ -2600,6 +2691,7 @@ def main() -> int:
         "findutils_namespaced_symbols": findutils_symbols,
         "flex_namespaced_symbols": flex_symbols,
         "bison_namespaced_symbols": bison_symbols,
+        "curl_namespaced_symbols": curl_symbols,
         "tar_acl_imports": tar_acl_imports,
         "coreutils_acl_imports": coreutils_acl_imports,
         "diffutils_error_bridge": {
@@ -2662,6 +2754,11 @@ def main() -> int:
             "public_names": ["bison", "yacc"],
             "embedded_resource_manifest_sha256": sha256(bison_resource_manifest),
         },
+        "curl_config_frontend_bridge": {
+            "object": str(curl_config_object.relative_to(build)),
+            "symbols": ["rustbox_curl_config_main"],
+            "public_names": ["curl-config"],
+        },
         "binary": {
             "bytes": output.stat().st_size,
             "sha256": sha256(output),
@@ -2699,6 +2796,7 @@ def main() -> int:
         "findutils_public_names": 4,
         "flex_public_names": 3,
         "bison_public_names": 2,
+        "curl_public_names": 2,
         "output": str(output),
     }))
     return 0

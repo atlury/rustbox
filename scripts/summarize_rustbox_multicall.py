@@ -44,6 +44,7 @@ def main() -> int:
     parser.add_argument("--gawk-report-directory", type=Path, required=True)
     parser.add_argument("--flex-report-directory", type=Path, required=True)
     parser.add_argument("--bison-report-directory", type=Path, required=True)
+    parser.add_argument("--curl-report-directory", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     binary = args.binary.resolve()
@@ -71,10 +72,11 @@ def main() -> int:
     gawk_directory = args.gawk_report_directory.resolve()
     flex_directory = args.flex_report_directory.resolve()
     bison_directory = args.bison_report_directory.resolve()
+    curl_directory = args.curl_report_directory.resolve()
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
-    if dispatch["cases"] != 708 or dispatch["passed"] != 708 or dispatch["failures"]:
+    if dispatch["cases"] != 712 or dispatch["passed"] != 712 or dispatch["failures"]:
         raise RuntimeError("unified dispatcher comparison is incomplete")
     if (
         differential["batches"] != 38
@@ -642,6 +644,37 @@ def main() -> int:
         or "ERROR SUMMARY: 0 errors" not in bison_valgrind
     ):
         raise RuntimeError("unified Bison integration comparison is incomplete")
+    curl_differential_path = curl_directory / "differential.json"
+    curl_differential = json.loads(curl_differential_path.read_text())
+    curl_config_path = curl_directory / "curl-config-differential.json"
+    curl_config = json.loads(curl_config_path.read_text())
+    curl_valgrind_paths = {
+        operation: curl_directory / f"valgrind-{operation}.log"
+        for operation in ("version", "file")
+    }
+    for operation, path in curl_valgrind_paths.items():
+        text = path.read_text(errors="replace")
+        zero_loss = all(marker in text for marker in (
+            "definitely lost: 0 bytes", "indirectly lost: 0 bytes",
+            "possibly lost: 0 bytes",
+        ))
+        if "ERROR SUMMARY: 0 errors" not in text or not (
+            "All heap blocks were freed" in text or zero_loss
+        ):
+            raise RuntimeError(
+                f"unified curl {operation} Valgrind result is incomplete"
+            )
+    if (
+        curl_differential.get("cases") != 12
+        or curl_differential.get("passed") != 12
+        or curl_differential.get("gcc_clang_exact") is not True
+        or curl_config.get("cases") != 24
+        or curl_config.get("passed") != 24
+        or curl_config.get("canonical_native_exact") is not True
+        or link.get("curl_public_names") != 2
+        or link.get("total_dispatch_names") != 360
+    ):
+        raise RuntimeError("unified curl integration comparison is incomplete")
     if sha256(binary) != link["binary"]["sha256"]:
         raise RuntimeError("unified binary changed after link evidence")
     with tempfile.TemporaryDirectory(prefix="rustbox-strip-") as temporary:
@@ -667,10 +700,18 @@ def main() -> int:
     )
     if forbidden or forbidden_undefined:
         raise RuntimeError("unified binary retains a forbidden security-library dependency")
+    evidence_link = dict(link)
+    curl_symbol_bytes = json.dumps(
+        link["curl_namespaced_symbols"], separators=(",", ":"), sort_keys=True
+    ).encode()
+    evidence_link["curl_namespaced_symbols"] = {
+        "count": len(link["curl_namespaced_symbols"]),
+        "sha256": hashlib.sha256(curl_symbol_bytes).hexdigest(),
+    }
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-23",
-        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, GNU tar, Ncurses, GNU Findutils, GNU Gawk, Flex, and Bison integrated at canonical parity",
+        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, GNU tar, Ncurses, GNU Findutils, GNU Gawk, Flex, Bison, and curl integrated at canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
@@ -695,7 +736,8 @@ def main() -> int:
             "gawk_integrated_names": 3,
             "flex_integrated_names": 3,
             "bison_integrated_names": 2,
-            "dispatch_names": 358,
+            "curl_integrated_names": 2,
+            "dispatch_names": 360,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -1002,6 +1044,25 @@ def main() -> int:
             "yacc_sha256": sha256(bison_yacc_path),
             "valgrind_log_sha256": sha256(bison_valgrind_path),
         },
+        "curl_integration": {
+            "integrated_public_names": 2,
+            "translated_entrypoint": "rustbox_curl_main",
+            "native_frontend": "curl-config",
+            "canonical_c_abi_residue_units": 1,
+            "stable_translated_sources": 239,
+            "differential": curl_differential,
+            "curl_config": curl_config,
+            "valgrind_errors": 0,
+            "definitely_lost_bytes": 0,
+            "indirectly_lost_bytes": 0,
+            "possibly_lost_bytes": 0,
+            "differential_sha256": sha256(curl_differential_path),
+            "curl_config_sha256": sha256(curl_config_path),
+            "valgrind_log_sha256": {
+                operation: sha256(path)
+                for operation, path in curl_valgrind_paths.items()
+            },
+        },
         "collision_isolation": {
             "translated_libraries": len(link["source_library_sha256"]),
             "namespaced_libraries": len(link["namespaced_symbols"]),
@@ -1035,9 +1096,13 @@ def main() -> int:
             "findutils_namespaced_symbols": len(link["findutils_namespaced_symbols"]),
             "flex_namespaced_symbols": len(link["flex_namespaced_symbols"]),
             "bison_namespaced_symbols": len(link["bison_namespaced_symbols"]),
+            "curl_namespaced_symbols": len(link["curl_namespaced_symbols"]),
+            "curl_config_bridge_symbols": len(
+                link["curl_config_frontend_bridge"]["symbols"]
+            ),
             "tar_acl_imports": len(link["tar_acl_imports"]),
             "coreutils_acl_imports": len(link["coreutils_acl_imports"]),
-            "manifest": link,
+            "manifest": evidence_link,
         },
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)

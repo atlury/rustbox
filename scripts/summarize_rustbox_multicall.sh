@@ -30,4 +30,5 @@ RUSTBOX_TOOL_IMAGE=rustbox-gawk:2026-11-22 \
     --gawk-report-directory /work/work/analysis/gawk-5.4.0/multicall \
     --flex-report-directory /work/work/analysis/flex-2.6.4/multicall \
     --bison-report-directory /work/work/analysis/bison-3.8.2/multicall \
+    --curl-report-directory /work/work/analysis/curl-8.23.0/multicall \
     --output /work/evidence/rustbox-multicall.json

@@ -59,8 +59,9 @@ def main() -> int:
     ]
     records = []
     for name, arguments in cases:
-        canonical = run(args.canonical.resolve(), arguments)
-        native = run(args.native.resolve(), arguments)
+        # Preserve argv[0] when the native frontend is a multicall symlink.
+        canonical = run(args.canonical.absolute(), arguments)
+        native = run(args.native.absolute(), arguments)
         passed = canonical == native
         records.append({
             "name": name,

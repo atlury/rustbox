@@ -58,8 +58,10 @@ def main() -> int:
     parser.add_argument("--clang", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
-    gcc = args.gcc.resolve()
-    clang = args.clang.resolve()
+    # Preserve the final invoked path component: multicall frontends rely on
+    # argv[0], and resolve() would dereference a curl symlink back to rustbox.
+    gcc = args.gcc.absolute()
+    clang = args.clang.absolute()
     payload = b"zero\none two\nthree-four-five\nlast\n"
     fixtures = {"payload.txt": payload, "second.txt": b"second payload\n"}
     cases = [
