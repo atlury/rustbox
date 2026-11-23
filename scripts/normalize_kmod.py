@@ -82,6 +82,14 @@ def main() -> int:
         )
         main_c.write_text(text)
 
+        file_c = staged / "libkmod/libkmod-file.c"
+        file_text = file_c.read_text()
+        array_size = "i < ARRAY_SIZE(comp_types)"
+        explicit_size = "i < sizeof(comp_types) / sizeof(comp_types[0])"
+        if file_text.count(array_size) != 1:
+            raise RuntimeError("Kmod compression-table loop precondition failed")
+        file_c.write_text(file_text.replace(array_size, explicit_size, 1))
+
         canonical_files = {
             path.relative_to(canonical).as_posix()
             for path in canonical.rglob("*") if path.is_file()
@@ -96,7 +104,7 @@ def main() -> int:
             name for name in canonical_files
             if sha256(canonical / name) != sha256(staged / name)
         )
-        if changed != ["tools/kmod.c"]:
+        if changed != ["libkmod/libkmod-file.c", "tools/kmod.c"]:
             raise RuntimeError(f"unexpected normalized Kmod sources: {changed}")
 
         manifest = {
@@ -110,6 +118,18 @@ def main() -> int:
             "conditional": "RUSTBOX_MULTICALL",
             "engine": "exact deterministic source rewrite",
             "transformations": [{
+                "source": "libkmod/libkmod-file.c",
+                "canonical_sha256": sha256(canonical / "libkmod/libkmod-file.c"),
+                "normalized_sha256": sha256(staged / "libkmod/libkmod-file.c"),
+                "operation": (
+                    "replace ARRAY_SIZE(comp_types) with the equivalent "
+                    "sizeof(comp_types) / sizeof(comp_types[0]) expression"
+                ),
+                "semantic_basis": (
+                    "comp_types is a complete file-scope array at the use site; "
+                    "both constant expressions are definitionally identical"
+                ),
+            }, {
                 "source": "tools/kmod.c",
                 "canonical_sha256": sha256(canonical / "tools/kmod.c"),
                 "normalized_sha256": sha256(staged / "tools/kmod.c"),

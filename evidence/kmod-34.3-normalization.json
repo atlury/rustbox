@@ -12,6 +12,7 @@
     }
   },
   "changed_sources": [
+    "libkmod/libkmod-file.c",
     "tools/kmod.c"
   ],
   "entrypoint": {
@@ -23,15 +24,23 @@
     "canonical_archive_sha256": "985554de49c21a58abd68c6cda2251384e1e5bb08b3b14c7f02b51f4c90c2958",
     "canonical_tree_sha256": "740b6b37164f90c084f5f39419b4413f7570acf014bcefc42f947016615ddd83",
     "changed_sources": [
+      "libkmod/libkmod-file.c",
       "tools/kmod.c"
     ],
     "conditional": "RUSTBOX_MULTICALL",
     "engine": "exact deterministic source rewrite",
     "entrypoint": "rustbox_kmod_main",
-    "normalized_tree_sha256": "35584f2c41e7badd00cc124ec4c02078d79cb740fd62ec8e812580f216c95ca4",
+    "normalized_tree_sha256": "746f44aeca89a697d1952421d7310c39a4d062d3b9c3713153ded989034cca53",
     "release": "34.3",
     "schema": 1,
     "transformations": [
+      {
+        "canonical_sha256": "0c32a7cd9ad38b2c0daaa71aebbdd9df5ad63c6f3803652fba1d9e020d52fcbb",
+        "normalized_sha256": "c299197e8576d36b9ed53b6ce711aef4af988a9a0035691e0429a90f7f58badf",
+        "operation": "replace ARRAY_SIZE(comp_types) with the equivalent sizeof(comp_types) / sizeof(comp_types[0]) expression",
+        "semantic_basis": "comp_types is a complete file-scope array at the use site; both constant expressions are definitionally identical",
+        "source": "libkmod/libkmod-file.c"
+      },
       {
         "canonical_sha256": "c6866b4a139040e13cdce65a41092acf65306282de14bdc64a9b759fcc6272c9",
         "normalized_sha256": "a682a1babd55d9e06bdc80d928af28c0aee0021d409156825ecefb07d37f8560",
@@ -41,7 +50,7 @@
       }
     ]
   },
-  "manifest_sha256": "992ca340cf6c90e7ef8f93047c1406f0ce3f3e018b7bffc71da1762e0c840a6c",
+  "manifest_sha256": "dfd204f9832446a858a4ba5793e3da4b7efbe45c1c1d8acd67b931aef0061eee",
   "next_gate": "strict C2Rust translation of the exact 26-source production closure",
   "production_sources": 26,
   "recorded_at": "2026-11-24",
@@ -51,18 +60,18 @@
     "clang": {
       "expected_failures": 0,
       "failures": 0,
-      "log_sha256": "5c4977d6e002d2f91a27b7e21087638b4419acc8924977b6e2af02cd2d057c7f",
+      "log_sha256": "ce6ad5ca1e281b57a6a30961742a6165d5cf396a4486431c334bf80971bf34a6",
       "passed": 16,
       "skipped": 0,
-      "testlog_sha256": "6d8f40adcc593c7073e5a688e9ed6ea1465639163be1c1c3c56ca099cd00171f"
+      "testlog_sha256": "61930525e294f4ec05457c8b5b5b0d24553200bf700ef6f036da5e403dd55bc4"
     },
     "gcc": {
       "expected_failures": 0,
       "failures": 0,
-      "log_sha256": "81d9467367174c13d978af868138f70847e0dbca30f887562a9b13232b072d41",
+      "log_sha256": "944bf1ec24af58e6205cc462ec682d2c92c4b044715a08e3df701ff586dcf6b9",
       "passed": 16,
       "skipped": 0,
-      "testlog_sha256": "0eb4f912973fe4bbb83708a21ce94f2b6125312637ae3a7ee7b8024dd0f4925e"
+      "testlog_sha256": "1be9ad8b04e901f4e243755c9614d81cfdb39a7b4d3283a09db41727490a7b31"
     }
   },
   "valgrind": {
