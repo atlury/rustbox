@@ -1,4 +1,36 @@
 {
+  "curl_config_differential": {
+    "cases": 24,
+    "coverage": [
+      "no-option",
+      "help",
+      "built-shared",
+      "ca",
+      "cc",
+      "cflags",
+      "configure",
+      "feature",
+      "features",
+      "libs",
+      "prefix",
+      "protocols",
+      "ssl-backends",
+      "static-libs",
+      "version",
+      "vernum",
+      "check-equal",
+      "check-older",
+      "check-patch-suffix",
+      "check-newer-patch",
+      "check-newer-major",
+      "multiple",
+      "early-version",
+      "unknown"
+    ],
+    "exact": true,
+    "passed": 24,
+    "sha256": "e9c665306701ae1025d685bdada84bc76250dd27160f04c9638a626d7aa8a671"
+  },
   "differential": {
     "cases": 12,
     "coverage": [
@@ -20,7 +52,8 @@
     "sha256": "db9eb7abea3c0d6808359f96df07bb91fbce5a6dfa4025277d6c3a1f4168a102"
   },
   "frontends": [
-    "curl"
+    "curl",
+    "curl-config"
   ],
   "hybrid": {
     "binary": {
@@ -41,26 +74,30 @@
     "canonical_c_sources": [
       "lib/mprintf.c"
     ],
+    "curl_config_binary": {
+      "bytes": 23032,
+      "sha256": "36bc5f58bb475c19ceae40a643cf647d9f863bc0432b0cd26d1eec1b50dcbcdc"
+    },
     "residue_manifest_sha256": "754680131bae3132763a6ce4acd8f20fafdc8832d55ec602161501922e5e11a3",
     "translated_rust_sources": 239
   },
-  "next_gate": "provide curl-config in-process, link curl into the unified multicall, and replay the canonical differential through Rustbox",
+  "next_gate": "link curl and curl-config into the unified multicall and replay both canonical differentials through Rustbox",
   "recorded_at": "2026-11-23",
   "release": "8.23.0",
   "schema": 1,
-  "status": "curl hybrid at canonical CLI and file-protocol parity",
+  "status": "curl and native curl-config hybrids at canonical parity",
   "valgrind": {
     "file": {
       "all_heap_blocks_freed": true,
       "errors": 0,
       "retained_bytes": 0,
-      "sha256": "b9cf67de0e463f9fab8794ce5d4cc98b56239dff9483f900c685783470731829"
+      "sha256": "6fdb0b47087ba3ba2461a36ab9c8de9fde258a8d3dd7a4387ad00dad5bac3991"
     },
     "version": {
       "all_heap_blocks_freed": true,
       "errors": 0,
       "retained_bytes": 0,
-      "sha256": "98777f1bb91da64c8799825c225cc620e04fef563d4ef4f9939e97fa60ada63c"
+      "sha256": "d18e6443dc11fe8dc661214433c4393716d05ebb75f30ce031ad8ea886a4a020"
     }
   }
 }

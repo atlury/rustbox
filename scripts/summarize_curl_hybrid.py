@@ -46,6 +46,7 @@ def main() -> int:
     artifacts = analysis / "hybrid-artifacts"
     binary = artifacts / "curl"
     stripped = artifacts / "curl.stripped"
+    config_binary = artifacts / "curl-config"
 
     differential = json.loads((logs / "differential.json").read_text())
     if (
@@ -55,6 +56,16 @@ def main() -> int:
         or not all(record["passed"] for record in differential["records"])
     ):
         raise RuntimeError("curl hybrid differential changed")
+    config_differential = json.loads(
+        (logs / "curl-config-differential.json").read_text()
+    )
+    if (
+        config_differential["cases"] != 24
+        or config_differential["passed"] != 24
+        or not config_differential["canonical_native_exact"]
+        or not all(record["passed"] for record in config_differential["records"])
+    ):
+        raise RuntimeError("curl-config native differential changed")
     residue_path = artifacts / "c-residue/manifest.json"
     residue = json.loads(residue_path.read_text())
     if [record["source"] for record in residue["sources"]] != ["lib/mprintf.c"]:
@@ -78,8 +89,8 @@ def main() -> int:
         "schema": 1,
         "release": "8.23.0",
         "recorded_at": "2026-11-23",
-        "status": "curl hybrid at canonical CLI and file-protocol parity",
-        "frontends": ["curl"],
+        "status": "curl and native curl-config hybrids at canonical parity",
+        "frontends": ["curl", "curl-config"],
         "hybrid": {
             "translated_rust_sources": 239,
             "canonical_c_sources": ["lib/mprintf.c"],
@@ -93,6 +104,10 @@ def main() -> int:
                     "rustbox_curl_main": entrypoints,
                 },
             },
+            "curl_config_binary": {
+                "bytes": config_binary.stat().st_size,
+                "sha256": sha256(config_binary),
+            },
             "residue_manifest_sha256": sha256(residue_path),
         },
         "differential": {
@@ -102,17 +117,26 @@ def main() -> int:
             "sha256": sha256(logs / "differential.json"),
             "coverage": [record["name"] for record in differential["records"]],
         },
+        "curl_config_differential": {
+            "cases": config_differential["cases"],
+            "passed": config_differential["passed"],
+            "exact": config_differential["canonical_native_exact"],
+            "sha256": sha256(logs / "curl-config-differential.json"),
+            "coverage": [
+                record["name"] for record in config_differential["records"]
+            ],
+        },
         "valgrind": valgrind,
         "next_gate": (
-            "provide curl-config in-process, link curl into the unified multicall, "
-            "and replay the canonical differential through Rustbox"
+            "link curl and curl-config into the unified multicall and replay "
+            "both canonical differentials through Rustbox"
         ),
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")
     print(json.dumps({
         "differential": differential["passed"],
-        "frontends": 1,
+        "frontends": 2,
         "residue_sources": 1,
         "stripped_bytes": stripped.stat().st_size,
     }, sort_keys=True))

@@ -64,7 +64,7 @@ scoring, and correctness gates.
 | GNU tar 1.35 | 2 | 2 | 2 | 2 |
 | Flex 2.6.4 | 3 | 3 | 3 | 3 |
 | Bison 3.8.2 | 2 | 2 | 2 | 2 |
-| curl 8.23.0 | 2 | 2 | 1 | 0 |
+| curl 8.23.0 | 2 | 2 | 2 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -1142,10 +1142,12 @@ from the stable partition.  The exact closure, compiler diagnostics, archive,
 pointer inventory, and boundary decision are recorded in
 `evidence/curl-8.23.0-c2rust.json`.  The resulting hybrid passes all 12 exact
 canonical CLI/file-protocol comparisons and both Valgrind paths with every
-allocation freed; `evidence/curl-8.23.0-hybrid.json` records its one-source C
-boundary and package-independent dynamic dependency surface.  `curl-config`
-and unified multicall integration remain the next gates, so curl is not yet
-counted as an integrated Rust applet.
+allocation freed.  A native in-process `curl-config` frontend matches the
+generated canonical script in all 24 option and diagnostic cases;
+`evidence/curl-8.23.0-hybrid.json` records both frontends, the one-source C
+boundary, and package-independent dynamic dependency surface.  Unified
+multicall integration remains the next gate, so neither name is counted as an
+integrated Rust applet yet.
 
 ## Work queue after util-linux
 

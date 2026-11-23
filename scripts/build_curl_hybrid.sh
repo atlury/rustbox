@@ -25,10 +25,13 @@ RUSTBOX_TOOL_IMAGE=rustbox-curl:2026-11-23 \
       -o "$output/curl" /work/bridges/curl_main.c \
       "$output/c-residue/mprintf.o" "$archive" \
       -ldl -lpthread -lm -lrt
+    clang-18 -O2 -g -fno-omit-frame-pointer -ffunction-sections -fdata-sections \
+      -Wl,--gc-sections -o "$output/curl-config" /work/bridges/curl_config.c
 
     cp "$output/curl" "$artifacts/curl"
     cp "$output/curl" "$artifacts/curl.stripped"
     strip --strip-all "$artifacts/curl.stripped"
+    cp "$output/curl-config" "$artifacts/curl-config"
     readelf -d "$output/curl" >"$evidence/curl.dynamic"
     size -A "$output/curl" >"$evidence/curl.sections"
     nm -g --defined-only "$output/curl" >"$evidence/curl.symbols"
@@ -40,6 +43,10 @@ RUSTBOX_TOOL_IMAGE=rustbox-curl:2026-11-23 \
     python3 /work/tests/curl-oracle-differential.py \
       --gcc "$oracle/curl-gcc" --clang "$output/curl" \
       --output "$evidence/differential.json"
+    python3 /work/tests/curl-config-frontend.py \
+      --canonical "$oracle/curl-config-clang" \
+      --native "$output/curl-config" \
+      --output "$evidence/curl-config-differential.json"
 
     valgrind --leak-check=full --show-leak-kinds=all \
       --errors-for-leak-kinds=definite,indirect,possible --error-exitcode=99 \
