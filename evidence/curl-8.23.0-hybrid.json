@@ -1,0 +1,66 @@
+{
+  "differential": {
+    "cases": 12,
+    "coverage": [
+      "version",
+      "help",
+      "manual",
+      "invalid-option",
+      "missing-url",
+      "file-basic",
+      "file-range",
+      "file-head",
+      "file-writeout",
+      "file-output",
+      "file-two-transfers",
+      "unsupported-https"
+    ],
+    "exact": true,
+    "passed": 12,
+    "sha256": "db9eb7abea3c0d6808359f96df07bb91fbce5a6dfa4025277d6c3a1f4168a102"
+  },
+  "frontends": [
+    "curl"
+  ],
+  "hybrid": {
+    "binary": {
+      "bytes": 6917784,
+      "dynamic_needed": [
+        "libm.so.6",
+        "libgcc_s.so.1",
+        "libc.so.6",
+        "ld-linux-x86-64.so.2"
+      ],
+      "entrypoint_definition_counts": {
+        "rustbox_curl_main": 1
+      },
+      "sha256": "9dd3b7526853b6834c1c57d5149a1d5b0fcf6830ab7af66a43d0de077a929c32",
+      "stripped_bytes": 2046200,
+      "stripped_sha256": "1041e30410b72391dc15f18de1f6df4bd900ba16324b3c4791d14339bb2f89a1"
+    },
+    "canonical_c_sources": [
+      "lib/mprintf.c"
+    ],
+    "residue_manifest_sha256": "754680131bae3132763a6ce4acd8f20fafdc8832d55ec602161501922e5e11a3",
+    "translated_rust_sources": 239
+  },
+  "next_gate": "provide curl-config in-process, link curl into the unified multicall, and replay the canonical differential through Rustbox",
+  "recorded_at": "2026-11-23",
+  "release": "8.23.0",
+  "schema": 1,
+  "status": "curl hybrid at canonical CLI and file-protocol parity",
+  "valgrind": {
+    "file": {
+      "all_heap_blocks_freed": true,
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "b9cf67de0e463f9fab8794ce5d4cc98b56239dff9483f900c685783470731829"
+    },
+    "version": {
+      "all_heap_blocks_freed": true,
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "98777f1bb91da64c8799825c225cc620e04fef563d4ef4f9939e97fa60ada63c"
+    }
+  }
+}
