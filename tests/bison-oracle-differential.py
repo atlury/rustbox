@@ -195,10 +195,12 @@ def main() -> int:
             (args.gcc, args.gcc_datadir), (args.clang, args.clang_datadir),
         ):
             with tempfile.TemporaryDirectory(prefix=f"rustbox-bison-cli-{name}-") as raw:
+                directory = Path(raw)
+                os.symlink(binary, directory / "bison")
                 environment = dict(os.environ)
                 environment["BISON_PKGDATADIR"] = str(datadir)
                 values.append(run(
-                    [str(binary), *options], cwd=Path(raw), environment=environment,
+                    ["./bison", *options], cwd=directory, environment=environment,
                     input_bytes=stdin,
                 ))
         left, right = values
