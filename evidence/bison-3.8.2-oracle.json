@@ -1,0 +1,505 @@
+{
+  "binary": {
+    "bytes": 2537720,
+    "dynamic_needed": [
+      "libc.so.6"
+    ],
+    "sha256": "34545f9c2713a9f1427b6d0367324665ffc4521151356ba9f3dc746174cb9fab",
+    "version": "bison (GNU Bison) 3.8.2"
+  },
+  "compile_databases": {
+    "clang": {
+      "bison_production_sources": 152,
+      "commands": 154,
+      "liby_sources": 2,
+      "sha256": "608e35ca9c1317ff21a45ce24c695d53001f9c8a2806ed23f6a85d821c64794d",
+      "sources": 154
+    },
+    "gcc": {
+      "bison_production_sources": 162,
+      "commands": 164,
+      "liby_sources": 2,
+      "sha256": "472a6c48978242a913b2589304ee018f709047415fa9271395b7a8eb425d66c1",
+      "sources": 164
+    },
+    "sanitizer": {
+      "bison_production_sources": 162,
+      "commands": 164,
+      "liby_sources": 2,
+      "sha256": "919979f50c6ca4fe66f19863cb31bfe94b3e73d9e448cdc514b544374a158564",
+      "sources": 164
+    }
+  },
+  "differential": {
+    "cases": 12,
+    "compiled_parsers": 5,
+    "passed": 12,
+    "records": [
+      {
+        "kind": "cli",
+        "name": "version",
+        "passed": true,
+        "status": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "ac96909f94698014343ee30ee3edf982f6c5ec121cbd4cf99806270d32874f76"
+      },
+      {
+        "kind": "cli",
+        "name": "help",
+        "passed": true,
+        "status": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "708f292ddccaec56ae777b8cd4915d972ea48d36dccd6c1a3c3e48a30de618f6"
+      },
+      {
+        "kind": "cli",
+        "name": "invalid-option",
+        "passed": true,
+        "status": 1,
+        "stderr_sha256": "7c0f5b2e1a8d4b510bf812a893b3bf09f1fdea4fc48df2559bd6e7ba286cf4dc",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "kind": "cli",
+        "name": "malformed-stdin",
+        "passed": true,
+        "status": 1,
+        "stderr_sha256": "9912acc6784dacb160a5800976985b25215360c1d071b59b53de58433b0dba80",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "generated_files": [
+          "calc.c",
+          "calc.h",
+          "calc.output"
+        ],
+        "generated_sha256": {
+          "calc.c": "fc79ed8619174ce8dbcc4ba37d158f588457605fa653001f3a39b13029f5a4f6",
+          "calc.h": "dd7dcf731e19ba2fa186daa053539c9cd9f5e442bcb25a8811e22ceb5533beef",
+          "calc.output": "9af40e2d4784934dfa4477aada33954c99427decfd371e1f759bdbc8d0ec6391"
+        },
+        "kind": "generated-parser",
+        "name": "c-pull",
+        "passed": true,
+        "runtime_status": 0,
+        "runtime_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runtime_stdout_sha256": "9b9683242c6684658dd5c88eae2593943d74708a2bec1bebfbc97d93be79f070"
+      },
+      {
+        "generated_files": [
+          "calc.c",
+          "calc.h",
+          "calc.output"
+        ],
+        "generated_sha256": {
+          "calc.c": "d337cd53b2a575eb696e0ea50474e9f8821ee1e16da15f6e46e56ccf94418d7f",
+          "calc.h": "bd790e03699003184aaa3734b8157e230787f2f159e4d88c05c7f3bb3d09b68f",
+          "calc.output": "9af40e2d4784934dfa4477aada33954c99427decfd371e1f759bdbc8d0ec6391"
+        },
+        "kind": "generated-parser",
+        "name": "c-push",
+        "passed": true,
+        "runtime_status": 0,
+        "runtime_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runtime_stdout_sha256": "9b9683242c6684658dd5c88eae2593943d74708a2bec1bebfbc97d93be79f070"
+      },
+      {
+        "generated_files": [
+          "c++-types.c",
+          "c++-types.h"
+        ],
+        "generated_sha256": {
+          "c++-types.c": "ff2e79ab10b7e4ae0ef7dbc17ee31655f27957cecbf08b2a4f898bd7d7899b9a",
+          "c++-types.h": "467df264fd0229461c669b0e49b405b6165c094fff2db5d248746dfb01d6f060"
+        },
+        "kind": "generated-parser",
+        "name": "c-glr",
+        "passed": true,
+        "runtime_status": 0,
+        "runtime_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runtime_stdout_sha256": "792e88ea7b2e64f69951bb5df50c9d7dc1b6587ae352325bb1b82e248239e510"
+      },
+      {
+        "generated_files": [
+          "simple.cc"
+        ],
+        "generated_sha256": {
+          "simple.cc": "f5d13236474e30fa98a4595966308ed2410ad417bbe452b5828e6f650ca5e6c7"
+        },
+        "kind": "generated-parser",
+        "name": "cxx-lalr",
+        "passed": true,
+        "runtime_status": 0,
+        "runtime_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runtime_stdout_sha256": "8fd0c363b726c8281062bfc7af85bbc5a67872a6224728ddd7f3d0d37ff0ab62"
+      },
+      {
+        "generated_files": [
+          "c++-types.cc",
+          "c++-types.hh",
+          "location.hh"
+        ],
+        "generated_sha256": {
+          "c++-types.cc": "087d7f44e1bb6e541fa480baeafb413e053d09b0dfd47920438038e1ac4cd589",
+          "c++-types.hh": "8cd5928399e15a0c90e7e54947c5ce644b6f023f375af6db40625da1ec572a6d",
+          "location.hh": "418b818249b9ffe402fbcc78dd18d345ffee961ede001c44ac51b89e482f10f9"
+        },
+        "kind": "generated-parser",
+        "name": "cxx-glr",
+        "passed": true,
+        "runtime_status": null,
+        "runtime_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runtime_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "generated_files": [
+          "c++-types.cc",
+          "c++-types.hh",
+          "location.hh"
+        ],
+        "generated_sha256": {
+          "c++-types.cc": "087d7f44e1bb6e541fa480baeafb413e053d09b0dfd47920438038e1ac4cd589",
+          "c++-types.hh": "8cd5928399e15a0c90e7e54947c5ce644b6f023f375af6db40625da1ec572a6d",
+          "location.hh": "418b818249b9ffe402fbcc78dd18d345ffee961ede001c44ac51b89e482f10f9"
+        },
+        "kind": "generated-parser",
+        "name": "cxx-glr2",
+        "passed": true,
+        "runtime_status": null,
+        "runtime_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runtime_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "generated_files": [
+          "y.tab.c",
+          "y.tab.h"
+        ],
+        "generated_sha256": {
+          "y.tab.c": "5a5a51984540ccc70e080ab40fe65b88632ec28ecfaacc928d93ccc440bc1c41",
+          "y.tab.h": "f7531965f861b16de4ecc03a43894a17bd98c778cbc9965e30ccce72b9566b3e"
+        },
+        "kind": "generated-parser",
+        "name": "yacc-compatible",
+        "passed": true,
+        "runtime_status": 0,
+        "runtime_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runtime_stdout_sha256": "45708af5e9d6cef5f5835f27be4d8ccf48fc2730ada940f94cf9632bd19a6bc5"
+      },
+      {
+        "generated_files": [
+          "calc.c",
+          "calc.dot",
+          "calc.h",
+          "calc.output",
+          "calc.xml"
+        ],
+        "generated_sha256": {
+          "calc.c": "fc79ed8619174ce8dbcc4ba37d158f588457605fa653001f3a39b13029f5a4f6",
+          "calc.dot": "f0a3b965015382feb524cfc4a44f0d2bea1f456b02bab89e01033a7ccfcf4758",
+          "calc.h": "dd7dcf731e19ba2fa186daa053539c9cd9f5e442bcb25a8811e22ceb5533beef",
+          "calc.output": "9af40e2d4784934dfa4477aada33954c99427decfd371e1f759bdbc8d0ec6391",
+          "calc.xml": "779bd9907ba809fffe8db8f38c756be986e416a42b5ef809650c7f1f29022732"
+        },
+        "kind": "generated-parser",
+        "name": "reports",
+        "passed": true,
+        "runtime_status": null,
+        "runtime_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runtime_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "schema": 1
+  },
+  "installed_files": [
+    "/usr/bin/bison",
+    "/usr/bin/yacc",
+    "/usr/lib/liby.a",
+    "/usr/share/aclocal/bison-i18n.m4",
+    "/usr/share/bison/README.md",
+    "/usr/share/bison/bison-default.css",
+    "/usr/share/bison/m4sugar/foreach.m4",
+    "/usr/share/bison/m4sugar/m4sugar.m4",
+    "/usr/share/bison/skeletons/bison.m4",
+    "/usr/share/bison/skeletons/c++-skel.m4",
+    "/usr/share/bison/skeletons/c++.m4",
+    "/usr/share/bison/skeletons/c-like.m4",
+    "/usr/share/bison/skeletons/c-skel.m4",
+    "/usr/share/bison/skeletons/c.m4",
+    "/usr/share/bison/skeletons/d-skel.m4",
+    "/usr/share/bison/skeletons/d.m4",
+    "/usr/share/bison/skeletons/glr.c",
+    "/usr/share/bison/skeletons/glr.cc",
+    "/usr/share/bison/skeletons/glr2.cc",
+    "/usr/share/bison/skeletons/java-skel.m4",
+    "/usr/share/bison/skeletons/java.m4",
+    "/usr/share/bison/skeletons/lalr1.cc",
+    "/usr/share/bison/skeletons/lalr1.d",
+    "/usr/share/bison/skeletons/lalr1.java",
+    "/usr/share/bison/skeletons/location.cc",
+    "/usr/share/bison/skeletons/stack.hh",
+    "/usr/share/bison/skeletons/traceon.m4",
+    "/usr/share/bison/skeletons/variant.hh",
+    "/usr/share/bison/skeletons/yacc.c",
+    "/usr/share/bison/xslt/bison.xsl",
+    "/usr/share/bison/xslt/xml2dot.xsl",
+    "/usr/share/bison/xslt/xml2text.xsl",
+    "/usr/share/bison/xslt/xml2xhtml.xsl",
+    "/usr/share/doc/bison/AUTHORS",
+    "/usr/share/doc/bison/COPYING",
+    "/usr/share/doc/bison/NEWS",
+    "/usr/share/doc/bison/README",
+    "/usr/share/doc/bison/THANKS",
+    "/usr/share/doc/bison/TODO",
+    "/usr/share/doc/bison/examples/README.md",
+    "/usr/share/doc/bison/examples/c++/Makefile",
+    "/usr/share/doc/bison/examples/c++/README.md",
+    "/usr/share/doc/bison/examples/c++/calc++/Makefile",
+    "/usr/share/doc/bison/examples/c++/calc++/README.md",
+    "/usr/share/doc/bison/examples/c++/calc++/calc++.cc",
+    "/usr/share/doc/bison/examples/c++/calc++/driver.cc",
+    "/usr/share/doc/bison/examples/c++/calc++/driver.hh",
+    "/usr/share/doc/bison/examples/c++/calc++/parser.yy",
+    "/usr/share/doc/bison/examples/c++/calc++/scanner.ll",
+    "/usr/share/doc/bison/examples/c++/simple.yy",
+    "/usr/share/doc/bison/examples/c++/variant-11.yy",
+    "/usr/share/doc/bison/examples/c++/variant.yy",
+    "/usr/share/doc/bison/examples/c/README.md",
+    "/usr/share/doc/bison/examples/c/bistromathic/Makefile",
+    "/usr/share/doc/bison/examples/c/bistromathic/README.md",
+    "/usr/share/doc/bison/examples/c/bistromathic/parse.y",
+    "/usr/share/doc/bison/examples/c/calc/Makefile",
+    "/usr/share/doc/bison/examples/c/calc/README.md",
+    "/usr/share/doc/bison/examples/c/calc/calc.y",
+    "/usr/share/doc/bison/examples/c/glr/Makefile",
+    "/usr/share/doc/bison/examples/c/glr/README.md",
+    "/usr/share/doc/bison/examples/c/glr/c++-types.y",
+    "/usr/share/doc/bison/examples/c/lexcalc/Makefile",
+    "/usr/share/doc/bison/examples/c/lexcalc/README.md",
+    "/usr/share/doc/bison/examples/c/lexcalc/parse.y",
+    "/usr/share/doc/bison/examples/c/lexcalc/scan.l",
+    "/usr/share/doc/bison/examples/c/mfcalc/Makefile",
+    "/usr/share/doc/bison/examples/c/mfcalc/calc.h",
+    "/usr/share/doc/bison/examples/c/mfcalc/mfcalc.y",
+    "/usr/share/doc/bison/examples/c/pushcalc/Makefile",
+    "/usr/share/doc/bison/examples/c/pushcalc/README.md",
+    "/usr/share/doc/bison/examples/c/pushcalc/calc.y",
+    "/usr/share/doc/bison/examples/c/reccalc/Makefile",
+    "/usr/share/doc/bison/examples/c/reccalc/README.md",
+    "/usr/share/doc/bison/examples/c/reccalc/parse.y",
+    "/usr/share/doc/bison/examples/c/reccalc/scan.l",
+    "/usr/share/doc/bison/examples/c/rpcalc/Makefile",
+    "/usr/share/doc/bison/examples/c/rpcalc/rpcalc.y",
+    "/usr/share/doc/bison/examples/d/README.md",
+    "/usr/share/doc/bison/examples/d/calc/Makefile",
+    "/usr/share/doc/bison/examples/d/calc/calc.y",
+    "/usr/share/doc/bison/examples/d/simple/Makefile",
+    "/usr/share/doc/bison/examples/d/simple/calc.y",
+    "/usr/share/doc/bison/examples/java/README.md",
+    "/usr/share/doc/bison/examples/java/calc/Calc.y",
+    "/usr/share/doc/bison/examples/java/calc/Makefile",
+    "/usr/share/doc/bison/examples/java/simple/Calc.y",
+    "/usr/share/doc/bison/examples/java/simple/Makefile",
+    "/usr/share/info/bison.info",
+    "/usr/share/locale/af/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/ast/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/be/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/bg/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/bg/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/bg/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/ca/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/ca/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/ca/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/cs/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/da/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/da/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/da/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/de/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/de/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/de/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/el/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/el/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/el/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/eo/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/eo/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/eo/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/es/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/es/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/es/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/et/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/et/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/et/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/eu/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/fi/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/fi/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/fi/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/fr/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/fr/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/fr/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/ga/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/ga/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/ga/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/gl/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/gl/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/hr/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/hr/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/hu/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/hu/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/ia/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/id/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/id/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/it/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/it/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/it/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/ja/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/ja/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/ja/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/ko/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/ky/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/lt/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/lv/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/ms/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/ms/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/ms/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/nb/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/nb/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/nb/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/nl/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/nl/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/nl/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/pl/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/pl/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/pl/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/pt/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/pt/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/pt/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/pt_BR/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/pt_BR/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/pt_BR/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/ro/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/ro/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/ro/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/ru/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/ru/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/ru/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/rw/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/sk/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/sl/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/sl/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/sq/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/sr/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/sr/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/sr/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/sv/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/sv/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/sv/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/ta/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/th/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/tr/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/tr/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/tr/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/uk/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/uk/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/uk/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/vi/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/vi/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/vi/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/zh_CN/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/zh_CN/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/zh_CN/LC_MESSAGES/bison.mo",
+    "/usr/share/locale/zh_TW/LC_MESSAGES/bison-gnulib.mo",
+    "/usr/share/locale/zh_TW/LC_MESSAGES/bison-runtime.mo",
+    "/usr/share/locale/zh_TW/LC_MESSAGES/bison.mo",
+    "/usr/share/man/man1/bison.1",
+    "/usr/share/man/man1/yacc.1"
+  ],
+  "recorded_at": "2026-11-23",
+  "release": "3.8.2",
+  "required_c_cxx_runtime_resources": [
+    "/usr/share/bison/m4sugar/foreach.m4",
+    "/usr/share/bison/m4sugar/m4sugar.m4",
+    "/usr/share/bison/skeletons/bison.m4",
+    "/usr/share/bison/skeletons/c++-skel.m4",
+    "/usr/share/bison/skeletons/c++.m4",
+    "/usr/share/bison/skeletons/c-like.m4",
+    "/usr/share/bison/skeletons/c-skel.m4",
+    "/usr/share/bison/skeletons/c.m4",
+    "/usr/share/bison/skeletons/glr.c",
+    "/usr/share/bison/skeletons/glr.cc",
+    "/usr/share/bison/skeletons/glr2.cc",
+    "/usr/share/bison/skeletons/lalr1.cc",
+    "/usr/share/bison/skeletons/location.cc",
+    "/usr/share/bison/skeletons/stack.hh",
+    "/usr/share/bison/skeletons/traceon.m4",
+    "/usr/share/bison/skeletons/variant.hh",
+    "/usr/share/bison/skeletons/yacc.c"
+  ],
+  "schema": 1,
+  "scope": {
+    "canonical_frontends": [
+      "bison",
+      "yacc"
+    ],
+    "excluded_languages": [
+      "D",
+      "Java"
+    ],
+    "languages": [
+      "C",
+      "C++"
+    ],
+    "selinux": false,
+    "systemd": false
+  },
+  "source": {
+    "archive": "bison-3.8.2.tar.xz",
+    "entries": 1367,
+    "key": ".cache/downloads/bison-release-key.asc",
+    "key_sha256": "d36e3dcf0f337a949e6ba9b8a1730c17248502c007ca6f76f1a9f65abbaed77d",
+    "name": "bison",
+    "sha256": "9bba0214ccf7f1079c5d59210045227bcf619519840ebfa80cd3849cff5a5bf2",
+    "signature": ".cache/downloads/bison-3.8.2.tar.xz.signature",
+    "signature_sha256": "aeff6fd7d7d7cad905ba3bc5228a2ccb95500c0f51fb4483e229c47c7c50f835",
+    "signature_verified": true,
+    "signer_fingerprint": "7DF84374B1EE1F9764BBE25D0DDCAA3278D5264E",
+    "source": "work/upstream/bison-3.8.2",
+    "source_kind": "signed-release-archive",
+    "tree_sha256": "bc5d4d9c4dd31a781afc32bb94ab11b1681b941ac049215ace30b215ff0e2d4e",
+    "version": "3.8.2"
+  },
+  "upstream_suites": {
+    "clang": {
+      "log_sha256": "ecadee770ef34acc6abc8fa7cdb911a8fd429fc4bc150bb27217e5cdca379fb7",
+      "skipped": 64,
+      "successful": 712,
+      "total": 776
+    },
+    "gcc": {
+      "log_sha256": "8cc7158187c109a334a3b81b47f56588214eb81c862d18f7c15b7e16ba257d57",
+      "skipped": 64,
+      "successful": 712,
+      "total": 776
+    },
+    "sanitizer": {
+      "log_sha256": "e98670313043d78403f39e3ba740578e761c757883ddd4998c736ef03103199e",
+      "skipped": 64,
+      "successful": 712,
+      "total": 776
+    }
+  },
+  "valgrind": {
+    "help": {
+      "definitely_lost_bytes": 0,
+      "errors": 0,
+      "indirectly_lost_bytes": 0,
+      "log_sha256": "da4490bf7b337634833b304eeb48e5663ed94f1e56b3ac625ff5bca8651e3146",
+      "possibly_lost_bytes": 0
+    },
+    "version": {
+      "definitely_lost_bytes": 0,
+      "errors": 0,
+      "indirectly_lost_bytes": 0,
+      "log_sha256": "08ef3d607ca12abc9ccb8abed3b91fc5e4635f58c3ad55526a793bbd4fbbd6ee",
+      "possibly_lost_bytes": 0
+    }
+  }
+}
