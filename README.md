@@ -1162,7 +1162,12 @@ upstream suite reports 11 passes, five environmental skips, and the same one
 capability-only failure: Docker correctly denies the test's attempt to change
 the container hostname.  Four focused Valgrind paths report zero errors.
 The oracle and that explicit environmental classification are recorded in
-`evidence/inetutils-2.8-oracle.json`; normalization and translation are next.
+`evidence/inetutils-2.8-oracle.json`.  Deterministic normalization exports all
+26 `rustbox_inetutils_*_main` entrypoints while retaining standalone wrappers
+and preserving the exact file set.  Both compiler builds retain their complete
+288-source closure, both upstream results, 104/104 canonical differential
+comparisons, and four clean Valgrind paths.  This is recorded in
+`evidence/inetutils-2.8-normalization.json`; no-hole translation is next.
 
 ## Work queue after util-linux
 
@@ -1275,8 +1280,9 @@ Library-only checkpoints (outside the active utility order):
      The deliberately dependency-free profile retains 15 built-in protocols;
      optional TLS/compression protocols remain queued with their canonical
      libraries.
-   - [ ] Inetutils 2.8 — signed 26-executable canonical oracle complete;
-     normalization and translation pending.  Clients: `dnsdomainname`, `ftp`,
+   - [ ] Inetutils 2.8 — signed 26-executable canonical oracle and deterministic
+     26-entrypoint normalization complete; translation pending.  Clients:
+     `dnsdomainname`, `ftp`,
      `hostname`, `ifconfig`, `logger`,
      `ping`, `ping6`, `rcp`, `rexec`, `rlogin`, `rsh`, `talk`, `telnet`,
      `tftp`, `traceroute`, `whois`; and canonical daemons `ftpd`, `inetd`,
