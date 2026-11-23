@@ -1,0 +1,98 @@
+{
+  "canonical_differentials": {
+    "clang": {
+      "cases": 25,
+      "passed": 25,
+      "sha256": "4aa81acf954b390dab95b38fa81a24dc0c341ec7ceb592b9218483282cb9863c"
+    },
+    "gcc": {
+      "cases": 25,
+      "passed": 25,
+      "sha256": "4eeda2a7df0e56da233c59a106db2db4d021ee8f227ce6cf23eac71475b7681a"
+    }
+  },
+  "changed_sources": [
+    "tools/kmod.c"
+  ],
+  "entrypoint": {
+    "object_binding": "GLOBAL HIDDEN",
+    "standalone_wrapper": true,
+    "symbol": "rustbox_kmod_main"
+  },
+  "manifest": {
+    "canonical_archive_sha256": "985554de49c21a58abd68c6cda2251384e1e5bb08b3b14c7f02b51f4c90c2958",
+    "canonical_tree_sha256": "740b6b37164f90c084f5f39419b4413f7570acf014bcefc42f947016615ddd83",
+    "changed_sources": [
+      "tools/kmod.c"
+    ],
+    "conditional": "RUSTBOX_MULTICALL",
+    "engine": "exact deterministic source rewrite",
+    "entrypoint": "rustbox_kmod_main",
+    "normalized_tree_sha256": "35584f2c41e7badd00cc124ec4c02078d79cb740fd62ec8e812580f216c95ca4",
+    "release": "34.3",
+    "schema": 1,
+    "transformations": [
+      {
+        "canonical_sha256": "c6866b4a139040e13cdce65a41092acf65306282de14bdc64a9b759fcc6272c9",
+        "normalized_sha256": "a682a1babd55d9e06bdc80d928af28c0aee0021d409156825ecefb07d37f8560",
+        "operation": "export rustbox_kmod_main, derive glibc program-name globals from argv[0], and retain a conditional standalone wrapper",
+        "semantic_basis": "glibc initializes the same globals from argv[0] for standalone execution; explicit initialization preserves that policy when the engine is entered through a multicall dispatcher",
+        "source": "tools/kmod.c"
+      }
+    ]
+  },
+  "manifest_sha256": "992ca340cf6c90e7ef8f93047c1406f0ce3f3e018b7bffc71da1762e0c840a6c",
+  "next_gate": "strict C2Rust translation of the exact 26-source production closure",
+  "production_sources": 26,
+  "recorded_at": "2026-11-24",
+  "schema": 1,
+  "status": "deterministic C normalization at canonical parity",
+  "upstream_suites": {
+    "clang": {
+      "expected_failures": 0,
+      "failures": 0,
+      "log_sha256": "5c4977d6e002d2f91a27b7e21087638b4419acc8924977b6e2af02cd2d057c7f",
+      "passed": 16,
+      "skipped": 0,
+      "testlog_sha256": "6d8f40adcc593c7073e5a688e9ed6ea1465639163be1c1c3c56ca099cd00171f"
+    },
+    "gcc": {
+      "expected_failures": 0,
+      "failures": 0,
+      "log_sha256": "81d9467367174c13d978af868138f70847e0dbca30f887562a9b13232b072d41",
+      "passed": 16,
+      "skipped": 0,
+      "testlog_sha256": "0eb4f912973fe4bbb83708a21ce94f2b6125312637ae3a7ee7b8024dd0f4925e"
+    }
+  },
+  "valgrind": {
+    "depmod": {
+      "errors": 0,
+      "sha256": "bf73eecd3c036ee920eb5fc7d65f06b5a0ac33ae28a21f7604a502aaf50d6964"
+    },
+    "insmod": {
+      "errors": 0,
+      "sha256": "7b661594bbc5dc0f7e2ccaba6d18d932bd0e7f8976da4a5b12122848b2f66930"
+    },
+    "kmod": {
+      "errors": 0,
+      "sha256": "5795bb99ff4b978a6a074c0929d3de96473a00c63f15d40153d81aa64d39f823"
+    },
+    "lsmod": {
+      "errors": 0,
+      "sha256": "7a7b30163bcd67c96b9ba947f8123bf29f102d4d5e987276877ca6733a121f55"
+    },
+    "modinfo": {
+      "errors": 0,
+      "sha256": "efb98670de215f3a422c0c016305c879628543c4b505d58f922c126a40870549"
+    },
+    "modprobe": {
+      "errors": 0,
+      "sha256": "a71fcb51b7c7f841d847eeed8131339b6940a32cc3cba4de02a7a46280645bea"
+    },
+    "rmmod": {
+      "errors": 0,
+      "sha256": "e9e8f4dd1969d9c1bd4d6f3bb19664447deec8981ec330918977ace0a191b508"
+    }
+  }
+}

@@ -1343,8 +1343,11 @@ Library-only checkpoints (outside the active utility order):
      `libkmod` runtime.  Its signed 26-source canonical oracle is complete:
      GCC and Clang each pass all 16 upstream tests, all 25 independent command
      and module-fixture comparisons agree, seven Valgrind paths are clean, and
-     five production-only analyzer passes complete.  Deterministic normalization
-     is next; retain xz, zlib, and zstd module decompression through the
+     five production-only analyzer passes complete.  One-source deterministic
+     normalization exports the shared `rustbox_kmod_main` engine while retaining
+     standalone dispatch; GCC and Clang each preserve all 16 tests, all 50
+     compiler-specific canonical comparisons pass, and seven normalized
+     Valgrind paths are clean.  Strict translation is next; retain xz, zlib, and zstd module decompression through the
      corresponding canonical queued libraries.
    - [ ] Procps-ng 4.0.7 — `free`, `hugetop`, `kill`, `pgrep`, `pidof`,
      `pkill`, `pmap`, `ps`, `pwait`, `pwdx`, `skill`, `slabtop`, `snice`,
