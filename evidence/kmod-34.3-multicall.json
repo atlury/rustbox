@@ -1,0 +1,79 @@
+{
+  "differential": {
+    "cases": 25,
+    "exact": true,
+    "passed": 25,
+    "sha256": "ba6e86ba6e9cfddbf55ddb8d74dbf4c27cc34e63ae19f7432f6f3e77e71f55d8"
+  },
+  "dispatcher": {
+    "global_cases": 778,
+    "global_passed": 778,
+    "sha256": "a18ba0e5270e0f09f3df4e4463ffe5e3bc20c8a6c8f30b9918ffe74d62a4c3d5",
+    "total_dispatch_names": 393
+  },
+  "frontends": [
+    "kmod",
+    "depmod",
+    "insmod",
+    "lsmod",
+    "modinfo",
+    "modprobe",
+    "rmmod"
+  ],
+  "link_report_sha256": "104eccf128744d432d6231819933e72acdd1b57783373ce216823d49e82608ce",
+  "next_gate": "begin the next incomplete canonical utility suite",
+  "recorded_at": "2026-11-24",
+  "release": "34.3",
+  "schema": 1,
+  "status": "all seven Kmod frontends integrated into unified Rustbox",
+  "translation": {
+    "canonical_c_residue_sources": 0,
+    "entrypoint": "rustbox_kmod_main",
+    "namespaced_symbols": 230,
+    "stable_rust_sources": 26
+  },
+  "valgrind": {
+    "depmod": {
+      "all_heap_blocks_freed": true,
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "9b4e0cdd2c10456b6abaab3cb989da049ac5a676f95c29774b4ef00025be39cf"
+    },
+    "insmod": {
+      "all_heap_blocks_freed": true,
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "d2c2b28c2c508f4f47df2750db2130910e75033ec3eecaad2707be0cd68ed14a"
+    },
+    "kmod": {
+      "all_heap_blocks_freed": true,
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "a029f5656baeed384428fb95e5c593d2350817a4cb8c5109860729943488d05c"
+    },
+    "lsmod": {
+      "all_heap_blocks_freed": true,
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "cc5905ff74fa756e34c43656450b6831d7c535a834bde605ffc6e224631325c7"
+    },
+    "modinfo": {
+      "all_heap_blocks_freed": true,
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "90c7bc8fb7ac93739c1947dbd23646cd642eda24d31ae46024bed3df7b4db72e"
+    },
+    "modprobe": {
+      "all_heap_blocks_freed": true,
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "185c673707ec5d1f37917b694c73e777a0b6b56d9067e2114cbdd5eb7c0ab7b4"
+    },
+    "rmmod": {
+      "all_heap_blocks_freed": true,
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "8a0742c5fbdef49a0dfcb9ec9638569945d0495dd1647e397eddeab4fc840d87"
+    }
+  }
+}

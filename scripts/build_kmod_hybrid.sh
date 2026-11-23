@@ -6,15 +6,13 @@ root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 RUSTBOX_TOOL_IMAGE=rustbox-kmod:2026-11-24 \
   exec "$root/scripts/run_tool.sh" sh -eu -c '
     crate=/work/work/analysis/kmod-34.3/translations/c2rust-0.22.1/kmod-34.3-stable
-    target=/rustbox-kmod/cargo-target-stable
-    archive=$target/release/libkmod_34_3_normalized_audit.a
+    archive=$crate/target/release/libkmod_34_3_normalized_audit.a
     output=/rustbox-kmod/hybrid
     evidence=/work/work/analysis/kmod-34.3/hybrid
     oracle=/rustbox-kmod/oracle-gcc
 
     rm -rf "$output" "$evidence"
     mkdir -p "$output" "$evidence"
-    export CARGO_TARGET_DIR=$target
     cd "$crate"
     cargo build --release
 

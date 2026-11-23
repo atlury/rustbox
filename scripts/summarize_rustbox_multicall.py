@@ -46,6 +46,7 @@ def main() -> int:
     parser.add_argument("--bison-report-directory", type=Path, required=True)
     parser.add_argument("--curl-report-directory", type=Path, required=True)
     parser.add_argument("--inetutils-report-directory", type=Path, required=True)
+    parser.add_argument("--kmod-report-directory", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     binary = args.binary.resolve()
@@ -75,10 +76,11 @@ def main() -> int:
     bison_directory = args.bison_report_directory.resolve()
     curl_directory = args.curl_report_directory.resolve()
     inetutils_directory = args.inetutils_report_directory.resolve()
+    kmod_directory = args.kmod_report_directory.resolve()
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
-    if dispatch["cases"] != 764 or dispatch["passed"] != 764 or dispatch["failures"]:
+    if dispatch["cases"] != 778 or dispatch["passed"] != 778 or dispatch["failures"]:
         raise RuntimeError("unified dispatcher comparison is incomplete")
     if (
         differential["batches"] != 38
@@ -674,7 +676,7 @@ def main() -> int:
         or curl_config.get("passed") != 24
         or curl_config.get("canonical_native_exact") is not True
         or link.get("curl_public_names") != 2
-        or link.get("total_dispatch_names") != 386
+        or link.get("total_dispatch_names") != 393
     ):
         raise RuntimeError("unified curl integration comparison is incomplete")
     inetutils_differential_path = inetutils_directory / "differential.json"
@@ -704,6 +706,31 @@ def main() -> int:
         or link.get("inetutils_programs") != 26
     ):
         raise RuntimeError("unified Inetutils integration comparison is incomplete")
+    kmod_differential_path = kmod_directory / "differential.json"
+    kmod_differential = json.loads(kmod_differential_path.read_text())
+    kmod_programs = ("kmod", "depmod", "insmod", "lsmod", "modinfo", "modprobe", "rmmod")
+    kmod_valgrind_paths = {
+        name: kmod_directory / f"valgrind-{name}.log" for name in kmod_programs
+    }
+    for name, path in kmod_valgrind_paths.items():
+        text = path.read_text(errors="replace")
+        zero_loss = all(marker in text for marker in (
+            "definitely lost: 0 bytes", "indirectly lost: 0 bytes",
+            "possibly lost: 0 bytes",
+        ))
+        if "ERROR SUMMARY: 0 errors" not in text or not (
+            "All heap blocks were freed" in text or zero_loss
+        ):
+            raise RuntimeError(f"unified Kmod {name} Valgrind result is incomplete")
+    if (
+        kmod_differential.get("applets") != 7
+        or kmod_differential.get("cases") != 25
+        or kmod_differential.get("passed") != 25
+        or not all(record.get("passed") for record in kmod_differential.get("records", []))
+        or link.get("kmod_programs") != 7
+        or not link.get("kmod_namespaced_symbols")
+    ):
+        raise RuntimeError("unified Kmod integration comparison is incomplete")
     if sha256(binary) != link["binary"]["sha256"]:
         raise RuntimeError("unified binary changed after link evidence")
     with tempfile.TemporaryDirectory(prefix="rustbox-strip-") as temporary:
@@ -745,10 +772,17 @@ def main() -> int:
         "count": sum(len(items) for items in link["inetutils_namespaced_symbols"].values()),
         "sha256": hashlib.sha256(inetutils_symbol_bytes).hexdigest(),
     }
+    kmod_symbol_bytes = json.dumps(
+        link["kmod_namespaced_symbols"], separators=(",", ":"), sort_keys=True
+    ).encode()
+    evidence_link["kmod_namespaced_symbols"] = {
+        "count": len(link["kmod_namespaced_symbols"]),
+        "sha256": hashlib.sha256(kmod_symbol_bytes).hexdigest(),
+    }
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-24",
-        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, GNU tar, Ncurses, GNU Findutils, GNU Gawk, Flex, Bison, curl, and GNU Inetutils integrated at canonical parity",
+        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, GNU tar, Ncurses, GNU Findutils, GNU Gawk, Flex, Bison, curl, GNU Inetutils, and Kmod integrated at canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
@@ -775,7 +809,8 @@ def main() -> int:
             "bison_integrated_names": 2,
             "curl_integrated_names": 2,
             "inetutils_integrated_names": 26,
-            "dispatch_names": 386,
+            "kmod_integrated_names": 7,
+            "dispatch_names": 393,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -1120,6 +1155,21 @@ def main() -> int:
                 name: sha256(path) for name, path in inetutils_valgrind_paths.items()
             },
         },
+        "kmod_integration": {
+            "integrated_programs": 7,
+            "stable_translated_sources": 26,
+            "canonical_c_abi_residue_units": 0,
+            "differential": kmod_differential,
+            "valgrind_programs": len(kmod_valgrind_paths),
+            "valgrind_errors": 0,
+            "definitely_lost_bytes": 0,
+            "indirectly_lost_bytes": 0,
+            "possibly_lost_bytes": 0,
+            "differential_sha256": sha256(kmod_differential_path),
+            "valgrind_log_sha256": {
+                name: sha256(path) for name, path in kmod_valgrind_paths.items()
+            },
+        },
         "collision_isolation": {
             "translated_libraries": len(link["source_library_sha256"]),
             "namespaced_libraries": len(link["namespaced_symbols"]),
@@ -1157,6 +1207,7 @@ def main() -> int:
             "inetutils_namespaced_symbols": sum(
                 len(items) for items in link["inetutils_namespaced_symbols"].values()
             ),
+            "kmod_namespaced_symbols": len(link["kmod_namespaced_symbols"]),
             "curl_config_bridge_symbols": len(
                 link["curl_config_frontend_bridge"]["symbols"]
             ),

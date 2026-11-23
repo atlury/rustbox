@@ -127,7 +127,7 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 386
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 393
 distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, five
 pkgconf names, File, GNU patch, GNU sed, four GNU Diffutils applets, and GNU
 Grep's three public names, GNU bc and dc, attr's three tools, plus chacl,
@@ -140,8 +140,9 @@ Flex's `flex`, `flex++`, and native `lex` compatibility frontend, and GNU
 Bison's `bison` and native `yacc` compatibility frontend, curl and its
 native `curl-config` frontend, plus all 26 GNU Inetutils programs; Inetutils
 `hostname` and `logger` use the explicit `inetutils-hostname` and
-`inetutils-logger` names to preserve existing dispatcher precedence).
-It passes all 764
+`inetutils-logger` names to preserve existing dispatcher precedence, plus all
+seven Kmod frontends: `kmod`, `depmod`, `insmod`, `lsmod`, `modinfo`,
+`modprobe`, and `rmmod`).  It passes all 778
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
 check, 108-case differential suite, and Valgrind.  Pkgconf also passes all 429
@@ -188,7 +189,10 @@ from the ELF dependency set.  Flex adds all three public names with all 114
 upstream tests, 14 generator/scanner comparisons, three frontend comparisons,
 and four leak-free resource paths.  GNU Inetutils adds all 26 clients and
 daemons with 133/133 exact behavioral comparisons and 26 clean Valgrind paths.
-The resulting 386-name executable is 31,953,984 bytes unstripped and 17,272,960
+Kmod adds all seven frontends from a complete 26-source stable translation with
+no canonical C residue; all 25 command and module-fixture comparisons pass and
+all seven multicall Valgrind paths are clean.  The resulting 393-name executable
+is 32,173,584 bytes unstripped and 17,456,656
 bytes stripped; its exact hashes and
 section/link evidence are recorded in `evidence/rustbox-multicall.json`.
 `chcon` and `runcon`
@@ -1338,17 +1342,20 @@ Library-only checkpoints (outside the active utility order):
      `rexecd`, `rlogind`, `rshd`, `syslogd`, `talkd`, `telnetd`, `tftpd`,
      `uucpd`.
 5. Large Linux system suites:
-   - [ ] Kmod 34.3 — `kmod` and its installed `depmod`, `insmod`, `lsmod`,
+   - [x] Kmod 34.3 — `kmod` and its installed `depmod`, `insmod`, `lsmod`,
      `modinfo`, `modprobe`, and `rmmod` compatibility links, plus the shared
      `libkmod` runtime.  Its signed 26-source canonical oracle is complete:
      GCC and Clang each pass all 16 upstream tests, all 25 independent command
      and module-fixture comparisons agree, seven Valgrind paths are clean, and
-     five production-only analyzer passes complete.  Six-source deterministic
-     normalization exports the shared `rustbox_kmod_main` engine while retaining
-     standalone dispatch; GCC and Clang each preserve all 16 tests, all 50
-     compiler-specific canonical comparisons pass, and seven normalized
-     Valgrind paths are clean.  Strict translation is next; retain xz, zlib, and zstd module decompression through the
-     corresponding canonical queued libraries.
+     five production-only analyzer passes complete.  Deterministic normalization
+     exports the shared `rustbox_kmod_main` engine while retaining standalone
+     dispatch; GCC and Clang each preserve all 16 tests, all 50 compiler-specific
+     canonical comparisons pass, and seven normalized Valgrind paths are clean.
+     All 26 production sources now have a complete, no-hole stable Rust
+     translation with no canonical C residue.  The seven command names are
+     collision-isolated in the unified multicall executable, pass all 25 command
+     and module-fixture comparisons again, and are Valgrind-clean.  XZ, zlib, and
+     zstd module decompression remains available through the canonical libraries.
    - [ ] Procps-ng 4.0.7 — `free`, `hugetop`, `kill`, `pgrep`, `pidof`,
      `pkill`, `pmap`, `ps`, `pwait`, `pwdx`, `skill`, `slabtop`, `snice`,
      `sysctl`, `tload`, `top`, `uptime`, `vmstat`, `w`, `watch`, plus the

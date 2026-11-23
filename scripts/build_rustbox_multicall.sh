@@ -39,5 +39,6 @@ RUSTBOX_TOOL_IMAGE=rustbox-gawk:2026-11-22 \
     --curl-c-residue-directory /work/work/analysis/curl-8.23.0/hybrid-artifacts/c-residue \
     --inetutils-rust-directory /work/work/analysis/inetutils-2.8/program-translations/cargo-target/release \
     --inetutils-telnet-c-boundary /rustbox-inetutils/normalized-clang/lib/libgnu_a-printf-args.o \
+    --kmod-rust-library /work/work/analysis/kmod-34.3/translations/c2rust-0.22.1/kmod-34.3-stable/target/release/libkmod_34_3_normalized_audit.a \
     --reuse-isolation \
     --link-report /work/work/analysis/rustbox-multicall-link.json

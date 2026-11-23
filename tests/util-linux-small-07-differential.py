@@ -29,7 +29,7 @@ def drop_privileges() -> None:
     os.setuid(65534)
 
 
-def tree(root: Path) -> list[tuple[object, ...]]:
+def tree(root: Path, *, scrub_bfs_timestamps: bool = False) -> list[tuple[object, ...]]:
     result = []
     for path in sorted(root.rglob("*")):
         relative = str(path.relative_to(root))
@@ -37,7 +37,13 @@ def tree(root: Path) -> list[tuple[object, ...]]:
         if path.is_symlink():
             result.append((relative, "symlink", mode, os.readlink(path)))
         elif path.is_file():
-            result.append((relative, "file", mode, path.stat().st_size, hashlib.sha256(path.read_bytes()).hexdigest()))
+            content = path.read_bytes()
+            # mkfs.bfs writes time(NULL) into the root inode at byte 512.
+            # Canonical and hybrid commands run sequentially, so crossing a
+            # one-second boundary can change only these three 32-bit fields.
+            if scrub_bfs_timestamps and len(content) >= 564:
+                content = content[:552] + bytes(12) + content[564:]
+            result.append((relative, "file", mode, path.stat().st_size, hashlib.sha256(content).hexdigest()))
         elif path.is_dir():
             result.append((relative, "directory", mode, ""))
     return result
@@ -58,7 +64,12 @@ def invoke(command: list[str], case: Case, root: Path, *, executable: Optional[P
         stderr=subprocess.PIPE, timeout=15,
         preexec_fn=drop_privileges if case.unprivileged and os.geteuid() == 0 else None,
     )
-    return {"status": process.returncode, "stdout": process.stdout, "stderr": process.stderr, "tree": tree(root)}
+    return {
+        "status": process.returncode,
+        "stdout": process.stdout,
+        "stderr": process.stderr,
+        "tree": tree(root, scrub_bfs_timestamps=case.applet == "mkfs.bfs" and process.returncode == 0),
+    }
 
 
 def cases() -> list[Case]:

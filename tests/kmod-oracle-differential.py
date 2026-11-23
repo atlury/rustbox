@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import subprocess
 from pathlib import Path
 
@@ -18,6 +19,21 @@ def digest(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
+def normalize_live_lsmod(data: bytes) -> bytes:
+    """Mask only the kernel-maintained live reference count column."""
+    lines = data.splitlines(keepends=True)
+    if not lines or lines[0] != b"Module                  Size  Used by\n":
+        raise RuntimeError("unexpected lsmod heading")
+    normalized = [lines[0]]
+    pattern = re.compile(rb"^(\S+\s+\d+\s+)\d+(\s.*)?(\n?)$")
+    for line in lines[1:]:
+        match = pattern.match(line)
+        if match is None:
+            raise RuntimeError(f"unexpected lsmod row: {line!r}")
+        normalized.append(match.group(1) + b"<live>" + (match.group(2) or b"") + match.group(3))
+    return b"".join(normalized)
+
+
 def run(binary: Path, name: str, arguments: list[str]) -> dict[str, object]:
     environment = dict(os.environ)
     environment.update({"LC_ALL": "C", "LANG": "C"})
@@ -26,13 +42,21 @@ def run(binary: Path, name: str, arguments: list[str]) -> dict[str, object]:
         stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
         timeout=15,
     )
-    return {
+    stdout = process.stdout
+    normalization = None
+    if name == "lsmod" and not arguments:
+        stdout = normalize_live_lsmod(stdout)
+        normalization = "mask kernel-maintained Used-by reference count only"
+    result = {
         "status": process.returncode,
-        "stdout_sha256": digest(process.stdout),
+        "stdout_sha256": digest(stdout),
         "stderr_sha256": digest(process.stderr),
-        "stdout_bytes": len(process.stdout),
+        "stdout_bytes": len(stdout),
         "stderr_bytes": len(process.stderr),
     }
+    if normalization:
+        result["stdout_normalization"] = normalization
+    return result
 
 
 def main() -> int:

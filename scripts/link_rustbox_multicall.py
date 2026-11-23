@@ -12,7 +12,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-ISOLATION_CACHE_VERSION = 11
+ISOLATION_CACHE_VERSION = 12
 INETUTILS_PROGRAMS = (
     "dnsdomainname", "ftp", "ftpd", "hostname", "ifconfig", "inetd",
     "logger", "ping", "ping6", "rcp", "rexec", "rexecd", "rlogin",
@@ -1077,6 +1077,52 @@ def namespace_zstd_library(
     return mapped, symbols
 
 
+def namespace_kmod_library(
+    rust_library: Path, build: Path
+) -> tuple[Path, list[str]]:
+    """Keep Kmod's library, module parsers, and seven-program engine private."""
+    public = {"rustbox_kmod_main"}
+    strong_types = {"B", "C", "D", "G", "R", "S", "T"}
+    compiler_math = re.compile(
+        r"^(?:cbrt|ceil|copysign|fabs|fdim|floor|fma|fmax|fmaximum|fmin|fminimum|fmod|rint|round|sqrt|trunc)(?:f|f16|f128)?$"
+    )
+    output = subprocess.run(
+        ["nm", "-g", "--defined-only", str(rust_library)],
+        check=True, text=True, stdout=subprocess.PIPE,
+    ).stdout
+    symbols = sorted({
+        fields[-1]
+        for line in output.splitlines()
+        if len(fields := line.split()) >= 3
+        and fields[-2] in strong_types
+        and re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", fields[-1])
+        and fields[-1] not in public
+        and not fields[-1].startswith("rust_")
+        and not compiler_math.fullmatch(fields[-1])
+    })
+    if not symbols:
+        raise RuntimeError("Kmod archive exports no namespaceable C symbols")
+    destination = build / "src/.rustbox-kmod"
+    destination.mkdir(parents=True, exist_ok=True)
+    mapped = destination / rust_library.name
+    mapping = destination / "symbols.map"
+    mapping.write_text(
+        "".join(f"{symbol} rustbox_kmod_private_{symbol}\n" for symbol in symbols),
+        encoding="utf-8",
+    )
+    shutil.copy2(rust_library, mapped)
+    subprocess.run(["objcopy", "--redefine-syms", str(mapping), str(mapped)], check=True)
+    mapped_definitions = defined_symbols(mapped)
+    definitions = set(mapped_definitions)
+    if mapped_definitions.count("rustbox_kmod_main") != 1:
+        raise RuntimeError("Kmod symbol isolation damaged rustbox_kmod_main")
+    if any(symbol in definitions for symbol in symbols):
+        raise RuntimeError("Kmod symbol isolation left an unprefixed definition")
+    if any(f"rustbox_kmod_private_{symbol}" not in definitions for symbol in symbols):
+        raise RuntimeError("Kmod symbol isolation lost a definition")
+    return mapped, symbols
+
+
 def namespace_tar_inputs(
     rust_library: Path,
     residue_objects: list[Path],
@@ -1567,6 +1613,7 @@ extern int rustbox_bison_main(int, char **);
 extern int rustbox_yacc_main(int, char **);
 extern int rustbox_curl_main(int, char **);
 extern int rustbox_curl_config_main(int, char **);
+extern int rustbox_kmod_main(int, char **);
 """
         + inetutils_declarations
         + """
@@ -1804,6 +1851,12 @@ int main(int argc, char **argv)
         return rustbox_curl_main(argc, argv);
     if (!force_util_linux && strcmp(name, "curl-config") == 0)
         return rustbox_curl_config_main(argc, argv);
+    if (!force_util_linux &&
+        (strcmp(name, "kmod") == 0 || strcmp(name, "depmod") == 0 ||
+         strcmp(name, "insmod") == 0 || strcmp(name, "lsmod") == 0 ||
+         strcmp(name, "modinfo") == 0 || strcmp(name, "modprobe") == 0 ||
+         strcmp(name, "rmmod") == 0))
+        return rustbox_kmod_main(argc, argv);
 """
         + inetutils_selections
         + """
@@ -1855,6 +1908,7 @@ def main() -> int:
     parser.add_argument("--curl-c-residue-directory", type=Path, required=True)
     parser.add_argument("--inetutils-rust-directory", type=Path, required=True)
     parser.add_argument("--inetutils-telnet-c-boundary", type=Path, required=True)
+    parser.add_argument("--kmod-rust-library", type=Path, required=True)
     parser.add_argument("--link-report", type=Path, required=True)
     parser.add_argument("--reuse-isolation", action="store_true")
     args = parser.parse_args()
@@ -1904,6 +1958,7 @@ def main() -> int:
         for name in INETUTILS_PROGRAMS
     }
     inetutils_telnet_boundary = args.inetutils_telnet_c_boundary.resolve()
+    kmod_rust_library = args.kmod_rust_library.resolve()
     findutils_residue_directory = args.findutils_c_residue_directory.resolve()
     findutils_residue_objects = [
         findutils_residue_directory / name
@@ -1999,6 +2054,7 @@ def main() -> int:
         bison_rust_library, *bison_residue_objects,
         curl_rust_library, *curl_residue_objects,
         *inetutils_libraries.values(), inetutils_telnet_boundary,
+        kmod_rust_library,
         gzip_support_library,
         *tar_residue_objects,
         *findutils_residue_objects,
@@ -2053,6 +2109,8 @@ def main() -> int:
     for name in INETUTILS_PROGRAMS:
         libraries.append(inetutils_libraries[name])
         inetutils_library_indices[name] = len(libraries) - 1
+    libraries.append(kmod_rust_library)
+    kmod_library_index = len(libraries) - 1
     source_library_hashes = {str(path.relative_to(repository)): sha256(path) for path in libraries}
     source_library_hashes[str(m4_support_library)] = sha256(m4_support_library)
     source_library_hashes[str(gzip_support_library)] = sha256(gzip_support_library)
@@ -2142,6 +2200,7 @@ def main() -> int:
         "rustbox_yacc_main",
         "rustbox_curl_main",
         "rustbox_curl_config_main",
+        "rustbox_kmod_main",
     })
     expected_symbols.update(
         f"rustbox_inetutils_{name}_main" for name in INETUTILS_PROGRAMS
@@ -2374,6 +2433,15 @@ def main() -> int:
         )
     for name, index in inetutils_library_indices.items():
         libraries[index] = mapped_inetutils[name]
+
+    if cached_report:
+        mapped_kmod_rust = build / "src/.rustbox-kmod" / libraries[kmod_library_index].name
+        kmod_symbols = cached_report["kmod_namespaced_symbols"]
+    else:
+        mapped_kmod_rust, kmod_symbols = namespace_kmod_library(
+            libraries[kmod_library_index], build
+        )
+    libraries[kmod_library_index] = mapped_kmod_rust
 
     canonical_dispatch_symbols = set(defined_symbols(build / "src/coreutils-coreutils.o"))
     if cached_report:
@@ -2708,7 +2776,7 @@ def main() -> int:
         "src_coreutils_OBJECTS=" + str(dispatcher_object) + " " + str(renamed_dispatch),
         "src_libsinglebin_false_a_ldadd=$(src_true_LDADD) -ldl -lpthread -lm -lrt -lutil -ltinfo "
         "-lbz2 -llz -llzma -lseccomp -lz -lzstd -lattr -lpcre2-8 "
-        "-lreadline -lncurses -lcrypt -lmpfr -lgmp",
+        "-lreadline -lncurses -lcrypt -lcrypto -lmpfr -lgmp",
         "src_coreutils_LDADD=$(single_binary_deps) "
         "$(filter-out -lacl,$(LDADD) $(single_binary_libs)) "
         + " ".join(util_link_libraries),
@@ -2770,6 +2838,7 @@ def main() -> int:
         "bison_public_names": 2,
         "curl_public_names": 2,
         "inetutils_programs": 26,
+        "kmod_programs": 7,
         "total_dispatch_names": len(
             set(applets)
             | set(util_dispatch)
@@ -2789,6 +2858,7 @@ def main() -> int:
                "reset", "tabs", "tic", "toe", "tput", "tset",
                "find", "xargs", "locate", "updatedb", "flex", "flex++", "lex",
                "bison", "yacc", "curl", "curl-config",
+               "kmod", "depmod", "insmod", "lsmod", "modinfo", "modprobe", "rmmod",
                *({name for name in INETUTILS_PROGRAMS if name not in {"hostname", "logger"}}),
                "inetutils-hostname", "inetutils-logger"}
         ),
@@ -2825,6 +2895,7 @@ def main() -> int:
         "bison_namespaced_symbols": bison_symbols,
         "curl_namespaced_symbols": curl_symbols,
         "inetutils_namespaced_symbols": inetutils_symbols,
+        "kmod_namespaced_symbols": kmod_symbols,
         "tar_acl_imports": tar_acl_imports,
         "coreutils_acl_imports": coreutils_acl_imports,
         "diffutils_error_bridge": {
@@ -2931,6 +3002,7 @@ def main() -> int:
         "bison_public_names": 2,
         "curl_public_names": 2,
         "inetutils_programs": 26,
+        "kmod_programs": 7,
         "output": str(output),
     }))
     return 0
