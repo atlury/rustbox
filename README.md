@@ -1163,11 +1163,20 @@ capability-only failure: Docker correctly denies the test's attempt to change
 the container hostname.  Four focused Valgrind paths report zero errors.
 The oracle and that explicit environmental classification are recorded in
 `evidence/inetutils-2.8-oracle.json`.  Deterministic normalization exports all
-26 `rustbox_inetutils_*_main` entrypoints while retaining standalone wrappers
-and preserving the exact file set.  Both compiler builds retain their complete
+26 `rustbox_inetutils_*_main` entrypoints while retaining standalone wrappers,
+makes one shared `libls` declaration explicit, and preserves the exact file
+set.  Both compiler builds retain their complete
 288-source closure, both upstream results, 104/104 canonical differential
 comparisons, and four clean Valgrind paths.  This is recorded in
-`evidence/inetutils-2.8-normalization.json`; no-hole translation is next.
+`evidence/inetutils-2.8-normalization.json`.  Strict C2Rust translation covers
+all 288 production sources with no holes.  Rust 1.99 compiles 287 translated
+sources into a stable audit archive; only gnulib's long-double variadic
+extractor remains canonical C because Rust's sealed `VaArgSafe` trait cannot
+represent that ABI operation.  The archive contains all 26 unique entrypoint
+symbols, while its 132 cross-program declaration clashes explicitly show why
+the formerly separate programs must be partitioned before hybrid parity and
+multicall linkage.  This boundary and the raw-pointer inventory are recorded
+in `evidence/inetutils-2.8-c2rust.json`.
 
 ## Work queue after util-linux
 
@@ -1280,8 +1289,10 @@ Library-only checkpoints (outside the active utility order):
      The deliberately dependency-free profile retains 15 built-in protocols;
      optional TLS/compression protocols remain queued with their canonical
      libraries.
-   - [ ] Inetutils 2.8 — signed 26-executable canonical oracle and deterministic
-     26-entrypoint normalization complete; translation pending.  Clients:
+   - [ ] Inetutils 2.8 — signed 26-executable canonical oracle, deterministic
+     26-entrypoint normalization, complete 288-source no-hole translation, and
+     stable compile audit are complete; program-scoped hybrid parity and
+     multicall integration remain.  Clients:
      `dnsdomainname`, `ftp`,
      `hostname`, `ifconfig`, `logger`,
      `ping`, `ping6`, `rcp`, `rexec`, `rlogin`, `rsh`, `talk`, `telnet`,

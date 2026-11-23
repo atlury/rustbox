@@ -99,6 +99,16 @@ def main() -> int:
         shutil.copytree(canonical, staged, symlinks=True)
         for relative, (name, arity) in ENTRYPOINTS.items():
             export_entrypoint(staged / relative, name, arity)
+        print_source = staged / "libls/print.c"
+        print_text = print_source.read_text()
+        include_anchor = '#include "extern.h"\n'
+        local_declaration = "  extern int termwidth;\n"
+        if print_text.count(include_anchor) != 1 or print_text.count(local_declaration) != 2:
+            raise RuntimeError("Inetutils libls termwidth declaration precondition failed")
+        print_text = print_text.replace(
+            include_anchor, include_anchor + "\nextern int termwidth;\n", 1
+        ).replace(local_declaration, "")
+        print_source.write_text(print_text)
         canonical_files = {
             path.relative_to(canonical).as_posix()
             for path in canonical.rglob("*") if path.is_file()
@@ -113,7 +123,8 @@ def main() -> int:
             name for name in canonical_files
             if sha256(canonical / name) != sha256(staged / name)
         )
-        if changed != sorted(ENTRYPOINTS):
+        expected_changed = sorted([*ENTRYPOINTS, "libls/print.c"])
+        if changed != expected_changed:
             raise RuntimeError(f"unexpected normalized Inetutils sources: {changed}")
         manifest = {
             "schema": 1,
@@ -140,7 +151,20 @@ def main() -> int:
                     "program_main_arity": arity,
                 }
                 for relative, (name, arity) in sorted(ENTRYPOINTS.items())
-            ],
+            ] + [{
+                "source": "libls/print.c",
+                "canonical_sha256": sha256(canonical / "libls/print.c"),
+                "normalized_sha256": sha256(staged / "libls/print.c"),
+                "operation": (
+                    "move the existing termwidth extern declarations from two "
+                    "function blocks to one equivalent file-scope declaration"
+                ),
+                "semantic_basis": (
+                    "C external-linkage declarations denote the same object at "
+                    "block and file scope; file scope makes the dependency explicit "
+                    "to source-to-source frontends"
+                ),
+            }],
         }
         if output.exists():
             shutil.rmtree(output)

@@ -3,23 +3,25 @@
     "clang-build.log": "eebaebe2a40fe784c98cc4edab6a2c00f5f34d1e203f3ee9b1de872303d0dfb5",
     "clang-compile-commands.json": "7724178f534eb1fe337c77e5f4a6585c1c7dff811da2091684d20afba5702080",
     "clang-differential.json": "d8614e08dd378ded571ca08aa2c25cf1fe786f4907a3c2961cfb4c697e9fd970",
+    "clang-recheck-build.log": "1014d540ca2dd217efd2deda364b03219c4593ac734b8951e763303b37234f09",
     "clang-test-suite.log": "4cd001845a4d69678bc3aed329b57e542b953f648c752385ac8eb7497026afb5",
-    "clang-test.log": "7465d646b5e39af1e8c4637ffee6155b667b5aaf4b4b328c7012f925368d81b8",
+    "clang-test.log": "d081084ffa70d3ef3b975c84a9a05d0f76b3b0c08d00c2b004e3711f970cb818",
     "clang-test.status": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3",
     "gcc-build.log": "412e2ea887d3a844e14c3cf32cf1c48c898fd040a11fb64437de7a5350c3862a",
     "gcc-compile-commands.json": "e7f231fd772d044420e70a31161a812f84533ea319f4e50b46856cdc74bcaec2",
     "gcc-differential.json": "d8614e08dd378ded571ca08aa2c25cf1fe786f4907a3c2961cfb4c697e9fd970",
+    "gcc-recheck-build.log": "2109f95f957b6d01f08f58a974d2d3a17aa0fc3a451128ac6d6a20b5c8875795",
     "gcc-test-suite.log": "4cd001845a4d69678bc3aed329b57e542b953f648c752385ac8eb7497026afb5",
-    "gcc-test.log": "a0097915031eee5ea769995e7273ec5c4834e128255b9a131c80ab8797550060",
+    "gcc-test.log": "88d82de5951afe7f0d87e20fb102b73551fa5d9a843616091a0483f96e6bd47a",
     "gcc-test.status": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3",
-    "manifest_sha256": "80894df45a1c91f5f599ca80f4ba0cc55710f7882311651b3ce024850ad12c09",
-    "valgrind-dnsdomainname.log": "9ea4e02c57dc4da6e5a1763856c7cb8633d4eb5e3947224d0770fd8652746363",
+    "manifest_sha256": "122479e49c716b1fcf12b8476e57c44a1fe3f87e641de23acd609ee0bcd3dcf8",
+    "valgrind-dnsdomainname.log": "e2c2b11dad853920d812b9c04af5b38af9863c543458463a83725d2c4759a33d",
     "valgrind-dnsdomainname.out": "fec8bb2d77446df6ffc63bc4f43c3204cf566606d041e964714d67733bf61cf6",
-    "valgrind-hostname.log": "8756e1e1fc330a4e16a2e7a70f2901836545e998972a16bc226e88a7afa2d4ad",
+    "valgrind-hostname.log": "228497b825580246109112b74b65244d9bd8d13e724ddf19940ad39320aa6083",
     "valgrind-hostname.out": "c33c89291b8591c9de916aa2cb44393000b05c48ea92a0f8461b34eaf6c13f19",
-    "valgrind-ifconfig.log": "672fc45e18ecd6659ce3962410bd78d066632498d3e3c016bd5ed7c347bd9d9a",
+    "valgrind-ifconfig.log": "613cae3b3ff87b3092eb621f845f5c270f6a7f45c694c16372073e6da0e585ad",
     "valgrind-ifconfig.out": "1580da387f54041abf857beb34481b051a7a805bdd59d99e15785c56cca77435",
-    "valgrind-whois.log": "671dac5368333bf0cc92fa32a9ab371a90cdb1936c62063ab2cf583858615220",
+    "valgrind-whois.log": "c6603b7697051df5d1bd461826bcd75c29c29b9b9851f548a4ed746bda7686f1",
     "valgrind-whois.out": "ef21e2ca786ce66888b981b25a16aca2df012ce895021eff3ac23eca653fab62"
   },
   "build": {
@@ -384,6 +386,7 @@
       "ftp/main.c",
       "ftpd/ftpd.c",
       "ifconfig/ifconfig.c",
+      "libls/print.c",
       "ping/ping.c",
       "ping/ping6.c",
       "src/dnsdomainname.c",
@@ -621,6 +624,13 @@
         "operation": "export rustbox_inetutils_whois_main and retain a conditional standalone main wrapper",
         "program_main_arity": 2,
         "source": "whois/whois.c"
+      },
+      {
+        "canonical_sha256": "4cf5c71d10af6035924e53abc542b3660c428524d8c727816e34e14882843307",
+        "normalized_sha256": "46146e1dd1de259555e408535430d19578f8e57c24534820452b39f1423e958b",
+        "operation": "move the existing termwidth extern declarations from two function blocks to one equivalent file-scope declaration",
+        "semantic_basis": "C external-linkage declarations denote the same object at block and file scope; file scope makes the dependency explicit to source-to-source frontends",
+        "source": "libls/print.c"
       }
     ]
   },
@@ -660,24 +670,24 @@
     "valgrind": {
       "dnsdomainname": {
         "errors": 0,
-        "log_sha256": "9ea4e02c57dc4da6e5a1763856c7cb8633d4eb5e3947224d0770fd8652746363"
+        "log_sha256": "e2c2b11dad853920d812b9c04af5b38af9863c543458463a83725d2c4759a33d"
       },
       "hostname": {
         "errors": 0,
-        "log_sha256": "8756e1e1fc330a4e16a2e7a70f2901836545e998972a16bc226e88a7afa2d4ad"
+        "log_sha256": "228497b825580246109112b74b65244d9bd8d13e724ddf19940ad39320aa6083"
       },
       "ifconfig": {
         "errors": 0,
-        "log_sha256": "672fc45e18ecd6659ce3962410bd78d066632498d3e3c016bd5ed7c347bd9d9a"
+        "log_sha256": "613cae3b3ff87b3092eb621f845f5c270f6a7f45c694c16372073e6da0e585ad"
       },
       "whois": {
         "errors": 0,
-        "log_sha256": "671dac5368333bf0cc92fa32a9ab371a90cdb1936c62063ab2cf583858615220"
+        "log_sha256": "c6603b7697051df5d1bd461826bcd75c29c29b9b9851f548a4ed746bda7686f1"
       }
     }
   },
   "trees": {
     "canonical_sha256": "c2a5d57f375a8500e501287f2eade9eba4b6b68d312716fcc38fe764475ccbd7",
-    "normalized_sha256": "1cdcf2b0ccb63fca74f7fecbc989f87ed0748373b5640e61bde2c27692f8bced"
+    "normalized_sha256": "b0552c4088b8fcbfa539e5172379dfde549c42c9780e1a55365220127ce1a7ec"
   }
 }

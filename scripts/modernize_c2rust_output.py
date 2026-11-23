@@ -387,6 +387,49 @@ def deduplicate_no_mangle_statics(root: Path) -> list[dict[str, object]]:
     return changes
 
 
+def deduplicate_function_static_exports(root: Path) -> list[dict[str, object]]:
+    """Mangle program-local statics that collide with an exported function.
+
+    Separate C executables may use one spelling for a global variable and an
+    unrelated function.  A compile-audit crate combines those namespaces.
+    Preserve the function ABI and retain the directly referenced Rust static
+    under its ordinary mangled symbol.
+    """
+    functions: dict[str, Path] = {}
+    statics: dict[str, Path] = {}
+    for path in sorted(root.rglob("*.rs")):
+        text = path.read_text(encoding="utf-8")
+        for match in NO_MANGLE_FUNCTION.finditer(text):
+            if match.group(1) in functions:
+                raise RuntimeError(f"duplicate function survived: {match.group(1)}")
+            functions[match.group(1)] = path
+        for match in NO_MANGLE_STATIC.finditer(text):
+            if match.group(1) in statics:
+                raise RuntimeError(f"duplicate static survived: {match.group(1)}")
+            statics[match.group(1)] = path
+
+    changes = []
+    for name in sorted(functions.keys() & statics.keys()):
+        path = statics[name]
+        text = path.read_text(encoding="utf-8")
+        matches = [
+            match for match in NO_MANGLE_STATIC.finditer(text)
+            if match.group(1) == name
+        ]
+        if len(matches) != 1:
+            raise RuntimeError(f"cannot uniquely mangle cross-kind export {name}")
+        match = matches[0]
+        text = text[:match.start()] + text[match.start() + len("#[no_mangle]\n"):]
+        path.write_text(text, encoding="utf-8")
+        changes.append({
+            "symbol": name,
+            "kept": functions[name].relative_to(root).as_posix(),
+            "mangled": path.relative_to(root).as_posix(),
+            "kind": "function-over-static",
+        })
+    return changes
+
+
 def transform_rust(
     path: Path, *, install_checked_arithmetic_support: bool = False
 ) -> dict[str, object] | None:
@@ -598,6 +641,7 @@ def main() -> int:
         duplicate_exports_mangled = [
             *deduplicate_no_mangle_functions(staged),
             *deduplicate_no_mangle_statics(staged),
+            *deduplicate_function_static_exports(staged),
         ]
         (staged / "rust-toolchain.toml").write_text(
             '[toolchain]\nchannel = "1.99.0"\nprofile = "minimal"\n', encoding="utf-8"

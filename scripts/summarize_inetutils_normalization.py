@@ -65,7 +65,7 @@ def main() -> int:
     manifest_path = ANALYSIS / "normalization-manifest.json"
     manifest = json.loads(manifest_path.read_text())
     if (
-        len(manifest.get("changed_sources", [])) != 26
+        len(manifest.get("changed_sources", [])) != 27
         or len(manifest.get("entrypoints", {})) != 26
         or manifest.get("conditional") != "RUSTBOX_MULTICALL"
     ):
@@ -158,7 +158,7 @@ def main() -> int:
     output = ROOT / "evidence/inetutils-2.8-normalization.json"
     output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")
     print(json.dumps({
-        "changed_sources": 26, "entrypoints": 26,
+        "changed_sources": 27, "entrypoints": 26,
         "differential_cases": 104, "production_sources": len(closures["gcc"]),
     }, sort_keys=True))
     return 0

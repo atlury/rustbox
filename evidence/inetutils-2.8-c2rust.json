@@ -1,0 +1,126 @@
+{
+  "abi_boundary": {
+    "reason": "stable Rust's sealed VaArgSafe trait cannot represent the x86_64 SysV C long-double va_arg operation emitted as f128 by C2Rust",
+    "target": "x86_64-unknown-linux-gnu"
+  },
+  "complete_translation": {
+    "holes": {
+      "C2Rust Translation Error": 0,
+      "compile_error!": 0,
+      "todo!": 0,
+      "unimplemented!": 0
+    },
+    "raw_pointer_type_occurrences": 45996,
+    "rust_bytes": 9836331,
+    "rust_files": 290,
+    "rust_lines": 253931,
+    "unsafe_block_occurrences": 296,
+    "unsafe_function_occurrences": 7913
+  },
+  "hardening": {
+    "deferred_until_all_applets_complete": true,
+    "raw_pointers_and_unsafe_are_inventory_only": true
+  },
+  "input": {
+    "compile_commands": 288,
+    "compile_database_sha256": "055b377327b72cd99a83e09e9839c37e23932c2d21f26f146107645cd0d7164f",
+    "normalization_evidence_sha256": "5a4e3f494e37694401c3c960147bf8162bc2349add7d0041eff47334df34538f"
+  },
+  "next_gate": "build program-scoped Rust/C hybrids, prove all 26 against their canonical executables, then namespace and link them into Rustbox",
+  "partition_requirement": {
+    "clashing_extern_declarations": 132,
+    "combined_archive_is_not_hybrid_ready": true,
+    "reason": "GNU Inetutils is 26 separate canonical programs whose private C names overlap; each program must retain its own symbol namespace"
+  },
+  "recorded_at": "2026-11-24",
+  "release": "2.8",
+  "schema": 1,
+  "stable_compile_audit": {
+    "active_translated_c_sources": 287,
+    "archive": {
+      "bytes": 26141730,
+      "entrypoint_definition_counts": {
+        "rustbox_inetutils_dnsdomainname_main": 1,
+        "rustbox_inetutils_ftp_main": 1,
+        "rustbox_inetutils_ftpd_main": 1,
+        "rustbox_inetutils_hostname_main": 1,
+        "rustbox_inetutils_ifconfig_main": 1,
+        "rustbox_inetutils_inetd_main": 1,
+        "rustbox_inetutils_logger_main": 1,
+        "rustbox_inetutils_ping6_main": 1,
+        "rustbox_inetutils_ping_main": 1,
+        "rustbox_inetutils_rcp_main": 1,
+        "rustbox_inetutils_rexec_main": 1,
+        "rustbox_inetutils_rexecd_main": 1,
+        "rustbox_inetutils_rlogin_main": 1,
+        "rustbox_inetutils_rlogind_main": 1,
+        "rustbox_inetutils_rsh_main": 1,
+        "rustbox_inetutils_rshd_main": 1,
+        "rustbox_inetutils_syslogd_main": 1,
+        "rustbox_inetutils_talk_main": 1,
+        "rustbox_inetutils_talkd_main": 1,
+        "rustbox_inetutils_telnet_main": 1,
+        "rustbox_inetutils_telnetd_main": 1,
+        "rustbox_inetutils_tftp_main": 1,
+        "rustbox_inetutils_tftpd_main": 1,
+        "rustbox_inetutils_traceroute_main": 1,
+        "rustbox_inetutils_uucpd_main": 1,
+        "rustbox_inetutils_whois_main": 1
+      },
+      "sha256": "1e0962015f8463f5ada95c32f8d0013ab748dd691cde17265b00674cb5c89959"
+    },
+    "canonical_c_bridge_sources": [
+      "lib/printf-args.c"
+    ],
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+      "cargo_lock_sha256": "e8db6278960e4131a44b6b994cbfe127101ca1a6e4054461a476882840186078",
+      "cargo_toml_sha256": "e2f177cdc9d6d49a076866915df0b54173e080025b53a147eb4a26eb0b5a9ee7",
+      "diagnostics_by_level": {
+        "warning": 680
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+      "schema": 1,
+      "stderr_sha256": "ff6186743efe2316a9821e35defd993cc4b7c85fe30dd91c61d5db427292351f",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "clashing_extern_declarations": 132,
+        "static_mut_refs": 4,
+        "suspicious_runtime_symbol_definitions": 2,
+        "unpredictable_function_pointer_comparisons": 12,
+        "unused_attributes": 79,
+        "unused_imports": 17,
+        "unused_parens": 44,
+        "unused_unsafe": 62,
+        "unused_variables": 328
+      }
+    },
+    "duplicate_exports_mangled": 188,
+    "finalization_manifest_sha256": "2a3e6cc9e3abe1b3211bc4f8edbdfc3ca1f09d7464f92aa3d79401951d4a3bd6",
+    "holes": {
+      "C2Rust Translation Error": 0,
+      "compile_error!": 0,
+      "todo!": 0,
+      "unimplemented!": 0
+    },
+    "modernization_manifest_sha256": "52382beea0b60730d6cf75935ec82bc18a0d583ddb362d745df8cf4b5d2249e3",
+    "raw_pointer_type_occurrences": 45996,
+    "rust_bytes": 9860231,
+    "rust_files": 290,
+    "rust_lines": 255848,
+    "unsafe_block_occurrences": 296,
+    "unsafe_function_occurrences": 7913
+  },
+  "status": "complete no-hole translation and stable compile-audit archive",
+  "translator": {
+    "fail_on_error": true,
+    "name": "C2Rust",
+    "preserve_unused_functions": true,
+    "translated_c_sources": 288,
+    "translation_holes": 0,
+    "version": "0.22.1"
+  }
+}
