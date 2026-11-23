@@ -65,6 +65,7 @@ scoring, and correctness gates.
 | Flex 2.6.4 | 3 | 3 | 3 | 3 |
 | Bison 3.8.2 | 2 | 2 | 2 | 2 |
 | curl 8.23.0 | 2 | 2 | 2 | 2 |
+| GNU Inetutils 2.8 | 26 | 26 | 0 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -1153,6 +1154,16 @@ The multicall curl retains all 12 exact canonical CLI/file comparisons,
 Valgrind paths remain error- and leak-free; this is recorded in
 `evidence/curl-8.23.0-multicall.json` and the global multicall evidence.
 
+GNU Inetutils 2.8 is pinned to its canonical signed GNU release and retains
+all 16 clients and ten daemons in the no-systemd/no-PAM profile.  Independent
+GCC and Clang builds cover the same exact 288-source production closure and
+agree on all 52 help/version comparisons across the 26 executables.  Each
+upstream suite reports 11 passes, five environmental skips, and the same one
+capability-only failure: Docker correctly denies the test's attempt to change
+the container hostname.  Four focused Valgrind paths report zero errors.
+The oracle and that explicit environmental classification are recorded in
+`evidence/inetutils-2.8-oracle.json`; normalization and translation are next.
+
 ## Work queue after util-linux
 
 This queue starts only after all in-scope util-linux applets reach canonical
@@ -1264,7 +1275,9 @@ Library-only checkpoints (outside the active utility order):
      The deliberately dependency-free profile retains 15 built-in protocols;
      optional TLS/compression protocols remain queued with their canonical
      libraries.
-   - [ ] Inetutils — `dnsdomainname`, `ftp`, `hostname`, `ifconfig`, `logger`,
+   - [ ] Inetutils 2.8 — signed 26-executable canonical oracle complete;
+     normalization and translation pending.  Clients: `dnsdomainname`, `ftp`,
+     `hostname`, `ifconfig`, `logger`,
      `ping`, `ping6`, `rcp`, `rexec`, `rlogin`, `rsh`, `talk`, `telnet`,
      `tftp`, `traceroute`, `whois`; and canonical daemons `ftpd`, `inetd`,
      `rexecd`, `rlogind`, `rshd`, `syslogd`, `talkd`, `telnetd`, `tftpd`,

@@ -1,0 +1,815 @@
+{
+  "artifacts": {
+    "clang-build.log": "906acb6e0ecf7f846048c05f6126f3b228656614860defd09a9bd5250ca92ef8",
+    "clang-compile-commands.json": "78cfaabbe480f726d560351c80d2465c27a16a0b38c5e90a28409f3045558fec",
+    "clang-test-suite.log": "4cd001845a4d69678bc3aed329b57e542b953f648c752385ac8eb7497026afb5",
+    "clang-test.log": "1cdbe7e5e880d415a76b9ed493eeabe88c22a8665bea21a4769513d42099dc71",
+    "clang-test.status": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3",
+    "differential.json": "d8614e08dd378ded571ca08aa2c25cf1fe786f4907a3c2961cfb4c697e9fd970",
+    "gcc-build.log": "5e848e67142108b0c3d5bced481d8d70cf3d23ddde76068ee53bcaaa63b515b1",
+    "gcc-compile-commands.json": "111f87594ff4696474f40384f9f1b133a01c116ceeb88fe426d0461a144e7377",
+    "gcc-test-suite.log": "4cd001845a4d69678bc3aed329b57e542b953f648c752385ac8eb7497026afb5",
+    "gcc-test.log": "eb9aa5671c86ad677e2682757d40d37b8ab4655ebf6c44b2c245239bcaf1960e",
+    "gcc-test.status": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3",
+    "valgrind-dnsdomainname.log": "118285b929f9a2baae0793e3f950ee7c55913e26f25e0016b02206067d309c59",
+    "valgrind-hostname.log": "5d2591e7701424d218eccf66211b239903a25a484e588ec7101e3acb648f8ec3",
+    "valgrind-ifconfig.log": "898298286991123c0aa4dd7e91aae86bb912c7e3db395ebd4b4e99c27c56f6b3",
+    "valgrind-whois.log": "43f0428cead4aff9393b9c883f4c984bbf99d121620c011ed0405e73e4c0f58b"
+  },
+  "binaries": {
+    "clang": {
+      "dnsdomainname": {
+        "bytes": 158448,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "83ce19c01a9f9afb1581c591c5162f09b85508165c71cceed0036b4625071540"
+      },
+      "ftp": {
+        "bytes": 427400,
+        "needed": [
+          "libc.so.6",
+          "libreadline.so.8"
+        ],
+        "sha256": "077e8924b9186b7b6b0fdab44bf90bbaad308d45374743e0e6f492df5f2e6a7f"
+      },
+      "ftpd": {
+        "bytes": 499800,
+        "needed": [
+          "libc.so.6",
+          "libcrypt.so.1"
+        ],
+        "sha256": "f740b4bfb770fef21755378810b232b1a557838db4d00e9334498c2a08b82129"
+      },
+      "hostname": {
+        "bytes": 178208,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "a1956414102e48cd14b45d7589257ecbf146ccc0905a1ed3d4055e11c0a30feb"
+      },
+      "ifconfig": {
+        "bytes": 352272,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "5bef020b1bf4d58e86a2b30b9ba8765847f4cde66582d28bca18bc4449354a58"
+      },
+      "inetd": {
+        "bytes": 245792,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "21bd8da7a4ef61ce2486918f82ede36e6c182498364731e54e6289a11cd67306"
+      },
+      "logger": {
+        "bytes": 183168,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "e943d194fcc39710804d0d3ac1c05bd3d89c36edcf2c30e0b5b240c28e5ea0b4"
+      },
+      "ping": {
+        "bytes": 258128,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "73992de68c356b13cc14708087cb8bc922b774397d7af853ac2002a94ef42e86"
+      },
+      "ping6": {
+        "bytes": 209440,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "d4a84e604664d752bf9d7aa876d749313bbc60dd9988fadb7c1d6575cf344255"
+      },
+      "rcp": {
+        "bytes": 197328,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "42c88f5a62a51d2a18006715fd3cabfe3758638a233a36f5eaf27f61bf52b965"
+      },
+      "rexec": {
+        "bytes": 157280,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "6b97ff1a68a593416c6b7e0c0cd07a7c89e7c1ee98fe8c34e9285923b0271b93"
+      },
+      "rexecd": {
+        "bytes": 181784,
+        "needed": [
+          "libc.so.6",
+          "libcrypt.so.1"
+        ],
+        "sha256": "341e3852c18e887524a0632ab126e68d6d6433ac25239ed68681f63a41c7bc56"
+      },
+      "rlogin": {
+        "bytes": 177744,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "ba39bbf44797d127e8cd10fd6d9ae23b30f8860519e144e57c6b37ff162170c6"
+      },
+      "rlogind": {
+        "bytes": 224760,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "457224606fba4f3006851c8259cac8fee2d09796154a8da91d20eb9325d85fc1"
+      },
+      "rsh": {
+        "bytes": 160864,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "01c3a3e1345f1fd19fba9d46059e0ee1b6cef803436e2ef63ee7128911156850"
+      },
+      "rshd": {
+        "bytes": 204344,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "015e036aef212c321199e73943c9c78eb620c42d8ec1ad3efa8349b9b868e882"
+      },
+      "syslogd": {
+        "bytes": 269176,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "8126541fcdf95e0807cfe3e88e127fc80731ed1ba30e511fbee5e531e8c267c6"
+      },
+      "talk": {
+        "bytes": 209912,
+        "needed": [
+          "libc.so.6",
+          "libncurses.so.6",
+          "libtinfo.so.6"
+        ],
+        "sha256": "a852720873af30306cc1cbe98f40276afd441a1c137f9618dfc7f74c8aa4e455"
+      },
+      "talkd": {
+        "bytes": 246064,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "59b8bb6f69890e00fa8a60f67fa1786d57437ee6391b49e98048e136946b6e01"
+      },
+      "telnet": {
+        "bytes": 435608,
+        "needed": [
+          "libc.so.6",
+          "libcrypt.so.1",
+          "libtinfo.so.6"
+        ],
+        "sha256": "e124e0e683895ff66a789c962cc984fa523cf87305fed56e68fc9f1f24df44ff"
+      },
+      "telnetd": {
+        "bytes": 304040,
+        "needed": [
+          "libc.so.6",
+          "libcrypt.so.1",
+          "libtinfo.so.6"
+        ],
+        "sha256": "073e916a0924f49f4565728d15c334f1a450824638f85a9cc65dc08ff695e80a"
+      },
+      "tftp": {
+        "bytes": 216872,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "58eb9ee8fab86a30b77e7bad6a3da20cc9a54ff3e327b616bcc1384f556d85c4"
+      },
+      "tftpd": {
+        "bytes": 195384,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "90701c725e036a65998749fc94528c75fa61de9f97802d2f7e925e8bd6cd7e74"
+      },
+      "traceroute": {
+        "bytes": 190800,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "7d47b1d04d9e435718c0db866aa6ffa38989f54df2bfd96f76f031ee4f999bb9"
+      },
+      "uucpd": {
+        "bytes": 154112,
+        "needed": [
+          "libc.so.6",
+          "libcrypt.so.1"
+        ],
+        "sha256": "9e3f6e101f182294f87d2b1fff6839c5484dffca394bd4f23db76397c12ab7a2"
+      },
+      "whois": {
+        "bytes": 274328,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "8ede1595102a94fcdaf603df7ab966a3dd226aad15402d2ace061e884a12be81"
+      }
+    },
+    "gcc": {
+      "dnsdomainname": {
+        "bytes": 217088,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "666a4b4a6452715e83fa7597e2228f961aaa133e37b2864b98b22233a9e09911"
+      },
+      "ftp": {
+        "bytes": 571136,
+        "needed": [
+          "libc.so.6",
+          "libreadline.so.8"
+        ],
+        "sha256": "d544585cab6528d22e16b576bd697871665611241bf98911b260b3ca5720f566"
+      },
+      "ftpd": {
+        "bytes": 652736,
+        "needed": [
+          "libc.so.6",
+          "libcrypt.so.1"
+        ],
+        "sha256": "b9184811b51877e6b828daf8157a9ab5cd898b225ba2588e91e6300d5be8ce71"
+      },
+      "hostname": {
+        "bytes": 246472,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "44cd7480d8149f33aaea9a4b8ac2c9a4c48753d7b4221c3cf4eb81ee7515c26e"
+      },
+      "ifconfig": {
+        "bytes": 467488,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "bc176a7257405a1342d4b0ec1849453938e5f2a31600beb07069c30f72de49df"
+      },
+      "inetd": {
+        "bytes": 326888,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "0f4945b2d29ff794ae21c094aa11bb8b287067847497064894a2125de2c5d911"
+      },
+      "logger": {
+        "bytes": 247384,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "728835647d5763eacde6264e538d81f38c68b1a3f1e89a6400eec68cfb7657b6"
+      },
+      "ping": {
+        "bytes": 338344,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "ed469e0ceffdc299b83f4e355b6c258d7f08cbca8771c89fdc76bc545ad775f1"
+      },
+      "ping6": {
+        "bytes": 285600,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "200b236dcbcefa31abff153b5f577a0af31dd8f1565531054da9caa621d89380"
+      },
+      "rcp": {
+        "bytes": 267352,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "575e89c79575004efe6a28da7577311e05feb315ca73d69e991873d57bdafc53"
+      },
+      "rexec": {
+        "bytes": 220880,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "226195772000a69898983dac5083aa04d218df505abeb0484e155a0a700b9d49"
+      },
+      "rexecd": {
+        "bytes": 249768,
+        "needed": [
+          "libc.so.6",
+          "libcrypt.so.1"
+        ],
+        "sha256": "d3b2f24f85409b958750f4f0e9a6206cf9724be6f594d535b6e0d118e5b0f6b3"
+      },
+      "rlogin": {
+        "bytes": 237912,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "025005861a5ce9b84fb34fda5edf2b00fb2566b29ed3159cc15d244b3ac12f40"
+      },
+      "rlogind": {
+        "bytes": 297208,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "fee7510953a85f27213011ac7b12a898737a6ef912b9629c1f53a4217db79e13"
+      },
+      "rsh": {
+        "bytes": 218440,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "a34d4031582b183be9c8ddd99878c9b82ad97c385ba891d64f6d03ec376585d7"
+      },
+      "rshd": {
+        "bytes": 272200,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "2801faad6135adfafd4c3dd5d2144899f2a03928bbda44ff7034f4955c4346a3"
+      },
+      "syslogd": {
+        "bytes": 360136,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "5d04602e9a29768fbbe04fda54f4a60989e203986a2bec073749a3bcd65b6644"
+      },
+      "talk": {
+        "bytes": 267960,
+        "needed": [
+          "libc.so.6",
+          "libncurses.so.6",
+          "libtinfo.so.6"
+        ],
+        "sha256": "c0610556e6ed8dba289b949d62af5594cb82e2238abbde247a5a99bb302bd9e8"
+      },
+      "talkd": {
+        "bytes": 328408,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "e6539aaccf865e32815f5b21cd515db8d4375b6d6cfce86158dda8c253361f54"
+      },
+      "telnet": {
+        "bytes": 605384,
+        "needed": [
+          "libc.so.6",
+          "libtinfo.so.6"
+        ],
+        "sha256": "45824ecd331b54b33463b354523b8b5dc6730468e8eecfe23f4f188715e7eb9d"
+      },
+      "telnetd": {
+        "bytes": 392192,
+        "needed": [
+          "libc.so.6",
+          "libtinfo.so.6"
+        ],
+        "sha256": "4e1b6f0d442ed670a47c65eac1582bf3fe1f596e1eed70400ab2a0205ce495ee"
+      },
+      "tftp": {
+        "bytes": 293152,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "0a4bd24ec0919731a3ed3141cd611b3087f709eec81a8d26256839056c3fa580"
+      },
+      "tftpd": {
+        "bytes": 264344,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "47aea0fbbcd16f50b9fd0c922847c705a18a3f75a3795e062878ec916aad5cb9"
+      },
+      "traceroute": {
+        "bytes": 258400,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "dfa296560f02e3e6c480917cd7df9c9489e3dd442678933ae3370370c31bb5e1"
+      },
+      "uucpd": {
+        "bytes": 207760,
+        "needed": [
+          "libc.so.6",
+          "libcrypt.so.1"
+        ],
+        "sha256": "986cad8d72e7bee044b9b1935acbecfba14afcb15f21138fb087dbe5981cdfc3"
+      },
+      "whois": {
+        "bytes": 331960,
+        "needed": [
+          "libc.so.6"
+        ],
+        "sha256": "57d039980ca89b529763ee200bc06b6d17b28762b57160155e9b7285fafe4be8"
+      }
+    }
+  },
+  "configuration": {
+    "disabled_optional_integrations": [
+      "systemd",
+      "PAM",
+      "TCP wrappers",
+      "Kerberos 4",
+      "Kerberos 5",
+      "Shishi",
+      "IDN"
+    ],
+    "enabled": [
+      "clients",
+      "servers",
+      "IPv4",
+      "IPv6",
+      "Readline",
+      "Ncurses"
+    ]
+  },
+  "next_gate": "production-only static analysis followed by deterministic normalization and no-hole C2Rust translation",
+  "recorded_at": "2026-11-23",
+  "release": {
+    "archive": "inetutils-2.8.tar.gz",
+    "sha256": "57b3cf4f77555992881e5ba2a09a63b05aa2c56342a60ed4305b5f45938390b5",
+    "signature_sha256": "c8baea8fb98a6940cc754067b4fbbfeaa2fc7595cf7904ebc7dc26b6431a8dc2",
+    "signature_verified": true,
+    "signer_fingerprint": "A3CC9C870B9D310ABAD4CF2F51722B08FE4745A2",
+    "signing_key_sha256": "8843fbd510de17e88a4b54a21c634c05ec5fe10d9502d1502bdbf727ac6f61f0",
+    "version": "2.8"
+  },
+  "schema": 1,
+  "scope": {
+    "clients": 16,
+    "compile_actions": {
+      "clang": 288,
+      "gcc": 288
+    },
+    "daemons": 10,
+    "production_lines": 102615,
+    "production_sources": [
+      "ftp/cmds.c",
+      "ftp/cmdtab.c",
+      "ftp/domacro.c",
+      "ftp/ftp.c",
+      "ftp/main.c",
+      "ftp/ruserpass.c",
+      "ftpd/auth.c",
+      "ftpd/conf.c",
+      "ftpd/ftpcmd.c",
+      "ftpd/ftpd.c",
+      "ftpd/pam.c",
+      "ftpd/popen.c",
+      "ftpd/server_mode.c",
+      "ifconfig/changeif.c",
+      "ifconfig/flags.c",
+      "ifconfig/ifconfig.c",
+      "ifconfig/options.c",
+      "ifconfig/printif.c",
+      "ifconfig/system.c",
+      "lib/argp-ba.c",
+      "lib/argp-eexst.c",
+      "lib/argp-fmtstream.c",
+      "lib/argp-fs-xinl.c",
+      "lib/argp-help.c",
+      "lib/argp-parse.c",
+      "lib/argp-pin.c",
+      "lib/argp-pv.c",
+      "lib/argp-pvh.c",
+      "lib/argp-version-etc.c",
+      "lib/argp-xinl.c",
+      "lib/arpa_inet.c",
+      "lib/asnprintf.c",
+      "lib/aszprintf.c",
+      "lib/basename-lgpl.c",
+      "lib/bitrotate.c",
+      "lib/btoc32.c",
+      "lib/btowc.c",
+      "lib/c-ctype.c",
+      "lib/c32_apply_type_test.c",
+      "lib/c32_get_type_test.c",
+      "lib/c32isalnum.c",
+      "lib/c32isalpha.c",
+      "lib/c32isblank.c",
+      "lib/c32iscntrl.c",
+      "lib/c32isdigit.c",
+      "lib/c32isgraph.c",
+      "lib/c32islower.c",
+      "lib/c32isprint.c",
+      "lib/c32ispunct.c",
+      "lib/c32isspace.c",
+      "lib/c32isupper.c",
+      "lib/c32isxdigit.c",
+      "lib/c32tolower.c",
+      "lib/c32width.c",
+      "lib/chdir-long.c",
+      "lib/cloexec.c",
+      "lib/creat-safer.c",
+      "lib/cycle-check.c",
+      "lib/dirname-lgpl.c",
+      "lib/dup-safer.c",
+      "lib/exitfail.c",
+      "lib/fcntl.c",
+      "lib/fd-hook.c",
+      "lib/fd-safer.c",
+      "lib/filemode.c",
+      "lib/filenamecat-lgpl.c",
+      "lib/float.c",
+      "lib/fopen.c",
+      "lib/fseek.c",
+      "lib/fseeko.c",
+      "lib/fseterr.c",
+      "lib/fts.c",
+      "lib/getdelim.c",
+      "lib/getline.c",
+      "lib/getopt.c",
+      "lib/getopt1.c",
+      "lib/getprogname.c",
+      "lib/gettime.c",
+      "lib/getugroups.c",
+      "lib/gl_hash_set.c",
+      "lib/gl_set.c",
+      "lib/gl_xset.c",
+      "lib/glob.c",
+      "lib/glob_pattern_p.c",
+      "lib/globfree.c",
+      "lib/glthread/lock.c",
+      "lib/glthread/once.c",
+      "lib/glthread/threadlib.c",
+      "lib/hard-locale.c",
+      "lib/hash.c",
+      "lib/hashcode-string1.c",
+      "lib/i-ring.c",
+      "lib/ialloc.c",
+      "lib/imaxtostr.c",
+      "lib/inttostr.c",
+      "lib/ioctl.c",
+      "lib/issymlink.c",
+      "lib/issymlinkat.c",
+      "lib/localcharset.c",
+      "lib/malloc/dynarray_at_failure.c",
+      "lib/malloc/dynarray_emplace_enlarge.c",
+      "lib/malloc/dynarray_finalize.c",
+      "lib/malloc/dynarray_resize.c",
+      "lib/malloc/dynarray_resize_clear.c",
+      "lib/malloc/scratch_buffer_grow.c",
+      "lib/malloc/scratch_buffer_grow_preserve.c",
+      "lib/malloc/scratch_buffer_set_array_size.c",
+      "lib/malloca.c",
+      "lib/math.c",
+      "lib/mbchar.c",
+      "lib/mbiterf.c",
+      "lib/mbrtoc32.c",
+      "lib/mbrtowc.c",
+      "lib/mbsnlen.c",
+      "lib/mbsrtoc32s-state.c",
+      "lib/mbsrtoc32s.c",
+      "lib/mbsrtowcs-state.c",
+      "lib/mbsrtowcs.c",
+      "lib/mbszero.c",
+      "lib/memset_explicit.c",
+      "lib/mgetgroups.c",
+      "lib/next-prime.c",
+      "lib/nl_langinfo.c",
+      "lib/obstack.c",
+      "lib/offtostr.c",
+      "lib/open-safer.c",
+      "lib/openat-die.c",
+      "lib/openat-proc.c",
+      "lib/opendirat.c",
+      "lib/pipe-safer.c",
+      "lib/printf-args.c",
+      "lib/printf-frexp.c",
+      "lib/printf-frexpl.c",
+      "lib/printf-parse.c",
+      "lib/progname.c",
+      "lib/read-file.c",
+      "lib/readutmp.c",
+      "lib/realloc.c",
+      "lib/reallocarray.c",
+      "lib/same-inode.c",
+      "lib/save-cwd.c",
+      "lib/setlocale_null-unlocked.c",
+      "lib/setlocale_null.c",
+      "lib/sockets.c",
+      "lib/stat-time.c",
+      "lib/stdlib.c",
+      "lib/string.c",
+      "lib/stripslash.c",
+      "lib/strnlen1.c",
+      "lib/sys_socket.c",
+      "lib/tempname.c",
+      "lib/timespec-add.c",
+      "lib/timespec-sub.c",
+      "lib/timespec.c",
+      "lib/uinttostr.c",
+      "lib/umaxtostr.c",
+      "lib/unicase/tolower.c",
+      "lib/unictype/ctype_alnum.c",
+      "lib/unictype/ctype_alpha.c",
+      "lib/unictype/ctype_blank.c",
+      "lib/unictype/ctype_cntrl.c",
+      "lib/unictype/ctype_digit.c",
+      "lib/unictype/ctype_graph.c",
+      "lib/unictype/ctype_lower.c",
+      "lib/unictype/ctype_print.c",
+      "lib/unictype/ctype_punct.c",
+      "lib/unictype/ctype_space.c",
+      "lib/unictype/ctype_upper.c",
+      "lib/unictype/ctype_xdigit.c",
+      "lib/unistd.c",
+      "lib/unistr/u32-chr.c",
+      "lib/unistr/u32-cpy.c",
+      "lib/unistr/u32-pcpy.c",
+      "lib/unistr/u32-strcat.c",
+      "lib/unistr/u32-strlen.c",
+      "lib/uniwidth/width.c",
+      "lib/vasnprintf.c",
+      "lib/vaszprintf.c",
+      "lib/version-etc-fsf.c",
+      "lib/version-etc.c",
+      "lib/vsnzprintf.c",
+      "lib/wctype-h.c",
+      "lib/xalloc-die.c",
+      "lib/xasprintf.c",
+      "lib/xgetcwd.c",
+      "lib/xgetdomainname.c",
+      "lib/xgethostname.c",
+      "lib/xmalloc.c",
+      "lib/xsize.c",
+      "lib/xstrtoimax.c",
+      "lib/xstrtol.c",
+      "lib/xstrtoul.c",
+      "lib/xvasprintf.c",
+      "libicmp/icmp_address.c",
+      "libicmp/icmp_cksum.c",
+      "libicmp/icmp_echo.c",
+      "libicmp/icmp_timestamp.c",
+      "libinetutils/argcv.c",
+      "libinetutils/cleansess.c",
+      "libinetutils/daemon.c",
+      "libinetutils/defauthors.c",
+      "libinetutils/if_index.c",
+      "libinetutils/kcmd.c",
+      "libinetutils/kerberos5.c",
+      "libinetutils/krcmd.c",
+      "libinetutils/localhost.c",
+      "libinetutils/logwtmpko.c",
+      "libinetutils/setsig.c",
+      "libinetutils/shishi.c",
+      "libinetutils/tftpsubs.c",
+      "libinetutils/ttymsg.c",
+      "libinetutils/utmp_init.c",
+      "libinetutils/utmp_logout.c",
+      "libls/cmp.c",
+      "libls/ls.c",
+      "libls/print.c",
+      "libls/stat_flags.c",
+      "libls/util.c",
+      "libtelnet/auth.c",
+      "libtelnet/enc_des.c",
+      "libtelnet/encrypt.c",
+      "libtelnet/forward.c",
+      "libtelnet/genget.c",
+      "libtelnet/kerberos.c",
+      "libtelnet/kerberos5.c",
+      "libtelnet/misc.c",
+      "libtelnet/read_passwd.c",
+      "libtelnet/shishi.c",
+      "ping/libping.c",
+      "ping/ping.c",
+      "ping/ping6.c",
+      "ping/ping_address.c",
+      "ping/ping_common.c",
+      "ping/ping_echo.c",
+      "ping/ping_router.c",
+      "ping/ping_timestamp.c",
+      "src/dnsdomainname.c",
+      "src/hostname.c",
+      "src/inetd.c",
+      "src/logger.c",
+      "src/rcp.c",
+      "src/rexec.c",
+      "src/rexecd.c",
+      "src/rlogin.c",
+      "src/rlogind.c",
+      "src/rsh.c",
+      "src/rshd.c",
+      "src/syslogd.c",
+      "src/tftp.c",
+      "src/tftpd.c",
+      "src/traceroute.c",
+      "src/uucpd.c",
+      "talk/ctl.c",
+      "talk/ctl_transact.c",
+      "talk/display.c",
+      "talk/get_addrs.c",
+      "talk/get_names.c",
+      "talk/init_disp.c",
+      "talk/invite.c",
+      "talk/io.c",
+      "talk/look_up.c",
+      "talk/msgs.c",
+      "talk/talk.c",
+      "talkd/acl.c",
+      "talkd/announce.c",
+      "talkd/print.c",
+      "talkd/process.c",
+      "talkd/table.c",
+      "talkd/talkd.c",
+      "telnet/authenc.c",
+      "telnet/commands.c",
+      "telnet/main.c",
+      "telnet/network.c",
+      "telnet/ring.c",
+      "telnet/sys_bsd.c",
+      "telnet/telnet.c",
+      "telnet/terminal.c",
+      "telnet/utilities.c",
+      "telnetd/pty.c",
+      "telnetd/slc.c",
+      "telnetd/state.c",
+      "telnetd/telnetd.c",
+      "telnetd/term.c",
+      "telnetd/termstat.c",
+      "telnetd/utility.c",
+      "tests/identify.c",
+      "tests/ls.c",
+      "whois/whois.c"
+    ],
+    "public_executables": [
+      "dnsdomainname",
+      "ftp",
+      "ftpd",
+      "hostname",
+      "ifconfig",
+      "inetd",
+      "logger",
+      "ping",
+      "ping6",
+      "rcp",
+      "rexec",
+      "rexecd",
+      "rlogin",
+      "rlogind",
+      "rsh",
+      "rshd",
+      "syslogd",
+      "talk",
+      "talkd",
+      "telnet",
+      "telnetd",
+      "tftp",
+      "tftpd",
+      "traceroute",
+      "uucpd",
+      "whois"
+    ],
+    "unique_production_sources": 288
+  },
+  "tests": {
+    "clang": {
+      "error": 0,
+      "fail": 1,
+      "pass": 11,
+      "skip": 5,
+      "total": 17,
+      "xfail": 0,
+      "xpass": 0
+    },
+    "differential": {
+      "cases": 52,
+      "gcc_clang_exact": true,
+      "passed": 52
+    },
+    "environmental_failure": {
+      "compiler_reproduced": true,
+      "operation": "sethostname",
+      "reason": "container lacks CAP_SYS_ADMIN in its UTS namespace",
+      "test": "hostname.sh"
+    },
+    "gcc": {
+      "error": 0,
+      "fail": 1,
+      "pass": 11,
+      "skip": 5,
+      "total": 17,
+      "xfail": 0,
+      "xpass": 0
+    },
+    "valgrind": {
+      "dnsdomainname": {
+        "errors": 0,
+        "log_sha256": "118285b929f9a2baae0793e3f950ee7c55913e26f25e0016b02206067d309c59"
+      },
+      "hostname": {
+        "errors": 0,
+        "log_sha256": "5d2591e7701424d218eccf66211b239903a25a484e588ec7101e3acb648f8ec3"
+      },
+      "ifconfig": {
+        "errors": 0,
+        "log_sha256": "898298286991123c0aa4dd7e91aae86bb912c7e3db395ebd4b4e99c27c56f6b3"
+      },
+      "whois": {
+        "errors": 0,
+        "log_sha256": "43f0428cead4aff9393b9c883f4c984bbf99d121620c011ed0405e73e4c0f58b"
+      }
+    }
+  }
+}

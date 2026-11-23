@@ -34,6 +34,7 @@ exec docker run --rm \
   --volume rustbox-flex-2.6.4:/rustbox-flex \
   --volume rustbox-bison-3.8.2:/rustbox-bison \
   --volume rustbox-curl-8.23.0:/rustbox-curl \
+  --volume rustbox-inetutils-2.8:/rustbox-inetutils \
   --workdir /work \
   "$tool_image" "$@"
 
