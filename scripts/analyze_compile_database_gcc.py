@@ -23,6 +23,8 @@ def analyzer_command(record: dict[str, object], compiler: str, output: Path) -> 
         if argument == "-o":
             skip = True
             continue
+        if argument == "-Qunused-arguments":
+            continue
         command.append(argument)
     command.extend((
         "-fanalyzer", "-Wall", "-Wextra", "-fno-diagnostics-color",

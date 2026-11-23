@@ -1125,7 +1125,10 @@ Clang expose the same exact 240-source production closure across 477 compile
 actions each; both pass all 1,601 applicable cases from 2,138 considered
 upstream tests.  All 12 deterministic cross-compiler comparisons and focused
 Valgrind version/file-transfer gates pass with no errors or retained bytes.
-Reproducible evidence is in `evidence/curl-8.23.0-oracle.json`; static analysis,
+Reproducible evidence is in `evidence/curl-8.23.0-oracle.json`.  Its exact
+477-action Cppcheck, GCC, Clang, Flawfinder, and Sparse audit is recorded in
+`evidence/curl-8.23.0-static-analysis.json`; GCC successfully replays every
+configured action and Sparse completes without parser errors.  Deterministic
 normalization, no-hole translation, and multicall integration remain the next
 gates, so curl is not yet counted as an integrated Rust applet.
 
