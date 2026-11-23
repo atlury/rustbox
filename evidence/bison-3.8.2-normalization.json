@@ -1,0 +1,247 @@
+{
+  "binary": {
+    "bytes": 1911672,
+    "sha256": "c7d55c2097e697aeed834800f0425aebc8c3d50e541faa50e88f18a1f9d3a10a"
+  },
+  "canonical_differential": {
+    "cases": 12,
+    "compiled_parsers": 5,
+    "passed": 12,
+    "records": [
+      {
+        "kind": "cli",
+        "name": "version",
+        "passed": true,
+        "status": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "ac96909f94698014343ee30ee3edf982f6c5ec121cbd4cf99806270d32874f76"
+      },
+      {
+        "kind": "cli",
+        "name": "help",
+        "passed": true,
+        "status": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "708f292ddccaec56ae777b8cd4915d972ea48d36dccd6c1a3c3e48a30de618f6"
+      },
+      {
+        "kind": "cli",
+        "name": "invalid-option",
+        "passed": true,
+        "status": 1,
+        "stderr_sha256": "7c0f5b2e1a8d4b510bf812a893b3bf09f1fdea4fc48df2559bd6e7ba286cf4dc",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "kind": "cli",
+        "name": "malformed-stdin",
+        "passed": true,
+        "status": 1,
+        "stderr_sha256": "9912acc6784dacb160a5800976985b25215360c1d071b59b53de58433b0dba80",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "generated_files": [
+          "calc.c",
+          "calc.h",
+          "calc.output"
+        ],
+        "generated_sha256": {
+          "calc.c": "fc79ed8619174ce8dbcc4ba37d158f588457605fa653001f3a39b13029f5a4f6",
+          "calc.h": "dd7dcf731e19ba2fa186daa053539c9cd9f5e442bcb25a8811e22ceb5533beef",
+          "calc.output": "9af40e2d4784934dfa4477aada33954c99427decfd371e1f759bdbc8d0ec6391"
+        },
+        "kind": "generated-parser",
+        "name": "c-pull",
+        "passed": true,
+        "runtime_status": 0,
+        "runtime_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runtime_stdout_sha256": "9b9683242c6684658dd5c88eae2593943d74708a2bec1bebfbc97d93be79f070"
+      },
+      {
+        "generated_files": [
+          "calc.c",
+          "calc.h",
+          "calc.output"
+        ],
+        "generated_sha256": {
+          "calc.c": "d337cd53b2a575eb696e0ea50474e9f8821ee1e16da15f6e46e56ccf94418d7f",
+          "calc.h": "bd790e03699003184aaa3734b8157e230787f2f159e4d88c05c7f3bb3d09b68f",
+          "calc.output": "9af40e2d4784934dfa4477aada33954c99427decfd371e1f759bdbc8d0ec6391"
+        },
+        "kind": "generated-parser",
+        "name": "c-push",
+        "passed": true,
+        "runtime_status": 0,
+        "runtime_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runtime_stdout_sha256": "9b9683242c6684658dd5c88eae2593943d74708a2bec1bebfbc97d93be79f070"
+      },
+      {
+        "generated_files": [
+          "c++-types.c",
+          "c++-types.h"
+        ],
+        "generated_sha256": {
+          "c++-types.c": "ff2e79ab10b7e4ae0ef7dbc17ee31655f27957cecbf08b2a4f898bd7d7899b9a",
+          "c++-types.h": "467df264fd0229461c669b0e49b405b6165c094fff2db5d248746dfb01d6f060"
+        },
+        "kind": "generated-parser",
+        "name": "c-glr",
+        "passed": true,
+        "runtime_status": 0,
+        "runtime_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runtime_stdout_sha256": "792e88ea7b2e64f69951bb5df50c9d7dc1b6587ae352325bb1b82e248239e510"
+      },
+      {
+        "generated_files": [
+          "simple.cc"
+        ],
+        "generated_sha256": {
+          "simple.cc": "f5d13236474e30fa98a4595966308ed2410ad417bbe452b5828e6f650ca5e6c7"
+        },
+        "kind": "generated-parser",
+        "name": "cxx-lalr",
+        "passed": true,
+        "runtime_status": 0,
+        "runtime_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runtime_stdout_sha256": "8fd0c363b726c8281062bfc7af85bbc5a67872a6224728ddd7f3d0d37ff0ab62"
+      },
+      {
+        "generated_files": [
+          "c++-types.cc",
+          "c++-types.hh",
+          "location.hh"
+        ],
+        "generated_sha256": {
+          "c++-types.cc": "087d7f44e1bb6e541fa480baeafb413e053d09b0dfd47920438038e1ac4cd589",
+          "c++-types.hh": "8cd5928399e15a0c90e7e54947c5ce644b6f023f375af6db40625da1ec572a6d",
+          "location.hh": "418b818249b9ffe402fbcc78dd18d345ffee961ede001c44ac51b89e482f10f9"
+        },
+        "kind": "generated-parser",
+        "name": "cxx-glr",
+        "passed": true,
+        "runtime_status": null,
+        "runtime_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runtime_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "generated_files": [
+          "c++-types.cc",
+          "c++-types.hh",
+          "location.hh"
+        ],
+        "generated_sha256": {
+          "c++-types.cc": "087d7f44e1bb6e541fa480baeafb413e053d09b0dfd47920438038e1ac4cd589",
+          "c++-types.hh": "8cd5928399e15a0c90e7e54947c5ce644b6f023f375af6db40625da1ec572a6d",
+          "location.hh": "418b818249b9ffe402fbcc78dd18d345ffee961ede001c44ac51b89e482f10f9"
+        },
+        "kind": "generated-parser",
+        "name": "cxx-glr2",
+        "passed": true,
+        "runtime_status": null,
+        "runtime_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runtime_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "generated_files": [
+          "y.tab.c",
+          "y.tab.h"
+        ],
+        "generated_sha256": {
+          "y.tab.c": "5a5a51984540ccc70e080ab40fe65b88632ec28ecfaacc928d93ccc440bc1c41",
+          "y.tab.h": "f7531965f861b16de4ecc03a43894a17bd98c778cbc9965e30ccce72b9566b3e"
+        },
+        "kind": "generated-parser",
+        "name": "yacc-compatible",
+        "passed": true,
+        "runtime_status": 0,
+        "runtime_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runtime_stdout_sha256": "45708af5e9d6cef5f5835f27be4d8ccf48fc2730ada940f94cf9632bd19a6bc5"
+      },
+      {
+        "generated_files": [
+          "calc.c",
+          "calc.dot",
+          "calc.h",
+          "calc.output",
+          "calc.xml"
+        ],
+        "generated_sha256": {
+          "calc.c": "fc79ed8619174ce8dbcc4ba37d158f588457605fa653001f3a39b13029f5a4f6",
+          "calc.dot": "f0a3b965015382feb524cfc4a44f0d2bea1f456b02bab89e01033a7ccfcf4758",
+          "calc.h": "dd7dcf731e19ba2fa186daa053539c9cd9f5e442bcb25a8811e22ceb5533beef",
+          "calc.output": "9af40e2d4784934dfa4477aada33954c99427decfd371e1f759bdbc8d0ec6391",
+          "calc.xml": "779bd9907ba809fffe8db8f38c756be986e416a42b5ef809650c7f1f29022732"
+        },
+        "kind": "generated-parser",
+        "name": "reports",
+        "passed": true,
+        "runtime_status": null,
+        "runtime_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "runtime_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "schema": 1
+  },
+  "compile_database": {
+    "bison_production_sources": 152,
+    "commands": 154,
+    "liby_sources": 2,
+    "sha256": "2e3a94c6a815f84cb7bbde8443494065d3df9389ccedbaa5bac536a3dcc1c628",
+    "sources": 154
+  },
+  "installed_files": 200,
+  "manifest": {
+    "canonical_archive_sha256": "9bba0214ccf7f1079c5d59210045227bcf619519840ebfa80cd3849cff5a5bf2",
+    "canonical_tree_sha256": "bc5d4d9c4dd31a781afc32bb94ab11b1681b941ac049215ace30b215ff0e2d4e",
+    "changed_sources": [
+      "src/main.c"
+    ],
+    "conditional": "RUSTBOX_MULTICALL",
+    "engine": "exact deterministic source rewrite",
+    "entrypoint": "rustbox_bison_main",
+    "normalized_tree_sha256": "480ad54c77a416853726e7b89c839dabb6e780cb516575dfe006e1077d0faf16",
+    "release": "3.8.2",
+    "schema": 1,
+    "transformations": [
+      {
+        "canonical_sha256": "f9059707d20e0f115192b6bf1ebd6bae8c19c0c1c6a5b5a9ea2cf67653555a94",
+        "normalized_sha256": "2d42c5417848d4c2d503d55ef145dcf5a2648c4ee02ab6c1d520b9a2f204d3f1",
+        "operation": "rename only the standalone entrypoint to rustbox_bison_main and retain a conditional main wrapper",
+        "source": "src/main.c"
+      }
+    ]
+  },
+  "recorded_at": "2026-11-23",
+  "release": "3.8.2",
+  "repairs": [],
+  "schema": 1,
+  "symbols": [
+    "main",
+    "rustbox_bison_main"
+  ],
+  "upstream_suite": {
+    "log_sha256": "7dbeed93d39493b887618bb6e1fe753359f3f6d207421705f70be1481efc2146",
+    "skipped": 64,
+    "successful": 712,
+    "total": 776
+  },
+  "valgrind": {
+    "help": {
+      "canonical_log_sha256": "86a56e027fc163f9c6b61dd3878ffeba7024c09809838353cdad5dcb0846fc49",
+      "definitely_lost_bytes": 0,
+      "errors": 0,
+      "indirectly_lost_bytes": 0,
+      "normalized_log_sha256": "cc4bd1e7e6c5b5bb5ed1c896ef20cf981e521eb8e60e1dc68870c150d75fcc99",
+      "possibly_lost_bytes": 0
+    },
+    "version": {
+      "canonical_log_sha256": "88ccb3008ae0ef47d23350afcaf30af999ca4505f8d772a80596284db85384bf",
+      "definitely_lost_bytes": 0,
+      "errors": 0,
+      "indirectly_lost_bytes": 0,
+      "normalized_log_sha256": "a4980c4a48adb0caaaf708099e6d0a690fd4fda2e495fd3e5a1b017e4aa2d17a",
+      "possibly_lost_bytes": 0
+    }
+  }
+}
