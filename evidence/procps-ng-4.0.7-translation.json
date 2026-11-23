@@ -1,0 +1,287 @@
+{
+  "hardening": {
+    "deferred_until_all_applets_complete": true,
+    "raw_pointers_and_unsafe_are_inventory_only": true,
+    "static_external_library_elimination_deferred": true
+  },
+  "hybrid": {
+    "differential": {
+      "cases": 51,
+      "passed": 51,
+      "sha256": "84aa827fc723395a6a64f11ffd8ee11f118a39b81fdc6bce4db0fd576d011969"
+    },
+    "dynamic_dependencies": [
+      "libncursesw.so.6",
+      "libtinfo.so.6",
+      "libm.so.6",
+      "libgcc_s.so.1",
+      "libc.so.6",
+      "ld-linux-x86-64.so.2"
+    ],
+    "executable": {
+      "bytes": 5082600,
+      "sha256": "539a7d8a947b8985380964a3846846bf20186664352f0c23e038777e68686933"
+    },
+    "public_programs": 20,
+    "stripped": {
+      "bytes": 927952,
+      "sha256": "897b5612badae5ffa9f50b23bf3424b0b82716b2d93a26d0506198391c30a162"
+    },
+    "valgrind": {
+      "free": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "sha256": "1af25f8c3f797fbce67420cae838566cdc14660bdebf486ebc6582bfb0faa47f"
+      },
+      "hugetop": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "sha256": "3925688ca5dd17a01b2ded72f6e63518b3e436c1860ec012418e26c3ff1f6c49"
+      },
+      "kill": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "sha256": "cccec79ae644e2151feca969c279efd18090ed3aaafdc191db321df7d9fc4871"
+      },
+      "pgrep": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "sha256": "b0e3e50cec6e46288e48d4d23875fa1354040b238afec9be402c3167e82bc439"
+      },
+      "pidof": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "sha256": "849a86a5b142392ce750fae242830bb9efed0cc866a92fb53a260d1c29e42731"
+      },
+      "pidwait": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "sha256": "a2e76626b05fcd163a81097b79c666d39f98c1f7cd570bb3e6f79d0c33bb5f25"
+      },
+      "pkill": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "sha256": "909414943431b059035d2ed9b7d70bfddb41800311088776c20a3a9cb15320c1"
+      },
+      "pmap": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "sha256": "cada7bab118f8e7796b11877dbc54887eec4c6b39186c6641c5c4d81347ebf26"
+      },
+      "ps": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "sha256": "536c4cd7ac9e0d7a6e81f9ba597768d168ae24d0dccd595b6533ce394ad38f66"
+      },
+      "pwdx": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "sha256": "259ec6762d12e270d060e2e0c7c5c1609e025118437263901b68b4cd42a0fec4"
+      },
+      "skill": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "sha256": "630dd42785b5b788f093ce56b56f3ad9a5989704d3b0b4025f7985c39bfaf069"
+      },
+      "slabtop": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "sha256": "d281cb75f5e1b7331e2858e125e09f530bcef15bfe662829274fc35709956243"
+      },
+      "snice": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "sha256": "9e92f16ceeeb318a0804291dacae351ee8ede2374a35b46c536a637404f703a8"
+      },
+      "sysctl": {
+        "definitely_lost_bytes": 16,
+        "errors": 1,
+        "sha256": "24cc237555c3c7a944d7fb703d358f83a1f39b8164e84ced4aa9cead53a09e06"
+      },
+      "tload": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "sha256": "3e304ae7839f2c2734d38b539f255dedccf4753898d74069fae5f32b0741ed2e"
+      },
+      "top": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "sha256": "8754ff5015fa6037031789f3e34e9cfeba36d731d43c8675bf04fd820fbf0046"
+      },
+      "uptime": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "sha256": "e863c088e71d9a902ed17b11ffb3892aa14a2bbb2669acd01660137fab39a530"
+      },
+      "vmstat": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "sha256": "05a46ca17113499b8e8b243436c118525e8832a655b9a2e8ecfd4e187ee08c4d"
+      },
+      "w": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "sha256": "dc2995f32bbcd3bb106ab85bd7c96e043c471d2018ac33b9dde1955180328c8c"
+      },
+      "watch": {
+        "definitely_lost_bytes": 0,
+        "errors": 0,
+        "sha256": "4b4112bc8bbebfd98ed036f05f002e734b8cca48506dbdfbd1de6510cab07097"
+      }
+    }
+  },
+  "input": {
+    "compile_commands": 49,
+    "compile_database_sha256": "fa84b60d758249a345958453cbebd907e5e64ce31f45b212481394d05bef6465",
+    "normalization_evidence_sha256": "c7d4033a496fb279a5133667aafb972ef21d509c72d1ca49478e2d086bf6ab09",
+    "oracle_evidence_sha256": "25e92205144ae09ebd5f6f9f0ac4abf628c36841cdce45ee88572f216b85377b"
+  },
+  "next_gate": "link all 20 Procps names into the unified Rustbox multicall",
+  "recorded_at": "2026-11-24",
+  "release": "4.0.7",
+  "repaired_translation": {
+    "active_translated_c_sources": 49,
+    "archive": {
+      "bytes": 24581824,
+      "entrypoint_definition_counts": {
+        "rustbox_procps_free_main": 1,
+        "rustbox_procps_hugetop_main": 1,
+        "rustbox_procps_kill_main": 1,
+        "rustbox_procps_pgrep_main": 1,
+        "rustbox_procps_pidof_main": 1,
+        "rustbox_procps_pmap_main": 1,
+        "rustbox_procps_ps_main": 1,
+        "rustbox_procps_pwdx_main": 1,
+        "rustbox_procps_skill_main": 1,
+        "rustbox_procps_slabtop_main": 1,
+        "rustbox_procps_sysctl_main": 1,
+        "rustbox_procps_tload_main": 1,
+        "rustbox_procps_top_main": 1,
+        "rustbox_procps_uptime_main": 1,
+        "rustbox_procps_vmstat_main": 1,
+        "rustbox_procps_w_main": 1,
+        "rustbox_procps_watch_main": 1
+      },
+      "sha256": "fc9bbc1b3ac66a1a2843874bb2aed924c7ce20b1dd4946f6dd0054642a935a57"
+    },
+    "canonical_c_sources": [],
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "b95d40260ce3f21b9521a43a1815787e79de8ad07a51c437ae764b66271ae442",
+      "cargo_toml_sha256": "cf59c35418eceaae2367c5c68bbde0ab73d5310b2a68a51403d9402acc6b1c43",
+      "diagnostics_by_level": {
+        "warning": 378
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "227c9d1fb5216a76bee175f6540701cbb239bcb69730e86e46abd7914ff5bfcc",
+      "toolchain_request": "nightly-2023-04-15",
+      "warning_codes": {
+        "stable_features": 1,
+        "unreachable_code": 1,
+        "unused_imports": 4,
+        "unused_parens": 86,
+        "unused_unsafe": 16,
+        "unused_variables": 269
+      }
+    },
+    "duplicate_exports_mangled": 2,
+    "finalization_manifest_sha256": "c12b284dbea18da026e5ea7523acbb8424096f13f7b334e678ab7e9353625ba6",
+    "holes": {
+      "C2Rust Translation Error": 0,
+      "compile_error!": 0,
+      "todo!": 0,
+      "unimplemented!": 0
+    },
+    "raw_pointer_type_occurrences": 32183,
+    "rust_bytes": 6010440,
+    "rust_files": 51,
+    "rust_lines": 144656,
+    "semantic_repairs": 3,
+    "thread_local_attributes": 29,
+    "unsafe_block_occurrences": 153,
+    "unsafe_function_occurrences": 5333
+  },
+  "schema": 1,
+  "status": "complete no-hole translation and hybrid parity",
+  "translator": {
+    "fail_on_error": true,
+    "name": "C2Rust",
+    "preserve_unused_functions": true,
+    "translated_c_sources": 49,
+    "translation_holes": 0,
+    "version": "0.22.1"
+  },
+  "untouched_translation": {
+    "cargo_check": {
+      "build_finished_success": false,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "b95d40260ce3f21b9521a43a1815787e79de8ad07a51c437ae764b66271ae442",
+      "cargo_toml_sha256": "cf59c35418eceaae2367c5c68bbde0ab73d5310b2a68a51403d9402acc6b1c43",
+      "diagnostics_by_level": {
+        "error": 4,
+        "failure-note": 2,
+        "warning": 92
+      },
+      "errors": [
+        {
+          "code": "E0425",
+          "column": 27,
+          "file": "src/src/top/top.rs",
+          "line": 18627,
+          "message": "cannot find value `stack` in this scope"
+        },
+        {
+          "code": "E0425",
+          "column": 27,
+          "file": "src/src/top/top.rs",
+          "line": 18631,
+          "message": "cannot find value `stack` in this scope"
+        },
+        {
+          "code": "E0054",
+          "column": 31,
+          "file": "src/src/watch.rs",
+          "line": 2861,
+          "message": "cannot cast as `bool`"
+        },
+        {
+          "code": null,
+          "column": null,
+          "file": null,
+          "line": null,
+          "message": "aborting due to 3 previous errors; 92 warnings emitted"
+        }
+      ],
+      "exit_status": 101,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "0feb83713410576a092688697b9bba0fe749cfdc254c4827f62048d8d2e60719",
+      "toolchain_request": "nightly-2023-04-15",
+      "warning_codes": {
+        "E0054": 1,
+        "E0425": 2,
+        "stable_features": 1,
+        "unreachable_code": 1,
+        "unused_imports": 4,
+        "unused_parens": 86
+      }
+    },
+    "holes": {
+      "C2Rust Translation Error": 0,
+      "compile_error!": 0,
+      "todo!": 0,
+      "unimplemented!": 0
+    },
+    "raw_pointer_type_occurrences": 32183,
+    "rust_bytes": 6010207,
+    "rust_files": 51,
+    "rust_lines": 144658,
+    "thread_local_attributes": 29,
+    "unsafe_block_occurrences": 153,
+    "unsafe_function_occurrences": 5333
+  }
+}

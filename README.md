@@ -1374,8 +1374,14 @@ Library-only checkpoints (outside the active utility order):
      mechanical portability pass also replaces all three GNU computed-goto
      tables with enum-and-switch dispatch: 34 `readproc` status actions, 27
      `ps` personalities, and 37 GNU long options.  These are rechecked by the
-     complete normalized matrix before strict no-hole translation.  Duplicate
-     public names such as `kill`
+     complete normalized matrix.  Strict C2Rust translation now covers all 49
+     production sources with no holes or canonical C residue.  Three asserted
+     representation repairs and two isolated cross-program export collisions
+     produce a complete release archive while preserving all 29 thread-local
+     attributes.  All 17 engines link behind the 20 command names and pass all
+     51 canonical hybrid comparisons; their resource behavior also matches the
+     canonical baseline (including `sysctl`'s existing 16-byte exit leak).
+     Unified Rustbox dispatch is next.  Duplicate public names such as `kill`
      and `uptime` remain separately
      verified until the final dispatcher precedence decision.
    - [ ] Shadow 4.20.3 — `chage`, `chfn`, `chgpasswd`, `chpasswd`, `chsh`,
