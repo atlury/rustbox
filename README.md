@@ -65,7 +65,7 @@ scoring, and correctness gates.
 | Flex 2.6.4 | 3 | 3 | 3 | 3 |
 | Bison 3.8.2 | 2 | 2 | 2 | 2 |
 | curl 8.23.0 | 2 | 2 | 2 | 2 |
-| GNU Inetutils 2.8 | 26 | 26 | 4 | 0 |
+| GNU Inetutils 2.8 | 26 | 26 | 10 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -1184,6 +1184,13 @@ All four stable Rust hybrids have no translation holes or C residue, pass
 separate until all 26 programs are ready for collision-isolated multicall
 linkage.  This is recorded in
 `evidence/inetutils-2.8-hybrid-small-01.json`.
+The second slice adds `rexec`, `tftp`, `traceroute`, `ifconfig`, `ping`, and
+`ping6`.  Its exact linker-map closures contain 147 source instances (52
+unique sources), including every directly linked multi-object component of
+`ifconfig`, `ping`, and `ping6`.  All six no-hole, zero-C-residue stable Rust
+hybrids pass 38/38 exact non-network canonical comparisons and six clean
+Valgrind paths.  This brings program-scoped parity to 10/26 and is recorded in
+`evidence/inetutils-2.8-hybrid-small-02.json`.
 
 ## Work queue after util-linux
 
@@ -1298,7 +1305,7 @@ Library-only checkpoints (outside the active utility order):
      libraries.
    - [ ] Inetutils 2.8 — signed 26-executable canonical oracle, deterministic
      26-entrypoint normalization, complete 288-source no-hole translation, and
-     stable compile audit are complete; 4/26 program-scoped hybrids have
+     stable compile audit are complete; 10/26 program-scoped hybrids have
      canonical parity, while the remaining hybrid work and multicall
      integration continue.  Clients:
      `dnsdomainname`, `ftp`,

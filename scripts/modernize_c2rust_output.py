@@ -539,6 +539,19 @@ def transform_rust(
 
     joined = ATOMIC_XCHG_ACQUIRE_I32.sub(stable_atomic_exchange, joined)
 
+    # Gnulib's memset_explicit compiler barrier carries an otherwise empty
+    # assembly template plus one input operand.  Current Rust requires every
+    # operand to be named in the template.  Mention it inside an assembly
+    # comment: emitted machine code stays empty while the compiler dependency
+    # that prevents dead-store elimination is preserved.
+    empty_asm_input_rewrites = joined.count(
+        'asm!("\\n", in (reg) & s, options(preserves_flags, att_syntax));'
+    )
+    joined = joined.replace(
+        'asm!("\\n", in (reg) & s, options(preserves_flags, att_syntax));',
+        'asm!("/* {0} */", in (reg) & s, options(preserves_flags, att_syntax));',
+    )
+
     # Rust has no integer-to-bool cast.  C2Rust emits this spelling for C's
     # exact `_Bool` conversion (zero is false, every nonzero value is true).
     # Preserve that conversion directly instead of guessing at the integer
@@ -590,6 +603,7 @@ def transform_rust(
         "await_field_rewrites": await_field_rewrites,
         "va_arg_rewrites": va_arg_rewrites,
         "atomic_xchg_acquire_i32_rewrites": atomic_xchg_acquire_rewrites,
+        "empty_asm_input_rewrites": empty_asm_input_rewrites,
         "integer_to_bool_rewrites": integer_to_bool_rewrites,
         "bool_call_comparison_rewrites": bool_call_comparison_rewrites,
         "write_volatile_semicolon_rewrites": write_volatile_semicolon_rewrites,

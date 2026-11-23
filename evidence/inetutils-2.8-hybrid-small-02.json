@@ -1,0 +1,400 @@
+{
+  "applets": 6,
+  "hardening": {
+    "deferred_until_all_applets_complete": true,
+    "raw_pointers_and_unsafe_are_inventory_only": true
+  },
+  "next_gate": "complete program-scoped hybrid parity for the remaining 16 GNU Inetutils programs, namespace their defined symbols, and integrate all 26",
+  "programs": {
+    "ifconfig": {
+      "binary": {
+        "bytes": 4598120,
+        "entrypoint": "rustbox_inetutils_ifconfig_main",
+        "needed": [
+          "ld-linux-x86-64.so.2",
+          "libc.so.6",
+          "libgcc_s.so.1",
+          "libm.so.6"
+        ],
+        "sha256": "a79945c67fd41afc7d7eb352e75443f475215fc42a6e70525210739f31fa671e"
+      },
+      "cargo_check_sha256": "610233b00e3d81125c6fb41c7e13db7166f1f7d2d245c60bdcd143b2d9aea3ce",
+      "clashing_extern_declarations": 12,
+      "closure_manifest_sha256": "6fa873ce20cd3ac207af3fcfe240b585c57680f0e9f24a9c5da27b3f5c69f8ea",
+      "direct_objects": [
+        "ifconfig/changeif.o",
+        "ifconfig/flags.o",
+        "ifconfig/ifconfig.o",
+        "ifconfig/options.o",
+        "ifconfig/printif.o",
+        "ifconfig/system.o"
+      ],
+      "holes": {
+        "C2Rust Translation Error": 0,
+        "compile_error!": 0,
+        "todo!": 0,
+        "unimplemented!": 0
+      },
+      "raw_pointer_type_occurrences": 6142,
+      "rust_files": 33,
+      "rust_lines": 26604,
+      "sources": [
+        "ifconfig/changeif.c",
+        "ifconfig/flags.c",
+        "ifconfig/ifconfig.c",
+        "ifconfig/options.c",
+        "ifconfig/printif.c",
+        "ifconfig/system.c",
+        "lib/argp-ba.c",
+        "lib/argp-eexst.c",
+        "lib/argp-fmtstream.c",
+        "lib/argp-help.c",
+        "lib/argp-parse.c",
+        "lib/argp-pv.c",
+        "lib/argp-pvh.c",
+        "lib/argp-version-etc.c",
+        "lib/basename-lgpl.c",
+        "lib/exitfail.c",
+        "lib/fopen.c",
+        "lib/getdelim.c",
+        "lib/getline.c",
+        "lib/getopt.c",
+        "lib/getopt1.c",
+        "lib/ioctl.c",
+        "lib/memset_explicit.c",
+        "lib/obstack.c",
+        "lib/progname.c",
+        "lib/read-file.c",
+        "lib/reallocarray.c",
+        "lib/version-etc-fsf.c",
+        "lib/version-etc.c",
+        "lib/xalloc-die.c",
+        "lib/xmalloc.c"
+      ],
+      "translated_sources": 31,
+      "valgrind": {
+        "errors": 0,
+        "log_sha256": "fa365c1531665fd8e5de2b93877ffc915006c6b95be3166b8c93be63e3fbb906"
+      }
+    },
+    "ping": {
+      "binary": {
+        "bytes": 4539136,
+        "entrypoint": "rustbox_inetutils_ping_main",
+        "needed": [
+          "ld-linux-x86-64.so.2",
+          "libc.so.6",
+          "libgcc_s.so.1",
+          "libm.so.6"
+        ],
+        "sha256": "fe84a0c44135bc9810130d58267ae6bb4ccfd218b05c317fbb6fdb74de95a192"
+      },
+      "cargo_check_sha256": "e251fa32b9a2d00e33f277b26502d4d12d37e335b4d0e574988d5eb94b7eb001",
+      "clashing_extern_declarations": 18,
+      "closure_manifest_sha256": "8f74ce79721a3975006943bc23399823e1f23c5ef0e19a0edadcd91265f64ff1",
+      "direct_objects": [
+        "ping/libping.o",
+        "ping/ping.o",
+        "ping/ping_address.o",
+        "ping/ping_common.o",
+        "ping/ping_echo.o",
+        "ping/ping_router.o",
+        "ping/ping_timestamp.o"
+      ],
+      "holes": {
+        "C2Rust Translation Error": 0,
+        "compile_error!": 0,
+        "todo!": 0,
+        "unimplemented!": 0
+      },
+      "raw_pointer_type_occurrences": 4328,
+      "rust_files": 34,
+      "rust_lines": 21495,
+      "sources": [
+        "lib/argp-ba.c",
+        "lib/argp-eexst.c",
+        "lib/argp-fmtstream.c",
+        "lib/argp-help.c",
+        "lib/argp-parse.c",
+        "lib/argp-pv.c",
+        "lib/argp-pvh.c",
+        "lib/argp-version-etc.c",
+        "lib/basename-lgpl.c",
+        "lib/exitfail.c",
+        "lib/getopt.c",
+        "lib/getopt1.c",
+        "lib/gettime.c",
+        "lib/progname.c",
+        "lib/reallocarray.c",
+        "lib/timespec-add.c",
+        "lib/timespec-sub.c",
+        "lib/version-etc-fsf.c",
+        "lib/version-etc.c",
+        "lib/xalloc-die.c",
+        "lib/xmalloc.c",
+        "libicmp/icmp_address.c",
+        "libicmp/icmp_cksum.c",
+        "libicmp/icmp_echo.c",
+        "libicmp/icmp_timestamp.c",
+        "ping/libping.c",
+        "ping/ping.c",
+        "ping/ping_address.c",
+        "ping/ping_common.c",
+        "ping/ping_echo.c",
+        "ping/ping_router.c",
+        "ping/ping_timestamp.c"
+      ],
+      "translated_sources": 32,
+      "valgrind": {
+        "errors": 0,
+        "log_sha256": "d4db687f695b01f643ef89ed56526bda27f1a05d8ccdd85776fa57b39fce815b"
+      }
+    },
+    "ping6": {
+      "binary": {
+        "bytes": 4526688,
+        "entrypoint": "rustbox_inetutils_ping6_main",
+        "needed": [
+          "ld-linux-x86-64.so.2",
+          "libc.so.6",
+          "libgcc_s.so.1",
+          "libm.so.6"
+        ],
+        "sha256": "e74a0d93c3ebbc42f0b2373f749331bacbb420c78ba0ea0a64ad63931e6b50e9"
+      },
+      "cargo_check_sha256": "ddbb4b9a7ab00933a179dd921f0510ea69ac68f8d7f88b6099366d5cd6f0ca69",
+      "clashing_extern_declarations": 7,
+      "closure_manifest_sha256": "71db70da8af8f1fd16d3fd9cdf1e64613ba0b4839434988cfacd6f97489944fa",
+      "direct_objects": [
+        "ping/ping6.o",
+        "ping/ping_common.o"
+      ],
+      "holes": {
+        "C2Rust Translation Error": 0,
+        "compile_error!": 0,
+        "todo!": 0,
+        "unimplemented!": 0
+      },
+      "raw_pointer_type_occurrences": 3289,
+      "rust_files": 25,
+      "rust_lines": 16176,
+      "sources": [
+        "lib/argp-ba.c",
+        "lib/argp-eexst.c",
+        "lib/argp-fmtstream.c",
+        "lib/argp-help.c",
+        "lib/argp-parse.c",
+        "lib/argp-pv.c",
+        "lib/argp-pvh.c",
+        "lib/argp-version-etc.c",
+        "lib/basename-lgpl.c",
+        "lib/exitfail.c",
+        "lib/getopt.c",
+        "lib/getopt1.c",
+        "lib/gettime.c",
+        "lib/progname.c",
+        "lib/reallocarray.c",
+        "lib/timespec-add.c",
+        "lib/timespec-sub.c",
+        "lib/version-etc-fsf.c",
+        "lib/version-etc.c",
+        "lib/xalloc-die.c",
+        "lib/xmalloc.c",
+        "ping/ping6.c",
+        "ping/ping_common.c"
+      ],
+      "translated_sources": 23,
+      "valgrind": {
+        "errors": 0,
+        "log_sha256": "443eccf267ead59727a0d1b28f7f2122915697aee7a5b2cc36b83643217f7b71"
+      }
+    },
+    "rexec": {
+      "binary": {
+        "bytes": 4515136,
+        "entrypoint": "rustbox_inetutils_rexec_main",
+        "needed": [
+          "ld-linux-x86-64.so.2",
+          "libc.so.6",
+          "libgcc_s.so.1",
+          "libm.so.6"
+        ],
+        "sha256": "ef6afa71da0a2c1563bcd24cf99655ccc0e35d94c127ca0835ec92fc3a80155d"
+      },
+      "cargo_check_sha256": "ff42e1ffb16aaaff4d83c7cdcb9b22e436f777b7302ed3566c5778de1599ca14",
+      "clashing_extern_declarations": 6,
+      "closure_manifest_sha256": "491e1019f15571458bbb79f55ef1b05c0198040e406eaa7e6a3cbe6122e2c379",
+      "direct_objects": [
+        "src/rexec.o"
+      ],
+      "holes": {
+        "C2Rust Translation Error": 0,
+        "compile_error!": 0,
+        "todo!": 0,
+        "unimplemented!": 0
+      },
+      "raw_pointer_type_occurrences": 2509,
+      "rust_files": 17,
+      "rust_lines": 12295,
+      "sources": [
+        "lib/argp-ba.c",
+        "lib/argp-eexst.c",
+        "lib/argp-fmtstream.c",
+        "lib/argp-help.c",
+        "lib/argp-parse.c",
+        "lib/argp-pv.c",
+        "lib/argp-pvh.c",
+        "lib/argp-version-etc.c",
+        "lib/basename-lgpl.c",
+        "lib/getopt.c",
+        "lib/getopt1.c",
+        "lib/progname.c",
+        "lib/version-etc-fsf.c",
+        "lib/version-etc.c",
+        "src/rexec.c"
+      ],
+      "translated_sources": 15,
+      "valgrind": {
+        "errors": 0,
+        "log_sha256": "87243859ce09cfbc3d9837c7f988420c67aa85b71223c04a775105ba7b000d69"
+      }
+    },
+    "tftp": {
+      "binary": {
+        "bytes": 4527888,
+        "entrypoint": "rustbox_inetutils_tftp_main",
+        "needed": [
+          "ld-linux-x86-64.so.2",
+          "libc.so.6",
+          "libgcc_s.so.1",
+          "libm.so.6"
+        ],
+        "sha256": "6687e47809f6e5c5b96cd68625e52dffbc8ab9b3f1f7060d01bb1f6a0fba74b2"
+      },
+      "cargo_check_sha256": "7483b276be97c39347f0cfed4b1ac964f2fa9a27f04e9a1498d9687147822881",
+      "clashing_extern_declarations": 6,
+      "closure_manifest_sha256": "743098c0dd7390172210029a1b08688955d6ecf00fe601926a54f4f3900e8c0f",
+      "direct_objects": [
+        "src/tftp.o"
+      ],
+      "holes": {
+        "C2Rust Translation Error": 0,
+        "compile_error!": 0,
+        "todo!": 0,
+        "unimplemented!": 0
+      },
+      "raw_pointer_type_occurrences": 3480,
+      "rust_files": 25,
+      "rust_lines": 15837,
+      "sources": [
+        "lib/argp-ba.c",
+        "lib/argp-eexst.c",
+        "lib/argp-fmtstream.c",
+        "lib/argp-help.c",
+        "lib/argp-parse.c",
+        "lib/argp-pv.c",
+        "lib/argp-pvh.c",
+        "lib/argp-version-etc.c",
+        "lib/basename-lgpl.c",
+        "lib/exitfail.c",
+        "lib/fseeko.c",
+        "lib/getopt.c",
+        "lib/getopt1.c",
+        "lib/ioctl.c",
+        "lib/progname.c",
+        "lib/reallocarray.c",
+        "lib/version-etc-fsf.c",
+        "lib/version-etc.c",
+        "lib/xalloc-die.c",
+        "lib/xmalloc.c",
+        "libinetutils/defauthors.c",
+        "libinetutils/tftpsubs.c",
+        "src/tftp.c"
+      ],
+      "translated_sources": 23,
+      "valgrind": {
+        "errors": 0,
+        "log_sha256": "f5861e14934355be9633ba3248a6fe333e5de229f0802fd9adf0691ff9246b6a"
+      }
+    },
+    "traceroute": {
+      "binary": {
+        "bytes": 4521376,
+        "entrypoint": "rustbox_inetutils_traceroute_main",
+        "needed": [
+          "ld-linux-x86-64.so.2",
+          "libc.so.6",
+          "libgcc_s.so.1",
+          "libm.so.6"
+        ],
+        "sha256": "49526351da9eefaaa0ebd267ff0184bf41b42be1bdb16abeeba80f4f40c8c566"
+      },
+      "cargo_check_sha256": "de1004ae381a1b65358915ff16b926a44a0c3f42ad27c5825d07100caf56d4d1",
+      "clashing_extern_declarations": 7,
+      "closure_manifest_sha256": "1d71bde4397c003492cf8bc2613f533e694779e4720de664fc4d5eb90c2019b7",
+      "direct_objects": [
+        "src/traceroute.o"
+      ],
+      "holes": {
+        "C2Rust Translation Error": 0,
+        "compile_error!": 0,
+        "todo!": 0,
+        "unimplemented!": 0
+      },
+      "raw_pointer_type_occurrences": 2995,
+      "rust_files": 25,
+      "rust_lines": 14867,
+      "sources": [
+        "lib/argp-ba.c",
+        "lib/argp-eexst.c",
+        "lib/argp-fmtstream.c",
+        "lib/argp-help.c",
+        "lib/argp-parse.c",
+        "lib/argp-pv.c",
+        "lib/argp-pvh.c",
+        "lib/argp-version-etc.c",
+        "lib/basename-lgpl.c",
+        "lib/exitfail.c",
+        "lib/getopt.c",
+        "lib/getopt1.c",
+        "lib/gettime.c",
+        "lib/progname.c",
+        "lib/reallocarray.c",
+        "lib/timespec-sub.c",
+        "lib/version-etc-fsf.c",
+        "lib/version-etc.c",
+        "lib/xalloc-die.c",
+        "lib/xmalloc.c",
+        "libicmp/icmp_cksum.c",
+        "libicmp/icmp_echo.c",
+        "src/traceroute.c"
+      ],
+      "translated_sources": 23,
+      "valgrind": {
+        "errors": 0,
+        "log_sha256": "1032b08cd26983cac81e0748aa5e3c042835aab4455af510d82fec48d1288138"
+      }
+    }
+  },
+  "recorded_at": "2026-11-24",
+  "release": "2.8",
+  "schema": 1,
+  "scope": {
+    "integrated_into_rustbox": false,
+    "program_namespaces_are_separate": true
+  },
+  "status": "complete program-scoped hybrid canonical parity",
+  "tests": {
+    "differential_cases": 38,
+    "differential_passed": 38,
+    "differential_sha256": "b7b9f441e028bb411f72b961f421f812c87188ac9155c0164988a0c04104fc66",
+    "valgrind_errors": 0,
+    "valgrind_programs": 6
+  },
+  "translation": {
+    "canonical_c_residue_sources": 0,
+    "holes": 0,
+    "program_source_instances": 147,
+    "unique_sources": 52
+  }
+}

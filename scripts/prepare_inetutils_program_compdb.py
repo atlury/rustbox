@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import posixpath
 import re
 from pathlib import Path
 
@@ -44,7 +45,8 @@ def main() -> int:
         raise RuntimeError(f"missing Inetutils main source: {main_source}")
     selected = {main_source: by_source[main_source]}
     archive_objects: list[str] = []
-    for line in args.map.read_text(errors="replace").splitlines():
+    map_lines = args.map.read_text(errors="replace").splitlines()
+    for line in map_lines:
         if line == "Merging program properties":
             break
         token = line.strip().split(maxsplit=1)[0] if line.strip() else ""
@@ -59,6 +61,29 @@ def main() -> int:
         relative_source = Path(str(record["file"])).relative_to(SOURCE_ROOT).as_posix()
         selected[relative_source] = record
         archive_objects.append(relative_object)
+
+    # GNU ld lists ordinary link inputs separately from archive members.  Resolve
+    # relative LOAD paths from the program build directory represented by the
+    # main source (src/, ifconfig/, ping/, ...), and retain only objects that
+    # occur in the normalized Inetutils compilation database.  This excludes
+    # compiler startup objects while preserving multi-object programs exactly.
+    program_directory = Path(main_source).parent.as_posix()
+    direct_objects: list[str] = []
+    for line in map_lines:
+        if not line.startswith("LOAD "):
+            continue
+        load_path = line.removeprefix("LOAD ").strip()
+        if not load_path.endswith(".o") or Path(load_path).is_absolute():
+            continue
+        relative_object = posixpath.normpath(
+            posixpath.join(program_directory, load_path)
+        )
+        record = by_object.get(relative_object)
+        if record is None:
+            continue
+        relative_source = Path(str(record["file"])).relative_to(SOURCE_ROOT).as_posix()
+        selected[relative_source] = record
+        direct_objects.append(relative_object)
 
     output_records = []
     for source in sorted(selected):
@@ -77,6 +102,7 @@ def main() -> int:
         "main_source": main_source,
         "sources": sorted(selected),
         "archive_objects": sorted(set(archive_objects)),
+        "direct_objects": sorted(set(direct_objects)),
         "compile_commands": len(output_records),
         "compile_database_sha256": hashlib.sha256(args.output.read_bytes()).hexdigest(),
         "linker_map_sha256": hashlib.sha256(args.map.read_bytes()).hexdigest(),

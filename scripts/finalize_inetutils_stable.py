@@ -35,21 +35,6 @@ def main() -> int:
     if not (crate / "rustbox-modernization.json").is_file():
         raise RuntimeError("missing Inetutils stable modernization manifest")
 
-    barrier = crate / "src/lib/memset_explicit.rs"
-    barrier_change = rewrite_exact(
-        barrier,
-        'asm!("\\n", in (reg) & s, options(preserves_flags, att_syntax));',
-        'asm!("/* {0} */", in (reg) & s, options(preserves_flags, att_syntax));',
-        1,
-    )
-    barrier_change.update({
-        "operation": "name the input operand in the empty compiler barrier",
-        "semantic_basis": (
-            "the generated assembly remains an empty comment while Rust retains "
-            "the input dependency that implements gnulib's compiler barrier"
-        ),
-    })
-
     primes = crate / "src/lib/gl_hash_set.rs"
     prime_change = rewrite_exact(
         primes,
@@ -118,7 +103,6 @@ def main() -> int:
         "schema": 1,
         "target": "x86_64-unknown-linux-gnu",
         "changes": [
-            barrier_change,
             prime_change,
             sentinel_change,
             ftpd_type_change,
@@ -130,7 +114,7 @@ def main() -> int:
     print(json.dumps({
         "canonical_c_sources": 1,
         "rust_sources": 287,
-        "stable_representation_repairs": 128,
+        "stable_representation_repairs": 127,
     }, sort_keys=True))
     return 0
 
