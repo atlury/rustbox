@@ -102,6 +102,30 @@ def main() -> int:
             module_text.replace(lookup_size, lookup_explicit).replace(elvis, ternary)
         )
 
+        depmod_c = staged / "tools/depmod.c"
+        depmod_text = depmod_c.read_text()
+        depmod_elvis = "out_root ?: root"
+        depmod_ternary = "out_root != NULL ? out_root : root"
+        if depmod_text.count(depmod_elvis) != 2:
+            raise RuntimeError("Kmod depmod output-root precondition failed")
+        depmod_c.write_text(depmod_text.replace(depmod_elvis, depmod_ternary))
+
+        array_rewrites = {
+            "tools/kmod.c": {"kmod_cmds": 2, "kmod_compat_cmds": 2},
+            "tools/modprobe.c": {"ci": 1},
+            "tools/static-nodes.c": {"static_nodes_formats": 2},
+        }
+        for relative, arrays in array_rewrites.items():
+            path = staged / relative
+            source_text = path.read_text()
+            for array, count in arrays.items():
+                before = f"ARRAY_SIZE({array})"
+                after = f"sizeof({array}) / sizeof({array}[0])"
+                if source_text.count(before) != count:
+                    raise RuntimeError(f"Kmod {relative} {array} bound precondition failed")
+                source_text = source_text.replace(before, after)
+            path.write_text(source_text)
+
         canonical_files = {
             path.relative_to(canonical).as_posix()
             for path in canonical.rglob("*") if path.is_file()
@@ -116,7 +140,12 @@ def main() -> int:
             name for name in canonical_files
             if sha256(canonical / name) != sha256(staged / name)
         )
-        if changed != ["libkmod/libkmod-file.c", "libkmod/libkmod-module.c", "tools/kmod.c"]:
+        expected_changed = [
+            "libkmod/libkmod-file.c", "libkmod/libkmod-module.c",
+            "tools/depmod.c", "tools/kmod.c", "tools/modprobe.c",
+            "tools/static-nodes.c",
+        ]
+        if changed != expected_changed:
             raise RuntimeError(f"unexpected normalized Kmod sources: {changed}")
 
         manifest = {
@@ -155,17 +184,45 @@ def main() -> int:
                     "and options is an already evaluated local pointer"
                 ),
             }, {
+                "source": "tools/depmod.c",
+                "canonical_sha256": sha256(canonical / "tools/depmod.c"),
+                "normalized_sha256": sha256(staged / "tools/depmod.c"),
+                "operation": (
+                    "expand two GNU omitted-middle-operand output-root "
+                    "conditionals into explicit standard C conditionals"
+                ),
+                "semantic_basis": (
+                    "out_root and root are already evaluated local pointers, so "
+                    "out_root ?: root and out_root != NULL ? out_root : root are identical"
+                ),
+            }, {
                 "source": "tools/kmod.c",
                 "canonical_sha256": sha256(canonical / "tools/kmod.c"),
                 "normalized_sha256": sha256(staged / "tools/kmod.c"),
                 "operation": (
                     "export rustbox_kmod_main, derive glibc program-name globals "
-                    "from argv[0], and retain a conditional standalone wrapper"
+                    "from argv[0], retain a conditional standalone wrapper, and "
+                    "expand four complete-array ARRAY_SIZE expressions"
                 ),
                 "semantic_basis": (
                     "glibc initializes the same globals from argv[0] for standalone "
                     "execution; explicit initialization preserves that policy when "
-                    "the engine is entered through a multicall dispatcher"
+                    "the engine is entered through a multicall dispatcher; each "
+                    "command table is a complete file-scope array at its use sites"
+                ),
+            }, {
+                "source": "tools/modprobe.c",
+                "canonical_sha256": sha256(canonical / "tools/modprobe.c"),
+                "normalized_sha256": sha256(staged / "tools/modprobe.c"),
+                "operation": "expand one complete local-array ARRAY_SIZE expression",
+                "semantic_basis": "the ci object is a complete local array at the use site",
+            }, {
+                "source": "tools/static-nodes.c",
+                "canonical_sha256": sha256(canonical / "tools/static-nodes.c"),
+                "normalized_sha256": sha256(staged / "tools/static-nodes.c"),
+                "operation": "expand two complete file-scope ARRAY_SIZE expressions",
+                "semantic_basis": (
+                    "static_nodes_formats is a complete file-scope array at both use sites"
                 ),
             }],
         }

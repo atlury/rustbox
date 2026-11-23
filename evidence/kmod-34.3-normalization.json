@@ -14,7 +14,10 @@
   "changed_sources": [
     "libkmod/libkmod-file.c",
     "libkmod/libkmod-module.c",
-    "tools/kmod.c"
+    "tools/depmod.c",
+    "tools/kmod.c",
+    "tools/modprobe.c",
+    "tools/static-nodes.c"
   ],
   "entrypoint": {
     "object_binding": "GLOBAL HIDDEN",
@@ -27,12 +30,15 @@
     "changed_sources": [
       "libkmod/libkmod-file.c",
       "libkmod/libkmod-module.c",
-      "tools/kmod.c"
+      "tools/depmod.c",
+      "tools/kmod.c",
+      "tools/modprobe.c",
+      "tools/static-nodes.c"
     ],
     "conditional": "RUSTBOX_MULTICALL",
     "engine": "exact deterministic source rewrite",
     "entrypoint": "rustbox_kmod_main",
-    "normalized_tree_sha256": "2c55af4903c67167fdef135125a160e61576cf6705555c9856abd0d53954560b",
+    "normalized_tree_sha256": "9fe6cbadcf5f1645e4859f280c87b4604e51a09844af597976d6ea0f0a8d8a3a",
     "release": "34.3",
     "schema": 1,
     "transformations": [
@@ -51,15 +57,36 @@
         "source": "libkmod/libkmod-module.c"
       },
       {
+        "canonical_sha256": "4e879bb0de41a313cc2764b2431fc806a2d4ef2039b1aac6dd4c7faf759dfec0",
+        "normalized_sha256": "728cc8aa114bf1265c58401480392e38c11b381a4f3eca5347dbd6e00ef58c60",
+        "operation": "expand two GNU omitted-middle-operand output-root conditionals into explicit standard C conditionals",
+        "semantic_basis": "out_root and root are already evaluated local pointers, so out_root ?: root and out_root != NULL ? out_root : root are identical",
+        "source": "tools/depmod.c"
+      },
+      {
         "canonical_sha256": "c6866b4a139040e13cdce65a41092acf65306282de14bdc64a9b759fcc6272c9",
-        "normalized_sha256": "a682a1babd55d9e06bdc80d928af28c0aee0021d409156825ecefb07d37f8560",
-        "operation": "export rustbox_kmod_main, derive glibc program-name globals from argv[0], and retain a conditional standalone wrapper",
-        "semantic_basis": "glibc initializes the same globals from argv[0] for standalone execution; explicit initialization preserves that policy when the engine is entered through a multicall dispatcher",
+        "normalized_sha256": "bcc213c4fd43eda8bd8bf6545b5eedbb880ef89254f93e870105dde7e13d0e0a",
+        "operation": "export rustbox_kmod_main, derive glibc program-name globals from argv[0], retain a conditional standalone wrapper, and expand four complete-array ARRAY_SIZE expressions",
+        "semantic_basis": "glibc initializes the same globals from argv[0] for standalone execution; explicit initialization preserves that policy when the engine is entered through a multicall dispatcher; each command table is a complete file-scope array at its use sites",
         "source": "tools/kmod.c"
+      },
+      {
+        "canonical_sha256": "85c4cc94dbf6ae7eb6e03fb4b9383077c6691ac10050cbef9a6168d365e3a988",
+        "normalized_sha256": "627050e23aa98555e48abe216861f1f6b7fef721378c648920fd2b794dd8c138",
+        "operation": "expand one complete local-array ARRAY_SIZE expression",
+        "semantic_basis": "the ci object is a complete local array at the use site",
+        "source": "tools/modprobe.c"
+      },
+      {
+        "canonical_sha256": "d53f1fd27317ddd94a8d2ec28ece809223502b1454502953147446e8aa8e8feb",
+        "normalized_sha256": "edfb64c95956685c8c5a39f5554282046202b5f7f3bb0ef384aa8d9b94633738",
+        "operation": "expand two complete file-scope ARRAY_SIZE expressions",
+        "semantic_basis": "static_nodes_formats is a complete file-scope array at both use sites",
+        "source": "tools/static-nodes.c"
       }
     ]
   },
-  "manifest_sha256": "98b0ec40ea39cc3de1364188ad2f1830767d7edda19d28c160ee37b868ef83b3",
+  "manifest_sha256": "860f90b1154b26cda998ab282f385838bfb569c7580e9a13601c3304dd1789ce",
   "next_gate": "strict C2Rust translation of the exact 26-source production closure",
   "production_sources": 26,
   "recorded_at": "2026-11-24",
@@ -69,18 +96,18 @@
     "clang": {
       "expected_failures": 0,
       "failures": 0,
-      "log_sha256": "00fbb0678f70f98813f0532ea3110e1d25cd5833ee42f36f3520cc38ae27e86b",
+      "log_sha256": "86db21cb24804be76ab8432618dee0d4b0a5b08f4218f19af0c96095d2d14a46",
       "passed": 16,
       "skipped": 0,
-      "testlog_sha256": "5838909e0af650b290c824785f9c21156edebc7de13fd60f875c3be89838ba56"
+      "testlog_sha256": "29fd8f753a3ab78c115a778c45f1cbaeb6ee0b7b7bf514b938ef1e36a2a5e93c"
     },
     "gcc": {
       "expected_failures": 0,
       "failures": 0,
-      "log_sha256": "eb231382f30c0de2a4d5d330518d928fd138917b398f701c1fd85670398dc168",
+      "log_sha256": "b8799f0fdaee6abedf8d477bdfcb7f3dd3b2d8c28ab8c3eca8b590d07234cabb",
       "passed": 16,
       "skipped": 0,
-      "testlog_sha256": "b90611f8ca629d9ecc8c40237a645ebeab06b34d955a3597f1847a84b11011d7"
+      "testlog_sha256": "2f250e1c8d3cd8f32e5e0fad5d0a2523fd795863549c350594d9ea55fc3e69a2"
     }
   },
   "valgrind": {

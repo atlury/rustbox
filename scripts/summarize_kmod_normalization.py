@@ -71,7 +71,9 @@ def main() -> int:
         "manifest": manifest,
         "manifest_sha256": sha256(manifest_path),
         "changed_sources": [
-            "libkmod/libkmod-file.c", "libkmod/libkmod-module.c", "tools/kmod.c"
+            "libkmod/libkmod-file.c", "libkmod/libkmod-module.c",
+            "tools/depmod.c", "tools/kmod.c", "tools/modprobe.c",
+            "tools/static-nodes.c",
         ],
         "production_sources": 26,
         "entrypoint": {
@@ -87,7 +89,7 @@ def main() -> int:
     output = ROOT / "evidence/kmod-34.3-normalization.json"
     output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")
     print(json.dumps({
-        "changed_sources": 3, "production_sources": 26,
+        "changed_sources": 6, "production_sources": 26,
         "upstream": 32, "differential": 50, "valgrind": 7,
     }, sort_keys=True))
     return 0
