@@ -1340,8 +1340,12 @@ Library-only checkpoints (outside the active utility order):
 5. Large Linux system suites:
    - [ ] Kmod 34.3 — `kmod` and its installed `depmod`, `insmod`, `lsmod`,
      `modinfo`, `modprobe`, and `rmmod` compatibility links, plus the shared
-     `libkmod` runtime; retain xz, zlib, and zstd module decompression through
-     the corresponding canonical queued libraries.
+     `libkmod` runtime.  Its signed 26-source canonical oracle is complete:
+     GCC and Clang each pass all 16 upstream tests, all 25 independent command
+     and module-fixture comparisons agree, seven Valgrind paths are clean, and
+     five production-only analyzer passes complete.  Deterministic normalization
+     is next; retain xz, zlib, and zstd module decompression through the
+     corresponding canonical queued libraries.
    - [ ] Procps-ng 4.0.7 — `free`, `hugetop`, `kill`, `pgrep`, `pidof`,
      `pkill`, `pmap`, `ps`, `pwait`, `pwdx`, `skill`, `slabtop`, `snice`,
      `sysctl`, `tload`, `top`, `uptime`, `vmstat`, `w`, `watch`, plus the

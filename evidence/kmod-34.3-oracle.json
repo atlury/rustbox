@@ -1,0 +1,700 @@
+{
+  "analyzers": {
+    "clang-analyzer-tidy": {
+      "diagnostic_lines": 373,
+      "sha256": "4a742a43eeaed27e4d144b22e0674d2dfe046cca4d05bfdb3efeb804444648b2",
+      "status": 0
+    },
+    "cppcheck": {
+      "diagnostic_lines": 3,
+      "sha256": "07ecb3bdd58c06525cc962c5fef648b89c0fc81ae154c616450b23e8ced0a94b",
+      "status": 0
+    },
+    "flawfinder": {
+      "diagnostic_lines": 3,
+      "sha256": "369b95cfc1755dfc5897ff8e005158dbb754d46b35ac80031efc3bbe4926c263",
+      "status": 0
+    },
+    "gcc-analyzer": {
+      "diagnostic_lines": 10,
+      "sha256": "2aec2743234140b5dce3537cfce25f1dec5cd94a81859afcdf775147cdc7e5a6",
+      "status": 0
+    },
+    "sparse": {
+      "diagnostic_lines": 92,
+      "sha256": "1fb1eee6945254bf6324ec590a4a6768e6f5ddcdb4ba59e0e3f17bac3330255b",
+      "status": 0
+    }
+  },
+  "applets": [
+    "kmod",
+    "depmod",
+    "insmod",
+    "lsmod",
+    "modinfo",
+    "modprobe",
+    "rmmod"
+  ],
+  "archive_members_verified": 713,
+  "binaries": {
+    "clang": {
+      "bytes": 594776,
+      "sha256": "310eb0a840f99f7db8702bec20c75a2ddf8abe5954213ec49fcde0af71d51527"
+    },
+    "gcc": {
+      "bytes": 783792,
+      "sha256": "84e190b5ee32d4f6d7b5bf1c707229e6df84282dced8dac60c4159e1401da6aa"
+    }
+  },
+  "differential": {
+    "applets": 7,
+    "cases": 25,
+    "passed": 25,
+    "records": [
+      {
+        "applet": "kmod",
+        "arguments": [
+          "--help"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 650,
+          "stdout_sha256": "8ab956b08b471ae8ca6759ba46d53beff1666bc8020cbd3d15d05b7a36083948"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 650,
+          "stdout_sha256": "8ab956b08b471ae8ca6759ba46d53beff1666bc8020cbd3d15d05b7a36083948"
+        },
+        "passed": true
+      },
+      {
+        "applet": "kmod",
+        "arguments": [
+          "--version"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 43,
+          "stdout_sha256": "d77078ab03581a639216e043e7636ff745537c4942a3f5e391d723f0157d7713"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 43,
+          "stdout_sha256": "d77078ab03581a639216e043e7636ff745537c4942a3f5e391d723f0157d7713"
+        },
+        "passed": true
+      },
+      {
+        "applet": "kmod",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "clang": {
+          "status": 1,
+          "stderr_bytes": 49,
+          "stderr_sha256": "b9be7bda7f8356036361cd6c96fba319b9f9c06878d370f3a6737ef4f41c40dd",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "status": 1,
+          "stderr_bytes": 49,
+          "stderr_sha256": "b9be7bda7f8356036361cd6c96fba319b9f9c06878d370f3a6737ef4f41c40dd",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true
+      },
+      {
+        "applet": "depmod",
+        "arguments": [
+          "--help"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 1110,
+          "stdout_sha256": "1df8abdba66afff9e4c6f990a2a21834414615a3ef31636c7f2ed10ec6b8e16a"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 1110,
+          "stdout_sha256": "1df8abdba66afff9e4c6f990a2a21834414615a3ef31636c7f2ed10ec6b8e16a"
+        },
+        "passed": true
+      },
+      {
+        "applet": "depmod",
+        "arguments": [
+          "--version"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 43,
+          "stdout_sha256": "d77078ab03581a639216e043e7636ff745537c4942a3f5e391d723f0157d7713"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 43,
+          "stdout_sha256": "d77078ab03581a639216e043e7636ff745537c4942a3f5e391d723f0157d7713"
+        },
+        "passed": true
+      },
+      {
+        "applet": "depmod",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "clang": {
+          "status": 1,
+          "stderr_bytes": 51,
+          "stderr_sha256": "184f640cea044467cf282aa779f36c7de74e11cafaae2dfc6f6c56afc3570027",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "status": 1,
+          "stderr_bytes": 51,
+          "stderr_sha256": "184f640cea044467cf282aa779f36c7de74e11cafaae2dfc6f6c56afc3570027",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true
+      },
+      {
+        "applet": "insmod",
+        "arguments": [
+          "--help"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 334,
+          "stdout_sha256": "fc2085bc1eee9cb80aa2dd30f4e361b98a118d5a10a3ec5ff1957338673dad9a"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 334,
+          "stdout_sha256": "fc2085bc1eee9cb80aa2dd30f4e361b98a118d5a10a3ec5ff1957338673dad9a"
+        },
+        "passed": true
+      },
+      {
+        "applet": "insmod",
+        "arguments": [
+          "--version"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 43,
+          "stdout_sha256": "d77078ab03581a639216e043e7636ff745537c4942a3f5e391d723f0157d7713"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 43,
+          "stdout_sha256": "d77078ab03581a639216e043e7636ff745537c4942a3f5e391d723f0157d7713"
+        },
+        "passed": true
+      },
+      {
+        "applet": "insmod",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "clang": {
+          "status": 1,
+          "stderr_bytes": 51,
+          "stderr_sha256": "e5b27738676f2aed45417610b540263eeb418a94a95ee2d3c66e7b622184995e",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "status": 1,
+          "stderr_bytes": 51,
+          "stderr_sha256": "e5b27738676f2aed45417610b540263eeb418a94a95ee2d3c66e7b622184995e",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true
+      },
+      {
+        "applet": "lsmod",
+        "arguments": [
+          "--help"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 187,
+          "stdout_sha256": "09639938dc255c8437f64ce4d146414276f4e71ab74f8a93dd85011caa7beb5f"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 187,
+          "stdout_sha256": "09639938dc255c8437f64ce4d146414276f4e71ab74f8a93dd85011caa7beb5f"
+        },
+        "passed": true
+      },
+      {
+        "applet": "lsmod",
+        "arguments": [
+          "--version"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 43,
+          "stdout_sha256": "d77078ab03581a639216e043e7636ff745537c4942a3f5e391d723f0157d7713"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 43,
+          "stdout_sha256": "d77078ab03581a639216e043e7636ff745537c4942a3f5e391d723f0157d7713"
+        },
+        "passed": true
+      },
+      {
+        "applet": "lsmod",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "clang": {
+          "status": 1,
+          "stderr_bytes": 50,
+          "stderr_sha256": "fcd36f8c4a8e1ad306b01ff6bf872bac520bb5a772d755b13f3a6396bedc1403",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "status": 1,
+          "stderr_bytes": 50,
+          "stderr_sha256": "fcd36f8c4a8e1ad306b01ff6bf872bac520bb5a772d755b13f3a6396bedc1403",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true
+      },
+      {
+        "applet": "modinfo",
+        "arguments": [
+          "--help"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 731,
+          "stdout_sha256": "919b7b2fa63885dd5178961c0d14c6c68076395cf9fb81e60074b93fbc40ad75"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 731,
+          "stdout_sha256": "919b7b2fa63885dd5178961c0d14c6c68076395cf9fb81e60074b93fbc40ad75"
+        },
+        "passed": true
+      },
+      {
+        "applet": "modinfo",
+        "arguments": [
+          "--version"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 43,
+          "stdout_sha256": "d77078ab03581a639216e043e7636ff745537c4942a3f5e391d723f0157d7713"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 43,
+          "stdout_sha256": "d77078ab03581a639216e043e7636ff745537c4942a3f5e391d723f0157d7713"
+        },
+        "passed": true
+      },
+      {
+        "applet": "modinfo",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "clang": {
+          "status": 1,
+          "stderr_bytes": 52,
+          "stderr_sha256": "6233509f57f58a82dba051c248c2252375de5d4ecd66c94f4c74a40079c45f96",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "status": 1,
+          "stderr_bytes": 52,
+          "stderr_sha256": "6233509f57f58a82dba051c248c2252375de5d4ecd66c94f4c74a40079c45f96",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true
+      },
+      {
+        "applet": "modprobe",
+        "arguments": [
+          "--help"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 2450,
+          "stdout_sha256": "97fc42815296636334355136ba675e0f8e10cf8cac16b86e2052154a0c47d86d"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 2450,
+          "stdout_sha256": "97fc42815296636334355136ba675e0f8e10cf8cac16b86e2052154a0c47d86d"
+        },
+        "passed": true
+      },
+      {
+        "applet": "modprobe",
+        "arguments": [
+          "--version"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 43,
+          "stdout_sha256": "d77078ab03581a639216e043e7636ff745537c4942a3f5e391d723f0157d7713"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 43,
+          "stdout_sha256": "d77078ab03581a639216e043e7636ff745537c4942a3f5e391d723f0157d7713"
+        },
+        "passed": true
+      },
+      {
+        "applet": "modprobe",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "clang": {
+          "status": 1,
+          "stderr_bytes": 53,
+          "stderr_sha256": "360e45a8f55d06312ff5aa255d03900f7de50bb706b68ab6b5bb79d3e0d310ee",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "status": 1,
+          "stderr_bytes": 53,
+          "stderr_sha256": "360e45a8f55d06312ff5aa255d03900f7de50bb706b68ab6b5bb79d3e0d310ee",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true
+      },
+      {
+        "applet": "rmmod",
+        "arguments": [
+          "--help"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 308,
+          "stdout_sha256": "3bcaaa9fbc7b819291bd11aba0c42ba78e1ee12fd49ad0fe66462542cf62e62c"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 308,
+          "stdout_sha256": "3bcaaa9fbc7b819291bd11aba0c42ba78e1ee12fd49ad0fe66462542cf62e62c"
+        },
+        "passed": true
+      },
+      {
+        "applet": "rmmod",
+        "arguments": [
+          "--version"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 43,
+          "stdout_sha256": "d77078ab03581a639216e043e7636ff745537c4942a3f5e391d723f0157d7713"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 43,
+          "stdout_sha256": "d77078ab03581a639216e043e7636ff745537c4942a3f5e391d723f0157d7713"
+        },
+        "passed": true
+      },
+      {
+        "applet": "rmmod",
+        "arguments": [
+          "--definitely-invalid"
+        ],
+        "clang": {
+          "status": 1,
+          "stderr_bytes": 50,
+          "stderr_sha256": "4bb2d4f42bb605168ff06034413c1558ffe3c1dae8cf6401fd314c575841fd07",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "gcc": {
+          "status": 1,
+          "stderr_bytes": 50,
+          "stderr_sha256": "4bb2d4f42bb605168ff06034413c1558ffe3c1dae8cf6401fd314c575841fd07",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true
+      },
+      {
+        "applet": "lsmod",
+        "arguments": [],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 2930,
+          "stdout_sha256": "a2974ec4ae5bd169d80d9437f24c47c9750af5059579a4c27beefa77ba0b831d"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 2930,
+          "stdout_sha256": "a2974ec4ae5bd169d80d9437f24c47c9750af5059579a4c27beefa77ba0b831d"
+        },
+        "passed": true
+      },
+      {
+        "applet": "modinfo",
+        "arguments": [
+          "/rustbox-kmod/oracle-gcc/testsuite/rootfs/test-modinfo/mod-simple.ko"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 336,
+          "stdout_sha256": "05d424e1608489088770bcde32d6c2fbd3e96ced0d95c4e5b0c5c09d66fcf4a6"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 336,
+          "stdout_sha256": "05d424e1608489088770bcde32d6c2fbd3e96ced0d95c4e5b0c5c09d66fcf4a6"
+        },
+        "passed": true
+      },
+      {
+        "applet": "modinfo",
+        "arguments": [
+          "--field=license",
+          "/rustbox-kmod/oracle-gcc/testsuite/rootfs/test-modinfo/mod-simple.ko"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 4,
+          "stdout_sha256": "d9e69b4ed9bd0fbd2310b72e9819b49ec5e25fb89da46778e7429167081bd48e"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 4,
+          "stdout_sha256": "d9e69b4ed9bd0fbd2310b72e9819b49ec5e25fb89da46778e7429167081bd48e"
+        },
+        "passed": true
+      },
+      {
+        "applet": "modprobe",
+        "arguments": [
+          "--dirname",
+          "/rustbox-kmod/oracle-gcc/testsuite/rootfs/test-modprobe/show-depends",
+          "--set-version",
+          "4.4.4",
+          "--show-depends",
+          "mod-simple"
+        ],
+        "clang": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 116,
+          "stdout_sha256": "00d94456073da9fa0506634f5e7548d040be96c650f7d48cc279737e2a5e4930"
+        },
+        "gcc": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 116,
+          "stdout_sha256": "00d94456073da9fa0506634f5e7548d040be96c650f7d48cc279737e2a5e4930"
+        },
+        "passed": true
+      }
+    ],
+    "schema": 1
+  },
+  "differential_sha256": "5e9a3d125519393e805d1d887743a2f502680f2aa6abf5f64afb5643613da40f",
+  "features": [
+    "ZSTD",
+    "XZ",
+    "ZLIB",
+    "OPENSSL"
+  ],
+  "needed_libraries": [
+    "libc.so.6",
+    "libcrypto.so.3",
+    "liblzma.so.5",
+    "libz.so.1",
+    "libzstd.so.1"
+  ],
+  "next_gate": "deterministic multicall-entrypoint normalization with canonical equivalence",
+  "production_closure": {
+    "gcc_clang_exact": true,
+    "relative_paths": [
+      "libkmod/libkmod-builtin.c",
+      "libkmod/libkmod-config.c",
+      "libkmod/libkmod-elf.c",
+      "libkmod/libkmod-file-xz.c",
+      "libkmod/libkmod-file-zlib.c",
+      "libkmod/libkmod-file-zstd.c",
+      "libkmod/libkmod-file.c",
+      "libkmod/libkmod-index.c",
+      "libkmod/libkmod-list.c",
+      "libkmod/libkmod-module.c",
+      "libkmod/libkmod-signature.c",
+      "libkmod/libkmod.c",
+      "shared/array.c",
+      "shared/hash.c",
+      "shared/strbuf.c",
+      "shared/util.c",
+      "tools/depmod.c",
+      "tools/insmod.c",
+      "tools/kmod.c",
+      "tools/log.c",
+      "tools/lsmod.c",
+      "tools/modinfo.c",
+      "tools/modprobe.c",
+      "tools/opt.c",
+      "tools/rmmod.c",
+      "tools/static-nodes.c"
+    ],
+    "sources": 26
+  },
+  "recorded_at": "2026-11-24",
+  "release": {
+    "archive": "kmod-34.3.tar.xz",
+    "key": "kmod-release-key.asc",
+    "key_sha256": "c831aee469d5ce1551206fa1e8b97985ba882d5790c64fe0bf6c6ec4b4665341",
+    "key_url": "https://keys.openpgp.org/vks/v1/by-fingerprint/EAB33C9690013C733916AC839BA2A5A630CBEA53",
+    "license": "LGPL-2.1-or-later for libkmod; GPL-2.0-or-later for tools",
+    "sha256": "985554de49c21a58abd68c6cda2251384e1e5bb08b3b14c7f02b51f4c90c2958",
+    "signature_mode": "uncompressed-tar",
+    "signature_sha256": "73f7c49fc79100a8377d35309631ecabade4455b8a3a225ff17943eb2e31d376",
+    "signature_url": "https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-34.3.tar.sign",
+    "signer_fingerprint": "EAB33C9690013C733916AC839BA2A5A630CBEA53",
+    "source_directory": "kmod-34.3",
+    "url": "https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-34.3.tar.xz",
+    "version": "34.3"
+  },
+  "schema": 1,
+  "signature_verified": true,
+  "status": "signed canonical oracle complete",
+  "upstream_suites": {
+    "clang": {
+      "expected_failures": 0,
+      "failures": 0,
+      "log_sha256": "737c37870140a19402a7fa3b348bb40d8240e5ea713848f1fa6f6fe166e10bed",
+      "passed": 16,
+      "skipped": 0,
+      "testlog_sha256": "a8f41cd29ed3c6afa1a7a3637a757dec9c253e9ab9766a344c545e540ac26fa5"
+    },
+    "gcc": {
+      "expected_failures": 0,
+      "failures": 0,
+      "log_sha256": "f710ce78afeb86c1c6091bc2db08562fbf1adb32785cc03b6ac86f510a66a70c",
+      "passed": 16,
+      "skipped": 0,
+      "testlog_sha256": "adaf8cc655511f1f5924b4190d62577637945dc5cb93be8ca736fca523e3d4ae"
+    }
+  },
+  "valgrind": {
+    "depmod": {
+      "errors": 0,
+      "sha256": "9983e45c40d78661eebbdb2abcd331890ef9bf814c605df2f83e957d2c664ecd"
+    },
+    "insmod": {
+      "errors": 0,
+      "sha256": "bb1c13438b7996f9d8c79f290ced047a28fc2eab229a4ccce3f0389f5b358ebc"
+    },
+    "kmod": {
+      "errors": 0,
+      "sha256": "f75b0700ea54c61138ec25bb1b9d95220ea91e0b0e9b1acf0fec9866be9e5842"
+    },
+    "lsmod": {
+      "errors": 0,
+      "sha256": "eaed4c8305165046a98cdfe65eff9def81b7347a5dfe260a07802d881ad64718"
+    },
+    "modinfo": {
+      "errors": 0,
+      "sha256": "37d4587bc55581bc1c956b506e178a3d62b363afcb80a079808a2888bd220df3"
+    },
+    "modprobe": {
+      "errors": 0,
+      "sha256": "2a429ac9507834a31edb4d3d28f0e481db7d991c3958cc973135ff1e19192915"
+    },
+    "rmmod": {
+      "errors": 0,
+      "sha256": "4b2f44908c361ce00a352599db7c5224a9097476835f24a020e17dad475c2616"
+    }
+  }
+}
