@@ -71,7 +71,7 @@ RUSTBOX_TOOL_IMAGE=rustbox-bison:2026-11-23 \
       label=$(printf "%s" "$option" | tr -d -)
       valgrind --leak-check=full --show-leak-kinds=all \
         --log-file="$output/valgrind-$label.log" \
-        "$volume/oracle-v3-gcc/tests/bison" "$option" \
+        "$volume/oracle-v3-gcc/src/bison" "$option" \
         >"$output/valgrind-$label.out" 2>&1
     done
   '

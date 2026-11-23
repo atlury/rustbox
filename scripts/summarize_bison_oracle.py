@@ -117,6 +117,7 @@ def main() -> int:
 
     databases: dict[str, object] = {}
     suites: dict[str, object] = {}
+    expected_closure = {"gcc": 164, "clang": 154, "sanitizer": 164}
     for compiler in ("gcc", "clang", "sanitizer"):
         path = ANALYSIS / f"{compiler}-compile-commands.json"
         records = json.loads(path.read_text())
@@ -125,7 +126,8 @@ def main() -> int:
             source for source in sources
             if source.endswith("/lib/main.c") or source.endswith("/lib/yyerror.c")
         ]
-        if len(records) != 164 or len(sources) != 164 or len(liby) != 2:
+        expected = expected_closure[compiler]
+        if len(records) != expected or len(sources) != expected or len(liby) != 2:
             raise RuntimeError(f"Bison {compiler} compile closure changed")
         databases[compiler] = {
             "commands": len(records),
