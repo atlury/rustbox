@@ -1,0 +1,111 @@
+{
+  "complete_translation": {
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "c81d2c606601757728b31ae9e3c5f28e201dca1cdaa4f653e67dbafe99cc5dc4",
+      "cargo_toml_sha256": "2b04389f91b518f5323bfaa7c1ed46405fd7b0b198aeda59f05a1868de8efce6",
+      "diagnostics_by_level": {
+        "warning": 74
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "09ac97ca8f64fff3c2d3ca8f5e7abc0e47764648cb88abc0cf2ed94dc3e4b53a",
+      "toolchain_request": "nightly-2023-04-15",
+      "warning_codes": {
+        "clashing_extern_declarations": 13,
+        "stable_features": 1,
+        "unused_must_use": 1,
+        "unused_parens": 4,
+        "unused_unsafe": 26,
+        "unused_variables": 28
+      }
+    },
+    "holes": {
+      "C2Rust Translation Error": 0,
+      "compile_error!": 0,
+      "todo!": 0,
+      "unimplemented!": 0
+    },
+    "raw_pointer_type_occurrences": 11271,
+    "rust_bytes": 1646457,
+    "rust_files": 28,
+    "rust_lines": 44245,
+    "unsafe_block_occurrences": 61,
+    "unsafe_function_occurrences": 2527
+  },
+  "hardening": {
+    "deferred_until_all_applets_complete": true,
+    "raw_pointers_and_unsafe_are_inventory_only": true
+  },
+  "input": {
+    "compile_commands": 26,
+    "compile_database_sha256": "09387344285299a529ad23870e4bf2165d1243186340ba76df04acb5cc939138",
+    "normalization_evidence_sha256": "8a8a7a42633fc2f594e6923d66cc50124ba23f5e1459cf4e7a2eebd410566f65",
+    "oracle_evidence_sha256": "fe1155012bfaba0a58f7427bba3f4f74aa0ee996d300d78fa9305307d17d9ef0"
+  },
+  "next_gate": "prove hybrid parity and link all seven Kmod names into Rustbox",
+  "recorded_at": "2026-11-24",
+  "release": "34.3",
+  "schema": 1,
+  "stable_translation": {
+    "active_translated_c_sources": 26,
+    "archive": {
+      "bytes": 23884252,
+      "entrypoint_definition_counts": {
+        "rustbox_kmod_main": 1
+      },
+      "sha256": "ac868cae19c7db93e17944b5d950929647cbd04e7364b1b34da459a8e4fc23b5"
+    },
+    "canonical_c_sources": [],
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+      "cargo_lock_sha256": "08f30c1ce57cee5504b55043c61fa435db6a73e37952620cbc88c81a03c9d98e",
+      "cargo_toml_sha256": "2b04389f91b518f5323bfaa7c1ed46405fd7b0b198aeda59f05a1868de8efce6",
+      "diagnostics_by_level": {
+        "warning": 79
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+      "schema": 1,
+      "stderr_sha256": "970fa337ea5fc0aab2452671bbee4adb55e60188c264d7f0802e27b08ccffc30",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "clashing_extern_declarations": 13,
+        "suspicious_runtime_symbol_definitions": 3,
+        "unused_must_use": 1,
+        "unused_parens": 4,
+        "unused_unsafe": 30,
+        "unused_variables": 28
+      }
+    },
+    "finalization_manifest_sha256": "11eb7e954fafc901c1fe8778db823c793622addf43926df9743b02ca3fbc7aa2",
+    "holes": {
+      "C2Rust Translation Error": 0,
+      "compile_error!": 0,
+      "todo!": 0,
+      "unimplemented!": 0
+    },
+    "modernization_manifest_sha256": "9e2264cd5b579a5b949b42f86a7cfaa274f70a9665975d7ec2fdef74b57f683d",
+    "raw_pointer_type_occurrences": 11271,
+    "rust_bytes": 1656560,
+    "rust_files": 28,
+    "rust_lines": 44864,
+    "stable_representation_repairs": 12,
+    "unsafe_block_occurrences": 61,
+    "unsafe_function_occurrences": 2527
+  },
+  "status": "complete no-hole translation and stable hybrid-ready Rust archive",
+  "translator": {
+    "fail_on_error": true,
+    "name": "C2Rust",
+    "preserve_unused_functions": true,
+    "translated_c_sources": 26,
+    "translation_holes": 0,
+    "version": "0.22.1"
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "differential": {
+    "cases": 25,
+    "exact": true,
+    "passed": 25,
+    "sha256": "4eeda2a7df0e56da233c59a106db2db4d021ee8f227ce6cf23eac71475b7681a"
+  },
+  "frontends": [
+    "kmod",
+    "depmod",
+    "insmod",
+    "lsmod",
+    "modinfo",
+    "modprobe",
+    "rmmod"
+  ],
+  "hybrid": {
+    "binary": {
+      "bytes": 4687088,
+      "dynamic_needed": [
+        "libzstd.so.1",
+        "liblzma.so.5",
+        "libz.so.1",
+        "libcrypto.so.3",
+        "libm.so.6",
+        "libgcc_s.so.1",
+        "libc.so.6",
+        "ld-linux-x86-64.so.2"
+      ],
+      "entrypoint_definition_counts": {
+        "rustbox_kmod_main": 1
+      },
+      "sha256": "062281c40e3be13f9b2c482d7eb832b5ff41880a8325345297c9db2f32498527",
+      "stripped_bytes": 508312,
+      "stripped_sha256": "b4b03d283978fd1345c973ed45c92e0e26d8b1b7b9dce3b9f9c0933f02e85a2d"
+    },
+    "canonical_c_sources": [],
+    "translated_rust_sources": 26
+  },
+  "next_gate": "link all seven Kmod names into the unified Rustbox multicall",
+  "recorded_at": "2026-11-24",
+  "release": "34.3",
+  "schema": 1,
+  "status": "all seven Kmod frontends at signed canonical parity",
+  "valgrind": {
+    "depmod": {
+      "all_heap_blocks_freed": true,
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "64581ff6890eb0561bff936be4762abd110df212ac03c27495b823b4d2fb8b74"
+    },
+    "insmod": {
+      "all_heap_blocks_freed": true,
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "67ca86dca2a7804fbd212971fb02bd52674970f5c54ee74af2354ae5375b54e5"
+    },
+    "kmod": {
+      "all_heap_blocks_freed": true,
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "018052c99db728f0c0a685f6857a9d59d0460ee77c4b03e172725611a7ea140b"
+    },
+    "lsmod": {
+      "all_heap_blocks_freed": true,
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "422cf715984d0b53b71de06730215d4b2bdeeedf12806e4fe59232db0ac2a7d6"
+    },
+    "modinfo": {
+      "all_heap_blocks_freed": true,
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "163913779b361382c8e7234f2443d3b0a359923ebf371f1b8df0dccf5c27fa4f"
+    },
+    "modprobe": {
+      "all_heap_blocks_freed": true,
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "8f497cbf559a4f5c66d7f795ea4aa1baa4f069bfc6da5b8d98ba8c27faec92ed"
+    },
+    "rmmod": {
+      "all_heap_blocks_freed": true,
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "8a51bc9a564f0669c18d49ae5c4e5b64f4bd96225434cc0f8b9295a36c34e397"
+    }
+  }
+}
