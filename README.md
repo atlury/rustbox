@@ -1366,8 +1366,13 @@ Library-only checkpoints (outside the active utility order):
      comparisons agree, all 49 production sources complete five analyzer
      passes, and all 20 version paths have recorded Valgrind behavior.  Upstream
      `sysctl --version` retains its canonical 16-byte exit leak; the other 19
-     paths are clean.  Deterministic 20-program entrypoint normalization is
-     next.  Duplicate public names such as `kill` and `uptime` remain separately
+     paths are clean.  Deterministic normalization now exports 17 engines for
+     all 20 programs while preserving standalone dispatch.  GCC and Clang each
+     retain all 166 upstream passes, all 102 compiler-specific canonical
+     comparisons pass, every expected exported definition is unique, and all
+     20 normalized resource paths match the canonical allocation baseline.
+     Strict no-hole translation is next.  Duplicate public names such as `kill`
+     and `uptime` remain separately
      verified until the final dispatcher precedence decision.
    - [ ] Shadow 4.20.3 — `chage`, `chfn`, `chgpasswd`, `chpasswd`, `chsh`,
      `faillog`, `getsubids`, `gpasswd`, `groupadd`, `groupdel`, `groupmod`,
