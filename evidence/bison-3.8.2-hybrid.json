@@ -1,0 +1,87 @@
+{
+  "differential": {
+    "cases": 12,
+    "compiled_parsers": 5,
+    "coverage": [
+      "CLI diagnostics",
+      "C pull",
+      "C push",
+      "C GLR",
+      "C++ LALR",
+      "C++ GLR",
+      "C++ GLR2",
+      "POSIX yacc",
+      "text report",
+      "Graphviz",
+      "XML"
+    ],
+    "passed": 12,
+    "sha256": "0d7a35ca40fc01de0203c5a30403f6b1a9f703f4e43c8470fdb97625225becb4"
+  },
+  "frontends": [
+    "bison",
+    "yacc"
+  ],
+  "hybrid": {
+    "binary": {
+      "bytes": 5280496,
+      "dynamic_needed": [
+        "libm.so.6",
+        "libgcc_s.so.1",
+        "libc.so.6",
+        "ld-linux-x86-64.so.2"
+      ],
+      "entrypoint_definition_counts": {
+        "rustbox_bison_main": 1,
+        "rustbox_yacc_main": 1
+      },
+      "sha256": "a594f5346bd853a4838c386258e2eb2f65da27a7cb117113867e04595887979d",
+      "stripped_bytes": 969960,
+      "stripped_sha256": "f44052c78af49229c05057c628c3413f01600d3fd5796261dc36c737a4bf945b"
+    },
+    "canonical_c_sources": [
+      "lib/printf-args.c",
+      "lib/printf-frexpl.c",
+      "lib/printf-parse.c",
+      "lib/vasnprintf.c"
+    ],
+    "residue_manifest_sha256": "f8cd4a037be6735ac0fa44cb6cab5b83a9ba34cc9884cf29cc9f7868d1d1f65f",
+    "translated_rust_sources": 148
+  },
+  "recorded_at": "2026-11-23",
+  "release": "3.8.2",
+  "runtime_boundary": {
+    "current": [
+      "external GNU M4",
+      "external C/C++ skeleton data directory"
+    ],
+    "next": [
+      "route M4 through Rustbox's GNU M4 applet",
+      "embed and materialize the required C/C++ skeleton resources",
+      "link both frontends into the unified multicall"
+    ]
+  },
+  "schema": 1,
+  "status": "full C/C++ Bison hybrid at canonical generated-parser parity",
+  "valgrind": {
+    "definitely_lost_bytes": 0,
+    "errors": 0,
+    "indirectly_lost_bytes": 0,
+    "possibly_lost_bytes": 0,
+    "sha256": "17a2b267b9c17ed083e0658b29e6d3ebd6f5263fc84e22e1e58a936888bcc35b"
+  },
+  "yacc_frontend": {
+    "compile_status": 0,
+    "generated_sha256": {
+      "y.tab.c": "4cd5e3fcd1c8d752a319d6758444a7070c7ad80961b33ace3916a1cae2d45a7a",
+      "y.tab.h": "405501cb57bb539a16ea532adb5963e67958478fa1a12f97c48e6f398bdb8329"
+    },
+    "passed": true,
+    "runtime_status": 0,
+    "schema": 1,
+    "sha256": "4ef7229abc91aa0bd8b7a6df3d65fb27b5973d756983c26ba512a0768507cadf",
+    "status": 0,
+    "stderr_sha256": "c7637aaffaa9978ad5d325489bc9d3d3cfc482e0e755f37cc88307ff75512aa9",
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

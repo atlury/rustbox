@@ -76,6 +76,49 @@ def retain_variadic_c_boundary(crate: Path) -> dict[str, object]:
     }
 
 
+def merge_bitset_file_and_directory(crate: Path) -> dict[str, object]:
+    library = crate / "lib.rs"
+    bitset = crate / "src/lib/bitset.rs"
+    library_text = library.read_text(encoding="utf-8")
+    bitset_text = bitset.read_text(encoding="utf-8")
+    inline = """pub mod bitset {
+pub mod array;
+pub mod list;
+pub mod stats;
+pub mod table;
+pub mod vector;
+} // mod bitset
+"""
+    if library_text.count(inline) != 1:
+        raise RuntimeError("Bison bitset file/directory module closure changed")
+    declarations = """pub mod array;
+pub mod list;
+pub mod stats;
+pub mod table;
+pub mod vector;
+
+"""
+    if declarations in bitset_text:
+        raise RuntimeError("Bison bitset child modules are already declared")
+    library_before = sha256(library)
+    bitset_before = sha256(bitset)
+    library.write_text(library_text.replace(inline, "pub mod bitset;\n"), encoding="utf-8")
+    bitset.write_text(declarations + bitset_text, encoding="utf-8")
+    return {
+        "paths": ["lib.rs", "src/lib/bitset.rs"],
+        "before_sha256": [library_before, bitset_before],
+        "after_sha256": [sha256(library), sha256(bitset)],
+        "operation": (
+            "merge C2Rust's bitset.rs/file and bitset/directory module collision"
+        ),
+        "semantic_basis": (
+            "GNU Bison compiles lib/bitset.c together with all five "
+            "lib/bitset/*.c implementation units; the translator emitted both "
+            "but its inline directory module shadowed bitset.rs"
+        ),
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--crate", required=True, type=Path)
@@ -86,6 +129,7 @@ def main() -> int:
             raise RuntimeError(f"missing preparation manifest: {required}")
 
     changes = [
+        merge_bitset_file_and_directory(crate),
         repair_prime_table(crate, crate / "src/lib/gl_hash_map.rs"),
         repair_prime_table(crate, crate / "src/lib/gl_rbtreehash_list.rs"),
         retain_variadic_c_boundary(crate),

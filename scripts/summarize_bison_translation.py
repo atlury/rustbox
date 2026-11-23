@@ -75,7 +75,13 @@ def main() -> int:
         raise RuntimeError("Bison cross-module type closure changed")
 
     finalization = json.loads((stable / "rustbox-bison-stable.json").read_text())
-    boundary = finalization["changes"][2]
+    boundaries = [
+        change for change in finalization["changes"]
+        if "canonical_c_residue" in change
+    ]
+    if len(boundaries) != 1:
+        raise RuntimeError("Bison canonical C boundary manifest changed")
+    boundary = boundaries[0]
     expected_c = [
         "lib/printf-args.c", "lib/printf-frexpl.c",
         "lib/printf-parse.c", "lib/vasnprintf.c",
@@ -83,7 +89,7 @@ def main() -> int:
     if boundary["canonical_c_residue"] != expected_c:
         raise RuntimeError("Bison canonical C ABI boundary changed")
     active_modules = len(re.findall(r"^pub mod ", (stable / "lib.rs").read_text(), re.MULTILINE))
-    if active_modules != 155:
+    if active_modules != 150:
         raise RuntimeError(f"Bison active Rust module count changed: {active_modules}")
 
     cargo = json.loads((stable / "rustbox-cargo-check.json").read_text())
