@@ -1,0 +1,245 @@
+{
+  "applets": 4,
+  "hardening": {
+    "deferred_until_all_applets_complete": true,
+    "raw_pointers_and_unsafe_are_inventory_only": true
+  },
+  "next_gate": "complete program-scoped hybrid parity for the remaining 22 GNU Inetutils programs, namespace their defined symbols, and integrate all 26",
+  "programs": {
+    "dnsdomainname": {
+      "binary": {
+        "bytes": 4505936,
+        "entrypoint": "rustbox_inetutils_dnsdomainname_main",
+        "needed": [
+          "ld-linux-x86-64.so.2",
+          "libc.so.6",
+          "libgcc_s.so.1",
+          "libm.so.6"
+        ],
+        "sha256": "8349a816ea53e49b6d8885b1c6d7b8f6405b54c3dac7b6f97827370b5f3b2437"
+      },
+      "cargo_check_sha256": "887edaa7e90d20ef2289a0bfdc3078a5601c368bcc475c787bb0382f751290a9",
+      "clashing_extern_declarations": 6,
+      "closure_manifest_sha256": "695686dc6e443cc5d95f1670a308595083b10afc96e77b860f44c9d4029938f2",
+      "holes": {
+        "C2Rust Translation Error": 0,
+        "compile_error!": 0,
+        "todo!": 0,
+        "unimplemented!": 0
+      },
+      "raw_pointer_type_occurrences": 2662,
+      "rust_files": 22,
+      "rust_lines": 12618,
+      "sources": [
+        "lib/argp-ba.c",
+        "lib/argp-eexst.c",
+        "lib/argp-fmtstream.c",
+        "lib/argp-help.c",
+        "lib/argp-parse.c",
+        "lib/argp-pv.c",
+        "lib/argp-pvh.c",
+        "lib/argp-version-etc.c",
+        "lib/basename-lgpl.c",
+        "lib/exitfail.c",
+        "lib/getopt.c",
+        "lib/getopt1.c",
+        "lib/progname.c",
+        "lib/reallocarray.c",
+        "lib/version-etc-fsf.c",
+        "lib/version-etc.c",
+        "lib/xalloc-die.c",
+        "lib/xgethostname.c",
+        "lib/xmalloc.c",
+        "src/dnsdomainname.c"
+      ],
+      "translated_sources": 20,
+      "valgrind": {
+        "errors": 0,
+        "log_sha256": "6d01aa7f9cc902e8405c6e2fe7653933ce00ce591a37693ab7a268e759f9581a"
+      }
+    },
+    "hostname": {
+      "binary": {
+        "bytes": 4515848,
+        "entrypoint": "rustbox_inetutils_hostname_main",
+        "needed": [
+          "ld-linux-x86-64.so.2",
+          "libc.so.6",
+          "libgcc_s.so.1",
+          "libm.so.6"
+        ],
+        "sha256": "5432b78951e54ba4752f71a5009845c59cbff68990290d17f03e08ff21cdb5b1"
+      },
+      "cargo_check_sha256": "b25d2db121c06a512f903918f920391d7e9e1abe1cf5826ee517bcae210bdc4d",
+      "clashing_extern_declarations": 6,
+      "closure_manifest_sha256": "a2c0135cc170698accf0f1c14680dd7c874a82bff5907ff978218bcad21521fa",
+      "holes": {
+        "C2Rust Translation Error": 0,
+        "compile_error!": 0,
+        "todo!": 0,
+        "unimplemented!": 0
+      },
+      "raw_pointer_type_occurrences": 3168,
+      "rust_files": 26,
+      "rust_lines": 14764,
+      "sources": [
+        "lib/argp-ba.c",
+        "lib/argp-eexst.c",
+        "lib/argp-fmtstream.c",
+        "lib/argp-help.c",
+        "lib/argp-parse.c",
+        "lib/argp-pv.c",
+        "lib/argp-pvh.c",
+        "lib/argp-version-etc.c",
+        "lib/basename-lgpl.c",
+        "lib/exitfail.c",
+        "lib/fopen.c",
+        "lib/getdelim.c",
+        "lib/getline.c",
+        "lib/getopt.c",
+        "lib/getopt1.c",
+        "lib/progname.c",
+        "lib/reallocarray.c",
+        "lib/version-etc-fsf.c",
+        "lib/version-etc.c",
+        "lib/xalloc-die.c",
+        "lib/xgetdomainname.c",
+        "lib/xgethostname.c",
+        "lib/xmalloc.c",
+        "src/hostname.c"
+      ],
+      "translated_sources": 24,
+      "valgrind": {
+        "errors": 0,
+        "log_sha256": "01cb8e2b6664a176bfd54d8c874d4b03100742d14d48d6e8bf7f2a6717ab44b8"
+      }
+    },
+    "logger": {
+      "binary": {
+        "bytes": 4517200,
+        "entrypoint": "rustbox_inetutils_logger_main",
+        "needed": [
+          "ld-linux-x86-64.so.2",
+          "libc.so.6",
+          "libgcc_s.so.1",
+          "libm.so.6"
+        ],
+        "sha256": "eb3d1ce01c736a528feabbb4320e2e6f6df477bb8fbd6c07a3c30c2ed4f52d30"
+      },
+      "cargo_check_sha256": "7f52a212c148b3ab51c37f340afc1a886535dd2ea2366451cbc0014bac047f5a",
+      "clashing_extern_declarations": 6,
+      "closure_manifest_sha256": "a214ffde42f184d4b073197b5812caa1267a49cdc2f30513bbe52ccf854d1f00",
+      "holes": {
+        "C2Rust Translation Error": 0,
+        "compile_error!": 0,
+        "todo!": 0,
+        "unimplemented!": 0
+      },
+      "raw_pointer_type_occurrences": 3072,
+      "rust_files": 24,
+      "rust_lines": 14432,
+      "sources": [
+        "lib/argp-ba.c",
+        "lib/argp-eexst.c",
+        "lib/argp-fmtstream.c",
+        "lib/argp-help.c",
+        "lib/argp-parse.c",
+        "lib/argp-pv.c",
+        "lib/argp-pvh.c",
+        "lib/argp-version-etc.c",
+        "lib/basename-lgpl.c",
+        "lib/exitfail.c",
+        "lib/getdelim.c",
+        "lib/getline.c",
+        "lib/getopt.c",
+        "lib/getopt1.c",
+        "lib/progname.c",
+        "lib/reallocarray.c",
+        "lib/umaxtostr.c",
+        "lib/version-etc-fsf.c",
+        "lib/version-etc.c",
+        "lib/xalloc-die.c",
+        "lib/xmalloc.c",
+        "src/logger.c"
+      ],
+      "translated_sources": 22,
+      "valgrind": {
+        "errors": 0,
+        "log_sha256": "f1632874a6ca41436d4ae230c2101f8f5fc4858e8851ee23e4f9a1514ad49bac"
+      }
+    },
+    "whois": {
+      "binary": {
+        "bytes": 4597680,
+        "entrypoint": "rustbox_inetutils_whois_main",
+        "needed": [
+          "ld-linux-x86-64.so.2",
+          "libc.so.6",
+          "libgcc_s.so.1",
+          "libm.so.6"
+        ],
+        "sha256": "67f9c75f57e1d35c544f176ffd1d490a0f11ac9c699c7e7eb5164795cc9d2be4"
+      },
+      "cargo_check_sha256": "605a881e0992d59a9bc416db001d578b04dcb92da6ce2c53f7371b323a67c9bd",
+      "clashing_extern_declarations": 6,
+      "closure_manifest_sha256": "5614ce9ef35926933dba0a8f96c7de3a1408f7a292744b691f906500929be254",
+      "holes": {
+        "C2Rust Translation Error": 0,
+        "compile_error!": 0,
+        "todo!": 0,
+        "unimplemented!": 0
+      },
+      "raw_pointer_type_occurrences": 6230,
+      "rust_files": 22,
+      "rust_lines": 20071,
+      "sources": [
+        "lib/argp-ba.c",
+        "lib/argp-eexst.c",
+        "lib/argp-fmtstream.c",
+        "lib/argp-help.c",
+        "lib/argp-parse.c",
+        "lib/argp-pv.c",
+        "lib/argp-pvh.c",
+        "lib/argp-version-etc.c",
+        "lib/basename-lgpl.c",
+        "lib/exitfail.c",
+        "lib/getopt.c",
+        "lib/getopt1.c",
+        "lib/obstack.c",
+        "lib/progname.c",
+        "lib/reallocarray.c",
+        "lib/version-etc-fsf.c",
+        "lib/version-etc.c",
+        "lib/xalloc-die.c",
+        "lib/xmalloc.c",
+        "whois/whois.c"
+      ],
+      "translated_sources": 20,
+      "valgrind": {
+        "errors": 0,
+        "log_sha256": "541e60fc9b11fa28407f798b693a741801019fb3c8296eb601a3de5c43e17178"
+      }
+    }
+  },
+  "recorded_at": "2026-11-24",
+  "release": "2.8",
+  "schema": 1,
+  "scope": {
+    "integrated_into_rustbox": false,
+    "program_namespaces_are_separate": true
+  },
+  "status": "complete program-scoped hybrid canonical parity",
+  "tests": {
+    "differential_cases": 22,
+    "differential_passed": 22,
+    "differential_sha256": "301b23852be48c6d4bc86bd876010f603c062741f9d2d157621afe52fcf4cd8d",
+    "valgrind_errors": 0,
+    "valgrind_programs": 4
+  },
+  "translation": {
+    "canonical_c_residue_sources": 0,
+    "holes": 0,
+    "program_source_instances": 86,
+    "unique_sources": 29
+  }
+}
