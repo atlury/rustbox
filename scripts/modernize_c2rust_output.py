@@ -52,6 +52,7 @@ REMOVED_FEATURES = {
     "#![feature(label_break_value)]",
     "#![feature(linkage)]",
     "#![feature(raw_ref_op)]",
+    "#![feature(stdsimd)]",
 }
 
 CHECKED_ARITHMETIC_SUPPORT = r'''
@@ -402,6 +403,17 @@ def transform_rust(
         and line.strip() != '#[linkage = "external"]'
     ]
 
+    # C permits `await` as a field name while modern Rust reserves it.  Keep
+    # the generated C layout and spelling with Rust's raw-identifier syntax.
+    await_field_rewrites = 0
+    rewritten = []
+    for line in kept:
+        changed, definitions = re.subn(r"\bawait(?=\s*:)", "r#await", line)
+        changed, accesses = re.subn(r"(?<=\.)await\b", "r#await", changed)
+        await_field_rewrites += definitions + accesses
+        rewritten.append(changed)
+    kept = rewritten
+
     mutable_statics = {
         match.group(1) for line in kept if (match := STATIC_MUT.match(line))
     }
@@ -532,6 +544,7 @@ def transform_rust(
         "raw_static_pointer_rewrites": raw_static_pointer_rewrites,
         "va_list_impl_rewrites": va_list_impl_rewrites,
         "as_va_list_rewrites": as_va_list_rewrites,
+        "await_field_rewrites": await_field_rewrites,
         "va_arg_rewrites": va_arg_rewrites,
         "atomic_xchg_acquire_i32_rewrites": atomic_xchg_acquire_rewrites,
         "integer_to_bool_rewrites": integer_to_bool_rewrites,

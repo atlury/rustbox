@@ -1,0 +1,109 @@
+{
+  "abi_boundary": {
+    "reason": "stable Rust's sealed VaArgSafe trait cannot represent the x86_64 SysV C long-double va_arg operation emitted as f128 by C2Rust",
+    "target": "x86_64-unknown-linux-gnu"
+  },
+  "complete_translation": {
+    "f128_source_modules": [
+      "src/lib/mprintf.rs"
+    ],
+    "holes": {
+      "C2Rust Translation Error": 0,
+      "compile_error!": 0,
+      "todo!": 0,
+      "unimplemented!": 0
+    },
+    "raw_pointer_type_occurrences": 97204,
+    "rust_bytes": 16811033,
+    "rust_files": 242,
+    "rust_lines": 432477,
+    "rust_module_declarations": 250,
+    "unsafe_block_occurrences": 193,
+    "unsafe_function_occurrences": 14801
+  },
+  "hardening": {
+    "deferred_until_all_applets_complete": true,
+    "raw_pointers_and_unsafe_are_inventory_only": true
+  },
+  "input": {
+    "compile_commands": 240,
+    "compile_database_sha256": "26e97acb2926b6c8a512dea48c9c850d0cd5b3e8d615324dedc88a45204f0f06",
+    "excluded_unit_test_actions": 237,
+    "normalization_evidence_sha256": "be42bdeba4bf74264504e53da9a3d11cf3d0db2cfe3ddff195d133eecd7a9707"
+  },
+  "next_gate": "link lib/mprintf.c with the stable Rust archive, prove curl and libcurl canonical differential parity, and integrate curl plus curl-config",
+  "recorded_at": "2026-11-23",
+  "release": "8.23.0",
+  "schema": 1,
+  "stable_translation": {
+    "active_translated_c_sources": 239,
+    "archive": {
+      "bytes": 39320932,
+      "entrypoint_definition_counts": {
+        "rustbox_curl_main": 1
+      },
+      "sha256": "d360a77e53bca31d38899c506cad8e1837c10134663a6aed6210b28160d6668b"
+    },
+    "canonical_c_bridge_sources": [
+      "lib/mprintf.c"
+    ],
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.99.0 (5f94df478 2026-08-27)",
+      "cargo_lock_sha256": "50956311d6ce78e9a0ea1be855c8376eeebdd43daa0093ce0efc3211d317f487",
+      "cargo_toml_sha256": "bd717d8ba1947b9a0e6a1675cf9c989c13b5d06ee08bd51378f0ca3a556318dd",
+      "diagnostics_by_level": {
+        "warning": 1204
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+      "schema": 1,
+      "stderr_sha256": "e7f094b88b166936417bb359d008d176109cb43c46c1694959c3fb44b7fa1e51",
+      "toolchain_request": "crate default",
+      "warning_codes": {
+        "clashing_extern_declarations": 761,
+        "path_statements": 1,
+        "unpredictable_function_pointer_comparisons": 3,
+        "unused_imports": 5,
+        "unused_must_use": 24,
+        "unused_parens": 4,
+        "unused_unsafe": 83,
+        "unused_variables": 323
+      }
+    },
+    "finalization_manifest_sha256": "e190614d475a6081deff7657527403d2ba7f1abfc5da02cd38f7690a3ef1152a",
+    "holes": {
+      "C2Rust Translation Error": 0,
+      "compile_error!": 0,
+      "todo!": 0,
+      "unimplemented!": 0
+    },
+    "modernization_manifest_sha256": "4f77789e465a8b8f0941efbdd08cae5f29ff24afe7dbdc1ec20e4abb5b2f1ddc",
+    "raw_pointer_type_occurrences": 97204,
+    "rust_bytes": 16875221,
+    "rust_dependencies": [
+      "c2rust-bitfields",
+      "libc"
+    ],
+    "rust_files": 242,
+    "rust_lines": 437911,
+    "rust_module_declarations": 249,
+    "unsafe_block_occurrences": 193,
+    "unsafe_function_occurrences": 14801
+  },
+  "status": "complete no-hole translation and stable hybrid-ready Rust archive",
+  "translator": {
+    "fail_on_error": true,
+    "name": "C2Rust",
+    "preserve_unused_functions": true,
+    "translated_c_sources": 240,
+    "translation_holes": 0,
+    "translation_only_configuration": {
+      "CURL_DISABLE_TYPECHECK": true,
+      "HAVE_ATOMIC": false,
+      "linux_swab_portable_fallback": true
+    },
+    "version": "0.22.1"
+  }
+}

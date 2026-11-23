@@ -1133,8 +1133,15 @@ one-file normalization exports `rustbox_curl_main` while retaining the
 standalone wrapper; all 1,601 applicable upstream tests, 12 canonical
 differential cases, generated-source comparisons, and both Valgrind paths
 remain clean in `evidence/curl-8.23.0-normalization.json`.  No-hole translation
-and multicall integration remain the next gates, so curl is not yet counted as
-an integrated Rust applet.
+is complete for all 240 production sources with `--fail-on-error` and
+`--preserve-unused-functions`.  Stable Rust compiles and archives 239 translated
+sources without holes; canonical `lib/mprintf.c` remains the sole C bridge
+because stable Rust's sealed variadic ABI cannot express x86_64 SysV
+`long double`.  The inactive `f128` and `num-traits` dependencies are removed
+from the stable partition.  The exact closure, compiler diagnostics, archive,
+pointer inventory, and boundary decision are recorded in
+`evidence/curl-8.23.0-c2rust.json`.  Hybrid parity and multicall integration
+remain the next gates, so curl is not yet counted as an integrated Rust applet.
 
 ## Work queue after util-linux
 
