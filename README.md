@@ -1129,8 +1129,12 @@ Reproducible evidence is in `evidence/curl-8.23.0-oracle.json`.  Its exact
 477-action Cppcheck, GCC, Clang, Flawfinder, and Sparse audit is recorded in
 `evidence/curl-8.23.0-static-analysis.json`; GCC successfully replays every
 configured action and Sparse completes without parser errors.  Deterministic
-normalization, no-hole translation, and multicall integration remain the next
-gates, so curl is not yet counted as an integrated Rust applet.
+one-file normalization exports `rustbox_curl_main` while retaining the
+standalone wrapper; all 1,601 applicable upstream tests, 12 canonical
+differential cases, generated-source comparisons, and both Valgrind paths
+remain clean in `evidence/curl-8.23.0-normalization.json`.  No-hole translation
+and multicall integration remain the next gates, so curl is not yet counted as
+an integrated Rust applet.
 
 ## Work queue after util-linux
 

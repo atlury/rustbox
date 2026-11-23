@@ -1,0 +1,292 @@
+{
+  "binary": {
+    "bytes": 5241608,
+    "needed": [
+      "libc.so.6"
+    ],
+    "sha256": "bf7bab54217b26143dce45f704fba0b859600ac159e4a2b5186183d0e507640d"
+  },
+  "canonical_differential": {
+    "cases": 12,
+    "gcc_clang_exact": true,
+    "passed": 12,
+    "records": [
+      {
+        "arguments": [
+          "--version"
+        ],
+        "name": "version",
+        "passed": true,
+        "result": {
+          "status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e80b0bca32a5d22e171300c31b64e8a4efbdb1cc62f0c9ef99867e1b6501b361",
+          "tree": {
+            "payload.txt": "40be69c2fd237b500443afac02a799ae84648274463549000b94d68b28f8188d",
+            "second.txt": "83321491aec4bbf08e06e7bb792209f57747825be952d0cf5518d695d0aadd2c"
+          }
+        }
+      },
+      {
+        "arguments": [
+          "--help",
+          "all"
+        ],
+        "name": "help",
+        "passed": true,
+        "result": {
+          "status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "ad1c42cf64f70ca40faf14eeeb8ead983aa274dacb6253f7f525d8d0f4fad876",
+          "tree": {
+            "payload.txt": "40be69c2fd237b500443afac02a799ae84648274463549000b94d68b28f8188d",
+            "second.txt": "83321491aec4bbf08e06e7bb792209f57747825be952d0cf5518d695d0aadd2c"
+          }
+        }
+      },
+      {
+        "arguments": [
+          "--manual"
+        ],
+        "name": "manual",
+        "passed": true,
+        "result": {
+          "status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "36b86ddf4660e65c4cbcb2ada287c390a8c07abdc66a0cb47c53b033941c3ce7",
+          "tree": {
+            "payload.txt": "40be69c2fd237b500443afac02a799ae84648274463549000b94d68b28f8188d",
+            "second.txt": "83321491aec4bbf08e06e7bb792209f57747825be952d0cf5518d695d0aadd2c"
+          }
+        }
+      },
+      {
+        "arguments": [
+          "--definitely-not-a-curl-option"
+        ],
+        "name": "invalid-option",
+        "passed": true,
+        "result": {
+          "status": 2,
+          "stderr_sha256": "00642a6b394df76d28232b0a9674b3148f8aaecce4b6035e077670d3e5dbee2a",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tree": {
+            "payload.txt": "40be69c2fd237b500443afac02a799ae84648274463549000b94d68b28f8188d",
+            "second.txt": "83321491aec4bbf08e06e7bb792209f57747825be952d0cf5518d695d0aadd2c"
+          }
+        }
+      },
+      {
+        "arguments": [],
+        "name": "missing-url",
+        "passed": true,
+        "result": {
+          "status": 2,
+          "stderr_sha256": "b94fdf47e4a9e9c198f184fd67cd07eec776d43e62257d6d3d3cdcd0543c79d2",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tree": {
+            "payload.txt": "40be69c2fd237b500443afac02a799ae84648274463549000b94d68b28f8188d",
+            "second.txt": "83321491aec4bbf08e06e7bb792209f57747825be952d0cf5518d695d0aadd2c"
+          }
+        }
+      },
+      {
+        "arguments": [
+          "--silent",
+          "file://{root}/payload.txt"
+        ],
+        "name": "file-basic",
+        "passed": true,
+        "result": {
+          "status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "40be69c2fd237b500443afac02a799ae84648274463549000b94d68b28f8188d",
+          "tree": {
+            "payload.txt": "40be69c2fd237b500443afac02a799ae84648274463549000b94d68b28f8188d",
+            "second.txt": "83321491aec4bbf08e06e7bb792209f57747825be952d0cf5518d695d0aadd2c"
+          }
+        }
+      },
+      {
+        "arguments": [
+          "--silent",
+          "--range",
+          "5-18",
+          "file://{root}/payload.txt"
+        ],
+        "name": "file-range",
+        "passed": true,
+        "result": {
+          "status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "04bb16d7c9a37953faa13aef5484163d852d31e5e4b364fa3a179a7b4676c2e7",
+          "tree": {
+            "payload.txt": "40be69c2fd237b500443afac02a799ae84648274463549000b94d68b28f8188d",
+            "second.txt": "83321491aec4bbf08e06e7bb792209f57747825be952d0cf5518d695d0aadd2c"
+          }
+        }
+      },
+      {
+        "arguments": [
+          "--silent",
+          "--head",
+          "file://{root}/payload.txt"
+        ],
+        "name": "file-head",
+        "passed": true,
+        "result": {
+          "status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "cab8dec9bae46f11dfd5c375d57142edf5556987510ee41e7853fd0329e8f05c",
+          "tree": {
+            "payload.txt": "40be69c2fd237b500443afac02a799ae84648274463549000b94d68b28f8188d",
+            "second.txt": "83321491aec4bbf08e06e7bb792209f57747825be952d0cf5518d695d0aadd2c"
+          }
+        }
+      },
+      {
+        "arguments": [
+          "--silent",
+          "--write-out",
+          "%{response_code}:%{size_download}:%{url_effective}\\n",
+          "file://{root}/payload.txt"
+        ],
+        "name": "file-writeout",
+        "passed": true,
+        "result": {
+          "status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "2aea5b0c74910f23d176e6d76457418e4131f7b6346cb356f285ddf247328787",
+          "tree": {
+            "payload.txt": "40be69c2fd237b500443afac02a799ae84648274463549000b94d68b28f8188d",
+            "second.txt": "83321491aec4bbf08e06e7bb792209f57747825be952d0cf5518d695d0aadd2c"
+          }
+        }
+      },
+      {
+        "arguments": [
+          "--silent",
+          "--output",
+          "downloaded.txt",
+          "file://{root}/payload.txt"
+        ],
+        "name": "file-output",
+        "passed": true,
+        "result": {
+          "status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tree": {
+            "downloaded.txt": "40be69c2fd237b500443afac02a799ae84648274463549000b94d68b28f8188d",
+            "payload.txt": "40be69c2fd237b500443afac02a799ae84648274463549000b94d68b28f8188d",
+            "second.txt": "83321491aec4bbf08e06e7bb792209f57747825be952d0cf5518d695d0aadd2c"
+          }
+        }
+      },
+      {
+        "arguments": [
+          "--silent",
+          "file://{root}/payload.txt",
+          "--next",
+          "--silent",
+          "file://{root}/second.txt"
+        ],
+        "name": "file-two-transfers",
+        "passed": true,
+        "result": {
+          "status": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "7b88b615d94e02ee2c67bcbe5bc3dcd1caf3b02e45f8b52fbbaf024ecd0964d3",
+          "tree": {
+            "payload.txt": "40be69c2fd237b500443afac02a799ae84648274463549000b94d68b28f8188d",
+            "second.txt": "83321491aec4bbf08e06e7bb792209f57747825be952d0cf5518d695d0aadd2c"
+          }
+        }
+      },
+      {
+        "arguments": [
+          "--silent",
+          "--show-error",
+          "https://127.0.0.1/"
+        ],
+        "name": "unsupported-https",
+        "passed": true,
+        "result": {
+          "status": 1,
+          "stderr_sha256": "9cc33251e78d4dba3fde378075733375636f62fb1485e0223f745c0b454837c0",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tree": {
+            "payload.txt": "40be69c2fd237b500443afac02a799ae84648274463549000b94d68b28f8188d",
+            "second.txt": "83321491aec4bbf08e06e7bb792209f57747825be952d0cf5518d695d0aadd2c"
+          }
+        }
+      }
+    ],
+    "schema": 1
+  },
+  "compile_database": {
+    "commands": 477,
+    "production_actions": 240,
+    "sha256": "fe1161bdf1f71ce6c3d656f1dd20a41a8b5c8c3a90dd5a7d2f033dbbf3fd6e73",
+    "sources": 240,
+    "unit_test_variant_actions": 237
+  },
+  "generated_sources": {
+    "tool_ca_embed": "510611d444d073c293b0d5dfbe3e694d8edc5a93f03c0048e377f61b9e9a7a1e",
+    "tool_hugehelp": "045866631d780dd403805c591e487d52a4692fa9668b3cd35fe6cd086d61c541"
+  },
+  "manifest": {
+    "canonical_archive_sha256": "8dadd7d2536a314f982ad05a651b713f426bf7d02cc2c76cffb9796f2218e6c5",
+    "canonical_tree_sha256": "185dde153ce9723a1affb9f3aaa9253952c6119a7fc98871b16e48f43ab1ae06",
+    "changed_sources": [
+      "src/tool_main.c"
+    ],
+    "conditional": "RUSTBOX_MULTICALL",
+    "engine": "exact deterministic source rewrite",
+    "entrypoint": "rustbox_curl_main",
+    "normalized_tree_sha256": "b1df11e554f67351b8a84618fb1c770d556e7df06eb1ecee842279717cf11b66",
+    "release": "8.23.0",
+    "schema": 1,
+    "transformations": [
+      {
+        "canonical_sha256": "23b258cca018e21abecf510cf7ca7a6746ef83146cf4d735b81f4bb8e5d25346",
+        "normalized_sha256": "552afb34c01f606da80904b24a05b90f1b7b4832a2094e3227817bc7e606fb6b",
+        "operation": "rename only the non-Unicode standalone entrypoint to rustbox_curl_main and retain a conditional main wrapper",
+        "source": "src/tool_main.c"
+      }
+    ]
+  },
+  "next_gate": "strict no-hole C2Rust translation of 240 production sources",
+  "recorded_at": "2026-11-23",
+  "release": "8.23.0",
+  "repairs": [],
+  "schema": 1,
+  "static_libcurl": {
+    "bytes": 9821524,
+    "sha256": "041eff0dbf3ade2eaab6d4b8436d49322f7ccc9ec55c06ba707f16218d2d5510"
+  },
+  "symbols": [
+    "main",
+    "rustbox_curl_main"
+  ],
+  "upstream_suite": {
+    "applicable": 1601,
+    "considered": 2138,
+    "log_sha256": "190c514fef1de65048de668ac8404a5691af4790110b6d2e73490b068a3692c7",
+    "passed": 1601
+  },
+  "valgrind": {
+    "file": {
+      "bytes_in_use_at_exit": 0,
+      "canonical_log_sha256": "f9d3281fe8c9772819c778916aa89a2e990e8b3763a3602dd5a5b0928d6423c9",
+      "errors": 0,
+      "normalized_log_sha256": "c99cfd73bc5a09ab280067b56adc8280117deb3b0898a95a54137e8de96dc5a2"
+    },
+    "version": {
+      "bytes_in_use_at_exit": 0,
+      "canonical_log_sha256": "3a2ad90af15da144f28c7f7a72cdaa3f2ca60d96b617254b907e2c6269d07e2c",
+      "errors": 0,
+      "normalized_log_sha256": "8984967e46b564391cdc95a764edbc2675dc6a5c459ac1b34b64e435e6345079"
+    }
+  }
+}
