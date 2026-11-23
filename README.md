@@ -1343,7 +1343,7 @@ Library-only checkpoints (outside the active utility order):
      `libkmod` runtime.  Its signed 26-source canonical oracle is complete:
      GCC and Clang each pass all 16 upstream tests, all 25 independent command
      and module-fixture comparisons agree, seven Valgrind paths are clean, and
-     five production-only analyzer passes complete.  Two-source deterministic
+     five production-only analyzer passes complete.  Three-source deterministic
      normalization exports the shared `rustbox_kmod_main` engine while retaining
      standalone dispatch; GCC and Clang each preserve all 16 tests, all 50
      compiler-specific canonical comparisons pass, and seven normalized
