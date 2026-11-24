@@ -21,7 +21,10 @@ STRICT_VERIFIERS = (
     "fbaf8906696946d8ae9984570628898f7bef46795995601af852df0bc6e8e89e",  # 67c7ae2, full target clean
 )
 # This producer supports both verified layouts and binds the padding implementation.
-OFFSET_VERIFIER = "86c7a52bb69f8f4e27b85bbc14f9c3ffbe9cffbd6b697981b463baaf5dfcea58"
+OFFSET_VERIFIERS = (
+    "86c7a52bb69f8f4e27b85bbc14f9c3ffbe9cffbd6b697981b463baaf5dfcea58",  # ec800cc
+    "3473d9ac9565e7045116b11f042a097044c4125d9722f4ea5174b26f457411ec",  # 7193ed3
+)
 CARGO_ENGINES = ("chattr", "e4crypt", "filefrag", "fsck", "logsave", "lsattr", "mklost_found")
 IPROUTE2_CARGO_ENGINES = ("arpd", "dcb", "devlink", "dpll", "genl", "ifstat", "ip", "lnstat", "netshaper",
                          "nstat", "rdma", "rtacct", "rtmon", "ss", "tc", "tipc", "vdpa")
@@ -143,8 +146,9 @@ def check_linux_cargo(archive, publish=False):
         # That producer accepted only archives that matched after the first rebuild.
         strict_keys = [hashlib.sha256(bytes.fromhex(producer) + inputs).hexdigest()
                        for producer in STRICT_VERIFIERS]
-        offset_key = hashlib.sha256(bytes.fromhex(OFFSET_VERIFIER) + layout_digest + inputs).hexdigest()
-        for candidate_key in (key, offset_key, *strict_keys):
+        offset_keys = [hashlib.sha256(bytes.fromhex(producer) + layout_digest + inputs).hexdigest()
+                       for producer in OFFSET_VERIFIERS]
+        for candidate_key in (key, *offset_keys, *strict_keys):
             candidate = (ROOT / archive).with_suffix(f".inlines-{candidate_key}.json")
             if candidate.is_file():
                 record = json.loads(candidate.read_text())
@@ -153,8 +157,8 @@ def check_linux_cargo(archive, publish=False):
                         or (candidate_key in strict_keys and "source_layout" in record)):
                     raise ValueError(f"stale Cargo private-inline proof: {candidate}")
                 return {"file": candidate.name, "sha256": digest(candidate)}
-    registry = (["-v", "rustbox-pointer-cargo-registry:/root/.cargo/registry:ro"]
-                if archive.parts[2] in ("iproute2-7.3.0", "inetutils-2.8", "curl-8.23.0") else [])
+    use_registry = archive.parts[3] == "translations" or archive.parts[2] in ("iproute2-7.3.0", "inetutils-2.8")
+    registry = ["-v", "rustbox-pointer-cargo-registry:/root/.cargo/registry:ro"] if use_registry else []
     with tempfile.TemporaryDirectory(dir=ROOT / "work/analysis") as scratch:
         tmp = Path(scratch)
         shutil.copytree(ROOT / source, tmp / "source", ignore=shutil.ignore_patterns("target"))
@@ -194,9 +198,15 @@ def prepare_package(package):
         from link_rustbox_multicall import INETUTILS_PROGRAMS
         release, engines = "2.8", INETUTILS_PROGRAMS
     target = Path(f"work/analysis/{package}-{release}/program-translations/cargo-target")
-    index_file = ROOT / f"work/analysis/{package}-cargo-inline-proofs.json"
     paths = [(target if package == "inetutils" else target / name) / "release" / f"lib{name}_audit.a"
              for name in engines]
+    prepare_archives(package, paths)
+
+
+def prepare_archives(package, paths):
+    if not package or not all(c.isascii() and (c.isalnum() or c == "-") for c in package):
+        raise ValueError("expected a package name")
+    index_file = ROOT / f"work/analysis/{package}-cargo-inline-proofs.json"
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as workers:
         futures = {path: workers.submit(check_linux_cargo, path, True) for path in paths}
         index = {str(path): task.result() for path, task in futures.items()}
@@ -213,9 +223,18 @@ if __name__ == "__main__":
     group.add_argument("--prepare-e2fsprogs", action="store_const", const="e2fsprogs", dest="package")
     group.add_argument("--prepare-iproute2", action="store_const", const="iproute2", dest="package")
     group.add_argument("--prepare-inetutils", action="store_const", const="inetutils", dest="package")
+    group.add_argument("--prepare-archive", metavar="PACKAGE",
+                       help="certify the given release archive and publish its package index")
     parser.add_argument("--verify-mounted-copy", metavar="SHA256")
     args = parser.parse_args()
-    if args.package and not args.archive and not args.verify_mounted_copy:
+    if args.prepare_archive and args.archive and not args.verify_mounted_copy:
+        if (len(args.archive.parts) < 5 or not args.archive.parts[2].startswith(args.prepare_archive + "-")
+                or args.archive.parts[3] != "translations"):
+            parser.error("expected a single-crate translation archive for the requested package")
+        prepare_archives(args.prepare_archive, [args.archive])
+    elif args.prepare_archive:
+        parser.error("--prepare-archive requires one release archive path")
+    elif args.package and not args.archive and not args.verify_mounted_copy:
         prepare_package(args.package)
     elif args.archive is None or args.package:
         parser.error("use an archive path or a package preparation option")

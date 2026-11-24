@@ -68,31 +68,34 @@ with tempfile.TemporaryDirectory() as directory:
             (crate / "lib.rs").write_bytes(b"lib.rs")
             proof.unlink()
         # The later producer binds the padding helper as well as the syntax tool.
-        key_inputs = bytes.fromhex(verifier.OFFSET_VERIFIER)
-        helper = root / "scripts/inline_source_layout.py"
-        for path in (helper, root / "scripts/prune_private_inlines.py", tool, archive):
-            key_inputs += bytes.fromhex(verifier.digest(path))
-        for name in sorted(inputs):
-            key_inputs += str(source / name).encode() + b"\0" + bytes.fromhex(verifier.digest(crate / name))
-        key = hashlib.sha256(key_inputs).hexdigest()
-        proof = archive.with_suffix(f".inlines-{key}.json")
-        record = {"key": key, "archive_sha256": expected, "ranges": {}, "sources": {},
-                  "source_layout": "byte_offsets"}
-        proof.write_text(json.dumps(record))
-        assert verifier.check_linux_cargo(relative, True)["sha256"] == verifier.digest(proof)
-        proof.write_text(json.dumps(dict(record, source_layout="unknown")))
-        try:
-            verifier.check_linux_cargo(relative, True)
-        except ValueError:
-            pass
-        else:
-            raise AssertionError("unknown layout accepted")
-        proof.write_text(json.dumps(record))
-        helper.write_bytes(b"changed")
-        try:
-            verifier.check_linux_cargo(relative, True)
-        except RebuildRequired:
-            pass
-        else:
-            raise AssertionError("old offset receipt accepted after the padding implementation changed")
+        for producer in verifier.OFFSET_VERIFIERS:
+            key_inputs = bytes.fromhex(producer)
+            helper = root / "scripts/inline_source_layout.py"
+            for path in (helper, root / "scripts/prune_private_inlines.py", tool, archive):
+                key_inputs += bytes.fromhex(verifier.digest(path))
+            for name in sorted(inputs):
+                key_inputs += str(source / name).encode() + b"\0" + bytes.fromhex(verifier.digest(crate / name))
+            key = hashlib.sha256(key_inputs).hexdigest()
+            proof = archive.with_suffix(f".inlines-{key}.json")
+            record = {"key": key, "archive_sha256": expected, "ranges": {}, "sources": {},
+                      "source_layout": "byte_offsets"}
+            proof.write_text(json.dumps(record))
+            assert verifier.check_linux_cargo(relative, True)["sha256"] == verifier.digest(proof)
+            proof.write_text(json.dumps(dict(record, source_layout="unknown")))
+            try:
+                verifier.check_linux_cargo(relative, True)
+            except ValueError:
+                pass
+            else:
+                raise AssertionError("unknown layout accepted")
+            proof.write_text(json.dumps(record))
+            helper.write_bytes(b"changed")
+            try:
+                verifier.check_linux_cargo(relative, True)
+            except RebuildRequired:
+                pass
+            else:
+                raise AssertionError("old offset receipt accepted after the padding implementation changed")
+            proof.unlink()
+            helper.write_bytes(helper.name.encode())
 print("Previous release receipts bind their inputs and accept only verified layouts.")
