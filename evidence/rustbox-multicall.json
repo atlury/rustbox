@@ -2961,7 +2961,7 @@
     "workload_log_sha256": "86fc9f9bc75c2c9b9602c5a8a8b1b9b1da1a9121a3fb214396bffa3a264df849"
   },
   "binary": {
-    "bytes": 37504136,
+    "bytes": 37517040,
     "dynamic_needed": [
       "ld-linux-x86-64.so.2",
       "libattr.so.1",
@@ -2991,7 +2991,7 @@
       "libz.so.1",
       "libzstd.so.1"
     ],
-    "link_map_sha256": "9a8dde3f9869b5112b5ce8d64dbd13f39a53a666a85748b9e6b04cc4513f116a",
+    "link_map_sha256": "e7740baad4259ae7680a03b24dc026bd2ad15e0b671aa9d889d5f8fc80a0038b",
     "needed_libraries": [
       "ld-linux-x86-64.so.2",
       "libattr.so.1",
@@ -3022,9 +3022,9 @@
       "libzstd.so.1"
     ],
     "selinux_dependencies": [],
-    "sha256": "83c4dceb03fef35f5579caed2d2df814a38f920ef529adeec20a3bb544f63d76",
-    "stripped_bytes": 18714624,
-    "stripped_sha256": "c9a0b463d26fe76d9c2509cdbb560c88f36114e5f26ec19f441c8816ab28ba31",
+    "sha256": "e074ab7f62f740148cbe6ae285f417224c1dd341b1f0e38596b5ab62d435151e",
+    "stripped_bytes": 18722816,
+    "stripped_sha256": "863d79c26c9734bcbb8bd64326a9aa8383a54fca3281bc77adafb3e715eb012e",
     "systemd_dependencies": []
   },
   "bison_integration": {
@@ -3655,7 +3655,7 @@
         "yywrap"
       ],
       "binary": {
-        "bytes": 37504136,
+        "bytes": 37517040,
         "dynamic_needed": [
           "ld-linux-x86-64.so.2",
           "libattr.so.1",
@@ -3685,8 +3685,8 @@
           "libz.so.1",
           "libzstd.so.1"
         ],
-        "link_map_sha256": "9a8dde3f9869b5112b5ce8d64dbd13f39a53a666a85748b9e6b04cc4513f116a",
-        "sha256": "83c4dceb03fef35f5579caed2d2df814a38f920ef529adeec20a3bb544f63d76"
+        "link_map_sha256": "e7740baad4259ae7680a03b24dc026bd2ad15e0b671aa9d889d5f8fc80a0038b",
+        "sha256": "e074ab7f62f740148cbe6ae285f417224c1dd341b1f0e38596b5ab62d435151e"
       },
       "bison_frontend_bridge": {
         "embedded_resource_manifest_sha256": "ca7614033678fa109706a086a3ee2d4f8b4ff52fdae3d1698471869cff3945c5",
@@ -11739,6 +11739,15 @@
           "pw_error"
         ]
       },
+      "ncurses_config_frontend_bridge": {
+        "object": "src/.rustbox-ncursesw6-config.o",
+        "public_names": [
+          "ncursesw6-config"
+        ],
+        "symbols": [
+          "rustbox_ncursesw6_config_main"
+        ]
+      },
       "ncurses_namespaced_symbols": [
         "BC",
         "COLORS",
@@ -12804,7 +12813,7 @@
         "wvline",
         "wvline_set"
       ],
-      "ncurses_public_names": 10,
+      "ncurses_public_names": 11,
       "patch_applets": 1,
       "patch_namespaced_symbols": [
         "Fclose",
@@ -14795,7 +14804,7 @@
         "yyparse",
         "zap_slashes"
       ],
-      "total_dispatch_names": 445,
+      "total_dispatch_names": 446,
       "util_linux_applets": 155,
       "xz_alias_bridge": {
         "object": "src/.rustbox-xz-aliases.o",
@@ -15893,6 +15902,7 @@
     "namespaced_libraries": 13,
     "namespaced_support_objects": 16,
     "namespaced_symbols": 173,
+    "ncurses_config_bridge_symbols": 1,
     "ncurses_namespaced_symbols": 1063,
     "patch_namespaced_symbols": 454,
     "procps_namespaced_symbols": 422,
@@ -17651,7 +17661,7 @@
     "acl_applets": 3,
     "attr_applets": 3,
     "bc_applets": 2,
-    "cases": 882,
+    "cases": 884,
     "coreutils_applets": 106,
     "curl_public_names": 2,
     "diffutils_applets": 4,
@@ -17668,8 +17678,8 @@
     "less_public_names": 2,
     "lz4_public_names": 4,
     "m4_applets": 1,
-    "ncurses_public_names": 10,
-    "passed": 882,
+    "ncurses_public_names": 11,
+    "passed": 884,
     "patch_applets": 1,
     "pkgconf_public_names": 5,
     "procps_programs": 20,
@@ -30129,6 +30139,495 @@
   },
   "ncurses_integration": {
     "canonical_c_abi_residue_units": 0,
+    "config_frontend_differential": {
+      "canonical_native_exact": true,
+      "cases": 31,
+      "configured_version": "6.6.20251230",
+      "native_frontends": 1,
+      "passed": 31,
+      "records": [
+        {
+          "arguments": [],
+          "name": "no-option",
+          "passed": true,
+          "result": {
+            "status": 1,
+            "stderr_bytes": 1471,
+            "stderr_sha256": "4ba24f8d40cfad02ae3028933873dce08fe4bf12cb5c188dbbf3138586f73be2",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        {
+          "arguments": [
+            "--prefix"
+          ],
+          "name": "prefix",
+          "passed": true,
+          "result": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 5,
+            "stdout_sha256": "c1b4ac7ed462cd01c076c33de7d01ddef7f39a4bed73b12b2d769babf57204e9"
+          }
+        },
+        {
+          "arguments": [
+            "--exec-prefix"
+          ],
+          "name": "exec-prefix",
+          "passed": true,
+          "result": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 5,
+            "stdout_sha256": "c1b4ac7ed462cd01c076c33de7d01ddef7f39a4bed73b12b2d769babf57204e9"
+          }
+        },
+        {
+          "arguments": [
+            "--cflags"
+          ],
+          "name": "cflags",
+          "passed": true,
+          "result": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 38,
+            "stdout_sha256": "31671c372fce7266f2d088c9a0fc3e1734bcaf36eb5c44a1248e3b6e64b39701"
+          }
+        },
+        {
+          "arguments": [
+            "--cflags-only-I"
+          ],
+          "name": "cflags-only-I",
+          "passed": true,
+          "result": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 1,
+            "stdout_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+          }
+        },
+        {
+          "arguments": [
+            "--cflags-only-other"
+          ],
+          "name": "cflags-only-other",
+          "passed": true,
+          "result": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 38,
+            "stdout_sha256": "31671c372fce7266f2d088c9a0fc3e1734bcaf36eb5c44a1248e3b6e64b39701"
+          }
+        },
+        {
+          "arguments": [
+            "--libs"
+          ],
+          "name": "libs",
+          "passed": true,
+          "result": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 20,
+            "stdout_sha256": "f82de0026c0d2fbcb22e01ccca5d5f1c049ae7347833226a03fb0b9525ddb6a3"
+          }
+        },
+        {
+          "arguments": [
+            "--libs-only-L"
+          ],
+          "name": "libs-only-L",
+          "passed": true,
+          "result": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 1,
+            "stdout_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+          }
+        },
+        {
+          "arguments": [
+            "--libs-only-l"
+          ],
+          "name": "libs-only-l",
+          "passed": true,
+          "result": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 20,
+            "stdout_sha256": "f82de0026c0d2fbcb22e01ccca5d5f1c049ae7347833226a03fb0b9525ddb6a3"
+          }
+        },
+        {
+          "arguments": [
+            "--libs-only-other"
+          ],
+          "name": "libs-only-other",
+          "passed": true,
+          "result": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 1,
+            "stdout_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+          }
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "name": "version",
+          "passed": true,
+          "result": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 13,
+            "stdout_sha256": "5f38c11d244ca7d56ea23b8b66065a6165dd41a5e021f86680e48e0bdd1eaabf"
+          }
+        },
+        {
+          "arguments": [
+            "--abi-version"
+          ],
+          "name": "abi-version",
+          "passed": true,
+          "result": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 2,
+            "stdout_sha256": "06e9d52c1720fca412803e3b07c4b228ff113e303f4c7ab94665319d832bbfb7"
+          }
+        },
+        {
+          "arguments": [
+            "--mouse-version"
+          ],
+          "name": "mouse-version",
+          "passed": true,
+          "result": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 2,
+            "stdout_sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+          }
+        },
+        {
+          "arguments": [
+            "--bindir"
+          ],
+          "name": "bindir",
+          "passed": true,
+          "result": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 9,
+            "stdout_sha256": "0b5cd7dded0b8cd473b7879bd1757232902e5bed5e27ee3ed372a2d0ad426e0d"
+          }
+        },
+        {
+          "arguments": [
+            "--datadir"
+          ],
+          "name": "datadir",
+          "passed": true,
+          "result": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 11,
+            "stdout_sha256": "3a7c28d8c0922c80474defbc5c028d6513e88fed86049db00c4eed95ddb90c39"
+          }
+        },
+        {
+          "arguments": [
+            "--includedir"
+          ],
+          "name": "includedir",
+          "passed": true,
+          "result": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 1,
+            "stdout_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+          }
+        },
+        {
+          "arguments": [
+            "--libdir"
+          ],
+          "name": "libdir",
+          "passed": true,
+          "result": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 9,
+            "stdout_sha256": "de2f97888ddbaca502e0e7417c6ab7be1123c8d1d33a18aa7df7fa95887be11b"
+          }
+        },
+        {
+          "arguments": [
+            "--mandir"
+          ],
+          "name": "mandir",
+          "passed": true,
+          "result": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 15,
+            "stdout_sha256": "0e8ce1d99183d1c3ef207470bf0b9e522644934004d2a4c47885886269e7e674"
+          }
+        },
+        {
+          "arguments": [
+            "--terminfo"
+          ],
+          "name": "terminfo",
+          "passed": true,
+          "result": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 20,
+            "stdout_sha256": "a162cc21f675b94b56f314524630b718a90e8d6ad1e8b10ab097c6d91e87b091"
+          }
+        },
+        {
+          "arguments": [
+            "--terminfo-dirs"
+          ],
+          "name": "terminfo-dirs",
+          "passed": true,
+          "result": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 20,
+            "stdout_sha256": "a162cc21f675b94b56f314524630b718a90e8d6ad1e8b10ab097c6d91e87b091"
+          }
+        },
+        {
+          "arguments": [
+            "--termpath"
+          ],
+          "name": "termpath",
+          "passed": true,
+          "result": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 1,
+            "stdout_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+          }
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "name": "help",
+          "passed": true,
+          "result": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 1471,
+            "stdout_sha256": "4ba24f8d40cfad02ae3028933873dce08fe4bf12cb5c188dbbf3138586f73be2"
+          }
+        },
+        {
+          "arguments": [
+            "--prefix",
+            "--exec-prefix",
+            "--cflags",
+            "--cflags-only-I",
+            "--cflags-only-other",
+            "--libs",
+            "--libs-only-L",
+            "--libs-only-l",
+            "--libs-only-other",
+            "--version",
+            "--abi-version",
+            "--mouse-version",
+            "--bindir",
+            "--datadir",
+            "--includedir",
+            "--libdir",
+            "--mandir",
+            "--terminfo",
+            "--terminfo-dirs",
+            "--termpath"
+          ],
+          "name": "all-queries",
+          "passed": true,
+          "result": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 232,
+            "stdout_sha256": "7bece2bd9dfea757ac0a18da8df9e6223f687d57ad87e552dc7360b6f3fc1045"
+          }
+        },
+        {
+          "arguments": [
+            "--termpath",
+            "--terminfo-dirs",
+            "--terminfo",
+            "--mandir",
+            "--libdir",
+            "--includedir",
+            "--datadir",
+            "--bindir",
+            "--mouse-version",
+            "--abi-version",
+            "--version",
+            "--libs-only-other",
+            "--libs-only-l",
+            "--libs-only-L",
+            "--libs",
+            "--cflags-only-other",
+            "--cflags-only-I",
+            "--cflags",
+            "--exec-prefix",
+            "--prefix"
+          ],
+          "name": "reverse-queries",
+          "passed": true,
+          "result": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 232,
+            "stdout_sha256": "ae9431200eba13eae0450a14e254c0b8903888df7d4426b2f3c73b9cc837814e"
+          }
+        },
+        {
+          "arguments": [
+            "--version",
+            "--version",
+            "--libs",
+            "--libs"
+          ],
+          "name": "repeat",
+          "passed": true,
+          "result": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 66,
+            "stdout_sha256": "589eb147fd34c27607cebf98a2c57792fc868038fd5e5dcbf9946147fa5c4aef"
+          }
+        },
+        {
+          "arguments": [
+            "--help",
+            "--version"
+          ],
+          "name": "help-then-query",
+          "passed": true,
+          "result": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 1484,
+            "stdout_sha256": "85c11e9b8fbadfdf3c56c87ca52c4857adc5c9edcbe16bcfbb48db2569e6e5c6"
+          }
+        },
+        {
+          "arguments": [
+            "--version",
+            "--help"
+          ],
+          "name": "query-then-help",
+          "passed": true,
+          "result": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 1484,
+            "stdout_sha256": "083659d073f26c2a6dace7c7e8d014d483879b41c97775ecb964dd34d7d35ca7"
+          }
+        },
+        {
+          "arguments": [
+            "--definitely-invalid"
+          ],
+          "name": "unknown",
+          "passed": true,
+          "result": {
+            "status": 1,
+            "stderr_bytes": 1471,
+            "stderr_sha256": "4ba24f8d40cfad02ae3028933873dce08fe4bf12cb5c188dbbf3138586f73be2",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        {
+          "arguments": [
+            ""
+          ],
+          "name": "empty-option",
+          "passed": true,
+          "result": {
+            "status": 1,
+            "stderr_bytes": 1471,
+            "stderr_sha256": "4ba24f8d40cfad02ae3028933873dce08fe4bf12cb5c188dbbf3138586f73be2",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        {
+          "arguments": [
+            "--version",
+            "--definitely-invalid"
+          ],
+          "name": "query-then-unknown",
+          "passed": true,
+          "result": {
+            "status": 1,
+            "stderr_bytes": 1471,
+            "stderr_sha256": "4ba24f8d40cfad02ae3028933873dce08fe4bf12cb5c188dbbf3138586f73be2",
+            "stdout_bytes": 13,
+            "stdout_sha256": "5f38c11d244ca7d56ea23b8b66065a6165dd41a5e021f86680e48e0bdd1eaabf"
+          }
+        },
+        {
+          "arguments": [
+            "--help",
+            "--definitely-invalid"
+          ],
+          "name": "help-then-unknown",
+          "passed": true,
+          "result": {
+            "status": 1,
+            "stderr_bytes": 1471,
+            "stderr_sha256": "4ba24f8d40cfad02ae3028933873dce08fe4bf12cb5c188dbbf3138586f73be2",
+            "stdout_bytes": 1471,
+            "stdout_sha256": "4ba24f8d40cfad02ae3028933873dce08fe4bf12cb5c188dbbf3138586f73be2"
+          }
+        }
+      ],
+      "release": "6.6",
+      "schema": 1
+    },
+    "config_frontend_differential_sha256": "16b909e27f8bd078e23d5f0d75e4caf36320fa0dfeac6c788c635ef052029a8e",
     "definitely_lost_bytes": 0,
     "differential": {
       "cases": 27,
@@ -30643,7 +31142,7 @@
         {
           "arguments": [
             "-A",
-            "/tmp/rustbox-ncurses-oracle-l8lplsvh/database-gcc",
+            "/tmp/rustbox-ncurses-oracle-3rhb8w28/database-gcc",
             "rustbox-demo"
           ],
           "clang": {
@@ -30651,14 +31150,14 @@
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 218,
-            "stdout_sha256": "b015963658e3b38f4c24d0226ad3113831bf4a8fc9c1f4f3ef106974eee535c0"
+            "stdout_sha256": "bd76d445cfaef09f804dc597e32bdaef29151d48bb1fc7462367bb729b243ffb"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 218,
-            "stdout_sha256": "b015963658e3b38f4c24d0226ad3113831bf4a8fc9c1f4f3ef106974eee535c0"
+            "stdout_sha256": "bd76d445cfaef09f804dc597e32bdaef29151d48bb1fc7462367bb729b243ffb"
           },
           "label": "infocmp-custom-entry",
           "name": "infocmp",
@@ -30666,7 +31165,7 @@
         },
         {
           "arguments": [
-            "/tmp/rustbox-ncurses-oracle-l8lplsvh/demo.src"
+            "/tmp/rustbox-ncurses-oracle-3rhb8w28/demo.src"
           ],
           "clang": {
             "status": 0,
@@ -30688,7 +31187,7 @@
         },
         {
           "arguments": [
-            "/tmp/rustbox-ncurses-oracle-l8lplsvh/demo.src"
+            "/tmp/rustbox-ncurses-oracle-3rhb8w28/demo.src"
           ],
           "clang": {
             "status": 0,
@@ -30735,24 +31234,35 @@
       ],
       "schema": 1
     },
-    "differential_sha256": "e5d33f688e1f325b6b317ec86d3d802c199fdec9447e5df8c0a4ffd0d4a0637d",
+    "differential_sha256": "5564f155ce35bba3677a320a08bb6b9aa2bf748cedad4f90ac1216a327964229",
     "external_ncurses_library_required_by_translated_applets": false,
     "indirectly_lost_bytes": 0,
-    "integrated_public_names": 10,
+    "integrated_public_names": 11,
+    "native_frontend": "ncursesw6-config",
+    "native_frontend_bridge": {
+      "object": "src/.rustbox-ncursesw6-config.o",
+      "public_names": [
+        "ncursesw6-config"
+      ],
+      "symbols": [
+        "rustbox_ncursesw6_config_main"
+      ]
+    },
     "possibly_lost_bytes": 0,
     "retained_entrypoints": 7,
     "valgrind_errors": 0,
     "valgrind_log_sha256": {
-      "captoinfo": "36e5f79dfd76f2813df53894dbb841dee33291ea653c3eefbf4175f5d6a9586f",
-      "clear": "e42e49333e2ed51dfe15ebb4a9af715fc897115463924d06fded9fa8b613c780",
-      "infocmp": "dbca3074a07458793bfb2851568db4a60d9dedeb05f268904e44cbd7df917901",
-      "infotocap": "fffcd9f7c1aab5ef2b9ddbd3344e257eb547f0c42eaa63c18ffffb4873c7b36b",
-      "reset": "92b9958679fa7bb06a5469bc4bbc0495df15d0b4796879291406d2b50f98398c",
-      "tabs": "2a5d84265b48d34d58aba738d181e9d4a33afa44e22934b46633c790fbc36fa9",
-      "tic": "7cf19db474209874145b303fe40e32562a057a70540509a6291c01765afa13f2",
-      "toe": "dffea5150ede3675e7467a66b786bdd3a2f7e6e3a6d3e64a1b6253852f432a00",
-      "tput": "c10e4947947bceb952d4f5945a6b2e8dc7eed011c73a322f0171848cd24f4a76",
-      "tset": "b9c3267a6e3cfb70bb867166186de17a3dc7383251622f482aefd4309de96de8"
+      "captoinfo": "8aa88aa2b7f264caf3733eef1a0c9c04f9d8577833dcb78f43e88c0a81dd8e2e",
+      "clear": "404d78c00a93e61093d9d48c13832576a9f65dae2446d10dd1ee18da5212bed7",
+      "infocmp": "dc108d57a7cd2b9d248532497ba5cd4af58562b63bfae906d886725a1c52300d",
+      "infotocap": "53b07d957b9d6ea0447a95eb4dfa0fb6134de925aaa033e45768167660641b39",
+      "ncursesw6-config": "ed73a336901afad3c9d5383ce7377df9f847bf40c34e93e0ba3797755020b55f",
+      "reset": "77d4478d21f93a950da15398c7e83fed77479d93ee139e52e404e498d196a9c8",
+      "tabs": "5623ec2979e398a8a53b87669b5fe97d619118bb6fa6b6e2cf39bce9b261ae65",
+      "tic": "6170b8511175c9b0651dd8033f9d588b904822ed3c8426dc041c168f5571e3a9",
+      "toe": "035181c9ffd4a23e8d2dd28c936c7b6175e62064c4a95e8c1a3f7d0d8e10dcfd",
+      "tput": "8e185d598af17b5c6a23542ca2b23c717278c2b7a5b045f3b9a5b3a0c78f1c82",
+      "tset": "3b51224bdb82553ffa0bd4715a84f78d38fec0949d2967596321aeac6c4fe488"
     }
   },
   "patch_integration": {
@@ -33042,7 +33552,7 @@
     "coreutils": 106,
     "curl_integrated_names": 2,
     "diffutils": 4,
-    "dispatch_names": 445,
+    "dispatch_names": 446,
     "excluded": [
       "chcon",
       "runcon"
@@ -33058,7 +33568,7 @@
     "less": 2,
     "lz4": 4,
     "m4": 1,
-    "ncurses_integrated_names": 10,
+    "ncurses_integrated_names": 11,
     "patch": 1,
     "pkgconf_public_names": 5,
     "procps_integrated_names": 20,

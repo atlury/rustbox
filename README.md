@@ -62,7 +62,7 @@ scoring, and correctness gates.
 | XZ Utils 5.8.4 | 23 | 23 | 23 | 23 |
 | zstd 1.5.7 | 6 | 6 | 6 | 6 |
 | GNU tar 1.35 | 2 | 2 | 2 | 2 |
-| Ncurses 6.6 | 10 | 10 | 10 | 10 |
+| Ncurses 6.6 | 11 | 11 | 11 | 11 |
 | GNU Findutils 4.10.0 | 4 | 4 | 4 | 4 |
 | GNU Gawk 5.4.0 | 3 | 3 | 3 | 3 |
 | Flex 2.6.4 | 3 | 3 | 3 | 3 |
@@ -134,13 +134,14 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 445
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 446
 distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, five
 pkgconf names, File, GNU patch, GNU sed, four GNU Diffutils applets, and GNU
 Grep's three public names, GNU bc and dc, attr's three tools, plus chacl,
 getfacl, and setfacl, plus LZ4's four public names, Less and lessecho, and all
 fourteen GNU Gzip interfaces, all 23 XZ Utils names, zstd's six public names,
-GNU `tar` and `rmt`, ten Ncurses names, GNU Findutils' `find`, `xargs`,
+GNU `tar` and `rmt`, eleven Ncurses names including native
+`ncursesw6-config`, GNU Findutils' `find`, `xargs`,
 `locate`, and `updatedb`; `kill` is shared and `util-linux-kill` remains
 available explicitly, GNU Gawk's `gawk`, `awk`, and native `gawkbug`, and
 Flex's `flex`, `flex++`, and native `lex` compatibility frontend, and GNU
@@ -154,7 +155,7 @@ retain GNU Coreutils precedence while `procps-kill` and `procps-uptime` expose
 the Procps-ng implementations explicitly, plus all 32 Shadow names; the eight
 names already owned by util-linux are available as `shadow-chfn`,
 `shadow-chsh`, `shadow-login`, `shadow-newgrp`, `shadow-nologin`, `shadow-su`,
-`shadow-vigr`, and `shadow-vipw`).  It passes all 882
+`shadow-vigr`, and `shadow-vipw`).  It passes all 884
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
 check, 108-case differential suite, and Valgrind.  Pkgconf also passes all 429
@@ -209,8 +210,8 @@ canonical C residue; all 51 canonical comparisons pass and all 20 resource
 paths match their canonical baselines.  Shadow adds all 32 public names from a
 complete 196-source strict translation with no canonical C residue; all 79
 canonical comparisons and all 32 resource paths pass through the combined
-binary.  The resulting 445-name executable
-is 37,504,136 bytes unstripped and 18,714,624
+binary.  The resulting 446-name executable
+is 37,517,040 bytes unstripped and 18,722,816
 bytes stripped; its exact hashes and
 section/link evidence are recorded in `evidence/rustbox-multicall.json`.
 `chcon` and `runcon`
@@ -1042,11 +1043,13 @@ cases and all ten Valgrind version paths pass.  `toe -a` compares exact record
 multisets because upstream deliberately emits filesystem `readdir` order;
 running both binaries against the same terminfo tree is byte-identical.
 Reproducible hybrid evidence is in `evidence/ncurses-6.6-hybrid.json`;
-all ten native names are now integrated into the unified Rustbox dispatcher.
+all eleven public names are now integrated into the unified Rustbox dispatcher;
+`ncursesw6-config` is an in-process native frontend rather than a copied shell
+script.
 The shared executable retains the seven translated entrypoints exactly once,
 isolates 1,063 Ncurses implementation symbols, and has no canonical C residue
 or external Ncurses dependency for those translated applets.  All 27 canonical
-multicall comparisons, ten multicall Valgrind paths, and the complete 690-case
+multicall comparisons, eleven multicall Valgrind paths, and the complete 884-case
 cross-package dispatcher audit pass.  Reproducible unified evidence is in
 `evidence/rustbox-multicall.json`.
 

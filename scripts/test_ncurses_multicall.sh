@@ -12,22 +12,27 @@ RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
     rm -rf "$output"
     mkdir -p "$dispatch/usr/bin" "$dispatch/usr/share"
 
-    for name in captoinfo clear infocmp infotocap tabs tic toe tput tset reset; do
+    for name in captoinfo clear infocmp infotocap tabs tic toe tput tset reset ncursesw6-config; do
       ln -s "$rustbox" "$dispatch/usr/bin/$name"
     done
-    cp "$canonical/usr/bin/ncursesw6-config" "$dispatch/usr/bin/ncursesw6-config"
     cp -a "$canonical/usr/share/terminfo" "$dispatch/usr/share/terminfo"
 
     python3 /work/tests/ncurses-oracle-differential.py \
       --gcc-root "$canonical" --clang-root "$dispatch" \
       --output "$output/differential.json"
+    python3 /work/tests/ncurses-config-frontend.py \
+      --canonical "$canonical/usr/bin/ncursesw6-config" \
+      --native "$dispatch/usr/bin/ncursesw6-config" \
+      --output "$output/ncursesw6-config-differential.json"
 
-    for name in captoinfo clear infocmp infotocap tabs tic toe tput tset reset; do
+    for name in captoinfo clear infocmp infotocap tabs tic toe tput tset reset ncursesw6-config; do
+      option=-V
+      [ "$name" != ncursesw6-config ] || option=--version
       TERM=xterm TERMINFO="$dispatch/usr/share/terminfo" \
         valgrind --leak-check=full --show-leak-kinds=all \
           --errors-for-leak-kinds=definite,indirect,possible --error-exitcode=99 \
           --log-file="$output/valgrind-$name.log" \
-          "$rustbox" "$name" -V \
+          "$rustbox" "$name" "$option" \
           >"$output/valgrind-$name.out" 2>&1
       grep -q "ERROR SUMMARY: 0 errors" "$output/valgrind-$name.log"
       grep -Eq "All heap blocks were freed|definitely lost: 0 bytes" \

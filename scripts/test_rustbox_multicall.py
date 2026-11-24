@@ -392,6 +392,21 @@ def main() -> int:
         if oracle != actual:
             failures.append({"suite": "ncurses", "applet": name, "option": "-V",
                              "oracle": oracle, "actual": actual})
+    for option in ("--help", "--version"):
+        cases += 1
+        oracle = invoke(
+            ["ncursesw6-config", option],
+            executable=ncurses_oracle_root / "usr/bin/ncursesw6-config",
+        )
+        actual = invoke([str(rustbox), "ncursesw6-config", option])
+        if oracle != actual:
+            failures.append({
+                "suite": "ncurses",
+                "applet": "ncursesw6-config",
+                "option": option,
+                "oracle": oracle,
+                "actual": actual,
+            })
 
     findutils_names = {
         "find": findutils_oracle_root / "find/find",
@@ -549,7 +564,7 @@ def main() -> int:
         "xz_public_names": len(xz_names),
         "zstd_public_names": len(zstd_names),
         "tar_applets": len(tar_names),
-        "ncurses_public_names": len(ncurses_names),
+        "ncurses_public_names": len(ncurses_names) + 1,
         "findutils_public_names": len(findutils_names),
         "flex_public_names": len(flex_names),
         "curl_public_names": len(curl_names),

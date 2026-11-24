@@ -1828,6 +1828,7 @@ extern int rustbox_tic_main(int, char **);
 extern int rustbox_toe_main(int, char **);
 extern int rustbox_tput_main(int, char **);
 extern int rustbox_tset_main(int, char **);
+extern int rustbox_ncursesw6_config_main(int, char **);
 extern int rustbox_find_main(int, char **);
 extern int rustbox_xargs_main(int, char **);
 extern int rustbox_locate_main(int, char **);
@@ -2061,6 +2062,8 @@ int main(int argc, char **argv)
         return rustbox_tput_main(argc, argv);
     if (!force_util_linux && (strcmp(name, "tset") == 0 || strcmp(name, "reset") == 0))
         return rustbox_tset_main(argc, argv);
+    if (!force_util_linux && strcmp(name, "ncursesw6-config") == 0)
+        return rustbox_ncursesw6_config_main(argc, argv);
     if (!force_util_linux && strcmp(name, "find") == 0)
         return rustbox_find_main(argc, argv);
     if (!force_util_linux && strcmp(name, "xargs") == 0)
@@ -2434,6 +2437,7 @@ def main() -> int:
         "rustbox_toe_main",
         "rustbox_tput_main",
         "rustbox_tset_main",
+        "rustbox_ncursesw6_config_main",
         "rustbox_find_main",
         "rustbox_xargs_main",
         "rustbox_locate_main",
@@ -2924,6 +2928,17 @@ def main() -> int:
     )
     if defined_symbols(curl_config_object) != ["rustbox_curl_config_main"]:
         raise RuntimeError("curl-config frontend bridge exports the wrong symbols")
+    ncurses_config_object = build / "src/.rustbox-ncursesw6-config.o"
+    subprocess.run(
+        ["clang-18", "-std=c11", "-Wall", "-Wextra", "-Werror", "-O2", "-g",
+         "-DRUSTBOX_MULTICALL", "-c",
+         str(repository / "bridges/ncursesw6_config.c"),
+         "-o", str(ncurses_config_object)],
+        cwd=build,
+        check=True,
+    )
+    if defined_symbols(ncurses_config_object) != ["rustbox_ncursesw6_config_main"]:
+        raise RuntimeError("ncursesw6-config frontend bridge exports the wrong symbols")
     bridge_archives: dict[str, Path] = {}
     for archive, members in bridge_members.items():
         source = build / archive
@@ -3016,6 +3031,7 @@ def main() -> int:
                 rewritten.append(str(flex_frontends_object))
                 rewritten.append(str(bison_resource_object))
                 rewritten.append(str(curl_config_object))
+                rewritten.append(str(ncurses_config_object))
                 rewritten.extend(str(path) for path in util_inputs)
                 rewritten.append(str(mapped_m4_support))
                 rewritten.append(str(mapped_gzip_support))
@@ -3118,7 +3134,7 @@ def main() -> int:
         "xz_public_names": 23,
         "zstd_public_names": 6,
         "tar_applets": 2,
-        "ncurses_public_names": 10,
+        "ncurses_public_names": 11,
         "findutils_public_names": 4,
         "flex_public_names": 3,
         "bison_public_names": 2,
@@ -3143,7 +3159,7 @@ def main() -> int:
                "lzegrep", "lzfgrep", "lzmore", "lzless",
                "zstd", "zstdmt", "unzstd", "zstdcat", "zstdgrep", "zstdless",
                "tar", "rmt", "captoinfo", "clear", "infocmp", "infotocap",
-               "reset", "tabs", "tic", "toe", "tput", "tset",
+               "reset", "tabs", "tic", "toe", "tput", "tset", "ncursesw6-config",
                "find", "xargs", "locate", "updatedb", "flex", "flex++", "lex",
                "bison", "yacc", "curl", "curl-config",
                "kmod", "depmod", "insmod", "lsmod", "modinfo", "modprobe", "rmmod",
@@ -3266,6 +3282,11 @@ def main() -> int:
             "symbols": ["rustbox_curl_config_main"],
             "public_names": ["curl-config"],
         },
+        "ncurses_config_frontend_bridge": {
+            "object": str(ncurses_config_object.relative_to(build)),
+            "symbols": ["rustbox_ncursesw6_config_main"],
+            "public_names": ["ncursesw6-config"],
+        },
         "binary": {
             "bytes": output.stat().st_size,
             "sha256": sha256(output),
@@ -3299,7 +3320,7 @@ def main() -> int:
         "xz_public_names": 23,
         "zstd_public_names": 6,
         "tar_applets": 2,
-        "ncurses_public_names": 10,
+        "ncurses_public_names": 11,
         "findutils_public_names": 4,
         "flex_public_names": 3,
         "bison_public_names": 2,

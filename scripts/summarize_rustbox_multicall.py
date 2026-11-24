@@ -84,7 +84,7 @@ def main() -> int:
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
-    if dispatch["cases"] != 882 or dispatch["passed"] != 882 or dispatch["failures"]:
+    if dispatch["cases"] != 884 or dispatch["passed"] != 884 or dispatch["failures"]:
         raise RuntimeError("unified dispatcher comparison is incomplete")
     if (
         differential["batches"] != 38
@@ -528,9 +528,11 @@ def main() -> int:
         raise RuntimeError("unified GNU tar integration comparison is incomplete")
     ncurses_differential_path = ncurses_directory / "differential.json"
     ncurses_differential = json.loads(ncurses_differential_path.read_text())
+    ncurses_config_path = ncurses_directory / "ncursesw6-config-differential.json"
+    ncurses_config = json.loads(ncurses_config_path.read_text())
     ncurses_names = [
         "captoinfo", "clear", "infocmp", "infotocap", "reset", "tabs",
-        "tic", "toe", "tput", "tset",
+        "tic", "toe", "tput", "tset", "ncursesw6-config",
     ]
     ncurses_valgrind_paths = {
         name: ncurses_directory / f"valgrind-{name}.log"
@@ -551,6 +553,10 @@ def main() -> int:
     if (
         ncurses_differential.get("cases") != 27
         or ncurses_differential.get("passed") != 27
+        or ncurses_config.get("cases") != 31
+        or ncurses_config.get("passed") != 31
+        or ncurses_config.get("canonical_native_exact") is not True
+        or link.get("ncurses_public_names") != 11
     ):
         raise RuntimeError("unified Ncurses integration comparison is incomplete")
     findutils_differential_path = findutils_directory / "differential.json"
@@ -680,7 +686,7 @@ def main() -> int:
         or curl_config.get("passed") != 24
         or curl_config.get("canonical_native_exact") is not True
         or link.get("curl_public_names") != 2
-        or link.get("total_dispatch_names") != 445
+        or link.get("total_dispatch_names") != 446
     ):
         raise RuntimeError("unified curl integration comparison is incomplete")
     inetutils_differential_path = inetutils_directory / "differential.json"
@@ -901,7 +907,7 @@ def main() -> int:
             "xz_integrated_names": 23,
             "zstd_integrated_names": 6,
             "tar_integrated_names": 2,
-            "ncurses_integrated_names": 10,
+            "ncurses_integrated_names": 11,
             "findutils_integrated_names": 4,
             "gawk_integrated_names": 3,
             "flex_integrated_names": 3,
@@ -911,7 +917,7 @@ def main() -> int:
             "kmod_integrated_names": 7,
             "procps_integrated_names": 20,
             "shadow_integrated_names": 32,
-            "dispatch_names": 445,
+            "dispatch_names": 446,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -1150,16 +1156,20 @@ def main() -> int:
             },
         },
         "ncurses_integration": {
-            "integrated_public_names": 10,
+            "integrated_public_names": 11,
+            "native_frontend": "ncursesw6-config",
+            "native_frontend_bridge": link["ncurses_config_frontend_bridge"],
             "retained_entrypoints": 7,
             "canonical_c_abi_residue_units": 0,
             "external_ncurses_library_required_by_translated_applets": False,
             "differential": ncurses_differential,
+            "config_frontend_differential": ncurses_config,
             "valgrind_errors": 0,
             "definitely_lost_bytes": 0,
             "indirectly_lost_bytes": 0,
             "possibly_lost_bytes": 0,
             "differential_sha256": sha256(ncurses_differential_path),
+            "config_frontend_differential_sha256": sha256(ncurses_config_path),
             "valgrind_log_sha256": {
                 name: sha256(path)
                 for name, path in ncurses_valgrind_paths.items()
@@ -1355,6 +1365,9 @@ def main() -> int:
             ),
             "curl_config_bridge_symbols": len(
                 link["curl_config_frontend_bridge"]["symbols"]
+            ),
+            "ncurses_config_bridge_symbols": len(
+                link["ncurses_config_frontend_bridge"]["symbols"]
             ),
             "tar_acl_imports": len(link["tar_acl_imports"]),
             "coreutils_acl_imports": len(link["coreutils_acl_imports"]),
