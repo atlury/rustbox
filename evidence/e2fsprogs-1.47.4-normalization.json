@@ -1,0 +1,62 @@
+{
+  "builds": {
+    "clang-18": {
+      "compile_actions": 241,
+      "compile_database_sha256": "c0c1a2d936f929c6421ce9615111f79ae8f0b3ca74f3d82e5d63a075e0cb2c29",
+      "compile_sources": 232,
+      "installed_names": 32
+    },
+    "gcc": {
+      "compile_actions": 240,
+      "compile_database_sha256": "4a4479e828b299c3f0080bf3fa703dcf732ee2fc6badcad3bdde12bed257d158",
+      "compile_sources": 232,
+      "installed_names": 32
+    }
+  },
+  "differentials": {
+    "clang-18-canonical": {
+      "cases": 96,
+      "passed": 96,
+      "sha256": "2815f83b2bcb9efba5384d3d54dd4bbc1d6972aa27393298e82879ce9d6b12c2"
+    },
+    "compiler": {
+      "cases": 96,
+      "passed": 96,
+      "sha256": "2815f83b2bcb9efba5384d3d54dd4bbc1d6972aa27393298e82879ce9d6b12c2"
+    },
+    "gcc-canonical": {
+      "cases": 96,
+      "passed": 96,
+      "sha256": "2815f83b2bcb9efba5384d3d54dd4bbc1d6972aa27393298e82879ce9d6b12c2"
+    }
+  },
+  "exported_symbol_checks": 40,
+  "manifest_sha256": "9ad9ee720593f451f4c88cc9b65cf72d26c88582f852a54214e76014156f1e44",
+  "release": "1.47.4",
+  "resource_gates": {
+    "script_syntax": 4,
+    "valgrind": 28
+  },
+  "schema": 1,
+  "scope": {
+    "installed_names": 32,
+    "native_engines": 20,
+    "native_names": 28,
+    "script_engines_for_later_frontends": 4
+  },
+  "status": "deterministic native multicall normalization complete",
+  "upstream_tests": {
+    "clang-18": {
+      "environmental_failures": 1,
+      "passed": 396,
+      "sha256": "e1271b340efcc4d8abb9ca321083af00cbb1226616d6d7b07be1121fa51b6aed",
+      "skipped": 10
+    },
+    "gcc": {
+      "environmental_failures": 1,
+      "passed": 396,
+      "sha256": "d223b303a80c07946bfac5846c8ae5b6c0d82a8d08ef7949f4215c1c2def53f6",
+      "skipped": 10
+    }
+  }
+}

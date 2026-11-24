@@ -1479,13 +1479,23 @@ Library-only checkpoints (outside the active utility order):
      native resource paths, and the same 18/19 upstream tests.  Exact scope
      and before/after hashes are recorded in
      `evidence/iproute2-7.3.0-normalization.json`.
-   - [ ] E2fsprogs — `badblocks`, `chattr`, `debugfs`, `dumpe2fs`,
-     `e2freefrag`, `e2fsck`, `e2image`, `e2label`, `e2mmpstatus`, `e2scrub`,
-     `e2scrub_all`, `e2undo`, `e4crypt`, `e4defrag`, `filefrag`, `findfs`,
-     `fsck`, `fsck.ext2`, `fsck.ext3`, `fsck.ext4`, `fuse2fs`, `logsave`,
-     `lsattr`, `mk_cmds`, `mke2fs`, `mkfs.ext2`, `mkfs.ext3`, `mkfs.ext4`,
-     `mklost+found`, `resize2fs`, `tune2fs`; `compile_et` is included as the
-     canonical build helper.
+   - [ ] E2fsprogs 1.47.4 — `badblocks`, `chattr`, `compile_et`, `debugfs`,
+     `dumpe2fs`, `e2freefrag`, `e2fsck`, `e2image`, `e2initrd_helper`,
+     `e2label`, `e2mmpstatus`, `e2scrub`, `e2scrub_all`, `e2undo`, `e4crypt`,
+     `e4defrag`, `filefrag`, `fsck`, `fsck.ext2`, `fsck.ext3`, `fsck.ext4`,
+     `fuse2fs`, `logsave`, `lsattr`, `mk_cmds`, `mke2fs`, `mkfs.ext2`,
+     `mkfs.ext3`, `mkfs.ext4`, `mklost+found`, `resize2fs`, and `tune2fs`.
+     The signed oracle deliberately uses util-linux's canonical `findfs`,
+     `blkid`, and UUID tools rather than duplicating them here.  Deterministic
+     normalization exports 20 unique native engines covering 28 ELF names;
+     the other four installed names are upstream scripts.  GCC and Clang have
+     identical 232-source production closures, each matches its signed oracle
+     in 96/96 public comparisons, and the normalized builds match each other
+     in another 96/96.  Each full upstream suite passes 396 tests and skips
+     ten; the one identical failure is the documented Docker backing-storage
+     allocation artifact.  All 28 ELF Valgrind paths, four script syntax
+     gates, and 40 exported-symbol checks pass.  Exact evidence is in
+     `evidence/e2fsprogs-1.47.4-normalization.json`.
 
 ## Applet inventory
 
