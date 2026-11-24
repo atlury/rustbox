@@ -358,8 +358,10 @@ The production source count above credits only changes present in its recorded
 executable. The CRC32 ABI adapter still accepts raw input buffers.
 
 E2fsprogs bitmap counting has a verified standalone replacement in
-`compat/e2fsprogs/bitcount.rs`. The algorithm counts set bits over a byte
-slice and preserves the upstream unsigned 32-bit wraparound. Its C entry
+`compat/e2fsprogs/bitcount.rs`. The algorithm counts set bits in safe eight-byte
+chunks and then the remaining bytes. Its unsigned 32-bit result wraps as in
+upstream C. Under the pinned x86-64 size build, the Rust function occupies
+200 bytes of machine code. Its C entry
 point takes one raw buffer pointer. Run `scripts/test_e2fsprogs_bitcount.sh`
 for 16,452 comparisons with the pinned C, including inputs against protected
 page boundaries and an all-ones bitmap that overflows the accumulator.

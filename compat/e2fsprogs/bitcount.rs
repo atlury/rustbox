@@ -5,7 +5,11 @@
 use core::ffi::{c_uint, c_void};
 
 fn bitcount(bytes: &[u8]) -> u32 {
-    bytes.iter().fold(0u32, |count, byte| count.wrapping_add(byte.count_ones()))
+    let (words, tail) = bytes.as_chunks::<8>();
+    let count = words.iter().fold(0u32, |count, word| {
+        count.wrapping_add(u64::from_ne_bytes(*word).count_ones())
+    });
+    tail.iter().fold(count, |count, byte| count.wrapping_add(byte.count_ones()))
 }
 
 /// Count set bits modulo 2^32, as in E2fsprogs' unsigned accumulator.

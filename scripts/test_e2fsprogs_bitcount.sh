@@ -15,7 +15,7 @@ HASH
 cd /tmp
 gcc -O2 -DOMIT_COM_ERR -I"$lib" -I"$lib/ext2fs" -I"$src" -I"$src/ext2fs" \
     -c "$src/ext2fs/bitops.c" -o canonical.o
-rustc --edition=2021 --crate-type=lib --emit=obj -C opt-level=3 -C panic=abort \
+rustc --edition=2021 --crate-type=lib --emit=obj -C opt-level=s -C panic=abort \
     /work/compat/e2fsprogs/bitcount.rs -o candidate.o
 gcc -Wall -Wextra -Werror -O2 /work/tests/e2fsprogs-bitcount/differential.c \
     canonical.o candidate.o -o compare
