@@ -333,7 +333,8 @@ linkage and behavior in the default multicall remains the next step.
 
 The next shared module implements E2fsprogs CRC32C (little-endian) and
 Ethernet CRC32 (big-endian). Each of the same 13 generated modules contains
-369 raw-pointer type occurrences. The candidate in `compat/e2fsprogs/crc32.rs`
+369 raw-pointer type occurrences. In each copy, 30 occur in the checksum
+functions and 339 in the preceding generated declarations and helpers. The candidate in `compat/e2fsprogs/crc32.rs`
 uses eight-byte chunks and safe table indexing. Run `scripts/test_e2fsprogs_crc32.sh`
 for the upstream test vectors and 565,444 comparisons against pinned C,
 including all 32 input alignments, single-bit seeds and zero-length inputs.
@@ -361,6 +362,23 @@ configuration and runtime use before sharing an implementation. Prefer a
 small safe rewrite when the input bytes and output values give the function a
 clear, independently testable contract. Review allocation lifetimes and
 aliasing explicitly for APIs that return pointers into caller-owned buffers.
+
+The compiler-assisted cleanup pilot starts with the original E2fsprogs
+`badblocks` crate. The pinned compiler reports unused functions, then a
+Rust syntax parser selects private `#[inline]` functions in leaf modules
+whose names occur only at their declarations. Removing 12,122 functions
+from 56 files reduces the pilot source count from 22,235 to 11,302. The
+release archive, standalone executable and stripped executable were each
+byte-identical before and after removal. The canonical command comparisons
+also cover read-only disk scans. These removals shrink the source requiring
+review. They contribute zero bytes of executable-size savings.
+
+Run `scripts/test_e2fsprogs_private_inlines.sh` to reproduce this experiment.
+It uses the Linux compiler image and the locked host build dependencies. On
+a new host, populate the Cargo cache with
+`cargo fetch --locked --manifest-path tools/private-inlines/Cargo.toml`.
+The syntax checker is a build tool. The
+production inventory above counts only the sources of the recorded link.
 
 The IPRoute2 7.3.0 pilot replaces `parse_rtattr_flags` in a disposable
 `bridge` build. The shared generated `libnetlink.rs` occurs in 18 engine
