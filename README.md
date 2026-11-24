@@ -438,6 +438,15 @@ to rebuild the 17 Cargo engines offline. Each comparison uses its own
 source copy and target directory mounted at the original Linux paths.
 The hardened `bridge` archive uses a separate rustc build.
 
+The Cargo checker runs rustc's dead-code lint on the selected crate, keeps
+its dependency builds, and cleans and rebuilds the applet itself. It verifies
+that the archive disappeared after cleaning, then checks the rebuilt archive
+hash and compiler input list. `fsck` and `lnstat` selected the same ranges
+and post-cleanup source hashes as the earlier full-target rebuilds.
+`--prepare-inetutils` applies the same archive checks to the 26 engines in
+Inetutils’ shared Cargo target. The strict full-set check detected an archive
+difference in `ifconfig` when a removal shifted source byte offsets.
+
 The IPRoute2 7.3.0 pilot replaces `parse_rtattr_flags` in a disposable
 `bridge` build. The shared generated `libnetlink.rs` occurs in 18 engine
 crates. The safe walker in `compat/iproute2/rtattr.rs` applies the type mask,

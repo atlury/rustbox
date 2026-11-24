@@ -8,6 +8,7 @@ import json
 import concurrent.futures
 import os
 from pathlib import Path
+import shlex
 import shutil
 import subprocess
 import tempfile
@@ -26,6 +27,9 @@ def layout(archive):
     if archive.suffix != ".a" or archive.parent.name != "release":
         raise ValueError("expected an original Cargo release archive")
     target = archive.parents[1]
+    if target.name == "cargo-target" and archive.name.endswith("_audit.a"):
+        name = archive.name.removeprefix("lib").removesuffix("_audit.a")
+        return target.parent / name / f"{name}-stable", target
     if target.name == "target":
         return target.parent, target
     if target.parent.name == "cargo-target":
@@ -36,6 +40,11 @@ def layout(archive):
 
 def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def rust_inputs(archive):
+    rule = archive.with_suffix(".d").read_text().splitlines()[0].split(": ", 1)[1]
+    return {Path(name).relative_to("/work") for name in shlex.split(rule) if name.endswith(".rs")}
 
 
 def verify_in_container(relative_archive, selected_sha):
@@ -55,12 +64,14 @@ def verify_in_container(relative_archive, selected_sha):
     subprocess.run(["cargo", "build", *flags], cwd=crate, env=env, check=True)
     if digest(archive) != selected_sha:
         raise RuntimeError(f"{name} clean Cargo build differs from its selected archive")
+    original_inputs = rust_inputs(archive)
     with tempfile.TemporaryDirectory() as scratch:
         tmp = Path(scratch)
         diagnostics = tmp / "dead.jsonl"
         with diagnostics.open("w") as output:
-            with subprocess.Popen(["cargo", "check", "--message-format=json", *flags],
-                                  env=dict(env, RUSTFLAGS="-A warnings --force-warn dead_code"),
+            with subprocess.Popen(["cargo", "rustc", "--message-format=json", "--lib", *flags,
+                                   "--", "-A", "warnings", "--force-warn", "dead_code"],
+                                  env=env,
                                   stdout=subprocess.PIPE, text=True, cwd=crate) as child:
                 for line in child.stdout:
                     record = json.loads(line)
@@ -72,9 +83,14 @@ def verify_in_container(relative_archive, selected_sha):
         subprocess.run([TOOL, crate, diagnostics, overlay], check=True)
         plan = json.loads((overlay / "ranges.json").read_text())
         removed = replay(crate, plan)
-        subprocess.run(["cargo", "clean", "--release", "--manifest-path", crate / "Cargo.toml"],
+        package = tomllib.loads((crate / "Cargo.toml").read_text())["package"]["name"]
+        subprocess.run(["cargo", "clean", "--release", "-p", package, "--manifest-path", crate / "Cargo.toml"],
                        env=env, check=True)
+        if archive.exists():
+            raise RuntimeError("package clean retained the candidate archive")
         subprocess.run(["cargo", "build", *flags], cwd=crate, env=env, check=True)
+        if rust_inputs(archive) != original_inputs:
+            raise RuntimeError(f"compiler-selected source files changed after cleaning {name}")
         if digest(archive) != selected_sha:
             raise RuntimeError(f"private-inline cleanup changed the selected {name} release archive")
         proof = {"archive_sha256": selected_sha, "ranges": plan,
@@ -99,9 +115,7 @@ def check_linux_cargo(archive, publish=False):
             key_hash.update(bytes.fromhex(digest(path)))
         key_hash.update(bytes.fromhex(expected))
         # A compiler-selected file or a change in crate configuration invalidates the proof.
-        import shlex
-        rule = (ROOT / archive).with_suffix(".d").read_text().splitlines()[0].split(": ", 1)[1]
-        selected = {Path(n).relative_to("/work") for n in shlex.split(rule) if n.endswith(".rs")}
+        selected = rust_inputs(ROOT / archive)
         for path in sorted(selected | {source / f for f in ("Cargo.toml", "Cargo.lock", "rust-toolchain.toml")}):
             key_hash.update(str(path).encode() + b"\0" + bytes.fromhex(digest(ROOT / path)))
         key = key_hash.hexdigest()
@@ -112,7 +126,7 @@ def check_linux_cargo(archive, publish=False):
                 raise ValueError(f"stale Cargo private-inline proof: {saved}")
             return {"file": saved.name, "sha256": digest(saved)}
     registry = (["-v", "rustbox-pointer-cargo-registry:/root/.cargo/registry:ro"]
-                if archive.parts[2] == "iproute2-7.3.0" else [])
+                if archive.parts[2] in ("iproute2-7.3.0", "inetutils-2.8") else [])
     with tempfile.TemporaryDirectory(dir=ROOT / "work/analysis") as scratch:
         tmp = Path(scratch)
         shutil.copytree(ROOT / source, tmp / "source", ignore=shutil.ignore_patterns("target"))
@@ -130,7 +144,7 @@ def check_linux_cargo(archive, publish=False):
 
         if publish:
             record = json.loads((tmp / "output/.rustbox-private-inlines.json").read_text())
-            if not record["ranges"] or not {source / p for p in record["ranges"]} <= selected:
+            if not {source / p for p in record["ranges"]} <= selected:
                 raise RuntimeError("pruning ranges must belong to compiler-selected Cargo inputs")
             compiled = tmp / "output/release" / archive.name
             if digest(compiled) != expected or record["archive_sha256"] != expected:
@@ -146,11 +160,15 @@ def check_linux_cargo(archive, publish=False):
 def prepare_package(package):
     if package == "e2fsprogs":
         release, engines = "1.47.4", CARGO_ENGINES
-    else:
+    elif package == "iproute2":
         release, engines = "7.3.0", IPROUTE2_CARGO_ENGINES
+    else:
+        from link_rustbox_multicall import INETUTILS_PROGRAMS
+        release, engines = "2.8", INETUTILS_PROGRAMS
     target = Path(f"work/analysis/{package}-{release}/program-translations/cargo-target")
     index_file = ROOT / f"work/analysis/{package}-cargo-inline-proofs.json"
-    paths = [target / name / "release" / f"lib{name}_audit.a" for name in engines]
+    paths = [(target if package == "inetutils" else target / name) / "release" / f"lib{name}_audit.a"
+             for name in engines]
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as workers:
         futures = {path: workers.submit(check_linux_cargo, path, True) for path in paths}
         index = {str(path): task.result() for path, task in futures.items()}
@@ -166,6 +184,7 @@ if __name__ == "__main__":
     group = parser.add_mutually_exclusive_group()
     group.add_argument("--prepare-e2fsprogs", action="store_const", const="e2fsprogs", dest="package")
     group.add_argument("--prepare-iproute2", action="store_const", const="iproute2", dest="package")
+    group.add_argument("--prepare-inetutils", action="store_const", const="inetutils", dest="package")
     parser.add_argument("--verify-mounted-copy", metavar="SHA256")
     args = parser.parse_args()
     if args.package and not args.archive and not args.verify_mounted_copy:
