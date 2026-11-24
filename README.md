@@ -383,6 +383,19 @@ a new host, populate the Cargo cache with
 The syntax checker is a build tool. The
 production inventory above counts only the sources of the recorded link.
 
+The same archive-identity check has passed across all 20 E2fsprogs engines.
+The 13 engines with shared checksums remove 178,032 raw-pointer type
+occurrences from unused private helpers. The other seven remove 3,064.
+Together they remove 44,759,411 bytes of generated Rust across 963 source
+entries. Each before/after pair has the same archive SHA-256.
+
+`scripts/build_private_inline_tool.sh` builds the syntax checker for the
+offline Linux image. `scripts/check_cargo_private_inlines.py --prepare-e2fsprogs`
+rebuilds the seven Cargo archives at their original paths in disposable
+mounts. The other 13 use the compiler flags and dependencies of their
+checksum builds. Each cleanup saves its source ranges, source digests and
+verified archive hash for replay.
+
 The IPRoute2 7.3.0 pilot replaces `parse_rtattr_flags` in a disposable
 `bridge` build. The shared generated `libnetlink.rs` occurs in 18 engine
 crates. The safe walker in `compat/iproute2/rtattr.rs` applies the type mask,
