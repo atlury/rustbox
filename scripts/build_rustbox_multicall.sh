@@ -3,10 +3,16 @@
 set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
+gzip_archive=work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a
+xz_archive=work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a
+curl_archive=work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/release/libcurl_8_23_0_normalized_audit.a
 "$root/scripts/build_private_inline_tool.sh"
 python3 -B "$root/scripts/check_cargo_private_inlines.py" --prepare-e2fsprogs
 python3 -B "$root/scripts/check_cargo_private_inlines.py" --prepare-iproute2
 python3 -B "$root/scripts/check_cargo_private_inlines.py" --prepare-inetutils
+python3 -B "$root/scripts/check_cargo_private_inlines.py" --prepare-archive curl "$curl_archive"
+python3 -B "$root/scripts/check_cargo_private_inlines.py" --prepare-archive gzip "$gzip_archive"
+python3 -B "$root/scripts/check_cargo_private_inlines.py" --prepare-archive xz "$xz_archive"
 RUSTBOX_TOOL_IMAGE=rustbox-e2fsprogs:2026-11-24 \
   exec "$root/scripts/run_tool.sh" python3 -B /work/scripts/link_rustbox_multicall.py \
     --repository /work \
@@ -27,9 +33,9 @@ RUSTBOX_TOOL_IMAGE=rustbox-e2fsprogs:2026-11-24 \
     --acl-rust-library /work/work/analysis/acl-2.4.0/translations/c2rust-0.22.1/acl-2.4.0-stable/target/release/libacl_2_4_0_normalized_audit.a \
     --lz4-rust-library /work/work/analysis/lz4-1.11.1/translations/c2rust-0.22.1/lz4-1.11.1-stable/target/release/liblz4_1_11_1_normalized_audit.a \
     --less-rust-library /work/work/analysis/less-710/translations/c2rust-0.22.1/less-710-stable/target/release/libless_710_normalized_audit.a \
-    --gzip-rust-library /work/work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a \
+    --gzip-rust-library "/work/$gzip_archive" \
     --gzip-support-library /rustbox-gzip/normalized-clang/lib/libgzip.a \
-    --xz-rust-library /work/work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a \
+    --xz-rust-library "/work/$xz_archive" \
     --zstd-rust-library /work/work/analysis/zstd-1.5.7/translations/c2rust-0.22.1/zstd-1.5.7-stable/target/release/libzstd_1_5_7_normalized_audit.a \
     --tar-rust-library /work/work/analysis/tar-1.35/translations/c2rust-0.22.1/tar-1.35-stable/target/release/libtar_1_35_normalized_audit.a \
     --ncurses-rust-library /work/work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a \
@@ -39,7 +45,7 @@ RUSTBOX_TOOL_IMAGE=rustbox-e2fsprogs:2026-11-24 \
     --flex-rust-library /work/work/analysis/flex-2.6.4/translations/c2rust-0.22.1/flex-2.6.4-stable/target/release/libflex_2_6_4_normalized_audit.a \
     --bison-rust-library /work/work/analysis/bison-3.8.2/translations/c2rust-0.22.1/bison-3.8.2-stable/target/release/libbison_3_8_2_normalized_audit.a \
     --bison-c-residue-directory /work/work/analysis/bison-3.8.2/hybrid-artifacts/c-residue \
-    --curl-rust-library /work/work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/release/libcurl_8_23_0_normalized_audit.a \
+    --curl-rust-library "/work/$curl_archive" \
     --curl-c-residue-directory /work/work/analysis/curl-8.23.0/hybrid-artifacts/c-residue \
     --inetutils-rust-directory /work/work/analysis/inetutils-2.8/program-translations/cargo-target/release \
     --inetutils-telnet-c-boundary /rustbox-inetutils/normalized-clang/lib/libgnu_a-printf-args.o \

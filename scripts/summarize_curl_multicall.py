@@ -8,6 +8,7 @@ import hashlib
 import json
 import re
 import subprocess
+from datetime import datetime, timezone
 from pathlib import Path
 
 
@@ -45,7 +46,7 @@ def main() -> int:
         or config.get("passed") != 24
         or config.get("canonical_native_exact") is not True
         or link.get("curl_public_names") != 2
-        or link.get("total_dispatch_names") != 360
+        or link.get("total_dispatch_names") not in (360, 499)
         or link.get("curl_config_frontend_bridge", {}).get("symbols")
         != ["rustbox_curl_config_main"]
         or not link.get("curl_namespaced_symbols")
@@ -86,7 +87,7 @@ def main() -> int:
 
     evidence = {
         "schema": 1,
-        "recorded_at": "2026-11-23",
+        "recorded_at": datetime.fromtimestamp(differential_path.stat().st_mtime, timezone.utc).date().isoformat(),
         "status": "curl and curl-config integrated at canonical parity",
         "scope": {
             "public_names": ["curl", "curl-config"],
@@ -128,6 +129,7 @@ def main() -> int:
             "differential": sha256(differential_path),
             "curl_config": sha256(config_path),
             "hybrid_evidence": sha256(args.hybrid_evidence),
+            "link": sha256(args.link_report),
         },
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)

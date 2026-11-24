@@ -3,20 +3,26 @@
     "aggregate_multicall_needed_libraries": [
       "ld-linux-x86-64.so.2",
       "libattr.so.1",
+      "libbpf.so.1",
       "libbz2.so.1.0",
       "libc.so.6",
       "libcap-ng.so.0",
       "libcap.so.2",
       "libcrypt.so.1",
       "libcrypto.so.3",
+      "libdb-5.3.so",
       "libeconf.so.0",
+      "libelf.so.1",
+      "libfuse3.so.3",
       "libgcc_s.so.1",
       "libgmp.so.10",
       "liblz.so.1",
       "liblzma.so.5",
       "libm.so.6",
       "libmagic.so.1",
+      "libmnl.so.0",
       "libmpfr.so.6",
+      "libncurses.so.6",
       "libncursesw.so.6",
       "libpam.so.0",
       "libpam_misc.so.0",
@@ -25,10 +31,12 @@
       "libseccomp.so.2",
       "libsqlite3.so.0",
       "libtinfo.so.6",
+      "libtirpc.so.3",
+      "libxtables.so.12",
       "libz.so.1",
       "libzstd.so.1"
     ],
-    "bytes": 29969728,
+    "bytes": 43033392,
     "curl_external_protocol_libraries": [],
     "curl_profile_needed_libraries": [
       "libm.so.6",
@@ -37,7 +45,7 @@
       "ld-linux-x86-64.so.2"
     ],
     "path": "/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox",
-    "sha256": "cd981c0704fa3d3e6bbe7ee29f56862f8775c54e27ae796730c0677677a91827"
+    "sha256": "b8241ee1e9194ad785f897ca56358df4da82643b86187748da53fd2724d4a0ae"
   },
   "curl_config_differential": {
     "canonical_native_exact": true,
@@ -573,13 +581,14 @@
     },
     "curl_public_names": 2,
     "namespaced_symbols": 1260,
-    "total_dispatch_names": 360
+    "total_dispatch_names": 499
   },
-  "recorded_at": "2026-11-23",
+  "recorded_at": "2026-11-24",
   "report_sha256": {
     "curl_config": "e9c665306701ae1025d685bdada84bc76250dd27160f04c9638a626d7aa8a671",
     "differential": "db9eb7abea3c0d6808359f96df07bb91fbce5a6dfa4025277d6c3a1f4168a102",
-    "hybrid_evidence": "e316e6433df6204ebc92ba32e973b1aefb9a2fa8f96e39cd67e624143ba4273d"
+    "hybrid_evidence": "e316e6433df6204ebc92ba32e973b1aefb9a2fa8f96e39cd67e624143ba4273d",
+    "link": "6839b5750478c6e55dd99903e63f1e3feac4065df220ff4404803f75dc482625"
   },
   "schema": 1,
   "scope": {

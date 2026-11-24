@@ -2510,6 +2510,8 @@ def main() -> int:
         repository, "iproute2", (path for n, path in iproute2_libraries.items() if n != "bridge")
     ))
     inline_proofs.update(verified_cargo_inline_proofs(repository, "inetutils", inetutils_libraries.values()))
+    for package, archive in (("curl", curl_rust_library), ("gzip", gzip_rust_library), ("xz", xz_rust_library)):
+        inline_proofs.update(verified_cargo_inline_proofs(repository, package, [archive]))
     inline_proofs[str(bridge_archive.relative_to(repository))] = bridge_inline_proof
     # Verify the C-facing interface before namespace isolation or section GC.
     # Rust compiler-internal symbols may change when a translation unit is removed.

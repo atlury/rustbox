@@ -281,8 +281,10 @@ actual callers and verify the final linked executable before recording a
 production reduction.
 
 The default 499-name Linux executable now uses the cleaned sources for
-**all 20 E2fsprogs, 18 IPRoute2 and 26 GNU Inetutils engines**. Across the
-linked applet sources the raw-pointer type count fell from **1,379,960 to 1,133,914**.
+all 20 E2fsprogs, 18 IPRoute2 and 26 GNU Inetutils engines, as well as curl,
+GNU gzip and XZ Utils. Across the linked applet sources the raw-pointer type
+count fell from **1,379,960 to 1,117,983**.
+Counting byte-identical Rust files once gives **798,473** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
 | Production change | Raw-pointer type occurrences removed |
@@ -292,11 +294,16 @@ The count of applets certified pointer-free is still zero.
 | Compiler-verified removal of unused private helpers across all 20 E2fsprogs engines | 181,096 |
 | Compiler-verified removal of unused private helpers across all 18 IPRoute2 engines | 41,619 |
 | Compiler-verified removal of unused private helpers across all 26 GNU Inetutils engines | 18,487 |
-| **Total** | **246,046** |
+| Compiler-verified removal of unused private helpers in curl 8.23.0 | 7,833 |
+| Compiler-verified removal of unused private helpers in GNU gzip 1.14 | 1,023 |
+| Compiler-verified removal of unused private helpers in XZ Utils 5.8.4 | 7,075 |
+| **Total** | **261,977** |
 
 E2fsprogs accounts for 215,084 remaining occurrences, down from 401,012.
 IPRoute2 accounts for 223,692, down from 265,323. GNU Inetutils accounts
-for 85,898, down from 104,385.
+for 85,898, down from 104,385. The curl crate accounts for 89,022, down
+from 96,855. GNU gzip accounts for 3,063, down from 4,086, and XZ Utils
+accounts for 15,164, down from 22,239.
 The checksum replacement saved 135,168 stripped bytes. Removing unused source
 preserved the entire ELF and link map byte-for-byte. The executable is
 25,081,136 bytes stripped and its unstripped SHA-256 is
@@ -465,6 +472,21 @@ comparison against the curl archive selected by the Linux release, use
 curl_crate=work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable
 python3 -B scripts/check_cargo_private_inlines.py "$curl_crate/target/release/libcurl_8_23_0_normalized_audit.a"
 ```
+
+The curl archive reproduced its original SHA-256 after removing 4,317 unused
+functions across 238 files, including 7,833 raw-pointer type occurrences
+and 1,471,444 source bytes. The default build uses
+`--prepare-archive curl "$curl_archive"` to publish that evidence before
+linking. Run `scripts/test_curl_multicall.sh` to compare the two public
+commands with canonical curl and check the version and local file transfer
+paths under Valgrind.
+
+GNU gzip and XZ Utils use the same archive check. The gzip crate lost
+520 unused helpers across 45 files and 182,406 source bytes. The XZ crate
+lost 3,635 helpers across 102 files and 1,036,340 source bytes. Run
+`scripts/test_gzip_multicall.sh` and `scripts/test_xz_multicall.sh` for
+108 gzip and 70 XZ command comparisons, compression output checks and
+Valgrind. The XZ script also runs the upstream shell tests.
 
 The default build removes 9,189 unused private helper definitions and 18,487
 raw-pointer type occurrences from 606 GNU Inetutils source entries. The
