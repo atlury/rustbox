@@ -1,0 +1,420 @@
+{
+  "hardening": {
+    "deferred_until_all_applets_complete": true,
+    "raw_pointers_and_unsafe_are_inventory_only": true,
+    "static_external_library_elimination_deferred": true
+  },
+  "hybrid": {
+    "differential": {
+      "cases": 79,
+      "passed": 79,
+      "sha256": "350fa7f3d2ae8cc48af4c16d0ae64f15eb13c25a60d1d899713db4f9e878b147"
+    },
+    "dynamic_dependencies": [
+      "libcrypt.so.1",
+      "libm.so.6",
+      "libgcc_s.so.1",
+      "libc.so.6",
+      "ld-linux-x86-64.so.2"
+    ],
+    "entrypoint_engines": 30,
+    "executable": {
+      "bytes": 4787160,
+      "sha256": "b7a372356d7ce0f5713266362a31ee8ca4f34e232dc66a8e0ec45158c211571b"
+    },
+    "public_programs": 32,
+    "stripped": {
+      "bytes": 712056,
+      "sha256": "71e59a60086f3f2c0a189a3541bff95e13f7256ea68ae7f45bd456d99be48cd7"
+    },
+    "valgrind": {
+      "chage": {
+        "errors": 0,
+        "sha256": "62110d94d3bff4b9ff445ab7fbfe45913ba73c5bc1e1d38f2896878765ba09f4"
+      },
+      "chfn": {
+        "errors": 0,
+        "sha256": "6d0a4a3e769de4f2da1f4c11488653da3a3ab788f747a4b88027d0b5f3f2f3b7"
+      },
+      "chgpasswd": {
+        "errors": 0,
+        "sha256": "bbc53f99e6864d1afc45f37e942aec2ca02d832c23bee5d4811bf41eb2fcd1f8"
+      },
+      "chpasswd": {
+        "errors": 0,
+        "sha256": "f50ca6f4ff4c7df6ceb65c9e26571ca58d5a8e799e73b38e40779c3330f78079"
+      },
+      "chsh": {
+        "errors": 0,
+        "sha256": "9ef0acffd87d9361be353302453d5c070f2c1d4254c4b930bc893f1231494a2e"
+      },
+      "faillog": {
+        "errors": 0,
+        "sha256": "0ce16f5de93040ed127432ae539ac1dea2d7d39a5082b18e9089d5e9d9dc6daa"
+      },
+      "getsubids": {
+        "errors": 0,
+        "sha256": "437b688720032ec8d18fccd047c8c88e044c79c833fee65cdf2db72474d7461e"
+      },
+      "gpasswd": {
+        "definitely_lost_bytes": 48,
+        "errors": 6,
+        "indirectly_lost_bytes": 28,
+        "sha256": "dfc4183f54aa8610588b9fc60d657db9482e49a987448384a5d6acebbc3586f8"
+      },
+      "groupadd": {
+        "errors": 0,
+        "sha256": "a4d5481af2135d3a4f643526ca321ae07c0cf7c4c7f04389e4c81f1f4c1dd90c"
+      },
+      "groupdel": {
+        "errors": 0,
+        "sha256": "f7399bd3cefe64cff30ecdf74891dbab9933be3217113e04e6c47bd11c3090d0"
+      },
+      "groupmod": {
+        "errors": 0,
+        "sha256": "fd9084d70df4f0a77faf11ec31dfb3682cd741921e095fc46000c77255bd2328"
+      },
+      "grpck": {
+        "errors": 0,
+        "sha256": "0aa4a34e4ebd6f40a9b216e52f2cfc7f9c8da2a5116fc5f44eb6fb8f2477a2ce"
+      },
+      "grpconv": {
+        "errors": 0,
+        "sha256": "fd6d136eabdd1ef9c2d0241dd1095e067e6402071538e839c8ac0d056ec610c2"
+      },
+      "grpunconv": {
+        "errors": 0,
+        "sha256": "30c337bd3fae37f7afc7d1a70d725d22605055bc4c135dde360bcad9d70515b1"
+      },
+      "lastlog": {
+        "errors": 0,
+        "sha256": "ea32cfbf1cfffac1007f821b3bedcbf1b9acfb32cc2f86a557cf393734a88e22"
+      },
+      "login": {
+        "errors": 0,
+        "sha256": "66c80cf027d399b60bd1a717af2a4c7dce3ea11321cfbd1cb34fe731f1fd7b08"
+      },
+      "newgidmap": {
+        "errors": 0,
+        "sha256": "031ca20f1219d1c101a24570e2e09eaf74c3001f82afabf3fd2ecfbd3204389a"
+      },
+      "newgrp": {
+        "errors": 0,
+        "sha256": "9b253e83d8e298c59fbe91d3147d4bb55cbd2b6ce8f77ad16f34ace213684678"
+      },
+      "newuidmap": {
+        "errors": 0,
+        "sha256": "2a8d829f7c2a73bb5cf8092a88e78cdc7e3e0882f72d0852f6c04c8457a2cb55"
+      },
+      "newusers": {
+        "errors": 0,
+        "sha256": "92e27928231719ed1b2c7af1c5742c91096b5cffc9e4c004f1a5e23a2db854fb"
+      },
+      "nologin": {
+        "errors": 0,
+        "sha256": "07d5470e55e54656c02b09fc54e6b567713c133e2f45f3b8856ecb76f3d78401"
+      },
+      "passwd": {
+        "errors": 0,
+        "sha256": "2008fd27e0f27e6f63ddc2eac757e63aa42d7816a0f9e19b324d76e1d5fddbc4"
+      },
+      "pwck": {
+        "errors": 0,
+        "sha256": "e884a6cdc4ccc476543f00abc82c668cff18c7a2e614139e151d132c56ba2321"
+      },
+      "pwconv": {
+        "errors": 0,
+        "sha256": "b62e9bb90d04589bbea98cbc855d4c22a08bc24342a17e928b0fdf1237151ed2"
+      },
+      "pwunconv": {
+        "errors": 0,
+        "sha256": "31d9001c7d26d07f7b7acca6343c6d29c2c87e38458014f76439e7a6ec91d22a"
+      },
+      "sg": {
+        "errors": 0,
+        "sha256": "4be2e3a3810aa688d837e8c99e7090855f05165b443f310ea3882325761169bf"
+      },
+      "su": {
+        "errors": 0,
+        "sha256": "581b339bb4373bedf6a3e00849a45613b0024c059df09c8223930bc36cfa39c2"
+      },
+      "useradd": {
+        "errors": 0,
+        "sha256": "088754b5ddd927bda2fc5894a1398a8f940158a06dc56363a83e27f4b0c1859b"
+      },
+      "userdel": {
+        "errors": 0,
+        "sha256": "621af3e8b23d7995dcc19cbf4458212dbb910901c8ba5c79b980338f3e016052"
+      },
+      "usermod": {
+        "errors": 0,
+        "sha256": "bf8bbf15a97f7622340e1a52207ba2ad31cad1d8198dc86f6667380bbcd24991"
+      },
+      "vigr": {
+        "errors": 0,
+        "sha256": "483278c88dbf4321b600061bd900b8c38307e1b836748f14c1e466ef9cc79db9"
+      },
+      "vipw": {
+        "errors": 0,
+        "sha256": "96524c01294a0ec01cd7784e087123c94c1c712839091a8a2ff01d01bdec3b9e"
+      }
+    }
+  },
+  "input": {
+    "closure_sha256": "1f6b8a4881090d137074da1c61e8f04e1c6bc23e109cd3e9ba6c995af117e152",
+    "compile_commands": 196,
+    "compile_database_sha256": "3aaf977854564e62dc09f85aab00d19ed450d7196bf7174da7afd891db4e7b46",
+    "normalization_evidence_sha256": "5149ba8e931935f9b28e340f746315c1dbbfb12d4bf3279670336e1c2e4cc3de",
+    "oracle_evidence_sha256": "503cc9fe3809120fc51f92d2f8a8487daa8e40d18d75f33ee13500c7e37e9250"
+  },
+  "next_gate": "link all 32 Shadow names into the unified Rustbox multicall",
+  "recorded_at": "2026-11-24",
+  "release": "4.20.4",
+  "repaired_translation": {
+    "active_translated_c_sources": 196,
+    "archive": {
+      "bytes": 23711724,
+      "entrypoint_definition_counts": {
+        "rustbox_shadow_chage_main": 1,
+        "rustbox_shadow_chfn_main": 1,
+        "rustbox_shadow_chgpasswd_main": 1,
+        "rustbox_shadow_chpasswd_main": 1,
+        "rustbox_shadow_chsh_main": 1,
+        "rustbox_shadow_faillog_main": 1,
+        "rustbox_shadow_getsubids_main": 1,
+        "rustbox_shadow_gpasswd_main": 1,
+        "rustbox_shadow_groupadd_main": 1,
+        "rustbox_shadow_groupdel_main": 1,
+        "rustbox_shadow_groupmod_main": 1,
+        "rustbox_shadow_grpck_main": 1,
+        "rustbox_shadow_grpconv_main": 1,
+        "rustbox_shadow_grpunconv_main": 1,
+        "rustbox_shadow_lastlog_main": 1,
+        "rustbox_shadow_login_main": 1,
+        "rustbox_shadow_newgidmap_main": 1,
+        "rustbox_shadow_newgrp_main": 1,
+        "rustbox_shadow_newuidmap_main": 1,
+        "rustbox_shadow_newusers_main": 1,
+        "rustbox_shadow_nologin_main": 1,
+        "rustbox_shadow_passwd_main": 1,
+        "rustbox_shadow_pwck_main": 1,
+        "rustbox_shadow_pwconv_main": 1,
+        "rustbox_shadow_pwunconv_main": 1,
+        "rustbox_shadow_su_main": 1,
+        "rustbox_shadow_useradd_main": 1,
+        "rustbox_shadow_userdel_main": 1,
+        "rustbox_shadow_usermod_main": 1,
+        "rustbox_shadow_vipw_main": 1
+      },
+      "sha256": "1f03d771809640b56a6df61f4f297ebfbf08cdb2ae3fd2b88303da7b58d8a917"
+    },
+    "canonical_c_sources": [],
+    "cargo_check": {
+      "build_finished_success": true,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "0d7eb372baafce299bac3eeb2bcb1664425cf404be0eeb423eb2c9773cb2ffd1",
+      "cargo_toml_sha256": "2dbfe9d2551811e22b356531c0c47bdb639782261fb72c4af7105780ecdc96ab",
+      "diagnostics_by_level": {
+        "warning": 99
+      },
+      "errors": [],
+      "exit_status": 0,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "9e828b6167b41c9eb27ef705c2778aa3a23d673cff8811120d6ce30dd5f11da4",
+      "toolchain_request": "nightly-2023-04-15",
+      "warning_codes": {
+        "stable_features": 1,
+        "unused_imports": 2,
+        "unused_parens": 83,
+        "unused_unsafe": 5,
+        "unused_variables": 7
+      }
+    },
+    "holes": {
+      "C2Rust Translation Error": 0,
+      "compile_error!": 0,
+      "todo!": 0,
+      "unimplemented!": 0
+    },
+    "native_release_build_success": true,
+    "raw_pointer_type_occurrences": 31872,
+    "repair_files": 13,
+    "repair_manifest_sha256": "d1f6ebc61bd97b7ae622d4bc4d64fae60a470c296ce627183ad23f4b5bfca9d9",
+    "repair_operations": 21,
+    "repair_sites": 22,
+    "rust_bytes": 4614434,
+    "rust_files": 198,
+    "rust_lines": 126633,
+    "unsafe_block_occurrences": 93,
+    "unsafe_function_occurrences": 5364
+  },
+  "schema": 1,
+  "status": "complete no-hole translation and hybrid parity",
+  "translator": {
+    "canonical_production_sources": 201,
+    "excluded_noninstalled_program_sources": [
+      "src/check_subid_range.c",
+      "src/free_subid_range.c",
+      "src/get_subid_owners.c",
+      "src/new_subid_range.c",
+      "src/sulogin.c"
+    ],
+    "fail_on_error": true,
+    "name": "C2Rust",
+    "preserve_unused_functions": true,
+    "translated_c_sources": 196,
+    "translation_holes": 0,
+    "version": "0.22.1"
+  },
+  "untouched_translation": {
+    "cargo_check": {
+      "build_finished_success": false,
+      "cargo": "cargo 1.70.0-nightly (84b7041fd 2023-04-13)",
+      "cargo_lock_sha256": "0d7eb372baafce299bac3eeb2bcb1664425cf404be0eeb423eb2c9773cb2ffd1",
+      "cargo_toml_sha256": "2dbfe9d2551811e22b356531c0c47bdb639782261fb72c4af7105780ecdc96ab",
+      "diagnostics_by_level": {
+        "error": 16,
+        "failure-note": 1,
+        "warning": 86
+      },
+      "errors": [
+        {
+          "code": "E0308",
+          "column": 17,
+          "file": "src/lib/addgrps.rs",
+          "line": 669,
+          "message": "mismatched types"
+        },
+        {
+          "code": "E0308",
+          "column": 25,
+          "file": "src/lib/env.rs",
+          "line": 716,
+          "message": "mismatched types"
+        },
+        {
+          "code": "E0308",
+          "column": 50,
+          "file": "src/lib/limits.rs",
+          "line": 766,
+          "message": "mismatched types"
+        },
+        {
+          "code": "E0308",
+          "column": 17,
+          "file": "src/lib/subordinateio.rs",
+          "line": 1421,
+          "message": "mismatched types"
+        },
+        {
+          "code": "E0308",
+          "column": 17,
+          "file": "src/lib/subordinateio.rs",
+          "line": 2152,
+          "message": "mismatched types"
+        },
+        {
+          "code": "E0308",
+          "column": 33,
+          "file": "src/lib/xgetgrgid.rs",
+          "line": 556,
+          "message": "mismatched types"
+        },
+        {
+          "code": "E0308",
+          "column": 33,
+          "file": "src/lib/xgetgrnam.rs",
+          "line": 555,
+          "message": "mismatched types"
+        },
+        {
+          "code": "E0308",
+          "column": 33,
+          "file": "src/lib/xgetpwnam.rs",
+          "line": 560,
+          "message": "mismatched types"
+        },
+        {
+          "code": "E0308",
+          "column": 33,
+          "file": "src/lib/xgetpwuid.rs",
+          "line": 561,
+          "message": "mismatched types"
+        },
+        {
+          "code": "E0308",
+          "column": 33,
+          "file": "src/lib/xgetspnam.rs",
+          "line": 556,
+          "message": "mismatched types"
+        },
+        {
+          "code": "E0308",
+          "column": 33,
+          "file": "src/lib/xprefix_getpwnam.rs",
+          "line": 562,
+          "message": "mismatched types"
+        },
+        {
+          "code": "E0308",
+          "column": 48,
+          "file": "src/src/faillog.rs",
+          "line": 881,
+          "message": "mismatched types"
+        },
+        {
+          "code": "E0308",
+          "column": 24,
+          "file": "src/src/faillog.rs",
+          "line": 882,
+          "message": "mismatched types"
+        },
+        {
+          "code": "E0308",
+          "column": 51,
+          "file": "src/src/faillog.rs",
+          "line": 893,
+          "message": "mismatched types"
+        },
+        {
+          "code": "E0308",
+          "column": 33,
+          "file": "src/src/newgrp.rs",
+          "line": 1245,
+          "message": "mismatched types"
+        },
+        {
+          "code": null,
+          "column": null,
+          "file": null,
+          "line": null,
+          "message": "aborting due to 15 previous errors; 86 warnings emitted"
+        }
+      ],
+      "exit_status": 101,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "schema": 1,
+      "stderr_sha256": "c8dee2b1a3c31c5b1bbdbe56f7a53f600da664b56366e22c4cfdc7db12c70078",
+      "toolchain_request": "nightly-2023-04-15",
+      "warning_codes": {
+        "E0308": 15,
+        "stable_features": 1,
+        "unused_imports": 2,
+        "unused_parens": 83
+      }
+    },
+    "holes": {
+      "C2Rust Translation Error": 0,
+      "compile_error!": 0,
+      "todo!": 0,
+      "unimplemented!": 0
+    },
+    "raw_pointer_type_occurrences": 31872,
+    "rust_bytes": 4614850,
+    "rust_files": 198,
+    "rust_lines": 126633,
+    "unsafe_block_occurrences": 93,
+    "unsafe_function_occurrences": 5364
+  }
+}

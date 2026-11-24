@@ -1425,7 +1425,13 @@ Library-only checkpoints (outside the active utility order):
      generated crate now type-checks and release-builds after 22 asserted ABI
      representation repairs across 13 files; the repair script always starts
      from the untouched strict-translation output and records every changed
-     site and before/after digest.
+     site and before/after digest.  The 32-name translated hybrid exposes all
+     30 real engines exactly once, passes all 79 canonical comparisons and
+     matches all 32 canonical resource profiles (including the known
+     `gpasswd` baseline).  It is 712,056 bytes stripped.  Translation, unsafe
+     inventory, linkage, size, and hybrid evidence is recorded in
+     `evidence/shadow-4.20.4-c2rust.json`; unified multicall integration is the
+     remaining Shadow gate.
    - [ ] IPRoute2 — `arpd`, `bridge`, `ctstat`, `dcb`, `devlink`, `genl`,
      `ifcfg`, `ifstat`, `ip`, `lnstat`, `nstat`, `rdma`, `routef`, `routel`,
      `rtacct`, `rtmon`, `rtpr`, `rtstat`, `ss`, `tc`, `tipc`, `vdpa`.

@@ -143,6 +143,8 @@ def main() -> int:
             1, "store completion in translated atomic_bool integer storage",
         ),
     ))
+    for repair in repairs:
+        repair["path"] = Path(str(repair["path"])).relative_to(output).as_posix()
     manifest = {
         "schema": 1,
         "source_modules": len(list(output.rglob("*.rs"))) - 2,
