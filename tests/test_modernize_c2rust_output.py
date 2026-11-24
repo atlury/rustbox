@@ -161,6 +161,22 @@ class OpaqueUseTests(unittest.TestCase):
         )
         self.assertIn("let flag: bool = (value & 1) != 0;", output)
 
+    def test_asm_cast_output_uses_short_lived_raw_pointer_references(self) -> None:
+        output = self.transform(
+            'unsafe extern "C" fn swap(mut val: u32) -> u32 {\n'
+            '    let fresh1 = &mut val;\n'
+            '    let fresh2;\n'
+            '    let fresh3 = val;\n'
+            '    asm!("bswap {0}", inlateout(reg) '
+            'c2rust_asm_casts::AsmCast::cast_in(fresh1, fresh3) => fresh2);\n'
+            '    c2rust_asm_casts::AsmCast::cast_out(fresh1, fresh3, fresh2);\n'
+            '    val\n'
+            '}\n'
+        )
+        self.assertIn("let fresh1 = &raw mut val;", output)
+        self.assertIn("AsmCast::cast_in(&mut *fresh1, fresh3)", output)
+        self.assertIn("AsmCast::cast_out(&mut *fresh1, fresh3, fresh2)", output)
+
     def test_redundant_cast_of_bool_returning_call_is_removed(self) -> None:
         output = self.transform(
             "extern \"C\" { fn predicate(value: Option<unsafe extern \"C\" fn(i32) -> bool>) -> bool; }\n"

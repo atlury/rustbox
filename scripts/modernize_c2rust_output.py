@@ -44,6 +44,10 @@ WRITE_VOLATILE_BEFORE_IF = re.compile(
     r"(?ms)(?P<call>^(?P<indent>[ \t]*)::core::ptr::write_volatile\(\n"
     r".*?^(?P=indent)\))\n(?P=indent)if "
 )
+ASM_CAST_MUTABLE_BORROW = re.compile(
+    r"(?m)^(?P<indent>[ \t]*)let (?P<name>fresh[0-9]+) = &mut "
+    r"(?P<value>[A-Za-z_][A-Za-z0-9_]*);$"
+)
 REMOVED_FEATURES = {
     "#![feature(asm)]",
     "#![feature(c_variadic)]",
@@ -229,6 +233,44 @@ def rewrite_checked_arithmetic(text: str) -> tuple[str, int]:
         text = text[:receiver_start] + replacement + text[closing + 1:]
         rewrites += 1
         search_from = receiver_start + len(replacement)
+    return text, rewrites
+
+
+def rewrite_asm_cast_mutable_borrows(text: str) -> tuple[str, int]:
+    """Use a raw pointer for C2Rust's inline-assembly output destination.
+
+    C2Rust keeps an `&mut` binding alive across the copied input value and the
+    final result read.  Current stable Rust correctly rejects those overlapping
+    accesses.  The assembly compatibility helper needs a mutable reference only
+    at each call boundary, so retain C's raw-pointer aliasing and create the
+    short-lived references at those two calls.
+    """
+    rewrites = 0
+    search_from = 0
+    while match := ASM_CAST_MUTABLE_BORROW.search(text, search_from):
+        function_end = text.find('\nunsafe extern "C" fn ', match.end())
+        if function_end < 0:
+            function_end = len(text)
+        body = text[match.end():function_end]
+        name = match.group("name")
+        cast_in = f"c2rust_asm_casts::AsmCast::cast_in({name},"
+        cast_out = f"c2rust_asm_casts::AsmCast::cast_out({name},"
+        if body.count(cast_in) != 1 or body.count(cast_out) != 1:
+            search_from = match.end()
+            continue
+        replacement = (
+            f'{match.group("indent")}let {name} = &raw mut '
+            f'{match.group("value")};'
+        )
+        text = text[:match.start()] + replacement + text[match.end():]
+        function_end += len(replacement) - (match.end() - match.start())
+        body_start = match.start() + len(replacement)
+        body = text[body_start:function_end]
+        body = body.replace(cast_in, f"c2rust_asm_casts::AsmCast::cast_in(&mut *{name},", 1)
+        body = body.replace(cast_out, f"c2rust_asm_casts::AsmCast::cast_out(&mut *{name},", 1)
+        text = text[:body_start] + body + text[function_end:]
+        rewrites += 1
+        search_from = body_start + len(body)
     return text, rewrites
 
 
@@ -538,6 +580,7 @@ def transform_rust(
         )
 
     joined = ATOMIC_XCHG_ACQUIRE_I32.sub(stable_atomic_exchange, joined)
+    joined, asm_cast_mutable_borrow_rewrites = rewrite_asm_cast_mutable_borrows(joined)
 
     # Gnulib's memset_explicit compiler barrier carries an otherwise empty
     # assembly template plus one input operand.  Current Rust requires every
@@ -623,6 +666,7 @@ def transform_rust(
         "await_field_rewrites": await_field_rewrites,
         "va_arg_rewrites": va_arg_rewrites,
         "atomic_xchg_acquire_i32_rewrites": atomic_xchg_acquire_rewrites,
+        "asm_cast_mutable_borrow_rewrites": asm_cast_mutable_borrow_rewrites,
         "empty_asm_input_rewrites": empty_asm_input_rewrites,
         "integer_to_bool_rewrites": integer_to_bool_rewrites,
         "bool_call_comparison_rewrites": bool_call_comparison_rewrites,

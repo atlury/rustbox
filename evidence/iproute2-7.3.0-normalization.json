@@ -2,12 +2,12 @@
   "compile_databases": {
     "clang-18": {
       "compile_actions": 272,
-      "sha256": "b3bd5b7b74ac89adf7a20b00727bd5bd757c01491baee53ee81eb1c3abc17102",
+      "sha256": "d1a2f65bc108233fa766be829c6d6970b1a27fbbaf5b156da01b4a918d0d487f",
       "sources": 264
     },
     "gcc": {
       "compile_actions": 264,
-      "sha256": "d2fde72c186ba6f585ffb9c3e745ca32dfd05c2220559830ae34665a9b37f371",
+      "sha256": "650dddc3cf1ccd034de27e3da562e890a563cda6233f9e196f3485af0f964c19",
       "sources": 264
     }
   },
@@ -26,7 +26,7 @@
   "environmental_failure": "bareudp device type unavailable in Docker host kernel",
   "next_gate": "strict no-hole C2Rust translation of the native program closures",
   "normalization_manifest": {
-    "sha256": "f99c320a198c9bc859d96f18e3c39427533bee58cf85ef5898b6858bd0177ca1",
+    "sha256": "54b6f581716975a279edfb97997ea9002e3e1ecf097aa7026ac406c15d2a025c",
     "transformations": [
       {
         "after_sha256": "aa94ff991f1a34e74d08f7a8f69be5cbce3051b8f61ed71c49d6754a8918e62d",
@@ -155,10 +155,16 @@
         "path": "vdpa/vdpa.c"
       },
       {
-        "after_sha256": "425efd5039437c52fe5bbb5337fce463c09a603fe0e47f331bb04256f5355600",
+        "after_sha256": "f415d1ba37a7e348f9a8a0a904eecdd2e7194bce8573a9750c4201ec4e09ffb5",
         "before_sha256": "d5ab95c34ce7d5447e3951ca2e83faf6af604c0e6aad23b36659473f3c388bf7",
-        "kind": "expand C2Rust-incompatible GNU omitted-middle pointer conditionals with single evaluation (1)",
+        "kind": "expand C2Rust-incompatible GNU omitted-middle pointer conditionals with single evaluation (2)",
         "path": "lib/utils.c"
+      },
+      {
+        "after_sha256": "28a3900fe3e7da74e46fdc01140b2247f702b41575782bf4bdf4965fe53bb3db",
+        "before_sha256": "8d3d83219ee89fa821429b715eaf947d47e319c9648ab493d0e8bea0e74ad909",
+        "kind": "expand C2Rust-incompatible GNU omitted-middle pointer conditionals with single evaluation (3)",
+        "path": "lib/bpf_legacy.c"
       },
       {
         "after_sha256": "37323944de32a2ef406855e35a785ae256c4b84a34a56a4224b7e0f34286d064",
@@ -167,9 +173,9 @@
         "path": "misc/rtacct.c"
       },
       {
-        "after_sha256": "b9a106c84521cdfb4a09af5805658cb3cd6b88d855c6b625441c05e03fd68fba",
+        "after_sha256": "cf24a53ee00fbefc76dc51babdd02a05d1a8ed0fd9e6be337be5a176bc30ed75",
         "before_sha256": "a6a4baf48c074ad9d7489ceda9124f39642c27cd20c6710975a2f33b5ddf4ec9",
-        "kind": "expand C2Rust-incompatible GNU omitted-middle pointer conditionals with single evaluation (3)",
+        "kind": "expand C2Rust-incompatible GNU omitted-middle pointer conditionals with single evaluation (7)",
         "path": "misc/ss.c"
       },
       {
@@ -177,6 +183,42 @@
         "before_sha256": "e73e6331d7aba4f2a448f09ddcedf370b2309f16890cb336bd98b76f92f48511",
         "kind": "expand C2Rust-incompatible GNU omitted-middle pointer conditionals with single evaluation (1)",
         "path": "ip/iptunnel.c"
+      },
+      {
+        "after_sha256": "8a2887d67752ac8ad349c22bf1ee9ebb9ef9ae7d9d05898eaff514640c786376",
+        "before_sha256": "f4cdec7aa3893c25efc0bd8cec2203ccdc132c601afb5e5412c4c73f67544598",
+        "kind": "expand C2Rust-incompatible GNU omitted-middle pointer conditionals with single evaluation (3)",
+        "path": "ip/iplink_netkit.c"
+      },
+      {
+        "after_sha256": "88ea6d913ce20a3f4d763640864013e277eac0c08e3899a61f6624456bb71ce1",
+        "before_sha256": "85d565a8cb0d6e70599bc786320d155bbca7853d74bb4af13656bc1b21a557a4",
+        "kind": "expand C2Rust-incompatible GNU omitted-middle pointer conditionals with single evaluation (2)",
+        "path": "ip/iproute_lwtunnel.c"
+      },
+      {
+        "after_sha256": "e8729818acbb3e719ee1bddbb34b95ee8fe4a58d53356bfba1a0cfe5a9ab999d",
+        "before_sha256": "8c8b63c7aa72d6297ae7058868dbad7227f9476e19d0b0ae220694091457db8d",
+        "kind": "expand C2Rust-incompatible GNU omitted-middle pointer conditionals with single evaluation (1)",
+        "path": "dcb/dcb_dcbx.c"
+      },
+      {
+        "after_sha256": "61ca59c2e900e20a4645a2f50c3ec9ed42fd6c793528aca57362d1e1c4b8bf70",
+        "before_sha256": "2b459c96b59e3f1c70ffb8dabe45f9d2b8530557491e261d512698f1c85aa016",
+        "kind": "expand C2Rust-incompatible GNU omitted-middle pointer conditionals with single evaluation (3)",
+        "path": "tc/tc_util.c"
+      },
+      {
+        "after_sha256": "744e7df550a8da48b07cbd838519eaba75ace25515dad5d901263f09d2a40e25",
+        "before_sha256": "56f3a6eee9b4c7ef005c84733498059eb40c8989920a7deb2b9b08bd79deab74",
+        "kind": "expand C2Rust-incompatible GNU omitted-middle pointer conditionals with single evaluation (1)",
+        "path": "tc/q_netem.c"
+      },
+      {
+        "after_sha256": "d51490fa58fdea9bb87e95fbb5bc88fb8dd0c0814b0357401da605032d0c87b7",
+        "before_sha256": "6fa2fcb716224b538941df2eddd04e232e7fa069ff1adebd61ab80db121474cb",
+        "kind": "expand C2Rust-incompatible GNU omitted-middle pointer conditionals with single evaluation (1)",
+        "path": "tc/tc_class.c"
       }
     ]
   },
@@ -192,12 +234,16 @@
     "changed_files": [
       "bridge/bridge.c",
       "dcb/dcb.c",
+      "dcb/dcb_dcbx.c",
       "devlink/devlink.c",
       "dpll/dpll.c",
       "genl/genl.c",
       "ip/ip.c",
+      "ip/iplink_netkit.c",
+      "ip/iproute_lwtunnel.c",
       "ip/iptunnel.c",
       "ip/rtmon.c",
+      "lib/bpf_legacy.c",
       "lib/utils.c",
       "misc/arpd.c",
       "misc/ifstat.c",
@@ -207,7 +253,10 @@
       "misc/ss.c",
       "netshaper/netshaper.c",
       "rdma/rdma.c",
+      "tc/q_netem.c",
       "tc/tc.c",
+      "tc/tc_class.c",
+      "tc/tc_util.c",
       "tipc/tipc.c",
       "vdpa/vdpa.c"
     ],

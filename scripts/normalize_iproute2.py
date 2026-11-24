@@ -35,11 +35,43 @@ ENTRYPOINTS = {
 # conditional operator.  Spell this single-evaluation expression out in
 # standard C without changing its observable behavior.
 C2RUST_NORMALIZATIONS = {
-    "lib/utils.c": ((
-        '\t\tp = getenv("PROC_ROOT") ? : "/proc";\n',
-        '\t\tconst char *proc_root = getenv("PROC_ROOT");\n'
-        '\t\tp = proc_root ? proc_root : "/proc";\n',
-    ),),
+    "lib/utils.c": (
+        (
+            '\t\tp = getenv("PROC_ROOT") ? : "/proc";\n',
+            '\t\tconst char *proc_root = getenv("PROC_ROOT");\n'
+            '\t\tp = proc_root ? proc_root : "/proc";\n',
+        ),
+        (
+            '\tif (getenv("HZ"))\n'
+            '\t\treturn atoi(getenv("HZ")) ? : HZ;\n',
+            '\tif (getenv("HZ")) {\n'
+            '\t\tint configured_hz = atoi(getenv("HZ"));\n'
+            '\t\treturn configured_hz ? configured_hz : HZ;\n'
+            '\t}\n',
+        ),
+    ),
+    "lib/bpf_legacy.c": (
+        (
+            '\t\tmnt = mnt_env ? : BPF_DIR_MNT;\n',
+            '\t\tmnt = mnt_env ? mnt_env : BPF_DIR_MNT;\n',
+        ),
+        (
+            '\t\tret = sendmsg(fd, &msg.hdr, 0);\n'
+            '\t\tif (ret <= 0)\n'
+            '\t\t\treturn ret ? : -1;\n',
+            '\t\tret = sendmsg(fd, &msg.hdr, 0);\n'
+            '\t\tif (ret <= 0)\n'
+            '\t\t\treturn ret ? ret : -1;\n',
+        ),
+        (
+            '\t\tret = recvmsg(fd, &msg.hdr, 0);\n'
+            '\t\tif (ret <= 0)\n'
+            '\t\t\treturn ret ? : -1;\n',
+            '\t\tret = recvmsg(fd, &msg.hdr, 0);\n'
+            '\t\tif (ret <= 0)\n'
+            '\t\t\treturn ret ? ret : -1;\n',
+        ),
+    ),
     "misc/rtacct.c": ((
         '\t\tp = getenv("PROC_ROOT") ? : "/proc";\n',
         '\t\tchar *proc_root = getenv("PROC_ROOT");\n'
@@ -63,11 +95,77 @@ C2RUST_NORMALIZATIONS = {
             '\t\t\tsnprintf(procname, sizeof(procname), "%s/%d/stat",\n'
             '\t\t\t\tproc_root ? proc_root : "/proc", pid);\n',
         ),
+        (
+            '\tsock_addr_print(s->name ?: "*", " ",\n',
+            '\tsock_addr_print(s->name ? s->name : "*", " ",\n',
+        ),
+        (
+            '\tsock_addr_print(s->peer_name ?: "*", " ",\n',
+            '\tsock_addr_print(s->peer_name ? s->peer_name : "*", " ",\n',
+        ),
+        (
+            '\t\t\t\tu->peer_name = p->name ? : "*";\n',
+            '\t\t\t\tu->peer_name = p->name ? p->name : "*";\n',
+        ),
+        (
+            '\t\tout(" proc_ctx=%s", pid_context ? : "unavailable");\n',
+            '\t\tout(" proc_ctx=%s", pid_context ? pid_context : "unavailable");\n',
+        ),
     ),
     "ip/iptunnel.c": ((
         '\treturn tnl_del_ioctl(tnl_defname(&p) ? : p.name, p.name, &p);\n',
         '\tchar *defname = tnl_defname(&p);\n'
         '\treturn tnl_del_ioctl(defname ? defname : p.name, p.name, &p);\n',
+    ),),
+    "ip/iplink_netkit.c": (
+        (
+            '\treturn netkit_policy_strings[policy] ? : inv;\n',
+            '\treturn netkit_policy_strings[policy] ? netkit_policy_strings[policy] : inv;\n',
+        ),
+        (
+            '\treturn netkit_mode_strings[mode] ? : inv;\n',
+            '\treturn netkit_mode_strings[mode] ? netkit_mode_strings[mode] : inv;\n',
+        ),
+        (
+            '\treturn netkit_scrub_strings[scrub] ? : inv;\n',
+            '\treturn netkit_scrub_strings[scrub] ? netkit_scrub_strings[scrub] : inv;\n',
+        ),
+    ),
+    "ip/iproute_lwtunnel.c": (
+        (
+            '\treturn seg6_action_names[action] ?: "<unknown>";\n',
+            '\treturn seg6_action_names[action] ? seg6_action_names[action] : "<unknown>";\n',
+        ),
+        (
+            '\t\t\t     progname ? : "<unknown>");\n',
+            '\t\t\t     progname ? progname : "<unknown>");\n',
+        ),
+    ),
+    "dcb/dcb_dcbx.c": ((
+        '\t\t\t\tprint_bool(PRINT_JSON, flag->key_json ?: flag->key_fp,\n',
+        '\t\t\t\tprint_bool(PRINT_JSON, flag->key_json ? flag->key_json : flag->key_fp,\n',
+    ),),
+    "tc/tc_util.c": (
+        (
+            '\tpackets64_hw = packets64_hw ? : bs_hw.packets;\n',
+            '\tpackets64_hw = packets64_hw ? packets64_hw : bs_hw.packets;\n',
+        ),
+        (
+            '\t\tpackets64 = packets64 ? : bs.packets;\n',
+            '\t\tpackets64 = packets64 ? packets64 : bs.packets;\n',
+        ),
+        (
+            '\t\t*xstats = tbs[TCA_STATS_APP] ? : NULL;\n',
+            '\t\t*xstats = tbs[TCA_STATS_APP] ? tbs[TCA_STATS_APP] : NULL;\n',
+        ),
+    ),
+    "tc/q_netem.c": ((
+        '\t\trate64 = rate64 ? : rate->rate;\n',
+        '\t\trate64 = rate64 ? rate64 : rate->rate;\n',
+    ),),
+    "tc/tc_class.c": ((
+        '\t\t\tq->print_xstats(q, fp, xstats ? : tb[TCA_XSTATS]);\n',
+        '\t\t\tq->print_xstats(q, fp, xstats ? xstats : tb[TCA_XSTATS]);\n',
     ),),
 }
 

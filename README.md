@@ -1470,8 +1470,8 @@ Library-only checkpoints (outside the active utility order):
      unique multicall ABI per engine, and retains standalone wrappers.  It
      additionally expands C2Rust-incompatible GNU omitted-middle pointer
      conditionals with explicit single-evaluation temporaries; because two of
-     those files also own entrypoints, the 22 transformations touch exactly 20
-     unique source files.
+     those files also own entrypoints, the 29 transformations touch
+     exactly 27 unique source files.
      Both normalized compilers again pass all 63 public comparisons, all 20
      native resource paths, and the same 18/19 upstream tests.  Exact scope
      and before/after hashes are recorded in

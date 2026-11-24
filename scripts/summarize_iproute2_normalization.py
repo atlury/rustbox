@@ -45,7 +45,7 @@ def main() -> int:
     analysis = root / "work/analysis/iproute2-7.3.0/normalized"
     manifest_path = normalized / ".rustbox-normalization.json"
     manifest = json.loads(manifest_path.read_text())
-    if manifest.get("engines") != 18 or len(manifest.get("transformations", [])) != 22:
+    if manifest.get("engines") != 18 or len(manifest.get("transformations", [])) != 29:
         raise RuntimeError("IPRoute2 normalization manifest changed")
 
     canonical_tree = tree(canonical)
@@ -57,7 +57,7 @@ def main() -> int:
         if canonical_tree[relative] != normalized_tree[relative]
     )
     expected_changed = sorted({item["path"] for item in manifest["transformations"]})
-    if changed != expected_changed or len(changed) != 20:
+    if changed != expected_changed or len(changed) != 27:
         raise RuntimeError(f"IPRoute2 normalization scope changed: {changed}")
 
     compile_databases = {}
@@ -154,7 +154,7 @@ def main() -> int:
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")
-    print(json.dumps({"engines": 18, "cases": 126, "changed_files": 20}, sort_keys=True))
+    print(json.dumps({"engines": 18, "cases": 126, "changed_files": 27}, sort_keys=True))
     return 0
 
 

@@ -1,0 +1,81 @@
+{
+  "asserted_repairs": {
+    "files": 7,
+    "manifest_sha256": "072167341e98db3497059296690e42a770ba1dbc93035ac96be01eb0723dd8c5",
+    "repairs": 10
+  },
+  "compile_checks": {
+    "audit": {
+      "errors": 10,
+      "exit_status": 101,
+      "rustc": "rustc 1.70.0-nightly (84dd17b56 2023-04-14)",
+      "sha256": "5f890d8157820152493e931101b8d31b5b288ffdf549179aa3eeef70cc3f74d5"
+    },
+    "final": {
+      "errors": 0,
+      "exit_status": 0,
+      "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+      "sha256": "4a4f7436b230e09951dad0e2737d913079f036186e64fcf19f7c95d93f555db4"
+    },
+    "stable": {
+      "errors": 9,
+      "exit_status": 101,
+      "rustc": "rustc 1.99.0 (b940084d7 2026-09-28)",
+      "sha256": "2fd28d381853bbe71553aa0702e0948e6a6c0dfd95c260a5c5bdf0fc17fe10e4"
+    }
+  },
+  "generated": {
+    "entrypoints": [
+      "arpd",
+      "bridge",
+      "dcb",
+      "devlink",
+      "dpll",
+      "genl",
+      "ifstat",
+      "ip",
+      "lnstat",
+      "netshaper",
+      "nstat",
+      "rdma",
+      "rtacct",
+      "rtmon",
+      "ss",
+      "tc",
+      "tipc",
+      "vdpa"
+    ],
+    "raw_pointer_type_occurrences": 141660,
+    "rust_files": 262,
+    "rust_lines": 637495,
+    "translation_holes": 0,
+    "unsafe_token_occurrences": 26726
+  },
+  "modernization": {
+    "asm_cast_mutable_borrow_rewrites": 180,
+    "files_changed": 257,
+    "manifest_sha256": "4ff3090bba2cfebc6f23a1091a10a6418759d6d237b48454c60fd286038d2b13",
+    "monolithic_duplicate_exports_mangled": 59
+  },
+  "recorded_at": "2026-11-24",
+  "release": "7.3.0",
+  "runtime_policy": {
+    "monolithic_crate_is_audit_only": true,
+    "next_gate": "18 exact linker-map program closures and hybrid canonical parity",
+    "reason": "formerly separate programs contain colliding mutable C globals"
+  },
+  "schema": 1,
+  "source_closure": {
+    "compile_database_sha256": "a2b74a2260099b19834f47e24631276388c23b8e516cc1af68139b3a3dd736d4",
+    "duplicate_actions_collapsed": 4,
+    "excluded_build_helpers": [
+      "netem/maketable.c",
+      "netem/normal.c",
+      "netem/pareto.c",
+      "netem/paretonormal.c"
+    ],
+    "manifest_sha256": "73703920a9afeea00dffd2213a8e5163c9c8f1478294149ebff3fe29ac0cadf7",
+    "production_sources": 260
+  },
+  "status": "complete strict no-hole translation and latest-stable compile audit"
+}
