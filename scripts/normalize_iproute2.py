@@ -31,6 +31,17 @@ ENTRYPOINTS = {
     "vdpa": ("vdpa/vdpa.c", "int main(int argc, char **argv)"),
 }
 
+# C2Rust 0.22.1 cannot import Clang's AST for GNU's omitted-middle
+# conditional operator.  Spell this single-evaluation expression out in
+# standard C without changing its observable behavior.
+C2RUST_NORMALIZATIONS = {
+    "lib/utils.c": (
+        '\t\tp = getenv("PROC_ROOT") ? : "/proc";\n',
+        '\t\tconst char *proc_root = getenv("PROC_ROOT");\n'
+        '\t\tp = proc_root ? proc_root : "/proc";\n',
+    ),
+}
+
 
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -77,6 +88,20 @@ def main() -> int:
             "before_sha256": before,
             "after_sha256": sha256(source),
             "kind": "export entrypoint and retain standalone wrapper",
+        })
+
+    for relative, (original, replacement) in C2RUST_NORMALIZATIONS.items():
+        source = output / relative
+        text = source.read_text()
+        if text.count(original) != 1 or replacement in text:
+            raise RuntimeError(f"IPRoute2 C2Rust normalization anchor changed: {relative}")
+        before = sha256(source)
+        source.write_text(text.replace(original, replacement, 1))
+        transformations.append({
+            "path": relative,
+            "before_sha256": before,
+            "after_sha256": sha256(source),
+            "kind": "expand GNU omitted-middle conditional with single evaluation",
         })
 
     manifest = {

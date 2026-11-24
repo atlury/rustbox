@@ -2,12 +2,12 @@
   "compile_databases": {
     "clang-18": {
       "compile_actions": 272,
-      "sha256": "5336d8ca80b0fadb373db24ce9a1623fd194a9c0545eef6adc235412f81fac12",
+      "sha256": "d97c4199bede01a36fb1b19bb91caee061dfcf13ce6a0d804fd8be416c5b1cfa",
       "sources": 264
     },
     "gcc": {
       "compile_actions": 264,
-      "sha256": "6c0ddbf503ccfa3a79743f8b778c5c77cbb3bcd526506c41f230323db82b2792",
+      "sha256": "838392a3ca9e6a2e7e0be707b46d2cc45749e5cce6776eda2c220bc24f66bbd3",
       "sources": 264
     }
   },
@@ -26,7 +26,7 @@
   "environmental_failure": "bareudp device type unavailable in Docker host kernel",
   "next_gate": "strict no-hole C2Rust translation of the native program closures",
   "normalization_manifest": {
-    "sha256": "bcc1e0c2ae6d0c6386144c5f7c7b13466b713a36f1084896971bdb2c88e99d0e",
+    "sha256": "77f5320bbb16fef30702b6962921ccc30306cb03a5ed7658c77c70ac4e2b72b7",
     "transformations": [
       {
         "after_sha256": "aa94ff991f1a34e74d08f7a8f69be5cbce3051b8f61ed71c49d6754a8918e62d",
@@ -153,6 +153,12 @@
         "entrypoint": "rustbox_iproute2_vdpa_main",
         "kind": "export entrypoint and retain standalone wrapper",
         "path": "vdpa/vdpa.c"
+      },
+      {
+        "after_sha256": "425efd5039437c52fe5bbb5337fce463c09a603fe0e47f331bb04256f5355600",
+        "before_sha256": "d5ab95c34ce7d5447e3951ca2e83faf6af604c0e6aad23b36659473f3c388bf7",
+        "kind": "expand GNU omitted-middle conditional with single evaluation",
+        "path": "lib/utils.c"
       }
     ]
   },
@@ -173,6 +179,7 @@
       "genl/genl.c",
       "ip/ip.c",
       "ip/rtmon.c",
+      "lib/utils.c",
       "misc/arpd.c",
       "misc/ifstat.c",
       "misc/lnstat.c",
