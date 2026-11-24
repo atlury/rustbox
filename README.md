@@ -454,7 +454,17 @@ code by padding each removed range with whitespace, then recompiles and
 compares the entire archive again. The release inventory replays the layout
 named in each receipt. Both strict predecessor checks can supply receipts
 when their original verifier, syntax tool, archive, source and configuration
-digests match.
+digests match. Receipts from the first verifier that supported byte-offset
+padding also bind the digest of the padding implementation.
+
+For curl 8.23.0, the same checker reads the pinned dependencies from the
+offline Cargo registry used by IPRoute2 and Inetutils. To run a disposable
+comparison against the curl archive selected by the Linux release, use
+
+```sh
+curl_crate=work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable
+python3 -B scripts/check_cargo_private_inlines.py "$curl_crate/target/release/libcurl_8_23_0_normalized_audit.a"
+```
 
 The default build removes 9,189 unused private helper definitions and 18,487
 raw-pointer type occurrences from 606 GNU Inetutils source entries. The

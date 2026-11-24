@@ -20,6 +20,8 @@ STRICT_VERIFIERS = (
     "28bd1667cb695e690698dc5ccc124321045417e971b9e5739d09a0abb44f11cc",  # e881b0d, crate clean
     "fbaf8906696946d8ae9984570628898f7bef46795995601af852df0bc6e8e89e",  # 67c7ae2, full target clean
 )
+# This producer supports both verified layouts and binds the padding implementation.
+OFFSET_VERIFIER = "86c7a52bb69f8f4e27b85bbc14f9c3ffbe9cffbd6b697981b463baaf5dfcea58"
 CARGO_ENGINES = ("chattr", "e4crypt", "filefrag", "fsck", "logsave", "lsattr", "mklost_found")
 IPROUTE2_CARGO_ENGINES = ("arpd", "dcb", "devlink", "dpll", "genl", "ifstat", "ip", "lnstat", "netshaper",
                          "nstat", "rdma", "rtacct", "rtmon", "ss", "tc", "tipc", "vdpa")
@@ -133,23 +135,26 @@ def check_linux_cargo(archive, publish=False):
         selected = rust_inputs(ROOT / archive)
         for path in sorted(selected | {source / f for f in ("Cargo.toml", "Cargo.lock", "rust-toolchain.toml")}):
             inputs.extend(str(path).encode() + b"\0" + bytes.fromhex(digest(ROOT / path)))
-        verifier = bytes.fromhex(digest(Path(__file__))) + bytes.fromhex(digest(ROOT / "scripts/inline_source_layout.py"))
+        layout_digest = bytes.fromhex(digest(ROOT / "scripts/inline_source_layout.py"))
+        verifier = bytes.fromhex(digest(Path(__file__))) + layout_digest
         key = hashlib.sha256(verifier + inputs).hexdigest()
         saved = (ROOT / archive).with_suffix(f".inlines-{key}.json")
         # Reuse strict receipts under their actual producer and complete input digest.
         # That producer accepted only archives that matched after the first rebuild.
         strict_keys = [hashlib.sha256(bytes.fromhex(producer) + inputs).hexdigest()
                        for producer in STRICT_VERIFIERS]
-        for candidate_key in (key, *strict_keys):
+        offset_key = hashlib.sha256(bytes.fromhex(OFFSET_VERIFIER) + layout_digest + inputs).hexdigest()
+        for candidate_key in (key, offset_key, *strict_keys):
             candidate = (ROOT / archive).with_suffix(f".inlines-{candidate_key}.json")
             if candidate.is_file():
                 record = json.loads(candidate.read_text())
                 if (record["key"] != candidate_key or record["archive_sha256"] != expected
-                        or (candidate_key != key and "source_layout" in record)):
+                        or record.get("source_layout", "lines") not in ("lines", "byte_offsets")
+                        or (candidate_key in strict_keys and "source_layout" in record)):
                     raise ValueError(f"stale Cargo private-inline proof: {candidate}")
                 return {"file": candidate.name, "sha256": digest(candidate)}
     registry = (["-v", "rustbox-pointer-cargo-registry:/root/.cargo/registry:ro"]
-                if archive.parts[2] in ("iproute2-7.3.0", "inetutils-2.8") else [])
+                if archive.parts[2] in ("iproute2-7.3.0", "inetutils-2.8", "curl-8.23.0") else [])
     with tempfile.TemporaryDirectory(dir=ROOT / "work/analysis") as scratch:
         tmp = Path(scratch)
         shutil.copytree(ROOT / source, tmp / "source", ignore=shutil.ignore_patterns("target"))
