@@ -171,7 +171,15 @@ def main() -> int:
             "\t\tvoid *:        const_cast(char *, p_)                 \\\n"
             "\t);                                                            \\\n"
             "})",
-            "#define strprefix(s, prefix)  ((char *) strprefix_(s, prefix))",
+            "static inline void *\n"
+            "rustbox_strprefix(const char *s, const char *prefix)\n"
+            "{\n"
+            "\tsize_t length = strlen(prefix);\n"
+            "\tif (strncmp(s, prefix, length) != 0)\n"
+            "\t\treturn NULL;\n"
+            "\treturn (void *) (s + length);\n"
+            "}\n\n"
+            "#define strprefix(s, prefix)  rustbox_strprefix((s), (prefix))",
         ),), "lower generic prefix return qualification to selected pointer cast"),
         replace_fragments(output, "lib/string/strcmp/strcaseprefix.h", ((
             "#define strcaseprefix(s, prefix)                                      \\\n"
@@ -187,7 +195,15 @@ def main() -> int:
             "\t\tvoid *:        const_cast(char *, p_)                 \\\n"
             "\t);                                                            \\\n"
             "})",
-            "#define strcaseprefix(s, prefix)  ((char *) strcaseprefix_(s, prefix))",
+            "static inline void *\n"
+            "rustbox_strcaseprefix(const char *s, const char *prefix)\n"
+            "{\n"
+            "\tsize_t length = strlen(prefix);\n"
+            "\tif (strncasecmp(s, prefix, length) != 0)\n"
+            "\t\treturn NULL;\n"
+            "\treturn (void *) (s + length);\n"
+            "}\n\n"
+            "#define strcaseprefix(s, prefix)  rustbox_strcaseprefix((s), (prefix))",
         ),), "lower generic case-prefix return qualification to selected pointer cast"),
         replace_fragments(output, "lib/string/strspn/stpspn.h", ((
             "#define stpspn(s, accept)                                                     \\\n"
