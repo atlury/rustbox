@@ -10,9 +10,10 @@ import os
 import re
 import shutil
 import subprocess
+import tempfile
 from pathlib import Path
 
-ISOLATION_CACHE_VERSION = 13
+ISOLATION_CACHE_VERSION = 14
 INETUTILS_PROGRAMS = (
     "dnsdomainname", "ftp", "ftpd", "hostname", "ifconfig", "inetd",
     "logger", "ping", "ping6", "rcp", "rexec", "rexecd", "rlogin",
@@ -31,6 +32,21 @@ PROCPS_ENTRYPOINT = {
         else name
     )
     for name in PROCPS_PROGRAMS
+}
+SHADOW_PROGRAMS = (
+    "chage", "chfn", "chgpasswd", "chpasswd", "chsh", "faillog",
+    "getsubids", "gpasswd", "groupadd", "groupdel", "groupmod", "grpck",
+    "grpconv", "grpunconv", "lastlog", "login", "newgidmap", "newgrp",
+    "newuidmap", "newusers", "nologin", "passwd", "pwck", "pwconv",
+    "pwunconv", "su", "useradd", "userdel", "usermod", "vipw", "sg",
+    "vigr",
+)
+SHADOW_COLLISIONS = {
+    "chfn", "chsh", "login", "newgrp", "nologin", "su", "vigr", "vipw",
+}
+SHADOW_ENTRYPOINT = {
+    name: "newgrp" if name == "sg" else "vipw" if name == "vigr" else name
+    for name in SHADOW_PROGRAMS
 }
 
 
@@ -1188,6 +1204,111 @@ def namespace_procps_library(
     return mapped, symbols
 
 
+def namespace_shadow_library(
+    rust_library: Path, build: Path
+) -> tuple[Path, list[str]]:
+    """Keep Shadow's libshadow/libsubid implementation and engines private."""
+    public = {
+        f"rustbox_shadow_{name}_main" for name in set(SHADOW_ENTRYPOINT.values())
+    }
+    strong_types = {"B", "C", "D", "G", "R", "S", "T"}
+    compiler_math = re.compile(
+        r"^(?:cbrt|ceil|copysign|fabs|fdim|floor|fma|fmax|fmaximum|fmin|fminimum|fmod|rint|round|sqrt|trunc)(?:f|f16|f128)?$"
+    )
+    output = subprocess.run(
+        ["nm", "-g", "--defined-only", str(rust_library)],
+        check=True, text=True, stdout=subprocess.PIPE,
+    ).stdout
+    symbols = sorted({
+        fields[-1]
+        for line in output.splitlines()
+        if len(fields := line.split()) >= 3
+        and fields[-2] in strong_types
+        and re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", fields[-1])
+        and fields[-1] not in public
+        and (
+            not fields[-1].startswith("rust_")
+            or fields[-1] == "rust_eh_personality"
+        )
+        and not compiler_math.fullmatch(fields[-1])
+    })
+    if not symbols:
+        raise RuntimeError("Shadow archive exports no namespaceable C symbols")
+    destination = build / "src/.rustbox-shadow"
+    destination.mkdir(parents=True, exist_ok=True)
+    mapped = destination / rust_library.name
+    mapping = destination / "symbols.map"
+    mapping.write_text(
+        "".join(f"{symbol} rustbox_shadow_private_{symbol}\n" for symbol in symbols),
+        encoding="utf-8",
+    )
+    shutil.copy2(rust_library, mapped)
+    subprocess.run(["objcopy", "--redefine-syms", str(mapping), str(mapped)], check=True)
+    mapped_definitions = defined_symbols(mapped)
+    definitions = set(mapped_definitions)
+    for symbol in public:
+        if mapped_definitions.count(symbol) != 1:
+            raise RuntimeError(f"Shadow symbol isolation damaged {symbol}")
+    if any(symbol in definitions for symbol in symbols):
+        raise RuntimeError("Shadow symbol isolation left an unprefixed definition")
+    if any(f"rustbox_shadow_private_{symbol}" not in definitions for symbol in symbols):
+        raise RuntimeError("Shadow symbol isolation lost a definition")
+    return mapped, symbols
+
+
+def coalesce_identical_archive_members(
+    provider: Path, consumer: Path, build: Path
+) -> tuple[Path, list[str]]:
+    """Remove byte-identical Rust runtime members from a later staticlib."""
+    def members(path: Path) -> list[str]:
+        return subprocess.run(
+            ["ar", "t", str(path)], check=True, text=True, stdout=subprocess.PIPE
+        ).stdout.splitlines()
+
+    provider_members = members(provider)
+    consumer_members = members(consumer)
+    if len(provider_members) != len(set(provider_members)):
+        raise RuntimeError("Rust runtime provider archive has duplicate member names")
+    if len(consumer_members) != len(set(consumer_members)):
+        raise RuntimeError("Rust runtime consumer archive has duplicate member names")
+    common = sorted(set(provider_members) & set(consumer_members))
+    if not common:
+        raise RuntimeError("pinned Rust archives expose no common runtime members")
+
+    with tempfile.TemporaryDirectory(prefix="rustbox-runtime-coalesce-") as temporary:
+        temporary_root = Path(temporary)
+        provider_root = temporary_root / "provider"
+        consumer_root = temporary_root / "consumer"
+        provider_root.mkdir()
+        consumer_root.mkdir()
+        subprocess.run(
+            ["ar", "x", str(provider), *common], cwd=provider_root, check=True
+        )
+        subprocess.run(
+            ["ar", "x", str(consumer), *common], cwd=consumer_root, check=True
+        )
+        different = [
+            name for name in common
+            if sha256(provider_root / name) != sha256(consumer_root / name)
+        ]
+    if different:
+        raise RuntimeError(
+            f"pinned Rust runtime archive members differ: {different[:5]}"
+        )
+
+    destination = build / "src/.rustbox-shadow-runtime"
+    destination.mkdir(parents=True, exist_ok=True)
+    coalesced = destination / consumer.name
+    shutil.copy2(consumer, coalesced)
+    subprocess.run(["ar", "d", str(coalesced), *common], check=True)
+    remaining = members(coalesced)
+    if set(common) & set(remaining):
+        raise RuntimeError("Shadow runtime coalescing retained a shared member")
+    if len(remaining) != len(consumer_members) - len(common):
+        raise RuntimeError("Shadow runtime coalescing removed the wrong member count")
+    return coalesced, common
+
+
 def namespace_tar_inputs(
     rust_library: Path,
     residue_objects: list[Path],
@@ -1619,6 +1740,26 @@ def write_dispatcher(
                 f"return rustbox_procps_{symbol}_main(argc, argv); }}"
             )
     procps_selections = "\n".join(procps_selection_lines)
+    shadow_declarations = "\n".join(
+        f"extern int rustbox_shadow_{name}_main(int, char **);"
+        for name in sorted(set(SHADOW_ENTRYPOINT.values()))
+    )
+    shadow_selection_lines = []
+    for name in SHADOW_PROGRAMS:
+        public_name = f"shadow-{name}" if name in SHADOW_COLLISIONS else name
+        symbol = SHADOW_ENTRYPOINT[name]
+        prefix = f'    if (!force_util_linux && strcmp(name, "{public_name}") == 0) '
+        if public_name == name:
+            shadow_selection_lines.append(
+                prefix + f"return rustbox_shadow_{symbol}_main(argc, argv);"
+            )
+        else:
+            shadow_selection_lines.append(
+                prefix + f'{{ argv[0] = "{name}"; '
+                "program_invocation_name = argv[0]; program_invocation_short_name = argv[0]; "
+                f"return rustbox_shadow_{symbol}_main(argc, argv); }}"
+            )
+    shadow_selections = "\n".join(shadow_selection_lines)
     path.write_text(
         """/* Generated by link_rustbox_multicall.py. */
 #include <errno.h>
@@ -1704,6 +1845,9 @@ extern int rustbox_kmod_main(int, char **);
         + """
 """
         + procps_declarations
+        + """
+"""
+        + shadow_declarations
         + """
 """
         + declarations
@@ -1949,6 +2093,9 @@ int main(int argc, char **argv)
         + procps_selections
         + """
 """
+        + shadow_selections
+        + """
+"""
         + inetutils_selections
         + """
 """
@@ -2001,6 +2148,7 @@ def main() -> int:
     parser.add_argument("--inetutils-telnet-c-boundary", type=Path, required=True)
     parser.add_argument("--kmod-rust-library", type=Path, required=True)
     parser.add_argument("--procps-rust-library", type=Path, required=True)
+    parser.add_argument("--shadow-rust-library", type=Path, required=True)
     parser.add_argument("--link-report", type=Path, required=True)
     parser.add_argument("--reuse-isolation", action="store_true")
     args = parser.parse_args()
@@ -2052,6 +2200,7 @@ def main() -> int:
     inetutils_telnet_boundary = args.inetutils_telnet_c_boundary.resolve()
     kmod_rust_library = args.kmod_rust_library.resolve()
     procps_rust_library = args.procps_rust_library.resolve()
+    shadow_rust_library = args.shadow_rust_library.resolve()
     findutils_residue_directory = args.findutils_c_residue_directory.resolve()
     findutils_residue_objects = [
         findutils_residue_directory / name
@@ -2147,7 +2296,7 @@ def main() -> int:
         bison_rust_library, *bison_residue_objects,
         curl_rust_library, *curl_residue_objects,
         *inetutils_libraries.values(), inetutils_telnet_boundary,
-        kmod_rust_library, procps_rust_library,
+        kmod_rust_library, procps_rust_library, shadow_rust_library,
         gzip_support_library,
         *tar_residue_objects,
         *findutils_residue_objects,
@@ -2206,6 +2355,8 @@ def main() -> int:
     kmod_library_index = len(libraries) - 1
     libraries.append(procps_rust_library)
     procps_library_index = len(libraries) - 1
+    libraries.append(shadow_rust_library)
+    shadow_library_index = len(libraries) - 1
     source_library_hashes = {str(path.relative_to(repository)): sha256(path) for path in libraries}
     source_library_hashes[str(m4_support_library)] = sha256(m4_support_library)
     source_library_hashes[str(gzip_support_library)] = sha256(gzip_support_library)
@@ -2299,6 +2450,9 @@ def main() -> int:
     })
     expected_symbols.update(
         f"rustbox_procps_{name}_main" for name in set(PROCPS_ENTRYPOINT.values())
+    )
+    expected_symbols.update(
+        f"rustbox_shadow_{name}_main" for name in set(SHADOW_ENTRYPOINT.values())
     )
     expected_symbols.update(
         f"rustbox_inetutils_{name}_main" for name in INETUTILS_PROGRAMS
@@ -2551,6 +2705,25 @@ def main() -> int:
             libraries[procps_library_index], build
         )
     libraries[procps_library_index] = mapped_procps_rust
+
+    if cached_report:
+        mapped_shadow_rust = (
+            build / "src/.rustbox-shadow" / libraries[shadow_library_index].name
+        )
+        shadow_symbols = cached_report["shadow_namespaced_symbols"]
+        shadow_runtime_members = cached_report["shadow_coalesced_runtime_members"]
+    else:
+        coalesced_shadow_rust, shadow_runtime_members = coalesce_identical_archive_members(
+            procps_rust_library, shadow_rust_library, build
+        )
+        mapped_shadow_rust, shadow_symbols = namespace_shadow_library(
+            coalesced_shadow_rust, build
+        )
+    libraries[shadow_library_index] = mapped_shadow_rust
+    if len(shadow_runtime_members) != 211:
+        raise RuntimeError(
+            f"Shadow/Procps pinned runtime overlap changed: {len(shadow_runtime_members)}"
+        )
 
     canonical_dispatch_symbols = set(defined_symbols(build / "src/coreutils-coreutils.o"))
     if cached_report:
@@ -2821,6 +2994,10 @@ def main() -> int:
                 # archive for the linker to extract that member.
                 rewritten.append(str(bison_frontends_object))
                 rewritten.extend(str(path) for path in libraries)
+                # Shadow's byte-identical nightly runtime members are
+                # coalesced into Procps.  Repeat that provider after Shadow so
+                # normal archive extraction can satisfy late runtime imports.
+                rewritten.append(str(mapped_procps_rust))
                 rewritten.extend(str(path) for path in mapped_tar_residue)
                 rewritten.extend(str(path) for path in mapped_findutils_residue)
                 rewritten.extend(str(path) for path in mapped_bison_residue)
@@ -2949,6 +3126,7 @@ def main() -> int:
         "inetutils_programs": 26,
         "kmod_programs": 7,
         "procps_programs": 20,
+        "shadow_programs": 32,
         "total_dispatch_names": len(
             set(applets)
             | set(util_dispatch)
@@ -2971,6 +3149,8 @@ def main() -> int:
                "kmod", "depmod", "insmod", "lsmod", "modinfo", "modprobe", "rmmod",
                *({f"procps-{name}" if name in {"kill", "uptime"} else name
                   for name in PROCPS_PROGRAMS}),
+               *({f"shadow-{name}" if name in SHADOW_COLLISIONS else name
+                  for name in SHADOW_PROGRAMS}),
                *({name for name in INETUTILS_PROGRAMS if name not in {"hostname", "logger"}}),
                "inetutils-hostname", "inetutils-logger"}
         ),
@@ -2981,6 +3161,8 @@ def main() -> int:
             "procps-kill": "Procps-ng",
             "uptime": "GNU Coreutils",
             "procps-uptime": "Procps-ng",
+            **{name: "util-linux" for name in sorted(SHADOW_COLLISIONS)},
+            **{f"shadow-{name}": "Shadow" for name in sorted(SHADOW_COLLISIONS)},
         },
         "namespaced_canonical_symbols": {
             "lib/libcoreutils.a": {
@@ -3015,6 +3197,8 @@ def main() -> int:
         "inetutils_namespaced_symbols": inetutils_symbols,
         "kmod_namespaced_symbols": kmod_symbols,
         "procps_namespaced_symbols": procps_symbols,
+        "shadow_namespaced_symbols": shadow_symbols,
+        "shadow_coalesced_runtime_members": shadow_runtime_members,
         "tar_acl_imports": tar_acl_imports,
         "coreutils_acl_imports": coreutils_acl_imports,
         "diffutils_error_bridge": {
@@ -3123,6 +3307,7 @@ def main() -> int:
         "inetutils_programs": 26,
         "kmod_programs": 7,
         "procps_programs": 20,
+        "shadow_programs": 32,
         "output": str(output),
     }))
     return 0

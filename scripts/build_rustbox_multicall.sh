@@ -41,5 +41,6 @@ RUSTBOX_TOOL_IMAGE=rustbox-gawk:2026-11-22 \
     --inetutils-telnet-c-boundary /rustbox-inetutils/normalized-clang/lib/libgnu_a-printf-args.o \
     --kmod-rust-library /work/work/analysis/kmod-34.3/translations/c2rust-0.22.1/kmod-34.3-stable/target/release/libkmod_34_3_normalized_audit.a \
     --procps-rust-library /work/work/analysis/procps-ng-4.0.7/translations/c2rust-0.22.1/procps-ng-4.0.7-nightly/target/release/libprocps_ng_4_0_7_normalized_audit.a \
+    --shadow-rust-library /work/work/analysis/shadow-4.20.4/translations/c2rust-0.22.1/shadow-4.20.4-nightly/target/release/libshadow_4_20_4_normalized_audit.a \
     --reuse-isolation \
     --link-report /work/work/analysis/rustbox-multicall-link.json

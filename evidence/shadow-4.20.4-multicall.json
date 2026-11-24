@@ -1,0 +1,207 @@
+{
+  "aliases": {
+    "chfn": "shadow-chfn",
+    "chsh": "shadow-chsh",
+    "login": "shadow-login",
+    "newgrp": "shadow-newgrp",
+    "nologin": "shadow-nologin",
+    "su": "shadow-su",
+    "vigr": "shadow-vigr",
+    "vipw": "shadow-vipw"
+  },
+  "differential": {
+    "cases": 79,
+    "exact": true,
+    "passed": 79,
+    "sha256": "350fa7f3d2ae8cc48af4c16d0ae64f15eb13c25a60d1d899713db4f9e878b147",
+    "stateful_cases": 8
+  },
+  "dispatcher": {
+    "global_cases": 882,
+    "global_passed": 882,
+    "sha256": "a17cf64c6713af3dfe7563b18123f2c588352db1f5408faddd2d45311db37b7f",
+    "total_dispatch_names": 445
+  },
+  "link_report_sha256": "c19a7fc4eb7673a16bb72e38acaafb613d45cfe01f53bddfff57530fd35384a9",
+  "next_gate": "begin canonical IPRoute2 oracle and translation",
+  "programs": [
+    "chage",
+    "chfn",
+    "chgpasswd",
+    "chpasswd",
+    "chsh",
+    "faillog",
+    "getsubids",
+    "gpasswd",
+    "groupadd",
+    "groupdel",
+    "groupmod",
+    "grpck",
+    "grpconv",
+    "grpunconv",
+    "lastlog",
+    "login",
+    "newgidmap",
+    "newgrp",
+    "newuidmap",
+    "newusers",
+    "nologin",
+    "passwd",
+    "pwck",
+    "pwconv",
+    "pwunconv",
+    "su",
+    "useradd",
+    "userdel",
+    "usermod",
+    "vipw",
+    "sg",
+    "vigr"
+  ],
+  "recorded_at": "2026-11-24",
+  "release": "4.20.4",
+  "schema": 1,
+  "status": "all 32 Shadow programs integrated into unified Rustbox",
+  "translation": {
+    "canonical_c_residue_sources": 0,
+    "coalesced_identical_runtime_members": 211,
+    "coalesced_runtime_members_sha256": "d5906f38b9cca0e536a06ba5d71ae63d30f7faec13caf06b0f7dad5c6b49276a",
+    "namespaced_symbols": 265,
+    "namespaced_symbols_sha256": "230e9826b6962ff01d1175933cc1f14c7a8b47752dc3521eb00dd77023d45422",
+    "selected_sources": 196,
+    "translated_engines": 30
+  },
+  "valgrind": {
+    "chage": {
+      "errors": 0,
+      "sha256": "a7c46e1cd30872348d4ad2767fef16f83e632ddef8c4ced7937540e0cf1c3d3f"
+    },
+    "chfn": {
+      "errors": 0,
+      "sha256": "5cc087752917377002375a5e6ad2bf0959390ff9221d7f3bebcadce2e6246831"
+    },
+    "chgpasswd": {
+      "errors": 0,
+      "sha256": "b7c60cc65846641bcec45e0173fa637c6f93ceb78a4779cc33dad8125674525d"
+    },
+    "chpasswd": {
+      "errors": 0,
+      "sha256": "869438836e51591bd79a3f339d72e4a82e14eea49ad627828a2f2c1830dc4d68"
+    },
+    "chsh": {
+      "errors": 0,
+      "sha256": "dfec303891e91cff34154f157da774b2ae326e7b0a4c837ee18ec2ee41c4c392"
+    },
+    "faillog": {
+      "errors": 0,
+      "sha256": "7a1dbbfabad1a8e6b414f143d01a63bd7cf65ab34e9cc7210598ce1238f05996"
+    },
+    "getsubids": {
+      "errors": 0,
+      "sha256": "b108383479be766ec526e5b72c6575485f26469a34531b006f9102eb0779665c"
+    },
+    "gpasswd": {
+      "canonical_baseline": true,
+      "definitely_lost_bytes": 48,
+      "errors": 6,
+      "indirectly_lost_bytes": 28,
+      "sha256": "4f36291f9ddefc7fde931c73635a269d51cef0977c61b08d4ccc70f14359dea5"
+    },
+    "groupadd": {
+      "errors": 0,
+      "sha256": "20c5d6bff62b75120b1be1bf339b1ed4cce05443ed3d3225f1829f14ca682e8b"
+    },
+    "groupdel": {
+      "errors": 0,
+      "sha256": "e63810ead41ac72749f7f75d1a7487d35b1e518b86bf7a3eaa5f15a87b6c9e06"
+    },
+    "groupmod": {
+      "errors": 0,
+      "sha256": "97d51020c6bcc8606e4351f27e63248fc96a878d7b2aed6ceac192d0bd8816c9"
+    },
+    "grpck": {
+      "errors": 0,
+      "sha256": "e8798c3e7e4c3497efc9324fd62c8b402afdc877ad2b8112349585badccb0b99"
+    },
+    "grpconv": {
+      "errors": 0,
+      "sha256": "d1892635154f5e3e405a0803e268342d4724055e2e7f124af83f07cc7078b889"
+    },
+    "grpunconv": {
+      "errors": 0,
+      "sha256": "b49361ec10bd4cce3fd722cb3c4d4fc5d48d18bc4a68edc4a4b6836a5ef26d92"
+    },
+    "lastlog": {
+      "errors": 0,
+      "sha256": "db3f1c378cafdaca317f58e1829f48f396e546bfb4aa55913645b1bab831bf12"
+    },
+    "login": {
+      "errors": 0,
+      "sha256": "9ab73f732d6f9d09e9da6ce122eb2e39381caeac8d2e17ddfedbc9038362afb5"
+    },
+    "newgidmap": {
+      "errors": 0,
+      "sha256": "d807418a6779173b139b46cf3e3abf477ac6ac031164b3756ae19eb4c0ceedd6"
+    },
+    "newgrp": {
+      "errors": 0,
+      "sha256": "3e0dbe827df5d24167c206ac28d41b791101ce65559ed0f3abaefb870925632a"
+    },
+    "newuidmap": {
+      "errors": 0,
+      "sha256": "1d3c7bd59199a4208358f43a00369fa129a05fdd89950bca02d040fc6a3fdfbc"
+    },
+    "newusers": {
+      "errors": 0,
+      "sha256": "bc12eca3ea7bfd3fee3342571cdbfc1e88354fe5fb073c44c4ec268c9ad05f65"
+    },
+    "nologin": {
+      "errors": 0,
+      "sha256": "5cafd2eef91b41e0d1464e5b1f65950481e5856f67ae40881ffa67a2cc43aa85"
+    },
+    "passwd": {
+      "errors": 0,
+      "sha256": "2fdfe7b4050f71a382572e5dc295c82fcc83c5bd69a87df4618d1114889763af"
+    },
+    "pwck": {
+      "errors": 0,
+      "sha256": "af01fefe180f9793e466cac6efb0a873fb68ebc01d4a3c4eaa6fbcc693cc2b2a"
+    },
+    "pwconv": {
+      "errors": 0,
+      "sha256": "b722de193928695fa880836453fa18770827fc0bccf189e43f97311b7e36f64e"
+    },
+    "pwunconv": {
+      "errors": 0,
+      "sha256": "03ef2dc6f89e017902652c94f869c7d749de545e82d5b0135b6c5c97ced5e9de"
+    },
+    "sg": {
+      "errors": 0,
+      "sha256": "08a1153699b7dbab215d3fd228f3b1e8dfdff06334dbbaa0fa96e097b993c92b"
+    },
+    "su": {
+      "errors": 0,
+      "sha256": "0183f20a2c16d4d8010b1f6ead856722b5aea6649528ba88f06b7ba2033973fe"
+    },
+    "useradd": {
+      "errors": 0,
+      "sha256": "b8ef476e1c4f1ae84f5368980f0bb9d47b39b710ef23ae3a678d5480060ad66b"
+    },
+    "userdel": {
+      "errors": 0,
+      "sha256": "1fc9bdb744ca9c29a6049443c1b40ab288078868fa3900ca3b13218e88856263"
+    },
+    "usermod": {
+      "errors": 0,
+      "sha256": "aefd1a9f3e694560163e865982b4256eb64cec8c493b813826e9afe290cfee3b"
+    },
+    "vigr": {
+      "errors": 0,
+      "sha256": "b7f670d79d7457263fe697fe6536b986c0b04ec19a7cdf0bd91ea17447e71ab9"
+    },
+    "vipw": {
+      "errors": 0,
+      "sha256": "1758ee038a16b5664ad3e9223baeaf3fc8a6f43090c9c90952f1ea8774190386"
+    }
+  }
+}

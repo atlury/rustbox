@@ -73,6 +73,7 @@ def main() -> int:
     parser.add_argument("--kmod-oracle-root", type=Path, required=True)
     parser.add_argument("--procps-oracle-root", type=Path, required=True)
     parser.add_argument("--procps-oracle-library", type=Path, required=True)
+    parser.add_argument("--shadow-oracle-root", type=Path, required=True)
     parser.add_argument("--rustbox", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
@@ -107,6 +108,7 @@ def main() -> int:
     kmod_oracle_root = args.kmod_oracle_root.resolve()
     procps_oracle_root = args.procps_oracle_root.resolve()
     procps_oracle_library = args.procps_oracle_library.resolve()
+    shadow_oracle_root = args.shadow_oracle_root.resolve()
     failures: list[dict[str, object]] = []
     cases = 0
 
@@ -504,6 +506,26 @@ def main() -> int:
                                  "dispatch_name": dispatch_name, "option": option,
                                  "oracle": oracle, "actual": actual})
 
+    shadow_names = (
+        "chage", "chfn", "chgpasswd", "chpasswd", "chsh", "faillog",
+        "getsubids", "gpasswd", "groupadd", "groupdel", "groupmod", "grpck",
+        "grpconv", "grpunconv", "lastlog", "login", "newgidmap", "newgrp",
+        "newuidmap", "newusers", "nologin", "passwd", "pwck", "pwconv",
+        "pwunconv", "su", "useradd", "userdel", "usermod", "vipw", "sg",
+        "vigr",
+    )
+    shadow_collisions = {"chfn", "chsh", "login", "newgrp", "nologin", "su", "vigr", "vipw"}
+    for name in shadow_names:
+        dispatch_name = f"shadow-{name}" if name in shadow_collisions else name
+        for option in ("--help", "--version"):
+            cases += 1
+            oracle = invoke([name, option], executable=shadow_oracle_root / name)
+            actual = invoke([str(rustbox), dispatch_name, option])
+            if oracle != actual:
+                failures.append({"suite": "shadow", "applet": name,
+                                 "dispatch_name": dispatch_name, "option": option,
+                                 "oracle": oracle, "actual": actual})
+
     result = {
         "schema": 1,
         "cases": cases,
@@ -534,6 +556,7 @@ def main() -> int:
         "inetutils_programs": len(inetutils_names),
         "kmod_programs": len(kmod_names),
         "procps_programs": len(procps_names),
+        "shadow_programs": len(shadow_names),
         "gzip_help_oracle_path_normalized": True,
         "failures": failures,
     }
@@ -547,7 +570,7 @@ def main() -> int:
         + "\n",
         encoding="utf-8",
     )
-    print(json.dumps({key: result[key] for key in ("cases", "passed", "coreutils_applets", "util_linux_applets", "m4_applets", "pkgconf_public_names", "file_applets", "patch_applets", "sed_applets", "diffutils_applets", "grep_applets", "gawk_public_names", "bc_applets", "attr_applets", "acl_applets", "lz4_public_names", "less_public_names", "gzip_public_names", "xz_public_names", "zstd_public_names", "tar_applets", "ncurses_public_names", "findutils_public_names", "flex_public_names", "curl_public_names", "inetutils_programs", "kmod_programs", "procps_programs")}))
+    print(json.dumps({key: result[key] for key in ("cases", "passed", "coreutils_applets", "util_linux_applets", "m4_applets", "pkgconf_public_names", "file_applets", "patch_applets", "sed_applets", "diffutils_applets", "grep_applets", "gawk_public_names", "bc_applets", "attr_applets", "acl_applets", "lz4_public_names", "less_public_names", "gzip_public_names", "xz_public_names", "zstd_public_names", "tar_applets", "ncurses_public_names", "findutils_public_names", "flex_public_names", "curl_public_names", "inetutils_programs", "kmod_programs", "procps_programs", "shadow_programs")}))
     return 1 if failures else 0
 
 

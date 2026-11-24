@@ -48,6 +48,7 @@ def main() -> int:
     parser.add_argument("--inetutils-report-directory", type=Path, required=True)
     parser.add_argument("--kmod-report-directory", type=Path, required=True)
     parser.add_argument("--procps-report-directory", type=Path, required=True)
+    parser.add_argument("--shadow-report-directory", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     binary = args.binary.resolve()
@@ -79,10 +80,11 @@ def main() -> int:
     inetutils_directory = args.inetutils_report_directory.resolve()
     kmod_directory = args.kmod_report_directory.resolve()
     procps_directory = args.procps_report_directory.resolve()
+    shadow_directory = args.shadow_report_directory.resolve()
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
-    if dispatch["cases"] != 818 or dispatch["passed"] != 818 or dispatch["failures"]:
+    if dispatch["cases"] != 882 or dispatch["passed"] != 882 or dispatch["failures"]:
         raise RuntimeError("unified dispatcher comparison is incomplete")
     if (
         differential["batches"] != 38
@@ -678,7 +680,7 @@ def main() -> int:
         or curl_config.get("passed") != 24
         or curl_config.get("canonical_native_exact") is not True
         or link.get("curl_public_names") != 2
-        or link.get("total_dispatch_names") != 413
+        or link.get("total_dispatch_names") != 445
     ):
         raise RuntimeError("unified curl integration comparison is incomplete")
     inetutils_differential_path = inetutils_directory / "differential.json"
@@ -769,6 +771,42 @@ def main() -> int:
         or not link.get("procps_namespaced_symbols")
     ):
         raise RuntimeError("unified Procps integration comparison is incomplete")
+    shadow_differential_path = shadow_directory / "differential.json"
+    shadow_differential = json.loads(shadow_differential_path.read_text())
+    shadow_programs = (
+        "chage", "chfn", "chgpasswd", "chpasswd", "chsh", "faillog",
+        "getsubids", "gpasswd", "groupadd", "groupdel", "groupmod", "grpck",
+        "grpconv", "grpunconv", "lastlog", "login", "newgidmap", "newgrp",
+        "newuidmap", "newusers", "nologin", "passwd", "pwck", "pwconv",
+        "pwunconv", "su", "useradd", "userdel", "usermod", "vipw", "sg",
+        "vigr",
+    )
+    shadow_valgrind_paths = {
+        name: shadow_directory / f"valgrind-{name}.log" for name in shadow_programs
+    }
+    for name, path in shadow_valgrind_paths.items():
+        text = path.read_text(errors="replace")
+        if name == "gpasswd":
+            if (
+                "definitely lost: 48 bytes in 1 blocks" not in text
+                or "indirectly lost: 28 bytes in 5 blocks" not in text
+                or "ERROR SUMMARY: 6 errors" not in text
+            ):
+                raise RuntimeError("unified Shadow gpasswd baseline changed")
+            continue
+        if "ERROR SUMMARY: 0 errors" not in text:
+            raise RuntimeError(f"unified Shadow {name} Valgrind result is incomplete")
+    if (
+        shadow_differential.get("programs") != 32
+        or shadow_differential.get("cases") != 79
+        or shadow_differential.get("stateful_cases") != 8
+        or shadow_differential.get("passed") != 79
+        or not all(record.get("passed") for record in shadow_differential.get("records", []))
+        or link.get("shadow_programs") != 32
+        or len(link.get("shadow_namespaced_symbols", [])) != 265
+        or len(link.get("shadow_coalesced_runtime_members", [])) != 211
+    ):
+        raise RuntimeError("unified Shadow integration comparison is incomplete")
     if sha256(binary) != link["binary"]["sha256"]:
         raise RuntimeError("unified binary changed after link evidence")
     with tempfile.TemporaryDirectory(prefix="rustbox-strip-") as temporary:
@@ -824,10 +862,26 @@ def main() -> int:
         "count": len(link["procps_namespaced_symbols"]),
         "sha256": hashlib.sha256(procps_symbol_bytes).hexdigest(),
     }
+    shadow_symbol_bytes = json.dumps(
+        link["shadow_namespaced_symbols"], separators=(",", ":"), sort_keys=True
+    ).encode()
+    evidence_link["shadow_namespaced_symbols"] = {
+        "count": len(link["shadow_namespaced_symbols"]),
+        "sha256": hashlib.sha256(shadow_symbol_bytes).hexdigest(),
+    }
+    shadow_runtime_bytes = json.dumps(
+        link["shadow_coalesced_runtime_members"],
+        separators=(",", ":"),
+        sort_keys=True,
+    ).encode()
+    evidence_link["shadow_coalesced_runtime_members"] = {
+        "count": len(link["shadow_coalesced_runtime_members"]),
+        "sha256": hashlib.sha256(shadow_runtime_bytes).hexdigest(),
+    }
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-24",
-        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, GNU tar, Ncurses, GNU Findutils, GNU Gawk, Flex, Bison, curl, GNU Inetutils, Kmod, and Procps-ng integrated at canonical parity",
+        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, GNU tar, Ncurses, GNU Findutils, GNU Gawk, Flex, Bison, curl, GNU Inetutils, Kmod, Procps-ng, and Shadow integrated at canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
@@ -856,7 +910,8 @@ def main() -> int:
             "inetutils_integrated_names": 26,
             "kmod_integrated_names": 7,
             "procps_integrated_names": 20,
-            "dispatch_names": 413,
+            "shadow_integrated_names": 32,
+            "dispatch_names": 445,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -1235,6 +1290,26 @@ def main() -> int:
                 name: sha256(path) for name, path in procps_valgrind_paths.items()
             },
         },
+        "shadow_integration": {
+            "integrated_programs": 32,
+            "translated_engines": 30,
+            "translated_sources": 196,
+            "canonical_c_abi_residue_units": 0,
+            "differential": shadow_differential,
+            "dispatch_aliases": {
+                name: f"shadow-{name}"
+                for name in ("chfn", "chsh", "login", "newgrp", "nologin", "su", "vigr", "vipw")
+            },
+            "valgrind_programs": len(shadow_valgrind_paths),
+            "canonical_gpasswd_definitely_lost_bytes": 48,
+            "canonical_gpasswd_indirectly_lost_bytes": 28,
+            "canonical_gpasswd_valgrind_errors": 6,
+            "other_valgrind_errors": 0,
+            "differential_sha256": sha256(shadow_differential_path),
+            "valgrind_log_sha256": {
+                name: sha256(path) for name, path in shadow_valgrind_paths.items()
+            },
+        },
         "collision_isolation": {
             "translated_libraries": len(link["source_library_sha256"]),
             "namespaced_libraries": len(link["namespaced_symbols"]),
@@ -1274,6 +1349,10 @@ def main() -> int:
             ),
             "kmod_namespaced_symbols": len(link["kmod_namespaced_symbols"]),
             "procps_namespaced_symbols": len(link["procps_namespaced_symbols"]),
+            "shadow_namespaced_symbols": len(link["shadow_namespaced_symbols"]),
+            "shadow_coalesced_runtime_members": len(
+                link["shadow_coalesced_runtime_members"]
+            ),
             "curl_config_bridge_symbols": len(
                 link["curl_config_frontend_bridge"]["symbols"]
             ),

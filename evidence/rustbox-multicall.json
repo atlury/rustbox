@@ -2961,7 +2961,7 @@
     "workload_log_sha256": "86fc9f9bc75c2c9b9602c5a8a8b1b9b1da1a9121a3fb214396bffa3a264df849"
   },
   "binary": {
-    "bytes": 36988168,
+    "bytes": 37504136,
     "dynamic_needed": [
       "ld-linux-x86-64.so.2",
       "libattr.so.1",
@@ -2991,7 +2991,7 @@
       "libz.so.1",
       "libzstd.so.1"
     ],
-    "link_map_sha256": "f3cc89e554fbeca4deb0a5bcf76485cfaeeec4641562d1ca6af8aa45b6f70ed2",
+    "link_map_sha256": "9a8dde3f9869b5112b5ce8d64dbd13f39a53a666a85748b9e6b04cc4513f116a",
     "needed_libraries": [
       "ld-linux-x86-64.so.2",
       "libattr.so.1",
@@ -3022,9 +3022,9 @@
       "libzstd.so.1"
     ],
     "selinux_dependencies": [],
-    "sha256": "053739b1ded1afae36f1a78a23454fa9007b14d5ec2f13d081ce56db059f58ca",
-    "stripped_bytes": 18320576,
-    "stripped_sha256": "7432b5dc660f077432514d1de0ea857b8cc421435d1339bf6821ebfad7475835",
+    "sha256": "83c4dceb03fef35f5579caed2d2df814a38f920ef529adeec20a3bb544f63d76",
+    "stripped_bytes": 18714624,
+    "stripped_sha256": "c9a0b463d26fe76d9c2509cdbb560c88f36114e5f26ec19f441c8816ab28ba31",
     "systemd_dependencies": []
   },
   "bison_integration": {
@@ -3655,7 +3655,7 @@
         "yywrap"
       ],
       "binary": {
-        "bytes": 36988168,
+        "bytes": 37504136,
         "dynamic_needed": [
           "ld-linux-x86-64.so.2",
           "libattr.so.1",
@@ -3685,8 +3685,8 @@
           "libz.so.1",
           "libzstd.so.1"
         ],
-        "link_map_sha256": "f3cc89e554fbeca4deb0a5bcf76485cfaeeec4641562d1ca6af8aa45b6f70ed2",
-        "sha256": "053739b1ded1afae36f1a78a23454fa9007b14d5ec2f13d081ce56db059f58ca"
+        "link_map_sha256": "9a8dde3f9869b5112b5ce8d64dbd13f39a53a666a85748b9e6b04cc4513f116a",
+        "sha256": "83c4dceb03fef35f5579caed2d2df814a38f920ef529adeec20a3bb544f63d76"
       },
       "bison_frontend_bridge": {
         "embedded_resource_manifest_sha256": "ca7614033678fa109706a086a3ee2d4f8b4ff52fdae3d1698471869cff3945c5",
@@ -10064,7 +10064,7 @@
         "sha256": "cd6c42ad07489a209a07db85dcc35c9f1cda6b2b88240a0d40daa4858365d0f6"
       },
       "inetutils_programs": 26,
-      "isolation_cache_version": 13,
+      "isolation_cache_version": 14,
       "kmod_namespaced_symbols": {
         "count": 230,
         "sha256": "43ff02f6c483603b62f899b49d58195df7dfa516d57397993cea79d87d58322c"
@@ -13269,11 +13269,27 @@
       },
       "procps_programs": 20,
       "public_name_precedence": {
+        "chfn": "util-linux",
+        "chsh": "util-linux",
         "kill": "GNU Coreutils",
+        "login": "util-linux",
+        "newgrp": "util-linux",
+        "nologin": "util-linux",
         "procps-kill": "Procps-ng",
         "procps-uptime": "Procps-ng",
+        "shadow-chfn": "Shadow",
+        "shadow-chsh": "Shadow",
+        "shadow-login": "Shadow",
+        "shadow-newgrp": "Shadow",
+        "shadow-nologin": "Shadow",
+        "shadow-su": "Shadow",
+        "shadow-vigr": "Shadow",
+        "shadow-vipw": "Shadow",
+        "su": "util-linux",
         "uptime": "GNU Coreutils",
-        "util-linux-kill": "util-linux"
+        "util-linux-kill": "util-linux",
+        "vigr": "util-linux",
+        "vipw": "util-linux"
       },
       "schema": 1,
       "sed_abi_bridge": {
@@ -13684,6 +13700,15 @@
         "y1q_f",
         "ynq_f"
       ],
+      "shadow_coalesced_runtime_members": {
+        "count": 211,
+        "sha256": "d5906f38b9cca0e536a06ba5d71ae63d30f7faec13caf06b0f7dad5c6b49276a"
+      },
+      "shadow_namespaced_symbols": {
+        "count": 265,
+        "sha256": "230e9826b6962ff01d1175933cc1f14c7a8b47752dc3521eb00dd77023d45422"
+      },
+      "shadow_programs": 32,
       "source_library_sha256": {
         "/rustbox-gzip/normalized-clang/lib/libgzip.a": "3b9b95c426bfa5caaf226138f4fbd757867aab6c016ec7c8ba8d88e86973f4ae",
         "/rustbox-inetutils/normalized-clang/lib/libgnu_a-printf-args.o": "698d04e0fce4b03715b1b2ab562ec1ee0e236091a7eeb4ac8e1bfa8ddcec9c91",
@@ -13768,6 +13793,7 @@
         "work/analysis/pkgconf-3.0.11/translations/c2rust-0.22.1/pkgconf-3.0.11-stable/target/release/libpkgconf_3_0_11_normalized_audit.a": "d3e6b0b4d941a034d0b40511835bf1177dc62bfa38bf05287fad2775a9f2da26",
         "work/analysis/procps-ng-4.0.7/translations/c2rust-0.22.1/procps-ng-4.0.7-nightly/target/release/libprocps_ng_4_0_7_normalized_audit.a": "fc9bbc1b3ac66a1a2843874bb2aed924c7ce20b1dd4946f6dd0054642a935a57",
         "work/analysis/sed-4.10/translations/c2rust-0.22.1/sed-4.10-stable/target/release/libsed_4_10_normalized_audit.a": "99cddd80c240b7f1fce4fb5a278fef15a1a836b6b3b5ae1c6a82065407ef708c",
+        "work/analysis/shadow-4.20.4/translations/c2rust-0.22.1/shadow-4.20.4-nightly/target/release/libshadow_4_20_4_normalized_audit.a": "1f03d771809640b56a6df61f4f297ebfbf08cdb2ae3fd2b88303da7b58d8a917",
         "work/analysis/tar-1.35/hybrid-artifacts/c-residue/human.o": "f5d1381cd9d7a3d5bea263058fd8759c72299e9df6d506c753e57acbb8d7eed3",
         "work/analysis/tar-1.35/hybrid-artifacts/c-residue/printf-args.o": "ced28fcb235c8f9461d130d60a4b7db0657ac1fe744240350e36228347deda63",
         "work/analysis/tar-1.35/hybrid-artifacts/c-residue/printf-parse.o": "d12cd41564c62997e982232f2962721ade778b7953cc6ad5175d940768773042",
@@ -14769,7 +14795,7 @@
         "yyparse",
         "zap_slashes"
       ],
-      "total_dispatch_names": 413,
+      "total_dispatch_names": 445,
       "util_linux_applets": 155,
       "xz_alias_bridge": {
         "object": "src/.rustbox-xz-aliases.o",
@@ -15872,9 +15898,11 @@
     "procps_namespaced_symbols": 422,
     "sed_abi_bridge_symbols": 1,
     "sed_namespaced_symbols": 399,
+    "shadow_coalesced_runtime_members": 211,
+    "shadow_namespaced_symbols": 265,
     "tar_acl_imports": 13,
     "tar_namespaced_symbols": 961,
-    "translated_libraries": 104,
+    "translated_libraries": 105,
     "xz_alias_bridge_symbols": 4,
     "xz_namespaced_symbols": 339,
     "zstd_alias_bridge_symbols": 2,
@@ -17623,7 +17651,7 @@
     "acl_applets": 3,
     "attr_applets": 3,
     "bc_applets": 2,
-    "cases": 818,
+    "cases": 882,
     "coreutils_applets": 106,
     "curl_public_names": 2,
     "diffutils_applets": 4,
@@ -17641,12 +17669,13 @@
     "lz4_public_names": 4,
     "m4_applets": 1,
     "ncurses_public_names": 10,
-    "passed": 818,
+    "passed": 882,
     "patch_applets": 1,
     "pkgconf_public_names": 5,
     "procps_programs": 20,
     "schema": 1,
     "sed_applets": 1,
+    "shadow_programs": 32,
     "tar_applets": 2,
     "util_linux_applets": 155,
     "xz_public_names": 23,
@@ -33013,7 +33042,7 @@
     "coreutils": 106,
     "curl_integrated_names": 2,
     "diffutils": 4,
-    "dispatch_names": 413,
+    "dispatch_names": 445,
     "excluded": [
       "chcon",
       "runcon"
@@ -33034,6 +33063,7 @@
     "pkgconf_public_names": 5,
     "procps_integrated_names": 20,
     "sed": 1,
+    "shadow_integrated_names": 32,
     "tar_integrated_names": 2,
     "util_linux": 155,
     "xz_integrated_names": 23,
@@ -33470,7 +33500,3362 @@
     "valgrind_errors": 0,
     "valgrind_log_sha256": "3b9688d3d14582709f223e2b6a6da1440bc8885c5615fb3a781b1689359d34a5"
   },
-  "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, GNU tar, Ncurses, GNU Findutils, GNU Gawk, Flex, Bison, curl, GNU Inetutils, Kmod, and Procps-ng integrated at canonical parity",
+  "shadow_integration": {
+    "canonical_c_abi_residue_units": 0,
+    "canonical_gpasswd_definitely_lost_bytes": 48,
+    "canonical_gpasswd_indirectly_lost_bytes": 28,
+    "canonical_gpasswd_valgrind_errors": 6,
+    "differential": {
+      "cases": 79,
+      "passed": 79,
+      "programs": 32,
+      "records": [
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 809,
+            "stdout_sha256": "5349f83f33e84e43e48447982b3f7dd95bb57030c9cdb3e846d731a6fcf6f4a0"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 809,
+            "stdout_sha256": "5349f83f33e84e43e48447982b3f7dd95bb57030c9cdb3e846d731a6fcf6f4a0"
+          },
+          "name": "chage-help",
+          "passed": true,
+          "program": "chage",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 2,
+            "stderr_bytes": 848,
+            "stderr_sha256": "b9403f3ca05c6dee6221c829ae29c7b0a15cd7ab4a0af966b685b9fdcee82477",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 2,
+            "stderr_bytes": 848,
+            "stderr_sha256": "b9403f3ca05c6dee6221c829ae29c7b0a15cd7ab4a0af966b685b9fdcee82477",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "chage-version",
+          "passed": true,
+          "program": "chage",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 479,
+            "stdout_sha256": "8a01158d38ac755782bc6f49b86bb32b2c01bf5ccd1aca1be9423b20a85e86ba"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 479,
+            "stdout_sha256": "8a01158d38ac755782bc6f49b86bb32b2c01bf5ccd1aca1be9423b20a85e86ba"
+          },
+          "name": "chfn-help",
+          "passed": true,
+          "program": "chfn",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 2,
+            "stderr_bytes": 517,
+            "stderr_sha256": "bd3ba96b4f70a91d30f9b7544bfbb3b34072a2e1f9a1bf668dc7ac9a01588496",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 2,
+            "stderr_bytes": 517,
+            "stderr_sha256": "bd3ba96b4f70a91d30f9b7544bfbb3b34072a2e1f9a1bf668dc7ac9a01588496",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "chfn-version",
+          "passed": true,
+          "program": "chfn",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 443,
+            "stdout_sha256": "ed280b05c7788a066503b0735b1db61886fd20985e3559f010bf25e769acdbe5"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 443,
+            "stdout_sha256": "ed280b05c7788a066503b0735b1db61886fd20985e3559f010bf25e769acdbe5"
+          },
+          "name": "chgpasswd-help",
+          "passed": true,
+          "program": "chgpasswd",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 2,
+            "stderr_bytes": 486,
+            "stderr_sha256": "9f81231aad82384eabcbb175b465e8fd42418a617827df91b08f9cc6c00882d8",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 2,
+            "stderr_bytes": 486,
+            "stderr_sha256": "9f81231aad82384eabcbb175b465e8fd42418a617827df91b08f9cc6c00882d8",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "chgpasswd-version",
+          "passed": true,
+          "program": "chgpasswd",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 491,
+            "stdout_sha256": "fe880f04e299517273cdc3b31648b34d58f87884eb6be19725816d77fb365b41"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 491,
+            "stdout_sha256": "fe880f04e299517273cdc3b31648b34d58f87884eb6be19725816d77fb365b41"
+          },
+          "name": "chpasswd-help",
+          "passed": true,
+          "program": "chpasswd",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 2,
+            "stderr_bytes": 533,
+            "stderr_sha256": "84b5c5da05a8cd58c162237c17ce5c6787c8bfe28620f3875b12a8cb11ce42d2",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 2,
+            "stderr_bytes": 533,
+            "stderr_sha256": "84b5c5da05a8cd58c162237c17ce5c6787c8bfe28620f3875b12a8cb11ce42d2",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "chpasswd-version",
+          "passed": true,
+          "program": "chpasswd",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 234,
+            "stdout_sha256": "53ad883c110c36d50ae4635dd7f2cc80d26d6ed60c8d3689663e7336adb8fc51"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 234,
+            "stdout_sha256": "53ad883c110c36d50ae4635dd7f2cc80d26d6ed60c8d3689663e7336adb8fc51"
+          },
+          "name": "chsh-help",
+          "passed": true,
+          "program": "chsh",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 2,
+            "stderr_bytes": 272,
+            "stderr_sha256": "c15df7d7accbcb23c5ec135a2508c6234c36fea037ce058c2f32b1cdb7a752a8",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 2,
+            "stderr_bytes": 272,
+            "stderr_sha256": "c15df7d7accbcb23c5ec135a2508c6234c36fea037ce058c2f32b1cdb7a752a8",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "chsh-version",
+          "passed": true,
+          "program": "chsh",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 751,
+            "stdout_sha256": "8fe0dfdfda5b68e32887d25d9ff21f2eee8342e0f657de83bc9137fdc58c754c"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 751,
+            "stdout_sha256": "8fe0dfdfda5b68e32887d25d9ff21f2eee8342e0f657de83bc9137fdc58c754c"
+          },
+          "name": "faillog-help",
+          "passed": true,
+          "program": "faillog",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 2,
+            "stderr_bytes": 792,
+            "stderr_sha256": "5e6ce9e37140280a30f1e90b277d5835e0b59b9b736ad0aaaeeb2f8430ecbf45",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 2,
+            "stderr_bytes": 792,
+            "stderr_sha256": "5e6ce9e37140280a30f1e90b277d5835e0b59b9b736ad0aaaeeb2f8430ecbf45",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "faillog-version",
+          "passed": true,
+          "program": "faillog",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 1,
+            "stderr_bytes": 22,
+            "stderr_sha256": "ca41c675cb9e5aead69d5484f75e7416a4ee6951fc6e765503b1b6676896c2f3",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 1,
+            "stderr_bytes": 22,
+            "stderr_sha256": "ca41c675cb9e5aead69d5484f75e7416a4ee6951fc6e765503b1b6676896c2f3",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "getsubids-help",
+          "passed": true,
+          "program": "getsubids",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 1,
+            "stderr_bytes": 22,
+            "stderr_sha256": "ca41c675cb9e5aead69d5484f75e7416a4ee6951fc6e765503b1b6676896c2f3",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 1,
+            "stderr_bytes": 22,
+            "stderr_sha256": "ca41c675cb9e5aead69d5484f75e7416a4ee6951fc6e765503b1b6676896c2f3",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "getsubids-version",
+          "passed": true,
+          "program": "getsubids",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 638,
+            "stdout_sha256": "c6e1221632e5286d7c114a4472069d76895c8d7dc044d23813d7aa4cb6201483"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 638,
+            "stdout_sha256": "c6e1221632e5286d7c114a4472069d76895c8d7dc044d23813d7aa4cb6201483"
+          },
+          "name": "gpasswd-help",
+          "passed": true,
+          "program": "gpasswd",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 2,
+            "stderr_bytes": 679,
+            "stderr_sha256": "42721364f3a9e4ec3faf9f42f6d2364b16aee94c8ba598d11634ddda8d8a935c",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 2,
+            "stderr_bytes": 679,
+            "stderr_sha256": "42721364f3a9e4ec3faf9f42f6d2364b16aee94c8ba598d11634ddda8d8a935c",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "gpasswd-version",
+          "passed": true,
+          "program": "gpasswd",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 863,
+            "stdout_sha256": "ec4dcc38ce8ceff42700197432376017c7da65f5ad8fb86c9c87029238c4c3a6"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 863,
+            "stdout_sha256": "ec4dcc38ce8ceff42700197432376017c7da65f5ad8fb86c9c87029238c4c3a6"
+          },
+          "name": "groupadd-help",
+          "passed": true,
+          "program": "groupadd",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 2,
+            "stderr_bytes": 905,
+            "stderr_sha256": "dd6b9aed24b1c79af8c7863dd900b147d66b8866d1b17f8edec3d10fa7a2803c",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 2,
+            "stderr_bytes": 905,
+            "stderr_sha256": "dd6b9aed24b1c79af8c7863dd900b147d66b8866d1b17f8edec3d10fa7a2803c",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "groupadd-version",
+          "passed": true,
+          "program": "groupadd",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 338,
+            "stdout_sha256": "7715fdf7e055d9b26b8f7bc5486f56d87ff367277310245a0c3652ea4d8a5475"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 338,
+            "stdout_sha256": "7715fdf7e055d9b26b8f7bc5486f56d87ff367277310245a0c3652ea4d8a5475"
+          },
+          "name": "groupdel-help",
+          "passed": true,
+          "program": "groupdel",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 2,
+            "stderr_bytes": 380,
+            "stderr_sha256": "10d4c307b02e9ac72f39107590c785e088c3f54ff3a509a419c0fd58b923abb1",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 2,
+            "stderr_bytes": 380,
+            "stderr_sha256": "10d4c307b02e9ac72f39107590c785e088c3f54ff3a509a419c0fd58b923abb1",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "groupdel-version",
+          "passed": true,
+          "program": "groupdel",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 840,
+            "stdout_sha256": "fe6c070f0bd183c5b8252e6c50120e0f2bb5c9dc613d1f9be2391defad4c259c"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 840,
+            "stdout_sha256": "fe6c070f0bd183c5b8252e6c50120e0f2bb5c9dc613d1f9be2391defad4c259c"
+          },
+          "name": "groupmod-help",
+          "passed": true,
+          "program": "groupmod",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 2,
+            "stderr_bytes": 882,
+            "stderr_sha256": "5d3a9167c315eb95c601eafdc6326b2b78782f75d79730336a5405880a99c58e",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 2,
+            "stderr_bytes": 882,
+            "stderr_sha256": "5d3a9167c315eb95c601eafdc6326b2b78782f75d79730336a5405880a99c58e",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "groupmod-version",
+          "passed": true,
+          "program": "groupmod",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 416,
+            "stdout_sha256": "85d0b899e74f7c183ce0e74171f4b9be58d160fc8af16b3349872928356e17eb"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 416,
+            "stdout_sha256": "85d0b899e74f7c183ce0e74171f4b9be58d160fc8af16b3349872928356e17eb"
+          },
+          "name": "grpck-help",
+          "passed": true,
+          "program": "grpck",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 1,
+            "stderr_bytes": 455,
+            "stderr_sha256": "372d3c6fdc0cf1bce36d04b758b4830af38bc566b423fda4e5a2ba86305a6983",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 1,
+            "stderr_bytes": 455,
+            "stderr_sha256": "372d3c6fdc0cf1bce36d04b758b4830af38bc566b423fda4e5a2ba86305a6983",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "grpck-version",
+          "passed": true,
+          "program": "grpck",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 160,
+            "stdout_sha256": "54e75a8c20f12147877928dfd1093c1b5725cd23c8d656e0349bab4f77f1d231"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 160,
+            "stdout_sha256": "54e75a8c20f12147877928dfd1093c1b5725cd23c8d656e0349bab4f77f1d231"
+          },
+          "name": "grpconv-help",
+          "passed": true,
+          "program": "grpconv",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 2,
+            "stderr_bytes": 201,
+            "stderr_sha256": "a5113d2437cd6a4ca38ce474e29af987d19b0c3f1ec21dc13c08da42f3397013",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 2,
+            "stderr_bytes": 201,
+            "stderr_sha256": "a5113d2437cd6a4ca38ce474e29af987d19b0c3f1ec21dc13c08da42f3397013",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "grpconv-version",
+          "passed": true,
+          "program": "grpconv",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 162,
+            "stdout_sha256": "d5975e9c566deebef0ea23cc5db00a54f57157a7b7d8c9e0b2af12dbc8e00859"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 162,
+            "stdout_sha256": "d5975e9c566deebef0ea23cc5db00a54f57157a7b7d8c9e0b2af12dbc8e00859"
+          },
+          "name": "grpunconv-help",
+          "passed": true,
+          "program": "grpunconv",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 2,
+            "stderr_bytes": 205,
+            "stderr_sha256": "d4409e41cca6ed5566221fe552869338185d690698eb134e732fb8d6f6759dec",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 2,
+            "stderr_bytes": 205,
+            "stderr_sha256": "d4409e41cca6ed5566221fe552869338185d690698eb134e732fb8d6f6759dec",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "grpunconv-version",
+          "passed": true,
+          "program": "grpunconv",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 649,
+            "stdout_sha256": "11c63a27469d1d4163d2b0db69cc8402ad4c9e8067710ff42ea58d4cd73a90a2"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 649,
+            "stdout_sha256": "11c63a27469d1d4163d2b0db69cc8402ad4c9e8067710ff42ea58d4cd73a90a2"
+          },
+          "name": "lastlog-help",
+          "passed": true,
+          "program": "lastlog",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 1,
+            "stderr_bytes": 690,
+            "stderr_sha256": "5fc2a0ae25a2e33c355a455f0730966fe27d97e5ec09b1bb51bb536ac56fbce5",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 1,
+            "stderr_bytes": 690,
+            "stderr_sha256": "5fc2a0ae25a2e33c355a455f0730966fe27d97e5ec09b1bb51bb536ac56fbce5",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "lastlog-version",
+          "passed": true,
+          "program": "lastlog",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 1,
+            "stderr_bytes": 63,
+            "stderr_sha256": "705e23d1f98f1fa1dd0f5d3f999badd7f82d2f1ae156461ead839ec85fee54ad",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 1,
+            "stderr_bytes": 63,
+            "stderr_sha256": "705e23d1f98f1fa1dd0f5d3f999badd7f82d2f1ae156461ead839ec85fee54ad",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "login-help",
+          "passed": true,
+          "program": "login",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 1,
+            "stderr_bytes": 63,
+            "stderr_sha256": "705e23d1f98f1fa1dd0f5d3f999badd7f82d2f1ae156461ead839ec85fee54ad",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 1,
+            "stderr_bytes": 63,
+            "stderr_sha256": "705e23d1f98f1fa1dd0f5d3f999badd7f82d2f1ae156461ead839ec85fee54ad",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "login-version",
+          "passed": true,
+          "program": "login",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 1,
+            "stderr_bytes": 82,
+            "stderr_sha256": "ce430b658d90457a94fbc2133c2717d4611d24b776fa6d6d5dd5c5d2f70ac370",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 1,
+            "stderr_bytes": 82,
+            "stderr_sha256": "ce430b658d90457a94fbc2133c2717d4611d24b776fa6d6d5dd5c5d2f70ac370",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "newgidmap-help",
+          "passed": true,
+          "program": "newgidmap",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 1,
+            "stderr_bytes": 82,
+            "stderr_sha256": "ce430b658d90457a94fbc2133c2717d4611d24b776fa6d6d5dd5c5d2f70ac370",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 1,
+            "stderr_bytes": 82,
+            "stderr_sha256": "ce430b658d90457a94fbc2133c2717d4611d24b776fa6d6d5dd5c5d2f70ac370",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "newgidmap-version",
+          "passed": true,
+          "program": "newgidmap",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 1,
+            "stderr_bytes": 26,
+            "stderr_sha256": "8d82a077b550048df0cbebe4ea034d3993e636d65f9e441dd4d619a663f69a68",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 1,
+            "stderr_bytes": 26,
+            "stderr_sha256": "8d82a077b550048df0cbebe4ea034d3993e636d65f9e441dd4d619a663f69a68",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "newgrp-help",
+          "passed": true,
+          "program": "newgrp",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 1,
+            "stderr_bytes": 26,
+            "stderr_sha256": "8d82a077b550048df0cbebe4ea034d3993e636d65f9e441dd4d619a663f69a68",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 1,
+            "stderr_bytes": 26,
+            "stderr_sha256": "8d82a077b550048df0cbebe4ea034d3993e636d65f9e441dd4d619a663f69a68",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "newgrp-version",
+          "passed": true,
+          "program": "newgrp",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 1,
+            "stderr_bytes": 82,
+            "stderr_sha256": "2836b8cf929ec0e9ce8d3922538c65709b904eb000111cbb591491a4f04e469a",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 1,
+            "stderr_bytes": 82,
+            "stderr_sha256": "2836b8cf929ec0e9ce8d3922538c65709b904eb000111cbb591491a4f04e469a",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "newuidmap-help",
+          "passed": true,
+          "program": "newuidmap",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 1,
+            "stderr_bytes": 82,
+            "stderr_sha256": "2836b8cf929ec0e9ce8d3922538c65709b904eb000111cbb591491a4f04e469a",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 1,
+            "stderr_bytes": 82,
+            "stderr_sha256": "2836b8cf929ec0e9ce8d3922538c65709b904eb000111cbb591491a4f04e469a",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "newuidmap-version",
+          "passed": true,
+          "program": "newuidmap",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 480,
+            "stdout_sha256": "b409832413adb1d58637b733fe88d302944b0eff3d94d921b19a1228c005c375"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 480,
+            "stdout_sha256": "b409832413adb1d58637b733fe88d302944b0eff3d94d921b19a1228c005c375"
+          },
+          "name": "newusers-help",
+          "passed": true,
+          "program": "newusers",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 1,
+            "stderr_bytes": 522,
+            "stderr_sha256": "a2fdf29aa79b6f17cc1480c797903e6de1ca837fbeefc0d3d42f7ff3bd6a3e13",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 1,
+            "stderr_bytes": 522,
+            "stderr_sha256": "a2fdf29aa79b6f17cc1480c797903e6de1ca837fbeefc0d3d42f7ff3bd6a3e13",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "newusers-version",
+          "passed": true,
+          "program": "newusers",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 1,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 41,
+            "stdout_sha256": "32a9a606ae7609b23d10194854c39fa72897cc961ad9c1dfec727e91956f5a6e"
+          },
+          "gcc": {
+            "status": 1,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 41,
+            "stdout_sha256": "32a9a606ae7609b23d10194854c39fa72897cc961ad9c1dfec727e91956f5a6e"
+          },
+          "name": "nologin-help",
+          "passed": true,
+          "program": "nologin",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 1,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 41,
+            "stdout_sha256": "32a9a606ae7609b23d10194854c39fa72897cc961ad9c1dfec727e91956f5a6e"
+          },
+          "gcc": {
+            "status": 1,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 41,
+            "stdout_sha256": "32a9a606ae7609b23d10194854c39fa72897cc961ad9c1dfec727e91956f5a6e"
+          },
+          "name": "nologin-version",
+          "passed": true,
+          "program": "nologin",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 1213,
+            "stdout_sha256": "82ec8597e20fcad2cd330e64882cae31929db9546d880a4713c3fc06f9262a2a"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 1213,
+            "stdout_sha256": "82ec8597e20fcad2cd330e64882cae31929db9546d880a4713c3fc06f9262a2a"
+          },
+          "name": "passwd-help",
+          "passed": true,
+          "program": "passwd",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 6,
+            "stderr_bytes": 1253,
+            "stderr_sha256": "9f4d737fd48d69b189f0027c94c726c293f36da220c67ed8a14ad7c9630374f3",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 6,
+            "stderr_bytes": 1253,
+            "stderr_sha256": "9f4d737fd48d69b189f0027c94c726c293f36da220c67ed8a14ad7c9630374f3",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "passwd-version",
+          "passed": true,
+          "program": "passwd",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 442,
+            "stdout_sha256": "0f849e960fb514c9987a05310aa63f69996ff3c8946daa742e3fe35622ef5e6d"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 442,
+            "stdout_sha256": "0f849e960fb514c9987a05310aa63f69996ff3c8946daa742e3fe35622ef5e6d"
+          },
+          "name": "pwck-help",
+          "passed": true,
+          "program": "pwck",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 1,
+            "stderr_bytes": 480,
+            "stderr_sha256": "54e132dde329185617947db44955114f60d4897008a1e47e5c899e8a96c490c4",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 1,
+            "stderr_bytes": 480,
+            "stderr_sha256": "54e132dde329185617947db44955114f60d4897008a1e47e5c899e8a96c490c4",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "pwck-version",
+          "passed": true,
+          "program": "pwck",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 159,
+            "stdout_sha256": "d351b7e85ca1bbc35272ea492bcbf8d41e539bbebcc2c81ae31de416f2523779"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 159,
+            "stdout_sha256": "d351b7e85ca1bbc35272ea492bcbf8d41e539bbebcc2c81ae31de416f2523779"
+          },
+          "name": "pwconv-help",
+          "passed": true,
+          "program": "pwconv",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 2,
+            "stderr_bytes": 199,
+            "stderr_sha256": "0b9582cf828208432c8f2dbfc12ead3f442f48904176c3ab4d1accb9389b0424",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 2,
+            "stderr_bytes": 199,
+            "stderr_sha256": "0b9582cf828208432c8f2dbfc12ead3f442f48904176c3ab4d1accb9389b0424",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "pwconv-version",
+          "passed": true,
+          "program": "pwconv",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 161,
+            "stdout_sha256": "11b8f206c0f5609b8dd2bea0bfc34c0cbbe3d8794da9349c690f45665cc368ec"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 161,
+            "stdout_sha256": "11b8f206c0f5609b8dd2bea0bfc34c0cbbe3d8794da9349c690f45665cc368ec"
+          },
+          "name": "pwunconv-help",
+          "passed": true,
+          "program": "pwunconv",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 2,
+            "stderr_bytes": 203,
+            "stderr_sha256": "f486b62ccca2bb485af5598e2783b23ea206c6703481ecae5ee6651a44f7a416",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 2,
+            "stderr_bytes": 203,
+            "stderr_sha256": "f486b62ccca2bb485af5598e2783b23ea206c6703481ecae5ee6651a44f7a416",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "pwunconv-version",
+          "passed": true,
+          "program": "pwunconv",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 494,
+            "stdout_sha256": "7f166617b46caa11387a8667766b59d6d754bc929d607351056184914cd99a12"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 494,
+            "stdout_sha256": "7f166617b46caa11387a8667766b59d6d754bc929d607351056184914cd99a12"
+          },
+          "name": "su-help",
+          "passed": true,
+          "program": "su",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 2,
+            "stderr_bytes": 530,
+            "stderr_sha256": "0dcbe4752856c13d4959b3a31e8185d400607e0da11547cb0d47dc18eb1c5321",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 2,
+            "stderr_bytes": 530,
+            "stderr_sha256": "0dcbe4752856c13d4959b3a31e8185d400607e0da11547cb0d47dc18eb1c5321",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "su-version",
+          "passed": true,
+          "program": "su",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 2100,
+            "stdout_sha256": "e86d76a593c2102ee39bd963c61127a620883008a8c0d6fcd3386c0113784fd1"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 2100,
+            "stdout_sha256": "e86d76a593c2102ee39bd963c61127a620883008a8c0d6fcd3386c0113784fd1"
+          },
+          "name": "useradd-help",
+          "passed": true,
+          "program": "useradd",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 2,
+            "stderr_bytes": 2141,
+            "stderr_sha256": "a148b6c2368cdfbfeae73cbc1763fe0b2b308f00bbecb7d377e0c91bce4006f8",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 2,
+            "stderr_bytes": 2141,
+            "stderr_sha256": "a148b6c2368cdfbfeae73cbc1763fe0b2b308f00bbecb7d377e0c91bce4006f8",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "useradd-version",
+          "passed": true,
+          "program": "useradd",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 537,
+            "stdout_sha256": "2c8b6f4baa6dff149008a917cef751c679d94911706116df5431a0f624d36e8c"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 537,
+            "stdout_sha256": "2c8b6f4baa6dff149008a917cef751c679d94911706116df5431a0f624d36e8c"
+          },
+          "name": "userdel-help",
+          "passed": true,
+          "program": "userdel",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 2,
+            "stderr_bytes": 578,
+            "stderr_sha256": "fab5c6fa60dd539e701d06b5c143a2b53c323fe8341a1b8dcdcf07d55b17cbe3",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 2,
+            "stderr_bytes": 578,
+            "stderr_sha256": "fab5c6fa60dd539e701d06b5c143a2b53c323fe8341a1b8dcdcf07d55b17cbe3",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "userdel-version",
+          "passed": true,
+          "program": "userdel",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 2104,
+            "stdout_sha256": "ca5cc204212a3093ae1d95502789d73fc77ac944892119cecec199a691a7e7c8"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 2104,
+            "stdout_sha256": "ca5cc204212a3093ae1d95502789d73fc77ac944892119cecec199a691a7e7c8"
+          },
+          "name": "usermod-help",
+          "passed": true,
+          "program": "usermod",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 2,
+            "stderr_bytes": 2145,
+            "stderr_sha256": "7801b67267812e511c3dae09d7884e2eb1a9d3d62f68a6de9cb7bbd258503f05",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 2,
+            "stderr_bytes": 2145,
+            "stderr_sha256": "7801b67267812e511c3dae09d7884e2eb1a9d3d62f68a6de9cb7bbd258503f05",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "usermod-version",
+          "passed": true,
+          "program": "usermod",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 369,
+            "stdout_sha256": "da109806962c08e3a538360688226e4e83d27f37b19c77538974c8c0c4191f9a"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 369,
+            "stdout_sha256": "da109806962c08e3a538360688226e4e83d27f37b19c77538974c8c0c4191f9a"
+          },
+          "name": "vipw-help",
+          "passed": true,
+          "program": "vipw",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 2,
+            "stderr_bytes": 407,
+            "stderr_sha256": "9b9f950d9de9f309963ec49034864a4743a74cca45ba228424b5f014a91751a1",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 2,
+            "stderr_bytes": 407,
+            "stderr_sha256": "9b9f950d9de9f309963ec49034864a4743a74cca45ba228424b5f014a91751a1",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "vipw-version",
+          "passed": true,
+          "program": "vipw",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 1,
+            "stderr_bytes": 35,
+            "stderr_sha256": "17a4810dd36af1d0af8408cc9fd4834c20e6d6c12daa493ef2b2ae98da0ab83e",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 1,
+            "stderr_bytes": 35,
+            "stderr_sha256": "17a4810dd36af1d0af8408cc9fd4834c20e6d6c12daa493ef2b2ae98da0ab83e",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "sg-help",
+          "passed": true,
+          "program": "sg",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 1,
+            "stderr_bytes": 35,
+            "stderr_sha256": "17a4810dd36af1d0af8408cc9fd4834c20e6d6c12daa493ef2b2ae98da0ab83e",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 1,
+            "stderr_bytes": 35,
+            "stderr_sha256": "17a4810dd36af1d0af8408cc9fd4834c20e6d6c12daa493ef2b2ae98da0ab83e",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "sg-version",
+          "passed": true,
+          "program": "sg",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 369,
+            "stdout_sha256": "b0b3318a540036c6edbd5d28639c05a29d0214b96ff54e6078d3047d1cdac437"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 369,
+            "stdout_sha256": "b0b3318a540036c6edbd5d28639c05a29d0214b96ff54e6078d3047d1cdac437"
+          },
+          "name": "vigr-help",
+          "passed": true,
+          "program": "vigr",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "--version"
+          ],
+          "clang": {
+            "status": 2,
+            "stderr_bytes": 407,
+            "stderr_sha256": "c590abd6e654cd50236c94b2f332c09e9932b84a2ce3a5d38836ad926ed1deb1",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 2,
+            "stderr_bytes": 407,
+            "stderr_sha256": "c590abd6e654cd50236c94b2f332c09e9932b84a2ce3a5d38836ad926ed1deb1",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "vigr-version",
+          "passed": true,
+          "program": "vigr",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "rustbox-shadow-no-user"
+          ],
+          "clang": {
+            "status": 1,
+            "stderr_bytes": 22,
+            "stderr_sha256": "ca41c675cb9e5aead69d5484f75e7416a4ee6951fc6e765503b1b6676896c2f3",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 1,
+            "stderr_bytes": 22,
+            "stderr_sha256": "ca41c675cb9e5aead69d5484f75e7416a4ee6951fc6e765503b1b6676896c2f3",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "getsubids-missing-user",
+          "passed": true,
+          "program": "getsubids",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "not-a-pid"
+          ],
+          "clang": {
+            "status": 1,
+            "stderr_bytes": 82,
+            "stderr_sha256": "2836b8cf929ec0e9ce8d3922538c65709b904eb000111cbb591491a4f04e469a",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 1,
+            "stderr_bytes": 82,
+            "stderr_sha256": "2836b8cf929ec0e9ce8d3922538c65709b904eb000111cbb591491a4f04e469a",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "newuidmap-invalid",
+          "passed": true,
+          "program": "newuidmap",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "not-a-pid"
+          ],
+          "clang": {
+            "status": 1,
+            "stderr_bytes": 82,
+            "stderr_sha256": "ce430b658d90457a94fbc2133c2717d4611d24b776fa6d6d5dd5c5d2f70ac370",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 1,
+            "stderr_bytes": 82,
+            "stderr_sha256": "ce430b658d90457a94fbc2133c2717d4611d24b776fa6d6d5dd5c5d2f70ac370",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "newgidmap-invalid",
+          "passed": true,
+          "program": "newgidmap",
+          "stateful": false
+        },
+        {
+          "arguments": [],
+          "clang": {
+            "status": 1,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 41,
+            "stdout_sha256": "32a9a606ae7609b23d10194854c39fa72897cc961ad9c1dfec727e91956f5a6e"
+          },
+          "gcc": {
+            "status": 1,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 41,
+            "stdout_sha256": "32a9a606ae7609b23d10194854c39fa72897cc961ad9c1dfec727e91956f5a6e"
+          },
+          "name": "nologin-message",
+          "passed": true,
+          "program": "nologin",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "-l",
+            "rustbox-shadow-no-user"
+          ],
+          "clang": {
+            "status": 1,
+            "stderr_bytes": 67,
+            "stderr_sha256": "331c3c0b8653bd0eec6ca8160e7a60e69d935e170f6d2bdb953c8d4c83de67f0",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 1,
+            "stderr_bytes": 67,
+            "stderr_sha256": "331c3c0b8653bd0eec6ca8160e7a60e69d935e170f6d2bdb953c8d4c83de67f0",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "chage-list-missing",
+          "passed": true,
+          "program": "chage",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "-u",
+            "987654321"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "faillog-missing",
+          "passed": true,
+          "program": "faillog",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "-u",
+            "987654321"
+          ],
+          "clang": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "lastlog-missing",
+          "passed": true,
+          "program": "lastlog",
+          "stateful": false
+        },
+        {
+          "arguments": [
+            "-P",
+            "{ROOT}",
+            "-d",
+            "21000",
+            "alice"
+          ],
+          "clang": {
+            "state": {
+              "etc": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default/useradd": {
+                "bytes": 36,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "f45555fd681f2583fe7e43168de12b937cff5256d67a6f02857920d67465a6a6"
+              },
+              "etc/group": {
+                "bytes": 42,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "1b702c3b0d1f012f4d48d226da8eaf73709b4aac166dc43d241b87cbc54dbe38"
+              },
+              "etc/gshadow": {
+                "bytes": 33,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "6944f8c63de9fb5ce68ce60e07974209419fdf2be91bd1693a77a71567a5f71f"
+              },
+              "etc/login.defs": {
+                "bytes": 233,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "40a73bca5b906d9e60432d40cc888056958372c3e5b9b979408323660c6c2063"
+              },
+              "etc/nsswitch.conf": {
+                "bytes": 41,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "a28195b9f84e38e9a14e0d71dee9580a4c8da1be2a6d5b7b27cc8ebacef7f4f8"
+              },
+              "etc/passwd": {
+                "bytes": 74,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "d8f4bfafa356a9293d00cefd05c5a4cb0907bbf239fcf3751bbcbed7c7c17127"
+              },
+              "etc/shadow": {
+                "bytes": 52,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "14ccf04c06867f8b32731c3f571b09c542e98a2331b0c1d789fd0b6a99ee26f3"
+              },
+              "etc/shadow-": {
+                "bytes": 53,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "332f23ba483f689341c1f2611b10878a93a21dd3641fca922200aecf1869dd50"
+              },
+              "etc/shells": {
+                "bytes": 18,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "4cc26708349348ad3520dae0e1046ef3d1b6eb823c9e1361aa24062d785595d8"
+              },
+              "etc/subgid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "etc/subuid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "home": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "home/alice": {
+                "kind": "directory",
+                "mode": 493
+              }
+            },
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "state": {
+              "etc": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default/useradd": {
+                "bytes": 36,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "f45555fd681f2583fe7e43168de12b937cff5256d67a6f02857920d67465a6a6"
+              },
+              "etc/group": {
+                "bytes": 42,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "1b702c3b0d1f012f4d48d226da8eaf73709b4aac166dc43d241b87cbc54dbe38"
+              },
+              "etc/gshadow": {
+                "bytes": 33,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "6944f8c63de9fb5ce68ce60e07974209419fdf2be91bd1693a77a71567a5f71f"
+              },
+              "etc/login.defs": {
+                "bytes": 233,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "40a73bca5b906d9e60432d40cc888056958372c3e5b9b979408323660c6c2063"
+              },
+              "etc/nsswitch.conf": {
+                "bytes": 41,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "a28195b9f84e38e9a14e0d71dee9580a4c8da1be2a6d5b7b27cc8ebacef7f4f8"
+              },
+              "etc/passwd": {
+                "bytes": 74,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "d8f4bfafa356a9293d00cefd05c5a4cb0907bbf239fcf3751bbcbed7c7c17127"
+              },
+              "etc/shadow": {
+                "bytes": 52,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "14ccf04c06867f8b32731c3f571b09c542e98a2331b0c1d789fd0b6a99ee26f3"
+              },
+              "etc/shadow-": {
+                "bytes": 53,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "332f23ba483f689341c1f2611b10878a93a21dd3641fca922200aecf1869dd50"
+              },
+              "etc/shells": {
+                "bytes": 18,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "4cc26708349348ad3520dae0e1046ef3d1b6eb823c9e1361aa24062d785595d8"
+              },
+              "etc/subgid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "etc/subuid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "home": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "home/alice": {
+                "kind": "directory",
+                "mode": 493
+              }
+            },
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "chage-prefix",
+          "passed": true,
+          "program": "chage",
+          "stateful": true
+        },
+        {
+          "arguments": [
+            "-P",
+            "{ROOT}",
+            "-e"
+          ],
+          "clang": {
+            "state": {
+              "etc": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default/useradd": {
+                "bytes": 36,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "f45555fd681f2583fe7e43168de12b937cff5256d67a6f02857920d67465a6a6"
+              },
+              "etc/group": {
+                "bytes": 42,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "1b702c3b0d1f012f4d48d226da8eaf73709b4aac166dc43d241b87cbc54dbe38"
+              },
+              "etc/gshadow": {
+                "bytes": 33,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "6944f8c63de9fb5ce68ce60e07974209419fdf2be91bd1693a77a71567a5f71f"
+              },
+              "etc/login.defs": {
+                "bytes": 233,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "40a73bca5b906d9e60432d40cc888056958372c3e5b9b979408323660c6c2063"
+              },
+              "etc/nsswitch.conf": {
+                "bytes": 41,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "a28195b9f84e38e9a14e0d71dee9580a4c8da1be2a6d5b7b27cc8ebacef7f4f8"
+              },
+              "etc/passwd": {
+                "bytes": 74,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "d8f4bfafa356a9293d00cefd05c5a4cb0907bbf239fcf3751bbcbed7c7c17127"
+              },
+              "etc/shadow": {
+                "bytes": 53,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "332f23ba483f689341c1f2611b10878a93a21dd3641fca922200aecf1869dd50"
+              },
+              "etc/shells": {
+                "bytes": 18,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "4cc26708349348ad3520dae0e1046ef3d1b6eb823c9e1361aa24062d785595d8"
+              },
+              "etc/subgid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "etc/subuid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "home": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "home/alice": {
+                "kind": "directory",
+                "mode": 493
+              }
+            },
+            "status": 1,
+            "stderr_bytes": 95,
+            "stderr_sha256": "38cbb64d11ba8d10ccddce715dfc42614dde5bac4567ab4850939dc1648f4f8c",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "state": {
+              "etc": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default/useradd": {
+                "bytes": 36,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "f45555fd681f2583fe7e43168de12b937cff5256d67a6f02857920d67465a6a6"
+              },
+              "etc/group": {
+                "bytes": 42,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "1b702c3b0d1f012f4d48d226da8eaf73709b4aac166dc43d241b87cbc54dbe38"
+              },
+              "etc/gshadow": {
+                "bytes": 33,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "6944f8c63de9fb5ce68ce60e07974209419fdf2be91bd1693a77a71567a5f71f"
+              },
+              "etc/login.defs": {
+                "bytes": 233,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "40a73bca5b906d9e60432d40cc888056958372c3e5b9b979408323660c6c2063"
+              },
+              "etc/nsswitch.conf": {
+                "bytes": 41,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "a28195b9f84e38e9a14e0d71dee9580a4c8da1be2a6d5b7b27cc8ebacef7f4f8"
+              },
+              "etc/passwd": {
+                "bytes": 74,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "d8f4bfafa356a9293d00cefd05c5a4cb0907bbf239fcf3751bbcbed7c7c17127"
+              },
+              "etc/shadow": {
+                "bytes": 53,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "332f23ba483f689341c1f2611b10878a93a21dd3641fca922200aecf1869dd50"
+              },
+              "etc/shells": {
+                "bytes": 18,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "4cc26708349348ad3520dae0e1046ef3d1b6eb823c9e1361aa24062d785595d8"
+              },
+              "etc/subgid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "etc/subuid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "home": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "home/alice": {
+                "kind": "directory",
+                "mode": 493
+              }
+            },
+            "status": 1,
+            "stderr_bytes": 95,
+            "stderr_sha256": "38cbb64d11ba8d10ccddce715dfc42614dde5bac4567ab4850939dc1648f4f8c",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "chpasswd-prefix",
+          "passed": true,
+          "program": "chpasswd",
+          "stateful": true
+        },
+        {
+          "arguments": [
+            "-P",
+            "{ROOT}",
+            "-g",
+            "1200",
+            "staff"
+          ],
+          "clang": {
+            "state": {
+              "etc": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default/useradd": {
+                "bytes": 36,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "f45555fd681f2583fe7e43168de12b937cff5256d67a6f02857920d67465a6a6"
+              },
+              "etc/group": {
+                "bytes": 56,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "2c921caf226ea919d8f3888181983f60b7109dfc55c8ba6d81494b921523f47a"
+              },
+              "etc/group-": {
+                "bytes": 42,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "1b702c3b0d1f012f4d48d226da8eaf73709b4aac166dc43d241b87cbc54dbe38"
+              },
+              "etc/gshadow": {
+                "bytes": 43,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "00713830667c8da9a628b7cea64460998baadea8b491b85152b8a1ff7eb4a795"
+              },
+              "etc/gshadow-": {
+                "bytes": 33,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "6944f8c63de9fb5ce68ce60e07974209419fdf2be91bd1693a77a71567a5f71f"
+              },
+              "etc/login.defs": {
+                "bytes": 233,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "40a73bca5b906d9e60432d40cc888056958372c3e5b9b979408323660c6c2063"
+              },
+              "etc/nsswitch.conf": {
+                "bytes": 41,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "a28195b9f84e38e9a14e0d71dee9580a4c8da1be2a6d5b7b27cc8ebacef7f4f8"
+              },
+              "etc/passwd": {
+                "bytes": 74,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "d8f4bfafa356a9293d00cefd05c5a4cb0907bbf239fcf3751bbcbed7c7c17127"
+              },
+              "etc/shadow": {
+                "bytes": 53,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "332f23ba483f689341c1f2611b10878a93a21dd3641fca922200aecf1869dd50"
+              },
+              "etc/shells": {
+                "bytes": 18,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "4cc26708349348ad3520dae0e1046ef3d1b6eb823c9e1361aa24062d785595d8"
+              },
+              "etc/subgid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "etc/subuid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "home": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "home/alice": {
+                "kind": "directory",
+                "mode": 493
+              }
+            },
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "state": {
+              "etc": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default/useradd": {
+                "bytes": 36,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "f45555fd681f2583fe7e43168de12b937cff5256d67a6f02857920d67465a6a6"
+              },
+              "etc/group": {
+                "bytes": 56,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "2c921caf226ea919d8f3888181983f60b7109dfc55c8ba6d81494b921523f47a"
+              },
+              "etc/group-": {
+                "bytes": 42,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "1b702c3b0d1f012f4d48d226da8eaf73709b4aac166dc43d241b87cbc54dbe38"
+              },
+              "etc/gshadow": {
+                "bytes": 43,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "00713830667c8da9a628b7cea64460998baadea8b491b85152b8a1ff7eb4a795"
+              },
+              "etc/gshadow-": {
+                "bytes": 33,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "6944f8c63de9fb5ce68ce60e07974209419fdf2be91bd1693a77a71567a5f71f"
+              },
+              "etc/login.defs": {
+                "bytes": 233,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "40a73bca5b906d9e60432d40cc888056958372c3e5b9b979408323660c6c2063"
+              },
+              "etc/nsswitch.conf": {
+                "bytes": 41,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "a28195b9f84e38e9a14e0d71dee9580a4c8da1be2a6d5b7b27cc8ebacef7f4f8"
+              },
+              "etc/passwd": {
+                "bytes": 74,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "d8f4bfafa356a9293d00cefd05c5a4cb0907bbf239fcf3751bbcbed7c7c17127"
+              },
+              "etc/shadow": {
+                "bytes": 53,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "332f23ba483f689341c1f2611b10878a93a21dd3641fca922200aecf1869dd50"
+              },
+              "etc/shells": {
+                "bytes": 18,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "4cc26708349348ad3520dae0e1046ef3d1b6eb823c9e1361aa24062d785595d8"
+              },
+              "etc/subgid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "etc/subuid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "home": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "home/alice": {
+                "kind": "directory",
+                "mode": 493
+              }
+            },
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "groupadd-prefix",
+          "passed": true,
+          "program": "groupadd",
+          "stateful": true
+        },
+        {
+          "arguments": [
+            "-P",
+            "{ROOT}",
+            "devs"
+          ],
+          "clang": {
+            "state": {
+              "etc": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default/useradd": {
+                "bytes": 36,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "f45555fd681f2583fe7e43168de12b937cff5256d67a6f02857920d67465a6a6"
+              },
+              "etc/group": {
+                "bytes": 29,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "816001744d7961d16bbebe6ed14842d317eab0c86384f589c8379725436d48e2"
+              },
+              "etc/group-": {
+                "bytes": 42,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "1b702c3b0d1f012f4d48d226da8eaf73709b4aac166dc43d241b87cbc54dbe38"
+              },
+              "etc/gshadow": {
+                "bytes": 24,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "634be97286867cc72540e630be61a4aba96506803d1947d09158cbd1bd1b3603"
+              },
+              "etc/gshadow-": {
+                "bytes": 33,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "6944f8c63de9fb5ce68ce60e07974209419fdf2be91bd1693a77a71567a5f71f"
+              },
+              "etc/login.defs": {
+                "bytes": 233,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "40a73bca5b906d9e60432d40cc888056958372c3e5b9b979408323660c6c2063"
+              },
+              "etc/nsswitch.conf": {
+                "bytes": 41,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "a28195b9f84e38e9a14e0d71dee9580a4c8da1be2a6d5b7b27cc8ebacef7f4f8"
+              },
+              "etc/passwd": {
+                "bytes": 74,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "d8f4bfafa356a9293d00cefd05c5a4cb0907bbf239fcf3751bbcbed7c7c17127"
+              },
+              "etc/shadow": {
+                "bytes": 53,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "332f23ba483f689341c1f2611b10878a93a21dd3641fca922200aecf1869dd50"
+              },
+              "etc/shells": {
+                "bytes": 18,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "4cc26708349348ad3520dae0e1046ef3d1b6eb823c9e1361aa24062d785595d8"
+              },
+              "etc/subgid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "etc/subuid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "home": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "home/alice": {
+                "kind": "directory",
+                "mode": 493
+              }
+            },
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "state": {
+              "etc": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default/useradd": {
+                "bytes": 36,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "f45555fd681f2583fe7e43168de12b937cff5256d67a6f02857920d67465a6a6"
+              },
+              "etc/group": {
+                "bytes": 29,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "816001744d7961d16bbebe6ed14842d317eab0c86384f589c8379725436d48e2"
+              },
+              "etc/group-": {
+                "bytes": 42,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "1b702c3b0d1f012f4d48d226da8eaf73709b4aac166dc43d241b87cbc54dbe38"
+              },
+              "etc/gshadow": {
+                "bytes": 24,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "634be97286867cc72540e630be61a4aba96506803d1947d09158cbd1bd1b3603"
+              },
+              "etc/gshadow-": {
+                "bytes": 33,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "6944f8c63de9fb5ce68ce60e07974209419fdf2be91bd1693a77a71567a5f71f"
+              },
+              "etc/login.defs": {
+                "bytes": 233,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "40a73bca5b906d9e60432d40cc888056958372c3e5b9b979408323660c6c2063"
+              },
+              "etc/nsswitch.conf": {
+                "bytes": 41,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "a28195b9f84e38e9a14e0d71dee9580a4c8da1be2a6d5b7b27cc8ebacef7f4f8"
+              },
+              "etc/passwd": {
+                "bytes": 74,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "d8f4bfafa356a9293d00cefd05c5a4cb0907bbf239fcf3751bbcbed7c7c17127"
+              },
+              "etc/shadow": {
+                "bytes": 53,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "332f23ba483f689341c1f2611b10878a93a21dd3641fca922200aecf1869dd50"
+              },
+              "etc/shells": {
+                "bytes": 18,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "4cc26708349348ad3520dae0e1046ef3d1b6eb823c9e1361aa24062d785595d8"
+              },
+              "etc/subgid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "etc/subuid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "home": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "home/alice": {
+                "kind": "directory",
+                "mode": 493
+              }
+            },
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "groupdel-prefix",
+          "passed": true,
+          "program": "groupdel",
+          "stateful": true
+        },
+        {
+          "arguments": [
+            "-P",
+            "{ROOT}",
+            "-n",
+            "developers",
+            "devs"
+          ],
+          "clang": {
+            "state": {
+              "etc": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default/useradd": {
+                "bytes": 36,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "f45555fd681f2583fe7e43168de12b937cff5256d67a6f02857920d67465a6a6"
+              },
+              "etc/group": {
+                "bytes": 48,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "980403c0ce86b145ab637b6704ae64e6c8f12585673380f8fa026ae57f3d5260"
+              },
+              "etc/group-": {
+                "bytes": 42,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "1b702c3b0d1f012f4d48d226da8eaf73709b4aac166dc43d241b87cbc54dbe38"
+              },
+              "etc/gshadow": {
+                "bytes": 39,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "c0d938d5154a0c01bf82b44fa56723c612bbf4c2987f4265726de9aa6fa95230"
+              },
+              "etc/gshadow-": {
+                "bytes": 33,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "6944f8c63de9fb5ce68ce60e07974209419fdf2be91bd1693a77a71567a5f71f"
+              },
+              "etc/login.defs": {
+                "bytes": 233,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "40a73bca5b906d9e60432d40cc888056958372c3e5b9b979408323660c6c2063"
+              },
+              "etc/nsswitch.conf": {
+                "bytes": 41,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "a28195b9f84e38e9a14e0d71dee9580a4c8da1be2a6d5b7b27cc8ebacef7f4f8"
+              },
+              "etc/passwd": {
+                "bytes": 74,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "d8f4bfafa356a9293d00cefd05c5a4cb0907bbf239fcf3751bbcbed7c7c17127"
+              },
+              "etc/shadow": {
+                "bytes": 53,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "332f23ba483f689341c1f2611b10878a93a21dd3641fca922200aecf1869dd50"
+              },
+              "etc/shells": {
+                "bytes": 18,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "4cc26708349348ad3520dae0e1046ef3d1b6eb823c9e1361aa24062d785595d8"
+              },
+              "etc/subgid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "etc/subuid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "home": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "home/alice": {
+                "kind": "directory",
+                "mode": 493
+              }
+            },
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "state": {
+              "etc": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default/useradd": {
+                "bytes": 36,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "f45555fd681f2583fe7e43168de12b937cff5256d67a6f02857920d67465a6a6"
+              },
+              "etc/group": {
+                "bytes": 48,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "980403c0ce86b145ab637b6704ae64e6c8f12585673380f8fa026ae57f3d5260"
+              },
+              "etc/group-": {
+                "bytes": 42,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "1b702c3b0d1f012f4d48d226da8eaf73709b4aac166dc43d241b87cbc54dbe38"
+              },
+              "etc/gshadow": {
+                "bytes": 39,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "c0d938d5154a0c01bf82b44fa56723c612bbf4c2987f4265726de9aa6fa95230"
+              },
+              "etc/gshadow-": {
+                "bytes": 33,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "6944f8c63de9fb5ce68ce60e07974209419fdf2be91bd1693a77a71567a5f71f"
+              },
+              "etc/login.defs": {
+                "bytes": 233,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "40a73bca5b906d9e60432d40cc888056958372c3e5b9b979408323660c6c2063"
+              },
+              "etc/nsswitch.conf": {
+                "bytes": 41,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "a28195b9f84e38e9a14e0d71dee9580a4c8da1be2a6d5b7b27cc8ebacef7f4f8"
+              },
+              "etc/passwd": {
+                "bytes": 74,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "d8f4bfafa356a9293d00cefd05c5a4cb0907bbf239fcf3751bbcbed7c7c17127"
+              },
+              "etc/shadow": {
+                "bytes": 53,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "332f23ba483f689341c1f2611b10878a93a21dd3641fca922200aecf1869dd50"
+              },
+              "etc/shells": {
+                "bytes": 18,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "4cc26708349348ad3520dae0e1046ef3d1b6eb823c9e1361aa24062d785595d8"
+              },
+              "etc/subgid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "etc/subuid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "home": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "home/alice": {
+                "kind": "directory",
+                "mode": 493
+              }
+            },
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "groupmod-prefix",
+          "passed": true,
+          "program": "groupmod",
+          "stateful": true
+        },
+        {
+          "arguments": [
+            "-P",
+            "{ROOT}",
+            "-M",
+            "-N",
+            "-u",
+            "1200",
+            "-g",
+            "1000",
+            "-s",
+            "/bin/sh",
+            "bob"
+          ],
+          "clang": {
+            "state": {
+              "etc": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default/useradd": {
+                "bytes": 36,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "f45555fd681f2583fe7e43168de12b937cff5256d67a6f02857920d67465a6a6"
+              },
+              "etc/group": {
+                "bytes": 42,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "1b702c3b0d1f012f4d48d226da8eaf73709b4aac166dc43d241b87cbc54dbe38"
+              },
+              "etc/gshadow": {
+                "bytes": 33,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "6944f8c63de9fb5ce68ce60e07974209419fdf2be91bd1693a77a71567a5f71f"
+              },
+              "etc/login.defs": {
+                "bytes": 233,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "40a73bca5b906d9e60432d40cc888056958372c3e5b9b979408323660c6c2063"
+              },
+              "etc/nsswitch.conf": {
+                "bytes": 41,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "a28195b9f84e38e9a14e0d71dee9580a4c8da1be2a6d5b7b27cc8ebacef7f4f8"
+              },
+              "etc/passwd": {
+                "bytes": 109,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "d335b3e691acdc35c94f63ac5aeaf48b4c6a4e433e346c3dd70192d33966f8c7"
+              },
+              "etc/passwd-": {
+                "bytes": 74,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "d8f4bfafa356a9293d00cefd05c5a4cb0907bbf239fcf3751bbcbed7c7c17127"
+              },
+              "etc/shadow": {
+                "bytes": 71,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "79cfbffa44a341771d564659598f133a0e26f6555978671f01c6436305622be2"
+              },
+              "etc/shadow-": {
+                "bytes": 53,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "332f23ba483f689341c1f2611b10878a93a21dd3641fca922200aecf1869dd50"
+              },
+              "etc/shells": {
+                "bytes": 18,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "4cc26708349348ad3520dae0e1046ef3d1b6eb823c9e1361aa24062d785595d8"
+              },
+              "etc/subgid": {
+                "bytes": 36,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "43823e057716ffa4d2081b920df8b41aa5bfd87942aee531f70ddec4cf34f6dc"
+              },
+              "etc/subgid-": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "etc/subuid": {
+                "bytes": 36,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "43823e057716ffa4d2081b920df8b41aa5bfd87942aee531f70ddec4cf34f6dc"
+              },
+              "etc/subuid-": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "home": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "home/alice": {
+                "kind": "directory",
+                "mode": 493
+              }
+            },
+            "status": 0,
+            "stderr_bytes": 49,
+            "stderr_sha256": "f5f1cca5584f329a94135ec9fa548f366ae7a55f0c74d8589f974a8e2ee45e9f",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "state": {
+              "etc": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default/useradd": {
+                "bytes": 36,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "f45555fd681f2583fe7e43168de12b937cff5256d67a6f02857920d67465a6a6"
+              },
+              "etc/group": {
+                "bytes": 42,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "1b702c3b0d1f012f4d48d226da8eaf73709b4aac166dc43d241b87cbc54dbe38"
+              },
+              "etc/gshadow": {
+                "bytes": 33,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "6944f8c63de9fb5ce68ce60e07974209419fdf2be91bd1693a77a71567a5f71f"
+              },
+              "etc/login.defs": {
+                "bytes": 233,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "40a73bca5b906d9e60432d40cc888056958372c3e5b9b979408323660c6c2063"
+              },
+              "etc/nsswitch.conf": {
+                "bytes": 41,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "a28195b9f84e38e9a14e0d71dee9580a4c8da1be2a6d5b7b27cc8ebacef7f4f8"
+              },
+              "etc/passwd": {
+                "bytes": 109,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "d335b3e691acdc35c94f63ac5aeaf48b4c6a4e433e346c3dd70192d33966f8c7"
+              },
+              "etc/passwd-": {
+                "bytes": 74,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "d8f4bfafa356a9293d00cefd05c5a4cb0907bbf239fcf3751bbcbed7c7c17127"
+              },
+              "etc/shadow": {
+                "bytes": 71,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "79cfbffa44a341771d564659598f133a0e26f6555978671f01c6436305622be2"
+              },
+              "etc/shadow-": {
+                "bytes": 53,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "332f23ba483f689341c1f2611b10878a93a21dd3641fca922200aecf1869dd50"
+              },
+              "etc/shells": {
+                "bytes": 18,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "4cc26708349348ad3520dae0e1046ef3d1b6eb823c9e1361aa24062d785595d8"
+              },
+              "etc/subgid": {
+                "bytes": 36,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "43823e057716ffa4d2081b920df8b41aa5bfd87942aee531f70ddec4cf34f6dc"
+              },
+              "etc/subgid-": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "etc/subuid": {
+                "bytes": 36,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "43823e057716ffa4d2081b920df8b41aa5bfd87942aee531f70ddec4cf34f6dc"
+              },
+              "etc/subuid-": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "home": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "home/alice": {
+                "kind": "directory",
+                "mode": 493
+              }
+            },
+            "status": 0,
+            "stderr_bytes": 49,
+            "stderr_sha256": "f5f1cca5584f329a94135ec9fa548f366ae7a55f0c74d8589f974a8e2ee45e9f",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "useradd-prefix",
+          "passed": true,
+          "program": "useradd",
+          "stateful": true
+        },
+        {
+          "arguments": [
+            "-P",
+            "{ROOT}",
+            "alice"
+          ],
+          "clang": {
+            "state": {
+              "etc": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default/useradd": {
+                "bytes": 36,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "f45555fd681f2583fe7e43168de12b937cff5256d67a6f02857920d67465a6a6"
+              },
+              "etc/group": {
+                "bytes": 37,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "8accf3b094af5f7fdc021c2807cadc6ab30428dd6e5d63dd121a7a7f6dbcf3b0"
+              },
+              "etc/group-": {
+                "bytes": 42,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "1b702c3b0d1f012f4d48d226da8eaf73709b4aac166dc43d241b87cbc54dbe38"
+              },
+              "etc/gshadow": {
+                "bytes": 28,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "5197a7242df92af7cbccd1a94aaaf931dc8f182c1054f766c80b929f4b2be274"
+              },
+              "etc/gshadow-": {
+                "bytes": 33,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "6944f8c63de9fb5ce68ce60e07974209419fdf2be91bd1693a77a71567a5f71f"
+              },
+              "etc/login.defs": {
+                "bytes": 233,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "40a73bca5b906d9e60432d40cc888056958372c3e5b9b979408323660c6c2063"
+              },
+              "etc/nsswitch.conf": {
+                "bytes": 41,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "a28195b9f84e38e9a14e0d71dee9580a4c8da1be2a6d5b7b27cc8ebacef7f4f8"
+              },
+              "etc/passwd": {
+                "bytes": 30,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "79492b90d473e2387338ef1518dfbceb9e3392ae5740235a6696621e42218efa"
+              },
+              "etc/passwd-": {
+                "bytes": 74,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "d8f4bfafa356a9293d00cefd05c5a4cb0907bbf239fcf3751bbcbed7c7c17127"
+              },
+              "etc/shadow": {
+                "bytes": 26,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "a9a2479493943ac75e33561b9018e58e260f08090b8be4f2b37ba80cfc7e25ea"
+              },
+              "etc/shadow-": {
+                "bytes": 53,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "332f23ba483f689341c1f2611b10878a93a21dd3641fca922200aecf1869dd50"
+              },
+              "etc/shells": {
+                "bytes": 18,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "4cc26708349348ad3520dae0e1046ef3d1b6eb823c9e1361aa24062d785595d8"
+              },
+              "etc/subgid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "etc/subuid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "home": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "home/alice": {
+                "kind": "directory",
+                "mode": 493
+              }
+            },
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "state": {
+              "etc": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default/useradd": {
+                "bytes": 36,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "f45555fd681f2583fe7e43168de12b937cff5256d67a6f02857920d67465a6a6"
+              },
+              "etc/group": {
+                "bytes": 37,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "8accf3b094af5f7fdc021c2807cadc6ab30428dd6e5d63dd121a7a7f6dbcf3b0"
+              },
+              "etc/group-": {
+                "bytes": 42,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "1b702c3b0d1f012f4d48d226da8eaf73709b4aac166dc43d241b87cbc54dbe38"
+              },
+              "etc/gshadow": {
+                "bytes": 28,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "5197a7242df92af7cbccd1a94aaaf931dc8f182c1054f766c80b929f4b2be274"
+              },
+              "etc/gshadow-": {
+                "bytes": 33,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "6944f8c63de9fb5ce68ce60e07974209419fdf2be91bd1693a77a71567a5f71f"
+              },
+              "etc/login.defs": {
+                "bytes": 233,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "40a73bca5b906d9e60432d40cc888056958372c3e5b9b979408323660c6c2063"
+              },
+              "etc/nsswitch.conf": {
+                "bytes": 41,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "a28195b9f84e38e9a14e0d71dee9580a4c8da1be2a6d5b7b27cc8ebacef7f4f8"
+              },
+              "etc/passwd": {
+                "bytes": 30,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "79492b90d473e2387338ef1518dfbceb9e3392ae5740235a6696621e42218efa"
+              },
+              "etc/passwd-": {
+                "bytes": 74,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "d8f4bfafa356a9293d00cefd05c5a4cb0907bbf239fcf3751bbcbed7c7c17127"
+              },
+              "etc/shadow": {
+                "bytes": 26,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "a9a2479493943ac75e33561b9018e58e260f08090b8be4f2b37ba80cfc7e25ea"
+              },
+              "etc/shadow-": {
+                "bytes": 53,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "332f23ba483f689341c1f2611b10878a93a21dd3641fca922200aecf1869dd50"
+              },
+              "etc/shells": {
+                "bytes": 18,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "4cc26708349348ad3520dae0e1046ef3d1b6eb823c9e1361aa24062d785595d8"
+              },
+              "etc/subgid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "etc/subuid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "home": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "home/alice": {
+                "kind": "directory",
+                "mode": 493
+              }
+            },
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "userdel-prefix",
+          "passed": true,
+          "program": "userdel",
+          "stateful": true
+        },
+        {
+          "arguments": [
+            "-P",
+            "{ROOT}",
+            "-c",
+            "Alice Updated",
+            "alice"
+          ],
+          "clang": {
+            "state": {
+              "etc": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default/useradd": {
+                "bytes": 36,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "f45555fd681f2583fe7e43168de12b937cff5256d67a6f02857920d67465a6a6"
+              },
+              "etc/group": {
+                "bytes": 42,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "1b702c3b0d1f012f4d48d226da8eaf73709b4aac166dc43d241b87cbc54dbe38"
+              },
+              "etc/gshadow": {
+                "bytes": 33,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "6944f8c63de9fb5ce68ce60e07974209419fdf2be91bd1693a77a71567a5f71f"
+              },
+              "etc/login.defs": {
+                "bytes": 233,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "40a73bca5b906d9e60432d40cc888056958372c3e5b9b979408323660c6c2063"
+              },
+              "etc/nsswitch.conf": {
+                "bytes": 41,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "a28195b9f84e38e9a14e0d71dee9580a4c8da1be2a6d5b7b27cc8ebacef7f4f8"
+              },
+              "etc/passwd": {
+                "bytes": 82,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "9a38cd7077578045e89028fa94597fc932b565c92dd41a0f10fd4dd2d7d3794b"
+              },
+              "etc/passwd-": {
+                "bytes": 74,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "d8f4bfafa356a9293d00cefd05c5a4cb0907bbf239fcf3751bbcbed7c7c17127"
+              },
+              "etc/shadow": {
+                "bytes": 53,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "332f23ba483f689341c1f2611b10878a93a21dd3641fca922200aecf1869dd50"
+              },
+              "etc/shells": {
+                "bytes": 18,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "4cc26708349348ad3520dae0e1046ef3d1b6eb823c9e1361aa24062d785595d8"
+              },
+              "etc/subgid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "etc/subuid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "home": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "home/alice": {
+                "kind": "directory",
+                "mode": 493
+              }
+            },
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "gcc": {
+            "state": {
+              "etc": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "etc/default/useradd": {
+                "bytes": 36,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "f45555fd681f2583fe7e43168de12b937cff5256d67a6f02857920d67465a6a6"
+              },
+              "etc/group": {
+                "bytes": 42,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "1b702c3b0d1f012f4d48d226da8eaf73709b4aac166dc43d241b87cbc54dbe38"
+              },
+              "etc/gshadow": {
+                "bytes": 33,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "6944f8c63de9fb5ce68ce60e07974209419fdf2be91bd1693a77a71567a5f71f"
+              },
+              "etc/login.defs": {
+                "bytes": 233,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "40a73bca5b906d9e60432d40cc888056958372c3e5b9b979408323660c6c2063"
+              },
+              "etc/nsswitch.conf": {
+                "bytes": 41,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "a28195b9f84e38e9a14e0d71dee9580a4c8da1be2a6d5b7b27cc8ebacef7f4f8"
+              },
+              "etc/passwd": {
+                "bytes": 82,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "9a38cd7077578045e89028fa94597fc932b565c92dd41a0f10fd4dd2d7d3794b"
+              },
+              "etc/passwd-": {
+                "bytes": 74,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "d8f4bfafa356a9293d00cefd05c5a4cb0907bbf239fcf3751bbcbed7c7c17127"
+              },
+              "etc/shadow": {
+                "bytes": 53,
+                "kind": "file",
+                "mode": 384,
+                "sha256": "332f23ba483f689341c1f2611b10878a93a21dd3641fca922200aecf1869dd50"
+              },
+              "etc/shells": {
+                "bytes": 18,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "4cc26708349348ad3520dae0e1046ef3d1b6eb823c9e1361aa24062d785595d8"
+              },
+              "etc/subgid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "etc/subuid": {
+                "bytes": 19,
+                "kind": "file",
+                "mode": 420,
+                "sha256": "ab3b701a1c9275dede59f460bc7a212b325a80abbc2270e33ac789c9c8aa69f3"
+              },
+              "home": {
+                "kind": "directory",
+                "mode": 493
+              },
+              "home/alice": {
+                "kind": "directory",
+                "mode": 493
+              }
+            },
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "name": "usermod-prefix",
+          "passed": true,
+          "program": "usermod",
+          "stateful": true
+        }
+      ],
+      "schema": 1,
+      "stateful_cases": 8
+    },
+    "differential_sha256": "350fa7f3d2ae8cc48af4c16d0ae64f15eb13c25a60d1d899713db4f9e878b147",
+    "dispatch_aliases": {
+      "chfn": "shadow-chfn",
+      "chsh": "shadow-chsh",
+      "login": "shadow-login",
+      "newgrp": "shadow-newgrp",
+      "nologin": "shadow-nologin",
+      "su": "shadow-su",
+      "vigr": "shadow-vigr",
+      "vipw": "shadow-vipw"
+    },
+    "integrated_programs": 32,
+    "other_valgrind_errors": 0,
+    "translated_engines": 30,
+    "translated_sources": 196,
+    "valgrind_log_sha256": {
+      "chage": "a7c46e1cd30872348d4ad2767fef16f83e632ddef8c4ced7937540e0cf1c3d3f",
+      "chfn": "5cc087752917377002375a5e6ad2bf0959390ff9221d7f3bebcadce2e6246831",
+      "chgpasswd": "b7c60cc65846641bcec45e0173fa637c6f93ceb78a4779cc33dad8125674525d",
+      "chpasswd": "869438836e51591bd79a3f339d72e4a82e14eea49ad627828a2f2c1830dc4d68",
+      "chsh": "dfec303891e91cff34154f157da774b2ae326e7b0a4c837ee18ec2ee41c4c392",
+      "faillog": "7a1dbbfabad1a8e6b414f143d01a63bd7cf65ab34e9cc7210598ce1238f05996",
+      "getsubids": "b108383479be766ec526e5b72c6575485f26469a34531b006f9102eb0779665c",
+      "gpasswd": "4f36291f9ddefc7fde931c73635a269d51cef0977c61b08d4ccc70f14359dea5",
+      "groupadd": "20c5d6bff62b75120b1be1bf339b1ed4cce05443ed3d3225f1829f14ca682e8b",
+      "groupdel": "e63810ead41ac72749f7f75d1a7487d35b1e518b86bf7a3eaa5f15a87b6c9e06",
+      "groupmod": "97d51020c6bcc8606e4351f27e63248fc96a878d7b2aed6ceac192d0bd8816c9",
+      "grpck": "e8798c3e7e4c3497efc9324fd62c8b402afdc877ad2b8112349585badccb0b99",
+      "grpconv": "d1892635154f5e3e405a0803e268342d4724055e2e7f124af83f07cc7078b889",
+      "grpunconv": "b49361ec10bd4cce3fd722cb3c4d4fc5d48d18bc4a68edc4a4b6836a5ef26d92",
+      "lastlog": "db3f1c378cafdaca317f58e1829f48f396e546bfb4aa55913645b1bab831bf12",
+      "login": "9ab73f732d6f9d09e9da6ce122eb2e39381caeac8d2e17ddfedbc9038362afb5",
+      "newgidmap": "d807418a6779173b139b46cf3e3abf477ac6ac031164b3756ae19eb4c0ceedd6",
+      "newgrp": "3e0dbe827df5d24167c206ac28d41b791101ce65559ed0f3abaefb870925632a",
+      "newuidmap": "1d3c7bd59199a4208358f43a00369fa129a05fdd89950bca02d040fc6a3fdfbc",
+      "newusers": "bc12eca3ea7bfd3fee3342571cdbfc1e88354fe5fb073c44c4ec268c9ad05f65",
+      "nologin": "5cafd2eef91b41e0d1464e5b1f65950481e5856f67ae40881ffa67a2cc43aa85",
+      "passwd": "2fdfe7b4050f71a382572e5dc295c82fcc83c5bd69a87df4618d1114889763af",
+      "pwck": "af01fefe180f9793e466cac6efb0a873fb68ebc01d4a3c4eaa6fbcc693cc2b2a",
+      "pwconv": "b722de193928695fa880836453fa18770827fc0bccf189e43f97311b7e36f64e",
+      "pwunconv": "03ef2dc6f89e017902652c94f869c7d749de545e82d5b0135b6c5c97ced5e9de",
+      "sg": "08a1153699b7dbab215d3fd228f3b1e8dfdff06334dbbaa0fa96e097b993c92b",
+      "su": "0183f20a2c16d4d8010b1f6ead856722b5aea6649528ba88f06b7ba2033973fe",
+      "useradd": "b8ef476e1c4f1ae84f5368980f0bb9d47b39b710ef23ae3a678d5480060ad66b",
+      "userdel": "1fc9bdb744ca9c29a6049443c1b40ab288078868fa3900ca3b13218e88856263",
+      "usermod": "aefd1a9f3e694560163e865982b4256eb64cec8c493b813826e9afe290cfee3b",
+      "vigr": "b7f670d79d7457263fe697fe6536b986c0b04ec19a7cdf0bd91ea17447e71ab9",
+      "vipw": "1758ee038a16b5664ad3e9223baeaf3fc8a6f43090c9c90952f1ea8774190386"
+    },
+    "valgrind_programs": 32
+  },
+  "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, GNU tar, Ncurses, GNU Findutils, GNU Gawk, Flex, Bison, curl, GNU Inetutils, Kmod, Procps-ng, and Shadow integrated at canonical parity",
   "tar_integration": {
     "byte_identical_deterministic_archive": true,
     "canonical_c_abi_residue_units": 4,

@@ -103,7 +103,9 @@ def snapshot(root: Path) -> dict[str, object]:
     return result
 
 
-def invoke(binary: Path, case: Case, root: Path) -> dict[str, object]:
+def invoke(
+    binary: Path, case: Case, root: Path, *, invocation_name: str | None = None,
+) -> dict[str, object]:
     arguments = tuple(
         str(root) if argument == "{ROOT}" else argument
         for argument in case.arguments
@@ -117,7 +119,7 @@ def invoke(binary: Path, case: Case, root: Path) -> dict[str, object]:
     })
     try:
         process = subprocess.run(
-            [case.program, *arguments],
+            [invocation_name or case.program, *arguments],
             executable=str(binary),
             input=case.stdin,
             env=environment,
@@ -176,6 +178,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--gcc-root", required=True, type=Path)
     parser.add_argument("--clang-root", required=True, type=Path)
+    parser.add_argument("--clang-multicall", type=Path)
     parser.add_argument("--output", required=True, type=Path)
     args = parser.parse_args()
 
@@ -186,7 +189,21 @@ def main() -> int:
             fixture(root)
             gcc = invoke(args.gcc_root / case.program, case, root)
             fixture(root)
-            clang = invoke(args.clang_root / case.program, case, root)
+            if args.clang_multicall is None:
+                clang = invoke(args.clang_root / case.program, case, root)
+            else:
+                collisions = {
+                    "chfn", "chsh", "login", "newgrp", "nologin", "su",
+                    "vigr", "vipw",
+                }
+                dispatch_name = (
+                    f"shadow-{case.program}"
+                    if case.program in collisions else case.program
+                )
+                clang = invoke(
+                    args.clang_multicall, case, root,
+                    invocation_name=dispatch_name,
+                )
             records.append({
                 "name": case.name,
                 "program": case.program,

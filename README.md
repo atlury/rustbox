@@ -65,7 +65,10 @@ scoring, and correctness gates.
 | Flex 2.6.4 | 3 | 3 | 3 | 3 |
 | Bison 3.8.2 | 2 | 2 | 2 | 2 |
 | curl 8.23.0 | 2 | 2 | 2 | 2 |
-| GNU Inetutils 2.8 | 26 | 26 | 26 | 0 |
+| GNU Inetutils 2.8 | 26 | 26 | 26 | 26 |
+| Kmod 34.3 | 7 | 7 | 7 | 7 |
+| Procps-ng 4.0.7 | 20 | 20 | 20 | 20 |
+| Shadow 4.20.4 | 32 | 32 | 32 | 32 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -127,7 +130,7 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 413
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 445
 distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, five
 pkgconf names, File, GNU patch, GNU sed, four GNU Diffutils applets, and GNU
 Grep's three public names, GNU bc and dc, attr's three tools, plus chacl,
@@ -144,7 +147,10 @@ native `curl-config` frontend, plus all 26 GNU Inetutils programs; Inetutils
 seven Kmod frontends: `kmod`, `depmod`, `insmod`, `lsmod`, `modinfo`,
 `modprobe`, and `rmmod`, plus all 20 Procps-ng programs; `kill` and `uptime`
 retain GNU Coreutils precedence while `procps-kill` and `procps-uptime` expose
-the Procps-ng implementations explicitly).  It passes all 818
+the Procps-ng implementations explicitly, plus all 32 Shadow names; the eight
+names already owned by util-linux are available as `shadow-chfn`,
+`shadow-chsh`, `shadow-login`, `shadow-newgrp`, `shadow-nologin`, `shadow-su`,
+`shadow-vigr`, and `shadow-vipw`).  It passes all 882
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
 check, 108-case differential suite, and Valgrind.  Pkgconf also passes all 429
@@ -196,8 +202,11 @@ no canonical C residue; all 25 command and module-fixture comparisons pass and
 all seven multicall Valgrind paths are clean.
 Procps-ng adds all 20 programs from a complete 49-source translation with no
 canonical C residue; all 51 canonical comparisons pass and all 20 resource
-paths match their canonical baselines.  The resulting 413-name executable
-is 36,988,168 bytes unstripped and 18,320,576
+paths match their canonical baselines.  Shadow adds all 32 public names from a
+complete 196-source strict translation with no canonical C residue; all 79
+canonical comparisons and all 32 resource paths pass through the combined
+binary.  The resulting 445-name executable
+is 37,504,136 bytes unstripped and 18,714,624
 bytes stripped; its exact hashes and
 section/link evidence are recorded in `evidence/rustbox-multicall.json`.
 `chcon` and `runcon`
@@ -1393,7 +1402,7 @@ Library-only checkpoints (outside the active utility order):
      `procps-kill` and `procps-uptime` explicitly select Procps-ng.  Exact
      evidence is recorded in `evidence/procps-ng-4.0.7-multicall.json` and
      `evidence/rustbox-multicall.json`.
-   - [ ] Shadow 4.20.4 — `chage`, `chfn`, `chgpasswd`, `chpasswd`, `chsh`,
+   - [x] Shadow 4.20.4 — `chage`, `chfn`, `chgpasswd`, `chpasswd`, `chsh`,
      `faillog`, `getsubids`, `gpasswd`, `groupadd`, `groupdel`, `groupmod`,
      `grpck`, `grpconv`, `grpunconv`, `lastlog`, `login`, `newgidmap`,
      `newgrp`, `newuidmap`, `newusers`, `nologin`, `passwd`, `pwck`, `pwconv`,
@@ -1430,8 +1439,15 @@ Library-only checkpoints (outside the active utility order):
      matches all 32 canonical resource profiles (including the known
      `gpasswd` baseline).  It is 712,056 bytes stripped.  Translation, unsafe
      inventory, linkage, size, and hybrid evidence is recorded in
-     `evidence/shadow-4.20.4-c2rust.json`; unified multicall integration is the
-     remaining Shadow gate.
+     `evidence/shadow-4.20.4-c2rust.json`.  Unified multicall integration is
+     complete: 265 Shadow symbols are privately namespaced and the 211
+     byte-identical Rust runtime archive members shared with Procps-ng are
+     coalesced exactly, without permitting duplicate definitions.  All 79
+     comparisons and all 32 canonical resource profiles pass through Rustbox;
+     util-linux retains precedence for its eight colliding names, exposed for
+     Shadow through `shadow-` aliases.  Exact evidence is recorded in
+     `evidence/shadow-4.20.4-multicall.json` and
+     `evidence/rustbox-multicall.json`.
    - [ ] IPRoute2 — `arpd`, `bridge`, `ctstat`, `dcb`, `devlink`, `genl`,
      `ifcfg`, `ifstat`, `ip`, `lnstat`, `nstat`, `rdma`, `routef`, `routel`,
      `rtacct`, `rtmon`, `rtpr`, `rtstat`, `ss`, `tc`, `tipc`, `vdpa`.
