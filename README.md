@@ -277,6 +277,12 @@ scripts/test_e2fsprogs_multicall.sh /work/work/analysis/packed/rustbox
 
 #### Pointer removal progress
 
+The target across all 499 public names is zero raw pointers in Rustbox-owned
+production code, including the generated applet code and ABI adapters.
+Count residual adapters explicitly. Track shared implementations by their
+actual callers and verify the final linked executable before recording a
+production reduction.
+
 Two shared algorithms have verified safe Rust implementations in pilot
 builds. **Production substitutions from these pilots: 0.** The default
 multicall still links the generated versions, so the production pointer
@@ -286,6 +292,16 @@ inventory receives no reduction from these changes.
 |---|---|---|
 | E2fsprogs `ext2fs_crc16` | Safe slice loop in `e2fsck`, with one raw-pointer adapter at the C boundary | Rebuild affected engines, verify shared linkage and run multicall regressions |
 | IPRoute2 `parse_rtattr_flags` | Safe attribute walk in `bridge`; diagnostic backing verified for all 4 top-level FDB paths | Audit nested callers and other engines, then verify linkage and run multicall regressions |
+
+Inside `bridge -d`, the nested FDB activity decoder uses the shared walker
+and stores child offsets in safe Rust. A single borrowed byte slice replaces
+the generated child-pointer table. The adapter obtains the slice from the
+validated parent and the initialized receive backing described below. Both
+levels use the same four-byte alignment, so the nested cursor can reach at
+most the aligned parent end. The detailed-output regression checks all 256
+activity values, duplicate parents and children, nested type flags, an empty
+parent, a full-size record and the diagnostic for a rejected child. This
+verification covers the FDB extension printer.
 
 The first substitution covers E2fsprogs 1.47.4 `ext2fs_crc16`. The same
 generated module occurs in 13 finalized engine crates, and the baseline link

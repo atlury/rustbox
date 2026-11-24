@@ -46,7 +46,8 @@ crates=$base/program-translations
 cp -R "$crates/bridge/bridge-final" engine
 module=engine/src/lib/libnetlink.rs
 printf '%s  %s\n' 0d659c3db5057da08bdb4b530222fba2597454ca0bc240ce7dbf3558ee40fb8b "$module" | sha256sum -c
-cp /work/compat/iproute2/monitor_buffer.rs /work/compat/iproute2/rtattr.rs engine/
+cp /work/compat/iproute2/monitor_buffer.rs /work/compat/iproute2/rtattr.rs /work/compat/iproute2/fdb_activity.rs engine/
+printf '%s  %s\n' 7bff7bf55b1f70ead9d3ce82026db11a5380fcdd7471ef4369b0d37a133c3461 engine/src/bridge/fdb.rs | sha256sum -c
 python3 - "$module" <<'PY'
 import sys
 from pathlib import Path
@@ -102,8 +103,25 @@ for old, new in [
 # Memcheck to inspect the initialized suffix after a real recvmsg call.
 s = s[:start] + '#[export_name = "rustbox_pilot_recvmsg"]\n' + reader + s[end:]
 path.write_text(s)
+# The parent was accepted by the outer walker. Its child stream starts on
+# the same four-byte grid and cannot round beyond the parent's aligned end.
+fdb = Path('engine/src/bridge/fdb.rs')
+source = fdb.read_text()
+start = source.index('    let mut tb:', source.index('unsafe extern "C" fn fdb_print_ext_attrs('))
+end = source.index('        if notify as', start)
+source = source[:start] + '''    let payload_len = (*nfea).rta_len - 4;
+    let len = usize::from(payload_len);
+    let bytes = ::core::slice::from_raw_parts(nfea.add(1).cast::<u8>(),
+        len + crate::monitor_buffer::diagnostic_tail(len));
+    let (notify, diagnostic) = crate::fdb_activity::decode(bytes, payload_len);
+    if let Some((remaining, length)) = diagnostic {
+        fprintf(stderr, c"!!!Deficit %d, rta_len=%d\\n".as_ptr(), remaining, i32::from(length));
+    }
+    if notify != 0 {
+''' + source[end:]
+fdb.write_text(source)
 with Path('engine/lib.rs').open('a') as root:
-    root.write('\nmod monitor_buffer;\n')
+    root.write('\nmod monitor_buffer;\nmod rtattr;\nmod fdb_activity;\n')
 PY
 deps=$crates/cargo-target/bridge/release/deps
 set -- "$deps"/libc2rust_asm_casts-*.rlib "$deps"/libf128-*.rlib
