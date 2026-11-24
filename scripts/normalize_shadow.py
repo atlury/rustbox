@@ -411,6 +411,16 @@ def main() -> int:
             "make intentional mutable prefix pointer casts explicit",
         ))
 
+    transformations.append(replace_fragments(
+        output, "lib/nss.c", ((
+            "static atomic_flag nss_init_started;\n"
+            "static atomic_bool nss_init_completed;",
+            "static atomic_flag nss_init_started = ATOMIC_FLAG_INIT;\n"
+            "static atomic_bool nss_init_completed = ATOMIC_VAR_INIT(false);",
+        ),),
+        "make the canonical zero state of NSS atomics explicit",
+    ))
+
     manifest = {
         "schema": 1,
         "release": "4.20.4",
