@@ -421,6 +421,17 @@ def main() -> int:
         "make the canonical zero state of NSS atomics explicit",
     ))
 
+    transformations.append(replace_fragments(
+        output, "src/chfn.c", (
+            ("strcpy(fullnm, f ?: \"\");", "strcpy(fullnm, f != NULL ? f : \"\");"),
+            ("strcpy(roomno, f ?: \"\");", "strcpy(roomno, f != NULL ? f : \"\");"),
+            ("strcpy(workph, f ?: \"\");", "strcpy(workph, f != NULL ? f : \"\");"),
+            ("strcpy(homeph, f ?: \"\");", "strcpy(homeph, f != NULL ? f : \"\");"),
+            ("strcpy(slop, p ?: \"\");", "strcpy(slop, p != NULL ? p : \"\");"),
+        ),
+        "expand GNU binary conditionals in GECOS field parsing",
+    ))
+
     manifest = {
         "schema": 1,
         "release": "4.20.4",
