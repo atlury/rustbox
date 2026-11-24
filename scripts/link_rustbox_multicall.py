@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import concurrent.futures
 import hashlib
 import json
 import os
@@ -13,13 +14,19 @@ import subprocess
 import tempfile
 from pathlib import Path
 
-ISOLATION_CACHE_VERSION = 14
+ISOLATION_CACHE_VERSION = 15
 INETUTILS_PROGRAMS = (
     "dnsdomainname", "ftp", "ftpd", "hostname", "ifconfig", "inetd",
     "logger", "ping", "ping6", "rcp", "rexec", "rexecd", "rlogin",
     "rlogind", "rsh", "rshd", "syslogd", "talk", "talkd", "telnet",
     "telnetd", "tftp", "tftpd", "traceroute", "uucpd", "whois",
 )
+IPROUTE2_PROGRAMS = (
+    "arpd", "bridge", "dcb", "devlink", "dpll", "genl", "ifstat", "ip",
+    "lnstat", "netshaper", "nstat", "rdma", "rtacct", "rtmon", "ss", "tc",
+    "tipc", "vdpa",
+)
+IPROUTE2_PUBLIC_NAMES = (*IPROUTE2_PROGRAMS, "ctstat", "rtstat", "routel")
 PROCPS_PROGRAMS = (
     "free", "hugetop", "kill", "pgrep", "pidof", "pidwait", "pkill",
     "pmap", "ps", "pwdx", "skill", "slabtop", "snice", "sysctl",
@@ -101,8 +108,8 @@ def namespace_duplicate_c_symbols(
     """
     strong_types = {"B", "C", "D", "G", "R", "S", "T"}
     by_symbol: dict[str, set[int]] = {}
-    library_symbols: list[set[str]] = []
-    for index, library in enumerate(libraries):
+
+    def scan(library: Path) -> set[str]:
         output = subprocess.run(
             ["nm", "-g", "--defined-only", str(library)],
             check=True,
@@ -117,8 +124,13 @@ def namespace_duplicate_c_symbols(
             symbol = fields[-1]
             if re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", symbol):
                 symbols.add(symbol)
-                by_symbol.setdefault(symbol, set()).add(index)
-        library_symbols.append(symbols)
+        return symbols
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+        library_symbols = list(executor.map(scan, libraries))
+    for index, symbols in enumerate(library_symbols):
+        for symbol in symbols:
+            by_symbol.setdefault(symbol, set()).add(index)
     compiler_math = re.compile(
         r"^(?:cbrt|ceil|copysign|fabs|fdim|floor|fma|fmax|fmaximum|fmin|fminimum|fmod|rint|round|sqrt|trunc)(?:f|f16|f128)?$"
     )
@@ -130,18 +142,17 @@ def namespace_duplicate_c_symbols(
         and not symbol.startswith("rust_")
         and not compiler_math.fullmatch(symbol)
     }
-    rewritten: list[Path] = []
-    report: dict[str, list[str]] = {}
     owners = {symbol: sorted(by_symbol[symbol]) for symbol in duplicates}
-    for index, library in enumerate(libraries):
+
+    def rewrite(item: tuple[int, Path]) -> tuple[int, Path, list[str]]:
+        index, library = item
         selected = sorted(
             symbol
             for symbol in library_symbols[index] & duplicates
             if symbol in reserved_symbols or index != owners[symbol][0]
         )
         if not selected:
-            rewritten.append(library)
-            continue
+            return index, library, selected
         prefix = f"rustbox_batch_{index:02d}_"
         output = build / "src" / f".rustbox-namespaced-{index:02d}-{library.name}"
         mapping = build / "src" / f".rustbox-namespaced-{index:02d}.map"
@@ -151,8 +162,16 @@ def namespace_duplicate_c_symbols(
             encoding="utf-8",
         )
         subprocess.run(["objcopy", "--redefine-syms", str(mapping), str(output)], check=True)
-        rewritten.append(output)
-        report[library.name] = selected
+        return index, output, selected
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+        results = list(executor.map(rewrite, enumerate(libraries)))
+    rewritten = [path for _, path, _ in results]
+    report = {
+        libraries[index].name: selected
+        for index, _, selected in results
+        if selected
+    }
     return rewritten, report
 
 
@@ -301,10 +320,8 @@ def namespace_inetutils_programs(
     """Keep each formerly separate Inetutils program namespace private."""
     strong_types = {"B", "C", "D", "G", "R", "S", "T"}
     destination = build / "src/.rustbox-inetutils"
-    mapped_libraries: dict[str, Path] = {}
-    report: dict[str, list[str]] = {}
-    mapped_boundary: Path | None = None
-    for name in INETUTILS_PROGRAMS:
+
+    def isolate(name: str) -> tuple[str, Path, Path | None, list[str]]:
         entrypoint = f"rustbox_inetutils_{name}_main"
         inputs = [libraries[name]]
         if name == "telnet":
@@ -347,13 +364,82 @@ def namespace_inetutils_programs(
         definitions = set().union(*(set(defined_symbols(path)) for path in mapped))
         if entrypoint not in definitions or any(symbol in definitions for symbol in symbols):
             raise RuntimeError(f"Inetutils {name} isolation is incomplete")
-        mapped_libraries[name] = mapped[0]
-        if name == "telnet":
-            mapped_boundary = mapped[1]
-        report[name] = sorted(symbols)
+        boundary = mapped[1] if name == "telnet" else None
+        return name, mapped[0], boundary, sorted(symbols)
+
+    mapped_libraries: dict[str, Path] = {}
+    report: dict[str, list[str]] = {}
+    mapped_boundary: Path | None = None
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+        results = list(executor.map(isolate, INETUTILS_PROGRAMS))
+    for name, mapped, boundary, symbols in results:
+        mapped_libraries[name] = mapped
+        if boundary is not None:
+            mapped_boundary = boundary
+        report[name] = symbols
     if mapped_boundary is None:
         raise RuntimeError("Inetutils telnet boundary was not isolated")
     return mapped_libraries, mapped_boundary, report
+
+
+def namespace_iproute2_programs(
+    libraries: dict[str, Path], build: Path
+) -> tuple[dict[str, Path], dict[str, list[str]]]:
+    """Keep every separately translated IPRoute2 engine namespace private."""
+    strong_types = {"B", "C", "D", "G", "R", "S", "T"}
+    compiler_math = re.compile(
+        r"^(?:cbrt|ceil|copysign|fabs|fdim|floor|fma|fmax|fmaximum|fmin|fminimum|fmod|rint|round|sqrt|trunc)(?:f|f16|f128)?$"
+    )
+    destination = build / "src/.rustbox-iproute2"
+
+    def isolate(name: str) -> tuple[str, Path, list[str]]:
+        library = libraries[name]
+        entrypoint = f"rustbox_iproute2_{name}_main"
+        output = subprocess.run(
+            ["nm", "-g", "--defined-only", str(library)], check=True,
+            text=True, stdout=subprocess.PIPE,
+        ).stdout
+        symbols = sorted({
+            fields[-1]
+            for line in output.splitlines()
+            if len(fields := line.split()) >= 3
+            and fields[-2] in strong_types
+            and re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", fields[-1])
+            and fields[-1] != entrypoint
+            and not fields[-1].startswith(("_R", "rust_", "__rust", "__llvm"))
+            and not compiler_math.fullmatch(fields[-1])
+        })
+        if entrypoint not in set(defined_symbols(library)):
+            raise RuntimeError(f"IPRoute2 {name} archive exports no entrypoint")
+        program_directory = destination / name
+        program_directory.mkdir(parents=True, exist_ok=True)
+        mapping = program_directory / "symbols.map"
+        mapping.write_text(
+            "".join(
+                f"{symbol} rustbox_iproute2_{name}_private_{symbol}\n"
+                for symbol in symbols
+            ),
+            encoding="utf-8",
+        )
+        mapped = program_directory / library.name
+        shutil.copy2(library, mapped)
+        if symbols:
+            subprocess.run(
+                ["objcopy", "--redefine-syms", str(mapping), str(mapped)], check=True
+            )
+        definitions = set(defined_symbols(mapped))
+        if entrypoint not in definitions or any(symbol in definitions for symbol in symbols):
+            raise RuntimeError(f"IPRoute2 {name} isolation is incomplete")
+        return name, mapped, symbols
+
+    mapped_libraries: dict[str, Path] = {}
+    report: dict[str, list[str]] = {}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+        results = list(executor.map(isolate, IPROUTE2_PROGRAMS))
+    for name, mapped, symbols in results:
+        mapped_libraries[name] = mapped
+        report[name] = symbols
+    return mapped_libraries, report
 
 
 def namespace_file_library(
@@ -1720,6 +1806,18 @@ def write_dispatcher(
                 f"return rustbox_inetutils_{name}_main(argc, argv); }}"
             )
     inetutils_selections = "\n".join(inetutils_selection_lines)
+    iproute2_declarations = "\n".join(
+        f"extern int rustbox_iproute2_{name}_main(int, char **);"
+        for name in IPROUTE2_PROGRAMS
+    ) + "\nextern int rustbox_iproute2_routel_main(int, char **);"
+    iproute2_selection_lines = []
+    for name in IPROUTE2_PUBLIC_NAMES:
+        target = "lnstat" if name in {"ctstat", "rtstat"} else name
+        iproute2_selection_lines.append(
+            f'    if (!force_util_linux && strcmp(name, "{name}") == 0) '
+            f'return rustbox_iproute2_{target}_main(argc, argv);'
+        )
+    iproute2_selections = "\n".join(iproute2_selection_lines)
     procps_declarations = "\n".join(
         f"extern int rustbox_procps_{name}_main(int, char **);"
         for name in sorted(set(PROCPS_ENTRYPOINT.values()))
@@ -1843,6 +1941,9 @@ extern int rustbox_curl_config_main(int, char **);
 extern int rustbox_kmod_main(int, char **);
 """
         + inetutils_declarations
+        + """
+"""
+        + iproute2_declarations
         + """
 """
         + procps_declarations
@@ -2102,6 +2203,9 @@ int main(int argc, char **argv)
         + inetutils_selections
         + """
 """
+        + iproute2_selections
+        + """
+"""
         + selections
         + """
     errno = ENOENT;
@@ -2149,6 +2253,7 @@ def main() -> int:
     parser.add_argument("--curl-c-residue-directory", type=Path, required=True)
     parser.add_argument("--inetutils-rust-directory", type=Path, required=True)
     parser.add_argument("--inetutils-telnet-c-boundary", type=Path, required=True)
+    parser.add_argument("--iproute2-rust-directory", type=Path, required=True)
     parser.add_argument("--kmod-rust-library", type=Path, required=True)
     parser.add_argument("--procps-rust-library", type=Path, required=True)
     parser.add_argument("--shadow-rust-library", type=Path, required=True)
@@ -2201,6 +2306,11 @@ def main() -> int:
         for name in INETUTILS_PROGRAMS
     }
     inetutils_telnet_boundary = args.inetutils_telnet_c_boundary.resolve()
+    iproute2_rust_directory = args.iproute2_rust_directory.resolve()
+    iproute2_libraries = {
+        name: iproute2_rust_directory / name / "release" / f"lib{name}_audit.a"
+        for name in IPROUTE2_PROGRAMS
+    }
     kmod_rust_library = args.kmod_rust_library.resolve()
     procps_rust_library = args.procps_rust_library.resolve()
     shadow_rust_library = args.shadow_rust_library.resolve()
@@ -2299,6 +2409,7 @@ def main() -> int:
         bison_rust_library, *bison_residue_objects,
         curl_rust_library, *curl_residue_objects,
         *inetutils_libraries.values(), inetutils_telnet_boundary,
+        *iproute2_libraries.values(),
         kmod_rust_library, procps_rust_library, shadow_rust_library,
         gzip_support_library,
         *tar_residue_objects,
@@ -2354,6 +2465,10 @@ def main() -> int:
     for name in INETUTILS_PROGRAMS:
         libraries.append(inetutils_libraries[name])
         inetutils_library_indices[name] = len(libraries) - 1
+    iproute2_library_indices = {}
+    for name in IPROUTE2_PROGRAMS:
+        libraries.append(iproute2_libraries[name])
+        iproute2_library_indices[name] = len(libraries) - 1
     libraries.append(kmod_rust_library)
     kmod_library_index = len(libraries) - 1
     libraries.append(procps_rust_library)
@@ -2461,6 +2576,10 @@ def main() -> int:
     expected_symbols.update(
         f"rustbox_inetutils_{name}_main" for name in INETUTILS_PROGRAMS
     )
+    expected_symbols.update(
+        f"rustbox_iproute2_{name}_main" for name in IPROUTE2_PROGRAMS
+    )
+    expected_symbols.add("rustbox_iproute2_routel_main")
 
     cached_report = None
     if args.reuse_isolation and args.link_report.is_file():
@@ -2689,6 +2808,19 @@ def main() -> int:
         )
     for name, index in inetutils_library_indices.items():
         libraries[index] = mapped_inetutils[name]
+
+    if cached_report:
+        mapped_iproute2 = {
+            name: build / "src/.rustbox-iproute2" / name / iproute2_libraries[name].name
+            for name in IPROUTE2_PROGRAMS
+        }
+        iproute2_symbols = cached_report["iproute2_namespaced_symbols"]
+    else:
+        mapped_iproute2, iproute2_symbols = namespace_iproute2_programs(
+            iproute2_libraries, build
+        )
+    for name, index in iproute2_library_indices.items():
+        libraries[index] = mapped_iproute2[name]
 
     if cached_report:
         mapped_kmod_rust = build / "src/.rustbox-kmod" / libraries[kmod_library_index].name
@@ -2939,6 +3071,17 @@ def main() -> int:
     )
     if defined_symbols(ncurses_config_object) != ["rustbox_ncursesw6_config_main"]:
         raise RuntimeError("ncursesw6-config frontend bridge exports the wrong symbols")
+    iproute2_routel_object = build / "src/.rustbox-iproute2-routel.o"
+    subprocess.run(
+        ["clang-18", "-std=c11", "-Wall", "-Wextra", "-Werror", "-O2", "-g",
+         "-D_GNU_SOURCE", "-DRUSTBOX_MULTICALL", "-c",
+         str(repository / "bridges/iproute2_routel.c"),
+         "-o", str(iproute2_routel_object)],
+        cwd=build,
+        check=True,
+    )
+    if defined_symbols(iproute2_routel_object) != ["rustbox_iproute2_routel_main"]:
+        raise RuntimeError("IPRoute2 routel frontend bridge exports the wrong symbols")
     bridge_archives: dict[str, Path] = {}
     for archive, members in bridge_members.items():
         source = build / archive
@@ -3032,6 +3175,7 @@ def main() -> int:
                 rewritten.append(str(bison_resource_object))
                 rewritten.append(str(curl_config_object))
                 rewritten.append(str(ncurses_config_object))
+                rewritten.append(str(iproute2_routel_object))
                 rewritten.extend(str(path) for path in util_inputs)
                 rewritten.append(str(mapped_m4_support))
                 rewritten.append(str(mapped_gzip_support))
@@ -3078,7 +3222,8 @@ def main() -> int:
         "src_coreutils_OBJECTS=" + str(dispatcher_object) + " " + str(renamed_dispatch),
         "src_libsinglebin_false_a_ldadd=$(src_true_LDADD) -ldl -lpthread -lm -lrt -lutil -ltinfo "
         "-lbz2 -llz -llzma -lseccomp -lz -lzstd -lattr -lpcre2-8 "
-        "-lreadline -lncurses -lncursesw -lcrypt -lcrypto -lmpfr -lgmp",
+        "-lreadline -lncurses -lncursesw -lcrypt -lcrypto -lmpfr -lgmp "
+        "-ltirpc -lbpf -lelf -lmnl -lcap -ldb -lxtables",
         "src_coreutils_LDADD=$(single_binary_deps) "
         "$(filter-out -lacl,$(LDADD) $(single_binary_libs)) "
         + " ".join(util_link_libraries),
@@ -3140,6 +3285,7 @@ def main() -> int:
         "bison_public_names": 2,
         "curl_public_names": 2,
         "inetutils_programs": 26,
+        "iproute2_public_names": 21,
         "kmod_programs": 7,
         "procps_programs": 20,
         "shadow_programs": 32,
@@ -3168,7 +3314,7 @@ def main() -> int:
                *({f"shadow-{name}" if name in SHADOW_COLLISIONS else name
                   for name in SHADOW_PROGRAMS}),
                *({name for name in INETUTILS_PROGRAMS if name not in {"hostname", "logger"}}),
-               "inetutils-hostname", "inetutils-logger"}
+               "inetutils-hostname", "inetutils-logger", *IPROUTE2_PUBLIC_NAMES}
         ),
         "excluded": ["chcon", "runcon"],
         "public_name_precedence": {
@@ -3211,6 +3357,7 @@ def main() -> int:
         "bison_namespaced_symbols": bison_symbols,
         "curl_namespaced_symbols": curl_symbols,
         "inetutils_namespaced_symbols": inetutils_symbols,
+        "iproute2_namespaced_symbols": iproute2_symbols,
         "kmod_namespaced_symbols": kmod_symbols,
         "procps_namespaced_symbols": procps_symbols,
         "shadow_namespaced_symbols": shadow_symbols,
@@ -3287,6 +3434,11 @@ def main() -> int:
             "symbols": ["rustbox_ncursesw6_config_main"],
             "public_names": ["ncursesw6-config"],
         },
+        "iproute2_routel_frontend_bridge": {
+            "object": str(iproute2_routel_object.relative_to(build)),
+            "symbols": ["rustbox_iproute2_routel_main"],
+            "public_names": ["routel"],
+        },
         "binary": {
             "bytes": output.stat().st_size,
             "sha256": sha256(output),
@@ -3326,6 +3478,7 @@ def main() -> int:
         "bison_public_names": 2,
         "curl_public_names": 2,
         "inetutils_programs": 26,
+        "iproute2_public_names": 21,
         "kmod_programs": 7,
         "procps_programs": 20,
         "shadow_programs": 32,

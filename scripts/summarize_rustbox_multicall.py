@@ -686,7 +686,7 @@ def main() -> int:
         or curl_config.get("passed") != 24
         or curl_config.get("canonical_native_exact") is not True
         or link.get("curl_public_names") != 2
-        or link.get("total_dispatch_names") != 446
+        or link.get("total_dispatch_names") != 467
     ):
         raise RuntimeError("unified curl integration comparison is incomplete")
     inetutils_differential_path = inetutils_directory / "differential.json"
@@ -716,6 +716,13 @@ def main() -> int:
         or link.get("inetutils_programs") != 26
     ):
         raise RuntimeError("unified Inetutils integration comparison is incomplete")
+    if (
+        link.get("iproute2_public_names") != 21
+        or len(link.get("iproute2_namespaced_symbols", {})) != 18
+        or link.get("iproute2_routel_frontend_bridge", {}).get("symbols")
+        != ["rustbox_iproute2_routel_main"]
+    ):
+        raise RuntimeError("unified IPRoute2 integration inventory is incomplete")
     kmod_differential_path = kmod_directory / "differential.json"
     kmod_differential = json.loads(kmod_differential_path.read_text())
     kmod_programs = ("kmod", "depmod", "insmod", "lsmod", "modinfo", "modprobe", "rmmod")
@@ -854,6 +861,14 @@ def main() -> int:
         "count": sum(len(items) for items in link["inetutils_namespaced_symbols"].values()),
         "sha256": hashlib.sha256(inetutils_symbol_bytes).hexdigest(),
     }
+    iproute2_symbol_bytes = json.dumps(
+        link["iproute2_namespaced_symbols"], separators=(",", ":"), sort_keys=True
+    ).encode()
+    evidence_link["iproute2_namespaced_symbols"] = {
+        "programs": len(link["iproute2_namespaced_symbols"]),
+        "count": sum(len(items) for items in link["iproute2_namespaced_symbols"].values()),
+        "sha256": hashlib.sha256(iproute2_symbol_bytes).hexdigest(),
+    }
     kmod_symbol_bytes = json.dumps(
         link["kmod_namespaced_symbols"], separators=(",", ":"), sort_keys=True
     ).encode()
@@ -887,7 +902,7 @@ def main() -> int:
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-24",
-        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, GNU tar, Ncurses, GNU Findutils, GNU Gawk, Flex, Bison, curl, GNU Inetutils, Kmod, Procps-ng, and Shadow integrated at canonical parity",
+        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, GNU tar, Ncurses, GNU Findutils, GNU Gawk, Flex, Bison, curl, GNU Inetutils, IPRoute2, Kmod, Procps-ng, and Shadow integrated at canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
@@ -914,10 +929,11 @@ def main() -> int:
             "bison_integrated_names": 2,
             "curl_integrated_names": 2,
             "inetutils_integrated_names": 26,
+            "iproute2_integrated_names": 21,
             "kmod_integrated_names": 7,
             "procps_integrated_names": 20,
             "shadow_integrated_names": 32,
-            "dispatch_names": 446,
+            "dispatch_names": 467,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -1356,6 +1372,12 @@ def main() -> int:
             "curl_namespaced_symbols": len(link["curl_namespaced_symbols"]),
             "inetutils_namespaced_symbols": sum(
                 len(items) for items in link["inetutils_namespaced_symbols"].values()
+            ),
+            "iproute2_namespaced_symbols": sum(
+                len(items) for items in link["iproute2_namespaced_symbols"].values()
+            ),
+            "iproute2_routel_bridge_symbols": len(
+                link["iproute2_routel_frontend_bridge"]["symbols"]
             ),
             "kmod_namespaced_symbols": len(link["kmod_namespaced_symbols"]),
             "procps_namespaced_symbols": len(link["procps_namespaced_symbols"]),

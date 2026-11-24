@@ -3,7 +3,7 @@
 set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
-RUSTBOX_TOOL_IMAGE=rustbox-gawk:2026-11-22 \
+RUSTBOX_TOOL_IMAGE=rustbox-iproute2:2026-11-24 \
   exec "$root/scripts/run_tool.sh" python3 /work/scripts/test_rustbox_multicall.py \
     --repository /work \
     --coreutils-build /rustbox-coreutils/canonical-clang-no-security-compdb \

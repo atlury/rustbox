@@ -1,0 +1,1697 @@
+{
+  "binary": {
+    "bytes": 40746016,
+    "dynamic_needed": [
+      "ld-linux-x86-64.so.2",
+      "libattr.so.1",
+      "libbpf.so.1",
+      "libbz2.so.1.0",
+      "libc.so.6",
+      "libcap-ng.so.0",
+      "libcap.so.2",
+      "libcrypt.so.1",
+      "libcrypto.so.3",
+      "libdb-5.3.so",
+      "libeconf.so.0",
+      "libelf.so.1",
+      "libgcc_s.so.1",
+      "libgmp.so.10",
+      "liblz.so.1",
+      "liblzma.so.5",
+      "libm.so.6",
+      "libmagic.so.1",
+      "libmnl.so.0",
+      "libmpfr.so.6",
+      "libncurses.so.6",
+      "libncursesw.so.6",
+      "libpam.so.0",
+      "libpam_misc.so.0",
+      "libpcre2-8.so.0",
+      "libreadline.so.8",
+      "libseccomp.so.2",
+      "libsqlite3.so.0",
+      "libtinfo.so.6",
+      "libtirpc.so.3",
+      "libxtables.so.12",
+      "libz.so.1",
+      "libzstd.so.1"
+    ],
+    "link_map_sha256": "ba9c49dc4678249f94efde5284d53debdba5b96603551088af6c19157454a6db",
+    "sha256": "717381c4a84489229a8ab81867819dd4d9fb9d9d51559a27b6afd7d06c959bd4",
+    "verified_bytes": 40746016,
+    "verified_link_map_sha256": "ba9c49dc4678249f94efde5284d53debdba5b96603551088af6c19157454a6db",
+    "verified_sha256": "717381c4a84489229a8ab81867819dd4d9fb9d9d51559a27b6afd7d06c959bd4"
+  },
+  "collision_isolation": {
+    "program_namespaces": 18,
+    "renamed_symbols": 8308,
+    "symbol_map_sha256": "0cb04a88a3c1b5c2bd6055fbe6b61d243f61641a6b2882cfe83d6fc097c2214f"
+  },
+  "differential": {
+    "aliases": {
+      "ctstat": "lnstat",
+      "rtstat": "lnstat"
+    },
+    "canonical_multicall_exact": true,
+    "cases": 66,
+    "passed": 66,
+    "public_name_count": 21,
+    "public_names": [
+      "arpd",
+      "bridge",
+      "dcb",
+      "devlink",
+      "dpll",
+      "genl",
+      "ifstat",
+      "ip",
+      "lnstat",
+      "netshaper",
+      "nstat",
+      "rdma",
+      "rtacct",
+      "rtmon",
+      "ss",
+      "tc",
+      "tipc",
+      "vdpa",
+      "ctstat",
+      "rtstat",
+      "routel"
+    ],
+    "real_kernel_routel_cases": 6,
+    "records": [
+      {
+        "arguments": [
+          "-V"
+        ],
+        "canonical": {
+          "status": 1,
+          "stderr_bytes": 152,
+          "stderr_sha256": "8f756d41d01a1829999a8e3f190d56c0c54a8f2eebfb9c27c61aa3fd647228fe",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "arpd",
+        "multicall": {
+          "status": 1,
+          "stderr_bytes": 152,
+          "stderr_sha256": "8f756d41d01a1829999a8e3f190d56c0c54a8f2eebfb9c27c61aa3fd647228fe",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "arpd"
+      },
+      {
+        "arguments": [
+          "-h"
+        ],
+        "canonical": {
+          "status": 1,
+          "stderr_bytes": 124,
+          "stderr_sha256": "393d6e7c9077cc0e677f00ef4523e5f8e1d85fe4732a3ff4999f4812a5a0d1f2",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "arpd",
+        "multicall": {
+          "status": 1,
+          "stderr_bytes": 124,
+          "stderr_sha256": "393d6e7c9077cc0e677f00ef4523e5f8e1d85fe4732a3ff4999f4812a5a0d1f2",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "arpd"
+      },
+      {
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 1,
+          "stderr_bytes": 152,
+          "stderr_sha256": "9b9e6301e864eb9323238b78c1cdb953a01349539e53b64fe1f85f9034d1f134",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "arpd",
+        "multicall": {
+          "status": 1,
+          "stderr_bytes": 152,
+          "stderr_sha256": "9b9e6301e864eb9323238b78c1cdb953a01349539e53b64fe1f85f9034d1f134",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "arpd"
+      },
+      {
+        "arguments": [
+          "-V"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 22,
+          "stdout_sha256": "15afa23e0256eb27960003663f1a3893b779a6f7d64a8ff3c61c1c050f5d8c3d"
+        },
+        "engine": "bridge",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 22,
+          "stdout_sha256": "15afa23e0256eb27960003663f1a3893b779a6f7d64a8ff3c61c1c050f5d8c3d"
+        },
+        "passed": true,
+        "program": "bridge"
+      },
+      {
+        "arguments": [
+          "-h"
+        ],
+        "canonical": {
+          "status": 255,
+          "stderr_bytes": 352,
+          "stderr_sha256": "091a22b70cbe90addabf5fc2ec18cd82cf3b72c3d23ce309e77e51f7f14c3e01",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "bridge",
+        "multicall": {
+          "status": 255,
+          "stderr_bytes": 352,
+          "stderr_sha256": "091a22b70cbe90addabf5fc2ec18cd82cf3b72c3d23ce309e77e51f7f14c3e01",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "bridge"
+      },
+      {
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 255,
+          "stderr_bytes": 352,
+          "stderr_sha256": "091a22b70cbe90addabf5fc2ec18cd82cf3b72c3d23ce309e77e51f7f14c3e01",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "bridge",
+        "multicall": {
+          "status": 255,
+          "stderr_bytes": 352,
+          "stderr_sha256": "091a22b70cbe90addabf5fc2ec18cd82cf3b72c3d23ce309e77e51f7f14c3e01",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "bridge"
+      },
+      {
+        "arguments": [
+          "-V"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 28,
+          "stdout_sha256": "68756c87574e373cdd5ce792b57faf1c7d87e1da42d08f822f74c06be83e1290"
+        },
+        "engine": "dcb",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 28,
+          "stdout_sha256": "68756c87574e373cdd5ce792b57faf1c7d87e1da42d08f822f74c06be83e1290"
+        },
+        "passed": true,
+        "program": "dcb"
+      },
+      {
+        "arguments": [
+          "-h"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 380,
+          "stderr_sha256": "c58e1decd4aa9d5546a60a42782fbfe6b8bdd7dd917810e41c744ba29ccdd2c1",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "dcb",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 380,
+          "stderr_sha256": "c58e1decd4aa9d5546a60a42782fbfe6b8bdd7dd917810e41c744ba29ccdd2c1",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "dcb"
+      },
+      {
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 380,
+          "stderr_sha256": "c58e1decd4aa9d5546a60a42782fbfe6b8bdd7dd917810e41c744ba29ccdd2c1",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "dcb",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 380,
+          "stderr_sha256": "c58e1decd4aa9d5546a60a42782fbfe6b8bdd7dd917810e41c744ba29ccdd2c1",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "dcb"
+      },
+      {
+        "arguments": [
+          "-V"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 32,
+          "stdout_sha256": "b5e92cac65895bb461f103c929c6dd966ecd8b8a8d0fa85b6d9d11e186714a84"
+        },
+        "engine": "devlink",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 32,
+          "stdout_sha256": "b5e92cac65895bb461f103c929c6dd966ecd8b8a8d0fa85b6d9d11e186714a84"
+        },
+        "passed": true,
+        "program": "devlink"
+      },
+      {
+        "arguments": [
+          "-h"
+        ],
+        "canonical": {
+          "status": 1,
+          "stderr_bytes": 369,
+          "stderr_sha256": "9b62ee03134e96f04cfd34b42305dd63f608afe330ce70641ab70437235115df",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "devlink",
+        "multicall": {
+          "status": 1,
+          "stderr_bytes": 369,
+          "stderr_sha256": "9b62ee03134e96f04cfd34b42305dd63f608afe330ce70641ab70437235115df",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "devlink"
+      },
+      {
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 1,
+          "stderr_bytes": 376,
+          "stderr_sha256": "f9eaf5dd6d25c9db31f31fe9d624c42908f98fc60a324dffa3b535fcd070fa14",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "devlink",
+        "multicall": {
+          "status": 1,
+          "stderr_bytes": 376,
+          "stderr_sha256": "f9eaf5dd6d25c9db31f31fe9d624c42908f98fc60a324dffa3b535fcd070fa14",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "devlink"
+      },
+      {
+        "arguments": [
+          "-V"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 29,
+          "stdout_sha256": "8193afd2c2a0da0f7c011be4fb52e1148f1334744c10dfa35a0b69c09099a83f"
+        },
+        "engine": "dpll",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 29,
+          "stdout_sha256": "8193afd2c2a0da0f7c011be4fb52e1148f1334744c10dfa35a0b69c09099a83f"
+        },
+        "passed": true,
+        "program": "dpll"
+      },
+      {
+        "arguments": [
+          "-h"
+        ],
+        "canonical": {
+          "status": 1,
+          "stderr_bytes": 255,
+          "stderr_sha256": "e8418bcd788201fa6fcadd841f3c5eb5ad3e8186cfcc5ccd2028a5356ef5c66c",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "dpll",
+        "multicall": {
+          "status": 1,
+          "stderr_bytes": 255,
+          "stderr_sha256": "e8418bcd788201fa6fcadd841f3c5eb5ad3e8186cfcc5ccd2028a5356ef5c66c",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "dpll"
+      },
+      {
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 1,
+          "stderr_bytes": 262,
+          "stderr_sha256": "66724a179d51b06e013c5f5736587a12b08d2f7dae20009c0823a458503d81ac",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "dpll",
+        "multicall": {
+          "status": 1,
+          "stderr_bytes": 262,
+          "stderr_sha256": "66724a179d51b06e013c5f5736587a12b08d2f7dae20009c0823a458503d81ac",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "dpll"
+      },
+      {
+        "arguments": [
+          "-V"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 29,
+          "stdout_sha256": "f485849f88734ce49a6a23f8b10eb25d2f2f22e1673e5f22d9c492aea0bcb613"
+        },
+        "engine": "genl",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 29,
+          "stdout_sha256": "f485849f88734ce49a6a23f8b10eb25d2f2f22e1673e5f22d9c492aea0bcb613"
+        },
+        "passed": true,
+        "program": "genl"
+      },
+      {
+        "arguments": [
+          "-h"
+        ],
+        "canonical": {
+          "status": 255,
+          "stderr_bytes": 183,
+          "stderr_sha256": "8edf823dff7edd3b57afa65aa2fb789d89201dabc170b45be7a3cb3630aa645f",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "genl",
+        "multicall": {
+          "status": 255,
+          "stderr_bytes": 183,
+          "stderr_sha256": "8edf823dff7edd3b57afa65aa2fb789d89201dabc170b45be7a3cb3630aa645f",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "genl"
+      },
+      {
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 255,
+          "stderr_bytes": 46,
+          "stderr_sha256": "7e241454accb5dab662fdad976ab1ea6d4ba7b527b8a16661930b31ed9261b1a",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "genl",
+        "multicall": {
+          "status": 255,
+          "stderr_bytes": 46,
+          "stderr_sha256": "7e241454accb5dab662fdad976ab1ea6d4ba7b527b8a16661930b31ed9261b1a",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "genl"
+      },
+      {
+        "arguments": [
+          "-V"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 31,
+          "stdout_sha256": "18e9658a2044f67251554d4ad9faae8b5035e490d6326e1b142dcbc284ae8c35"
+        },
+        "engine": "ifstat",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 31,
+          "stdout_sha256": "18e9658a2044f67251554d4ad9faae8b5035e490d6326e1b142dcbc284ae8c35"
+        },
+        "passed": true,
+        "program": "ifstat"
+      },
+      {
+        "arguments": [
+          "-h"
+        ],
+        "canonical": {
+          "status": 255,
+          "stderr_bytes": 641,
+          "stderr_sha256": "dbcf9c9a5ac2f653c8652801fb5da376eeb66a3ed3bd6de3c1da3ca2b9df4cd1",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "ifstat",
+        "multicall": {
+          "status": 255,
+          "stderr_bytes": 641,
+          "stderr_sha256": "dbcf9c9a5ac2f653c8652801fb5da376eeb66a3ed3bd6de3c1da3ca2b9df4cd1",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "ifstat"
+      },
+      {
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 255,
+          "stderr_bytes": 641,
+          "stderr_sha256": "dbcf9c9a5ac2f653c8652801fb5da376eeb66a3ed3bd6de3c1da3ca2b9df4cd1",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "ifstat",
+        "multicall": {
+          "status": 255,
+          "stderr_bytes": 641,
+          "stderr_sha256": "dbcf9c9a5ac2f653c8652801fb5da376eeb66a3ed3bd6de3c1da3ca2b9df4cd1",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "ifstat"
+      },
+      {
+        "arguments": [
+          "-V"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 41,
+          "stdout_sha256": "64af93babf2d475bc0e3f2a34cf6902f5510b271b1d2199503ae5d70fc0eaec8"
+        },
+        "engine": "ip",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 41,
+          "stdout_sha256": "64af93babf2d475bc0e3f2a34cf6902f5510b271b1d2199503ae5d70fc0eaec8"
+        },
+        "passed": true,
+        "program": "ip"
+      },
+      {
+        "arguments": [
+          "-h"
+        ],
+        "canonical": {
+          "status": 255,
+          "stderr_bytes": 982,
+          "stderr_sha256": "95787027959f7dff937b36c1c94aaaa10d1271554a40ab789b83deb9d810e95e",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "ip",
+        "multicall": {
+          "status": 255,
+          "stderr_bytes": 982,
+          "stderr_sha256": "95787027959f7dff937b36c1c94aaaa10d1271554a40ab789b83deb9d810e95e",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "ip"
+      },
+      {
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 255,
+          "stderr_bytes": 982,
+          "stderr_sha256": "95787027959f7dff937b36c1c94aaaa10d1271554a40ab789b83deb9d810e95e",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "ip",
+        "multicall": {
+          "status": 255,
+          "stderr_bytes": 982,
+          "stderr_sha256": "95787027959f7dff937b36c1c94aaaa10d1271554a40ab789b83deb9d810e95e",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "ip"
+      },
+      {
+        "arguments": [
+          "-V"
+        ],
+        "canonical": {
+          "status": 1,
+          "stderr_bytes": 674,
+          "stderr_sha256": "6d389654d22e1f94ddee49ada1780edc9accaa22211a280ff80761817904a4da",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "lnstat",
+        "multicall": {
+          "status": 1,
+          "stderr_bytes": 674,
+          "stderr_sha256": "6d389654d22e1f94ddee49ada1780edc9accaa22211a280ff80761817904a4da",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "lnstat"
+      },
+      {
+        "arguments": [
+          "-h"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 674,
+          "stderr_sha256": "6d389654d22e1f94ddee49ada1780edc9accaa22211a280ff80761817904a4da",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "lnstat",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 674,
+          "stderr_sha256": "6d389654d22e1f94ddee49ada1780edc9accaa22211a280ff80761817904a4da",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "lnstat"
+      },
+      {
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 674,
+          "stderr_sha256": "6d389654d22e1f94ddee49ada1780edc9accaa22211a280ff80761817904a4da",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "lnstat",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 674,
+          "stderr_sha256": "6d389654d22e1f94ddee49ada1780edc9accaa22211a280ff80761817904a4da",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "lnstat"
+      },
+      {
+        "arguments": [
+          "-V"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 25,
+          "stdout_sha256": "60b46fa7bf72e6ae0530f2f6b623c3c6378dc43bc72b969e24114438ff47a70a"
+        },
+        "engine": "netshaper",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 25,
+          "stdout_sha256": "60b46fa7bf72e6ae0530f2f6b623c3c6378dc43bc72b969e24114438ff47a70a"
+        },
+        "passed": true,
+        "program": "netshaper"
+      },
+      {
+        "arguments": [
+          "-h"
+        ],
+        "canonical": {
+          "status": 255,
+          "stderr_bytes": 46,
+          "stderr_sha256": "837ed5ab845847626b2418840fd8b5b48642f979f517f2c4a7eab9935f218828",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "netshaper",
+        "multicall": {
+          "status": 255,
+          "stderr_bytes": 46,
+          "stderr_sha256": "837ed5ab845847626b2418840fd8b5b48642f979f517f2c4a7eab9935f218828",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "netshaper"
+      },
+      {
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 744,
+          "stderr_sha256": "9e91e4eee113372b8f101fadb4ffa8eb692df210df4a81aaddd626ce4a514820",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "netshaper",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 744,
+          "stderr_sha256": "9e91e4eee113372b8f101fadb4ffa8eb692df210df4a81aaddd626ce4a514820",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "netshaper"
+      },
+      {
+        "arguments": [
+          "-V"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 30,
+          "stdout_sha256": "8a9e6e518a74af006e82f0e63a506c718ec698962de4dcf97cdab3f85ba0dcb5"
+        },
+        "engine": "nstat",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 30,
+          "stdout_sha256": "8a9e6e518a74af006e82f0e63a506c718ec698962de4dcf97cdab3f85ba0dcb5"
+        },
+        "passed": true,
+        "program": "nstat"
+      },
+      {
+        "arguments": [
+          "-h"
+        ],
+        "canonical": {
+          "status": 255,
+          "stderr_bytes": 541,
+          "stderr_sha256": "02162bb64fcf38733808b27e462700d4a2fe437e8b4f4c38b3cacdc4d23b2bcf",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "nstat",
+        "multicall": {
+          "status": 255,
+          "stderr_bytes": 541,
+          "stderr_sha256": "02162bb64fcf38733808b27e462700d4a2fe437e8b4f4c38b3cacdc4d23b2bcf",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "nstat"
+      },
+      {
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 255,
+          "stderr_bytes": 541,
+          "stderr_sha256": "02162bb64fcf38733808b27e462700d4a2fe437e8b4f4c38b3cacdc4d23b2bcf",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "nstat",
+        "multicall": {
+          "status": 255,
+          "stderr_bytes": 541,
+          "stderr_sha256": "02162bb64fcf38733808b27e462700d4a2fe437e8b4f4c38b3cacdc4d23b2bcf",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "nstat"
+      },
+      {
+        "arguments": [
+          "-V"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 29,
+          "stdout_sha256": "3006a2efe18cc29591759e04283b08c4e842df4d0de93c098bd0d1d26b6e1fa0"
+        },
+        "engine": "rdma",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 29,
+          "stdout_sha256": "3006a2efe18cc29591759e04283b08c4e842df4d0de93c098bd0d1d26b6e1fa0"
+        },
+        "passed": true,
+        "program": "rdma"
+      },
+      {
+        "arguments": [
+          "-h"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 250,
+          "stdout_sha256": "e5c08eb40c33dd6899e3efdab5e0d120438d8e5cd656d9377bf9fab1a1a01498"
+        },
+        "engine": "rdma",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 250,
+          "stdout_sha256": "e5c08eb40c33dd6899e3efdab5e0d120438d8e5cd656d9377bf9fab1a1a01498"
+        },
+        "passed": true,
+        "program": "rdma"
+      },
+      {
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 250,
+          "stdout_sha256": "e5c08eb40c33dd6899e3efdab5e0d120438d8e5cd656d9377bf9fab1a1a01498"
+        },
+        "engine": "rdma",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 250,
+          "stdout_sha256": "e5c08eb40c33dd6899e3efdab5e0d120438d8e5cd656d9377bf9fab1a1a01498"
+        },
+        "passed": true,
+        "program": "rdma"
+      },
+      {
+        "arguments": [
+          "-V"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 31,
+          "stdout_sha256": "303751a9c0b28be1543b7a7107bf097dee949d8fc3fc107dad737e6ef39a8431"
+        },
+        "engine": "rtacct",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 31,
+          "stdout_sha256": "303751a9c0b28be1543b7a7107bf097dee949d8fc3fc107dad737e6ef39a8431"
+        },
+        "passed": true,
+        "program": "rtacct"
+      },
+      {
+        "arguments": [
+          "-h"
+        ],
+        "canonical": {
+          "status": 255,
+          "stderr_bytes": 50,
+          "stderr_sha256": "99da75530b63e9f2bd72a50a94d05b9b05241dd56dfac650fcbd4ac25d84d2d0",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "rtacct",
+        "multicall": {
+          "status": 255,
+          "stderr_bytes": 50,
+          "stderr_sha256": "99da75530b63e9f2bd72a50a94d05b9b05241dd56dfac650fcbd4ac25d84d2d0",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "rtacct"
+      },
+      {
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 255,
+          "stderr_bytes": 80,
+          "stderr_sha256": "3682ffd40d925e1657175b00cb2c48f3dd1f160949aabdd33c7029ac6cf56283",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "rtacct",
+        "multicall": {
+          "status": 255,
+          "stderr_bytes": 80,
+          "stderr_sha256": "3682ffd40d925e1657175b00cb2c48f3dd1f160949aabdd33c7029ac6cf56283",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "rtacct"
+      },
+      {
+        "arguments": [
+          "-V"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 30,
+          "stdout_sha256": "7f676625668da3fccfa07728e11ff1076bc8998d54a171bb6494586e69af18b0"
+        },
+        "engine": "rtmon",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 30,
+          "stdout_sha256": "7f676625668da3fccfa07728e11ff1076bc8998d54a171bb6494586e69af18b0"
+        },
+        "passed": true,
+        "program": "rtmon"
+      },
+      {
+        "arguments": [
+          "-h"
+        ],
+        "canonical": {
+          "status": 255,
+          "stderr_bytes": 44,
+          "stderr_sha256": "c94b77fb9209dcb0c96338a37441119061f0a1946d8f42ecc5d8b3e13f8e1f8d",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "rtmon",
+        "multicall": {
+          "status": 255,
+          "stderr_bytes": 44,
+          "stderr_sha256": "c94b77fb9209dcb0c96338a37441119061f0a1946d8f42ecc5d8b3e13f8e1f8d",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "rtmon"
+      },
+      {
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 255,
+          "stderr_bytes": 48,
+          "stderr_sha256": "47efd43574865a0ae59faad7c8db340e836ec8eec8c4350019ef1c3411070301",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "rtmon",
+        "multicall": {
+          "status": 255,
+          "stderr_bytes": 48,
+          "stderr_sha256": "47efd43574865a0ae59faad7c8db340e836ec8eec8c4350019ef1c3411070301",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "rtmon"
+      },
+      {
+        "arguments": [
+          "-V"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 27,
+          "stdout_sha256": "e29a105715b4d41df2937305a04499e615c40317c5bed013c27c01588ba44aed"
+        },
+        "engine": "ss",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 27,
+          "stdout_sha256": "e29a105715b4d41df2937305a04499e615c40317c5bed013c27c01588ba44aed"
+        },
+        "passed": true,
+        "program": "ss"
+      },
+      {
+        "arguments": [
+          "-h"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 3349,
+          "stdout_sha256": "02d1d1c484e2634901c8f77d7803fc7ab0d904aa2762b50861d08ff33e1930a8"
+        },
+        "engine": "ss",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 3349,
+          "stdout_sha256": "02d1d1c484e2634901c8f77d7803fc7ab0d904aa2762b50861d08ff33e1930a8"
+        },
+        "passed": true,
+        "program": "ss"
+      },
+      {
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 3349,
+          "stdout_sha256": "02d1d1c484e2634901c8f77d7803fc7ab0d904aa2762b50861d08ff33e1930a8"
+        },
+        "engine": "ss",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 3349,
+          "stdout_sha256": "02d1d1c484e2634901c8f77d7803fc7ab0d904aa2762b50861d08ff33e1930a8"
+        },
+        "passed": true,
+        "program": "ss"
+      },
+      {
+        "arguments": [
+          "-V"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 41,
+          "stdout_sha256": "b694447a3fb184696bd873a79396a34dc4525b3c228c3d51584da83b3edb99e7"
+        },
+        "engine": "tc",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 41,
+          "stdout_sha256": "b694447a3fb184696bd873a79396a34dc4525b3c228c3d51584da83b3edb99e7"
+        },
+        "passed": true,
+        "program": "tc"
+      },
+      {
+        "arguments": [
+          "-h"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 410,
+          "stderr_sha256": "254df2a1335dd348bb4bff50a09c93f4874729fbe4412c93380220757a5dfb7f",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "tc",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 410,
+          "stderr_sha256": "254df2a1335dd348bb4bff50a09c93f4874729fbe4412c93380220757a5dfb7f",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "tc"
+      },
+      {
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 255,
+          "stderr_bytes": 44,
+          "stderr_sha256": "75ff917ca7bb76f17bd78012521d0692d22403153f33260de4d40a43b18df96f",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "tc",
+        "multicall": {
+          "status": 255,
+          "stderr_bytes": 44,
+          "stderr_sha256": "75ff917ca7bb76f17bd78012521d0692d22403153f33260de4d40a43b18df96f",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "tc"
+      },
+      {
+        "arguments": [
+          "-V"
+        ],
+        "canonical": {
+          "status": 1,
+          "stderr_bytes": 28,
+          "stderr_sha256": "42c9789424aa484713959ecf5f1cf6ebea5e9a17d3151539a7629925862a3f0c",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "tipc",
+        "multicall": {
+          "status": 1,
+          "stderr_bytes": 28,
+          "stderr_sha256": "42c9789424aa484713959ecf5f1cf6ebea5e9a17d3151539a7629925862a3f0c",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "tipc"
+      },
+      {
+        "arguments": [
+          "-h"
+        ],
+        "canonical": {
+          "status": 255,
+          "stderr_bytes": 49,
+          "stderr_sha256": "41ced77df0381eecb871576bf7fe6de009bfa9cbb35cb9ed4cdd8420f6027001",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "tipc",
+        "multicall": {
+          "status": 255,
+          "stderr_bytes": 49,
+          "stderr_sha256": "41ced77df0381eecb871576bf7fe6de009bfa9cbb35cb9ed4cdd8420f6027001",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "tipc"
+      },
+      {
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 255,
+          "stderr_bytes": 49,
+          "stderr_sha256": "41ced77df0381eecb871576bf7fe6de009bfa9cbb35cb9ed4cdd8420f6027001",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "tipc",
+        "multicall": {
+          "status": 255,
+          "stderr_bytes": 49,
+          "stderr_sha256": "41ced77df0381eecb871576bf7fe6de009bfa9cbb35cb9ed4cdd8420f6027001",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "tipc"
+      },
+      {
+        "arguments": [
+          "-V"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 29,
+          "stdout_sha256": "f17471bd1aa2efa9a0b06b6f623f3c9ca56216a34851207ce7e9292eb30c11fe"
+        },
+        "engine": "vdpa",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 29,
+          "stdout_sha256": "f17471bd1aa2efa9a0b06b6f623f3c9ca56216a34851207ce7e9292eb30c11fe"
+        },
+        "passed": true,
+        "program": "vdpa"
+      },
+      {
+        "arguments": [
+          "-h"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 159,
+          "stderr_sha256": "8ea47f1edb8a5df29e6d28105576a8d0490db4e4b3d84569a0f8f13bb2a77da5",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "vdpa",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 159,
+          "stderr_sha256": "8ea47f1edb8a5df29e6d28105576a8d0490db4e4b3d84569a0f8f13bb2a77da5",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "vdpa"
+      },
+      {
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 159,
+          "stderr_sha256": "8ea47f1edb8a5df29e6d28105576a8d0490db4e4b3d84569a0f8f13bb2a77da5",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "vdpa",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 159,
+          "stderr_sha256": "8ea47f1edb8a5df29e6d28105576a8d0490db4e4b3d84569a0f8f13bb2a77da5",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "vdpa"
+      },
+      {
+        "arguments": [
+          "-V"
+        ],
+        "canonical": {
+          "status": 1,
+          "stderr_bytes": 674,
+          "stderr_sha256": "2c85e69204ea009678c25279b7fbe6c1381589ca9c72ca89e16b0f78208915e5",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "lnstat",
+        "multicall": {
+          "status": 1,
+          "stderr_bytes": 674,
+          "stderr_sha256": "2c85e69204ea009678c25279b7fbe6c1381589ca9c72ca89e16b0f78208915e5",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "ctstat"
+      },
+      {
+        "arguments": [
+          "-h"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 674,
+          "stderr_sha256": "2c85e69204ea009678c25279b7fbe6c1381589ca9c72ca89e16b0f78208915e5",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "lnstat",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 674,
+          "stderr_sha256": "2c85e69204ea009678c25279b7fbe6c1381589ca9c72ca89e16b0f78208915e5",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "ctstat"
+      },
+      {
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 674,
+          "stderr_sha256": "2c85e69204ea009678c25279b7fbe6c1381589ca9c72ca89e16b0f78208915e5",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "lnstat",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 674,
+          "stderr_sha256": "2c85e69204ea009678c25279b7fbe6c1381589ca9c72ca89e16b0f78208915e5",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "ctstat"
+      },
+      {
+        "arguments": [
+          "-V"
+        ],
+        "canonical": {
+          "status": 1,
+          "stderr_bytes": 674,
+          "stderr_sha256": "f6501c3897c95682fda83ddf11e3515e88be1970e93002ab501d82b8ce608ebb",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "lnstat",
+        "multicall": {
+          "status": 1,
+          "stderr_bytes": 674,
+          "stderr_sha256": "f6501c3897c95682fda83ddf11e3515e88be1970e93002ab501d82b8ce608ebb",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "rtstat"
+      },
+      {
+        "arguments": [
+          "-h"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 674,
+          "stderr_sha256": "f6501c3897c95682fda83ddf11e3515e88be1970e93002ab501d82b8ce608ebb",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "lnstat",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 674,
+          "stderr_sha256": "f6501c3897c95682fda83ddf11e3515e88be1970e93002ab501d82b8ce608ebb",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "rtstat"
+      },
+      {
+        "arguments": [
+          "--help"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 674,
+          "stderr_sha256": "f6501c3897c95682fda83ddf11e3515e88be1970e93002ab501d82b8ce608ebb",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "engine": "lnstat",
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 674,
+          "stderr_sha256": "f6501c3897c95682fda83ddf11e3515e88be1970e93002ab501d82b8ce608ebb",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "passed": true,
+        "program": "rtstat"
+      },
+      {
+        "arguments": [],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 694,
+          "stdout_sha256": "6b863520f9d7c94e380fdee064f756704c28d67e0afab43d529b888433af68e9"
+        },
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 694,
+          "stdout_sha256": "6b863520f9d7c94e380fdee064f756704c28d67e0afab43d529b888433af68e9"
+        },
+        "name": "default",
+        "passed": true,
+        "program": "routel"
+      },
+      {
+        "arguments": [
+          "-4"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 694,
+          "stdout_sha256": "6b863520f9d7c94e380fdee064f756704c28d67e0afab43d529b888433af68e9"
+        },
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 694,
+          "stdout_sha256": "6b863520f9d7c94e380fdee064f756704c28d67e0afab43d529b888433af68e9"
+        },
+        "name": "ipv4-default",
+        "passed": true,
+        "program": "routel"
+      },
+      {
+        "arguments": [
+          "-4",
+          "all"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 694,
+          "stdout_sha256": "6b863520f9d7c94e380fdee064f756704c28d67e0afab43d529b888433af68e9"
+        },
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 694,
+          "stdout_sha256": "6b863520f9d7c94e380fdee064f756704c28d67e0afab43d529b888433af68e9"
+        },
+        "name": "ipv4-all",
+        "passed": true,
+        "program": "routel"
+      },
+      {
+        "arguments": [
+          "--family=inet",
+          "main"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 254,
+          "stdout_sha256": "7134ff73dfaac5f3e165fe298f109a1b1f357002433220c1b257453feaeb1d82"
+        },
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 254,
+          "stdout_sha256": "7134ff73dfaac5f3e165fe298f109a1b1f357002433220c1b257453feaeb1d82"
+        },
+        "name": "ipv4-main",
+        "passed": true,
+        "program": "routel"
+      },
+      {
+        "arguments": [
+          "-6"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 278,
+          "stdout_sha256": "faa94af3179bdef70f675b64e5f3970a02a33e0cd5e60a2d401a113abdc13ce1"
+        },
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 278,
+          "stdout_sha256": "faa94af3179bdef70f675b64e5f3970a02a33e0cd5e60a2d401a113abdc13ce1"
+        },
+        "name": "ipv6-default",
+        "passed": true,
+        "program": "routel"
+      },
+      {
+        "arguments": [
+          "-6",
+          "all"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 278,
+          "stdout_sha256": "faa94af3179bdef70f675b64e5f3970a02a33e0cd5e60a2d401a113abdc13ce1"
+        },
+        "multicall": {
+          "status": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 278,
+          "stdout_sha256": "faa94af3179bdef70f675b64e5f3970a02a33e0cd5e60a2d401a113abdc13ce1"
+        },
+        "name": "ipv6-all",
+        "passed": true,
+        "program": "routel"
+      }
+    ],
+    "release": "7.3.0",
+    "schema": 1,
+    "translated_engines": 18
+  },
+  "differential_sha256": "024a6d2ab8d61bc9001625deee1628d64c485e5815f70c50cf4f986a28054380",
+  "dispatch": {
+    "aggregate_names": 467,
+    "aliases": {
+      "ctstat": "lnstat",
+      "rtstat": "lnstat"
+    },
+    "public_name_count": 21,
+    "public_names": [
+      "arpd",
+      "bridge",
+      "dcb",
+      "devlink",
+      "dpll",
+      "genl",
+      "ifstat",
+      "ip",
+      "lnstat",
+      "netshaper",
+      "nstat",
+      "rdma",
+      "rtacct",
+      "rtmon",
+      "ss",
+      "tc",
+      "tipc",
+      "vdpa",
+      "ctstat",
+      "rtstat",
+      "routel"
+    ],
+    "translated_engines": 18
+  },
+  "entrypoint_count": 19,
+  "entrypoints": [
+    "rustbox_iproute2_arpd_main",
+    "rustbox_iproute2_bridge_main",
+    "rustbox_iproute2_dcb_main",
+    "rustbox_iproute2_devlink_main",
+    "rustbox_iproute2_dpll_main",
+    "rustbox_iproute2_genl_main",
+    "rustbox_iproute2_ifstat_main",
+    "rustbox_iproute2_ip_main",
+    "rustbox_iproute2_lnstat_main",
+    "rustbox_iproute2_netshaper_main",
+    "rustbox_iproute2_nstat_main",
+    "rustbox_iproute2_rdma_main",
+    "rustbox_iproute2_rtacct_main",
+    "rustbox_iproute2_rtmon_main",
+    "rustbox_iproute2_ss_main",
+    "rustbox_iproute2_tc_main",
+    "rustbox_iproute2_tipc_main",
+    "rustbox_iproute2_vdpa_main",
+    "rustbox_iproute2_routel_main"
+  ],
+  "link_report_sha256": "5d2c227ab6550df072c0b608147f3099ca6700f60e560ba9c16eb00c77dfe5d6",
+  "recorded_at": "2026-11-24",
+  "release": "7.3.0",
+  "routel_frontend_bridge": {
+    "object": "src/.rustbox-iproute2-routel.o",
+    "public_names": [
+      "routel"
+    ],
+    "symbols": [
+      "rustbox_iproute2_routel_main"
+    ]
+  },
+  "schema": 1,
+  "status": "all 21 IPRoute2 public names integrated at canonical parity",
+  "valgrind": {
+    "arpd": {
+      "errors": 0,
+      "sha256": "364a8d23d24331aae7648a03afc5885d6135d241e1cfc0a40ed9596e15e128e1"
+    },
+    "bridge": {
+      "errors": 0,
+      "sha256": "12d6517901b12ae5598c687fb799bcc3c4e502a0b4d40bf9b7d35ef0a3d7955f"
+    },
+    "ctstat": {
+      "errors": 0,
+      "sha256": "eb4ab1c003a89c2a9d27b9a33384803f2682e46ae7385b2d7cedb0e8999c35bd"
+    },
+    "dcb": {
+      "errors": 0,
+      "sha256": "c91465c33f0fd7d711e51245a7099cbb884f66a6d7377ffccb74a97b15aa1e76"
+    },
+    "devlink": {
+      "errors": 0,
+      "sha256": "8480abb911ceae8ed837e65fe4ecaf565f33ec53f655b184d5aa250c7a88490e"
+    },
+    "dpll": {
+      "errors": 0,
+      "sha256": "a21d6c4f727aa426e8ed387b54727b2de2e240e053d594974df2329528737e3b"
+    },
+    "genl": {
+      "errors": 0,
+      "sha256": "cb45892a744da78f8aa5e5e5da0c0c5c7b278a15214d0d45a73e6879baeb6e03"
+    },
+    "ifstat": {
+      "errors": 0,
+      "sha256": "378372a0b26a89f66e71dc5dbe28f71cc8df3890ba10b7de81ec2e5c21bd7ad8"
+    },
+    "ip": {
+      "errors": 0,
+      "sha256": "7012e421350faa98849a9f71fd63ef39ebb394370c625dd6ba2bd1a347523982"
+    },
+    "lnstat": {
+      "errors": 0,
+      "sha256": "1c385a8fa8455f44a95a5b3498f479ac8f824d67e54cdd461acfcef3492bb69a"
+    },
+    "netshaper": {
+      "errors": 0,
+      "sha256": "4435376563c7b61e8f6a2d42a198e5886e00b4b2bd2fdbaa24ca7c876049f16a"
+    },
+    "nstat": {
+      "errors": 0,
+      "sha256": "6b3ef78663509d2dceb8f9aef26227275b7b61e4b232b6ee7b50453392c37f0f"
+    },
+    "rdma": {
+      "errors": 0,
+      "sha256": "9b460c5acbe78e2b5f50ceba8d66a2c3b6cea18809328ac441d34e74cd8f938f"
+    },
+    "routel": {
+      "errors": 0,
+      "sha256": "7e07fcb4ed22edf921fdd40252440a1fd7dab741ad4411cf3ecb96b4a78edf58"
+    },
+    "rtacct": {
+      "errors": 0,
+      "sha256": "5d787a32dc1ef836fbc752031414bdf6cf8f467e4c2a8486ea3ef53407ace8d9"
+    },
+    "rtmon": {
+      "errors": 0,
+      "sha256": "c1166cf20cc903ed61214ff543e97ba32b3dcb7a3945106cba86e087610ed448"
+    },
+    "rtstat": {
+      "errors": 0,
+      "sha256": "d9b0ef68ba05c34a93f94359754da3f0d0767089974c51f81b2c74ec336550c7"
+    },
+    "ss": {
+      "errors": 0,
+      "sha256": "9baa93829568460621e332e4295164f602fdf3a255ef83fbf49414f08f85411e"
+    },
+    "tc": {
+      "errors": 0,
+      "sha256": "bc95a4d8e3f75083bf89ceafd70c971b20679497aa849c636d21277154e6a26c"
+    },
+    "tipc": {
+      "errors": 0,
+      "sha256": "6ea11ae39438caf93b9760da27bede30f26390b59370ea3b4cd6146677bd1944"
+    },
+    "vdpa": {
+      "errors": 0,
+      "sha256": "f45a49f3744edab181bbf96a6670266be8c2ce755bd4c93c5c6a79b479d29da8"
+    }
+  }
+}

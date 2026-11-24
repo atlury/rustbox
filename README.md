@@ -72,7 +72,7 @@ scoring, and correctness gates.
 | Kmod 34.3 | 7 | 7 | 7 | 7 |
 | Procps-ng 4.0.7 | 20 | 20 | 20 | 20 |
 | Shadow 4.20.4 | 32 | 32 | 32 | 32 |
-| IPRoute2 7.3.0 | 21 | 21 | 0 | 0 |
+| IPRoute2 7.3.0 | 21 | 21 | 21 | 21 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -134,7 +134,7 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 446
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 467
 distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, five
 pkgconf names, File, GNU patch, GNU sed, four GNU Diffutils applets, and GNU
 Grep's three public names, GNU bc and dc, attr's three tools, plus chacl,
@@ -155,7 +155,9 @@ retain GNU Coreutils precedence while `procps-kill` and `procps-uptime` expose
 the Procps-ng implementations explicitly, plus all 32 Shadow names; the eight
 names already owned by util-linux are available as `shadow-chfn`,
 `shadow-chsh`, `shadow-login`, `shadow-newgrp`, `shadow-nologin`, `shadow-su`,
-`shadow-vigr`, and `shadow-vipw`).  It passes all 884
+`shadow-vigr`, and `shadow-vipw`), plus all 21 IPRoute2 public names: 18
+translated engines, the `ctstat` and `rtstat` aliases, and native in-process
+`routel`).  It passes all 884
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
 check, 108-case differential suite, and Valgrind.  Pkgconf also passes all 429
@@ -210,8 +212,10 @@ canonical C residue; all 51 canonical comparisons pass and all 20 resource
 paths match their canonical baselines.  Shadow adds all 32 public names from a
 complete 196-source strict translation with no canonical C residue; all 79
 canonical comparisons and all 32 resource paths pass through the combined
-binary.  The resulting 446-name executable
-is 37,517,040 bytes unstripped and 18,722,816
+binary.  IPRoute2 passes all 66 global canonical comparisons, including six
+real-kernel `routel` cases, and all 21 Valgrind paths; exact integration
+evidence is in `evidence/iproute2-7.3.0-multicall.json`.  The resulting
+467-name executable is 40,746,016 bytes unstripped and 21,397,120
 bytes stripped; its exact hashes and
 section/link evidence are recorded in `evidence/rustbox-multicall.json`.
 `chcon` and `runcon`
@@ -1455,7 +1459,7 @@ Library-only checkpoints (outside the active utility order):
      Shadow through `shadow-` aliases.  Exact evidence is recorded in
      `evidence/shadow-4.20.4-multicall.json` and
      `evidence/rustbox-multicall.json`.
-   - [ ] IPRoute2 7.3.0 — `arpd`, `bridge`, `ctstat`, `dcb`, `devlink`,
+   - [x] IPRoute2 7.3.0 — `arpd`, `bridge`, `ctstat`, `dcb`, `devlink`,
      `dpll`, `genl`, `ifstat`, `ip`, `lnstat`, `netshaper`, `nstat`, `rdma`,
      `routel`, `rtacct`, `rtmon`, `rtstat`, `ss`, `tc`, `tipc`, and `vdpa`.
      The current signed kernel.org release no longer installs the former
@@ -1479,6 +1483,19 @@ Library-only checkpoints (outside the active utility order):
      native resource paths, and the same 18/19 upstream tests.  Exact scope
      and before/after hashes are recorded in
      `evidence/iproute2-7.3.0-normalization.json`.
+     Exact linker-map closures then split those engines into 18 independent
+     C2Rust crates: 460 source occurrences over 261 unique production sources.
+     All 496 generated Rust files (1,115,530 raw lines and 265,323 raw-pointer
+     type occurrences) translate without holes, type-check, and release-build
+     after 46 asserted representation repairs.  The 18 standalone hybrids pass
+     all 54 canonical CLI comparisons and 18 Valgrind paths.  Per-engine
+     archives, binaries, link maps, symbols, repairs, and hashes are recorded
+     in `evidence/iproute2-7.3.0-program-hybrids.json`.
+     Unified integration exposes all 21 names, privately renames 8,308 engine
+     symbols across 18 namespaces, and replaces Python `routel` with an
+     in-process native frontend.  All 66 global comparisons and 21 Valgrind
+     paths pass; `evidence/iproute2-7.3.0-multicall.json` records the exact
+     binary, map, entrypoint, dispatch, and resource evidence.
    - [ ] E2fsprogs 1.47.4 — `badblocks`, `chattr`, `compile_et`, `debugfs`,
      `dumpe2fs`, `e2freefrag`, `e2fsck`, `e2image`, `e2initrd_helper`,
      `e2label`, `e2mmpstatus`, `e2scrub`, `e2scrub_all`, `e2undo`, `e4crypt`,

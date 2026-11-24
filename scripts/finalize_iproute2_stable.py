@@ -11,6 +11,27 @@ import shutil
 from pathlib import Path
 
 
+PROGRAMS = (
+    "arpd", "bridge", "dcb", "devlink", "dpll", "genl", "ifstat", "ip",
+    "lnstat", "netshaper", "nstat", "rdma", "rtacct", "rtmon", "ss", "tc",
+    "tipc", "vdpa",
+)
+PROGRAM_REPAIR_FILES = {
+    program: {"lib.rs", "src/lib/utils.rs"} for program in PROGRAMS
+}
+PROGRAM_REPAIR_FILES["ip"] |= {
+    "src/ip/iplink_xdp.rs",
+    "src/lib/bpf_libbpf.rs",
+}
+PROGRAM_REPAIR_FILES["ss"].add("src/lib/escape.rs")
+PROGRAM_REPAIR_FILES["tc"] |= {
+    "src/lib/bpf_libbpf.rs",
+    "src/tc/q_fq.rs",
+    "src/tc/q_netem.rs",
+}
+ALL_REPAIR_FILES = set().union(*PROGRAM_REPAIR_FILES.values())
+
+
 def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -33,6 +54,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--program", choices=PROGRAMS)
     args = parser.parse_args()
     source = args.input.resolve()
     output = args.output.resolve()
@@ -42,6 +64,19 @@ def main() -> int:
         shutil.rmtree(output)
     shutil.copytree(source, output, ignore=shutil.ignore_patterns("target", "Cargo.lock"))
 
+    expected_files = (
+        PROGRAM_REPAIR_FILES[args.program] if args.program else ALL_REPAIR_FILES
+    )
+    present_files = {
+        relative for relative in ALL_REPAIR_FILES if (output / relative).is_file()
+    }
+    if present_files != expected_files:
+        raise RuntimeError(
+            "IPRoute2 repair file inventory changed: "
+            f"program={args.program or 'monolithic'} "
+            f"expected={sorted(expected_files)} present={sorted(present_files)}"
+        )
+
     changes = []
     changes.append(replace_once(
         output / "lib.rs",
@@ -49,9 +84,10 @@ def main() -> int:
         "#![allow(dead_code)]\n#![allow(deref_nullptr)]\n",
         "permit C offsetof/container_of raw-address expressions without dereference",
     ))
-    changes.append(replace_once(
-        output / "src/ip/iplink_xdp.rs",
-        """        return if details as ::core::ffi::c_int != 0 {
+    if "src/ip/iplink_xdp.rs" in expected_files:
+        changes.append(replace_once(
+            output / "src/ip/iplink_xdp.rs",
+            """        return if details as ::core::ffi::c_int != 0 {
             0 as ::core::ffi::c_int
         } else {
             xdp_dump_json(&raw mut tb as *mut *mut rtattr)
@@ -62,57 +98,59 @@ def main() -> int:
         }
         return;
 """,
-        "preserve C void conditional return",
-    ))
-    bpf = output / "src/lib/bpf_libbpf.rs"
-    changes.append(replace_once(
-        bpf,
-        "                kernel_log_buf: 0,\n",
-        "                kernel_log_buf: ::core::ptr::null_mut::<::core::ffi::c_char>(),\n",
-        "represent zero-initialized libbpf pointer as a null pointer",
-    ))
-    changes.append(replace_once(
-        bpf,
-        "            init.set_c2rust_unnamed(::core::ptr::null::<::core::ffi::c_char>());\n",
-        "            init.set_c2rust_unnamed(0 as __u32);\n",
-        "represent libbpf anonymous 32-bit padding as zero",
-    ))
+            "preserve C void conditional return",
+        ))
+    if "src/lib/bpf_libbpf.rs" in expected_files:
+        bpf = output / "src/lib/bpf_libbpf.rs"
+        changes.append(replace_once(
+            bpf,
+            "                kernel_log_buf: 0,\n",
+            "                kernel_log_buf: ::core::ptr::null_mut::<::core::ffi::c_char>(),\n",
+            "represent zero-initialized libbpf pointer as a null pointer",
+        ))
+        changes.append(replace_once(
+            bpf,
+            "            init.set_c2rust_unnamed(::core::ptr::null::<::core::ffi::c_char>());\n",
+            "            init.set_c2rust_unnamed(0 as __u32);\n",
+            "represent libbpf anonymous 32-bit padding as zero",
+        ))
 
-    escape = output / "src/lib/escape.rs"
-    escape_text = escape.read_text()
-    pattern = re.compile(
-        r"static mut ESC_tab: \[::core::ffi::c_uchar; 257\] = unsafe \{.*?\n\};\n"
-        r"(?=unsafe extern \"C\" fn esc_all)",
-        re.DOTALL,
-    )
-    match = pattern.search(escape_text)
-    if match is None:
-        raise RuntimeError("IPRoute2 ESC_tab repair anchor changed")
-    literal = (
-        "@..............................."
-        "||||||||||||||||||||||||||||||||"
-        "||||||||||||||||||||||||||||||||"
-        "|||||||||||||||||||||||||||||||."
-        "????????????????????????????????"
-        "????????????????????????????????"
-        "????????????????????????????????"
-        "????????????????????????????????\\0"
-    )
-    replacement = (
-        "static mut ESC_tab: [::core::ffi::c_uchar; 257] = unsafe {\n"
-        "    ::core::mem::transmute::<[u8; 257], [::core::ffi::c_uchar; 257]>(\n"
-        f'        *b"{literal}",\n'
-        "    )\n"
-        "};\n"
-    )
-    before = digest(escape)
-    escape.write_text(pattern.sub(lambda _match: replacement, escape_text, count=1))
-    changes.append({
-        "path": str(escape),
-        "reason": "preserve C string initializer as one 257-byte array",
-        "before_sha256": before,
-        "after_sha256": digest(escape),
-    })
+    if "src/lib/escape.rs" in expected_files:
+        escape = output / "src/lib/escape.rs"
+        escape_text = escape.read_text()
+        pattern = re.compile(
+            r"static mut ESC_tab: \[::core::ffi::c_uchar; 257\] = unsafe \{.*?\n\};\n"
+            r"(?=unsafe extern \"C\" fn esc_all)",
+            re.DOTALL,
+        )
+        match = pattern.search(escape_text)
+        if match is None:
+            raise RuntimeError("IPRoute2 ESC_tab repair anchor changed")
+        literal = (
+            "@..............................."
+            "||||||||||||||||||||||||||||||||"
+            "||||||||||||||||||||||||||||||||"
+            "|||||||||||||||||||||||||||||||."
+            "????????????????????????????????"
+            "????????????????????????????????"
+            "????????????????????????????????"
+            "????????????????????????????????\\0"
+        )
+        replacement = (
+            "static mut ESC_tab: [::core::ffi::c_uchar; 257] = unsafe {\n"
+            "    ::core::mem::transmute::<[u8; 257], [::core::ffi::c_uchar; 257]>(\n"
+            f'        *b"{literal}",\n'
+            "    )\n"
+            "};\n"
+        )
+        before = digest(escape)
+        escape.write_text(pattern.sub(lambda _match: replacement, escape_text, count=1))
+        changes.append({
+            "path": str(escape),
+            "reason": "preserve C string initializer as one 257-byte array",
+            "before_sha256": before,
+            "after_sha256": digest(escape),
+        })
 
     changes.append(replace_once(
         output / "src/lib/utils.rs",
@@ -120,7 +158,7 @@ def main() -> int:
         "::f128::f128::new(t) == ::f128::f128::new(::core::f64::INFINITY)",
         "promote both operands for the C double/long-double infinity comparison",
     ))
-    for relative in ("src/tc/q_fq.rs", "src/tc/q_netem.rs"):
+    for relative in sorted(expected_files & {"src/tc/q_fq.rs", "src/tc/q_netem.rs"}):
         path = output / relative
         changes.append(replace_once(
             path,
@@ -139,6 +177,8 @@ def main() -> int:
         change["path"] = str(Path(change["path"]).relative_to(output))
     manifest = {
         "schema": 1,
+        "program": args.program,
+        "expected_repair_files": sorted(expected_files),
         "repairs": len(changes),
         "files": len({change["path"] for change in changes}),
         "changes": changes,

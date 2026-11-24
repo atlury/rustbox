@@ -2961,23 +2961,27 @@
     "workload_log_sha256": "86fc9f9bc75c2c9b9602c5a8a8b1b9b1da1a9121a3fb214396bffa3a264df849"
   },
   "binary": {
-    "bytes": 37517040,
+    "bytes": 40746016,
     "dynamic_needed": [
       "ld-linux-x86-64.so.2",
       "libattr.so.1",
+      "libbpf.so.1",
       "libbz2.so.1.0",
       "libc.so.6",
       "libcap-ng.so.0",
       "libcap.so.2",
       "libcrypt.so.1",
       "libcrypto.so.3",
+      "libdb-5.3.so",
       "libeconf.so.0",
+      "libelf.so.1",
       "libgcc_s.so.1",
       "libgmp.so.10",
       "liblz.so.1",
       "liblzma.so.5",
       "libm.so.6",
       "libmagic.so.1",
+      "libmnl.so.0",
       "libmpfr.so.6",
       "libncurses.so.6",
       "libncursesw.so.6",
@@ -2988,26 +2992,32 @@
       "libseccomp.so.2",
       "libsqlite3.so.0",
       "libtinfo.so.6",
+      "libtirpc.so.3",
+      "libxtables.so.12",
       "libz.so.1",
       "libzstd.so.1"
     ],
-    "link_map_sha256": "e7740baad4259ae7680a03b24dc026bd2ad15e0b671aa9d889d5f8fc80a0038b",
+    "link_map_sha256": "ba9c49dc4678249f94efde5284d53debdba5b96603551088af6c19157454a6db",
     "needed_libraries": [
       "ld-linux-x86-64.so.2",
       "libattr.so.1",
+      "libbpf.so.1",
       "libbz2.so.1.0",
       "libc.so.6",
       "libcap-ng.so.0",
       "libcap.so.2",
       "libcrypt.so.1",
       "libcrypto.so.3",
+      "libdb-5.3.so",
       "libeconf.so.0",
+      "libelf.so.1",
       "libgcc_s.so.1",
       "libgmp.so.10",
       "liblz.so.1",
       "liblzma.so.5",
       "libm.so.6",
       "libmagic.so.1",
+      "libmnl.so.0",
       "libmpfr.so.6",
       "libncurses.so.6",
       "libncursesw.so.6",
@@ -3018,13 +3028,15 @@
       "libseccomp.so.2",
       "libsqlite3.so.0",
       "libtinfo.so.6",
+      "libtirpc.so.3",
+      "libxtables.so.12",
       "libz.so.1",
       "libzstd.so.1"
     ],
     "selinux_dependencies": [],
-    "sha256": "e074ab7f62f740148cbe6ae285f417224c1dd341b1f0e38596b5ab62d435151e",
-    "stripped_bytes": 18722816,
-    "stripped_sha256": "863d79c26c9734bcbb8bd64326a9aa8383a54fca3281bc77adafb3e715eb012e",
+    "sha256": "717381c4a84489229a8ab81867819dd4d9fb9d9d51559a27b6afd7d06c959bd4",
+    "stripped_bytes": 21397120,
+    "stripped_sha256": "9def843847c9ae2391083b32da07d9c39663981aac3cb7591e25323906cb6827",
     "systemd_dependencies": []
   },
   "bison_integration": {
@@ -3264,6 +3276,8 @@
     "gzip_alias_bridge_symbols": 12,
     "gzip_namespaced_symbols": 2402,
     "inetutils_namespaced_symbols": 4625,
+    "iproute2_namespaced_symbols": 8308,
+    "iproute2_routel_bridge_symbols": 1,
     "kmod_namespaced_symbols": 230,
     "less_namespaced_symbols": 639,
     "lz4_namespaced_symbols": 206,
@@ -3655,23 +3669,27 @@
         "yywrap"
       ],
       "binary": {
-        "bytes": 37517040,
+        "bytes": 40746016,
         "dynamic_needed": [
           "ld-linux-x86-64.so.2",
           "libattr.so.1",
+          "libbpf.so.1",
           "libbz2.so.1.0",
           "libc.so.6",
           "libcap-ng.so.0",
           "libcap.so.2",
           "libcrypt.so.1",
           "libcrypto.so.3",
+          "libdb-5.3.so",
           "libeconf.so.0",
+          "libelf.so.1",
           "libgcc_s.so.1",
           "libgmp.so.10",
           "liblz.so.1",
           "liblzma.so.5",
           "libm.so.6",
           "libmagic.so.1",
+          "libmnl.so.0",
           "libmpfr.so.6",
           "libncurses.so.6",
           "libncursesw.so.6",
@@ -3682,11 +3700,13 @@
           "libseccomp.so.2",
           "libsqlite3.so.0",
           "libtinfo.so.6",
+          "libtirpc.so.3",
+          "libxtables.so.12",
           "libz.so.1",
           "libzstd.so.1"
         ],
-        "link_map_sha256": "e7740baad4259ae7680a03b24dc026bd2ad15e0b671aa9d889d5f8fc80a0038b",
-        "sha256": "e074ab7f62f740148cbe6ae285f417224c1dd341b1f0e38596b5ab62d435151e"
+        "link_map_sha256": "ba9c49dc4678249f94efde5284d53debdba5b96603551088af6c19157454a6db",
+        "sha256": "717381c4a84489229a8ab81867819dd4d9fb9d9d51559a27b6afd7d06c959bd4"
       },
       "bison_frontend_bridge": {
         "embedded_resource_manifest_sha256": "ca7614033678fa109706a086a3ee2d4f8b4ff52fdae3d1698471869cff3945c5",
@@ -10064,7 +10084,22 @@
         "sha256": "cd6c42ad07489a209a07db85dcc35c9f1cda6b2b88240a0d40daa4858365d0f6"
       },
       "inetutils_programs": 26,
-      "isolation_cache_version": 14,
+      "iproute2_namespaced_symbols": {
+        "count": 8308,
+        "programs": 18,
+        "sha256": "0cb04a88a3c1b5c2bd6055fbe6b61d243f61641a6b2882cfe83d6fc097c2214f"
+      },
+      "iproute2_public_names": 21,
+      "iproute2_routel_frontend_bridge": {
+        "object": "src/.rustbox-iproute2-routel.o",
+        "public_names": [
+          "routel"
+        ],
+        "symbols": [
+          "rustbox_iproute2_routel_main"
+        ]
+      },
+      "isolation_cache_version": 15,
       "kmod_namespaced_symbols": {
         "count": 230,
         "sha256": "43ff02f6c483603b62f899b49d58195df7dfa516d57397993cea79d87d58322c"
@@ -13793,6 +13828,24 @@
         "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtraceroute_audit.a": "3d07648a644421c8f076a0f4bd6235342354f7b66355cb06c225cb77774b7569",
         "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libuucpd_audit.a": "ffee1e49a403211e20c1f111e49bc9a47d0c4455d54ecc97658aa99d9b5ac35d",
         "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libwhois_audit.a": "33834e7ad7da97823e3cb9d9a2edffc3034a4a58c3c90283f7614029ae326b25",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/arpd/release/libarpd_audit.a": "b1833433a55fc7df5bd2de1c4818873f121f4533ceee330a0bcc2d44e93b34c3",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/bridge/release/libbridge_audit.a": "0b340e6292a64d927fcc10e36373150749737d4953280cef539f549cd18d6322",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dcb/release/libdcb_audit.a": "549d2a95c7ab3a0be9d579797967cb04ec59c08ca03dc29e9e270e01e3fb8ec0",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/devlink/release/libdevlink_audit.a": "e460fd7458a586cec91ff669152830a27b0a3cc42b93e159c9a2bfa7a6ff03a6",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dpll/release/libdpll_audit.a": "1a3d734c82ccb4c9c035e9bc31c5d6ef46c15c6da589a70a0d69ffa36dcd2aac",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/genl/release/libgenl_audit.a": "a96d34d9581c8c7cea4e7ec2ddfba45f036db9776da3159451a1c69d6f2626c4",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ifstat/release/libifstat_audit.a": "bddd2aeaff25d5edab8afbd800a58b5b4496e40e51106269e1c2074ea8843a79",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/release/libip_audit.a": "43a4da04eb68774d34997a8c5d5196db0ff0b74ea17d7dda672983494f7679c2",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/lnstat/release/liblnstat_audit.a": "c8000edbf9dc4e845c33270744b78e958340ef4e58982637bbfc8efc7299400f",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/netshaper/release/libnetshaper_audit.a": "7344b15e9833b755b70dd151b901297b5056cfa4cfc65b94925c0abe59461cf6",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/nstat/release/libnstat_audit.a": "1276de38493c5c7148482717fd87be3d0879c30ba829d9ca2502c937006dcdde",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rdma/release/librdma_audit.a": "7fd1e149eb04feb66c504c9f4e05bda35259c2185cc64766c41eb0f1ad4ca254",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtacct/release/librtacct_audit.a": "d707a3a183d9d4adcdbf04e724d833f77c4a32358c69e956f28b8ef3476ff247",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtmon/release/librtmon_audit.a": "fa8b510815f2936b931a841e0103397e6d08a2dae761129e0a452065fda000fb",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ss/release/libss_audit.a": "f307548b549600043744c4aa308ff83368f292ede943e078eec481d013e7b891",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/release/libtc_audit.a": "cc0bd9881d101ca7c1e7de3dd03f789a312b2fa89537fe62967cf5f5b0309ac7",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tipc/release/libtipc_audit.a": "f844e04cd6e353dedcf8c742bede8f8da397ab50dc3ba9df8cc8806e0812a0a1",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/vdpa/release/libvdpa_audit.a": "f8015abc8363860ad90feb4d963193b321964d13a683653b818dce16f9961006",
         "work/analysis/kmod-34.3/translations/c2rust-0.22.1/kmod-34.3-stable/target/release/libkmod_34_3_normalized_audit.a": "ac868cae19c7db93e17944b5d950929647cbd04e7364b1b34da459a8e4fc23b5",
         "work/analysis/less-710/translations/c2rust-0.22.1/less-710-stable/target/release/libless_710_normalized_audit.a": "8bc04efc48267bec72b1ee58f01dc78d2826527efdf64de082ca416768aae689",
         "work/analysis/lz4-1.11.1/translations/c2rust-0.22.1/lz4-1.11.1-stable/target/release/liblz4_1_11_1_normalized_audit.a": "779209b0e860728ce9bc73fad12a8df323af367c245c9ffd5ac0ae4b303bb39b",
@@ -14804,7 +14857,7 @@
         "yyparse",
         "zap_slashes"
       ],
-      "total_dispatch_names": 446,
+      "total_dispatch_names": 467,
       "util_linux_applets": 155,
       "xz_alias_bridge": {
         "object": "src/.rustbox-xz-aliases.o",
@@ -15912,7 +15965,7 @@
     "shadow_namespaced_symbols": 265,
     "tar_acl_imports": 13,
     "tar_namespaced_symbols": 961,
-    "translated_libraries": 105,
+    "translated_libraries": 123,
     "xz_alias_bridge_symbols": 4,
     "xz_namespaced_symbols": 339,
     "zstd_alias_bridge_symbols": 2,
@@ -33552,7 +33605,7 @@
     "coreutils": 106,
     "curl_integrated_names": 2,
     "diffutils": 4,
-    "dispatch_names": 446,
+    "dispatch_names": 467,
     "excluded": [
       "chcon",
       "runcon"
@@ -33564,6 +33617,7 @@
     "grep": 3,
     "gzip_integrated_names": 14,
     "inetutils_integrated_names": 26,
+    "iproute2_integrated_names": 21,
     "kmod_integrated_names": 7,
     "less": 2,
     "lz4": 4,
@@ -37365,7 +37419,7 @@
     },
     "valgrind_programs": 32
   },
-  "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, GNU tar, Ncurses, GNU Findutils, GNU Gawk, Flex, Bison, curl, GNU Inetutils, Kmod, Procps-ng, and Shadow integrated at canonical parity",
+  "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, GNU tar, Ncurses, GNU Findutils, GNU Gawk, Flex, Bison, curl, GNU Inetutils, IPRoute2, Kmod, Procps-ng, and Shadow integrated at canonical parity",
   "tar_integration": {
     "byte_identical_deterministic_archive": true,
     "canonical_c_abi_residue_units": 4,
