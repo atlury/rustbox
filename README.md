@@ -1404,6 +1404,11 @@ Library-only checkpoints (outside the active utility order):
      names supplied by util-linux before choosing final dispatcher precedence.
      Version 4.20.4 supersedes the initially queued 4.20.3 and includes the
      upstream `newuidmap`/`newgidmap` security fixes.
+     The signed canonical oracle covers the exact 201-source production
+     closure with independent GCC and Clang builds, both upstream unit suites,
+     every public help/version surface, and isolated prefix-root mutations of
+     synthetic passwd/group databases.  Normalization and translation follow
+     only after that oracle checkpoint is committed.
    - [ ] IPRoute2 — `arpd`, `bridge`, `ctstat`, `dcb`, `devlink`, `genl`,
      `ifcfg`, `ifstat`, `ip`, `lnstat`, `nstat`, `rdma`, `routef`, `routel`,
      `rtacct`, `rtmon`, `rtpr`, `rtstat`, `ss`, `tc`, `tipc`, `vdpa`.

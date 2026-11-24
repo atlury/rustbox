@@ -37,6 +37,7 @@ exec docker run --rm \
   --volume rustbox-inetutils-2.8:/rustbox-inetutils \
   --volume rustbox-kmod-34.3:/rustbox-kmod \
   --volume rustbox-procps-ng-4.0.7:/rustbox-procps \
+  --volume rustbox-shadow-4.20.4:/rustbox-shadow \
   --workdir /work \
   "$tool_image" "$@"
 
