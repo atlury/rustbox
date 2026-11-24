@@ -331,6 +331,15 @@ consumers and compare the 28 standalone public names. All 112 command cases
 passed alongside the checksum and repaired-image checks. Verifying shared
 linkage and behavior in the default multicall remains the next step.
 
+The next shared module implements E2fsprogs CRC32C (little-endian) and
+Ethernet CRC32 (big-endian). Each of the same 13 generated modules contains
+369 raw-pointer type occurrences. The candidate in `compat/e2fsprogs/crc32.rs`
+uses eight-byte chunks and safe table indexing. Run `scripts/test_e2fsprogs_crc32.sh`
+for the upstream test vectors and 565,444 comparisons against pinned C,
+including all 32 input alignments, single-bit seeds and zero-length inputs.
+The production source count above credits only changes present in its recorded
+executable. The CRC32 ABI adapter still accepts raw input buffers.
+
 Run the following audit to group finalized files by their SHA-256 and list
 every engine path in each group. The counts use the translation inventory's
 textual `*const` and `*mut` metric.
