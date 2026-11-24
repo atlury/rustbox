@@ -1420,8 +1420,12 @@ Library-only checkpoints (outside the active utility order):
      their target-ABI C calls.  The next probe exposed auto-typed pointer-span
      helpers; these now use single-evaluation concrete inline functions.  The
      resulting 49-file normalized scope has passed the same complete gates.
-     Strict translation selects 196 sources, excluding only five named
-     non-installed helper executables.
+     Strict translation completes all 196 selected sources without holes,
+     excluding only five named non-installed helper executables.  The complete
+     generated crate now type-checks and release-builds after 22 asserted ABI
+     representation repairs across 13 files; the repair script always starts
+     from the untouched strict-translation output and records every changed
+     site and before/after digest.
    - [ ] IPRoute2 — `arpd`, `bridge`, `ctstat`, `dcb`, `devlink`, `genl`,
      `ifcfg`, `ifstat`, `ip`, `lnstat`, `nstat`, `rdma`, `routef`, `routel`,
      `rtacct`, `rtmon`, `rtpr`, `rtstat`, `ss`, `tc`, `tipc`, `vdpa`.
