@@ -1462,7 +1462,13 @@ Library-only checkpoints (outside the active utility order):
      Both isolated privileged suites pass 18/19 tests; the identical
      `bareudp` failure is a documented Docker-host kernel limitation.  The
      five-tool static-analysis baseline and exact signed-source evidence are
-     recorded in `evidence/iproute2-7.3.0-oracle.json`.
+     recorded in `evidence/iproute2-7.3.0-oracle.json`.  Deterministic
+     normalization changes only the 18 native entrypoint source files, exports
+     one unique multicall ABI per engine, and retains standalone wrappers.
+     Both normalized compilers again pass all 63 public comparisons, all 20
+     native resource paths, and the same 18/19 upstream tests.  Exact scope
+     and before/after hashes are recorded in
+     `evidence/iproute2-7.3.0-normalization.json`.
    - [ ] E2fsprogs — `badblocks`, `chattr`, `debugfs`, `dumpe2fs`,
      `e2freefrag`, `e2fsck`, `e2image`, `e2label`, `e2mmpstatus`, `e2scrub`,
      `e2scrub_all`, `e2undo`, `e4crypt`, `e4defrag`, `filefrag`, `findfs`,

@@ -1,0 +1,299 @@
+{
+  "compile_databases": {
+    "clang-18": {
+      "compile_actions": 272,
+      "sha256": "5336d8ca80b0fadb373db24ce9a1623fd194a9c0545eef6adc235412f81fac12",
+      "sources": 264
+    },
+    "gcc": {
+      "compile_actions": 264,
+      "sha256": "6c0ddbf503ccfa3a79743f8b778c5c77cbb3bcd526506c41f230323db82b2792",
+      "sources": 264
+    }
+  },
+  "differential": {
+    "clang-18": {
+      "cases": 63,
+      "passed": 63,
+      "sha256": "7ecd5b9c867f8f8e0a4e3e6a29acca93918de212f3c547d4387d63f7d1a9392d"
+    },
+    "gcc": {
+      "cases": 63,
+      "passed": 63,
+      "sha256": "7ecd5b9c867f8f8e0a4e3e6a29acca93918de212f3c547d4387d63f7d1a9392d"
+    }
+  },
+  "environmental_failure": "bareudp device type unavailable in Docker host kernel",
+  "next_gate": "strict no-hole C2Rust translation of the native program closures",
+  "normalization_manifest": {
+    "sha256": "bcc1e0c2ae6d0c6386144c5f7c7b13466b713a36f1084896971bdb2c88e99d0e",
+    "transformations": [
+      {
+        "after_sha256": "aa94ff991f1a34e74d08f7a8f69be5cbce3051b8f61ed71c49d6754a8918e62d",
+        "before_sha256": "d5d466a333894f111996f9e3b52a6ce5f360c6d739ac25144bb85b530d56a5a3",
+        "entrypoint": "rustbox_iproute2_arpd_main",
+        "kind": "export entrypoint and retain standalone wrapper",
+        "path": "misc/arpd.c"
+      },
+      {
+        "after_sha256": "e62bc7c3f6eb7a9b51ef042f5a8836ef82e95d1253f67d9a98abfc64595fd0fb",
+        "before_sha256": "abb4bc1d289a793e6a10ded9b3ed79e8e362f4f84eb2765f3b976a71efcaa16b",
+        "entrypoint": "rustbox_iproute2_bridge_main",
+        "kind": "export entrypoint and retain standalone wrapper",
+        "path": "bridge/bridge.c"
+      },
+      {
+        "after_sha256": "d11ef65101c22f18d88496d81a3bc66ac5a24099b587f479dfadfc6434fecf6a",
+        "before_sha256": "cb2235081cccf0683cf6c193bec497516f45cfed0e0acb00b831db6c544053b7",
+        "entrypoint": "rustbox_iproute2_dcb_main",
+        "kind": "export entrypoint and retain standalone wrapper",
+        "path": "dcb/dcb.c"
+      },
+      {
+        "after_sha256": "b95b5cd34bbffb1b2a4f2d7bb07c7fd72f4dde63f7466bfb3a46168b1a768307",
+        "before_sha256": "e2893e613ea6832e0ec4ac1dab0835508075776dc7a99dcbc3cb4d8abff9dd1b",
+        "entrypoint": "rustbox_iproute2_devlink_main",
+        "kind": "export entrypoint and retain standalone wrapper",
+        "path": "devlink/devlink.c"
+      },
+      {
+        "after_sha256": "90b26596b716b7042b0f4d9d4c43e68975fa2838111b25cfe2b9a82ef866a432",
+        "before_sha256": "6f37960e1a415f52a7f8ffb8f4e68c8590ffc2c5c942543535fc0331af0570dc",
+        "entrypoint": "rustbox_iproute2_dpll_main",
+        "kind": "export entrypoint and retain standalone wrapper",
+        "path": "dpll/dpll.c"
+      },
+      {
+        "after_sha256": "2913459f46827faa92d20c6a0207078a8b00fcc051eaa27c90152878fe2d70a6",
+        "before_sha256": "53ac760fd2605055ff8fb1187bda35b9225d1ec4e2d840e11fff44810fba6fe8",
+        "entrypoint": "rustbox_iproute2_genl_main",
+        "kind": "export entrypoint and retain standalone wrapper",
+        "path": "genl/genl.c"
+      },
+      {
+        "after_sha256": "0811c7e8dbaff83bfea3fb4faa7297d5a9f7e0800e3f266692dc7b2e79973c81",
+        "before_sha256": "1988ff14358db5a3beedf0aefe963d0883937907ff8a0e4c4dcd97b2cf18a094",
+        "entrypoint": "rustbox_iproute2_ifstat_main",
+        "kind": "export entrypoint and retain standalone wrapper",
+        "path": "misc/ifstat.c"
+      },
+      {
+        "after_sha256": "92a3285f9d032034072efd3b367e2e1f7de530fc5afc7f4fba7ca44a7070aa89",
+        "before_sha256": "48747b97d4797ebf5b0ccb7237aac8d3feee5487f2807e6c2c7d5a445244d42b",
+        "entrypoint": "rustbox_iproute2_ip_main",
+        "kind": "export entrypoint and retain standalone wrapper",
+        "path": "ip/ip.c"
+      },
+      {
+        "after_sha256": "f805cb2655db1afc1b95cf15f0f90cdbbb9f5817694c11ef02523fdcedae40cb",
+        "before_sha256": "a0e772bdf73ef48f7c500357771c59970a1b17d40c3c659d3cf584dd8673baf0",
+        "entrypoint": "rustbox_iproute2_lnstat_main",
+        "kind": "export entrypoint and retain standalone wrapper",
+        "path": "misc/lnstat.c"
+      },
+      {
+        "after_sha256": "f2cec6ad99727c4e4f21f93e99c4b861b1d544964517daa89d6ca5c04a741716",
+        "before_sha256": "19296f625c7e003cd005226325807fa281a9e8ad7e32d9ae59eba60672efc80b",
+        "entrypoint": "rustbox_iproute2_netshaper_main",
+        "kind": "export entrypoint and retain standalone wrapper",
+        "path": "netshaper/netshaper.c"
+      },
+      {
+        "after_sha256": "afcb530b06726ba61fa148f4a82e5e0eb0ba015c8a2042e8b3d4f99ce9a27b19",
+        "before_sha256": "b68a06262b55aed603dcd0915bc454a12db1fc2833294b9cfef91eb5ed502566",
+        "entrypoint": "rustbox_iproute2_nstat_main",
+        "kind": "export entrypoint and retain standalone wrapper",
+        "path": "misc/nstat.c"
+      },
+      {
+        "after_sha256": "bdf417156d5562e2cdd6edeebb15037da35b4015c5fda77884251d7ab3861d6d",
+        "before_sha256": "7810e636f4e0267bbb5bc1bb209b57afa3e7207326566d08c1bf7d44d8dcaa57",
+        "entrypoint": "rustbox_iproute2_rdma_main",
+        "kind": "export entrypoint and retain standalone wrapper",
+        "path": "rdma/rdma.c"
+      },
+      {
+        "after_sha256": "3c324b9415f55f0099460badb989d84b4df23d25efe7c94a9d4ca57c2362ac25",
+        "before_sha256": "4be18bde3f22e5b6525a526f8c24d6f4883d41752d7b72aa4a9226c30e9535ea",
+        "entrypoint": "rustbox_iproute2_rtacct_main",
+        "kind": "export entrypoint and retain standalone wrapper",
+        "path": "misc/rtacct.c"
+      },
+      {
+        "after_sha256": "eaf9b5539a4474f01d832ab4dd181153c18e7a3a999c10bb673e357a8bb43bb5",
+        "before_sha256": "5a2095295a79ce473e9dbba91edfa5e4c70b45d07aa1a9e0d251dc70926dc5d3",
+        "entrypoint": "rustbox_iproute2_rtmon_main",
+        "kind": "export entrypoint and retain standalone wrapper",
+        "path": "ip/rtmon.c"
+      },
+      {
+        "after_sha256": "a6a4baf48c074ad9d7489ceda9124f39642c27cd20c6710975a2f33b5ddf4ec9",
+        "before_sha256": "c0b723ff31d2d2e631ce4f137822fc68aeb1fc2efc068d20da6c4b685e21c6d6",
+        "entrypoint": "rustbox_iproute2_ss_main",
+        "kind": "export entrypoint and retain standalone wrapper",
+        "path": "misc/ss.c"
+      },
+      {
+        "after_sha256": "7749a83435dd8eb87abd2e335b2584378aac8f805abf974d7bce2d99021d42b9",
+        "before_sha256": "e18667d72db37ca2ee8e7dcdc16cf36580d1d2c1593b687314533a001d2ae7a6",
+        "entrypoint": "rustbox_iproute2_tc_main",
+        "kind": "export entrypoint and retain standalone wrapper",
+        "path": "tc/tc.c"
+      },
+      {
+        "after_sha256": "7a92455f80cecdc91065997d244c9db3a560b065171febca58e3b7cf45fa0e2e",
+        "before_sha256": "bd005b8b76f7adeb854bd6eb001cce855f756d591d0c6562c86b367b26eb5915",
+        "entrypoint": "rustbox_iproute2_tipc_main",
+        "kind": "export entrypoint and retain standalone wrapper",
+        "path": "tipc/tipc.c"
+      },
+      {
+        "after_sha256": "4e5ba6cfe165a570ee580e5beec405bd53327a8425035a0a6e127fd61124d9b1",
+        "before_sha256": "fe203f69e80d004a592a080bc208d35d0cbdffdcf6f6a03e78be076430ad295e",
+        "entrypoint": "rustbox_iproute2_vdpa_main",
+        "kind": "export entrypoint and retain standalone wrapper",
+        "path": "vdpa/vdpa.c"
+      }
+    ]
+  },
+  "recorded_at": "2026-11-24",
+  "release": "7.3.0",
+  "schema": 1,
+  "scope": {
+    "added_files": [],
+    "aliases": {
+      "ctstat": "lnstat",
+      "rtstat": "lnstat"
+    },
+    "changed_files": [
+      "bridge/bridge.c",
+      "dcb/dcb.c",
+      "devlink/devlink.c",
+      "dpll/dpll.c",
+      "genl/genl.c",
+      "ip/ip.c",
+      "ip/rtmon.c",
+      "misc/arpd.c",
+      "misc/ifstat.c",
+      "misc/lnstat.c",
+      "misc/nstat.c",
+      "misc/rtacct.c",
+      "misc/ss.c",
+      "netshaper/netshaper.c",
+      "rdma/rdma.c",
+      "tc/tc.c",
+      "tipc/tipc.c",
+      "vdpa/vdpa.c"
+    ],
+    "exported_native_engines": 18,
+    "public_names": 21,
+    "removed_files": [],
+    "source_files": 712,
+    "unchanged_script_frontends": [
+      "routel"
+    ]
+  },
+  "status": "deterministic IPRoute2 entrypoint normalization complete",
+  "upstream_tests": {
+    "clang-18": {
+      "environmental_failures": 1,
+      "passed": 18,
+      "sha256": "1de338bef84b55e747e86e41ec0d44d3dc9a90095297be2e8b95b737e59f17e7",
+      "tests": 19
+    },
+    "gcc": {
+      "environmental_failures": 1,
+      "passed": 18,
+      "sha256": "cddd1a3c6f68d7574dbb376a25c85de62ed30165321fd4081854c5b33ef63cf8",
+      "tests": 19
+    }
+  },
+  "valgrind": {
+    "native_programs": {
+      "arpd": {
+        "errors": 0,
+        "sha256": "314dddbdf00079d6d01dbb0be5e9d1053e29dc1625d410b3d0d2a06ca0efa73e"
+      },
+      "bridge": {
+        "errors": 0,
+        "sha256": "13787afe85fd19fa15b399d9fb45b1cbbee92a2b0aeecbd1c7ae816bc3ba7013"
+      },
+      "ctstat": {
+        "errors": 0,
+        "sha256": "051da2994d79ceec6ce9278d1010f871b48676213eb17212a47ebffbf8b78ba0"
+      },
+      "dcb": {
+        "errors": 0,
+        "sha256": "7e5896d701e6d6d862d8b64b072dde61a5b698635decd47742c88a31bcf6c42a"
+      },
+      "devlink": {
+        "errors": 0,
+        "sha256": "6a16831df681f810c16340f6877601b73b8a6cd11561ed688d11fa3eb5d10cf3"
+      },
+      "dpll": {
+        "errors": 0,
+        "sha256": "e774fa5ccbc30c01194d4a16bc4595c9d5b936324eb56050efaf669be5fd4d6a"
+      },
+      "genl": {
+        "errors": 0,
+        "sha256": "bfe94904a0749d731ced0f1e4b302cc72f65bfc8820d073399255199c5649020"
+      },
+      "ifstat": {
+        "errors": 0,
+        "sha256": "a7a027149cbd4079d212eeb92249c8946dbdb3cf526553c31b7e40ce81279677"
+      },
+      "ip": {
+        "errors": 0,
+        "sha256": "c6057908b116036c138a59c6de3d1ecad86bfba2bf8b0a092e6f6f875fb70926"
+      },
+      "lnstat": {
+        "errors": 0,
+        "sha256": "4669b2f70ee283f8b6f77895c0660adb807c9256a464db83cfb7300cfdd06e95"
+      },
+      "netshaper": {
+        "errors": 0,
+        "sha256": "945539975cb6375f54794166af72620884b0f6488cae3e4bb960448bfbae0f99"
+      },
+      "nstat": {
+        "errors": 0,
+        "sha256": "1f3c4a6d72529891c0b663c7122a5ada739b217706361cd0a5f1c47de7543bd3"
+      },
+      "rdma": {
+        "errors": 0,
+        "sha256": "bab9d3745a20a749d72bce8e1d540d57a0a7f54f4162d27be5f198a99322db2c"
+      },
+      "rtacct": {
+        "errors": 0,
+        "sha256": "524172e5fd427bcade5414ff3741100119b15661c27820d0bcbdc42bbbe1c8ff"
+      },
+      "rtmon": {
+        "errors": 0,
+        "sha256": "08e04d3abb9762afa4c755b062c52dcc76e83573acce68dcbec20644d7951fba"
+      },
+      "rtstat": {
+        "errors": 0,
+        "sha256": "8e02e3a01aa135bfe123279b0b6d2cfb6d2d783458d3160b405bea6c0e4871ae"
+      },
+      "ss": {
+        "errors": 0,
+        "sha256": "17fa5e008f60435ef5254f6fd170ffe0bb6122282ce4b36d05925ef9ce420703"
+      },
+      "tc": {
+        "errors": 0,
+        "sha256": "7384fc1027c5a36645c3349b3756032d70a5be88bf1ce8fcde9fd1fe09f1622a"
+      },
+      "tipc": {
+        "errors": 0,
+        "sha256": "ffe38ac9c9b164e8d37dd42ebf70fbcb01032a280697fdfb701025a0cad728b0"
+      },
+      "vdpa": {
+        "errors": 0,
+        "sha256": "dab267723f6784b9c9238227d6f571b65ca8851c40b23022110c9f6b118a92df"
+      }
+    },
+    "routel": {
+      "kind": "unchanged canonical Python frontend",
+      "sha256": "0afe27a23142733471ce2b7da5d705e9a6834896401491f2757390acd3b50f30"
+    }
+  }
+}
