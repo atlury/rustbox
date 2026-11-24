@@ -35,12 +35,51 @@ ENTRYPOINTS = {
 # conditional operator.  Spell this single-evaluation expression out in
 # standard C without changing its observable behavior.
 C2RUST_NORMALIZATIONS = {
-    "lib/utils.c": (
+    "lib/utils.c": ((
         '\t\tp = getenv("PROC_ROOT") ? : "/proc";\n',
         '\t\tconst char *proc_root = getenv("PROC_ROOT");\n'
         '\t\tp = proc_root ? proc_root : "/proc";\n',
+    ),),
+    "misc/rtacct.c": ((
+        '\t\tp = getenv("PROC_ROOT") ? : "/proc";\n',
+        '\t\tchar *proc_root = getenv("PROC_ROOT");\n'
+        '\t\tp = proc_root ? proc_root : "/proc";\n',
+    ),),
+    "misc/ss.c": (
+        (
+            '\tconst char *root = getenv("PROC_ROOT") ? : "/proc/";\n',
+            '\tconst char *proc_root = getenv("PROC_ROOT");\n'
+            '\tconst char *root = proc_root ? proc_root : "/proc/";\n',
+        ),
+        (
+            "\t\tport = strrchr(strchr(addr, '/') ? : addr, ':');\n",
+            "\t\tchar *slash = strchr(addr, '/');\n"
+            "\t\tport = strrchr(slash ? slash : addr, ':');\n",
+        ),
+        (
+            '\t\t\tsnprintf(procname, sizeof(procname), "%s/%d/stat",\n'
+            '\t\t\t\tgetenv("PROC_ROOT") ? : "/proc", pid);\n',
+            '\t\t\tconst char *proc_root = getenv("PROC_ROOT");\n'
+            '\t\t\tsnprintf(procname, sizeof(procname), "%s/%d/stat",\n'
+            '\t\t\t\tproc_root ? proc_root : "/proc", pid);\n',
+        ),
     ),
+    "ip/iptunnel.c": ((
+        '\treturn tnl_del_ioctl(tnl_defname(&p) ? : p.name, p.name, &p);\n',
+        '\tchar *defname = tnl_defname(&p);\n'
+        '\treturn tnl_del_ioctl(defname ? defname : p.name, p.name, &p);\n',
+    ),),
 }
+
+
+def apply_asserted_replacements(
+    text: str, relative: str, replacements: tuple[tuple[str, str], ...]
+) -> str:
+    for original, replacement in replacements:
+        if text.count(original) != 1 or replacement in text:
+            raise RuntimeError(f"IPRoute2 C2Rust normalization anchor changed: {relative}")
+        text = text.replace(original, replacement, 1)
+    return text
 
 
 def sha256(path: Path) -> str:
@@ -90,18 +129,19 @@ def main() -> int:
             "kind": "export entrypoint and retain standalone wrapper",
         })
 
-    for relative, (original, replacement) in C2RUST_NORMALIZATIONS.items():
+    for relative, replacements in C2RUST_NORMALIZATIONS.items():
         source = output / relative
         text = source.read_text()
-        if text.count(original) != 1 or replacement in text:
-            raise RuntimeError(f"IPRoute2 C2Rust normalization anchor changed: {relative}")
         before = sha256(source)
-        source.write_text(text.replace(original, replacement, 1))
+        source.write_text(apply_asserted_replacements(text, relative, replacements))
         transformations.append({
             "path": relative,
             "before_sha256": before,
             "after_sha256": sha256(source),
-            "kind": "expand GNU omitted-middle conditional with single evaluation",
+            "kind": (
+                "expand C2Rust-incompatible GNU omitted-middle pointer "
+                f"conditionals with single evaluation ({len(replacements)})"
+            ),
         })
 
     manifest = {

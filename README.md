@@ -62,6 +62,9 @@ scoring, and correctness gates.
 | XZ Utils 5.8.4 | 23 | 23 | 23 | 23 |
 | zstd 1.5.7 | 6 | 6 | 6 | 6 |
 | GNU tar 1.35 | 2 | 2 | 2 | 2 |
+| Ncurses 6.6 | 10 | 10 | 10 | 10 |
+| GNU Findutils 4.10.0 | 4 | 4 | 4 | 4 |
+| GNU Gawk 5.4.0 | 3 | 3 | 3 | 3 |
 | Flex 2.6.4 | 3 | 3 | 3 | 3 |
 | Bison 3.8.2 | 2 | 2 | 2 | 2 |
 | curl 8.23.0 | 2 | 2 | 2 | 2 |
@@ -1463,8 +1466,12 @@ Library-only checkpoints (outside the active utility order):
      `bareudp` failure is a documented Docker-host kernel limitation.  The
      five-tool static-analysis baseline and exact signed-source evidence are
      recorded in `evidence/iproute2-7.3.0-oracle.json`.  Deterministic
-     normalization changes only the 18 native entrypoint source files, exports
-     one unique multicall ABI per engine, and retains standalone wrappers.
+     normalization changes the 18 native entrypoint source files, exports one
+     unique multicall ABI per engine, and retains standalone wrappers.  It
+     additionally expands C2Rust-incompatible GNU omitted-middle pointer
+     conditionals with explicit single-evaluation temporaries; because two of
+     those files also own entrypoints, the 22 transformations touch exactly 20
+     unique source files.
      Both normalized compilers again pass all 63 public comparisons, all 20
      native resource paths, and the same 18/19 upstream tests.  Exact scope
      and before/after hashes are recorded in

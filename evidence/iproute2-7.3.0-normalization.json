@@ -2,12 +2,12 @@
   "compile_databases": {
     "clang-18": {
       "compile_actions": 272,
-      "sha256": "d97c4199bede01a36fb1b19bb91caee061dfcf13ce6a0d804fd8be416c5b1cfa",
+      "sha256": "b3bd5b7b74ac89adf7a20b00727bd5bd757c01491baee53ee81eb1c3abc17102",
       "sources": 264
     },
     "gcc": {
       "compile_actions": 264,
-      "sha256": "838392a3ca9e6a2e7e0be707b46d2cc45749e5cce6776eda2c220bc24f66bbd3",
+      "sha256": "d2fde72c186ba6f585ffb9c3e745ca32dfd05c2220559830ae34665a9b37f371",
       "sources": 264
     }
   },
@@ -26,7 +26,7 @@
   "environmental_failure": "bareudp device type unavailable in Docker host kernel",
   "next_gate": "strict no-hole C2Rust translation of the native program closures",
   "normalization_manifest": {
-    "sha256": "77f5320bbb16fef30702b6962921ccc30306cb03a5ed7658c77c70ac4e2b72b7",
+    "sha256": "f99c320a198c9bc859d96f18e3c39427533bee58cf85ef5898b6858bd0177ca1",
     "transformations": [
       {
         "after_sha256": "aa94ff991f1a34e74d08f7a8f69be5cbce3051b8f61ed71c49d6754a8918e62d",
@@ -157,8 +157,26 @@
       {
         "after_sha256": "425efd5039437c52fe5bbb5337fce463c09a603fe0e47f331bb04256f5355600",
         "before_sha256": "d5ab95c34ce7d5447e3951ca2e83faf6af604c0e6aad23b36659473f3c388bf7",
-        "kind": "expand GNU omitted-middle conditional with single evaluation",
+        "kind": "expand C2Rust-incompatible GNU omitted-middle pointer conditionals with single evaluation (1)",
         "path": "lib/utils.c"
+      },
+      {
+        "after_sha256": "37323944de32a2ef406855e35a785ae256c4b84a34a56a4224b7e0f34286d064",
+        "before_sha256": "3c324b9415f55f0099460badb989d84b4df23d25efe7c94a9d4ca57c2362ac25",
+        "kind": "expand C2Rust-incompatible GNU omitted-middle pointer conditionals with single evaluation (1)",
+        "path": "misc/rtacct.c"
+      },
+      {
+        "after_sha256": "b9a106c84521cdfb4a09af5805658cb3cd6b88d855c6b625441c05e03fd68fba",
+        "before_sha256": "a6a4baf48c074ad9d7489ceda9124f39642c27cd20c6710975a2f33b5ddf4ec9",
+        "kind": "expand C2Rust-incompatible GNU omitted-middle pointer conditionals with single evaluation (3)",
+        "path": "misc/ss.c"
+      },
+      {
+        "after_sha256": "6ab9f635662e7618c532fcf62af99adf79fcf6c91b0fc6caabd895d4dd25c6d6",
+        "before_sha256": "e73e6331d7aba4f2a448f09ddcedf370b2309f16890cb336bd98b76f92f48511",
+        "kind": "expand C2Rust-incompatible GNU omitted-middle pointer conditionals with single evaluation (1)",
+        "path": "ip/iptunnel.c"
       }
     ]
   },
@@ -178,6 +196,7 @@
       "dpll/dpll.c",
       "genl/genl.c",
       "ip/ip.c",
+      "ip/iptunnel.c",
       "ip/rtmon.c",
       "lib/utils.c",
       "misc/arpd.c",
