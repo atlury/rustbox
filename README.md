@@ -275,6 +275,25 @@ scripts/test_e2fsprogs_multicall.sh /work/work/analysis/packed/rustbox
 5. Re-run every upstream suite, differential case, sanitizer, analyzer,
    Valgrind, static-link, and stripped-size gate on the hardened artifact.
 
+#### Pointer safety pilot
+
+The first substitution covers E2fsprogs 1.47.4 `ext2fs_crc16`. The same
+generated module occurs in 13 finalized engine crates, and the baseline link
+map retains 12 copies of its lookup table. The pilot builds one candidate
+`e2fsck` with the generated definition removed before optimization. It links
+the safe slice implementation in `compat/e2fsprogs/crc16.rs` through one
+C ABI adapter. Only the adapter constructs a slice from a raw pointer.
+A zero-length call accepts null and returns all 32 bits of the seed.
+
+Run `scripts/test_e2fsprogs_crc16.sh` after building the E2fsprogs oracle and
+program translations. It runs offline and uses read-only build inputs. The
+test compares the candidate with the pinned C function across 16,977,457
+cases, traces a real checksum call during a read-only filesystem check, and
+compares both passes of the upstream `f_uninit_checksum_bad` fixture and the
+repaired image bytes. The default multicall still uses the baseline translation.
+The rollout gate is to rebuild all affected engines against the shared
+implementation, inspect the linked symbols and run the multicall regressions.
+
 The isolated zlib 1.4 library checkpoint uses its signed release, independent GCC
 and Clang builds, 18-case upstream CTest suite, sanitizer and Valgrind gates,
 111-symbol ABI comparison, and reviewed static-analysis findings are recorded
