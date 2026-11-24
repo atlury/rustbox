@@ -432,6 +432,15 @@ def main() -> int:
         "expand GNU binary conditionals in GECOS field parsing",
     ))
 
+    transformations.append(replace_fragments(
+        output, "src/usermod.c", ((
+            "\tstatic_assert(is_same_type(id_t, uid_t), \"\");\n"
+            "\tstatic_assert(is_same_type(id_t, gid_t), \"\");",
+            "\t/* The verified Linux target ABI defines id_t, uid_t, and gid_t identically. */",
+        ),),
+        "lower target-ABI-only type compatibility assertions",
+    ))
+
     manifest = {
         "schema": 1,
         "release": "4.20.4",
