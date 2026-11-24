@@ -316,6 +316,26 @@ small safe rewrite when the input bytes and output values give the function a
 clear, independently testable contract. Review allocation lifetimes and
 aliasing explicitly for APIs that return pointers into caller-owned buffers.
 
+The IPRoute2 7.3.0 pilot replaces `parse_rtattr_flags` in a disposable
+`bridge` build. The shared generated `libnetlink.rs` occurs in 18 engine
+crates. The safe walker in `compat/iproute2/rtattr.rs` applies the type mask,
+keeps the first match and advances by the aligned attribute length. Its ABI
+adapter accesses the two header fields individually so callers can supply
+buffers containing uninitialized payload or padding bytes.
+
+Run `scripts/test_iproute2_rtattr.sh` after building the IPRoute2 oracle and
+program translations. It compares 14,285 cases against the pinned C build
+under Valgrind Memcheck, including returned pointers, table initialization,
+signed residuals and exact diagnostic bytes. A saved FDB message exercises
+the candidate through `bridge monitor file` with a Callgrind trace.
+
+One caller contract needs review before multicall rollout. On a nonzero
+residual, upstream reads the next length field for its diagnostic, even if
+the logical message ends earlier. The ABI adapter preserves that behavior
+for callers with readable backing at that cursor. The differential corpus
+provides that backing. For other callers, establish the physical buffer bound
+or agree on a bounded diagnostic before promoting the rewrite.
+
 The isolated zlib 1.4 library checkpoint uses its signed release, independent GCC
 and Clang builds, 18-case upstream CTest suite, sanitizer and Valgrind gates,
 111-symbol ABI comparison, and reviewed static-analysis findings are recorded
