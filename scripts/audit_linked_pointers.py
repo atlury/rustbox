@@ -12,7 +12,8 @@ import shlex
 import shutil
 import tempfile
 
-from build_iproute2_bridge import stage
+from build_iproute2_bridge import stage as stage_bridge
+from build_e2fsprogs_checksums import stage as stage_checksum
 
 ROOT = Path(__file__).resolve().parents[1]
 METRICS = {
@@ -29,7 +30,14 @@ def crate_for(archive, temporary):
     if archive.parent.name == "rustbox-bridge":
         engine = temporary / "bridge"
         shutil.copytree(archive.parents[1] / "bridge/bridge-final", engine)
-        stage(engine, pilot=False)
+        stage_bridge(engine, pilot=False)
+        return engine
+    if archive.parent.parent.name == "rustbox-checksums":
+        name = archive.parent.name
+        engine = temporary / name
+        shutil.copytree(archive.parents[2] / name / f"{name}-final", engine,
+                        ignore=shutil.ignore_patterns("target"))
+        stage_checksum(engine)
         return engine
     target = next(p for p in archive.parents if p.name == "cargo-target")
     name = archive.name.removeprefix("lib").removesuffix("_audit.a")
@@ -44,7 +52,8 @@ def audit(link, temporary):
     excluded = []
     for name, expected in sorted(link["source_library_sha256"].items()):
         path = Path(name)
-        if path.is_absolute() or path.suffix != ".a":
+        shared_object = path.name in ("crc16.o", "crc32.o") and path.parent.name == "rustbox-checksums"
+        if path.is_absolute() or (path.suffix != ".a" and not shared_object):
             excluded.append(name)
             continue
         archive = ROOT / path
@@ -54,22 +63,23 @@ def audit(link, temporary):
                 hasher.update(chunk)
             if hasher.hexdigest() != expected:
                 raise ValueError(f"archive differs from link report: {name}")
-        crate = crate_for(archive, temporary)
-        if not (crate / "Cargo.toml").is_file():
+        crate = ROOT if shared_object else crate_for(archive, temporary)
+        if not shared_object and not (crate / "Cargo.toml").is_file():
             raise ValueError(f"archive has no finalized source crate: {name}")
         package = path.relative_to("work/analysis").parts[0]
         tally = packages.setdefault(package, Counter())
-        tally["archives"] += 1
-        if archive.parent.name == "rustbox-bridge":
+        tally["standalone_objects" if shared_object else "archives"] += 1
+        if shared_object or archive.parent.name == "rustbox-bridge" or archive.parent.parent.name == "rustbox-checksums":
             manifest = json.loads(archive.with_suffix(".sources.json").read_text())
             if manifest["archive_sha256"] != expected:
-                raise ValueError("stale bridge compiler source list")
+                raise ValueError(f"stale compiler source list: {name}")
             files = {crate / name: sha for name, sha in manifest["sources"].items()}
         else:
             deps = archive.with_suffix(".d").read_text().splitlines()[0].split(": ", 1)[1]
             files = {ROOT / Path(name).relative_to("/work"): None
                      for name in shlex.split(deps) if name.endswith(".rs")}
-        if crate / "lib.rs" not in files:
+        root_module = ROOT / f"compat/e2fsprogs/{archive.stem}_abi.rs" if shared_object else crate / "lib.rs"
+        if root_module not in files:
             raise ValueError(f"unexpected compiler inputs for {archive}")
         for file, source_sha in files.items():
             file.relative_to(crate)

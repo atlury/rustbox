@@ -12,7 +12,8 @@ use core::ffi::{c_uint, c_void};
 /// For nonzero length the caller must supply `len` initialized bytes in one
 /// live allocation, readable without mutation for the duration of this call.
 /// The x86_64 Linux ABI guarantees every unsigned-int length fits in isize.
-#[no_mangle]
+#[cfg_attr(rustbox_multicall, export_name = "rustbox_e2fsprogs_crc16")]
+#[cfg_attr(not(rustbox_multicall), no_mangle)]
 pub unsafe extern "C" fn ext2fs_crc16(seed: c_uint, buffer: *const c_void, len: c_uint) -> c_uint {
     if len == 0 {
         return seed;

@@ -15,6 +15,7 @@ import tempfile
 from pathlib import Path
 
 from build_iproute2_bridge import build_bridge
+from build_e2fsprogs_checksums import build_shared, CRC_SYMBOLS
 
 ISOLATION_CACHE_VERSION = 18
 INETUTILS_PROGRAMS = (
@@ -2477,6 +2478,24 @@ def main() -> int:
         name: e2fsprogs_rust_directory / name / "release" / f"lib{name}_audit.a"
         for name in E2FSPROGS_PROGRAMS
     }
+    checksum_consumers, checksum_objects = build_shared(
+        e2fsprogs_rust_directory.parent, e2fsprogs_rust_directory.parent / "rustbox-checksums"
+    )
+    # Verify the C-facing interface before namespace isolation or section GC.
+    # Rust compiler-internal symbols may change when a translation unit is removed.
+    def c_exports(path):
+        return {name for name in defined_symbols(path) if not name.startswith(("_ZN", "_R"))
+                and re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", name)}
+    for name, archive in checksum_consumers.items():
+        original = c_exports(e2fsprogs_libraries[name])
+        hardened = c_exports(archive)
+        if original - hardened != set(CRC_SYMBOLS) or hardened - original:
+            raise RuntimeError(f"unexpected C export changes in checksum consumer {name}")
+        references = undefined_symbols(archive)
+        if references.intersection(CRC_SYMBOLS) or not {
+                CRC_SYMBOLS["ext2fs_crc16"], CRC_SYMBOLS["ext2fs_crc32c_le"]} <= references:
+            raise RuntimeError(f"unexpected checksum linkage in {name}")
+    e2fsprogs_libraries.update(checksum_consumers)
     kmod_rust_library = args.kmod_rust_library.resolve()
     procps_rust_library = args.procps_rust_library.resolve()
     shadow_rust_library = args.shadow_rust_library.resolve()
@@ -2644,6 +2663,7 @@ def main() -> int:
     for name in E2FSPROGS_PROGRAMS:
         libraries.append(e2fsprogs_libraries[name])
         e2fsprogs_library_indices[name] = len(libraries) - 1
+    libraries.extend(checksum_objects)
     libraries.append(kmod_rust_library)
     kmod_library_index = len(libraries) - 1
     libraries.append(procps_rust_library)
@@ -3549,6 +3569,10 @@ def main() -> int:
     if any(name.startswith("libacl.so") for name in dynamic_needed):
         raise RuntimeError("combined Rustbox still depends on system libacl")
     symbols = defined_symbols(output)
+    if any(symbols.count(name) != 1 for name in CRC_SYMBOLS.values()):
+        raise RuntimeError("expected one provider for each E2fsprogs checksum")
+    if any(symbol.endswith(f"_private_{name}") for symbol in symbols for name in CRC_SYMBOLS):
+        raise RuntimeError("per-engine E2fsprogs checksum still linked")
     for symbol in expected_symbols:
         if symbols.count(symbol) != 1:
             raise RuntimeError(f"combined output does not define {symbol} exactly once")
@@ -3635,6 +3659,10 @@ def main() -> int:
         },
         "source_library_sha256": source_library_hashes,
         "bridge_raw_pointer_types": bridge_raw_types,
+        "e2fsprogs_shared_checksums": {
+            "symbols": sorted(CRC_SYMBOLS.values()), "consumers": sorted(checksum_consumers),
+            "object_sha256": {o.name: sha256(o) for o in checksum_objects},
+        },
         "namespaced_symbols": namespaced_symbols,
         "namespaced_support_symbols": namespaced_support,
         "m4_namespaced_support_symbols": m4_support_symbols,

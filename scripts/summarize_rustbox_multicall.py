@@ -832,7 +832,9 @@ def main() -> int:
         or e2fsprogs.get("dispatch", {}).get("aggregate_names") != 499
         or len(e2fsprogs.get("valgrind", {})) != 32
         or e2fsprogs.get("collision_isolation", {}).get("program_namespaces") != 20
-        or e2fsprogs.get("collision_isolation", {}).get("renamed_symbols") != 8979
+        or e2fsprogs.get("collision_isolation", {}).get("renamed_symbols")
+            != sum(map(len, link["e2fsprogs_namespaced_symbols"].values()))
+        or e2fsprogs.get("shared_checksums") != link.get("e2fsprogs_shared_checksums")
         or e2fsprogs.get("collision_isolation", {}).get("coalesced_runtime_members") != 3966
         or e2fsprogs.get("binary", {}).get("verified_sha256") != link["binary"]["sha256"]
         or e2fsprogs.get("binary", {}).get("verified_link_map_sha256")

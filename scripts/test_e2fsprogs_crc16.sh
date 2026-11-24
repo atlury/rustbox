@@ -4,8 +4,13 @@ set -eu
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 case "$#" in
     0) set -- ;;
-    1) test "$1" = --all-engines; set -- -e RUSTBOX_CRC16_ALL=1 ;;
-    *) echo "usage: $0 [--all-engines]" >&2; exit 2 ;;
+    1) case "$1" in
+           --all-engines) set -- -e RUSTBOX_CRC16_ALL=1 ;;
+           --multicall) set -- -e RUSTBOX_CRC16_MULTICALL=1 \
+               -v rustbox-coreutils-9.12:/rustbox-coreutils:ro ;;
+           *) echo "usage: $0 [--all-engines | --multicall]" >&2; exit 2 ;;
+       esac ;;
+    *) echo "usage: $0 [--all-engines | --multicall]" >&2; exit 2 ;;
 esac
 exec docker run --rm -i "$@" --network none --platform linux/amd64 \
     -v "$root:/work:ro" -v rustbox-e2fsprogs-1.47.4:/rustbox-e2fsprogs:ro \
@@ -29,14 +34,27 @@ gcc -Wall -Wextra -Werror -O2 -I"$src/ext2fs" \
     /work/tests/e2fsprogs-crc16/differential.c canonical.o candidate.o -o compare
 ./compare
 
-set --
-if [ "${RUSTBOX_CRC16_ALL:-0}" = 1 ]; then set -- --all-engines; fi
-python3 /work/scripts/check_e2fsprogs_crc16_engines.py "$crates" /tmp/engines /tmp/candidate.o "$@"
-ln -s /tmp/engines/e2fsck /tmp/e2fsck
-if [ "${RUSTBOX_CRC16_ALL:-0}" = 1 ]; then
-    python3 /work/tests/e2fsprogs-hybrid-differential.py \
-        --canonical-root /rustbox-e2fsprogs/stage-gcc --hybrid-root /tmp/engines \
-        --output /tmp/all-engines.json
+if [ "${RUSTBOX_CRC16_MULTICALL:-0}" = 1 ]; then
+    binary=/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox
+    ln -s "$binary" /tmp/e2fsck
+    nm --defined-only "$binary" > /tmp/defined
+    symbol=rustbox_e2fsprogs_crc16
+    test "$(grep -c " T $symbol\$" /tmp/defined)" -eq 1
+    if grep -E 'ext2fs5crc1611crc16_table|private_ext2fs_crc16$' /tmp/defined; then
+        echo 'an old per-engine checksum remains linked' >&2
+        exit 1
+    fi
+else
+    symbol=ext2fs_crc16
+    set --
+    if [ "${RUSTBOX_CRC16_ALL:-0}" = 1 ]; then set -- --all-engines; fi
+    python3 /work/scripts/check_e2fsprogs_crc16_engines.py "$crates" /tmp/engines /tmp/candidate.o "$@"
+    ln -s /tmp/engines/e2fsck /tmp/e2fsck
+    if [ "${RUSTBOX_CRC16_ALL:-0}" = 1 ]; then
+        python3 /work/tests/e2fsprogs-hybrid-differential.py \
+            --canonical-root /rustbox-e2fsprogs/stage-gcc --hybrid-root /tmp/engines \
+            --output /tmp/all-engines.json
+    fi
 fi
 
 # uninit_bg without metadata_csum selects the legacy descriptor CRC16.
@@ -50,35 +68,54 @@ cmp canonical.stderr candidate.stderr
 # Confirm actual calls into the candidate in a successful read-only check.
 valgrind --tool=callgrind --callgrind-out-file=callgrind.out --log-file=valgrind.log \
     ./e2fsck -fn fs.img > /dev/null 2> check.stderr
-grep -Eq '^(c?fn)=.*ext2fs_crc16$' callgrind.out
+grep -Eq "^(c?fn)=.*${symbol}\$" callgrind.out
 sha256sum -c image.sha256
 echo 'e2fsck matched canonical output and status, exercised ext2fs_crc16, and preserved the image'
 
-fixture=/work/work/upstream/e2fsprogs-1.47.4/tests/f_uninit_checksum_bad
+fixtures=/work/work/upstream/e2fsprogs-1.47.4/tests
+set -- f_uninit_checksum_bad
+if [ "${RUSTBOX_CRC16_MULTICALL:-0}" = 1 ]; then
+    set -- "$@" f_bad_bmap_csum f_bad_gdt_csum
+    truncate -s 32M metadata.img
+    "$canon/mke2fs" -Fq -t ext4 -O metadata_csum -b 1024 metadata.img
+    sha256sum metadata.img > metadata.sha256
+    "$canon/e2fsck" -fn metadata.img > baseline.out 2> baseline.err
+    valgrind --tool=callgrind --callgrind-out-file=metadata.calls --log-file=metadata.log \
+        ./e2fsck -fn metadata.img > actual.out 2> actual.err
+    cmp baseline.out actual.out
+    cmp baseline.err actual.err
+    grep -Eq '^(c?fn)=.*rustbox_e2fsprogs_crc32c_le$' metadata.calls
+    sha256sum -c metadata.sha256
+fi
 export E2FSCK_TIME=1700000000 E2FSPROGS_FAKE_TIME=1700000000
-for variant in canonical candidate; do
-    mkdir "$variant"
-    gzip -dc "$fixture/image.gz" > "$variant/fs.img"
-    case "$variant" in
-        canonical) binary=$canon/e2fsck ;;
-        candidate) binary=/tmp/e2fsck ;;
-    esac
-    (
-        cd "$variant"
-        status=0
-        "$binary" -fy -N test_filesys fs.img > repair.stdout 2> repair.stderr || status=$?
-        test "$status" -eq 1
-        "$binary" -fy -N test_filesys fs.img > recheck.stdout 2> recheck.stderr
-        { cat repair.stderr repair.stdout; echo 'Exit status is 1'; } > pass1
-        { cat recheck.stderr recheck.stdout; echo 'Exit status is 0'; } > pass2
-        for pass in 1 2; do
-            sed -f "$fixture/../filter.sed" "pass$pass" > filtered
-            diff -u "$fixture/expect.$pass" filtered
-        done
-    )
+for case_name do
+    fixture=$fixtures/$case_name
+    mkdir "$case_name"
+    cd "$case_name"
+    for variant in canonical candidate; do
+        mkdir "$variant"
+        gzip -dc "$fixture/image.gz" > "$variant/fs.img"
+        case "$variant" in
+            canonical) binary=$canon/e2fsck ;;
+            candidate) binary=/tmp/e2fsck ;;
+        esac
+        (
+            cd "$variant"
+            for pass in 1 2; do
+                case "$pass" in 1) result=repair ;; 2) result=recheck ;; esac
+                status=0
+                "$binary" -fy -N test_filesys fs.img > "$result.stdout" 2> "$result.stderr" || status=$?
+                { cat "$result.stderr" "$result.stdout"; echo "Exit status is $status"; } > "pass$pass"
+                sed -f "$fixture/../filter.sed" "pass$pass" > filtered
+                diff -u "$fixture/expect.$pass" filtered
+            done
+        )
+    done
+    for artifact in repair.stdout repair.stderr recheck.stdout recheck.stderr fs.img; do
+        cmp "canonical/$artifact" "candidate/$artifact"
+    done
+    echo "Upstream $case_name repair and recheck matched, including image bytes"
+    cd ..
 done
-for artifact in repair.stdout repair.stderr recheck.stdout recheck.stderr fs.img; do
-    cmp "canonical/$artifact" "candidate/$artifact"
-done
-echo 'Upstream f_uninit_checksum_bad repair and recheck matched, including image bytes'
+
 PILOT

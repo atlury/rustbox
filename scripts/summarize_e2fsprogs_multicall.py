@@ -217,6 +217,13 @@ def main() -> int:
             "verified_link_map_sha256": sha256(link_map),
         },
     }
+    if checksums := link.get("e2fsprogs_shared_checksums"):
+        expected = ["rustbox_e2fsprogs_crc16", "rustbox_e2fsprogs_crc32_be", "rustbox_e2fsprogs_crc32c_le"]
+        if (checksums["symbols"] != expected or len(set(checksums["consumers"])) != 13 or
+                set(checksums["object_sha256"]) != {"crc16.o", "crc32.o"} or
+                any(symbols.count(name) != 1 for name in expected)):
+            raise RuntimeError("incomplete shared E2fsprogs checksum linkage")
+        evidence["shared_checksums"] = checksums
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")
     print(json.dumps({

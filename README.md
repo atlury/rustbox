@@ -218,10 +218,10 @@ binary.  IPRoute2 passes all 66 global canonical comparisons, including six
 real-kernel `routel` cases, and all 21 Valgrind paths; exact integration
 evidence is in `evidence/iproute2-7.3.0-multicall.json`.  The resulting
 E2fsprogs integration passes 112/112 canonical comparisons and all 32
-Valgrind paths; its 20 private namespaces rename 8,979 symbols after removing
+Valgrind paths; its 20 private namespaces rename 8,113 symbols after removing
 3,966 byte-identical Rust runtime members already provided by Procps-ng.
 Exact evidence is in `evidence/e2fsprogs-1.47.4-multicall.json`.  The resulting
-499-name executable is 43,189,632 bytes unstripped and 25,216,304 bytes
+499-name executable is 43,033,392 bytes unstripped and 25,081,136 bytes
 stripped. Sharing the Coreutils runtime with Gzip saved 289,264 stripped
 bytes. The linker compares 328 archive members byte-for-byte before sharing
 them. The exact hashes and
@@ -280,22 +280,24 @@ Count residual adapters explicitly. Track shared implementations by their
 actual callers and verify the final linked executable before recording a
 production reduction.
 
-The default 499-name Linux executable now uses the safe decoder for nested
-IPRoute2 FDB activity. The linked `bridge` crate went from 12,077 to 12,065
-raw-pointer type occurrences. Across all 127 applet archives the count went
-from **1,379,960 to 1,379,948**. No entire applet has been certified pointer-free.
+The default 499-name Linux executable includes the safe IPRoute2 decoder and
+shared E2fsprogs checksums. The FDB change removed 12 raw-pointer type
+occurrences, taking the linked `bridge` crate from 12,077 to 12,065. The
+checksum changes removed a net 4,832 across 13 E2fsprogs engines. The
+final count includes four raw-pointer type occurrences in the shared ABI adapters. The full measured source count went from **1,379,960 to
+1,375,116**. No entire applet has been certified pointer-free.
 
 | Code | Where it runs | Remaining work |
 |---|---|---|
 | IPRoute2 nested FDB activity | Default multicall, verified against canonical `bridge` on 259 records and live kernel operations | The adapter still constructs a borrowed slice from the initialized receive buffer |
 | IPRoute2 generic `parse_rtattr_flags` | Disposable `bridge` build | Audit the remaining callers before wider use |
-| E2fsprogs `ext2fs_crc16` | Standalone engine tests | Verify shared linkage in the default multicall and rerun its regressions |
+| E2fsprogs CRC16, CRC32C and big-endian CRC32 | One linked provider for each function, shared across 13 engines | Replace the raw buffers at the caller boundary as their owners are migrated |
 
 Reproduce the linked Rust source inventory with
 `python3 -B scripts/audit_linked_pointers.py work/analysis/rustbox-multicall-link.json`.
 It checks the archive hashes, reads the Rust compiler's source lists and
 counts textual occurrences of `*const` and `*mut`. The current report covers
-4,916 source entries and separately tracks raw borrows, pointer accessors and
+4,907 source entries from 127 applet archives and two checksum objects. It separately tracks raw borrows, pointer accessors and
 raw slice constructors. It excludes native C objects, dependent libraries and
 code outside the selected applet crates. See `evidence/rustbox-linked-pointers.json`
 for package counts and the executable hash. Run
@@ -312,29 +314,30 @@ activity values, duplicate parents and children, nested type flags, an empty
 parent, a full-size record and the diagnostic for a rejected child. This
 verification covers the FDB extension printer.
 
-The checksum pilot covers E2fsprogs 1.47.4 `ext2fs_crc16`. The same
-generated module occurs in 13 finalized engine crates, and the baseline link
-map retains 12 copies of its lookup table. The pilot builds one candidate
-`e2fsck` with the generated definition removed before optimization. It links
-the safe slice implementation in `compat/e2fsprogs/crc16.rs` through one
-C ABI adapter. Only the adapter constructs a slice from a raw pointer.
-A zero-length call accepts null and returns all 32 bits of the seed.
+E2fsprogs 1.47.4 supplied the same generated checksum modules in 13 engine
+crates. The previous link retained 12 copies of the CRC16 table alone. The
+release builder removes the per-engine definitions, verifies that the engines
+retain their other C exports and links two Rust objects that own all three
+checksum functions. Each algorithm reads a borrowed slice. A zero-length
+call accepts null and preserves the entire seed.
 
 Run `scripts/test_e2fsprogs_crc16.sh` after building the E2fsprogs oracle and
 program translations. It runs offline and uses read-only build inputs. The
 test compares the candidate with the pinned C function across 16,977,457
 cases, traces a real checksum call during a read-only filesystem check, and
 compares both passes of the upstream `f_uninit_checksum_bad` fixture and the
-repaired image bytes. The default multicall still uses the baseline translation.
+repaired image bytes.
 Run `scripts/test_e2fsprogs_crc16.sh --all-engines` to rebuild all 13 checksum
 consumers and compare the 28 standalone public names. All 112 command cases
-passed alongside the checksum and repaired-image checks. Verifying shared
-linkage and behavior in the default multicall remains the next step.
+passed alongside the checksum and repaired-image checks. Run
+`scripts/test_e2fsprogs_crc16.sh --multicall` to check linkage, trace the
+CRC16 and CRC32C paths in the final executable, and compare repaired image
+bytes against canonical E2fsprogs.
 
-The next shared module implements E2fsprogs CRC32C (little-endian) and
+The shared CRC32 module implements E2fsprogs CRC32C (little-endian) and
 Ethernet CRC32 (big-endian). Each of the same 13 generated modules contains
 369 raw-pointer type occurrences. In each copy, 30 occur in the checksum
-functions and 339 in the preceding generated declarations and helpers. The candidate in `compat/e2fsprogs/crc32.rs`
+functions and 339 in the preceding generated declarations and helpers. The implementation in `compat/e2fsprogs/crc32.rs`
 uses eight-byte chunks and safe table indexing. Run `scripts/test_e2fsprogs_crc32.sh`
 for the upstream test vectors and 565,444 comparisons against pinned C,
 including all 32 input alignments, single-bit seeds and zero-length inputs.
