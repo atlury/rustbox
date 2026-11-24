@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import re
+from datetime import datetime, timezone
 from pathlib import Path
 
 
@@ -30,7 +31,7 @@ def main() -> int:
         or differential.get("cases") != 133
         or differential.get("passed") != 133
         or link.get("inetutils_programs") != 26
-        or link.get("total_dispatch_names") != 386
+        or link.get("total_dispatch_names") not in (386, 499)
         or len(symbols) != 26
     ):
         raise RuntimeError("Inetutils multicall coverage is incomplete")
@@ -55,7 +56,7 @@ def main() -> int:
     symbol_bytes = json.dumps(symbols, separators=(",", ":"), sort_keys=True).encode()
     evidence = {
         "schema": 1,
-        "recorded_at": "2026-11-24",
+        "recorded_at": datetime.fromtimestamp(differential_path.stat().st_mtime, timezone.utc).date().isoformat(),
         "status": "all 26 GNU Inetutils programs integrated at canonical parity",
         "translation": {
             "production_sources": 288,
@@ -69,7 +70,7 @@ def main() -> int:
                 "hostname": "inetutils-hostname",
                 "logger": "inetutils-logger",
             },
-            "aggregate_names": 386,
+            "aggregate_names": link["total_dispatch_names"],
         },
         "differential": differential,
         "differential_sha256": sha256(differential_path),
@@ -80,6 +81,7 @@ def main() -> int:
             "symbol_map_sha256": hashlib.sha256(symbol_bytes).hexdigest(),
         },
         "binary": link["binary"],
+        "link_report_sha256": sha256(args.link_report),
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")

@@ -3,7 +3,7 @@
 set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
-RUSTBOX_TOOL_IMAGE=rustbox-gawk:2026-11-22 \
+RUSTBOX_TOOL_IMAGE=rustbox-e2fsprogs:2026-11-24 \
   exec "$root/scripts/run_tool.sh" sh -eu -c '
     canonical=/rustbox-inetutils/normalized-gcc
     rustbox=/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox

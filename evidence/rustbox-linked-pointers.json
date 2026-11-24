@@ -1,10 +1,10 @@
 {
   "all": {
     "archives": 127,
-    "as_ptr_calls": 7769,
+    "as_ptr_calls": 6499,
     "files": 4907,
     "raw_borrows": 87742,
-    "raw_pointer_type_tokens": 1152401,
+    "raw_pointer_type_tokens": 1133914,
     "slices_from_raw_parts": 3,
     "standalone_objects": 2
   },
@@ -51,6 +51,12 @@
       "private_functions_removed": 732,
       "raw_pointer_type_tokens_removed": 1352,
       "source_bytes_removed": 223057
+    },
+    "dnsdomainname": {
+      "changed_files": 19,
+      "private_functions_removed": 282,
+      "raw_pointer_type_tokens_removed": 600,
+      "source_bytes_removed": 105076
     },
     "dpll": {
       "changed_files": 13,
@@ -118,6 +124,18 @@
       "raw_pointer_type_tokens_removed": 106,
       "source_bytes_removed": 23181
     },
+    "ftp": {
+      "changed_files": 36,
+      "private_functions_removed": 476,
+      "raw_pointer_type_tokens_removed": 971,
+      "source_bytes_removed": 170302
+    },
+    "ftpd": {
+      "changed_files": 43,
+      "private_functions_removed": 617,
+      "raw_pointer_type_tokens_removed": 1255,
+      "source_bytes_removed": 215213
+    },
     "fuse2fs": {
       "changed_files": 61,
       "private_functions_removed": 13013,
@@ -130,11 +148,30 @@
       "raw_pointer_type_tokens_removed": 1063,
       "source_bytes_removed": 176659
     },
+    "hostname": {
+      "changed_files": 23,
+      "private_functions_removed": 334,
+      "raw_pointer_type_tokens_removed": 692,
+      "source_bytes_removed": 121866
+    },
+    "ifconfig": {
+      "changed_files": 29,
+      "private_functions_removed": 467,
+      "raw_pointer_type_tokens_removed": 933,
+      "source_bytes_removed": 0,
+      "source_layout": "byte_offsets"
+    },
     "ifstat": {
       "changed_files": 11,
       "private_functions_removed": 528,
       "raw_pointer_type_tokens_removed": 964,
       "source_bytes_removed": 160919
+    },
+    "inetd": {
+      "changed_files": 19,
+      "private_functions_removed": 311,
+      "raw_pointer_type_tokens_removed": 570,
+      "source_bytes_removed": 111850
     },
     "ip": {
       "changed_files": 100,
@@ -147,6 +184,12 @@
       "private_functions_removed": 530,
       "raw_pointer_type_tokens_removed": 975,
       "source_bytes_removed": 162277
+    },
+    "logger": {
+      "changed_files": 20,
+      "private_functions_removed": 302,
+      "raw_pointer_type_tokens_removed": 620,
+      "source_bytes_removed": 112064
     },
     "logsave": {
       "changed_files": 1,
@@ -184,6 +227,24 @@
       "raw_pointer_type_tokens_removed": 960,
       "source_bytes_removed": 160701
     },
+    "ping": {
+      "changed_files": 27,
+      "private_functions_removed": 425,
+      "raw_pointer_type_tokens_removed": 811,
+      "source_bytes_removed": 150540
+    },
+    "ping6": {
+      "changed_files": 22,
+      "private_functions_removed": 310,
+      "raw_pointer_type_tokens_removed": 616,
+      "source_bytes_removed": 113573
+    },
+    "rcp": {
+      "changed_files": 19,
+      "private_functions_removed": 290,
+      "raw_pointer_type_tokens_removed": 601,
+      "source_bytes_removed": 106735
+    },
     "rdma": {
       "changed_files": 30,
       "private_functions_removed": 1687,
@@ -195,6 +256,42 @@
       "private_functions_removed": 15507,
       "raw_pointer_type_tokens_removed": 13988,
       "source_bytes_removed": 3505987
+    },
+    "rexec": {
+      "changed_files": 14,
+      "private_functions_removed": 229,
+      "raw_pointer_type_tokens_removed": 432,
+      "source_bytes_removed": 84649
+    },
+    "rexecd": {
+      "changed_files": 19,
+      "private_functions_removed": 279,
+      "raw_pointer_type_tokens_removed": 594,
+      "source_bytes_removed": 104520
+    },
+    "rlogin": {
+      "changed_files": 17,
+      "private_functions_removed": 249,
+      "raw_pointer_type_tokens_removed": 500,
+      "source_bytes_removed": 91663
+    },
+    "rlogind": {
+      "changed_files": 22,
+      "private_functions_removed": 306,
+      "raw_pointer_type_tokens_removed": 656,
+      "source_bytes_removed": 113410
+    },
+    "rsh": {
+      "changed_files": 15,
+      "private_functions_removed": 237,
+      "raw_pointer_type_tokens_removed": 458,
+      "source_bytes_removed": 87265
+    },
+    "rshd": {
+      "changed_files": 20,
+      "private_functions_removed": 285,
+      "raw_pointer_type_tokens_removed": 614,
+      "source_bytes_removed": 106634
     },
     "rtacct": {
       "changed_files": 11,
@@ -214,11 +311,53 @@
       "raw_pointer_type_tokens_removed": 1708,
       "source_bytes_removed": 282346
     },
+    "syslogd": {
+      "changed_files": 25,
+      "private_functions_removed": 369,
+      "raw_pointer_type_tokens_removed": 770,
+      "source_bytes_removed": 133084
+    },
+    "talk": {
+      "changed_files": 25,
+      "private_functions_removed": 437,
+      "raw_pointer_type_tokens_removed": 741,
+      "source_bytes_removed": 147512
+    },
+    "talkd": {
+      "changed_files": 29,
+      "private_functions_removed": 469,
+      "raw_pointer_type_tokens_removed": 949,
+      "source_bytes_removed": 165114
+    },
     "tc": {
       "changed_files": 112,
       "private_functions_removed": 5586,
       "raw_pointer_type_tokens_removed": 10422,
       "source_bytes_removed": 1720246
+    },
+    "telnet": {
+      "changed_files": 35,
+      "private_functions_removed": 539,
+      "raw_pointer_type_tokens_removed": 1068,
+      "source_bytes_removed": 187675
+    },
+    "telnetd": {
+      "changed_files": 32,
+      "private_functions_removed": 556,
+      "raw_pointer_type_tokens_removed": 1116,
+      "source_bytes_removed": 190398
+    },
+    "tftp": {
+      "changed_files": 21,
+      "private_functions_removed": 301,
+      "raw_pointer_type_tokens_removed": 620,
+      "source_bytes_removed": 112172
+    },
+    "tftpd": {
+      "changed_files": 21,
+      "private_functions_removed": 303,
+      "raw_pointer_type_tokens_removed": 624,
+      "source_bytes_removed": 112405
     },
     "tipc": {
       "changed_files": 22,
@@ -226,23 +365,41 @@
       "raw_pointer_type_tokens_removed": 1497,
       "source_bytes_removed": 262562
     },
+    "traceroute": {
+      "changed_files": 20,
+      "private_functions_removed": 284,
+      "raw_pointer_type_tokens_removed": 575,
+      "source_bytes_removed": 105349
+    },
     "tune2fs": {
       "changed_files": 83,
       "private_functions_removed": 17071,
       "raw_pointer_type_tokens_removed": 15698,
       "source_bytes_removed": 3848146
     },
+    "uucpd": {
+      "changed_files": 15,
+      "private_functions_removed": 236,
+      "raw_pointer_type_tokens_removed": 456,
+      "source_bytes_removed": 87087
+    },
     "vdpa": {
       "changed_files": 12,
       "private_functions_removed": 581,
       "raw_pointer_type_tokens_removed": 1068,
       "source_bytes_removed": 178293
+    },
+    "whois": {
+      "changed_files": 19,
+      "private_functions_removed": 296,
+      "raw_pointer_type_tokens_removed": 645,
+      "source_bytes_removed": 112740
     }
   },
   "counting_identical_files_once": {
-    "as_ptr_calls": 6053,
-    "raw_borrows": 63470,
-    "raw_pointer_type_tokens": 813365,
+    "as_ptr_calls": 6003,
+    "raw_borrows": 63563,
+    "raw_pointer_type_tokens": 811389,
     "slices_from_raw_parts": 3
   },
   "non_applet_archive_inputs": [
@@ -379,10 +536,10 @@
     },
     "inetutils-2.8": {
       "archives": 26,
-      "as_ptr_calls": 1616,
+      "as_ptr_calls": 346,
       "files": 712,
       "raw_borrows": 5456,
-      "raw_pointer_type_tokens": 104385,
+      "raw_pointer_type_tokens": 85898,
       "slices_from_raw_parts": 0
     },
     "iproute2-7.3.0": {
@@ -506,5 +663,5 @@
       "slices_from_raw_parts": 0
     }
   },
-  "unique_files": 2859
+  "unique_files": 2888
 }

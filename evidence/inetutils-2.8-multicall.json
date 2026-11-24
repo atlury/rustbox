@@ -1,22 +1,27 @@
 {
   "binary": {
-    "bytes": 31953984,
+    "bytes": 43033392,
     "dynamic_needed": [
       "ld-linux-x86-64.so.2",
       "libattr.so.1",
+      "libbpf.so.1",
       "libbz2.so.1.0",
       "libc.so.6",
       "libcap-ng.so.0",
       "libcap.so.2",
       "libcrypt.so.1",
       "libcrypto.so.3",
+      "libdb-5.3.so",
       "libeconf.so.0",
+      "libelf.so.1",
+      "libfuse3.so.3",
       "libgcc_s.so.1",
       "libgmp.so.10",
       "liblz.so.1",
       "liblzma.so.5",
       "libm.so.6",
       "libmagic.so.1",
+      "libmnl.so.0",
       "libmpfr.so.6",
       "libncurses.so.6",
       "libncursesw.so.6",
@@ -27,11 +32,13 @@
       "libseccomp.so.2",
       "libsqlite3.so.0",
       "libtinfo.so.6",
+      "libtirpc.so.3",
+      "libxtables.so.12",
       "libz.so.1",
       "libzstd.so.1"
     ],
-    "link_map_sha256": "e5086d71c82a5a7c248ddd1f659a5d5dc3c2f3ba00d50bd58eee574cbacfb2aa",
-    "sha256": "e107d2854ddb99a4f5bad3fb4d7e8ebfcbe201cb2d168e17d3defc6813bf9373"
+    "link_map_sha256": "c21ac1443b41244ad99d3253d1fda4ea44844b845bc187c94208b3844c398510",
+    "sha256": "b8241ee1e9194ad785f897ca56358df4da82643b86187748da53fd2724d4a0ae"
   },
   "collision_isolation": {
     "program_namespaces": 26,
@@ -149,7 +156,7 @@
           "stderr_bytes": 0,
           "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
           "stdout_bytes": 13,
-          "stdout_sha256": "55d862591b4bc166ff08733bc6d145e09cbe32ed823d65da34388f7b5cf3c7a4"
+          "stdout_sha256": "591ae12fa068330e1aa71953135fd94a5beb21bd3da21fda8a71ec0df4fc705a"
         },
         "dispatch_name": "inetutils-hostname",
         "multicall": {
@@ -157,7 +164,7 @@
           "stderr_bytes": 0,
           "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
           "stdout_bytes": 13,
-          "stdout_sha256": "55d862591b4bc166ff08733bc6d145e09cbe32ed823d65da34388f7b5cf3c7a4"
+          "stdout_sha256": "591ae12fa068330e1aa71953135fd94a5beb21bd3da21fda8a71ec0df4fc705a"
         },
         "passed": true,
         "stdin_bytes": 0,
@@ -173,7 +180,7 @@
           "stderr_bytes": 0,
           "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
           "stdout_bytes": 13,
-          "stdout_sha256": "55d862591b4bc166ff08733bc6d145e09cbe32ed823d65da34388f7b5cf3c7a4"
+          "stdout_sha256": "591ae12fa068330e1aa71953135fd94a5beb21bd3da21fda8a71ec0df4fc705a"
         },
         "dispatch_name": "inetutils-hostname",
         "multicall": {
@@ -181,7 +188,7 @@
           "stderr_bytes": 0,
           "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
           "stdout_bytes": 13,
-          "stdout_sha256": "55d862591b4bc166ff08733bc6d145e09cbe32ed823d65da34388f7b5cf3c7a4"
+          "stdout_sha256": "591ae12fa068330e1aa71953135fd94a5beb21bd3da21fda8a71ec0df4fc705a"
         },
         "passed": true,
         "stdin_bytes": 0,
@@ -197,7 +204,7 @@
           "stderr_bytes": 0,
           "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
           "stdout_bytes": 13,
-          "stdout_sha256": "55d862591b4bc166ff08733bc6d145e09cbe32ed823d65da34388f7b5cf3c7a4"
+          "stdout_sha256": "591ae12fa068330e1aa71953135fd94a5beb21bd3da21fda8a71ec0df4fc705a"
         },
         "dispatch_name": "inetutils-hostname",
         "multicall": {
@@ -205,7 +212,7 @@
           "stderr_bytes": 0,
           "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
           "stdout_bytes": 13,
-          "stdout_sha256": "55d862591b4bc166ff08733bc6d145e09cbe32ed823d65da34388f7b5cf3c7a4"
+          "stdout_sha256": "591ae12fa068330e1aa71953135fd94a5beb21bd3da21fda8a71ec0df4fc705a"
         },
         "passed": true,
         "stdin_bytes": 0,
@@ -245,7 +252,7 @@
           "stderr_bytes": 0,
           "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
           "stdout_bytes": 11,
-          "stdout_sha256": "acde87621aa67f55331ed7fe9cc84d24340fa91dd57c6d05686961baf3d813a6"
+          "stdout_sha256": "7680dca5a53d778888dc8de84dfee50c5d02fed7898b42706a7ed18f58c5f43d"
         },
         "dispatch_name": "inetutils-hostname",
         "multicall": {
@@ -253,7 +260,7 @@
           "stderr_bytes": 0,
           "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
           "stdout_bytes": 11,
-          "stdout_sha256": "acde87621aa67f55331ed7fe9cc84d24340fa91dd57c6d05686961baf3d813a6"
+          "stdout_sha256": "7680dca5a53d778888dc8de84dfee50c5d02fed7898b42706a7ed18f58c5f43d"
         },
         "passed": true,
         "stdin_bytes": 0,
@@ -3226,15 +3233,16 @@
     ],
     "schema": 1
   },
-  "differential_sha256": "99372bdb971fd1df4af0b01af25fa75ef93668487b7dc40d06e5b58f524e7fdf",
+  "differential_sha256": "d7615148eba6933c93bf5b581d1ec3e0a9082bf99371c3e2ad3e4f3677822140",
   "dispatch": {
-    "aggregate_names": 386,
+    "aggregate_names": 499,
     "aliases": {
       "hostname": "inetutils-hostname",
       "logger": "inetutils-logger"
     },
     "programs": 26
   },
+  "link_report_sha256": "868b70da7e6e556ebbf1fa41eff6afbdfedc05bea74fb881421d58c2a4c0c920",
   "recorded_at": "2026-11-24",
   "schema": 1,
   "status": "all 26 GNU Inetutils programs integrated at canonical parity",
@@ -3249,107 +3257,107 @@
   "valgrind": {
     "dnsdomainname": {
       "errors": 0,
-      "sha256": "d5802d7f23dd7c75e9d154e034918354d5627823894889bcb11c552710823f26"
+      "sha256": "33b6e781837cf067c8ad7497581d9841c17461a227a235bda988575a75277d5d"
     },
     "ftp": {
       "errors": 0,
-      "sha256": "9266c3660f4b0b0c9824240b2bedf13d747e85a99e5b2f705f334ac599a46081"
+      "sha256": "b0c8549b87067c45c34a5311d0b67ba94914f098a8060374ccc3c804cd6e6500"
     },
     "ftpd": {
       "errors": 0,
-      "sha256": "52f7ad966fc0f5f61f86bdeb4e85184a16b1e8abf6022ebb24f33050c5df0d84"
+      "sha256": "c971c804e0c8ebe90b9a0870ab863d7fac36bb75193f7a8279f103f34a4cf45c"
     },
     "hostname": {
       "errors": 0,
-      "sha256": "f0abff8a625bd6d553dca8f3df92700a108d78f8bb048ee5a7b8f72d3801cc2c"
+      "sha256": "2b176d8861bbce6439d5e674b45472903aa55e85ab450e365acaae5f7c16f03d"
     },
     "ifconfig": {
       "errors": 0,
-      "sha256": "a27c55b66749e56bae3e4cd59eb32e8c07535a3ee12fff84e3f6d5b78aafd5a4"
+      "sha256": "66565c5ebd7e949a69564c25e0995077962bc1536c83b7be7f423ef45864198e"
     },
     "inetd": {
       "errors": 0,
-      "sha256": "9301e48861d06f1e7e0bd97ef6fb7345827ff75493ca48bd7e0ca21656465cbc"
+      "sha256": "9b58f3f7ae4fb7ab32a5f0ae6fa09133926b9c8f82fdfaae3c980a0c4e31c0f1"
     },
     "logger": {
       "errors": 0,
-      "sha256": "223fc2c1bf0c444b56442a22a2942b1f1cfc15b91156f6ff4d51b84971194f52"
+      "sha256": "51ed33359baa3c9c8b4ea3f7c0fe8212a82605914200469a884549f377f62cb5"
     },
     "ping": {
       "errors": 0,
-      "sha256": "d05377f22b606ad12156fb4c7d0be3b43bd191d6f6f0d84dc2afe8175c1580e3"
+      "sha256": "c9e26c584b35d5ef24ea71f9783e9694f575d777c3f1286acfab0a6c16ae307e"
     },
     "ping6": {
       "errors": 0,
-      "sha256": "5705ed623db2b9011697908f03f6de107584c37e7b96f3b0606a321e103629eb"
+      "sha256": "ca3f96042f22deb6be8e163ce522589bf2e953701854ce4bd72b8dcadc777ce5"
     },
     "rcp": {
       "errors": 0,
-      "sha256": "171ef6c148e50cb315c80f4d03573c117cb9740d61d1961f053403e06f5e9bc4"
+      "sha256": "8779344681c67004f40162e209c84484948b951e3e44235e2f832399e8e90cfd"
     },
     "rexec": {
       "errors": 0,
-      "sha256": "cb3997424012996dbff4d2798a7e4589d24f96609aec425d669fe331b4062e13"
+      "sha256": "7440b6263175949aec171b0f5110006e388298f22ae79ec195f7b4c702e50cd5"
     },
     "rexecd": {
       "errors": 0,
-      "sha256": "459096adc0a550b81ed82b2476ff4648c9740e94013ab8c4adb67cf325f1a0ca"
+      "sha256": "d0e304ac88fd72d05a15cbd8ae1f72d20532c28eaa1abd8d01bcd7fbf9286d71"
     },
     "rlogin": {
       "errors": 0,
-      "sha256": "488a6194a58c32fc628aa1f23836626642c9043c57d5a404f7f92b057d120dcd"
+      "sha256": "a0cd27663b92a1b1b7cf157ca0d599608473c522c284b2ea81c972c3d842b90b"
     },
     "rlogind": {
       "errors": 0,
-      "sha256": "b041bee8827ce671c5f8591bb0cae901a91bed3e4a289fb26a70d8f056895d61"
+      "sha256": "06c4b21bedc5127e82dc2a1d7267a438163c178877918220c3cea3209b7ca148"
     },
     "rsh": {
       "errors": 0,
-      "sha256": "9181cb706a8ccc24709f476101ffe753e7bd7335cf01e89a85a5d7d03dca36a1"
+      "sha256": "484c85981b846ecc05095aaff34b42ae90e84481e87d359abf665d77e45c09e7"
     },
     "rshd": {
       "errors": 0,
-      "sha256": "241ba441f1b4fe662c2465768d01b2f3b7525b28f6b866ecca6a1a3adb7dc2cc"
+      "sha256": "fff1cf578d13043da4ea2bc88ff181523372419a6a2aa941cf9bcf71c82100e9"
     },
     "syslogd": {
       "errors": 0,
-      "sha256": "5a8a18890a947aac8fc54565bc2ff7435a48612aa6e3b801fd7b0cf9d546b444"
+      "sha256": "f1ad60fd1cf9f624d40d9bed67d5d577b3cd26f6be2e01fff96b255992b13ec5"
     },
     "talk": {
       "errors": 0,
-      "sha256": "131abc793a1abe12f8acfbb812792d83dbb082e93dee48c92e35598d0f9ad434"
+      "sha256": "2e2ac4c7ba604ff27d2e722b6eabee511661a726cfe29df54c259e56fd5f6d48"
     },
     "talkd": {
       "errors": 0,
-      "sha256": "8dd7a7954531611eb0edbad7e1cbaf5853b61aea719e2f414ec890b99a31306d"
+      "sha256": "2606c574ed4bd389e0b25dacc941b52f5d6e9626ad417499362a80179a2fabfd"
     },
     "telnet": {
       "errors": 0,
-      "sha256": "0624cdea5c879af34489cd97e17ce5a2bae1b374f86c5c521fd8518e9bf8f232"
+      "sha256": "b520a3abe5ff56c3b7e95209df07303b32c8ba18b766cb84b79b9e6266c74255"
     },
     "telnetd": {
       "errors": 0,
-      "sha256": "85568674874af7aa901ba1f3fd3483350617849933697a400c30aac1158614b7"
+      "sha256": "6e55d44f1f39816c79a7facd5f162abac98e459f8f589b8df0f10307943e1ac6"
     },
     "tftp": {
       "errors": 0,
-      "sha256": "edba4b20b1f64a1ca1f27a51f6088990ba20364069c62286e381bce844558182"
+      "sha256": "d63819af8bd7314cc16f442dbb5c8a90c6e199d4228b3f0638a670bf629ac3f5"
     },
     "tftpd": {
       "errors": 0,
-      "sha256": "2ce3f1613d392a7ca33dfed8f34e7baf100abbcfa356ed587cef6c68a4441139"
+      "sha256": "d8897cb3bf2dffc5809487cccf0ee9e764421683998ba7530a0e12c80513e4dd"
     },
     "traceroute": {
       "errors": 0,
-      "sha256": "81ce33732ef56c78d23f6d64ccc7340a1f820909df2b613fbfb79bfde3b60940"
+      "sha256": "65087438ad20ba4c3b2511c67d9aff184a531577ac40e9ca532c7ffc8f6d8dfe"
     },
     "uucpd": {
       "errors": 0,
-      "sha256": "3aa1143f772e55ddc53bbceb46241cd50b85d06157bb377dee81847ff02c802e"
+      "sha256": "6fb403d0350017f693c7a65c9534185426ac1741e371b39c3cc082c1d12471d1"
     },
     "whois": {
       "errors": 0,
-      "sha256": "f4e2ad7b560cb2844b2a9a35d45fe88b7660cbbb6d39fc6ed688a068c2af1d09"
+      "sha256": "1b886fcfb6177f3887db625dc992910a8dc0c8dbd324d96cb989c7b3f29a9ab5"
     }
   }
 }

@@ -281,8 +281,8 @@ actual callers and verify the final linked executable before recording a
 production reduction.
 
 The default 499-name Linux executable now uses the cleaned sources for
-**all 20 E2fsprogs engines and all 18 IPRoute2 engines**. Across the linked
-applet sources the raw-pointer type count fell from **1,379,960 to 1,152,401**.
+**all 20 E2fsprogs, 18 IPRoute2 and 26 GNU Inetutils engines**. Across the
+linked applet sources the raw-pointer type count fell from **1,379,960 to 1,133,914**.
 The count of applets certified pointer-free is still zero.
 
 | Production change | Raw-pointer type occurrences removed |
@@ -291,10 +291,12 @@ The count of applets certified pointer-free is still zero.
 | Three shared E2fsprogs checksum implementations, including their remaining raw ABI adapters | 4,832 |
 | Compiler-verified removal of unused private helpers across all 20 E2fsprogs engines | 181,096 |
 | Compiler-verified removal of unused private helpers across all 18 IPRoute2 engines | 41,619 |
-| **Total** | **227,559** |
+| Compiler-verified removal of unused private helpers across all 26 GNU Inetutils engines | 18,487 |
+| **Total** | **246,046** |
 
 E2fsprogs accounts for 215,084 remaining occurrences, down from 401,012.
-IPRoute2 accounts for 223,692, down from 265,323.
+IPRoute2 accounts for 223,692, down from 265,323. GNU Inetutils accounts
+for 85,898, down from 104,385.
 The checksum replacement saved 135,168 stripped bytes. Removing unused source
 preserved the entire ELF and link map byte-for-byte. The executable is
 25,081,136 bytes stripped and its unstripped SHA-256 is
@@ -453,6 +455,13 @@ compares the entire archive again. The release inventory replays the layout
 named in each receipt. Both strict predecessor checks can supply receipts
 when their original verifier, syntax tool, archive, source and configuration
 digests match.
+
+The default build removes 9,189 unused private helper definitions and 18,487
+raw-pointer type occurrences from 606 GNU Inetutils source entries. The
+25 engines using compact removal account for all 3,148,896 source bytes saved.
+Run `scripts/test_inetutils_multicall.sh` to replay 133 comparisons with GNU
+Inetutils across the 26 public commands and check each command’s `--version`
+path under Valgrind.
 
 In Inetutils `ifconfig`, the compact form changed generated symbol names in
 three object files. Preserving byte offsets removed all 467 selected helper
