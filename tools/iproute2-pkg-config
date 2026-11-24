@@ -1,0 +1,10 @@
+#!/bin/sh
+# SPDX-License-Identifier: 0BSD
+set -eu
+
+for argument in "$@"; do
+  if test "$argument" = libselinux; then
+    exit 1
+  fi
+done
+exec pkg-config "$@"

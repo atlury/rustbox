@@ -1,0 +1,255 @@
+{
+  "build_configuration": {
+    "berkeley_db": true,
+    "libbpf": "1.3.0",
+    "libcap": true,
+    "libelf": true,
+    "libmnl": true,
+    "libtirpc": true,
+    "selinux": false,
+    "shared_plugins": false,
+    "xtables": true
+  },
+  "compilers": {
+    "clang-18": {
+      "compile_actions": 272,
+      "sources": 264
+    },
+    "gcc": {
+      "compile_actions": 264,
+      "sources": 264
+    }
+  },
+  "dependencies": [
+    "libbpf.so.1",
+    "libc.so.6",
+    "libcap.so.2",
+    "libdb-5.3.so",
+    "libelf.so.1",
+    "libm.so.6",
+    "libmnl.so.0",
+    "libtirpc.so.3",
+    "libxtables.so.12"
+  ],
+  "differential": {
+    "cases": 63,
+    "passed": 63,
+    "physical_argv0_normalized": true,
+    "sha256": "7ecd5b9c867f8f8e0a4e3e6a29acca93918de212f3c547d4387d63f7d1a9392d"
+  },
+  "excluded_dependencies": [
+    "SELinux",
+    "systemd"
+  ],
+  "next_gate": "complete deterministic entrypoint normalization and strict C2Rust translation",
+  "recorded_at": "2026-11-24",
+  "release": {
+    "archive": "iproute2-7.3.0.tar.xz",
+    "key": "iproute2-archive-release-key.asc",
+    "key_sha256": "65cc82f52fe33317771c3b99f4949bcbd5bafd390270d61656dbf0efc56deaf9",
+    "key_url": "https://keys.openpgp.org/vks/v1/by-fingerprint/110B8614708F62B83DD19F23F028172EC6AEB2B3",
+    "license": "GPL-2.0-or-later",
+    "sha256": "5c1789d290bba048a6135ed1ab81b0402dd0fb528d1f1421765c42b1fc3d6289",
+    "signature_mode": "uncompressed-tar",
+    "signature_sha256": "face18ce82d1438919f556d86502de4f0fe83d2f7db8695420a9902df2c4bc3c",
+    "signature_url": "https://cdn.kernel.org/pub/linux/utils/net/iproute2/iproute2-7.3.0.tar.sign",
+    "signer_fingerprint": "110B8614708F62B83DD19F23F028172EC6AEB2B3",
+    "source_directory": "iproute2-7.3.0",
+    "url": "https://cdn.kernel.org/pub/linux/utils/net/iproute2/iproute2-7.3.0.tar.xz",
+    "version": "7.3.0"
+  },
+  "schema": 1,
+  "scope": {
+    "compiled_sources": 264,
+    "excluded_build_helpers": [
+      "netem/maketable.c",
+      "netem/normal.c",
+      "netem/pareto.c",
+      "netem/paretonormal.c"
+    ],
+    "native_aliases": {
+      "ctstat": "lnstat",
+      "rtstat": "lnstat"
+    },
+    "native_engines": 18,
+    "production_utility_sources": 260,
+    "public_name_count": 21,
+    "public_names": [
+      "arpd",
+      "bridge",
+      "ctstat",
+      "dcb",
+      "devlink",
+      "dpll",
+      "genl",
+      "ifstat",
+      "ip",
+      "lnstat",
+      "netshaper",
+      "nstat",
+      "rdma",
+      "routel",
+      "rtacct",
+      "rtmon",
+      "rtstat",
+      "ss",
+      "tc",
+      "tipc",
+      "vdpa"
+    ],
+    "script_frontends": [
+      "routel"
+    ],
+    "source_list_sha256": "a74aed993d1495954ce01171e3f4205eb35226ba0f952338bb2053a58856420e"
+  },
+  "source_authentication": {
+    "archive": "iproute2-7.3.0.tar.xz",
+    "key": ".cache/downloads/iproute2-archive-release-key.asc",
+    "key_sha256": "65cc82f52fe33317771c3b99f4949bcbd5bafd390270d61656dbf0efc56deaf9",
+    "name": "iproute2",
+    "sha256": "5c1789d290bba048a6135ed1ab81b0402dd0fb528d1f1421765c42b1fc3d6289",
+    "signature": ".cache/downloads/iproute2-7.3.0.tar.xz.signature",
+    "signature_sha256": "face18ce82d1438919f556d86502de4f0fe83d2f7db8695420a9902df2c4bc3c",
+    "signature_verified": true,
+    "signer_fingerprint": "110B8614708F62B83DD19F23F028172EC6AEB2B3",
+    "source": "work/upstream/iproute2-7.3.0",
+    "source_kind": "signed-release-archive",
+    "version": "7.3.0"
+  },
+  "static_analysis": {
+    "clang_analyzer_tidy": {
+      "sha256": "13c86b445fc4702b2464f47b57d796e7c88e509424e96eb4d7287101713aabb7",
+      "status": 0
+    },
+    "cppcheck": {
+      "sha256": "52ca4e19582599962d85a9445293cf0873dabfec01826a6a940dc9acd7d210f9",
+      "status": 0
+    },
+    "flawfinder": {
+      "hits": 1332,
+      "sha256": "dc7e55a203740a9b0a7a3cbe49cb5128caf5747ce789dd90a01d0f15d1f1b3cb",
+      "status": 0
+    },
+    "gcc_fanalyzer": {
+      "compile_actions": 260,
+      "compiler": "gcc",
+      "failed": 0,
+      "failures": [],
+      "passed": 260,
+      "schema": 1,
+      "sha256": "81fe8bcd3e02f3bd128e0b5348fac87f3407efaf6fd550b9b6ebc2f7305fcada",
+      "timed_out": 0
+    },
+    "production_sources": 260,
+    "sparse": {
+      "baseline_only": true,
+      "sha256": "1cb84381717b9ceee8c41ad0651b7a17c378bab3a05d1cfb5e400d6a7997a000",
+      "status": 123
+    }
+  },
+  "status": "signed canonical IPRoute2 oracle complete",
+  "upstream_tests": {
+    "clang-18": {
+      "environmental_failure": "ip/link/add_type_bareudp.t: host kernel lacks bareudp device type",
+      "environmental_failures": 1,
+      "passed": 18,
+      "sha256": "2c13dab6f55ff959ceae8b31443c9e04b1495886e6898638589930f740811371",
+      "tests": 19
+    },
+    "gcc": {
+      "environmental_failure": "ip/link/add_type_bareudp.t: host kernel lacks bareudp device type",
+      "environmental_failures": 1,
+      "passed": 18,
+      "sha256": "7b6252307d80f318dffb38f7b1dd55e5725a36b626ff55472af849d7e8640278",
+      "tests": 19
+    }
+  },
+  "valgrind": {
+    "native_programs": {
+      "arpd": {
+        "errors": 0,
+        "sha256": "80cb7938b031a896e2a15bd4385915181090f97c85ef8238d62015fab1ea1ab7"
+      },
+      "bridge": {
+        "errors": 0,
+        "sha256": "5c1f0838db6d9117540292594cab666585fb73662d99b35d2cab3ae9463fbf67"
+      },
+      "ctstat": {
+        "errors": 0,
+        "sha256": "87a95ee5d88f6ca72ba03c9fb4f397ee459d5d83b65fa42d05c3473ca3e927d5"
+      },
+      "dcb": {
+        "errors": 0,
+        "sha256": "81fd379a0c74af29c58cf3e34a143d5cd3c59a446afebf618933d8d045f369f4"
+      },
+      "devlink": {
+        "errors": 0,
+        "sha256": "aa677b64d8ae02632e41b5147d5ffcfe832d3fdbe8d1cc6af9e8052b5a6eae00"
+      },
+      "dpll": {
+        "errors": 0,
+        "sha256": "459a2d83e5592d9ffd83afac0976681eff346fb8c30ce2d86690b921c560bdbf"
+      },
+      "genl": {
+        "errors": 0,
+        "sha256": "e6a759d5d3b2d5357d9d7ee29fb0e17de1d380800383051ba608719f8751a230"
+      },
+      "ifstat": {
+        "errors": 0,
+        "sha256": "018fbf4c1ebade317aa48a7d5619b57f327d46d442cda861ec8baf33e4ead00c"
+      },
+      "ip": {
+        "errors": 0,
+        "sha256": "263de3155c0648d1e689031a1f207f7d04e2a99e7cabf619589372ea5f1f6c3c"
+      },
+      "lnstat": {
+        "errors": 0,
+        "sha256": "7a536ac99178f1bcc773ca0835c901990405d4c6ab44e447cbf268c5830bfdd1"
+      },
+      "netshaper": {
+        "errors": 0,
+        "sha256": "8ebe7f6d8838673bf05f78588495181292f3df43d256abd164680ac5f9b8db62"
+      },
+      "nstat": {
+        "errors": 0,
+        "sha256": "5002574e3abb0ea2ca837221628493f513ef7dc91718ca37f93147647f3b5be5"
+      },
+      "rdma": {
+        "errors": 0,
+        "sha256": "5d0c1589756c9e2adfa54fa920f5d17d72af7fdc2103a45beb310c896fd02641"
+      },
+      "rtacct": {
+        "errors": 0,
+        "sha256": "ef978ab9e56e7709c9ecbe64c490ffeaec08a122c767ce86b709e1f1a6122c8f"
+      },
+      "rtmon": {
+        "errors": 0,
+        "sha256": "fdc7f4a65980e1d94c57138eadc1bdc299728237b7a94b980ef8da6d37ab052d"
+      },
+      "rtstat": {
+        "errors": 0,
+        "sha256": "a253f9268618cb29d7e2462f8ce561f6b02edb5d20aa0f53b28f396bc77ca850"
+      },
+      "ss": {
+        "errors": 0,
+        "sha256": "876bc608af7af1fedc7c9c2d0dbd72bcd7707718111ee245d1bbc41c4204ce0d"
+      },
+      "tc": {
+        "errors": 0,
+        "sha256": "d795037db2466fc0458b510f98cd5561086d8d7627ca359ec65974eafabcfb32"
+      },
+      "tipc": {
+        "errors": 0,
+        "sha256": "b3f98254f1f24c4b3cd5b9b73eb2ff26aa399028a4809cc99dd4061c7f002d04"
+      },
+      "vdpa": {
+        "errors": 0,
+        "sha256": "6e42f21c61e3810ec21edd4b52642a3fff6c43fe6864c06ada4358b4bfc126fd"
+      }
+    },
+    "routel": {
+      "kind": "canonical Python frontend",
+      "sha256": "3e1cc8b16457b4ca735074665dee6597e0c24b5a4f67e619660f5cfcb27ba262"
+    }
+  }
+}

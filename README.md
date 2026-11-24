@@ -69,6 +69,7 @@ scoring, and correctness gates.
 | Kmod 34.3 | 7 | 7 | 7 | 7 |
 | Procps-ng 4.0.7 | 20 | 20 | 20 | 20 |
 | Shadow 4.20.4 | 32 | 32 | 32 | 32 |
+| IPRoute2 7.3.0 | 21 | 21 | 0 | 0 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -1448,9 +1449,20 @@ Library-only checkpoints (outside the active utility order):
      Shadow through `shadow-` aliases.  Exact evidence is recorded in
      `evidence/shadow-4.20.4-multicall.json` and
      `evidence/rustbox-multicall.json`.
-   - [ ] IPRoute2 — `arpd`, `bridge`, `ctstat`, `dcb`, `devlink`, `genl`,
-     `ifcfg`, `ifstat`, `ip`, `lnstat`, `nstat`, `rdma`, `routef`, `routel`,
-     `rtacct`, `rtmon`, `rtpr`, `rtstat`, `ss`, `tc`, `tipc`, `vdpa`.
+   - [ ] IPRoute2 7.3.0 — `arpd`, `bridge`, `ctstat`, `dcb`, `devlink`,
+     `dpll`, `genl`, `ifstat`, `ip`, `lnstat`, `netshaper`, `nstat`, `rdma`,
+     `routel`, `rtacct`, `rtmon`, `rtstat`, `ss`, `tc`, `tipc`, and `vdpa`.
+     The current signed kernel.org release no longer installs the former
+     `ifcfg`, `routef`, or `rtpr` scripts; it adds the canonical `dpll` and
+     `netshaper` programs.  Its 21-name oracle comprises 18 native engines,
+     two `lnstat` aliases, and the Python `routel` frontend.  Independent GCC
+     and Clang builds cover the same 264 compiled sources (260 production
+     utility sources after excluding four netem table generators), all 63
+     public comparisons match, and all 20 native resource paths are clean.
+     Both isolated privileged suites pass 18/19 tests; the identical
+     `bareudp` failure is a documented Docker-host kernel limitation.  The
+     five-tool static-analysis baseline and exact signed-source evidence are
+     recorded in `evidence/iproute2-7.3.0-oracle.json`.
    - [ ] E2fsprogs — `badblocks`, `chattr`, `debugfs`, `dumpe2fs`,
      `e2freefrag`, `e2fsck`, `e2image`, `e2label`, `e2mmpstatus`, `e2scrub`,
      `e2scrub_all`, `e2undo`, `e4crypt`, `e4defrag`, `filefrag`, `findfs`,

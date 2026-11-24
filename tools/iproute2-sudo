@@ -1,0 +1,9 @@
+#!/bin/sh
+# SPDX-License-Identifier: 0BSD
+# The canonical tests expect sudo.  Their disposable container already runs
+# as root, so preserve argument boundaries and execute directly.
+set -eu
+if test "${1-}" = -E; then
+  shift
+fi
+exec "$@"
