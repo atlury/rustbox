@@ -1,0 +1,70 @@
+{
+  "artifacts": {
+    "clang_bytes": 58048,
+    "clang_sha256": "97461d3a1f913cc549b89768f3b34ae3ef577398b89a810a20e31b57d00def6e",
+    "gcc_bytes": 57616,
+    "gcc_sha256": "0f7137b36a1279ad6151cc6070a8261adfdcb3a06f2b9a75d35584f8b4bc34dc",
+    "multicall_object_bytes": 50624,
+    "multicall_object_sha256": "cc4908c4b915a67b51b9d2d321bdba0773e76b147bd2645f2ed83426fcd18c69",
+    "templates_object_bytes": 17032,
+    "templates_object_sha256": "dd68921f59be51780c4c53fa394f8c026c7298cebd74641ec82f62c47170b919"
+  },
+  "canonical_frontend_cases": 48,
+  "canonical_frontend_passed": 48,
+  "dynamic_needed": [
+    "libc.so.6"
+  ],
+  "embedded_templates": [
+    "et_h.awk",
+    "et_c.awk",
+    "ct_c.sed",
+    "ct_c.awk"
+  ],
+  "exported_symbols": [
+    "rustbox_e2fsprogs_compile_et_main",
+    "rustbox_e2fsprogs_e2scrub_all_main",
+    "rustbox_e2fsprogs_e2scrub_main",
+    "rustbox_e2fsprogs_mk_cmds_main"
+  ],
+  "fake_lvm_orchestration_cases": 8,
+  "fake_lvm_orchestration_passed": 8,
+  "fresh_isolated_generator_cases": 12,
+  "in_binary_callbacks": [
+    "gawk",
+    "sed",
+    "lsblk",
+    "dumpe2fs",
+    "e2fsck",
+    "tune2fs"
+  ],
+  "programs": [
+    "e2scrub",
+    "e2scrub_all",
+    "compile_et",
+    "mk_cmds"
+  ],
+  "real_lvm_mutation_policy": "not exercised because it would mutate host block storage",
+  "release": "1.47.4",
+  "repeat_preserves_inode_mtime_mode_and_bytes_cases": 4,
+  "schema": 1,
+  "status": "four native script frontends verified",
+  "systemd_orchestration": "omitted by project policy; direct e2scrub dispatch is used",
+  "temporary_exec_fallbacks": [
+    "lvs",
+    "lvcreate",
+    "lvremove",
+    "udevadm",
+    "fstrim"
+  ],
+  "valgrind_log_sha256": {
+    "compile_et": "bc9308533c94ab8c18d6b933b70e6735a45133f1d6b8199687cf8cb740650d31",
+    "e2scrub": "a825031266592e9fee819eee32d39327779c8e767a30875dc5eec525577d7990",
+    "e2scrub_all": "58cc2be3f2db0774e04413d54dbabf1558c119fd5026407c94eeea13a317d892",
+    "mk_cmds": "3392245cc8ab7bb8ecfb8f554ab9504756ff3b8e5087032c5ccff60d3721c15b"
+  },
+  "zero_diagnostic_analyzer_log_sha256": {
+    "clang-analyzer": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cppcheck": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gcc-analyzer": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

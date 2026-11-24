@@ -1496,6 +1496,19 @@ Library-only checkpoints (outside the active utility order):
      allocation artifact.  All 28 ELF Valgrind paths, four script syntax
      gates, and 40 exported-symbol checks pass.  Exact evidence is in
      `evidence/e2fsprogs-1.47.4-normalization.json`.
+     The four upstream scripts are also replaced by native C ABI frontends.
+     `compile_et` and `mk_cmds` embed the signed upstream awk/sed templates and
+     reproduce generated files byte-for-byte; `e2scrub` and `e2scrub_all`
+     implement the mount, journal, LVM snapshot, two-stage fsck, marking,
+     cleanup, retry, and optional trim orchestration without a shell or Python.
+     All 48 canonical CLI/generator comparisons—including isolated fresh
+     generation and metadata-preserving repeat runs—and eight deterministic
+     canonical-versus-native fake-LVM flows pass, as do four Valgrind paths
+     and zero-diagnostic Cppcheck, GCC analyzer, and Clang analyzer gates.
+     Real block-device mutation is deliberately not run.  Systemd integration
+     is omitted by policy; narrow exec fallbacks remain for the external LVM
+     commands, udev settling, and fstrim until those suites enter scope.  See
+     `evidence/e2fsprogs-1.47.4-script-frontends.json`.
 
 ## Applet inventory
 
