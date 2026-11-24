@@ -865,6 +865,12 @@ def main() -> int:
     if forbidden or forbidden_undefined:
         raise RuntimeError("unified binary retains a forbidden security-library dependency")
     evidence_link = dict(link)
+    gzip_members = link["gzip_coalesced_runtime_members"]
+    evidence_link["gzip_coalesced_runtime_members"] = {
+        "count": len(gzip_members),
+        "bytes": link["gzip_coalesced_runtime_member_bytes"],
+        "sha256": hashlib.sha256(json.dumps(gzip_members, separators=(",", ":")).encode()).hexdigest(),
+    }
     curl_symbol_bytes = json.dumps(
         link["curl_namespaced_symbols"], separators=(",", ":"), sort_keys=True
     ).encode()

@@ -221,8 +221,10 @@ E2fsprogs integration passes 112/112 canonical comparisons and all 32
 Valgrind paths; its 20 private namespaces rename 8,979 symbols after removing
 3,966 byte-identical Rust runtime members already provided by Procps-ng.
 Exact evidence is in `evidence/e2fsprogs-1.47.4-multicall.json`.  The resulting
-499-name executable is 45,650,264 bytes unstripped and 25,505,568 bytes
-stripped; its exact hashes and
+499-name executable is 43,189,360 bytes unstripped and 25,216,304 bytes
+stripped. Sharing the Coreutils runtime with Gzip saved 289,264 stripped
+bytes. The linker compares 328 archive members byte-for-byte before sharing
+them. The exact hashes and
 section/link evidence are recorded in `evidence/rustbox-multicall.json`.
 `chcon` and `runcon`
 remain absent, and the linked binary has no SELinux or systemd dependency.

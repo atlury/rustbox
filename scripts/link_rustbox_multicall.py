@@ -14,7 +14,7 @@ import subprocess
 import tempfile
 from pathlib import Path
 
-ISOLATION_CACHE_VERSION = 17
+ISOLATION_CACHE_VERSION = 18
 INETUTILS_PROGRAMS = (
     "dnsdomainname", "ftp", "ftpd", "hostname", "ifconfig", "inetd",
     "logger", "ping", "ping6", "rcp", "rexec", "rexecd", "rlogin",
@@ -1456,7 +1456,7 @@ def coalesce_identical_archive_members(
     consumer: Path,
     destination: Path,
     label: str,
-) -> tuple[Path, list[str]]:
+) -> tuple[Path, list[str], int]:
     """Remove byte-identical Rust runtime members from a later staticlib."""
     def members(path: Path) -> list[str]:
         return subprocess.run(
@@ -1489,6 +1489,9 @@ def coalesce_identical_archive_members(
             name for name in common
             if sha256(provider_root / name) != sha256(consumer_root / name)
         ]
+        common_bytes = sum(
+            (provider_root / name).stat().st_size for name in common
+        )
     if different:
         raise RuntimeError(
             f"{label} archive members differ: {different[:5]}"
@@ -1503,7 +1506,7 @@ def coalesce_identical_archive_members(
         raise RuntimeError(f"{label} coalescing retained a shared member")
     if len(remaining) != len(consumer_members) - len(common):
         raise RuntimeError(f"{label} coalescing removed the wrong member count")
-    return coalesced, common
+    return coalesced, common, common_bytes
 
 
 def namespace_tar_inputs(
@@ -2521,6 +2524,10 @@ def main() -> int:
     for library in libraries:
         if not library.is_file():
             raise RuntimeError(f"translated Coreutils library is missing: {library}")
+    coreutils_runtime_provider_index = 1
+    coreutils_runtime_provider = libraries[coreutils_runtime_provider_index]
+    if coreutils_runtime_provider.name != "libcoreutils_small_01_reachable.a":
+        raise RuntimeError("pinned Coreutils Rust runtime provider changed")
 
     util_manifests = [
         json.loads(path.read_text(encoding="utf-8"))
@@ -2872,10 +2879,34 @@ def main() -> int:
         mapped_gzip_rust = build / "src/.rustbox-gzip" / libraries[gzip_library_index].name
         mapped_gzip_support = build / "src/.rustbox-gzip" / gzip_support_library.name
         gzip_symbols = cached_report["gzip_namespaced_symbols"]
+        gzip_runtime_members = cached_report["gzip_coalesced_runtime_members"]
+        gzip_runtime_member_bytes = cached_report[
+            "gzip_coalesced_runtime_member_bytes"
+        ]
     else:
-        mapped_gzip_rust, mapped_gzip_support, gzip_symbols = namespace_gzip_libraries(
-            libraries[gzip_library_index], gzip_support_library, build
+        (
+            coalesced_gzip_rust,
+            gzip_runtime_members,
+            gzip_runtime_member_bytes,
+        ) = coalesce_identical_archive_members(
+            coreutils_runtime_provider,
+            libraries[gzip_library_index],
+            build / "src/.rustbox-gzip-runtime",
+            "Gzip/Coreutils pinned stable Rust runtime",
         )
+        mapped_gzip_rust, mapped_gzip_support, gzip_symbols = namespace_gzip_libraries(
+            coalesced_gzip_rust, gzip_support_library, build
+        )
+    if (
+        len(gzip_runtime_members) != 328
+        or gzip_runtime_member_bytes != 23087912
+    ):
+        raise RuntimeError(
+            "Gzip/Coreutils pinned runtime overlap changed: "
+            f"{len(gzip_runtime_members)} members/{gzip_runtime_member_bytes} bytes"
+        )
+    if "rust_eh_personality" in gzip_symbols:
+        raise RuntimeError("Gzip namespace mapping retained a removed runtime definition")
     libraries[gzip_library_index] = mapped_gzip_rust
 
     if cached_report:
@@ -3004,7 +3035,7 @@ def main() -> int:
         def coalesce_e2fsprogs(
             name: str,
         ) -> tuple[str, Path, list[str]]:
-            coalesced, runtime_members = coalesce_identical_archive_members(
+            coalesced, runtime_members, _ = coalesce_identical_archive_members(
                 procps_rust_library,
                 e2fsprogs_libraries[name],
                 build / "src/.rustbox-e2fsprogs-runtime" / name,
@@ -3058,7 +3089,11 @@ def main() -> int:
         shadow_symbols = cached_report["shadow_namespaced_symbols"]
         shadow_runtime_members = cached_report["shadow_coalesced_runtime_members"]
     else:
-        coalesced_shadow_rust, shadow_runtime_members = coalesce_identical_archive_members(
+        (
+            coalesced_shadow_rust,
+            shadow_runtime_members,
+            _,
+        ) = coalesce_identical_archive_members(
             procps_rust_library,
             shadow_rust_library,
             build / "src/.rustbox-shadow-runtime",
@@ -3086,6 +3121,8 @@ def main() -> int:
         libraries, namespaced_symbols = namespace_duplicate_c_symbols(
             libraries, expected_symbols, canonical_dispatch_symbols, build
         )
+    if coreutils_runtime_provider.name in namespaced_symbols:
+        raise RuntimeError("Coreutils Rust runtime provider unexpectedly needs isolation")
     if cached_report:
         mapped_m4_rust = build / "src/.rustbox-m4-support" / libraries[m4_library_index].name
         mapped_m4_support = build / "src/.rustbox-m4-support" / m4_support_library.name
@@ -3399,6 +3436,10 @@ def main() -> int:
                 # archive for the linker to extract that member.
                 rewritten.append(str(bison_frontends_object))
                 rewritten.extend(str(path) for path in libraries)
+                # Gzip's byte-identical stable runtime members are coalesced
+                # into Coreutils batch 01.  Repeat only the provider archive
+                # after Gzip so normal extraction can satisfy late imports.
+                rewritten.append(str(coreutils_runtime_provider))
                 # Shadow's byte-identical nightly runtime members are
                 # coalesced into Procps.  Repeat that provider after Shadow so
                 # normal archive extraction can satisfy late runtime imports.
@@ -3602,6 +3643,9 @@ def main() -> int:
         "lz4_namespaced_symbols": lz4_symbols,
         "less_namespaced_symbols": less_symbols,
         "gzip_namespaced_symbols": gzip_symbols,
+        "gzip_coalesced_runtime_members": gzip_runtime_members,
+        "gzip_coalesced_runtime_member_count": len(gzip_runtime_members),
+        "gzip_coalesced_runtime_member_bytes": gzip_runtime_member_bytes,
         "xz_namespaced_symbols": xz_symbols,
         "zstd_namespaced_symbols": zstd_symbols,
         "tar_namespaced_symbols": tar_symbols,
