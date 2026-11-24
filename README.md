@@ -317,8 +317,10 @@ test compares the candidate with the pinned C function across 16,977,457
 cases, traces a real checksum call during a read-only filesystem check, and
 compares both passes of the upstream `f_uninit_checksum_bad` fixture and the
 repaired image bytes. The default multicall still uses the baseline translation.
-The rollout gate is to rebuild all affected engines against the shared
-implementation, inspect the linked symbols and run the multicall regressions.
+Run `scripts/test_e2fsprogs_crc16.sh --all-engines` to rebuild all 13 checksum
+consumers and compare the 28 standalone public names. All 112 command cases
+passed alongside the checksum and repaired-image checks. Verifying shared
+linkage and behavior in the default multicall remains the next step.
 
 Run the following audit to group finalized files by their SHA-256 and list
 every engine path in each group. The counts use the translation inventory's

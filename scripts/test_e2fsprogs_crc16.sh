@@ -2,7 +2,12 @@
 # SPDX-License-Identifier: GPL-2.0-only
 set -eu
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
-exec docker run --rm -i --network none --platform linux/amd64 \
+case "$#" in
+    0) set -- ;;
+    1) test "$1" = --all-engines; set -- -e RUSTBOX_CRC16_ALL=1 ;;
+    *) echo "usage: $0 [--all-engines]" >&2; exit 2 ;;
+esac
+exec docker run --rm -i "$@" --network none --platform linux/amd64 \
     -v "$root:/work:ro" -v rustbox-e2fsprogs-1.47.4:/rustbox-e2fsprogs:ro \
     --workdir /tmp rustbox-e2fsprogs:2026-11-24 sh -eu <<'PILOT'
 export LC_ALL=C TZ=UTC
@@ -24,23 +29,15 @@ gcc -Wall -Wextra -Werror -O2 -I"$src/ext2fs" \
     /work/tests/e2fsprogs-crc16/differential.c canonical.o candidate.o -o compare
 ./compare
 
-# Remove the translated definition before compilation so inlined copies cannot
-# satisfy the engine's calls. The original finalized translation stays intact.
-cp -R "$crates/e2fsck/e2fsck-final" engine
-module=$(find engine -path '*/lib/ext2fs/crc16.rs')
-printf '%s  %s\n' c3e5eff63f35648b28420174e58a0646ab5ec29d93e9d37321c5f557beed45cd "$module" | sha256sum -c
-printf '%s\n' '// ext2fs_crc16 is supplied by the Rustbox CRC16 object.' > "$module"
-# Reuse only the locked bitfields dependency from the release translation.
-deps=$crates/cargo-target/e2fsck/release/deps
-set -- "$deps"/libc2rust_bitfields-*.rlib
-test "$#" -eq 1
-rustc +nightly-2023-04-15 --edition=2021 --crate-type=staticlib --crate-name e2fsck_audit \
-    -C opt-level=3 --cap-lints=allow -L "dependency=$deps" --extern "c2rust_bitfields=$1" \
-    engine/lib.rs -o engine.a
-clang-18 -O2 -ffunction-sections -fdata-sections -Wl,--gc-sections \
-    -DRUSTBOX_E2FSPROGS_ENTRY=rustbox_e2fsprogs_e2fsck_main \
-    /work/bridges/e2fsprogs_program_main.c engine.a \
-    candidate.o -lblkid -luuid -lfuse3 -ldl -lpthread -lm -o e2fsck
+set --
+if [ "${RUSTBOX_CRC16_ALL:-0}" = 1 ]; then set -- --all-engines; fi
+python3 /work/scripts/check_e2fsprogs_crc16_engines.py "$crates" /tmp/engines /tmp/candidate.o "$@"
+ln -s /tmp/engines/e2fsck /tmp/e2fsck
+if [ "${RUSTBOX_CRC16_ALL:-0}" = 1 ]; then
+    python3 /work/tests/e2fsprogs-hybrid-differential.py \
+        --canonical-root /rustbox-e2fsprogs/stage-gcc --hybrid-root /tmp/engines \
+        --output /tmp/all-engines.json
+fi
 
 # uninit_bg without metadata_csum selects the legacy descriptor CRC16.
 truncate -s 32M fs.img
