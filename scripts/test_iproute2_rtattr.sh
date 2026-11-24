@@ -2,7 +2,12 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 set -eu
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
-exec docker run --rm -i --network none --platform linux/amd64 \
+case "${1-}" in
+    '') set -- ;;
+    --kernel-events) test "$#" -eq 1; set -- --cap-add NET_ADMIN -e RUSTBOX_KERNEL_EVENTS=1 ;;
+    *) echo "usage: $0 [--kernel-events]" >&2; exit 2 ;;
+esac
+exec docker run --rm -i --network none "$@" --platform linux/amd64 \
     -v "$root:/work:ro" -v rustbox-iproute2-7.3.0:/rustbox-iproute2:ro \
     --workdir /tmp rustbox-iproute2:2026-11-24 sh -eu <<'PILOT'
 export LC_ALL=C TZ=UTC
@@ -14,8 +19,8 @@ b7bcc45da00500068db4bba3391d6ec54b0c5282f71f78cb308cc050b8f5da27  lib/libnetlink
 1ad489115675ce059c7b5dacbb99c5f8ad65aaf11fdd00f0e1f9dda393b7c22a  include/uapi/linux/rtnetlink.h
 HASHES
 cd /tmp
-rustc --edition=2021 --test /work/compat/iproute2/replay_buffer.rs -o check-replay-bound
-./check-replay-bound
+rustc --edition=2021 --test /work/compat/iproute2/monitor_buffer.rs -o check-monitor-bound
+./check-monitor-bound
 python3 - "$base/oracle/gcc-compile-commands.json" "$src" <<'PY'
 import json, subprocess, sys
 from pathlib import Path
@@ -41,7 +46,7 @@ crates=$base/program-translations
 cp -R "$crates/bridge/bridge-final" engine
 module=engine/src/lib/libnetlink.rs
 printf '%s  %s\n' 0d659c3db5057da08bdb4b530222fba2597454ca0bc240ce7dbf3558ee40fb8b "$module" | sha256sum -c
-cp /work/compat/iproute2/replay_buffer.rs /work/compat/iproute2/rtattr.rs engine/
+cp /work/compat/iproute2/monitor_buffer.rs /work/compat/iproute2/rtattr.rs engine/
 python3 - "$module" <<'PY'
 import sys
 from pathlib import Path
@@ -55,25 +60,30 @@ decl = '''extern "C" {
 }
 '''
 s = s[:start] + decl + s[end:]
-start = s.index('pub unsafe extern "C" fn rtnl_from_file(')
-end = s.index('#[no_mangle]', start)
-reader = s[start:end]
-changes = [
-    ('let mut buf: [::core::ffi::c_char; 16384] = [0; 16384];',
-     'let mut storage = crate::replay_buffer::ReplayBuffer::new();\n'
-     '    let buf = storage.as_mut_ptr();'),
-    ('&raw mut buf as *mut ::core::ffi::c_char as *mut nlmsghdr', 'buf.cast::<nlmsghdr>()'),
-    ('&raw mut buf as *mut ::core::ffi::c_void', 'buf.cast::<::core::ffi::c_void>()'),
-    ('::core::mem::size_of::<[::core::ffi::c_char; 16384]>() as usize',
-     'crate::replay_buffer::WIRE_LIMIT'),
-]
-for old, new in changes:
-    if reader.count(old) != 1:
-        raise ValueError(f"unexpected replay reader for {old}")
-    reader = reader.replace(old, new)
-path.write_text(s[:start] + reader + s[end:])
+for name, old_iov_base in [
+    ('rtnl_from_file', '&raw mut buf as *mut ::core::ffi::c_void'),
+    ('rtnl_listen', '&raw mut buf as *mut ::core::ffi::c_char as *mut ::core::ffi::c_void'),
+]:
+    start = s.index(f'pub unsafe extern "C" fn {name}(')
+    end = s.index('#[no_mangle]', start)
+    reader = s[start:end]
+    changes = [
+        ('let mut buf: [::core::ffi::c_char; 16384] = [0; 16384];',
+         'let mut storage = crate::monitor_buffer::MonitorBuffer::new();\n'
+         '    let buf = storage.as_mut_ptr();'),
+        ('&raw mut buf as *mut ::core::ffi::c_char as *mut nlmsghdr', 'buf.cast::<nlmsghdr>()'),
+        (old_iov_base, 'buf.cast::<::core::ffi::c_void>()'),
+        ('::core::mem::size_of::<[::core::ffi::c_char; 16384]>() as usize',
+         'crate::monitor_buffer::WIRE_LIMIT'),
+    ]
+    for old, new in changes:
+        if reader.count(old) != 1:
+            raise ValueError(f"unexpected {name} receive buffer for {old}")
+        reader = reader.replace(old, new)
+    s = s[:start] + reader + s[end:]
+path.write_text(s)
 with Path('engine/lib.rs').open('a') as root:
-    root.write('\nmod replay_buffer;\n')
+    root.write('\nmod monitor_buffer;\n')
 PY
 deps=$crates/cargo-target/bridge/release/deps
 set -- "$deps"/libc2rust_asm_casts-*.rlib "$deps"/libf128-*.rlib
@@ -85,28 +95,21 @@ clang-18 -O2 -Wl,--gc-sections -DRUSTBOX_IPROUTE2_ENTRY=rustbox_iproute2_bridge_
     /work/bridges/iproute2_program_main.c engine.a candidate.o \
     -ltirpc -lbpf -lelf -lmnl -lcap -ldb -lxtables -ldl -lpthread -lm -o bridge
 
-# Replay a valid saved bridge FDB update, offline. Duplicate VLAN attributes
-# exercise first-match selection after NLA_F_NESTED has been masked.
-python3 - <<'PY'
-from struct import pack
-from pathlib import Path
-def attr(kind, payload):
-    size = 4 + len(payload)
-    return pack("=HH", size, kind) + payload + bytes(-size % 4)
-ndmsg = pack("=BBHiHBB", 7, 0, 0, 0, 0x80, 0, 0)
-attrs = attr(0x8005, pack("=H", 42)) + attr(5, pack("=H", 99))
-def record(extra=b''):
-    body = ndmsg + attrs + extra
-    return pack("=IHHII", 16 + len(body), 28, 0, 0, 0) + body
-small = record()
-def padded(size):
-    # Unknown, well-formed attribute ignored by the FDB printer.
-    result = record(attr(0x3fff, bytes(size - len(small) - 4)))
-    assert len(result) == size
-    return result
-Path("fdb.dump").write_bytes(small + padded(16384) + small)
-Path("oversize.dump").write_bytes(padded(16388))
-PY
+# Both variants use the same socket harness, with their own listener and printer.
+oracle_dir=/rustbox-iproute2/oracle-gcc
+gcc -Wall -Wextra -Werror -D_GNU_SOURCE -I"$src/include" -I"$src/include/uapi" \
+    -c /work/tests/iproute2-rtattr/live.c -o harness.o
+objcopy --redefine-sym main=oracle_bridge_main "$oracle_dir/bridge/bridge.o" oracle-bridge.o
+set -- oracle-bridge.o
+for obj in fdb monitor link mdb mst vlan vni; do set -- "$@" "$oracle_dir/bridge/$obj.o"; done
+gcc harness.o "$@" -Wl,--start-group "$oracle_dir/lib/libutil.a" "$oracle_dir/lib/libnetlink.a" \
+    -Wl,--end-group -ltirpc -lbpf -lelf -lmnl -lcap -lm -o live-oracle
+clang-18 -Wl,--gc-sections harness.o engine.a candidate.o \
+    -ltirpc -lbpf -lelf -lmnl -lcap -ldb -lxtables -ldl -lpthread -lm -o live-candidate
+python3 /work/tests/iproute2-rtattr/monitor.py
+for symbol in rtnl_listen print_fdb parse_rtattr_flags; do
+    grep -Eq "^(c?fn)=.*${symbol}$" live.trace
+done
 /rustbox-iproute2/programs-gcc/bridge monitor file fdb.dump > oracle.stdout 2> oracle.stderr
 ./bridge monitor file fdb.dump > candidate.stdout 2> candidate.stderr
 cmp oracle.stdout candidate.stdout
@@ -133,4 +136,7 @@ valgrind --tool=callgrind --callgrind-out-file=trace --log-file=valgrind.log \
     ./bridge monitor file fdb.dump > /dev/null
 grep -Eq '^(c?fn)=.*parse_rtattr_flags$' trace
 echo 'bridge replay matched and called the replacement'
+if [ "${RUSTBOX_KERNEL_EVENTS:-0}" = 1 ]; then
+    python3 /work/tests/iproute2-rtattr/kernel_monitor.py
+fi
 PILOT

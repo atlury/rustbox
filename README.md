@@ -275,7 +275,17 @@ scripts/test_e2fsprogs_multicall.sh /work/work/analysis/packed/rustbox
 5. Re-run every upstream suite, differential case, sanitizer, analyzer,
    Valgrind, static-link, and stripped-size gate on the hardened artifact.
 
-#### Pointer safety pilot
+#### Pointer removal progress
+
+Two shared algorithms have verified safe Rust implementations in pilot
+builds. **Production substitutions from these pilots: 0.** The default
+multicall still links the generated versions, so the production pointer
+inventory receives no reduction from these changes.
+
+| Algorithm | Verified in the pilot | Remaining before production |
+|---|---|---|
+| E2fsprogs `ext2fs_crc16` | Safe slice loop in `e2fsck`, with one raw-pointer adapter at the C boundary | Rebuild affected engines, verify shared linkage and run multicall regressions |
+| IPRoute2 `parse_rtattr_flags` | Safe attribute walk in `bridge`; diagnostic backing verified for 2 of 4 top-level FDB paths (file replay and live monitoring) | Verify heap-backed dumps and replies, audit nested callers and other engines, then run multicall regressions |
 
 The first substitution covers E2fsprogs 1.47.4 `ext2fs_crc16`. The same
 generated module occurs in 13 finalized engine crates, and the baseline link
@@ -338,20 +348,30 @@ owner's buffer are separate quantities.
 | FDB path | Buffer owner in IPRoute2 7.3.0 | Pilot coverage |
 |---|---|---|
 | Saved monitor file | `rtnl_from_file` reads aligned records into a reusable buffer | The pilot provides initialized storage through the final diagnostic field. |
-| Live monitor | `rtnl_listen` receives into a stack buffer and dispatches each record | The callback receives a message pointer. A bound for the diagnostic remains to be established. |
+| Live monitor | `rtnl_listen` dispatches records at aligned offsets in a received datagram | The pilot uses the same initialized buffer as file replay and still offers exactly 16 KiB to `recvmsg`. |
 | FDB dump | `rtnl_recvmsg` allocates the receive buffer and `rtnl_dump_filter_l` iterates the returned bytes | Heap capacity alone gives no guarantee that spare bytes were initialized. |
 | Single FDB reply | `rtnl_talk` returns an owned receive buffer to `fdb_get` | The getter receives the pointer and frees it after printing. The allocation extent is absent from the print interface. |
 
-In the file-replay candidate, `compat/iproute2/replay_buffer.rs` keeps the
+For both monitor paths, `compat/iproute2/monitor_buffer.rs` keeps the
 16,384-byte wire limit and reserves two initialized bytes beyond it in the
 same aligned array. For a top-level FDB message, the first attribute starts
 at byte 28. Every accepted attribute starts on a four-byte boundary and fits
 in the remaining logical length, so its aligned end is at most the rounded-up
 message end. The test checks the bound for each accepted FDB length from 28
-through 16,384. Canonical and candidate commands also replay small, full-size
+through 16,384 and checks the final cursor at every possible aligned live
+record start. Canonical and candidate commands also replay small, full-size
 and small records in sequence and compare rejection of a 16,388-byte record.
 The nested attribute handlers and other engines still require their own
 caller checks before rollout to the default multicall.
+
+The live test sends the same datagrams over local `NETLINK_USERSOCK` sockets
+to the canonical and translated listeners. It checks FDB event order, the
+exact truncation diagnostic, and continued dispatch on the following datagram.
+Memcheck and Callgrind run on the translated listener and FDB printer.
+Run `scripts/test_iproute2_rtattr.sh --kernel-events` to also compare both
+public `bridge monitor fdb` commands on kernel-generated add and delete
+events. This option gives the temporary container `NET_ADMIN` in its own
+network namespace so it can create a test bridge.
 
 The isolated zlib 1.4 library checkpoint uses its signed release, independent GCC
 and Clang builds, 18-case upstream CTest suite, sanitizer and Valgrind gates,
