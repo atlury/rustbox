@@ -1,0 +1,931 @@
+{
+  "cargo_versions": [
+    "cargo 1.70.0-nightly (84b7041fd 2023-04-13)"
+  ],
+  "differential": {
+    "cases": 112,
+    "passed": 112,
+    "sha256": "53ebc8a787f368535ee510f4d77f16485d7138d1e338baaccc07a1c2bacc08ea"
+  },
+  "program_count": 20,
+  "programs": [
+    "badblocks",
+    "chattr",
+    "debugfs",
+    "dumpe2fs",
+    "e2freefrag",
+    "e2fsck",
+    "e2image",
+    "e2initrd_helper",
+    "e2undo",
+    "e4crypt",
+    "e4defrag",
+    "filefrag",
+    "fsck",
+    "fuse2fs",
+    "logsave",
+    "lsattr",
+    "mke2fs",
+    "mklost_found",
+    "resize2fs",
+    "tune2fs"
+  ],
+  "public_name_count": 28,
+  "public_names": [
+    "badblocks",
+    "debugfs",
+    "dumpe2fs",
+    "e2fsck",
+    "e2image",
+    "e2label",
+    "e2mmpstatus",
+    "e2undo",
+    "fsck",
+    "fsck.ext2",
+    "fsck.ext3",
+    "fsck.ext4",
+    "logsave",
+    "mke2fs",
+    "mkfs.ext2",
+    "mkfs.ext3",
+    "mkfs.ext4",
+    "resize2fs",
+    "tune2fs",
+    "chattr",
+    "fuse2fs",
+    "lsattr",
+    "e2initrd_helper",
+    "e2freefrag",
+    "e4crypt",
+    "e4defrag",
+    "filefrag",
+    "mklost+found"
+  ],
+  "records": {
+    "badblocks": {
+      "archive": {
+        "bytes": 22822248,
+        "sha256": "5140d2bcbc20c76448d826b2cfa6be4d5ac20df3c8b06abd41ca7135536e889b"
+      },
+      "asserted_repairs": 1,
+      "cargo_check_sha256": "69f078d2702c153ff0831de02afad119797fe3a5e4fa7098ef536bcfa908e59f",
+      "closure_sources": 59,
+      "final_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 61,
+        "lines": 265716,
+        "raw_pointer_type_occurrences": 22235,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "finalization_sha256": "e1746d1bb3a0b8fcfd1816a7b50934d923536caaecb3a4b6bf6403113d2a5d6c",
+      "hybrid": {
+        "bytes": 4288248,
+        "sha256": "6b4841006f920b55b6bc5630fd38b6a03d2f90fc801b9132799b140d4ebd3f5f"
+      },
+      "link_map": {
+        "bytes": 2923800,
+        "sha256": "1f0adc4db133de587f6bfc18736508574da5bc780f8a3200513e5d2c50e83d7c"
+      },
+      "raw_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 61,
+        "lines": 265715,
+        "raw_pointer_type_occurrences": 22235,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "repair_files": 1,
+      "symbols": {
+        "bytes": 18269,
+        "sha256": "0456b477f114d65368b0d62a74eb5dc06657def7f954897c8440df704ac0abd0"
+      },
+      "valgrind_log_sha256": "7e033c4e0c9038ac867021902009cce91fad16fda68a80184454621c97dc7793"
+    },
+    "chattr": {
+      "archive": {
+        "bytes": 21137458,
+        "sha256": "36b039f2a9ae0c6b9237580cb2ee86bbfcf33ba4e973520ab3c064dd48d336cb"
+      },
+      "asserted_repairs": 1,
+      "cargo_check_sha256": "84b3b3566b4107a8c6a36255911c235104d0f59fd23fe5edf905b7232646e304",
+      "closure_sources": 10,
+      "final_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 12,
+        "lines": 11589,
+        "raw_pointer_type_occurrences": 1871,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "finalization_sha256": "efb24217f3ec680ecbfd6e90b22ac904634ab0c99989622d0b8d36e9ec4569a3",
+      "hybrid": {
+        "bytes": 4263320,
+        "sha256": "652f4e40bd2b0118687da97ff1c02307d87985956de877eed26893d65a20c111"
+      },
+      "link_map": {
+        "bytes": 2614952,
+        "sha256": "d5999509e75c7b414c1425f77692a75087983a3e274dbf090c976b1fe32edc1d"
+      },
+      "raw_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 12,
+        "lines": 11588,
+        "raw_pointer_type_occurrences": 1871,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "repair_files": 1,
+      "symbols": {
+        "bytes": 18096,
+        "sha256": "4bb4345790a9b1675f70337f583173c55e722f057e53ec0ae1a1bd4c859764d0"
+      },
+      "valgrind_log_sha256": "60eccc38a2021e84bb06a8efe42a48a4a208e3ac94b47cd1cb77289b24b03f7d"
+    },
+    "debugfs": {
+      "archive": {
+        "bytes": 23901660,
+        "sha256": "63e386ee25992833ea6643bfbc87ca03205b2ff89c4a4a55eecee86082331148"
+      },
+      "asserted_repairs": 1,
+      "cargo_check_sha256": "907845a6ea01b59810111e64a1875ae86b2647c06d81b71d2f41ae1574a33756",
+      "closure_sources": 124,
+      "final_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 126,
+        "lines": 426519,
+        "raw_pointer_type_occurrences": 49119,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "finalization_sha256": "0477a0665f76e9f3cecfad77b0bbb5e0af999f972eeb267629b9518fcec1c706",
+      "hybrid": {
+        "bytes": 4915288,
+        "sha256": "f438f78bd351ee559a23d3ea2c0a2f980f4f5a83626f143f6d487c1ef4550c75"
+      },
+      "link_map": {
+        "bytes": 3780319,
+        "sha256": "45428355523fc23550fd7d7db22056505e8e8e588e12077a75f3825ba0510d83"
+      },
+      "raw_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 126,
+        "lines": 426518,
+        "raw_pointer_type_occurrences": 49119,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "repair_files": 1,
+      "symbols": {
+        "bytes": 71499,
+        "sha256": "d7991fab9f7e2ebb2e23fb529a8af4a0b3e6b9fcb1c1fbadedda38d078fe9bb0"
+      },
+      "valgrind_log_sha256": "538e913a8d552daafe720a32a98ce0f039e82a3861be57ce4697b72a62d37783"
+    },
+    "dumpe2fs": {
+      "archive": {
+        "bytes": 21954974,
+        "sha256": "f962fa084c21fc734f9e5286731b8b007781a12ab7a1c1103af42e3adc2dfe6c"
+      },
+      "asserted_repairs": 1,
+      "cargo_check_sha256": "4fd2e1a6503edc509c6459478611d2b5c496690e33183fe3cb346008cca4ce67",
+      "closure_sources": 71,
+      "final_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 73,
+        "lines": 285550,
+        "raw_pointer_type_occurrences": 26183,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "finalization_sha256": "0c40763e6c7c162ce3e44be679d3c33a67cb2fced5e191985bd8a7dbe5c5630a",
+      "hybrid": {
+        "bytes": 4526448,
+        "sha256": "6e8bcd1bd31a1010d1899ecfc21853954ff52c9e6fc8b320289293d7dacab523"
+      },
+      "link_map": {
+        "bytes": 3114703,
+        "sha256": "81256824a014ca9c565b9020f826d78e9331b3d853cc0a672d376fa4f6a2c28a"
+      },
+      "raw_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 73,
+        "lines": 285549,
+        "raw_pointer_type_occurrences": 26183,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "repair_files": 1,
+      "symbols": {
+        "bytes": 44505,
+        "sha256": "65c4793a14d18458866f27f47ead9f1a84aa7f322838a3662490c5b67b0b86c4"
+      },
+      "valgrind_log_sha256": "72c0ed6df87ca000cf249d52b3ae8d20d2649623d549d5858ea25521bec0e960"
+    },
+    "e2freefrag": {
+      "archive": {
+        "bytes": 21804528,
+        "sha256": "50fa8e45c115dab2bf222f578e530530a5e3a40dd6ad243dabb07c8c1fb9feb4"
+      },
+      "asserted_repairs": 1,
+      "cargo_check_sha256": "a5a5c6d062890b33ff985881ed64dd699fe41d91dcefc141c66facfe02709e3b",
+      "closure_sources": 58,
+      "final_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 60,
+        "lines": 258697,
+        "raw_pointer_type_occurrences": 21718,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "finalization_sha256": "91d429da8b72a5e623ebe5b1bedba84eb9f1e573ab9d477de91879ec5e167878",
+      "hybrid": {
+        "bytes": 4442280,
+        "sha256": "84d814fd225cc1cb0767b468760e285fec8ebd442ac984bdcb95fa8665fc5074"
+      },
+      "link_map": {
+        "bytes": 3025057,
+        "sha256": "a89a5e6400a1d78b06f5176057dc75bc51f1b824dac3e8e72003ab897f9e73b2"
+      },
+      "raw_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 60,
+        "lines": 258696,
+        "raw_pointer_type_occurrences": 21718,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "repair_files": 1,
+      "symbols": {
+        "bytes": 31102,
+        "sha256": "54b13ffe590b210e0e213f7bf64a21efc7154f4143deaa0bcb71d04b82339b87"
+      },
+      "valgrind_log_sha256": "e70e2d3d1ca192737bd5a5f8a37353cacf21520f9e6d8ecd7cd3ec63b84232fc"
+    },
+    "e2fsck": {
+      "archive": {
+        "bytes": 23092764,
+        "sha256": "6a61a99f08f356f6aa8683bd16cef30113db83e5a3e6e328a484f90678dbafa6"
+      },
+      "asserted_repairs": 2,
+      "cargo_check_sha256": "d4c82d6ea554d3dc7830c4ca38ea1a496acdea645c3a3e8de5557448f79f2c4b",
+      "closure_sources": 114,
+      "final_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 116,
+        "lines": 486919,
+        "raw_pointer_type_occurrences": 54201,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "finalization_sha256": "b48275d69a0bb920c65be36ff4d0eac2df8fc1711663a26aaf01c02f10bf1d8c",
+      "hybrid": {
+        "bytes": 5087432,
+        "sha256": "24f39c6c669967db1068e534ed3452e9a7a637685576248b05b9c1b0f8578a92"
+      },
+      "link_map": {
+        "bytes": 3775006,
+        "sha256": "3b13fe7841fa13de93d2a7d2b6b373a875aa5e756a9e6aa41f7fc91f6f43061d"
+      },
+      "raw_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 116,
+        "lines": 486917,
+        "raw_pointer_type_occurrences": 54201,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "repair_files": 1,
+      "symbols": {
+        "bytes": 70969,
+        "sha256": "ed54ba3524fe5616c2b8143307e4ea3390d865e118c8404b51ddf80a338fd070"
+      },
+      "valgrind_log_sha256": "14760f720ba1243ec93b9c3be8dcc4b4a986fea8ca1cdf77fce75f58b1e5ba5f"
+    },
+    "e2image": {
+      "archive": {
+        "bytes": 21965110,
+        "sha256": "9740ef490f7908c66e1f950922ec84394cf565ad85dab889135c08288cfcbb3d"
+      },
+      "asserted_repairs": 1,
+      "cargo_check_sha256": "8aa6d71d237b6ef748deddd65aa9ad92f9c69528bbddec53ebe83391bc6994d5",
+      "closure_sources": 65,
+      "final_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 67,
+        "lines": 284878,
+        "raw_pointer_type_occurrences": 25573,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "finalization_sha256": "8ed8fb7bce48180028a9a9a9e1748fb2b9ca1805c218514a49e002e279401624",
+      "hybrid": {
+        "bytes": 4521968,
+        "sha256": "fb00994b2537d48979bcd2b9e293752fc9110ecd07650306003ec5704d6e94f2"
+      },
+      "link_map": {
+        "bytes": 3064616,
+        "sha256": "7005250e285679f607b4fd5d7f2f55b895533525a7235a22506020fd36c6a153"
+      },
+      "raw_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 67,
+        "lines": 284877,
+        "raw_pointer_type_occurrences": 25573,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "repair_files": 1,
+      "symbols": {
+        "bytes": 35865,
+        "sha256": "aae58ec7b9e826b5e4bfc26d9cbe442275f8c48daf06ae694e9daae40b7f62de"
+      },
+      "valgrind_log_sha256": "d060ff54f14424466f165d4327f01b71b0e04ec5d56e370ea4d4786cc25dd832"
+    },
+    "e2initrd_helper": {
+      "archive": {
+        "bytes": 21832368,
+        "sha256": "4596b1486ad0c01656c008251ddab498a1f0e6e8925838b03cb06d104cb41ca0"
+      },
+      "asserted_repairs": 1,
+      "cargo_check_sha256": "1d6b36806594f5ffd24ef02c0e0d490f1925378247c3f561accb6fba61a880fe",
+      "closure_sources": 61,
+      "final_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 63,
+        "lines": 265593,
+        "raw_pointer_type_occurrences": 22715,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "finalization_sha256": "9748551cbb93617c3e5e64d680ee6849671a426609354c2768a5fd0ff9328777",
+      "hybrid": {
+        "bytes": 4541784,
+        "sha256": "b95ed32254f714fbd58cd3b35baabc0ecfce45ebe17d7f6284454fa4fd7bc39a"
+      },
+      "link_map": {
+        "bytes": 3178914,
+        "sha256": "89f110176119589c897f3e08ed6fa1b31609d1abf19762c5caf5ee59fbe73517"
+      },
+      "raw_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 63,
+        "lines": 265592,
+        "raw_pointer_type_occurrences": 22715,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "repair_files": 1,
+      "symbols": {
+        "bytes": 36570,
+        "sha256": "87d108990264c43d83b50db45802738363f42f3cefa3b34e2313c6cb8420f2ae"
+      },
+      "valgrind_log_sha256": "5d088e808156ae87d78df41ea1c0c6d876c10c928505f9fa32757c102ea297a1"
+    },
+    "e2undo": {
+      "archive": {
+        "bytes": 21857190,
+        "sha256": "0e8aafd7beaf0dbc461625726040c0d44001d9f9e20f124a54138bd3164c542b"
+      },
+      "asserted_repairs": 1,
+      "cargo_check_sha256": "1f1215e7e516c4da7fad113b2e1f31caf4080dd36b38abbb85fee24014836892",
+      "closure_sources": 60,
+      "final_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 62,
+        "lines": 266757,
+        "raw_pointer_type_occurrences": 22790,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "finalization_sha256": "dd8c7697885e0e89900b32ae37c6b123ff2b5278081c9c2b96b8dd698ac442c0",
+      "hybrid": {
+        "bytes": 4449448,
+        "sha256": "ae5aac57928a61c5975338bb980a9115b6f246372d25d8034659f71a13b8491e"
+      },
+      "link_map": {
+        "bytes": 2967669,
+        "sha256": "cc7ec7b7d2ba7185a2db80bf983c1e7ac7e761d310be127e289048a3d595c332"
+      },
+      "raw_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 62,
+        "lines": 266756,
+        "raw_pointer_type_occurrences": 22790,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "repair_files": 1,
+      "symbols": {
+        "bytes": 31934,
+        "sha256": "3e558961a5664c06d20e396ffaed292a61fce8f927c4b6d8fe79334db2f4f125"
+      },
+      "valgrind_log_sha256": "b2ae619f4130565972a0b4ebaa1f46ca56cc3983350ddac98b4826a2b7d76867"
+    },
+    "e4crypt": {
+      "archive": {
+        "bytes": 21120156,
+        "sha256": "ddfedb3b9ae441522012c682ab5f9bf036010b3f58c680ddfa182367aee594eb"
+      },
+      "asserted_repairs": 1,
+      "cargo_check_sha256": "ed3656cfdb8c7fcaaf33cf9edf8f868c179880b481ffd975285a0de15b75c56a",
+      "closure_sources": 2,
+      "final_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 4,
+        "lines": 10446,
+        "raw_pointer_type_occurrences": 1106,
+        "thread_local_attributes": 0,
+        "thread_local_feature_gates": 0,
+        "translation_holes": 0
+      },
+      "finalization_sha256": "e14298f75f3d3cd84414bf8b39bb5da70de7bd0c3fd2e2b5de13a7ac8ea9ed83",
+      "hybrid": {
+        "bytes": 4270528,
+        "sha256": "e96d86efa3bce191adcd6daa1f89aaa66ccd8a65bf49be77b90e4932b1a7a3d0"
+      },
+      "link_map": {
+        "bytes": 2612853,
+        "sha256": "e579005eff18b2745466ed24b49cbb9209599f3a7d98facca290fd66d0ef03cf"
+      },
+      "raw_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 4,
+        "lines": 10445,
+        "raw_pointer_type_occurrences": 1106,
+        "thread_local_attributes": 0,
+        "thread_local_feature_gates": 0,
+        "translation_holes": 0
+      },
+      "repair_files": 1,
+      "symbols": {
+        "bytes": 17493,
+        "sha256": "b811ef8a0747840b3a8756303a66cac938696ca723546c04aed49cba29519ddf"
+      },
+      "valgrind_log_sha256": "d4527b237db0d8f86b06e47c5c24bff674cd21c812a10c401471a9dc49735c29"
+    },
+    "e4defrag": {
+      "archive": {
+        "bytes": 21797666,
+        "sha256": "57014b84c1882f0c4ffc14dbcce529f169b68a962ba324853e2c2e78fc6e7c11"
+      },
+      "asserted_repairs": 1,
+      "cargo_check_sha256": "8215e25c8d489eb32537880c009ef611f50820e7da12b1681c601541b9d2a14d",
+      "closure_sources": 57,
+      "final_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 59,
+        "lines": 260866,
+        "raw_pointer_type_occurrences": 21863,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "finalization_sha256": "3a88b3371ed4c1c8403924be154b6573f9408e9989441ebf4bbf8d223d15904b",
+      "hybrid": {
+        "bytes": 4396992,
+        "sha256": "909a6c361960f3464ccb5c3a55c4dd0f7589427ccc2be4975033a524eefb4076"
+      },
+      "link_map": {
+        "bytes": 2928200,
+        "sha256": "7037b5d50ae683e146585ebcddff1592019a0b3e2632c8c6f3cee019338cc4d2"
+      },
+      "raw_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 59,
+        "lines": 260865,
+        "raw_pointer_type_occurrences": 21863,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "repair_files": 1,
+      "symbols": {
+        "bytes": 21973,
+        "sha256": "409a2042d32c68a61de56035b62a99efd49a002059e5457491e21d4b10edc969"
+      },
+      "valgrind_log_sha256": "bf92f407f2531b51ff887f21f9e45e099d20fcb4c3bb105fc3e11f54dfacdf59"
+    },
+    "filefrag": {
+      "archive": {
+        "bytes": 21102922,
+        "sha256": "0f21cbb3421fddd12423d97aa2f4c84590051cec3cd85106c9d149b5361163f8"
+      },
+      "asserted_repairs": 2,
+      "cargo_check_sha256": "20624d6e9c6e762060ace55ee561466eb88582714e209eef1a9526cbbd751532",
+      "closure_sources": 1,
+      "final_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 3,
+        "lines": 3849,
+        "raw_pointer_type_occurrences": 516,
+        "thread_local_attributes": 0,
+        "thread_local_feature_gates": 0,
+        "translation_holes": 0
+      },
+      "finalization_sha256": "7a081175671185359a69df0401cf957afffbda93b6c1984596f6a48aa76bcbb2",
+      "hybrid": {
+        "bytes": 4256024,
+        "sha256": "f24935a04bfa9b1029bff82cac39963f173c608e54285a1313fa1b7d55dfa3b3"
+      },
+      "link_map": {
+        "bytes": 2623956,
+        "sha256": "d51745aceae0e158791e1ffd768ee9089dd0283f0a8299792adfc5dc6aa8fa03"
+      },
+      "raw_translation": {
+        "c_variadic_feature_gates": 0,
+        "files": 3,
+        "lines": 3847,
+        "raw_pointer_type_occurrences": 516,
+        "thread_local_attributes": 0,
+        "thread_local_feature_gates": 0,
+        "translation_holes": 0
+      },
+      "repair_files": 1,
+      "symbols": {
+        "bytes": 17030,
+        "sha256": "d0f5248c7fe46b46a704a5e7df4256000e5b830221dbaa7d64e45d5c8a90a275"
+      },
+      "valgrind_log_sha256": "21872131d772a5ee27db7840a7c689b721a27f302ab75a3183b7c1cf15480497"
+    },
+    "fsck": {
+      "archive": {
+        "bytes": 21140272,
+        "sha256": "28d4986cd680b55854ebcc54b209c55fb8bd59ea2ae922dd357c4de81d2984ed"
+      },
+      "asserted_repairs": 2,
+      "cargo_check_sha256": "3f96ecc86b180d2ae679f51a92fdb65170ba3b8ff22d1e0b99c72fa863c7b90d",
+      "closure_sources": 4,
+      "final_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 6,
+        "lines": 4022,
+        "raw_pointer_type_occurrences": 864,
+        "thread_local_attributes": 0,
+        "thread_local_feature_gates": 0,
+        "translation_holes": 0
+      },
+      "finalization_sha256": "03b4484be23dbe3e6ba605a35f39d1947e1dd5c4dd4d3d2466ff0fa5dc037cc6",
+      "hybrid": {
+        "bytes": 4272544,
+        "sha256": "ad543de7efeebc5d7b96657c89d598422cc572d03954dbabcb8453cf97a33463"
+      },
+      "link_map": {
+        "bytes": 2573486,
+        "sha256": "5bbea61bfa21bdb0e560a6ec340bc286ae70df9c610b5f71917b44bd20f294c0"
+      },
+      "raw_translation": {
+        "c_variadic_feature_gates": 0,
+        "files": 6,
+        "lines": 4020,
+        "raw_pointer_type_occurrences": 864,
+        "thread_local_attributes": 0,
+        "thread_local_feature_gates": 0,
+        "translation_holes": 0
+      },
+      "repair_files": 1,
+      "symbols": {
+        "bytes": 17004,
+        "sha256": "5e9a6fd6405281583671fcfd0c25416a854daea0ec6e9987fcf97a55ef722036"
+      },
+      "valgrind_log_sha256": "81e3e795a951ae293adce57e372ed0df269569475f731c37da24d9330c56c2da"
+    },
+    "fuse2fs": {
+      "archive": {
+        "bytes": 23045514,
+        "sha256": "11eae251191222e07eec044db1f7b68bb09ab19d2a9e149b3f844e3abd3865fc"
+      },
+      "asserted_repairs": 1,
+      "cargo_check_sha256": "f41d9df24bfa286b13a8ec538c98df7a8b12e05c66c1603e131f190379ac8113",
+      "closure_sources": 65,
+      "final_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 67,
+        "lines": 292474,
+        "raw_pointer_type_occurrences": 26629,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "finalization_sha256": "dc4d3323baf195054809a7c640e9c201c2ba4aad0a8a3e8e410aeaa5cfa93484",
+      "hybrid": {
+        "bytes": 4659984,
+        "sha256": "e1b5c93e369964659d610e8198a06ef3da67a5e2e0bb2b48a0c528d6aab13ae6"
+      },
+      "link_map": {
+        "bytes": 3095051,
+        "sha256": "76b48b839bb9319bfcce8943396ba045746d0cdaa06b475bc0cbbba9b3e25a03"
+      },
+      "raw_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 67,
+        "lines": 292473,
+        "raw_pointer_type_occurrences": 26629,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "repair_files": 1,
+      "symbols": {
+        "bytes": 40187,
+        "sha256": "7e18f025baf4a49f7648e2ef8ccdb6fd6561281f9af1f3f2bcefb5de2aebc8db"
+      },
+      "valgrind_log_sha256": "1975714909988702b3765931f32004b78332179f39f5b77db098dc976ed56546"
+    },
+    "logsave": {
+      "archive": {
+        "bytes": 21089250,
+        "sha256": "0c1ba271f084bb6529fcde197e1285839d32f09a3db01e6ff0329d1ccea9c61c"
+      },
+      "asserted_repairs": 2,
+      "cargo_check_sha256": "d464243289207ce076ada5583a4a0155b1971846cb00410c6cfe320011a98fa6",
+      "closure_sources": 1,
+      "final_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 3,
+        "lines": 969,
+        "raw_pointer_type_occurrences": 189,
+        "thread_local_attributes": 0,
+        "thread_local_feature_gates": 0,
+        "translation_holes": 0
+      },
+      "finalization_sha256": "ef9b8aaca6a9eb7345e3d8bda18b708bbda3ecf34b54bf17aeaa8c8fb8fbc55f",
+      "hybrid": {
+        "bytes": 4255840,
+        "sha256": "c1a34d3f8ac0b9cfd8a941e1b0658db4889d0478a17851de538bdc0bbb04b5f9"
+      },
+      "link_map": {
+        "bytes": 2591675,
+        "sha256": "a4833f774be2e045bbe62222e84fbb90cab49ddf92c10400e325f1614814f5f3"
+      },
+      "raw_translation": {
+        "c_variadic_feature_gates": 0,
+        "files": 3,
+        "lines": 967,
+        "raw_pointer_type_occurrences": 189,
+        "thread_local_attributes": 0,
+        "thread_local_feature_gates": 0,
+        "translation_holes": 0
+      },
+      "repair_files": 1,
+      "symbols": {
+        "bytes": 16663,
+        "sha256": "2bdd7baa2e22335b253ac060a3ea876ac7077b3af6dc4721c556616af10abfa7"
+      },
+      "valgrind_log_sha256": "36c595e04b9329c4601e825c66f00e7368e15a3c6a4a7942615e8bc4d3ba3be7"
+    },
+    "lsattr": {
+      "archive": {
+        "bytes": 21126944,
+        "sha256": "5ccea8b5de5c4da29e48c9efcbca1457d7dcb9b67c4ba10469ed5c62a60df965"
+      },
+      "asserted_repairs": 1,
+      "cargo_check_sha256": "2fa8c868ef7885b457df1806c58010555d26ecc6254bacbbabc06b49154c5b13",
+      "closure_sources": 9,
+      "final_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 11,
+        "lines": 9935,
+        "raw_pointer_type_occurrences": 1675,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "finalization_sha256": "0693682431aaee05603f0bdcc3fc32f4da62005173fe835b287f532f9e4e6a07",
+      "hybrid": {
+        "bytes": 4262696,
+        "sha256": "b8188ddf057230dba9c02bec786b5401717749a19beb6a21ae65cc8e6abd0d9e"
+      },
+      "link_map": {
+        "bytes": 2609161,
+        "sha256": "f48e0bbeded966729ecf7d338828706e16894da37208d2ed0f809fb8b25c12e9"
+      },
+      "raw_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 11,
+        "lines": 9934,
+        "raw_pointer_type_occurrences": 1675,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "repair_files": 1,
+      "symbols": {
+        "bytes": 18045,
+        "sha256": "65ccfe901fcfd122a36a23ec773aa1aa51907a097119cb59f838010891c1c26f"
+      },
+      "valgrind_log_sha256": "80e473b47ab11434f37ec2c9f4756a0bd819ac13a275e96ddd1eda98e7b917cc"
+    },
+    "mke2fs": {
+      "archive": {
+        "bytes": 23430456,
+        "sha256": "814a6248dbd69e69b57fee76860e5ddfca6255fef075ce2ca7e561744ddb63fa"
+      },
+      "asserted_repairs": 1,
+      "cargo_check_sha256": "d6b902c7959f414c15ff78b97eecae9e86254eb9bdbfb327d3f41fa09d549864",
+      "closure_sources": 96,
+      "final_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 98,
+        "lines": 368062,
+        "raw_pointer_type_occurrences": 37793,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "finalization_sha256": "f93d9a04bcced597fe3c9b997ab2431b2bf836350129079b9fe3b22358a7eb0e",
+      "hybrid": {
+        "bytes": 4809504,
+        "sha256": "3080e255118837e292c27cec15abe5f92f932c4efc7f9c2d68f845715623f254"
+      },
+      "link_map": {
+        "bytes": 3363323,
+        "sha256": "adeb370a0ff48969b8c2d6daeb2300c5f101bb350cf8df706f3b1a92c2f21741"
+      },
+      "raw_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 98,
+        "lines": 368061,
+        "raw_pointer_type_occurrences": 37793,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "repair_files": 1,
+      "symbols": {
+        "bytes": 57117,
+        "sha256": "e8f46ebc84f54706e29d6ec5a485648ebd8ad1cbd2a7e91b89633c40b5def261"
+      },
+      "valgrind_log_sha256": "cf0574f2ca0c381041b60a9accc80846466d4350d3d53757ea2855e4d52e4ee7"
+    },
+    "mklost_found": {
+      "archive": {
+        "bytes": 21079680,
+        "sha256": "7f6f69f0aef9f1709f9c86623464e3507afc037918aaca047740a1b5015e6ae5"
+      },
+      "asserted_repairs": 2,
+      "cargo_check_sha256": "f4d45a6df8d26991d92840fa74831c023372e1c22ffa816e01817c4ccfe8156a",
+      "closure_sources": 1,
+      "final_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 3,
+        "lines": 1599,
+        "raw_pointer_type_occurrences": 284,
+        "thread_local_attributes": 0,
+        "thread_local_feature_gates": 0,
+        "translation_holes": 0
+      },
+      "finalization_sha256": "581856322175f1900346cc0f867a8f11c090cad84419e3bfd2f60f63958428e9",
+      "hybrid": {
+        "bytes": 17848,
+        "sha256": "ee534904df86459635ec96420391e31b0e46746060c0b3b6b61c6dfb408ec20e"
+      },
+      "link_map": {
+        "bytes": 24053,
+        "sha256": "14be248cdfe595fc27312f8509fd35f5c7870fd2e108c9ce4e5f41bfe1cfe0bb"
+      },
+      "raw_translation": {
+        "c_variadic_feature_gates": 0,
+        "files": 3,
+        "lines": 1597,
+        "raw_pointer_type_occurrences": 284,
+        "thread_local_attributes": 0,
+        "thread_local_feature_gates": 0,
+        "translation_holes": 0
+      },
+      "repair_files": 1,
+      "symbols": {
+        "bytes": 299,
+        "sha256": "848d5338fe79323f34658cbb09709f38f16d27db88957afaaf5ee43396cb5c91"
+      },
+      "valgrind_log_sha256": "0ef81a468da13967434266ccaaffb8003b09352dea64db90b914319d73c7f0f1"
+    },
+    "resize2fs": {
+      "archive": {
+        "bytes": 22023064,
+        "sha256": "3f5fac788fa6fdcf5357ad6d7b70a39563ef8793636789b415db4e440dee4035"
+      },
+      "asserted_repairs": 1,
+      "cargo_check_sha256": "0cf7069e527e190eb3814ac4c122100168b70e4268ecf0950d7f12bacec50b41",
+      "closure_sources": 76,
+      "final_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 78,
+        "lines": 318434,
+        "raw_pointer_type_occurrences": 29114,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "finalization_sha256": "dcf29ea6e6df40fbb2e44f03754310cd7ed18a7e8ead78b80e196c2ee3586a03",
+      "hybrid": {
+        "bytes": 4643864,
+        "sha256": "79558b9bc77f03307d362264b84f0985f498e6a0f9a2aead8b8f66e8e8d92bac"
+      },
+      "link_map": {
+        "bytes": 3146981,
+        "sha256": "7ce6897cba8c1e6162ef86002db6aa18dcdb796bb3e639174003dd34d444e5d6"
+      },
+      "raw_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 78,
+        "lines": 318433,
+        "raw_pointer_type_occurrences": 29114,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "repair_files": 1,
+      "symbols": {
+        "bytes": 40909,
+        "sha256": "f1c800262e61781647ab53235f47b30cd7b9bb29b7059a4334bf2bfb7cb3d605"
+      },
+      "valgrind_log_sha256": "e5b28d154991da19df63ddad035c6ef68d1f88cc1200063c5d403d83e97792ad"
+    },
+    "tune2fs": {
+      "archive": {
+        "bytes": 23332162,
+        "sha256": "a6a3cd23af426fa4a2ab8db29d69d95d3ce857f3a86ad0276c899429b8e676fa"
+      },
+      "asserted_repairs": 1,
+      "cargo_check_sha256": "4a986f454be75f9232cb99341b0d60c4ab57efaefff053897e0131d8bce88acc",
+      "closure_sources": 87,
+      "final_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 89,
+        "lines": 348414,
+        "raw_pointer_type_occurrences": 34574,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "finalization_sha256": "dafad94adb3fbfaf28d25efc6b916e17a48cd9ddd190cc30b86396e92285f2e1",
+      "hybrid": {
+        "bytes": 4748344,
+        "sha256": "2a44a8647a8d7730fe240e0eeeba9117922b81c3e805462e3b2b081b2bc7dc21"
+      },
+      "link_map": {
+        "bytes": 3338674,
+        "sha256": "c6e6ffc0869db60b4a68ab77875b84b9282c6cd1fcbcf3556ea30fad40e60a93"
+      },
+      "raw_translation": {
+        "c_variadic_feature_gates": 1,
+        "files": 89,
+        "lines": 348413,
+        "raw_pointer_type_occurrences": 34574,
+        "thread_local_attributes": 1,
+        "thread_local_feature_gates": 1,
+        "translation_holes": 0
+      },
+      "repair_files": 1,
+      "symbols": {
+        "bytes": 59729,
+        "sha256": "df631017313a3a614467e0a1b32b05ca52c95d6a150bcbb51b2538c425a0df25"
+      },
+      "valgrind_log_sha256": "f9f3b7bc3441f4ddf3bcd0141d88acf2245c6e7e580e364741061e9734bb13a6"
+    }
+  },
+  "release": "1.47.4",
+  "rustc_versions": [
+    "rustc 1.70.0-nightly (84dd17b56 2023-04-14)"
+  ],
+  "schema": 1,
+  "status": "20 exact program closures translated and hybrid-verified",
+  "totals": {
+    "archive_bytes": 440656386,
+    "asserted_repairs": 25,
+    "closure_source_occurrences": 1021,
+    "final_c_variadic_feature_gates": 20,
+    "final_rust_lines": 4171288,
+    "final_thread_local_attributes": 15,
+    "final_thread_local_feature_gates": 15,
+    "raw_c_variadic_feature_gates": 16,
+    "raw_pointer_type_occurrences": 401012,
+    "raw_rust_lines": 4171263,
+    "raw_thread_local_attributes": 15,
+    "raw_thread_local_feature_gates": 15,
+    "rust_files": 1061,
+    "translation_holes": 0,
+    "unique_closure_sources": 209,
+    "unique_compile_actions": 217
+  },
+  "valgrind_paths": 20
+}
