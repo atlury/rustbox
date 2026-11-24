@@ -14,7 +14,7 @@ import subprocess
 import tempfile
 from pathlib import Path
 
-ISOLATION_CACHE_VERSION = 15
+ISOLATION_CACHE_VERSION = 16
 INETUTILS_PROGRAMS = (
     "dnsdomainname", "ftp", "ftpd", "hostname", "ifconfig", "inetd",
     "logger", "ping", "ping6", "rcp", "rexec", "rexecd", "rlogin",
@@ -27,6 +27,33 @@ IPROUTE2_PROGRAMS = (
     "tipc", "vdpa",
 )
 IPROUTE2_PUBLIC_NAMES = (*IPROUTE2_PROGRAMS, "ctstat", "rtstat", "routel")
+E2FSPROGS_PROGRAMS = (
+    "badblocks", "chattr", "debugfs", "dumpe2fs", "e2freefrag", "e2fsck",
+    "e2image", "e2initrd_helper", "e2undo", "e4crypt", "e4defrag", "filefrag",
+    "fsck", "fuse2fs", "logsave", "lsattr", "mke2fs", "mklost_found",
+    "resize2fs", "tune2fs",
+)
+E2FSPROGS_ALIASES = {
+    "e2label": "tune2fs",
+    "e2mmpstatus": "dumpe2fs",
+    "fsck.ext2": "e2fsck",
+    "fsck.ext3": "e2fsck",
+    "fsck.ext4": "e2fsck",
+    "mkfs.ext2": "mke2fs",
+    "mkfs.ext3": "mke2fs",
+    "mkfs.ext4": "mke2fs",
+}
+E2FSPROGS_FRONTENDS = ("compile_et", "e2scrub", "e2scrub_all", "mk_cmds")
+E2FSPROGS_PUBLIC_NAMES = (
+    *(
+        "e2fsprogs-fsck" if name == "fsck"
+        else "mklost+found" if name == "mklost_found"
+        else name
+        for name in E2FSPROGS_PROGRAMS
+    ),
+    *E2FSPROGS_ALIASES,
+    *E2FSPROGS_FRONTENDS,
+)
 PROCPS_PROGRAMS = (
     "free", "hugetop", "kill", "pgrep", "pidof", "pidwait", "pkill",
     "pmap", "ps", "pwdx", "skill", "slabtop", "snice", "sysctl",
@@ -436,6 +463,66 @@ def namespace_iproute2_programs(
     report: dict[str, list[str]] = {}
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
         results = list(executor.map(isolate, IPROUTE2_PROGRAMS))
+    for name, mapped, symbols in results:
+        mapped_libraries[name] = mapped
+        report[name] = symbols
+    return mapped_libraries, report
+
+
+def namespace_e2fsprogs_programs(
+    libraries: dict[str, Path], build: Path
+) -> tuple[dict[str, Path], dict[str, list[str]]]:
+    """Keep every separately translated E2fsprogs engine namespace private."""
+    strong_types = {"B", "C", "D", "G", "R", "S", "T"}
+    compiler_math = re.compile(
+        r"^(?:cbrt|ceil|copysign|fabs|fdim|floor|fma|fmax|fmaximum|fmin|fminimum|fmod|rint|round|sqrt|trunc)(?:f|f16|f128)?$"
+    )
+    destination = build / "src/.rustbox-e2fsprogs"
+
+    def isolate(name: str) -> tuple[str, Path, list[str]]:
+        library = libraries[name]
+        entrypoint = f"rustbox_e2fsprogs_{name}_main"
+        output = subprocess.run(
+            ["nm", "-g", "--defined-only", str(library)], check=True,
+            text=True, stdout=subprocess.PIPE,
+        ).stdout
+        symbols = sorted({
+            fields[-1]
+            for line in output.splitlines()
+            if len(fields := line.split()) >= 3
+            and fields[-2] in strong_types
+            and re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", fields[-1])
+            and fields[-1] != entrypoint
+            and not fields[-1].startswith(("_R", "rust_", "__rust", "__llvm"))
+            and not compiler_math.fullmatch(fields[-1])
+        })
+        if entrypoint not in set(defined_symbols(library)):
+            raise RuntimeError(f"E2fsprogs {name} archive exports no entrypoint")
+        program_directory = destination / name
+        program_directory.mkdir(parents=True, exist_ok=True)
+        mapping = program_directory / "symbols.map"
+        mapping.write_text(
+            "".join(
+                f"{symbol} rustbox_e2fsprogs_{name}_private_{symbol}\n"
+                for symbol in symbols
+            ),
+            encoding="utf-8",
+        )
+        mapped = program_directory / library.name
+        shutil.copy2(library, mapped)
+        if symbols:
+            subprocess.run(
+                ["objcopy", "--redefine-syms", str(mapping), str(mapped)], check=True
+            )
+        definitions = set(defined_symbols(mapped))
+        if entrypoint not in definitions or any(symbol in definitions for symbol in symbols):
+            raise RuntimeError(f"E2fsprogs {name} isolation is incomplete")
+        return name, mapped, symbols
+
+    mapped_libraries: dict[str, Path] = {}
+    report: dict[str, list[str]] = {}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+        results = list(executor.map(isolate, E2FSPROGS_PROGRAMS))
     for name, mapped, symbols in results:
         mapped_libraries[name] = mapped
         report[name] = symbols
@@ -1818,6 +1905,40 @@ def write_dispatcher(
             f'return rustbox_iproute2_{target}_main(argc, argv);'
         )
     iproute2_selections = "\n".join(iproute2_selection_lines)
+    e2fsprogs_declarations = "\n".join(
+        f"extern int rustbox_e2fsprogs_{name}_main(int, char **);"
+        for name in (*E2FSPROGS_PROGRAMS, *E2FSPROGS_FRONTENDS)
+    )
+    e2fsprogs_selection_lines = []
+    for engine in E2FSPROGS_PROGRAMS:
+        public_name = (
+            "e2fsprogs-fsck" if engine == "fsck"
+            else "mklost+found" if engine == "mklost_found"
+            else engine
+        )
+        if engine == "fsck":
+            e2fsprogs_selection_lines.append(
+                '    if (!force_util_linux && strcmp(name, "e2fsprogs-fsck") == 0) {'
+                ' argv[0] = "fsck"; program_invocation_name = argv[0];'
+                ' program_invocation_short_name = argv[0];'
+                ' return rustbox_e2fsprogs_fsck_main(argc, argv); }'
+            )
+        else:
+            e2fsprogs_selection_lines.append(
+                f'    if (!force_util_linux && strcmp(name, "{public_name}") == 0) '
+                f'return rustbox_e2fsprogs_{engine}_main(argc, argv);'
+            )
+    for public_name, engine in sorted(E2FSPROGS_ALIASES.items()):
+        e2fsprogs_selection_lines.append(
+            f'    if (!force_util_linux && strcmp(name, "{public_name}") == 0) '
+            f'return rustbox_e2fsprogs_{engine}_main(argc, argv);'
+        )
+    for name in E2FSPROGS_FRONTENDS:
+        e2fsprogs_selection_lines.append(
+            f'    if (!force_util_linux && strcmp(name, "{name}") == 0) '
+            f'return rustbox_e2fsprogs_{name}_main(argc, argv);'
+        )
+    e2fsprogs_selections = "\n".join(e2fsprogs_selection_lines)
     procps_declarations = "\n".join(
         f"extern int rustbox_procps_{name}_main(int, char **);"
         for name in sorted(set(PROCPS_ENTRYPOINT.values()))
@@ -1944,6 +2065,9 @@ extern int rustbox_kmod_main(int, char **);
         + """
 """
         + iproute2_declarations
+        + """
+"""
+        + e2fsprogs_declarations
         + """
 """
         + procps_declarations
@@ -2206,6 +2330,9 @@ int main(int argc, char **argv)
         + iproute2_selections
         + """
 """
+        + e2fsprogs_selections
+        + """
+"""
         + selections
         + """
     errno = ENOENT;
@@ -2254,6 +2381,7 @@ def main() -> int:
     parser.add_argument("--inetutils-rust-directory", type=Path, required=True)
     parser.add_argument("--inetutils-telnet-c-boundary", type=Path, required=True)
     parser.add_argument("--iproute2-rust-directory", type=Path, required=True)
+    parser.add_argument("--e2fsprogs-rust-directory", type=Path, required=True)
     parser.add_argument("--kmod-rust-library", type=Path, required=True)
     parser.add_argument("--procps-rust-library", type=Path, required=True)
     parser.add_argument("--shadow-rust-library", type=Path, required=True)
@@ -2310,6 +2438,11 @@ def main() -> int:
     iproute2_libraries = {
         name: iproute2_rust_directory / name / "release" / f"lib{name}_audit.a"
         for name in IPROUTE2_PROGRAMS
+    }
+    e2fsprogs_rust_directory = args.e2fsprogs_rust_directory.resolve()
+    e2fsprogs_libraries = {
+        name: e2fsprogs_rust_directory / name / "release" / f"lib{name}_audit.a"
+        for name in E2FSPROGS_PROGRAMS
     }
     kmod_rust_library = args.kmod_rust_library.resolve()
     procps_rust_library = args.procps_rust_library.resolve()
@@ -2410,6 +2543,7 @@ def main() -> int:
         curl_rust_library, *curl_residue_objects,
         *inetutils_libraries.values(), inetutils_telnet_boundary,
         *iproute2_libraries.values(),
+        *e2fsprogs_libraries.values(),
         kmod_rust_library, procps_rust_library, shadow_rust_library,
         gzip_support_library,
         *tar_residue_objects,
@@ -2469,6 +2603,10 @@ def main() -> int:
     for name in IPROUTE2_PROGRAMS:
         libraries.append(iproute2_libraries[name])
         iproute2_library_indices[name] = len(libraries) - 1
+    e2fsprogs_library_indices = {}
+    for name in E2FSPROGS_PROGRAMS:
+        libraries.append(e2fsprogs_libraries[name])
+        e2fsprogs_library_indices[name] = len(libraries) - 1
     libraries.append(kmod_rust_library)
     kmod_library_index = len(libraries) - 1
     libraries.append(procps_rust_library)
@@ -2580,6 +2718,10 @@ def main() -> int:
         f"rustbox_iproute2_{name}_main" for name in IPROUTE2_PROGRAMS
     )
     expected_symbols.add("rustbox_iproute2_routel_main")
+    expected_symbols.update(
+        f"rustbox_e2fsprogs_{name}_main"
+        for name in (*E2FSPROGS_PROGRAMS, *E2FSPROGS_FRONTENDS)
+    )
 
     cached_report = None
     if args.reuse_isolation and args.link_report.is_file():
@@ -2821,6 +2963,19 @@ def main() -> int:
         )
     for name, index in iproute2_library_indices.items():
         libraries[index] = mapped_iproute2[name]
+
+    if cached_report:
+        mapped_e2fsprogs = {
+            name: build / "src/.rustbox-e2fsprogs" / name / e2fsprogs_libraries[name].name
+            for name in E2FSPROGS_PROGRAMS
+        }
+        e2fsprogs_symbols = cached_report["e2fsprogs_namespaced_symbols"]
+    else:
+        mapped_e2fsprogs, e2fsprogs_symbols = namespace_e2fsprogs_programs(
+            e2fsprogs_libraries, build
+        )
+    for name, index in e2fsprogs_library_indices.items():
+        libraries[index] = mapped_e2fsprogs[name]
 
     if cached_report:
         mapped_kmod_rust = build / "src/.rustbox-kmod" / libraries[kmod_library_index].name
@@ -3082,6 +3237,41 @@ def main() -> int:
     )
     if defined_symbols(iproute2_routel_object) != ["rustbox_iproute2_routel_main"]:
         raise RuntimeError("IPRoute2 routel frontend bridge exports the wrong symbols")
+    e2fsprogs_templates_source = build / "src/.rustbox-e2fsprogs-templates.c"
+    subprocess.run(
+        ["python3", str(repository / "scripts/generate_e2fsprogs_script_templates.py"),
+         "--source", str(repository / "work/upstream/e2fsprogs-1.47.4"),
+         "--output", str(e2fsprogs_templates_source)],
+        check=True,
+    )
+    e2fsprogs_frontends_object = build / "src/.rustbox-e2fsprogs-frontends.o"
+    e2fsprogs_templates_object = build / "src/.rustbox-e2fsprogs-templates.o"
+    subprocess.run(
+        ["clang-18", "-std=c11", "-Wall", "-Wextra", "-Werror", "-O2", "-g",
+         "-D_GNU_SOURCE", "-DRUSTBOX_MULTICALL", "-c",
+         str(repository / "bridges/e2fsprogs_script_frontends.c"),
+         "-o", str(e2fsprogs_frontends_object)],
+        cwd=build,
+        check=True,
+    )
+    subprocess.run(
+        ["clang-18", "-std=c11", "-Wall", "-Wextra", "-Werror", "-O2", "-g",
+         "-c", str(e2fsprogs_templates_source),
+         "-o", str(e2fsprogs_templates_object)],
+        cwd=build,
+        check=True,
+    )
+    if set(defined_symbols(e2fsprogs_frontends_object)) != {
+        f"rustbox_e2fsprogs_{name}_main" for name in E2FSPROGS_FRONTENDS
+    }:
+        raise RuntimeError("E2fsprogs script frontend bridge exports the wrong symbols")
+    if set(defined_symbols(e2fsprogs_templates_object)) != {
+        "rustbox_e2fs_et_h_awk", "rustbox_e2fs_et_h_awk_len",
+        "rustbox_e2fs_et_c_awk", "rustbox_e2fs_et_c_awk_len",
+        "rustbox_e2fs_ct_c_sed", "rustbox_e2fs_ct_c_sed_len",
+        "rustbox_e2fs_ct_c_awk", "rustbox_e2fs_ct_c_awk_len",
+    }:
+        raise RuntimeError("E2fsprogs embedded template object exports the wrong symbols")
     bridge_archives: dict[str, Path] = {}
     for archive, members in bridge_members.items():
         source = build / archive
@@ -3176,6 +3366,8 @@ def main() -> int:
                 rewritten.append(str(curl_config_object))
                 rewritten.append(str(ncurses_config_object))
                 rewritten.append(str(iproute2_routel_object))
+                rewritten.append(str(e2fsprogs_frontends_object))
+                rewritten.append(str(e2fsprogs_templates_object))
                 rewritten.extend(str(path) for path in util_inputs)
                 rewritten.append(str(mapped_m4_support))
                 rewritten.append(str(mapped_gzip_support))
@@ -3223,7 +3415,8 @@ def main() -> int:
         "src_libsinglebin_false_a_ldadd=$(src_true_LDADD) -ldl -lpthread -lm -lrt -lutil -ltinfo "
         "-lbz2 -llz -llzma -lseccomp -lz -lzstd -lattr -lpcre2-8 "
         "-lreadline -lncurses -lncursesw -lcrypt -lcrypto -lmpfr -lgmp "
-        "-ltirpc -lbpf -lelf -lmnl -lcap -ldb -lxtables",
+        "-ltirpc -lbpf -lelf -lmnl -lcap -ldb -lxtables "
+        "-lblkid -luuid -lfuse3 -larchive",
         "src_coreutils_LDADD=$(single_binary_deps) "
         "$(filter-out -lacl,$(LDADD) $(single_binary_libs)) "
         + " ".join(util_link_libraries),
@@ -3286,6 +3479,7 @@ def main() -> int:
         "curl_public_names": 2,
         "inetutils_programs": 26,
         "iproute2_public_names": 21,
+        "e2fsprogs_public_names": 32,
         "kmod_programs": 7,
         "procps_programs": 20,
         "shadow_programs": 32,
@@ -3314,7 +3508,8 @@ def main() -> int:
                *({f"shadow-{name}" if name in SHADOW_COLLISIONS else name
                   for name in SHADOW_PROGRAMS}),
                *({name for name in INETUTILS_PROGRAMS if name not in {"hostname", "logger"}}),
-               "inetutils-hostname", "inetutils-logger", *IPROUTE2_PUBLIC_NAMES}
+               "inetutils-hostname", "inetutils-logger", *IPROUTE2_PUBLIC_NAMES,
+               *E2FSPROGS_PUBLIC_NAMES}
         ),
         "excluded": ["chcon", "runcon"],
         "public_name_precedence": {
@@ -3323,6 +3518,8 @@ def main() -> int:
             "procps-kill": "Procps-ng",
             "uptime": "GNU Coreutils",
             "procps-uptime": "Procps-ng",
+            "fsck": "util-linux",
+            "e2fsprogs-fsck": "E2fsprogs",
             **{name: "util-linux" for name in sorted(SHADOW_COLLISIONS)},
             **{f"shadow-{name}": "Shadow" for name in sorted(SHADOW_COLLISIONS)},
         },
@@ -3358,6 +3555,7 @@ def main() -> int:
         "curl_namespaced_symbols": curl_symbols,
         "inetutils_namespaced_symbols": inetutils_symbols,
         "iproute2_namespaced_symbols": iproute2_symbols,
+        "e2fsprogs_namespaced_symbols": e2fsprogs_symbols,
         "kmod_namespaced_symbols": kmod_symbols,
         "procps_namespaced_symbols": procps_symbols,
         "shadow_namespaced_symbols": shadow_symbols,
@@ -3439,6 +3637,14 @@ def main() -> int:
             "symbols": ["rustbox_iproute2_routel_main"],
             "public_names": ["routel"],
         },
+        "e2fsprogs_script_frontend_bridge": {
+            "object": str(e2fsprogs_frontends_object.relative_to(build)),
+            "template_object": str(e2fsprogs_templates_object.relative_to(build)),
+            "symbols": [
+                f"rustbox_e2fsprogs_{name}_main" for name in E2FSPROGS_FRONTENDS
+            ],
+            "public_names": list(E2FSPROGS_FRONTENDS),
+        },
         "binary": {
             "bytes": output.stat().st_size,
             "sha256": sha256(output),
@@ -3479,6 +3685,7 @@ def main() -> int:
         "curl_public_names": 2,
         "inetutils_programs": 26,
         "iproute2_public_names": 21,
+        "e2fsprogs_public_names": 32,
         "kmod_programs": 7,
         "procps_programs": 20,
         "shadow_programs": 32,

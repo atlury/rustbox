@@ -3,7 +3,7 @@
 set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
-RUSTBOX_TOOL_IMAGE=rustbox-iproute2:2026-11-24 \
+RUSTBOX_TOOL_IMAGE=rustbox-e2fsprogs:2026-11-24 \
   exec "$root/scripts/run_tool.sh" python3 /work/scripts/link_rustbox_multicall.py \
     --repository /work \
     --coreutils-build /rustbox-coreutils/canonical-clang-no-security-compdb \
@@ -40,6 +40,7 @@ RUSTBOX_TOOL_IMAGE=rustbox-iproute2:2026-11-24 \
     --inetutils-rust-directory /work/work/analysis/inetutils-2.8/program-translations/cargo-target/release \
     --inetutils-telnet-c-boundary /rustbox-inetutils/normalized-clang/lib/libgnu_a-printf-args.o \
     --iproute2-rust-directory /work/work/analysis/iproute2-7.3.0/program-translations/cargo-target \
+    --e2fsprogs-rust-directory /work/work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target \
     --kmod-rust-library /work/work/analysis/kmod-34.3/translations/c2rust-0.22.1/kmod-34.3-stable/target/release/libkmod_34_3_normalized_audit.a \
     --procps-rust-library /work/work/analysis/procps-ng-4.0.7/translations/c2rust-0.22.1/procps-ng-4.0.7-nightly/target/release/libprocps_ng_4_0_7_normalized_audit.a \
     --shadow-rust-library /work/work/analysis/shadow-4.20.4/translations/c2rust-0.22.1/shadow-4.20.4-nightly/target/release/libshadow_4_20_4_normalized_audit.a \
