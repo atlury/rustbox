@@ -1414,7 +1414,12 @@ Library-only checkpoints (outside the active utility order):
      builds, all 16 unit-test runs, all 158 canonical comparisons, and all 32
      resource paths match their oracle baselines.  Exact evidence is recorded
      in `evidence/shadow-4.20.4-oracle.json` and
-     `evidence/shadow-4.20.4-normalization.json`; strict translation is next.
+     `evidence/shadow-4.20.4-normalization.json`.  The first strict translator
+     probe exposed unsupported C11 `_Generic` selections rather than emitting
+     holes; those compile-time selections are now deterministically lowered to
+     their target-ABI C calls across the 44-file normalized scope and have
+     passed the same complete gates.  Strict translation selects 196 sources,
+     excluding only five named non-installed helper executables.
    - [ ] IPRoute2 — `arpd`, `bridge`, `ctstat`, `dcb`, `devlink`, `genl`,
      `ifcfg`, `ifstat`, `ip`, `lnstat`, `nstat`, `rdma`, `routef`, `routel`,
      `rtacct`, `rtmon`, `rtpr`, `rtstat`, `ss`, `tc`, `tipc`, `vdpa`.

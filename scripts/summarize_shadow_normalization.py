@@ -55,7 +55,7 @@ def main() -> int:
         str(path) for path in set(canonical_tree) & set(normalized_tree)
         if canonical_tree[path] != normalized_tree[path]
     )
-    intended = sorted(record["path"] for record in manifest["transformations"])
+    intended = sorted(set(record["path"] for record in manifest["transformations"]))
     if added != {Path("rustbox-normalization.json")} or changed != intended:
         raise RuntimeError(f"Shadow normalization scope changed: added={added}, changed={changed}")
 
@@ -118,7 +118,7 @@ def main() -> int:
         "status": "deterministic Shadow entrypoint normalization complete",
         "release": "4.20.4",
         "scope": {
-            "changed_source_files": 30,
+            "changed_source_files": len(changed),
             "added_files": ["rustbox-normalization.json"],
             "entrypoint_engines": 30,
             "public_programs": 32,

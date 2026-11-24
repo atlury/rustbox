@@ -54,6 +54,29 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def replace_fragments(
+    root: Path,
+    relative: str,
+    replacements: tuple[tuple[str, str], ...],
+    kind: str,
+) -> dict[str, object]:
+    source = root / relative
+    text = source.read_text()
+    before = sha256(source)
+    for original, replacement in replacements:
+        if text.count(original) != 1:
+            raise RuntimeError(f"Shadow normalization input changed: {relative}: {original!r}")
+        text = text.replace(original, replacement, 1)
+    source.write_text(text)
+    return {
+        "path": relative,
+        "before_sha256": before,
+        "after_sha256": sha256(source),
+        "kind": kind,
+        "fragment_replacements": len(replacements),
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repository", required=True, type=Path)
@@ -107,6 +130,208 @@ def main() -> int:
             "kind": "export entrypoint and retain standalone wrapper",
         })
 
+    transformations.extend((
+        replace_fragments(output, "lib/alloc/realloc.h", ((
+            "\t_Generic(p, T *: (void)0);                                    \\\n",
+            "",
+        ),), "remove translation-only generic pointer type assertion"),
+        replace_fragments(output, "lib/alloc/reallocf.h", ((
+            "\t_Generic(p, T *: (void)0);                                    \\\n",
+            "",
+        ),), "remove translation-only generic pointer type assertion"),
+        replace_fragments(output, "lib/search/l/lsearch.h", ((
+            "\t_Generic(k, T *: (void)0, const T *: (void)0);                \\\n"
+            "\t_Generic(a, T *: (void)0);                                    \\\n",
+            "",
+        ),), "remove translation-only generic search type assertions"),
+        replace_fragments(output, "lib/search/l/lfind.h", ((
+            "\t_Generic(k, T *: (void)0, const T *: (void)0);                \\\n"
+            "\t_Generic(a, T *: (void)0, const T *: (void)0);                \\\n",
+            "",
+        ),), "remove translation-only generic search type assertions"),
+        replace_fragments(output, "lib/search/sort/qsort.h", ((
+            "\t_Generic(a, T *: (void)0);                                    \\\n",
+            "",
+        ),), "remove translation-only generic sort type assertion"),
+        replace_fragments(output, "lib/cast.h", ((
+            "#define const_cast(T, p)  _Generic(p, const T:  (T) (p))",
+            "#define const_cast(T, p)  ((T) (p))",
+        ),), "lower generic checked const cast to its selected C cast"),
+        replace_fragments(output, "lib/string/strcmp/strprefix.h", ((
+            "#define strprefix(s, prefix)                                          \\\n"
+            "({                                                                    \\\n"
+            "\tconst char  *p_;                                              \\\n"
+            "\t                                                              \\\n"
+            "\tp_ = strprefix_(s, prefix);                                   \\\n"
+            "\t                                                              \\\n"
+            "\t_Generic(s,                                                   \\\n"
+            "\t\tconst char *:                     p_,                 \\\n"
+            "\t\tconst void *:                     p_,                 \\\n"
+            "\t\tchar *:        const_cast(char *, p_),                \\\n"
+            "\t\tvoid *:        const_cast(char *, p_)                 \\\n"
+            "\t);                                                            \\\n"
+            "})",
+            "#define strprefix(s, prefix)  ((char *) strprefix_(s, prefix))",
+        ),), "lower generic prefix return qualification to selected pointer cast"),
+        replace_fragments(output, "lib/string/strcmp/strcaseprefix.h", ((
+            "#define strcaseprefix(s, prefix)                                      \\\n"
+            "({                                                                    \\\n"
+            "\tconst char  *p_;                                              \\\n"
+            "\t                                                              \\\n"
+            "\tp_ = strcaseprefix_(s, prefix);                               \\\n"
+            "\t                                                              \\\n"
+            "\t_Generic(s,                                                   \\\n"
+            "\t\tconst char *:                     p_,                 \\\n"
+            "\t\tconst void *:                     p_,                 \\\n"
+            "\t\tchar *:        const_cast(char *, p_),                \\\n"
+            "\t\tvoid *:        const_cast(char *, p_)                 \\\n"
+            "\t);                                                            \\\n"
+            "})",
+            "#define strcaseprefix(s, prefix)  ((char *) strcaseprefix_(s, prefix))",
+        ),), "lower generic case-prefix return qualification to selected pointer cast"),
+    ))
+
+    a2i_original = """// a2i - alpha to integer
+#define a2i(T, n, s, endp, base, min, max)                            \\
+({                                                                    \\
+\tT            *n_ = n;                                         \\
+\tQChar_of(s)  **endp_ = endp;                                  \\
+\tT            min_ = min;                                      \\
+\tT            max_ = max;                                      \\
+\t                                                              \\
+\tint  status;                                                  \\
+\t                                                              \\
+\t*n_ = _Generic((T){0},                                        \\
+\t\tshort:              strtoi_,                          \\
+\t\tint:                strtoi_,                          \\
+\t\tlong:               strtoi_,                          \\
+\t\tlong long:          strtoi_,                          \\
+\t\tunsigned short:     strtou_noneg,                     \\
+\t\tunsigned int:       strtou_noneg,                     \\
+\t\tunsigned long:      strtou_noneg,                     \\
+\t\tunsigned long long: strtou_noneg                      \\
+\t)(s, (char **) endp_, base, min_, max_, &status);             \\
+\t                                                              \\
+\tif (status != 0)                                              \\
+\t\terrno = status;                                       \\
+\t-!!status;                                                    \\
+})
+
+
+#define a2sh(...)   a2i(short, __VA_ARGS__)
+#define a2si(...)   a2i(int, __VA_ARGS__)
+#define a2sl(...)   a2i(long, __VA_ARGS__)
+#define a2sll(...)  a2i(long long, __VA_ARGS__)
+
+#define a2uh(...)   a2i(unsigned short, __VA_ARGS__)
+#define a2ui(...)   a2i(unsigned int, __VA_ARGS__)
+#define a2ul(...)   a2i(unsigned long, __VA_ARGS__)
+#define a2ull(...)  a2i(unsigned long long, __VA_ARGS__)
+
+#define str2i(T, ...)  a2i(T, __VA_ARGS__, NULL, 0, minof(T), maxof(T))
+
+#define str2sh(...)    str2i(short, __VA_ARGS__)
+#define str2si(...)    str2i(int, __VA_ARGS__)
+#define str2sl(...)    str2i(long, __VA_ARGS__)
+#define str2sll(...)   str2i(long long, __VA_ARGS__)
+
+#define str2uh(...)    str2i(unsigned short, __VA_ARGS__)
+#define str2ui(...)    str2i(unsigned int, __VA_ARGS__)
+#define str2ul(...)    str2i(unsigned long, __VA_ARGS__)
+#define str2ull(...)   str2i(unsigned long long, __VA_ARGS__)
+"""
+    a2i_portable = """// a2i - alpha to integer
+#define a2i_parser(T, parser, n, s, endp, base, min, max)             \\
+({                                                                    \\
+\tT      *n_ = n;                                                \\
+\tchar  **endp_ = (char **) endp;                               \\
+\tT       min_ = min;                                           \\
+\tT       max_ = max;                                           \\
+\t                                                              \\
+\tint  status;                                                  \\
+\t                                                              \\
+\t*n_ = parser(s, endp_, base, min_, max_, &status);             \\
+\t                                                              \\
+\tif (status != 0)                                              \\
+\t\terrno = status;                                       \\
+\t-!!status;                                                    \\
+})
+
+
+#define a2sh(...)   a2i_parser(short, strtoi_, __VA_ARGS__)
+#define a2si(...)   a2i_parser(int, strtoi_, __VA_ARGS__)
+#define a2sl(...)   a2i_parser(long, strtoi_, __VA_ARGS__)
+#define a2sll(...)  a2i_parser(long long, strtoi_, __VA_ARGS__)
+
+#define a2uh(...)   a2i_parser(unsigned short, strtou_noneg, __VA_ARGS__)
+#define a2ui(...)   a2i_parser(unsigned int, strtou_noneg, __VA_ARGS__)
+#define a2ul(...)   a2i_parser(unsigned long, strtou_noneg, __VA_ARGS__)
+#define a2ull(...)  a2i_parser(unsigned long long, strtou_noneg, __VA_ARGS__)
+
+#define str2i_signed(T, ...) \\
+\ta2i_parser(T, strtoi_, __VA_ARGS__, NULL, 0, minof(T), maxof(T))
+#define str2i_unsigned(T, ...) \\
+\ta2i_parser(T, strtou_noneg, __VA_ARGS__, NULL, 0, minof(T), maxof(T))
+
+#define str2sh(...)    str2i_signed(short, __VA_ARGS__)
+#define str2si(...)    str2i_signed(int, __VA_ARGS__)
+#define str2sl(...)    str2i_signed(long, __VA_ARGS__)
+#define str2sll(...)   str2i_signed(long long, __VA_ARGS__)
+
+#define str2uh(...)    str2i_unsigned(unsigned short, __VA_ARGS__)
+#define str2ui(...)    str2i_unsigned(unsigned int, __VA_ARGS__)
+#define str2ul(...)    str2i_unsigned(unsigned long, __VA_ARGS__)
+#define str2ull(...)   str2i_unsigned(unsigned long long, __VA_ARGS__)
+"""
+    transformations.append(replace_fragments(
+        output, "lib/atoi/a2i.h", ((a2i_original, a2i_portable),),
+        "lower generic integer parser selection to explicit signed and unsigned parsers",
+    ))
+
+    direct_parser_replacements = {
+        "lib/gettime.c": (("a2i(time_t,", "a2i_parser(time_t, strtoi_,"),),
+        "src/usermod.c": (
+            ("a2i(id_t, &first,", "a2i_parser(id_t, strtou_noneg, &first,"),
+            ("a2i(id_t, &last,", "a2i_parser(id_t, strtou_noneg, &last,"),
+        ),
+        "lib/limits.c": (
+            ("a2i(rlim_t,", "a2i_parser(rlim_t, strtou_noneg,"),
+            ("str2i(mode_t, &mask, value)", "str2i_unsigned(mode_t, &mask, value)"),
+            ("str2i(mode_t, &mask, val)", "str2i_unsigned(mode_t, &mask, val)"),
+        ),
+        "lib/atoi/getnum.h": (
+            ("a2i(gid_t,", "a2i_parser(gid_t, strtou_noneg,"),
+            ("a2i(pid_t,", "a2i_parser(pid_t, strtoi_,"),
+            ("a2i(uid_t,", "a2i_parser(uid_t, strtou_noneg,"),
+        ),
+    }
+    for relative, replacements in direct_parser_replacements.items():
+        transformations.append(replace_fragments(
+            output, relative, replacements,
+            "make target ABI integer parser selection explicit",
+        ))
+
+    search_replacements = {
+        "lib/addgrps.c": (
+            ("LSEARCH(gid_t, &grp->gr_gid, gids, &n);",
+             "(void) lsearch(&grp->gr_gid, gids, &n, sizeof(gid_t), cmp_uint);"),
+        ),
+        "lib/adds.h": (
+            ("QSORT(long, addend, n);", "qsort(addend, n, sizeof(long), cmp_long);"),
+        ),
+        "src/newgrp.c": (
+            ("LFIND(gid_t, &grp->gr_gid, gids, ngroups)",
+             "lfind(&grp->gr_gid, gids, &ngroups, sizeof(gid_t), cmp_uint)"),
+            ("LSEARCH(gid_t, &gid, gids, &ngroups);",
+             "(void) lsearch(&gid, gids, &ngroups, sizeof(gid_t), cmp_uint);"),
+        ),
+    }
+    for relative, replacements in search_replacements.items():
+        transformations.append(replace_fragments(
+            output, relative, replacements,
+            "lower generic search or sort selection to target ABI comparator",
+        ))
+
     manifest = {
         "schema": 1,
         "release": "4.20.4",
@@ -114,6 +339,7 @@ def main() -> int:
         "entrypoint_engines": len(SIGNATURES),
         "public_programs": 32,
         "aliases": {"sg": "newgrp", "vigr": "vipw"},
+        "changed_files": len({record["path"] for record in transformations}),
         "transformations": transformations,
     }
     manifest_path = output / "rustbox-normalization.json"
