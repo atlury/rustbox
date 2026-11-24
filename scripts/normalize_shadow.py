@@ -171,15 +171,7 @@ def main() -> int:
             "\t\tvoid *:        const_cast(char *, p_)                 \\\n"
             "\t);                                                            \\\n"
             "})",
-            "static inline void *\n"
-            "rustbox_strprefix(const char *s, const char *prefix)\n"
-            "{\n"
-            "\tsize_t length = strlen(prefix);\n"
-            "\tif (strncmp(s, prefix, length) != 0)\n"
-            "\t\treturn NULL;\n"
-            "\treturn (void *) (s + length);\n"
-            "}\n\n"
-            "#define strprefix(s, prefix)  rustbox_strprefix((s), (prefix))",
+            "#define strprefix(s, prefix)  strprefix_((s), (prefix))",
         ),), "lower generic prefix return qualification to selected pointer cast"),
         replace_fragments(output, "lib/string/strcmp/strcaseprefix.h", ((
             "#define strcaseprefix(s, prefix)                                      \\\n"
@@ -195,15 +187,7 @@ def main() -> int:
             "\t\tvoid *:        const_cast(char *, p_)                 \\\n"
             "\t);                                                            \\\n"
             "})",
-            "static inline void *\n"
-            "rustbox_strcaseprefix(const char *s, const char *prefix)\n"
-            "{\n"
-            "\tsize_t length = strlen(prefix);\n"
-            "\tif (strncasecmp(s, prefix, length) != 0)\n"
-            "\t\treturn NULL;\n"
-            "\treturn (void *) (s + length);\n"
-            "}\n\n"
-            "#define strcaseprefix(s, prefix)  rustbox_strcaseprefix((s), (prefix))",
+            "#define strcaseprefix(s, prefix)  strcaseprefix_((s), (prefix))",
         ),), "lower generic case-prefix return qualification to selected pointer cast"),
         replace_fragments(output, "lib/string/strspn/stpspn.h", ((
             "#define stpspn(s, accept)                                                     \\\n"
@@ -407,6 +391,24 @@ def main() -> int:
         transformations.append(replace_fragments(
             output, relative, replacements,
             "lower generic search or sort selection to target ABI comparator",
+        ))
+
+    mutable_prefix_replacements = {
+        "lib/user_busy.c": ((
+            "tmp_d_name = strprefix(tmp_d_name, \".\") ?: tmp_d_name;",
+            "tmp_d_name = (char *) strprefix(tmp_d_name, \".\") ?: tmp_d_name;",
+        ),),
+        "lib/limits.c": (
+            ("cp = strprefix(cp, \",\") ?: cp;", "cp = (char *) strprefix(cp, \",\") ?: cp;"),
+            ("val = strprefix(cp, \"pri=\");", "val = (char *) strprefix(cp, \"pri=\");"),
+            ("val = strprefix(cp, \"ulimit=\");", "val = (char *) strprefix(cp, \"ulimit=\");"),
+            ("val = strprefix(cp, \"umask=\");", "val = (char *) strprefix(cp, \"umask=\");"),
+        ),
+    }
+    for relative, replacements in mutable_prefix_replacements.items():
+        transformations.append(replace_fragments(
+            output, relative, replacements,
+            "make intentional mutable prefix pointer casts explicit",
         ))
 
     manifest = {
