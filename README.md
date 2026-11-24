@@ -1393,7 +1393,7 @@ Library-only checkpoints (outside the active utility order):
      `procps-kill` and `procps-uptime` explicitly select Procps-ng.  Exact
      evidence is recorded in `evidence/procps-ng-4.0.7-multicall.json` and
      `evidence/rustbox-multicall.json`.
-   - [ ] Shadow 4.20.3 — `chage`, `chfn`, `chgpasswd`, `chpasswd`, `chsh`,
+   - [ ] Shadow 4.20.4 — `chage`, `chfn`, `chgpasswd`, `chpasswd`, `chsh`,
      `faillog`, `getsubids`, `gpasswd`, `groupadd`, `groupdel`, `groupmod`,
      `grpck`, `grpconv`, `grpunconv`, `lastlog`, `login`, `newgidmap`,
      `newgrp`, `newuidmap`, `newusers`, `nologin`, `passwd`, `pwck`, `pwconv`,
@@ -1402,6 +1402,8 @@ Library-only checkpoints (outside the active utility order):
      `libsubid`.  Use the canonical `shadow-maint/shadow` release with SELinux
      and systemd integration disabled; separately verify duplicate public
      names supplied by util-linux before choosing final dispatcher precedence.
+     Version 4.20.4 supersedes the initially queued 4.20.3 and includes the
+     upstream `newuidmap`/`newgidmap` security fixes.
    - [ ] IPRoute2 — `arpd`, `bridge`, `ctstat`, `dcb`, `devlink`, `genl`,
      `ifcfg`, `ifstat`, `ip`, `lnstat`, `nstat`, `rdma`, `routef`, `routel`,
      `rtacct`, `rtmon`, `rtpr`, `rtstat`, `ss`, `tc`, `tipc`, `vdpa`.
