@@ -294,6 +294,28 @@ repaired image bytes. The default multicall still uses the baseline translation.
 The rollout gate is to rebuild all affected engines against the shared
 implementation, inspect the linked symbols and run the multicall regressions.
 
+Run the following audit to group finalized files by their SHA-256 and list
+every engine path in each group. The counts use the translation inventory's
+textual `*const` and `*mut` metric.
+
+```sh
+python3 scripts/audit_pointer_duplicates.py \
+  work/analysis/e2fsprogs-1.47.4/program-translations \
+  work/analysis/iproute2-7.3.0/program-translations
+```
+
+| Translation | All pointer occurrences | Counting identical files once per package | Repeated occurrences |
+|---|---:|---:|---:|
+| E2fsprogs | 401,012 | 102,161 | 298,851 |
+| IPRoute2 | 265,323 | 142,065 | 123,258 |
+
+Use this report to pick shared functions for review. A shared file can still
+refer to private per-engine state. Verify callers, allocation ownership,
+configuration and runtime use before sharing an implementation. Prefer a
+small safe rewrite when the input bytes and output values give the function a
+clear, independently testable contract. Review allocation lifetimes and
+aliasing explicitly for APIs that return pointers into caller-owned buffers.
+
 The isolated zlib 1.4 library checkpoint uses its signed release, independent GCC
 and Clang builds, 18-case upstream CTest suite, sanitizer and Valgrind gates,
 111-symbol ABI comparison, and reviewed static-analysis findings are recorded
