@@ -2961,7 +2961,7 @@
     "workload_log_sha256": "86fc9f9bc75c2c9b9602c5a8a8b1b9b1da1a9121a3fb214396bffa3a264df849"
   },
   "binary": {
-    "bytes": 40746016,
+    "bytes": 45650264,
     "dynamic_needed": [
       "ld-linux-x86-64.so.2",
       "libattr.so.1",
@@ -2975,6 +2975,7 @@
       "libdb-5.3.so",
       "libeconf.so.0",
       "libelf.so.1",
+      "libfuse3.so.3",
       "libgcc_s.so.1",
       "libgmp.so.10",
       "liblz.so.1",
@@ -2997,7 +2998,7 @@
       "libz.so.1",
       "libzstd.so.1"
     ],
-    "link_map_sha256": "ba9c49dc4678249f94efde5284d53debdba5b96603551088af6c19157454a6db",
+    "link_map_sha256": "4a995b042ef37824e43e675ec77b2eca0fab9dc1a4977a625dc52566781f622e",
     "needed_libraries": [
       "ld-linux-x86-64.so.2",
       "libattr.so.1",
@@ -3011,6 +3012,7 @@
       "libdb-5.3.so",
       "libeconf.so.0",
       "libelf.so.1",
+      "libfuse3.so.3",
       "libgcc_s.so.1",
       "libgmp.so.10",
       "liblz.so.1",
@@ -3034,9 +3036,9 @@
       "libzstd.so.1"
     ],
     "selinux_dependencies": [],
-    "sha256": "717381c4a84489229a8ab81867819dd4d9fb9d9d51559a27b6afd7d06c959bd4",
-    "stripped_bytes": 21397120,
-    "stripped_sha256": "9def843847c9ae2391083b32da07d9c39663981aac3cb7591e25323906cb6827",
+    "sha256": "28a9d463ab6ad3315d63b077db1da65b310720abd420280309f66785bcdf9301",
+    "stripped_bytes": 25505568,
+    "stripped_sha256": "5baafc141a1dc08d2e51eb43bc7fd9c0127df08c9335422109efc0822d61c086",
     "systemd_dependencies": []
   },
   "bison_integration": {
@@ -3265,6 +3267,9 @@
     "curl_namespaced_symbols": 1260,
     "diffutils_error_bridge_symbols": 1,
     "diffutils_namespaced_symbols": 457,
+    "e2fsprogs_coalesced_runtime_members": 3966,
+    "e2fsprogs_namespaced_symbols": 8979,
+    "e2fsprogs_script_frontend_bridge_symbols": 4,
     "file_namespaced_symbols": 135,
     "findutils_namespaced_symbols": 641,
     "flex_namespaced_symbols": 410,
@@ -3669,7 +3674,7 @@
         "yywrap"
       ],
       "binary": {
-        "bytes": 40746016,
+        "bytes": 45650264,
         "dynamic_needed": [
           "ld-linux-x86-64.so.2",
           "libattr.so.1",
@@ -3683,6 +3688,7 @@
           "libdb-5.3.so",
           "libeconf.so.0",
           "libelf.so.1",
+          "libfuse3.so.3",
           "libgcc_s.so.1",
           "libgmp.so.10",
           "liblz.so.1",
@@ -3705,8 +3711,8 @@
           "libz.so.1",
           "libzstd.so.1"
         ],
-        "link_map_sha256": "ba9c49dc4678249f94efde5284d53debdba5b96603551088af6c19157454a6db",
-        "sha256": "717381c4a84489229a8ab81867819dd4d9fb9d9d51559a27b6afd7d06c959bd4"
+        "link_map_sha256": "4a995b042ef37824e43e675ec77b2eca0fab9dc1a4977a625dc52566781f622e",
+        "sha256": "28a9d463ab6ad3315d63b077db1da65b310720abd420280309f66785bcdf9301"
       },
       "bison_frontend_bridge": {
         "embedded_resource_manifest_sha256": "ca7614033678fa109706a086a3ee2d4f8b4ff52fdae3d1698471869cff3945c5",
@@ -5279,6 +5285,34 @@
         "y1q_f",
         "ynq_f"
       ],
+      "e2fsprogs_coalesced_runtime_member_count": 3966,
+      "e2fsprogs_coalesced_runtime_members": {
+        "count": 3966,
+        "programs": 20,
+        "sha256": "37f5a8312ceb32e1e839ba91f7e242b65cea5ded01f1cc99966460e2bb40f793"
+      },
+      "e2fsprogs_namespaced_symbols": {
+        "count": 8979,
+        "programs": 20,
+        "sha256": "3992e08774bc7ed005b274830cf79c2621f82783acb858e2271a9a10d38c695f"
+      },
+      "e2fsprogs_public_names": 32,
+      "e2fsprogs_script_frontend_bridge": {
+        "object": "src/.rustbox-e2fsprogs-frontends.o",
+        "public_names": [
+          "compile_et",
+          "e2scrub",
+          "e2scrub_all",
+          "mk_cmds"
+        ],
+        "symbols": [
+          "rustbox_e2fsprogs_compile_et_main",
+          "rustbox_e2fsprogs_e2scrub_main",
+          "rustbox_e2fsprogs_e2scrub_all_main",
+          "rustbox_e2fsprogs_mk_cmds_main"
+        ],
+        "template_object": "src/.rustbox-e2fsprogs-templates.o"
+      },
       "excluded": [
         "chcon",
         "runcon"
@@ -10099,7 +10133,7 @@
           "rustbox_iproute2_routel_main"
         ]
       },
-      "isolation_cache_version": 15,
+      "isolation_cache_version": 17,
       "kmod_namespaced_symbols": {
         "count": 230,
         "sha256": "43ff02f6c483603b62f899b49d58195df7dfa516d57397993cea79d87d58322c"
@@ -13315,6 +13349,8 @@
       "public_name_precedence": {
         "chfn": "util-linux",
         "chsh": "util-linux",
+        "e2fsprogs-fsck": "E2fsprogs",
+        "fsck": "util-linux",
         "kill": "GNU Coreutils",
         "login": "util-linux",
         "newgrp": "util-linux",
@@ -13793,6 +13829,26 @@
         "work/analysis/curl-8.23.0/hybrid-artifacts/c-residue/mprintf.o": "309c6068d62a70da404624c6c960bdfb693a1b0bdbb3646997006db85bd9549d",
         "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/release/libcurl_8_23_0_normalized_audit.a": "d360a77e53bca31d38899c506cad8e1837c10134663a6aed6210b28160d6668b",
         "work/analysis/diffutils-3.12/translations/c2rust-0.22.1/diffutils-3.12-stable/target/release/libdiffutils_3_12_normalized_audit.a": "8719c2aa863f0a23a71f722642c22d8b935a7819094695e5dbb5a23272332575",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/badblocks/release/libbadblocks_audit.a": "5140d2bcbc20c76448d826b2cfa6be4d5ac20df3c8b06abd41ca7135536e889b",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/chattr/release/libchattr_audit.a": "36b039f2a9ae0c6b9237580cb2ee86bbfcf33ba4e973520ab3c064dd48d336cb",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/debugfs/release/libdebugfs_audit.a": "63e386ee25992833ea6643bfbc87ca03205b2ff89c4a4a55eecee86082331148",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/dumpe2fs/release/libdumpe2fs_audit.a": "f962fa084c21fc734f9e5286731b8b007781a12ab7a1c1103af42e3adc2dfe6c",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/e2freefrag/release/libe2freefrag_audit.a": "50fa8e45c115dab2bf222f578e530530a5e3a40dd6ad243dabb07c8c1fb9feb4",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/e2fsck/release/libe2fsck_audit.a": "6a61a99f08f356f6aa8683bd16cef30113db83e5a3e6e328a484f90678dbafa6",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/e2image/release/libe2image_audit.a": "9740ef490f7908c66e1f950922ec84394cf565ad85dab889135c08288cfcbb3d",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/e2initrd_helper/release/libe2initrd_helper_audit.a": "4596b1486ad0c01656c008251ddab498a1f0e6e8925838b03cb06d104cb41ca0",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/e2undo/release/libe2undo_audit.a": "0e8aafd7beaf0dbc461625726040c0d44001d9f9e20f124a54138bd3164c542b",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/e4crypt/release/libe4crypt_audit.a": "ddfedb3b9ae441522012c682ab5f9bf036010b3f58c680ddfa182367aee594eb",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/e4defrag/release/libe4defrag_audit.a": "57014b84c1882f0c4ffc14dbcce529f169b68a962ba324853e2c2e78fc6e7c11",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/filefrag/release/libfilefrag_audit.a": "0f21cbb3421fddd12423d97aa2f4c84590051cec3cd85106c9d149b5361163f8",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/fsck/release/libfsck_audit.a": "28d4986cd680b55854ebcc54b209c55fb8bd59ea2ae922dd357c4de81d2984ed",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/fuse2fs/release/libfuse2fs_audit.a": "11eae251191222e07eec044db1f7b68bb09ab19d2a9e149b3f844e3abd3865fc",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/logsave/release/liblogsave_audit.a": "0c1ba271f084bb6529fcde197e1285839d32f09a3db01e6ff0329d1ccea9c61c",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/lsattr/release/liblsattr_audit.a": "5ccea8b5de5c4da29e48c9efcbca1457d7dcb9b67c4ba10469ed5c62a60df965",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/mke2fs/release/libmke2fs_audit.a": "814a6248dbd69e69b57fee76860e5ddfca6255fef075ce2ca7e561744ddb63fa",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/mklost_found/release/libmklost_found_audit.a": "7f6f69f0aef9f1709f9c86623464e3507afc037918aaca047740a1b5015e6ae5",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/resize2fs/release/libresize2fs_audit.a": "3f5fac788fa6fdcf5357ad6d7b70a39563ef8793636789b415db4e440dee4035",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/tune2fs/release/libtune2fs_audit.a": "a6a3cd23af426fa4a2ab8db29d69d95d3ce857f3a86ad0276c899429b8e676fa",
         "work/analysis/file-5.48/translations/c2rust-0.22.1/file-5.48-stable/target/release/libfile_5_48_normalized_audit.a": "bdaebfb4d3a07c60c3b75aaab722967e24002fdfb1f78094370a8cfc28bc4e73",
         "work/analysis/findutils-4.10.0/hybrid-artifacts/c-residue/printf-args.o": "b2f410389030ecf645bc520b054d3121953dc29d5b1c8f2bceafadc8c601d61b",
         "work/analysis/findutils-4.10.0/hybrid-artifacts/c-residue/printf-parse.o": "4c5aa059c8d8da3e7591874ecbe788cf3d4174e81ade7815af3e05e60ba0a5d4",
@@ -14857,7 +14913,7 @@
         "yyparse",
         "zap_slashes"
       ],
-      "total_dispatch_names": 467,
+      "total_dispatch_names": 499,
       "util_linux_applets": 155,
       "xz_alias_bridge": {
         "object": "src/.rustbox-xz-aliases.o",
@@ -15965,7 +16021,7 @@
     "shadow_namespaced_symbols": 265,
     "tar_acl_imports": 13,
     "tar_namespaced_symbols": 961,
-    "translated_libraries": 123,
+    "translated_libraries": 143,
     "xz_alias_bridge_symbols": 4,
     "xz_namespaced_symbols": 339,
     "zstd_alias_bridge_symbols": 2,
@@ -17743,6 +17799,2629 @@
     "util_linux_applets": 155,
     "xz_public_names": 23,
     "zstd_public_names": 6
+  },
+  "e2fsprogs_integration": {
+    "binary": {
+      "bytes": 45650264,
+      "dynamic_needed": [
+        "ld-linux-x86-64.so.2",
+        "libattr.so.1",
+        "libbpf.so.1",
+        "libbz2.so.1.0",
+        "libc.so.6",
+        "libcap-ng.so.0",
+        "libcap.so.2",
+        "libcrypt.so.1",
+        "libcrypto.so.3",
+        "libdb-5.3.so",
+        "libeconf.so.0",
+        "libelf.so.1",
+        "libfuse3.so.3",
+        "libgcc_s.so.1",
+        "libgmp.so.10",
+        "liblz.so.1",
+        "liblzma.so.5",
+        "libm.so.6",
+        "libmagic.so.1",
+        "libmnl.so.0",
+        "libmpfr.so.6",
+        "libncurses.so.6",
+        "libncursesw.so.6",
+        "libpam.so.0",
+        "libpam_misc.so.0",
+        "libpcre2-8.so.0",
+        "libreadline.so.8",
+        "libseccomp.so.2",
+        "libsqlite3.so.0",
+        "libtinfo.so.6",
+        "libtirpc.so.3",
+        "libxtables.so.12",
+        "libz.so.1",
+        "libzstd.so.1"
+      ],
+      "link_map_sha256": "4a995b042ef37824e43e675ec77b2eca0fab9dc1a4977a625dc52566781f622e",
+      "sha256": "28a9d463ab6ad3315d63b077db1da65b310720abd420280309f66785bcdf9301",
+      "verified_bytes": 45650264,
+      "verified_link_map_sha256": "4a995b042ef37824e43e675ec77b2eca0fab9dc1a4977a625dc52566781f622e",
+      "verified_sha256": "28a9d463ab6ad3315d63b077db1da65b310720abd420280309f66785bcdf9301"
+    },
+    "collision_isolation": {
+      "coalesced_runtime_members": 3966,
+      "program_namespaces": 20,
+      "renamed_symbols": 8979,
+      "runtime_member_map_sha256": "37f5a8312ceb32e1e839ba91f7e242b65cea5ded01f1cc99966460e2bb40f793",
+      "runtime_members_by_engine": {
+        "badblocks": 211,
+        "chattr": 193,
+        "debugfs": 211,
+        "dumpe2fs": 195,
+        "e2freefrag": 195,
+        "e2fsck": 195,
+        "e2image": 195,
+        "e2initrd_helper": 195,
+        "e2undo": 195,
+        "e4crypt": 193,
+        "e4defrag": 195,
+        "filefrag": 193,
+        "fsck": 193,
+        "fuse2fs": 211,
+        "logsave": 193,
+        "lsattr": 193,
+        "mke2fs": 211,
+        "mklost_found": 193,
+        "resize2fs": 195,
+        "tune2fs": 211
+      },
+      "runtime_provider": "Procps-ng 4.0.7 pinned nightly runtime",
+      "symbol_map_sha256": "3992e08774bc7ed005b274830cf79c2621f82783acb858e2271a9a10d38c695f"
+    },
+    "comparison_cases": 112,
+    "comparison_passed": 112,
+    "differential": {
+      "canonical_multicall_exact": true,
+      "cases": 84,
+      "collision_aliases": {
+        "fsck": "e2fsprogs-fsck"
+      },
+      "native_engines": 20,
+      "native_names": 28,
+      "passed": 84,
+      "records": [
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 262,
+            "stderr_sha256": "809be39712fd4782c2bf9d050103968b3f431b17cfc3b0fbcf6fd4fea6dab0f3",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "badblocks",
+          "dispatch_name": "badblocks",
+          "engine": "badblocks",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 262,
+            "stderr_sha256": "809be39712fd4782c2bf9d050103968b3f431b17cfc3b0fbcf6fd4fea6dab0f3",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "badblocks"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 295,
+            "stderr_sha256": "5322d111d174d01f737c170b2b44903b1affe3d7fcd088618c24fefb6d958dda",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "badblocks",
+          "dispatch_name": "badblocks",
+          "engine": "badblocks",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 295,
+            "stderr_sha256": "5322d111d174d01f737c170b2b44903b1affe3d7fcd088618c24fefb6d958dda",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "badblocks"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 295,
+            "stderr_sha256": "7e5fea18423e04c2eedcdfd69e7855b4c1aac2840dc90362aceabb6b5d979ed9",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "badblocks",
+          "dispatch_name": "badblocks",
+          "engine": "badblocks",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 295,
+            "stderr_sha256": "7e5fea18423e04c2eedcdfd69e7855b4c1aac2840dc90362aceabb6b5d979ed9",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "badblocks"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 28,
+            "stderr_sha256": "39d3f7d7e1d6a0cf79f994dfd852b1567b5997db9b95f0ae2df3108d364f2623",
+            "stdout_bytes": 10,
+            "stdout_sha256": "24fd24027a06775301654f9d331df69513896a929018149e1d264873c3f0effc"
+          },
+          "canonical_name": "debugfs",
+          "dispatch_name": "debugfs",
+          "engine": "debugfs",
+          "multicall": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 28,
+            "stderr_sha256": "39d3f7d7e1d6a0cf79f994dfd852b1567b5997db9b95f0ae2df3108d364f2623",
+            "stdout_bytes": 10,
+            "stdout_sha256": "24fd24027a06775301654f9d331df69513896a929018149e1d264873c3f0effc"
+          },
+          "passed": true,
+          "program": "debugfs"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 221,
+            "stderr_sha256": "16c3cf7fd864039dd50e1a4ab210ff8c46a1a41d46ea63fb981aa260dab1416e",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "debugfs",
+          "dispatch_name": "debugfs",
+          "engine": "debugfs",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 221,
+            "stderr_sha256": "16c3cf7fd864039dd50e1a4ab210ff8c46a1a41d46ea63fb981aa260dab1416e",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "debugfs"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 65,
+            "stderr_sha256": "9ddc5c91ad88deaa01982424a7da93a247641362cb66c3455adab3ef974826cb",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "debugfs",
+          "dispatch_name": "debugfs",
+          "engine": "debugfs",
+          "multicall": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 65,
+            "stderr_sha256": "9ddc5c91ad88deaa01982424a7da93a247641362cb66c3455adab3ef974826cb",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "debugfs"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 107,
+            "stderr_sha256": "523560c650d5168b314c3456eb8846afb828a690233746cb912088c4ded6a379",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "dumpe2fs",
+          "dispatch_name": "dumpe2fs",
+          "engine": "dumpe2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 107,
+            "stderr_sha256": "523560c650d5168b314c3456eb8846afb828a690233746cb912088c4ded6a379",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "dumpe2fs"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 139,
+            "stderr_sha256": "b9a5ad75ed84c8baa5f4c2e7c7e5478913cf9c26691cc3bed935ce91200c2f44",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "dumpe2fs",
+          "dispatch_name": "dumpe2fs",
+          "engine": "dumpe2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 139,
+            "stderr_sha256": "b9a5ad75ed84c8baa5f4c2e7c7e5478913cf9c26691cc3bed935ce91200c2f44",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "dumpe2fs"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 66,
+            "stderr_sha256": "3db246422aee769d062e15f0d9c6f79d8e1534d5ae97250b2d6d6d7588da0b0c",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "dumpe2fs",
+          "dispatch_name": "dumpe2fs",
+          "engine": "dumpe2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 66,
+            "stderr_sha256": "3db246422aee769d062e15f0d9c6f79d8e1534d5ae97250b2d6d6d7588da0b0c",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "dumpe2fs"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 16,
+            "stderr_bytes": 827,
+            "stderr_sha256": "322229d56c7d04f1a9f1e4d37a213701738e5cff007df2bdc032b53fb3d9121f",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "e2fsck",
+          "dispatch_name": "e2fsck",
+          "engine": "e2fsck",
+          "multicall": {
+            "filesystem": [],
+            "status": 16,
+            "stderr_bytes": 827,
+            "stderr_sha256": "322229d56c7d04f1a9f1e4d37a213701738e5cff007df2bdc032b53fb3d9121f",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "e2fsck"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 16,
+            "stderr_bytes": 857,
+            "stderr_sha256": "e9107cd05a5d49acf895fecdce542546a5a012bf69d3cda1124174d8727c7314",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "e2fsck",
+          "dispatch_name": "e2fsck",
+          "engine": "e2fsck",
+          "multicall": {
+            "filesystem": [],
+            "status": 16,
+            "stderr_bytes": 857,
+            "stderr_sha256": "e9107cd05a5d49acf895fecdce542546a5a012bf69d3cda1124174d8727c7314",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "e2fsck"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 76,
+            "stderr_sha256": "40d5daf6b8ea0a53dc392d2e89d04aea8d0365b893657330dc9e1825e9c43ead",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "e2fsck",
+          "dispatch_name": "e2fsck",
+          "engine": "e2fsck",
+          "multicall": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 76,
+            "stderr_sha256": "40d5daf6b8ea0a53dc392d2e89d04aea8d0365b893657330dc9e1825e9c43ead",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "e2fsck"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 234,
+            "stderr_sha256": "eb5f4922ad1066b3d2e1ef09d622c984b5550a67bf892a0e6341fa8ca1eda76f",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "e2image",
+          "dispatch_name": "e2image",
+          "engine": "e2image",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 234,
+            "stderr_sha256": "eb5f4922ad1066b3d2e1ef09d622c984b5550a67bf892a0e6341fa8ca1eda76f",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "e2image"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 265,
+            "stderr_sha256": "9e5371d3c7d9d408c44bffc844a4e34031517b02d36c1bc09cc9d6dbce22bded",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "e2image",
+          "dispatch_name": "e2image",
+          "engine": "e2image",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 265,
+            "stderr_sha256": "9e5371d3c7d9d408c44bffc844a4e34031517b02d36c1bc09cc9d6dbce22bded",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "e2image"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 265,
+            "stderr_sha256": "cd42b042b3101205f025e5c69e76a8e237d5b0375d329a03bde94e8e3e3dc246",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "e2image",
+          "dispatch_name": "e2image",
+          "engine": "e2image",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 265,
+            "stderr_sha256": "cd42b042b3101205f025e5c69e76a8e237d5b0375d329a03bde94e8e3e3dc246",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "e2image"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 33,
+            "stderr_sha256": "23408442c588f0a49dcc88980ac721ee951a9889848170a6de52b360785fdb55",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "e2label",
+          "dispatch_name": "e2label",
+          "engine": "tune2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 33,
+            "stderr_sha256": "23408442c588f0a49dcc88980ac721ee951a9889848170a6de52b360785fdb55",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "e2label"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 106,
+            "stderr_sha256": "1338d6d41dae8d17339bc27470b4f9e49e249b5c1a54f2c84eda8ebf9b02222d",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "e2label",
+          "dispatch_name": "e2label",
+          "engine": "tune2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 106,
+            "stderr_sha256": "1338d6d41dae8d17339bc27470b4f9e49e249b5c1a54f2c84eda8ebf9b02222d",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "e2label"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 102,
+            "stderr_sha256": "0fd91114188a81c61300d52db9fc7cc9b7c842cd1935e6496c2b882346809aa0",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "e2label",
+          "dispatch_name": "e2label",
+          "engine": "tune2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 102,
+            "stderr_sha256": "0fd91114188a81c61300d52db9fc7cc9b7c842cd1935e6496c2b882346809aa0",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "e2label"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 81,
+            "stderr_sha256": "773308c338cc801a7b347ea677687b12ef37f7b1d462c2fd90aa375a2c6d7191",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "e2mmpstatus",
+          "dispatch_name": "e2mmpstatus",
+          "engine": "dumpe2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 81,
+            "stderr_sha256": "773308c338cc801a7b347ea677687b12ef37f7b1d462c2fd90aa375a2c6d7191",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "e2mmpstatus"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 116,
+            "stderr_sha256": "dae958eac3e1e0caf27be057cf6284cc951525b7a4c9f6e84f8e316344cf7448",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "e2mmpstatus",
+          "dispatch_name": "e2mmpstatus",
+          "engine": "dumpe2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 116,
+            "stderr_sha256": "dae958eac3e1e0caf27be057cf6284cc951525b7a4c9f6e84f8e316344cf7448",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "e2mmpstatus"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 37,
+            "stderr_sha256": "7492dddc0717ba53a9ba2e420be414c153903ce7b7597f59fbd392cd4327fe58",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "e2mmpstatus",
+          "dispatch_name": "e2mmpstatus",
+          "engine": "dumpe2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 37,
+            "stderr_sha256": "7492dddc0717ba53a9ba2e420be414c153903ce7b7597f59fbd392cd4327fe58",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "e2mmpstatus"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 93,
+            "stderr_sha256": "996b7bf1fb314698f48af51957654b6b48fdf7a86378dd8fa1900168ce03e5fd",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "e2undo",
+          "dispatch_name": "e2undo",
+          "engine": "e2undo",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 93,
+            "stderr_sha256": "996b7bf1fb314698f48af51957654b6b48fdf7a86378dd8fa1900168ce03e5fd",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "e2undo"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 123,
+            "stderr_sha256": "e20adb5b28be6863c3904377befab8953155a1adf4c50f721b5299b0bec1c104",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "e2undo",
+          "dispatch_name": "e2undo",
+          "engine": "e2undo",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 123,
+            "stderr_sha256": "e20adb5b28be6863c3904377befab8953155a1adf4c50f721b5299b0bec1c104",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "e2undo"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 123,
+            "stderr_sha256": "5e4a0e5a3985c697516b3811a950d50ac1a11b3fbc4d121205fa32b5fb0e5bed",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "e2undo",
+          "dispatch_name": "e2undo",
+          "engine": "e2undo",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 123,
+            "stderr_sha256": "5e4a0e5a3985c697516b3811a950d50ac1a11b3fbc4d121205fa32b5fb0e5bed",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "e2undo"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 25,
+            "stdout_sha256": "84713f1f641881d1c67bc24553a5de4d0ac9bc4559ec444a90898ac7c2219f79"
+          },
+          "canonical_name": "fsck",
+          "dispatch_name": "e2fsprogs-fsck",
+          "engine": "fsck",
+          "multicall": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 25,
+            "stdout_sha256": "84713f1f641881d1c67bc24553a5de4d0ac9bc4559ec444a90898ac7c2219f79"
+          },
+          "passed": true,
+          "program": "e2fsprogs-fsck"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 25,
+            "stdout_sha256": "84713f1f641881d1c67bc24553a5de4d0ac9bc4559ec444a90898ac7c2219f79"
+          },
+          "canonical_name": "fsck",
+          "dispatch_name": "e2fsprogs-fsck",
+          "engine": "fsck",
+          "multicall": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 25,
+            "stdout_sha256": "84713f1f641881d1c67bc24553a5de4d0ac9bc4559ec444a90898ac7c2219f79"
+          },
+          "passed": true,
+          "program": "e2fsprogs-fsck"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 52,
+            "stdout_sha256": "3d8bcaa64b6f938a10a39b84a08815ef4e136bf05c80421cf61e3357072216ad"
+          },
+          "canonical_name": "fsck",
+          "dispatch_name": "e2fsprogs-fsck",
+          "engine": "fsck",
+          "multicall": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 52,
+            "stdout_sha256": "3d8bcaa64b6f938a10a39b84a08815ef4e136bf05c80421cf61e3357072216ad"
+          },
+          "passed": true,
+          "program": "e2fsprogs-fsck"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 16,
+            "stderr_bytes": 830,
+            "stderr_sha256": "0cc4bbd1f02f904d945a4107ac9a967ed3fda4a0e5bd3225305acd5663f42c46",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "fsck.ext2",
+          "dispatch_name": "fsck.ext2",
+          "engine": "e2fsck",
+          "multicall": {
+            "filesystem": [],
+            "status": 16,
+            "stderr_bytes": 830,
+            "stderr_sha256": "0cc4bbd1f02f904d945a4107ac9a967ed3fda4a0e5bd3225305acd5663f42c46",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "fsck.ext2"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 16,
+            "stderr_bytes": 863,
+            "stderr_sha256": "880ec7a1fe49bb8e40d6fa846b68916383a3b9e7e1456689a0b1451e87cd6360",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "fsck.ext2",
+          "dispatch_name": "fsck.ext2",
+          "engine": "e2fsck",
+          "multicall": {
+            "filesystem": [],
+            "status": 16,
+            "stderr_bytes": 863,
+            "stderr_sha256": "880ec7a1fe49bb8e40d6fa846b68916383a3b9e7e1456689a0b1451e87cd6360",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "fsck.ext2"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 76,
+            "stderr_sha256": "40d5daf6b8ea0a53dc392d2e89d04aea8d0365b893657330dc9e1825e9c43ead",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "fsck.ext2",
+          "dispatch_name": "fsck.ext2",
+          "engine": "e2fsck",
+          "multicall": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 76,
+            "stderr_sha256": "40d5daf6b8ea0a53dc392d2e89d04aea8d0365b893657330dc9e1825e9c43ead",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "fsck.ext2"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 16,
+            "stderr_bytes": 830,
+            "stderr_sha256": "7c2549d9c81ecb3d1f3b2a995c5fea7cfc46382b52ec496c0910bc0949f0fefd",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "fsck.ext3",
+          "dispatch_name": "fsck.ext3",
+          "engine": "e2fsck",
+          "multicall": {
+            "filesystem": [],
+            "status": 16,
+            "stderr_bytes": 830,
+            "stderr_sha256": "7c2549d9c81ecb3d1f3b2a995c5fea7cfc46382b52ec496c0910bc0949f0fefd",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "fsck.ext3"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 16,
+            "stderr_bytes": 863,
+            "stderr_sha256": "087a21201d0fec6eb8d03f87ebe06774271649a45902620e438bcfa8e0be7d4b",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "fsck.ext3",
+          "dispatch_name": "fsck.ext3",
+          "engine": "e2fsck",
+          "multicall": {
+            "filesystem": [],
+            "status": 16,
+            "stderr_bytes": 863,
+            "stderr_sha256": "087a21201d0fec6eb8d03f87ebe06774271649a45902620e438bcfa8e0be7d4b",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "fsck.ext3"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 76,
+            "stderr_sha256": "40d5daf6b8ea0a53dc392d2e89d04aea8d0365b893657330dc9e1825e9c43ead",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "fsck.ext3",
+          "dispatch_name": "fsck.ext3",
+          "engine": "e2fsck",
+          "multicall": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 76,
+            "stderr_sha256": "40d5daf6b8ea0a53dc392d2e89d04aea8d0365b893657330dc9e1825e9c43ead",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "fsck.ext3"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 16,
+            "stderr_bytes": 830,
+            "stderr_sha256": "ee2eb89ec80e7398b2a6f046cb612d8a591ff01bac870eee422139911346e7bd",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "fsck.ext4",
+          "dispatch_name": "fsck.ext4",
+          "engine": "e2fsck",
+          "multicall": {
+            "filesystem": [],
+            "status": 16,
+            "stderr_bytes": 830,
+            "stderr_sha256": "ee2eb89ec80e7398b2a6f046cb612d8a591ff01bac870eee422139911346e7bd",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "fsck.ext4"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 16,
+            "stderr_bytes": 863,
+            "stderr_sha256": "ecf7093422b93220440710e982cc8d13b92f2afc82e55a306dae87ff1779ef7e",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "fsck.ext4",
+          "dispatch_name": "fsck.ext4",
+          "engine": "e2fsck",
+          "multicall": {
+            "filesystem": [],
+            "status": 16,
+            "stderr_bytes": 863,
+            "stderr_sha256": "ecf7093422b93220440710e982cc8d13b92f2afc82e55a306dae87ff1779ef7e",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "fsck.ext4"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 76,
+            "stderr_sha256": "40d5daf6b8ea0a53dc392d2e89d04aea8d0365b893657330dc9e1825e9c43ead",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "fsck.ext4",
+          "dispatch_name": "fsck.ext4",
+          "engine": "e2fsck",
+          "multicall": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 76,
+            "stderr_sha256": "40d5daf6b8ea0a53dc392d2e89d04aea8d0365b893657330dc9e1825e9c43ead",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "fsck.ext4"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 38,
+            "stdout_sha256": "d96c7fa873e83b9d9fb81cb17a25e08b7eef40af7cd5fa41f14f2392e0092ef3"
+          },
+          "canonical_name": "logsave",
+          "dispatch_name": "logsave",
+          "engine": "logsave",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 38,
+            "stdout_sha256": "d96c7fa873e83b9d9fb81cb17a25e08b7eef40af7cd5fa41f14f2392e0092ef3"
+          },
+          "passed": true,
+          "program": "logsave"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 155,
+            "stderr_sha256": "acabc5e1bf6fc134c547b815028781fb7fd730a982d281b7602c9c645c9e37a3",
+            "stdout_bytes": 38,
+            "stdout_sha256": "d96c7fa873e83b9d9fb81cb17a25e08b7eef40af7cd5fa41f14f2392e0092ef3"
+          },
+          "canonical_name": "logsave",
+          "dispatch_name": "logsave",
+          "engine": "logsave",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 155,
+            "stderr_sha256": "acabc5e1bf6fc134c547b815028781fb7fd730a982d281b7602c9c645c9e37a3",
+            "stdout_bytes": 38,
+            "stdout_sha256": "d96c7fa873e83b9d9fb81cb17a25e08b7eef40af7cd5fa41f14f2392e0092ef3"
+          },
+          "passed": true,
+          "program": "logsave"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 31,
+            "stderr_sha256": "94d7bdb726595e4484c71ace9b329dea04ea8e8b2e24ee7042c35ed119014dc5",
+            "stdout_bytes": 38,
+            "stdout_sha256": "d96c7fa873e83b9d9fb81cb17a25e08b7eef40af7cd5fa41f14f2392e0092ef3"
+          },
+          "canonical_name": "logsave",
+          "dispatch_name": "logsave",
+          "engine": "logsave",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 31,
+            "stderr_sha256": "94d7bdb726595e4484c71ace9b329dea04ea8e8b2e24ee7042c35ed119014dc5",
+            "stdout_bytes": 38,
+            "stdout_sha256": "d96c7fa873e83b9d9fb81cb17a25e08b7eef40af7cd5fa41f14f2392e0092ef3"
+          },
+          "passed": true,
+          "program": "logsave"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 472,
+            "stderr_sha256": "fd22d54a7ab8941124bf334182a9ad561aa9ff67606cab2228fa7c532020ce21",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "mke2fs",
+          "dispatch_name": "mke2fs",
+          "engine": "mke2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 472,
+            "stderr_sha256": "fd22d54a7ab8941124bf334182a9ad561aa9ff67606cab2228fa7c532020ce21",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "mke2fs"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 502,
+            "stderr_sha256": "2aa9f9f99c9bb408c55966fc623ea73135193fb5fe90f0c932fbf11c5cffe4b3",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "mke2fs",
+          "dispatch_name": "mke2fs",
+          "engine": "mke2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 502,
+            "stderr_sha256": "2aa9f9f99c9bb408c55966fc623ea73135193fb5fe90f0c932fbf11c5cffe4b3",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "mke2fs"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 64,
+            "stderr_sha256": "974c1ec6d43e2f2690c8751ecc53d69944336c247d4d30443492766b02bcb4c9",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "mke2fs",
+          "dispatch_name": "mke2fs",
+          "engine": "mke2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 64,
+            "stderr_sha256": "974c1ec6d43e2f2690c8751ecc53d69944336c247d4d30443492766b02bcb4c9",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "mke2fs"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 475,
+            "stderr_sha256": "e999e426d53379d93f87936d77ee8f81ce9a2daef57400e3b9dd910738c067e0",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "mkfs.ext2",
+          "dispatch_name": "mkfs.ext2",
+          "engine": "mke2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 475,
+            "stderr_sha256": "e999e426d53379d93f87936d77ee8f81ce9a2daef57400e3b9dd910738c067e0",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "mkfs.ext2"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 508,
+            "stderr_sha256": "8fa173011185c19eef629aefd4081ab99f4a49c13eea81e92a03f7de25676fbe",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "mkfs.ext2",
+          "dispatch_name": "mkfs.ext2",
+          "engine": "mke2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 508,
+            "stderr_sha256": "8fa173011185c19eef629aefd4081ab99f4a49c13eea81e92a03f7de25676fbe",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "mkfs.ext2"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 64,
+            "stderr_sha256": "974c1ec6d43e2f2690c8751ecc53d69944336c247d4d30443492766b02bcb4c9",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "mkfs.ext2",
+          "dispatch_name": "mkfs.ext2",
+          "engine": "mke2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 64,
+            "stderr_sha256": "974c1ec6d43e2f2690c8751ecc53d69944336c247d4d30443492766b02bcb4c9",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "mkfs.ext2"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 475,
+            "stderr_sha256": "2c11210b3b3ca418110a502a170db20832967e6f1059d2bceab60770e0f6e510",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "mkfs.ext3",
+          "dispatch_name": "mkfs.ext3",
+          "engine": "mke2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 475,
+            "stderr_sha256": "2c11210b3b3ca418110a502a170db20832967e6f1059d2bceab60770e0f6e510",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "mkfs.ext3"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 508,
+            "stderr_sha256": "da2b729d64651502f428ba8f7a6d57562f844b40cfa85845926fc4d6b1d88e9d",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "mkfs.ext3",
+          "dispatch_name": "mkfs.ext3",
+          "engine": "mke2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 508,
+            "stderr_sha256": "da2b729d64651502f428ba8f7a6d57562f844b40cfa85845926fc4d6b1d88e9d",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "mkfs.ext3"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 64,
+            "stderr_sha256": "974c1ec6d43e2f2690c8751ecc53d69944336c247d4d30443492766b02bcb4c9",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "mkfs.ext3",
+          "dispatch_name": "mkfs.ext3",
+          "engine": "mke2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 64,
+            "stderr_sha256": "974c1ec6d43e2f2690c8751ecc53d69944336c247d4d30443492766b02bcb4c9",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "mkfs.ext3"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 475,
+            "stderr_sha256": "410b2f6aa44d15db8d327192e91518a23fec4b5bd2f52f6fce6e6e4aea832bde",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "mkfs.ext4",
+          "dispatch_name": "mkfs.ext4",
+          "engine": "mke2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 475,
+            "stderr_sha256": "410b2f6aa44d15db8d327192e91518a23fec4b5bd2f52f6fce6e6e4aea832bde",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "mkfs.ext4"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 508,
+            "stderr_sha256": "9fd227f711ac22a98816c627122ec6062d28a4d6d000812f89e122c23dd08291",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "mkfs.ext4",
+          "dispatch_name": "mkfs.ext4",
+          "engine": "mke2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 508,
+            "stderr_sha256": "9fd227f711ac22a98816c627122ec6062d28a4d6d000812f89e122c23dd08291",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "mkfs.ext4"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 64,
+            "stderr_sha256": "974c1ec6d43e2f2690c8751ecc53d69944336c247d4d30443492766b02bcb4c9",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "mkfs.ext4",
+          "dispatch_name": "mkfs.ext4",
+          "engine": "mke2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 64,
+            "stderr_sha256": "974c1ec6d43e2f2690c8751ecc53d69944336c247d4d30443492766b02bcb4c9",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "mkfs.ext4"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 146,
+            "stderr_sha256": "70315ea388fdacc2c436440ba27b41a40bed7390de95a208041561eae53caa04",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "resize2fs",
+          "dispatch_name": "resize2fs",
+          "engine": "resize2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 146,
+            "stderr_sha256": "70315ea388fdacc2c436440ba27b41a40bed7390de95a208041561eae53caa04",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "resize2fs"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 179,
+            "stderr_sha256": "320925030534e37094005e14bae6d0ebffcc634792b097ba642f4a36b440a56d",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "resize2fs",
+          "dispatch_name": "resize2fs",
+          "engine": "resize2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 179,
+            "stderr_sha256": "320925030534e37094005e14bae6d0ebffcc634792b097ba642f4a36b440a56d",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "resize2fs"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 179,
+            "stderr_sha256": "1aeab47693dd2f1728713293aa4d36f47ed924a6ad6b59a1a7548fce0afd4a22",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "resize2fs",
+          "dispatch_name": "resize2fs",
+          "engine": "resize2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 179,
+            "stderr_sha256": "1aeab47693dd2f1728713293aa4d36f47ed924a6ad6b59a1a7548fce0afd4a22",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "resize2fs"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 425,
+            "stderr_sha256": "fc6c8aa812622d7cf07be48f26e1ee7459d97bf52f234aadf0413dbf08a54fd1",
+            "stdout_bytes": 28,
+            "stdout_sha256": "d16e5b3123ca9790235d7799ee73817b43f997d467d45d328ac1ca02c5b31799"
+          },
+          "canonical_name": "tune2fs",
+          "dispatch_name": "tune2fs",
+          "engine": "tune2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 425,
+            "stderr_sha256": "fc6c8aa812622d7cf07be48f26e1ee7459d97bf52f234aadf0413dbf08a54fd1",
+            "stdout_bytes": 28,
+            "stdout_sha256": "d16e5b3123ca9790235d7799ee73817b43f997d467d45d328ac1ca02c5b31799"
+          },
+          "passed": true,
+          "program": "tune2fs"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 456,
+            "stderr_sha256": "0f42f0ebbf854fb79d66de0427effd32bd2676305d8b991d64380ce5f10b202a",
+            "stdout_bytes": 28,
+            "stdout_sha256": "d16e5b3123ca9790235d7799ee73817b43f997d467d45d328ac1ca02c5b31799"
+          },
+          "canonical_name": "tune2fs",
+          "dispatch_name": "tune2fs",
+          "engine": "tune2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 456,
+            "stderr_sha256": "0f42f0ebbf854fb79d66de0427effd32bd2676305d8b991d64380ce5f10b202a",
+            "stdout_bytes": 28,
+            "stdout_sha256": "d16e5b3123ca9790235d7799ee73817b43f997d467d45d328ac1ca02c5b31799"
+          },
+          "passed": true,
+          "program": "tune2fs"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 456,
+            "stderr_sha256": "40ee591ab9d7b5aa0fe270062227de0da936bf5ea13306857a992cbb28aa2347",
+            "stdout_bytes": 28,
+            "stdout_sha256": "d16e5b3123ca9790235d7799ee73817b43f997d467d45d328ac1ca02c5b31799"
+          },
+          "canonical_name": "tune2fs",
+          "dispatch_name": "tune2fs",
+          "engine": "tune2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 456,
+            "stderr_sha256": "40ee591ab9d7b5aa0fe270062227de0da936bf5ea13306857a992cbb28aa2347",
+            "stdout_bytes": 28,
+            "stdout_sha256": "d16e5b3123ca9790235d7799ee73817b43f997d467d45d328ac1ca02c5b31799"
+          },
+          "passed": true,
+          "program": "tune2fs"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 79,
+            "stderr_sha256": "2d18a728dcef92b55d4e8a3ac187d51b9b2247f2ff20b9abf2f5980029024e5b",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "chattr",
+          "dispatch_name": "chattr",
+          "engine": "chattr",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 79,
+            "stderr_sha256": "2d18a728dcef92b55d4e8a3ac187d51b9b2247f2ff20b9abf2f5980029024e5b",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "chattr"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 79,
+            "stderr_sha256": "2d18a728dcef92b55d4e8a3ac187d51b9b2247f2ff20b9abf2f5980029024e5b",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "chattr",
+          "dispatch_name": "chattr",
+          "engine": "chattr",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 79,
+            "stderr_sha256": "2d18a728dcef92b55d4e8a3ac187d51b9b2247f2ff20b9abf2f5980029024e5b",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "chattr"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 79,
+            "stderr_sha256": "2d18a728dcef92b55d4e8a3ac187d51b9b2247f2ff20b9abf2f5980029024e5b",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "chattr",
+          "dispatch_name": "chattr",
+          "engine": "chattr",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 79,
+            "stderr_sha256": "2d18a728dcef92b55d4e8a3ac187d51b9b2247f2ff20b9abf2f5980029024e5b",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "chattr"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 53,
+            "stderr_sha256": "77ea1b473682728bab94755acfe42a6b0728b40ef6292ba2abf7c0703fae33cc",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "fuse2fs",
+          "dispatch_name": "fuse2fs",
+          "engine": "fuse2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 53,
+            "stderr_sha256": "77ea1b473682728bab94755acfe42a6b0728b40ef6292ba2abf7c0703fae33cc",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "fuse2fs"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 1039,
+            "stderr_sha256": "b008083a8ac4ac39afbceb258ff8d0b04221103a8ddd6f8943a40783c17a1f98",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "fuse2fs",
+          "dispatch_name": "fuse2fs",
+          "engine": "fuse2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 1039,
+            "stderr_sha256": "b008083a8ac4ac39afbceb258ff8d0b04221103a8ddd6f8943a40783c17a1f98",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "fuse2fs"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 28,
+            "stderr_sha256": "6f7f9e0a8b1e537b9cb3fc6b7cee3bae9b23f5f4c1a8c4ea50dd4ebab4937d94",
+            "stdout_bytes": 69,
+            "stdout_sha256": "3a4bd4e903cbdbe7516c87afb839aaef48c4d49b910640c1f6e4023c27cea5cd"
+          },
+          "canonical_name": "fuse2fs",
+          "dispatch_name": "fuse2fs",
+          "engine": "fuse2fs",
+          "multicall": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 28,
+            "stderr_sha256": "6f7f9e0a8b1e537b9cb3fc6b7cee3bae9b23f5f4c1a8c4ea50dd4ebab4937d94",
+            "stdout_bytes": 69,
+            "stdout_sha256": "3a4bd4e903cbdbe7516c87afb839aaef48c4d49b910640c1f6e4023c27cea5cd"
+          },
+          "passed": true,
+          "program": "fuse2fs"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "lsattr",
+          "dispatch_name": "lsattr",
+          "engine": "lsattr",
+          "multicall": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "lsattr"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 66,
+            "stderr_sha256": "d918156a99f890627b3b1eed7cac60a9785e669d312503fae5416741050918f5",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "lsattr",
+          "dispatch_name": "lsattr",
+          "engine": "lsattr",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 66,
+            "stderr_sha256": "d918156a99f890627b3b1eed7cac60a9785e669d312503fae5416741050918f5",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "lsattr"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 27,
+            "stderr_sha256": "4406cf62160b966dde4dba7d1a5fbeed6b5100bfa6568b60bcd0e9e08a0a3ad2",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "lsattr",
+          "dispatch_name": "lsattr",
+          "engine": "lsattr",
+          "multicall": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 27,
+            "stderr_sha256": "4406cf62160b966dde4dba7d1a5fbeed6b5100bfa6568b60bcd0e9e08a0a3ad2",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "lsattr"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 33,
+            "stderr_sha256": "01ba0f367bb41124a10ae81aaccd94b702c5c0bbcf3cce8d4adf2c6770e5cf01",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "e2initrd_helper",
+          "dispatch_name": "e2initrd_helper",
+          "engine": "e2initrd_helper",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 33,
+            "stderr_sha256": "01ba0f367bb41124a10ae81aaccd94b702c5c0bbcf3cce8d4adf2c6770e5cf01",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "e2initrd_helper"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 72,
+            "stderr_sha256": "970b5a8a6c844d04f415eb8105818fa7fc5847e73701773a55e120432b87c9c5",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "e2initrd_helper",
+          "dispatch_name": "e2initrd_helper",
+          "engine": "e2initrd_helper",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 72,
+            "stderr_sha256": "970b5a8a6c844d04f415eb8105818fa7fc5847e73701773a55e120432b87c9c5",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "e2initrd_helper"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 72,
+            "stderr_sha256": "5ec9c55e4a06e12b5db45448ebfdd7062d3b4ad9354697388388c4c908bd8300",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "e2initrd_helper",
+          "dispatch_name": "e2initrd_helper",
+          "engine": "e2initrd_helper",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 72,
+            "stderr_sha256": "5ec9c55e4a06e12b5db45448ebfdd7062d3b4ad9354697388388c4c908bd8300",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "e2initrd_helper"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 89,
+            "stderr_sha256": "93009d210027f6931591ff258fe70a8932ed309487b9dfec7c1b358722ccb0ec",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "e2freefrag",
+          "dispatch_name": "e2freefrag",
+          "engine": "e2freefrag",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 89,
+            "stderr_sha256": "93009d210027f6931591ff258fe70a8932ed309487b9dfec7c1b358722ccb0ec",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "e2freefrag"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 90,
+            "stderr_sha256": "1f849cf37e9a417f7f925715c614643ea89b8203bc044c12e1a31eba265150eb",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "e2freefrag",
+          "dispatch_name": "e2freefrag",
+          "engine": "e2freefrag",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 90,
+            "stderr_sha256": "1f849cf37e9a417f7f925715c614643ea89b8203bc044c12e1a31eba265150eb",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "e2freefrag"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 90,
+            "stderr_sha256": "90ff352d201e2e0c7614c860bd89ee8a7642c8cb0a29047585dd1f2cdab1c167",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "e2freefrag",
+          "dispatch_name": "e2freefrag",
+          "engine": "e2freefrag",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 90,
+            "stderr_sha256": "90ff352d201e2e0c7614c860bd89ee8a7642c8cb0a29047585dd1f2cdab1c167",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "e2freefrag"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 321,
+            "stdout_sha256": "17ab2852731c46f8898fadeb8f91e56590986fb79b395eea6a8739e3f23dca1a"
+          },
+          "canonical_name": "e4crypt",
+          "dispatch_name": "e4crypt",
+          "engine": "e4crypt",
+          "multicall": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 321,
+            "stdout_sha256": "17ab2852731c46f8898fadeb8f91e56590986fb79b395eea6a8739e3f23dca1a"
+          },
+          "passed": true,
+          "program": "e4crypt"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 346,
+            "stdout_sha256": "e8fd55dc50f05595297f4420afb3460295dc56e7016d4d1a3b5fea063e31610c"
+          },
+          "canonical_name": "e4crypt",
+          "dispatch_name": "e4crypt",
+          "engine": "e4crypt",
+          "multicall": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 346,
+            "stdout_sha256": "e8fd55dc50f05595297f4420afb3460295dc56e7016d4d1a3b5fea063e31610c"
+          },
+          "passed": true,
+          "program": "e4crypt"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 342,
+            "stdout_sha256": "7ce854607dbd9b300012eaf79ca821da723ad8cc18f48e78db2466907dc2fcb6"
+          },
+          "canonical_name": "e4crypt",
+          "dispatch_name": "e4crypt",
+          "engine": "e4crypt",
+          "multicall": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 342,
+            "stdout_sha256": "7ce854607dbd9b300012eaf79ca821da723ad8cc18f48e78db2466907dc2fcb6"
+          },
+          "passed": true,
+          "program": "e4crypt"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 134,
+            "stdout_sha256": "20e35b5440844ffe8c5e6ee9a85020372cad538c4e94d72ccdb228e3c508498f"
+          },
+          "canonical_name": "e4defrag",
+          "dispatch_name": "e4defrag",
+          "engine": "e4defrag",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 134,
+            "stdout_sha256": "20e35b5440844ffe8c5e6ee9a85020372cad538c4e94d72ccdb228e3c508498f"
+          },
+          "passed": true,
+          "program": "e4defrag"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 32,
+            "stderr_sha256": "d87e68dc1b03189e29d2edcaf24f50f00db86fc7653cfe08c19b08f310846b06",
+            "stdout_bytes": 134,
+            "stdout_sha256": "20e35b5440844ffe8c5e6ee9a85020372cad538c4e94d72ccdb228e3c508498f"
+          },
+          "canonical_name": "e4defrag",
+          "dispatch_name": "e4defrag",
+          "engine": "e4defrag",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 32,
+            "stderr_sha256": "d87e68dc1b03189e29d2edcaf24f50f00db86fc7653cfe08c19b08f310846b06",
+            "stdout_bytes": 134,
+            "stdout_sha256": "20e35b5440844ffe8c5e6ee9a85020372cad538c4e94d72ccdb228e3c508498f"
+          },
+          "passed": true,
+          "program": "e4defrag"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 32,
+            "stderr_sha256": "15fc8ad2e99750931c191cacdedd347dbdd1ae09e65c0d741d6a48e329cb4369",
+            "stdout_bytes": 134,
+            "stdout_sha256": "20e35b5440844ffe8c5e6ee9a85020372cad538c4e94d72ccdb228e3c508498f"
+          },
+          "canonical_name": "e4defrag",
+          "dispatch_name": "e4defrag",
+          "engine": "e4defrag",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 32,
+            "stderr_sha256": "15fc8ad2e99750931c191cacdedd347dbdd1ae09e65c0d741d6a48e329cb4369",
+            "stdout_bytes": 134,
+            "stdout_sha256": "20e35b5440844ffe8c5e6ee9a85020372cad538c4e94d72ccdb228e3c508498f"
+          },
+          "passed": true,
+          "program": "e4defrag"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 58,
+            "stderr_sha256": "e3f812318a3690fd3b955083aef4587dbf47d2ace077e5a2600fc7ce693c60e0",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "filefrag",
+          "dispatch_name": "filefrag",
+          "engine": "filefrag",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 58,
+            "stderr_sha256": "e3f812318a3690fd3b955083aef4587dbf47d2ace077e5a2600fc7ce693c60e0",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "filefrag"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 90,
+            "stderr_sha256": "1987e1f63150bfbe4da90c08b70aaeee291670dd1e60ccd9cb60c6529da4c93b",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "filefrag",
+          "dispatch_name": "filefrag",
+          "engine": "filefrag",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 90,
+            "stderr_sha256": "1987e1f63150bfbe4da90c08b70aaeee291670dd1e60ccd9cb60c6529da4c93b",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "filefrag"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 29,
+            "stdout_sha256": "f061c8c00ee1e0ea5c941b3c9e790c2f2ff3e612b19ba3d888b080213b158869"
+          },
+          "canonical_name": "filefrag",
+          "dispatch_name": "filefrag",
+          "engine": "filefrag",
+          "multicall": {
+            "filesystem": [],
+            "status": 0,
+            "stderr_bytes": 0,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_bytes": 29,
+            "stdout_sha256": "f061c8c00ee1e0ea5c941b3c9e790c2f2ff3e612b19ba3d888b080213b158869"
+          },
+          "passed": true,
+          "program": "filefrag"
+        },
+        {
+          "arguments": [],
+          "canonical": {
+            "filesystem": [
+              {
+                "bytes": null,
+                "kind": "directory",
+                "mode": 448,
+                "path": "lost+found",
+                "sha256": null,
+                "target": null
+              }
+            ],
+            "status": 0,
+            "stderr_bytes": 33,
+            "stderr_sha256": "5d3d52c28410402a2c3d18878dfda548d238b587135575f8950d67a2bb6893dc",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "mklost+found",
+          "dispatch_name": "mklost+found",
+          "engine": "mklost_found",
+          "multicall": {
+            "filesystem": [
+              {
+                "bytes": null,
+                "kind": "directory",
+                "mode": 448,
+                "path": "lost+found",
+                "sha256": null,
+                "target": null
+              }
+            ],
+            "status": 0,
+            "stderr_bytes": 33,
+            "stderr_sha256": "5d3d52c28410402a2c3d18878dfda548d238b587135575f8950d67a2bb6893dc",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "mklost+found"
+        },
+        {
+          "arguments": [
+            "--help"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 53,
+            "stderr_sha256": "6dbd41b2274857058e2b5cca43d308d85bdb755bb846c36892a63c9eb3bd9a53",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "mklost+found",
+          "dispatch_name": "mklost+found",
+          "engine": "mklost_found",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 53,
+            "stderr_sha256": "6dbd41b2274857058e2b5cca43d308d85bdb755bb846c36892a63c9eb3bd9a53",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "mklost+found"
+        },
+        {
+          "arguments": [
+            "-V"
+          ],
+          "canonical": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 53,
+            "stderr_sha256": "6dbd41b2274857058e2b5cca43d308d85bdb755bb846c36892a63c9eb3bd9a53",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "canonical_name": "mklost+found",
+          "dispatch_name": "mklost+found",
+          "engine": "mklost_found",
+          "multicall": {
+            "filesystem": [],
+            "status": 1,
+            "stderr_bytes": 53,
+            "stderr_sha256": "6dbd41b2274857058e2b5cca43d308d85bdb755bb846c36892a63c9eb3bd9a53",
+            "stdout_bytes": 0,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "passed": true,
+          "program": "mklost+found"
+        }
+      ],
+      "release": "1.47.4",
+      "schema": 1
+    },
+    "differential_sha256": "e8e0e4abede74d8b22b65b880f182aa42bc05b5370bfaa97c6a88ba08d513570",
+    "dispatch": {
+      "aggregate_names": 499,
+      "collision_aliases": {
+        "fsck": "e2fsprogs-fsck"
+      },
+      "native_engines": 20,
+      "public_name_count": 32,
+      "public_names": [
+        "badblocks",
+        "chattr",
+        "compile_et",
+        "debugfs",
+        "dumpe2fs",
+        "e2freefrag",
+        "e2fsck",
+        "e2image",
+        "e2initrd_helper",
+        "e2label",
+        "e2mmpstatus",
+        "e2scrub",
+        "e2scrub_all",
+        "e2undo",
+        "e4crypt",
+        "e4defrag",
+        "filefrag",
+        "e2fsprogs-fsck",
+        "fsck.ext2",
+        "fsck.ext3",
+        "fsck.ext4",
+        "fuse2fs",
+        "logsave",
+        "lsattr",
+        "mk_cmds",
+        "mke2fs",
+        "mkfs.ext2",
+        "mkfs.ext3",
+        "mkfs.ext4",
+        "mklost+found",
+        "resize2fs",
+        "tune2fs"
+      ],
+      "script_engines": 4
+    },
+    "entrypoint_count": 24,
+    "entrypoints": [
+      "rustbox_e2fsprogs_badblocks_main",
+      "rustbox_e2fsprogs_chattr_main",
+      "rustbox_e2fsprogs_debugfs_main",
+      "rustbox_e2fsprogs_dumpe2fs_main",
+      "rustbox_e2fsprogs_e2freefrag_main",
+      "rustbox_e2fsprogs_e2fsck_main",
+      "rustbox_e2fsprogs_e2image_main",
+      "rustbox_e2fsprogs_e2initrd_helper_main",
+      "rustbox_e2fsprogs_e2undo_main",
+      "rustbox_e2fsprogs_e4crypt_main",
+      "rustbox_e2fsprogs_e4defrag_main",
+      "rustbox_e2fsprogs_filefrag_main",
+      "rustbox_e2fsprogs_fsck_main",
+      "rustbox_e2fsprogs_fuse2fs_main",
+      "rustbox_e2fsprogs_logsave_main",
+      "rustbox_e2fsprogs_lsattr_main",
+      "rustbox_e2fsprogs_mke2fs_main",
+      "rustbox_e2fsprogs_mklost_found_main",
+      "rustbox_e2fsprogs_resize2fs_main",
+      "rustbox_e2fsprogs_tune2fs_main",
+      "rustbox_e2fsprogs_compile_et_main",
+      "rustbox_e2fsprogs_e2scrub_main",
+      "rustbox_e2fsprogs_e2scrub_all_main",
+      "rustbox_e2fsprogs_mk_cmds_main"
+    ],
+    "evidence_sha256": "fb95eb1ff7ad8578015d7ac86b6ff576b02e9b54eabef51236c2f5c4cdfae640",
+    "frontend_differential": {
+      "cases": 24,
+      "native_builds": 1,
+      "passed": 24,
+      "programs": 4,
+      "records": [
+        {
+          "case": "cli:",
+          "passed": true,
+          "program": "e2scrub"
+        },
+        {
+          "case": "cli:-V",
+          "passed": true,
+          "program": "e2scrub"
+        },
+        {
+          "case": "cli:--help",
+          "passed": true,
+          "program": "e2scrub"
+        },
+        {
+          "case": "cli:-h",
+          "passed": true,
+          "program": "e2scrub"
+        },
+        {
+          "case": "cli:-n",
+          "passed": true,
+          "program": "e2scrub"
+        },
+        {
+          "case": "cli:-r",
+          "passed": true,
+          "program": "e2scrub"
+        },
+        {
+          "case": "cli:-A",
+          "passed": true,
+          "program": "e2scrub"
+        },
+        {
+          "case": "cli:bogus",
+          "passed": true,
+          "program": "e2scrub"
+        },
+        {
+          "case": "cli:",
+          "passed": true,
+          "program": "e2scrub_all"
+        },
+        {
+          "case": "cli:-V",
+          "passed": true,
+          "program": "e2scrub_all"
+        },
+        {
+          "case": "cli:--help",
+          "passed": true,
+          "program": "e2scrub_all"
+        },
+        {
+          "case": "cli:-h",
+          "passed": true,
+          "program": "e2scrub_all"
+        },
+        {
+          "case": "cli:-n",
+          "passed": true,
+          "program": "e2scrub_all"
+        },
+        {
+          "case": "cli:-r",
+          "passed": true,
+          "program": "e2scrub_all"
+        },
+        {
+          "case": "cli:-A",
+          "passed": true,
+          "program": "e2scrub_all"
+        },
+        {
+          "case": "cli:bogus",
+          "passed": true,
+          "program": "e2scrub_all"
+        },
+        {
+          "case": "fresh-generator:",
+          "passed": true,
+          "program": "compile_et"
+        },
+        {
+          "case": "fresh-generator:missing.et",
+          "passed": true,
+          "program": "compile_et"
+        },
+        {
+          "case": "fresh-generator:simple.et",
+          "passed": true,
+          "program": "compile_et"
+        },
+        {
+          "case": "fresh-generator:",
+          "passed": true,
+          "program": "mk_cmds"
+        },
+        {
+          "case": "fresh-generator:missing.ct",
+          "passed": true,
+          "program": "mk_cmds"
+        },
+        {
+          "case": "fresh-generator:test_cmd.ct",
+          "passed": true,
+          "program": "mk_cmds"
+        },
+        {
+          "case": "repeat-preserves-output",
+          "passed": true,
+          "program": "compile_et"
+        },
+        {
+          "case": "repeat-preserves-output",
+          "passed": true,
+          "program": "mk_cmds"
+        }
+      ],
+      "release": "1.47.4",
+      "schema": 1
+    },
+    "frontend_differential_sha256": "acc9df19138d06e336eff6bd26988e12259beac839aa9e30340e22c7cf058596",
+    "link_report_sha256": "1b45add96a33614a6fb948d24e42a3786d6aaa36049a00739d43818b0c63e2df",
+    "lvm_differential": {
+      "cases": 4,
+      "native_builds": 1,
+      "passed": 4,
+      "programs": 4,
+      "records": [
+        {
+          "case": "cli:-n /mnt/rustbox-e2scrub-test",
+          "passed": true,
+          "program": "e2scrub"
+        },
+        {
+          "case": "cli:-n",
+          "passed": true,
+          "program": "e2scrub_all"
+        },
+        {
+          "case": "cli:-n -A",
+          "passed": true,
+          "program": "e2scrub_all"
+        },
+        {
+          "case": "cli:-n -r",
+          "passed": true,
+          "program": "e2scrub_all"
+        }
+      ],
+      "release": "1.47.4",
+      "schema": 1
+    },
+    "lvm_differential_sha256": "6572843748c2b57af2a8f71a2f69976d5bc191bd8fc99bf51365cd0c8b78cc65",
+    "recorded_at": "2026-11-24",
+    "release": "1.47.4",
+    "schema": 1,
+    "script_frontend_bridge": {
+      "object": "src/.rustbox-e2fsprogs-frontends.o",
+      "public_names": [
+        "compile_et",
+        "e2scrub",
+        "e2scrub_all",
+        "mk_cmds"
+      ],
+      "symbols": [
+        "rustbox_e2fsprogs_compile_et_main",
+        "rustbox_e2fsprogs_e2scrub_main",
+        "rustbox_e2fsprogs_e2scrub_all_main",
+        "rustbox_e2fsprogs_mk_cmds_main"
+      ],
+      "template_object": "src/.rustbox-e2fsprogs-templates.o"
+    },
+    "status": "all 32 E2fsprogs public names integrated at canonical parity",
+    "valgrind": {
+      "badblocks": {
+        "errors": 0,
+        "sha256": "2d48dd7cbfd25ff401f9f3af701b8b82ecfb9cf958b280f4587ecc66cb526884"
+      },
+      "chattr": {
+        "errors": 0,
+        "sha256": "023d17f8fb9ce69f133d3e86322f8c001091f0fd3058aca880f95eabfeaefe3c"
+      },
+      "compile_et": {
+        "errors": 0,
+        "sha256": "2ad4381543a398c0853d35ed8f1953b6b02d9e32149f79a4a7aa9d9653446b1e"
+      },
+      "debugfs": {
+        "errors": 0,
+        "sha256": "cebab07234642425bc3526daf060728e4f6cf2ef941586c95f06d48d4460e0e2"
+      },
+      "dumpe2fs": {
+        "errors": 0,
+        "sha256": "22fd9dea7b8307a788c37ffe5cd1b27a27425ff7b8ee0ac31b6819b766052414"
+      },
+      "e2freefrag": {
+        "errors": 0,
+        "sha256": "e04328e5d1dfe91cd74b43fa09e9819af6e868f95b380da23ea7750e3fc75c86"
+      },
+      "e2fsck": {
+        "errors": 0,
+        "sha256": "04a546a99a16dacf5d0047216d14a37332193eca40c7fa2227f3cb3a22bf4cfd"
+      },
+      "e2fsprogs-fsck": {
+        "errors": 0,
+        "sha256": "a6040cc0fe070aa6cc4ca1bffa388b647a3f12f042f3080b00d0cc8665b46401"
+      },
+      "e2image": {
+        "errors": 0,
+        "sha256": "c42d126453934f809e49708a3405615b5addcab2107fac5549b302c7cb0aef51"
+      },
+      "e2initrd_helper": {
+        "errors": 0,
+        "sha256": "c1d73c1235674afef6d4fc4eef163aab3dad4b4ffb968a0676e3995018c44bde"
+      },
+      "e2label": {
+        "errors": 0,
+        "sha256": "b22fc22089104fd8d227c04917e9464960698cbdeaaf2828a6846712cdcbf827"
+      },
+      "e2mmpstatus": {
+        "errors": 0,
+        "sha256": "71c429b186870cad3d90d65c53753b879d41952dc6016f20cbc67cb70a5e1d37"
+      },
+      "e2scrub": {
+        "errors": 0,
+        "sha256": "15421a57282385a6ed09fbb0880af68e97ea8b4052038e207c31a1833973c2a4"
+      },
+      "e2scrub_all": {
+        "errors": 0,
+        "sha256": "5b24e6a4aee46ffbfa1f58250f34a6f9ec34283adaaebe6d8d0c92c1a732a189"
+      },
+      "e2undo": {
+        "errors": 0,
+        "sha256": "7e2958cbf1350e8926e3fdb64ca3b7d4bd6d34fc10288c1c35e9dde273c03b76"
+      },
+      "e4crypt": {
+        "errors": 0,
+        "sha256": "a8978c08af523e0fab60a2376bd1f8d285baaf4ca6b184df471367a7576971b7"
+      },
+      "e4defrag": {
+        "errors": 0,
+        "sha256": "9683867f8902b28b6bb8583dc41eb3224a18ac194908884124964ac9d4a1082e"
+      },
+      "filefrag": {
+        "errors": 0,
+        "sha256": "3fd604d9b617650fcf4da3d6dddf053e2156a4f0c2c8e7e40a4d3c5d6cb1266c"
+      },
+      "fsck.ext2": {
+        "errors": 0,
+        "sha256": "3378cfd25ad7e3f5cc5cdb366aff9d266872211fd8301cf86f3b737c75960b4c"
+      },
+      "fsck.ext3": {
+        "errors": 0,
+        "sha256": "e11e874df56b2433c5bc25d464e8fbeb9d39a590366c8627eb0dc365cfe5635f"
+      },
+      "fsck.ext4": {
+        "errors": 0,
+        "sha256": "91d22b42bd550da5bca15617c19737b3ade5f9b02d99d7155294b146e61d077f"
+      },
+      "fuse2fs": {
+        "errors": 0,
+        "sha256": "023e17127f7dc3f42a1ab9e3ed0dc65d9cabad4118b828774090e2485e8dfbdb"
+      },
+      "logsave": {
+        "errors": 0,
+        "sha256": "fc57b87b6a05a637c4b9736e9c8eeb2c2aa309f668e1327b2bdc5cc5e471cb7f"
+      },
+      "lsattr": {
+        "errors": 0,
+        "sha256": "9dffc8fbe15e4137e91b04a7b04aab9d7e2551b7551215913950b9850a8bccce"
+      },
+      "mk_cmds": {
+        "errors": 0,
+        "sha256": "4cb2f9f3f4c170ad8beec25557156c6605de9d45a46f1de6db9ebe4984d37de6"
+      },
+      "mke2fs": {
+        "errors": 0,
+        "sha256": "8dc466cb53cd67d3b9b571aecc08fe6b6d1c59e5bf6ac11a57e3f9fda1053f17"
+      },
+      "mkfs.ext2": {
+        "errors": 0,
+        "sha256": "00a6f193445b9560cc05adaee60949091fb5edfb68793adc14aa6ebc8ab30cc4"
+      },
+      "mkfs.ext3": {
+        "errors": 0,
+        "sha256": "97060de59c68f5a89aec707e61a68a0aaaf66b4cc1abf2f29056c79b51e10adf"
+      },
+      "mkfs.ext4": {
+        "errors": 0,
+        "sha256": "e667cd0acd67ad1e0d3a2df333842784e2673d6a1057fded88596f0cf8f6bd21"
+      },
+      "mklost+found": {
+        "errors": 0,
+        "sha256": "663cab061d3c6e602dcbe45623dc9fba3e8970cac6a3bea73b91a6ef4a329810"
+      },
+      "resize2fs": {
+        "errors": 0,
+        "sha256": "8905b265cbcc7faae81dcd8884a9fc7d871fc9a14e71873bd62e5f7e7001f9d9"
+      },
+      "tune2fs": {
+        "errors": 0,
+        "sha256": "a5bb4ffc6e05ddcf8ac58100a582a59278e847da482e5820883a401f2bd12398"
+      }
+    }
   },
   "file_integration": {
     "differential": {
@@ -33605,7 +36284,8 @@
     "coreutils": 106,
     "curl_integrated_names": 2,
     "diffutils": 4,
-    "dispatch_names": 467,
+    "dispatch_names": 499,
+    "e2fsprogs_integrated_names": 32,
     "excluded": [
       "chcon",
       "runcon"
@@ -37419,7 +40099,7 @@
     },
     "valgrind_programs": 32
   },
-  "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, GNU tar, Ncurses, GNU Findutils, GNU Gawk, Flex, Bison, curl, GNU Inetutils, IPRoute2, Kmod, Procps-ng, and Shadow integrated at canonical parity",
+  "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, GNU tar, Ncurses, GNU Findutils, GNU Gawk, Flex, Bison, curl, GNU Inetutils, IPRoute2, Kmod, Procps-ng, Shadow, and E2fsprogs integrated at canonical parity",
   "tar_integration": {
     "byte_identical_deterministic_archive": true,
     "canonical_c_abi_residue_units": 4,

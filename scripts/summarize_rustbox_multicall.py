@@ -49,6 +49,7 @@ def main() -> int:
     parser.add_argument("--kmod-report-directory", type=Path, required=True)
     parser.add_argument("--procps-report-directory", type=Path, required=True)
     parser.add_argument("--shadow-report-directory", type=Path, required=True)
+    parser.add_argument("--e2fsprogs-report", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     binary = args.binary.resolve()
@@ -81,6 +82,8 @@ def main() -> int:
     kmod_directory = args.kmod_report_directory.resolve()
     procps_directory = args.procps_report_directory.resolve()
     shadow_directory = args.shadow_report_directory.resolve()
+    e2fsprogs_path = args.e2fsprogs_report.resolve()
+    e2fsprogs = json.loads(e2fsprogs_path.read_text())
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
@@ -686,7 +689,7 @@ def main() -> int:
         or curl_config.get("passed") != 24
         or curl_config.get("canonical_native_exact") is not True
         or link.get("curl_public_names") != 2
-        or link.get("total_dispatch_names") != 467
+        or link.get("total_dispatch_names") != 499
     ):
         raise RuntimeError("unified curl integration comparison is incomplete")
     inetutils_differential_path = inetutils_directory / "differential.json"
@@ -820,6 +823,22 @@ def main() -> int:
         or len(link.get("shadow_coalesced_runtime_members", [])) != 211
     ):
         raise RuntimeError("unified Shadow integration comparison is incomplete")
+    if (
+        e2fsprogs.get("release") != "1.47.4"
+        or e2fsprogs.get("comparison_cases") != 112
+        or e2fsprogs.get("comparison_passed") != 112
+        or e2fsprogs.get("entrypoint_count") != 24
+        or e2fsprogs.get("dispatch", {}).get("public_name_count") != 32
+        or e2fsprogs.get("dispatch", {}).get("aggregate_names") != 499
+        or len(e2fsprogs.get("valgrind", {})) != 32
+        or e2fsprogs.get("collision_isolation", {}).get("program_namespaces") != 20
+        or e2fsprogs.get("collision_isolation", {}).get("renamed_symbols") != 8979
+        or e2fsprogs.get("collision_isolation", {}).get("coalesced_runtime_members") != 3966
+        or e2fsprogs.get("binary", {}).get("verified_sha256") != link["binary"]["sha256"]
+        or e2fsprogs.get("binary", {}).get("verified_link_map_sha256")
+            != link["binary"]["link_map_sha256"]
+    ):
+        raise RuntimeError("unified E2fsprogs integration comparison is incomplete")
     if sha256(binary) != link["binary"]["sha256"]:
         raise RuntimeError("unified binary changed after link evidence")
     with tempfile.TemporaryDirectory(prefix="rustbox-strip-") as temporary:
@@ -869,6 +888,26 @@ def main() -> int:
         "count": sum(len(items) for items in link["iproute2_namespaced_symbols"].values()),
         "sha256": hashlib.sha256(iproute2_symbol_bytes).hexdigest(),
     }
+    e2fsprogs_symbol_bytes = json.dumps(
+        link["e2fsprogs_namespaced_symbols"], separators=(",", ":"), sort_keys=True
+    ).encode()
+    evidence_link["e2fsprogs_namespaced_symbols"] = {
+        "programs": len(link["e2fsprogs_namespaced_symbols"]),
+        "count": sum(
+            len(items) for items in link["e2fsprogs_namespaced_symbols"].values()
+        ),
+        "sha256": hashlib.sha256(e2fsprogs_symbol_bytes).hexdigest(),
+    }
+    e2fsprogs_runtime_bytes = json.dumps(
+        link["e2fsprogs_coalesced_runtime_members"],
+        separators=(",", ":"),
+        sort_keys=True,
+    ).encode()
+    evidence_link["e2fsprogs_coalesced_runtime_members"] = {
+        "programs": len(link["e2fsprogs_coalesced_runtime_members"]),
+        "count": link["e2fsprogs_coalesced_runtime_member_count"],
+        "sha256": hashlib.sha256(e2fsprogs_runtime_bytes).hexdigest(),
+    }
     kmod_symbol_bytes = json.dumps(
         link["kmod_namespaced_symbols"], separators=(",", ":"), sort_keys=True
     ).encode()
@@ -902,7 +941,7 @@ def main() -> int:
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-24",
-        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, GNU tar, Ncurses, GNU Findutils, GNU Gawk, Flex, Bison, curl, GNU Inetutils, IPRoute2, Kmod, Procps-ng, and Shadow integrated at canonical parity",
+        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, GNU tar, Ncurses, GNU Findutils, GNU Gawk, Flex, Bison, curl, GNU Inetutils, IPRoute2, Kmod, Procps-ng, Shadow, and E2fsprogs integrated at canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
@@ -933,7 +972,8 @@ def main() -> int:
             "kmod_integrated_names": 7,
             "procps_integrated_names": 20,
             "shadow_integrated_names": 32,
-            "dispatch_names": 467,
+            "e2fsprogs_integrated_names": 32,
+            "dispatch_names": 499,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -1336,6 +1376,10 @@ def main() -> int:
                 name: sha256(path) for name, path in shadow_valgrind_paths.items()
             },
         },
+        "e2fsprogs_integration": {
+            **e2fsprogs,
+            "evidence_sha256": sha256(e2fsprogs_path),
+        },
         "collision_isolation": {
             "translated_libraries": len(link["source_library_sha256"]),
             "namespaced_libraries": len(link["namespaced_symbols"]),
@@ -1378,6 +1422,14 @@ def main() -> int:
             ),
             "iproute2_routel_bridge_symbols": len(
                 link["iproute2_routel_frontend_bridge"]["symbols"]
+            ),
+            "e2fsprogs_namespaced_symbols": sum(
+                len(items) for items in link["e2fsprogs_namespaced_symbols"].values()
+            ),
+            "e2fsprogs_coalesced_runtime_members":
+                link["e2fsprogs_coalesced_runtime_member_count"],
+            "e2fsprogs_script_frontend_bridge_symbols": len(
+                link["e2fsprogs_script_frontend_bridge"]["symbols"]
             ),
             "kmod_namespaced_symbols": len(link["kmod_namespaced_symbols"]),
             "procps_namespaced_symbols": len(link["procps_namespaced_symbols"]),

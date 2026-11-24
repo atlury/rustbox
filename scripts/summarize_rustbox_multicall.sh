@@ -35,4 +35,5 @@ RUSTBOX_TOOL_IMAGE=rustbox-e2fsprogs:2026-11-24 \
     --kmod-report-directory /work/work/analysis/kmod-34.3/multicall \
     --procps-report-directory /work/work/analysis/procps-ng-4.0.7/multicall \
     --shadow-report-directory /work/work/analysis/shadow-4.20.4/multicall \
+    --e2fsprogs-report /work/evidence/e2fsprogs-1.47.4-multicall.json \
     --output /work/evidence/rustbox-multicall.json

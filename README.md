@@ -73,6 +73,7 @@ scoring, and correctness gates.
 | Procps-ng 4.0.7 | 20 | 20 | 20 | 20 |
 | Shadow 4.20.4 | 32 | 32 | 32 | 32 |
 | IPRoute2 7.3.0 | 21 | 21 | 21 | 21 |
+| E2fsprogs 1.47.4 | 32 | 32 | 32 | 32 |
 
 The Coreutils oracle and its local test evidence are recorded in
 `evidence/coreutils-9.12-oracle.json`.  The complete canonical static-analysis
@@ -134,7 +135,7 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 467
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 499
 distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, five
 pkgconf names, File, GNU patch, GNU sed, four GNU Diffutils applets, and GNU
 Grep's three public names, GNU bc and dc, attr's three tools, plus chacl,
@@ -157,7 +158,8 @@ names already owned by util-linux are available as `shadow-chfn`,
 `shadow-chsh`, `shadow-login`, `shadow-newgrp`, `shadow-nologin`, `shadow-su`,
 `shadow-vigr`, and `shadow-vipw`), plus all 21 IPRoute2 public names: 18
 translated engines, the `ctstat` and `rtstat` aliases, and native in-process
-`routel`).  It passes all 884
+`routel`, plus all 32 E2fsprogs names: 20 translated engines, eight canonical
+aliases, and four native generator/scrub frontends).  It passes all 884
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
 check, 108-case differential suite, and Valgrind.  Pkgconf also passes all 429
@@ -215,8 +217,12 @@ canonical comparisons and all 32 resource paths pass through the combined
 binary.  IPRoute2 passes all 66 global canonical comparisons, including six
 real-kernel `routel` cases, and all 21 Valgrind paths; exact integration
 evidence is in `evidence/iproute2-7.3.0-multicall.json`.  The resulting
-467-name executable is 40,746,016 bytes unstripped and 21,397,120
-bytes stripped; its exact hashes and
+E2fsprogs integration passes 112/112 canonical comparisons and all 32
+Valgrind paths; its 20 private namespaces rename 8,979 symbols after removing
+3,966 byte-identical Rust runtime members already provided by Procps-ng.
+Exact evidence is in `evidence/e2fsprogs-1.47.4-multicall.json`.  The resulting
+499-name executable is 45,650,264 bytes unstripped and 25,505,568 bytes
+stripped; its exact hashes and
 section/link evidence are recorded in `evidence/rustbox-multicall.json`.
 `chcon` and `runcon`
 remain absent, and the linked binary has no SELinux or systemd dependency.
@@ -1496,7 +1502,7 @@ Library-only checkpoints (outside the active utility order):
      in-process native frontend.  All 66 global comparisons and 21 Valgrind
      paths pass; `evidence/iproute2-7.3.0-multicall.json` records the exact
      binary, map, entrypoint, dispatch, and resource evidence.
-   - [ ] E2fsprogs 1.47.4 — `badblocks`, `chattr`, `compile_et`, `debugfs`,
+   - [x] E2fsprogs 1.47.4 — `badblocks`, `chattr`, `compile_et`, `debugfs`,
      `dumpe2fs`, `e2freefrag`, `e2fsck`, `e2image`, `e2initrd_helper`,
      `e2label`, `e2mmpstatus`, `e2scrub`, `e2scrub_all`, `e2undo`, `e4crypt`,
      `e4defrag`, `filefrag`, `fsck`, `fsck.ext2`, `fsck.ext3`, `fsck.ext4`,
@@ -1526,6 +1532,19 @@ Library-only checkpoints (outside the active utility order):
      is omitted by policy; narrow exec fallbacks remain for the external LVM
      commands, udev settling, and fstrim until those suites enter scope.  See
      `evidence/e2fsprogs-1.47.4-script-frontends.json`.
+     Exact linker-map closures split the native programs into 20 independent
+     translations: 1,061 Rust files, 4,171,263 raw lines, 401,012 raw-pointer
+     type occurrences, zero holes, and 25 asserted repairs.  All 20 Cargo
+     checks and release archives pass; their 28 public ELF names match the
+     canonical oracle in 112/112 standalone cases with 20 clean Valgrind
+     paths.  Unified integration exposes all 32 names, preserves util-linux
+     ownership of `fsck` through the explicit `e2fsprogs-fsck` spelling,
+     removes 3,966 byte-identical runtime members, and privately renames 8,979
+     symbols across 20 namespaces.  All 112 global canonical comparisons,
+     32 global Valgrind paths, and the complete 884-case prior-package
+     regression pass.  Exact translation and global evidence is in
+     `evidence/e2fsprogs-1.47.4-program-hybrids.json` and
+     `evidence/e2fsprogs-1.47.4-multicall.json`.
 
 ## Applet inventory
 

@@ -59,6 +59,14 @@ wait_status(pid_t child)
 }
 
 static int
+use_internal_program(applet_main callback)
+{
+	/* The fake-LVM differential must control every subordinate command. */
+	return callback != NULL &&
+	    getenv("RUSTBOX_E2FSPROGS_TEST_EXTERNAL_COMMANDS") == NULL;
+}
+
+static int
 run_program(applet_main callback, const char *external, char **arguments,
     int input_fd, int output_fd)
 {
@@ -75,7 +83,7 @@ run_program(applet_main callback, const char *external, char **arguments,
 		setenv("LC_ALL", "C", 1);
 		setenv("LANG", "C", 1);
 		setenv("PATH", "/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin", 1);
-		if (callback != NULL) {
+		if (use_internal_program(callback)) {
 			int status = callback(count, arguments);
 			fflush(NULL);
 			_exit(status);
@@ -511,7 +519,7 @@ capture_program(applet_main callback, const char *external, char **arguments,
 		setenv("LC_ALL", "C", 1);
 		setenv("LANG", "C", 1);
 		setenv("PATH", "/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin", 1);
-		if (callback != NULL) {
+		if (use_internal_program(callback)) {
 			callback_status = callback(count, arguments);
 			fflush(NULL);
 			_exit(callback_status);

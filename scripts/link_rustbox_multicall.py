@@ -14,7 +14,7 @@ import subprocess
 import tempfile
 from pathlib import Path
 
-ISOLATION_CACHE_VERSION = 16
+ISOLATION_CACHE_VERSION = 17
 INETUTILS_PROGRAMS = (
     "dnsdomainname", "ftp", "ftpd", "hostname", "ifconfig", "inetd",
     "logger", "ping", "ping6", "rcp", "rexec", "rexecd", "rlogin",
@@ -54,6 +54,28 @@ E2FSPROGS_PUBLIC_NAMES = (
     *E2FSPROGS_ALIASES,
     *E2FSPROGS_FRONTENDS,
 )
+E2FSPROGS_RUNTIME_MEMBER_COUNTS = {
+    "badblocks": 211,
+    "chattr": 193,
+    "debugfs": 211,
+    "dumpe2fs": 195,
+    "e2freefrag": 195,
+    "e2fsck": 195,
+    "e2image": 195,
+    "e2initrd_helper": 195,
+    "e2undo": 195,
+    "e4crypt": 193,
+    "e4defrag": 195,
+    "filefrag": 193,
+    "fsck": 193,
+    "fuse2fs": 211,
+    "logsave": 193,
+    "lsattr": 193,
+    "mke2fs": 211,
+    "mklost_found": 193,
+    "resize2fs": 195,
+    "tune2fs": 211,
+}
 PROCPS_PROGRAMS = (
     "free", "hugetop", "kill", "pgrep", "pidof", "pidwait", "pkill",
     "pmap", "ps", "pwdx", "skill", "slabtop", "snice", "sysctl",
@@ -1430,7 +1452,10 @@ def namespace_shadow_library(
 
 
 def coalesce_identical_archive_members(
-    provider: Path, consumer: Path, build: Path
+    provider: Path,
+    consumer: Path,
+    destination: Path,
+    label: str,
 ) -> tuple[Path, list[str]]:
     """Remove byte-identical Rust runtime members from a later staticlib."""
     def members(path: Path) -> list[str]:
@@ -1441,12 +1466,12 @@ def coalesce_identical_archive_members(
     provider_members = members(provider)
     consumer_members = members(consumer)
     if len(provider_members) != len(set(provider_members)):
-        raise RuntimeError("Rust runtime provider archive has duplicate member names")
+        raise RuntimeError(f"{label} provider archive has duplicate member names")
     if len(consumer_members) != len(set(consumer_members)):
-        raise RuntimeError("Rust runtime consumer archive has duplicate member names")
+        raise RuntimeError(f"{label} consumer archive has duplicate member names")
     common = sorted(set(provider_members) & set(consumer_members))
     if not common:
-        raise RuntimeError("pinned Rust archives expose no common runtime members")
+        raise RuntimeError(f"{label} archives expose no common runtime members")
 
     with tempfile.TemporaryDirectory(prefix="rustbox-runtime-coalesce-") as temporary:
         temporary_root = Path(temporary)
@@ -1466,19 +1491,18 @@ def coalesce_identical_archive_members(
         ]
     if different:
         raise RuntimeError(
-            f"pinned Rust runtime archive members differ: {different[:5]}"
+            f"{label} archive members differ: {different[:5]}"
         )
 
-    destination = build / "src/.rustbox-shadow-runtime"
     destination.mkdir(parents=True, exist_ok=True)
     coalesced = destination / consumer.name
     shutil.copy2(consumer, coalesced)
     subprocess.run(["ar", "d", str(coalesced), *common], check=True)
     remaining = members(coalesced)
     if set(common) & set(remaining):
-        raise RuntimeError("Shadow runtime coalescing retained a shared member")
+        raise RuntimeError(f"{label} coalescing retained a shared member")
     if len(remaining) != len(consumer_members) - len(common):
-        raise RuntimeError("Shadow runtime coalescing removed the wrong member count")
+        raise RuntimeError(f"{label} coalescing removed the wrong member count")
     return coalesced, common
 
 
@@ -2970,12 +2994,42 @@ def main() -> int:
             for name in E2FSPROGS_PROGRAMS
         }
         e2fsprogs_symbols = cached_report["e2fsprogs_namespaced_symbols"]
+        e2fsprogs_runtime_members = cached_report[
+            "e2fsprogs_coalesced_runtime_members"
+        ]
     else:
+        coalesced_e2fsprogs = {}
+        e2fsprogs_runtime_members = {}
+
+        def coalesce_e2fsprogs(
+            name: str,
+        ) -> tuple[str, Path, list[str]]:
+            coalesced, runtime_members = coalesce_identical_archive_members(
+                procps_rust_library,
+                e2fsprogs_libraries[name],
+                build / "src/.rustbox-e2fsprogs-runtime" / name,
+                f"E2fsprogs {name}/Procps pinned Rust runtime",
+            )
+            return name, coalesced, runtime_members
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+            coalesced_results = list(
+                executor.map(coalesce_e2fsprogs, E2FSPROGS_PROGRAMS)
+            )
+        for name, coalesced, runtime_members in coalesced_results:
+            coalesced_e2fsprogs[name] = coalesced
+            e2fsprogs_runtime_members[name] = runtime_members
         mapped_e2fsprogs, e2fsprogs_symbols = namespace_e2fsprogs_programs(
-            e2fsprogs_libraries, build
+            coalesced_e2fsprogs, build
         )
     for name, index in e2fsprogs_library_indices.items():
         libraries[index] = mapped_e2fsprogs[name]
+    e2fsprogs_runtime_member_counts = {
+        name: len(members)
+        for name, members in e2fsprogs_runtime_members.items()
+    }
+    if e2fsprogs_runtime_member_counts != E2FSPROGS_RUNTIME_MEMBER_COUNTS:
+        raise RuntimeError("E2fsprogs/Procps pinned runtime overlap changed")
 
     if cached_report:
         mapped_kmod_rust = build / "src/.rustbox-kmod" / libraries[kmod_library_index].name
@@ -3005,7 +3059,10 @@ def main() -> int:
         shadow_runtime_members = cached_report["shadow_coalesced_runtime_members"]
     else:
         coalesced_shadow_rust, shadow_runtime_members = coalesce_identical_archive_members(
-            procps_rust_library, shadow_rust_library, build
+            procps_rust_library,
+            shadow_rust_library,
+            build / "src/.rustbox-shadow-runtime",
+            "Shadow/Procps pinned Rust runtime",
         )
         mapped_shadow_rust, shadow_symbols = namespace_shadow_library(
             coalesced_shadow_rust, build
@@ -3556,6 +3613,10 @@ def main() -> int:
         "inetutils_namespaced_symbols": inetutils_symbols,
         "iproute2_namespaced_symbols": iproute2_symbols,
         "e2fsprogs_namespaced_symbols": e2fsprogs_symbols,
+        "e2fsprogs_coalesced_runtime_members": e2fsprogs_runtime_members,
+        "e2fsprogs_coalesced_runtime_member_count": sum(
+            e2fsprogs_runtime_member_counts.values()
+        ),
         "kmod_namespaced_symbols": kmod_symbols,
         "procps_namespaced_symbols": procps_symbols,
         "shadow_namespaced_symbols": shadow_symbols,
