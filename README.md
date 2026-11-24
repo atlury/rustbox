@@ -421,6 +421,15 @@ in `evidence/rustbox-linked-pointers.json` records removed functions, source byt
 and raw-pointer type occurrences per engine. Run `python3 -B tests/linked-pointer-audit.py`
 to check that replay preserves the original comparison inputs.
 
+To reproduce the IPRoute2 Cargo checks on a fresh host, first run
+`scripts/fetch_iproute2_pointer_deps.sh` after generating the IPRoute2
+program translations. This populates the local Docker registry cache from
+the pinned `ss` lockfile. Run
+`python3 -B scripts/check_cargo_private_inlines.py --prepare-iproute2`
+to rebuild the 17 Cargo engines offline. Each comparison uses its own
+source copy and target directory mounted at the original Linux paths.
+The hardened `bridge` archive uses a separate rustc build.
+
 The IPRoute2 7.3.0 pilot replaces `parse_rtattr_flags` in a disposable
 `bridge` build. The shared generated `libnetlink.rs` occurs in 18 engine
 crates. The safe walker in `compat/iproute2/rtattr.rs` applies the type mask,

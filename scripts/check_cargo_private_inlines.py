@@ -15,7 +15,8 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[1]
 LINK_REPORT = ROOT / "work/analysis/rustbox-multicall-link.json"
 CARGO_ENGINES = ("chattr", "e4crypt", "filefrag", "fsck", "logsave", "lsattr", "mklost_found")
-CARGO_INDEX = ROOT / "work/analysis/e2fsprogs-cargo-inline-proofs.json"
+IPROUTE2_CARGO_ENGINES = ("arpd", "dcb", "devlink", "dpll", "genl", "ifstat", "ip", "lnstat", "netshaper",
+                         "nstat", "rdma", "rtacct", "rtmon", "ss", "tc", "tipc", "vdpa")
 
 
 def layout(archive):
@@ -63,7 +64,7 @@ def verify_in_container(relative_archive, selected_sha):
                                   stdout=subprocess.PIPE, text=True, cwd=crate) as child:
                 for line in child.stdout:
                     record = json.loads(line)
-                    if record.get("reason") == "compiler-message":
+                    if record.get("reason") == "compiler-message" and record.get("target", {}).get("src_path") == str(crate / "lib.rs"):
                         print(json.dumps(record["message"]), file=output)
                 if child.wait():
                     raise RuntimeError("Cargo could not produce the private-function diagnostics")
@@ -110,6 +111,8 @@ def check_linux_cargo(archive, publish=False):
             if old["key"] != key or old["archive_sha256"] != expected:
                 raise ValueError(f"stale Cargo private-inline proof: {saved}")
             return {"file": saved.name, "sha256": digest(saved)}
+    registry = (["-v", "rustbox-pointer-cargo-registry:/root/.cargo/registry:ro"]
+                if archive.parts[2] == "iproute2-7.3.0" else [])
     with tempfile.TemporaryDirectory(dir=ROOT / "work/analysis") as scratch:
         tmp = Path(scratch)
         shutil.copytree(ROOT / source, tmp / "source", ignore=shutil.ignore_patterns("target"))
@@ -119,7 +122,7 @@ def check_linux_cargo(archive, publish=False):
         # Cargo embeds paths in metadata. Mount disposable inputs at the original
         # paths so the candidate can be compared with the production archive.
         subprocess.run(["docker", "run", "--rm", "--network", "none", "--platform", "linux/amd64",
-                        "--workdir", "/work", "-v", f"{ROOT}:/work:ro",
+                        "--workdir", "/work", "-v", f"{ROOT}:/work:ro", *registry,
                         "-v", f"{tmp / 'source'}:/work/{source}",
                         "-v", f"{tmp / 'output'}:/work/{base}", "rustbox-e2fsprogs:2026-11-24",
                         "python3", "-B", "/work/scripts/check_cargo_private_inlines.py",
@@ -140,28 +143,35 @@ def check_linux_cargo(archive, publish=False):
             return {"file": saved.name, "sha256": digest(saved)}
 
 
-def prepare_e2fsprogs():
-    target = Path("work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target")
-    paths = [target / name / "release" / f"lib{name}_audit.a" for name in CARGO_ENGINES]
+def prepare_package(package):
+    if package == "e2fsprogs":
+        release, engines = "1.47.4", CARGO_ENGINES
+    else:
+        release, engines = "7.3.0", IPROUTE2_CARGO_ENGINES
+    target = Path(f"work/analysis/{package}-{release}/program-translations/cargo-target")
+    index_file = ROOT / f"work/analysis/{package}-cargo-inline-proofs.json"
+    paths = [target / name / "release" / f"lib{name}_audit.a" for name in engines]
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as workers:
         futures = {path: workers.submit(check_linux_cargo, path, True) for path in paths}
         index = {str(path): task.result() for path, task in futures.items()}
-    with tempfile.NamedTemporaryFile(mode="w", dir=CARGO_INDEX.parent, delete=False) as file:
+    with tempfile.NamedTemporaryFile(mode="w", dir=index_file.parent, delete=False) as file:
         json.dump(index, file, indent=2, sort_keys=True)
         file.write("\n")
-    Path(file.name).replace(CARGO_INDEX)
+    Path(file.name).replace(index_file)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("archive", type=Path, nargs="?")
-    parser.add_argument("--prepare-e2fsprogs", action="store_true")
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument("--prepare-e2fsprogs", action="store_const", const="e2fsprogs", dest="package")
+    group.add_argument("--prepare-iproute2", action="store_const", const="iproute2", dest="package")
     parser.add_argument("--verify-mounted-copy", metavar="SHA256")
     args = parser.parse_args()
-    if args.prepare_e2fsprogs and not args.archive and not args.verify_mounted_copy:
-        prepare_e2fsprogs()
-    elif args.archive is None or args.prepare_e2fsprogs:
-        parser.error("use an archive path or --prepare-e2fsprogs")
+    if args.package and not args.archive and not args.verify_mounted_copy:
+        prepare_package(args.package)
+    elif args.archive is None or args.package:
+        parser.error("use an archive path or a package preparation option")
     elif args.verify_mounted_copy:
         if ROOT != Path("/work") or not Path("/.dockerenv").exists():
             parser.error("verification requires the isolated Linux checkout")
