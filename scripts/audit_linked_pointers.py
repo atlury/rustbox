@@ -14,6 +14,7 @@ import tempfile
 
 from build_iproute2_bridge import stage as stage_bridge
 from build_e2fsprogs_checksums import stage as stage_checksum
+from prune_private_inlines import replay
 
 ROOT = Path(__file__).resolve().parents[1]
 METRICS = {
@@ -50,6 +51,7 @@ def audit(link, temporary):
     unique = {}
     measured = Counter()
     excluded = []
+    cleanups = {}
     for name, expected in sorted(link["source_library_sha256"].items()):
         path = Path(name)
         shared_object = path.name in ("crc16.o", "crc32.o") and path.parent.name == "rustbox-checksums"
@@ -78,6 +80,40 @@ def audit(link, temporary):
             deps = archive.with_suffix(".d").read_text().splitlines()[0].split(": ", 1)[1]
             files = {ROOT / Path(name).relative_to("/work"): None
                      for name in shlex.split(deps) if name.endswith(".rs")}
+        if selected := link.get("e2fsprogs_inline_proofs", {}).get(name):
+            proof_file = archive.with_name(selected["file"])
+            data = proof_file.read_bytes()
+            if hashlib.sha256(data).hexdigest() != selected["sha256"]:
+                raise ValueError(f"pruning evidence differs from link report: {name}")
+            proof = json.loads(data)
+            if (proof["archive_sha256"] != expected or set(proof["ranges"]) != set(proof["sources"])
+                    or not {crate / n for n in proof["sources"]} <= files.keys()):
+                raise ValueError(f"invalid private-inline provenance: {name}")
+            if not crate.is_relative_to(temporary):
+                original = crate
+                crate = temporary / ("cargo-" + archive.stem)
+                copied = {}
+                for path, sha in files.items():
+                    destination = crate / path.relative_to(original)
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copyfile(path, destination)
+                    copied[destination] = sha
+                files = copied
+            crate.relative_to(temporary)
+            changed_sources = [crate / n for n in proof["ranges"]]
+            before_bytes = sum(p.stat().st_size for p in changed_sources)
+            removed = replay(crate, proof["ranges"])
+            after_bytes = sum(p.stat().st_size for p in changed_sources)
+            engine_name = archive.name.removeprefix("lib").removesuffix("_audit.a")
+            if engine_name in cleanups:
+                raise ValueError(f"duplicate cleanup evidence for {engine_name}")
+            cleanups[engine_name] = {
+                "raw_pointer_type_tokens_removed": removed,
+                "source_bytes_removed": before_bytes - after_bytes,
+                "private_functions_removed": sum(map(len, proof["ranges"].values())),
+                "changed_files": len(proof["ranges"]),
+            }
+            files.update({crate / n: sha for n, sha in proof["sources"].items()})
         root_module = ROOT / f"compat/e2fsprogs/{archive.stem}_abi.rs" if shared_object else crate / "lib.rs"
         if root_module not in files:
             raise ValueError(f"unexpected compiler inputs for {archive}")
@@ -98,7 +134,8 @@ def audit(link, temporary):
         distinct.update(counts)
     return {"binary_sha256": link["binary"]["sha256"], "all": measured,
             "unique_files": len(unique), "counting_identical_files_once": distinct,
-            "packages": packages, "non_applet_archive_inputs": excluded}
+            "packages": packages, "non_applet_archive_inputs": excluded,
+            **({"byte_identical_inline_cleanups": cleanups} if cleanups else {})}
 
 
 if __name__ == "__main__":

@@ -16,6 +16,7 @@ from pathlib import Path
 
 from build_iproute2_bridge import build_bridge
 from build_e2fsprogs_checksums import build_shared, CRC_SYMBOLS
+from prune_private_inlines import prepare_archive
 
 ISOLATION_CACHE_VERSION = 18
 INETUTILS_PROGRAMS = (
@@ -2481,6 +2482,24 @@ def main() -> int:
     checksum_consumers, checksum_objects = build_shared(
         e2fsprogs_rust_directory.parent, e2fsprogs_rust_directory.parent / "rustbox-checksums"
     )
+    # Each proof binds the trimmed compiler inputs to the exact pre-cleanup release archive.
+    selected_archives = list(checksum_consumers.values())
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as workers:
+        inline_proofs = {
+            str(archive.relative_to(repository)): {"file": proof.name, "sha256": sha256(proof)}
+            for archive, proof in zip(selected_archives, workers.map(prepare_archive, selected_archives))
+        }
+    cargo_proofs = json.loads((repository / "work/analysis/e2fsprogs-cargo-inline-proofs.json").read_text())
+    remaining = {str(path.relative_to(repository)) for n, path in e2fsprogs_libraries.items()
+                 if n not in checksum_consumers}
+    if set(cargo_proofs) != remaining:
+        raise RuntimeError("missing Cargo archive cleanup for an E2fsprogs release engine")
+    for relative, selected in cargo_proofs.items():
+        archive = repository / relative
+        proof = archive.with_name(selected["file"])
+        if sha256(proof) != selected["sha256"] or json.loads(proof.read_text())["archive_sha256"] != sha256(archive):
+            raise RuntimeError(f"stale private-inline provenance for {relative}")
+    inline_proofs.update(cargo_proofs)
     # Verify the C-facing interface before namespace isolation or section GC.
     # Rust compiler-internal symbols may change when a translation unit is removed.
     def c_exports(path):
@@ -3659,6 +3678,7 @@ def main() -> int:
         },
         "source_library_sha256": source_library_hashes,
         "bridge_raw_pointer_types": bridge_raw_types,
+        "e2fsprogs_inline_proofs": inline_proofs,
         "e2fsprogs_shared_checksums": {
             "symbols": sorted(CRC_SYMBOLS.values()), "consumers": sorted(checksum_consumers),
             "object_sha256": {o.name: sha256(o) for o in checksum_objects},

@@ -280,12 +280,23 @@ Count residual adapters explicitly. Track shared implementations by their
 actual callers and verify the final linked executable before recording a
 production reduction.
 
-The default 499-name Linux executable includes the safe IPRoute2 decoder and
-shared E2fsprogs checksums. The FDB change removed 12 raw-pointer type
-occurrences, taking the linked `bridge` crate from 12,077 to 12,065. The
-checksum changes removed a net 4,832 across 13 E2fsprogs engines. The
-final count includes four raw-pointer type occurrences in the shared ABI adapters. The full measured source count went from **1,379,960 to
-1,375,116**. No entire applet has been certified pointer-free.
+The default 499-name Linux executable now uses the cleaned sources for
+**all 20 E2fsprogs engines**. Across the linked applet sources the raw-pointer
+type count fell from **1,379,960 to 1,194,020**. No complete applet has been
+certified pointer-free.
+
+| Production change | Raw-pointer type occurrences removed |
+|---|---:|
+| IPRoute2 nested FDB decoder and its buffer changes | 12 |
+| Three shared E2fsprogs checksum implementations, including their remaining raw ABI adapters | 4,832 |
+| Compiler-verified removal of unused private helpers across all 20 E2fsprogs engines | 181,096 |
+| **Total** | **185,940** |
+
+E2fsprogs accounts for 215,084 remaining occurrences, down from 401,012.
+The checksum replacement saved 135,168 stripped bytes. Removing unused source
+preserved the entire ELF and link map byte-for-byte. The executable is
+25,081,136 bytes stripped and its unstripped SHA-256 is
+`b8241ee1e9194ad785f897ca56358df4da82643b86187748da53fd2724d4a0ae`.
 
 | Code | Where it runs | Remaining work |
 |---|---|---|
@@ -383,18 +394,21 @@ a new host, populate the Cargo cache with
 The syntax checker is a build tool. The
 production inventory above counts only the sources of the recorded link.
 
-The same archive-identity check has passed across all 20 E2fsprogs engines.
+The default build verifies archive identity across all 20 E2fsprogs engines.
 The 13 engines with shared checksums remove 178,032 raw-pointer type
 occurrences from unused private helpers. The other seven remove 3,064.
-Together they remove 44,759,411 bytes of generated Rust across 963 source
-entries. Each before/after pair has the same archive SHA-256.
+Together they remove 197,857 unused private function definitions and
+44,759,411 bytes of generated Rust across 963 source entries. Each before/after pair has the same archive SHA-256.
 
 `scripts/build_private_inline_tool.sh` builds the syntax checker for the
 offline Linux image. `scripts/check_cargo_private_inlines.py --prepare-e2fsprogs`
 rebuilds the seven Cargo archives at their original paths in disposable
 mounts. The other 13 use the compiler flags and dependencies of their
 checksum builds. Each cleanup saves its source ranges, source digests and
-verified archive hash for replay.
+verified archive hash for replay. The `byte_identical_inline_cleanups` section
+in `evidence/rustbox-linked-pointers.json` records removed functions, source bytes
+and raw-pointer type occurrences per engine. Run `python3 -B tests/linked-pointer-audit.py`
+to check that replay preserves the original comparison inputs.
 
 The IPRoute2 7.3.0 pilot replaces `parse_rtattr_flags` in a disposable
 `bridge` build. The shared generated `libnetlink.rs` occurs in 18 engine
