@@ -326,15 +326,32 @@ buffers containing uninitialized payload or padding bytes.
 Run `scripts/test_iproute2_rtattr.sh` after building the IPRoute2 oracle and
 program translations. It compares 14,285 cases against the pinned C build
 under Valgrind Memcheck, including returned pointers, table initialization,
-signed residuals and exact diagnostic bytes. A saved FDB message exercises
-the candidate through `bridge monitor file` with a Callgrind trace.
+signed residuals and exact diagnostic bytes. A saved forwarding database
+(FDB) replay exercises the candidate through `bridge monitor file` under
+Memcheck and Callgrind.
 
-One caller contract needs review before multicall rollout. On a nonzero
-residual, upstream reads the next length field for its diagnostic, even if
-the logical message ends earlier. The ABI adapter preserves that behavior
-for callers with readable backing at that cursor. The differential corpus
-provides that backing. For other callers, establish the physical buffer bound
-or agree on a bounded diagnostic before promoting the rewrite.
+The pinned source has four paths into the top-level FDB attribute walker.
+On a nonzero residual its diagnostic reads a two-byte length field. The
+length advertised in the message and the number of initialized bytes in its
+owner's buffer are separate quantities.
+
+| FDB path | Buffer owner in IPRoute2 7.3.0 | Pilot coverage |
+|---|---|---|
+| Saved monitor file | `rtnl_from_file` reads aligned records into a reusable buffer | The pilot provides initialized storage through the final diagnostic field. |
+| Live monitor | `rtnl_listen` receives into a stack buffer and dispatches each record | The callback receives a message pointer. A bound for the diagnostic remains to be established. |
+| FDB dump | `rtnl_recvmsg` allocates the receive buffer and `rtnl_dump_filter_l` iterates the returned bytes | Heap capacity alone gives no guarantee that spare bytes were initialized. |
+| Single FDB reply | `rtnl_talk` returns an owned receive buffer to `fdb_get` | The getter receives the pointer and frees it after printing. The allocation extent is absent from the print interface. |
+
+In the file-replay candidate, `compat/iproute2/replay_buffer.rs` keeps the
+16,384-byte wire limit and reserves two initialized bytes beyond it in the
+same aligned array. For a top-level FDB message, the first attribute starts
+at byte 28. Every accepted attribute starts on a four-byte boundary and fits
+in the remaining logical length, so its aligned end is at most the rounded-up
+message end. The test checks the bound for each accepted FDB length from 28
+through 16,384. Canonical and candidate commands also replay small, full-size
+and small records in sequence and compare rejection of a 16,388-byte record.
+The nested attribute handlers and other engines still require their own
+caller checks before rollout to the default multicall.
 
 The isolated zlib 1.4 library checkpoint uses its signed release, independent GCC
 and Clang builds, 18-case upstream CTest suite, sanitizer and Valgrind gates,

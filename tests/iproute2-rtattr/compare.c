@@ -6,6 +6,11 @@
 #include <string.h>
 #include "libnetlink.h"
 
+/* Layout assumptions used by the top-level FDB replay bound test. */
+_Static_assert(NLMSG_LENGTH(sizeof(struct ndmsg)) == 28, "FDB attribute offset");
+_Static_assert(NLMSG_ALIGNTO == 4 && RTA_ALIGNTO == 4, "record alignment");
+_Static_assert(sizeof(((struct rtattr *)0)->rta_len) == 2, "diagnostic field");
+
 enum { slots = 16, words = 20 };
 static unsigned cases;
 

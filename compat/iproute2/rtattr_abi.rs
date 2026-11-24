@@ -46,7 +46,8 @@ pub unsafe extern "C" fn parse_rtattr_flags(
         }
     };
     let at = |offset| input.cast::<u8>().wrapping_add(offset).cast::<Attribute>();
-    let length_at = |offset| unsafe { (*at(offset)).len };
+    // len is the first repr(C) field. The final diagnostic only needs a u16.
+    let length_at = |offset| unsafe { at(offset).cast::<u16>().read() };
     let (end, remaining) = rtattr::collect(len, flags, slots, length_at, |offset| {
         let header = at(offset);
         // collect validated the length field before requesting the type.
