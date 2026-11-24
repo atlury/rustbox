@@ -71,6 +71,8 @@ def main() -> int:
     parser.add_argument("--curl-config-oracle", type=Path, required=True)
     parser.add_argument("--inetutils-oracle-root", type=Path, required=True)
     parser.add_argument("--kmod-oracle-root", type=Path, required=True)
+    parser.add_argument("--procps-oracle-root", type=Path, required=True)
+    parser.add_argument("--procps-oracle-library", type=Path, required=True)
     parser.add_argument("--rustbox", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
@@ -103,6 +105,8 @@ def main() -> int:
     curl_config_oracle = args.curl_config_oracle.resolve()
     inetutils_oracle_root = args.inetutils_oracle_root.resolve()
     kmod_oracle_root = args.kmod_oracle_root.resolve()
+    procps_oracle_root = args.procps_oracle_root.resolve()
+    procps_oracle_library = args.procps_oracle_library.resolve()
     failures: list[dict[str, object]] = []
     cases = 0
 
@@ -481,6 +485,25 @@ def main() -> int:
                 failures.append({"suite": "kmod", "applet": name,
                                  "option": option, "oracle": oracle, "actual": actual})
 
+    procps_names = (
+        "free", "hugetop", "kill", "pgrep", "pidof", "pidwait", "pkill",
+        "pmap", "ps", "pwdx", "skill", "slabtop", "snice", "sysctl",
+        "tload", "top", "uptime", "vmstat", "w", "watch",
+    )
+    for name in procps_names:
+        dispatch_name = f"procps-{name}" if name in {"kill", "uptime"} else name
+        for option in ("--help", "--version"):
+            cases += 1
+            oracle = invoke(
+                [name, option], executable=procps_oracle_root / name,
+                extra_environment={"LD_LIBRARY_PATH": str(procps_oracle_library)},
+            )
+            actual = invoke([str(rustbox), dispatch_name, option])
+            if oracle != actual:
+                failures.append({"suite": "procps", "applet": name,
+                                 "dispatch_name": dispatch_name, "option": option,
+                                 "oracle": oracle, "actual": actual})
+
     result = {
         "schema": 1,
         "cases": cases,
@@ -510,6 +533,7 @@ def main() -> int:
         "curl_public_names": len(curl_names),
         "inetutils_programs": len(inetutils_names),
         "kmod_programs": len(kmod_names),
+        "procps_programs": len(procps_names),
         "gzip_help_oracle_path_normalized": True,
         "failures": failures,
     }
@@ -523,7 +547,7 @@ def main() -> int:
         + "\n",
         encoding="utf-8",
     )
-    print(json.dumps({key: result[key] for key in ("cases", "passed", "coreutils_applets", "util_linux_applets", "m4_applets", "pkgconf_public_names", "file_applets", "patch_applets", "sed_applets", "diffutils_applets", "grep_applets", "gawk_public_names", "bc_applets", "attr_applets", "acl_applets", "lz4_public_names", "less_public_names", "gzip_public_names", "xz_public_names", "zstd_public_names", "tar_applets", "ncurses_public_names", "findutils_public_names", "flex_public_names", "curl_public_names", "inetutils_programs", "kmod_programs")}))
+    print(json.dumps({key: result[key] for key in ("cases", "passed", "coreutils_applets", "util_linux_applets", "m4_applets", "pkgconf_public_names", "file_applets", "patch_applets", "sed_applets", "diffutils_applets", "grep_applets", "gawk_public_names", "bc_applets", "attr_applets", "acl_applets", "lz4_public_names", "less_public_names", "gzip_public_names", "xz_public_names", "zstd_public_names", "tar_applets", "ncurses_public_names", "findutils_public_names", "flex_public_names", "curl_public_names", "inetutils_programs", "kmod_programs", "procps_programs")}))
     return 1 if failures else 0
 
 

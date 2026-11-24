@@ -60,10 +60,10 @@ def main() -> int:
         raise RuntimeError("Kmod multicall differential changed")
     if (
         link.get("kmod_programs") != 7
-        or link.get("total_dispatch_names") != 393
+        or link.get("total_dispatch_names") != 413
         or not link.get("kmod_namespaced_symbols")
-        or dispatch.get("cases") != 778
-        or dispatch.get("passed") != 778
+        or dispatch.get("cases") != 818
+        or dispatch.get("passed") != 818
         or dispatch.get("failures")
     ):
         raise RuntimeError("Kmod unified dispatcher evidence changed")
@@ -88,9 +88,9 @@ def main() -> int:
             "sha256": sha256(differential_path),
         },
         "dispatcher": {
-            "global_cases": 778,
-            "global_passed": 778,
-            "total_dispatch_names": 393,
+            "global_cases": 818,
+            "global_passed": 818,
+            "total_dispatch_names": 413,
             "sha256": sha256(dispatch_path),
         },
         "valgrind": valgrind,
@@ -99,7 +99,7 @@ def main() -> int:
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")
-    print(json.dumps({"applets": 7, "cases": 25, "dispatch": 778}, sort_keys=True))
+    print(json.dumps({"applets": 7, "cases": 25, "dispatch": 818}, sort_keys=True))
     return 0
 
 

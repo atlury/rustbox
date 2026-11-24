@@ -47,6 +47,7 @@ def main() -> int:
     parser.add_argument("--curl-report-directory", type=Path, required=True)
     parser.add_argument("--inetutils-report-directory", type=Path, required=True)
     parser.add_argument("--kmod-report-directory", type=Path, required=True)
+    parser.add_argument("--procps-report-directory", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     binary = args.binary.resolve()
@@ -77,10 +78,11 @@ def main() -> int:
     curl_directory = args.curl_report_directory.resolve()
     inetutils_directory = args.inetutils_report_directory.resolve()
     kmod_directory = args.kmod_report_directory.resolve()
+    procps_directory = args.procps_report_directory.resolve()
     m4_differential = json.loads((m4_directory / "differential.json").read_text())
     m4_language = (m4_directory / "language-check.log").read_text(errors="replace")
     m4_valgrind = (m4_directory / "valgrind.log").read_text(errors="replace")
-    if dispatch["cases"] != 778 or dispatch["passed"] != 778 or dispatch["failures"]:
+    if dispatch["cases"] != 818 or dispatch["passed"] != 818 or dispatch["failures"]:
         raise RuntimeError("unified dispatcher comparison is incomplete")
     if (
         differential["batches"] != 38
@@ -676,7 +678,7 @@ def main() -> int:
         or curl_config.get("passed") != 24
         or curl_config.get("canonical_native_exact") is not True
         or link.get("curl_public_names") != 2
-        or link.get("total_dispatch_names") != 393
+        or link.get("total_dispatch_names") != 413
     ):
         raise RuntimeError("unified curl integration comparison is incomplete")
     inetutils_differential_path = inetutils_directory / "differential.json"
@@ -731,6 +733,42 @@ def main() -> int:
         or not link.get("kmod_namespaced_symbols")
     ):
         raise RuntimeError("unified Kmod integration comparison is incomplete")
+    procps_differential_path = procps_directory / "differential.json"
+    procps_differential = json.loads(procps_differential_path.read_text())
+    procps_programs = (
+        "free", "hugetop", "procps-kill", "pgrep", "pidof", "pidwait", "pkill",
+        "pmap", "ps", "pwdx", "skill", "slabtop", "snice", "sysctl",
+        "tload", "top", "procps-uptime", "vmstat", "w", "watch",
+    )
+    procps_valgrind_paths = {
+        name: procps_directory / f"valgrind-{name}.log" for name in procps_programs
+    }
+    for name, path in procps_valgrind_paths.items():
+        text = path.read_text(errors="replace")
+        if name == "sysctl":
+            if (
+                "definitely lost: 16 bytes in 1 blocks" not in text
+                or "ERROR SUMMARY: 1 errors" not in text
+            ):
+                raise RuntimeError("unified Procps sysctl baseline changed")
+            continue
+        zero_loss = all(marker in text for marker in (
+            "definitely lost: 0 bytes", "indirectly lost: 0 bytes",
+            "possibly lost: 0 bytes",
+        ))
+        if "ERROR SUMMARY: 0 errors" not in text or not (
+            "All heap blocks were freed" in text or zero_loss
+        ):
+            raise RuntimeError(f"unified Procps {name} Valgrind result is incomplete")
+    if (
+        procps_differential.get("programs") != 20
+        or procps_differential.get("cases") != 51
+        or procps_differential.get("passed") != 51
+        or not all(record.get("passed") for record in procps_differential.get("records", []))
+        or link.get("procps_programs") != 20
+        or not link.get("procps_namespaced_symbols")
+    ):
+        raise RuntimeError("unified Procps integration comparison is incomplete")
     if sha256(binary) != link["binary"]["sha256"]:
         raise RuntimeError("unified binary changed after link evidence")
     with tempfile.TemporaryDirectory(prefix="rustbox-strip-") as temporary:
@@ -779,10 +817,17 @@ def main() -> int:
         "count": len(link["kmod_namespaced_symbols"]),
         "sha256": hashlib.sha256(kmod_symbol_bytes).hexdigest(),
     }
+    procps_symbol_bytes = json.dumps(
+        link["procps_namespaced_symbols"], separators=(",", ":"), sort_keys=True
+    ).encode()
+    evidence_link["procps_namespaced_symbols"] = {
+        "count": len(link["procps_namespaced_symbols"]),
+        "sha256": hashlib.sha256(procps_symbol_bytes).hexdigest(),
+    }
     evidence = {
         "schema": 1,
         "recorded_at": "2026-11-24",
-        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, GNU tar, Ncurses, GNU Findutils, GNU Gawk, Flex, Bison, curl, GNU Inetutils, and Kmod integrated at canonical parity",
+        "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, GNU tar, Ncurses, GNU Findutils, GNU Gawk, Flex, Bison, curl, GNU Inetutils, Kmod, and Procps-ng integrated at canonical parity",
         "scope": {
             "coreutils": 106,
             "util_linux": 155,
@@ -810,7 +855,8 @@ def main() -> int:
             "curl_integrated_names": 2,
             "inetutils_integrated_names": 26,
             "kmod_integrated_names": 7,
-            "dispatch_names": 393,
+            "procps_integrated_names": 20,
+            "dispatch_names": 413,
             "excluded": ["chcon", "runcon"],
         },
         "binary": {
@@ -1170,6 +1216,25 @@ def main() -> int:
                 name: sha256(path) for name, path in kmod_valgrind_paths.items()
             },
         },
+        "procps_integration": {
+            "integrated_programs": 20,
+            "translated_engines": 17,
+            "translated_sources": 49,
+            "canonical_c_abi_residue_units": 0,
+            "differential": procps_differential,
+            "dispatch_aliases": {
+                "kill": "procps-kill",
+                "uptime": "procps-uptime",
+            },
+            "valgrind_programs": len(procps_valgrind_paths),
+            "canonical_sysctl_definitely_lost_bytes": 16,
+            "canonical_sysctl_valgrind_errors": 1,
+            "other_valgrind_errors": 0,
+            "differential_sha256": sha256(procps_differential_path),
+            "valgrind_log_sha256": {
+                name: sha256(path) for name, path in procps_valgrind_paths.items()
+            },
+        },
         "collision_isolation": {
             "translated_libraries": len(link["source_library_sha256"]),
             "namespaced_libraries": len(link["namespaced_symbols"]),
@@ -1208,6 +1273,7 @@ def main() -> int:
                 len(items) for items in link["inetutils_namespaced_symbols"].values()
             ),
             "kmod_namespaced_symbols": len(link["kmod_namespaced_symbols"]),
+            "procps_namespaced_symbols": len(link["procps_namespaced_symbols"]),
             "curl_config_bridge_symbols": len(
                 link["curl_config_frontend_bridge"]["symbols"]
             ),

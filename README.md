@@ -127,7 +127,7 @@ fourteen batches is in `evidence/util-linux-2.42.4-c2rust-small-01.json`,
 util-linux applets have reached hybrid canonical parity and are integrated.
 
 The single combined executable and its collision-isolation manifest are
-recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 393
+recorded in `evidence/rustbox-multicall.json`.  One binary dispatches all 413
 distinct public names (106 Coreutils, 155 util-linux applets, GNU M4, five
 pkgconf names, File, GNU patch, GNU sed, four GNU Diffutils applets, and GNU
 Grep's three public names, GNU bc and dc, attr's three tools, plus chacl,
@@ -142,7 +142,9 @@ native `curl-config` frontend, plus all 26 GNU Inetutils programs; Inetutils
 `hostname` and `logger` use the explicit `inetutils-hostname` and
 `inetutils-logger` names to preserve existing dispatcher precedence, plus all
 seven Kmod frontends: `kmod`, `depmod`, `insmod`, `lsmod`, `modinfo`,
-`modprobe`, and `rmmod`).  It passes all 778
+`modprobe`, and `rmmod`, plus all 20 Procps-ng programs; `kill` and `uptime`
+retain GNU Coreutils precedence while `procps-kill` and `procps-uptime` expose
+the Procps-ng implementations explicitly).  It passes all 818
 help/version oracle comparisons, all 14,022 cases in the 38 original batch
 differential harnesses, and M4's full 242-check language suite, stack-overflow
 check, 108-case differential suite, and Valgrind.  Pkgconf also passes all 429
@@ -191,8 +193,11 @@ and four leak-free resource paths.  GNU Inetutils adds all 26 clients and
 daemons with 133/133 exact behavioral comparisons and 26 clean Valgrind paths.
 Kmod adds all seven frontends from a complete 26-source stable translation with
 no canonical C residue; all 25 command and module-fixture comparisons pass and
-all seven multicall Valgrind paths are clean.  The resulting 393-name executable
-is 32,173,584 bytes unstripped and 17,456,656
+all seven multicall Valgrind paths are clean.
+Procps-ng adds all 20 programs from a complete 49-source translation with no
+canonical C residue; all 51 canonical comparisons pass and all 20 resource
+paths match their canonical baselines.  The resulting 413-name executable
+is 36,988,168 bytes unstripped and 18,320,576
 bytes stripped; its exact hashes and
 section/link evidence are recorded in `evidence/rustbox-multicall.json`.
 `chcon` and `runcon`
@@ -1356,7 +1361,7 @@ Library-only checkpoints (outside the active utility order):
      collision-isolated in the unified multicall executable, pass all 25 command
      and module-fixture comparisons again, and are Valgrind-clean.  XZ, zlib, and
      zstd module decompression remains available through the canonical libraries.
-   - [ ] Procps-ng 4.0.7 — `free`, `hugetop`, `kill`, `pgrep`, `pidof`,
+   - [x] Procps-ng 4.0.7 — `free`, `hugetop`, `kill`, `pgrep`, `pidof`,
      `pidwait`, `pkill`, `pmap`, `ps`, `pwdx`, `skill`, `slabtop`, `snice`,
      `sysctl`, `tload`, `top`, `uptime`, `vmstat`, `w`, `watch`, plus the
      shared `libproc2` runtime.  The signed canonical 4.0.7 oracle is complete
@@ -1381,9 +1386,13 @@ Library-only checkpoints (outside the active utility order):
      attributes.  All 17 engines link behind the 20 command names and pass all
      51 canonical hybrid comparisons; their resource behavior also matches the
      canonical baseline (including `sysctl`'s existing 16-byte exit leak).
-     Unified Rustbox dispatch is next.  Duplicate public names such as `kill`
-     and `uptime` remain separately
-     verified until the final dispatcher precedence decision.
+     Unified Rustbox integration is complete: 422 Procps symbols are privately
+     namespaced, all 51 canonical comparisons pass through the combined binary,
+     and all 20 resource paths retain their canonical allocation behavior.
+     GNU Coreutils keeps the unqualified `kill` and `uptime` names;
+     `procps-kill` and `procps-uptime` explicitly select Procps-ng.  Exact
+     evidence is recorded in `evidence/procps-ng-4.0.7-multicall.json` and
+     `evidence/rustbox-multicall.json`.
    - [ ] Shadow 4.20.3 — `chage`, `chfn`, `chgpasswd`, `chpasswd`, `chsh`,
      `faillog`, `getsubids`, `gpasswd`, `groupadd`, `groupdel`, `groupmod`,
      `grpck`, `grpconv`, `grpunconv`, `lastlog`, `login`, `newgidmap`,

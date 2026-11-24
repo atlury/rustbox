@@ -29,7 +29,9 @@ def digest(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
-def invoke(root: Path, library: Path, case: Case) -> dict[str, object]:
+def invoke(
+    root: Path, library: Path, case: Case, *, multicall: Path | None = None,
+) -> dict[str, object]:
     environment = os.environ.copy()
     environment.update({
         "LC_ALL": "C",
@@ -39,8 +41,15 @@ def invoke(root: Path, library: Path, case: Case) -> dict[str, object]:
         "LINES": "24",
         "LD_LIBRARY_PATH": str(library),
     })
+    command = (
+        [str(multicall),
+         f"procps-{case.program}" if case.program in {"kill", "uptime"} else case.program,
+         *case.arguments]
+        if multicall is not None
+        else [str(root / case.program), *case.arguments]
+    )
     process = subprocess.run(
-        [str(root / case.program), *case.arguments],
+        command,
         env=environment,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
@@ -83,13 +92,17 @@ def main() -> int:
     parser.add_argument("--gcc-library", required=True, type=Path)
     parser.add_argument("--clang-root", required=True, type=Path)
     parser.add_argument("--clang-library", required=True, type=Path)
+    parser.add_argument("--clang-multicall", type=Path)
     parser.add_argument("--output", required=True, type=Path)
     args = parser.parse_args()
 
     records = []
     for case in cases():
         gcc = invoke(args.gcc_root, args.gcc_library, case)
-        clang = invoke(args.clang_root, args.clang_library, case)
+        clang = invoke(
+            args.clang_root, args.clang_library, case,
+            multicall=args.clang_multicall,
+        )
         records.append({
             "program": case.program,
             "arguments": list(case.arguments),

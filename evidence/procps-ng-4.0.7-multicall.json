@@ -1,0 +1,155 @@
+{
+  "aliases": {
+    "kill": "procps-kill",
+    "uptime": "procps-uptime"
+  },
+  "differential": {
+    "cases": 51,
+    "exact": true,
+    "passed": 51,
+    "sha256": "84aa827fc723395a6a64f11ffd8ee11f118a39b81fdc6bce4db0fd576d011969"
+  },
+  "dispatcher": {
+    "global_cases": 818,
+    "global_passed": 818,
+    "sha256": "de29d2c64ca81b34f5bb31c22e16bd3a78c5fd763ea11f4d05875baf35446c98",
+    "total_dispatch_names": 413
+  },
+  "link_report_sha256": "65612cd1ab125dee962a7504727f64d1549da7aac779d025dca4ed67b3e3f661",
+  "next_gate": "begin the next incomplete canonical utility suite",
+  "programs": [
+    "free",
+    "hugetop",
+    "procps-kill",
+    "pgrep",
+    "pidof",
+    "pidwait",
+    "pkill",
+    "pmap",
+    "ps",
+    "pwdx",
+    "skill",
+    "slabtop",
+    "snice",
+    "sysctl",
+    "tload",
+    "top",
+    "procps-uptime",
+    "vmstat",
+    "w",
+    "watch"
+  ],
+  "recorded_at": "2026-11-24",
+  "release": "4.0.7",
+  "schema": 1,
+  "status": "all 20 Procps-ng programs integrated into unified Rustbox",
+  "translation": {
+    "canonical_c_residue_sources": 0,
+    "namespaced_symbols": 422,
+    "translated_engines": 17,
+    "translated_sources": 49
+  },
+  "valgrind": {
+    "free": {
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "75a081b090d537c950399b196da80a985c1ea7ad1910a94c9c233b448692d41f"
+    },
+    "hugetop": {
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "934f4a13a536b64359063ec32a819f2377f682ddb95e9278c49ea0a4ca32b9d6"
+    },
+    "pgrep": {
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "8408de90c56745e544d71404e2f11456d7a3ed30e176b5d0f939dfe17f86a86d"
+    },
+    "pidof": {
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "77ee120c35c4056e1f0873efceef63f69ec6088228ed94954967a18e8e2925ad"
+    },
+    "pidwait": {
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "c8bd9cb1720cad551d5015c597e0b2a2682458dcd63ab7f3030e52ba1c6754bd"
+    },
+    "pkill": {
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "26d66d515a446b9a4eba4cc3972e096bb8183e49a2b0e61d6b8775cefcae5dde"
+    },
+    "pmap": {
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "432716a432ad58af60fd5dcbe4f20a26369305a781e6aa6393d5e0a81961ca72"
+    },
+    "procps-kill": {
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "bc9b39a065a12c2095c0e9496861b99e121197093941284e4287a5e9792f206e"
+    },
+    "procps-uptime": {
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "e2bfc8c179f7166667877506c4e2c4fe48952b2045341d797ca8166c29ad5b26"
+    },
+    "ps": {
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "e991f1155ebb50b2f47c51d995c5bb83a17a1034892ec406f37ce6476e1118b8"
+    },
+    "pwdx": {
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "cce025bb7632934e7c70b9eac2267ac7b9e46e8a855f2fdd1772e3b019263457"
+    },
+    "skill": {
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "eef41e989c5813ca50a85194cc89bee809aab88728a5f00e9eebc5f9268bb813"
+    },
+    "slabtop": {
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "75a3467ad5179137b3c69585e681af0bf3dd7a6bbc8c6485a5e2ed8f44cc8141"
+    },
+    "snice": {
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "837578655f20892eae0c06115f20b62d9a48ee9276db341c8cddc0dc3b217dd3"
+    },
+    "sysctl": {
+      "canonical_baseline": true,
+      "definitely_lost_bytes": 16,
+      "errors": 1,
+      "sha256": "a4342535f778b20fdc7ebd28751ad6d0e70dccdfd9de5ff0c51b107a7f52e37d"
+    },
+    "tload": {
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "5927def2c64e4cf0d2d58186eac635fb9b94b9542c5843a78eb43e714decfbed"
+    },
+    "top": {
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "b12176480db0fa9094a958d17d74d99483f6b18daae86a7a36a1c9f63bcd114e"
+    },
+    "vmstat": {
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "1d17a5d70edcc1ef7014ccd92bb8fe74a42a16b5a792015171978e20e559e4af"
+    },
+    "w": {
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "1b9968dee014ac947f1d36c7ff9738863f9270fbb785695871c176df7911b4e9"
+    },
+    "watch": {
+      "errors": 0,
+      "retained_bytes": 0,
+      "sha256": "611269b3614f1eb945ae146cf183146e94fd73af663e0bd9a08b63db0d00352f"
+    }
+  }
+}

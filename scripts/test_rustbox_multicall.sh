@@ -32,5 +32,7 @@ RUSTBOX_TOOL_IMAGE=rustbox-gawk:2026-11-22 \
     --curl-config-oracle /work/work/analysis/curl-8.23.0/oracle/curl-config-clang \
     --inetutils-oracle-root /rustbox-inetutils/normalized-gcc \
     --kmod-oracle-root /rustbox-kmod/oracle-gcc \
+    --procps-oracle-root /rustbox-procps/programs-gcc \
+    --procps-oracle-library /rustbox-procps/oracle-gcc/library/.libs \
     --rustbox /rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox \
     --output /work/work/analysis/rustbox-multicall-dispatch.json

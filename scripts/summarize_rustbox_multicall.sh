@@ -33,4 +33,5 @@ RUSTBOX_TOOL_IMAGE=rustbox-gawk:2026-11-22 \
     --curl-report-directory /work/work/analysis/curl-8.23.0/multicall \
     --inetutils-report-directory /work/work/analysis/inetutils-2.8/multicall \
     --kmod-report-directory /work/work/analysis/kmod-34.3/multicall \
+    --procps-report-directory /work/work/analysis/procps-ng-4.0.7/multicall \
     --output /work/evidence/rustbox-multicall.json
