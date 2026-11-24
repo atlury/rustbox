@@ -62,6 +62,15 @@ def main():
         assert candidate.stdout == oracle.stdout and candidate.stderr == oracle.stderr
     print("Live listener matched six ordered FDB records and one truncation diagnostic.")
 
+    for sizes in ([1, 2, 3, 4, 32767, 32768], [32769, 32770], [32771, 32772]):
+        packets = [bytes([0xa5]) * size for size in sizes]
+        command = ["valgrind", "--tool=memcheck", "--error-exitcode=88", "--log-file=heap.memcheck",
+                   "./heap-receive", *map(str, sizes)]
+        result = receive(command, packets)
+        if result.returncode:
+            raise RuntimeError(f"heap receiver failed: {result.stderr!r}\n{Path('heap.memcheck').read_text()}")
+    print("Heap receiver preserved 10 datagrams and initialized each aligned diagnostic suffix.")
+
 
 if __name__ == "__main__":
     main()

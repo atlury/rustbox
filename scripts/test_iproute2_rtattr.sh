@@ -81,6 +81,26 @@ for name, old_iov_base in [
             raise ValueError(f"unexpected {name} receive buffer for {old}")
         reader = reader.replace(old, new)
     s = s[:start] + reader + s[end:]
+
+# The dumper and single-reply paths share this malloc/free owner. The first
+# syscall sizes the allocation, and the second returns the copied byte count.
+start = s.index('unsafe extern "C" fn rtnl_recvmsg(')
+end = s.index('unsafe extern "C" fn rtnl_dump_filter_l(', start)
+reader = s[start:end]
+for old, new in [
+    ('malloc(len as size_t)',
+     'malloc((len as usize + crate::monitor_buffer::diagnostic_tail(len as usize)) as size_t)'),
+    ('    if !answer.is_null() {',
+     '    let used = len as usize;\n'
+     '    buf.add(used).write_bytes(0, crate::monitor_buffer::diagnostic_tail(used));\n'
+     '    if !answer.is_null() {'),
+]:
+    if reader.count(old) != 1:
+        raise ValueError(f'unexpected heap receiver for {old}')
+    reader = reader.replace(old, new)
+# Expose the private receiver only in the disposable test engine. This allows
+# Memcheck to inspect the initialized suffix after a real recvmsg call.
+s = s[:start] + '#[export_name = "rustbox_pilot_recvmsg"]\n' + reader + s[end:]
 path.write_text(s)
 with Path('engine/lib.rs').open('a') as root:
     root.write('\nmod monitor_buffer;\n')
@@ -106,6 +126,9 @@ gcc harness.o "$@" -Wl,--start-group "$oracle_dir/lib/libutil.a" "$oracle_dir/li
     -Wl,--end-group -ltirpc -lbpf -lelf -lmnl -lcap -lm -o live-oracle
 clang-18 -Wl,--gc-sections harness.o engine.a candidate.o \
     -ltirpc -lbpf -lelf -lmnl -lcap -ldb -lxtables -ldl -lpthread -lm -o live-candidate
+clang-18 -Wall -Wextra -Werror -Wl,--gc-sections /work/tests/iproute2-rtattr/heap_receive.c \
+    engine.a candidate.o -ltirpc -lbpf -lelf -lmnl -lcap -ldb -lxtables -ldl -lpthread -lm \
+    -o heap-receive
 python3 /work/tests/iproute2-rtattr/monitor.py
 for symbol in rtnl_listen print_fdb parse_rtattr_flags; do
     grep -Eq "^(c?fn)=.*${symbol}$" live.trace

@@ -285,7 +285,7 @@ inventory receives no reduction from these changes.
 | Algorithm | Verified in the pilot | Remaining before production |
 |---|---|---|
 | E2fsprogs `ext2fs_crc16` | Safe slice loop in `e2fsck`, with one raw-pointer adapter at the C boundary | Rebuild affected engines, verify shared linkage and run multicall regressions |
-| IPRoute2 `parse_rtattr_flags` | Safe attribute walk in `bridge`; diagnostic backing verified for 2 of 4 top-level FDB paths (file replay and live monitoring) | Verify heap-backed dumps and replies, audit nested callers and other engines, then run multicall regressions |
+| IPRoute2 `parse_rtattr_flags` | Safe attribute walk in `bridge`; diagnostic backing verified for all 4 top-level FDB paths | Audit nested callers and other engines, then verify linkage and run multicall regressions |
 
 The first substitution covers E2fsprogs 1.47.4 `ext2fs_crc16`. The same
 generated module occurs in 13 finalized engine crates, and the baseline link
@@ -349,8 +349,8 @@ owner's buffer are separate quantities.
 |---|---|---|
 | Saved monitor file | `rtnl_from_file` reads aligned records into a reusable buffer | The pilot provides initialized storage through the final diagnostic field. |
 | Live monitor | `rtnl_listen` dispatches records at aligned offsets in a received datagram | The pilot uses the same initialized buffer as file replay and still offers exactly 16 KiB to `recvmsg`. |
-| FDB dump | `rtnl_recvmsg` allocates the receive buffer and `rtnl_dump_filter_l` iterates the returned bytes | Heap capacity alone gives no guarantee that spare bytes were initialized. |
-| Single FDB reply | `rtnl_talk` returns an owned receive buffer to `fdb_get` | The getter receives the pointer and frees it after printing. The allocation extent is absent from the print interface. |
+| FDB dump | `rtnl_recvmsg` allocates the datagram and `rtnl_dump_filter_l` iterates messages within the received length | The receiver initializes through the aligned end plus the diagnostic field. The public FDB dump matched canonical output under Memcheck. |
+| Single FDB reply | `rtnl_talk` returns the owned receive buffer to `fdb_get` | The same initialized suffix travels with the allocation. The public single-entry query matched canonical output under Memcheck. |
 
 For both monitor paths, `compat/iproute2/monitor_buffer.rs` keeps the
 16,384-byte wire limit and reserves two initialized bytes beyond it in the
@@ -371,7 +371,18 @@ Memcheck and Callgrind run on the translated listener and FDB printer.
 Run `scripts/test_iproute2_rtattr.sh --kernel-events` to also compare both
 public `bridge monitor fdb` commands on kernel-generated add and delete
 events. This option gives the temporary container `NET_ADMIN` in its own
-network namespace so it can create a test bridge.
+network namespace so it can create a test bridge and compare the public
+`bridge fdb show` and `bridge fdb get` commands against the same entry.
+
+For heap receives, the pilot keeps the upstream 32 KiB minimum and the
+wire capacity passed to `recvmsg`. It reserves space through the next
+four-byte boundary plus a two-byte field. After a successful receive, it
+initializes only the two to five bytes following the actual payload. The
+receiver frees the allocation on a receive error. A caller that requests
+the buffer takes ownership and frees it after use.
+Ten socket cases check payload bytes, advertised capacity and the initialized
+suffix under Memcheck, covering short receives and all four length residues
+above the allocation minimum.
 
 The isolated zlib 1.4 library checkpoint uses its signed release, independent GCC
 and Clang builds, 18-case upstream CTest suite, sanitizer and Valgrind gates,

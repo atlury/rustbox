@@ -4,14 +4,20 @@
 /// IPRoute2 7.3.0 wire limit for rtnl_from_file and rtnl_listen.
 pub const WIRE_LIMIT: usize = 16_384;
 
+/// Bytes through the u16 diagnostic at the next four-byte record boundary.
+pub const fn diagnostic_tail(bytes: usize) -> usize {
+    let padding = (4 - bytes % 4) % 4;
+    padding + core::mem::size_of::<u16>()
+}
+
 // Keep the suffix inside the same initialized array as the message. C callers
 // receive a pointer derived from the whole array and cast it to Linux headers.
 #[repr(align(8))]
-pub struct MonitorBuffer([u8; WIRE_LIMIT + core::mem::size_of::<u16>()]);
+pub struct MonitorBuffer([u8; WIRE_LIMIT + diagnostic_tail(WIRE_LIMIT)]);
 
 impl MonitorBuffer {
     pub fn new() -> Self {
-        Self([0; WIRE_LIMIT + core::mem::size_of::<u16>()])
+        Self([0; WIRE_LIMIT + diagnostic_tail(WIRE_LIMIT)])
     }
 
     pub fn as_mut_ptr(&mut self) -> *mut u8 {
@@ -29,6 +35,19 @@ mod tests {
 
     // x86_64 Linux: NLMSG_HDRLEN + NLMSG_ALIGN(sizeof(struct ndmsg)).
     const ATTR_START: usize = 28;
+
+    #[test]
+    fn heap_suffix_fits_when_receive_is_shorter_than_capacity() {
+        // rtnl_recvmsg uses a signed-int size and a 32768-byte minimum.
+        for capacity in [32768, 32769, 32770, 32771, 65536, i32::MAX as usize] {
+            let allocated = capacity + diagnostic_tail(capacity);
+            for used in (0..32768).chain(capacity - 7..=capacity) {
+                let initialized = used + diagnostic_tail(used);
+                assert!(initialized <= allocated);
+                assert_eq!(initialized, used.next_multiple_of(4) + 2);
+            }
+        }
+    }
 
     #[test]
     fn top_level_fdb_cursor_fits_for_every_accepted_wire_length() {

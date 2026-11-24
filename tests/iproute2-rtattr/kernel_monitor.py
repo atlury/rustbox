@@ -54,6 +54,18 @@ def main():
         wait_for_marker(1)
         target = "02:00:00:42:00:01"
         fdb("add", target)
+        for args in (["fdb", "show", "br", DEVICE, "vlan", "1"],
+                     ["fdb", "get", target, "br", DEVICE, "vlan", "1"]):
+            expected = subprocess.run([PROGRAMS / "bridge", *args], capture_output=True,
+                                      check=True, timeout=10)
+            assert target.encode() in expected.stdout
+            actual = subprocess.run(["valgrind", "--tool=memcheck", "--error-exitcode=88",
+                                     "--log-file=query.memcheck", "./bridge", *args],
+                                    capture_output=True, timeout=45)
+            if actual.returncode:
+                raise RuntimeError(f"{args}: {actual.stderr!r}\n{Path('query.memcheck').read_text()}")
+            assert (actual.stdout, actual.stderr) == (expected.stdout, expected.stderr), args
+        print("Public FDB dump and single reply matched canonical output under Memcheck.")
         fdb("del", target)
         wait_for_marker(2)
         events = [[line for line in out.read_bytes().splitlines() if target.encode() in line]
