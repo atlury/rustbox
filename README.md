@@ -242,8 +242,26 @@ utility-completion tranche.
 
 ### Post-applet hardening queue
 
-This queue is intentionally blocked on completion of every in-scope applet;
-none of it may displace utility coverage or canonical differential testing.
+All 499 public names have reached multicall integration. The current Linux
+build still has 34 dynamic dependencies.
+
+On the pinned x86-64 Linux build, GNU ld packed relative relocations (DT_RELR)
+reduce the stripped ELF from 25,216,304 to 23,836,024 bytes and preserve PIE.
+This optional build requires a loader providing `GLIBC_ABI_DT_RELR`. The
+experiment replays the link map and checks that a control link reproduces
+the stripped default binary's SHA-256. The packed binary reproduced SHA-256
+`08e4f880c1c1d2188d9dc868b83bed252b0e945be300edf8d4edecced6175bbf`
+on two links and passed 884 dispatcher comparisons, 112 E2fsprogs
+comparisons, and 32 E2fsprogs Valgrind checks. Run it from the repository root with
+a fresh output directory.
+
+```sh
+RUSTBOX_TOOL_IMAGE=rustbox-e2fsprogs:2026-11-24 scripts/run_tool.sh \
+  python3 /work/scripts/measure_packed_relocations.py \
+  /rustbox-coreutils/canonical-clang-no-security-compdb /work/work/analysis/packed
+scripts/test_rustbox_multicall.sh /work/work/analysis/packed/rustbox /work/work/analysis/packed/dispatch.json
+scripts/test_e2fsprogs_multicall.sh /work/work/analysis/packed/rustbox
+```
 
 1. Eliminate all remaining package shared-library dependencies and require a
    fully static multicall ELF with zero `DT_NEEDED` entries.

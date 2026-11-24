@@ -2,6 +2,10 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 set -eu
 
+if [ "$#" -ne 0 ] && [ "$#" -ne 2 ]; then
+    echo "usage: $0 [candidate-binary candidate-report]" >&2
+    exit 2
+fi
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 RUSTBOX_TOOL_IMAGE=rustbox-e2fsprogs:2026-11-24 \
   exec "$root/scripts/run_tool.sh" python3 /work/scripts/test_rustbox_multicall.py \
@@ -35,5 +39,5 @@ RUSTBOX_TOOL_IMAGE=rustbox-e2fsprogs:2026-11-24 \
     --procps-oracle-root /rustbox-procps/programs-gcc \
     --procps-oracle-library /rustbox-procps/oracle-gcc/library/.libs \
     --shadow-oracle-root /rustbox-shadow/programs-gcc \
-    --rustbox /rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox \
-    --output /work/work/analysis/rustbox-multicall-dispatch.json
+    --rustbox "${1:-/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox}" \
+    --output "${2:-/work/work/analysis/rustbox-multicall-dispatch.json}"

@@ -2,16 +2,21 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 set -eu
 
+if [ "$#" -gt 1 ]; then
+    echo "usage: $0 [candidate-binary]" >&2
+    exit 2
+fi
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 exec docker run --rm --platform linux/amd64 \
   --volume "$root:/work" \
   --volume rustbox-coreutils-9.12:/rustbox-coreutils \
   --volume rustbox-e2fsprogs-1.47.4:/rustbox-e2fsprogs \
   --workdir /work rustbox-e2fsprogs:2026-11-24 sh -eu -c '
-    rustbox=/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox
+    rustbox=${1:-/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox}
     canonical=/rustbox-e2fsprogs/stage-gcc
     source=/work/work/upstream/e2fsprogs-1.47.4
     output=/work/work/analysis/e2fsprogs-1.47.4/multicall
+    if [ "$#" -eq 1 ]; then output=$output-candidate; fi
     dispatch=$output/dispatch
     test -x "$rustbox"
     test -x "$canonical/sbin/e2fsck"
@@ -109,4 +114,4 @@ tune2fs tune2fs
 EOF
     test "$(find "$output" -name "valgrind-*.log" -type f | wc -l)" -eq 32
     chmod -R a+rwX "$output"
-  '
+  ' sh "$@"
