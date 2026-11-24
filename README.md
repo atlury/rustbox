@@ -1417,9 +1417,11 @@ Library-only checkpoints (outside the active utility order):
      `evidence/shadow-4.20.4-normalization.json`.  The first strict translator
      probe exposed unsupported C11 `_Generic` selections rather than emitting
      holes; those compile-time selections are now deterministically lowered to
-     their target-ABI C calls across the 44-file normalized scope and have
-     passed the same complete gates.  Strict translation selects 196 sources,
-     excluding only five named non-installed helper executables.
+     their target-ABI C calls.  The next probe exposed auto-typed pointer-span
+     helpers; these now use single-evaluation concrete inline functions.  The
+     resulting 49-file normalized scope has passed the same complete gates.
+     Strict translation selects 196 sources, excluding only five named
+     non-installed helper executables.
    - [ ] IPRoute2 — `arpd`, `bridge`, `ctstat`, `dcb`, `devlink`, `genl`,
      `ifcfg`, `ifstat`, `ip`, `lnstat`, `nstat`, `rdma`, `routef`, `routel`,
      `rtacct`, `rtmon`, `rtpr`, `rtstat`, `ss`, `tc`, `tipc`, `vdpa`.

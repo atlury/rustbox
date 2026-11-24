@@ -189,6 +189,67 @@ def main() -> int:
             "})",
             "#define strcaseprefix(s, prefix)  ((char *) strcaseprefix_(s, prefix))",
         ),), "lower generic case-prefix return qualification to selected pointer cast"),
+        replace_fragments(output, "lib/string/strspn/stpspn.h", ((
+            "#define stpspn(s, accept)                                                     \\\n"
+            "({                                                                            \\\n"
+            "\t__auto_type  s_ = s;                                                  \\\n"
+            "\t                                                                      \\\n"
+            "\ts_ + strspn(s_, accept);                                              \\\n"
+            "})",
+            "static inline void *\n"
+            "rustbox_stpspn(const char *s, const char *accept)\n"
+            "{\n"
+            "\treturn (void *) (s + strspn(s, accept));\n"
+            "}\n\n"
+            "#define stpspn(s, accept)  rustbox_stpspn((s), (accept))",
+        ),), "lower auto-typed forward span macro to a concrete inline function"),
+        replace_fragments(output, "lib/string/strspn/stprcspn.h", ((
+            "#define stprcspn(s, reject)                                           \\\n"
+            "({                                                                    \\\n"
+            "\t__auto_type  s_ = (s);                                        \\\n"
+            "\t                                                              \\\n"
+            "\tstrnul(s_) - strrcspn(s_, reject);                            \\\n"
+            "})",
+            "static inline void *\n"
+            "rustbox_stprcspn(const char *s, const char *reject)\n"
+            "{\n"
+            "\treturn (void *) (strnul(s) - strrcspn(s, reject));\n"
+            "}\n\n"
+            "#define stprcspn(s, reject)  rustbox_stprcspn((s), (reject))",
+        ),), "lower auto-typed rear complement span macro to a concrete inline function"),
+        replace_fragments(output, "lib/string/strspn/stprspn.h", ((
+            "#define stprspn(s, accept)                                            \\\n"
+            "({                                                                    \\\n"
+            "\t__auto_type  s_ = (s);                                        \\\n"
+            "\t                                                              \\\n"
+            "\tstrnul(s_) - strrspn_(s_, accept);                            \\\n"
+            "})",
+            "static inline void *\n"
+            "rustbox_stprspn(const char *s, const char *accept)\n"
+            "{\n"
+            "\treturn (void *) (strnul(s) - strrspn_(s, accept));\n"
+            "}\n\n"
+            "#define stprspn(s, accept)  rustbox_stprspn((s), (accept))",
+        ),), "lower auto-typed rear span macro to a concrete inline function"),
+        replace_fragments(output, "lib/exit_if_null.h", (
+            (
+                "#define exit_if_null(p)                                               \\\n"
+                "({                                                                    \\\n"
+                "\t__auto_type  p_ = p;                                          \\\n"
+                "\t                                                              \\\n"
+                "\texit_if_null_(p_);                                            \\\n"
+                "\tp_;                                                           \\\n"
+                "})",
+                "#define exit_if_null(p)  exit_if_null_(p)",
+            ),
+            ("inline void exit_if_null_(void *p);", "inline void *exit_if_null_(void *p);"),
+            ("inline void\nexit_if_null_(void *p)", "inline void *\nexit_if_null_(void *p)"),
+            ("\t}\n}\n\n\n#endif  // include guard", "\t}\n\treturn p;\n}\n\n\n#endif  // include guard"),
+        ), "lower auto-typed null-check macro to a concrete pointer-returning inline function"),
+        replace_fragments(output, "lib/exit_if_null.c", ((
+            "extern inline void exit_if_null_(void *p);",
+            "extern inline void *exit_if_null_(void *p);",
+        ),), "match the concrete null-check inline function declaration"),
     ))
 
     a2i_original = """// a2i - alpha to integer
