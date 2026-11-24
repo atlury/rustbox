@@ -355,6 +355,17 @@ including all 32 input alignments, single-bit seeds and zero-length inputs.
 The production source count above credits only changes present in its recorded
 executable. The CRC32 ABI adapter still accepts raw input buffers.
 
+E2fsprogs bitmap counting has a verified standalone replacement in
+`compat/e2fsprogs/bitcount.rs`. The algorithm counts set bits over a byte
+slice and preserves the upstream unsigned 32-bit wraparound. Its C entry
+point takes one raw buffer pointer. Run `scripts/test_e2fsprogs_bitcount.sh`
+for 16,452 comparisons with the pinned C, including inputs against protected
+page boundaries and an all-ones bitmap that overflows the accumulator.
+Callgrind confirmed calls from both translated consumers, `e2fsck` during
+a read-only check and `resize2fs` during a 32-to-40 MiB grow. Both commands
+matched canonical output and exit status, and both copies of the grown
+filesystem were byte-identical. This standalone pilot awaits multicall integration.
+
 Run the following audit to group finalized files by their SHA-256 and list
 every engine path in each group. The counts use the translation inventory's
 textual `*const` and `*mut` metric.
