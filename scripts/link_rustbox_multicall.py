@@ -151,6 +151,19 @@ def undefined_symbols(path: Path) -> set[str]:
     }
 
 
+def verified_cargo_inline_proofs(repository, package, archives):
+    index = repository / f"work/analysis/{package}-cargo-inline-proofs.json"
+    proofs = json.loads(index.read_text())
+    if set(proofs) != {str(path.relative_to(repository)) for path in archives}:
+        raise RuntimeError(f"private-inline evidence does not match the selected {package} engines")
+    for relative, selected in proofs.items():
+        archive = repository / relative
+        proof = archive.with_name(selected["file"])
+        if sha256(proof) != selected["sha256"] or json.loads(proof.read_text())["archive_sha256"] != sha256(archive):
+            raise RuntimeError(f"stale private-inline provenance for {relative}")
+    return proofs
+
+
 def namespace_duplicate_c_symbols(
     libraries: list[Path], public_symbols: set[str], reserved_symbols: set[str], build: Path
 ) -> tuple[list[Path], dict[str, list[str]]]:
@@ -2472,7 +2485,8 @@ def main() -> int:
     }
     # Keep the canonical translation archive available as a differential oracle.
     bridge_archive = iproute2_rust_directory.parent / "rustbox-bridge/libbridge_audit.a"
-    bridge_raw_types = build_bridge(iproute2_rust_directory, bridge_archive)
+    bridge_raw_types = build_bridge(iproute2_rust_directory, bridge_archive, prune_inlines=True)
+    bridge_inline_proof = bridge_raw_types.pop("inline_proof")
     iproute2_libraries["bridge"] = bridge_archive
     e2fsprogs_rust_directory = args.e2fsprogs_rust_directory.resolve()
     e2fsprogs_libraries = {
@@ -2489,17 +2503,13 @@ def main() -> int:
             str(archive.relative_to(repository)): {"file": proof.name, "sha256": sha256(proof)}
             for archive, proof in zip(selected_archives, workers.map(prepare_archive, selected_archives))
         }
-    cargo_proofs = json.loads((repository / "work/analysis/e2fsprogs-cargo-inline-proofs.json").read_text())
-    remaining = {str(path.relative_to(repository)) for n, path in e2fsprogs_libraries.items()
-                 if n not in checksum_consumers}
-    if set(cargo_proofs) != remaining:
-        raise RuntimeError("missing Cargo archive cleanup for an E2fsprogs release engine")
-    for relative, selected in cargo_proofs.items():
-        archive = repository / relative
-        proof = archive.with_name(selected["file"])
-        if sha256(proof) != selected["sha256"] or json.loads(proof.read_text())["archive_sha256"] != sha256(archive):
-            raise RuntimeError(f"stale private-inline provenance for {relative}")
-    inline_proofs.update(cargo_proofs)
+    inline_proofs.update(verified_cargo_inline_proofs(
+        repository, "e2fsprogs", (path for n, path in e2fsprogs_libraries.items() if n not in checksum_consumers)
+    ))
+    inline_proofs.update(verified_cargo_inline_proofs(
+        repository, "iproute2", (path for n, path in iproute2_libraries.items() if n != "bridge")
+    ))
+    inline_proofs[str(bridge_archive.relative_to(repository))] = bridge_inline_proof
     # Verify the C-facing interface before namespace isolation or section GC.
     # Rust compiler-internal symbols may change when a translation unit is removed.
     def c_exports(path):
@@ -3678,7 +3688,7 @@ def main() -> int:
         },
         "source_library_sha256": source_library_hashes,
         "bridge_raw_pointer_types": bridge_raw_types,
-        "e2fsprogs_inline_proofs": inline_proofs,
+        "linked_private_inline_proofs": inline_proofs,
         "e2fsprogs_shared_checksums": {
             "symbols": sorted(CRC_SYMBOLS.values()), "consumers": sorted(checksum_consumers),
             "object_sha256": {o.name: sha256(o) for o in checksum_objects},

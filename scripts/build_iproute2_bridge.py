@@ -106,7 +106,7 @@ def count_raw_types(engine):
     return sum(len(POINTER.findall(path.read_bytes())) for path in engine.rglob("*.rs"))
 
 
-def build_bridge(target, output, *, pilot=False):
+def build_bridge(target, output, *, pilot=False, prune_inlines=False):
     source = target.parent / "bridge/bridge-final"
     deps = target / "bridge/release/deps"
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -135,11 +135,29 @@ def build_bridge(target, output, *, pilot=False):
                 "sources": {name: hashlib.sha256((engine / name).read_bytes()).hexdigest()
                             for name in inputs},
             }
+            cleanup = None
+            if prune_inlines:
+                from prune_private_inlines import prune_identical
+                plan = prune_identical(engine, arguments, archive, deps_file)
+                trimmed_rule = deps_file.read_text().splitlines()[0].split(": ", 1)[1]
+                trimmed_inputs = {name for name in shlex.split(trimmed_rule) if name.endswith(".rs")}
+                if trimmed_inputs != set(inputs) or not set(plan) <= trimmed_inputs:
+                    raise ValueError("bridge compiler inputs changed during private-inline cleanup")
+                proof = {"archive_sha256": manifest["archive_sha256"], "ranges": plan,
+                         "sources": {n: hashlib.sha256((engine / n).read_bytes()).hexdigest() for n in plan}}
+                data = (json.dumps(proof, sort_keys=True, separators=(",", ":")) + "\n").encode()
+                digest = hashlib.sha256(data).hexdigest()
+                filename = archive.with_suffix(f".inlines-{digest}.json").name
+                candidate = Path(staging) / filename
+                candidate.write_bytes(data)
+                candidate.replace(output.with_name(filename))
+                cleanup = {"file": filename, "sha256": digest}
+                after = count_raw_types(engine)
             sidecar = archive.with_suffix(".sources.json")
             sidecar.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
             sidecar.replace(output.with_suffix(".sources.json"))
             archive.replace(output)
-    return {"before": before, "after": after}
+    return {"before": before, "after": after, **({"inline_proof": cleanup} if cleanup else {})}
 
 
 if __name__ == "__main__":
@@ -147,5 +165,6 @@ if __name__ == "__main__":
     parser.add_argument("target", type=Path)
     parser.add_argument("output", type=Path)
     parser.add_argument("--pilot", action="store_true")
+    parser.add_argument("--prune-inlines", action="store_true")
     args = parser.parse_args()
-    print(build_bridge(args.target.resolve(), args.output.resolve(), pilot=args.pilot))
+    print(build_bridge(args.target.resolve(), args.output.resolve(), pilot=args.pilot, prune_inlines=args.prune_inlines))

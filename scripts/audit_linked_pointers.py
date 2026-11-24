@@ -52,6 +52,7 @@ def audit(link, temporary):
     measured = Counter()
     excluded = []
     cleanups = {}
+    proofs = link.get("linked_private_inline_proofs", link.get("e2fsprogs_inline_proofs", {}))
     for name, expected in sorted(link["source_library_sha256"].items()):
         path = Path(name)
         shared_object = path.name in ("crc16.o", "crc32.o") and path.parent.name == "rustbox-checksums"
@@ -80,7 +81,7 @@ def audit(link, temporary):
             deps = archive.with_suffix(".d").read_text().splitlines()[0].split(": ", 1)[1]
             files = {ROOT / Path(name).relative_to("/work"): None
                      for name in shlex.split(deps) if name.endswith(".rs")}
-        if selected := link.get("e2fsprogs_inline_proofs", {}).get(name):
+        if selected := proofs.get(name):
             proof_file = archive.with_name(selected["file"])
             data = proof_file.read_bytes()
             if hashlib.sha256(data).hexdigest() != selected["sha256"]:

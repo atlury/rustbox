@@ -5,6 +5,7 @@ set -eu
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 "$root/scripts/build_private_inline_tool.sh"
 python3 -B "$root/scripts/check_cargo_private_inlines.py" --prepare-e2fsprogs
+python3 -B "$root/scripts/check_cargo_private_inlines.py" --prepare-iproute2
 RUSTBOX_TOOL_IMAGE=rustbox-e2fsprogs:2026-11-24 \
   exec "$root/scripts/run_tool.sh" python3 -B /work/scripts/link_rustbox_multicall.py \
     --repository /work \

@@ -281,18 +281,20 @@ actual callers and verify the final linked executable before recording a
 production reduction.
 
 The default 499-name Linux executable now uses the cleaned sources for
-**all 20 E2fsprogs engines**. Across the linked applet sources the raw-pointer
-type count fell from **1,379,960 to 1,194,020**. No complete applet has been
-certified pointer-free.
+**all 20 E2fsprogs engines and all 18 IPRoute2 engines**. Across the linked
+applet sources the raw-pointer type count fell from **1,379,960 to 1,152,401**.
+The count of applets certified pointer-free is still zero.
 
 | Production change | Raw-pointer type occurrences removed |
 |---|---:|
 | IPRoute2 nested FDB decoder and its buffer changes | 12 |
 | Three shared E2fsprogs checksum implementations, including their remaining raw ABI adapters | 4,832 |
 | Compiler-verified removal of unused private helpers across all 20 E2fsprogs engines | 181,096 |
-| **Total** | **185,940** |
+| Compiler-verified removal of unused private helpers across all 18 IPRoute2 engines | 41,619 |
+| **Total** | **227,559** |
 
 E2fsprogs accounts for 215,084 remaining occurrences, down from 401,012.
+IPRoute2 accounts for 223,692, down from 265,323.
 The checksum replacement saved 135,168 stripped bytes. Removing unused source
 preserved the entire ELF and link map byte-for-byte. The executable is
 25,081,136 bytes stripped and its unstripped SHA-256 is
@@ -420,6 +422,12 @@ verified archive hash for replay. The `byte_identical_inline_cleanups` section
 in `evidence/rustbox-linked-pointers.json` records removed functions, source bytes
 and raw-pointer type occurrences per engine. Run `python3 -B tests/linked-pointer-audit.py`
 to check that replay preserves the original comparison inputs.
+
+The IPRoute2 release build removes 22,311 private helper definitions and
+6,852,678 bytes of staged Rust from 460 source entries. Of its 41,619 removed
+raw-pointer type occurrences, 10,422 came from `tc` and 9,261 from `ip`.
+The release inventory records each engine’s contribution. The local link report
+identifies the exact source-range record used for each archive.
 
 To reproduce the IPRoute2 Cargo checks on a fresh host, first run
 `scripts/fetch_iproute2_pointer_deps.sh` after generating the IPRoute2

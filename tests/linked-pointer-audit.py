@@ -37,13 +37,15 @@ with tempfile.TemporaryDirectory() as workspace:
     proof = {"archive_sha256": sha(built.read_bytes()), "ranges": {"lib.rs": [[0, end]]},
              "sources": {"lib.rs": sha(final)}}
     with patch.object(inventory, "ROOT", root):
-        for valid in (True, True, False):
+        for field, valid in (("e2fsprogs_inline_proofs", True),
+                             ("linked_private_inline_proofs", True),
+                             ("linked_private_inline_proofs", False)):
             if not valid:
                 proof["sources"]["lib.rs"] = sha(b"stale")
             proof_file.write_text(json.dumps(proof))
             link = {"binary": {"sha256": "fixture"}, "source_library_sha256": {str(archive): proof["archive_sha256"]},
-                    "e2fsprogs_inline_proofs": {str(archive): {"file": proof_file.name,
-                                                              "sha256": sha(proof_file.read_bytes())}}}
+                    field: {str(archive): {"file": proof_file.name,
+                                          "sha256": sha(proof_file.read_bytes())}}}
             with tempfile.TemporaryDirectory() as scratch:
                 try:
                     result = inventory.audit(link, Path(scratch))

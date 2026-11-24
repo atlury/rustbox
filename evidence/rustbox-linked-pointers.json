@@ -3,18 +3,30 @@
     "archives": 127,
     "as_ptr_calls": 7769,
     "files": 4907,
-    "raw_borrows": 88438,
-    "raw_pointer_type_tokens": 1194020,
+    "raw_borrows": 87742,
+    "raw_pointer_type_tokens": 1152401,
     "slices_from_raw_parts": 3,
     "standalone_objects": 2
   },
   "binary_sha256": "b8241ee1e9194ad785f897ca56358df4da82643b86187748da53fd2724d4a0ae",
   "byte_identical_inline_cleanups": {
+    "arpd": {
+      "changed_files": 11,
+      "private_functions_removed": 529,
+      "raw_pointer_type_tokens_removed": 966,
+      "source_bytes_removed": 161193
+    },
     "badblocks": {
       "changed_files": 55,
       "private_functions_removed": 11887,
       "raw_pointer_type_tokens_removed": 10720,
       "source_bytes_removed": 2690339
+    },
+    "bridge": {
+      "changed_files": 20,
+      "private_functions_removed": 959,
+      "raw_pointer_type_tokens_removed": 1764,
+      "source_bytes_removed": 293813
     },
     "chattr": {
       "changed_files": 9,
@@ -22,11 +34,29 @@
       "raw_pointer_type_tokens_removed": 1135,
       "source_bytes_removed": 225436
     },
+    "dcb": {
+      "changed_files": 23,
+      "private_functions_removed": 1134,
+      "raw_pointer_type_tokens_removed": 2096,
+      "source_bytes_removed": 346273
+    },
     "debugfs": {
       "changed_files": 117,
       "private_functions_removed": 22114,
       "raw_pointer_type_tokens_removed": 20527,
       "source_bytes_removed": 5024894
+    },
+    "devlink": {
+      "changed_files": 15,
+      "private_functions_removed": 732,
+      "raw_pointer_type_tokens_removed": 1352,
+      "source_bytes_removed": 223057
+    },
+    "dpll": {
+      "changed_files": 13,
+      "private_functions_removed": 628,
+      "raw_pointer_type_tokens_removed": 1152,
+      "source_bytes_removed": 191557
     },
     "dumpe2fs": {
       "changed_files": 67,
@@ -94,6 +124,30 @@
       "raw_pointer_type_tokens_removed": 11801,
       "source_bytes_removed": 2943186
     },
+    "genl": {
+      "changed_files": 13,
+      "private_functions_removed": 582,
+      "raw_pointer_type_tokens_removed": 1063,
+      "source_bytes_removed": 176659
+    },
+    "ifstat": {
+      "changed_files": 11,
+      "private_functions_removed": 528,
+      "raw_pointer_type_tokens_removed": 964,
+      "source_bytes_removed": 160919
+    },
+    "ip": {
+      "changed_files": 100,
+      "private_functions_removed": 4894,
+      "raw_pointer_type_tokens_removed": 9261,
+      "source_bytes_removed": 1514103
+    },
+    "lnstat": {
+      "changed_files": 12,
+      "private_functions_removed": 530,
+      "raw_pointer_type_tokens_removed": 975,
+      "source_bytes_removed": 162277
+    },
     "logsave": {
       "changed_files": 1,
       "private_functions_removed": 17,
@@ -118,23 +172,77 @@
       "raw_pointer_type_tokens_removed": 169,
       "source_bytes_removed": 32206
     },
+    "netshaper": {
+      "changed_files": 13,
+      "private_functions_removed": 601,
+      "raw_pointer_type_tokens_removed": 1104,
+      "source_bytes_removed": 183998
+    },
+    "nstat": {
+      "changed_files": 11,
+      "private_functions_removed": 527,
+      "raw_pointer_type_tokens_removed": 960,
+      "source_bytes_removed": 160701
+    },
+    "rdma": {
+      "changed_files": 30,
+      "private_functions_removed": 1687,
+      "raw_pointer_type_tokens_removed": 3399,
+      "source_bytes_removed": 522400
+    },
     "resize2fs": {
       "changed_files": 72,
       "private_functions_removed": 15507,
       "raw_pointer_type_tokens_removed": 13988,
       "source_bytes_removed": 3505987
     },
+    "rtacct": {
+      "changed_files": 11,
+      "private_functions_removed": 494,
+      "raw_pointer_type_tokens_removed": 901,
+      "source_bytes_removed": 151316
+    },
+    "rtmon": {
+      "changed_files": 11,
+      "private_functions_removed": 529,
+      "raw_pointer_type_tokens_removed": 967,
+      "source_bytes_removed": 160965
+    },
+    "ss": {
+      "changed_files": 20,
+      "private_functions_removed": 932,
+      "raw_pointer_type_tokens_removed": 1708,
+      "source_bytes_removed": 282346
+    },
+    "tc": {
+      "changed_files": 112,
+      "private_functions_removed": 5586,
+      "raw_pointer_type_tokens_removed": 10422,
+      "source_bytes_removed": 1720246
+    },
+    "tipc": {
+      "changed_files": 22,
+      "private_functions_removed": 858,
+      "raw_pointer_type_tokens_removed": 1497,
+      "source_bytes_removed": 262562
+    },
     "tune2fs": {
       "changed_files": 83,
       "private_functions_removed": 17071,
       "raw_pointer_type_tokens_removed": 15698,
       "source_bytes_removed": 3848146
+    },
+    "vdpa": {
+      "changed_files": 12,
+      "private_functions_removed": 581,
+      "raw_pointer_type_tokens_removed": 1068,
+      "source_bytes_removed": 178293
     }
   },
   "counting_identical_files_once": {
     "as_ptr_calls": 6053,
-    "raw_borrows": 63977,
-    "raw_pointer_type_tokens": 837587,
+    "raw_borrows": 63470,
+    "raw_pointer_type_tokens": 813365,
     "slices_from_raw_parts": 3
   },
   "non_applet_archive_inputs": [
@@ -281,8 +389,8 @@
       "archives": 18,
       "as_ptr_calls": 360,
       "files": 498,
-      "raw_borrows": 16336,
-      "raw_pointer_type_tokens": 265311,
+      "raw_borrows": 15640,
+      "raw_pointer_type_tokens": 223692,
       "slices_from_raw_parts": 1
     },
     "kmod-34.3": {
