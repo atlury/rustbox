@@ -444,8 +444,21 @@ that the archive disappeared after cleaning, then checks the rebuilt archive
 hash and compiler input list. `fsck` and `lnstat` selected the same ranges
 and post-cleanup source hashes as the earlier full-target rebuilds.
 `--prepare-inetutils` applies the same archive checks to the 26 engines in
-Inetutils’ shared Cargo target. The strict full-set check detected an archive
-difference in `ifconfig` when a removal shifted source byte offsets.
+Inetutils’ shared Cargo target. The first pass retains the original newlines.
+If its archive differs, the checker keeps the byte positions of all remaining
+code by padding each removed range with whitespace, then recompiles and
+compares the entire archive again. The release inventory replays the layout
+named in each receipt. Both strict predecessor checks can supply receipts
+when their original verifier, syntax tool, archive, source and configuration
+digests match.
+
+In Inetutils `ifconfig`, the compact form changed generated symbol names in
+three object files. Preserving byte offsets removed all 467 selected helper
+definitions and 933 raw-pointer type occurrences across 29 files. It reproduced
+the original archive SHA-256 `7f71416e28b6c193c2c902568dbc524a518e85517094ba30f1ff16c2f899202b`.
+The source files retain their original byte lengths. Run
+`python3 -B tests/cargo-inline-provenance.py` to check that older receipts
+require their exact inputs and source layout.
 
 The IPRoute2 7.3.0 pilot replaces `parse_rtattr_flags` in a disposable
 `bridge` build. The shared generated `libnetlink.rs` occurs in 18 engine

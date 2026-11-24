@@ -14,6 +14,7 @@ import tempfile
 
 from build_iproute2_bridge import stage as stage_bridge
 from build_e2fsprogs_checksums import stage as stage_checksum
+from inline_source_layout import pad_removed_items
 from prune_private_inlines import replay
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -103,7 +104,14 @@ def audit(link, temporary):
             crate.relative_to(temporary)
             changed_sources = [crate / n for n in proof["ranges"]]
             before_bytes = sum(p.stat().st_size for p in changed_sources)
+            layout = proof.get("source_layout", "lines")
+            if layout not in ("lines", "byte_offsets"):
+                raise ValueError(f"unknown private-inline source layout for {name}")
+            if layout == "byte_offsets":
+                originals = {n: (crate / n).read_bytes() for n in proof["ranges"]}
             removed = replay(crate, proof["ranges"])
+            if layout == "byte_offsets":
+                pad_removed_items(crate, proof["ranges"], originals)
             after_bytes = sum(p.stat().st_size for p in changed_sources)
             engine_name = archive.name.removeprefix("lib").removesuffix("_audit.a")
             if engine_name in cleanups:
@@ -114,6 +122,8 @@ def audit(link, temporary):
                 "private_functions_removed": sum(map(len, proof["ranges"].values())),
                 "changed_files": len(proof["ranges"]),
             }
+            if layout == "byte_offsets":
+                cleanups[engine_name]["source_layout"] = layout
             files.update({crate / n: sha for n, sha in proof["sources"].items()})
         root_module = ROOT / f"compat/e2fsprogs/{archive.stem}_abi.rs" if shared_object else crate / "lib.rs"
         if root_module not in files:

@@ -15,6 +15,11 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 LINK_REPORT = ROOT / "work/analysis/rustbox-multicall-link.json"
+# Both released verifiers accept only a strict, byte-identical whole-archive rebuild.
+STRICT_VERIFIERS = (
+    "28bd1667cb695e690698dc5ccc124321045417e971b9e5739d09a0abb44f11cc",  # e881b0d, crate clean
+    "fbaf8906696946d8ae9984570628898f7bef46795995601af852df0bc6e8e89e",  # 67c7ae2, full target clean
+)
 CARGO_ENGINES = ("chattr", "e4crypt", "filefrag", "fsck", "logsave", "lsattr", "mklost_found")
 IPROUTE2_CARGO_ENGINES = ("arpd", "dcb", "devlink", "dpll", "genl", "ifstat", "ip", "lnstat", "netshaper",
                          "nstat", "rdma", "rtacct", "rtmon", "ss", "tc", "tipc", "vdpa")
@@ -82,19 +87,30 @@ def verify_in_container(relative_archive, selected_sha):
         overlay = tmp / "overlay"
         subprocess.run([TOOL, crate, diagnostics, overlay], check=True)
         plan = json.loads((overlay / "ranges.json").read_text())
+        if not {source / n for n in plan} <= original_inputs:
+            raise ValueError("private-inline ranges must belong to compiler-selected sources")
+        originals = {n: (crate / n).read_bytes() for n in plan}
         removed = replay(crate, plan)
         package = tomllib.loads((crate / "Cargo.toml").read_text())["package"]["name"]
-        subprocess.run(["cargo", "clean", "--release", "-p", package, "--manifest-path", crate / "Cargo.toml"],
-                       env=env, check=True)
-        if archive.exists():
-            raise RuntimeError("package clean retained the candidate archive")
-        subprocess.run(["cargo", "build", *flags], cwd=crate, env=env, check=True)
-        if rust_inputs(archive) != original_inputs:
-            raise RuntimeError(f"compiler-selected source files changed after cleaning {name}")
-        if digest(archive) != selected_sha:
-            raise RuntimeError(f"private-inline cleanup changed the selected {name} release archive")
-        proof = {"archive_sha256": selected_sha, "ranges": plan,
-                 "sources": {p: digest(crate / p) for p in plan}}
+
+        def rebuild_matches():
+            subprocess.run(["cargo", "clean", "--release", "-p", package, "--manifest-path", crate / "Cargo.toml"],
+                           env=env, check=True)
+            if archive.exists():
+                raise RuntimeError("package clean retained the candidate archive")
+            subprocess.run(["cargo", "build", *flags], cwd=crate, env=env, check=True)
+            if rust_inputs(archive) != original_inputs:
+                raise RuntimeError(f"compiler-selected source files changed after cleaning {name}")
+            return digest(archive) == selected_sha
+
+        proof = {"archive_sha256": selected_sha, "ranges": plan}
+        if not rebuild_matches():
+            from inline_source_layout import pad_removed_items
+            pad_removed_items(crate, plan, originals)
+            if not rebuild_matches():
+                raise RuntimeError(f"private-inline cleanup changed the selected {name} release archive")
+            proof["source_layout"] = "byte_offsets"
+        proof["sources"] = {p: digest(crate / p) for p in plan}
         (target / ".rustbox-private-inlines.json").write_text(json.dumps(proof, sort_keys=True))
         print(json.dumps({"engine": name, "archive_sha256": selected_sha,
                           "changed_files": len(plan), "private_functions_removed": sum(map(len, plan.values())),
@@ -110,21 +126,28 @@ def check_linux_cargo(archive, publish=False):
             raise ValueError(f"source archive differs from selected Linux link: {archive}")
     if publish:
         from prune_private_inlines import TOOL
-        key_hash = hashlib.sha256()
-        for path in (Path(__file__), ROOT / "scripts/prune_private_inlines.py", TOOL):
-            key_hash.update(bytes.fromhex(digest(path)))
-        key_hash.update(bytes.fromhex(expected))
-        # A compiler-selected file or a change in crate configuration invalidates the proof.
+        inputs = bytearray()
+        for path in (ROOT / "scripts/prune_private_inlines.py", TOOL):
+            inputs.extend(bytes.fromhex(digest(path)))
+        inputs.extend(bytes.fromhex(expected))
         selected = rust_inputs(ROOT / archive)
         for path in sorted(selected | {source / f for f in ("Cargo.toml", "Cargo.lock", "rust-toolchain.toml")}):
-            key_hash.update(str(path).encode() + b"\0" + bytes.fromhex(digest(ROOT / path)))
-        key = key_hash.hexdigest()
+            inputs.extend(str(path).encode() + b"\0" + bytes.fromhex(digest(ROOT / path)))
+        verifier = bytes.fromhex(digest(Path(__file__))) + bytes.fromhex(digest(ROOT / "scripts/inline_source_layout.py"))
+        key = hashlib.sha256(verifier + inputs).hexdigest()
         saved = (ROOT / archive).with_suffix(f".inlines-{key}.json")
-        if saved.is_file():
-            old = json.loads(saved.read_text())
-            if old["key"] != key or old["archive_sha256"] != expected:
-                raise ValueError(f"stale Cargo private-inline proof: {saved}")
-            return {"file": saved.name, "sha256": digest(saved)}
+        # Reuse strict receipts under their actual producer and complete input digest.
+        # That producer accepted only archives that matched after the first rebuild.
+        strict_keys = [hashlib.sha256(bytes.fromhex(producer) + inputs).hexdigest()
+                       for producer in STRICT_VERIFIERS]
+        for candidate_key in (key, *strict_keys):
+            candidate = (ROOT / archive).with_suffix(f".inlines-{candidate_key}.json")
+            if candidate.is_file():
+                record = json.loads(candidate.read_text())
+                if (record["key"] != candidate_key or record["archive_sha256"] != expected
+                        or (candidate_key != key and "source_layout" in record)):
+                    raise ValueError(f"stale Cargo private-inline proof: {candidate}")
+                return {"file": candidate.name, "sha256": digest(candidate)}
     registry = (["-v", "rustbox-pointer-cargo-registry:/root/.cargo/registry:ro"]
                 if archive.parts[2] in ("iproute2-7.3.0", "inetutils-2.8") else [])
     with tempfile.TemporaryDirectory(dir=ROOT / "work/analysis") as scratch:

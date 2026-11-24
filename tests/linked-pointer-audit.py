@@ -37,11 +37,15 @@ with tempfile.TemporaryDirectory() as workspace:
     proof = {"archive_sha256": sha(built.read_bytes()), "ranges": {"lib.rs": [[0, end]]},
              "sources": {"lib.rs": sha(final)}}
     with patch.object(inventory, "ROOT", root):
-        for field, valid in (("e2fsprogs_inline_proofs", True),
-                             ("linked_private_inline_proofs", True),
-                             ("linked_private_inline_proofs", False)):
-            if not valid:
-                proof["sources"]["lib.rs"] = sha(b"stale")
+        for field, layout, valid in (("e2fsprogs_inline_proofs", "lines", True),
+                                     ("linked_private_inline_proofs", "lines", True),
+                                     ("linked_private_inline_proofs", "byte_offsets", True),
+                                     ("linked_private_inline_proofs", "byte_offsets", False)):
+            expected = final
+            if layout == "byte_offsets":
+                proof["source_layout"] = layout
+                expected = bytes(c if c in b" \t\r\n" else 32 for c in original[:end]) + original[end:]
+            proof["sources"]["lib.rs"] = sha(expected if valid else b"stale")
             proof_file.write_text(json.dumps(proof))
             link = {"binary": {"sha256": "fixture"}, "source_library_sha256": {str(archive): proof["archive_sha256"]},
                     field: {str(archive): {"file": proof_file.name,
@@ -55,6 +59,9 @@ with tempfile.TemporaryDirectory() as workspace:
                 else:
                     assert valid
                     assert result["all"]["raw_pointer_type_tokens"] == 0
-                    assert result["byte_identical_inline_cleanups"]["demo"]["raw_pointer_type_tokens_removed"] == 1
+                    cleanup = result["byte_identical_inline_cleanups"]["demo"]
+                    assert cleanup["raw_pointer_type_tokens_removed"] == 1
+                    assert cleanup["source_bytes_removed"] == len(original) - len(expected)
+                    assert cleanup.get("source_layout", "lines") == layout
             assert source.read_bytes() == original
 print("Repeated and rejected audit replays both preserved the original Cargo source.")
