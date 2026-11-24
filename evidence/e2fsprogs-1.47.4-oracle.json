@@ -1,0 +1,335 @@
+{
+  "compile_databases": {
+    "clang-18": {
+      "compile_actions": 241,
+      "sha256": "07f440b696a6fbe864a87d4648cf88d6e0b04002a486c6b009774e1bbd0c9986",
+      "sources": 232
+    },
+    "gcc": {
+      "compile_actions": 240,
+      "sha256": "0573f5243190ecf4018c41d226c0cde96370c0e0d560c342414140fefe26d5c9",
+      "sources": 232
+    }
+  },
+  "differential": {
+    "cases": 96,
+    "isolated_filesystem_effects_compared": true,
+    "passed": 96,
+    "physical_argv0_normalized": true,
+    "sha256": "2815f83b2bcb9efba5384d3d54dd4bbc1d6972aa27393298e82879ce9d6b12c2"
+  },
+  "environmental_failure": {
+    "docker_overlay_loop_allocated_512_byte_blocks": 232,
+    "expected_allocated_512_byte_blocks": 224,
+    "identical_across_compilers": true,
+    "test": "m_assume_storage_prezeroed"
+  },
+  "installed": {
+    "clang-18": {
+      "dynamic_dependencies": [
+        "libblkid.so.1",
+        "libc.so.6",
+        "libfuse3.so.3",
+        "libuuid.so.1"
+      ],
+      "elf_names": 28,
+      "engines": 24,
+      "installed_names": 32,
+      "inventory_sha256": "c93289f1c463c3446c875f7b8fcbf7c30e44f06f817261fe92c5e92e2a609d8b",
+      "metadata_sha256": "da98a23e91cbcdf47ed5f9a22fc41c1564675ed49d5886ee09c7d6d28efcf5c3",
+      "script_names": 4
+    },
+    "gcc": {
+      "dynamic_dependencies": [
+        "libblkid.so.1",
+        "libc.so.6",
+        "libfuse3.so.3",
+        "libuuid.so.1"
+      ],
+      "elf_names": 28,
+      "engines": 24,
+      "installed_names": 32,
+      "inventory_sha256": "c93289f1c463c3446c875f7b8fcbf7c30e44f06f817261fe92c5e92e2a609d8b",
+      "metadata_sha256": "8684e26716751c2db9280756308e9ed1383b13f5d00f9ebdf32a36a6e9cc5b1a",
+      "script_names": 4
+    }
+  },
+  "integration_policy": {
+    "aliases": {
+      "e2fsprogs-fsck": "E2fsprogs fsck"
+    },
+    "collisions": {
+      "fsck": "util-linux"
+    },
+    "final_runtime_external_libraries_permitted": false,
+    "new_unaliased_names": 31
+  },
+  "next_gate": "deterministic multicall entrypoint normalization for 24 engines",
+  "recorded_at": "2026-11-24",
+  "release": "1.47.4",
+  "resource_profiles": {
+    "native_valgrind_clean": 28,
+    "records": {
+      "sbin/badblocks": {
+        "kind": "valgrind",
+        "sha256": "bc8587b5e9289a169701cc8e9605b0679d0eadba1f69f3480341fd59e1b59f05"
+      },
+      "sbin/debugfs": {
+        "kind": "valgrind",
+        "sha256": "e13bf3c02ed945f8f048c998975a9a16c128ffd7fb1f4f4e85e135cf34daad0c"
+      },
+      "sbin/dumpe2fs": {
+        "kind": "valgrind",
+        "sha256": "bcbc0ca2488cceebc9fa5ee24ffd342a38e38ce6102f4d87bca512e7f72746d7"
+      },
+      "sbin/e2fsck": {
+        "kind": "valgrind",
+        "sha256": "c10576a5a8529ef1959c464cd96d6f52e106785883f267939a3ab4598c2bba22"
+      },
+      "sbin/e2image": {
+        "kind": "valgrind",
+        "sha256": "1d4668b136563aebb7e916dfb3f30221f80c01d6a82a507d2384ed905cbb5541"
+      },
+      "sbin/e2label": {
+        "kind": "valgrind",
+        "sha256": "e85a3ab504b26a5c620f272641d4c7ef9e8164eaad2399c39d2c3b5ca65d6ad9"
+      },
+      "sbin/e2mmpstatus": {
+        "kind": "valgrind",
+        "sha256": "0cf73952b341669cd6aa3e2504213e08f1d7d6aac2f538faf9c452086603915a"
+      },
+      "sbin/e2scrub": {
+        "kind": "script-syntax",
+        "sha256": "378bca8966bd28d0b456ee9981d2ad459144f447244f95b0b1d5baa545d83d32"
+      },
+      "sbin/e2scrub_all": {
+        "kind": "script-syntax",
+        "sha256": "378bca8966bd28d0b456ee9981d2ad459144f447244f95b0b1d5baa545d83d32"
+      },
+      "sbin/e2undo": {
+        "kind": "valgrind",
+        "sha256": "de5d32aed306ea49856b1cd91f39b7595f5a812859e8b82044e7f05851b61ac4"
+      },
+      "sbin/fsck": {
+        "kind": "valgrind",
+        "sha256": "6ec7448c6b1a0bbb8c5992a1091b9f5d2204d97928b06a0c021268ed1eaa4ed7"
+      },
+      "sbin/fsck.ext2": {
+        "kind": "valgrind",
+        "sha256": "abe4b1eecd26ad042ecb125bdb936bbb6ed2801c6df2fc645c6aab236833bb4d"
+      },
+      "sbin/fsck.ext3": {
+        "kind": "valgrind",
+        "sha256": "79bace56c7c58229194d19dd4576a7f8ba422725381aed8ac1c65efb72ce728c"
+      },
+      "sbin/fsck.ext4": {
+        "kind": "valgrind",
+        "sha256": "b9d365d6a78e8fd516549370bec3442c891b6c1cdd5b693be7ed8a276113531d"
+      },
+      "sbin/logsave": {
+        "kind": "valgrind",
+        "sha256": "386be485cef6c8f104902f0c577ad5b59b38d9da9fcfd953b78e7c8850ad250d"
+      },
+      "sbin/mke2fs": {
+        "kind": "valgrind",
+        "sha256": "7abda9befcdcadab8bec83c9efcdeeeae9481593815e751195bc636ce604cecd"
+      },
+      "sbin/mkfs.ext2": {
+        "kind": "valgrind",
+        "sha256": "834af38ec35b4329bf83a9371cc6aa06f7b6e1720361bb4379d256a321e04c36"
+      },
+      "sbin/mkfs.ext3": {
+        "kind": "valgrind",
+        "sha256": "09aa65102df838c4df08572eaa5431ee1ea45df21fc222497d64c7590146afaa"
+      },
+      "sbin/mkfs.ext4": {
+        "kind": "valgrind",
+        "sha256": "57c92384935719ee7bdc2d1ae3b900910ff0ed7731f03fbca8b97de88a7c70f2"
+      },
+      "sbin/resize2fs": {
+        "kind": "valgrind",
+        "sha256": "a8e6039f0e21b9768b11db2619b237f3dad598a688b63c41edf85c3b354bc2ac"
+      },
+      "sbin/tune2fs": {
+        "kind": "valgrind",
+        "sha256": "e6d652db6008423cf80438c80ff38d30a36b825c97947a7a256938dee69b74e8"
+      },
+      "usr/bin/chattr": {
+        "kind": "valgrind",
+        "sha256": "a2e838b1abd455f624761baf9d95b8ec97fc0272da352345b9ec52007ccbca9d"
+      },
+      "usr/bin/compile_et": {
+        "kind": "script-syntax",
+        "sha256": "378bca8966bd28d0b456ee9981d2ad459144f447244f95b0b1d5baa545d83d32"
+      },
+      "usr/bin/fuse2fs": {
+        "kind": "valgrind",
+        "sha256": "c0456da3105e4241215f45267e132761192a5a2381f5e50850148792cc196ddb"
+      },
+      "usr/bin/lsattr": {
+        "kind": "valgrind",
+        "sha256": "d4313ed14ee0e6f91c61e64408934c03a23a65c5b448c09889cf7e7a7cc98ef3"
+      },
+      "usr/bin/mk_cmds": {
+        "kind": "script-syntax",
+        "sha256": "378bca8966bd28d0b456ee9981d2ad459144f447244f95b0b1d5baa545d83d32"
+      },
+      "usr/lib/e2initrd_helper": {
+        "kind": "valgrind",
+        "sha256": "b2d3b9102ed8d4b5e66844fc96a92daa1681596051f87bd0f48aab6943054a29"
+      },
+      "usr/sbin/e2freefrag": {
+        "kind": "valgrind",
+        "sha256": "577514035fcdb2e1044b81334f54f7b63b80ebb673917846a07ad93e03e48fd7"
+      },
+      "usr/sbin/e4crypt": {
+        "kind": "valgrind",
+        "sha256": "046bdbd92e84167df093f658a29e112dacd8556e0facd52cd45f029290e775ea"
+      },
+      "usr/sbin/e4defrag": {
+        "kind": "valgrind",
+        "sha256": "ef01cfb9d6260f6e89a4b3f122ffc8d7c0f91b4c4fcddbd2541c4106797c6a5b"
+      },
+      "usr/sbin/filefrag": {
+        "kind": "valgrind",
+        "sha256": "e247bb7dfa6d66b10c4494edfdeeb4836ac74d5e766b81b795a2756c4db6c632"
+      },
+      "usr/sbin/mklost+found": {
+        "kind": "valgrind",
+        "sha256": "9898b274a76905c5a81826a8f765debc22c78203721b3d7205a287baca1c7d56"
+      }
+    },
+    "scripts_syntax_clean": 4
+  },
+  "schema": 1,
+  "scope": {
+    "absent_under_canonical_util_linux_libraries": [
+      "findfs",
+      "blkid",
+      "uuidd",
+      "uuidgen"
+    ],
+    "elf_names": 28,
+    "engines": 24,
+    "excluded_infrastructure": [
+      "systemd units",
+      "udev rules",
+      "cron installation",
+      "SELinux libraries"
+    ],
+    "hardlink_aliases": {
+      "sbin/dumpe2fs": [
+        "sbin/e2mmpstatus"
+      ],
+      "sbin/e2fsck": [
+        "sbin/fsck.ext2",
+        "sbin/fsck.ext3",
+        "sbin/fsck.ext4"
+      ],
+      "sbin/mke2fs": [
+        "sbin/mkfs.ext2",
+        "sbin/mkfs.ext3",
+        "sbin/mkfs.ext4"
+      ],
+      "sbin/tune2fs": [
+        "sbin/e2label"
+      ]
+    },
+    "installed_build_helpers": [
+      "compile_et",
+      "mk_cmds"
+    ],
+    "installed_names": 32,
+    "installed_runtime_helpers": [
+      "e2initrd_helper"
+    ],
+    "program_paths": [
+      "sbin/badblocks",
+      "sbin/debugfs",
+      "sbin/dumpe2fs",
+      "sbin/e2fsck",
+      "sbin/e2image",
+      "sbin/e2label",
+      "sbin/e2mmpstatus",
+      "sbin/e2scrub",
+      "sbin/e2scrub_all",
+      "sbin/e2undo",
+      "sbin/fsck",
+      "sbin/fsck.ext2",
+      "sbin/fsck.ext3",
+      "sbin/fsck.ext4",
+      "sbin/logsave",
+      "sbin/mke2fs",
+      "sbin/mkfs.ext2",
+      "sbin/mkfs.ext3",
+      "sbin/mkfs.ext4",
+      "sbin/resize2fs",
+      "sbin/tune2fs",
+      "usr/bin/chattr",
+      "usr/bin/compile_et",
+      "usr/bin/fuse2fs",
+      "usr/bin/lsattr",
+      "usr/bin/mk_cmds",
+      "usr/lib/e2initrd_helper",
+      "usr/sbin/e2freefrag",
+      "usr/sbin/e4crypt",
+      "usr/sbin/e4defrag",
+      "usr/sbin/filefrag",
+      "usr/sbin/mklost+found"
+    ],
+    "script_names": 4
+  },
+  "source_authentication": {
+    "archive_members_verified": 2794,
+    "key_sha256": "aefee846527b1ac909a61d1251f0ba67ca66fd5a3be66d97169f5dc18d1720f9",
+    "sha256": "fd5bf388cbdbe006a3d3b318d983b2948382440acc85a87f1e7d108653e8db0b",
+    "signature_mode": "uncompressed-tar",
+    "signature_sha256": "ff826cf86828bf3ed8a7fcbe3e5c0c171f8ebfc5f46c43b27adc1ffc2c6a7b9c",
+    "signature_verified": true,
+    "signer_fingerprint": "2B69B954DBFE0879288137C9F2F95956950D81A3",
+    "version": "1.47.4"
+  },
+  "static_analysis": {
+    "flawfinder_level_1_or_higher_hits": 1173,
+    "gcc_analyzer": {
+      "compile_actions": 232,
+      "compiler": "gcc",
+      "failed": 0,
+      "failures": [],
+      "passed": 232,
+      "schema": 1,
+      "timed_out": 0
+    },
+    "logs": {
+      "clang-analyzer-tidy": "f6e739bb78a83f4967ad758e8a757f0f2c48ebcefd29760acbe6410f4a85c72c",
+      "cppcheck": "29244af909c2841597aec603a2a026acb6ed6a9c562ce3b1dbd963040863688d",
+      "flawfinder": "8709aed6f1ac6429e08ec547efbaafb3f226330493a5b4e97b0d33ba58f97c82",
+      "gcc-analyzer": "f0204b781c1984a2f48ee5d0aa6f66ac7e7f360550792b9ed7727d123c380669",
+      "sparse": "05397aec9fb931f9d73416099855506efbcd1f1efc52ff3c71588206f01e66b1"
+    },
+    "source_closure": 232,
+    "sparse_diagnostic_lines": 464,
+    "statuses": {
+      "clang-analyzer-tidy": "0",
+      "cppcheck": "0",
+      "flawfinder": "0",
+      "gcc-analyzer": "0",
+      "sparse": "123"
+    }
+  },
+  "status": "complete signed canonical E2fsprogs oracle; deterministic normalization pending",
+  "upstream_tests": {
+    "clang-18": {
+      "environmental_failures": 1,
+      "passed": 396,
+      "sha256": "e842e8d401db7c05f2d3dec20a40e82e34bcc37701c567518e1ac2e87e1fb8df",
+      "skipped": 10
+    },
+    "gcc": {
+      "environmental_failures": 1,
+      "passed": 396,
+      "sha256": "c9d0a50d6944ecf2692659c9f7ae98191e247c360171d0b80c5fd7f0d7ffbc83",
+      "skipped": 10
+    }
+  }
+}
