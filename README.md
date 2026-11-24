@@ -1408,7 +1408,13 @@ Library-only checkpoints (outside the active utility order):
      closure with independent GCC and Clang builds, both upstream unit suites,
      every public help/version surface, and isolated prefix-root mutations of
      synthetic passwd/group databases.  Normalization and translation follow
-     only after that oracle checkpoint is committed.
+     only after that oracle checkpoint is committed.  Deterministic
+     normalization now exports all 30 real entrypoint engines while retaining
+     standalone wrappers and the canonical `sg`/`vigr` aliases.  Both compiler
+     builds, all 16 unit-test runs, all 158 canonical comparisons, and all 32
+     resource paths match their oracle baselines.  Exact evidence is recorded
+     in `evidence/shadow-4.20.4-oracle.json` and
+     `evidence/shadow-4.20.4-normalization.json`; strict translation is next.
    - [ ] IPRoute2 — `arpd`, `bridge`, `ctstat`, `dcb`, `devlink`, `genl`,
      `ifcfg`, `ifstat`, `ip`, `lnstat`, `nstat`, `rdma`, `routef`, `routel`,
      `rtacct`, `rtmon`, `rtpr`, `rtstat`, `ss`, `tc`, `tipc`, `vdpa`.

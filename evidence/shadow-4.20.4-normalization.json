@@ -1,0 +1,597 @@
+{
+  "aliases": {
+    "sg": "newgrp",
+    "vigr": "vipw"
+  },
+  "binaries": {
+    "clang": {
+      "chage": {
+        "bytes": 285184,
+        "entrypoint": "rustbox_shadow_chage_main",
+        "entrypoint_definitions": 1,
+        "sha256": "6592e3b19d1dbdc4c7dc2f3ecb51622c1d76de4f4b117ae8fe0e56f5166b67ec"
+      },
+      "chfn": {
+        "bytes": 191064,
+        "entrypoint": "rustbox_shadow_chfn_main",
+        "entrypoint_definitions": 1,
+        "sha256": "d9919b41822a1d6571601fc162c3ad08ad639bc5bfff943789337f8ea578d80d"
+      },
+      "chgpasswd": {
+        "bytes": 172744,
+        "entrypoint": "rustbox_shadow_chgpasswd_main",
+        "entrypoint_definitions": 1,
+        "sha256": "a134e4973283858203091ad5403e507af312c705e8cdecdd2b9a9c97ccb713e2"
+      },
+      "chpasswd": {
+        "bytes": 278912,
+        "entrypoint": "rustbox_shadow_chpasswd_main",
+        "entrypoint_definitions": 1,
+        "sha256": "4b96bd6a57db456777248e734d225d354c7160557f91d7193ce83a9d9a03c571"
+      },
+      "chsh": {
+        "bytes": 180408,
+        "entrypoint": "rustbox_shadow_chsh_main",
+        "entrypoint_definitions": 1,
+        "sha256": "ecf926cf6583c0f1410584f3afff2e9ac786d76f3c2b19395897da986e2d0ffe"
+      },
+      "faillog": {
+        "bytes": 57128,
+        "entrypoint": "rustbox_shadow_faillog_main",
+        "entrypoint_definitions": 1,
+        "sha256": "554b565801c6fc5c300883494158180a32246bdf465bb49cf186db8efa55b456"
+      },
+      "getsubids": {
+        "bytes": 144976,
+        "entrypoint": "rustbox_shadow_getsubids_main",
+        "entrypoint_definitions": 1,
+        "sha256": "ef1db7123a61b607632ba6ffc5d74cbbe3935b6545aa8eb2b04cae045477f36f"
+      },
+      "gpasswd": {
+        "bytes": 238224,
+        "entrypoint": "rustbox_shadow_gpasswd_main",
+        "entrypoint_definitions": 1,
+        "sha256": "63ff8090d35310350bf47e0daa9ad8fd084d10856b8a52546b2272be335d81a8"
+      },
+      "groupadd": {
+        "bytes": 302696,
+        "entrypoint": "rustbox_shadow_groupadd_main",
+        "entrypoint_definitions": 1,
+        "sha256": "61459b0a32ef1df2deff3dd400b9aa976c95694006d31055304e905f3912f000"
+      },
+      "groupdel": {
+        "bytes": 266736,
+        "entrypoint": "rustbox_shadow_groupdel_main",
+        "entrypoint_definitions": 1,
+        "sha256": "305a398b648c461a83e60f5367d412d69a1b49729aaf43aef1085d3838f52c3a"
+      },
+      "groupmod": {
+        "bytes": 304112,
+        "entrypoint": "rustbox_shadow_groupmod_main",
+        "entrypoint_definitions": 1,
+        "sha256": "a4edc4b87829c3a1c7e8be16cd5be16d01b8d62eb8662975b728995413ffb76e"
+      },
+      "grpck": {
+        "bytes": 165232,
+        "entrypoint": "rustbox_shadow_grpck_main",
+        "entrypoint_definitions": 1,
+        "sha256": "0aeada482da37df4cf51ffdfeed0c21f40a00272dca50c7a3285930040ea0415"
+      },
+      "grpconv": {
+        "bytes": 146936,
+        "entrypoint": "rustbox_shadow_grpconv_main",
+        "entrypoint_definitions": 1,
+        "sha256": "1d798135b4ad54fd8507eb0f6929529988f3db1575ac4f6dece306defc894999"
+      },
+      "grpunconv": {
+        "bytes": 146384,
+        "entrypoint": "rustbox_shadow_grpunconv_main",
+        "entrypoint_definitions": 1,
+        "sha256": "e539a3b2a6f402b64080b9de621fc6991d390377ef50cfc080f876c3db0cb964"
+      },
+      "lastlog": {
+        "bytes": 73048,
+        "entrypoint": "rustbox_shadow_lastlog_main",
+        "entrypoint_definitions": 1,
+        "sha256": "ee84014103ceb0ca6b818ce28c4ede70f7714a222b54a7848672fac757666f23"
+      },
+      "login": {
+        "bytes": 272432,
+        "entrypoint": "rustbox_shadow_login_main",
+        "entrypoint_definitions": 1,
+        "sha256": "fb31cfe91ca0a4feb4bb6d397dc0487c2ab7e965b1da31c5ad18a0aa911da9cb"
+      },
+      "newgidmap": {
+        "bytes": 179456,
+        "entrypoint": "rustbox_shadow_newgidmap_main",
+        "entrypoint_definitions": 1,
+        "sha256": "c98b31a1d6130d742cf37d55ff2cf90c2efa1e9e7a3b70540ac11101ff360eba"
+      },
+      "newgrp": {
+        "bytes": 150208,
+        "entrypoint": "rustbox_shadow_newgrp_main",
+        "entrypoint_definitions": 1,
+        "sha256": "fe7c0c6fc37fc81e59b0df1c55fc828e6867caf621a4f5f057c9034497d69e44"
+      },
+      "newuidmap": {
+        "bytes": 177792,
+        "entrypoint": "rustbox_shadow_newuidmap_main",
+        "entrypoint_definitions": 1,
+        "sha256": "bcd342b8961593506fb5a50d4d367919ffd35ca068a3973b90eda76c82fbef27"
+      },
+      "newusers": {
+        "bytes": 326840,
+        "entrypoint": "rustbox_shadow_newusers_main",
+        "entrypoint_definitions": 1,
+        "sha256": "59d6a08e4f1b64ad2d01197203788b9cc52ad333bbc22f66c5ccd5056280890f"
+      },
+      "nologin": {
+        "bytes": 19424,
+        "entrypoint": "rustbox_shadow_nologin_main",
+        "entrypoint_definitions": 1,
+        "sha256": "4fbc688ebd77843c7fd7e1fcc7235b602ce45706247365330c038472ae40d6a8"
+      },
+      "passwd": {
+        "bytes": 352872,
+        "entrypoint": "rustbox_shadow_passwd_main",
+        "entrypoint_definitions": 1,
+        "sha256": "11e993df7925dca592ad2f346c433627852e5e4c654a588cd958023636768695"
+      },
+      "pwck": {
+        "bytes": 160736,
+        "entrypoint": "rustbox_shadow_pwck_main",
+        "entrypoint_definitions": 1,
+        "sha256": "dab70211933a91de82946a4bb7b4929f1dce7d7e8c96811fdf0dc6d9e134d63d"
+      },
+      "pwconv": {
+        "bytes": 139552,
+        "entrypoint": "rustbox_shadow_pwconv_main",
+        "entrypoint_definitions": 1,
+        "sha256": "14046c3f7dbfd333f0765694319c461691424805da1fe421e16194b0251bdcd0"
+      },
+      "pwunconv": {
+        "bytes": 135720,
+        "entrypoint": "rustbox_shadow_pwunconv_main",
+        "entrypoint_definitions": 1,
+        "sha256": "7d996bcca4d94215bda6c2a4457686c793b55ec38ea742dbe174385453333cb4"
+      },
+      "sg": {
+        "bytes": 150208,
+        "entrypoint": "rustbox_shadow_newgrp_main",
+        "entrypoint_definitions": 1,
+        "sha256": "fe7c0c6fc37fc81e59b0df1c55fc828e6867caf621a4f5f057c9034497d69e44"
+      },
+      "su": {
+        "bytes": 227320,
+        "entrypoint": "rustbox_shadow_su_main",
+        "entrypoint_definitions": 1,
+        "sha256": "4030d6b558953f3dc7ee7b079859637e65cd9568d6eaf3fc99b5281963da13ac"
+      },
+      "useradd": {
+        "bytes": 411464,
+        "entrypoint": "rustbox_shadow_useradd_main",
+        "entrypoint_definitions": 1,
+        "sha256": "1b0ca8dd0994555b7362525f39b2f6af6af82ae20758bd05167bb8c0e992b801"
+      },
+      "userdel": {
+        "bytes": 303984,
+        "entrypoint": "rustbox_shadow_userdel_main",
+        "entrypoint_definitions": 1,
+        "sha256": "7fd6a8e98edd8f0280640a792fa318145dcf30ef592bb4cf59f55958dc278d21"
+      },
+      "usermod": {
+        "bytes": 386832,
+        "entrypoint": "rustbox_shadow_usermod_main",
+        "entrypoint_definitions": 1,
+        "sha256": "ae8badf90d123ddcc8abe3b7b7790a7c9a3976ecc60dba5bbee1096834dd01bc"
+      },
+      "vigr": {
+        "bytes": 183584,
+        "entrypoint": "rustbox_shadow_vipw_main",
+        "entrypoint_definitions": 1,
+        "sha256": "3795cad7fabcaece7ae62c6b6394562143a1b8f84a4203463c53893a2023dfe4"
+      },
+      "vipw": {
+        "bytes": 183584,
+        "entrypoint": "rustbox_shadow_vipw_main",
+        "entrypoint_definitions": 1,
+        "sha256": "3795cad7fabcaece7ae62c6b6394562143a1b8f84a4203463c53893a2023dfe4"
+      }
+    },
+    "gcc": {
+      "chage": {
+        "bytes": 395024,
+        "entrypoint": "rustbox_shadow_chage_main",
+        "entrypoint_definitions": 1,
+        "sha256": "e39bea9f284e0d894cf8a53e2986d1f14c4f84a4dbeb4bb6f032cbdd480be5a3"
+      },
+      "chfn": {
+        "bytes": 249432,
+        "entrypoint": "rustbox_shadow_chfn_main",
+        "entrypoint_definitions": 1,
+        "sha256": "585e2ae0222578e2c806be8feb0f1c0ebeca971bd9124e725021623177cf3f81"
+      },
+      "chgpasswd": {
+        "bytes": 225640,
+        "entrypoint": "rustbox_shadow_chgpasswd_main",
+        "entrypoint_definitions": 1,
+        "sha256": "45940d27ca28ec89279cfa89d43241d00a72da4722829ae5508e11a13caa0a44"
+      },
+      "chpasswd": {
+        "bytes": 382040,
+        "entrypoint": "rustbox_shadow_chpasswd_main",
+        "entrypoint_definitions": 1,
+        "sha256": "60b0f62bb7ddac8f8b54bc15e2f82d5b2967460a5e807dd1b6a9bb93c6a2a164"
+      },
+      "chsh": {
+        "bytes": 233832,
+        "entrypoint": "rustbox_shadow_chsh_main",
+        "entrypoint_definitions": 1,
+        "sha256": "3eacb1d737955e62bbd0f08ca957c25a95ccf3eac76146a6367dd3607d9424b1"
+      },
+      "faillog": {
+        "bytes": 67992,
+        "entrypoint": "rustbox_shadow_faillog_main",
+        "entrypoint_definitions": 1,
+        "sha256": "4478e3e77bfb0a27440b1c4eaa82c3837684b3d223dede8f90741afc2642b4cf"
+      },
+      "getsubids": {
+        "bytes": 207136,
+        "entrypoint": "rustbox_shadow_getsubids_main",
+        "entrypoint_definitions": 1,
+        "sha256": "96047b1b6a9119ac7aeb6f40bf9ad4eff6b2181f9c721668e49988d15f9a3e86"
+      },
+      "gpasswd": {
+        "bytes": 305008,
+        "entrypoint": "rustbox_shadow_gpasswd_main",
+        "entrypoint_definitions": 1,
+        "sha256": "0b91be14d809c39d909d7cdac0d238cf19d184a0ec1809d37397661f146bd47d"
+      },
+      "groupadd": {
+        "bytes": 403368,
+        "entrypoint": "rustbox_shadow_groupadd_main",
+        "entrypoint_definitions": 1,
+        "sha256": "8526ec3088c287b9dff8572450c023f49816f7b7002fb787aae5fa516d24e717"
+      },
+      "groupdel": {
+        "bytes": 358792,
+        "entrypoint": "rustbox_shadow_groupdel_main",
+        "entrypoint_definitions": 1,
+        "sha256": "7ffda530d315c718df2c92482086b7cdcb04e879ae48af14fe2b190003f99914"
+      },
+      "groupmod": {
+        "bytes": 424832,
+        "entrypoint": "rustbox_shadow_groupmod_main",
+        "entrypoint_definitions": 1,
+        "sha256": "7631305a7195c9860df9988972e6b05ce13cea0398890fe9fe165bb72a466d4a"
+      },
+      "grpck": {
+        "bytes": 212816,
+        "entrypoint": "rustbox_shadow_grpck_main",
+        "entrypoint_definitions": 1,
+        "sha256": "3b10947a6c6cea71fc7d46a6f0f761d06b9e52aa54ce3b01383653247106d41e"
+      },
+      "grpconv": {
+        "bytes": 187080,
+        "entrypoint": "rustbox_shadow_grpconv_main",
+        "entrypoint_definitions": 1,
+        "sha256": "28b9b472983e19c0d118e34b416f3051a70d6599d4956a90b9f073dca848d4bb"
+      },
+      "grpunconv": {
+        "bytes": 186528,
+        "entrypoint": "rustbox_shadow_grpunconv_main",
+        "entrypoint_definitions": 1,
+        "sha256": "709527b433fe22ced4b48bd9807dfa54a0341b7b4edc73aae3cd01de62c4a53c"
+      },
+      "lastlog": {
+        "bytes": 95128,
+        "entrypoint": "rustbox_shadow_lastlog_main",
+        "entrypoint_definitions": 1,
+        "sha256": "cd5c7ffb0cf5893e911d060a728c73b76f8c444df75ecade227f89fa64c48f43"
+      },
+      "login": {
+        "bytes": 380784,
+        "entrypoint": "rustbox_shadow_login_main",
+        "entrypoint_definitions": 1,
+        "sha256": "5c47cfb3c09183b86794111436ba098e3c18f8e194f2ca688b26fa501bcf240b"
+      },
+      "newgidmap": {
+        "bytes": 257472,
+        "entrypoint": "rustbox_shadow_newgidmap_main",
+        "entrypoint_definitions": 1,
+        "sha256": "c6dee31edfcdfa7c9d60c2071bc403ff45f23b76e76ec931d68c228c27c02d26"
+      },
+      "newgrp": {
+        "bytes": 194856,
+        "entrypoint": "rustbox_shadow_newgrp_main",
+        "entrypoint_definitions": 1,
+        "sha256": "1211895130aee7799977473215069aa7ce105fe2ed46ee4f9b3f445a415d98c5"
+      },
+      "newuidmap": {
+        "bytes": 254376,
+        "entrypoint": "rustbox_shadow_newuidmap_main",
+        "entrypoint_definitions": 1,
+        "sha256": "87bab4d6f6a59e424eaf9857802663c3229750cb1d739d84546cddf4069006bc"
+      },
+      "newusers": {
+        "bytes": 453376,
+        "entrypoint": "rustbox_shadow_newusers_main",
+        "entrypoint_definitions": 1,
+        "sha256": "e5ec43eb2183b4e4b4de57763666b778e3e6dcea23035aea134927cd3bace24d"
+      },
+      "nologin": {
+        "bytes": 19872,
+        "entrypoint": "rustbox_shadow_nologin_main",
+        "entrypoint_definitions": 1,
+        "sha256": "dc564641a5097d79e40f3c2b55f8b82d434d36d047163bcb0dad11442af94c77"
+      },
+      "passwd": {
+        "bytes": 483584,
+        "entrypoint": "rustbox_shadow_passwd_main",
+        "entrypoint_definitions": 1,
+        "sha256": "eecb6a301bb47ada028e48c574967b45c791debef4c506054e8fb6d18d60c462"
+      },
+      "pwck": {
+        "bytes": 209344,
+        "entrypoint": "rustbox_shadow_pwck_main",
+        "entrypoint_definitions": 1,
+        "sha256": "84c6717a30c4617c269ad2da33478cd0a4a43e2c04fa7e8e2631ec20a185ffa5"
+      },
+      "pwconv": {
+        "bytes": 184552,
+        "entrypoint": "rustbox_shadow_pwconv_main",
+        "entrypoint_definitions": 1,
+        "sha256": "c701f24f9f02582e8fbc43155fb430adeb731b868380177ca1e42667dc27448b"
+      },
+      "pwunconv": {
+        "bytes": 174912,
+        "entrypoint": "rustbox_shadow_pwunconv_main",
+        "entrypoint_definitions": 1,
+        "sha256": "f0138887f27a94333283e9bff2f40e61e2158cf50db34e20493a3328c25eabb1"
+      },
+      "sg": {
+        "bytes": 194856,
+        "entrypoint": "rustbox_shadow_newgrp_main",
+        "entrypoint_definitions": 1,
+        "sha256": "1211895130aee7799977473215069aa7ce105fe2ed46ee4f9b3f445a415d98c5"
+      },
+      "su": {
+        "bytes": 311728,
+        "entrypoint": "rustbox_shadow_su_main",
+        "entrypoint_definitions": 1,
+        "sha256": "cc9859c248ff92e1e722d56c4f078d09323ac2b9ba5073ffaa3faf82fd64661b"
+      },
+      "useradd": {
+        "bytes": 566272,
+        "entrypoint": "rustbox_shadow_useradd_main",
+        "entrypoint_definitions": 1,
+        "sha256": "c2d8986a955b08e93f3a0fb7f31b23a8095ed8531a90cf7c470d1a4ca00cf45f"
+      },
+      "userdel": {
+        "bytes": 419144,
+        "entrypoint": "rustbox_shadow_userdel_main",
+        "entrypoint_definitions": 1,
+        "sha256": "9e6dea9692541b6b30c9484f152dd8c9209eb60939db6d8d59f05a081461fa5a"
+      },
+      "usermod": {
+        "bytes": 538824,
+        "entrypoint": "rustbox_shadow_usermod_main",
+        "entrypoint_definitions": 1,
+        "sha256": "66d3f7814d4125de0253ce80683ad3e6b8f61ff64e3d5aaa8e4870eb3124205d"
+      },
+      "vigr": {
+        "bytes": 232168,
+        "entrypoint": "rustbox_shadow_vipw_main",
+        "entrypoint_definitions": 1,
+        "sha256": "3742521b55960adce5b9ce38b19867b965c7991dd45259106e835515139477d0"
+      },
+      "vipw": {
+        "bytes": 232168,
+        "entrypoint": "rustbox_shadow_vipw_main",
+        "entrypoint_definitions": 1,
+        "sha256": "3742521b55960adce5b9ce38b19867b965c7991dd45259106e835515139477d0"
+      }
+    }
+  },
+  "differentials": {
+    "clang": {
+      "cases": 79,
+      "passed": 79,
+      "sha256": "350fa7f3d2ae8cc48af4c16d0ae64f15eb13c25a60d1d899713db4f9e878b147"
+    },
+    "gcc": {
+      "cases": 79,
+      "passed": 79,
+      "sha256": "350fa7f3d2ae8cc48af4c16d0ae64f15eb13c25a60d1d899713db4f9e878b147"
+    }
+  },
+  "manifest_sha256": "edc0670028d18baa7f23938a60903614a33b8c733fa746bb3875cb4130ee1b74",
+  "next_gate": "strict no-hole C2Rust translation of the public Shadow production closure",
+  "recorded_at": "2026-11-24",
+  "release": "4.20.4",
+  "schema": 1,
+  "scope": {
+    "added_files": [
+      "rustbox-normalization.json"
+    ],
+    "changed_paths": [
+      "src/chage.c",
+      "src/chfn.c",
+      "src/chgpasswd.c",
+      "src/chpasswd.c",
+      "src/chsh.c",
+      "src/faillog.c",
+      "src/getsubids.c",
+      "src/gpasswd.c",
+      "src/groupadd.c",
+      "src/groupdel.c",
+      "src/groupmod.c",
+      "src/grpck.c",
+      "src/grpconv.c",
+      "src/grpunconv.c",
+      "src/lastlog.c",
+      "src/login.c",
+      "src/newgidmap.c",
+      "src/newgrp.c",
+      "src/newuidmap.c",
+      "src/newusers.c",
+      "src/nologin.c",
+      "src/passwd.c",
+      "src/pwck.c",
+      "src/pwconv.c",
+      "src/pwunconv.c",
+      "src/su.c",
+      "src/useradd.c",
+      "src/userdel.c",
+      "src/usermod.c",
+      "src/vipw.c"
+    ],
+    "changed_source_files": 30,
+    "entrypoint_engines": 30,
+    "public_programs": 32
+  },
+  "status": "deterministic Shadow entrypoint normalization complete",
+  "upstream_suites": {
+    "clang": {
+      "failures": 0,
+      "log_sha256": "b0d9015a678b0c0992debe372490be823ba666281977e21b3c3cd435999e7011",
+      "passes": 8
+    },
+    "gcc": {
+      "failures": 0,
+      "log_sha256": "07d0f2481fb3493e148221bcfce90356846448a2cbdb4cb5961968b7a79fd63a",
+      "passes": 8
+    }
+  },
+  "valgrind": {
+    "chage": {
+      "errors": 0,
+      "sha256": "4573c16f7d3b44c3a390cc927c4831b7bec3be5e754c662b87faf56833eab215"
+    },
+    "chfn": {
+      "errors": 0,
+      "sha256": "f6668d0ded8114913d3d0e3f96394ce34135ed1b0f39d4a1d6bc18159c3289e7"
+    },
+    "chgpasswd": {
+      "errors": 0,
+      "sha256": "9f4c651a359034f9cd440db41686654862c30e6bfc2c5c39c3db100e5657c9cc"
+    },
+    "chpasswd": {
+      "errors": 0,
+      "sha256": "bd112c774e9afaf5f4684bc4ec7d4ee5b14f9d7491e107f13ba843db2a1a00fc"
+    },
+    "chsh": {
+      "errors": 0,
+      "sha256": "2b83a52d6c833f727057e9f42007481a99edd6e366851060e1779122aab34012"
+    },
+    "faillog": {
+      "errors": 0,
+      "sha256": "ea5d7030b1da4ea8c10cf1949817e07f520f4503909922a49f60bccebd1373b7"
+    },
+    "getsubids": {
+      "errors": 0,
+      "sha256": "34224e2279462ef5cfe305a7b976a239939d69632931f3fcef0e9d25f0782cdd"
+    },
+    "gpasswd": {
+      "definitely_lost_bytes": 48,
+      "errors": 6,
+      "sha256": "3e793f4ddf9b616550be1cd48ed756602d9759f51f94eafb45e1d0deb436aa10"
+    },
+    "groupadd": {
+      "errors": 0,
+      "sha256": "b5d48f540d37b7d143d5983ca97f5be530c398e3d1f17d2ed9f8b7106155e6a9"
+    },
+    "groupdel": {
+      "errors": 0,
+      "sha256": "1091d01bff47f61ebcd4ebadea9c19173abe1f68c9f032eb944ae5e6b3715bcc"
+    },
+    "groupmod": {
+      "errors": 0,
+      "sha256": "d17dd098dd8b48736ecabb0b9376ffbc44de046ae729f9e39a6c28cfc9183686"
+    },
+    "grpck": {
+      "errors": 0,
+      "sha256": "c12cf1d8cf05e9a6b04a5251de6c8d1fab66db85f15c79b4ffe7b420e0c49293"
+    },
+    "grpconv": {
+      "errors": 0,
+      "sha256": "c2b6066f29bac4b8f8d286f40afbc2aa9f78a83b41194aa88d3403f7892eb98d"
+    },
+    "grpunconv": {
+      "errors": 0,
+      "sha256": "b5ecf9f0fd7b7c2d653fb5aa981268bfca50470b0437725d8c3a2099bc3366f4"
+    },
+    "lastlog": {
+      "errors": 0,
+      "sha256": "45d24d08d555f34361e4f62e6e7d8d257b180a3904a3e382c5189efcbdb3bdac"
+    },
+    "login": {
+      "errors": 0,
+      "sha256": "e0726358c9ede2a331ef7d286a72a506678ffc40b46f3321024ed8afb340d6c9"
+    },
+    "newgidmap": {
+      "errors": 0,
+      "sha256": "a8075eda86116f6e8d0c37b2e3e1c3e7ebc2f723a39ee24f25965aa3858b301f"
+    },
+    "newgrp": {
+      "errors": 0,
+      "sha256": "a01a5198f1d4164bff98946841c7f8f9e27a1bc14cfbee2b5b7698cf8d44a1b5"
+    },
+    "newuidmap": {
+      "errors": 0,
+      "sha256": "3622c6640629ff678a005cef6ad429e28dcde419d7bcf32c01c4e912a60a0969"
+    },
+    "newusers": {
+      "errors": 0,
+      "sha256": "9b34b683586bd39b3800ad4986f32b090f5b36295b12884301d9b4629eb4924f"
+    },
+    "nologin": {
+      "errors": 0,
+      "sha256": "6eb0b5775a0bb42f358060a9db736a0b5090a9c72fbae8de6919ae25e73f8840"
+    },
+    "passwd": {
+      "errors": 0,
+      "sha256": "6b839a82a942ae6fa4e719f255355016e509a844a9297887c328ec0fa1cdde7e"
+    },
+    "pwck": {
+      "errors": 0,
+      "sha256": "e1937ecb551ecd914b01f070bfc0e4cda6d8fdadf9c29bc1ff88ed0ff3c682d5"
+    },
+    "pwconv": {
+      "errors": 0,
+      "sha256": "a23ca7dd687bc22f843bd621a3ae760046fa8c4f359ee5686a88daa4f674407e"
+    },
+    "pwunconv": {
+      "errors": 0,
+      "sha256": "588f92873cb3372b54266f3611ac6f4a3e01620b5f20cf38bdc15a88c196f70f"
+    },
+    "sg": {
+      "errors": 0,
+      "sha256": "f0df89f37b6d430659641a67801877a9b45ff81309a811e433ac71108f442a62"
+    },
+    "su": {
+      "errors": 0,
+      "sha256": "bb65d693cae9ef9d5989906d6611eece13ec58058a0ca3c3e52e573172d8fc33"
+    },
+    "useradd": {
+      "errors": 0,
+      "sha256": "340e1b416e4c80561fe1ccb3ab6a7ddc333dca55a8098a72917e5e7e799bcf7f"
+    },
+    "userdel": {
+      "errors": 0,
+      "sha256": "010fcf89d79a823e4888e3b615eab06d354e9b2256d3955697ee0705b31f4f8e"
+    },
+    "usermod": {
+      "errors": 0,
+      "sha256": "4afcab078e6a8d6685b296e5462b15c2b38b7299a5467602dce4648cb00dab10"
+    },
+    "vigr": {
+      "errors": 0,
+      "sha256": "12d29475daa44b5e25bf661dbfb8df4555209a88d6fdbd41808268e43fc18254"
+    },
+    "vipw": {
+      "errors": 0,
+      "sha256": "399093cc720dd7bf1bb4d9afa66107d1feff4c5ce3b6a315a0414bb2c84fc7d5"
+    }
+  }
+}
