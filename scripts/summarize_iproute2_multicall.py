@@ -47,7 +47,7 @@ def main() -> int:
     namespaces = link.get("iproute2_namespaced_symbols", {})
     bridge = link.get("iproute2_routel_frontend_bridge", {})
     if (
-        link.get("total_dispatch_names") != 467
+        link.get("total_dispatch_names") not in (467, 499)
         or link.get("iproute2_public_names") != 21
         or tuple(namespaces) != ENGINES
         or len(namespaces) != 18
@@ -113,7 +113,7 @@ def main() -> int:
             "public_names": list(PUBLIC_NAMES),
             "public_name_count": 21,
             "aliases": {"ctstat": "lnstat", "rtstat": "lnstat"},
-            "aggregate_names": 467,
+            "aggregate_names": link["total_dispatch_names"],
         },
         "differential": differential,
         "differential_sha256": sha256(differential_path),

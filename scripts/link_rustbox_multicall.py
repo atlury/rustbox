@@ -14,6 +14,8 @@ import subprocess
 import tempfile
 from pathlib import Path
 
+from build_iproute2_bridge import build_bridge
+
 ISOLATION_CACHE_VERSION = 18
 INETUTILS_PROGRAMS = (
     "dnsdomainname", "ftp", "ftpd", "hostname", "ifconfig", "inetd",
@@ -2466,6 +2468,10 @@ def main() -> int:
         name: iproute2_rust_directory / name / "release" / f"lib{name}_audit.a"
         for name in IPROUTE2_PROGRAMS
     }
+    # Keep the canonical translation archive available as a differential oracle.
+    bridge_archive = iproute2_rust_directory.parent / "rustbox-bridge/libbridge_audit.a"
+    bridge_raw_types = build_bridge(iproute2_rust_directory, bridge_archive)
+    iproute2_libraries["bridge"] = bridge_archive
     e2fsprogs_rust_directory = args.e2fsprogs_rust_directory.resolve()
     e2fsprogs_libraries = {
         name: e2fsprogs_rust_directory / name / "release" / f"lib{name}_audit.a"
@@ -3628,6 +3634,7 @@ def main() -> int:
             }
         },
         "source_library_sha256": source_library_hashes,
+        "bridge_raw_pointer_types": bridge_raw_types,
         "namespaced_symbols": namespaced_symbols,
         "namespaced_support_symbols": namespaced_support,
         "m4_namespaced_support_symbols": m4_support_symbols,

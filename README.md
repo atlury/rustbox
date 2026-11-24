@@ -221,7 +221,7 @@ E2fsprogs integration passes 112/112 canonical comparisons and all 32
 Valgrind paths; its 20 private namespaces rename 8,979 symbols after removing
 3,966 byte-identical Rust runtime members already provided by Procps-ng.
 Exact evidence is in `evidence/e2fsprogs-1.47.4-multicall.json`.  The resulting
-499-name executable is 43,189,360 bytes unstripped and 25,216,304 bytes
+499-name executable is 43,189,632 bytes unstripped and 25,216,304 bytes
 stripped. Sharing the Coreutils runtime with Gzip saved 289,264 stripped
 bytes. The linker compares 328 archive members byte-for-byte before sharing
 them. The exact hashes and
@@ -234,18 +234,15 @@ implementations and any required support code must be linked into the one
 multicall artifact, with no runtime dependency on package shared libraries.
 The release gate will require a fully static ELF with no `DT_NEEDED` entries;
 dynamic canonical builds remain permitted only as independent test oracles.
-After utility coverage and static parity are complete, hardening proceeds in
-separate behavior-preserving phases: eliminate raw pointers and `unsafe`, then
-replace `std` with Rustbox-owned `no_std` runtime facilities.  Pointer and
-`unsafe` inventories are recorded now, but they do not block the current
-utility-completion tranche.
+Pointer removal is underway alongside static-link work. The later
+`no_std` migration has its own compatibility gates.
 
 ### Post-applet hardening queue
 
 All 499 public names have reached multicall integration. The current Linux
 build still has 34 dynamic dependencies.
 
-On the pinned x86-64 Linux build, GNU ld packed relative relocations (DT_RELR)
+On the pre-FDB-hardening x86-64 Linux build, GNU ld packed relative relocations (DT_RELR)
 reduce the stripped ELF from 25,216,304 to 23,836,024 bytes and preserve PIE.
 This optional build requires a loader providing `GLIBC_ABI_DT_RELR`. The
 experiment replays the link map and checks that a control link reproduces
@@ -283,15 +280,27 @@ Count residual adapters explicitly. Track shared implementations by their
 actual callers and verify the final linked executable before recording a
 production reduction.
 
-Two shared algorithms have verified safe Rust implementations in pilot
-builds. **Production substitutions from these pilots: 0.** The default
-multicall still links the generated versions, so the production pointer
-inventory receives no reduction from these changes.
+The default 499-name Linux executable now uses the safe decoder for nested
+IPRoute2 FDB activity. The linked `bridge` crate went from 12,077 to 12,065
+raw-pointer type occurrences. Across all 127 applet archives the count went
+from **1,379,960 to 1,379,948**. No entire applet has been certified pointer-free.
 
-| Algorithm | Verified in the pilot | Remaining before production |
+| Code | Where it runs | Remaining work |
 |---|---|---|
-| E2fsprogs `ext2fs_crc16` | Safe slice loop in `e2fsck`, with one raw-pointer adapter at the C boundary | Rebuild affected engines, verify shared linkage and run multicall regressions |
-| IPRoute2 `parse_rtattr_flags` | Safe attribute walk in `bridge`; diagnostic backing verified for all 4 top-level FDB paths | Audit nested callers and other engines, then verify linkage and run multicall regressions |
+| IPRoute2 nested FDB activity | Default multicall, verified against canonical `bridge` on 259 records and live kernel operations | The adapter still constructs a borrowed slice from the initialized receive buffer |
+| IPRoute2 generic `parse_rtattr_flags` | Disposable `bridge` build | Audit the remaining callers before wider use |
+| E2fsprogs `ext2fs_crc16` | Standalone engine tests | Verify shared linkage in the default multicall and rerun its regressions |
+
+Reproduce the linked Rust source inventory with
+`python3 -B scripts/audit_linked_pointers.py work/analysis/rustbox-multicall-link.json`.
+It checks the archive hashes, reads the Rust compiler's source lists and
+counts textual occurrences of `*const` and `*mut`. The current report covers
+4,916 source entries and separately tracks raw borrows, pointer accessors and
+raw slice constructors. It excludes native C objects, dependent libraries and
+code outside the selected applet crates. See `evidence/rustbox-linked-pointers.json`
+for package counts and the executable hash. Run
+`scripts/test_iproute2_rtattr.sh --multicall` to replay the nested and live
+FDB checks on that executable.
 
 Inside `bridge -d`, the nested FDB activity decoder uses the shared walker
 and stores child offsets in safe Rust. A single borrowed byte slice replaces
@@ -303,7 +312,7 @@ activity values, duplicate parents and children, nested type flags, an empty
 parent, a full-size record and the diagnostic for a rejected child. This
 verification covers the FDB extension printer.
 
-The first substitution covers E2fsprogs 1.47.4 `ext2fs_crc16`. The same
+The checksum pilot covers E2fsprogs 1.47.4 `ext2fs_crc16`. The same
 generated module occurs in 13 finalized engine crates, and the baseline link
 map retains 12 copies of its lookup table. The pilot builds one candidate
 `e2fsck` with the generated definition removed before optimization. It links
@@ -332,7 +341,7 @@ python3 scripts/audit_pointer_duplicates.py \
   work/analysis/iproute2-7.3.0/program-translations
 ```
 
-| Translation | All pointer occurrences | Counting identical files once per package | Repeated occurrences |
+| Baseline translation | All pointer occurrences | Counting identical files once per package | Repeated occurrences |
 |---|---:|---:|---:|
 | E2fsprogs | 401,012 | 102,161 | 298,851 |
 | IPRoute2 | 265,323 | 142,065 | 123,258 |

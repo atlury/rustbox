@@ -37,11 +37,7 @@ def receive(command, datagrams):
         return subprocess.run(command, stdin=receiver, capture_output=True, timeout=45)
 
 
-def main():
-    small = record(42)
-    Path("fdb.dump").write_bytes(small + record(42, 16384) + small)
-    Path("oversize.dump").write_bytes(record(42, 16388))
-
+def check_nested(command):
     # Independently check the printed meanings, in addition to byte parity.
     # Include duplicate parents and children, both forms of the nested bit,
     # unknown types, and a full-size message whose nested attribute comes last.
@@ -69,12 +65,20 @@ def main():
         assert (b"activity_notify" in line.split()) == bool(value & 1)
         assert (b"inactive" in line.split()) == bool(value & 2)
     candidate = subprocess.run(["valgrind", "--tool=memcheck", "--error-exitcode=88",
-                                "--log-file=nested.memcheck", "./bridge", *args],
+                                "--log-file=nested.memcheck", *command, *args],
                                capture_output=True, timeout=45)
     if candidate.returncode:
         raise RuntimeError(f"{candidate.stderr!r}\n{Path('nested.memcheck').read_text()}")
     assert (candidate.stdout, candidate.stderr) == (expected.stdout, expected.stderr)
     print(f"{len(cases)} nested activity records matched canonical bridge under Memcheck.")
+
+
+def main():
+    small = record(42)
+    Path("fdb.dump").write_bytes(small + record(42, 16384) + small)
+    Path("oversize.dump").write_bytes(record(42, 16388))
+
+    check_nested(["./bridge"])
 
     # A full datagram with two records, followed by one with two more; then a
     # valid datagram whose last whole record exceeds the listener's iov limit.

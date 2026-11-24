@@ -1,6 +1,6 @@
 {
   "binary": {
-    "bytes": 40746016,
+    "bytes": 43189632,
     "dynamic_needed": [
       "ld-linux-x86-64.so.2",
       "libattr.so.1",
@@ -14,6 +14,7 @@
       "libdb-5.3.so",
       "libeconf.so.0",
       "libelf.so.1",
+      "libfuse3.so.3",
       "libgcc_s.so.1",
       "libgmp.so.10",
       "liblz.so.1",
@@ -36,11 +37,11 @@
       "libz.so.1",
       "libzstd.so.1"
     ],
-    "link_map_sha256": "ba9c49dc4678249f94efde5284d53debdba5b96603551088af6c19157454a6db",
-    "sha256": "717381c4a84489229a8ab81867819dd4d9fb9d9d51559a27b6afd7d06c959bd4",
-    "verified_bytes": 40746016,
-    "verified_link_map_sha256": "ba9c49dc4678249f94efde5284d53debdba5b96603551088af6c19157454a6db",
-    "verified_sha256": "717381c4a84489229a8ab81867819dd4d9fb9d9d51559a27b6afd7d06c959bd4"
+    "link_map_sha256": "1cc119d20dbfa9b85faa4d3551195cd13f04d17b6eb548276479d2fa91c3f26a",
+    "sha256": "db2547d78509897cdbce913d55702d06642488e169d0a14177237824af96d0e0",
+    "verified_bytes": 43189632,
+    "verified_link_map_sha256": "1cc119d20dbfa9b85faa4d3551195cd13f04d17b6eb548276479d2fa91c3f26a",
+    "verified_sha256": "db2547d78509897cdbce913d55702d06642488e169d0a14177237824af96d0e0"
   },
   "collision_isolation": {
     "program_namespaces": 18,
@@ -1408,14 +1409,14 @@
           "stderr_bytes": 0,
           "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
           "stdout_bytes": 694,
-          "stdout_sha256": "6b863520f9d7c94e380fdee064f756704c28d67e0afab43d529b888433af68e9"
+          "stdout_sha256": "77f94650397141945bfbea240ddb7148cdb98f79d1ccef822089eb0e96c939c8"
         },
         "multicall": {
           "status": 0,
           "stderr_bytes": 0,
           "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
           "stdout_bytes": 694,
-          "stdout_sha256": "6b863520f9d7c94e380fdee064f756704c28d67e0afab43d529b888433af68e9"
+          "stdout_sha256": "77f94650397141945bfbea240ddb7148cdb98f79d1ccef822089eb0e96c939c8"
         },
         "name": "default",
         "passed": true,
@@ -1430,14 +1431,14 @@
           "stderr_bytes": 0,
           "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
           "stdout_bytes": 694,
-          "stdout_sha256": "6b863520f9d7c94e380fdee064f756704c28d67e0afab43d529b888433af68e9"
+          "stdout_sha256": "77f94650397141945bfbea240ddb7148cdb98f79d1ccef822089eb0e96c939c8"
         },
         "multicall": {
           "status": 0,
           "stderr_bytes": 0,
           "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
           "stdout_bytes": 694,
-          "stdout_sha256": "6b863520f9d7c94e380fdee064f756704c28d67e0afab43d529b888433af68e9"
+          "stdout_sha256": "77f94650397141945bfbea240ddb7148cdb98f79d1ccef822089eb0e96c939c8"
         },
         "name": "ipv4-default",
         "passed": true,
@@ -1453,14 +1454,14 @@
           "stderr_bytes": 0,
           "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
           "stdout_bytes": 694,
-          "stdout_sha256": "6b863520f9d7c94e380fdee064f756704c28d67e0afab43d529b888433af68e9"
+          "stdout_sha256": "77f94650397141945bfbea240ddb7148cdb98f79d1ccef822089eb0e96c939c8"
         },
         "multicall": {
           "status": 0,
           "stderr_bytes": 0,
           "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
           "stdout_bytes": 694,
-          "stdout_sha256": "6b863520f9d7c94e380fdee064f756704c28d67e0afab43d529b888433af68e9"
+          "stdout_sha256": "77f94650397141945bfbea240ddb7148cdb98f79d1ccef822089eb0e96c939c8"
         },
         "name": "ipv4-all",
         "passed": true,
@@ -1476,14 +1477,14 @@
           "stderr_bytes": 0,
           "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
           "stdout_bytes": 254,
-          "stdout_sha256": "7134ff73dfaac5f3e165fe298f109a1b1f357002433220c1b257453feaeb1d82"
+          "stdout_sha256": "00fe364f978aa923c67860021bc3ee59b456cae68b7b004e8c246bbf34e762e9"
         },
         "multicall": {
           "status": 0,
           "stderr_bytes": 0,
           "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
           "stdout_bytes": 254,
-          "stdout_sha256": "7134ff73dfaac5f3e165fe298f109a1b1f357002433220c1b257453feaeb1d82"
+          "stdout_sha256": "00fe364f978aa923c67860021bc3ee59b456cae68b7b004e8c246bbf34e762e9"
         },
         "name": "ipv4-main",
         "passed": true,
@@ -1539,9 +1540,9 @@
     "schema": 1,
     "translated_engines": 18
   },
-  "differential_sha256": "024a6d2ab8d61bc9001625deee1628d64c485e5815f70c50cf4f986a28054380",
+  "differential_sha256": "630815a74dafc3f136ab5700a3a376b097b4a0ffe35b8d61309f848d9b75d54f",
   "dispatch": {
-    "aggregate_names": 467,
+    "aggregate_names": 499,
     "aliases": {
       "ctstat": "lnstat",
       "rtstat": "lnstat"
@@ -1594,7 +1595,7 @@
     "rustbox_iproute2_vdpa_main",
     "rustbox_iproute2_routel_main"
   ],
-  "link_report_sha256": "5d2c227ab6550df072c0b608147f3099ca6700f60e560ba9c16eb00c77dfe5d6",
+  "link_report_sha256": "9bb37c4cfd65770f92e6887fea41ddaf093fb8d1c0c196aa262712e598c69edd",
   "recorded_at": "2026-11-24",
   "release": "7.3.0",
   "routel_frontend_bridge": {
