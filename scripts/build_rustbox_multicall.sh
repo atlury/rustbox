@@ -3,9 +3,10 @@
 set -eu
 
 case "$#:${1:-}" in
-    0:) set -- --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
+    1:--iproute2-address-protocols) set -- --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
+    0:|1:--iproute2-address-protocol-copies) set -- --iproute2-address-protocol-copies --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
     2:--e2fsprogs-dirhash-arrays) ;;
-    *) echo "usage: $0 [--e2fsprogs-dirhash-arrays MANIFEST]" >&2; exit 2 ;;
+    *) echo "usage: $0 [--iproute2-address-protocols | --iproute2-address-protocol-copies | --e2fsprogs-dirhash-arrays MANIFEST]" >&2; exit 2 ;;
 esac
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 "$root/scripts/build_private_inline_tool.sh"
@@ -15,6 +16,11 @@ python3 -B "$root/scripts/check_cargo_private_inlines.py" --prepare-inetutils
 python3 -B "$root/scripts/batch_cargo_private_inlines.py" --release-args "$root/batches/multicall-inline-archives.args"
 python3 -B "$root/scripts/prepare_second_inline_layers.py"
 python3 -B "$root/scripts/check_cargo_foreign_declarations.py" --prepare
+if [ "$1" = --iproute2-address-protocol-copies ]; then
+    python3 -B "$root/scripts/build_iproute2_address_protocol_pilot.py" --prepare-copies
+elif [ "$1" = --iproute2-address-protocols ]; then
+    python3 -B "$root/scripts/build_iproute2_address_protocol_pilot.py" --prepare
+fi
 unset RUSTBOX_MULTICALL_TEST_BINARY
 exec "$root/scripts/run_multicall_tool.sh" python3 -B /work/scripts/link_rustbox_multicall.py \
     @/work/batches/multicall-inline-archives.args \
