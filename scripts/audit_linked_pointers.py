@@ -111,15 +111,7 @@ def audit(link, temporary, inspect_source=None):
             deps = archive.with_suffix(".d").read_text().splitlines()[0].split(": ", 1)[1]
             files = {ROOT / Path(name).relative_to("/work"): None
                      for name in shlex.split(deps) if name.endswith(".rs")}
-        if selected := proofs.get(name):
-            proof_file = archive.with_name(selected["file"])
-            data = proof_file.read_bytes()
-            if hashlib.sha256(data).hexdigest() != selected["sha256"]:
-                raise ValueError(f"pruning evidence differs from link report: {name}")
-            proof = json.loads(data)
-            if (proof["archive_sha256"] != expected or set(proof["ranges"]) != set(proof["sources"])
-                    or not {crate / n for n in proof["sources"]} <= files.keys()):
-                raise ValueError(f"invalid private-inline provenance: {name}")
+        if name in proofs or name in foreign:
             if not crate.is_relative_to(temporary):
                 original = crate
                 crate = temporary / ("cargo-" + archive.stem)
@@ -132,6 +124,15 @@ def audit(link, temporary, inspect_source=None):
                 files = copied
             crate.relative_to(temporary)
             engine_name = cleanup_name(archive)
+        if selected := proofs.get(name):
+            proof_file = archive.with_name(selected["file"])
+            data = proof_file.read_bytes()
+            if hashlib.sha256(data).hexdigest() != selected["sha256"]:
+                raise ValueError(f"pruning evidence differs from link report: {name}")
+            proof = json.loads(data)
+            if (proof["archive_sha256"] != expected or set(proof["ranges"]) != set(proof["sources"])
+                    or not {crate / n for n in proof["sources"]} <= files.keys()):
+                raise ValueError(f"invalid private-inline provenance: {name}")
             if engine_name in cleanups:
                 raise ValueError(f"duplicate cleanup evidence for {engine_name}")
             cleanups[engine_name] = measure_layer(crate, files, proof)
@@ -144,13 +145,13 @@ def audit(link, temporary, inspect_source=None):
                 if any(stats[key] != report[key] for key in ("raw_pointer_type_tokens_removed", "private_functions_removed")):
                     raise ValueError("second-layer totals differ from independent source replay")
                 second_cleanups[engine_name] = stats
-            if name in foreign:
-                report = read_declaration_proof(link, path, foreign[name])
-                stats = measure_layer(crate, files, report["declarations"], "declarations_removed")
-                if any(stats[key] != report[key] for key in (
-                        "raw_pointer_type_tokens_removed", "declarations_removed", "source_bytes_removed")):
-                    raise ValueError("foreign declaration totals differ from independent source replay")
-                declarations[engine_name] = stats
+        if name in foreign:
+            report = read_declaration_proof(link, path, foreign[name])
+            stats = measure_layer(crate, files, report["declarations"], "declarations_removed")
+            if any(stats[key] != report[key] for key in (
+                    "raw_pointer_type_tokens_removed", "declarations_removed", "source_bytes_removed")):
+                raise ValueError("foreign declaration totals differ from independent source replay")
+            declarations[engine_name] = stats
         root_module = ROOT / f"compat/e2fsprogs/{SHARED_SOURCES[archive.name]}" if shared_object else crate / "lib.rs"
         if root_module not in files:
             raise ValueError(f"unexpected compiler inputs for {archive}")

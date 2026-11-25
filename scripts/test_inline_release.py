@@ -14,6 +14,9 @@ import tempfile
 from audit_linked_pointers import added_receipts
 from check_cargo_private_inlines import ROOT, digest
 
+# These canonical suites measure wall-clock time, process state, or pipe scheduling.
+SENSITIVE = {"diffutils", "gawk", "procps-ng", "shadow"}
+
 
 def changed_packages(before, after):
     return sorted({re.sub(r"-[0-9].*$", "", Path(path).relative_to("work/analysis").parts[0])
@@ -27,6 +30,7 @@ def main():
     parser.add_argument("binary", type=Path, help="host path to the unstripped Linux executable")
     parser.add_argument("--package", action="append", help="rerun only this changed package (repeatable)")
     parser.add_argument("--jobs", type=int, default=3)
+    parser.add_argument("--output", type=Path, help="new directory for logs and the verified result")
     args = parser.parse_args()
     if args.jobs < 1:
         parser.error("--jobs must be positive")
@@ -45,7 +49,11 @@ def main():
     if not packages:
         print("The release has no added package receipts.")
         return 0
-    directory = Path(tempfile.mkdtemp(prefix="inline-release-tests-", dir=ROOT / "work/analysis"))
+    if args.output:
+        directory = args.output.resolve()
+        directory.mkdir()
+    else:
+        directory = Path(tempfile.mkdtemp(prefix="inline-release-tests-", dir=ROOT / "work/analysis"))
     print(f"Testing {len(packages)} packages on {sha}, logs in {directory}", flush=True)
     environment = dict(os.environ, RUSTBOX_MULTICALL_TEST_BINARY=str(binary))
 
@@ -57,11 +65,9 @@ def main():
         print(f"{package}: exit {command.returncode}", flush=True)
         return package, command.returncode
 
-    # These canonical suites measure wall-clock time, process state, or pipe scheduling.
-    sensitive = {"diffutils", "gawk", "procps-ng", "shadow"}
     with ThreadPoolExecutor(max_workers=args.jobs) as workers:
-        statuses = dict(workers.map(test, [p for p in packages if p not in sensitive]))
-    statuses.update(test(p) for p in packages if p in sensitive)
+        statuses = dict(workers.map(test, [p for p in packages if p not in SENSITIVE]))
+    statuses.update(test(p) for p in packages if p in SENSITIVE)
     if digest(binary) != sha:
         raise ValueError("test binary changed during the suite")
     if args.release.read_bytes() != release_data or args.previous.read_bytes() != before_data:

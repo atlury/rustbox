@@ -8623,6 +8623,18 @@
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-e2fsprogs-shared/tune2fs/libtune2fs_audit.a": {
           "file": "libtune2fs_audit.foreign-8c8cefbed72119a274ff05d13e080f166b68ec48b06c0b7715dee7326b3c0828.json",
           "sha256": "8c8cefbed72119a274ff05d13e080f166b68ec48b06c0b7715dee7326b3c0828"
+        },
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/release/libip_audit.a": {
+          "file": "libip_audit.foreign-6e70c5c72923e92c1621daba5e96f7e33422ce9acbabab3eab376ad9c50cf648.json",
+          "sha256": "6e70c5c72923e92c1621daba5e96f7e33422ce9acbabab3eab376ad9c50cf648"
+        },
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/release/libtc_audit.a": {
+          "file": "libtc_audit.foreign-6def9f94dae252cd2ff63e0d6efb897516079a57a1564acf502d7843b2666ea3.json",
+          "sha256": "6def9f94dae252cd2ff63e0d6efb897516079a57a1564acf502d7843b2666ea3"
+        },
+        "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a": {
+          "file": "libncurses_6_6_normalized_audit.foreign-e4d580cb4e5c92f21a5f13e03b61aefcc5c84175bc67ddb351f3303221354595.json",
+          "sha256": "e4d580cb4e5c92f21a5f13e03b61aefcc5c84175bc67ddb351f3303221354595"
         }
       },
       "linked_private_inline_proofs": {
@@ -18563,7 +18575,7 @@
       "rustbox_e2fsprogs_e2scrub_all_main",
       "rustbox_e2fsprogs_mk_cmds_main"
     ],
-    "evidence_sha256": "470e5afaace1a21b7265ee6b5d74f6489dab670aa85e7005fad2c64a10ccee28",
+    "evidence_sha256": "968f2662d22a32c2d18622b69c598ad3df610af695c86f9f9da80a928c89b727",
     "frontend_differential": {
       "cases": 24,
       "native_builds": 1,
@@ -18695,7 +18707,7 @@
       "schema": 1
     },
     "frontend_differential_sha256": "acc9df19138d06e336eff6bd26988e12259beac839aa9e30340e22c7cf058596",
-    "link_report_sha256": "0b4fdce35dfee4ca010991670f9077e1a0948ed98b423d9840716d46fc9c8fd0",
+    "link_report_sha256": "30d3d487b99bffcae332bd41eaa0744ad328bedff325c3b873173280b0f6199a",
     "lvm_differential": {
       "cases": 4,
       "native_builds": 1,
@@ -32376,7 +32388,7 @@
         {
           "arguments": [
             "-A",
-            "/tmp/rustbox-ncurses-oracle-7xa04q2o/database-gcc",
+            "/tmp/rustbox-ncurses-oracle-6im2qp5t/database-gcc",
             "rustbox-demo"
           ],
           "clang": {
@@ -32384,14 +32396,14 @@
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 218,
-            "stdout_sha256": "addbe00ff3e1a5487789ba56f9be489a4a5d498bd27580ea93349edcc86b46ec"
+            "stdout_sha256": "9c0017feed3d5ec9eb7e608a7a0f8a0c13c0620e4ecb13be985acccc7f55b3eb"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 218,
-            "stdout_sha256": "addbe00ff3e1a5487789ba56f9be489a4a5d498bd27580ea93349edcc86b46ec"
+            "stdout_sha256": "9c0017feed3d5ec9eb7e608a7a0f8a0c13c0620e4ecb13be985acccc7f55b3eb"
           },
           "label": "infocmp-custom-entry",
           "name": "infocmp",
@@ -32399,7 +32411,7 @@
         },
         {
           "arguments": [
-            "/tmp/rustbox-ncurses-oracle-7xa04q2o/demo.src"
+            "/tmp/rustbox-ncurses-oracle-6im2qp5t/demo.src"
           ],
           "clang": {
             "status": 0,
@@ -32421,7 +32433,7 @@
         },
         {
           "arguments": [
-            "/tmp/rustbox-ncurses-oracle-7xa04q2o/demo.src"
+            "/tmp/rustbox-ncurses-oracle-6im2qp5t/demo.src"
           ],
           "clang": {
             "status": 0,
@@ -32468,7 +32480,7 @@
       ],
       "schema": 1
     },
-    "differential_sha256": "6f3905b195ca2f47117979e2b2c76d2d59f30422660e3792ca561fa2a0d824f3",
+    "differential_sha256": "5a5f89f4ed8721a476eaaa5fce8bb7d2f229ab06e330b3b87aa81e356976b782",
     "external_ncurses_library_required_by_translated_applets": false,
     "indirectly_lost_bytes": 0,
     "integrated_public_names": 11,
@@ -32486,17 +32498,17 @@
     "retained_entrypoints": 7,
     "valgrind_errors": 0,
     "valgrind_log_sha256": {
-      "captoinfo": "8aa88aa2b7f264caf3733eef1a0c9c04f9d8577833dcb78f43e88c0a81dd8e2e",
-      "clear": "404d78c00a93e61093d9d48c13832576a9f65dae2446d10dd1ee18da5212bed7",
-      "infocmp": "4fa8700bcd356932178da2909df14fff927eefc2460c3417823635b7f769037b",
-      "infotocap": "53b07d957b9d6ea0447a95eb4dfa0fb6134de925aaa033e45768167660641b39",
-      "ncursesw6-config": "ed73a336901afad3c9d5383ce7377df9f847bf40c34e93e0ba3797755020b55f",
-      "reset": "77d4478d21f93a950da15398c7e83fed77479d93ee139e52e404e498d196a9c8",
-      "tabs": "5623ec2979e398a8a53b87669b5fe97d619118bb6fa6b6e2cf39bce9b261ae65",
-      "tic": "6170b8511175c9b0651dd8033f9d588b904822ed3c8426dc041c168f5571e3a9",
-      "toe": "035181c9ffd4a23e8d2dd28c936c7b6175e62064c4a95e8c1a3f7d0d8e10dcfd",
-      "tput": "8e185d598af17b5c6a23542ca2b23c717278c2b7a5b045f3b9a5b3a0c78f1c82",
-      "tset": "3b51224bdb82553ffa0bd4715a84f78d38fec0949d2967596321aeac6c4fe488"
+      "captoinfo": "71117088391c392e27969e784af6e6190aab304e8833c7662fa197c21f6a9a77",
+      "clear": "02fb40cbc4226c405b131bc8615d808b9ad1abb987a7756cdd12d31cfdb69c47",
+      "infocmp": "05b10676ee6ea2d21d8b6cce94f7f3c7f077fc7be2e74b856d335cc552226701",
+      "infotocap": "71843a70e26127964b64171c87e3c0d7c1c5e882f1b6a87fb898f564f1847151",
+      "ncursesw6-config": "bbc25482c337b440589e97eb281097eab4f91efa639e9d3a3625817fa98b1391",
+      "reset": "fadc2aa93d1748e655b6725e10ad3d2ae6f99c57a8bad50ae166b5e5b8205025",
+      "tabs": "bf1cbb28f1d05f78ad3c320b8be101c2a1b9cc08bc689ddea22588e8c7bece60",
+      "tic": "b2fd70cf0e02872bab6927219eaf213ce20963cbdf9cd646afbe6aae16ab1b41",
+      "toe": "4ecad6815eb66aee6abe6c0a34bbac7fa0aba9365a5bb2734204709f3039017e",
+      "tput": "4297d3f7a354dc0318189ee802b622b627bfbd90d4ec8ab1f7369a2fc5706618",
+      "tset": "967f1031bde5085e6042b5b4dc747dbe47bf4fa62f205309ae169f70da189f45"
     }
   },
   "patch_integration": {

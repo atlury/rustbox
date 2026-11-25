@@ -284,9 +284,10 @@ The default 499-name Linux executable uses verified private-helper cleanups
 for 89 linked Rust archives. These cover the 20 E2fsprogs, 18 IPRoute2 and
 26 GNU Inetutils engines and 25 other package archives. A second compiler pass
 removed additional helpers in 58 of those archives. Another pass removed
-unused C declarations in 13 E2fsprogs engines. Across the linked
-applet sources the raw-pointer type count fell from **1,379,960 to 1,036,752**.
-Counting byte-identical Rust files once gives **741,005** remaining occurrences.
+unused C declarations in 13 E2fsprogs engines, IPRoute2 `ip` and `tc`, and
+the ncurses archive. Across the linked
+applet sources the raw-pointer type count fell from **1,379,960 to 1,021,433**.
+Counting byte-identical Rust files once gives **733,567** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
 | Production change | Raw-pointer type occurrences removed |
@@ -306,10 +307,11 @@ The count of applets certified pointer-free is still zero.
 | Second-pass private-helper removal across 15 linked archives | 5,459 |
 | Second-pass private-helper removal across 43 further engine archives | 3,256 |
 | Compiler-verified removal of unused C declarations in 13 E2fsprogs engines | 16,616 |
-| **Total** | **343,208** |
+| Compiler-verified removal of unused C declarations in IPRoute2 `ip`, `tc` and ncurses | 15,319 |
+| **Total** | **358,527** |
 
 E2fsprogs accounts for 198,340 remaining occurrences, down from 401,012.
-IPRoute2 accounts for 218,111, down from 265,323. GNU Inetutils accounts
+IPRoute2 accounts for 207,472, down from 265,323. GNU Inetutils accounts
 for 85,782, down from 104,385. The curl crate accounts for 89,022, down
 from 96,855. GNU gzip accounts for 3,063, down from 4,086, and XZ Utils
 accounts for 13,411, down from 22,239.
@@ -808,8 +810,65 @@ match, a clean rebuild and a matching full archive.
 The ranking after the 13-engine release flags 81,652 pointer types in 46,220
 possible declarations across the 127 archives. For calibration, the same scan
 flagged 22,158 pointer types in the 13 E2fsprogs engines before their cleanup.
-The verified removal was 16,616. See `evidence/rustbox-foreign-declaration-candidates.json`
-for the ranked archive paths and the link-report hash.
+The verified removal was 16,616. After the following three Cargo archives,
+the scan flags 66,333 pointer types. See `evidence/rustbox-foreign-declaration-candidates.json`
+for the current ranked archive paths and link-report hash.
+
+The next production batch removed 7,688 private declarations containing
+15,319 raw-pointer types from 474 source entries. It saved 1,150,651 bytes of
+generated Rust source. A fresh build reproduced all three trial receipts and
+the release archives. See `evidence/rustbox-cargo-declaration-replays.json`
+for the package tests.
+
+| Cargo engine | Unused declarations removed | Raw-pointer type occurrences removed |
+|---|---:|---:|
+| IPRoute2 tc | 2,903 | 5,724 |
+| IPRoute2 ip | 2,452 | 4,915 |
+| ncurses | 2,333 | 4,680 |
+
+For a Cargo archive, take its full path from that ranking and run a trial
+against the same link. The trial restages earlier helper removals in order,
+then rebuilds a control and a candidate at the original Linux compiler paths.
+Use a new report filename for each run.
+
+```sh
+link=work/analysis/rustbox-multicall-link.json
+archive=work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/release/libtc_audit.a
+python3 -B scripts/check_cargo_foreign_declarations.py "$link" "$archive" work/analysis/tc-declarations.json --publish
+python3 -B scripts/check_cargo_foreign_declarations.py "$link" --enroll work/analysis/tc-declarations.json
+scripts/build_rustbox_multicall.sh
+```
+
+Enrollment accepts several report paths. It checks the archive and both
+earlier receipt selections. The release build reproduces a missing receipt
+from scratch and requires its exact hash before linking.
+
+For a group of engines, generate the ranking from the release you intend to
+use. The batch skips already enrolled archives and stores a compiler log and
+a verified report for each engine. If interrupted, repeat the batch command
+with `--resume` and the same inputs. It checks the archive and the published
+receipt before reusing a successful report.
+
+```sh
+link=work/analysis/rustbox-multicall-link.json
+rank=work/analysis/cargo-declaration-ranking.json
+batch=work/analysis/cargo-declaration-batch
+python3 -B scripts/rank_foreign_declarations.py "$link" > "$rank"
+python3 -B scripts/batch_cargo_foreign_declarations.py "$link" "$rank" "$batch" --limit 12 --jobs 3 &&
+  python3 -B scripts/check_cargo_foreign_declarations.py "$link" --enroll "$batch"/reports/*.json
+```
+
+After enrollment, `scripts/verify_declaration_release.py` can run the full
+release check. Give it a saved copy of the current unstripped Linux executable
+and a new output directory. It snapshots the old link report, runs independent
+package suites against the hash-pinned ELF during the build, and waits for the
+build to finish before starting timing-sensitive suites. It compares every
+link-report field, independently inventories both source selections, replays
+the dispatcher and refreshes the multicall summaries.
+
+```sh
+python3 -B scripts/verify_declaration_release.py /absolute/path/to/saved/rustbox work/analysis/verified-declaration-release
+```
 
 The default build removes 9,189 unused private helper definitions and 18,487
 raw-pointer type occurrences from 606 GNU Inetutils source entries. The

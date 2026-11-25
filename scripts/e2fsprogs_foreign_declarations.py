@@ -10,7 +10,7 @@ import shutil
 import subprocess
 import tempfile
 
-from check_cargo_private_inlines import ROOT, digest
+from check_cargo_private_inlines import ROOT, digest, layout as cargo_layout
 from check_next_inline_layer import apply_receipt, read_second_layer
 from inline_source_layout import pad_removed_items
 from prune_private_inlines import replay
@@ -25,16 +25,25 @@ def read_proof(link, relative, selected, repository=ROOT):
     if selected != selection(archive, selected["sha256"]):
         raise ValueError(f"unexpected foreign declaration receipt name: {relative}")
     data = archive.with_name(selected["file"]).read_bytes()
+    if hashlib.sha256(data).hexdigest() != selected["sha256"]:
+        raise ValueError(f"foreign declaration receipt hash differs: {relative}")
     report = json.loads(data)
+    validate_proof(link, relative, report)
+    return report
+
+
+def validate_proof(link, relative, report, *, allow_empty=False):
     layer = report["declarations"]
     expected = link["source_library_sha256"][str(relative)]
-    if (hashlib.sha256(data).hexdigest() != selected["sha256"] or report["archive"] != str(relative)
+    if (report["archive"] != str(relative)
             or report["archive_sha256"] != expected or layer["archive_sha256"] != expected
-            or report["parent"] != link["linked_private_inline_proofs"][str(relative)]
+            or report["parent"] != link["linked_private_inline_proofs"].get(str(relative))
             or report["second"] != link.get("linked_second_inline_proofs", {}).get(str(relative))
-            or not layer["ranges"] or layer["ranges"].keys() != layer["sources"].keys()):
+            or (not layer["ranges"] and not allow_empty) or layer["ranges"].keys() != layer["sources"].keys()):
         raise ValueError(f"foreign declaration receipt differs from its release inputs: {relative}")
-    return report
+    if (sum(map(len, layer["ranges"].values())) != report["declarations_removed"]
+            or (not layer["ranges"] and (report["source_bytes_removed"] or report["raw_pointer_type_tokens_removed"]))):
+        raise ValueError(f"inconsistent declaration counts: {relative}")
 
 
 def prove(link, relative, scratch, repository=ROOT):
@@ -88,9 +97,14 @@ def prove(link, relative, scratch, repository=ROOT):
                         "--error-format=json", "lib.rs", "-o", scratch / "engine.rmeta"],
                        cwd=source, stderr=stream, check=True)
     selector = repository / "work/analysis/private-inlines-linux/release/foreign-declarations"
+    report = verify_declarations(source, inputs, diagnostics, selector, expected, build)
+    return {**report, "archive": str(relative), "archive_sha256": expected, "parent": parent, "second": second}, staged
+
+
+def verify_declarations(source, inputs, diagnostics, selector, expected, build, *, allow_empty=False):
     with diagnostics.open("rb") as stream:
         ranges = json.loads(subprocess.check_output([selector], cwd=source, stdin=stream))
-    if not ranges or not ranges.keys() <= inputs:
+    if (not ranges and not allow_empty) or not ranges.keys() <= inputs:
         raise ValueError("expected declarations in compiler-selected files")
     originals = {name: (source / name).read_bytes() for name in ranges}
     removed = replay(source, ranges)
@@ -102,28 +116,32 @@ def prove(link, relative, scratch, repository=ROOT):
             raise ValueError("declaration removal changed the archive")
     proof = {"archive_sha256": expected, "ranges": ranges, "sources": {n: digest(source / n) for n in ranges},
              "source_layout": layout}
-    return {"archive": str(relative), "archive_sha256": expected, "parent": parent, "second": second,
-            "selector_sha256": digest(selector), "declarations_removed": sum(map(len, ranges.values())),
+    return {"selector_sha256": digest(selector), "declarations_removed": sum(map(len, ranges.values())),
             "raw_pointer_type_tokens_removed": removed,
             "source_bytes_removed": sum(len(data) - (source / n).stat().st_size for n, data in originals.items()),
-            "declarations": proof}, staged
+            "declarations": proof}
 
 
 def publish(link, relative, pinned=None, repository=ROOT):
     archive = repository / relative
-    with tempfile.TemporaryDirectory() as tmp, tempfile.TemporaryDirectory(dir=archive.parent) as out:
+    with tempfile.TemporaryDirectory() as tmp:
         report, staged = prove(link, relative, Path(tmp), repository)
+        return publish_verified(archive, staged, report, pinned)
+
+
+def publish_verified(archive, staged, report, pinned=None):
+    with tempfile.TemporaryDirectory(dir=archive.parent) as out:
         data = (json.dumps(report, sort_keys=True) + "\n").encode()
         selected = selection(archive, hashlib.sha256(data).hexdigest())
         if pinned is not None and pinned != selected:
-            raise ValueError(f"rebuilt declaration proof differs from release: {relative}")
+            raise ValueError(f"rebuilt declaration proof differs from release: {archive}")
         pending = Path(out)
         receipt = pending / selected["file"]
         receipt.write_bytes(data)
         candidate = pending / archive.name
         shutil.copyfile(staged, candidate)
-        if digest(candidate) != link["source_library_sha256"][str(relative)]:
-            raise ValueError(f"staged archive changed: {relative}")
+        if digest(candidate) != report["archive_sha256"]:
+            raise ValueError(f"staged archive changed: {archive}")
         candidate.replace(archive)
         receipt.replace(archive.with_name(receipt.name))
         return selected
@@ -152,6 +170,13 @@ def prepare_release(repository, source_hashes, parents, second):
 
     with ThreadPoolExecutor(max_workers=3) as workers:
         list(workers.map(prepare, selected.items()))
+    cargo = json.loads((repository / "batches/multicall-cargo-foreign-declarations.json").read_bytes())
+    if not cargo.keys() <= source_hashes.keys() or cargo.keys() & selected.keys():
+        raise ValueError("Cargo declaration manifest conflicts with the release archives")
+    for name, record in cargo.items():
+        cargo_layout(Path(name))
+        read_proof(link, Path(name), record, repository)
+    selected.update(cargo)
     return selected
 
 
