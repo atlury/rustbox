@@ -9,6 +9,7 @@ from pathlib import Path
 import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
+from audit_linked_pointers import check_address_protocol_conversion
 from iproute2_address_protocol_archive import (ARCHIVE, BRIDGE, BRIDGE_MODULE_SHA256, COPIES, MANIFEST, MODULE,
                                              candidate_path, control_view, pinned, pinned_copies, validate_copy_results, verify_sources)
 from check_cargo_private_inlines import IPROUTE2_CARGO_ENGINES
@@ -95,3 +96,28 @@ with patch("iproute2_address_protocol_archive.comparison_inputs", return_value={
         else:
             raise AssertionError("accepted stale or partial canonical comparisons")
 print("Archive comparisons reject changes to a tested archive, tool image, oracle or memory-check count.")
+
+
+# A whole-executable total may also conceal a change attributed to the wrong package.
+metric = "raw_pointer_type_tokens"
+removed = record["raw_pointer_types_removed_in_pilot_module"]
+package = ARCHIVE.relative_to("work/analysis").parts[0]
+old = {"all": {metric: 400}, "packages": {package: {metric: 390}, "other": {metric: 10}}}
+new = {"all": {metric: 400 - removed}, "packages": {package: {metric: 390 - removed}, "other": {metric: 10}},
+       "iproute2_address_protocol_deltas": {archive: {metric: removed}}}
+parent_link = dict(parent, binary={"dynamic_needed": ["libc"]})
+candidate_link = dict(selected, binary={"dynamic_needed": ["libc"]})
+check_address_protocol_conversion(parent_link, candidate_link, old, new)
+for changed_link, changed_inventory in (
+    (candidate_link, dict(new, all=old["all"])),
+    (candidate_link, dict(new, packages=old["packages"])),
+    (dict(candidate_link, binary={"dynamic_needed": []}), new),
+    (dict(candidate_link, total_dispatch_names=0), new),
+):
+    try:
+        check_address_protocol_conversion(parent_link, changed_link, old, changed_inventory)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("accepted an unexplained executable or inventory change")
+print("The release comparison accounts for the complete inventory and preserves other packages and link inputs.")

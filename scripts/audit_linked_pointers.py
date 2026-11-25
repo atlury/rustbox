@@ -12,6 +12,7 @@ import shlex
 import shutil
 import tempfile
 
+import iproute2_address_protocol_archive as address_protocols
 from check_e2fsprogs_dirhash_arrays import borrow_arrays, source_list_digest
 from e2fsprogs_dirhash_archives import candidate_path, control_view, prior_stage
 from e2fsprogs_hangul import replace_hangul
@@ -75,7 +76,9 @@ def measure_layer(crate, files, proof, item_count="private_functions_removed"):
 
 def audit(link, temporary, inspect_source=None, *, inspect_module=None):
     fixed_arrays = link.get("e2fsprogs_dirhash_arrays", {})
-    link = control_view(link)
+    address_records = address_protocols.selected_records(link)
+    link = address_protocols.control_view(control_view(link))
+    address_deltas = {}
     array_counts = {}
     hangul_counts = {}
     trie_counts = {}
@@ -163,6 +166,19 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None):
             declarations[engine_name] = stats
         linked_path = path
         source_digests = {}
+        if address_record := address_records.get(name):
+            linked_path = address_protocols.candidate_path(address_record)
+            if hashlib.sha256((ROOT / linked_path).read_bytes()).hexdigest() != address_record["candidate_sha256"]:
+                raise ValueError("address-protocol archive differs from link evidence")
+            crate.relative_to(temporary)
+            module = crate / address_protocols.MODULE
+            sources = {str(f.relative_to(crate)): hashlib.sha256(f.read_bytes()).hexdigest() for f in files}
+            original = module.read_bytes()
+            replacement, changes = address_protocols.replace_table(original)
+            address_protocols.verify_sources(address_record, sources, changes)
+            address_deltas[name] = {k: len(regex.findall(original)) - len(regex.findall(replacement)) for k, regex in METRICS.items()}
+            module.write_bytes(replacement)
+            files[module] = changes["candidate_module_sha256"]
         if record := fixed_arrays.get(name):
             linked_path = candidate_path(path, record["candidate_sha256"])
             if hashlib.sha256((ROOT / linked_path).read_bytes()).hexdigest() != record["candidate_sha256"]:
@@ -236,6 +252,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None):
             "packages": packages, "non_applet_archive_inputs": excluded,
             **({"byte_identical_inline_cleanups": cleanups} if cleanups else {}),
             **({"byte_identical_second_inline_cleanups": second_cleanups} if second_cleanups else {}),
+            **({"iproute2_address_protocol_deltas": address_deltas} if address_deltas else {}),
             **({"trie_pointer_types_removed": trie_counts} if trie_counts else {}),
             **({"hangul_pointer_types_removed": hangul_counts} if hangul_counts else {}),
             **({"fixed_array_conversions": array_counts} if array_counts else {}),
@@ -354,6 +371,39 @@ def check_dirhash_conversion(before_link, after_link, before, after):
             raise ValueError(f"unexplained source delta for {package}: {difference}")
 
 
+def check_address_protocol_conversion(previous_link, link, before, after):
+    previous_records = address_protocols.selected_records(previous_link)
+    records = address_protocols.selected_records(link)
+    if not previous_records.keys() < records.keys() or any(records[k] != v for k, v in previous_records.items()):
+        raise ValueError("address-protocol conversion lost an existing archive or added no new one")
+    control = address_protocols.control_view(link)
+    previous_link = address_protocols.control_view(previous_link)
+    for field in (control.keys() | previous_link.keys()) - {"binary"}:
+        if field not in control or field not in previous_link or control[field] != previous_link[field]:
+            raise ValueError(f"address-protocol link changed an unrelated field: {field}")
+    if control["binary"]["dynamic_needed"] != previous_link["binary"]["dynamic_needed"]:
+        raise ValueError("address-protocol link changed runtime dependencies")
+    delta = Counter()
+    for key in records.keys() - previous_records.keys():
+        observed = after["iproute2_address_protocol_deltas"][key]
+        if observed["raw_pointer_type_tokens"] != records[key]["raw_pointer_types_removed_in_pilot_module"]:
+            raise ValueError(f"address-protocol type reduction differs from the pilot for {key}")
+        delta.update(observed)
+    expected_total = Counter(before["all"])
+    expected_total.subtract(delta)
+    if dict(expected_total) != after["all"]:
+        raise ValueError("archive substitutions do not explain the linked pointer inventory")
+    changed = address_protocols.ARCHIVE.relative_to("work/analysis").parts[0]
+    if before["packages"].keys() != after["packages"].keys():
+        raise ValueError("package set changed during address-protocol substitution")
+    for package, stats in before["packages"].items():
+        expected = Counter(stats)
+        if package == changed:
+            expected.subtract(delta)
+        if dict(expected) != after["packages"][package]:
+            raise ValueError(f"unexplained address-protocol inventory change for {package}")
+
+
 def measure(link, inspect_source=None, *, inspect_module=None):
     with tempfile.TemporaryDirectory() as temp:
         return audit(link, Path(temp), inspect_source, inspect_module=inspect_module)
@@ -363,6 +413,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("link_report", type=Path)
     previous = parser.add_mutually_exclusive_group()
+    previous.add_argument("--verify-address-protocols-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-dirhash-from", type=Path, metavar="CONTROL",
                           help="verify 13 live fixed-array conversions against the previous production link")
     previous.add_argument("--verify-cleanup-from", type=Path, metavar="PREVIOUS_LINK",
@@ -375,6 +426,9 @@ if __name__ == "__main__":
     if args.verify_cleanup_from:
         previous_link = json.loads(args.verify_cleanup_from.read_bytes())
         check_added_cleanups(previous_link, link, measure(previous_link), current)
+    if args.verify_address_protocols_from:
+        previous_link = json.loads(args.verify_address_protocols_from.read_bytes())
+        check_address_protocol_conversion(previous_link, link, measure(previous_link), current)
     if args.verify_dirhash_from:
         previous_link = json.loads(args.verify_dirhash_from.read_bytes())
         check_dirhash_conversion(previous_link, link, measure(previous_link), current)
