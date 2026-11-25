@@ -990,6 +990,14 @@ Run `scripts/rank_ctype_bytes.py LINK` for the inventory or
 [Inventory](evidence/glibc-ctype-byte-candidates.json) ·
 [GNU awk compiler-source replay](evidence/gawk-ctype-key-source.json)
 
+The predecessor and both canonical compilers also agree on array-key
+identity for a corpus of 2,140 input records per invocation. It contains
+every leading byte, repeated keys, signed numbers and integer bounds.
+The byte-mode runs read every record. The locale-mode runs preserve the
+canonical handling of invalid multibyte input, including its warnings and
+record count in EUC-JP. Eight Memcheck runs passed.
+[GNU awk array-key baseline](evidence/gawk-integer-key-baseline.json)
+
 GNU Inetutils' argument-help formatter contains four unsigned-byte blank
 tests in each of its 26 engine archives. Five distinct compiled versions of
 the formatter account for all 26 copies. Replaying the substitution on each
