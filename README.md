@@ -662,6 +662,13 @@ All 2,625 cases passed Memcheck. Each canonical compiler also agreed on
 all 27 CLI cases across the four LZ4 command names.
 [LZ4 generator and command results](evidence/lz4-benchmark-dictionary-pilot.json)
 
+The 499-name multicall preview passed 108 command comparisons across both
+canonical compilers and both dispatch modes. The synthetic benchmark
+generated 10,000,000 bytes and compressed them to 4,658,239 bytes in all
+four runs, with successful decompression and checksum checks. The packed
+dictionary reduced this preview by 4,096 stripped bytes.
+[LZ4 multicall results](evidence/lz4-benchmark-dictionary-multicall.json)
+
 ```sh
 python3 -B tests/lz4-dictionary/source.py "$link"
 python3 -B scripts/build_lz4_dictionary_pilot.py --link "$link" --archive "$lz4_archive" --output "$pilot"
