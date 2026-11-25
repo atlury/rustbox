@@ -1,0 +1,1596 @@
+{
+  "work/analysis/bc-1.08.2/translations/c2rust-0.22.1/bc-1.08.2-stable/target/release/libbc_1_08_2_normalized_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libbc_1_08_2_normalized_audit.foreign-172b7f2bf65d37234abe28c8981c4b9cb1d437241063b9ee5c19999066087106.json",
+        "sha256": "172b7f2bf65d37234abe28c8981c4b9cb1d437241063b9ee5c19999066087106"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libbc_1_08_2_normalized_audit.inlines-e733f4c3df45a89a1a31f14584dccad5c2a47a608431c1fc7fc5b5f714f4c1e1.json",
+        "sha256": "e1e13b8c2715880dcb30c1f6d84fb8d3387411706a320f265ce9bbe27fc9c9b2"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/bc-1.08.2/translations/c2rust-0.22.1/bc-1.08.2-stable/target/release/libbc_1_08_2_normalized_audit.a",
+      "candidate_sha256": "680d2ac1f89b928561fe802da797746d2ea98d2bb30531625b1cc6c2941b9e8d",
+      "candidate_sources_sha256": "75beee10be3e8ea3aca82c8a7f7f3100738770dd3032cc2b6bd9ca9ee43f55f9",
+      "compiler_selected_sources": 23,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "680d2ac1f89b928561fe802da797746d2ea98d2bb30531625b1cc6c2941b9e8d",
+      "parent_sources_sha256": "642971815a17798c4ad9c91bdb2e92f656bdbf4361c3fd8a91a9046ed1370948",
+      "provider": "src/bc/bc.rs",
+      "raw_pointer_types_removed": 342,
+      "reexporting_modules": [
+        "src/bc/execute.rs",
+        "src/bc/global.rs",
+        "src/bc/load.rs",
+        "src/bc/main.rs",
+        "src/bc/scan.rs",
+        "src/bc/storage.rs",
+        "src/bc/util.rs",
+        "src/bc/warranty.rs",
+        "src/dc/array.rs",
+        "src/dc/dc.rs",
+        "src/dc/eval.rs",
+        "src/dc/input.rs",
+        "src/dc/misc.rs",
+        "src/dc/numeric.rs",
+        "src/dc/stack.rs",
+        "src/dc/string.rs",
+        "src/lib/getopt.rs",
+        "src/lib/getopt1.rs",
+        "src/lib/number.rs"
+      ]
+    }
+  },
+  "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-01-stable/target/release/libcoreutils_small_01_reachable.a": {
+    "parent_receipts": {},
+    "pilot": {
+      "archive": "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-01-stable/target/release/libcoreutils_small_01_reachable.a",
+      "candidate_sha256": "786810212c942c575ef671c8c8ccd003b84b1204919657fa506c1904de668090",
+      "candidate_sources_sha256": "25f479aaa9d2d315794aae070766ac3a19a111f52d6f4a6548a750881f479d7c",
+      "compiler_selected_sources": 12,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "786810212c942c575ef671c8c8ccd003b84b1204919657fa506c1904de668090",
+      "parent_sources_sha256": "87ad76cdce916fb8c7c190560d37778dacb58f5be4c26a88eee0f991233791b7",
+      "provider": "src/basename.rs",
+      "raw_pointer_types_removed": 162,
+      "reexporting_modules": [
+        "src/dirname.rs",
+        "src/hostid.rs",
+        "src/link.rs",
+        "src/logname.rs",
+        "src/printenv.rs",
+        "src/tty.rs",
+        "src/unlink.rs",
+        "src/whoami.rs",
+        "src/yes.rs"
+      ]
+    }
+  },
+  "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-02-stable/target/release/libcoreutils_small_02_normalized_reachable.a": {
+    "parent_receipts": {},
+    "pilot": {
+      "archive": "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-02-stable/target/release/libcoreutils_small_02_normalized_reachable.a",
+      "candidate_sha256": "e387063872b084f470ad37fc237eea1d9608c54d797aa7eb13d439d960a94b47",
+      "candidate_sources_sha256": "5e0f0ed265f24123f6ed6850242f73d6beb26b2a25be636ecfb007f8670027b7",
+      "compiler_selected_sources": 12,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "e387063872b084f470ad37fc237eea1d9608c54d797aa7eb13d439d960a94b47",
+      "parent_sources_sha256": "66ba1a2ccb81eccbb36652249dca4fc775400c2b3a9bb40f3bac868ade044a90",
+      "provider": "src/echo.rs",
+      "raw_pointer_types_removed": 144,
+      "reexporting_modules": [
+        "src/hostname.rs",
+        "src/nice.rs",
+        "src/nproc.rs",
+        "src/readlink.rs",
+        "src/sleep.rs",
+        "src/sync.rs",
+        "src/uptime.rs",
+        "src/users.rs"
+      ]
+    }
+  },
+  "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-04-stable/target/release/libcoreutils_small_04_normalized_reachable.a": {
+    "parent_receipts": {},
+    "pilot": {
+      "archive": "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-04-stable/target/release/libcoreutils_small_04_normalized_reachable.a",
+      "candidate_sha256": "41cdd9cb17be1b5b825e086e69ad7dcb1091b7394887500131c274dee1018820",
+      "candidate_sources_sha256": "82320b8615df26912a62b6f6a9ef881d7208d524d480589488473065ef9a064c",
+      "compiler_selected_sources": 13,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "41cdd9cb17be1b5b825e086e69ad7dcb1091b7394887500131c274dee1018820",
+      "parent_sources_sha256": "462e90322b5bcab09efe52bedf7a71a3b3d3b156b765cde936e062ed83bfb843",
+      "provider": "src/basenc.rs",
+      "raw_pointer_types_removed": 180,
+      "reexporting_modules": [
+        "src/comm.rs",
+        "src/group_list.rs",
+        "src/groups.rs",
+        "src/mktemp.rs",
+        "src/pathchk.rs",
+        "src/pwd.rs",
+        "src/runcon.rs",
+        "src/stdbuf.rs",
+        "src/truncate.rs",
+        "src/tsort.rs"
+      ]
+    }
+  },
+  "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-05-stable/target/release/libcoreutils_small_05_normalized_reachable.a": {
+    "parent_receipts": {},
+    "pilot": {
+      "archive": "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-05-stable/target/release/libcoreutils_small_05_normalized_reachable.a",
+      "candidate_sha256": "e877c9024f2f1e8ce0bf88b4eb3b45c3bba85dc566404feb4463372a0a8ddbee",
+      "candidate_sources_sha256": "43dd9b37bfd530bcd5f2ce6bf1c6159c1aaabfa558af66f26c3e0d5fb1593abd",
+      "compiler_selected_sources": 17,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "e877c9024f2f1e8ce0bf88b4eb3b45c3bba85dc566404feb4463372a0a8ddbee",
+      "parent_sources_sha256": "4750290a04555fc3c58b3412fb058336fc0c5f1665082b43f24b255de404738d",
+      "provider": "src/basenc.rs",
+      "raw_pointer_types_removed": 198,
+      "reexporting_modules": [
+        "src/chroot.rs",
+        "src/cksum.rs",
+        "src/fold.rs",
+        "src/kill.rs",
+        "src/paste.rs",
+        "src/prog_fprintf.rs",
+        "src/rmdir.rs",
+        "src/sum.rs",
+        "src/tee.rs",
+        "src/touch.rs",
+        "src/uname.rs"
+      ]
+    }
+  },
+  "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-10-stable/target/release/libcoreutils_small_10_normalized_reachable.a": {
+    "parent_receipts": {},
+    "pilot": {
+      "archive": "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-10-stable/target/release/libcoreutils_small_10_normalized_reachable.a",
+      "candidate_sha256": "a9324d9e5491828a8862fea52acc5dfaa91e3d463cb89ae973bb153a94834fb7",
+      "candidate_sources_sha256": "dcb1b6cab5c90efb1da2c79ee7909776a491bca28f3d04a977627faf60040e32",
+      "compiler_selected_sources": 5,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "a9324d9e5491828a8862fea52acc5dfaa91e3d463cb89ae973bb153a94834fb7",
+      "parent_sources_sha256": "8505fd5c776113484b34f096df5a8394eb32a34d0e07f3b1dc22ed55e9e92997",
+      "provider": "src/cksum.rs",
+      "raw_pointer_types_removed": 18,
+      "reexporting_modules": [
+        "src/sum.rs"
+      ]
+    }
+  },
+  "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-14-stable/target/release/libcoreutils_small_14_normalized_reachable.a": {
+    "parent_receipts": {},
+    "pilot": {
+      "archive": "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-14-stable/target/release/libcoreutils_small_14_normalized_reachable.a",
+      "candidate_sha256": "b85970d6aaf277aec89978556ae8e46e6f439ebca3f21f9349bd73ec8f5b69c9",
+      "candidate_sources_sha256": "d4f4dbe507f8406df646c26050e9002d4d690846181eacb894716fd4e13f42dc",
+      "compiler_selected_sources": 8,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "b85970d6aaf277aec89978556ae8e46e6f439ebca3f21f9349bd73ec8f5b69c9",
+      "parent_sources_sha256": "a2763e1ced4646fb55c7dc80d86c9cd75e0fd54d0b0d0c4239db941d7168006e",
+      "provider": "src/copy.rs",
+      "raw_pointer_types_removed": 18,
+      "reexporting_modules": [
+        "src/cp.rs"
+      ]
+    }
+  },
+  "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-15-stable/target/release/libcoreutils_small_15_normalized_reachable.a": {
+    "parent_receipts": {},
+    "pilot": {
+      "archive": "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-15-stable/target/release/libcoreutils_small_15_normalized_reachable.a",
+      "candidate_sha256": "a4e9e38619f3b1cec431a014a7b354c5e167d9e13e7edeaaa962c2e2f521a713",
+      "candidate_sources_sha256": "84f62a8d940d7896a612c69c916e9c3d497216f07782d0be71c531b63f3867af",
+      "compiler_selected_sources": 9,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "a4e9e38619f3b1cec431a014a7b354c5e167d9e13e7edeaaa962c2e2f521a713",
+      "parent_sources_sha256": "9a760e7538c4cab8dd7cf9e1af75a3bbb87c561a403416e833cb337cb6c7d605",
+      "provider": "src/copy.rs",
+      "raw_pointer_types_removed": 36,
+      "reexporting_modules": [
+        "src/install.rs",
+        "src/prog_fprintf.rs"
+      ]
+    }
+  },
+  "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-16-stable/target/release/libcoreutils_small_16_normalized_reachable.a": {
+    "parent_receipts": {},
+    "pilot": {
+      "archive": "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-16-stable/target/release/libcoreutils_small_16_normalized_reachable.a",
+      "candidate_sha256": "7b6f28be7135189c6b36e5a070985c39bf021bd674f502f698590247a115ed17",
+      "candidate_sources_sha256": "6c39f81a3b7603a5de550d2813729450120b58e81c8be68882493f5ec76a938d",
+      "compiler_selected_sources": 9,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "7b6f28be7135189c6b36e5a070985c39bf021bd674f502f698590247a115ed17",
+      "parent_sources_sha256": "8bcdd3ad06b732e0b61e03bd8ebb28d04a299dace4beae9ed00fefb391101d29",
+      "provider": "src/copy.rs",
+      "raw_pointer_types_removed": 36,
+      "reexporting_modules": [
+        "src/mv.rs",
+        "src/remove.rs"
+      ]
+    }
+  },
+  "work/analysis/diffutils-3.12/translations/c2rust-0.22.1/diffutils-3.12-stable/target/release/libdiffutils_3_12_normalized_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libdiffutils_3_12_normalized_audit.foreign-275f930eca7875ffce4232c5412c119f760fa0567471bcc9409b421fde8620e7.json",
+        "sha256": "275f930eca7875ffce4232c5412c119f760fa0567471bcc9409b421fde8620e7"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libdiffutils_3_12_normalized_audit.inlines-3b3ea449921ac4b70f1277459687655f13d1e9640505e3086683af3f779a09c6.json",
+        "sha256": "36658360bd98b746a1070ae5f2f35fe01e988279baa7fb2699a057e8813a99e5"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libdiffutils_3_12_normalized_audit.layer2-f949f64edd6e9bdef5a0ba537b89cded7ec1992ca890a40259dacb68630579b4.json",
+        "sha256": "f949f64edd6e9bdef5a0ba537b89cded7ec1992ca890a40259dacb68630579b4"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/diffutils-3.12/translations/c2rust-0.22.1/diffutils-3.12-stable/target/release/libdiffutils_3_12_normalized_audit.a",
+      "candidate_sha256": "8719c2aa863f0a23a71f722642c22d8b935a7819094695e5dbb5a23272332575",
+      "candidate_sources_sha256": "a5cb214a972702659eed6dc70d79b65c94fc6e44a527c76f7e1433321d242360",
+      "compiler_selected_sources": 141,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "8719c2aa863f0a23a71f722642c22d8b935a7819094695e5dbb5a23272332575",
+      "parent_sources_sha256": "b00e6d75ede24d2a1875883716b4cd5c0805d120aab920ea39649550c31dbe42",
+      "provider": "src/normalized_source/lib/argmatch.rs",
+      "raw_pointer_types_removed": 630,
+      "reexporting_modules": [
+        "src/normalized_source/lib/binary_io.rs",
+        "src/normalized_source/lib/btoc32.rs",
+        "src/normalized_source/lib/btowc.rs",
+        "src/normalized_source/lib/chdir_long.rs",
+        "src/normalized_source/lib/diagnose.rs",
+        "src/normalized_source/lib/exclude.rs",
+        "src/normalized_source/lib/fopen.rs",
+        "src/normalized_source/lib/hash.rs",
+        "src/normalized_source/lib/localcharset.rs",
+        "src/normalized_source/lib/malloc/dynarray_at_failure.rs",
+        "src/normalized_source/lib/openat_die.rs",
+        "src/normalized_source/lib/openat_proc.rs",
+        "src/normalized_source/lib/progname.rs",
+        "src/normalized_source/lib/save_cwd.rs",
+        "src/normalized_source/lib/sigsegv.rs",
+        "src/normalized_source/lib/stackvma.rs",
+        "src/normalized_source/lib/tempname.rs",
+        "src/normalized_source/lib/version_etc.rs",
+        "src/normalized_source/lib/version_etc_fsf.rs",
+        "src/normalized_source/lib/xalloc_die.rs",
+        "src/normalized_source/lib/xfreopen.rs",
+        "src/normalized_source/lib/xstdopen.rs",
+        "src/normalized_source/src/analyze.rs",
+        "src/normalized_source/src/cmp.rs",
+        "src/normalized_source/src/context.rs",
+        "src/normalized_source/src/diff.rs",
+        "src/normalized_source/src/diff3.rs",
+        "src/normalized_source/src/dir.rs",
+        "src/normalized_source/src/ed.rs",
+        "src/normalized_source/src/ifdef.rs",
+        "src/normalized_source/src/io.rs",
+        "src/normalized_source/src/normal.rs",
+        "src/normalized_source/src/sdiff.rs",
+        "src/normalized_source/src/side.rs",
+        "src/normalized_source/src/util.rs"
+      ]
+    }
+  },
+  "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libgzip_1_14_reachable_audit.foreign-86da595a6bf031a52027eca583778dc36b11ec8e8dd0946fe0ea2b02829652cd.json",
+        "sha256": "86da595a6bf031a52027eca583778dc36b11ec8e8dd0946fe0ea2b02829652cd"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libgzip_1_14_reachable_audit.inlines-d81f327985166c29d61e824e83eaca4e03543a1f4875e7bd22ac3cf0d30850ec.json",
+        "sha256": "b262bc28e23414e979e3c9dabc7a31774d53d99dad79def7bc6717bdafa7a2c9"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a",
+      "candidate_sha256": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd",
+      "candidate_sources_sha256": "5e289c500bde44824984d63b54b367a72a7dc03e3615876979fe378d023b0ac0",
+      "compiler_selected_sources": 66,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd",
+      "parent_sources_sha256": "b40e8f7416b61aacb51120150f202af1647e99e1a4fa3ee70c8f32b851de0569",
+      "provider": "src/normalized_source/gzip.rs",
+      "raw_pointer_types_removed": 468,
+      "reexporting_modules": [
+        "src/normalized_source/bits.rs",
+        "src/normalized_source/deflate.rs",
+        "src/normalized_source/inflate.rs",
+        "src/normalized_source/lib/asnprintf.rs",
+        "src/normalized_source/lib/chdir_long.rs",
+        "src/normalized_source/lib/fclose.rs",
+        "src/normalized_source/lib/fflush.rs",
+        "src/normalized_source/lib/fopen.rs",
+        "src/normalized_source/lib/fpurge.rs",
+        "src/normalized_source/lib/freading.rs",
+        "src/normalized_source/lib/fseek.rs",
+        "src/normalized_source/lib/fseeko.rs",
+        "src/normalized_source/lib/fseterr.rs",
+        "src/normalized_source/lib/openat_die.rs",
+        "src/normalized_source/lib/openat_proc.rs",
+        "src/normalized_source/lib/save_cwd.rs",
+        "src/normalized_source/lib/vfzprintf.rs",
+        "src/normalized_source/lib/xalloc_die.rs",
+        "src/normalized_source/lib/yesno.rs",
+        "src/normalized_source/trees.rs",
+        "src/normalized_source/unlzh.rs",
+        "src/normalized_source/unlzw.rs",
+        "src/normalized_source/unpack.rs",
+        "src/normalized_source/unzip.rs",
+        "src/normalized_source/util.rs",
+        "src/normalized_source/zip.rs"
+      ]
+    }
+  },
+  "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libdnsdomainname_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libdnsdomainname_audit.foreign-05cf1d886638c34e670a4154e53468f271c4586e492b36f93b617e8342add73c.json",
+        "sha256": "05cf1d886638c34e670a4154e53468f271c4586e492b36f93b617e8342add73c"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libdnsdomainname_audit.inlines-5bce872d306d12e9ecea22767fe89cc42ee01ba0be0346399f4f39c86998e38e.json",
+        "sha256": "67b547041e03b901ff92225e68036af38263ad619548ef71bcae068afacbb091"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libdnsdomainname_audit.layer2-10430b1086800cfc96d9d8ab5f9774461f617f27ee339531358910ea32aa0231.json",
+        "sha256": "10430b1086800cfc96d9d8ab5f9774461f617f27ee339531358910ea32aa0231"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libdnsdomainname_audit.a",
+      "candidate_sha256": "5ff96a206286f7ff4565bfa62f7ee8780603ee72f9c65785c5a15ef290a76b20",
+      "candidate_sources_sha256": "b3c4d23ef2edac043990cbcdbc5703e45545fb90588131cfb8be112b333f2125",
+      "compiler_selected_sources": 22,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "5ff96a206286f7ff4565bfa62f7ee8780603ee72f9c65785c5a15ef290a76b20",
+      "parent_sources_sha256": "da3a68bdb030bd3d6b16949ea41e46969084752ff3da7b2a46d567079f4e030e",
+      "provider": "src/lib/argp_ba.rs",
+      "raw_pointer_types_removed": 216,
+      "reexporting_modules": [
+        "src/lib/argp_eexst.rs",
+        "src/lib/argp_fmtstream.rs",
+        "src/lib/argp_help.rs",
+        "src/lib/argp_parse.rs",
+        "src/lib/argp_pv.rs",
+        "src/lib/argp_pvh.rs",
+        "src/lib/argp_version_etc.rs",
+        "src/lib/getopt.rs",
+        "src/lib/version_etc.rs",
+        "src/lib/version_etc_fsf.rs",
+        "src/lib/xalloc_die.rs",
+        "src/src/dnsdomainname.rs"
+      ]
+    }
+  },
+  "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftp_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libftp_audit.foreign-95397f4d097100867455ab32f4ca0e020d2892d82a3395d0c5b26cd7096cdccc.json",
+        "sha256": "95397f4d097100867455ab32f4ca0e020d2892d82a3395d0c5b26cd7096cdccc"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libftp_audit.inlines-251fed346b95a70e1965578884009da048b37667d2d03364dff901f31f0ccb22.json",
+        "sha256": "c5124adae4c87a9034719259cde1f4864985201d8e1c75be704a6d4836405962"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libftp_audit.layer2-7a93ba6abf5d87d298b1e31b3a139118dd064c6cfd592a4d8c3a9d8bef84f660.json",
+        "sha256": "7a93ba6abf5d87d298b1e31b3a139118dd064c6cfd592a4d8c3a9d8bef84f660"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftp_audit.a",
+      "candidate_sha256": "1cbaa56a34e693834cb675ed84c867bb9e9e27beb9b937a7489ce738bb188e40",
+      "candidate_sources_sha256": "5ce0d2d4803caf06322ad6257686898c6c7e7d415f8bfdfa354647b0cdec62a9",
+      "compiler_selected_sources": 39,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "1cbaa56a34e693834cb675ed84c867bb9e9e27beb9b937a7489ce738bb188e40",
+      "parent_sources_sha256": "212f1163c6355a38fa75b9217f389975aaf888ef2a93f9224b40d81acf5dbaf4",
+      "provider": "src/ftp/cmds.rs",
+      "raw_pointer_types_removed": 378,
+      "reexporting_modules": [
+        "src/ftp/cmdtab.rs",
+        "src/ftp/domacro.rs",
+        "src/ftp/ftp.rs",
+        "src/ftp/main.rs",
+        "src/ftp/ruserpass.rs",
+        "src/lib/argp_ba.rs",
+        "src/lib/argp_eexst.rs",
+        "src/lib/argp_fmtstream.rs",
+        "src/lib/argp_help.rs",
+        "src/lib/argp_parse.rs",
+        "src/lib/argp_pv.rs",
+        "src/lib/argp_pvh.rs",
+        "src/lib/argp_version_etc.rs",
+        "src/lib/fopen.rs",
+        "src/lib/fseeko.rs",
+        "src/lib/getdelim.rs",
+        "src/lib/getline.rs",
+        "src/lib/getopt.rs",
+        "src/lib/version_etc.rs",
+        "src/lib/version_etc_fsf.rs",
+        "src/lib/xalloc_die.rs"
+      ]
+    }
+  },
+  "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftpd_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libftpd_audit.foreign-2fde8e673147776105019d185e0d33466a7b1672fd7e60f8865366c1f1e93c2e.json",
+        "sha256": "2fde8e673147776105019d185e0d33466a7b1672fd7e60f8865366c1f1e93c2e"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libftpd_audit.inlines-cfdb5c795c7377d88bc0faed676478a19fde41a4f32b4c604bd2aee52b3ae850.json",
+        "sha256": "9346dbc5b5c841ced6b09163a6ac7537d366e16e001f0f9e07c943b581053713"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libftpd_audit.layer2-95c347410b810602f695ffdbb944f22fbd56b405046fff26a9b7b390f318affc.json",
+        "sha256": "95c347410b810602f695ffdbb944f22fbd56b405046fff26a9b7b390f318affc"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftpd_audit.a",
+      "candidate_sha256": "6df26f3b6d65a40953a17f3886d0cd86878550b248f67f820e0a406c3fe8592e",
+      "candidate_sources_sha256": "5b8951f09b1185fece7cc0ea73fead5261c19481eb4063d106303ac8abf36524",
+      "compiler_selected_sources": 54,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "6df26f3b6d65a40953a17f3886d0cd86878550b248f67f820e0a406c3fe8592e",
+      "parent_sources_sha256": "dbe7f9256e10f6284dd026a9710450acdcb3cb858bd5690578cb01fa921b8129",
+      "provider": "src/ftpd/auth.rs",
+      "raw_pointer_types_removed": 486,
+      "reexporting_modules": [
+        "src/ftpd/conf.rs",
+        "src/ftpd/ftpcmd.rs",
+        "src/ftpd/ftpd.rs",
+        "src/ftpd/pam.rs",
+        "src/ftpd/popen.rs",
+        "src/ftpd/server_mode.rs",
+        "src/lib/argp_ba.rs",
+        "src/lib/argp_eexst.rs",
+        "src/lib/argp_fmtstream.rs",
+        "src/lib/argp_help.rs",
+        "src/lib/argp_parse.rs",
+        "src/lib/argp_pv.rs",
+        "src/lib/argp_pvh.rs",
+        "src/lib/argp_version_etc.rs",
+        "src/lib/cycle_check.rs",
+        "src/lib/fopen.rs",
+        "src/lib/fseeko.rs",
+        "src/lib/fts.rs",
+        "src/lib/getopt.rs",
+        "src/lib/hash.rs",
+        "src/lib/version_etc.rs",
+        "src/lib/version_etc_fsf.rs",
+        "src/lib/xalloc_die.rs",
+        "src/libinetutils/daemon.rs",
+        "src/libls/ls.rs",
+        "src/libls/print.rs",
+        "src/libls/util.rs"
+      ]
+    }
+  },
+  "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libhostname_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libhostname_audit.foreign-5cc8588faf02a1b91e261ff22093438053b3782e42a736d7a3db6e1123097bfe.json",
+        "sha256": "5cc8588faf02a1b91e261ff22093438053b3782e42a736d7a3db6e1123097bfe"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libhostname_audit.inlines-14efb61e1f0ea29b9fb2d3612ffba4c34f952f23834da8d9139df9fd3b6a1caf.json",
+        "sha256": "d0a78a961fbb0b5d6341f595e1020cc9da4517f23218010f4b2a17527171ccd9"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libhostname_audit.layer2-e2c5071cc92a00f1eb6b5e7811780d5d091a702c577fb31d70ad90798d404c95.json",
+        "sha256": "e2c5071cc92a00f1eb6b5e7811780d5d091a702c577fb31d70ad90798d404c95"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libhostname_audit.a",
+      "candidate_sha256": "02f2edfb2c719651a666dc8770c2b93a826d5bec1bb292a35ce3010a61195ab6",
+      "candidate_sources_sha256": "cb5678842b87d2c9a5c6a01c79f106db61dfc33083e8610ed99d055db8156a4c",
+      "compiler_selected_sources": 26,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "02f2edfb2c719651a666dc8770c2b93a826d5bec1bb292a35ce3010a61195ab6",
+      "parent_sources_sha256": "678abb1552b4abb8ffc31e5849ab7674fcb062c5d87c4b5a21af80ffc582fc81",
+      "provider": "src/lib/argp_ba.rs",
+      "raw_pointer_types_removed": 270,
+      "reexporting_modules": [
+        "src/lib/argp_eexst.rs",
+        "src/lib/argp_fmtstream.rs",
+        "src/lib/argp_help.rs",
+        "src/lib/argp_parse.rs",
+        "src/lib/argp_pv.rs",
+        "src/lib/argp_pvh.rs",
+        "src/lib/argp_version_etc.rs",
+        "src/lib/fopen.rs",
+        "src/lib/getdelim.rs",
+        "src/lib/getline.rs",
+        "src/lib/getopt.rs",
+        "src/lib/version_etc.rs",
+        "src/lib/version_etc_fsf.rs",
+        "src/lib/xalloc_die.rs",
+        "src/src/hostname.rs"
+      ]
+    }
+  },
+  "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libinetd_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libinetd_audit.foreign-8c6c4cc8f7139f2b04d7fd6d86179b7204a9a5b68ca5edff53c82959c41fe619.json",
+        "sha256": "8c6c4cc8f7139f2b04d7fd6d86179b7204a9a5b68ca5edff53c82959c41fe619"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libinetd_audit.inlines-2e01763973c511e9624c3609ac7281b71120bba38a313ce11704763a75f0d958.json",
+        "sha256": "bdad853037da3d3c07f599439c199bc8461f3446d9755285339ae522f2991e29"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libinetd_audit.layer2-f15725243e3a3486bf1479b7b126ec3c149a4d7ea85ecdabb792a4afe7723df0.json",
+        "sha256": "f15725243e3a3486bf1479b7b126ec3c149a4d7ea85ecdabb792a4afe7723df0"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libinetd_audit.a",
+      "candidate_sha256": "43136894aae2ec3d7be6b4e9ab79a6c9af52e0573dfb3aecf25e6d9036b33bbc",
+      "candidate_sources_sha256": "3333a91849916ccc53cbfd2a2285665fb6b7c2f9a4ae13eccfac74b9170a000b",
+      "compiler_selected_sources": 22,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "43136894aae2ec3d7be6b4e9ab79a6c9af52e0573dfb3aecf25e6d9036b33bbc",
+      "parent_sources_sha256": "19792800e9419c36686e081f5b07bb5cf62b75d6947685b8666db76126687de5",
+      "provider": "src/lib/argp_ba.rs",
+      "raw_pointer_types_removed": 288,
+      "reexporting_modules": [
+        "src/lib/argp_eexst.rs",
+        "src/lib/argp_fmtstream.rs",
+        "src/lib/argp_help.rs",
+        "src/lib/argp_parse.rs",
+        "src/lib/argp_pv.rs",
+        "src/lib/argp_pvh.rs",
+        "src/lib/argp_version_etc.rs",
+        "src/lib/fopen.rs",
+        "src/lib/getdelim.rs",
+        "src/lib/getline.rs",
+        "src/lib/getopt.rs",
+        "src/lib/version_etc.rs",
+        "src/lib/version_etc_fsf.rs",
+        "src/libinetutils/argcv.rs",
+        "src/libinetutils/daemon.rs",
+        "src/src/inetd.rs"
+      ]
+    }
+  },
+  "work/analysis/inetutils-2.8/program-translations/cargo-target/release/liblogger_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "liblogger_audit.foreign-a2d782d295be0f702475144757503527c1b3c447b90a0c2f032af2fc2c51656c.json",
+        "sha256": "a2d782d295be0f702475144757503527c1b3c447b90a0c2f032af2fc2c51656c"
+      },
+      "linked_private_inline_proofs": {
+        "file": "liblogger_audit.inlines-fd18184cd201fb866bb4c2f213eef30a01c17372cc8f44552e92db8c3dc7cae7.json",
+        "sha256": "5ef8e8f9fa5182a792b0d75c8d0fcb8479414265805839476329ea74c428994d"
+      },
+      "linked_second_inline_proofs": {
+        "file": "liblogger_audit.layer2-5bad70b662da668d172ed182977c79fdb40d3e7a840ae1b1bd6b521aac51a45d.json",
+        "sha256": "5bad70b662da668d172ed182977c79fdb40d3e7a840ae1b1bd6b521aac51a45d"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/liblogger_audit.a",
+      "candidate_sha256": "45899102a898d70465fe8e9dd080431bdb3f786234cdbc290e1e526746b042a2",
+      "candidate_sources_sha256": "655ca5ce07fc575e1f01fb237511dab3116de3a09dabe7c76fde352ad22d2415",
+      "compiler_selected_sources": 24,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "45899102a898d70465fe8e9dd080431bdb3f786234cdbc290e1e526746b042a2",
+      "parent_sources_sha256": "de76da395d598d5aa030d227c18ead6098f1990fe8f2ad640484f9297b4b7f4d",
+      "provider": "src/lib/argp_ba.rs",
+      "raw_pointer_types_removed": 252,
+      "reexporting_modules": [
+        "src/lib/argp_eexst.rs",
+        "src/lib/argp_fmtstream.rs",
+        "src/lib/argp_help.rs",
+        "src/lib/argp_parse.rs",
+        "src/lib/argp_pv.rs",
+        "src/lib/argp_pvh.rs",
+        "src/lib/argp_version_etc.rs",
+        "src/lib/getdelim.rs",
+        "src/lib/getline.rs",
+        "src/lib/getopt.rs",
+        "src/lib/version_etc.rs",
+        "src/lib/version_etc_fsf.rs",
+        "src/lib/xalloc_die.rs",
+        "src/src/logger.rs"
+      ]
+    }
+  },
+  "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librcp_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "librcp_audit.foreign-1fbca192299a9fb0252898f9ddcd845339cc8078af9e0b9cba200a7ba2bee950.json",
+        "sha256": "1fbca192299a9fb0252898f9ddcd845339cc8078af9e0b9cba200a7ba2bee950"
+      },
+      "linked_private_inline_proofs": {
+        "file": "librcp_audit.inlines-a3ac9222b09818d5741215f42fdb2f40b805ac634b70843375f985d27248a74f.json",
+        "sha256": "ba2520b01a1ff7c65e4a49e27b1019495b18422adfd44eb06c424fc064f692f0"
+      },
+      "linked_second_inline_proofs": {
+        "file": "librcp_audit.layer2-e592b445439f0a91d95baefaa663aa78793014b7938c497873ee855fe7e82a4c.json",
+        "sha256": "e592b445439f0a91d95baefaa663aa78793014b7938c497873ee855fe7e82a4c"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librcp_audit.a",
+      "candidate_sha256": "08ce74297fd167893a03c98612c5f10484dd01f71ff4aee38052665c7c4199b0",
+      "candidate_sources_sha256": "f713367b77523ea814d0ae03a32fa1e9e072a2ab4f9db381358083dafe49d84d",
+      "compiler_selected_sources": 22,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "08ce74297fd167893a03c98612c5f10484dd01f71ff4aee38052665c7c4199b0",
+      "parent_sources_sha256": "9ba7382e8c25024926a25b04d3022758f676e19b268854580c8d1abdcf92b111",
+      "provider": "src/lib/argp_ba.rs",
+      "raw_pointer_types_removed": 216,
+      "reexporting_modules": [
+        "src/lib/argp_eexst.rs",
+        "src/lib/argp_fmtstream.rs",
+        "src/lib/argp_help.rs",
+        "src/lib/argp_parse.rs",
+        "src/lib/argp_pv.rs",
+        "src/lib/argp_pvh.rs",
+        "src/lib/argp_version_etc.rs",
+        "src/lib/getopt.rs",
+        "src/lib/version_etc.rs",
+        "src/lib/version_etc_fsf.rs",
+        "src/lib/xalloc_die.rs",
+        "src/src/rcp.rs"
+      ]
+    }
+  },
+  "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexec_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "librexec_audit.foreign-6abdddea9a1adebcd979390663b63b1c8694e50edd0c3fb493b3dcd720d27050.json",
+        "sha256": "6abdddea9a1adebcd979390663b63b1c8694e50edd0c3fb493b3dcd720d27050"
+      },
+      "linked_private_inline_proofs": {
+        "file": "librexec_audit.inlines-92790901890e75ef81bc8216f50a1b1a5b71d2d0aa3ea9861173575d5abbaaae.json",
+        "sha256": "b65d233d1d9ebd2ddc9f675b467e50e80cc8a05731a0b414386719088194481b"
+      },
+      "linked_second_inline_proofs": {
+        "file": "librexec_audit.layer2-1eae73a04bee87d24ee48ce54bac92c10b1547a883db5cb3bd44a4475b3387a6.json",
+        "sha256": "1eae73a04bee87d24ee48ce54bac92c10b1547a883db5cb3bd44a4475b3387a6"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexec_audit.a",
+      "candidate_sha256": "a23565b59f84055c02b6221fc500d94731c00ac3ce2cc2633e4bb02d3f4deca7",
+      "candidate_sources_sha256": "2230181211f8ae3ca824620e23950fa1b1920df15fef455fd5d80c8afec7bbfa",
+      "compiler_selected_sources": 17,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "a23565b59f84055c02b6221fc500d94731c00ac3ce2cc2633e4bb02d3f4deca7",
+      "parent_sources_sha256": "2325f8c89e9bd0fcd449e3756c7d8fa90fa04ab9485fae8e7b3a4d200a8a0683",
+      "provider": "src/lib/argp_ba.rs",
+      "raw_pointer_types_removed": 198,
+      "reexporting_modules": [
+        "src/lib/argp_eexst.rs",
+        "src/lib/argp_fmtstream.rs",
+        "src/lib/argp_help.rs",
+        "src/lib/argp_parse.rs",
+        "src/lib/argp_pv.rs",
+        "src/lib/argp_pvh.rs",
+        "src/lib/argp_version_etc.rs",
+        "src/lib/getopt.rs",
+        "src/lib/version_etc.rs",
+        "src/lib/version_etc_fsf.rs",
+        "src/src/rexec.rs"
+      ]
+    }
+  },
+  "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexecd_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "librexecd_audit.foreign-d86ca060bf0e7d2a13e1f1d4f4962a899b323fc3c81575f92fc265716acad880.json",
+        "sha256": "d86ca060bf0e7d2a13e1f1d4f4962a899b323fc3c81575f92fc265716acad880"
+      },
+      "linked_private_inline_proofs": {
+        "file": "librexecd_audit.inlines-f777e174c0209272852199473324a358a058945a729c91a39c5068e529a4ccc7.json",
+        "sha256": "44c2e546974a003d281b612013dbcc43c7a345b92cf837013e3c315b7a7f9ecb"
+      },
+      "linked_second_inline_proofs": {
+        "file": "librexecd_audit.layer2-4ef34d46cb45c994a88e4f36c1762fb6085588d5294e4dfd5ae2878ac0c433ef.json",
+        "sha256": "4ef34d46cb45c994a88e4f36c1762fb6085588d5294e4dfd5ae2878ac0c433ef"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexecd_audit.a",
+      "candidate_sha256": "556cdced2a39e7b3c34f88c49e3b3ce689388fd1a2e73b8d07f3196c958039ce",
+      "candidate_sources_sha256": "3cd3e6104c0174a9249442f96aeef61dc41ec031df5bf81d4b9261565cdbd0a3",
+      "compiler_selected_sources": 23,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "556cdced2a39e7b3c34f88c49e3b3ce689388fd1a2e73b8d07f3196c958039ce",
+      "parent_sources_sha256": "50ba4f557e8febd49f0456b279d0c5f4b4ade42fff0b86a83aef76669bc7d173",
+      "provider": "src/lib/argp_ba.rs",
+      "raw_pointer_types_removed": 216,
+      "reexporting_modules": [
+        "src/lib/argp_eexst.rs",
+        "src/lib/argp_fmtstream.rs",
+        "src/lib/argp_help.rs",
+        "src/lib/argp_parse.rs",
+        "src/lib/argp_pv.rs",
+        "src/lib/argp_pvh.rs",
+        "src/lib/argp_version_etc.rs",
+        "src/lib/getopt.rs",
+        "src/lib/version_etc.rs",
+        "src/lib/version_etc_fsf.rs",
+        "src/lib/xalloc_die.rs",
+        "src/src/rexecd.rs"
+      ]
+    }
+  },
+  "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogin_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "librlogin_audit.foreign-68b156dd319bb7c14811c860ba5381f83dabd503a07435a9fb18c5aaf75f265c.json",
+        "sha256": "68b156dd319bb7c14811c860ba5381f83dabd503a07435a9fb18c5aaf75f265c"
+      },
+      "linked_private_inline_proofs": {
+        "file": "librlogin_audit.inlines-ca7af4701b9b92521db63356dfb91e5f66d713ea855beec03f17e062c61c9f60.json",
+        "sha256": "ed3905f91a67ccc3c6e7e1e0cbe4dff9c1fdb1380101571dfcec209a528f6e28"
+      },
+      "linked_second_inline_proofs": {
+        "file": "librlogin_audit.layer2-3a202adcfeab422018c3be41381c0f8e9def9e040ccfe9c60c05c38e6a9ceae9.json",
+        "sha256": "3a202adcfeab422018c3be41381c0f8e9def9e040ccfe9c60c05c38e6a9ceae9"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogin_audit.a",
+      "candidate_sha256": "aee2a5b698504f5487fec06babe68976db041eba2ff92f147bc44d562e9bdd7e",
+      "candidate_sources_sha256": "2fae96783f94008ee830ed59c9286247de341ae3f30e4e35349373f44b362195",
+      "compiler_selected_sources": 21,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "aee2a5b698504f5487fec06babe68976db041eba2ff92f147bc44d562e9bdd7e",
+      "parent_sources_sha256": "06775dc961acb15f583aacb4cc1b154c3d6c3e48bc56b739e119198ea1a84a35",
+      "provider": "src/lib/argp_ba.rs",
+      "raw_pointer_types_removed": 198,
+      "reexporting_modules": [
+        "src/lib/argp_eexst.rs",
+        "src/lib/argp_fmtstream.rs",
+        "src/lib/argp_help.rs",
+        "src/lib/argp_parse.rs",
+        "src/lib/argp_pv.rs",
+        "src/lib/argp_pvh.rs",
+        "src/lib/argp_version_etc.rs",
+        "src/lib/getopt.rs",
+        "src/lib/version_etc.rs",
+        "src/lib/version_etc_fsf.rs",
+        "src/src/rlogin.rs"
+      ]
+    }
+  },
+  "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogind_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "librlogind_audit.foreign-7e9623625d21c631a23786dc03c713d474a53b66aacc3196dc3abe9b041ee3b0.json",
+        "sha256": "7e9623625d21c631a23786dc03c713d474a53b66aacc3196dc3abe9b041ee3b0"
+      },
+      "linked_private_inline_proofs": {
+        "file": "librlogind_audit.inlines-125e573ec5d45f147996f0e4954f376778f3d1693ee2770d8741a62acb2cfc01.json",
+        "sha256": "6fe80f86e3a5e68ce08bf8949d968d2e7f22dabb629b69959e8f32bca7b60540"
+      },
+      "linked_second_inline_proofs": {
+        "file": "librlogind_audit.layer2-253ea0424f9a8edc238b19f4a05547ff3755c43c0f0541db4548fa11e006d2ec.json",
+        "sha256": "253ea0424f9a8edc238b19f4a05547ff3755c43c0f0541db4548fa11e006d2ec"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogind_audit.a",
+      "candidate_sha256": "f198a7c2a53b728e7b28b05c548cc0acaad3504ac4afa01e9679eb418f224904",
+      "candidate_sources_sha256": "352568c75347831fd1ad1292590ed19bbcca777c9b504ff11aeffd7914fafbf8",
+      "compiler_selected_sources": 26,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "f198a7c2a53b728e7b28b05c548cc0acaad3504ac4afa01e9679eb418f224904",
+      "parent_sources_sha256": "d0301a7c34241ebc63fbbc1908775670c366cc78a95e4fb12d4a99bc1afbd410",
+      "provider": "src/lib/argp_ba.rs",
+      "raw_pointer_types_removed": 234,
+      "reexporting_modules": [
+        "src/lib/argp_eexst.rs",
+        "src/lib/argp_fmtstream.rs",
+        "src/lib/argp_help.rs",
+        "src/lib/argp_parse.rs",
+        "src/lib/argp_pv.rs",
+        "src/lib/argp_pvh.rs",
+        "src/lib/argp_version_etc.rs",
+        "src/lib/getopt.rs",
+        "src/lib/version_etc.rs",
+        "src/lib/version_etc_fsf.rs",
+        "src/lib/xalloc_die.rs",
+        "src/libinetutils/daemon.rs",
+        "src/src/rlogind.rs"
+      ]
+    }
+  },
+  "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librsh_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "librsh_audit.foreign-66b52bebd5ecdd4c16ca7d52a1b354f67e54c5a994f69788dc24cddd2af04c91.json",
+        "sha256": "66b52bebd5ecdd4c16ca7d52a1b354f67e54c5a994f69788dc24cddd2af04c91"
+      },
+      "linked_private_inline_proofs": {
+        "file": "librsh_audit.inlines-035ce8a863d17c7262c5f58200ed1b560c3498026741df34da814d364287984b.json",
+        "sha256": "216285f2945571d87237e69ca35c6e933eaaa66e18aaacf029b34a2c75716224"
+      },
+      "linked_second_inline_proofs": {
+        "file": "librsh_audit.layer2-1d4a15032d89614e5f73bdae6f0c8dae26f07f370e823b79bd12f5b2f1b61fec.json",
+        "sha256": "1d4a15032d89614e5f73bdae6f0c8dae26f07f370e823b79bd12f5b2f1b61fec"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librsh_audit.a",
+      "candidate_sha256": "9eb49264b630c32575280543158772510a0e1d80ccadb171c2a10e4447a385c1",
+      "candidate_sources_sha256": "06b2c0327eb4315dcd7b42d17390c3548aa0e8b558068bcdfc3d9b6c040c2d76",
+      "compiler_selected_sources": 19,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "9eb49264b630c32575280543158772510a0e1d80ccadb171c2a10e4447a385c1",
+      "parent_sources_sha256": "7062661a9d24c3f99412dd3d37c0dc8888c3db31a6d436ca92378c4884adcd2c",
+      "provider": "src/lib/argp_ba.rs",
+      "raw_pointer_types_removed": 198,
+      "reexporting_modules": [
+        "src/lib/argp_eexst.rs",
+        "src/lib/argp_fmtstream.rs",
+        "src/lib/argp_help.rs",
+        "src/lib/argp_parse.rs",
+        "src/lib/argp_pv.rs",
+        "src/lib/argp_pvh.rs",
+        "src/lib/argp_version_etc.rs",
+        "src/lib/getopt.rs",
+        "src/lib/version_etc.rs",
+        "src/lib/version_etc_fsf.rs",
+        "src/src/rsh.rs"
+      ]
+    }
+  },
+  "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librshd_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "librshd_audit.foreign-bf3b29831f770f95ad871ff5f2389e1ca573095458a6e80ebd15ea40f27f327b.json",
+        "sha256": "bf3b29831f770f95ad871ff5f2389e1ca573095458a6e80ebd15ea40f27f327b"
+      },
+      "linked_private_inline_proofs": {
+        "file": "librshd_audit.inlines-51754f9a1fb76ac6569366f2c7d5c2df94ee6e1c0ddedd983eead9880962c0b3.json",
+        "sha256": "439cec7c0d9f50b3b4667db9050386cf6f07a31d9afdcf761c66f8b3c507fcae"
+      },
+      "linked_second_inline_proofs": {
+        "file": "librshd_audit.layer2-81c0d10814d66d353037f00a2a5798d39a04e9a3cf6e0aa135896d8b969459bc.json",
+        "sha256": "81c0d10814d66d353037f00a2a5798d39a04e9a3cf6e0aa135896d8b969459bc"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librshd_audit.a",
+      "candidate_sha256": "b90ad19c78336737f8f2e2c6f7e2165693e2167a766fd0a9deac29405349bbd9",
+      "candidate_sources_sha256": "aeedda36a0f8bd7e844c5b240abf4d25452aec27bad1eaf452350413630245e9",
+      "compiler_selected_sources": 24,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "b90ad19c78336737f8f2e2c6f7e2165693e2167a766fd0a9deac29405349bbd9",
+      "parent_sources_sha256": "b2756785c7631d6f013a335f014d6032d41fef06a08754dba1f688559d8cadc6",
+      "provider": "src/lib/argp_ba.rs",
+      "raw_pointer_types_removed": 216,
+      "reexporting_modules": [
+        "src/lib/argp_eexst.rs",
+        "src/lib/argp_fmtstream.rs",
+        "src/lib/argp_help.rs",
+        "src/lib/argp_parse.rs",
+        "src/lib/argp_pv.rs",
+        "src/lib/argp_pvh.rs",
+        "src/lib/argp_version_etc.rs",
+        "src/lib/getopt.rs",
+        "src/lib/version_etc.rs",
+        "src/lib/version_etc_fsf.rs",
+        "src/lib/xalloc_die.rs",
+        "src/src/rshd.rs"
+      ]
+    }
+  },
+  "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libsyslogd_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libsyslogd_audit.foreign-893f1aee5dfb36767b7582ea115f1d9f40d609dc763d02a55ea621947b81ced5.json",
+        "sha256": "893f1aee5dfb36767b7582ea115f1d9f40d609dc763d02a55ea621947b81ced5"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libsyslogd_audit.inlines-60d2c9025c62b704076c5b15037b985806e1a3aa6ca7297a26e583fc5c4c3ded.json",
+        "sha256": "c14cc6564d3426f647edf7af4917076f9297f56b95b40a27958e43dbcbbc6500"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libsyslogd_audit.layer2-3aa8e6a742c50155012507f9c71d9eefa1d54abead4e7fe08070cf8aa1c11b7c.json",
+        "sha256": "3aa8e6a742c50155012507f9c71d9eefa1d54abead4e7fe08070cf8aa1c11b7c"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libsyslogd_audit.a",
+      "candidate_sha256": "2b112b0369b3991459e7da900a0d53da4b6892aa3ea25ad982917014b848f8ad",
+      "candidate_sources_sha256": "241b758641358935a6dfe1ba52e1344ca4a20d1ea17eeca892edaf7c7c5e42fc",
+      "compiler_selected_sources": 28,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "2b112b0369b3991459e7da900a0d53da4b6892aa3ea25ad982917014b848f8ad",
+      "parent_sources_sha256": "374ce6243907a0ad82cc8a62c9805ae054a447426ee62097de4b2c01aa514e78",
+      "provider": "src/lib/argp_ba.rs",
+      "raw_pointer_types_removed": 288,
+      "reexporting_modules": [
+        "src/lib/argp_eexst.rs",
+        "src/lib/argp_fmtstream.rs",
+        "src/lib/argp_help.rs",
+        "src/lib/argp_parse.rs",
+        "src/lib/argp_pv.rs",
+        "src/lib/argp_pvh.rs",
+        "src/lib/argp_version_etc.rs",
+        "src/lib/fopen.rs",
+        "src/lib/getopt.rs",
+        "src/lib/readutmp.rs",
+        "src/lib/version_etc.rs",
+        "src/lib/version_etc_fsf.rs",
+        "src/lib/xalloc_die.rs",
+        "src/libinetutils/daemon.rs",
+        "src/libinetutils/ttymsg.rs",
+        "src/src/syslogd.rs"
+      ]
+    }
+  },
+  "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalk_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libtalk_audit.foreign-1f997753d4542f133e39624b83a028ed58eeb7fe6f414aeeafa742d5eecc3406.json",
+        "sha256": "1f997753d4542f133e39624b83a028ed58eeb7fe6f414aeeafa742d5eecc3406"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libtalk_audit.inlines-3dba5ea0f6989e2a59b27fe9c42dd2bfb15e1beea5e4c8a1dbf005817ce32923.json",
+        "sha256": "df719b0296eebc389787652725eec8b73cd3882f982105081c9358b7743830e5"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libtalk_audit.layer2-26c51141b3325cd27d6460d64828af7bc618ed159a45b13a601ae3400ce926e9.json",
+        "sha256": "26c51141b3325cd27d6460d64828af7bc618ed159a45b13a601ae3400ce926e9"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalk_audit.a",
+      "candidate_sha256": "89ee067a7e2187903a576a628b0f144d7ba93b03bb19af83a0dfe9acc7a0a72e",
+      "candidate_sources_sha256": "c51ad9d16b0026869a378467b5cafb254d079ca4a9db666c32f8e3835f9c5922",
+      "compiler_selected_sources": 29,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "89ee067a7e2187903a576a628b0f144d7ba93b03bb19af83a0dfe9acc7a0a72e",
+      "parent_sources_sha256": "5de8a65d9d366f6fba82b5a98a776d114a292b063128871ea81c4abfda156134",
+      "provider": "src/lib/argp_ba.rs",
+      "raw_pointer_types_removed": 378,
+      "reexporting_modules": [
+        "src/lib/argp_eexst.rs",
+        "src/lib/argp_fmtstream.rs",
+        "src/lib/argp_help.rs",
+        "src/lib/argp_parse.rs",
+        "src/lib/argp_pv.rs",
+        "src/lib/argp_pvh.rs",
+        "src/lib/argp_version_etc.rs",
+        "src/lib/getopt.rs",
+        "src/lib/version_etc.rs",
+        "src/lib/version_etc_fsf.rs",
+        "src/talk/ctl.rs",
+        "src/talk/ctl_transact.rs",
+        "src/talk/display.rs",
+        "src/talk/get_addrs.rs",
+        "src/talk/get_names.rs",
+        "src/talk/init_disp.rs",
+        "src/talk/invite.rs",
+        "src/talk/io.rs",
+        "src/talk/look_up.rs",
+        "src/talk/msgs.rs",
+        "src/talk/talk.rs"
+      ]
+    }
+  },
+  "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnet_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libtelnet_audit.foreign-f90df09c456ddef43ce69ef7046c893dd094042d12c94b8688dd0fea2de014f1.json",
+        "sha256": "f90df09c456ddef43ce69ef7046c893dd094042d12c94b8688dd0fea2de014f1"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libtelnet_audit.inlines-cf52cb4dc446e1114d8fafd3d1ab62733efaea488000e3f78e5e88744c6c5678.json",
+        "sha256": "2a1abc28a5c368cb355b24d2ea78bdca9c9e43ef02ef558b4cab319dfb3f5946"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libtelnet_audit.layer2-fc8da935ca82c0b47cb4f632cb54ea43d0af167a7e5768493d8ce97bcc1740f9.json",
+        "sha256": "fc8da935ca82c0b47cb4f632cb54ea43d0af167a7e5768493d8ce97bcc1740f9"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnet_audit.a",
+      "candidate_sha256": "62d6eb4075a963b567487efca7b52f175169f54f5b8fdb86c2c2b5b3e5bdaf9a",
+      "candidate_sources_sha256": "2dd42167bea8cb4488d286312fc3f404f2ebc2eddac929bccabae7c96919f813",
+      "compiler_selected_sources": 40,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "62d6eb4075a963b567487efca7b52f175169f54f5b8fdb86c2c2b5b3e5bdaf9a",
+      "parent_sources_sha256": "b948ddd1e1d738bc2f5aa3f84790951b1126bfd43ecbf04e7b359896d7884505",
+      "provider": "src/lib/argp_ba.rs",
+      "raw_pointer_types_removed": 432,
+      "reexporting_modules": [
+        "src/lib/argp_eexst.rs",
+        "src/lib/argp_fmtstream.rs",
+        "src/lib/argp_help.rs",
+        "src/lib/argp_parse.rs",
+        "src/lib/argp_pv.rs",
+        "src/lib/argp_pvh.rs",
+        "src/lib/argp_version_etc.rs",
+        "src/lib/fopen.rs",
+        "src/lib/getopt.rs",
+        "src/lib/vasnprintf.rs",
+        "src/lib/vaszprintf.rs",
+        "src/lib/version_etc.rs",
+        "src/lib/version_etc_fsf.rs",
+        "src/lib/xalloc_die.rs",
+        "src/lib/xasprintf.rs",
+        "src/lib/xvasprintf.rs",
+        "src/telnet/commands.rs",
+        "src/telnet/main.rs",
+        "src/telnet/network.rs",
+        "src/telnet/ring.rs",
+        "src/telnet/sys_bsd.rs",
+        "src/telnet/telnet.rs",
+        "src/telnet/terminal.rs",
+        "src/telnet/utilities.rs"
+      ]
+    }
+  },
+  "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftp_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libtftp_audit.foreign-0668c6ecfa3f9f103dd008f5ffcbd15266ec338bef4dab66d0bd0d1c09fc4a1d.json",
+        "sha256": "0668c6ecfa3f9f103dd008f5ffcbd15266ec338bef4dab66d0bd0d1c09fc4a1d"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libtftp_audit.inlines-6ad61d21b7e5d8522fb3a8febb4a431b670d83c368510a95a4a97ca185d77124.json",
+        "sha256": "955f79fe4a0d85746275172906f5bc13140d72a67531a0ec16a2e772022d936e"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libtftp_audit.layer2-8eeee278e2565b7ced676888c6bf735d5bf7b559c0b071e02948cba15e805867.json",
+        "sha256": "8eeee278e2565b7ced676888c6bf735d5bf7b559c0b071e02948cba15e805867"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftp_audit.a",
+      "candidate_sha256": "280a92a7c88606b862573be5cf398da3c63190550230a3ab393bc1bc79407d17",
+      "candidate_sources_sha256": "84c98bcb755aab399c83991f9ea8996aa807a8285deebfaace473ba7fd4e3b10",
+      "compiler_selected_sources": 25,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "280a92a7c88606b862573be5cf398da3c63190550230a3ab393bc1bc79407d17",
+      "parent_sources_sha256": "f469a12d2c32d947e4002f3fdbdd8687f37ec85811f4993d4426afce5af86894",
+      "provider": "src/lib/argp_ba.rs",
+      "raw_pointer_types_removed": 252,
+      "reexporting_modules": [
+        "src/lib/argp_eexst.rs",
+        "src/lib/argp_fmtstream.rs",
+        "src/lib/argp_help.rs",
+        "src/lib/argp_parse.rs",
+        "src/lib/argp_pv.rs",
+        "src/lib/argp_pvh.rs",
+        "src/lib/argp_version_etc.rs",
+        "src/lib/fseeko.rs",
+        "src/lib/getopt.rs",
+        "src/lib/version_etc.rs",
+        "src/lib/version_etc_fsf.rs",
+        "src/lib/xalloc_die.rs",
+        "src/libinetutils/tftpsubs.rs",
+        "src/src/tftp.rs"
+      ]
+    }
+  },
+  "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftpd_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libtftpd_audit.foreign-60badc1e86165dcf26d1df21dd84990d3ec40aacc5fdb4fb899a33e991b6936b.json",
+        "sha256": "60badc1e86165dcf26d1df21dd84990d3ec40aacc5fdb4fb899a33e991b6936b"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libtftpd_audit.inlines-1a2188ab7312df8b5ad1af78f4f0cc0e8b2a6617439f9f0a08fa05ede36fd52e.json",
+        "sha256": "d2c6e7452c8e289dfb2012583173f925f98ef4b40133e8d396f3464db2b177d1"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libtftpd_audit.layer2-a9a0559ee09a20da44246d1e306f34cde1f73c2cdd07878abee8036fa8efe9f1.json",
+        "sha256": "a9a0559ee09a20da44246d1e306f34cde1f73c2cdd07878abee8036fa8efe9f1"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftpd_audit.a",
+      "candidate_sha256": "452a73276b36e474e976b26131a9d045b3e4474b7a9926438e6ef0737f568e5e",
+      "candidate_sources_sha256": "53909c1c47b850bbdede1e7d2b81f1fd4871a2c5fe49c1d388e1f25353d6193f",
+      "compiler_selected_sources": 25,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "452a73276b36e474e976b26131a9d045b3e4474b7a9926438e6ef0737f568e5e",
+      "parent_sources_sha256": "f8f5546eeef3b35e395aeb766c33893254b70e97bda5ce485b6cba9d7462713b",
+      "provider": "src/lib/argp_ba.rs",
+      "raw_pointer_types_removed": 252,
+      "reexporting_modules": [
+        "src/lib/argp_eexst.rs",
+        "src/lib/argp_fmtstream.rs",
+        "src/lib/argp_help.rs",
+        "src/lib/argp_parse.rs",
+        "src/lib/argp_pv.rs",
+        "src/lib/argp_pvh.rs",
+        "src/lib/argp_version_etc.rs",
+        "src/lib/fseeko.rs",
+        "src/lib/getopt.rs",
+        "src/lib/version_etc.rs",
+        "src/lib/version_etc_fsf.rs",
+        "src/lib/xalloc_die.rs",
+        "src/libinetutils/tftpsubs.rs",
+        "src/src/tftpd.rs"
+      ]
+    }
+  },
+  "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtraceroute_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libtraceroute_audit.foreign-19c90b0abcb1bbe94d27bbcdcb7898df62d0fcdc942213cf3d915a741adf0031.json",
+        "sha256": "19c90b0abcb1bbe94d27bbcdcb7898df62d0fcdc942213cf3d915a741adf0031"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libtraceroute_audit.inlines-2b3c6249af7aafb48d2e39afedf935e253a5fde5afc41b6726a20a2110cc55ef.json",
+        "sha256": "4f19099ffe7e92b70993c873ef79f674b83f5f9d265b62f922db82c8ad909529"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libtraceroute_audit.layer2-2b4f47cfb2c7b6844e806e4ebb2e989abbd1b80ee406c92799bf5ef8a5089bf8.json",
+        "sha256": "2b4f47cfb2c7b6844e806e4ebb2e989abbd1b80ee406c92799bf5ef8a5089bf8"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtraceroute_audit.a",
+      "candidate_sha256": "3d07648a644421c8f076a0f4bd6235342354f7b66355cb06c225cb77774b7569",
+      "candidate_sources_sha256": "8009a373440b0c88fd89c6066b89f313633b036472fe4d29a4422bfb11dacba8",
+      "compiler_selected_sources": 25,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "3d07648a644421c8f076a0f4bd6235342354f7b66355cb06c225cb77774b7569",
+      "parent_sources_sha256": "ed5b5b7d6f8df6fe525ae0a04288cc819c2e6cfb65cebb3137a8216fcdc632f8",
+      "provider": "src/lib/argp_ba.rs",
+      "raw_pointer_types_removed": 216,
+      "reexporting_modules": [
+        "src/lib/argp_eexst.rs",
+        "src/lib/argp_fmtstream.rs",
+        "src/lib/argp_help.rs",
+        "src/lib/argp_parse.rs",
+        "src/lib/argp_pv.rs",
+        "src/lib/argp_pvh.rs",
+        "src/lib/argp_version_etc.rs",
+        "src/lib/getopt.rs",
+        "src/lib/version_etc.rs",
+        "src/lib/version_etc_fsf.rs",
+        "src/lib/xalloc_die.rs",
+        "src/src/traceroute.rs"
+      ]
+    }
+  },
+  "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libuucpd_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libuucpd_audit.foreign-b95ac5262ec6275b2b2426a7806d1a9ce99a3a2f8ffadf97e041d765843d48c1.json",
+        "sha256": "b95ac5262ec6275b2b2426a7806d1a9ce99a3a2f8ffadf97e041d765843d48c1"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libuucpd_audit.inlines-8f62180c609c6c50208c80707bd5952b727e69f57eed3a0b60131a3bea58c6a5.json",
+        "sha256": "61f41c60faf88ac33fb1af0c245bb440786b335dae0a0eee41fa6193695adde3"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libuucpd_audit.layer2-d013f30b392e5df9aff2d601cfb278a97ad1ab6c84553d3ad07dcc47218c7ace.json",
+        "sha256": "d013f30b392e5df9aff2d601cfb278a97ad1ab6c84553d3ad07dcc47218c7ace"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libuucpd_audit.a",
+      "candidate_sha256": "ffee1e49a403211e20c1f111e49bc9a47d0c4455d54ecc97658aa99d9b5ac35d",
+      "candidate_sources_sha256": "a741e18fe5fae90aff4e3806aae8d0d82862de4ff1bbda1eeb051dc76fd62aca",
+      "compiler_selected_sources": 18,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "ffee1e49a403211e20c1f111e49bc9a47d0c4455d54ecc97658aa99d9b5ac35d",
+      "parent_sources_sha256": "4d9a8d128b1c8126a51e93645805f5f4d3107e7fa4b47fe27a655ae62200011a",
+      "provider": "src/lib/argp_ba.rs",
+      "raw_pointer_types_removed": 198,
+      "reexporting_modules": [
+        "src/lib/argp_eexst.rs",
+        "src/lib/argp_fmtstream.rs",
+        "src/lib/argp_help.rs",
+        "src/lib/argp_parse.rs",
+        "src/lib/argp_pv.rs",
+        "src/lib/argp_pvh.rs",
+        "src/lib/argp_version_etc.rs",
+        "src/lib/getopt.rs",
+        "src/lib/version_etc.rs",
+        "src/lib/version_etc_fsf.rs",
+        "src/src/uucpd.rs"
+      ]
+    }
+  },
+  "work/analysis/lz4-1.11.1/translations/c2rust-0.22.1/lz4-1.11.1-stable/target/release/liblz4_1_11_1_normalized_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "liblz4_1_11_1_normalized_audit.foreign-cf2e7ada0723fd00a6480330c9b5f7e76e6b977a04c2e874d546051fc7e66c54.json",
+        "sha256": "cf2e7ada0723fd00a6480330c9b5f7e76e6b977a04c2e874d546051fc7e66c54"
+      },
+      "linked_private_inline_proofs": {
+        "file": "liblz4_1_11_1_normalized_audit.inlines-614dec7637c25e3f84b336b6d4ba2b40ee45787c88b9a78721ccc39af189550c.json",
+        "sha256": "37981902a2d5026ecef94e2857bdf5b3696378ef46a3b4361cc3b7dbd322c23e"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/lz4-1.11.1/translations/c2rust-0.22.1/lz4-1.11.1-stable/target/release/liblz4_1_11_1_normalized_audit.a",
+      "candidate_sha256": "779209b0e860728ce9bc73fad12a8df323af367c245c9ffd5ac0ae4b303bb39b",
+      "candidate_sources_sha256": "4b8a45ead37880c6dcfc5b3f943b278b91f462d39371f971375e022ca5c5729b",
+      "compiler_selected_sources": 14,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "779209b0e860728ce9bc73fad12a8df323af367c245c9ffd5ac0ae4b303bb39b",
+      "parent_sources_sha256": "905628111887fdcc506ec451d8cee264d28141a24caf247d6217af066e8144b5",
+      "provider": "src/lib/lz4file.rs",
+      "raw_pointer_types_removed": 90,
+      "reexporting_modules": [
+        "src/programs/bench.rs",
+        "src/programs/lz4cli.rs",
+        "src/programs/lz4io.rs",
+        "src/programs/timefn.rs",
+        "src/programs/util.rs"
+      ]
+    }
+  },
+  "work/analysis/patch-2.8/translations/c2rust-0.22.1/patch-2.8-stable/target/release/libpatch_2_8_normalized_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libpatch_2_8_normalized_audit.foreign-2910061c5e98663c7ce29a1c2c81d4b5171b221153df0eacab52e6ae7c21b85c.json",
+        "sha256": "2910061c5e98663c7ce29a1c2c81d4b5171b221153df0eacab52e6ae7c21b85c"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libpatch_2_8_normalized_audit.inlines-6b7df3632614a3a774244e803add58f2e0e8f3cafe5c26fa0e016f304d861e94.json",
+        "sha256": "c17cd01874ddaaceef14f388fdbf10febfe0060260ace0921bc5b6102a4c495b"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libpatch_2_8_normalized_audit.layer2-16867185ba347b26dbb9e30cd26fb6ecdc9c4b84511523f71b62c69077f5f787.json",
+        "sha256": "16867185ba347b26dbb9e30cd26fb6ecdc9c4b84511523f71b62c69077f5f787"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/patch-2.8/translations/c2rust-0.22.1/patch-2.8-stable/target/release/libpatch_2_8_normalized_audit.a",
+      "candidate_sha256": "f1e490fe25bd6115ddaf22e699b49094d1f505f2e0d039abb233309f41108516",
+      "candidate_sources_sha256": "6628f6c5b8d8fb1f669a5833e8a678058fc85aaa93e09d1b8b20dca9648216d5",
+      "compiler_selected_sources": 69,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "f1e490fe25bd6115ddaf22e699b49094d1f505f2e0d039abb233309f41108516",
+      "parent_sources_sha256": "38119e9b6deb15233db13fd65e6f61e45bba306545f3285f181c81ce086a61cf",
+      "provider": "src/lib/argmatch.rs",
+      "raw_pointer_types_removed": 432,
+      "reexporting_modules": [
+        "src/lib/backup_find.rs",
+        "src/lib/backupfile.rs",
+        "src/lib/chdir_long.rs",
+        "src/lib/close_stream.rs",
+        "src/lib/closeout.rs",
+        "src/lib/error.rs",
+        "src/lib/hash.rs",
+        "src/lib/localcharset.rs",
+        "src/lib/openat_die.rs",
+        "src/lib/openat_proc.rs",
+        "src/lib/parse_datetime.rs",
+        "src/lib/progname.rs",
+        "src/lib/renameatu.rs",
+        "src/lib/save_cwd.rs",
+        "src/lib/tempname.rs",
+        "src/lib/xalloc_die.rs",
+        "src/lib/xstdopen.rs",
+        "src/src/inp.rs",
+        "src/src/merge.rs",
+        "src/src/patch.rs",
+        "src/src/pch.rs",
+        "src/src/safe.rs",
+        "src/src/util.rs",
+        "src/src/version.rs"
+      ]
+    }
+  },
+  "work/analysis/pkgconf-3.0.11/translations/c2rust-0.22.1/pkgconf-3.0.11-stable/target/release/libpkgconf_3_0_11_normalized_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libpkgconf_3_0_11_normalized_audit.foreign-c5868ecf2c2c0c48e5ce0db5ae2e3a566fb85107a1bef0de98e59afe1b06d540.json",
+        "sha256": "c5868ecf2c2c0c48e5ce0db5ae2e3a566fb85107a1bef0de98e59afe1b06d540"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libpkgconf_3_0_11_normalized_audit.inlines-5f7b92e201f1f550275d8861046f85a167bd266f4bac9dd8d07bc7a9e74df212.json",
+        "sha256": "9f9f62a0e4bb5dfc3c0bcce6babfebc23ffdfe0ea0edb5e358dff5d81da47421"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libpkgconf_3_0_11_normalized_audit.layer2-162248f92c75482ba3e1d4591705de7065ec306e91144e8ca7d006d67c7eca98.json",
+        "sha256": "162248f92c75482ba3e1d4591705de7065ec306e91144e8ca7d006d67c7eca98"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/pkgconf-3.0.11/translations/c2rust-0.22.1/pkgconf-3.0.11-stable/target/release/libpkgconf_3_0_11_normalized_audit.a",
+      "candidate_sha256": "d3e6b0b4d941a034d0b40511835bf1177dc62bfa38bf05287fad2775a9f2da26",
+      "candidate_sources_sha256": "d23391acebe32f6f9c28423306dab9aac5e3b69526e85fa767368390bceff6a6",
+      "compiler_selected_sources": 37,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "d3e6b0b4d941a034d0b40511835bf1177dc62bfa38bf05287fad2775a9f2da26",
+      "parent_sources_sha256": "515abb47aa9135c541a902d891ad48e0b2d988378de6511cb3b2cb28f504f092",
+      "provider": "src/cli/bomtool/main.rs",
+      "raw_pointer_types_removed": 612,
+      "reexporting_modules": [
+        "src/cli/core.rs",
+        "src/cli/getopt_long.rs",
+        "src/cli/main.rs",
+        "src/cli/pccritic/critic.rs",
+        "src/cli/pccritic/main.rs",
+        "src/cli/renderer_msvc.rs",
+        "src/cli/spdxtool/core.rs",
+        "src/cli/spdxtool/generate.rs",
+        "src/cli/spdxtool/main.rs",
+        "src/cli/spdxtool/serialize.rs",
+        "src/cli/spdxtool/simplelicensing.rs",
+        "src/cli/spdxtool/software.rs",
+        "src/cli/spdxtool/util.rs",
+        "src/libpkgconf/argvsplit.rs",
+        "src/libpkgconf/audit.rs",
+        "src/libpkgconf/bsdstubs.rs",
+        "src/libpkgconf/buffer.rs",
+        "src/libpkgconf/bufferset.rs",
+        "src/libpkgconf/bytecode.rs",
+        "src/libpkgconf/cache.rs",
+        "src/libpkgconf/client.rs",
+        "src/libpkgconf/dependency.rs",
+        "src/libpkgconf/fileio.rs",
+        "src/libpkgconf/fragment.rs",
+        "src/libpkgconf/license.rs",
+        "src/libpkgconf/output.rs",
+        "src/libpkgconf/parser.rs",
+        "src/libpkgconf/path.rs",
+        "src/libpkgconf/personality.rs",
+        "src/libpkgconf/pkg.rs",
+        "src/libpkgconf/queue.rs",
+        "src/libpkgconf/tuple.rs",
+        "src/libpkgconf/variable.rs",
+        "src/libpkgconf/version.rs"
+      ]
+    }
+  },
+  "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-01-stable/target/release/libutil_linux_small_01_normalized_reachable.a": {
+    "parent_receipts": {},
+    "pilot": {
+      "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-01-stable/target/release/libutil_linux_small_01_normalized_reachable.a",
+      "candidate_sha256": "f523bf614d565fa4233a02bb4e1db702d807dce56fa3329fc5f1979ed1d79544",
+      "candidate_sources_sha256": "f43b940b4f48cf21923530893877ab6ad68d2f0324d4d5878167a784836c5339",
+      "compiler_selected_sources": 12,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "f523bf614d565fa4233a02bb4e1db702d807dce56fa3329fc5f1979ed1d79544",
+      "parent_sources_sha256": "98902a5fad1aab15e5655a05540d6ecdb4c8c2bce5fb1d402274e481d400c051",
+      "provider": "src/misc_utils/exch.rs",
+      "raw_pointer_types_removed": 162,
+      "reexporting_modules": [
+        "src/misc_utils/fadvise.rs",
+        "src/misc_utils/mcookie.rs",
+        "src/sys_utils/choom.rs",
+        "src/sys_utils/ctrlaltdel.rs",
+        "src/sys_utils/setpgid.rs",
+        "src/sys_utils/setsid.rs",
+        "src/text_utils/colrm.rs",
+        "src/text_utils/line.rs",
+        "src/text_utils/rev.rs"
+      ]
+    }
+  },
+  "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-02-stable/target/release/libutil_linux_small_02_normalized_reachable.a": {
+    "parent_receipts": {},
+    "pilot": {
+      "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-02-stable/target/release/libutil_linux_small_02_normalized_reachable.a",
+      "candidate_sha256": "d5d22a655383d623cf90a69b6a8009106c0a65b22946499a4711d0bbdc7580d6",
+      "candidate_sources_sha256": "9046d3192aa29d0f6a6fc10b0c28472ed2b340792eca08f759b7046fd8a39d80",
+      "compiler_selected_sources": 12,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "d5d22a655383d623cf90a69b6a8009106c0a65b22946499a4711d0bbdc7580d6",
+      "parent_sources_sha256": "393c3c46ca742f36cc0bcb3363f6188ffff49f2f39063a90cf8eaa02f39fb26e",
+      "provider": "src/disk_utils/addpart.rs",
+      "raw_pointer_types_removed": 162,
+      "reexporting_modules": [
+        "src/disk_utils/delpart.rs",
+        "src/disk_utils/isosize.rs",
+        "src/disk_utils/mkfs.rs",
+        "src/disk_utils/resizepart.rs",
+        "src/login_utils/nologin.rs",
+        "src/misc_utils/findfs.rs",
+        "src/sys_utils/fsfreeze.rs",
+        "src/sys_utils/pivot_root.rs",
+        "src/term_utils/mesg.rs"
+      ]
+    }
+  },
+  "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-03-stable/target/release/libutil_linux_small_03_normalized_reachable.a": {
+    "parent_receipts": {},
+    "pilot": {
+      "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-03-stable/target/release/libutil_linux_small_03_normalized_reachable.a",
+      "candidate_sha256": "5b7614be5f32cf48ab42ecc4aa247ddd259f9f09711a4ed1420cb039bfdf0c88",
+      "candidate_sources_sha256": "1b94c808453101e61990d7a90ed52019fad3cdd7bd72ec2744b87c37af79b21e",
+      "compiler_selected_sources": 12,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "5b7614be5f32cf48ab42ecc4aa247ddd259f9f09711a4ed1420cb039bfdf0c88",
+      "parent_sources_sha256": "d00815711e87b1f80927d2e6494c22299275bf7d4142ed680638e3612fe597d2",
+      "provider": "src/disk_utils/fdformat.rs",
+      "raw_pointer_types_removed": 162,
+      "reexporting_modules": [
+        "src/disk_utils/raw.rs",
+        "src/disk_utils/swaplabel.rs",
+        "src/login_utils/newgrp.rs",
+        "src/misc_utils/copyfilerange.rs",
+        "src/misc_utils/uuidgen.rs",
+        "src/schedutils/ionice.rs",
+        "src/sys_utils/lsirq.rs",
+        "src/sys_utils/renice.rs",
+        "src/sys_utils/switch_root.rs"
+      ]
+    }
+  },
+  "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-04-stable/target/release/libutil_linux_small_04_normalized_reachable.a": {
+    "parent_receipts": {},
+    "pilot": {
+      "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-04-stable/target/release/libutil_linux_small_04_normalized_reachable.a",
+      "candidate_sha256": "e92f47064a28ad625ed422e6fee68730c8b0ea88e280b7bfdda4e332ef726b97",
+      "candidate_sources_sha256": "e60c98fd91261899a22eec302722855b446e43a4678a3271b2a0ed625c38814b",
+      "compiler_selected_sources": 12,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "e92f47064a28ad625ed422e6fee68730c8b0ea88e280b7bfdda4e332ef726b97",
+      "parent_sources_sha256": "ead134df71d235ceb615d1432631c81cd45e0f3565cac97696c56bffa494fd66",
+      "provider": "src/login_utils/chsh.rs",
+      "raw_pointer_types_removed": 162,
+      "reexporting_modules": [
+        "src/misc_utils/getino.rs",
+        "src/misc_utils/waitpid.rs",
+        "src/schedutils/taskset.rs",
+        "src/schedutils/uclampset.rs",
+        "src/sys_utils/ipcmk.rs",
+        "src/sys_utils/mountpoint.rs",
+        "src/sys_utils/swapoff.rs",
+        "src/text_utils/bits.rs",
+        "src/text_utils/colcrt.rs"
+      ]
+    }
+  },
+  "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-05-stable/target/release/libutil_linux_small_05_normalized_reachable.a": {
+    "parent_receipts": {},
+    "pilot": {
+      "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-05-stable/target/release/libutil_linux_small_05_normalized_reachable.a",
+      "candidate_sha256": "dca7842726bd5ebde6bb92f702ed0e32ee4d092d741c355afe56638fbd9fc547",
+      "candidate_sources_sha256": "da8e4c4b8a413f320aa3d1be34c74cd1aff3ebc1986d5c15a1ed39a02788d556",
+      "compiler_selected_sources": 12,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "dca7842726bd5ebde6bb92f702ed0e32ee4d092d741c355afe56638fbd9fc547",
+      "parent_sources_sha256": "06f4a2b6ee81244d451e32912e7ff3e249fa867b56c508ec89757e42c4670fb4",
+      "provider": "src/login_utils/utmpdump.rs",
+      "raw_pointer_types_removed": 162,
+      "reexporting_modules": [
+        "src/login_utils/vipw.rs",
+        "src/misc_utils/lastlog2.rs",
+        "src/misc_utils/look.rs",
+        "src/misc_utils/pipesz.rs",
+        "src/misc_utils/rename.rs",
+        "src/misc_utils/uuidparse.rs",
+        "src/sys_utils/blkdiscard.rs",
+        "src/sys_utils/tunelp.rs",
+        "src/term_utils/scriptlive.rs"
+      ]
+    }
+  },
+  "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-06-stable/target/release/libutil_linux_small_06_normalized_reachable.a": {
+    "parent_receipts": {},
+    "pilot": {
+      "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-06-stable/target/release/libutil_linux_small_06_normalized_reachable.a",
+      "candidate_sha256": "337cd75d4306fd5e74da761afaca1eda488fafd598acc986dc8988f5c96b966e",
+      "candidate_sources_sha256": "69d27fb02dfeefa3cdbc72588e53d16e64576bd1ad50e9ebad08fa9d5328ecde",
+      "compiler_selected_sources": 12,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "337cd75d4306fd5e74da761afaca1eda488fafd598acc986dc8988f5c96b966e",
+      "parent_sources_sha256": "fdc06b112e0cfd41615b74989919d0a38cdca1655fa8c8df1a799c3e91d6bcd5",
+      "provider": "src/disk_utils/blockdev.rs",
+      "raw_pointer_types_removed": 162,
+      "reexporting_modules": [
+        "src/misc_utils/namei.rs",
+        "src/schedutils/coresched.rs",
+        "src/sys_utils/blkpr.rs",
+        "src/sys_utils/chcpu.rs",
+        "src/sys_utils/flock.rs",
+        "src/sys_utils/ldattach.rs",
+        "src/sys_utils/readprofile.rs",
+        "src/term_utils/scriptreplay.rs",
+        "src/term_utils/wall.rs"
+      ]
+    }
+  },
+  "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libxz_5_8_4_normalized_audit.foreign-05797a02e474593fb80ae0c28a8c30217664a865a879839a1fd4c58885e594b5.json",
+        "sha256": "05797a02e474593fb80ae0c28a8c30217664a865a879839a1fd4c58885e594b5"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libxz_5_8_4_normalized_audit.inlines-dbe6df97b9af094cab5c51fe367f792c9de251cd576a4f4a7ee1678a1be8a7c9.json",
+        "sha256": "4cc4c47e4af36517c24f0231117b4cab7723ef0bd21efa2907421b4a646b5cbd"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libxz_5_8_4_normalized_audit.layer2-efdbaf053175281cf13809148271510b71cb27cc12731c7b963f1b8aa399ae18.json",
+        "sha256": "efdbaf053175281cf13809148271510b71cb27cc12731c7b963f1b8aa399ae18"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a",
+      "candidate_sha256": "7ae834c8b5389c80495e6f8dc81c3291484df8d2a56d55f7d311d41bc4a43ef7",
+      "candidate_sources_sha256": "b8e07c66c107b9ffda6fc2ee8525a25aab36c8cc6c9fd204f129ec3d10ef7c82",
+      "compiler_selected_sources": 104,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "7ae834c8b5389c80495e6f8dc81c3291484df8d2a56d55f7d311d41bc4a43ef7",
+      "parent_sources_sha256": "b7e87a41a426d5bd89637ec7fa3963fa7a2b7c10f81c88801d6eda748c05483c",
+      "provider": "src/common/tuklib_exit.rs",
+      "raw_pointer_types_removed": 306,
+      "reexporting_modules": [
+        "src/common/tuklib_mbstr_wrap.rs",
+        "src/lzmainfo/lzmainfo.rs",
+        "src/xz/args.rs",
+        "src/xz/coder.rs",
+        "src/xz/file_io.rs",
+        "src/xz/hardware.rs",
+        "src/xz/list.rs",
+        "src/xz/main.rs",
+        "src/xz/message.rs",
+        "src/xz/mytime.rs",
+        "src/xz/options.rs",
+        "src/xz/sandbox.rs",
+        "src/xz/signals.rs",
+        "src/xz/suffix.rs",
+        "src/xz/util.rs",
+        "src/xzdec/rustbox_lzmadec_personality.rs",
+        "src/xzdec/xzdec.rs"
+      ]
+    }
+  },
+  "work/analysis/zstd-1.5.7/translations/c2rust-0.22.1/zstd-1.5.7-stable/target/release/libzstd_1_5_7_normalized_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libzstd_1_5_7_normalized_audit.foreign-4185f3ff14fe220c8909514194cfefb28d01fe051c94a904bf7afbc9386122e4.json",
+        "sha256": "4185f3ff14fe220c8909514194cfefb28d01fe051c94a904bf7afbc9386122e4"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libzstd_1_5_7_normalized_audit.inlines-d7051260610cd50824600871a379517c85ab61f67e6aefd02795d8d038026ec6.json",
+        "sha256": "ad2dafffb9a3ad9292018531e6eae6dce40f159527eb38697d88a006fba93ac3"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libzstd_1_5_7_normalized_audit.layer2-294d2ba57a954347eee16ac70ee54cf98c84a5867f8d481df74580d41a84f3e5.json",
+        "sha256": "294d2ba57a954347eee16ac70ee54cf98c84a5867f8d481df74580d41a84f3e5"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/zstd-1.5.7/translations/c2rust-0.22.1/zstd-1.5.7-stable/target/release/libzstd_1_5_7_normalized_audit.a",
+      "candidate_sha256": "91146c566f13c2058e0cb10ecebbcebb2ee3925e6708cf14a1b17a6b4a8c97d8",
+      "candidate_sources_sha256": "37b033ac29ddc8a2792a01ec077e36d92fbda08538361c5863ec7b0da237f12d",
+      "compiler_selected_sources": 46,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "91146c566f13c2058e0cb10ecebbcebb2ee3925e6708cf14a1b17a6b4a8c97d8",
+      "parent_sources_sha256": "64832e93ca95ae047509e82badf1909753fc3c588920f6fe206831abcffcbd4f",
+      "provider": "src/lib/dictBuilder/cover.rs",
+      "raw_pointer_types_removed": 234,
+      "reexporting_modules": [
+        "src/lib/dictBuilder/divsufsort.rs",
+        "src/lib/dictBuilder/fastcover.rs",
+        "src/lib/dictBuilder/zdict.rs",
+        "src/lib/legacy/zstd_v05.rs",
+        "src/programs/benchzstd.rs",
+        "src/programs/datagen.rs",
+        "src/programs/dibio.rs",
+        "src/programs/fileio.rs",
+        "src/programs/fileio_asyncio.rs",
+        "src/programs/timefn.rs",
+        "src/programs/util.rs",
+        "src/programs/zstdcli.rs",
+        "src/programs/zstdcli_trace.rs"
+      ]
+    }
+  }
+}

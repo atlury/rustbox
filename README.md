@@ -295,8 +295,8 @@ for 89 linked Rust archives. These cover the 20 E2fsprogs, 18 IPRoute2 and
 26 GNU Inetutils engines and 25 other package archives. A second compiler pass
 removed additional helpers in 58 of those archives. The declaration cleanup
 covers 89 archives, including 20 E2fsprogs engines. Across the linked applet
-sources the raw-pointer type count fell from **1,379,960 to 943,552**.
-Counting byte-identical Rust files once gives **683,429** remaining occurrences.
+sources the raw-pointer type count fell from **1,379,960 to 933,292**.
+Counting byte-identical Rust files once gives **683,588** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
 The IPRoute2 `ss` pilot replaces the netlink protocol name table and removes
@@ -334,13 +334,14 @@ integration. [Pilot evidence](evidence/iproute2-netlink-protocols-pilot.json)
 | IPRoute2 route-scope and route-realm tables across 18 engines | 9,954 |
 | IPRoute2 netlink protocol names across 18 engines | 5,670 |
 | Packed curl manual and its readers | 11,413 |
-| **Total** | **436,408** |
+| Shared glibc FILE layouts in 42 byte-identical archives | 10,260 |
+| **Total** | **446,668** |
 
 E2fsprogs accounts for 197,728 remaining occurrences, down from 401,012.
 IPRoute2 accounts for 175,260, down from 265,323. GNU Inetutils accounts
-for 78,019, down from 104,385. The curl crate accounts for 74,055, down
-from 96,855. GNU gzip accounts for 2,604, down from 4,086, and XZ Utils
-accounts for 9,784, down from 22,239.
+for 72,637, down from 104,385. The curl crate accounts for 74,055, down
+from 96,855. GNU gzip accounts for 2,136, down from 4,086, and XZ Utils
+accounts for 9,478, down from 22,239.
 The checksum replacement saved 135,168 stripped bytes. Removing unused source
 preserved the entire ELF and link map byte-for-byte in those cleanup releases.
 Sharing the live bitmap counter kept the stripped size at 25,081,136 bytes.
@@ -369,7 +370,7 @@ The stripped SHA-256 is
 | E2fsprogs directory-hash TEA and half-MD4 transforms | Fixed-array borrows in all 13 linked engines | The outer directory-hash function still accepts C ABI buffers |
 | E2fsprogs Hangul decomposition and Unicode trie lookup | Default multicall across 13 engines | The legacy cursor still reads caller-provided filename bytes and writes to its own scratch buffer through raw pointers |
 
-GNU gzip 1.14 has a verified pilot for sharing glibc's `FILE` layout. One
+The default GNU gzip 1.14 archive shares glibc's `FILE` layout. One
 Rust module supplies the original `#[repr(C)]` struct and its three opaque
 pointees to 26 other modules. This removes 468 duplicate raw-pointer field
 declarations. The 18 pointer fields in the shared layout still describe the
@@ -378,6 +379,11 @@ matched their respective controls byte for byte. The Linux C and Rust probes
 agreed on the struct's 216-byte size, 8-byte alignment, and all 29 field
 offsets and widths. All 108 GNU gzip command cases and two Memcheck runs
 passed. [Gzip pilot evidence](evidence/gzip-stdio-layout-pilot.json)
+
+The default build selects 42 byte-identical archives. The source reduction
+by package is bc-1.08.2 (342), coreutils-9.12 (792), diffutils-3.12 (630), gzip-1.14 (468), inetutils-2.8 (5,382), lz4-1.11.1 (90), patch-2.8 (432), pkgconf-3.0.11 (612), util-linux-2.42.4 (972), xz-5.8.4 (306), zstd-1.5.7 (234). The ELF and link map reproduced the packed-curl
+release byte for byte, and the dispatcher and all 14,022 batch cases passed
+again. [Release evidence](evidence/rustbox-shared-stdio-replays.json)
 
 To find identical layouts within other linked crates and reproduce the gzip
 comparison, run the following locally. The ranker counts one retained
@@ -420,7 +426,8 @@ static archives after sharing `FILE` layouts. Those compiler inputs contain
 differed from their controls and remain outside this selection.
 [Archive comparisons and per-module counts](evidence/stdio-package-archive-comparisons.json)
 
-The optional build below selects a manifest on top of the packed curl manual.
+The default build uses the checked-in stdio manifest. The explicit build below
+selects a manifest on top of the packed curl manual.
 Compare the resulting link report with the saved parent to verify the ELF,
 link map, archive inputs and source counts.
 
@@ -1250,8 +1257,8 @@ scripts/qualify_pointer_release.sh --curl-manual NETLINK_LINK NEW_DIRECTORY NETL
 To find work that can be reused across engines, run
 `python3 -B scripts/rank_shared_applet_modules.py LINK_REPORT --limit 20`.
 The scanner groups compiler-selected modules by package and exact source
-bytes and selects groups containing a public C-ABI function. Across 174
-groups it measures 237,481 raw-pointer type occurrences in copies beyond the
+bytes and selects groups containing a public C-ABI function. Across 175
+groups it measures 230,352 raw-pointer type occurrences in copies beyond the
 first archive. IPRoute2's `rt_names.rs` contains 1,389 occurrences in each of
 17 identical copies, or 22,224 beyond the first. Two remaining 256-slot name tables in
 each copy contain 490 explicit null initializers. These entries contribute

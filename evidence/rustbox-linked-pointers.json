@@ -4,7 +4,7 @@
     "as_ptr_calls": 5240,
     "files": 4908,
     "raw_borrows": 84206,
-    "raw_pointer_type_tokens": 943552,
+    "raw_pointer_type_tokens": 933292,
     "slices_from_raw_parts": 4,
     "standalone_objects": 3
   },
@@ -1525,9 +1525,9 @@
     }
   },
   "counting_identical_files_once": {
-    "as_ptr_calls": 4437,
-    "raw_borrows": 60768,
-    "raw_pointer_type_tokens": 683429,
+    "as_ptr_calls": 4477,
+    "raw_borrows": 61124,
+    "raw_pointer_type_tokens": 683588,
     "slices_from_raw_parts": 4
   },
   "curl_manual_deltas": {
@@ -1950,7 +1950,7 @@
       "slices_from_raw_parts": 0
     }
   },
-  "link_report_sha256": "e4cccf40558c6b77560f9d99b50e34eb2e0a9ebb26727cb07beb6bcbaf77615a",
+  "link_report_sha256": "d4ebd5ec2208e39e5557b7ea214d9a0c50a91e2226e4fd4050868096d01df14e",
   "non_applet_archive_inputs": [
     "/rustbox-gzip/normalized-clang/lib/libgzip.a",
     "/rustbox-inetutils/normalized-clang/lib/libgnu_a-printf-args.o",
@@ -1991,7 +1991,7 @@
       "as_ptr_calls": 8,
       "files": 23,
       "raw_borrows": 306,
-      "raw_pointer_type_tokens": 2656,
+      "raw_pointer_type_tokens": 2314,
       "slices_from_raw_parts": 0
     },
     "bison-3.8.2": {
@@ -2007,7 +2007,7 @@
       "as_ptr_calls": 1671,
       "files": 206,
       "raw_borrows": 2762,
-      "raw_pointer_type_tokens": 52876,
+      "raw_pointer_type_tokens": 52084,
       "slices_from_raw_parts": 0
     },
     "curl-8.23.0": {
@@ -2023,7 +2023,7 @@
       "as_ptr_calls": 32,
       "files": 141,
       "raw_borrows": 654,
-      "raw_pointer_type_tokens": 7190,
+      "raw_pointer_type_tokens": 6560,
       "slices_from_raw_parts": 0
     },
     "e2fsprogs-1.47.4": {
@@ -2080,7 +2080,7 @@
       "as_ptr_calls": 14,
       "files": 66,
       "raw_borrows": 481,
-      "raw_pointer_type_tokens": 2604,
+      "raw_pointer_type_tokens": 2136,
       "slices_from_raw_parts": 0
     },
     "inetutils-2.8": {
@@ -2088,7 +2088,7 @@
       "as_ptr_calls": 346,
       "files": 712,
       "raw_borrows": 5456,
-      "raw_pointer_type_tokens": 78019,
+      "raw_pointer_type_tokens": 72637,
       "slices_from_raw_parts": 0
     },
     "iproute2-7.3.0": {
@@ -2120,7 +2120,7 @@
       "as_ptr_calls": 54,
       "files": 14,
       "raw_borrows": 545,
-      "raw_pointer_type_tokens": 6737,
+      "raw_pointer_type_tokens": 6647,
       "slices_from_raw_parts": 0
     },
     "m4-1.4.21": {
@@ -2144,7 +2144,7 @@
       "as_ptr_calls": 16,
       "files": 69,
       "raw_borrows": 566,
-      "raw_pointer_type_tokens": 5625,
+      "raw_pointer_type_tokens": 5193,
       "slices_from_raw_parts": 0
     },
     "pkgconf-3.0.11": {
@@ -2152,7 +2152,7 @@
       "as_ptr_calls": 46,
       "files": 37,
       "raw_borrows": 932,
-      "raw_pointer_type_tokens": 9805,
+      "raw_pointer_type_tokens": 9193,
       "slices_from_raw_parts": 0
     },
     "procps-ng-4.0.7": {
@@ -2192,7 +2192,7 @@
       "as_ptr_calls": 1090,
       "files": 161,
       "raw_borrows": 5038,
-      "raw_pointer_type_tokens": 63919,
+      "raw_pointer_type_tokens": 62947,
       "slices_from_raw_parts": 0
     },
     "xz-5.8.4": {
@@ -2200,7 +2200,7 @@
       "as_ptr_calls": 7,
       "files": 104,
       "raw_borrows": 1267,
-      "raw_pointer_type_tokens": 9784,
+      "raw_pointer_type_tokens": 9478,
       "slices_from_raw_parts": 0
     },
     "zstd-1.5.7": {
@@ -2208,9 +2208,53 @@
       "as_ptr_calls": 77,
       "files": 46,
       "raw_borrows": 2513,
-      "raw_pointer_type_tokens": 24547,
+      "raw_pointer_type_tokens": 24313,
       "slices_from_raw_parts": 0
     }
+  },
+  "shared_stdio_layout_deltas": {
+    "work/analysis/bc-1.08.2/translations/c2rust-0.22.1/bc-1.08.2-stable/target/release/libbc_1_08_2_normalized_audit.a": 342,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-01-stable/target/release/libcoreutils_small_01_reachable.a": 162,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-02-stable/target/release/libcoreutils_small_02_normalized_reachable.a": 144,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-04-stable/target/release/libcoreutils_small_04_normalized_reachable.a": 180,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-05-stable/target/release/libcoreutils_small_05_normalized_reachable.a": 198,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-10-stable/target/release/libcoreutils_small_10_normalized_reachable.a": 18,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-14-stable/target/release/libcoreutils_small_14_normalized_reachable.a": 18,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-15-stable/target/release/libcoreutils_small_15_normalized_reachable.a": 36,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-16-stable/target/release/libcoreutils_small_16_normalized_reachable.a": 36,
+    "work/analysis/diffutils-3.12/translations/c2rust-0.22.1/diffutils-3.12-stable/target/release/libdiffutils_3_12_normalized_audit.a": 630,
+    "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a": 468,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libdnsdomainname_audit.a": 216,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftp_audit.a": 378,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftpd_audit.a": 486,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libhostname_audit.a": 270,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libinetd_audit.a": 288,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/liblogger_audit.a": 252,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librcp_audit.a": 216,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexec_audit.a": 198,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexecd_audit.a": 216,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogin_audit.a": 198,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogind_audit.a": 234,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librsh_audit.a": 198,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librshd_audit.a": 216,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libsyslogd_audit.a": 288,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalk_audit.a": 378,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnet_audit.a": 432,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftp_audit.a": 252,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftpd_audit.a": 252,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtraceroute_audit.a": 216,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libuucpd_audit.a": 198,
+    "work/analysis/lz4-1.11.1/translations/c2rust-0.22.1/lz4-1.11.1-stable/target/release/liblz4_1_11_1_normalized_audit.a": 90,
+    "work/analysis/patch-2.8/translations/c2rust-0.22.1/patch-2.8-stable/target/release/libpatch_2_8_normalized_audit.a": 432,
+    "work/analysis/pkgconf-3.0.11/translations/c2rust-0.22.1/pkgconf-3.0.11-stable/target/release/libpkgconf_3_0_11_normalized_audit.a": 612,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-01-stable/target/release/libutil_linux_small_01_normalized_reachable.a": 162,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-02-stable/target/release/libutil_linux_small_02_normalized_reachable.a": 162,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-03-stable/target/release/libutil_linux_small_03_normalized_reachable.a": 162,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-04-stable/target/release/libutil_linux_small_04_normalized_reachable.a": 162,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-05-stable/target/release/libutil_linux_small_05_normalized_reachable.a": 162,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-06-stable/target/release/libutil_linux_small_06_normalized_reachable.a": 162,
+    "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a": 306,
+    "work/analysis/zstd-1.5.7/translations/c2rust-0.22.1/zstd-1.5.7-stable/target/release/libzstd_1_5_7_normalized_audit.a": 234
   },
   "trie_pointer_types_removed": {
     "badblocks": 5,
@@ -2227,5 +2271,5 @@
     "resize2fs": 5,
     "tune2fs": 5
   },
-  "unique_files": 2854
+  "unique_files": 2932
 }

@@ -38,6 +38,9 @@ if [ "$#" -ge 2 ] && [ "$1" = --native-c-strings ]; then
     literal_manifest=$(python3 -c 'import sys; from pathlib import Path; print(Path(sys.argv[1]).resolve(strict=True).relative_to(Path(sys.argv[2])))' "$2" "$root")
     shift 2
 fi
+if [ "$#" -eq 0 ]; then
+    set -- --shared-stdio "$root/batches/multicall-shared-stdio.json"
+fi
 stdio_manifest=
 if [ "$#" -eq 2 ] && [ "$1" = --shared-stdio ]; then
     stdio_manifest=$(python3 -c 'import sys; from pathlib import Path; print(Path(sys.argv[1]).resolve(strict=True).relative_to(Path(sys.argv[2])))' "$2" "$root")
@@ -45,7 +48,7 @@ if [ "$#" -eq 2 ] && [ "$1" = --shared-stdio ]; then
 fi
 case "$#:${1:-}" in
     1:--iproute2-address-protocols) set -- --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
-    0:|1:--curl-manual) set -- --curl-manual --iproute2-netlink-protocols --iproute2-route-names --iproute2-address-protocol-copies --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
+    1:--curl-manual) set -- --curl-manual --iproute2-netlink-protocols --iproute2-route-names --iproute2-address-protocol-copies --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
     1:--iproute2-netlink-protocols) set -- --iproute2-netlink-protocols --iproute2-route-names --iproute2-address-protocol-copies --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
     1:--iproute2-route-names) set -- --iproute2-route-names --iproute2-address-protocol-copies --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
     1:--iproute2-address-protocol-copies) set -- --iproute2-address-protocol-copies --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;

@@ -1,7 +1,7 @@
 {
   "binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
-  "groups": 174,
-  "link_report_sha256": "e4cccf40558c6b77560f9d99b50e34eb2e0a9ebb26727cb07beb6bcbaf77615a",
+  "groups": 175,
+  "link_report_sha256": "d4ebd5ec2208e39e5557b7ea214d9a0c50a91e2226e4fd4050868096d01df14e",
   "modules": [
     {
       "archive_count": 17,
@@ -88,49 +88,6 @@
       "repeated_types_across_archives": 15216
     },
     {
-      "archive_count": 25,
-      "archives": [
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libdnsdomainname_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftp_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftpd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libhostname_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libinetd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/liblogger_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libping6_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libping_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librcp_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexec_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexecd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogin_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogind_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librsh_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librshd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libsyslogd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalk_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalkd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnet_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnetd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftp_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftpd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtraceroute_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libuucpd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libwhois_audit.a"
-      ],
-      "c_function_definitions": 4,
-      "example_functions": [
-        "argp_help",
-        "argp_state_help",
-        "argp_error"
-      ],
-      "module_sha256": "a3b8602e32e3393eab745c65a17cc82c7979d39ed3df2ca8b7773a332648d6d7",
-      "package": "inetutils-2.8",
-      "paths": [
-        "src/lib/argp_help.rs"
-      ],
-      "raw_pointer_types_per_copy": 509,
-      "repeated_types_across_archives": 12216
-    },
-    {
       "archive_count": 17,
       "archives": [
         "work/analysis/iproute2-7.3.0/program-translations/cargo-target/arpd/netlink-protocols/b71d750c6cccad7ee62398c79b99e12b0dbd1a7c83d4d50925dc17758cf5bc63/libarpd_audit.a",
@@ -166,6 +123,42 @@
       "repeated_types_across_archives": 9184
     },
     {
+      "archive_count": 18,
+      "archives": [
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libdnsdomainname_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libhostname_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libinetd_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/liblogger_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librcp_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexec_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexecd_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogin_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogind_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librsh_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librshd_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libsyslogd_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalk_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnet_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftp_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftpd_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtraceroute_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libuucpd_audit.a"
+      ],
+      "c_function_definitions": 4,
+      "example_functions": [
+        "argp_help",
+        "argp_state_help",
+        "argp_error"
+      ],
+      "module_sha256": "8d331bfc4c80180a1339e192088f6deb18e0815a9b8b581aefe7e25afffc8552",
+      "package": "inetutils-2.8",
+      "paths": [
+        "src/lib/argp_help.rs"
+      ],
+      "raw_pointer_types_per_copy": 491,
+      "repeated_types_across_archives": 8347
+    },
+    {
       "archive_count": 13,
       "archives": [
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/badblocks/2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff/libbadblocks_audit.a",
@@ -196,48 +189,6 @@
       ],
       "raw_pointer_types_per_copy": 551,
       "repeated_types_across_archives": 6612
-    },
-    {
-      "archive_count": 25,
-      "archives": [
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libdnsdomainname_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftp_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftpd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libhostname_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libinetd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/liblogger_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libping6_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libping_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librcp_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexec_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexecd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogin_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogind_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librsh_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librshd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libsyslogd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalk_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalkd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnet_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnetd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftp_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftpd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtraceroute_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libuucpd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libwhois_audit.a"
-      ],
-      "c_function_definitions": 2,
-      "example_functions": [
-        "rpl_argp_parse",
-        "_argp_input"
-      ],
-      "module_sha256": "d2f7042c01cf91a5cf988379edb53e4730c686b5a550ad8fcbfd9c7c57616aac",
-      "package": "inetutils-2.8",
-      "paths": [
-        "src/lib/argp_parse.rs"
-      ],
-      "raw_pointer_types_per_copy": 268,
-      "repeated_types_across_archives": 6432
     },
     {
       "archive_count": 13,
@@ -305,6 +256,41 @@
       ],
       "raw_pointer_types_per_copy": 268,
       "repeated_types_across_archives": 4288
+    },
+    {
+      "archive_count": 18,
+      "archives": [
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libdnsdomainname_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libhostname_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libinetd_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/liblogger_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librcp_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexec_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexecd_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogin_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogind_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librsh_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librshd_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libsyslogd_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalk_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnet_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftp_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftpd_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtraceroute_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libuucpd_audit.a"
+      ],
+      "c_function_definitions": 2,
+      "example_functions": [
+        "rpl_argp_parse",
+        "_argp_input"
+      ],
+      "module_sha256": "b5106853eac8dff29d72e48595b879e920b3528aa1b8248c68059d59d5fcb20d",
+      "package": "inetutils-2.8",
+      "paths": [
+        "src/lib/argp_parse.rs"
+      ],
+      "raw_pointer_types_per_copy": 250,
+      "repeated_types_across_archives": 4250
     },
     {
       "archive_count": 17,
@@ -528,49 +514,6 @@
       "repeated_types_across_archives": 3120
     },
     {
-      "archive_count": 25,
-      "archives": [
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libdnsdomainname_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftp_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftpd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libhostname_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libinetd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/liblogger_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libping6_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libping_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librcp_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexec_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexecd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogin_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogind_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librsh_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librshd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libsyslogd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalk_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalkd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnet_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnetd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftp_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftpd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtraceroute_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libuucpd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libwhois_audit.a"
-      ],
-      "c_function_definitions": 3,
-      "example_functions": [
-        "_getopt_internal_r",
-        "rpl_getopt_internal",
-        "rpl_getopt"
-      ],
-      "module_sha256": "a8655ac14a80b29fa902e53060d45ba0ee684c9656fc1c7425bfbe207f07e449",
-      "package": "inetutils-2.8",
-      "paths": [
-        "src/lib/getopt.rs"
-      ],
-      "raw_pointer_types_per_copy": 129,
-      "repeated_types_across_archives": 3096
-    },
-    {
       "archive_count": 13,
       "archives": [
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/badblocks/2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff/libbadblocks_audit.a",
@@ -701,7 +644,39 @@
       ],
       "raw_pointer_types_per_copy": 228,
       "repeated_types_across_archives": 2736
+    },
+    {
+      "archive_count": 13,
+      "archives": [
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/badblocks/2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff/libbadblocks_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/debugfs/0b1483e5fe35bab542de5f9285e9f2df6edd6c215a6d1481e2a004cdc203958a/libdebugfs_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/dumpe2fs/0e7dd48180b25ee0e893f7ec2254bd62400c208fdd873858cc56cd62c40ad12f/libdumpe2fs_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2freefrag/dff1d228a46ef9b0bb99a0a2fb7995385f762f3c86aa51463a100dbec84294b5/libe2freefrag_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2fsck/564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd/libe2fsck_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2image/399a863ff0c37471b7e8ab0cbad3d9cd6f80d6f326871ba85e85bed25225fc2e/libe2image_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2initrd_helper/6edccc168e7742f23fafe09103351a09528c8e57699efe07b6009d65fca34cab/libe2initrd_helper_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2undo/cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8/libe2undo_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e4defrag/0de205baddb49a145d654d7972d120739e38af71596acd5a07da8a43a43d0734/libe4defrag_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/fuse2fs/0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a/libfuse2fs_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/resize2fs/b0c8126d1bdf73d216736f090e322dc52c1a9aa2f37ab78ba534910fc9e68005/libresize2fs_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/tune2fs/03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966/libtune2fs_audit.a"
+      ],
+      "c_function_definitions": 7,
+      "example_functions": [
+        "ext2fs_rw_bitmaps",
+        "ext2fs_read_inode_bitmap",
+        "ext2fs_read_block_bitmap"
+      ],
+      "module_sha256": "6999bb7170a6eb27ad54fe756ecc6aef933d59e74e50b936f30894417c62098f",
+      "package": "e2fsprogs-1.47.4",
+      "paths": [
+        "src/lib/ext2fs/rw_bitmaps.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/rw_bitmaps.rs"
+      ],
+      "raw_pointer_types_per_copy": 224,
+      "repeated_types_across_archives": 2688
     }
   ],
-  "repeated_types_across_archives": 237481
+  "repeated_types_across_archives": 230352
 }
