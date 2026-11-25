@@ -284,6 +284,26 @@ def check_added_cleanups(previous_link, link, previous, current):
         raise ValueError("cleanup receipts do not explain the linked pointer count")
 
 
+def unicode_namespace(before, records, stage):
+    """Predict the linker map from independently measured strong-symbol changes."""
+    changes = json.loads((ROOT / "batches/e2fsprogs-unicode-symbols.json").read_bytes())[stage]
+    if set(changes) != set(CONSUMERS):
+        raise ValueError("incomplete Unicode symbol measurements")
+    expected = before.copy()
+    for name, row in records.items():
+        engine = Path(name).parent.name
+        change = changes[engine]
+        added, = change["added"]
+        component = {"hangul": "11hangul_leaf9decompose", "trie": "9utf8_trie6lookup"}[stage]
+        symbol = rf"_ZN[0-9]+{re.escape(engine)}_audit3src[0-9a-zA-Z_]+8nls_utf8{component}17h[0-9a-f]{{16}}E"
+        if (not re.fullmatch(symbol, added) or change["removed"] or added in before[engine]
+                or change["before"] != row[stage]["parent_archive_sha256"]
+                or change["after"] != row["candidate_sha256"]):
+            raise ValueError(f"unexpected Unicode symbol change for {engine}")
+        expected[engine] = sorted([*before[engine], added])
+    return expected
+
+
 def check_dirhash_conversion(before_link, after_link, before, after):
     parents = before_link.get("e2fsprogs_dirhash_arrays", {})
     records = after_link.get("e2fsprogs_dirhash_arrays", {})
@@ -299,6 +319,9 @@ def check_dirhash_conversion(before_link, after_link, before, after):
         raise ValueError("missing directory hash parents for the Hangul conversion")
     controls = control_view(after_link)
     before_link = control_view(before_link)
+    if parents:
+        before_link = dict(before_link, e2fsprogs_namespaced_symbols=unicode_namespace(
+            before_link["e2fsprogs_namespaced_symbols"], records, stage))
     for key in before_link.keys() | controls.keys():
         if key in {"binary", "e2fsprogs_dirhash_arrays"}:
             continue
