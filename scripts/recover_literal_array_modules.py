@@ -46,10 +46,12 @@ def array_modules(link, row):
     return {module: len(edits) for module, edits in covered.items()}
 
 
-def recover(link_file, whole, output, *, include_mixed=False, skip_empty=False):
+def recover(link_file, whole, output, *, include_mixed=False, skip_empty=False, read_only=False, expected_archive=None):
     link = json.loads(link_file.read_bytes())
     row = json.loads((whole / "pilot.json").read_bytes())
     key = Path(row["archive"])
+    if expected_archive is not None and str(key) != expected_archive:
+        raise ValueError("whole-archive receipt belongs to another selected archive")
     if (link["binary"]["sha256"] != row["control_binary_sha256"] or digest(ROOT / key) != row["control_sha256"]
             or row["control_sha256"] != link["source_library_sha256"].get(str(key))
             or row["candidate_sha256"] == row["control_sha256"] or digest(whole / key.name) != row["candidate_sha256"]):
@@ -69,6 +71,8 @@ def recover(link_file, whole, output, *, include_mixed=False, skip_empty=False):
             return None
         raise ValueError("no proper nonempty subset of array initializers")
     if not output.exists():
+        if read_only:
+            raise ValueError(f"missing saved archive: {output}")
         build(link_file, output, key, modules=sorted(modules), static_arrays=include_mixed)
     candidate = json.loads((output / "pilot.json").read_bytes())
     if (("static_array_selector_sha256" in candidate) != include_mixed or candidate["modules"] != modules or any(candidate[k] != row[k] for k in
@@ -77,6 +81,10 @@ def recover(link_file, whole, output, *, include_mixed=False, skip_empty=False):
     verify(link_file, output)
     result = dict(archive=str(key), whole_candidate_sha256=row["candidate_sha256"], candidate=candidate,
                   byte_identical=candidate["candidate_sha256"] == row["control_sha256"])
+    if read_only:
+        if result != json.loads((output / "comparison.json").read_bytes()):
+            raise ValueError(f"saved archive comparison differs: {output}")
+        return result
     with TemporaryDirectory(dir=output) as temp:
         staged = Path(temp) / "comparison.json"
         staged.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")

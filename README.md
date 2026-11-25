@@ -743,6 +743,14 @@ when a module also contains casts in functions or other declarations.
 `scripts/recover_static_array_batch.py LINK WHOLE_BATCH OUTPUT` applies
 the same rule to each differing archive. It records source and archive
 hashes and counts a reduction only after the complete archive matches.
+Use the same command with `--check REPORT` and the original package filters
+to recompute the outcomes from the saved archives and compiler inputs.
+For Diffutils, File and Findutils the replay verified 482, 464 and 530
+removed casts respectively. All three archives matched their release
+parents byte for byte. These counts describe candidate builds.
+[Three-archive replay](evidence/static-array-replay-three-utilities.json) ·
+[Missing and altered receipt tests](tests/c-string-literals/array-batch-replay.py)
+
 In E2fsprogs `badblocks`, the older Rust compiler reproduced all archive
 bytes after changing eight literals in the extended-attribute module.
 The source replay checked 60 inputs. These 16 removed casts are already
