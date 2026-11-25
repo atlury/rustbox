@@ -14,7 +14,7 @@ from check_e2fsprogs_dirhash_arrays import source_list_digest
 from stage_iproute2_address_protocols import MODULE, compiler_inputs, replace_table
 
 
-def compile_mounted(archive, route_names=False):
+def compile_mounted(archive, route_names=False, netlink_protocols=False):
     import tomllib
 
     source, base = layout(archive)
@@ -43,6 +43,9 @@ def compile_mounted(archive, route_names=False):
     if route_names:
         from iproute2_route_names import replace_route_names
         transform = replace_route_names
+    if netlink_protocols:
+        from iproute2_route_names import replace_netlink_protocols
+        transform = replace_netlink_protocols
     candidate, changes = transform((crate / MODULE).read_bytes())
     subprocess.run(["cargo", "clean", "-p", package, "--release"], cwd=crate, env=env, check=True)
     if built.exists():
@@ -58,19 +61,24 @@ def compile_mounted(archive, route_names=False):
     (target / "pilot.json").write_text(json.dumps(record, indent=2, sort_keys=True) + "\n")
 
 
-def build_pilot(output, link=None, engine="ip", *, route_names=False):
+def build_pilot(output, link=None, engine="ip", *, route_names=False, netlink_protocols=False):
     if output.exists():
         raise ValueError("expected a new pilot output directory")
     raw = LINK_REPORT.read_bytes() if link is None else None
     if raw is not None:
-        if route_names:
+        link = json.loads(raw)
+        if netlink_protocols:
+            from iproute2_route_name_archives import verified_records
+            verified_records(link, link["iproute2_route_names"])
+        elif route_names:
             from iproute2_route_name_archives import build_control_view
+            link = build_control_view(link)
         else:
             from iproute2_address_protocol_archive import build_control_view
-        link = build_control_view(json.loads(raw))
+            link = build_control_view(link)
     if engine not in IPROUTE2_CARGO_ENGINES:
         raise ValueError(f"unknown IPRoute2 Cargo engine: {engine}")
-    if route_names:
+    if route_names or netlink_protocols:
         from iproute2_address_protocol_archive import candidate_path, control_view, selected_records
         parents = selected_records(link)
         build_link = control_view(link)
@@ -85,7 +93,7 @@ def build_pilot(output, link=None, engine="ip", *, route_names=False):
         target.mkdir()
         module, sources = compiler_inputs(build_link, key, crate)
         selected = archive
-        if route_names:
+        if route_names or netlink_protocols:
             parent = parents[key]
             module, changes = replace_table(module)
             if changes["candidate_module_sha256"] != parent["candidate_module_sha256"]:
@@ -93,6 +101,16 @@ def build_pilot(output, link=None, engine="ip", *, route_names=False):
             (crate / MODULE).write_bytes(module)
             sources[MODULE] = changes["candidate_module_sha256"]
             selected = candidate_path(parent)
+        if netlink_protocols:
+            from iproute2_route_name_archives import candidate_path as route_path
+            from iproute2_route_names import replace_route_names
+            parent = link["iproute2_route_names"][key]
+            module, changes = replace_route_names(module)
+            sources[MODULE] = changes["candidate_module_sha256"]
+            if source_list_digest({str(k): v for k, v in sources.items()}) != parent["candidate_sources_sha256"]:
+                raise ValueError("netlink pilot requires the verified scope/realm compiler inputs")
+            (crate / MODULE).write_bytes(module)
+            selected = route_path(parent)
         sha = link["source_library_sha256"][str(selected)]
         if digest(ROOT / selected) != sha:
             raise ValueError("pilot parent archive differs from link report")
@@ -106,7 +124,8 @@ def build_pilot(output, link=None, engine="ip", *, route_names=False):
                         "-v", f"{crate}:/work/{source}", "-v", f"{target}:/work/{base}",
                         "rustbox-e2fsprogs:2026-11-24", "python3", "-B",
                         "/work/scripts/build_iproute2_address_protocol_pilot.py", "--mounted", key,
-                        *(["--route-names"] if route_names else [])], check=True)
+                        *(["--route-names"] if route_names else []),
+                        *(["--netlink-protocols"] if netlink_protocols else [])], check=True)
         receipt = json.loads((target / "pilot.json").read_bytes())
         candidate = target / "release" / archive.name
         if digest(candidate) != receipt["candidate_sha256"] or (raw is not None and LINK_REPORT.read_bytes() != raw):
@@ -127,14 +146,17 @@ if __name__ == "__main__":
     group.add_argument("--prepare-copies", action="store_true", help="prepare all 17 pinned production archives")
     group.add_argument("--prepare", action="store_true", help="prepare the pinned production archive")
     group.add_argument("--mounted", type=Path, help=argparse.SUPPRESS)
-    parser.add_argument("--route-names", action="store_true", help="apply the scope/realm substitution to the current linked parent")
+    parser.add_argument("--engine", choices=IPROUTE2_CARGO_ENGINES, default="ip")
+    stage = parser.add_mutually_exclusive_group()
+    stage.add_argument("--netlink-protocols", action="store_true", help="replace the netlink protocol name table")
+    stage.add_argument("--route-names", action="store_true", help="apply the scope/realm substitution to the current linked parent")
     args = parser.parse_args()
-    if args.route_names and not (args.output or args.mounted):
-        parser.error("--route-names requires --output")
+    if (args.route_names or args.netlink_protocols) and not (args.output or args.mounted):
+        parser.error("select a stage with --output")
     if args.mounted:
-        compile_mounted(args.mounted, args.route_names)
+        compile_mounted(args.mounted, args.route_names, args.netlink_protocols)
     elif args.prepare or args.prepare_copies:
         from iproute2_address_protocol_archive import prepare
         prepare(include_copies=args.prepare_copies)
     else:
-        build_pilot(args.output.resolve(), route_names=args.route_names)
+        build_pilot(args.output.resolve(), engine=args.engine, route_names=args.route_names, netlink_protocols=args.netlink_protocols)

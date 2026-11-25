@@ -289,6 +289,18 @@ sources the raw-pointer type count fell from **1,379,960 to 960,635**.
 Counting byte-identical Rust files once gives **695,472** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
+The IPRoute2 `ss` pilot replaces the netlink protocol name table and removes
+315 raw-pointer type occurrences from its compiler-selected Rust module. The
+parent archive rebuilt byte-for-byte. Under empty, vendor, local and malformed
+configurations, the candidate matched IPRoute2 7.3.0 on 21,860 forward/reverse
+lookups and 48 public `ss` invocations. Four Valgrind runs passed. The release
+totals below count substitutions after multicall integration. Rebuild the pilot
+with `python3 -B scripts/build_iproute2_address_protocol_pilot.py --engine ss
+--netlink-protocols --output work/analysis/ss-netlink-protocols` and verify
+with `python3 -B scripts/test_iproute2_netlink_protocols.py
+work/analysis/ss-netlink-protocols`. The recorded results are in
+[evidence/iproute2-netlink-protocols-pilot.json](evidence/iproute2-netlink-protocols-pilot.json).
+
 | Production change | Raw-pointer type occurrences removed |
 |---|---:|
 | IPRoute2 nested FDB decoder and its buffer changes | 12 |
