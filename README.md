@@ -327,6 +327,29 @@ The current unstripped SHA-256 is
 | IPRoute2 generic `parse_rtattr_flags` | Disposable `bridge` build | Audit the remaining callers before wider use |
 | E2fsprogs bitmap population count | Shared by the filesystem checker and resizer | Move the bitmap buffer owners to safe Rust to remove the remaining raw ABI argument |
 | E2fsprogs CRC16, CRC32C and big-endian CRC32 | One linked provider for each function, shared across 13 engines | Replace the raw buffers at the caller boundary as their owners are migrated |
+| E2fsprogs directory-hash TEA and half-MD4 transforms | Verified in a disposable full `debugfs` build | Promote the fixed-array calls after checking the linked engines and multicall |
+
+Run `python3 -B scripts/rank_fixed_array_helpers.py work/analysis/rustbox-multicall-link.json`
+to find private functions in generated Rust whose pointer parameters occur
+only in constant-offset accesses. The scan groups identical definitions and
+ranks them by total accesses across the compiler-selected sources. Each
+candidate still needs a check of its callers, allocation sizes and aliasing.
+
+The two highest-ranked functions are the TEA and half-MD4 directory-hash
+transforms in E2fsprogs. Their only caller owns two distinct initialized stack
+arrays of four and eight words. The pilot borrows those arrays, replaces 40
+constant pointer offsets with array indexing, and preserves the arithmetic.
+Those two definitions occur in 13 linked engines. The pilot covers one engine
+and contributes zero to the production reduction above.
+
+Run `scripts/test_e2fsprogs_dirhash_arrays.sh` to rebuild the release
+`debugfs` control from its actual source selection, compile the candidate,
+and compare it to canonical E2fsprogs. The candidate passed 98,592 directory
+hash comparisons, a further 14,148 under Memcheck, and 12 public `debugfs`
+commands. The test covers signed and unsigned hashes, seeds, block boundaries,
+raw filename bytes, unsupported versions, and optional or aliased outputs.
+The candidate archive differs from the control. Their SHA-256 hashes are in
+`evidence/e2fsprogs-dirhash-array-pilot.json`.
 
 Reproduce the linked Rust source inventory with
 `python3 -B scripts/audit_linked_pointers.py work/analysis/rustbox-multicall-link.json`.
