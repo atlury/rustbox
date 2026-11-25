@@ -326,7 +326,22 @@ counts textual occurrences of `*const` and `*mut`. The current report covers
 It separately tracks raw borrows, pointer accessors and
 raw slice constructors. It excludes native C objects, dependent libraries and
 code outside the selected applet crates. See `evidence/rustbox-linked-pointers.json`
-for package counts and the executable hash. Run
+for package counts and the executable hash. For a release that only adds
+unused-helper cleanup receipts, save the previous link report before the
+build. Both reports can then be replayed against the verified archives.
+
+```sh
+link=work/analysis/rustbox-multicall-link.json
+cp "$link" work/analysis/before-inline-cleanup.json
+scripts/build_rustbox_multicall.sh
+python3 -B scripts/audit_linked_pointers.py "$link" \
+    --verify-cleanup-from work/analysis/before-inline-cleanup.json
+```
+
+The comparison checks the executable and link-map hashes, every linked
+archive and the existing cleanup receipts. It independently counts both
+source trees and requires each package’s decrease to match its newly
+removed pointer types. Run
 `scripts/test_iproute2_rtattr.sh --multicall` to replay the nested and live
 FDB checks on that executable.
 

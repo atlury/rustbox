@@ -26,6 +26,10 @@ METRICS = {
 }
 
 
+def cleanup_name(archive):
+    return archive.stem.removeprefix("lib").removesuffix("_audit")
+
+
 def crate_for(archive, temporary):
     if "target" in archive.parts:
         return archive.parents[2]
@@ -114,7 +118,7 @@ def audit(link, temporary):
             if layout == "byte_offsets":
                 pad_removed_items(crate, proof["ranges"], originals)
             after_bytes = sum(p.stat().st_size for p in changed_sources)
-            engine_name = archive.name.removeprefix("lib").removesuffix("_audit.a")
+            engine_name = cleanup_name(archive)
             if engine_name in cleanups:
                 raise ValueError(f"duplicate cleanup evidence for {engine_name}")
             cleanups[engine_name] = {
@@ -150,9 +154,49 @@ def audit(link, temporary):
             **({"byte_identical_inline_cleanups": cleanups} if cleanups else {})}
 
 
+def check_added_cleanups(previous_link, link, previous, current):
+    """Account for each package delta when adding receipts to an otherwise identical release."""
+    receipt_field = "linked_private_inline_proofs"
+    for field in previous_link.keys() | link.keys():
+        if field != receipt_field and (field not in previous_link or field not in link
+                                       or previous_link[field] != link[field]):
+            raise ValueError(f"release field changed during private-helper cleanup: {field}")
+    before, after = previous_link.get(receipt_field, {}), link.get(receipt_field, {})
+    for archive, receipt in before.items():
+        if after.get(archive) != receipt:
+            raise ValueError(f"existing cleanup receipt changed for {archive}")
+
+    deltas = Counter()
+    receipts = current.get("byte_identical_inline_cleanups", {})
+    for archive in after.keys() - before.keys():
+        path = Path(archive)
+        package = path.relative_to("work/analysis").parts[0]
+        deltas[package] += receipts[cleanup_name(path)]["raw_pointer_type_tokens_removed"]
+
+    for package, tally in previous["packages"].items():
+        updated = current["packages"][package]
+        if package not in deltas and updated != tally:
+            raise ValueError(f"unrelated package inventory changed: {package}")
+        if tally["raw_pointer_type_tokens"] - updated["raw_pointer_type_tokens"] != deltas[package]:
+            raise ValueError(f"cleanup receipts do not explain the {package} pointer count")
+    if previous["all"]["raw_pointer_type_tokens"] - current["all"]["raw_pointer_type_tokens"] != sum(deltas.values()):
+        raise ValueError("cleanup receipts do not explain the linked pointer count")
+
+
+def measure(link):
+    with tempfile.TemporaryDirectory() as temp:
+        return audit(link, Path(temp))
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("link_report", type=Path)
+    parser.add_argument("--verify-cleanup-from", type=Path, metavar="PREVIOUS_LINK",
+                        help="replay both releases and check the reduction against their added cleanup receipts")
     args = parser.parse_args()
-    with tempfile.TemporaryDirectory() as temp:
-        print(json.dumps(audit(json.loads(args.link_report.read_text()), Path(temp)), indent=2, sort_keys=True))
+    link = json.loads(args.link_report.read_bytes())
+    current = measure(link)
+    if args.verify_cleanup_from:
+        previous_link = json.loads(args.verify_cleanup_from.read_bytes())
+        check_added_cleanups(previous_link, link, measure(previous_link), current)
+    print(json.dumps(current, indent=2, sort_keys=True))
