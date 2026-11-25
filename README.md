@@ -490,6 +490,14 @@ preserving every archive byte. The independent inventory also reconstructed
 the inputs from the checked-in manifests.
 [IPRoute2 arpd compiler evidence](evidence/iproute2-arpd-c-string-pilot.json)
 
+All 24 GNU Coreutils archives were cold-built with the previously verified
+stdio changes applied wherever eligible. Twenty-one reproduced their
+original bytes after 10,317 literal conversions, removing 20,634 explicit
+casts. Groups 07, 08 and 20 changed archive bytes and remain deferred.
+These source counts enter the production inventory only after the complete
+link and public multicall checks.
+[GNU Coreutils archive results](evidence/coreutils-native-c-strings.json)
+
 To select cold-built C-string archives in the multicall, enroll them against
 the same compiler inputs as the intended parent release. When that release
 shares stdio layouts, rebuild overlapping literal pilots on top of those
