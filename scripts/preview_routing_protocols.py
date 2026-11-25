@@ -57,12 +57,46 @@ def commands(elf, stage):
                 routel_source_sha256=digest(routel))
 
 
-def preview(parent, log, batch, output, single):
+def dsfield_commands(elf, stage):
+    from test_dsfield_names import PROFILES, QUERIES, capture, configure
+    checked = commands(elf, stage)
+    local, vendor = Path("/etc/iproute2"), Path("/usr/share/iproute2")
+    if not all(os.path.ismount(p) and not any(p.iterdir()) for p in (local, vendor)):
+        raise ValueError("expected empty temporary configuration mounts")
+    baseline = json.loads((ROOT / "evidence/iproute2-dsfield-pilot.json").read_bytes())
+    profiles = []
+    for profile in PROFILES:
+        configure(profile, local, vendor)
+        statuses = []
+        for query in QUERIES:
+            argv = ["ip", "-4", "route", "show", "tos", query]
+            expected = capture(argv, executable="/rustbox-iproute2/programs-gcc/ip")
+            clang = capture(argv, executable="/rustbox-iproute2/programs-clang-18/ip")
+            alias = capture(argv, executable=stage / "applets/ip")
+            explicit = capture([elf, *argv])
+            if not expected == clang == alias == explicit:
+                raise ValueError(("DS field public route filter differs", profile, query))
+            statuses.append(expected[0])
+        profiles.append(dict(profile=profile, statuses=statuses))
+    if profiles != [dict(profile=p["profile"], statuses=p["public_filter_status"]) for p in baseline["profiles"]]:
+        raise ValueError("canonical route filters differ from the qualified ip archive")
+    if any(checked["canonical"][cc]["canonical_sha256"]["ip"] != sha for cc, sha in baseline["public_oracle_sha256"].items()):
+        raise ValueError("canonical ip binaries differ from the archived DS field pilot")
+    return dict(checked, dsfield_profiles=profiles, dsfield_public_comparisons=len(PROFILES) * len(QUERIES) * 4)
+
+
+def preview(parent, log, batch, output, single, *, dsfield=False):
     parent_bytes = parent.read_bytes()
     release = json.loads(parent_bytes)
     path = batch / ("ip-results.json" if single else "results.json")
     qualified = json.loads(path.read_bytes())
-    baseline = json.loads((ROOT / "evidence/iproute2-routing-protocol-pilot.json").read_bytes())
+    if dsfield:
+        baseline_name = "iproute2-dsfield-pilot.json"
+        fields = ("driver_sha256", "canonical_inputs", "memcheck_runs", "oracle_compilers")
+    else:
+        baseline_name = "iproute2-routing-protocol-pilot.json"
+        fields = ("lookup_driver_sha256", "canonical_source_sha256", "memcheck_runs", "oracle_compilers")
+    baseline = json.loads((ROOT / "evidence" / baseline_name).read_bytes())
     if qualified["link_report_sha256"] != digest(parent) or qualified["binary_sha256"] != release["binary"]["sha256"]:
         raise ValueError("routing protocol comparisons belong to a different parent")
     package_inputs = {key: value for key, value in release["source_library_sha256"].items()
@@ -87,9 +121,8 @@ def preview(parent, log, batch, output, single):
                 compared = json.loads((directory / "comparison.json").read_bytes())
                 if (compared != row or row["archive"] != key or row["control_sha256"] != expected
                         or row["control_binary_sha256"] != release["binary"]["sha256"]
-                        or any(row[field] != baseline[field] for field in
-                               ("lookup_driver_sha256", "canonical_source_sha256", "memcheck_runs", "oracle_compilers"))
-                        or row["profiles"] != expected_profiles(baseline, name == "ip")):
+                        or any(row[field] != baseline[field] for field in fields)
+                        or row["profiles"] != expected_profiles(baseline, name == "ip", dsfield=dsfield)):
                     raise ValueError(f"incomplete archive qualification for {name}")
                 if which == "candidate":
                     archive = directory / archive.name
@@ -102,7 +135,7 @@ def preview(parent, log, batch, output, single):
             raise ValueError("IPRoute2 public symbol isolation differs from the selected release")
         changed = {mapped[name] for name, archive in archives.items() if inputs[archive.name][0] in selected}
         return list(mapped.values()), changed, {"engine_archive_sha256": hashes}
-    preview_link(parent, parent_bytes, log, output, prepare, commands)
+    preview_link(parent, parent_bytes, log, output, prepare, dsfield_commands if dsfield else commands)
 
 
 if __name__ == "__main__":
@@ -110,5 +143,6 @@ if __name__ == "__main__":
     for name in ("parent", "log", "batch", "output"):
         parser.add_argument(name, type=Path)
     parser.add_argument("--ip-only", action="store_true")
+    parser.add_argument("--dsfield", action="store_true", help="qualify DS field readers on the routing protocol parent")
     args = parser.parse_args()
-    preview(args.parent, args.log, args.batch, args.output, args.ip_only)
+    preview(args.parent, args.log, args.batch, args.output, args.ip_only, dsfield=args.dsfield)

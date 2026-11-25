@@ -1196,6 +1196,13 @@ candidate occurrences. Only the `ip` build is counted in this pilot.
 [Canonical observations](evidence/iproute2-dsfield-pilot.json) ·
 [Per-engine source estimates](evidence/iproute2-dsfield-source-candidates.json)
 
+The DS field multicall driver checks the 21 IPRoute2 command names and
+runs each route filter through symlink and subcommand dispatch against both
+canonical compilers. The routing parent passed all 288 general comparisons
+and 144 DS field comparisons. The latter use isolated empty, vendor, local
+and malformed configuration files.
+[Public baseline for the parent executable](evidence/iproute2-dsfield-public-baseline.json)
+
 The optional `--iproute2-routing-protocols` build flag selects all 18
 archives and verifies their C exports before linking. It accepts an
 explicit C-string manifest or prepares the required IPRoute2 entries.

@@ -15,6 +15,18 @@ from test_routing_protocol_pilot import LIBS
 DRIVER = ROOT / "tests/iproute2-dsfield/lookups.c"
 
 
+PROFILES = ("empty", "vendor", "local", "malformed")
+QUERIES = ("0", "10", "ff", "0x100", "vendor", "local", "first", "dup", "missing")
+
+
+def configure(profile, local, vendor):
+    if profile in ("vendor", "local"):
+        folder = local if profile == "local" else vendor
+        (folder / "rt_dsfield").write_bytes(b"0 " + profile.encode() + b"\n24 dup\n8 dup\n255 raw-\xff\n")
+    elif profile == "malformed":
+        (local / "rt_dsfield").write_bytes(b"44 first\nbad-line\n48 ignored\n")
+
+
 def canonical_drivers():
     run("gcc", "-O2", "-Wall", "-Wextra", "-Werror", "-I" + str(SOURCE / "include"), "-c", DRIVER, "-o", "driver.o")
     for cc in ("gcc", "clang-18"):
@@ -57,12 +69,8 @@ def compare(pilot, link_file):
     if not all(os.path.ismount(p) and not any(p.iterdir()) for p in (local, vendor)):
         raise ValueError("expected empty private configuration mounts")
     profiles = []
-    for profile in ("empty", "vendor", "local", "malformed"):
-        if profile in ("vendor", "local"):
-            folder = local if profile == "local" else vendor
-            (folder / "rt_dsfield").write_bytes(b"0 " + profile.encode() + b"\n24 dup\n8 dup\n255 raw-\xff\n")
-        elif profile == "malformed":
-            (local / "rt_dsfield").write_bytes(b"44 first\nbad-line\n48 ignored\n")
+    for profile in PROFILES:
+        configure(profile, local, vendor)
         expected = capture(["./oracle-gcc"])
         lines = expected[1].splitlines()
         counts = {prefix.decode(): sum(s.startswith(prefix + b" ") for s in lines) for prefix in (b"N", b"F", b"R")}
@@ -80,7 +88,7 @@ def compare(pilot, link_file):
         if "ERROR SUMMARY: 0 errors" not in Path("memcheck.log").read_text():
             raise ValueError("DS field memory check failed")
         statuses = []
-        for query in ("0", "10", "ff", "0x100", "vendor", "local", "first", "dup", "missing") if ip else ():
+        for query in QUERIES if ip else ():
             argv = ["ip", "-4", "route", "show", "tos", query]
             control = capture(argv, executable="/rustbox-iproute2/programs-gcc/ip")
             for program in ("/rustbox-iproute2/programs-clang-18/ip", "./control-ip", "./candidate-ip"):
