@@ -28,15 +28,14 @@ def array_modules(link, row):
             if name in hashes or archive != Path(key):
                 raise ValueError("unexpected compiler source")
             hashes[name] = checksum.hex()
-            if name in files:
-                dst = directory / module
-                dst.parent.mkdir(parents=True, exist_ok=True)
-                dst.write_bytes(data)
+            dst = directory / module
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            dst.write_bytes(data)
         measure(link, inspect_module=capture, archive_pair=(cargo_origin(link, key), Path(key)))
         if (source_list_digest(hashes) != row["parent_sources_sha256"] or len(hashes) != row["compiler_selected_sources"]
                 or not files.keys() <= hashes.keys()):
             raise ValueError("selected Rust sources differ from the whole-archive pilot")
-        paths = json.dumps(sorted(files)).encode()
+        paths = json.dumps(sorted(hashes)).encode()
         def scan(tool):
             return json.loads(subprocess.check_output([syntax_tool(tool), directory], input=paths))
         edits = scan("c-string-literals")

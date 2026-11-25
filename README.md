@@ -744,7 +744,9 @@ when a module also contains casts in functions or other declarations.
 the same rule to each differing archive. It records source and archive
 hashes and counts a reduction only after the complete archive matches.
 Use the same command with `--check REPORT` and the original package filters
-to recompute the outcomes from the saved archives and compiler inputs.
+to recompute the outcomes from the saved archives and compiler inputs. The replay scans every
+compiler input for eligible literals and rejects a whole-archive receipt
+that omits an eligible module.
 For Diffutils, File and Findutils the replay verified 482, 464 and 530
 removed casts respectively. All three archives matched their release
 parents byte for byte. These counts describe candidate builds.

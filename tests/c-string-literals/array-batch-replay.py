@@ -12,6 +12,7 @@ from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
+from recover_literal_array_modules import array_modules
 from recover_static_array_batch import run
 
 
@@ -62,7 +63,10 @@ def test(link, whole, candidates, report):
         altered["byte_identical"] = False
         comparison.write_text(json.dumps(altered))
         rejects(replay, "saved archive comparison differs")
-    print("Replayed unchanged receipts and rejected four missing or altered inputs.")
+        whole_row = json.loads((whole / name / "pilot.json").read_bytes())
+        del whole_row["modules"][next(iter(whole_row["modules"]))]
+        rejects(lambda: array_modules(json.loads(link.read_bytes()), whole_row), "literal inventory differs")
+    print("Replayed unchanged receipts and rejected five missing or altered inputs.")
 
 
 if __name__ == "__main__":
