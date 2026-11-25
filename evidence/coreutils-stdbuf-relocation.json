@@ -1,0 +1,36 @@
+{
+  "elf_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+  "first_comparison": "AssertionError: (b'stdbuf', 'C', 'explicit', [b'-o0', b'/bin/sh', b'-c', b'printf unbuffered'], (0, b'unbuffered', b''), (125, b'', b\"stdbuf: failed to find 'libstdbuf.so'\\n\"))",
+  "group_04": {
+    "applets": [
+      "base64",
+      "comm",
+      "groups",
+      "mktemp",
+      "pathchk",
+      "pwd",
+      "stdbuf",
+      "truncate",
+      "tsort"
+    ],
+    "cases": 750,
+    "locales": [
+      "C",
+      "en_US.UTF-8",
+      "fr_FR",
+      "tr_TR.UTF-8",
+      "ja_JP.EUC-JP"
+    ],
+    "passed": 750,
+    "schema": 1,
+    "stdbuf_relocation": {
+      "child_buffering_cases_per_binary": 6,
+      "helper_bytes": 20176,
+      "helper_sha256": "dbebeac33366ec4a13d5b5cd4044f5ba3d5442eea78c4b8249a4aba0fe93d986",
+      "missing_helper_status": {
+        "argv0": 125,
+        "explicit": 125
+      }
+    }
+  }
+}

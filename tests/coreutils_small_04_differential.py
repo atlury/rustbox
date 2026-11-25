@@ -4,9 +4,11 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
+import shutil
 import stat
 import subprocess
 import tempfile
@@ -183,12 +185,62 @@ FILESYSTEM: dict[bytes, list[tuple[str, Setup]]] = {
 }
 
 
+def paired_stdbuf_layout(canonical: Path, hybrid: Path, root: Path) -> tuple[Path, Path, dict]:
+    """Compare relocated binaries with the same Coreutils child-process helper available."""
+    helper = canonical.with_name("libstdbuf.so")
+    binaries = []
+    for name, source in (("oracle", canonical), ("candidate", hybrid)):
+        directory = root / name
+        directory.mkdir()
+        binary = directory / source.name
+        shutil.copy2(source, binary)
+        if hashlib.sha256(binary.read_bytes()).digest() != hashlib.sha256(source.read_bytes()).digest():
+            raise ValueError("relocation changed the executable bytes")
+        binaries.append(binary)
+
+    missing = {}
+    for mode in ("explicit", "argv0"):
+        results = [run(binary, root / "invoke/stdbuf", b"stdbuf", [b"-o0", b"/bin/true"], b"", mode, "C")
+                   for binary in binaries]
+        if results[0] != results[1] or results[0][0] != 125 or b"libstdbuf.so" not in results[0][2]:
+            raise ValueError(f"unexpected missing-helper behavior for {mode}: {results!r}")
+        missing[mode] = results[0][0]
+    # A bare applet name can resolve /proc/self/exe. An absolute argv[0]
+    # lets GNU stdbuf also look beside the invocation symlink.
+    for directory in [*(binary.parent for binary in binaries), root / "invoke"]:
+        shutil.copy2(helper, directory / "libstdbuf.so")
+    # One-byte output remains buffered on a pipe for line/full buffering.
+    # Inspect the child stream before flushing, so scheduling cannot hide a missing preload.
+    child = root / "probe-buffering"
+    subprocess.run(["cc", "-x", "c", "-", "-o", child], check=True, input=b"""
+#include <stdio.h>
+#include <stdio_ext.h>
+int main(void) {
+    if (fputc('x', stdout) == EOF) return 2;
+    fprintf(stderr, "%d %zu", !!__flbf(stdout), __fpending(stdout));
+    return fflush(stdout) != 0;
+}
+""")
+    buffering = {b"-o0": b"0 0", b"-oL": b"1 1", b"-o4096": b"0 1"}
+    for binary in binaries:
+        for mode in ("explicit", "argv0"):
+            for option, observed in buffering.items():
+                result = run(binary, root / "invoke/stdbuf", b"stdbuf", [option, os.fsencode(child)], b"", mode, "C")
+                if result != (0, b"x", observed):
+                    raise ValueError(f"unexpected child buffering for {binary.name} {mode} {option!r}: {result!r}")
+    return binaries[0], binaries[1], {
+        "helper_sha256": hashlib.sha256(helper.read_bytes()).hexdigest(), "helper_bytes": helper.stat().st_size,
+        "missing_helper_status": missing, "child_buffering_cases_per_binary": 6,
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--canonical", type=Path, required=True)
     parser.add_argument("--hybrid", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--exclude", action="append", default=[])
+    parser.add_argument("--relocate-stdbuf", action="store_true")
     args = parser.parse_args()
     canonical, hybrid = args.canonical.resolve(), args.hybrid.resolve()
     excluded = {item.encode() for item in args.exclude}
@@ -204,14 +256,16 @@ def main() -> int:
         def link(applet: bytes) -> Path:
             return links / os.fsdecode(applet)
 
+        stdbuf_pair = paired_stdbuf_layout(canonical, hybrid, root) if args.relocate_stdbuf else None
         for applet, cases in STATELESS.items():
             if applet in excluded:
                 continue
+            oracle, candidate = stdbuf_pair[:2] if applet == b"stdbuf" and stdbuf_pair else (canonical, hybrid)
             for locale in LOCALES:
                 for mode in ("explicit", "argv0"):
                     for arguments, input_bytes in [*cases, *[(item, b"") for item in OPTIONS]]:
-                        expected = run(canonical, link(applet), applet, arguments, input_bytes, mode, locale)
-                        actual = run(hybrid, link(applet), applet, arguments, input_bytes, mode, locale)
+                        expected = run(oracle, link(applet), applet, arguments, input_bytes, mode, locale)
+                        actual = run(candidate, link(applet), applet, arguments, input_bytes, mode, locale)
                         if actual != expected:
                             raise AssertionError((applet, locale, mode, arguments, expected, actual))
                         checked += 1
@@ -244,6 +298,8 @@ def main() -> int:
         "schema": 1, "cases": checked, "passed": checked, "locales": LOCALES,
         "applets": [os.fsdecode(item) for item in [b"base64", b"comm", b"groups", b"mktemp", b"pathchk", b"pwd", b"runcon", b"stdbuf", b"truncate", b"tsort"] if item not in excluded],
     }
+    if stdbuf_pair:
+        result["stdbuf_relocation"] = stdbuf_pair[2]
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(json.dumps(result, sort_keys=True))

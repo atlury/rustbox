@@ -81,7 +81,7 @@ def main() -> int:
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         batch = manifest["name"]
         report = report_directory / f"{batch}.json"
-        extra = ["--exclude", "runcon"] if batch == "coreutils-small-04" else []
+        extra = ["--exclude", "runcon", "--relocate-stdbuf"] if batch == "coreutils-small-04" else []
         jobs.append({
             "suite": "coreutils",
             "batch": batch,

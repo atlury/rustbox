@@ -242,6 +242,16 @@ Pointer removal is underway alongside static-link work. The later
 All 499 public names have reached multicall integration. The current Linux
 build still has 34 dynamic dependencies.
 
+GNU Coreutils 9.12 also ships `libstdbuf.so` for the dynamically linked
+child that `stdbuf` launches. A copy of the multicall executable by itself
+could not run `stdbuf -o0`: canonical Coreutils and Rustbox both returned
+125 with the helper missing. With the same 20,176-byte canonical helper
+installed, all 750 cases in Coreutils batch 04 passed. A child-process
+probe also observed the requested unbuffered, line-buffered and fully
+buffered modes through both invocation paths. The final single-file
+release still needs to supply this resource.
+[Relocation and child buffering results](evidence/coreutils-stdbuf-relocation.json)
+
 On the pre-FDB-hardening x86-64 Linux build, GNU ld packed relative relocations (DT_RELR)
 reduce the stripped ELF from 25,216,304 to 23,836,024 bytes and preserve PIE.
 This optional build requires a loader providing `GLIBC_ABI_DT_RELR`. The
