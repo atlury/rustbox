@@ -50,7 +50,11 @@ def replay(sources, read, row, tool, *, lengths=False):
             replacements, actual = rewrite_lengths(scratch, selected, tool)
             fields = ("modules", "strlen_calls_removed", "raw_pointer_types_removed")
         else:
-            replacements, actual = rewrite(scratch, selected, tool, row.get("legacy_compiler"), sorted(row["modules"]))
+            array_tool = syntax_tool("static-array-spans") if "static_array_selector_sha256" in row else None
+            replacements, actual = rewrite(scratch, selected, tool, row.get("legacy_compiler"), sorted(row["modules"]),
+                                           array_tool=array_tool)
+            if array_tool is not None and actual["static_array_selector_sha256"] != row["static_array_selector_sha256"]:
+                raise ValueError("static-array selector source differs from the build")
             fields = ("modules", "c_string_literals", "raw_pointer_types_removed", "raw_ffi_pointer_extractions")
     # Host and Linux scanner binaries can differ. Require identical generated
     # Rust source for every compiled module, including the untouched modules.

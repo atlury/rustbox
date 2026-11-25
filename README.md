@@ -708,6 +708,17 @@ A further 680 array literals occur in modules with other casts. Passing
 archive and compiler sources.
 [Selection counts for five packages](evidence/static-array-c-string-selection.json)
 
+Pass `--include-mixed` to select individual literals inside those arrays
+when a module also contains casts in functions or other declarations.
+`scripts/recover_static_array_batch.py LINK WHOLE_BATCH OUTPUT` applies
+the same rule to each differing archive. It records source and archive
+hashes and counts a reduction only after the complete archive matches.
+In E2fsprogs `badblocks`, the older Rust compiler reproduced all archive
+bytes after changing eight literals in the extended-attribute module.
+The source replay checked 60 inputs. These 16 removed casts are already
+covered by the earlier 184-cast result.
+[Mixed-module build and source digests](evidence/e2fsprogs-mixed-array-c-strings.json)
+
 A clean curl build with just those three static-array modules reproduced
 the complete packed-manual archive. The independent replay checked all
 241 compiler inputs and counted 1,812 removed casts and 906 C-interface

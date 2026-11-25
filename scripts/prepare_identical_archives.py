@@ -121,7 +121,7 @@ def prepare(manifest, layer, *, mounted_direct=False):
                 (root / "built").mkdir()
                 compile_archive(root / "parent.json", root / "built", key,
                                 sorted(row["modules"]) if layer == "native_c_strings" else None,
-                                va_list_layout=layer == "shared_va_list_layouts")
+                                va_list_layout=layer == "shared_va_list_layouts", static_arrays="static_array_selector_sha256" in row)
             elif layer == "shared_ncurses_termtypes":
                 from build_ncurses_termtype_layouts import MARKER
                 from cargo_archive_pilot import stage_selected_archive
@@ -131,7 +131,8 @@ def prepare(manifest, layer, *, mounted_direct=False):
                 build(root / "parent.json", key, root / "built")
             elif layer == "native_c_strings":
                 from build_c_string_literal_pilot import build
-                build(root / "parent.json", root / "built", Path(key), sorted(row["modules"]))
+                build(root / "parent.json", root / "built", Path(key), sorted(row["modules"]),
+                      static_arrays="static_array_selector_sha256" in row)
             else:
                 from build_shared_stdio_pilot import build
                 build(root / "parent.json", root / "built", Path(key), row["reexporting_modules"])

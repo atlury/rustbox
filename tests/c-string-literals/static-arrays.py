@@ -9,7 +9,10 @@ from tempfile import TemporaryDirectory
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
-from verify_c_string_sources import syntax_tool
+from verify_c_string_sources import replay, syntax_tool
+from build_c_string_literal_pilot import rewrite
+from check_e2fsprogs_dirhash_arrays import source_list_digest
+from hashlib import sha256
 
 cast = b' as *const u8 as *const ::core::ffi::c_char'
 source = ('// multibyte prefix é and misleading brackets []\r\n').encode() + b'''
@@ -30,4 +33,22 @@ with TemporaryDirectory() as tmp:
     assert len(spans) == 2 and len(edits) == 4
     covered = [source[start:end] for start, end, _ in edits if any(left <= start < end <= right for left, right in spans)]
     assert covered == [b'b"]\\0"' + cast, b'b"[\\0"' + cast]
-print("Matched the two top-level arrays and excluded both other casts.")
+    replacements, row = rewrite(root, ["probe.rs"], syntax_tool("c-string-literals"),
+                                array_tool=syntax_tool("static-array-spans"))
+    new = replacements["probe.rs"]
+    assert row["raw_pointer_types_removed"] == 4 and row["modules"] == {"probe.rs": 2}
+    assert new == source.replace(covered[0], b'c"]".as_ptr()').replace(covered[1], b'c"[".as_ptr()')
+    parent = {"probe.rs": sha256(source).hexdigest()}
+    row.update(compiler_selected_sources=1, parent_sources_sha256=source_list_digest(parent),
+               candidate_sources_sha256=source_list_digest({"probe.rs": sha256(new).hexdigest()}))
+    def repeat(receipt):
+        return replay(parent, lambda _: source, receipt, syntax_tool("c-string-literals"))
+    assert repeat(row) == replacements
+    for broken in (dict(row, static_array_selector_sha256="changed"), dict(row, modules={"probe.rs": 4}),
+                   {k: v for k, v in row.items() if k != "static_array_selector_sha256"}):
+        try:
+            repeat(broken)
+        except ValueError:
+            continue
+        raise AssertionError("accepted a stale static-array selection")
+print("Matched both array literals, preserved both other casts, and rejected three invalid receipts.")

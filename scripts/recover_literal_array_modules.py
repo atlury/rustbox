@@ -8,7 +8,7 @@ import subprocess
 from tempfile import TemporaryDirectory
 
 from audit_linked_pointers import measure
-from build_c_string_literal_pilot import build
+from build_c_string_literal_pilot import build, static_array_edits
 from cargo_source_parent import cargo_origin
 from check_cargo_private_inlines import ROOT, digest
 from check_e2fsprogs_dirhash_arrays import source_list_digest
@@ -39,16 +39,14 @@ def array_modules(link, row):
         paths = json.dumps(sorted(files)).encode()
         def scan(tool):
             return json.loads(subprocess.check_output([syntax_tool(tool), directory], input=paths))
-        arrays = scan("static-array-spans")
         edits = scan("c-string-literals")
+        covered = static_array_edits(directory, edits, syntax_tool("static-array-spans"))
     if edits.keys() != files.keys() or {m: len(v) for m, v in edits.items()} != files:
         raise ValueError("literal inventory differs from the cold-compiled modules")
-    return {module: count for module, spans in edits.items()
-            if (count := sum(any(left <= start < end <= right for left, right in arrays[module])
-                             for start, end, _ in spans))}
+    return {module: len(edits) for module, edits in covered.items()}
 
 
-def recover(link_file, whole, output):
+def recover(link_file, whole, output, *, include_mixed=False, skip_empty=False):
     link = json.loads(link_file.read_bytes())
     row = json.loads((whole / "pilot.json").read_bytes())
     key = Path(row["archive"])
@@ -58,28 +56,39 @@ def recover(link_file, whole, output):
         raise ValueError("expected the differing whole archive and its original release")
     counts = array_modules(link, row)
     modules = {m: count for m, count in counts.items() if count == row["modules"][m]}
-    print(json.dumps(dict(array_modules=modules, literals=sum(modules.values()),
-                          array_literals_in_mixed_modules=sum(counts.values()) - sum(modules.values())), sort_keys=True), flush=True)
+    summary = dict(array_modules=modules, literals=sum(modules.values()),
+                   array_literals_in_mixed_modules=sum(counts.values()) - sum(modules.values()))
+    if include_mixed:
+        modules = counts
+        summary.update(selected_literals=sum(modules.values()), selected_module_count=len(modules))
+    print(json.dumps(summary, sort_keys=True), flush=True)
     if output is None:
         return
     if not modules or modules == row["modules"]:
+        if skip_empty:
+            return None
         raise ValueError("no proper nonempty subset of array initializers")
     if not output.exists():
-        build(link_file, output, key, modules=sorted(modules))
+        build(link_file, output, key, modules=sorted(modules), static_arrays=include_mixed)
     candidate = json.loads((output / "pilot.json").read_bytes())
-    if (candidate["modules"] != modules or any(candidate[k] != row[k] for k in
+    if (("static_array_selector_sha256" in candidate) != include_mixed or candidate["modules"] != modules or any(candidate[k] != row[k] for k in
             ("archive", "control_sha256", "control_binary_sha256", "parent_sources_sha256"))):
         raise ValueError("subset pilot changed its parent or selected modules")
     verify(link_file, output)
     result = dict(archive=str(key), whole_candidate_sha256=row["candidate_sha256"], candidate=candidate,
                   byte_identical=candidate["candidate_sha256"] == row["control_sha256"])
-    (output / "comparison.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
+    with TemporaryDirectory(dir=output) as temp:
+        staged = Path(temp) / "comparison.json"
+        staged.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
+        staged.replace(output / "comparison.json")
+    return result
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("link", type=Path)
     parser.add_argument("whole", type=Path)
+    parser.add_argument("--include-mixed", action="store_true", help="select only array edits within mixed modules, too")
     parser.add_argument("--output", type=Path, help="cold-build and verify the selected subset")
     args = parser.parse_args()
-    recover(args.link, args.whole, args.output)
+    recover(args.link, args.whole, args.output, include_mixed=args.include_mixed)
