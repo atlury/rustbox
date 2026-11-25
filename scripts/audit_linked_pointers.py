@@ -593,17 +593,25 @@ def check_archive_counts(previous_link, control, before, after, added, delta_fie
 def check_identical_layer(previous, selected, before, after, field):
     previous_records = previous.get(field, {})
     records = selected[field]
-    if (not previous_records.keys() < records.keys()
-            or any(records[k] != row for k, row in previous_records.items())
+    if (not previous_records.keys() <= records.keys() or previous_records == records
             or {k: v for k, v in previous.items() if k != field}
                != {k: v for k, v in selected.items() if k != field}):
         raise ValueError(f"{field} must preserve the complete ELF and every existing linker input")
     changes = {}
-    for key in records.keys() - previous_records.keys():
+    for key, row in records.items():
+        old = previous_records.get(key)
+        if old == row:
+            continue
+        if old is not None:
+            if field != "native_c_strings":
+                raise ValueError(f"changed previously verified {field} record for {key}")
+            native_strings.check_extension(old, row)
         package = Path(key).relative_to("work/analysis").parts[0]
         delta = changes.setdefault(package, Counter())
         if field == "native_c_strings":
             count = after["native_c_string_conversions"][key]
+            if old is not None:
+                count -= before["native_c_string_conversions"][key]
             delta["raw_pointer_type_tokens"] -= 2 * count
             delta["as_ptr_calls"] += count
         elif field == "shared_ncurses_termtypes":

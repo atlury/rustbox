@@ -719,6 +719,15 @@ The source replay checked 60 inputs. These 16 removed casts are already
 covered by the earlier 184-cast result.
 [Mixed-module build and source digests](evidence/e2fsprogs-mixed-array-c-strings.json)
 
+The native C-string manifest can grow within an archive already selected.
+`prepare_native_c_strings.py enroll --extend` checks that the new cold
+build covers every earlier edit on the same compiler sources and produces
+the same archive bytes. The inventory credits only the additional casts.
+Extending the eight-literal `badblocks` selection to 92 literals credited
+168 additional casts. The regression also rejects a lost module, a
+changed compiler input and counting the original 16 casts twice.
+[Manifest extension regression](tests/c-string-literals/extensions.py)
+
 A clean curl build with just those three static-array modules reproduced
 the complete packed-manual archive. The independent replay checked all
 241 compiler inputs and counted 1,812 removed casts and 906 C-interface

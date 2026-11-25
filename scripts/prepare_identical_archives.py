@@ -156,8 +156,13 @@ def enroll(link_file, output, pilots, layer, *, previous_manifest=None):
         row = json.loads((directory / "pilot.json").read_bytes())
         key = row["archive"]
         archive = check_row(key, row)
-        if key in manifest or link["source_library_sha256"].get(key) != row["control_sha256"]:
+        if key in records or link["source_library_sha256"].get(key) != row["control_sha256"]:
             raise ValueError(f"duplicate archive or different parent: {key}")
+        if key in manifest:
+            if layer != "native_c_strings":
+                raise ValueError(f"duplicate archive: {key}")
+            from verify_c_string_sources import check_extension
+            check_extension(manifest[key]["pilot"], row)
         manifest[key] = dict(pilot=row, parent_receipts=selected_receipts(link, key, layer))
         records[key] = row
         if digest(archive) != row["control_sha256"] or digest(directory / archive.name) != row["candidate_sha256"]:
@@ -172,7 +177,10 @@ def enroll(link_file, output, pilots, layer, *, previous_manifest=None):
         if str(origin) != row_origin(row):
             raise ValueError(f"cold build used the wrong Cargo origin for {key}")
         pair = (origin, Path(key))
-        check_identical_layer(base, {**base, layer: {key: row}}, measure(base, archive_pair=pair),
+        previous = base
+        if previous_manifest is not None and key in link[layer]:
+            previous = {**base, layer: {key: link[layer][key]}}
+        check_identical_layer(previous, {**base, layer: {key: row}}, measure(previous, archive_pair=pair),
                               measure(current, archive_pair=pair), layer)
     for directory in pilots:
         row = json.loads((directory / "pilot.json").read_bytes())

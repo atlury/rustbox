@@ -25,6 +25,25 @@ def syntax_tool(name="c-string-literals"):
     return target / "release" / name
 
 
+def check_extension(before, after):
+    """Both rows are replayed on the same sources. Array-only edits are a subset of full-module edits."""
+    fields = ("archive", "cargo_archive", "rustc_archive", "control_sha256", "candidate_sha256",
+              "compiler_selected_sources", "parent_sources_sha256", "syntax_tool_sha256", "legacy_compiler")
+    if (any(before.get(k) != after.get(k) for k in fields) or before["candidate_sha256"] != before["control_sha256"]
+            or before["c_string_literals"] >= after["c_string_literals"]):
+        raise ValueError("a C-string extension must add edits on the same compiler inputs and identical archive")
+    old_arrays = before.get("static_array_selector_sha256")
+    new_arrays = after.get("static_array_selector_sha256")
+    if old_arrays and new_arrays and old_arrays != new_arrays:
+        raise ValueError("static array selectors differ")
+    for module, old_count in before["modules"].items():
+        new_count = after["modules"].get(module, 0)
+        # A narrow selector preserves a previous full-module selection only
+        # when it still covers every eligible cast in that module.
+        if new_count < old_count or (not old_arrays and new_arrays and new_count != old_count):
+            raise ValueError(f"C-string extension lost earlier edits in {module}")
+
+
 def replay(sources, read, row, tool, *, lengths=False):
     from build_c_string_literal_pilot import rewrite
     if (source_list_digest(sources) != row["parent_sources_sha256"] or len(sources) != row["compiler_selected_sources"]
