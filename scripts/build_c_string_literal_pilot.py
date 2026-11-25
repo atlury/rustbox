@@ -2,6 +2,7 @@
 """Replace double-cast NUL-terminated byte literals with compiler-checked Rust C strings."""
 # SPDX-License-Identifier: GPL-3.0-or-later
 import argparse
+import legacy_checked_c_strings as legacy
 import json
 from pathlib import Path
 import subprocess
@@ -13,7 +14,9 @@ from prune_private_inlines import POINTER
 MARKER = ".rustbox-c-string-pilot"
 
 
-def rewrite(crate, sources, tool):
+def rewrite(crate, sources, tool, legacy_mode=None):
+    if legacy_mode not in (None, legacy.MODE):
+        raise ValueError("unsupported legacy C-string compiler")
     output = subprocess.check_output([tool, crate], input=json.dumps(sorted(sources)).encode())
     spans = json.loads(output)
     replacements = {}
@@ -27,6 +30,8 @@ def rewrite(crate, sources, tool):
         for start, end, spelling in edits:
             if not position <= start < end <= len(source) or not spelling.startswith('c"') or not spelling.endswith(".as_ptr()"):
                 raise ValueError("unexpected C literal edit")
+            if legacy_mode:
+                spelling = legacy.expression(spelling)
             pieces.extend((source[position:start], spelling.encode()))
             position = end
         result = b"".join([*pieces, source[position:]])
@@ -35,14 +40,22 @@ def rewrite(crate, sources, tool):
             raise ValueError("literal substitutions changed line counts or unexpected pointer casts")
         replacements[name] = result
         counts[name] = len(edits)
+    if legacy_mode and counts:
+        if "lib.rs" not in sources:
+            raise ValueError("legacy C strings require the compiler-selected crate root")
+        root = (crate / "lib.rs").read_bytes()
+        replacements["lib.rs"] = legacy.crate_root(root, replacements.get("lib.rs", root))
     total = sum(counts.values())
     return replacements, dict(c_string_literals=total, modules=counts, raw_pointer_types_removed=2 * total,
-                              raw_ffi_pointer_extractions=total, syntax_tool_sha256=digest(tool))
+                              raw_ffi_pointer_extractions=total, syntax_tool_sha256=digest(tool),
+                              **({"legacy_compiler": legacy_mode} if legacy_mode else {}))
 
 
 def substitute(crate, sources):
     tool = ROOT / "work/analysis/private-inlines-linux/release/c-string-literals"
-    return rewrite(crate, sources, tool)
+    import tomllib
+    channel = tomllib.loads((crate / "rust-toolchain.toml").read_text())["toolchain"]["channel"]
+    return rewrite(crate, sources, tool, channel if channel == legacy.MODE else None)
 
 
 def build(link_file, out, archive):

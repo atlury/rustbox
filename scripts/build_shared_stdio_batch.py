@@ -10,6 +10,7 @@ from pathlib import Path
 import subprocess
 import sys
 
+import legacy_checked_c_strings as legacy
 from check_cargo_private_inlines import ROOT, digest, layout
 
 
@@ -46,9 +47,11 @@ def run(link_file, ranks, output, packages, jobs, *, c_strings=False):
         if not toolchain.is_file():
             return key, None, "missing a pinned Cargo compiler for this archive"
         if c_strings:
-            version = re.search(r'^channel\s*=\s*"1\.(\d+)\.\d+"', toolchain.read_text(), re.M)
-            if not version or int(version[1]) < 77:
-                return key, None, "requires verification on a compiler supporting Rust C literals"
+            pin = re.search(r'^channel\s*=\s*"([^"]+)"', toolchain.read_text(), re.M)
+            channel = pin[1] if pin else ""
+            version = re.fullmatch(r"1\.(\d+)\.\d+", channel)
+            if channel != legacy.MODE and (not version or int(version[1]) < 77):
+                return key, None, "requires verification of a checked C-string constructor on this compiler"
         # Distinguish equal archive filenames from separate packages or build paths.
         tag = archive.stem + "-" + hashlib.sha256(key.encode()).hexdigest()[:12]
         result = output / tag
@@ -64,6 +67,7 @@ def run(link_file, ranks, output, packages, jobs, *, c_strings=False):
         if c_strings:
             total = ranked["c_string_literals"]
             coverage = (total == sum(row["modules"].values()) == row["c_string_literals"] == row["raw_ffi_pointer_extractions"]
+                        and row.get("legacy_compiler") == (channel if channel == legacy.MODE else None)
                         and row["raw_pointer_types_removed"] == 2 * total
                         and row["syntax_tool_sha256"] == digest(ROOT / "work/analysis/private-inlines-linux/release/c-string-literals"))
         else:

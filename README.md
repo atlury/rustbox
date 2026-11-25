@@ -429,6 +429,20 @@ matching expressions across 127 archives, or 118,690 in distinct source
 files. These are candidates for crates whose compiler supports C literals.
 [Candidate inventory](evidence/rustbox-c-string-candidates.json)
 
+On the pinned April 2023 nightly, the same scan uses a crate-private macro
+with a `const CStr::from_bytes_with_nul` result and the compiler's
+`const_cstr_methods` feature. Each call validates its terminator during
+compilation, including in ordinary runtime expressions. The regression
+fixture covers non-UTF-8 bytes, missing terminators and embedded NULs.
+Run `python3 -B tests/c-string-literals/legacy.py` to repeat it.
+
+E2fsprogs `mklost+found` used this path for 13 literals and removed 26
+explicit casts. Its complete static archive and executable each reproduced
+their original bytes. Both canonical compilers agreed with the candidate on
+all seven command and filesystem cases. Creation and an existing-file error
+also passed Memcheck.
+[E2fsprogs pilot evidence](evidence/e2fsprogs-mklost-found-c-strings.json)
+
 In a separate GNU gzip pilot, 240 literals across 15 modules removed 480
 explicit raw-pointer type occurrences and added 240 pointer extractions
 at existing C interfaces. The Rust compiler now checks each string's

@@ -32,7 +32,10 @@ def replay(sources, read, row, tool):
         raise ValueError("literal receipt and parent compiler sources differ")
     with TemporaryDirectory() as folder:
         scratch = Path(folder)
-        for name in row["modules"]:
+        selected = set(row["modules"])
+        if "legacy_compiler" in row:
+            selected.add("lib.rs")
+        for name in selected:
             path = Path(name)
             if path.is_absolute() or ".." in path.parts or path.suffix != ".rs":
                 raise ValueError("invalid literal module in receipt")
@@ -42,7 +45,7 @@ def replay(sources, read, row, tool):
             dest = scratch / path
             dest.parent.mkdir(parents=True, exist_ok=True)
             dest.write_bytes(data)
-        replacements, actual = rewrite(scratch, row["modules"], tool)
+        replacements, actual = rewrite(scratch, selected, tool, row.get("legacy_compiler"))
     # Host and Linux scanner binaries can differ. Require identical generated
     # Rust source for every compiled module, including the untouched modules.
     for k in ("modules", "c_string_literals", "raw_pointer_types_removed", "raw_ffi_pointer_extractions"):
@@ -71,7 +74,7 @@ def verify(link_path, pilot):
         if selected_archive != archive or str(module) in hashes:
             raise ValueError("unexpected compiler input")
         hashes[str(module)] = checksum.hex()
-        if str(module) in row["modules"]:
+        if str(module) in row["modules"] or ("legacy_compiler" in row and str(module) == "lib.rs"):
             data[str(module)] = source
     measure(dict(selected, binary=selection["binary"]), inspect_module=inspect)
     replay(hashes, data.__getitem__, row, syntax_tool())
