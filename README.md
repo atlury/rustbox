@@ -221,7 +221,7 @@ E2fsprogs integration passes 112/112 canonical comparisons and all 32
 Valgrind paths; its 20 private namespaces rename 8,126 symbols after removing
 3,966 byte-identical Rust runtime members already provided by Procps-ng.
 Exact evidence is in `evidence/e2fsprogs-1.47.4-multicall.json`.  The resulting
-499-name executable is 43,052,464 bytes unstripped and 25,098,544 bytes
+499-name executable is 43,057,184 bytes unstripped and 25,107,952 bytes
 stripped. Sharing the Coreutils runtime with Gzip saved 289,264 stripped
 bytes. The linker compares 328 archive members byte-for-byte before sharing
 them. The exact hashes and
@@ -285,8 +285,8 @@ for 89 linked Rust archives. These cover the 20 E2fsprogs, 18 IPRoute2 and
 26 GNU Inetutils engines and 25 other package archives. A second compiler pass
 removed additional helpers in 58 of those archives. The declaration cleanup
 covers 89 archives, including 20 E2fsprogs engines. Across the linked applet
-sources the raw-pointer type count fell from **1,379,960 to 970,589**.
-Counting byte-identical Rust files once gives **696,578** remaining occurrences.
+sources the raw-pointer type count fell from **1,379,960 to 960,635**.
+Counting byte-identical Rust files once gives **695,472** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
 | Production change | Raw-pointer type occurrences removed |
@@ -313,10 +313,11 @@ The count of applets certified pointer-free is still zero.
 | Fixed-array Hangul decomposition in 13 E2fsprogs engines | 130 |
 | Checked Unicode trie traversal in the same 13 engines | 65 |
 | Immutable IPRoute2 address-protocol names across 18 engines | 5,166 |
-| **Total** | **409,371** |
+| IPRoute2 route-scope and route-realm tables across 18 engines | 9,954 |
+| **Total** | **419,325** |
 
 E2fsprogs accounts for 197,728 remaining occurrences, down from 401,012.
-IPRoute2 accounts for 190,884, down from 265,323. GNU Inetutils accounts
+IPRoute2 accounts for 180,930, down from 265,323. GNU Inetutils accounts
 for 78,019, down from 104,385. The curl crate accounts for 85,468, down
 from 96,855. GNU gzip accounts for 2,604, down from 4,086, and XZ Utils
 accounts for 9,784, down from 22,239.
@@ -326,16 +327,18 @@ Sharing the live bitmap counter kept the stripped size at 25,081,136 bytes.
 The directory-hash conversion also kept the stripped size at 25,081,136 bytes
 and added 72 unstripped bytes. The Hangul and trie conversions together
 added 11,264 stripped bytes. The IPRoute2 address-protocol conversion added
-6,144 stripped bytes and 6,184 unstripped bytes across the multicall.
+6,144 stripped bytes and 6,184 unstripped bytes across the multicall. The
+scope and realm tables added 9,408 stripped bytes and 4,720 unstripped bytes.
 The current unstripped SHA-256 is
-`5232b8d953a6d3cc85ff8cd85b73f84bd5e54e5368547c780789fe61be59b107`.
+`b374a5bd3c3c68bd49c1472b8e4275b31aff83cb3d32cc954562e72b552565f9`.
 The stripped SHA-256 is
-`a7b6242596f95ec998c5bb5aea7c787dd8dc0e885328003c3fc35006ae812579`.
+`8735d8d061e973f57356f2cfef69475730c6428f31f9953c5c62f177fcda4c7d`.
 
 | Code | Where it runs | Remaining work |
 |---|---|---|
 | IPRoute2 nested FDB activity | Default multicall, verified against canonical `bridge` on 259 records and live kernel operations | The adapter still constructs a borrowed slice from the initialized receive buffer |
 | IPRoute2 address-protocol names | Immutable lookup table in all 18 linked engine archives. The two public lookup functions are emitted in the `ip` namespace | The configuration loader uses a temporary pointer array and the public functions still take raw ABI arguments |
+| IPRoute2 route scope and realm names | Shared Rust implementation across all 18 engines, including the separate `bridge` build | The loader and four public C interfaces still exchange raw pointers |
 | IPRoute2 generic `parse_rtattr_flags` | Disposable `bridge` build | Audit the remaining callers before wider use |
 | E2fsprogs bitmap population count | Shared by the filesystem checker and resizer | Move the bitmap buffer owners to safe Rust to remove the remaining raw ABI argument |
 | E2fsprogs CRC16, CRC32C and big-endian CRC32 | One linked provider for each function, shared across 13 engines | Replace the raw buffers at the caller boundary as their owners are migrated |
@@ -354,10 +357,10 @@ To find work that can be reused across engines, run
 `python3 -B scripts/rank_shared_applet_modules.py LINK_REPORT --limit 20`.
 The scanner groups compiler-selected modules by package and exact source
 bytes and selects groups containing a public C-ABI function. Across 174
-groups it measures 251,369 raw-pointer type occurrences in copies beyond the
-first archive. IPRoute2's `rt_names.rs` contains 2,257 occurrences in each of
-17 identical copies, or 36,112 beyond the first. Five remaining 256-slot name tables in
-each copy contain 1,231 explicit null initializers. These entries contribute
+groups it measures 242,521 raw-pointer type occurrences in copies beyond the
+first archive. IPRoute2's `rt_names.rs` contains 1,704 occurrences in each of
+17 identical copies, or 27,264 beyond the first. Three remaining 256-slot name tables in
+each copy contain 725 explicit null initializers. These entries contribute
 to the source count even before any lookup executes. The tables load local
 configuration and keep process state. A shared implementation must preserve
 those behaviors and its callers' ownership rules. The 20 leading groups are
@@ -418,13 +421,12 @@ scripts/test_iproute2_address_protocols.sh --batch "$batch"
 python3 -B scripts/build_iproute2_address_protocol_batch.py "$link" "$batch" --cache
 ```
 
-The default multicall build selects all 18 replacement archives. To reproduce
-the release comparison, save the original link report before enabling the
-conversion. The package suites operate on a saved copy of the resulting
+To reproduce the address-protocol checkpoint, select its 18 archives and
+save the original link report from before that conversion. The package suites operate on a saved copy of the resulting
 Linux executable.
 
 ```sh
-scripts/build_rustbox_multicall.sh
+scripts/build_rustbox_multicall.sh --iproute2-address-protocol-copies
 scripts/test_iproute2_address_protocols.sh --multicall
 scripts/test_iproute2_address_protocols.sh --linked-copies
 python3 -B scripts/verify_dirhash_release.py ORIGINAL_LINK SAVED_LINUX_ELF NEW_RESULTS_DIRECTORY --jobs 4
@@ -437,7 +439,7 @@ JSON line from a completed `--batch` run with `--copy-replay FILE` after checkin
 the exact parent and candidate archives, canonical sources, test inputs and
 Docker image against the current build.
 
-The final release matched 113,760 address-protocol lookup results across
+The address-protocol release matched 113,760 lookup results across
 the 18 candidate archives. The 90 Memcheck runs reported zero errors.
 All 17 public `ip` commands matched the canonical exit status, stdout and
 stderr in each of the two dispatch modes. The combined executable passed
@@ -445,13 +447,17 @@ all 884 dispatcher checks and all 14,022 Coreutils and util-linux comparisons.
 The 28 package suites and ten integration check results are recorded in
 `evidence/rustbox-address-protocol-replays.json`.
 
-The next IPRoute2 substitution shares the route-scope and route-realm table
+IPRoute2 shares the route-scope and route-realm table
 implementation. A built-in lookup can return before configuration loads. A
 later missing ID loads the configuration and can replace a built-in name.
 The reverse lookup retains its last matched name across numeric parses.
 For example, in a fresh default configuration, looking up `global`, then
 `256`, then `global` returns success with ID 0, a parse failure, and success
-with ID 256. The Rust cache preserves that observable sequence.
+with ID 256. The Rust cache preserves that observable sequence. Both tables
+store immutable C-string references after loading. The loader still fills a
+temporary pointer array, and the four public functions retain their C ABI.
+Across the 18 engine sources the substitution removes 108 explicit raw
+borrows and adds 180 pointer-accessor calls at the C interfaces.
 
 The standalone `ip` archive reproduces the linked parent byte for byte and
 removes 553 raw-pointer type occurrences from its compiler-selected source.
@@ -466,7 +472,12 @@ python3 -B scripts/test_iproute2_route_names.py work/analysis/route-name-pilot
 ```
 
 The same substitution applies to the compiler-selected scope and realm
-functions in all 18 engine archives. The batch builder checks the exact
+functions in all 18 engine archives of the default multicall. Counting the
+two distinct compiler-selected source files once removes 1,106 raw-pointer
+type occurrences. Of the four namespaced lookup symbols, `nm --defined-only`
+finds one in the final executable, `rustbox_iproute2_ip_private_rtnl_rtscope_n2a`.
+The archive totals also cover code the compiler inlines or the linker discards.
+The batch builder checks the exact
 address-protocol parent and every selected compiler input. `bridge` uses
 its recorded rustc command. The other 17 archives use their original Cargo
 builds. To repeat the cold build and canonical lookup comparisons, use fresh
@@ -476,6 +487,23 @@ output directories.
 link=work/analysis/rustbox-multicall-link.json
 python3 -B scripts/build_iproute2_route_names.py "$link" work/analysis/route-name-batch --jobs 4
 python3 -B scripts/test_iproute2_route_names.py work/analysis/route-name-batch --link "$link" --batch work/analysis/route-name-test
+```
+
+All 18 archives matched 756,864 canonical scope and realm lookup results.
+The four configuration profiles covered numeric and named output, short
+buffers, configuration overrides, raw name bytes, parse errors and cache
+state. The 72 Memcheck runs reported zero errors. For the 96 public `ip`
+commands, status, stdout and stderr matched canonical IPRoute2 in both
+applet-name and `rustbox ip` dispatch. The results for this executable and
+the package suites are in `evidence/rustbox-route-name-replays.json`.
+
+For the combined release, save its address-protocol parent report before
+running the default build. The release verifier checks the source deltas,
+actual Linux executable, both public dispatch modes, and all package suites.
+
+```sh
+scripts/build_rustbox_multicall.sh
+python3 -B scripts/verify_dirhash_release.py PARENT_LINK SAVED_LINUX_ELF NEW_RESULTS_DIRECTORY --jobs 4
 ```
 
 In E2fsprogs the sole caller of the TEA and half-MD4 directory-hash transforms
