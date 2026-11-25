@@ -1,0 +1,72 @@
+{
+  "parent_receipts": {
+    "linked_foreign_declaration_proofs": {
+      "file": "liblz4_1_11_1_normalized_audit.foreign-cf2e7ada0723fd00a6480330c9b5f7e76e6b977a04c2e874d546051fc7e66c54.json",
+      "sha256": "cf2e7ada0723fd00a6480330c9b5f7e76e6b977a04c2e874d546051fc7e66c54"
+    },
+    "linked_private_inline_proofs": {
+      "file": "liblz4_1_11_1_normalized_audit.inlines-614dec7637c25e3f84b336b6d4ba2b40ee45787c88b9a78721ccc39af189550c.json",
+      "sha256": "37981902a2d5026ecef94e2857bdf5b3696378ef46a3b4361cc3b7dbd322c23e"
+    },
+    "native_c_strings": {
+      "archive": "work/analysis/lz4-1.11.1/translations/c2rust-0.22.1/lz4-1.11.1-stable/target/release/liblz4_1_11_1_normalized_audit.a",
+      "c_string_literals": 1382,
+      "candidate_sha256": "779209b0e860728ce9bc73fad12a8df323af367c245c9ffd5ac0ae4b303bb39b",
+      "candidate_sources_sha256": "5d81b423c6dde910003ccd565edb3e96359bc982a24ab26bef2fa2a98dba307c",
+      "compiler_selected_sources": 14,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_sha256": "779209b0e860728ce9bc73fad12a8df323af367c245c9ffd5ac0ae4b303bb39b",
+      "modules": {
+        "src/lib/lz4.rs": 1,
+        "src/lib/lz4file.rs": 2,
+        "src/lib/lz4frame.rs": 26,
+        "src/lib/xxhash.rs": 4,
+        "src/programs/bench.rs": 118,
+        "src/programs/lorem.rs": 294,
+        "src/programs/lz4cli.rs": 243,
+        "src/programs/lz4io.rs": 672,
+        "src/programs/threadpool.rs": 6,
+        "src/programs/timefn.rs": 1,
+        "src/programs/util.rs": 15
+      },
+      "parent_sources_sha256": "4b8a45ead37880c6dcfc5b3f943b278b91f462d39371f971375e022ca5c5729b",
+      "raw_ffi_pointer_extractions": 1382,
+      "raw_pointer_types_removed": 2764,
+      "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+    },
+    "shared_stdio_layouts": {
+      "archive": "work/analysis/lz4-1.11.1/translations/c2rust-0.22.1/lz4-1.11.1-stable/target/release/liblz4_1_11_1_normalized_audit.a",
+      "candidate_sha256": "779209b0e860728ce9bc73fad12a8df323af367c245c9ffd5ac0ae4b303bb39b",
+      "candidate_sources_sha256": "4b8a45ead37880c6dcfc5b3f943b278b91f462d39371f971375e022ca5c5729b",
+      "compiler_selected_sources": 14,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "779209b0e860728ce9bc73fad12a8df323af367c245c9ffd5ac0ae4b303bb39b",
+      "parent_sources_sha256": "905628111887fdcc506ec451d8cee264d28141a24caf247d6217af066e8144b5",
+      "provider": "src/lib/lz4file.rs",
+      "raw_pointer_types_removed": 90,
+      "reexporting_modules": [
+        "src/programs/bench.rs",
+        "src/programs/lz4cli.rs",
+        "src/programs/lz4io.rs",
+        "src/programs/timefn.rs",
+        "src/programs/util.rs"
+      ]
+    }
+  },
+  "pilot": {
+    "archive": "work/analysis/lz4-1.11.1/translations/c2rust-0.22.1/lz4-1.11.1-stable/target/release/liblz4_1_11_1_normalized_audit.a",
+    "candidate_module_sha256": "932e605e92f83c247b3372dc55c6d8613cdb44afb0e89b3923cac20957c2e77d",
+    "candidate_sha256": "f3e4435913115dfc9c3550deae4e8cc06abcb910d56fb5da98627b5ff4a3f91f",
+    "candidate_sources_sha256": "b0ce988654eaa5454cef17b7dbe06b0323c3129adb90233349b26a8c0bdb3c82",
+    "canonical_sha256": "c011156be5b6b0f2ab045cb68354cc0907d5f1c7d3f7fd3a32eb5fece2285105",
+    "compiler_selected_sources": 14,
+    "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+    "control_module_sha256": "f9cf735655ad0acd151279347f0a9ed5c4d3c3fe19ec96a21b19ad29ec90e653",
+    "control_sha256": "779209b0e860728ce9bc73fad12a8df323af367c245c9ffd5ac0ae4b303bb39b",
+    "module": "src/programs/lorem.rs",
+    "packed_bytes": 1598,
+    "parent_sources_sha256": "5d81b423c6dde910003ccd565edb3e96359bc982a24ab26bef2fa2a98dba307c",
+    "raw_pointer_types_removed": 11,
+    "words": 255
+  }
+}

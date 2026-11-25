@@ -19,6 +19,8 @@ class QualifiedArchive:
     directory: str
     manifest: Path
     evidence: Path
+    extra_receipts: tuple = ()
+    evidence_section: str = ""
 
     def candidate_path(self, row):
         if row["archive"] != self.key or not re.fullmatch(r"[a-f0-9]{64}", row["candidate_sha256"]):
@@ -27,11 +29,13 @@ class QualifiedArchive:
         return path.parents[1] / self.directory / row["candidate_sha256"] / path.name
 
     def receipts(self, link):
-        return {name: link[name][self.key] for name in PROOFS if self.key in link.get(name, {})}
+        return {name: link[name][self.key] for name in (*PROOFS, *self.extra_receipts) if self.key in link.get(name, {})}
 
     def pinned(self):
         record = json.loads(self.manifest.read_bytes())
         tested = json.loads(self.evidence.read_bytes())
+        if self.evidence_section:
+            tested = tested[self.evidence_section]
         row = record["pilot"]
         self.candidate_path(row)
         if any(tested[k] != v for k, v in row.items()):
@@ -62,6 +66,8 @@ class QualifiedArchive:
     def prepare(self, record, build, built=None):
         row = record["pilot"]
         destination = ROOT / self.candidate_path(row)
+        if built is not None and destination.exists() and digest(built) != row["candidate_sha256"]:
+            raise ValueError(f"unexpected {self.field} archive bytes")
         if not destination.exists():
             destination.parent.mkdir(parents=True, exist_ok=True)
             with TemporaryDirectory(dir=destination.parent) as tmp:

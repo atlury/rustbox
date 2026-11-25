@@ -17,6 +17,7 @@ import curl_manual
 import curl_manual_archive
 from tar_timespec_archive import selection as tar_timestamps
 from bison_length_archive import selection as bison_lengths
+from lz4_dictionary_archive import selection as lz4_dictionary
 import stage_routing_protocol_archives as routing_protocols
 from build_tar_timespec_pilot import MODULE as TIMESTAMP_MODULE, replace_timestamps
 import share_stdio_layout
@@ -87,6 +88,9 @@ def measure_layer(crate, files, proof, item_count="private_functions_removed"):
 
 def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_pair=None):
     final_hashes = link["source_library_sha256"]
+    dictionary_record = link.get(lz4_dictionary.field, {}).get("pilot")
+    dictionary_deltas = {}
+    link = lz4_dictionary.parent_view(link)
     routing_records = link.get(routing_protocols.FIELD, {})
     routing_deltas = {}
     link = routing_protocols.parent_view(link)
@@ -149,9 +153,11 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
         if original != bison_lengths.key:
             length_record = None
         routing_records = {k: r for k, r in routing_records.items() if str(routing_protocols.candidate_path(r)) == selected_path}
-        pre_routing_key = next(iter(routing_records), selected_path)
-        stdio_records = for_key(stdio_records, pre_routing_key)
-        literal_records = for_key(literal_records, pre_routing_key)
+        if original != lz4_dictionary.key:
+            dictionary_record = None
+        before_table = lz4_dictionary.key if dictionary_record else next(iter(routing_records), selected_path)
+        stdio_records = for_key(stdio_records, before_table)
+        literal_records = for_key(literal_records, before_table)
         va_records = for_key(va_records, selected_path)
         term_records = for_key(term_records, selected_path)
     if not second.keys() <= proofs.keys() & link["source_library_sha256"].keys():
@@ -311,12 +317,18 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
 
         literal = literal_records.get(str(linked_path))
         routing = routing_records.get(str(linked_path))
-        final_path = routing_protocols.candidate_path(routing) if routing else linked_path
+        dictionary = dictionary_record if name == lz4_dictionary.key else None
+        table = routing or dictionary
+        final_path = linked_path
+        if routing:
+            final_path = routing_protocols.candidate_path(routing)
+        elif dictionary:
+            final_path = lz4_dictionary.candidate_path(dictionary)
         if archive_pair and str(final_path) != selected_path:
             raise ValueError("Cargo origin does not yield the requested linked archive")
         va = va_records.get(str(final_path))
         term = term_records.get(str(final_path))
-        if any(record is not None for record in (literal, routing, va, term)):
+        if any(record is not None for record in (literal, table, va, term)):
             modules = [str(path.relative_to(crate)) for path in files]
             parent = {module: hashlib.sha256(read_parent(module)).hexdigest() for module in modules}
         if literal is not None:
@@ -328,18 +340,23 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
             changed = native_strings.replay(parent, read_parent, literal, literal_tool)
             replacements.update({crate / module: data for module, data in changed.items()})
             literal_deltas[str(linked_path)] = literal["c_string_literals"]
-        if literal is not None and any(record is not None for record in (routing, va, term)):
+        if literal is not None and any(record is not None for record in (table, va, term)):
             parent.update({module: hashlib.sha256(data).hexdigest() for module, data in changed.items()})
-        if routing is not None:
-            from build_routing_protocol_pilot import transform as replace_protocols
-            if hashlib.sha256((ROOT / final_path).read_bytes()).hexdigest() != routing["candidate_sha256"]:
-                raise ValueError("staged routing protocol archive differs from its compiler receipt")
-            module = routing["module"]
+        if table is not None:
+            if routing:
+                from build_routing_protocol_pilot import transform as replace_table
+                deltas = routing_deltas
+            else:
+                from build_lz4_dictionary_pilot import transform as replace_table
+                deltas = dictionary_deltas
+            if hashlib.sha256((ROOT / final_path).read_bytes()).hexdigest() != table["candidate_sha256"]:
+                raise ValueError(f"staged archive differs from its compiler receipt: {final_path}")
+            module = table["module"]
             old = read_parent(module)
-            new, facts = replace_protocols(old)
-            verify_source_substitution(routing, parent, facts, module)
-            routing_deltas[str(linked_path)] = {k: len(regex.findall(old)) - len(regex.findall(new))
-                                               for k, regex in METRICS.items()}
+            new, facts = replace_table(old)
+            verify_source_substitution(table, parent, facts, module)
+            deltas[str(linked_path)] = {k: len(regex.findall(old)) - len(regex.findall(new))
+                                        for k, regex in METRICS.items()}
             replacements[crate / module] = new
             parent[module] = facts["candidate_module_sha256"]
             linked_path = final_path
@@ -392,6 +409,8 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
                 source_digests[layer["module"]] = layer["module_before"]
                 if source_list_digest(source_digests) != layer["parent_sources_sha256"]:
                     raise ValueError(f"{stage} parent source list differs from its receipt: {name}")
+    if bool(dictionary_record) != bool(dictionary_deltas):
+        raise ValueError("LZ4 dictionary receipt outside the compiler inputs")
     if bool(length_record) != bool(length_deltas):
         raise ValueError("Bison length receipt outside the compiler inputs")
     if timestamp_records.keys() != timestamp_deltas.keys():
@@ -427,6 +446,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
             **({"shared_ncurses_termtype_deltas": term_deltas} if term_deltas else {}),
             **({"shared_va_list_layout_deltas": va_deltas} if va_deltas else {}),
             **({"shared_stdio_layout_deltas": stdio_deltas} if stdio_deltas else {}),
+            **({"lz4_dictionary_deltas": dictionary_deltas} if dictionary_deltas else {}),
             **({"bison_length_deltas": length_deltas} if length_deltas else {}),
             **({"tar_timestamp_deltas": timestamp_deltas} if timestamp_deltas else {}),
             **({"curl_manual_deltas": curl_deltas} if curl_deltas else {}),
@@ -652,6 +672,7 @@ if __name__ == "__main__":
     previous.add_argument("--verify-va-list-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-native-c-strings-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-shared-stdio-from", type=Path, metavar="CONTROL")
+    previous.add_argument("--verify-lz4-dictionary-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-bison-lengths-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-tar-timestamps-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-curl-manual-from", type=Path, metavar="CONTROL")
@@ -688,7 +709,8 @@ if __name__ == "__main__":
     if args.verify_shared_stdio_from:
         prior = json.loads(args.verify_shared_stdio_from.read_bytes())
         check_shared_stdio(prior, link, measure(prior), current)
-    for path, layer, field in ((args.verify_bison_lengths_from, bison_lengths, "bison_length_deltas"),
+    for path, layer, field in ((args.verify_lz4_dictionary_from, lz4_dictionary, "lz4_dictionary_deltas"),
+                               (args.verify_bison_lengths_from, bison_lengths, "bison_length_deltas"),
                                (args.verify_tar_timestamps_from, tar_timestamps, "tar_timestamp_deltas")):
         if path:
             prior = json.loads(path.read_bytes())

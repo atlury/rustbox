@@ -14,7 +14,8 @@ def cargo_origin(link, key):
             break
     from tar_timespec_archive import selection as tar
     from bison_length_archive import selection as bison
-    for layer in (tar, bison):
+    from lz4_dictionary_archive import selection as lz4
+    for layer in (tar, bison, lz4):
         if (record := link.get(layer.field)) and layer.candidate_path(record["pilot"]) == selected:
             return Path(layer.key)
     if record := link.get("curl_manual"):
@@ -63,8 +64,10 @@ def pinned_parent(key, row):
     import iproute2_route_name_archives as routes
     from tar_timespec_archive import selection as tar
     from bison_length_archive import selection as bison
-    if original in (tar.key, bison.key):
-        layer = tar if original == tar.key else bison
+    from lz4_dictionary_archive import selection as lz4
+    layers = {layer.key: layer for layer in (tar, bison, lz4)}
+    if original in layers:
+        layer = layers[original]
         previous = layer.pinned()
         prior = previous["pilot"]
         link = {layer.field: previous, "source_library_sha256": {str(layer.candidate_path(prior)): prior["candidate_sha256"]}}

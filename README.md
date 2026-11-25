@@ -814,6 +814,14 @@ earlier trial. All 2,625 generator and Memcheck cases, 108 multicall command
 comparisons and four 10 MB benchmark runs passed again.
 [Combined source, archive and executable evidence](evidence/lz4-native-c-string-dictionary.json)
 
+The source audit for this preview counted 261 fewer `.as_ptr()` calls and
+three fewer raw borrows alongside the 11 fewer explicit raw-pointer types.
+The archive manifest ties the result to four earlier compiler receipts. The
+audit replays all 14 LZ4 compiler inputs and checks the canonical dictionary,
+the selected archive and the complete source totals for both links.
+[Dictionary manifest](batches/lz4-benchmark-dictionary.json) ·
+[Selection regression](tests/lz4-dictionary/release.py)
+
 ```sh
 python3 -B tests/lz4-dictionary/source.py "$link"
 python3 -B scripts/build_lz4_dictionary_pilot.py --link "$link" --archive "$lz4_archive" --output "$pilot"
