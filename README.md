@@ -765,6 +765,14 @@ pointer extractions. The next native C-string release can enroll this
 subset alongside other byte-identical archives.
 [Verified curl static-array subset](evidence/curl-static-array-native-c-strings.json)
 
+Extending that curl build to array initializers inside mixed modules preserved
+all 906 earlier literals and added 680. Across all 241 compiler inputs, the
+1,586-literal selection reproduced the complete packed-manual archive with
+3,172 fewer explicit casts. Its incremental reduction over the three-module
+selection is 1,360 casts. The source audit replayed both selections and
+checked the 680 additional C-interface pointer extractions.
+[Verified extension and overlap](evidence/curl-static-array-c-string-extension.json)
+
 To select cold-built C-string archives in the multicall, enroll them against
 the same compiler inputs as the intended parent release. When that release
 shares stdio layouts, rebuild overlapping literal pilots on top of those

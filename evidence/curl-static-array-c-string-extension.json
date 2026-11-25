@@ -1,0 +1,62 @@
+{
+  "additional_casts_removed": 1360,
+  "additional_literals": 680,
+  "after": {
+    "archives": 1,
+    "as_ptr_calls": 1828,
+    "files": 241,
+    "raw_borrows": 5522,
+    "raw_pointer_type_tokens": 70883,
+    "slices_from_raw_parts": 0
+  },
+  "before": {
+    "archives": 1,
+    "as_ptr_calls": 1148,
+    "files": 241,
+    "raw_borrows": 5522,
+    "raw_pointer_type_tokens": 72243,
+    "slices_from_raw_parts": 0
+  },
+  "candidate": {
+    "archive": "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/packed-manual/5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7/libcurl_8_23_0_normalized_audit.a",
+    "c_string_literals": 1586,
+    "candidate_sha256": "5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7",
+    "candidate_sources_sha256": "c1f721d712aa792f52984574b94f2c15e69406183eff156611417472a47e1704",
+    "cargo_archive": "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/release/libcurl_8_23_0_normalized_audit.a",
+    "compiler_selected_sources": 241,
+    "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+    "control_sha256": "5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7",
+    "modules": {
+      "src/lib/curl_sasl.rs": 11,
+      "src/lib/curl_trc.rs": 29,
+      "src/lib/easyoptions.rs": 327,
+      "src/lib/ftp.rs": 39,
+      "src/lib/parsedate.rs": 19,
+      "src/lib/progress.rs": 11,
+      "src/lib/telnet.rs": 60,
+      "src/lib/vdns/doh.rs": 17,
+      "src/lib/version.rs": 19,
+      "src/src/curlinfo.rs": 31,
+      "src/src/tool_easysrc.rs": 18,
+      "src/src/tool_findfile.rs": 7,
+      "src/src/tool_getparam.rs": 316,
+      "src/src/tool_help.rs": 52,
+      "src/src/tool_listhelp.rs": 548,
+      "src/src/tool_setopt.rs": 75,
+      "src/src/tool_writeout.rs": 5,
+      "src/src/tool_xattr.rs": 2
+    },
+    "parent_sources_sha256": "842096d82e7809d47e6b44d8f9964c70099177419382db3ca576b339e301db19",
+    "raw_ffi_pointer_extractions": 1586,
+    "raw_pointer_types_removed": 3172,
+    "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+    "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+  },
+  "link_report_sha256": "8b0650034c80cfb0bd2735c764813cb981226ce9d3bce5cfaaa7759690d7c859",
+  "previous_module_counts": {
+    "src/lib/easyoptions.rs": 327,
+    "src/src/curlinfo.rs": 31,
+    "src/src/tool_listhelp.rs": 548
+  },
+  "previous_receipt_sha256": "04ee915c0029e9d743ce7b89c54f6cdbc3ff18765da475e8a36dc96f3f87fbfc"
+}
