@@ -643,8 +643,13 @@ the existing date scanner has counted three ASCII letters. The Rust helper
 forbids unsafe code. Across all 16,777,216 three-byte inputs it returned the
 same month number as upstream curl under GCC and Clang, each with signed
 and unsigned `char`. Exactly 96 spellings matched. This check covers the
-helper. Full-archive and public-command results are tracked separately.
+helper. The cold build reproduced the selected 241-source archive before
+replacing the month reader. All 106 public `curl_getdate` cases agreed
+across both canonical C builds, the Rustbox parent and the candidate.
+The candidate passed the same 106 cases under Memcheck and all 12 CLI
+cases against each canonical compiler.
 [Exhaustive month comparison](evidence/curl-month-exhaustive.json)
+[Archive, date API and command results](evidence/curl-month-array-pilot.json)
 
 ```sh
 scripts/run_multicall_tool.sh python3 -B /work/tests/curl-calendar/exhaustive.py
