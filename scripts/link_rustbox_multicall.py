@@ -2513,7 +2513,7 @@ def main() -> int:
     for package, archive in (
         ("bc", bc_rust_library), ("curl", curl_rust_library), ("findutils", findutils_rust_library),
         ("gzip", gzip_rust_library), ("lz4", lz4_rust_library), ("ncurses", ncurses_rust_library),
-        ("xz", xz_rust_library),
+        ("xz", xz_rust_library), ("zstd", zstd_rust_library),
     ):
         inline_proofs.update(verified_cargo_inline_proofs(repository, package, [archive]))
     inline_proofs[str(bridge_archive.relative_to(repository))] = bridge_inline_proof

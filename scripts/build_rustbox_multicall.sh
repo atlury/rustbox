@@ -4,7 +4,7 @@ set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 prepare_archive() {
-    python3 -B "$root/scripts/check_cargo_private_inlines.py" --prepare-archive "$1" "$2" >&2 || return 1
+    python3 -B "$root/scripts/check_cargo_private_inlines.py" --prepare-archive "$@" >&2 || return 1
     printf '/work/%s\n' "$2"
 }
 
@@ -19,6 +19,7 @@ gzip_archive=$(prepare_archive gzip work/analysis/gzip-1.14/translations/c2rust-
 lz4_archive=$(prepare_archive lz4 work/analysis/lz4-1.11.1/translations/c2rust-0.22.1/lz4-1.11.1-stable/target/release/liblz4_1_11_1_normalized_audit.a)
 ncurses_archive=$(prepare_archive ncurses work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a)
 xz_archive=$(prepare_archive xz work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a)
+zstd_archive=$(prepare_archive zstd work/analysis/zstd-1.5.7/translations/c2rust-0.22.1/zstd-1.5.7-stable/target/release/libzstd_1_5_7_normalized_audit.a --source-dir src/programs)
 RUSTBOX_TOOL_IMAGE=rustbox-e2fsprogs:2026-11-24 \
   exec "$root/scripts/run_tool.sh" python3 -B /work/scripts/link_rustbox_multicall.py \
     --repository /work \
@@ -42,7 +43,7 @@ RUSTBOX_TOOL_IMAGE=rustbox-e2fsprogs:2026-11-24 \
     --gzip-rust-library "$gzip_archive" \
     --gzip-support-library /rustbox-gzip/normalized-clang/lib/libgzip.a \
     --xz-rust-library "$xz_archive" \
-    --zstd-rust-library /work/work/analysis/zstd-1.5.7/translations/c2rust-0.22.1/zstd-1.5.7-stable/target/release/libzstd_1_5_7_normalized_audit.a \
+    --zstd-rust-library "$zstd_archive" \
     --tar-rust-library /work/work/analysis/tar-1.35/translations/c2rust-0.22.1/tar-1.35-stable/target/release/libtar_1_35_normalized_audit.a \
     --ncurses-rust-library "$ncurses_archive" \
     --tar-c-residue-directory /work/work/analysis/tar-1.35/hybrid-artifacts/c-residue \

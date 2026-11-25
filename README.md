@@ -282,9 +282,10 @@ production reduction.
 
 The default 499-name Linux executable now uses the cleaned sources for
 all 20 E2fsprogs, 18 IPRoute2 and 26 GNU Inetutils engines, as well as curl,
-GNU gzip, XZ Utils, GNU bc, GNU Findutils, LZ4 and ncurses. Across the linked
-applet sources the raw-pointer type count fell from **1,379,960 to 1,104,129**.
-Counting byte-identical Rust files once gives **786,584** remaining occurrences.
+GNU gzip, XZ Utils, GNU bc, GNU Findutils, LZ4, ncurses and the zstd command-line
+modules. Across the linked applet sources the raw-pointer type count fell from
+**1,379,960 to 1,103,631**.
+Counting byte-identical Rust files once gives **786,086** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
 | Production change | Raw-pointer type occurrences removed |
@@ -299,7 +300,8 @@ The count of applets certified pointer-free is still zero.
 | Compiler-verified removal of unused private helpers in XZ Utils 5.8.4 | 7,075 |
 | Shared E2fsprogs bitmap counter, including its raw ABI argument | 77 |
 | Compiler-verified removal of unused private helpers in GNU bc, GNU Findutils, LZ4 and ncurses | 13,777 |
-| **Total** | **275,831** |
+| Compiler-verified removal of unused private helpers in zstd command-line modules | 498 |
+| **Total** | **276,329** |
 
 E2fsprogs accounts for 215,007 remaining occurrences, down from 401,012.
 IPRoute2 accounts for 223,692, down from 265,323. GNU Inetutils accounts
@@ -527,10 +529,26 @@ The four package test scripts cover 169 canonical command comparisons, all 18
 shipped GNU bc workloads and the LZ4 upstream essentials suite. They run 19
 multicall paths under Valgrind, plus the standalone LZ4 decompression control.
 
-The zstd 1.5.7 control build reproduced its release archive. Removing its
-unused helpers changed the archive with both newline-preserving and
-byte-offset-preserving edits. The release retains the original zstd archive
-and its count of 25,284 raw-pointer type occurrences.
+For zstd 1.5.7, removing all 3,431 compiler-selected helpers across 42 files
+changed the release archive with both newline-preserving and byte-offset-preserving
+edits. Restricting the cleanup to the ten files under `src/programs` reproduced
+the complete archive byte-for-byte. This removed 275 unused functions, 98,413
+source bytes and 498 raw-pointer type occurrences. The linked zstd crate has
+24,786 occurrences remaining. Its six command names pass 17 canonical comparisons,
+and compression and decompression pass their Valgrind and byte-output checks.
+The rebuilt 499-name binary also passed all 884 dispatch comparisons.
+
+To reproduce the zstd archive check, run
+
+```sh
+zstd_crate=work/analysis/zstd-1.5.7/translations/c2rust-0.22.1/zstd-1.5.7-stable
+python3 -B scripts/check_cargo_private_inlines.py --source-dir src/programs \
+  --prepare-archive zstd "$zstd_crate/target/release/libzstd_1_5_7_normalized_audit.a"
+```
+
+The source directory forms part of the receipt key. The release audit checks that
+each edited file lies within that directory, then verifies the complete crate's
+compiler inputs and the linked archive hash.
 
 The default build removes 9,189 unused private helper definitions and 18,487
 raw-pointer type occurrences from 606 GNU Inetutils source entries. The

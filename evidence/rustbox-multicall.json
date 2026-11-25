@@ -8855,6 +8855,10 @@
         "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a": {
           "file": "libxz_5_8_4_normalized_audit.inlines-dbe6df97b9af094cab5c51fe367f792c9de251cd576a4f4a7ee1678a1be8a7c9.json",
           "sha256": "4cc4c47e4af36517c24f0231117b4cab7723ef0bd21efa2907421b4a646b5cbd"
+        },
+        "work/analysis/zstd-1.5.7/translations/c2rust-0.22.1/zstd-1.5.7-stable/target/release/libzstd_1_5_7_normalized_audit.a": {
+          "file": "libzstd_1_5_7_normalized_audit.inlines-d7051260610cd50824600871a379517c85ab61f67e6aefd02795d8d038026ec6.json",
+          "sha256": "ad2dafffb9a3ad9292018531e6eae6dce40f159527eb38697d88a006fba93ac3"
         }
       },
       "lz4_namespaced_symbols": [
@@ -18203,7 +18207,7 @@
       "rustbox_e2fsprogs_e2scrub_all_main",
       "rustbox_e2fsprogs_mk_cmds_main"
     ],
-    "evidence_sha256": "f6f507e8b1a5e31083da6c04555a00773ee3bfb154deff95e943bb40f4bd045e",
+    "evidence_sha256": "0b34e817e6fe6c05f39393124947adbb2125e28ebdbd3f34d7188f0fa4d05a7c",
     "frontend_differential": {
       "cases": 24,
       "native_builds": 1,
@@ -18335,7 +18339,7 @@
       "schema": 1
     },
     "frontend_differential_sha256": "acc9df19138d06e336eff6bd26988e12259beac839aa9e30340e22c7cf058596",
-    "link_report_sha256": "d8b3760390047fbf0e02389b92be53affe87056313d3b554fba7730e6a6bccdf",
+    "link_report_sha256": "e613b3b4b7884b5e47bee595b14e5c74dff1cfa0b7e5d5bb84a3b1d06662216d",
     "lvm_differential": {
       "cases": 4,
       "native_builds": 1,
@@ -40582,7 +40586,7 @@
         {
           "arguments": [
             "--stdout",
-            "/tmp/rustbox-zstd-differential-wut09727/input.zst"
+            "/tmp/rustbox-zstd-differential-s41il2sw/input.zst"
           ],
           "clang": {
             "status": 0,
@@ -40604,7 +40608,7 @@
         },
         {
           "arguments": [
-            "/tmp/rustbox-zstd-differential-wut09727/input.zst"
+            "/tmp/rustbox-zstd-differential-s41il2sw/input.zst"
           ],
           "clang": {
             "status": 0,
@@ -40627,19 +40631,19 @@
         {
           "arguments": [
             "--test",
-            "/tmp/rustbox-zstd-differential-wut09727/input.zst"
+            "/tmp/rustbox-zstd-differential-s41il2sw/input.zst"
           ],
           "clang": {
             "status": 0,
             "stderr_bytes": 64,
-            "stderr_sha256": "616d5e325452fd82b57e8bdb715eac8f43da81526aa1e6f26b4f628bb2d96b48",
+            "stderr_sha256": "0d876a4dcd75fc82d896f53e47aac3ecefba3e80ec3988df39b777404abc5b60",
             "stdout_bytes": 0,
             "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 64,
-            "stderr_sha256": "616d5e325452fd82b57e8bdb715eac8f43da81526aa1e6f26b4f628bb2d96b48",
+            "stderr_sha256": "0d876a4dcd75fc82d896f53e47aac3ecefba3e80ec3988df39b777404abc5b60",
             "stdout_bytes": 0,
             "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
           },
@@ -40650,21 +40654,21 @@
         {
           "arguments": [
             "--list",
-            "/tmp/rustbox-zstd-differential-wut09727/input.zst"
+            "/tmp/rustbox-zstd-differential-s41il2sw/input.zst"
           ],
           "clang": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 170,
-            "stdout_sha256": "8cfab67427d435ff32dd42e1ed5deec8bf06b54c175aa18afe996e19b61eb8e0"
+            "stdout_sha256": "f7ac94ad62c2423b8e889e859b09110678caf4c1f99f9aed951904389cace3f1"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 170,
-            "stdout_sha256": "8cfab67427d435ff32dd42e1ed5deec8bf06b54c175aa18afe996e19b61eb8e0"
+            "stdout_sha256": "f7ac94ad62c2423b8e889e859b09110678caf4c1f99f9aed951904389cace3f1"
           },
           "label": "zstd-list",
           "name": "zstd",
@@ -40674,7 +40678,7 @@
           "arguments": [
             "-T1",
             "--stdout",
-            "/tmp/rustbox-zstd-differential-wut09727/input.txt"
+            "/tmp/rustbox-zstd-differential-s41il2sw/input.txt"
           ],
           "clang": {
             "status": 0,
@@ -40697,19 +40701,19 @@
         {
           "arguments": [
             "needle",
-            "/tmp/rustbox-zstd-differential-wut09727/input.zst"
+            "/tmp/rustbox-zstd-differential-s41il2sw/input.zst"
           ],
           "clang": {
             "status": 0,
             "stderr_bytes": 77,
-            "stderr_sha256": "6b4cb7e34541c1491be6ac50f07d732963efe5613d09c61832ea0779536b5fce",
+            "stderr_sha256": "6972e1db4c321f79db67ba4c5fd6a70708437cf92b1393b98a7ca124cd54137a",
             "stdout_bytes": 0,
             "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 77,
-            "stderr_sha256": "6b4cb7e34541c1491be6ac50f07d732963efe5613d09c61832ea0779536b5fce",
+            "stderr_sha256": "6972e1db4c321f79db67ba4c5fd6a70708437cf92b1393b98a7ca124cd54137a",
             "stdout_bytes": 0,
             "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
           },
@@ -40720,7 +40724,7 @@
         {
           "arguments": [
             "absent-pattern",
-            "/tmp/rustbox-zstd-differential-wut09727/input.zst"
+            "/tmp/rustbox-zstd-differential-s41il2sw/input.zst"
           ],
           "clang": {
             "status": 1,
@@ -40742,7 +40746,7 @@
         },
         {
           "arguments": [
-            "/tmp/rustbox-zstd-differential-wut09727/input.zst"
+            "/tmp/rustbox-zstd-differential-s41il2sw/input.zst"
           ],
           "clang": {
             "status": 0,
@@ -40765,7 +40769,7 @@
       ],
       "schema": 1
     },
-    "differential_sha256": "6ee61b03c46b221ff9b0c1664d94230a2df62bf4994d917762fd049c9532bbc1",
+    "differential_sha256": "04ee37fe4559b6d104fb53191aaea4604365a04c5eee404f8f22e86773f8305d",
     "engine_valgrind_errors": 0,
     "indirectly_lost_bytes": 0,
     "integrated_public_names": 6,
