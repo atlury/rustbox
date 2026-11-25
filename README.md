@@ -863,6 +863,13 @@ before compiling the changed routing table. The default still uses the
 previous table until multicall qualification.
 [Per-engine source hashes](evidence/iproute2-routing-protocol-candidates.json)
 
+The `ip` candidate matched canonical GCC and Clang builds on all 21,860
+forward and reverse lookups and 40 read-only route commands. The four
+profiles covered empty, vendor, local and malformed configuration, including
+overrides in `rt_protos.d` and non-UTF-8 names. Memcheck reported zero
+errors in each profile.
+[Routing protocol results](evidence/iproute2-routing-protocol-pilot.json)
+
 ```sh
 python3 -B scripts/rank_routing_protocols.py "$link"
 python3 -B scripts/build_routing_protocol_pilot.py --link "$link" --archive "$ip_archive" --output "$pilot"

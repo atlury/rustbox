@@ -1,0 +1,59 @@
+{
+  "archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/netlink-protocols/0db83e0df290e9bbf1b6470ecbcdae3385221a6f8f3b50d53300feccf2ab4ba2/libip_audit.a",
+  "candidate_module_sha256": "62a3fb28d118d2b45a9bf2ed0ce2216dc9512cf25350325ccf14072e9c14156f",
+  "candidate_sha256": "b798f4f8fec00bb1b57d0296c40083a024ac5c23e768f36f55da22decc6f5cde",
+  "candidate_sources_sha256": "00313a4662847b951acaf60ee5018f1c9a5d212c1616ca9990cf63574e3ec584",
+  "canonical_source_sha256": "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e",
+  "cargo_archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/release/libip_audit.a",
+  "compiler_selected_sources": 102,
+  "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+  "control_module_sha256": "e06c205623b310442e689f8ce6c5b43811f9d17182ab27fc956b494889fd94dd",
+  "control_sha256": "0db83e0df290e9bbf1b6470ecbcdae3385221a6f8f3b50d53300feccf2ab4ba2",
+  "lookup_driver_sha256": "3ab65e190014ed2c16854eda7ae01808e1a07ff77b6a9ecb5d5d9940d35cb320",
+  "memcheck_runs": 4,
+  "module": "src/lib/rt_names.rs",
+  "oracle_compilers": [
+    "gcc",
+    "clang-18"
+  ],
+  "parent_sources_sha256": "5fc9e7b43dc1846d5857d4a5e482603e1cbbf12ea9aed04f0bfbd9d26150367d",
+  "profiles": [
+    {
+      "forward": 5167,
+      "profile": "empty",
+      "public_ip_commands": 10,
+      "public_successes": 4,
+      "reverse": 298,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "03103ad8a7a0e9ccafa8d97de12b2760e19ff09870e31f3fb2091a8cc771f2bf"
+    },
+    {
+      "forward": 5167,
+      "profile": "vendor",
+      "public_ip_commands": 10,
+      "public_successes": 6,
+      "reverse": 298,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "55cf313aab157527f807591deec29b2f68850ec1610b6909d02fb157881fa203"
+    },
+    {
+      "forward": 5167,
+      "profile": "local",
+      "public_ip_commands": 10,
+      "public_successes": 7,
+      "reverse": 298,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "4c5c239dd7add6772fa45c403a6f20372b8641a1b2d3f7a5e967b318a79f65bc"
+    },
+    {
+      "forward": 5167,
+      "profile": "malformed",
+      "public_ip_commands": 10,
+      "public_successes": 6,
+      "reverse": 298,
+      "stderr_sha256": "ddaabfe731c0d3ee91e70245c00c828ec25c53e6933728132a40a92d06041d0c",
+      "stdout_sha256": "09d7f9904347888b3b50df1533f86798ce586cc6004b37f395717b2ff9e72273"
+    }
+  ],
+  "raw_pointer_types_removed": 267
+}
