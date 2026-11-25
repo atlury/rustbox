@@ -35,10 +35,18 @@ def validate(link, base, record):
     return candidate_path(base, record["candidate_sha256"])
 
 
-def build(link, base, pinned=None, repository=ROOT):
+def dirhash_parent(record):
+    parent = record.copy()
+    layer = parent.pop("hangul")
+    parent["candidate_sha256"] = layer["parent_archive_sha256"]
+    parent["compiler_sources_sha256"] = layer["parent_sources_sha256"]
+    return parent
+
+
+def build(link, base, pinned=None, repository=ROOT, hangul_parent=None):
     with tempfile.TemporaryDirectory() as tmp:
         scratch = Path(tmp)
-        record = compile_candidate(link, base, scratch)
+        record = compile_candidate(link, base, scratch, hangul_parent)
         output = repository / validate(link, base, record)
         if pinned is not None and record != pinned:
             raise ValueError(f"directory hash build differs from its pinned result: {base}")
@@ -77,12 +85,20 @@ def prepare(link, manifest, repository):
             or {Path(name).parent.name for name in controls} != set(CONSUMERS)):
         raise ValueError("directory hash manifest must cover the release's 13 staged engines")
 
+    if any("hangul" in row for row in records.values()):
+        parents = json.loads((repository / "batches/e2fsprogs-dirhash-arrays.json").read_bytes())
+        if any("hangul" not in row for row in records.values()) or {
+            name: dirhash_parent(row) for name, row in records.items()
+        } != parents:
+            raise ValueError("Hangul manifest differs from the pinned directory hash parents")
+
     def verify(item):
         name, record = item
         base = Path(name)
         target = repository / validate(link, base, record)
         if not target.is_file():
-            build(link, base, pinned=record, repository=repository)
+            build(link, base, pinned=record, repository=repository,
+                  hangul_parent=dirhash_parent(record) if "hangul" in record else None)
         if digest(target) != record["candidate_sha256"]:
             raise ValueError(f"directory hash candidate differs from its pinned archive: {name}")
 
@@ -96,11 +112,16 @@ def main():
     parser.add_argument("link", type=Path)
     parser.add_argument("output", type=Path, help="new directory for per-engine receipts and final manifest")
     parser.add_argument("--jobs", type=int, default=2)
+    parser.add_argument("--hangul", action="store_true", help="add Hangul decomposition to the current directory hash release")
     args = parser.parse_args()
     if args.jobs < 1:
         parser.error("--jobs must be positive")
     data = args.link.read_bytes()
-    link = control_view(json.loads(data))
+    release = json.loads(data)
+    parents = release.get("e2fsprogs_dirhash_arrays", {}) if args.hangul else {}
+    if args.hangul and (not parents or any("hangul" in record for record in parents.values())):
+        parser.error("use the link report from the directory hash release preceding the Hangul conversion")
+    link = control_view(release)
     controls = sorted(Path(name) for name in link["linked_private_inline_proofs"]
                       if Path(name).parent.parent.name == "rustbox-e2fsprogs-shared")
     if sorted(base.parent.name for base in controls) != sorted(CONSUMERS):
@@ -108,9 +129,9 @@ def main():
     args.output.mkdir()
 
     def check(base):
-        record = build(link, base)
+        record = build(link, base, hangul_parent=parents[str(base)] if args.hangul else None)
         (args.output / (base.parent.name + ".json")).write_text(json.dumps(record, sort_keys=True) + "\n")
-        print(f"{base.parent.name} compiled with 40 checked array accesses", flush=True)
+        print(f"{base.parent.name} compiled and matched its control", flush=True)
         return str(base), record
 
     with ThreadPoolExecutor(max_workers=args.jobs) as workers:

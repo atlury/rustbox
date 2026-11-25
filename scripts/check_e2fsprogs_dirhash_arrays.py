@@ -11,6 +11,7 @@ import subprocess
 
 from check_cargo_private_inlines import digest
 from check_next_inline_layer import apply_receipt
+from e2fsprogs_hangul import replace_hangul
 from e2fsprogs_foreign_declarations import read_proof, staged_compiler_inputs
 
 HELPERS_SHA = "5ea1be107fc3f64ec81b90f7f1710f98d5450982b58715502faa636763b8fe24"
@@ -57,7 +58,7 @@ def source_list_digest(files):
     return hashlib.sha256(data).hexdigest()
 
 
-def compile_candidate(link, archive, scratch):
+def compile_candidate(link, archive, scratch, hangul_parent=None):
     if not scratch.is_dir() or any(scratch.iterdir()):
         raise ValueError("expected an empty scratch directory")
     crate, inputs, rustc = staged_compiler_inputs(link, archive, scratch)
@@ -81,7 +82,7 @@ def compile_candidate(link, archive, scratch):
     original_module = digest(module)
     accesses = borrow_arrays(module)
     rebuilt = build()
-    return {
+    record = {
         "production_sha256": control,
         "candidate_sha256": rebuilt,
         "module": str(module.relative_to(crate)),
@@ -93,6 +94,17 @@ def compile_candidate(link, archive, scratch):
         "second_inlines": link.get("linked_second_inline_proofs", {}).get(str(archive)),
         "declarations": link.get("linked_foreign_declaration_proofs", {}).get(str(archive)),
     }
+
+    if hangul_parent is not None:
+        if record != hangul_parent:
+            raise ValueError("directory hash control does not reproduce the pinned parent")
+        module, = [crate / p for p in inputs if p.endswith("/lib/ext2fs/nls_utf8.rs")]
+        layer = replace_hangul(module)
+        record["hangul"] = dict(layer, module=str(module.relative_to(crate)),
+                                parent_archive_sha256=rebuilt, parent_sources_sha256=record["compiler_sources_sha256"])
+        record["candidate_sha256"] = build()
+        record["compiler_sources_sha256"] = source_list_digest({name: digest(crate / name) for name in inputs})
+    return record
 
 
 if __name__ == "__main__":

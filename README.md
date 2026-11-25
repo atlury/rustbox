@@ -392,6 +392,23 @@ comparisons and another 14,148 under Memcheck. All 12 public `debugfs` cases
 matched both output streams. The package and integration results for this
 binary are in `evidence/rustbox-dirhash-array-replays.json`.
 
+The E2fsprogs Hangul conversion builds a nine-byte or twelve-byte leaf using
+fixed-size Rust arrays. The cursor can point into its own scratch buffer, so
+the adapter reads all three input bytes first and writes exactly the selected
+leaf. The shorter decomposition preserves the remaining three bytes. Both
+cursor and validation paths have twelve bytes of scratch storage.
+
+To build this layer in the Linux build environment, pass the previous
+directory-hash link report to
+`scripts/e2fsprogs_dirhash_archives.py PREVIOUS_LINK NEW_DIRECTORY --jobs 4 --hangul`.
+Each compiler run reproduces the preceding archive and its full source digest.
+Run `scripts/test_e2fsprogs_hangul.sh NEW_DIRECTORY/manifest.json` on the host
+to compare the converted `debugfs` against canonical E2fsprogs. The pilot
+covers all 11,172 modern Hangul syllables, four overlapping or disjoint buffer
+layouts, destination limits, invalid bytes, normalization and public directory
+hashing. Its exact counts and archive hashes are in
+`evidence/e2fsprogs-hangul-pilot.json`.
+
 Reproduce the linked Rust source inventory with
 `python3 -B scripts/audit_linked_pointers.py work/analysis/rustbox-multicall-link.json`.
 It checks the archive hashes, reads the Rust compiler's source lists and
