@@ -43,6 +43,13 @@ def tree(root: Path) -> list[tuple[object, ...]]:
     return result
 
 
+def mask_pid_count(stdout: bytes) -> bytes:
+    # The count is right-aligned. Mask its digits while retaining the position
+    # of the last column, even if a live count crosses a power of ten.
+    return re.sub(br"(?m)^( *[0-9]+ +pid +)([0-9]+)$",
+                  lambda match: match[1] + b" " * len(match[2]) + b"<sampled>", stdout)
+
+
 def invoke(command: list[str], case: Case, root: Path, *, executable: Optional[Path] = None) -> dict[str, object]:
     for name, content in case.files.items():
         path = root / name
@@ -72,7 +79,7 @@ def invoke(command: list[str], case: Case, root: Path, *, executable: Optional[P
         # The two programs run sequentially while unrelated harness workers
         # enter and leave the PID namespace.  Preserve the output shape and
         # numeric-field check without comparing two different live samples.
-        stdout = re.sub(br"(?m)(\bpid\s+)\d+$", br"\1<sampled>", stdout)
+        stdout = mask_pid_count(stdout)
     return {"status": process.returncode, "stdout": stdout, "stderr": process.stderr, "tree": tree(root)}
 
 
