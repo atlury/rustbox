@@ -14,6 +14,14 @@ from check_cargo_private_inlines import ROOT, digest
 from rank_routing_protocols import rank
 
 
+def expected_profiles(baseline, public_ip):
+    profiles = [dict(profile) for profile in baseline["profiles"]]
+    if not public_ip:
+        for profile in profiles:
+            profile.update(public_successes=0, public_ip_commands=0)
+    return profiles
+
+
 def run(link, output, jobs, engine=None):
     ranking = rank(link)
     selected = ranking["engines"]
@@ -39,10 +47,7 @@ def run(link, output, jobs, engine=None):
         else:
             result = receipt.read_bytes()
         compared = json.loads(result)
-        profiles = [dict(p) for p in baseline["profiles"]]
-        if archive.name != "libip_audit.a":
-            for profile in profiles:
-                profile.update(public_successes=0, public_ip_commands=0)
+        profiles = expected_profiles(baseline, archive.name == "libip_audit.a")
         if (any(compared.get(k) != v for k, v in row.items()) or compared["profiles"] != profiles
                 or any(compared.get(k) != baseline[k] for k in ("memcheck_runs", "canonical_source_sha256",
                                                                  "lookup_driver_sha256", "oracle_compilers"))):

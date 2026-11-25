@@ -1049,6 +1049,15 @@ digests, and runs the same four canonical configuration profiles. It
 reuses completed comparisons after checking the archive and source hashes.
 [Composed source inventory](evidence/iproute2-routing-protocol-after-c-strings.json)
 
+With the `ip` engine switched to the new routing protocol reader, all 21
+IPRoute2 names passed 288 canonical comparisons in the complete multicall.
+The suite covers six live `routel` queries and six route-protocol filters,
+both dispatch modes, and the GCC and Clang builds. A second run on the
+saved ELF passed with only Rustbox applets on the candidate's `PATH`.
+The isolated change removes 267 pointer types in `ip`. Its stripped ELF
+grew by 2,176 bytes, from 24,961,776 to 24,963,952.
+[Full link and IPRoute2 command results](evidence/iproute2-routing-protocol-ip-multicall.json)
+
 ```sh
 python3 -B scripts/rank_routing_protocols.py "$link"
 python3 -B scripts/build_routing_protocol_pilot.py --link "$link" --archive "$ip_archive" --output "$pilot"
