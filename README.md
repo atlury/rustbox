@@ -543,6 +543,14 @@ comparisons against each canonical build. The archive changed, so promotion
 still requires the full multicall release checks.
 [GNU tar timestamp evidence](evidence/tar-borrowed-timespec-pilot.json)
 
+The isolated 499-name link reproduced the packed-curl parent executable
+byte for byte before substituting the tar archive. The resulting tar and rmt
+passed all 18 cases through each dispatch mode against each canonical compiler.
+Memcheck passed archive creation and extraction. Both the regular file and
+the symlink recovered the original nanosecond modification time. The candidate
+remained 24,961,776 bytes stripped and grew by 208 bytes unstripped.
+[Tar multicall comparison](evidence/tar-borrowed-timespec-multicall.json)
+
 ```sh
 python3 -B scripts/build_tar_timespec_pilot.py --link "$link" --output "$pilot"
 python3 -B scripts/test_tar_timespec_pilot.py "$pilot" "$link"
