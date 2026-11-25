@@ -1,0 +1,1072 @@
+{
+  "binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+  "canonical_lookups": 393480,
+  "link_report_sha256": "67a65e5893a2e081f4cf3ce1fbc97674d9be3c4f86235696d79a9157234b6a3e",
+  "memcheck_runs": 72,
+  "public_ip_commands": 40,
+  "raw_pointer_types_removed": 4806,
+  "verified": {
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/arpd/netlink-protocols/b71d750c6cccad7ee62398c79b99e12b0dbd1a7c83d4d50925dc17758cf5bc63/libarpd_audit.a": {
+      "archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/arpd/netlink-protocols/b71d750c6cccad7ee62398c79b99e12b0dbd1a7c83d4d50925dc17758cf5bc63/libarpd_audit.a",
+      "candidate_module_sha256": "62a3fb28d118d2b45a9bf2ed0ce2216dc9512cf25350325ccf14072e9c14156f",
+      "candidate_sha256": "e71f89f4a2d5a7c140ec11be955d742c186493532f495a6fb5f00eb6d53c4815",
+      "candidate_sources_sha256": "1ba5bc55f970aeaa88cec906711c837a93ca6f5f7d39a051db6165a1f365c56b",
+      "canonical_source_sha256": "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e",
+      "cargo_archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/arpd/release/libarpd_audit.a",
+      "compiler_selected_sources": 13,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_module_sha256": "e06c205623b310442e689f8ce6c5b43811f9d17182ab27fc956b494889fd94dd",
+      "control_sha256": "b71d750c6cccad7ee62398c79b99e12b0dbd1a7c83d4d50925dc17758cf5bc63",
+      "lookup_driver_sha256": "3ab65e190014ed2c16854eda7ae01808e1a07ff77b6a9ecb5d5d9940d35cb320",
+      "memcheck_runs": 4,
+      "module": "src/lib/rt_names.rs",
+      "oracle_compilers": [
+        "gcc",
+        "clang-18"
+      ],
+      "parent_sources_sha256": "acd3fb4172fc21520a6b02f2fbff6186e2093fbf9477a0173c0ba1a45815a727",
+      "profiles": [
+        {
+          "forward": 5167,
+          "profile": "empty",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "03103ad8a7a0e9ccafa8d97de12b2760e19ff09870e31f3fb2091a8cc771f2bf"
+        },
+        {
+          "forward": 5167,
+          "profile": "vendor",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "55cf313aab157527f807591deec29b2f68850ec1610b6909d02fb157881fa203"
+        },
+        {
+          "forward": 5167,
+          "profile": "local",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "4c5c239dd7add6772fa45c403a6f20372b8641a1b2d3f7a5e967b318a79f65bc"
+        },
+        {
+          "forward": 5167,
+          "profile": "malformed",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "ddaabfe731c0d3ee91e70245c00c828ec25c53e6933728132a40a92d06041d0c",
+          "stdout_sha256": "09d7f9904347888b3b50df1533f86798ce586cc6004b37f395717b2ff9e72273"
+        }
+      ],
+      "raw_pointer_types_removed": 267
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dcb/netlink-protocols/4a440cf7b33680d750161a4fd6ea401408ac1a68aa84aa3c29fb7b6589784489/libdcb_audit.a": {
+      "archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dcb/netlink-protocols/4a440cf7b33680d750161a4fd6ea401408ac1a68aa84aa3c29fb7b6589784489/libdcb_audit.a",
+      "candidate_module_sha256": "62a3fb28d118d2b45a9bf2ed0ce2216dc9512cf25350325ccf14072e9c14156f",
+      "candidate_sha256": "90605a70d950a4e8f367b6e62e541a45645d3a1d0e09e507c2e516bb56f098da",
+      "candidate_sources_sha256": "d1c720124dfc8fd8ff187707412aa217fc4e9dcbbf1c600c84c66af0af0a59a1",
+      "canonical_source_sha256": "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e",
+      "cargo_archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dcb/release/libdcb_audit.a",
+      "compiler_selected_sources": 25,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_module_sha256": "e06c205623b310442e689f8ce6c5b43811f9d17182ab27fc956b494889fd94dd",
+      "control_sha256": "4a440cf7b33680d750161a4fd6ea401408ac1a68aa84aa3c29fb7b6589784489",
+      "lookup_driver_sha256": "3ab65e190014ed2c16854eda7ae01808e1a07ff77b6a9ecb5d5d9940d35cb320",
+      "memcheck_runs": 4,
+      "module": "src/lib/rt_names.rs",
+      "oracle_compilers": [
+        "gcc",
+        "clang-18"
+      ],
+      "parent_sources_sha256": "8a2cea84fdbdd4142b5de16672c7cae2cce3a92c1a944e0776ac22914caf6495",
+      "profiles": [
+        {
+          "forward": 5167,
+          "profile": "empty",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "03103ad8a7a0e9ccafa8d97de12b2760e19ff09870e31f3fb2091a8cc771f2bf"
+        },
+        {
+          "forward": 5167,
+          "profile": "vendor",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "55cf313aab157527f807591deec29b2f68850ec1610b6909d02fb157881fa203"
+        },
+        {
+          "forward": 5167,
+          "profile": "local",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "4c5c239dd7add6772fa45c403a6f20372b8641a1b2d3f7a5e967b318a79f65bc"
+        },
+        {
+          "forward": 5167,
+          "profile": "malformed",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "ddaabfe731c0d3ee91e70245c00c828ec25c53e6933728132a40a92d06041d0c",
+          "stdout_sha256": "09d7f9904347888b3b50df1533f86798ce586cc6004b37f395717b2ff9e72273"
+        }
+      ],
+      "raw_pointer_types_removed": 267
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/devlink/netlink-protocols/d275ec6441764af49e36894b289f4be955c376fbc7e783d1d8bc6338250cc4d8/libdevlink_audit.a": {
+      "archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/devlink/netlink-protocols/d275ec6441764af49e36894b289f4be955c376fbc7e783d1d8bc6338250cc4d8/libdevlink_audit.a",
+      "candidate_module_sha256": "62a3fb28d118d2b45a9bf2ed0ce2216dc9512cf25350325ccf14072e9c14156f",
+      "candidate_sha256": "cae3cd766504e58db44ba7bb433b0fb9a4d0add282540ed571f69c237174ad5d",
+      "candidate_sources_sha256": "d3e632d96e357e82a626a060b03ff41f0bb9f0255b13540b84807f59f7415dee",
+      "canonical_source_sha256": "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e",
+      "cargo_archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/devlink/release/libdevlink_audit.a",
+      "compiler_selected_sources": 17,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_module_sha256": "e06c205623b310442e689f8ce6c5b43811f9d17182ab27fc956b494889fd94dd",
+      "control_sha256": "d275ec6441764af49e36894b289f4be955c376fbc7e783d1d8bc6338250cc4d8",
+      "lookup_driver_sha256": "3ab65e190014ed2c16854eda7ae01808e1a07ff77b6a9ecb5d5d9940d35cb320",
+      "memcheck_runs": 4,
+      "module": "src/lib/rt_names.rs",
+      "oracle_compilers": [
+        "gcc",
+        "clang-18"
+      ],
+      "parent_sources_sha256": "73d73eaaaf53e096b271795ec585a670e4027db9a7e68401f67bfe0ea3e3849a",
+      "profiles": [
+        {
+          "forward": 5167,
+          "profile": "empty",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "03103ad8a7a0e9ccafa8d97de12b2760e19ff09870e31f3fb2091a8cc771f2bf"
+        },
+        {
+          "forward": 5167,
+          "profile": "vendor",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "55cf313aab157527f807591deec29b2f68850ec1610b6909d02fb157881fa203"
+        },
+        {
+          "forward": 5167,
+          "profile": "local",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "4c5c239dd7add6772fa45c403a6f20372b8641a1b2d3f7a5e967b318a79f65bc"
+        },
+        {
+          "forward": 5167,
+          "profile": "malformed",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "ddaabfe731c0d3ee91e70245c00c828ec25c53e6933728132a40a92d06041d0c",
+          "stdout_sha256": "09d7f9904347888b3b50df1533f86798ce586cc6004b37f395717b2ff9e72273"
+        }
+      ],
+      "raw_pointer_types_removed": 267
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dpll/netlink-protocols/630ee0aae13ace86689dc83417adbc77f306823eff770ccec0e53a029dfd63bb/libdpll_audit.a": {
+      "archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dpll/netlink-protocols/630ee0aae13ace86689dc83417adbc77f306823eff770ccec0e53a029dfd63bb/libdpll_audit.a",
+      "candidate_module_sha256": "62a3fb28d118d2b45a9bf2ed0ce2216dc9512cf25350325ccf14072e9c14156f",
+      "candidate_sha256": "80cb0f32b6738b35f2b738ac8cb02a0270e87ba1d224342f2332416ad8bf90a7",
+      "candidate_sources_sha256": "3d3bb72a0643262ae49d7086983629d97915422ef446fad63cc12748a79478e0",
+      "canonical_source_sha256": "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e",
+      "cargo_archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dpll/release/libdpll_audit.a",
+      "compiler_selected_sources": 15,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_module_sha256": "e06c205623b310442e689f8ce6c5b43811f9d17182ab27fc956b494889fd94dd",
+      "control_sha256": "630ee0aae13ace86689dc83417adbc77f306823eff770ccec0e53a029dfd63bb",
+      "lookup_driver_sha256": "3ab65e190014ed2c16854eda7ae01808e1a07ff77b6a9ecb5d5d9940d35cb320",
+      "memcheck_runs": 4,
+      "module": "src/lib/rt_names.rs",
+      "oracle_compilers": [
+        "gcc",
+        "clang-18"
+      ],
+      "parent_sources_sha256": "778abf4e81c5848ee0e4dfa11bde3cce58de53cf53dfbe5c820b4599a1819203",
+      "profiles": [
+        {
+          "forward": 5167,
+          "profile": "empty",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "03103ad8a7a0e9ccafa8d97de12b2760e19ff09870e31f3fb2091a8cc771f2bf"
+        },
+        {
+          "forward": 5167,
+          "profile": "vendor",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "55cf313aab157527f807591deec29b2f68850ec1610b6909d02fb157881fa203"
+        },
+        {
+          "forward": 5167,
+          "profile": "local",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "4c5c239dd7add6772fa45c403a6f20372b8641a1b2d3f7a5e967b318a79f65bc"
+        },
+        {
+          "forward": 5167,
+          "profile": "malformed",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "ddaabfe731c0d3ee91e70245c00c828ec25c53e6933728132a40a92d06041d0c",
+          "stdout_sha256": "09d7f9904347888b3b50df1533f86798ce586cc6004b37f395717b2ff9e72273"
+        }
+      ],
+      "raw_pointer_types_removed": 267
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/genl/netlink-protocols/adba9eacfe93e17700cb35277e537b66198d302970099a37318ab794c0e71a92/libgenl_audit.a": {
+      "archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/genl/netlink-protocols/adba9eacfe93e17700cb35277e537b66198d302970099a37318ab794c0e71a92/libgenl_audit.a",
+      "candidate_module_sha256": "62a3fb28d118d2b45a9bf2ed0ce2216dc9512cf25350325ccf14072e9c14156f",
+      "candidate_sha256": "8ff8b69a41c66a8f0e845105886eecdfe5dedb1c7959f79a317eb0a984abd6ef",
+      "candidate_sources_sha256": "398d6eae7ef1229ec0eac0c3cb562d62bf7e0d92f92759dc0a923b0aedd7f85f",
+      "canonical_source_sha256": "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e",
+      "cargo_archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/genl/release/libgenl_audit.a",
+      "compiler_selected_sources": 15,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_module_sha256": "e06c205623b310442e689f8ce6c5b43811f9d17182ab27fc956b494889fd94dd",
+      "control_sha256": "adba9eacfe93e17700cb35277e537b66198d302970099a37318ab794c0e71a92",
+      "lookup_driver_sha256": "3ab65e190014ed2c16854eda7ae01808e1a07ff77b6a9ecb5d5d9940d35cb320",
+      "memcheck_runs": 4,
+      "module": "src/lib/rt_names.rs",
+      "oracle_compilers": [
+        "gcc",
+        "clang-18"
+      ],
+      "parent_sources_sha256": "9c8e3c915149b476794ff4c500c866ecc8806d4134c3d48567806d599544323e",
+      "profiles": [
+        {
+          "forward": 5167,
+          "profile": "empty",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "03103ad8a7a0e9ccafa8d97de12b2760e19ff09870e31f3fb2091a8cc771f2bf"
+        },
+        {
+          "forward": 5167,
+          "profile": "vendor",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "55cf313aab157527f807591deec29b2f68850ec1610b6909d02fb157881fa203"
+        },
+        {
+          "forward": 5167,
+          "profile": "local",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "4c5c239dd7add6772fa45c403a6f20372b8641a1b2d3f7a5e967b318a79f65bc"
+        },
+        {
+          "forward": 5167,
+          "profile": "malformed",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "ddaabfe731c0d3ee91e70245c00c828ec25c53e6933728132a40a92d06041d0c",
+          "stdout_sha256": "09d7f9904347888b3b50df1533f86798ce586cc6004b37f395717b2ff9e72273"
+        }
+      ],
+      "raw_pointer_types_removed": 267
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ifstat/netlink-protocols/ffaa8c5610fc41466f5122c1ba22de9dc601ac6691b75f5c20d21942c1ff6e5c/libifstat_audit.a": {
+      "archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ifstat/netlink-protocols/ffaa8c5610fc41466f5122c1ba22de9dc601ac6691b75f5c20d21942c1ff6e5c/libifstat_audit.a",
+      "candidate_module_sha256": "62a3fb28d118d2b45a9bf2ed0ce2216dc9512cf25350325ccf14072e9c14156f",
+      "candidate_sha256": "dc5c34f225b92264d742411a0e9b8db4b865772f89533640b31c6931dc1e90fe",
+      "candidate_sources_sha256": "f1ed8ebfa2ac401d4637e778464d7e2457cb52e8abad47ff0ce0acd75b1687bf",
+      "canonical_source_sha256": "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e",
+      "cargo_archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ifstat/release/libifstat_audit.a",
+      "compiler_selected_sources": 13,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_module_sha256": "e06c205623b310442e689f8ce6c5b43811f9d17182ab27fc956b494889fd94dd",
+      "control_sha256": "ffaa8c5610fc41466f5122c1ba22de9dc601ac6691b75f5c20d21942c1ff6e5c",
+      "lookup_driver_sha256": "3ab65e190014ed2c16854eda7ae01808e1a07ff77b6a9ecb5d5d9940d35cb320",
+      "memcheck_runs": 4,
+      "module": "src/lib/rt_names.rs",
+      "oracle_compilers": [
+        "gcc",
+        "clang-18"
+      ],
+      "parent_sources_sha256": "a0aa44d5f3be99fca6a7ad99baf0bf0d149c05f3c6c4eac3c216d077f6fccccc",
+      "profiles": [
+        {
+          "forward": 5167,
+          "profile": "empty",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "03103ad8a7a0e9ccafa8d97de12b2760e19ff09870e31f3fb2091a8cc771f2bf"
+        },
+        {
+          "forward": 5167,
+          "profile": "vendor",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "55cf313aab157527f807591deec29b2f68850ec1610b6909d02fb157881fa203"
+        },
+        {
+          "forward": 5167,
+          "profile": "local",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "4c5c239dd7add6772fa45c403a6f20372b8641a1b2d3f7a5e967b318a79f65bc"
+        },
+        {
+          "forward": 5167,
+          "profile": "malformed",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "ddaabfe731c0d3ee91e70245c00c828ec25c53e6933728132a40a92d06041d0c",
+          "stdout_sha256": "09d7f9904347888b3b50df1533f86798ce586cc6004b37f395717b2ff9e72273"
+        }
+      ],
+      "raw_pointer_types_removed": 267
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/netlink-protocols/0db83e0df290e9bbf1b6470ecbcdae3385221a6f8f3b50d53300feccf2ab4ba2/libip_audit.a": {
+      "archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/netlink-protocols/0db83e0df290e9bbf1b6470ecbcdae3385221a6f8f3b50d53300feccf2ab4ba2/libip_audit.a",
+      "candidate_module_sha256": "62a3fb28d118d2b45a9bf2ed0ce2216dc9512cf25350325ccf14072e9c14156f",
+      "candidate_sha256": "b798f4f8fec00bb1b57d0296c40083a024ac5c23e768f36f55da22decc6f5cde",
+      "candidate_sources_sha256": "00313a4662847b951acaf60ee5018f1c9a5d212c1616ca9990cf63574e3ec584",
+      "canonical_source_sha256": "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e",
+      "cargo_archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/release/libip_audit.a",
+      "compiler_selected_sources": 102,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_module_sha256": "e06c205623b310442e689f8ce6c5b43811f9d17182ab27fc956b494889fd94dd",
+      "control_sha256": "0db83e0df290e9bbf1b6470ecbcdae3385221a6f8f3b50d53300feccf2ab4ba2",
+      "lookup_driver_sha256": "3ab65e190014ed2c16854eda7ae01808e1a07ff77b6a9ecb5d5d9940d35cb320",
+      "memcheck_runs": 4,
+      "module": "src/lib/rt_names.rs",
+      "oracle_compilers": [
+        "gcc",
+        "clang-18"
+      ],
+      "parent_sources_sha256": "5fc9e7b43dc1846d5857d4a5e482603e1cbbf12ea9aed04f0bfbd9d26150367d",
+      "profiles": [
+        {
+          "forward": 5167,
+          "profile": "empty",
+          "public_ip_commands": 10,
+          "public_successes": 4,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "03103ad8a7a0e9ccafa8d97de12b2760e19ff09870e31f3fb2091a8cc771f2bf"
+        },
+        {
+          "forward": 5167,
+          "profile": "vendor",
+          "public_ip_commands": 10,
+          "public_successes": 6,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "55cf313aab157527f807591deec29b2f68850ec1610b6909d02fb157881fa203"
+        },
+        {
+          "forward": 5167,
+          "profile": "local",
+          "public_ip_commands": 10,
+          "public_successes": 7,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "4c5c239dd7add6772fa45c403a6f20372b8641a1b2d3f7a5e967b318a79f65bc"
+        },
+        {
+          "forward": 5167,
+          "profile": "malformed",
+          "public_ip_commands": 10,
+          "public_successes": 6,
+          "reverse": 298,
+          "stderr_sha256": "ddaabfe731c0d3ee91e70245c00c828ec25c53e6933728132a40a92d06041d0c",
+          "stdout_sha256": "09d7f9904347888b3b50df1533f86798ce586cc6004b37f395717b2ff9e72273"
+        }
+      ],
+      "raw_pointer_types_removed": 267
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/lnstat/netlink-protocols/54cae1fa020ed1cea5a072ec6025bca97d87e69efc508bfca53e9e05c4f86c93/liblnstat_audit.a": {
+      "archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/lnstat/netlink-protocols/54cae1fa020ed1cea5a072ec6025bca97d87e69efc508bfca53e9e05c4f86c93/liblnstat_audit.a",
+      "candidate_module_sha256": "62a3fb28d118d2b45a9bf2ed0ce2216dc9512cf25350325ccf14072e9c14156f",
+      "candidate_sha256": "1d6294c8f5f20303dc5dd9a288cf521c6036b3e90bd04295409b680fe45ca519",
+      "candidate_sources_sha256": "57156e0fb3cdbd873a5de6a72c9014f7167332f10267147748b5956eee55a754",
+      "canonical_source_sha256": "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e",
+      "cargo_archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/lnstat/release/liblnstat_audit.a",
+      "compiler_selected_sources": 14,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_module_sha256": "e06c205623b310442e689f8ce6c5b43811f9d17182ab27fc956b494889fd94dd",
+      "control_sha256": "54cae1fa020ed1cea5a072ec6025bca97d87e69efc508bfca53e9e05c4f86c93",
+      "lookup_driver_sha256": "3ab65e190014ed2c16854eda7ae01808e1a07ff77b6a9ecb5d5d9940d35cb320",
+      "memcheck_runs": 4,
+      "module": "src/lib/rt_names.rs",
+      "oracle_compilers": [
+        "gcc",
+        "clang-18"
+      ],
+      "parent_sources_sha256": "923dfa0702dcddb011eaf8c305289c8f227f15c460e157d4b0ca2de1ce41a4a0",
+      "profiles": [
+        {
+          "forward": 5167,
+          "profile": "empty",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "03103ad8a7a0e9ccafa8d97de12b2760e19ff09870e31f3fb2091a8cc771f2bf"
+        },
+        {
+          "forward": 5167,
+          "profile": "vendor",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "55cf313aab157527f807591deec29b2f68850ec1610b6909d02fb157881fa203"
+        },
+        {
+          "forward": 5167,
+          "profile": "local",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "4c5c239dd7add6772fa45c403a6f20372b8641a1b2d3f7a5e967b318a79f65bc"
+        },
+        {
+          "forward": 5167,
+          "profile": "malformed",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "ddaabfe731c0d3ee91e70245c00c828ec25c53e6933728132a40a92d06041d0c",
+          "stdout_sha256": "09d7f9904347888b3b50df1533f86798ce586cc6004b37f395717b2ff9e72273"
+        }
+      ],
+      "raw_pointer_types_removed": 267
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/netshaper/netlink-protocols/1f65ac8aa500b8907a7e69fdd008acf206380971734bc4efc86e9caa88547ba6/libnetshaper_audit.a": {
+      "archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/netshaper/netlink-protocols/1f65ac8aa500b8907a7e69fdd008acf206380971734bc4efc86e9caa88547ba6/libnetshaper_audit.a",
+      "candidate_module_sha256": "62a3fb28d118d2b45a9bf2ed0ce2216dc9512cf25350325ccf14072e9c14156f",
+      "candidate_sha256": "c5f6be1f83d508e662cdc9b84e65d360086f742852fcdd1d0565ad8e5770361f",
+      "candidate_sources_sha256": "220562754e28f99c03aa18a6f35d76776c3d3cb5763e3436d36c3311ffbcc137",
+      "canonical_source_sha256": "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e",
+      "cargo_archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/netshaper/release/libnetshaper_audit.a",
+      "compiler_selected_sources": 15,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_module_sha256": "e06c205623b310442e689f8ce6c5b43811f9d17182ab27fc956b494889fd94dd",
+      "control_sha256": "1f65ac8aa500b8907a7e69fdd008acf206380971734bc4efc86e9caa88547ba6",
+      "lookup_driver_sha256": "3ab65e190014ed2c16854eda7ae01808e1a07ff77b6a9ecb5d5d9940d35cb320",
+      "memcheck_runs": 4,
+      "module": "src/lib/rt_names.rs",
+      "oracle_compilers": [
+        "gcc",
+        "clang-18"
+      ],
+      "parent_sources_sha256": "129341d8d09cdac0d236a48c63edbd3ca7a9a17da4e1f2ed008f5dc4fe2680f6",
+      "profiles": [
+        {
+          "forward": 5167,
+          "profile": "empty",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "03103ad8a7a0e9ccafa8d97de12b2760e19ff09870e31f3fb2091a8cc771f2bf"
+        },
+        {
+          "forward": 5167,
+          "profile": "vendor",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "55cf313aab157527f807591deec29b2f68850ec1610b6909d02fb157881fa203"
+        },
+        {
+          "forward": 5167,
+          "profile": "local",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "4c5c239dd7add6772fa45c403a6f20372b8641a1b2d3f7a5e967b318a79f65bc"
+        },
+        {
+          "forward": 5167,
+          "profile": "malformed",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "ddaabfe731c0d3ee91e70245c00c828ec25c53e6933728132a40a92d06041d0c",
+          "stdout_sha256": "09d7f9904347888b3b50df1533f86798ce586cc6004b37f395717b2ff9e72273"
+        }
+      ],
+      "raw_pointer_types_removed": 267
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/nstat/netlink-protocols/114d3e271fcc1ea7db90fff7623479e558e624811664b8d6284851094bb5afe2/libnstat_audit.a": {
+      "archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/nstat/netlink-protocols/114d3e271fcc1ea7db90fff7623479e558e624811664b8d6284851094bb5afe2/libnstat_audit.a",
+      "candidate_module_sha256": "62a3fb28d118d2b45a9bf2ed0ce2216dc9512cf25350325ccf14072e9c14156f",
+      "candidate_sha256": "203b923eafdd4edf56e7770c0a90fb54a6bf9694b3fcfb9ff5ecc009e8d3d020",
+      "candidate_sources_sha256": "f471d735319e84605f27fa7829a117b9f270860f9633f4c9d1e49bd94a50d777",
+      "canonical_source_sha256": "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e",
+      "cargo_archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/nstat/release/libnstat_audit.a",
+      "compiler_selected_sources": 13,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_module_sha256": "e06c205623b310442e689f8ce6c5b43811f9d17182ab27fc956b494889fd94dd",
+      "control_sha256": "114d3e271fcc1ea7db90fff7623479e558e624811664b8d6284851094bb5afe2",
+      "lookup_driver_sha256": "3ab65e190014ed2c16854eda7ae01808e1a07ff77b6a9ecb5d5d9940d35cb320",
+      "memcheck_runs": 4,
+      "module": "src/lib/rt_names.rs",
+      "oracle_compilers": [
+        "gcc",
+        "clang-18"
+      ],
+      "parent_sources_sha256": "8bf1de2c9627c56bf116560423a8876d2366bfb45799c19f8a597da79a078752",
+      "profiles": [
+        {
+          "forward": 5167,
+          "profile": "empty",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "03103ad8a7a0e9ccafa8d97de12b2760e19ff09870e31f3fb2091a8cc771f2bf"
+        },
+        {
+          "forward": 5167,
+          "profile": "vendor",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "55cf313aab157527f807591deec29b2f68850ec1610b6909d02fb157881fa203"
+        },
+        {
+          "forward": 5167,
+          "profile": "local",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "4c5c239dd7add6772fa45c403a6f20372b8641a1b2d3f7a5e967b318a79f65bc"
+        },
+        {
+          "forward": 5167,
+          "profile": "malformed",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "ddaabfe731c0d3ee91e70245c00c828ec25c53e6933728132a40a92d06041d0c",
+          "stdout_sha256": "09d7f9904347888b3b50df1533f86798ce586cc6004b37f395717b2ff9e72273"
+        }
+      ],
+      "raw_pointer_types_removed": 267
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rdma/netlink-protocols/f23016a6a9869ea5a5105d8295689f371176c8efb5fd4983d7ce97d7fb56bcf0/librdma_audit.a": {
+      "archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rdma/netlink-protocols/f23016a6a9869ea5a5105d8295689f371176c8efb5fd4983d7ce97d7fb56bcf0/librdma_audit.a",
+      "candidate_module_sha256": "62a3fb28d118d2b45a9bf2ed0ce2216dc9512cf25350325ccf14072e9c14156f",
+      "candidate_sha256": "1732e5a16b0fd9084487999a3487435d400fcf290702bc3ad7991506e7379860",
+      "candidate_sources_sha256": "fa48c196ce009dc967863cf17968bc22bdbe79b8c58ced884254732961034b78",
+      "canonical_source_sha256": "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e",
+      "cargo_archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rdma/release/librdma_audit.a",
+      "compiler_selected_sources": 32,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_module_sha256": "e06c205623b310442e689f8ce6c5b43811f9d17182ab27fc956b494889fd94dd",
+      "control_sha256": "f23016a6a9869ea5a5105d8295689f371176c8efb5fd4983d7ce97d7fb56bcf0",
+      "lookup_driver_sha256": "3ab65e190014ed2c16854eda7ae01808e1a07ff77b6a9ecb5d5d9940d35cb320",
+      "memcheck_runs": 4,
+      "module": "src/lib/rt_names.rs",
+      "oracle_compilers": [
+        "gcc",
+        "clang-18"
+      ],
+      "parent_sources_sha256": "28d362e96963f2f6054ec3f8312057af586067f4154072eefe84819c176451a9",
+      "profiles": [
+        {
+          "forward": 5167,
+          "profile": "empty",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "03103ad8a7a0e9ccafa8d97de12b2760e19ff09870e31f3fb2091a8cc771f2bf"
+        },
+        {
+          "forward": 5167,
+          "profile": "vendor",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "55cf313aab157527f807591deec29b2f68850ec1610b6909d02fb157881fa203"
+        },
+        {
+          "forward": 5167,
+          "profile": "local",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "4c5c239dd7add6772fa45c403a6f20372b8641a1b2d3f7a5e967b318a79f65bc"
+        },
+        {
+          "forward": 5167,
+          "profile": "malformed",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "ddaabfe731c0d3ee91e70245c00c828ec25c53e6933728132a40a92d06041d0c",
+          "stdout_sha256": "09d7f9904347888b3b50df1533f86798ce586cc6004b37f395717b2ff9e72273"
+        }
+      ],
+      "raw_pointer_types_removed": 267
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtacct/netlink-protocols/da98d3497ed0cd5ca072a33ea0626a3e8a90cf5116153c00c4a1628212a4c044/librtacct_audit.a": {
+      "archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtacct/netlink-protocols/da98d3497ed0cd5ca072a33ea0626a3e8a90cf5116153c00c4a1628212a4c044/librtacct_audit.a",
+      "candidate_module_sha256": "62a3fb28d118d2b45a9bf2ed0ce2216dc9512cf25350325ccf14072e9c14156f",
+      "candidate_sha256": "3beda3e88b9a92d965f114c7eef1c3e5e862109482c86bee98bd5878d1427dff",
+      "candidate_sources_sha256": "8edbf3c9ea094187c0201b0e57a9b9b413cd3cc757a04ae39da8a0d9653bf057",
+      "canonical_source_sha256": "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e",
+      "cargo_archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtacct/release/librtacct_audit.a",
+      "compiler_selected_sources": 13,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_module_sha256": "e06c205623b310442e689f8ce6c5b43811f9d17182ab27fc956b494889fd94dd",
+      "control_sha256": "da98d3497ed0cd5ca072a33ea0626a3e8a90cf5116153c00c4a1628212a4c044",
+      "lookup_driver_sha256": "3ab65e190014ed2c16854eda7ae01808e1a07ff77b6a9ecb5d5d9940d35cb320",
+      "memcheck_runs": 4,
+      "module": "src/lib/rt_names.rs",
+      "oracle_compilers": [
+        "gcc",
+        "clang-18"
+      ],
+      "parent_sources_sha256": "cec20c52389fcf32e5dba322afbbd6524d0b754e3925408753c2a907bf36cb6c",
+      "profiles": [
+        {
+          "forward": 5167,
+          "profile": "empty",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "03103ad8a7a0e9ccafa8d97de12b2760e19ff09870e31f3fb2091a8cc771f2bf"
+        },
+        {
+          "forward": 5167,
+          "profile": "vendor",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "55cf313aab157527f807591deec29b2f68850ec1610b6909d02fb157881fa203"
+        },
+        {
+          "forward": 5167,
+          "profile": "local",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "4c5c239dd7add6772fa45c403a6f20372b8641a1b2d3f7a5e967b318a79f65bc"
+        },
+        {
+          "forward": 5167,
+          "profile": "malformed",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "ddaabfe731c0d3ee91e70245c00c828ec25c53e6933728132a40a92d06041d0c",
+          "stdout_sha256": "09d7f9904347888b3b50df1533f86798ce586cc6004b37f395717b2ff9e72273"
+        }
+      ],
+      "raw_pointer_types_removed": 267
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtmon/netlink-protocols/b292a6480adff1e5c10db2feb3ee7af5535ff1eff1b94bb80b5134dae7498d87/librtmon_audit.a": {
+      "archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtmon/netlink-protocols/b292a6480adff1e5c10db2feb3ee7af5535ff1eff1b94bb80b5134dae7498d87/librtmon_audit.a",
+      "candidate_module_sha256": "62a3fb28d118d2b45a9bf2ed0ce2216dc9512cf25350325ccf14072e9c14156f",
+      "candidate_sha256": "977740c95e821be785d59c3d5bee474bb47e45b0d74b0f26d53c002a53f76e64",
+      "candidate_sources_sha256": "ac9214e182121faf961560b2f67f7a8464f4e961b01ef14c036b701baf4fd82a",
+      "canonical_source_sha256": "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e",
+      "cargo_archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtmon/release/librtmon_audit.a",
+      "compiler_selected_sources": 13,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_module_sha256": "e06c205623b310442e689f8ce6c5b43811f9d17182ab27fc956b494889fd94dd",
+      "control_sha256": "b292a6480adff1e5c10db2feb3ee7af5535ff1eff1b94bb80b5134dae7498d87",
+      "lookup_driver_sha256": "3ab65e190014ed2c16854eda7ae01808e1a07ff77b6a9ecb5d5d9940d35cb320",
+      "memcheck_runs": 4,
+      "module": "src/lib/rt_names.rs",
+      "oracle_compilers": [
+        "gcc",
+        "clang-18"
+      ],
+      "parent_sources_sha256": "429b9f8f458a2c257dde81cc5f87cf44dfa629e1250d18481d6ca822e024dd78",
+      "profiles": [
+        {
+          "forward": 5167,
+          "profile": "empty",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "03103ad8a7a0e9ccafa8d97de12b2760e19ff09870e31f3fb2091a8cc771f2bf"
+        },
+        {
+          "forward": 5167,
+          "profile": "vendor",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "55cf313aab157527f807591deec29b2f68850ec1610b6909d02fb157881fa203"
+        },
+        {
+          "forward": 5167,
+          "profile": "local",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "4c5c239dd7add6772fa45c403a6f20372b8641a1b2d3f7a5e967b318a79f65bc"
+        },
+        {
+          "forward": 5167,
+          "profile": "malformed",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "ddaabfe731c0d3ee91e70245c00c828ec25c53e6933728132a40a92d06041d0c",
+          "stdout_sha256": "09d7f9904347888b3b50df1533f86798ce586cc6004b37f395717b2ff9e72273"
+        }
+      ],
+      "raw_pointer_types_removed": 267
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ss/netlink-protocols/5ff1aa4867dcf89d52f43a11f79cc9001955f2b36119224115fe174e4ca318ef/libss_audit.a": {
+      "archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ss/netlink-protocols/5ff1aa4867dcf89d52f43a11f79cc9001955f2b36119224115fe174e4ca318ef/libss_audit.a",
+      "candidate_module_sha256": "62a3fb28d118d2b45a9bf2ed0ce2216dc9512cf25350325ccf14072e9c14156f",
+      "candidate_sha256": "18d689e69622f53c430a532807578d1da23f6156013530a150df1ceb2191de0c",
+      "candidate_sources_sha256": "363fbba23147eb068f478c9ed68f154c7d823529de2dc8510f273039bf603498",
+      "canonical_source_sha256": "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e",
+      "cargo_archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ss/release/libss_audit.a",
+      "compiler_selected_sources": 22,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_module_sha256": "e06c205623b310442e689f8ce6c5b43811f9d17182ab27fc956b494889fd94dd",
+      "control_sha256": "5ff1aa4867dcf89d52f43a11f79cc9001955f2b36119224115fe174e4ca318ef",
+      "lookup_driver_sha256": "3ab65e190014ed2c16854eda7ae01808e1a07ff77b6a9ecb5d5d9940d35cb320",
+      "memcheck_runs": 4,
+      "module": "src/lib/rt_names.rs",
+      "oracle_compilers": [
+        "gcc",
+        "clang-18"
+      ],
+      "parent_sources_sha256": "ecbf40bc6589726e69ae60b1acd88f3905039d9d6e5dc8a5f7617287f1eebcaa",
+      "profiles": [
+        {
+          "forward": 5167,
+          "profile": "empty",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "03103ad8a7a0e9ccafa8d97de12b2760e19ff09870e31f3fb2091a8cc771f2bf"
+        },
+        {
+          "forward": 5167,
+          "profile": "vendor",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "55cf313aab157527f807591deec29b2f68850ec1610b6909d02fb157881fa203"
+        },
+        {
+          "forward": 5167,
+          "profile": "local",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "4c5c239dd7add6772fa45c403a6f20372b8641a1b2d3f7a5e967b318a79f65bc"
+        },
+        {
+          "forward": 5167,
+          "profile": "malformed",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "ddaabfe731c0d3ee91e70245c00c828ec25c53e6933728132a40a92d06041d0c",
+          "stdout_sha256": "09d7f9904347888b3b50df1533f86798ce586cc6004b37f395717b2ff9e72273"
+        }
+      ],
+      "raw_pointer_types_removed": 267
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/netlink-protocols/0be4dacb9b83b542f87d7172b5b18b35ae6c392985ee1fde0fcbdcd3f4415cf9/libtc_audit.a": {
+      "archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/netlink-protocols/0be4dacb9b83b542f87d7172b5b18b35ae6c392985ee1fde0fcbdcd3f4415cf9/libtc_audit.a",
+      "candidate_module_sha256": "62a3fb28d118d2b45a9bf2ed0ce2216dc9512cf25350325ccf14072e9c14156f",
+      "candidate_sha256": "94a13163da5c630f39cbfbe90e59326ef8d819771eb3beb50b12217e39880e11",
+      "candidate_sources_sha256": "3f6e3dbf25df6ec97d5751cfdc3d39ced9e9193310e6f2df006cc2106731b0b2",
+      "canonical_source_sha256": "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e",
+      "cargo_archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/release/libtc_audit.a",
+      "compiler_selected_sources": 114,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_module_sha256": "e06c205623b310442e689f8ce6c5b43811f9d17182ab27fc956b494889fd94dd",
+      "control_sha256": "0be4dacb9b83b542f87d7172b5b18b35ae6c392985ee1fde0fcbdcd3f4415cf9",
+      "lookup_driver_sha256": "3ab65e190014ed2c16854eda7ae01808e1a07ff77b6a9ecb5d5d9940d35cb320",
+      "memcheck_runs": 4,
+      "module": "src/lib/rt_names.rs",
+      "oracle_compilers": [
+        "gcc",
+        "clang-18"
+      ],
+      "parent_sources_sha256": "b3f6410d01188f192071c5d3f445fe428d6588f87e5808d9803a36387eb55a4a",
+      "profiles": [
+        {
+          "forward": 5167,
+          "profile": "empty",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "03103ad8a7a0e9ccafa8d97de12b2760e19ff09870e31f3fb2091a8cc771f2bf"
+        },
+        {
+          "forward": 5167,
+          "profile": "vendor",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "55cf313aab157527f807591deec29b2f68850ec1610b6909d02fb157881fa203"
+        },
+        {
+          "forward": 5167,
+          "profile": "local",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "4c5c239dd7add6772fa45c403a6f20372b8641a1b2d3f7a5e967b318a79f65bc"
+        },
+        {
+          "forward": 5167,
+          "profile": "malformed",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "ddaabfe731c0d3ee91e70245c00c828ec25c53e6933728132a40a92d06041d0c",
+          "stdout_sha256": "09d7f9904347888b3b50df1533f86798ce586cc6004b37f395717b2ff9e72273"
+        }
+      ],
+      "raw_pointer_types_removed": 267
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tipc/netlink-protocols/2a3532e759a556fb9cd18d0e6b444e183ba86a2a894486ff772e53a2e5a59f78/libtipc_audit.a": {
+      "archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tipc/netlink-protocols/2a3532e759a556fb9cd18d0e6b444e183ba86a2a894486ff772e53a2e5a59f78/libtipc_audit.a",
+      "candidate_module_sha256": "62a3fb28d118d2b45a9bf2ed0ce2216dc9512cf25350325ccf14072e9c14156f",
+      "candidate_sha256": "4f645eb7a654e6cdea2ac08712ef3d5509e1c5e5ddad37accd936a628b19b13d",
+      "candidate_sources_sha256": "80e82385e9c9411810ca883d8d3a35f1f3eb3b485063942b2ab6cc1c80637a4b",
+      "canonical_source_sha256": "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e",
+      "cargo_archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tipc/release/libtipc_audit.a",
+      "compiler_selected_sources": 24,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_module_sha256": "e06c205623b310442e689f8ce6c5b43811f9d17182ab27fc956b494889fd94dd",
+      "control_sha256": "2a3532e759a556fb9cd18d0e6b444e183ba86a2a894486ff772e53a2e5a59f78",
+      "lookup_driver_sha256": "3ab65e190014ed2c16854eda7ae01808e1a07ff77b6a9ecb5d5d9940d35cb320",
+      "memcheck_runs": 4,
+      "module": "src/lib/rt_names.rs",
+      "oracle_compilers": [
+        "gcc",
+        "clang-18"
+      ],
+      "parent_sources_sha256": "11fa896caf72963933e6c6912bf75cb9431b9e24a962c35a615c449fb2d0b642",
+      "profiles": [
+        {
+          "forward": 5167,
+          "profile": "empty",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "03103ad8a7a0e9ccafa8d97de12b2760e19ff09870e31f3fb2091a8cc771f2bf"
+        },
+        {
+          "forward": 5167,
+          "profile": "vendor",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "55cf313aab157527f807591deec29b2f68850ec1610b6909d02fb157881fa203"
+        },
+        {
+          "forward": 5167,
+          "profile": "local",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "4c5c239dd7add6772fa45c403a6f20372b8641a1b2d3f7a5e967b318a79f65bc"
+        },
+        {
+          "forward": 5167,
+          "profile": "malformed",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "ddaabfe731c0d3ee91e70245c00c828ec25c53e6933728132a40a92d06041d0c",
+          "stdout_sha256": "09d7f9904347888b3b50df1533f86798ce586cc6004b37f395717b2ff9e72273"
+        }
+      ],
+      "raw_pointer_types_removed": 267
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/vdpa/netlink-protocols/8cd900b37be86726894069e717a0ad928d9485d8b0fbf85b1d57612c85309c5b/libvdpa_audit.a": {
+      "archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/vdpa/netlink-protocols/8cd900b37be86726894069e717a0ad928d9485d8b0fbf85b1d57612c85309c5b/libvdpa_audit.a",
+      "candidate_module_sha256": "62a3fb28d118d2b45a9bf2ed0ce2216dc9512cf25350325ccf14072e9c14156f",
+      "candidate_sha256": "eff8f5092138f0a9ddac055acad0506694cf6504ec5c429daf8b5edc6cbc4081",
+      "candidate_sources_sha256": "9b658bd67a21a0d385504c6e98cbfc9a1f7bd9de33ab30be2d01b31484e6dd31",
+      "canonical_source_sha256": "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e",
+      "cargo_archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/vdpa/release/libvdpa_audit.a",
+      "compiler_selected_sources": 14,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_module_sha256": "e06c205623b310442e689f8ce6c5b43811f9d17182ab27fc956b494889fd94dd",
+      "control_sha256": "8cd900b37be86726894069e717a0ad928d9485d8b0fbf85b1d57612c85309c5b",
+      "lookup_driver_sha256": "3ab65e190014ed2c16854eda7ae01808e1a07ff77b6a9ecb5d5d9940d35cb320",
+      "memcheck_runs": 4,
+      "module": "src/lib/rt_names.rs",
+      "oracle_compilers": [
+        "gcc",
+        "clang-18"
+      ],
+      "parent_sources_sha256": "10d7c36aa8055e230ecc17e5d589b1b1876852c29336a90c43a293a39f2280ae",
+      "profiles": [
+        {
+          "forward": 5167,
+          "profile": "empty",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "03103ad8a7a0e9ccafa8d97de12b2760e19ff09870e31f3fb2091a8cc771f2bf"
+        },
+        {
+          "forward": 5167,
+          "profile": "vendor",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "55cf313aab157527f807591deec29b2f68850ec1610b6909d02fb157881fa203"
+        },
+        {
+          "forward": 5167,
+          "profile": "local",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "4c5c239dd7add6772fa45c403a6f20372b8641a1b2d3f7a5e967b318a79f65bc"
+        },
+        {
+          "forward": 5167,
+          "profile": "malformed",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "ddaabfe731c0d3ee91e70245c00c828ec25c53e6933728132a40a92d06041d0c",
+          "stdout_sha256": "09d7f9904347888b3b50df1533f86798ce586cc6004b37f395717b2ff9e72273"
+        }
+      ],
+      "raw_pointer_types_removed": 267
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/netlink-protocols/c5f385f0b2d9951bed3f38267a6fee516188648ba489be22e552f1741d17f93e/libbridge_audit.a": {
+      "archive": "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/netlink-protocols/c5f385f0b2d9951bed3f38267a6fee516188648ba489be22e552f1741d17f93e/libbridge_audit.a",
+      "candidate_module_sha256": "46dea0a913f40f845d0741e2fb52fa48a88e639f870f30a0360b8f7f41915c60",
+      "candidate_sha256": "637afe7c2c47bb9956f7732199be64ec6ba34e5661348e05b95789b47e7215d4",
+      "candidate_sources_sha256": "6b5de1780ed06ba87d85b7a6ebd0d58d6e3ff3ab0bfaad6746808d2cbcbe216c",
+      "canonical_source_sha256": "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e",
+      "compiler_selected_sources": 24,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_module_sha256": "fb8d3a22192749e4643513d28fdf8a5c42021f6e2052c14deb1998012cf922d8",
+      "control_sha256": "c5f385f0b2d9951bed3f38267a6fee516188648ba489be22e552f1741d17f93e",
+      "lookup_driver_sha256": "3ab65e190014ed2c16854eda7ae01808e1a07ff77b6a9ecb5d5d9940d35cb320",
+      "memcheck_runs": 4,
+      "module": "src/lib/rt_names.rs",
+      "oracle_compilers": [
+        "gcc",
+        "clang-18"
+      ],
+      "parent_sources_sha256": "cf64269405ef7ccfc721e91996bd6255952a1979a9be3e22d4c0b1fb00466883",
+      "profiles": [
+        {
+          "forward": 5167,
+          "profile": "empty",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "03103ad8a7a0e9ccafa8d97de12b2760e19ff09870e31f3fb2091a8cc771f2bf"
+        },
+        {
+          "forward": 5167,
+          "profile": "vendor",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "55cf313aab157527f807591deec29b2f68850ec1610b6909d02fb157881fa203"
+        },
+        {
+          "forward": 5167,
+          "profile": "local",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "4c5c239dd7add6772fa45c403a6f20372b8641a1b2d3f7a5e967b318a79f65bc"
+        },
+        {
+          "forward": 5167,
+          "profile": "malformed",
+          "public_ip_commands": 0,
+          "public_successes": 0,
+          "reverse": 298,
+          "stderr_sha256": "ddaabfe731c0d3ee91e70245c00c828ec25c53e6933728132a40a92d06041d0c",
+          "stdout_sha256": "09d7f9904347888b3b50df1533f86798ce586cc6004b37f395717b2ff9e72273"
+        }
+      ],
+      "raw_pointer_types_removed": 267,
+      "rustc_archive": "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/libbridge_audit.a"
+    }
+  }
+}

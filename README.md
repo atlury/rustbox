@@ -1049,6 +1049,14 @@ digests, and runs the same four canonical configuration profiles. It
 reuses completed comparisons after checking the archive and source hashes.
 [Composed source inventory](evidence/iproute2-routing-protocol-after-c-strings.json)
 
+All 18 selected IPRoute2 engines completed cold builds and canonical lookup
+comparisons on top of their checked C strings. They removed 4,806 further
+explicit pointer types. Under four configuration profiles, 393,480 lookup
+results matched the GCC and Clang controls. The candidates passed 72
+Memcheck runs. The `ip` engine also matched the canonical process on 40
+read-only route commands.
+[Per-engine build and command results](evidence/iproute2-routing-protocol-archives.json)
+
 With the `ip` engine switched to the new routing protocol reader, all 21
 IPRoute2 names passed 288 canonical comparisons in the complete multicall.
 The suite covers six live `routel` queries and six route-protocol filters,
