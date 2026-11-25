@@ -1495,7 +1495,14 @@ Together they remove 197,857 unused private function definitions and
 44,759,411 bytes of generated Rust across 963 source entries. Each before/after pair has the same archive SHA-256.
 
 `scripts/build_private_inline_tool.sh` builds the syntax checker for the
-offline Linux image. `scripts/check_cargo_private_inlines.py --prepare-e2fsprogs`
+offline Linux image. The inline checker uses its original Cargo manifest.
+The other syntax tools enable the additional `syn` visitor separately. A
+different inline checker can produce identical ranges while changing the
+producer digest embedded in every dependent receipt. Run
+`python3 -B tests/inline-proof-producer.py` to check all 13 direct E2fsprogs
+parents against the rebuilt checker.
+
+`scripts/check_cargo_private_inlines.py --prepare-e2fsprogs`
 rebuilds the seven Cargo archives at their original paths in disposable
 mounts. The other 13 use the compiler flags and dependencies of their
 checksum builds. Each cleanup saves its source ranges, source digests and
