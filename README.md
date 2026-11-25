@@ -1161,6 +1161,11 @@ protocol filters. The stripped preview measured 24,979,328
 bytes against 24,961,776 for the reproduced parent.
 [Complete multicall comparison](evidence/iproute2-routing-protocol-multicall.json)
 
+On that same 18-engine preview, all 884 dispatcher checks and 14,022
+differential cases passed. The records for all 38 batches bind the individual
+reports to the saved executable's SHA-256.
+[Dispatcher and differential results](evidence/iproute2-routing-protocol-public-batches.json)
+
 `stage_routing_protocol_archives.py` reconstructs the compiler inputs for all 18 engines
 from the pinned netlink and C-string records and stages each resulting
 archive under its SHA-256. Replaying the selected sources measured 4,806
