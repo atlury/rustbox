@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Cold-build native strings in the directly compiled E2fsprogs engines and IPRoute2 bridge."""
+"""Cold-build source substitutions in the directly compiled E2fsprogs engines and IPRoute2 bridge."""
 # SPDX-License-Identifier: GPL-3.0-or-later
+import argparse
 from hashlib import sha256
 import json
 import shutil
 from pathlib import Path
 import subprocess
-import sys
 from tempfile import TemporaryDirectory
 
 from cargo_source_parent import cargo_origin
@@ -14,7 +14,7 @@ from check_cargo_private_inlines import ROOT, digest
 from check_e2fsprogs_dirhash_arrays import compile_staged, source_list_digest
 
 
-def compile_archive(snapshot, output, key, modules=None):
+def compile_archive(snapshot, output, key, modules=None, *, routing_protocols=False):
     from audit_linked_pointers import measure
     from build_c_string_literal_pilot import substitute
     from e2fsprogs_foreign_declarations import staged_compiler_inputs
@@ -25,7 +25,7 @@ def compile_archive(snapshot, output, key, modules=None):
     if not output.is_dir() or any(output.iterdir()):
         raise ValueError("direct compilation requires an empty output directory")
     link = json.loads(snapshot.read_bytes())
-    if key in link.get("native_c_strings", {}):
+    if not routing_protocols and key in link.get("native_c_strings", {}):
         link["native_c_strings"] = {k: v for k, v in link["native_c_strings"].items() if k != key}
     selected = Path(key)
     original = cargo_origin(link, key)
@@ -49,9 +49,15 @@ def compile_archive(snapshot, output, key, modules=None):
         built = scratch / selected.name
         if sources.keys() != inputs or compile_staged(crate, inputs, rustc, built) != expected:
             raise ValueError("direct compiler recipe failed to reproduce the selected archive")
-        replacements, changes = substitute(crate, sources, modules)
+        if routing_protocols:
+            from build_routing_protocol_pilot import substitute as replace_routing_table
+            if modules:
+                raise ValueError("routing table substitution selects its complete module")
+            replacements, changes = replace_routing_table(crate, sources)
+        else:
+            replacements, changes = substitute(crate, sources, modules)
         if not replacements or not replacements.keys() <= inputs:
-            raise ValueError("expected checked C strings in compiler-selected modules")
+            raise ValueError("expected replacements in compiler-selected modules")
         for module, new in replacements.items():
             if digest(crate / module) != sources[module]:
                 raise ValueError("parent source changed during compilation")
@@ -70,7 +76,7 @@ def compile_archive(snapshot, output, key, modules=None):
         (output / "pilot.json").write_text(json.dumps(row, indent=2, sort_keys=True) + "\n")
 
 
-def build(link, output, key, modules=None):
+def build(link, output, key, modules=None, *, routing_protocols=False):
     output = output.resolve()
     raw = link.read_bytes()
     if output.exists():
@@ -83,11 +89,20 @@ def build(link, output, key, modules=None):
         subprocess.run(["docker", "run", "--rm", "--network", "none", "--platform", "linux/amd64",
                         "-v", f"{ROOT}:/work:ro", "-v", f"{stage}:/trial", "rustbox-e2fsprogs:2026-11-24",
                         "python3", "-B", "/work/scripts/build_staged_c_strings.py",
-                        "/trial/snapshot.json", "/trial/result", key, *(modules or ())], check=True)
+                        "/trial/snapshot.json", "/trial/result", key,
+                        *(["--routing-protocol-table"] if routing_protocols else []), *(modules or ())], check=True)
         if link.read_bytes() != raw:
             raise ValueError("selected release changed during direct compilation")
         result.rename(output)
 
 
 if __name__ == "__main__":
-    compile_archive(Path(sys.argv[1]), Path(sys.argv[2]), sys.argv[3], sys.argv[4:] or None)
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("snapshot", type=Path)
+    parser.add_argument("output", type=Path)
+    parser.add_argument("archive")
+    parser.add_argument("modules", nargs="*")
+    parser.add_argument("--routing-protocol-table", action="store_true")
+    args = parser.parse_args()
+    compile_archive(args.snapshot, args.output, args.archive, args.modules or None,
+                    routing_protocols=args.routing_protocol_table)

@@ -9,6 +9,7 @@ from pathlib import Path
 from audit_linked_pointers import measure
 from build_routing_protocol_pilot import transform
 from iproute2_route_name_archives import netlink_path
+from check_e2fsprogs_dirhash_arrays import source_list_digest
 
 
 def rank(path):
@@ -18,9 +19,15 @@ def rank(path):
     if len(current) != 18 or not all(str(key) in link["source_library_sha256"] for key in current):
         raise ValueError("expected all 18 selected netlink archives")
     engines = {}
+    inputs = {archive: {} for archive in current}
 
     def visit(archive, module, checksum, source):
-        if archive not in current or module.name != "rt_names.rs":
+        if archive not in current:
+            return
+        if str(module) in inputs[archive]:
+            raise ValueError(f"duplicate compiler input {module} in {archive}")
+        inputs[archive][str(module)] = checksum.hex()
+        if module.name != "rt_names.rs":
             return
         if str(archive) in engines:
             raise ValueError(f"duplicate route names module in {archive}")
@@ -32,6 +39,10 @@ def rank(path):
     measure(link, inspect_module=visit)
     if path.read_bytes() != data or set(engines) != {str(key) for key in current}:
         raise ValueError("incomplete or changed link during routing protocol scan")
+    for archive, modules in inputs.items():
+        row = engines[str(archive)]
+        row.update(compiler_selected_sources=len(modules), parent_sources_sha256=source_list_digest(modules),
+                   candidate_sources_sha256=source_list_digest({**modules, row["module"]: row["candidate_module_sha256"]}))
     return dict(engines=engines, candidate_pointer_types=sum(row["raw_pointer_types_removed"] for row in engines.values()),
                 binary_sha256=link["binary"]["sha256"], link_report_sha256=sha256(data).hexdigest())
 

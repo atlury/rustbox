@@ -59,6 +59,16 @@ def substitute(crate, sources):
     return {module: candidate}, dict(row, module=module)
 
 
+def build(link, output, key):
+    from cargo_source_parent import cargo_origin, direct_crate
+    origin = cargo_origin(json.loads(link.read_bytes()), key)
+    if direct_crate(origin) is not None:
+        from build_staged_c_strings import build as build_staged
+        build_staged(link, output, key, routing_protocols=True)
+    else:
+        stage_selected_archive(link, output, key, MARKER, Path(__file__).name)
+
+
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--archive")
@@ -69,6 +79,6 @@ if __name__ == "__main__":
     if args.mounted:
         compile_mounted_sources(args.mounted, substitute, MARKER, allow_identical=False)
     elif args.archive and args.link and args.output:
-        stage_selected_archive(args.link, args.output, args.archive, MARKER, Path(__file__).name)
+        build(args.link, args.output, args.archive)
     else:
         p.error("--archive, --link and --output are required")

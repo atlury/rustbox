@@ -15,6 +15,20 @@ DRIVER = ROOT / "tests/iproute2-netlink-protocols/lookups.c"
 LIBS = "-ltirpc -lbpf -lelf -lmnl -lcap -ldb -lxtables -ldl -lpthread -lm".split()
 
 
+def public_ip_commands():
+    statuses = []
+    for query in ("kernel", "static", "bgp", "local", "vendor", "vendor-only", "local-overlay", "255", "256", "unknown"):
+        argv = ["ip", "-4", "route", "show", "protocol", query]
+        output = capture(argv, executable="/rustbox-iproute2/programs-gcc/ip")
+        for command in ("/rustbox-iproute2/programs-clang-18/ip", "./parent-ip", "./candidate-ip"):
+            if capture(argv, executable=command) != output:
+                raise ValueError((query, command))
+        statuses.append(output[0])
+    if not 0 < statuses.count(0) < len(statuses):
+        raise ValueError("expected accepted and rejected read-only route filters")
+    return statuses
+
+
 def compare(pilot, link_path):
     row = json.loads((pilot / "pilot.json").read_bytes())
     link = json.loads(link_path.read_bytes())
@@ -35,10 +49,12 @@ def compare(pilot, link_path):
         args[args.index("-o") + 1] = obj
         run(*args, "-ffunction-sections", "-fdata-sections", cwd=source.parent)
         run(cc, "-Wl,--gc-sections", "driver.o", obj, "-o", "oracle-" + cc)
+    test_ip = parent.name == "libip_audit.a"
     for name, library in (("parent", parent), ("candidate", candidate)):
         run("gcc", "-Wl,--gc-sections", "driver.o", library, *LIBS, "-o", name)
-        run("gcc", "-Wl,--gc-sections", "-DRUSTBOX_IPROUTE2_ENTRY=rustbox_iproute2_ip_main",
-            ROOT / "bridges/iproute2_program_main.c", library, *LIBS, "-o", name + "-ip")
+        if test_ip:
+            run("gcc", "-Wl,--gc-sections", "-DRUSTBOX_IPROUTE2_ENTRY=rustbox_iproute2_ip_main",
+                ROOT / "bridges/iproute2_program_main.c", library, *LIBS, "-o", name + "-ip")
     local, vendor = Path("/etc/iproute2"), Path("/usr/share/iproute2")
     if not all(os.path.ismount(p) and not any(p.iterdir()) for p in (local, vendor)):
         raise ValueError("expected isolated empty configuration mounts")
@@ -72,16 +88,7 @@ def compare(pilot, link_path):
                 raise ValueError((profile, cmd, actual[0], actual[2], mismatch))
         if "ERROR SUMMARY: 0 errors" not in Path("memcheck.log").read_text():
             raise ValueError("routing protocol Memcheck failed")
-        statuses = []
-        for query in ("kernel", "static", "bgp", "local", "vendor", "vendor-only", "local-overlay", "255", "256", "unknown"):
-            argv = ["ip", "-4", "route", "show", "protocol", query]
-            output = capture(argv, executable="/rustbox-iproute2/programs-gcc/ip")
-            for command in ("/rustbox-iproute2/programs-clang-18/ip", "./parent-ip", "./candidate-ip"):
-                if capture(argv, executable=command) != output:
-                    raise ValueError((profile, query, command))
-            statuses.append(output[0])
-        if not 0 < statuses.count(0) < len(statuses):
-            raise ValueError("expected accepted and rejected read-only route filters")
+        statuses = public_ip_commands() if test_ip else []
         profiles.append(dict(profile=profile, forward=5167, reverse=298, public_ip_commands=len(statuses),
                              public_successes=statuses.count(0), stdout_sha256=sha256(expected[1]).hexdigest(),
                              stderr_sha256=sha256(expected[2]).hexdigest()))

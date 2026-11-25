@@ -895,10 +895,19 @@ overrides in `rt_protos.d` and non-UTF-8 names. Memcheck reported zero
 errors in each profile.
 [Routing protocol results](evidence/iproute2-routing-protocol-pilot.json)
 
+Replaying the routing-table change after all 18 byte-identical C-string
+archives gives 267 additional type occurrences per engine, or 4,806 in
+total. This source estimate records both complete compiler input digests
+for each engine. The batch command rebuilds each archive, checks those
+digests, and runs the same four canonical configuration profiles. It
+reuses completed comparisons after checking the archive and source hashes.
+[Composed source inventory](evidence/iproute2-routing-protocol-after-c-strings.json)
+
 ```sh
 python3 -B scripts/rank_routing_protocols.py "$link"
 python3 -B scripts/build_routing_protocol_pilot.py --link "$link" --archive "$ip_archive" --output "$pilot"
 python3 -B scripts/test_routing_protocol_pilot.py "$pilot" "$link"
+python3 -B scripts/build_routing_protocol_batch.py "$link" "$batch" --jobs 2
 ```
 
 To reproduce the netlink candidates for all 18 engines, use the scope/realm
