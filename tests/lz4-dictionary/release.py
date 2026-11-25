@@ -5,10 +5,11 @@ from copy import deepcopy
 import json
 from pathlib import Path
 import sys
+from tempfile import TemporaryDirectory
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
 from cargo_source_parent import cargo_origin, pinned_parent
-from lz4_dictionary_archive import KEY, selected_link, selection
+from lz4_dictionary_archive import KEY, parent_manifests, selected_link, selection
 
 
 def rejected(function, value):
@@ -34,6 +35,16 @@ def main():
     for field, value in link.items():
         if field != "other_package":
             assert minimal[field] == value
+    with TemporaryDirectory() as temp:
+        directory = Path(temp)
+        for routing, count in ((False, 1), (True, 19), (False, 1)):
+            parent_manifests(directory, routing=routing)
+            native = json.loads((directory / "native_c_strings.json").read_bytes())
+            stdio = json.loads((directory / "shared_stdio_layouts.json").read_bytes())
+            assert len(stdio) == 1 and len(native) == count
+            assert stdio[KEY]["pilot"] == record["parent_receipts"]["shared_stdio_layouts"]
+            assert native[KEY]["pilot"] == record["parent_receipts"]["native_c_strings"]
+            assert native[KEY]["parent_receipts"] == dict(stdio[KEY]["parent_receipts"], shared_stdio_layouts=stdio[KEY]["pilot"])
     rejected(selected_link, link)
     for field in record["parent_receipts"]:
         bad = deepcopy(parent)

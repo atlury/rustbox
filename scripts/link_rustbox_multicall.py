@@ -17,6 +17,7 @@ from pathlib import Path
 import curl_manual_archive
 from tar_timespec_archive import selection as tar_timestamps
 from bison_length_archive import selection as bison_lengths
+import lz4_dictionary_archive
 import prepare_identical_archives
 import iproute2_address_protocol_archive as address_protocols
 import iproute2_route_name_archives as route_names
@@ -2442,6 +2443,7 @@ def main() -> int:
     parser.add_argument("--ncurses-termtypes", type=Path)
     parser.add_argument("--curl-manual", action="store_true")
     parser.add_argument("--tar-borrowed-timestamps", action="store_true")
+    parser.add_argument("--lz4-benchmark-dictionary", action="store_true")
     parser.add_argument("--bison-literal-lengths", action="store_true")
     parser.add_argument("--iproute2-netlink-protocols", action="store_true")
     parser.add_argument("--iproute2-route-names", action="store_true")
@@ -2864,6 +2866,7 @@ def main() -> int:
     identical_layers = {}
     for manifest, layer in ((args.shared_stdio, "shared_stdio_layouts"), (args.native_c_strings, "native_c_strings"),
                             (args.iproute2_routing_protocols, routing_protocols.FIELD),
+                            (args.lz4_benchmark_dictionary, lz4_dictionary_archive.selection.field),
                             (args.va_list_layouts, "shared_va_list_layouts"), (args.ncurses_termtypes, "shared_ncurses_termtypes")):
         if manifest and layer == routing_protocols.FIELD:
             context = dict(source_library_sha256=source_library_hashes, **identical_layers)
@@ -2877,6 +2880,19 @@ def main() -> int:
                 iproute2_libraries[name] = libraries[iproute2_library_indices[name]] = new
             source_library_hashes = resolved["source_library_sha256"]
             route_selections[layer] = rows
+        elif manifest and layer == lz4_dictionary_archive.selection.field:
+            context = dict(source_library_sha256=source_library_hashes, **proofs, **identical_layers)
+            resolved = lz4_dictionary_archive.selected_link(context)
+            record = resolved[layer]
+            row = record["pilot"]
+            candidate = repository / lz4_dictionary_archive.selection.candidate_path(row)
+            original = libraries[lz4_library_index]
+            if (original != repository / row["archive"] or sha256(candidate) != row["candidate_sha256"]
+                    or c_exports(candidate) != c_exports(original)):
+                raise ValueError("packed LZ4 dictionary archive or exported C interface differs")
+            libraries[lz4_library_index] = candidate
+            source_library_hashes = resolved["source_library_sha256"]
+            cargo_changes[layer] = record
         elif manifest:
             items = json.loads(manifest.read_bytes())
             if layer in ("native_c_strings", "shared_va_list_layouts"):

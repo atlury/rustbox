@@ -2,6 +2,8 @@
 """Stage the checked LZ4 dictionary after the selected stdio and native C-string sources."""
 # SPDX-License-Identifier: GPL-2.0-or-later
 import argparse
+import json
+from tempfile import TemporaryDirectory
 from pathlib import Path
 
 from build_lz4_dictionary_pilot import MARKER
@@ -34,6 +36,27 @@ def selected_link(parent):
     return link
 
 
+def parent_manifests(directory, *, routing=False):
+    from prepare_identical_archives import selected_receipts
+    receipts = selection.pinned()["parent_receipts"]
+    parent = {field: {KEY: value} for field, value in receipts.items()}
+    manifests = {
+        field: {KEY: dict(pilot=receipts[field], parent_receipts=selected_receipts(parent, KEY, field))}
+        for field in ("native_c_strings", "shared_stdio_layouts")
+    }
+    if routing:
+        from stage_routing_protocol_archives import parent_build_link
+        previous = parent_build_link()
+        for key, row in previous["native_c_strings"].items():
+            manifests["native_c_strings"][key] = dict(pilot=row, parent_receipts=selected_receipts(previous, key, "native_c_strings"))
+    directory.mkdir(parents=True, exist_ok=True)
+    with TemporaryDirectory(dir=directory) as temp:
+        for field, rows in manifests.items():
+            staged = Path(temp) / (field + ".json")
+            staged.write_text(json.dumps(rows, indent=2, sort_keys=True) + "\n")
+            staged.replace(directory / staged.name)
+
+
 def build(parent, output):
     stage_selected_archive(parent, output, KEY, MARKER, "build_lz4_dictionary_pilot.py")
 
@@ -41,5 +64,12 @@ def build(parent, output):
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--built", type=Path, help="reuse an already cold-built archive with the qualified digest")
+    p.add_argument("--parent-manifests", type=Path, help="write the required byte-identical stdio and native string selections")
+    p.add_argument("--routing", action="store_true", help="also include the 18 routing parents in the native string selection")
     args = p.parse_args()
-    selection.prepare(selection.pinned(), build, built=args.built)
+    if args.parent_manifests and not args.built:
+        parent_manifests(args.parent_manifests, routing=args.routing)
+    elif not args.parent_manifests and not args.routing:
+        selection.prepare(selection.pinned(), build, built=args.built)
+    else:
+        p.error("select either manifest generation or archive preparation")

@@ -46,5 +46,18 @@ with TemporaryDirectory() as temp:
     assert combined[combined.index("--native-c-strings") + 1] == "/work/strings.json" and combined.count(option) == 1
     assert all(flag in combined for flag in ("--curl-manual", "--bison-literal-lengths", "--tar-borrowed-timestamps",
                                              "--ncurses-termtypes", "--shared-stdio"))
-    assert option not in select("--iproute2-netlink-protocols")
+    lz4 = "--lz4-benchmark-dictionary"
+    simple = select(lz4)
+    assert simple.count(lz4) == 1 and "--curl-manual" in simple
+    assert simple[simple.index("--shared-stdio") + 1].endswith("/lz4-dictionary-inputs/shared_stdio_layouts.json")
+    assert simple[simple.index("--native-c-strings") + 1].endswith("/lz4-dictionary-inputs/native_c_strings.json")
+    both = select(lz4, option)
+    assert both.count(lz4) == both.count(option) == 1
+    assert both[both.index("--native-c-strings") + 1].endswith("/lz4-routing-dictionary-inputs/native_c_strings.json")
+    explicit = select(lz4, option, "--native-c-strings", "strings.json", "--shared-stdio", "stdio.json")
+    assert explicit.count(lz4) == explicit.count(option) == 1
+    assert explicit[explicit.index("--native-c-strings") + 1] == "/work/strings.json"
+    assert explicit[explicit.index("--shared-stdio") + 1] == "/work/stdio.json"
+    earlier = select("--iproute2-netlink-protocols")
+    assert lz4 not in earlier and option not in earlier
 print("Verified minimum, combined and previous builds from a symlinked checkout.")

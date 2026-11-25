@@ -834,6 +834,13 @@ the selected archive and the complete source totals for both links.
 [Dictionary manifest](batches/lz4-benchmark-dictionary.json) ·
 [Selection regression](tests/lz4-dictionary/release.py)
 
+The regular Linux build accepts `--lz4-benchmark-dictionary`. By itself this
+option reconstructs the two required LZ4 source selections. With
+`--iproute2-routing-protocols` it also includes the 18 routing parents. An
+explicit stdio or native C-string manifest can supply the same verified
+compiler inputs alongside other packages. The linker checks both archive
+hashes and the exported C symbols before substituting LZ4.
+
 ```sh
 python3 -B tests/lz4-dictionary/source.py "$link"
 python3 -B scripts/build_lz4_dictionary_pilot.py --link "$link" --archive "$lz4_archive" --output "$pilot"
