@@ -661,6 +661,11 @@ python3 -B scripts/batch_next_inline_layers.py "$link" --grouped --limit 2 --job
 To enroll completed batches, pass their `results.json` files to
 `scripts/prepare_second_inline_layers.py --from-link "$link" --enroll-results`.
 It verifies each receipt against the original release before writing the manifest.
+For an interrupted archive, repeat the batch command with `--archive PATH`
+and pass both result files to enrollment. Every requested archive must have
+a verified result, and overlapping successful results must agree. The
+disposable Cargo builds hide the host Git index so a concurrent commit
+cannot interrupt package fingerprinting.
 Run the multicall build and the previous-to-current inventory comparison above
 to record the production count. Package suites can also run on partial selections
 while other archives compile. To combine their results, run

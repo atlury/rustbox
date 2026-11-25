@@ -19,6 +19,7 @@ def main():
     parser.add_argument("--jobs", type=int, default=3)
     parser.add_argument("--grouped", action="store_true", help="select Cargo archives from multi-engine packages")
     parser.add_argument("--limit", type=int, help="build the highest-ranked N candidates")
+    parser.add_argument("--archive", action="append", help="check a specific ranked archive (repeatable)")
     args = parser.parse_args()
     if args.jobs < 1:
         parser.error("--jobs must be positive")
@@ -27,6 +28,11 @@ def main():
     source = args.link_report.resolve()
     release = json.loads(source.read_bytes())
     candidates = [row for row in rank(release, grouped=args.grouped) if row["estimated_new_leaves"]]
+    if args.archive:
+        selected = set(args.archive)
+        if args.limit is not None or selected - {r["archive"] for r in candidates}:
+            parser.error("--archive requires listed candidates and cannot be combined with --limit")
+        candidates = [r for r in candidates if r["archive"] in selected]
     candidates = candidates[:args.limit]
     directory = Path(tempfile.mkdtemp(prefix="second-layer-batch-", dir=ROOT / "work/analysis"))
     print(f"{len(candidates)} archives, logs in {directory}", flush=True)
@@ -70,7 +76,7 @@ def main():
             except (OSError, ValueError, KeyError) as exc:
                 entry = {"status": "failed", "error": str(exc)}
             results["archives"][archive] = entry
-            print(Path(archive).parts[2], entry["status"], entry.get("pointers", ""), flush=True)
+            print(Path(archive).stem, entry["status"], entry.get("pointers", ""), flush=True)
             save()
     return int(any(r["status"] != "verified" for r in results["archives"].values()))
 

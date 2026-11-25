@@ -69,13 +69,20 @@ def enroll(repository, link_path, results_paths):
     records = manifest(repository)
     if records != release.get("linked_second_inline_proofs", {}):
         raise ValueError("start enrollment from the manifest in the selected release")
+    requested = set()
+    completed = {}
     for results_path in results_paths:
         batch = json.loads(results_path.read_bytes())
         if batch["link_sha256"] != link_sha:
             raise ValueError("batch belongs to a different release")
         for name, entry in batch["archives"].items():
+            requested.add(name)
+            if entry["status"] in ("failed", "pending"):
+                continue
             if entry["status"] != "verified":
-                raise ValueError(f"unfinished archive in batch: {name}")
+                raise ValueError(f"unknown batch status for {name}")
+            if completed.setdefault(name, entry) != entry:
+                raise ValueError(f"conflicting verified batch results for {name}")
             if entry["helpers"] == 0:
                 if entry["pointers"] or "receipt" in entry:
                     raise ValueError("empty cleanup has a nonempty result")
@@ -93,6 +100,8 @@ def enroll(repository, link_path, results_paths):
                 raise ValueError("batch totals differ from the compiled receipt")
             if records.setdefault(name, receipt) != receipt:
                 raise ValueError("conflicting second-layer receipts")
+    if requested - completed.keys():
+        raise ValueError(f"unfinished archives in batch: {sorted(requested - completed.keys())}")
     destination = repository / "batches/multicall-second-inline-proofs.json"
     with tempfile.NamedTemporaryFile(mode="w", dir=destination.parent, delete=False) as pending:
         json.dump(records, pending, indent=2, sort_keys=True)

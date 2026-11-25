@@ -128,6 +128,9 @@ def check_layer(release, archive, *, publish=False, expected_receipt=None):
         subprocess.run([
             "docker", "run", "--rm", "--network", "none", "--platform", "linux/amd64",
             "--workdir", "/work", "-v", f"{ROOT}:/work:ro",
+            # The generated crate is outside version control. Cargo may otherwise
+            # fingerprint the host repository's changing Git index during a commit.
+            "--tmpfs", "/work/.git:ro",
             *registry,
             "-v", f"{crate}:/work/{source}", "-v", f"{target}:/work/{base}",
             "rustbox-e2fsprogs:2026-11-24", "python3", "-B", "/work/scripts/check_cargo_private_inlines.py",
