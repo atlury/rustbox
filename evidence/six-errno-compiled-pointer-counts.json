@@ -1,0 +1,175 @@
+{
+  "base_link_sha256": "e4cccf40558c6b77560f9d99b50e34eb2e0a9ebb26727cb07beb6bcbaf77615a",
+  "packages": {
+    "findutils": {
+      "archive": "work/analysis/findutils-4.10.0/translations/c2rust-0.22.1/findutils-4.10.0-stable/target/release/libfindutils_4_10_0_combined.a",
+      "base": {
+        "as_ptr_calls": 56,
+        "raw_borrows": 1029,
+        "raw_pointer_type_tokens": 13920,
+        "slices_from_raw_parts": 0
+      },
+      "candidate": {
+        "as_ptr_calls": 321,
+        "raw_borrows": 1029,
+        "raw_pointer_type_tokens": 13364,
+        "slices_from_raw_parts": 0
+      },
+      "candidate_sha256": "36f72ffdb021c04badc77176b527a92100a782e9e640b02da3187f8c60ca4b0c",
+      "compiler_inputs": 192,
+      "errno_types_removed": 26,
+      "prepared": {
+        "as_ptr_calls": 321,
+        "raw_borrows": 1029,
+        "raw_pointer_type_tokens": 13390,
+        "slices_from_raw_parts": 0
+      },
+      "total_types_removed": 556,
+      "value_reads": 27,
+      "value_writes": 90
+    },
+    "gawk": {
+      "archive": "work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-core-stable/target/release/libgawk_5_4_0_core.a",
+      "base": {
+        "as_ptr_calls": 23,
+        "raw_borrows": 2448,
+        "raw_pointer_type_tokens": 28578,
+        "slices_from_raw_parts": 0
+      },
+      "candidate": {
+        "as_ptr_calls": 5028,
+        "raw_borrows": 2448,
+        "raw_pointer_type_tokens": 18550,
+        "slices_from_raw_parts": 0
+      },
+      "candidate_sha256": "72b13f62273c1f2a757ce94da2becfcb1286cc40d0200b5192f64fe9b26c890c",
+      "compiler_inputs": 39,
+      "errno_types_removed": 18,
+      "prepared": {
+        "as_ptr_calls": 5028,
+        "raw_borrows": 2448,
+        "raw_pointer_type_tokens": 18568,
+        "slices_from_raw_parts": 0
+      },
+      "total_types_removed": 10028,
+      "value_reads": 76,
+      "value_writes": 18
+    },
+    "grep": {
+      "archive": "work/analysis/grep-3.12/translations/c2rust-0.22.1/grep-3.12-stable/target/release/libgrep_3_12_normalized_audit.a",
+      "base": {
+        "as_ptr_calls": 11,
+        "raw_borrows": 579,
+        "raw_pointer_type_tokens": 6035,
+        "slices_from_raw_parts": 0
+      },
+      "candidate": {
+        "as_ptr_calls": 24,
+        "raw_borrows": 579,
+        "raw_pointer_type_tokens": 5996,
+        "slices_from_raw_parts": 0
+      },
+      "candidate_sha256": "7eb58eaf6aa14f79405b63981505776b4f8fd3d295b4c819aa4125e523224433",
+      "compiler_inputs": 131,
+      "errno_types_removed": 13,
+      "prepared": {
+        "as_ptr_calls": 24,
+        "raw_borrows": 579,
+        "raw_pointer_type_tokens": 6009,
+        "slices_from_raw_parts": 0
+      },
+      "total_types_removed": 39,
+      "value_reads": 11,
+      "value_writes": 21
+    },
+    "gzip": {
+      "archive": "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a",
+      "base": {
+        "as_ptr_calls": 14,
+        "raw_borrows": 481,
+        "raw_pointer_type_tokens": 2604,
+        "slices_from_raw_parts": 0
+      },
+      "candidate": {
+        "as_ptr_calls": 254,
+        "raw_borrows": 481,
+        "raw_pointer_type_tokens": 1649,
+        "slices_from_raw_parts": 0
+      },
+      "candidate_sha256": "5a24acb51b65681bce0dd4232a1be754bd484a41967c8581f2d326e4a646d4cc",
+      "compiler_inputs": 66,
+      "errno_types_removed": 7,
+      "prepared": {
+        "as_ptr_calls": 254,
+        "raw_borrows": 481,
+        "raw_pointer_type_tokens": 1656,
+        "slices_from_raw_parts": 0
+      },
+      "total_types_removed": 955,
+      "value_reads": 4,
+      "value_writes": 8
+    },
+    "sed": {
+      "archive": "work/analysis/sed-4.10/translations/c2rust-0.22.1/sed-4.10-stable/target/release/libsed_4_10_normalized_audit.a",
+      "base": {
+        "as_ptr_calls": 15,
+        "raw_borrows": 2117,
+        "raw_pointer_type_tokens": 7307,
+        "slices_from_raw_parts": 0
+      },
+      "candidate": {
+        "as_ptr_calls": 25,
+        "raw_borrows": 2117,
+        "raw_pointer_type_tokens": 7275,
+        "slices_from_raw_parts": 0
+      },
+      "candidate_sha256": "173d07e24f484da1336259e316b339bce197eba1eb0e88029fc71a42c9f65458",
+      "compiler_inputs": 87,
+      "errno_types_removed": 12,
+      "prepared": {
+        "as_ptr_calls": 25,
+        "raw_borrows": 2117,
+        "raw_pointer_type_tokens": 7287,
+        "slices_from_raw_parts": 0
+      },
+      "total_types_removed": 32,
+      "value_reads": 5,
+      "value_writes": 53
+    },
+    "shadow": {
+      "archive": "work/analysis/shadow-4.20.4/translations/c2rust-0.22.1/shadow-4.20.4-nightly/target/release/libshadow_4_20_4_normalized_audit.a",
+      "base": {
+        "as_ptr_calls": 95,
+        "raw_borrows": 2097,
+        "raw_pointer_type_tokens": 23797,
+        "slices_from_raw_parts": 0
+      },
+      "candidate": {
+        "as_ptr_calls": 202,
+        "raw_borrows": 2097,
+        "raw_pointer_type_tokens": 23535,
+        "slices_from_raw_parts": 0
+      },
+      "candidate_sha256": "6df4952d6fea191aa03830a805cdc359e651d2ff7bba9d9e5e100591512d64f0",
+      "compiler_inputs": 198,
+      "errno_types_removed": 48,
+      "prepared": {
+        "as_ptr_calls": 202,
+        "raw_borrows": 2097,
+        "raw_pointer_type_tokens": 23583,
+        "slices_from_raw_parts": 0
+      },
+      "total_types_removed": 262,
+      "value_reads": 187,
+      "value_writes": 224
+    }
+  },
+  "prepared_link_sha256": "3cd2ad5fd25a8566c8c95f88d853d471f7d4e2f0c5b2091b9ce8de2e5989bc0e",
+  "totals": {
+    "compiler_inputs": 713,
+    "errno_types_removed": 124,
+    "total_types_removed": 11872,
+    "value_reads": 310,
+    "value_writes": 414
+  }
+}

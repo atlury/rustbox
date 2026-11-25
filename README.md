@@ -949,6 +949,15 @@ python3 -B scripts/prepare_errno_parents.py work/analysis/shared-stdio-final/rel
 
 [Per-package compiler input hashes and counts](evidence/errno-composed-source-counts.json)
 
+Across all 713 compiler inputs for those six rebuilt archives, the packed-curl
+release contained 82,241 explicit raw-pointer type occurrences. The prepared
+inputs contained 70,493 after verified stdio and native-string changes.
+The errno conversion brought that count to 70,369 and replaced 310 direct
+reads and 414 writes through the glibc pointer. The total reduction across
+all layers is 11,872. GNU awk alone fell from 28,578 to 18,550. The audit
+also records pointer extractions and raw borrows for every package.
+[Six compiled source inventories](evidence/six-errno-compiled-pointer-counts.json)
+
 GNU grep, gzip and sed also passed after cold-building the errno and
 native string changes in order. Each build reproduced its original archive
 before conversion. All three matched the earlier public command and
