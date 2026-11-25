@@ -970,6 +970,19 @@ comparisons against each canonical build. The archive changed, so promotion
 still requires the full multicall release checks.
 [GNU tar timestamp evidence](evidence/tar-borrowed-timespec-pilot.json)
 
+The curl FTP permission decoder now has a checked nine-byte candidate.
+Its only caller checks the available buffer before copying the field.
+This removes 24 raw offset reads in the decoder and one raw-pointer type.
+The GCC and Clang references agreed with Rust on all 4,096 Unix modes
+and 9,437,184 single-byte mutations per compiler and char signedness.
+The archive-level test used libcurl's wildcard API over loopback FTP.
+Both canonical builds, the linked parent and the candidate reported
+all 4,096 permission values and rejected all five malformed listings.
+The candidate repeated those transfers under Memcheck. This is an
+archive pilot pending multicall integration.
+[Source and test evidence](evidence/curl-ftp-permissions-pilot.json) ·
+[Public API comparison](tests/curl-ftp-permissions/wildcard.py)
+
 The isolated 499-name link reproduced the packed-curl parent executable
 byte for byte before substituting the tar archive. The resulting tar and rmt
 passed all 18 cases through each dispatch mode against each canonical compiler.

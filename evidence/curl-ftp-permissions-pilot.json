@@ -1,0 +1,53 @@
+{
+  "isolated_decoder": {
+    "byte_mutations_per_build": {
+      "clang-18-signed": 9437184,
+      "clang-18-unsigned": 9437184,
+      "gcc-signed": 9437184,
+      "gcc-unsigned": 9437184
+    },
+    "canonical_source_sha256": "abda2491568be631d71d699410aeeaeadd338705da3429b64b0909953dda7b42",
+    "driver_sha256": "b8fb89137d6fc8ecdb91cbc1280c02676a30081fd04cfd6c9a28071265ebb543",
+    "helper_sha256": "3cc76be69d0caec50c1cc0dca641b31650ecd338ea82111eda6a336fa46bed22",
+    "known_modes": 4096
+  },
+  "public_wildcard": {
+    "archive": "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/packed-manual/5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7/libcurl_8_23_0_normalized_audit.a",
+    "bounded_array_reads": 1,
+    "builds": [
+      "gcc",
+      "clang",
+      "parent",
+      "candidate",
+      "memcheck"
+    ],
+    "candidate_module_sha256": "2acc100d6d23f5a711fbdb2c0d812f799025b32e5af03f49353998e5dfc23f29",
+    "candidate_sha256": "63f0a03d7c922a4529c207ed8c8cde0edd53aea847adee5fc0f4fe5f77b88d10",
+    "candidate_sources_sha256": "0a9d9b2e762b01a00af484db0874a994640ce3f313c5d3f4db57a8470544a987",
+    "canonical_sha256": "abda2491568be631d71d699410aeeaeadd338705da3429b64b0909953dda7b42",
+    "cargo_archive": "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/release/libcurl_8_23_0_normalized_audit.a",
+    "checked_helper_sha256": "3cc76be69d0caec50c1cc0dca641b31650ecd338ea82111eda6a336fa46bed22",
+    "compiler_selected_sources": 241,
+    "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+    "control_module_sha256": "ead9b7154518c05f283ca4cb4ce3e1c17b3cbefb2daf928c5b54dfaaa8fa8f5d",
+    "control_sha256": "5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7",
+    "decoder_raw_offsets_removed": 24,
+    "driver_sha256": "d332ef4e4c89626fddcf9dfe3e530672a73cc065f4aa73dd19d7012a8c601242",
+    "known_modes": 4096,
+    "listing_sha256": [
+      "afe0e250c2bea7818e388637293318ba0ca4c7607c25125ac296a9aa2e50320e",
+      "55f3f576eae7996f2ffd5873dd08cbd4ca2edbcf25317e87893c09d143ba7ad5",
+      "3a9c6324950d37bde62cef1d9aeffdbe0aae3513f3b29726ef849b442554c352",
+      "63c1ba38856840f509b1fd3b992c30705dcdb28cf3ddc93b321740ef21c31328",
+      "8d20e98d42fbbc992d3a4405243cbcf7ef9e90f7b1f410c2ac4d1ed6d8bb328c",
+      "07dc17b5b86b65df876c2c2654c5164eb65e31583581f5d52fcdca3facbe8713"
+    ],
+    "module": "src/lib/ftplistparser.rs",
+    "output_sha256": "b7b3762a4f09530b68d9855cf5dfbc4b79d84f9bd327be7173ef02c0ad74f964",
+    "parent_sources_sha256": "842096d82e7809d47e6b44d8f9964c70099177419382db3ca576b339e301db19",
+    "raw_pointer_types_removed": 1,
+    "rejected_listings": 5,
+    "transfers": 30
+  },
+  "replayed_compiler_inputs": 241
+}
