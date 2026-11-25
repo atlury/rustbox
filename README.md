@@ -848,6 +848,13 @@ four concurrent threads. GCC and Clang each exercised the canonical and Rust
 accessors, then repeated the runs under Memcheck.
 [Source projections and thread checks](evidence/errno-value-access-source.json)
 
+GNU sed's two canonical gnulib builds and its production Rust archive
+preserved the caller's errno in all 75 quoting calls, including signed
+integer endpoints and buffers too small for the output. Five overflowing
+`reallocarray` calls returned ENOMEM and preserved the existing allocation.
+All three builds repeated these cases under Memcheck.
+[GNU sed errno baseline](evidence/sed-gnulib-errno-baseline.json)
+
 The native C-string manifest can grow within an archive already selected.
 `prepare_native_c_strings.py enroll --extend` checks that the new cold
 build covers every earlier edit on the same compiler sources and produces
