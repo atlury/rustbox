@@ -703,6 +703,18 @@ reproduced the complete archive with 638 fewer explicit casts. The
 51-literal selection overlaps this one in the extended-attribute module.
 [Mixed-array archive and overlap](evidence/e2fsprogs-mke2fs-mixed-array-c-strings.json)
 
+The same static-array selection was cold-built for four E2fsprogs engines.
+Counts are per archive. The best complete selection for each engine counts once.
+
+| Engine | Literals selected | Compiler inputs | Explicit casts removed in byte-identical builds |
+| --- | ---: | ---: | ---: |
+| `badblocks` | 8 | 60 | 16 |
+| `mke2fs` | 319 | 97 | 638 |
+| `debugfs` | 509 | 125 | 1,018 |
+| `e2fsck` | 884 | 115 | 1,768 |
+
+[Complete archive hashes and selected modules](evidence/e2fsprogs-four-static-array-archives.json)
+
 GNU Gawk 5.4.0 reproduced its complete archive after converting 5,005 C
 literals in 28 modules. Independent replay checked all 39 compiler inputs,
 including the 11 untouched modules. This removes 10,010 explicit casts and
