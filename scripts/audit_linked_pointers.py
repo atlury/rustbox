@@ -73,7 +73,7 @@ def measure_layer(crate, files, proof, item_count="private_functions_removed"):
     return stats
 
 
-def audit(link, temporary, inspect_source=None):
+def audit(link, temporary, inspect_source=None, *, inspect_module=None):
     fixed_arrays = link.get("e2fsprogs_dirhash_arrays", {})
     link = control_view(link)
     array_counts = {}
@@ -210,6 +210,8 @@ def audit(link, temporary, inspect_source=None):
             tally.update(unique[digest])
             if inspect_source is not None and not shared_object:
                 inspect_source(linked_path, digest, data)
+            if inspect_module is not None and not shared_object:
+                inspect_module(linked_path, file.relative_to(crate), digest, data)
             tally["files"] += 1
         if name in fixed_arrays and source_list_digest(source_digests) != fixed_arrays[name]["compiler_sources_sha256"]:
             raise ValueError(f"directory hash compiler inputs differ from the candidate: {name}")
@@ -352,9 +354,9 @@ def check_dirhash_conversion(before_link, after_link, before, after):
             raise ValueError(f"unexplained source delta for {package}: {difference}")
 
 
-def measure(link, inspect_source=None):
+def measure(link, inspect_source=None, *, inspect_module=None):
     with tempfile.TemporaryDirectory() as temp:
-        return audit(link, Path(temp), inspect_source)
+        return audit(link, Path(temp), inspect_source, inspect_module=inspect_module)
 
 
 if __name__ == "__main__":
