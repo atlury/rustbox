@@ -3,7 +3,7 @@
 set -eu
 
 case "$#:${1:-}" in
-    0:) set -- --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-dirhash-arrays.json ;;
+    0:) set -- --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
     2:--e2fsprogs-dirhash-arrays) ;;
     *) echo "usage: $0 [--e2fsprogs-dirhash-arrays MANIFEST]" >&2; exit 2 ;;
 esac

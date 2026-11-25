@@ -1,6 +1,6 @@
 {
   "binary": {
-    "bytes": 43034408,
+    "bytes": 43046280,
     "dynamic_needed": [
       "ld-linux-x86-64.so.2",
       "libattr.so.1",
@@ -37,23 +37,23 @@
       "libz.so.1",
       "libzstd.so.1"
     ],
-    "link_map_sha256": "f199426241ac93e2ef608bd6cf31be224270bdd2f2b8dd9b1d322df9d24f3c01",
-    "sha256": "72ef35ed33a430244c0ae9ab73473daf86a1e18b4f60c6bb944a358d87d5aa6b",
-    "verified_bytes": 43034408,
-    "verified_link_map_sha256": "f199426241ac93e2ef608bd6cf31be224270bdd2f2b8dd9b1d322df9d24f3c01",
-    "verified_sha256": "72ef35ed33a430244c0ae9ab73473daf86a1e18b4f60c6bb944a358d87d5aa6b"
+    "link_map_sha256": "543c7b8f8df8280605043a0fecff59e351e2243f3bafb1f5a40373c48f8a999b",
+    "sha256": "841ff62da945360208c312f785f9c218963549ad82100a3d02b54d7664b7ed18",
+    "verified_bytes": 43046280,
+    "verified_link_map_sha256": "543c7b8f8df8280605043a0fecff59e351e2243f3bafb1f5a40373c48f8a999b",
+    "verified_sha256": "841ff62da945360208c312f785f9c218963549ad82100a3d02b54d7664b7ed18"
   },
   "bitcount_verification": {
-    "binary_sha256": "72ef35ed33a430244c0ae9ab73473daf86a1e18b4f60c6bb944a358d87d5aa6b",
+    "binary_sha256": "841ff62da945360208c312f785f9c218963549ad82100a3d02b54d7664b7ed18",
     "canonical_comparisons": 16452,
-    "canonical_image_sha256": "5358d28de4a2d1cdf57dec791dcdc053778d303d81876276ad7cd38e478482b3",
+    "canonical_image_sha256": "05722d4ac0792872f40c29f5d213ab2021e34e5155cb193ae86f055a15280bc6",
     "grown_image_bytes": 41943040,
     "memcheck_errors": {
       "e2fsck": 0,
       "resize2fs": 0
     },
     "object_sha256": "ec4051776ce8620390e94bd0850f185dab405d64f2c4047f831af784b3860009",
-    "rustbox_image_sha256": "5358d28de4a2d1cdf57dec791dcdc053778d303d81876276ad7cd38e478482b3",
+    "rustbox_image_sha256": "05722d4ac0792872f40c29f5d213ab2021e34e5155cb193ae86f055a15280bc6",
     "traced_callers": [
       "e2fsck",
       "resize2fs"
@@ -62,7 +62,7 @@
   "collision_isolation": {
     "coalesced_runtime_members": 3966,
     "program_namespaces": 20,
-    "renamed_symbols": 8100,
+    "renamed_symbols": 8126,
     "runtime_member_map_sha256": "37f5a8312ceb32e1e839ba91f7e242b65cea5ded01f1cc99966460e2bb40f793",
     "runtime_members_by_engine": {
       "badblocks": 211,
@@ -87,7 +87,7 @@
       "tune2fs": 211
     },
     "runtime_provider": "Procps-ng 4.0.7 pinned nightly runtime",
-    "symbol_map_sha256": "917355f2badb6aa9550e56fd77979f95ff18939a6db2ef038e68e8b52a71a849"
+    "symbol_map_sha256": "eefe738c2ef799dd476b5d8fe6937ec2617e3821b4f21cf3502a9e963fbb270a"
   },
   "comparison_cases": 112,
   "comparison_passed": 112,
@@ -2253,13 +2253,13 @@
   },
   "differential_sha256": "e8e0e4abede74d8b22b65b880f182aa42bc05b5370bfaa97c6a88ba08d513570",
   "dirhash_array_verification": {
-    "binary_sha256": "72ef35ed33a430244c0ae9ab73473daf86a1e18b4f60c6bb944a358d87d5aa6b",
+    "binary_sha256": "841ff62da945360208c312f785f9c218963549ad82100a3d02b54d7664b7ed18",
     "canonical_comparisons": 98592,
-    "canonical_image_sha256": "6c4e92047e4df86c877a7830d7b44f2bd8a1c20c5a0f7402d010f8dd6cbd1309",
-    "debugfs_archive_sha256": "214c5fcd34e14b2550dc7aedbfd360cecd88e02b3a64423f81bde37475fed508",
+    "canonical_image_sha256": "376532a9c0f14f2f04720db03a8170c7a77ebe7b1dac03d38f32ada860e1e408",
+    "debugfs_archive_sha256": "0b1483e5fe35bab542de5f9285e9f2df6edd6c215a6d1481e2a004cdc203958a",
     "debugfs_commands": 12,
     "memcheck_comparisons": 14148,
-    "rustbox_image_sha256": "6c4e92047e4df86c877a7830d7b44f2bd8a1c20c5a0f7402d010f8dd6cbd1309"
+    "rustbox_image_sha256": "376532a9c0f14f2f04720db03a8170c7a77ebe7b1dac03d38f32ada860e1e408"
   },
   "dispatch": {
     "aggregate_names": 499,
@@ -2462,7 +2462,7 @@
     "schema": 1
   },
   "frontend_differential_sha256": "acc9df19138d06e336eff6bd26988e12259beac839aa9e30340e22c7cf058596",
-  "link_report_sha256": "f3156d605e512c3716a43cbf5652fb63cd71bd56e4d6aa70889bbe500b327b19",
+  "link_report_sha256": "6de7520fee5a98c8398c92366ccfcb7b653738f01f20b079cfe788af2b48013e",
   "lvm_differential": {
     "cases": 4,
     "native_builds": 1,
@@ -2563,39 +2563,39 @@
     },
     "debugfs": {
       "errors": 0,
-      "sha256": "8c78ea47cd1a85d41471112dd334bd59cf6586d8b267ab94de1eeab37e989ba0"
+      "sha256": "1739263c22e879ce06626e1736d0465b17120632885f9480bd6b6eff38b127b6"
     },
     "dumpe2fs": {
       "errors": 0,
-      "sha256": "eff27bf2563693acf09929d9a0a4ee948a4052fd17e54b7035a28161a929a907"
+      "sha256": "dd10f743d8666516d92b1fc24802f1c1e7decd3a9789780d94a998b3cef890dc"
     },
     "e2freefrag": {
       "errors": 0,
-      "sha256": "62ab2efc1833726cb1ec766f81480095eed9d4fceb50648779af22213d9976bb"
+      "sha256": "5a08c236b86fd3c2df52a072977d24f51f97f68c7cda1f8ab690c029ad041fbf"
     },
     "e2fsck": {
       "errors": 0,
-      "sha256": "a63ba5c437b766e069fc8bf07e8051c82743c371bee49c9cec7ea70673dead93"
+      "sha256": "4a75a5ad38a5d32276fba64f286e187c0168ff4187991bf3b84258c467ad7875"
     },
     "e2fsprogs-fsck": {
       "errors": 0,
-      "sha256": "b5934a7eaa1133926be30a9c7ac30e0a99da7f9bcaf7abf8a60fc9ca31cc8d2e"
+      "sha256": "41266c845fb6f7820246e5b1cea8ab501a1e01bed060d18bc99f1e1dd3f54d58"
     },
     "e2image": {
       "errors": 0,
-      "sha256": "1ff08d7730dac6cb90c55a4b76ef29d2ec07c43eb986015971783ef0dc087175"
+      "sha256": "b8b8e0cb4e5d7e15eab6f009cc248e4e28a9a3110aa8f96371dba71b61341d13"
     },
     "e2initrd_helper": {
       "errors": 0,
-      "sha256": "390d632176df42cd372e3a1f6eed4514ecb4a9c424dee2f7e3b481a03faf5d64"
+      "sha256": "cad728580e0fc7c0759aed6a0a42ce750349a0149b711c85b6d8084fc5c25e5b"
     },
     "e2label": {
       "errors": 0,
-      "sha256": "1c336b77a7267d063622bce5bf244fd73bc527c81793c22692f3bb9ce3244ee1"
+      "sha256": "b07b8193698ad4363dd737b0f8c0a21fcbe8dec34698c654bfd1edf42f07754c"
     },
     "e2mmpstatus": {
       "errors": 0,
-      "sha256": "6c95af42c825d63a67721aad36dddea26385b701b2d8e7a616a80496bfbc3427"
+      "sha256": "c2848d2ff46158e675d07765e5e9e7c62a568ad53d3dd26d262e9ab33779d352"
     },
     "e2scrub": {
       "errors": 0,
@@ -2607,7 +2607,7 @@
     },
     "e2undo": {
       "errors": 0,
-      "sha256": "36d0c541b98a8970f3ed33a8a261c57702b982cc27f3abce9a27a84047d54795"
+      "sha256": "efdf0470e703e06f9901e667dd2a3896c096e7d2d7600d9d0b7b60c8ad2ea8e6"
     },
     "e4crypt": {
       "errors": 0,
@@ -2623,19 +2623,19 @@
     },
     "fsck.ext2": {
       "errors": 0,
-      "sha256": "96bdad06426c512d13b2700bc4e78ae7aa2256937c8a5d746020125a6771ccb8"
+      "sha256": "64a4fdf03f834dd80ecfe45d5d4d08c426a36b54cd647e269f95fbbb687431ef"
     },
     "fsck.ext3": {
       "errors": 0,
-      "sha256": "6c93ea5b3a0aa035b5689aa48c439d97d7d38fbeaf1b5c3fd609acae6dfd2a65"
+      "sha256": "0b5b57107d875e10077c629e02d4cf7baadcbc7b56f6f0bec9ee2affe94e4b2c"
     },
     "fsck.ext4": {
       "errors": 0,
-      "sha256": "266a7afbacdf01991cfe233635e5ff99aacdd1c48719f876fe8cf2ed9a3f8969"
+      "sha256": "7a2d17af8852fb0e3c19fed84686190061edf1fb13ad5efca6571fa78813e1b4"
     },
     "fuse2fs": {
       "errors": 0,
-      "sha256": "03074f50ebf31e6b52c43d6fab0aa47903c0c2cdf5dc8703c11d973c8a3aa06d"
+      "sha256": "986c6b67697a4b77708aec9dd8fe029973b9c32a9a6b64a0626c599f574419b3"
     },
     "logsave": {
       "errors": 0,
@@ -2651,19 +2651,19 @@
     },
     "mke2fs": {
       "errors": 0,
-      "sha256": "2bc0973f125456694fbf9f1ae30cc2368c2c21af0c1b09661a80220ead963866"
+      "sha256": "a7d26402aac4225185f7c19f5d1a52a36045f3eee8cf519aa289c20989b24764"
     },
     "mkfs.ext2": {
       "errors": 0,
-      "sha256": "3bb3636a463a543102731dc4f9c6fd9655da72e9916f36804240500d1ada7995"
+      "sha256": "46ca49606d9907c6d92e680f5fb6ce2468ba7646518f975bbc9470cdc2918721"
     },
     "mkfs.ext3": {
       "errors": 0,
-      "sha256": "461bb55b5d1cfcb8e1c4ca058cf475268f2aaf32c0bff43ecbeb3261be08330b"
+      "sha256": "4d0ea71e39062952e3fefc52cf73a5d55b63237cd6fadbda7019d57e61c3c413"
     },
     "mkfs.ext4": {
       "errors": 0,
-      "sha256": "bf511324d5c932729324e66da3d7628496d08612796e8e47ee24421796ae405f"
+      "sha256": "c8333f7a53daf297ea4053953c40cc3c0875d91e258e66ac2e2be1aa8f2744aa"
     },
     "mklost+found": {
       "errors": 0,
@@ -2671,11 +2671,11 @@
     },
     "resize2fs": {
       "errors": 0,
-      "sha256": "1599acc66f5dc4532367f90f3d2edd00d186590937b5933c55cb00c7339bf99c"
+      "sha256": "3d343f9e496e0a79a4c10c10973be238a745f545d7b5308e136194e61d04d4ec"
     },
     "tune2fs": {
       "errors": 0,
-      "sha256": "7a435a27d44d7f565b5d69b2112b692cd518693e63af2647c94c74c8ab792c5c"
+      "sha256": "d0e8da44b411295a07aea1360c030b0325fb803c50a1cbb2cb15d75694cc6271"
     }
   }
 }
