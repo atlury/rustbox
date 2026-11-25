@@ -950,6 +950,16 @@ between both canonical compilers and the original Rust archive. Each ran
 the overflow, non-decimal numeric and I/O cases under Memcheck.
 [GNU awk baseline](evidence/gawk-errno-baseline.json)
 
+The byte-classification pilot checks a value-only alternative to indexing
+glibc's `__ctype_b_loc()` table. On this target an optimized `isdigit` call
+returned 1 for ASCII `0`, while the table returned the mask 2,048.
+The Rust helper explicitly reconstructs each glibc mask after classification.
+GCC and Clang each checked every byte against all 12 masks in 20 locales
+(61,440 comparisons per run), including ISO-8859-1 and EUC-JP.
+Every result and caller errno matched, including under Memcheck. These checks
+cover the helper before it is selected in an applet.
+[Classification and locale results](evidence/glibc-ctype-values.json)
+
 GNU sed's two canonical gnulib builds and its production Rust archive
 preserved the caller's errno in all 75 quoting calls, including signed
 integer endpoints and buffers too small for the output. Five overflowing
