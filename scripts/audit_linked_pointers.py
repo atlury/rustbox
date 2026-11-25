@@ -162,8 +162,8 @@ def audit(link, temporary):
             **({"byte_identical_inline_cleanups": cleanups} if cleanups else {})}
 
 
-def check_added_cleanups(previous_link, link, previous, current):
-    """Account for each package delta when adding receipts to an otherwise identical release."""
+def added_receipts(previous_link, link):
+    """Require identical link fields and retain every previous receipt."""
     receipt_field = "linked_private_inline_proofs"
     for field in previous_link.keys() | link.keys():
         if field != receipt_field and (field not in previous_link or field not in link
@@ -174,9 +174,14 @@ def check_added_cleanups(previous_link, link, previous, current):
         if after.get(archive) != receipt:
             raise ValueError(f"existing cleanup receipt changed for {archive}")
 
+    return after.keys() - before.keys()
+
+
+def check_added_cleanups(previous_link, link, previous, current):
+    """Account for each package delta when adding receipts to an otherwise identical release."""
     deltas = Counter()
     receipts = current.get("byte_identical_inline_cleanups", {})
-    for archive in after.keys() - before.keys():
+    for archive in added_receipts(previous_link, link):
         path = Path(archive)
         package = path.relative_to("work/analysis").parts[0]
         deltas[package] += receipts[cleanup_name(path)]["raw_pointer_type_tokens_removed"]

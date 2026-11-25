@@ -550,6 +550,55 @@ The source directory forms part of the receipt key. The release audit checks tha
 each edited file lies within that directory, then verifies the complete crate's
 compiler inputs and the linked archive hash.
 
+To prioritize the remaining Cargo translations, run
+
+```sh
+python3 -B scripts/batch_cargo_private_inlines.py work/analysis/rustbox-multicall-link.json
+```
+
+The scan uses the compiler's list of source files. It ranks archives by how many
+private inline function names appear only at their declaration in a file. Macro
+expansion and references from other files can change that estimate. Add
+`--prepare --jobs 4` to run independent single-crate builds in parallel, or add
+`--package NAME` to retry a specific package. An unsuccessful verifier keeps
+its log and makes the overall command exit unsuccessfully. The run directory's
+`results.json` records completed, failed and pending packages after each check. Other packages finish
+and retain their independently verified receipts. Packages with several archives
+share one index and use their dedicated workflow.
+
+Use `--fetch` with the link report to populate the shared dependency cache for
+queued candidates. On a fresh build host, use the release selection instead.
+
+```sh
+python3 -B scripts/batch_cargo_private_inlines.py --fetch --release-args batches/multicall-inline-archives.args
+```
+
+Each fetch runs from the crate directory so Cargo respects its pinned toolchain
+and lockfile. This also populates the separate registry cache used by the 2023
+nightly compiler for Shadow and Procps-ng. The archive comparisons run offline.
+
+The release preparation and the Linux linker read the same archive arguments
+from `batches/multicall-inline-archives.args`. This keeps a candidate out of the
+default release until its archive has been explicitly selected. The post-link
+audit compares the actual executable, link map and library hashes and checks
+each package's reduction against its receipts. Package test launchers use the
+release's Linux image. For checks that overlap a build, set
+`RUSTBOX_MULTICALL_TEST_BINARY` to the absolute path of a saved Linux executable.
+The launcher verifies the file, caches it in a Linux Docker volume named for
+its SHA-256, and mounts the volume file read-only over the test executable.
+Compare that SHA-256 with the final link report before attributing the tests
+to that release.
+
+After linking, run the existing package suites selected by the difference in receipts.
+
+```sh
+python3 -B scripts/test_inline_release.py previous-link.json work/analysis/rustbox-multicall-link.json /absolute/path/to/rustbox
+```
+
+The runner checks the ELF hash before and after testing. It runs independent
+suites in parallel and runs the timing-sensitive suites separately. Use
+`--package NAME` to replay one changed package with the same checks.
+
 The default build removes 9,189 unused private helper definitions and 18,487
 raw-pointer type occurrences from 606 GNU Inetutils source entries. The
 25 engines using compact removal account for all 3,148,896 source bytes saved.

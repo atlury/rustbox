@@ -16,6 +16,7 @@ from pathlib import Path
 
 from build_iproute2_bridge import build_bridge
 from build_e2fsprogs_checksums import build_shared, BITCOUNT_SYMBOL, CRC_SYMBOLS
+from batch_cargo_private_inlines import release_archives
 from prune_private_inlines import prepare_archive
 
 ISOLATION_CACHE_VERSION = 18
@@ -2389,7 +2390,7 @@ int main(int argc, char **argv)
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(fromfile_prefix_chars="@")
     parser.add_argument("--repository", type=Path, required=True)
     parser.add_argument("--coreutils-build", type=Path, required=True)
     parser.add_argument("--util-linux-build", type=Path, required=True)
@@ -2510,11 +2511,8 @@ def main() -> int:
         repository, "iproute2", (path for n, path in iproute2_libraries.items() if n != "bridge")
     ))
     inline_proofs.update(verified_cargo_inline_proofs(repository, "inetutils", inetutils_libraries.values()))
-    for package, archive in (
-        ("bc", bc_rust_library), ("curl", curl_rust_library), ("findutils", findutils_rust_library),
-        ("gzip", gzip_rust_library), ("lz4", lz4_rust_library), ("ncurses", ncurses_rust_library),
-        ("xz", xz_rust_library), ("zstd", zstd_rust_library),
-    ):
+    for option, (package, _) in release_archives(repository / "batches/multicall-inline-archives.args").items():
+        archive = getattr(args, option.replace("-", "_") + "_rust_library").resolve()
         inline_proofs.update(verified_cargo_inline_proofs(repository, package, [archive]))
     inline_proofs[str(bridge_archive.relative_to(repository))] = bridge_inline_proof
     # Verify the C-facing interface before namespace isolation or section GC.
