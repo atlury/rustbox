@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+from contextlib import ExitStack
 import hashlib
 import json
 import os
@@ -52,12 +53,23 @@ def invoke(command: list[str], case: Case, root: Path, *, executable: Optional[P
         root.chmod(0o755)
     environment = os.environ.copy()
     environment.update({"LC_ALL": "C", "LANG": "C", "TZ": "UTC"})
-    process = subprocess.run(
-        [*command, *case.arguments], executable=str(executable) if executable else None,
-        cwd=root, env=environment, input=case.stdin, stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE, timeout=15,
-        preexec_fn=drop_privileges if case.unprivileged and os.geteuid() == 0 else None,
-    )
+    with ExitStack() as stack:
+        streams = {"input": case.stdin}
+        if case.applet == "pipesz" and case.arguments == ("--get",):
+            # FIONREAD takes a snapshot. Finish writing the fixture before either
+            # process starts so the result cannot depend on parent scheduling.
+            read_fd, write_fd = os.pipe()
+            reader = stack.enter_context(os.fdopen(read_fd, "rb"))
+            with os.fdopen(write_fd, "wb", buffering=0) as writer:
+                if len(case.stdin) > os.fpathconf(write_fd, "PC_PIPE_BUF") or writer.write(case.stdin) != len(case.stdin):
+                    raise ValueError("pipesz fixture must fit in a single pipe write")
+            streams = {"stdin": reader}
+        process = subprocess.run(
+            [*command, *case.arguments], executable=str(executable) if executable else None,
+            cwd=root, env=environment, **streams, stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE, timeout=15,
+            preexec_fn=drop_privileges if case.unprivileged and os.geteuid() == 0 else None,
+        )
     return {"status": process.returncode, "stdout": process.stdout, "stderr": process.stderr, "tree": tree(root)}
 
 
@@ -114,6 +126,10 @@ def main() -> int:
         with tempfile.TemporaryDirectory(prefix="rustbox-util-c-") as left, tempfile.TemporaryDirectory(prefix="rustbox-util-r-") as right:
             canonical = invoke([case.applet], case, Path(left), executable=args.canonical_directory / case.applet)
             hybrid = invoke([str(args.hybrid), case.applet], case, Path(right))
+        if case.applet == "pipesz" and case.arguments == ("--get",):
+            fields = canonical["stdout"].rstrip(b"\n").split(b"\t")
+            if len(fields) != 3 or fields[0] != b"fd 0" or int(fields[1]) <= 0 or int(fields[2]) != len(case.stdin):
+                raise ValueError(f"canonical pipesz did not observe the preloaded fixture: {canonical}")
         if canonical != hybrid:
             failures.append({"case": number, "applet": case.applet, "arguments": case.arguments, "canonical": canonical, "hybrid": hybrid})
     result = {"schema": 1, "cases": len(all_cases), "passed": len(all_cases) - len(failures), "failures": failures}

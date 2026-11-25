@@ -1,0 +1,40 @@
+{
+  "baseline": {
+    "cases": 53,
+    "failures": [
+      {
+        "applet": "pipesz",
+        "arguments": [
+          "--get"
+        ],
+        "canonical": {
+          "status": 0,
+          "stderr": "",
+          "stdout": "fd 0\t65536\t0\n",
+          "tree": []
+        },
+        "case": 25,
+        "hybrid": {
+          "status": 0,
+          "stderr": "",
+          "stdout": "fd 0\t65536\t9\n",
+          "tree": []
+        }
+      }
+    ],
+    "passed": 52,
+    "schema": 1
+  },
+  "binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+  "corrected": {
+    "cases": 53,
+    "failures": [],
+    "passed": 53,
+    "schema": 1
+  },
+  "repeated": {
+    "fixture_bytes": 9,
+    "paired_runs": 32,
+    "stdout": "fd 0\t65536\t9\n"
+  }
+}

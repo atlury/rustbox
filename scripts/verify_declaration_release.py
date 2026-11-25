@@ -14,9 +14,9 @@ from test_inline_release import SENSITIVE, changed_packages
 from verify_inline_replays import validate_replays, verify
 
 
-def logged(command, log):
+def logged(command, log, *, env=None):
     with log.open("wb") as stream:
-        subprocess.run(command, cwd=ROOT, stdout=stream, stderr=subprocess.STDOUT, check=True)
+        subprocess.run(command, cwd=ROOT, stdout=stream, stderr=subprocess.STDOUT, env=env, check=True)
 
 
 def check(binary, directory, jobs, supplied_replays):

@@ -5,6 +5,7 @@ import argparse
 from concurrent.futures import ThreadPoolExecutor
 import hashlib
 import json
+import os
 from pathlib import Path
 import re
 import subprocess
@@ -156,7 +157,8 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
                 validate_copy_results(copies, json.loads(data), pilot["lookup_checks"], image_id)
                 log.write_bytes(data)
             else:
-                logged([scripts / tool, *args], log)
+                env = dict(os.environ, RUSTBOX_MULTICALL_TEST_BINARY=str(binary)) if name in {"dispatcher", "batch-differential"} else None
+                logged([scripts / tool, *args], log, env=env)
             print(f"{name} passed", flush=True)
         statuses = independent.result() if independent else packages(registered - SENSITIVE, "independent")
     statuses.update(packages(registered & SENSITIVE, "sensitive"))

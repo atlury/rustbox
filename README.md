@@ -592,6 +592,14 @@ passing result for each failed package, and records the original exit status
 alongside the retry receipt. `RUSTBOX_GREP_TEST_JOBS` controls upstream GNU
 grep test concurrency when reproducing its timed signal checks.
 
+The `pipesz --get` fixture preloads a kernel pipe before starting each
+process. The earlier fixture wrote concurrently with the command, so the
+canonical binary could observe zero queued bytes while Rustbox observed
+nine. After the change, all 32 paired runs observed nine bytes and the
+entire 53-case util-linux batch passed. Release qualification runs the
+dispatcher and all differential batches on the saved executable.
+[Original mismatch and corrected results](evidence/util-linux-pipesz-fixture.json)
+
 The curl calendar pilot replaces 23 raw offsets in `checkmonth` with a
 three-byte array match. Its single caller copies three bytes only after
 the existing date scanner has counted three ASCII letters. The Rust helper

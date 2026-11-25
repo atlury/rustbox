@@ -115,13 +115,15 @@ def main() -> int:
         })
 
     def execute(job: dict[str, object]) -> dict[str, object]:
+        command = list(job["command"])
+        harness_sha256 = hashlib.sha256(Path(command[1]).read_bytes()).hexdigest()
         return {
             "suite": job["suite"],
             "batch": job["batch"],
             **run_harness(
-                list(job["command"]),
+                command,
                 Path(job["report"]),
-                rustbox_sha256,
+                rustbox_sha256 + ":" + harness_sha256,
                 args.reuse_passing,
             ),
         }
