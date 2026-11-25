@@ -881,6 +881,23 @@ replays matched the batch scanner, as did GNU sed, grep and gzip.
 These are candidate counts. Rebuild and runtime results are recorded separately.
 [Per-archive errno candidates](evidence/errno-value-access-candidates.json)
 
+To reproduce the source selection and Linux command checks for one archive,
+run the following from the repository with the saved link report and package
+oracle volume. The optional `--build` cold-builds a missing candidate.
+The command also verifies the archive digest when reusing an existing build.
+
+```sh
+python3 -B scripts/check_errno_archive.py sed \
+  work/analysis/curl-manual-final/release.json work/analysis/sed-errno-pilot --build
+```
+
+For Shadow and Findutils, pass the saved link report for the native C string
+selection used to build that archive. The Shadow baseline covers 32 programs
+in 79 cases per canonical compiler, including eight account database cases.
+Findutils covers 38 per compiler. Its archive tests run the canonical
+`updatedb` shell with the selected `find` and `frcode` engines.
+[Canonical command baselines](evidence/errno-ranked-command-baselines.json)
+
 GNU sed's two canonical gnulib builds and its production Rust archive
 preserved the caller's errno in all 75 quoting calls, including signed
 integer endpoints and buffers too small for the output. Five overflowing
