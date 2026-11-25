@@ -17,17 +17,25 @@ C_SHA = "d0f7bfbc9dc4f906532e71cbe7500324e02d8947eb8d4d99ae9ad3638e86b5d5"
 MODULE = "src/programs/lorem.rs"
 HELPER = ROOT / "compat/zstd/lorem.rs"
 MARKER = ".rustbox-zstd-lorem"
+# Exact compiler sources before native C strings, after array-only literals,
+# and after all literals. Each variant is independently regenerated in tests.
+INPUTS = {
+    "d6acfb1c1ed89112136101faaf9236000e1fb8f8a3ebd91d34b2cea78f912791",
+    "4b88bb82f0d31aba86f9ccdc0760112490e8495db5992a2f1e193a1f0b1cb43f",
+    "db0c261274e72f73161df9a793f66ead7c9cb201e2aeb14f025a3b897aca8b32",
+}
 
 
 def substitute(crate, sources):
     data = (crate / MODULE).read_bytes()
     original = sha256(data).hexdigest()
-    if MODULE not in sources or original != "d6acfb1c1ed89112136101faaf9236000e1fb8f8a3ebd91d34b2cea78f912791" or digest(CANONICAL) != C_SHA:
+    if MODULE not in sources or original not in INPUTS or digest(CANONICAL) != C_SHA:
         raise ValueError("unknown compiled Zstd generator or canonical source")
     canonical = CANONICAL.read_bytes().split(b'static const char* kWords[] = {', 1)[1].split(b'\n};', 1)[0]
     words = re.findall(rb'"([a-z]+)"', canonical)
     translated = data.split(b"static mut kWords:", 1)[1].split(b"\n];", 1)[0]
-    if words != re.findall(rb'b"([a-z]+)\\0"', translated):
+    entries = re.findall(rb'(?:b"([a-z]+)\\0"|c"([a-z]+)"\.as_ptr\(\))', translated)
+    if words != [legacy or native for legacy, native in entries]:
         raise ValueError("canonical and generated Zstd words differ")
     # Preserve the configured C assertion and both exported signatures exactly.
     assertion = data[data.index(b"    '_c2rust_label: {", data.index(b'fn LOREM_genBlock(')):data.index(b"    g_maxChars = size;")]

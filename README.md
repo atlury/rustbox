@@ -872,6 +872,14 @@ block. Memcheck covered both drivers. The original oversize assertion and
 zero-length null-buffer behavior were also exercised.
 [Canonical generator comparison](evidence/zstd-lorem-generator.json)
 
+The source replay also checks the Zstd generator after native C-string
+conversion. With the 255 dictionary literals already converted, the writer
+removes 64 more raw-pointer types and reproduces the original pilot source
+byte for byte. With all 273 literals converted it removes 34 more types.
+The latter source retains the checked C strings in the size assertion.
+These are incremental counts from two alternative compiler inputs.
+[Source hashes and counts](evidence/zstd-lorem-c-string-composition.json)
+
 ```sh
 python3 -B tests/lz4-dictionary/source.py "$link"
 python3 -B scripts/build_lz4_dictionary_pilot.py --link "$link" --archive "$lz4_archive" --output "$pilot"
