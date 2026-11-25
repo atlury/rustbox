@@ -1,0 +1,279 @@
+{
+  "grep": {
+    "archive": {
+      "archive": "work/analysis/grep-3.12/translations/c2rust-0.22.1/grep-3.12-stable/target/release/libgrep_3_12_normalized_audit.a",
+      "candidate_sha256": "7eb58eaf6aa14f79405b63981505776b4f8fd3d295b4c819aa4125e523224433",
+      "candidate_sources_sha256": "0f4e459f83f0ebc6f1b47d671ef0f5eaf4b24cc711deea4c1475a1c16e6a2e99",
+      "compiler_selected_sources": 131,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_sha256": "773734b6968c400631b9404b1195ac5929648fb397c59caba84bcee0e58c1a11",
+      "helper_sha256": "554946bffc2381da8b362a86ed2063db1c610eca3458430c22fae407ac6eb35d",
+      "modules": {
+        "src/normalized_source/lib/c_stack.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/fd_safer.rs": [
+          1,
+          1
+        ],
+        "src/normalized_source/lib/fopen.rs": [
+          1,
+          1
+        ],
+        "src/normalized_source/lib/hash.rs": [
+          2,
+          5
+        ],
+        "src/normalized_source/lib/ialloc.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/malloc/dynarray_emplace_enlarge.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/malloc/dynarray_resize.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/mbsrtowcs.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/opendirat.rs": [
+          1,
+          1
+        ],
+        "src/normalized_source/lib/pipe_safer.rs": [
+          1,
+          1
+        ],
+        "src/normalized_source/lib/quotearg.rs": [
+          4,
+          4
+        ],
+        "src/normalized_source/lib/reallocarray.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/sigsegv.rs": [
+          1,
+          1
+        ],
+        "src/normalized_source/lib/xmalloc.rs": [
+          0,
+          1
+        ]
+      },
+      "parent_sources_sha256": "d2712e0cfa2156ee32eec1a0a796123570e87e33ac7df225131f9eca57b53f89",
+      "raw_pointer_types_removed": 13,
+      "scanner_sha256": "2266bce319952459557e16063cbb60eb40884309a4c18addcfdc39f112a4ccd6",
+      "value_reads": 11,
+      "value_writes": 21
+    },
+    "link_report_sha256": "3cd2ad5fd25a8566c8c95f88d853d471f7d4e2f0c5b2091b9ce8de2e5989bc0e",
+    "matches_previous_archive": true,
+    "public": {
+      "allocation_errors_per_run": 5,
+      "api_outputs": {
+        "candidate": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+        "candidate-memcheck": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+        "clang": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+        "clang-memcheck": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+        "gcc": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+        "gcc-memcheck": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+        "parent": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+        "parent-memcheck": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669"
+      },
+      "archive_sha256": {
+        "candidate": "7eb58eaf6aa14f79405b63981505776b4f8fd3d295b4c819aa4125e523224433",
+        "clang": "eb08e54ace5f68265adda3d3a9575436d37e628fea038f27c5f585d0f8926bf9",
+        "gcc": "a882db2ec4249f524a72a48059e636d090f852d0147b950e68b9d6c8aa366d08",
+        "parent": "773734b6968c400631b9404b1195ac5929648fb397c59caba84bcee0e58c1a11"
+      },
+      "driver_sha256": "705adf843a07147e2eb814b15a82a3d2e73918d6beadfce49e8f40db4f169abf",
+      "fd_calls_per_run": 15,
+      "pipe_transfers_per_run": 5,
+      "public_commands": {
+        "clang": 36,
+        "gcc": 36
+      }
+    }
+  },
+  "gzip": {
+    "archive": {
+      "archive": "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a",
+      "candidate_sha256": "5a24acb51b65681bce0dd4232a1be754bd484a41967c8581f2d326e4a646d4cc",
+      "candidate_sources_sha256": "38f1f28a2ebc25824f1025087ea195a538f0d97e440c7cd55422135ef8938f78",
+      "compiler_selected_sources": 66,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_sha256": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd",
+      "helper_sha256": "554946bffc2381da8b362a86ed2063db1c610eca3458430c22fae407ac6eb35d",
+      "modules": {
+        "src/normalized_source/lib/fclose.rs": [
+          1,
+          1
+        ],
+        "src/normalized_source/lib/fd_safer.rs": [
+          1,
+          1
+        ],
+        "src/normalized_source/lib/ialloc.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/pipe_safer.rs": [
+          1,
+          1
+        ],
+        "src/normalized_source/lib/reallocarray.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/savedir.rs": [
+          1,
+          1
+        ],
+        "src/normalized_source/lib/vfzprintf.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/xmalloc.rs": [
+          0,
+          1
+        ]
+      },
+      "parent_sources_sha256": "f434a0ff91a141c889d330f04a4dda1200a519b61cdcfd5ef3aa4b41ca3ec963",
+      "raw_pointer_types_removed": 7,
+      "scanner_sha256": "2266bce319952459557e16063cbb60eb40884309a4c18addcfdc39f112a4ccd6",
+      "value_reads": 4,
+      "value_writes": 8
+    },
+    "link_report_sha256": "3cd2ad5fd25a8566c8c95f88d853d471f7d4e2f0c5b2091b9ce8de2e5989bc0e",
+    "matches_previous_archive": true,
+    "public": {
+      "allocation_errors_per_run": 5,
+      "api_outputs": {
+        "candidate": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+        "candidate-memcheck": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+        "clang": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+        "clang-memcheck": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+        "gcc": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+        "gcc-memcheck": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+        "parent": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+        "parent-memcheck": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669"
+      },
+      "archive_sha256": {
+        "candidate": "5a24acb51b65681bce0dd4232a1be754bd484a41967c8581f2d326e4a646d4cc",
+        "clang": "b0d156417c5f3bc5a5997823c6ec23efd52bc267ecb2f28cde75e708b180780b",
+        "gcc": "ce669148968bd70399c9c2705dd8dfb0c3cb98d7cb418dea43e046c3631e6134",
+        "parent": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd"
+      },
+      "driver_sha256": "705adf843a07147e2eb814b15a82a3d2e73918d6beadfce49e8f40db4f169abf",
+      "fd_calls_per_run": 15,
+      "pipe_transfers_per_run": 5,
+      "public_commands": {
+        "clang": 14,
+        "gcc": 14
+      }
+    }
+  },
+  "sed": {
+    "archive": {
+      "archive": "work/analysis/sed-4.10/translations/c2rust-0.22.1/sed-4.10-stable/target/release/libsed_4_10_normalized_audit.a",
+      "candidate_sha256": "173d07e24f484da1336259e316b339bce197eba1eb0e88029fc71a42c9f65458",
+      "candidate_sources_sha256": "e7ed66e68ba370822b3b04062db885accddaca06ab3f0c48dd36101140b5a9aa",
+      "compiler_selected_sources": 87,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_sha256": "99cddd80c240b7f1fce4fb5a278fef15a1a836b6b3b5ae1c6a82065407ef708c",
+      "helper_sha256": "554946bffc2381da8b362a86ed2063db1c610eca3458430c22fae407ac6eb35d",
+      "modules": {
+        "src/normalized_source/lib/get_permissions.rs": [
+          1,
+          0
+        ],
+        "src/normalized_source/lib/ialloc.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/malloc/dynarray_emplace_enlarge.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/malloc/dynarray_resize.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/malloc/scratch_buffer_grow.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/malloc/scratch_buffer_grow_preserve.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/malloc/scratch_buffer_set_array_size.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/quotearg.rs": [
+          4,
+          4
+        ],
+        "src/normalized_source/lib/reallocarray.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/se_context.rs": [
+          0,
+          10
+        ],
+        "src/normalized_source/lib/se_label.rs": [
+          0,
+          4
+        ],
+        "src/normalized_source/lib/se_selinux.rs": [
+          0,
+          27
+        ],
+        "src/normalized_source/lib/xmalloc.rs": [
+          0,
+          1
+        ]
+      },
+      "parent_sources_sha256": "7508c62406839b8c6816b9e854a9bf78fba1bfead46d0bee2d2b18b411a970b6",
+      "raw_pointer_types_removed": 12,
+      "scanner_sha256": "2266bce319952459557e16063cbb60eb40884309a4c18addcfdc39f112a4ccd6",
+      "value_reads": 5,
+      "value_writes": 53
+    },
+    "link_report_sha256": "3cd2ad5fd25a8566c8c95f88d853d471f7d4e2f0c5b2091b9ce8de2e5989bc0e",
+    "matches_previous_archive": true,
+    "public": {
+      "allocation_errors_per_run": 5,
+      "api_outputs": {
+        "candidate": "2583e8a9524c2287d28d3853c7ef778608b79862e51ee58be6c7d210a6394ab9",
+        "candidate-memcheck": "2583e8a9524c2287d28d3853c7ef778608b79862e51ee58be6c7d210a6394ab9",
+        "clang": "2583e8a9524c2287d28d3853c7ef778608b79862e51ee58be6c7d210a6394ab9",
+        "clang-memcheck": "2583e8a9524c2287d28d3853c7ef778608b79862e51ee58be6c7d210a6394ab9",
+        "gcc": "2583e8a9524c2287d28d3853c7ef778608b79862e51ee58be6c7d210a6394ab9",
+        "gcc-memcheck": "2583e8a9524c2287d28d3853c7ef778608b79862e51ee58be6c7d210a6394ab9",
+        "parent": "2583e8a9524c2287d28d3853c7ef778608b79862e51ee58be6c7d210a6394ab9",
+        "parent-memcheck": "2583e8a9524c2287d28d3853c7ef778608b79862e51ee58be6c7d210a6394ab9"
+      },
+      "archive_sha256": {
+        "candidate": "173d07e24f484da1336259e316b339bce197eba1eb0e88029fc71a42c9f65458",
+        "clang": "4576fd1d6c6e01ede1ef28d8195914d6ba0c0dfea6ecda585b0529a0e9f4dcc9",
+        "gcc": "706dce863326a42b99ed33f01fb9d8548179c0fd38578330ab1b58f28d07f15a",
+        "parent": "99cddd80c240b7f1fce4fb5a278fef15a1a836b6b3b5ae1c6a82065407ef708c"
+      },
+      "driver_sha256": "b5737a6efbb6f07a1fac1c72a03251fa4fec258fbca4028b1058026bac2b61cc",
+      "public_commands": {
+        "clang": 30,
+        "gcc": 30
+      },
+      "quote_calls_per_run": 75
+    }
+  }
+}

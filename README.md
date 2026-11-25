@@ -949,6 +949,12 @@ python3 -B scripts/prepare_errno_parents.py work/analysis/shared-stdio-final/rel
 
 [Per-package compiler input hashes and counts](evidence/errno-composed-source-counts.json)
 
+GNU grep, gzip and sed also passed after cold-building the errno and
+native string changes in order. Each build reproduced its original archive
+before conversion. All three matched the earlier public command and
+Memcheck results on the newly selected compiler inputs.
+[Archive comparisons](evidence/grep-gzip-sed-composed-errno-archives.json)
+
 The complete GNU awk archive replaced 76 errno reads and 18 writes after
 5,005 native string substitutions. Both canonical compilers matched 26
 public command cases and 17 additional field-width, numeric conversion and
