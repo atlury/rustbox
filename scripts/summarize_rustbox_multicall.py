@@ -397,7 +397,7 @@ def main() -> int:
         ],
         "decompress": [
             "in use at exit: 0 bytes in 0 blocks",
-            "total heap usage: 29 allocs, 29 frees, 29,633,252 bytes allocated",
+            "total heap usage: 29 allocs, 29 frees, 29,633,348 bytes allocated",
         ],
     }
     lz4_valgrind_paths = {
@@ -413,6 +413,21 @@ def main() -> int:
             or heap != lz4_expected_heaps[operation]
         ):
             raise RuntimeError(f"unified LZ4 {operation} Valgrind comparison is incomplete")
+    lz4_decompression_heaps = {}
+    for implementation, expected_bytes, expected_tls in (
+        ("canonical", 29_633_156, 544), ("multicall", 29_633_348, 736),
+    ):
+        name = "decompress-canonical" if implementation == "canonical" else "decompress"
+        log = (lz4_directory / f"valgrind-{name}.log").read_text()
+        sites = (lz4_directory / f"decompress-{implementation}-sites").read_text()
+        if (f"29 allocs, 29 frees, {expected_bytes:,} bytes allocated" not in log
+                or "ERROR SUMMARY: 0 errors" not in log or "All heap blocks were freed" not in log
+                or not re.search(rf"^ *{expected_tls} +2 +\S+:_dl_allocate_tls$", sites, re.MULTILINE)):
+            raise RuntimeError(f"unexpected {implementation} LZ4 decompression allocation profile")
+        lz4_decompression_heaps[implementation] = {
+            "total_bytes": expected_bytes, "allocations": 29, "worker_tls_bytes": expected_tls,
+            "worker_tls_allocations": 2,
+        }
     if (
         lz4_differential.get("cases") != 27
         or lz4_differential.get("passed") != 27
@@ -1113,7 +1128,7 @@ def main() -> int:
             "valgrind_errors": 0,
             "all_allocations_freed": True,
             "compression_allocation_lifecycle_matches_translated_hybrid": True,
-            "decompression_multicall_argv_overhead_bytes": 32,
+            "decompression_heaps": lz4_decompression_heaps,
             "upstream_log_sha256": sha256(lz4_upstream_path),
             "differential_sha256": sha256(lz4_differential_path),
             "valgrind_log_sha256": {

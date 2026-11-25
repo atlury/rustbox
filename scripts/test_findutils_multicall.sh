@@ -3,7 +3,7 @@
 set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
-RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
+RUSTBOX_TOOL_IMAGE=rustbox-e2fsprogs:2026-11-24 \
   exec "$root/scripts/run_tool.sh" sh -eu -c '
     stage=/rustbox-findutils/multicall
     report=/work/work/analysis/findutils-4.10.0/multicall

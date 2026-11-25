@@ -3,7 +3,7 @@
 set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
-RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
+RUSTBOX_TOOL_IMAGE=rustbox-e2fsprogs:2026-11-24 \
   exec "$root/scripts/run_tool.sh" sh -eu -c '
     output=/work/work/analysis/lz4-1.11.1/multicall
     rustbox=/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox
@@ -46,9 +46,20 @@ RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
       "$rustbox" lz4 -f multicall-valgrind-input multicall-valgrind-input.multicall.lz4
     valgrind --leak-check=full --show-leak-kinds=all \
       --errors-for-leak-kinds=definite,indirect,possible --error-exitcode=99 \
+      --xtree-memory=full --xtree-memory-file="$output/decompress-multicall.xtree" \
       --log-file="$output/valgrind-decompress.log" \
       "$rustbox" lz4 -d -f multicall-valgrind-input.canonical.lz4 \
         multicall-valgrind-output
+    valgrind --leak-check=full --show-leak-kinds=all \
+      --errors-for-leak-kinds=definite,indirect,possible --error-exitcode=99 \
+      --xtree-memory=full --xtree-memory-file="$output/decompress-canonical.xtree" \
+      --log-file="$output/valgrind-decompress-canonical.log" \
+      "$canonical/lz4" -d -f multicall-valgrind-input.canonical.lz4 multicall-valgrind-output.canonical
+    cmp multicall-valgrind-output.canonical multicall-valgrind-output
+    for implementation in canonical multicall; do
+      callgrind_annotate --inclusive=no --show=totB,totBk --threshold=100 --show-percs=no --auto=no \
+        "$output/decompress-$implementation.xtree" >"$output/decompress-$implementation-sites"
+    done
     for operation in compress decompress; do
       grep -q "ERROR SUMMARY: 0 errors" "$output/valgrind-$operation.log"
       grep -q "All heap blocks were freed -- no leaks are possible" \
@@ -61,10 +72,11 @@ HEAP SUMMARY:
 in use at exit: 0 bytes in 0 blocks
 total heap usage: 9 allocs, 9 frees, 8,410,567 bytes allocated
 EOF
+    # Two glibc worker TLS allocations use 368 bytes each in the 499-name ELF.
     cat >"$output/valgrind-decompress-expected" <<EOF
 HEAP SUMMARY:
 in use at exit: 0 bytes in 0 blocks
-total heap usage: 29 allocs, 29 frees, 29,633,252 bytes allocated
+total heap usage: 29 allocs, 29 frees, 29,633,348 bytes allocated
 EOF
     cmp "$output/valgrind-compress-heap" "$output/valgrind-compress-expected"
     cmp "$output/valgrind-decompress-heap" "$output/valgrind-decompress-expected"

@@ -282,9 +282,9 @@ production reduction.
 
 The default 499-name Linux executable now uses the cleaned sources for
 all 20 E2fsprogs, 18 IPRoute2 and 26 GNU Inetutils engines, as well as curl,
-GNU gzip and XZ Utils. Across the linked applet sources the raw-pointer type
-count fell from **1,379,960 to 1,117,906**.
-Counting byte-identical Rust files once gives **798,468** remaining occurrences.
+GNU gzip, XZ Utils, GNU bc, GNU Findutils, LZ4 and ncurses. Across the linked
+applet sources the raw-pointer type count fell from **1,379,960 to 1,104,129**.
+Counting byte-identical Rust files once gives **786,584** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
 | Production change | Raw-pointer type occurrences removed |
@@ -298,7 +298,8 @@ The count of applets certified pointer-free is still zero.
 | Compiler-verified removal of unused private helpers in GNU gzip 1.14 | 1,023 |
 | Compiler-verified removal of unused private helpers in XZ Utils 5.8.4 | 7,075 |
 | Shared E2fsprogs bitmap counter, including its raw ABI argument | 77 |
-| **Total** | **262,054** |
+| Compiler-verified removal of unused private helpers in GNU bc, GNU Findutils, LZ4 and ncurses | 13,777 |
+| **Total** | **275,831** |
 
 E2fsprogs accounts for 215,007 remaining occurrences, down from 401,012.
 IPRoute2 accounts for 223,692, down from 265,323. GNU Inetutils accounts
@@ -500,9 +501,8 @@ python3 -B scripts/check_cargo_private_inlines.py "$curl_crate/target/release/li
 
 The curl archive reproduced its original SHA-256 after removing 4,317 unused
 functions across 238 files, including 7,833 raw-pointer type occurrences
-and 1,471,444 source bytes. The default build uses
-`--prepare-archive curl "$curl_archive"` to publish that evidence before
-linking. Run `scripts/test_curl_multicall.sh` to compare the two public
+and 1,471,444 source bytes. The default build passes this same repository-relative
+archive path to `--prepare-archive curl` before linking. Run `scripts/test_curl_multicall.sh` to compare the two public
 commands with canonical curl and check the version and local file transfer
 paths under Valgrind.
 
@@ -512,6 +512,25 @@ lost 3,635 helpers across 102 files and 1,036,340 source bytes. Run
 `scripts/test_gzip_multicall.sh` and `scripts/test_xz_multicall.sh` for
 108 gzip and 70 XZ command comparisons, compression output checks and
 Valgrind. The XZ script also runs the upstream shell tests.
+
+The next four packages share 21 public command names. Each rebuilt archive
+matched its original SHA-256 after the following reductions in staged Rust.
+
+| Package | Source files changed | Unused functions removed | Source bytes removed | Raw-pointer types removed | Raw-pointer types remaining |
+|---|---:|---:|---:|---:|---:|
+| GNU bc 1.08.2 | 20 | 338 | 118,669 | 572 | 2,896 |
+| GNU Findutils 4.10.0 | 142 | 2,548 | 805,830 | 4,763 | 15,708 |
+| LZ4 1.11.1 | 12 | 114 | 42,608 | 273 | 6,874 |
+| ncurses 6.6 | 264 | 5,215 | 1,787,899 | 8,169 | 40,262 |
+
+The four package test scripts cover 169 canonical command comparisons, all 18
+shipped GNU bc workloads and the LZ4 upstream essentials suite. They run 19
+multicall paths under Valgrind, plus the standalone LZ4 decompression control.
+
+The zstd 1.5.7 control build reproduced its release archive. Removing its
+unused helpers changed the archive with both newline-preserving and
+byte-offset-preserving edits. The release retains the original zstd archive
+and its count of 25,284 raw-pointer type occurrences.
 
 The default build removes 9,189 unused private helper definitions and 18,487
 raw-pointer type occurrences from 606 GNU Inetutils source entries. The
@@ -1096,8 +1115,11 @@ in `evidence/lz4-1.11.1-hybrid.json`.
 All four names are integrated into Rustbox.  The unified link keeps all 206
 non-entrypoint LZ4, liblz4, and XXH C symbols private, passes 580/580 aggregate
 help/version comparisons and all 14,022 prior batch cases, and repeats the full
-LZ4 behavior suite.  Compression retains the standalone allocation lifecycle;
-subcommand dispatch adds only 32 allocated-and-freed bytes during decompression.
+LZ4 behavior suite. Compression retains the standalone allocation lifecycle.
+On the current 499-name ELF, decompression and the canonical utility both
+make and free 29 allocations. Valgrind traces the full 192-byte difference to
+glibc thread-local storage for the two worker threads, 368 bytes per thread
+in Rustbox and 272 in the standalone canonical program.
 Integration adds 270,336 stripped bytes, substantially less than the 586,784-byte
 standalone translated executable.  Unified evidence is in
 `evidence/rustbox-multicall.json`.
