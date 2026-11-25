@@ -1154,6 +1154,8 @@ all 3,010 under Memcheck.
 The cold-built combined archive passed the 3,010 time-zone dates, the month API and all 4,096 FTP file modes. The public tests ran against GCC, Clang, the original and the candidate, with another run of each API under Memcheck. The source replay includes all 241 compiler inputs.
 [Combined archive results](evidence/curl-checked-parser-archive.json)
 
+The complete 499-name parent ELF reproduced byte for byte before the combined substitution. Each dispatch mode passed 24 curl command comparisons and sent 206 canonical conditional requests. The stripped candidate is 24,961,776 bytes. [Multicall execution](evidence/curl-composed-checked-multicall.json)
+
 The cold-built time-zone archive reproduced its control, then matched the original archive and both canonical compilers for all 3,010 public dates. Memcheck repeated those dates and the curl CLI passed 12 cases per compiler.
 [Time-zone archive results](evidence/curl-timezone-archive.json)
 
