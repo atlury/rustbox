@@ -848,6 +848,10 @@ option reconstructs the two required LZ4 source selections. With
 explicit stdio or native C-string manifest can supply the same verified
 compiler inputs alongside other packages. The linker checks both archive
 hashes and the exported C symbols before substituting LZ4.
+The saved-executable test checks that the link selects the pinned archive,
+then compares 108 commands and four benchmark runs against the canonical
+results. It accepts later builds that retain the qualified LZ4 inputs.
+[Saved-executable test](scripts/test_lz4_dictionary_multicall.py)
 
 ```sh
 python3 -B tests/lz4-dictionary/source.py "$link"

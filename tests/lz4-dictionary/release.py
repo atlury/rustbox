@@ -10,6 +10,7 @@ from tempfile import TemporaryDirectory
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
 from cargo_source_parent import cargo_origin, pinned_parent
 from lz4_dictionary_archive import KEY, parent_manifests, selected_link, selection
+from test_lz4_dictionary_multicall import check as check_executable
 
 
 def rejected(function, value):
@@ -37,6 +38,12 @@ def main():
             assert minimal[field] == value
     with TemporaryDirectory() as temp:
         directory = Path(temp)
+        binary = directory / "wrong-elf"
+        binary.write_bytes(b"unrelated")
+        for source in (parent, link):
+            manifest_path = directory / "selection.json"
+            manifest_path.write_text(json.dumps(dict(source, binary={"sha256": "0" * 64})))
+            rejected(lambda manifest: check_executable(manifest, binary), manifest_path)
         for routing, count in ((False, 1), (True, 19), (False, 1)):
             parent_manifests(directory, routing=routing)
             native = json.loads((directory / "native_c_strings.json").read_bytes())
