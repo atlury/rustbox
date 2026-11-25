@@ -1,0 +1,103 @@
+{
+  "binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+  "deferred": {
+    "work/analysis/bison-3.8.2/translations/c2rust-0.22.1/bison-3.8.2-stable/target/release/libbison_3_8_2_normalized_audit.a": "rebuilt archive bytes differ",
+    "work/analysis/tar-1.35/translations/c2rust-0.22.1/tar-1.35-stable/target/release/libtar_1_35_normalized_audit.a": "rebuilt archive bytes differ"
+  },
+  "link_report_sha256": "fef8418385bf5a6837d0221f55c7b1c999ed0b469e3a8c68a735830510041df6",
+  "raw_pointer_types_removed": 11482,
+  "verified": {
+    "work/analysis/acl-2.4.0/translations/c2rust-0.22.1/acl-2.4.0-stable/target/release/libacl_2_4_0_normalized_audit.a": {
+      "archive": "work/analysis/acl-2.4.0/translations/c2rust-0.22.1/acl-2.4.0-stable/target/release/libacl_2_4_0_normalized_audit.a",
+      "c_string_literals": 230,
+      "candidate_sha256": "a3bfbedb671c868ac50f9b03099de138ce290efd419363481e900399f72fa3b7",
+      "candidate_sources_sha256": "3784d0729a799ab58a14222f810713aa95db3e8da1f8c0120b100971d24db467",
+      "compiler_selected_sources": 74,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "a3bfbedb671c868ac50f9b03099de138ce290efd419363481e900399f72fa3b7",
+      "modules": {
+        "src/libacl/__acl_to_any_text.rs": 11,
+        "src/libacl/acl_error.rs": 4,
+        "src/libacl/acl_from_text.rs": 4,
+        "src/libacl/acl_to_text.rs": 1,
+        "src/libacl/perm_copy_fd.rs": 16,
+        "src/libacl/perm_copy_file.rs": 9,
+        "src/libmisc/proc_self_fd.rs": 2,
+        "src/libmisc/walk_tree.rs": 3,
+        "src/tools/chacl.rs": 35,
+        "src/tools/do_set.rs": 11,
+        "src/tools/getfacl.rs": 54,
+        "src/tools/parse.rs": 9,
+        "src/tools/setfacl.rs": 67,
+        "src/tools/user_group.rs": 4
+      },
+      "parent_sources_sha256": "79788427e7b162c74f318cfaf3236ef68742e98798e4c2117c2e172107380d98",
+      "raw_ffi_pointer_extractions": 230,
+      "raw_pointer_types_removed": 460,
+      "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+    },
+    "work/analysis/flex-2.6.4/translations/c2rust-0.22.1/flex-2.6.4-stable/target/release/libflex_2_6_4_normalized_audit.a": {
+      "archive": "work/analysis/flex-2.6.4/translations/c2rust-0.22.1/flex-2.6.4-stable/target/release/libflex_2_6_4_normalized_audit.a",
+      "c_string_literals": 5271,
+      "candidate_sha256": "edb751afc4ae042655c57eb6aedd8afc1cbd15bdd1ea4185aada669914561371",
+      "candidate_sources_sha256": "4b749efebec9f1725333abacc91c55ab3d97fd243f619251541336821b4fca6f",
+      "compiler_selected_sources": 23,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "edb751afc4ae042655c57eb6aedd8afc1cbd15bdd1ea4185aada669914561371",
+      "modules": {
+        "src/normalized_clang/src/stage1scan.rs": 122,
+        "src/normalized_source/src/buf.rs": 14,
+        "src/normalized_source/src/ccl.rs": 2,
+        "src/normalized_source/src/dfa.rs": 28,
+        "src/normalized_source/src/filter.rs": 50,
+        "src/normalized_source/src/gen.rs": 418,
+        "src/normalized_source/src/main.rs": 204,
+        "src/normalized_source/src/misc.rs": 87,
+        "src/normalized_source/src/nfa.rs": 24,
+        "src/normalized_source/src/options.rs": 115,
+        "src/normalized_source/src/parse.rs": 44,
+        "src/normalized_source/src/regex.rs": 6,
+        "src/normalized_source/src/scanflags.rs": 1,
+        "src/normalized_source/src/scanopt.rs": 25,
+        "src/normalized_source/src/skel.rs": 4067,
+        "src/normalized_source/src/sym.rs": 3,
+        "src/normalized_source/src/tables.rs": 45,
+        "src/normalized_source/src/yylex.rs": 16
+      },
+      "parent_sources_sha256": "a528c882e767dcb3a72af510cc9daa388157da85dcece98e9c26b59158b5863e",
+      "raw_ffi_pointer_extractions": 5271,
+      "raw_pointer_types_removed": 10542,
+      "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+    },
+    "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a": {
+      "archive": "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a",
+      "c_string_literals": 240,
+      "candidate_sha256": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd",
+      "candidate_sources_sha256": "b2b327aa7e126fb920cf6cffbafee09316e25a535c396d60386c4ddeac0cf9f6",
+      "compiler_selected_sources": 66,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd",
+      "modules": {
+        "src/normalized_clang/version.rs": 1,
+        "src/normalized_source/deflate.rs": 1,
+        "src/normalized_source/gzip.rs": 166,
+        "src/normalized_source/lib/chdir_long.rs": 21,
+        "src/normalized_source/lib/openat_die.rs": 8,
+        "src/normalized_source/lib/openat_proc.rs": 2,
+        "src/normalized_source/lib/save_cwd.rs": 1,
+        "src/normalized_source/lib/xalloc_die.rs": 4,
+        "src/normalized_source/trees.rs": 2,
+        "src/normalized_source/unlzh.rs": 3,
+        "src/normalized_source/unlzw.rs": 5,
+        "src/normalized_source/unpack.rs": 6,
+        "src/normalized_source/unzip.rs": 11,
+        "src/normalized_source/util.rs": 7,
+        "src/normalized_source/zip.rs": 2
+      },
+      "parent_sources_sha256": "b40e8f7416b61aacb51120150f202af1647e99e1a4fa3ee70c8f32b851de0569",
+      "raw_ffi_pointer_extractions": 240,
+      "raw_pointer_types_removed": 480,
+      "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+    }
+  }
+}

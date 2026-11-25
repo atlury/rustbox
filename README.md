@@ -464,6 +464,11 @@ The batch compares the complete archive for each package and records changed
 builds separately. To replay an individual pilot's complete source receipt,
 run `scripts/verify_c_string_sources.py LINK PILOT_DIRECTORY`.
 
+The first five-package batch reproduced the complete ACL, Flex and gzip
+archives after 5,741 literal conversions, removing 11,482 explicit casts.
+The complete Bison and tar archives differed and are deferred for separate
+verification. [Five-package compiler results](evidence/native-c-string-first-batch.json)
+
 To select cold-built C-string archives in the multicall, enroll them against
 the same compiler inputs as the intended parent release. When that release
 shares stdio layouts, rebuild overlapping literal pilots on top of those
