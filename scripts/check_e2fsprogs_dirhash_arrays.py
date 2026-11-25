@@ -52,8 +52,12 @@ def borrow_arrays(module):
     return accesses
 
 
-def check(link_path, archive, scratch):
-    link = json.loads(link_path.read_bytes())
+def source_list_digest(files):
+    data = json.dumps(files, sort_keys=True, separators=(",", ":")).encode()
+    return hashlib.sha256(data).hexdigest()
+
+
+def compile_candidate(link, archive, scratch):
     if not scratch.is_dir() or any(scratch.iterdir()):
         raise ValueError("expected an empty scratch directory")
     crate, inputs, rustc = staged_compiler_inputs(link, archive, scratch)
@@ -74,11 +78,21 @@ def check(link_path, archive, scratch):
     control = build()
     if control != link["source_library_sha256"][str(archive)]:
         raise ValueError("control did not reproduce the production archive")
+    original_module = digest(module)
     accesses = borrow_arrays(module)
     rebuilt = build()
-    report = {"archive": str(archive), "production_sha256": control, "candidate_sha256": rebuilt,
-              "raw_offset_accesses_replaced": accesses, "link_report_sha256": digest(link_path)}
-    print(json.dumps(report, sort_keys=True), flush=True)
+    return {
+        "production_sha256": control,
+        "candidate_sha256": rebuilt,
+        "module": str(module.relative_to(crate)),
+        "module_before": original_module,
+        "module_after": digest(module),
+        "compiler_sources_sha256": source_list_digest({name: digest(crate / name) for name in inputs}),
+        "raw_offset_accesses_replaced": accesses,
+        "inlines": link["linked_private_inline_proofs"][str(archive)],
+        "second_inlines": link.get("linked_second_inline_proofs", {}).get(str(archive)),
+        "declarations": link.get("linked_foreign_declaration_proofs", {}).get(str(archive)),
+    }
 
 
 if __name__ == "__main__":
@@ -87,4 +101,7 @@ if __name__ == "__main__":
     parser.add_argument("archive", type=Path, help="staged E2fsprogs archive from the production link")
     parser.add_argument("scratch", type=Path)
     args = parser.parse_args()
-    check(args.link_report, args.archive, args.scratch.resolve())
+    from e2fsprogs_dirhash_archives import control_view
+    report = compile_candidate(control_view(json.loads(args.link_report.read_bytes())), args.archive, args.scratch.resolve())
+    print(json.dumps(dict(report, archive=str(args.archive), link_report_sha256=digest(args.link_report)),
+                     sort_keys=True), flush=True)

@@ -351,6 +351,18 @@ raw filename bytes, unsupported versions, and optional or aliased outputs.
 The candidate archive differs from the control. Their SHA-256 hashes are in
 `evidence/e2fsprogs-dirhash-array-pilot.json`.
 
+To build the fixed-array candidates for all 13 engines, run the command below
+inside the local multicall Linux build environment. Each control must reproduce
+its production archive after the earlier source cleanups. The candidate build
+must use exactly the same compiler inputs. The per-engine receipt records both
+archive hashes, the earlier cleanup receipts, the changed module hashes and a
+digest of every selected Rust source. Candidate archives are stored separately
+under their content hashes.
+
+```sh
+python3 -B scripts/e2fsprogs_dirhash_archives.py work/analysis/rustbox-multicall-link.json work/analysis/dirhash-archive-trial --jobs 3
+```
+
 Reproduce the linked Rust source inventory with
 `python3 -B scripts/audit_linked_pointers.py work/analysis/rustbox-multicall-link.json`.
 It checks the archive hashes, reads the Rust compiler's source lists and

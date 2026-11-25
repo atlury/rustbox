@@ -12,10 +12,11 @@ import tempfile
 from check_cargo_private_inlines import ROOT, digest
 from check_e2fsprogs_private_inlines import verify_badblocks
 from e2fsprogs_foreign_declarations import prove
+from e2fsprogs_dirhash_archives import control_view
 
 
 def trial(link_path, scratch):
-    link = json.loads(link_path.read_bytes())
+    link = control_view(json.loads(link_path.read_bytes()))
     relative, = (Path(name) for name in link["source_library_sha256"]
                  if name.endswith("/rustbox-e2fsprogs-shared/badblocks/libbadblocks_audit.a"))
     archive = ROOT / relative

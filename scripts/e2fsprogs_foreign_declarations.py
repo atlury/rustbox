@@ -220,7 +220,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
     if args.jobs < 1:
         parser.error("--jobs must be positive")
-    link = json.loads(args.link_report.read_bytes())
+    from e2fsprogs_dirhash_archives import control_view
+    link = control_view(json.loads(args.link_report.read_bytes()))
     args.output.mkdir()
     archives = sorted(name for name in staged_archives(link) if is_bridge(Path(name)) == args.bridge)
     if not archives:

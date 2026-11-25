@@ -12,8 +12,10 @@ import shlex
 import shutil
 import tempfile
 
+from check_e2fsprogs_dirhash_arrays import borrow_arrays, source_list_digest
+from e2fsprogs_dirhash_archives import candidate_path, control_view
 from build_iproute2_bridge import stage as stage_bridge
-from build_e2fsprogs_checksums import SHARED_SOURCES, stage as stage_checksum
+from build_e2fsprogs_checksums import CONSUMERS, SHARED_SOURCES, stage as stage_checksum
 from check_next_inline_layer import apply_receipt, read_second_layer
 from e2fsprogs_foreign_declarations import read_proof as read_declaration_proof
 
@@ -70,6 +72,9 @@ def measure_layer(crate, files, proof, item_count="private_functions_removed"):
 
 
 def audit(link, temporary, inspect_source=None):
+    fixed_arrays = link.get("e2fsprogs_dirhash_arrays", {})
+    link = control_view(link)
+    array_counts = {}
     packages = {}
     unique = {}
     measured = Counter()
@@ -152,6 +157,25 @@ def audit(link, temporary, inspect_source=None):
                     "raw_pointer_type_tokens_removed", "declarations_removed", "source_bytes_removed")):
                 raise ValueError("foreign declaration totals differ from independent source replay")
             declarations[engine_name] = stats
+        linked_path = path
+        source_digests = {}
+        if record := fixed_arrays.get(name):
+            linked_path = candidate_path(path, record["candidate_sha256"])
+            if hashlib.sha256((ROOT / linked_path).read_bytes()).hexdigest() != record["candidate_sha256"]:
+                raise ValueError(f"changed directory hash linker input: {linked_path}")
+            module, = [f for f in files if f.as_posix().endswith("/lib/ext2fs/dirhash.rs")]
+            original = module.read_bytes()
+            if (str(module.relative_to(crate)) != record["module"]
+                    or hashlib.sha256(original).hexdigest() != record["module_before"]):
+                raise ValueError("directory hash source differs from the verified control")
+            accesses = borrow_arrays(module)
+            if accesses != record["raw_offset_accesses_replaced"]:
+                raise ValueError("directory hash conversion did not explain the pointer accesses")
+            files[module] = record["module_after"]
+            pointer = METRICS["raw_pointer_type_tokens"]
+            removed = len(pointer.findall(original)) - len(pointer.findall(module.read_bytes()))
+            array_counts[engine_name] = {"raw_pointer_type_tokens_removed": removed,
+                                         "raw_offset_accesses_replaced": accesses, "archive": str(linked_path)}
         root_module = ROOT / f"compat/e2fsprogs/{SHARED_SOURCES[archive.name]}" if shared_object else crate / "lib.rs"
         if root_module not in files:
             raise ValueError(f"unexpected compiler inputs for {archive}")
@@ -163,10 +187,16 @@ def audit(link, temporary, inspect_source=None):
                 raise ValueError(f"restaged source differs from linked version: {file.name}")
             if digest not in unique:
                 unique[digest] = Counter({k: len(regex.findall(data)) for k, regex in METRICS.items()})
+            if name in fixed_arrays:
+                source_digests[str(file.relative_to(crate))] = digest.hex()
             tally.update(unique[digest])
             if inspect_source is not None and not shared_object:
-                inspect_source(path, digest, data)
+                inspect_source(linked_path, digest, data)
             tally["files"] += 1
+        if name in fixed_arrays and source_list_digest(source_digests) != fixed_arrays[name]["compiler_sources_sha256"]:
+            raise ValueError(f"directory hash compiler inputs differ from the candidate: {name}")
+    if len(array_counts) != len(fixed_arrays):
+        raise ValueError("directory hash conversion outside the measured archive set")
     if len(second_cleanups) != len(second):
         raise ValueError("second-layer archive was outside the linked source inventory")
     if len(declarations) != len(foreign):
@@ -181,6 +211,7 @@ def audit(link, temporary, inspect_source=None):
             "packages": packages, "non_applet_archive_inputs": excluded,
             **({"byte_identical_inline_cleanups": cleanups} if cleanups else {}),
             **({"byte_identical_second_inline_cleanups": second_cleanups} if second_cleanups else {}),
+            **({"fixed_array_conversions": array_counts} if array_counts else {}),
             **({"byte_identical_foreign_declarations": declarations} if declarations else {})}
 
 
@@ -228,6 +259,30 @@ def check_added_cleanups(previous_link, link, previous, current):
         raise ValueError("cleanup receipts do not explain the linked pointer count")
 
 
+def check_dirhash_conversion(before_link, after_link, before, after):
+    controls = control_view(after_link)
+    if before_link.get("e2fsprogs_dirhash_arrays") or not after_link.get("e2fsprogs_dirhash_arrays"):
+        raise ValueError("expected the first directory hash conversion from the selected control")
+    for key in before_link.keys() | controls.keys():
+        if key not in {"binary", "e2fsprogs_dirhash_arrays"} and before_link.get(key) != controls.get(key):
+            raise ValueError(f"unrelated directory hash release field changed: {key}")
+    if before_link["binary"]["dynamic_needed"] != after_link["binary"]["dynamic_needed"]:
+        raise ValueError("directory hash conversion changed runtime dependencies")
+    changes = after["fixed_array_conversions"]
+    if set(changes) != set(CONSUMERS) or any(row["raw_pointer_type_tokens_removed"] != 10
+            or row["raw_offset_accesses_replaced"] != 40 for row in changes.values()):
+        raise ValueError("expected both fixed-array conversions in all 13 E2fsprogs engines")
+    expected = {"raw_pointer_type_tokens": 10 * len(changes), "raw_borrows": 4 * len(changes)}
+    if before["packages"].keys() != after["packages"].keys():
+        raise ValueError("package set changed during directory hash conversion")
+    for package, counts in before["packages"].items():
+        delta = Counter(counts)
+        delta.subtract(after["packages"][package])
+        difference = {metric: value for metric, value in delta.items() if value}
+        if difference != (expected if package.startswith("e2fsprogs-") else {}):
+            raise ValueError(f"unexplained source delta for {package}: {difference}")
+
+
 def measure(link, inspect_source=None):
     with tempfile.TemporaryDirectory() as temp:
         return audit(link, Path(temp), inspect_source)
@@ -236,7 +291,10 @@ def measure(link, inspect_source=None):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("link_report", type=Path)
-    parser.add_argument("--verify-cleanup-from", type=Path, metavar="PREVIOUS_LINK",
+    previous = parser.add_mutually_exclusive_group()
+    previous.add_argument("--verify-dirhash-from", type=Path, metavar="CONTROL",
+                          help="verify 13 live fixed-array conversions against the previous production link")
+    previous.add_argument("--verify-cleanup-from", type=Path, metavar="PREVIOUS_LINK",
                         help="replay both releases and check the reduction against their added cleanup receipts")
     args = parser.parse_args()
     link_bytes = args.link_report.read_bytes()
@@ -246,6 +304,9 @@ if __name__ == "__main__":
     if args.verify_cleanup_from:
         previous_link = json.loads(args.verify_cleanup_from.read_bytes())
         check_added_cleanups(previous_link, link, measure(previous_link), current)
+    if args.verify_dirhash_from:
+        previous_link = json.loads(args.verify_dirhash_from.read_bytes())
+        check_dirhash_conversion(previous_link, link, measure(previous_link), current)
     if args.link_report.read_bytes() != link_bytes:
         raise ValueError("selected link report changed during the inventory")
     print(json.dumps(current, indent=2, sort_keys=True))
