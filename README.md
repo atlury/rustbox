@@ -465,6 +465,17 @@ Run `python3 -B scripts/rank_leaf_c_layouts.py LINK --limit 30` to reproduce
 the ranking.
 [Ranked layouts and per-archive counts](evidence/rustbox-leaf-c-layout-candidates.json)
 
+For the System V tag, the complete E2fsprogs `e4defrag` archive remained
+byte-identical with 50 modules sharing one definition. Replaying all 58
+compiler inputs measured 100 fewer repeated pointer fields. GNU grep shared
+35 definitions (70 fields) but its archive changed, so it is excluded from
+the byte-identical selection. Independent GCC and Clang probes at two
+optimization levels compared 160 live variadic cursors, including copies
+and arguments on the stack. The shared declaration still has two raw ABI
+fields. To repeat the archive checks, run
+`python3 -B scripts/build_va_list_layout_batch.py LINK OUT --package grep-3.12`.
+[Variadic ABI measurements and both archive comparisons](evidence/x86-64-va-list-layout-pilots.json)
+
 Ncurses 6.6 has separate narrow and wide numeric terminal layouts. Sharing
 each declaration inside its own crate removes 2,439 repeated raw pointer
 fields in a replay of all 266 compiler inputs. GCC and Clang each confirmed
