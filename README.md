@@ -1066,6 +1066,14 @@ Memcheck runs. The `ip` engine also matched the canonical process on 40
 read-only route commands.
 [Per-engine build and command results](evidence/iproute2-routing-protocol-archives.json)
 
+Relinking all 18 routing protocol engines together produced a complete
+499-name multicall preview. Its 21 IPRoute2 entry points passed 72 command
+cases per compiler and dispatch mode, for 288 comparisons in total. The
+cases include six real-kernel `routel` queries and six named or numerical
+protocol filters. The stripped preview measured 24,979,328
+bytes against 24,961,776 for the reproduced parent.
+[Complete multicall comparison](evidence/iproute2-routing-protocol-multicall.json)
+
 `stage_routing_protocol_archives.py` reconstructs all 18 compiler inputs
 from the pinned netlink and C-string records and stages each resulting
 archive under its SHA-256. Replaying the selected sources measured 4,806
