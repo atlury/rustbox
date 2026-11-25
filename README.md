@@ -749,8 +749,9 @@ layouts first. Enrollment replays every changed module, checks the hashes
 of all compiler inputs, and requires a byte-identical archive. The linked
 inventory checks both raw casts removed and C-interface pointer extractions
 added per package. To add further archives to an existing release, pass
-`--extend LINKED_MANIFEST` to enrollment. The new manifest keeps every
-verified prior entry and rejects duplicate archives.
+`--extend LINKED_MANIFEST` to enrollment. An existing archive can gain sites after a
+joint cold build preserves every previous edit. Submitting the same archive
+twice in one enrollment fails.
 
 ```sh
 python3 -B scripts/prepare_native_c_strings.py enroll "$link" "$manifest" "$pilot"
