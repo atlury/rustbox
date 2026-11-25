@@ -1,0 +1,292 @@
+{
+  "changed": {
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libifconfig_audit.a": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libifconfig_audit.a",
+      "c_string_literals": 113,
+      "candidate_sha256": "eac615379cad7d07908cf5ee131a1f67b307fa15f93b8c04e3a5d351413372e7",
+      "candidate_sources_sha256": "28b7dcd00add7dc3d74e812e719fab47662ccb961baba887711c255778feacf2",
+      "compiler_selected_sources": 33,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_sha256": "7f71416e28b6c193c2c902568dbc524a518e85517094ba30f1ff16c2f899202b",
+      "modules": {
+        "src/ifconfig/flags.rs": 20,
+        "src/ifconfig/options.rs": 78,
+        "src/ifconfig/system.rs": 3,
+        "src/lib/argp_parse.rs": 12
+      },
+      "parent_sources_sha256": "cc369e15cb4ab2e7cbbfef40777677deab78838938ea66c5fc0cfaaf2c9966bc",
+      "raw_ffi_pointer_extractions": 113,
+      "raw_pointer_types_removed": 226,
+      "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+      "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+    }
+  },
+  "errors": {},
+  "identical": {
+    "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/packed-manual/5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7/libcurl_8_23_0_normalized_audit.a": {
+      "archive": "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/packed-manual/5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7/libcurl_8_23_0_normalized_audit.a",
+      "c_string_literals": 1586,
+      "candidate_sha256": "5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7",
+      "candidate_sources_sha256": "c1f721d712aa792f52984574b94f2c15e69406183eff156611417472a47e1704",
+      "cargo_archive": "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/release/libcurl_8_23_0_normalized_audit.a",
+      "compiler_selected_sources": 241,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_sha256": "5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7",
+      "modules": {
+        "src/lib/curl_sasl.rs": 11,
+        "src/lib/curl_trc.rs": 29,
+        "src/lib/easyoptions.rs": 327,
+        "src/lib/ftp.rs": 39,
+        "src/lib/parsedate.rs": 19,
+        "src/lib/progress.rs": 11,
+        "src/lib/telnet.rs": 60,
+        "src/lib/vdns/doh.rs": 17,
+        "src/lib/version.rs": 19,
+        "src/src/curlinfo.rs": 31,
+        "src/src/tool_easysrc.rs": 18,
+        "src/src/tool_findfile.rs": 7,
+        "src/src/tool_getparam.rs": 316,
+        "src/src/tool_help.rs": 52,
+        "src/src/tool_listhelp.rs": 548,
+        "src/src/tool_setopt.rs": 75,
+        "src/src/tool_writeout.rs": 5,
+        "src/src/tool_xattr.rs": 2
+      },
+      "parent_sources_sha256": "842096d82e7809d47e6b44d8f9964c70099177419382db3ca576b339e301db19",
+      "raw_ffi_pointer_extractions": 1586,
+      "raw_pointer_types_removed": 3172,
+      "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+      "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+    },
+    "work/analysis/diffutils-3.12/translations/c2rust-0.22.1/diffutils-3.12-stable/target/release/libdiffutils_3_12_normalized_audit.a": {
+      "archive": "work/analysis/diffutils-3.12/translations/c2rust-0.22.1/diffutils-3.12-stable/target/release/libdiffutils_3_12_normalized_audit.a",
+      "c_string_literals": 241,
+      "candidate_sha256": "8719c2aa863f0a23a71f722642c22d8b935a7819094695e5dbb5a23272332575",
+      "candidate_sources_sha256": "802a0fb86c05b5aa3a4afbc07aefb8d804443ffae5c1ac6ac174f325d686aad9",
+      "compiler_selected_sources": 141,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_sha256": "8719c2aa863f0a23a71f722642c22d8b935a7819094695e5dbb5a23272332575",
+      "modules": {
+        "src/normalized_source/lib/quotearg.rs": 10,
+        "src/normalized_source/src/cmp.rs": 17,
+        "src/normalized_source/src/diff.rs": 129,
+        "src/normalized_source/src/diff3.rs": 32,
+        "src/normalized_source/src/sdiff.rs": 45,
+        "src/normalized_source/src/util.rs": 8
+      },
+      "parent_sources_sha256": "a5cb214a972702659eed6dc70d79b65c94fc6e44a527c76f7e1433321d242360",
+      "raw_ffi_pointer_extractions": 241,
+      "raw_pointer_types_removed": 482,
+      "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+      "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+    },
+    "work/analysis/file-5.48/translations/c2rust-0.22.1/file-5.48-stable/target/release/libfile_5_48_normalized_audit.a": {
+      "archive": "work/analysis/file-5.48/translations/c2rust-0.22.1/file-5.48-stable/target/release/libfile_5_48_normalized_audit.a",
+      "c_string_literals": 232,
+      "candidate_sha256": "bdaebfb4d3a07c60c3b75aaab722967e24002fdfb1f78094370a8cfc28bc4e73",
+      "candidate_sources_sha256": "e1e5400be49901ebb46e055eca89fef224e7c114bb3f4b7eb4350f5de9aee55d",
+      "compiler_selected_sources": 27,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_sha256": "bdaebfb4d3a07c60c3b75aaab722967e24002fdfb1f78094370a8cfc28bc4e73",
+      "modules": {
+        "src/cdf.rs": 20,
+        "src/compress.rs": 15,
+        "src/der.rs": 37,
+        "src/file.rs": 63,
+        "src/readcdf.rs": 61,
+        "src/readelf.rs": 36
+      },
+      "parent_sources_sha256": "47fde4c0de787a7aa9c3a401a597f4483547473839f073515f81c76e136c1cd8",
+      "raw_ffi_pointer_extractions": 232,
+      "raw_pointer_types_removed": 464,
+      "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+      "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+    },
+    "work/analysis/findutils-4.10.0/translations/c2rust-0.22.1/findutils-4.10.0-stable/target/release/libfindutils_4_10_0_combined.a": {
+      "archive": "work/analysis/findutils-4.10.0/translations/c2rust-0.22.1/findutils-4.10.0-stable/target/release/libfindutils_4_10_0_combined.a",
+      "c_string_literals": 265,
+      "candidate_sha256": "b6def5e6a86efc3bc82d66f15829b5fd0c3e19a46dfc6d0dd973202be2780da7",
+      "candidate_sources_sha256": "bd522b5b0d69e8cff406a225807143dd7660b67c7d40a0778271c5f6b8060503",
+      "compiler_selected_sources": 192,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_sha256": "b6def5e6a86efc3bc82d66f15829b5fd0c3e19a46dfc6d0dd973202be2780da7",
+      "modules": {
+        "src/frcode.rs": 3,
+        "src/human.rs": 2,
+        "src/locate.rs": 22,
+        "src/parse_datetime.rs": 135,
+        "src/print.rs": 19,
+        "src/quotearg.rs": 10,
+        "src/regextype.rs": 13,
+        "src/tree.rs": 25,
+        "src/util.rs": 18,
+        "src/xargs.rs": 18
+      },
+      "parent_sources_sha256": "f4e5be15f50cfed8fc9b390588067224895c9f73ce48559b7c976b6870fb6d23",
+      "raw_ffi_pointer_extractions": 265,
+      "raw_pointer_types_removed": 530,
+      "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+      "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+    },
+    "work/analysis/grep-3.12/translations/c2rust-0.22.1/grep-3.12-stable/target/release/libgrep_3_12_normalized_audit.a": {
+      "archive": "work/analysis/grep-3.12/translations/c2rust-0.22.1/grep-3.12-stable/target/release/libgrep_3_12_normalized_audit.a",
+      "c_string_literals": 13,
+      "candidate_sha256": "773734b6968c400631b9404b1195ac5929648fb397c59caba84bcee0e58c1a11",
+      "candidate_sources_sha256": "d2712e0cfa2156ee32eec1a0a796123570e87e33ac7df225131f9eca57b53f89",
+      "compiler_selected_sources": 131,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_sha256": "773734b6968c400631b9404b1195ac5929648fb397c59caba84bcee0e58c1a11",
+      "modules": {
+        "src/normalized_source/lib/quotearg.rs": 10,
+        "src/normalized_source/src/grep.rs": 3
+      },
+      "parent_sources_sha256": "bf291e2c76cf74b5be8faffd2258a17e7e4c845d12eb62ab789feb38ab8f0320",
+      "raw_ffi_pointer_extractions": 13,
+      "raw_pointer_types_removed": 26,
+      "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+      "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+    },
+    "work/analysis/kmod-34.3/translations/c2rust-0.22.1/kmod-34.3-stable/target/release/libkmod_34_3_normalized_audit.a": {
+      "archive": "work/analysis/kmod-34.3/translations/c2rust-0.22.1/kmod-34.3-stable/target/release/libkmod_34_3_normalized_audit.a",
+      "c_string_literals": 110,
+      "candidate_sha256": "ac868cae19c7db93e17944b5d950929647cbd04e7364b1b34da459a8e4fc23b5",
+      "candidate_sources_sha256": "f80dd6089521d74b194a0baa908525929f9f09548d22a1de4fdfd262ba681241",
+      "compiler_selected_sources": 28,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_sha256": "ac868cae19c7db93e17944b5d950929647cbd04e7364b1b34da459a8e4fc23b5",
+      "modules": {
+        "src/libkmod/libkmod.rs": 10,
+        "src/libkmod/libkmod_elf.rs": 5,
+        "src/libkmod/libkmod_signature.rs": 14,
+        "src/tools/depmod.rs": 21,
+        "src/tools/insmod.rs": 5,
+        "src/tools/kmod.rs": 2,
+        "src/tools/lsmod.rs": 4,
+        "src/tools/modinfo.rs": 12,
+        "src/tools/modprobe.rs": 29,
+        "src/tools/rmmod.rs": 5,
+        "src/tools/static_nodes.rs": 3
+      },
+      "parent_sources_sha256": "aecb8583f423a1999cf860ddf97890a3ca80f03334d8e19dd562be3a1e482194",
+      "raw_ffi_pointer_extractions": 110,
+      "raw_pointer_types_removed": 220,
+      "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+      "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+    },
+    "work/analysis/less-710/translations/c2rust-0.22.1/less-710-stable/target/release/libless_710_normalized_audit.a": {
+      "archive": "work/analysis/less-710/translations/c2rust-0.22.1/less-710-stable/target/release/libless_710_normalized_audit.a",
+      "c_string_literals": 847,
+      "candidate_sha256": "8bc04efc48267bec72b1ee58f01dc78d2826527efdf64de082ca416768aae689",
+      "candidate_sources_sha256": "4218e89e9b0817a8727ec2aff46890bf1b692abba7bae2162c7f7e06c5d38773",
+      "compiler_selected_sources": 40,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_sha256": "8bc04efc48267bec72b1ee58f01dc78d2826527efdf64de082ca416768aae689",
+      "modules": {
+        "src/charset.rs": 84,
+        "src/lesskey_parse.rs": 100,
+        "src/lmsg.rs": 663
+      },
+      "parent_sources_sha256": "42df45581cd5a63e6af05921e893f9c599044308cddc072618ea126d99482b1e",
+      "raw_ffi_pointer_extractions": 847,
+      "raw_pointer_types_removed": 1694,
+      "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+      "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+    },
+    "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a": {
+      "archive": "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a",
+      "c_string_literals": 1491,
+      "candidate_sha256": "ea368da66151d2217604544b72bbef827f2982e0ad2c9b8231aa4d4412c52b97",
+      "candidate_sources_sha256": "7154f6d1bcdcbd409dfa2dabc26b0b427a121871b39367bedc0dd3875292b042",
+      "compiler_selected_sources": 266,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_sha256": "ea368da66151d2217604544b72bbef827f2982e0ad2c9b8231aa4d4412c52b97",
+      "modules": {
+        "src/ncurses/codes.rs": 497,
+        "src/ncurses/names.rs": 994
+      },
+      "parent_sources_sha256": "4cd2ab8538779e6f6b03b678ce87e0df8c1e5e23ead1edbca162bf25909f8640",
+      "raw_ffi_pointer_extractions": 1491,
+      "raw_pointer_types_removed": 2982,
+      "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+      "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+    },
+    "work/analysis/patch-2.8/translations/c2rust-0.22.1/patch-2.8-stable/target/release/libpatch_2_8_normalized_audit.a": {
+      "archive": "work/analysis/patch-2.8/translations/c2rust-0.22.1/patch-2.8-stable/target/release/libpatch_2_8_normalized_audit.a",
+      "c_string_literals": 259,
+      "candidate_sha256": "f1e490fe25bd6115ddaf22e699b49094d1f505f2e0d039abb233309f41108516",
+      "candidate_sources_sha256": "6c5b53740d904e97035a2d3ed056d22355b9b32067994ed5514a9c6a49dec4ce",
+      "compiler_selected_sources": 69,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_sha256": "f1e490fe25bd6115ddaf22e699b49094d1f505f2e0d039abb233309f41108516",
+      "modules": {
+        "src/lib/backup_find.rs": 8,
+        "src/lib/parse_datetime.rs": 135,
+        "src/lib/quotearg.rs": 10,
+        "src/src/patch.rs": 106
+      },
+      "parent_sources_sha256": "6628f6c5b8d8fb1f669a5833e8a678058fc85aaa93e09d1b8b20dca9648216d5",
+      "raw_ffi_pointer_extractions": 259,
+      "raw_pointer_types_removed": 518,
+      "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+      "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+    },
+    "work/analysis/sed-4.10/translations/c2rust-0.22.1/sed-4.10-stable/target/release/libsed_4_10_normalized_audit.a": {
+      "archive": "work/analysis/sed-4.10/translations/c2rust-0.22.1/sed-4.10-stable/target/release/libsed_4_10_normalized_audit.a",
+      "c_string_literals": 10,
+      "candidate_sha256": "99cddd80c240b7f1fce4fb5a278fef15a1a836b6b3b5ae1c6a82065407ef708c",
+      "candidate_sources_sha256": "7508c62406839b8c6816b9e854a9bf78fba1bfead46d0bee2d2b18b411a970b6",
+      "compiler_selected_sources": 87,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_sha256": "99cddd80c240b7f1fce4fb5a278fef15a1a836b6b3b5ae1c6a82065407ef708c",
+      "modules": {
+        "src/normalized_source/lib/quotearg.rs": 10
+      },
+      "parent_sources_sha256": "140027d2659e5a028d9849819bb0f7e35736464971bfbebdd586639c2e4f2dd8",
+      "raw_ffi_pointer_extractions": 10,
+      "raw_pointer_types_removed": 20,
+      "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+      "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+    },
+    "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a": {
+      "archive": "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a",
+      "c_string_literals": 33,
+      "candidate_sha256": "7ae834c8b5389c80495e6f8dc81c3291484df8d2a56d55f7d311d41bc4a43ef7",
+      "candidate_sources_sha256": "27dd6640d4a31f03c3e8920d45686208c3fb1ffab33e4dc39c5ab2e5c3dc3a11",
+      "compiler_selected_sources": 104,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_sha256": "7ae834c8b5389c80495e6f8dc81c3291484df8d2a56d55f7d311d41bc4a43ef7",
+      "modules": {
+        "src/xz/list.rs": 26,
+        "src/xz/options.rs": 7
+      },
+      "parent_sources_sha256": "b8e07c66c107b9ffda6fc2ee8525a25aab36c8cc6c9fd204f129ec3d10ef7c82",
+      "raw_ffi_pointer_extractions": 33,
+      "raw_pointer_types_removed": 66,
+      "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+      "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+    },
+    "work/analysis/zstd-1.5.7/translations/c2rust-0.22.1/zstd-1.5.7-stable/target/release/libzstd_1_5_7_normalized_audit.a": {
+      "archive": "work/analysis/zstd-1.5.7/translations/c2rust-0.22.1/zstd-1.5.7-stable/target/release/libzstd_1_5_7_normalized_audit.a",
+      "c_string_literals": 369,
+      "candidate_sha256": "91146c566f13c2058e0cb10ecebbcebb2ee3925e6708cf14a1b17a6b4a8c97d8",
+      "candidate_sources_sha256": "65a0f3b164c03f1323d8130b9b793e0585c2a651327de61d7af7071824ded6b2",
+      "compiler_selected_sources": 46,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_sha256": "91146c566f13c2058e0cb10ecebbcebb2ee3925e6708cf14a1b17a6b4a8c97d8",
+      "modules": {
+        "src/programs/fileio.rs": 104,
+        "src/programs/lorem.rs": 255,
+        "src/programs/zstdcli.rs": 10
+      },
+      "parent_sources_sha256": "37b033ac29ddc8a2792a01ec077e36d92fbda08538361c5863ec7b0da237f12d",
+      "raw_ffi_pointer_extractions": 369,
+      "raw_pointer_types_removed": 738,
+      "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+      "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+    }
+  },
+  "link_report_sha256": "8b0650034c80cfb0bd2735c764813cb981226ce9d3bce5cfaaa7759690d7c859",
+  "no_proper_subset": [],
+  "verified_raw_pointer_types_removed": 10912,
+  "whole_batch_sha256": "0ee390d79fcfce4398a4f042477131fd737ec061b9e897ce31d39e2e05e810c2"
+}

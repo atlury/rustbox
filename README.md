@@ -738,6 +738,13 @@ A further 680 array literals occur in modules with other casts. Passing
 archive and compiler sources.
 [Selection counts for five packages](evidence/static-array-c-string-selection.json)
 
+The static-array-only retry examined 13 differing archives for the Cargo-built utilities.
+It reproduced 12 entire archives with 10,912 fewer explicit casts
+across those builds. The comparison records 1 different archives
+and 0 engines with no proper subset. Counts overlap earlier
+per-engine trials and are credited once per selected archive.
+[Per-engine outcomes and hashes](evidence/mixed-array-c-string-utilities.json)
+
 The static-array-only retry examined 14 differing archives for the legacy compiler engines.
 It reproduced 14 entire archives with 7,662 fewer explicit casts
 across those builds. The comparison records 0 different archives
