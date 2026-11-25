@@ -1,0 +1,41 @@
+{
+  "comparison": {
+    "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a",
+    "byte_identical": true,
+    "candidate": {
+      "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a",
+      "c_string_literals": 319,
+      "candidate_sha256": "3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294",
+      "candidate_sources_sha256": "7f6d5555590a45b4a8e23966bb0aab332e16875173ee727bf59dd39560915cab",
+      "compiler_selected_sources": 97,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294",
+      "legacy_compiler": "nightly-2023-04-15",
+      "modules": {
+        "src/rustbox_e2fsprogs/normalized_clang_18/lib/ext2fs/ext2_err.rs": 183,
+        "src/rustbox_e2fsprogs/normalized_clang_18/lib/support/prof_err.rs": 31,
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/encoding.rs": 3,
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/feature.rs": 52,
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/hashstr.rs": 3,
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/mntopts.rs": 12,
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/ostype.rs": 5,
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/ext_attr.rs": 8,
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/support/profile.rs": 12,
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/support/quotaio.rs": 8,
+        "src/work/work/normalized/e2fsprogs_1_47_4/misc/mke2fs.rs": 2
+      },
+      "parent_sources_sha256": "e13f48d87cfb3aea46a64b9a4bdc7eb59ddea54f2ebae62f5dd29291de94183e",
+      "raw_ffi_pointer_extractions": 319,
+      "raw_pointer_types_removed": 638,
+      "rustc_archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-e2fsprogs-shared/mke2fs/libmke2fs_audit.a",
+      "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+      "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+    },
+    "whole_candidate_sha256": "59b8e00e04c5736230b7922d8b588c5c678a72a2ea004861e4d3e8ecee5656b5"
+  },
+  "earlier_candidate_sources_sha256": "f4ef24a3a3bdab64f1729c9cfbb8c08b07a475ea395fd2fb0dc6c5b3d9491ec7",
+  "earlier_literals": 51,
+  "overlapping_modules": [
+    "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/ext_attr.rs"
+  ]
+}

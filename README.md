@@ -685,6 +685,13 @@ inputs. The batch script tests each remaining engine against its own
 archive and records matching and differing builds separately.
 [Verified mke2fs subset](evidence/e2fsprogs-mke2fs-literal-subset.json)
 
+In a separate `mke2fs` build, selecting individual static-array literals
+covered 319 strings across 11 modules, including the generated error
+tables and filesystem feature names. Replaying all 97 compiler inputs
+reproduced the complete archive with 638 fewer explicit casts. The
+51-literal selection overlaps this one in the extended-attribute module.
+[Mixed-array archive and overlap](evidence/e2fsprogs-mke2fs-mixed-array-c-strings.json)
+
 GNU Gawk 5.4.0 reproduced its complete archive after converting 5,005 C
 literals in 28 modules. Independent replay checked all 39 compiler inputs,
 including the 11 untouched modules. This removes 10,010 explicit casts and
