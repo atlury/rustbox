@@ -819,18 +819,22 @@ The same 499-name executable also passed the zstd, less suites with those checke
 The compiler-source audit follows each archive through preparation and the
 live rewrite. It verifies the before and after source hashes, the complete
 archive digest, and the pointer counts on the actual compiled Rust. Against
-the packed-manual release, the two candidate archives together account for
-3,063 fewer explicit pointer types.
+the packed-manual release, the three candidate archives together account for
+6,265 fewer explicit raw-pointer type occurrences.
 
 | Archive | Release source | After byte-identical changes | After live rewrite |
 |---|---:|---:|---:|
+| curl | 74,055 | 70,883 | 70,853 |
 | Less | 8,441 | 6,747 | 6,414 |
 | Zstd | 24,547 | 23,575 | 23,511 |
 
 The audit also counts raw borrows, pointer extractions and slices created
 at raw C boundaries. Run `scripts/count_checked_parser_changes.py` with
 the package, original link, prepared link and cold-build directory.
-[Exact source inventories](evidence/zstd-less-compiled-pointer-counts.json)
+The curl candidate still uses 1,828 pointer extractions at compiled call sites,
+including the 1,586 native string literals passed across C interfaces.
+[Curl source inventory](evidence/curl-compiled-pointer-counts.json) ·
+[Less and Zstd source inventories](evidence/zstd-less-compiled-pointer-counts.json)
 
 The Linux errno candidate replaces integer reads and stores through
 `__errno_location()` with a shared pair of Rust functions. The functions
