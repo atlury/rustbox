@@ -863,6 +863,15 @@ then compares 108 commands and four benchmark runs against the canonical
 results. It accepts later builds that retain the qualified LZ4 inputs.
 [Saved-executable test](scripts/test_lz4_dictionary_multicall.py)
 
+Zstd 1.5.7 uses a related 255-word benchmark dictionary. Its separate Rust
+generator writes into a bounded slice of potentially uninitialized output.
+The candidate removes 13 mutable statics and 574 explicit pointer types
+from the selected module. GCC, Clang, the parent archive and the isolated Rust
+module agreed on 2,625 boundary cases, a partial paragraph and a 10 MB
+block. Memcheck covered both drivers. The original oversize assertion and
+zero-length null-buffer behavior were also exercised.
+[Canonical generator comparison](evidence/zstd-lorem-generator.json)
+
 ```sh
 python3 -B tests/lz4-dictionary/source.py "$link"
 python3 -B scripts/build_lz4_dictionary_pilot.py --link "$link" --archive "$lz4_archive" --output "$pilot"

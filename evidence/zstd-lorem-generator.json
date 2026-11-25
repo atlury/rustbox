@@ -1,0 +1,28 @@
+{
+  "archive_pilot": false,
+  "boundary_cases": 2625,
+  "candidate_module_sha256": "186cbbf24686e09ef2f865e2a29ea922d56710bab7589df82a75c263ca9c43d9",
+  "canonical_sha256": "d0f7bfbc9dc4f906532e71cbe7500324e02d8947eb8d4d99ae9ad3638e86b5d5",
+  "comparisons": {
+    "blocks.c": {
+      "bytes": 647605,
+      "driver_sha256": "4c9c38a280e0bda6df4554e75404a1db19d17049fe1152e5364f81c7897b55ad",
+      "sha256": "8a9402dd7fb5cb5a89789de91e42e2b69467ee91631e6fa7a430fdfa356c64ba"
+    },
+    "long-block.c": {
+      "bytes": 10000759,
+      "driver_sha256": "1188e781c2f03cb627da9e1d7627f6c6902932828c06c1acc8ec418779a88368",
+      "sha256": "395b66422c0cab1f0c1e889ccba78bd43ba348c0c90a82c5957123849e05285d"
+    }
+  },
+  "control_module_sha256": "d6acfb1c1ed89112136101faaf9236000e1fb8f8a3ebd91d34b2cea78f912791",
+  "helper_sha256": "1b6410620f70982b546efde181e86a0ed8d76ad63770dd581131fb150f35a2b3",
+  "memcheck_runs": 2,
+  "module": "src/programs/lorem.rs",
+  "mutable_statics_removed": 13,
+  "packed_bytes": 1598,
+  "public_generators": 2,
+  "raw_pointer_types_removed": 574,
+  "replayed_sources": 46,
+  "words": 255
+}
