@@ -108,9 +108,9 @@ int main (void) { return yyparse (); }
 
 
 def run(command: list[str], *, cwd: Path, environment: dict[str, str] | None = None,
-        input_bytes: bytes | None = None) -> subprocess.CompletedProcess[bytes]:
+        input_bytes: bytes | None = None, executable: Path | None = None) -> subprocess.CompletedProcess[bytes]:
     return subprocess.run(
-        command, cwd=cwd, env=environment, input=input_bytes,
+        command, cwd=cwd, env=environment, input=input_bytes, executable=executable,
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False,
     )
 
@@ -139,7 +139,7 @@ def bison_environment(datadir: Path | None) -> dict[str, str]:
 
 
 def exercise(binary: Path, datadir: Path | None, source_root: Path,
-             case: Case) -> dict[str, object]:
+             case: Case, *, bare_name: bool = False) -> dict[str, object]:
     with tempfile.TemporaryDirectory(prefix=f"rustbox-bison-{case.name}-") as raw:
         directory = Path(raw)
         source_name = Path(case.source).name
@@ -153,8 +153,8 @@ def exercise(binary: Path, datadir: Path | None, source_root: Path,
             shutil.copyfile(source_root / item, directory / name)
             copied.add(name)
         generated = run(
-            [str(binary), *case.arguments, source_name],
-            cwd=directory, environment=bison_environment(datadir),
+            ["bison" if bare_name else str(binary), *case.arguments, source_name],
+            cwd=directory, environment=bison_environment(datadir), executable=binary if bare_name else None,
         )
         files = manifest(directory, copied)
         runtime: subprocess.CompletedProcess[bytes] | None = None
@@ -194,6 +194,7 @@ def main() -> int:
         "--right-embedded", action="store_true",
         help="run the clang/right binary with no external Bison datadir or M4",
     )
+    parser.add_argument("--bare-program-name", action="store_true", help="pass bison as argv[0] to both sides for subcommand dispatch")
     args = parser.parse_args()
     right_datadir = None if args.right_embedded else args.clang_datadir
     resource_directories_before = set(Path("/tmp").glob("rustbox-bison.*"))
@@ -213,7 +214,8 @@ def main() -> int:
                 directory = Path(raw)
                 os.symlink(binary, directory / "bison")
                 values.append(run(
-                    ["./bison", *options], cwd=directory,
+                    ["bison" if args.bare_program_name else "./bison", *options], cwd=directory,
+                    executable=directory / "bison" if args.bare_program_name else None,
                     environment=bison_environment(datadir),
                     input_bytes=stdin,
                 ))
@@ -232,8 +234,8 @@ def main() -> int:
         })
 
     for case in CASES:
-        left = exercise(args.gcc, args.gcc_datadir, args.source, case)
-        right = exercise(args.clang, right_datadir, args.source, case)
+        left = exercise(args.gcc, args.gcc_datadir, args.source, case, bare_name=args.bare_program_name)
+        right = exercise(args.clang, right_datadir, args.source, case, bare_name=args.bare_program_name)
         if left != right:
             raise RuntimeError(f"Bison generated-parser mismatch: {case.name}")
         if left["status"] != 0:

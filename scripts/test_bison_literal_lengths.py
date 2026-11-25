@@ -11,6 +11,35 @@ from tempfile import TemporaryDirectory
 from check_cargo_private_inlines import ROOT, digest
 
 
+def compare_parsers(work, pkg, bison, yacc_binary, *, embedded=False, bare_name=False):
+    embed_bison = ["--right-embedded"] if embedded else []
+    if bare_name:
+        embed_bison.append("--bare-program-name")
+    embed_yacc = ["--hybrid-embedded"] if embedded else []
+    data = pkg / "normalized/clang-root/usr/share/bison"
+    comparisons = {}
+    for compiler in ("gcc", "clang"):
+        oracle = pkg / "oracle" / (compiler + "-root") / "usr"
+        result = work / (compiler + ".json")
+        subprocess.run(["python3", ROOT / "tests/bison-oracle-differential.py",
+                        "--gcc", oracle / "bin/bison", "--gcc-datadir", oracle / "share/bison",
+                        "--clang", bison, "--clang-datadir", data, "--source", ROOT / "work/upstream/bison-3.8.2",
+                        "--output", result, *embed_bison], check=True, stdout=subprocess.DEVNULL)
+        stats = json.loads(result.read_bytes())
+        if stats["cases"] != 12 or stats["passed"] != 12 or stats["compiled_parsers"] != 5:
+            raise ValueError("incomplete Bison oracle suite")
+        subprocess.run(["python3", ROOT / "tests/bison-yacc-frontend.py",
+                        "--canonical", oracle / "bin/yacc", "--canonical-datadir", oracle / "share/bison",
+                        "--hybrid", yacc_binary, "--hybrid-datadir", data, "--output", result, *embed_yacc],
+                       check=True, stdout=subprocess.DEVNULL)
+        yacc = json.loads(result.read_bytes())
+        if not yacc["passed"] or yacc["compile_status"] != 0 or yacc["runtime_status"] != 0:
+            raise ValueError("failed yacc parser generation or execution")
+        comparisons[compiler] = dict(bison_cases=stats["cases"], compiled_parsers=stats["compiled_parsers"],
+                                     yacc_cases=1, generated_yacc_files=yacc["generated_sha256"])
+    return comparisons
+
+
 def check(pilot, link):
     row = json.loads((pilot / "pilot.json").read_bytes())
     archive = Path(row["archive"])
@@ -30,27 +59,8 @@ def check(pilot, link):
                         "-Wl,--gc-sections", "-o", bison, ROOT / "bridges/bison_main.c", *inputs, pilot / archive.name,
                         "-ldl", "-lpthread", "-lm", "-lrt"], check=True)
         (work / "yacc").symlink_to(bison.name)
+        comparisons = compare_parsers(work, pkg, bison, work / "yacc")
         data = pkg / "normalized/clang-root/usr/share/bison"
-        comparisons = {}
-        for compiler in ("gcc", "clang"):
-            oracle = pkg / "oracle" / (compiler + "-root") / "usr"
-            result = work / (compiler + ".json")
-            subprocess.run(["python3", ROOT / "tests/bison-oracle-differential.py",
-                            "--gcc", oracle / "bin/bison", "--gcc-datadir", oracle / "share/bison",
-                            "--clang", bison, "--clang-datadir", data, "--source", ROOT / "work/upstream/bison-3.8.2",
-                            "--output", result], check=True, stdout=subprocess.DEVNULL)
-            stats = json.loads(result.read_bytes())
-            if stats["cases"] != 12 or stats["passed"] != 12 or stats["compiled_parsers"] != 5:
-                raise ValueError("incomplete Bison oracle suite")
-            subprocess.run(["python3", ROOT / "tests/bison-yacc-frontend.py",
-                            "--canonical", oracle / "bin/yacc", "--canonical-datadir", oracle / "share/bison",
-                            "--hybrid", work / "yacc", "--hybrid-datadir", data, "--output", result],
-                           check=True, stdout=subprocess.DEVNULL)
-            yacc = json.loads(result.read_bytes())
-            if not yacc["passed"] or yacc["compile_status"] != 0 or yacc["runtime_status"] != 0:
-                raise ValueError("failed yacc parser generation or execution")
-            comparisons[compiler] = dict(bison_cases=stats["cases"], compiled_parsers=stats["compiled_parsers"],
-                                         yacc_cases=1, generated_yacc_files=yacc["generated_sha256"])
         grammar = work / "sample.y"
         grammar.write_text("%token NUMBER\n%%\nstart: NUMBER;\n")
         for utility in ("bison", "yacc"):

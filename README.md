@@ -453,6 +453,11 @@ for each oracle. Both frontends generated a parser under Memcheck with
 zero reported errors. This result applies to the isolated Bison executable.
 [Bison pilot and generated-file digests](evidence/bison-literal-length-pilot.json)
 
+Bison includes its invocation name in help and diagnostics. The comparison
+passes `./bison` for the symlink invocation and `bison` for the multicall
+subcommand, matching upstream's `argv[0]` in each case. It compares the
+original output bytes, including the usage line.
+
 ```sh
 python3 -B tests/c-string-literals/lengths.py
 python3 -B scripts/rank_c_string_literals.py --lengths "$link"
