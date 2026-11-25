@@ -8,6 +8,7 @@ python3 -B "$root/scripts/check_cargo_private_inlines.py" --prepare-e2fsprogs
 python3 -B "$root/scripts/check_cargo_private_inlines.py" --prepare-iproute2
 python3 -B "$root/scripts/check_cargo_private_inlines.py" --prepare-inetutils
 python3 -B "$root/scripts/batch_cargo_private_inlines.py" --release-args "$root/batches/multicall-inline-archives.args"
+python3 -B "$root/scripts/prepare_second_inline_layers.py"
 unset RUSTBOX_MULTICALL_TEST_BINARY
 exec "$root/scripts/run_multicall_tool.sh" python3 -B /work/scripts/link_rustbox_multicall.py \
     @/work/batches/multicall-inline-archives.args \

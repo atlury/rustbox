@@ -14,8 +14,7 @@ import tempfile
 
 from build_iproute2_bridge import stage as stage_bridge
 from build_e2fsprogs_checksums import SHARED_SOURCES, stage as stage_checksum
-from inline_source_layout import pad_removed_items
-from prune_private_inlines import replay
+from check_next_inline_layer import apply_receipt, read_second_layer
 
 ROOT = Path(__file__).resolve().parents[1]
 METRICS = {
@@ -51,6 +50,24 @@ def crate_for(archive, temporary):
     return target.parent / name / f"{name}-{suffix}"
 
 
+def measure_layer(crate, files, proof):
+    inputs = {str(file.relative_to(crate)) for file in files}
+    if not set(proof["ranges"]) <= inputs:
+        raise ValueError("unexpected compiler input in cleanup")
+    paths = [crate / name for name in proof["ranges"]]
+    size = sum(path.stat().st_size for path in paths)
+    removed = apply_receipt(crate, proof, inputs)
+    files.update({crate / name: checksum for name, checksum in proof["sources"].items()})
+    stats = {"raw_pointer_type_tokens_removed": removed,
+             "source_bytes_removed": size - sum(path.stat().st_size for path in paths),
+             "private_functions_removed": sum(map(len, proof["ranges"].values())),
+             "changed_files": len(paths)}
+    for field in ("source_layout", "source_directory"):
+        if field in proof:
+            stats[field] = proof[field]
+    return stats
+
+
 def audit(link, temporary):
     packages = {}
     unique = {}
@@ -58,6 +75,10 @@ def audit(link, temporary):
     excluded = []
     cleanups = {}
     proofs = link.get("linked_private_inline_proofs", link.get("e2fsprogs_inline_proofs", {}))
+    second = link.get("linked_second_inline_proofs", {})
+    second_cleanups = {}
+    if not second.keys() <= proofs.keys() & link["source_library_sha256"].keys():
+        raise ValueError("second-layer receipt has no linked parent archive")
     for name, expected in sorted(link["source_library_sha256"].items()):
         path = Path(name)
         shared_object = path.name in SHARED_SOURCES and path.parent.name in ("rustbox-checksums", "rustbox-e2fsprogs-shared")
@@ -96,48 +117,30 @@ def audit(link, temporary):
             if (proof["archive_sha256"] != expected or set(proof["ranges"]) != set(proof["sources"])
                     or not {crate / n for n in proof["sources"]} <= files.keys()):
                 raise ValueError(f"invalid private-inline provenance: {name}")
-            directory = proof.get("source_directory")
-            if directory is not None:
-                scope = Path(directory)
-                if (not scope.parts or scope.is_absolute() or ".." in scope.parts or not proof["ranges"]
-                        or any(scope not in Path(n).parents for n in proof["ranges"])):
-                    raise ValueError(f"private-inline ranges outside the selected source directory: {name}")
             if not crate.is_relative_to(temporary):
                 original = crate
                 crate = temporary / ("cargo-" + archive.stem)
                 copied = {}
-                for path, sha in files.items():
-                    destination = crate / path.relative_to(original)
+                for source_path, sha in files.items():
+                    destination = crate / source_path.relative_to(original)
                     destination.parent.mkdir(parents=True, exist_ok=True)
-                    shutil.copyfile(path, destination)
+                    shutil.copyfile(source_path, destination)
                     copied[destination] = sha
                 files = copied
             crate.relative_to(temporary)
-            changed_sources = [crate / n for n in proof["ranges"]]
-            before_bytes = sum(p.stat().st_size for p in changed_sources)
-            layout = proof.get("source_layout", "lines")
-            if layout not in ("lines", "byte_offsets"):
-                raise ValueError(f"unknown private-inline source layout for {name}")
-            if layout == "byte_offsets":
-                originals = {n: (crate / n).read_bytes() for n in proof["ranges"]}
-            removed = replay(crate, proof["ranges"])
-            if layout == "byte_offsets":
-                pad_removed_items(crate, proof["ranges"], originals)
-            after_bytes = sum(p.stat().st_size for p in changed_sources)
             engine_name = cleanup_name(archive)
             if engine_name in cleanups:
                 raise ValueError(f"duplicate cleanup evidence for {engine_name}")
-            cleanups[engine_name] = {
-                "raw_pointer_type_tokens_removed": removed,
-                "source_bytes_removed": before_bytes - after_bytes,
-                "private_functions_removed": sum(map(len, proof["ranges"].values())),
-                "changed_files": len(proof["ranges"]),
-            }
-            if layout == "byte_offsets":
-                cleanups[engine_name]["source_layout"] = layout
-            if directory is not None:
-                cleanups[engine_name]["source_directory"] = directory
-            files.update({crate / n: sha for n, sha in proof["sources"].items()})
+            cleanups[engine_name] = measure_layer(crate, files, proof)
+            if name in second:
+                report = read_second_layer(archive, path, second[name], selected, expected)
+                layer = report["second_layer"]
+                if layer.get("source_directory") != proof.get("source_directory"):
+                    raise ValueError("second-layer source scope differs from parent")
+                stats = measure_layer(crate, files, layer)
+                if any(stats[key] != report[key] for key in ("raw_pointer_type_tokens_removed", "private_functions_removed")):
+                    raise ValueError("second-layer totals differ from independent source replay")
+                second_cleanups[engine_name] = stats
         root_module = ROOT / f"compat/e2fsprogs/{SHARED_SOURCES[archive.name]}" if shared_object else crate / "lib.rs"
         if root_module not in files:
             raise ValueError(f"unexpected compiler inputs for {archive}")
@@ -151,6 +154,8 @@ def audit(link, temporary):
                 unique[digest] = Counter({k: len(regex.findall(data)) for k, regex in METRICS.items()})
             tally.update(unique[digest])
             tally["files"] += 1
+    if len(second_cleanups) != len(second):
+        raise ValueError("second-layer archive was outside the linked source inventory")
     for tally in packages.values():
         measured.update(tally)
     distinct = Counter()
@@ -159,32 +164,42 @@ def audit(link, temporary):
     return {"binary_sha256": link["binary"]["sha256"], "all": measured,
             "unique_files": len(unique), "counting_identical_files_once": distinct,
             "packages": packages, "non_applet_archive_inputs": excluded,
-            **({"byte_identical_inline_cleanups": cleanups} if cleanups else {})}
+            **({"byte_identical_inline_cleanups": cleanups} if cleanups else {}),
+            **({"byte_identical_second_inline_cleanups": second_cleanups} if second_cleanups else {})}
+
+
+RECEIPT_SETS = (("linked_private_inline_proofs", "byte_identical_inline_cleanups"),
+                ("linked_second_inline_proofs", "byte_identical_second_inline_cleanups"))
 
 
 def added_receipts(previous_link, link):
-    """Require identical link fields and retain every previous receipt."""
-    receipt_field = "linked_private_inline_proofs"
-    for field in previous_link.keys() | link.keys():
-        if field != receipt_field and (field not in previous_link or field not in link
-                                       or previous_link[field] != link[field]):
+    """Require identical link fields and retain all earlier parent and child receipts."""
+    fields = {field for field, _ in RECEIPT_SETS}
+    for field in (previous_link.keys() | link.keys()) - fields:
+        if field not in previous_link or field not in link or previous_link[field] != link[field]:
             raise ValueError(f"release field changed during private-helper cleanup: {field}")
-    before, after = previous_link.get(receipt_field, {}), link.get(receipt_field, {})
-    for archive, receipt in before.items():
-        if after.get(archive) != receipt:
-            raise ValueError(f"existing cleanup receipt changed for {archive}")
-
-    return after.keys() - before.keys()
+    added = set()
+    for field in fields:
+        before, after = previous_link.get(field, {}), link.get(field, {})
+        for archive, receipt in before.items():
+            if after.get(archive) != receipt:
+                raise ValueError(f"existing cleanup receipt changed for {archive}")
+        added.update(after.keys() - before.keys())
+    if not link.get("linked_second_inline_proofs", {}).keys() <= link.get("linked_private_inline_proofs", {}).keys():
+        raise ValueError("second-layer receipt has no parent")
+    return added
 
 
 def check_added_cleanups(previous_link, link, previous, current):
     """Account for each package delta when adding receipts to an otherwise identical release."""
+    added_receipts(previous_link, link)
     deltas = Counter()
-    receipts = current.get("byte_identical_inline_cleanups", {})
-    for archive in added_receipts(previous_link, link):
-        path = Path(archive)
-        package = path.relative_to("work/analysis").parts[0]
-        deltas[package] += receipts[cleanup_name(path)]["raw_pointer_type_tokens_removed"]
+    for field, inventory_field in RECEIPT_SETS:
+        receipts = current.get(inventory_field, {})
+        for archive in link.get(field, {}).keys() - previous_link.get(field, {}).keys():
+            path = Path(archive)
+            package = path.relative_to("work/analysis").parts[0]
+            deltas[package] += receipts[cleanup_name(path)]["raw_pointer_type_tokens_removed"]
 
     for package, tally in previous["packages"].items():
         updated = current["packages"][package]

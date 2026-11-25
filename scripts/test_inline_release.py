@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: 0BSD
 import argparse
 from concurrent.futures import ThreadPoolExecutor
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -29,8 +30,10 @@ def main():
     args = parser.parse_args()
     if args.jobs < 1:
         parser.error("--jobs must be positive")
-    release = json.loads(args.release.read_bytes())
-    packages = changed_packages(json.loads(args.previous.read_bytes()), release)
+    before_data = args.previous.read_bytes()
+    release_data = args.release.read_bytes()
+    release = json.loads(release_data)
+    packages = changed_packages(json.loads(before_data), release)
     if args.package:
         if set(args.package) - set(packages):
             parser.error("requested package has no added cleanup receipt")
@@ -61,8 +64,11 @@ def main():
     statuses.update(test(p) for p in packages if p in sensitive)
     if digest(binary) != sha:
         raise ValueError("test binary changed during the suite")
+    if args.release.read_bytes() != release_data or args.previous.read_bytes() != before_data:
+        raise ValueError("link report changed during the suite")
     (directory / "results.json").write_text(json.dumps(
-        {"binary_sha256": sha, "link_report_sha256": digest(args.release), "statuses": statuses},
+        {"binary_sha256": sha, "previous_link_report_sha256": hashlib.sha256(before_data).hexdigest(),
+         "link_report_sha256": hashlib.sha256(release_data).hexdigest(), "statuses": statuses},
         indent=2, sort_keys=True) + "\n")
     return int(any(statuses.values()))
 

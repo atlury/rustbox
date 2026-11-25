@@ -643,6 +643,26 @@ archive=work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target
 python3 -B scripts/check_next_inline_layer.py "$link" "$archive" work/analysis/xz-next-layer.json
 ```
 
+To rebuild the candidates in parallel, run the batch checker against a saved
+link report. It records a log and result for each archive. Each successful
+cleanup with at least one removal installs the recompiled archive and a
+content-addressed receipt next to it. The Linux build selects receipts from
+`batches/multicall-second-inline-proofs.json` and reproduces a missing receipt
+from the original sources and the first cleanup. The inventory replays both
+layers in order and checks each intermediate file digest.
+
+```sh
+python3 -B scripts/batch_next_inline_layers.py "$link" --jobs 3
+python3 -B scripts/check_next_inline_layer.py "$link" --rank --grouped
+python3 -B scripts/batch_next_inline_layers.py "$link" --grouped --limit 2 --jobs 2
+```
+
+To enroll completed batches, pass their `results.json` files to
+`scripts/prepare_second_inline_layers.py --from-link "$link" --enroll-results`.
+It verifies each receipt against the original release before writing the manifest.
+Run the multicall build and the previous-to-current inventory comparison above
+to record the production count.
+
 The XZ Utils experiment verified 569 further private functions containing
 1,753 raw-pointer type occurrences across 89 files. GNU gzip yielded zero
 additional functions. These isolated experiments are outside the production

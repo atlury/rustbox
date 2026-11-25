@@ -128,3 +128,65 @@ for before, after, counts in (
     else:
         raise AssertionError("accepted an inconsistent private-helper release comparison")
 print("Whole-release comparisons reject changed link maps, lost receipts and unexplained count changes.")
+
+with tempfile.TemporaryDirectory() as workspace:
+    root = Path(workspace)
+    crate = Path("work/analysis/example-1/translations/compiler/example")
+    archive = crate / "target/release/libexample.a"
+    built = root / archive
+    built.parent.mkdir(parents=True)
+    built.write_bytes(b"same archive")
+    built.with_suffix(".d").write_text(f"lib: /work/{crate}/lib.rs\n")
+    (root / crate / "Cargo.toml").touch()
+    name = "lib.rs"
+    source = root / crate / name
+    source.write_bytes(b"fn outer(_: *const u8) {}\nfn inner(_: *mut u8) {}\npub fn keep() {}\n")
+    raw = source.read_bytes()
+    archive_sha = sha(built.read_bytes())
+    end = raw.index(b"\n")
+    first = raw[end:]
+    end2 = first.index(b"\npub")
+    final = first[:1] + first[end2:]
+
+    def layer(start, stop, data):
+        return {"archive_sha256": archive_sha, "ranges": {name: [[start, stop]]}, "sources": {name: sha(data)}}
+
+    proof = built.with_suffix(".parent.json")
+    proof.write_text(json.dumps(layer(0, end, first)))
+    parent = {"file": proof.name, "sha256": sha(proof.read_bytes())}
+    previous = {"source_library_sha256": {str(archive): archive_sha}, "binary": {"sha256": "elf"},
+                "linked_private_inline_proofs": {str(archive): parent}}
+    report = {"archive": str(archive), "archive_sha256": archive_sha, "parent": parent,
+              "second_layer": layer(1, end2, final), "private_functions_removed": 1, "raw_pointer_type_tokens_removed": 1}
+
+    def with_report(record):
+        data = json.dumps(record).encode()
+        receipt = built.with_suffix(f".layer2-{sha(data)}.json")
+        receipt.write_bytes(data)
+        return dict(previous, linked_second_inline_proofs={
+            str(archive): {"file": receipt.name, "sha256": sha(data)}})
+
+    with patch.object(inventory, "ROOT", root):
+        current = with_report(report)
+        before, after = inventory.measure(previous), inventory.measure(current)
+        inventory.check_added_cleanups(previous, current, before, after)
+        assert before["all"]["raw_pointer_type_tokens"] == 1 and after["all"]["raw_pointer_type_tokens"] == 0
+        assert source.read_bytes() == raw
+        for invalid in (dict(report, parent={"file": "wrong"}),
+                        dict(report, raw_pointer_type_tokens_removed=55),
+                        dict(report, second_layer=layer(1, end2, b"unrelated")),
+                        dict(report, second_layer=dict(report["second_layer"], source_directory="another"))):
+            try:
+                inventory.measure(with_report(invalid))
+            except ValueError:
+                pass
+            else:
+                raise AssertionError("accepted an invalid child receipt")
+        for invalid in (previous, dict(current, linked_private_inline_proofs={})):
+            try:
+                inventory.added_receipts(current, invalid)
+            except ValueError:
+                pass
+            else:
+                raise AssertionError("accepted a removed or orphaned layer")
+print("Second-layer receipts bind both source stages and the archive, retain parents and explain the delta.")

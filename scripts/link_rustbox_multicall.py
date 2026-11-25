@@ -17,6 +17,7 @@ from pathlib import Path
 from build_iproute2_bridge import build_bridge
 from build_e2fsprogs_checksums import build_shared, BITCOUNT_SYMBOL, CRC_SYMBOLS
 from batch_cargo_private_inlines import release_archives
+from prepare_second_inline_layers import linked_layers
 from prune_private_inlines import prepare_archive
 
 ISOLATION_CACHE_VERSION = 18
@@ -152,7 +153,7 @@ def undefined_symbols(path: Path) -> set[str]:
     }
 
 
-def verified_cargo_inline_proofs(repository, package, archives):
+def verified_cargo_inline_proofs(repository, package, archives, source_hashes):
     index = repository / f"work/analysis/{package}-cargo-inline-proofs.json"
     proofs = json.loads(index.read_text())
     if set(proofs) != {str(path.relative_to(repository)) for path in archives}:
@@ -160,7 +161,7 @@ def verified_cargo_inline_proofs(repository, package, archives):
     for relative, selected in proofs.items():
         archive = repository / relative
         proof = archive.with_name(selected["file"])
-        if sha256(proof) != selected["sha256"] or json.loads(proof.read_text())["archive_sha256"] != sha256(archive):
+        if sha256(proof) != selected["sha256"] or json.loads(proof.read_text())["archive_sha256"] != source_hashes[relative]:
             raise RuntimeError(f"stale private-inline provenance for {relative}")
     return proofs
 
@@ -2504,17 +2505,6 @@ def main() -> int:
             str(archive.relative_to(repository)): {"file": proof.name, "sha256": sha256(proof)}
             for archive, proof in zip(selected_archives, workers.map(prepare_archive, selected_archives))
         }
-    inline_proofs.update(verified_cargo_inline_proofs(
-        repository, "e2fsprogs", (path for n, path in e2fsprogs_libraries.items() if n not in checksum_consumers)
-    ))
-    inline_proofs.update(verified_cargo_inline_proofs(
-        repository, "iproute2", (path for n, path in iproute2_libraries.items() if n != "bridge")
-    ))
-    inline_proofs.update(verified_cargo_inline_proofs(repository, "inetutils", inetutils_libraries.values()))
-    for option, (package, _) in release_archives(repository / "batches/multicall-inline-archives.args").items():
-        archive = getattr(args, option.replace("-", "_") + "_rust_library").resolve()
-        inline_proofs.update(verified_cargo_inline_proofs(repository, package, [archive]))
-    inline_proofs[str(bridge_archive.relative_to(repository))] = bridge_inline_proof
     # Verify the C-facing interface before namespace isolation or section GC.
     # Rust compiler-internal symbols may change when a translation unit is removed.
     def c_exports(path):
@@ -2727,6 +2717,22 @@ def main() -> int:
         {str(path.relative_to(repository)): sha256(path) for path in curl_residue_objects}
     )
     source_library_hashes[str(inetutils_telnet_boundary)] = sha256(inetutils_telnet_boundary)
+    # Bind receipts to the same archive digests recorded in the release manifest.
+    inline_proofs.update(verified_cargo_inline_proofs(
+        repository, "e2fsprogs", (p for n, p in e2fsprogs_libraries.items() if n not in checksum_consumers),
+        source_library_hashes,
+    ))
+    inline_proofs.update(verified_cargo_inline_proofs(
+        repository, "iproute2", (p for n, p in iproute2_libraries.items() if n != "bridge"), source_library_hashes,
+    ))
+    inline_proofs.update(verified_cargo_inline_proofs(
+        repository, "inetutils", inetutils_libraries.values(), source_library_hashes
+    ))
+    for option, (package, _) in release_archives(repository / "batches/multicall-inline-archives.args").items():
+        archive = getattr(args, option.replace("-", "_") + "_rust_library").resolve()
+        inline_proofs.update(verified_cargo_inline_proofs(repository, package, [archive], source_library_hashes))
+    inline_proofs[str(bridge_archive.relative_to(repository))] = bridge_inline_proof
+    second_inline_proofs = linked_layers(repository, inline_proofs, source_library_hashes)
     expected_symbols.update(f"rustbox_{symbol}_main" for symbol in util_dispatch.values())
     expected_symbols.add("rustbox_m4_main")
     expected_symbols.update({
@@ -3703,6 +3709,7 @@ def main() -> int:
         "source_library_sha256": source_library_hashes,
         "bridge_raw_pointer_types": bridge_raw_types,
         "linked_private_inline_proofs": inline_proofs,
+        **({"linked_second_inline_proofs": second_inline_proofs} if second_inline_proofs else {}),
         "e2fsprogs_shared_checksums": {
             "symbols": sorted(CRC_SYMBOLS.values()), "consumers": sorted(checksum_consumers),
             "object_sha256": {o.name: sha256(o) for o in checksum_objects if o.name != "bitcount.o"},
