@@ -1512,7 +1512,8 @@ The other syntax tools enable the additional `syn` visitor separately. A
 different inline checker can produce identical ranges while changing the
 producer digest embedded in every dependent receipt. Run
 `python3 -B tests/inline-proof-producer.py` to check all 13 direct E2fsprogs
-parents against the rebuilt checker.
+parents against the rebuilt checker. A fresh, offline Linux build from an empty Cargo target reproduced the same checker executable.
+[Compiler and receipt hashes](evidence/inline-producer-cold-rebuild.json)
 
 `scripts/check_cargo_private_inlines.py --prepare-e2fsprogs`
 rebuilds the seven Cargo archives at their original paths in disposable
