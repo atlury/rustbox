@@ -609,6 +609,13 @@ this selection. Each converted literal still crosses the C interface
 through one pointer extraction.
 [Complete 22-archive comparison](evidence/e2fsprogs-procps-shadow-native-c-strings.json)
 
+GNU Gawk 5.4.0 reproduced its complete archive after converting 5,005 C
+literals in 28 modules. Independent replay checked all 39 compiler inputs,
+including the 11 untouched modules. This removes 10,010 explicit casts and
+retains 5,005 pointer extractions for the C interface. The verified archive
+is eligible for the next C-string selection.
+[Gawk archive and source digests](evidence/gawk-native-c-strings.json)
+
 To select cold-built C-string archives in the multicall, enroll them against
 the same compiler inputs as the intended parent release. When that release
 shares stdio layouts, rebuild overlapping literal pilots on top of those
