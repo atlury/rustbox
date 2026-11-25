@@ -2,7 +2,12 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 set -eu
 
-root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
+root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd -P)
+routing_protocols=
+if [ "${1:-}" = --iproute2-routing-protocols ]; then
+    routing_protocols=1
+    shift
+fi
 term_manifest=
 if [ "$#" -ge 2 ] && [ "$1" = --ncurses-termtypes ]; then
     term_manifest=$(python3 -c 'import sys; from pathlib import Path; print(Path(sys.argv[1]).resolve(strict=True).relative_to(Path(sys.argv[2])))' "$2" "$root")
@@ -40,7 +45,7 @@ case "$#:${1:-}" in
     1:--iproute2-route-names) set -- --iproute2-route-names --iproute2-address-protocol-copies --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
     1:--iproute2-address-protocol-copies) set -- --iproute2-address-protocol-copies --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
     2:--e2fsprogs-dirhash-arrays) ;;
-    *) echo "usage: $0 [--ncurses-termtypes MANIFEST] [--va-list-layouts MANIFEST] [--bison-literal-lengths] [--tar-borrowed-timestamps] [--native-c-strings MANIFEST] [--shared-stdio MANIFEST | --curl-manual | --iproute2-netlink-protocols | --iproute2-route-names | --iproute2-address-protocols | --iproute2-address-protocol-copies | --e2fsprogs-dirhash-arrays MANIFEST]" >&2; exit 2 ;;
+    *) echo "usage: $0 [--iproute2-routing-protocols] [--ncurses-termtypes MANIFEST] [--va-list-layouts MANIFEST] [--bison-literal-lengths] [--tar-borrowed-timestamps] [--native-c-strings MANIFEST] [--shared-stdio MANIFEST | --curl-manual | --iproute2-netlink-protocols | --iproute2-route-names | --iproute2-address-protocols | --iproute2-address-protocol-copies | --e2fsprogs-dirhash-arrays MANIFEST]" >&2; exit 2 ;;
 esac
 "$root/scripts/build_private_inline_tool.sh"
 python3 -B "$root/scripts/check_cargo_private_inlines.py" --prepare-e2fsprogs
@@ -75,9 +80,17 @@ if [ -n "$stdio_manifest" ]; then
     python3 -B "$root/scripts/prepare_shared_stdio.py" prepare "$root/$stdio_manifest"
     set -- "$@" --shared-stdio "/work/$stdio_manifest"
 fi
+if [ -n "$routing_protocols" ] && [ -z "$literal_manifest" ]; then
+    literal_manifest=work/analysis/routing-protocol-native-inputs.json
+    python3 -B "$root/scripts/stage_routing_protocol_archives.py" --native-manifest "$root/$literal_manifest"
+fi
 if [ -n "$literal_manifest" ]; then
     python3 -B "$root/scripts/prepare_native_c_strings.py" prepare --cargo-only "$root/$literal_manifest"
     set -- "$@" --native-c-strings "/work/$literal_manifest"
+fi
+if [ -n "$routing_protocols" ]; then
+    python3 -B "$root/scripts/stage_routing_protocol_archives.py"
+    set -- "$@" --iproute2-routing-protocols
 fi
 if [ -n "$va_manifest" ]; then
     python3 -B "$root/scripts/prepare_va_list_layouts.py" prepare --cargo-only "$root/$va_manifest"

@@ -1103,6 +1103,11 @@ The test also verifies the hash of the executable and the coverage from
 both canonical compiler builds.
 [Archive selection regression](tests/iproute2-netlink-protocols/routing-release.py)
 
+The optional `--iproute2-routing-protocols` build flag selects all 18
+archives and verifies their C exports before linking. It accepts an
+explicit C-string manifest or prepares the required IPRoute2 entries.
+[Build option regression](tests/iproute2-netlink-protocols/routing-build-options.py)
+
 With the `ip` engine switched to the new routing protocol reader, all 21
 IPRoute2 names passed 288 canonical comparisons in the complete multicall.
 The suite covers six live `routel` queries and six route-protocol filters,

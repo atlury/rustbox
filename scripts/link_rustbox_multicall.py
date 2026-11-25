@@ -20,6 +20,7 @@ from bison_length_archive import selection as bison_lengths
 import prepare_identical_archives
 import iproute2_address_protocol_archive as address_protocols
 import iproute2_route_name_archives as route_names
+import stage_routing_protocol_archives as routing_protocols
 from build_iproute2_bridge import build_bridge
 from build_e2fsprogs_checksums import build_shared, BITCOUNT_SYMBOL, CRC_SYMBOLS
 from batch_cargo_private_inlines import release_archives
@@ -2437,6 +2438,7 @@ def main() -> int:
     parser.add_argument("--shared-stdio", type=Path)
     parser.add_argument("--native-c-strings", type=Path)
     parser.add_argument("--va-list-layouts", type=Path)
+    parser.add_argument("--iproute2-routing-protocols", action="store_true")
     parser.add_argument("--ncurses-termtypes", type=Path)
     parser.add_argument("--curl-manual", action="store_true")
     parser.add_argument("--tar-borrowed-timestamps", action="store_true")
@@ -2861,8 +2863,21 @@ def main() -> int:
               "linked_foreign_declaration_proofs": foreign_proofs}
     identical_layers = {}
     for manifest, layer in ((args.shared_stdio, "shared_stdio_layouts"), (args.native_c_strings, "native_c_strings"),
+                            (args.iproute2_routing_protocols, routing_protocols.FIELD),
                             (args.va_list_layouts, "shared_va_list_layouts"), (args.ncurses_termtypes, "shared_ncurses_termtypes")):
-        if manifest:
+        if manifest and layer == routing_protocols.FIELD:
+            context = dict(source_library_sha256=source_library_hashes, **identical_layers)
+            resolved = routing_protocols.select(context)
+            rows = resolved[layer]
+            for name, old in iproute2_libraries.items():
+                row = rows[str(old.relative_to(repository))]
+                new = repository / routing_protocols.candidate_path(row)
+                if sha256(new) != row["candidate_sha256"] or c_exports(new) != c_exports(old):
+                    raise ValueError(f"routing protocol archive or C exports differ for {name}")
+                iproute2_libraries[name] = libraries[iproute2_library_indices[name]] = new
+            source_library_hashes = resolved["source_library_sha256"]
+            route_selections[layer] = rows
+        elif manifest:
             items = json.loads(manifest.read_bytes())
             if layer in ("native_c_strings", "shared_va_list_layouts"):
                 # Direct-rustc parents are materialized in this Linux process.
