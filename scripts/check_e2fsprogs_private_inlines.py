@@ -20,10 +20,12 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def compiler(engine, deps, scratch):
+def compiler(engine, deps, scratch, remap_root=None):
     config = tomllib.loads((engine / "Cargo.toml").read_text())
+    if remap_root is None:
+        remap_root = f"/rustbox-{config['lib']['name'].removesuffix('_audit')}"
     args = ["rustc", "+nightly-2023-04-15", "--edition=2021", "--crate-name", config["lib"]["name"],
-            "-C", "opt-level=3", "--remap-path-prefix", f"{scratch}=/rustbox-{config['lib']['name'].removesuffix('_audit')}",
+            "-C", "opt-level=3", "--remap-path-prefix", f"{scratch}={remap_root}",
             "-L", f"dependency={deps}"]
     for dep in config["dependencies"]:
         name = dep.replace("-", "_")

@@ -710,6 +710,27 @@ The next grouped Cargo ranking estimates 1,482 newly unreferenced helpers in
 `dcb` (149) and `ss` (113). These figures guide build order. The production
 count credits only verified removals.
 
+An independent E2fsprogs `badblocks` experiment removed 1,533 unused C
+declarations across 55 files. This eliminated 1,011 raw-pointer type
+occurrences and 160,356 source bytes in the trial. Both builds reproduced
+the complete release archive. Four comparisons with canonical E2fsprogs
+matched exit status and output and preserved the input image. The production
+inventory above counts only changes selected by the multicall linker.
+See `evidence/badblocks-foreign-declarations-trial.json` for the hashes.
+
+To repeat the trial, build the selector and run it against the current link.
+It matches private foreign functions and statics to compiler diagnostics by
+name and byte offset. It requires a single use of the identifier in its
+leaf module and skips attributed declarations and attributed extern blocks.
+
+```sh
+scripts/build_private_inline_tool.sh
+RUSTBOX_TOOL_IMAGE=rustbox-e2fsprogs:2026-11-24 scripts/run_tool.sh \
+  python3 -B tests/foreign-declarations.py work/analysis/private-inlines-linux/release/foreign-declarations
+RUSTBOX_TOOL_IMAGE=rustbox-e2fsprogs:2026-11-24 scripts/run_tool.sh \
+  python3 -B scripts/check_badblocks_foreign_declarations.py work/analysis/rustbox-multicall-link.json
+```
+
 The default build removes 9,189 unused private helper definitions and 18,487
 raw-pointer type occurrences from 606 GNU Inetutils source entries. The
 25 engines using compact removal account for all 3,148,896 source bytes saved.
