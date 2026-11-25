@@ -545,6 +545,14 @@ Together the first three subset builds recovered another 10,226 casts.
 [Coreutils group 08](evidence/coreutils-08-literal-recovery.json) ·
 [util-linux group 13](evidence/util-linux-13-literal-recovery.json)
 
+In util-linux group 14 the changed entry sections belonged to `cfdisk` and
+`fdisk`. The remaining eight modules recovered 2,528 compiler-checked
+strings and 5,056 casts in a byte-identical archive. The 33 whole archives
+and four recovered subsets now cover 29,086 literal conversions and **58,172
+explicit casts** across Coreutils and util-linux. Six modules remain in
+this batch, including the standalone Coreutils `printf` group.
+[util-linux group 14](evidence/util-linux-14-literal-recovery.json)
+
 ```sh
 python3 -B scripts/recover_applet_literal_modules.py "$link" "$whole_pilot" "$subset_pilot"
 python3 -B tests/c-string-literals/release.py "$link" "$subset_pilot/pilot.json"

@@ -1,0 +1,32 @@
+{
+  "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-14-stable/target/release/libutil_linux_small_14_normalized_reachable.a",
+  "byte_identical": true,
+  "candidate": {
+    "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-14-stable/target/release/libutil_linux_small_14_normalized_reachable.a",
+    "c_string_literals": 2528,
+    "candidate_sha256": "5c6587cf76610e5bd220c38c10896e1eb6d021ed6e85e4cebe75057d48e4aab3",
+    "candidate_sources_sha256": "998dd443d6bc19be3e4d3f1adcce93230d91ed4e4bc6d505d658b74608588e47",
+    "compiler_selected_sources": 14,
+    "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+    "control_sha256": "5c6587cf76610e5bd220c38c10896e1eb6d021ed6e85e4cebe75057d48e4aab3",
+    "modules": {
+      "src/disk_utils/sfdisk.rs": 504,
+      "src/login_utils/login.rs": 127,
+      "src/login_utils/sulogin.rs": 111,
+      "src/login_utils/vipw.rs": 50,
+      "src/lsfd_cmd/lsfd.rs": 448,
+      "src/misc_utils/findmnt.rs": 341,
+      "src/misc_utils/lsblk.rs": 693,
+      "src/term_utils/agetty.rs": 254
+    },
+    "parent_sources_sha256": "2a67d5d35941e888ff5f48fb7a4fa54a514178564231928101f5d57c794437ab",
+    "raw_ffi_pointer_extractions": 2528,
+    "raw_pointer_types_removed": 5056,
+    "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+  },
+  "excluded_entry_modules": [
+    "src/disk_utils/cfdisk.rs",
+    "src/disk_utils/fdisk.rs"
+  ],
+  "whole_candidate_sha256": "0f77af36619a17623e7eb33ebf620c5949c1f8d2b5ca5873bf59b0cb1dc87145"
+}
