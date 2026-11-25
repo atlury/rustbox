@@ -888,6 +888,12 @@ replays matched the batch scanner, as did GNU sed, grep and gzip.
 These are candidate counts. Rebuild and runtime results are recorded separately.
 [Per-archive errno candidates](evidence/errno-value-access-candidates.json)
 
+The Shadow archive applies the accessor after 107 verified native C strings.
+It replaces 187 direct reads and 224 writes in 49 modules.
+Both canonical compilers matched 79 public cases each.
+Two error paths also matched across the canonical builds and candidate in six Memcheck runs.
+[Shadow archive evidence](evidence/shadow-errno-archive.json)
+
 The GNU Findutils archive applies the accessor after 265 verified native C strings.
 It replaces 27 direct reads and 90 writes in 27 modules.
 Both canonical compilers matched 38 public cases each.
