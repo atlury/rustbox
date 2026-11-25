@@ -96,6 +96,12 @@ def audit(link, temporary):
             if (proof["archive_sha256"] != expected or set(proof["ranges"]) != set(proof["sources"])
                     or not {crate / n for n in proof["sources"]} <= files.keys()):
                 raise ValueError(f"invalid private-inline provenance: {name}")
+            directory = proof.get("source_directory")
+            if directory is not None:
+                scope = Path(directory)
+                if (not scope.parts or scope.is_absolute() or ".." in scope.parts or not proof["ranges"]
+                        or any(scope not in Path(n).parents for n in proof["ranges"])):
+                    raise ValueError(f"private-inline ranges outside the selected source directory: {name}")
             if not crate.is_relative_to(temporary):
                 original = crate
                 crate = temporary / ("cargo-" + archive.stem)
@@ -129,6 +135,8 @@ def audit(link, temporary):
             }
             if layout == "byte_offsets":
                 cleanups[engine_name]["source_layout"] = layout
+            if directory is not None:
+                cleanups[engine_name]["source_directory"] = directory
             files.update({crate / n: sha for n, sha in proof["sources"].items()})
         root_module = ROOT / f"compat/e2fsprogs/{SHARED_SOURCES[archive.name]}" if shared_object else crate / "lib.rs"
         if root_module not in files:

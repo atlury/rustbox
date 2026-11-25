@@ -98,4 +98,43 @@ with tempfile.TemporaryDirectory() as directory:
                 raise AssertionError("old offset receipt accepted after the padding implementation changed")
             proof.unlink()
             helper.write_bytes(helper.name.encode())
+
+        scope = Path("src/programs")
+        app = scope / "cli.rs"
+        (crate / scope).mkdir(parents=True)
+        (crate / app).write_text("fn unused() {}")
+        archive.with_suffix(".d").write_text(f"demo: /work/{source}/lib.rs /work/{source / app}\n")
+        data = b"".join(bytes.fromhex(verifier.digest(p)) for p in (
+            Path(verifier.__file__), root / "scripts/inline_source_layout.py",
+            root / "scripts/prune_private_inlines.py", tool, archive,
+        ))
+        for name in sorted(map(Path, (*inputs, app))):
+            data += str(source / name).encode() + b"\0" + bytes.fromhex(verifier.digest(crate / name))
+        for directory in (None, scope):
+            scope_bytes = b"\0source-directory\0" + str(directory).encode() if directory else b""
+            key = hashlib.sha256(data + scope_bytes).hexdigest()
+            proof = archive.with_suffix(f".inlines-{key}.json")
+            record = {"key": key, "archive_sha256": expected, "ranges": {str(app): [[0, 14]]},
+                      "sources": {str(app): verifier.digest(crate / app)}}
+            if directory:
+                record["source_directory"] = str(directory)
+            proof.write_text(json.dumps(record))
+            assert verifier.check_linux_cargo(relative, True, directory)["sha256"] == verifier.digest(proof)
+            other = None if directory else scope
+            try:
+                verifier.check_linux_cargo(relative, True, other)
+            except RebuildRequired:
+                pass
+            else:
+                raise AssertionError("full and directory-scoped receipts used the same key")
+            if directory:
+                proof.write_text(json.dumps(dict(record, ranges={"src/lib.rs": [[1, 2]]})))
+                try:
+                    verifier.check_linux_cargo(relative, True, directory)
+                except ValueError:
+                    pass
+                else:
+                    raise AssertionError("scoped receipt accepted an out-of-directory edit")
+            proof.unlink()
 print("Previous release receipts bind their inputs and accept only verified layouts.")
+print("Directory-scoped receipts bind the selected directory and reject edits outside it.")

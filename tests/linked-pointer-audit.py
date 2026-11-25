@@ -64,6 +64,16 @@ with tempfile.TemporaryDirectory() as workspace:
                     assert cleanup["source_bytes_removed"] == len(original) - len(expected)
                     assert cleanup.get("source_layout", "lines") == layout
             assert source.read_bytes() == original
+        scoped = dict(proof, source_directory="src/programs")
+        proof_file.write_text(json.dumps(scoped))
+        link["linked_private_inline_proofs"][str(archive)]["sha256"] = sha(proof_file.read_bytes())
+        with tempfile.TemporaryDirectory() as scratch:
+            try:
+                inventory.audit(link, Path(scratch))
+            except ValueError as error:
+                assert "outside the selected source directory" in str(error)
+            else:
+                raise AssertionError("release audit accepted a scoped receipt for crate-root code")
 print("Repeated and rejected audit replays both preserved the original Cargo source.")
 
 with tempfile.TemporaryDirectory() as workspace:

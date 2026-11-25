@@ -22,6 +22,7 @@ STRICT_VERIFIERS = (
 )
 # This producer supports both verified layouts and binds the padding implementation.
 OFFSET_VERIFIERS = (
+    "ec5e64d2129e61fd9333896ab1b38ace036f1c8db0cffb9fa3640dc7b9ce6504",  # 95c50d1
     "86c7a52bb69f8f4e27b85bbc14f9c3ffbe9cffbd6b697981b463baaf5dfcea58",  # ec800cc
     "3473d9ac9565e7045116b11f042a097044c4125d9722f4ea5174b26f457411ec",  # 7193ed3
 )
@@ -57,7 +58,14 @@ def rust_inputs(archive):
     return {Path(name).relative_to("/work") for name in shlex.split(rule) if name.endswith(".rs")}
 
 
-def verify_in_container(relative_archive, selected_sha):
+def source_directory(value):
+    path = Path(value)
+    if path.is_absolute() or not path.parts or ".." in path.parts:
+        raise argparse.ArgumentTypeError("expected a directory relative to the Cargo crate")
+    return path
+
+
+def verify_in_container(relative_archive, selected_sha, source_dir=None):
     import tomllib
     from prune_private_inlines import TOOL, replay
 
@@ -94,6 +102,10 @@ def verify_in_container(relative_archive, selected_sha):
         plan = json.loads((overlay / "ranges.json").read_text())
         if not {source / n for n in plan} <= original_inputs:
             raise ValueError("private-inline ranges must belong to compiler-selected sources")
+        if source_dir:
+            plan = {name: spans for name, spans in plan.items() if source_dir in Path(name).parents}
+            if not plan:
+                raise ValueError(f"no compiler-selected private inlines under {source_dir}")
         originals = {n: (crate / n).read_bytes() for n in plan}
         removed = replay(crate, plan)
         package = tomllib.loads((crate / "Cargo.toml").read_text())["package"]["name"]
@@ -109,6 +121,8 @@ def verify_in_container(relative_archive, selected_sha):
             return digest(archive) == selected_sha
 
         proof = {"archive_sha256": selected_sha, "ranges": plan}
+        if source_dir:
+            proof["source_directory"] = str(source_dir)
         if not rebuild_matches():
             from inline_source_layout import pad_removed_items
             pad_removed_items(crate, plan, originals)
@@ -122,7 +136,7 @@ def verify_in_container(relative_archive, selected_sha):
                           "raw_pointer_type_tokens_removed": removed}), flush=True)
 
 
-def check_linux_cargo(archive, publish=False):
+def check_linux_cargo(archive, publish=False, source_dir=None):
     source, base = layout(archive)
     expected = digest(ROOT / archive)
     if not publish:
@@ -140,7 +154,8 @@ def check_linux_cargo(archive, publish=False):
             inputs.extend(str(path).encode() + b"\0" + bytes.fromhex(digest(ROOT / path)))
         layout_digest = bytes.fromhex(digest(ROOT / "scripts/inline_source_layout.py"))
         verifier = bytes.fromhex(digest(Path(__file__))) + layout_digest
-        key = hashlib.sha256(verifier + inputs).hexdigest()
+        scope = b"\0source-directory\0" + str(source_dir).encode() if source_dir else b""
+        key = hashlib.sha256(verifier + inputs + scope).hexdigest()
         saved = (ROOT / archive).with_suffix(f".inlines-{key}.json")
         # Reuse strict receipts under their actual producer and complete input digest.
         # That producer accepted only archives that matched after the first rebuild.
@@ -148,11 +163,15 @@ def check_linux_cargo(archive, publish=False):
                        for producer in STRICT_VERIFIERS]
         offset_keys = [hashlib.sha256(bytes.fromhex(producer) + layout_digest + inputs).hexdigest()
                        for producer in OFFSET_VERIFIERS]
-        for candidate_key in (key, *offset_keys, *strict_keys):
+        candidate_keys = [key] if source_dir else [key, *offset_keys, *strict_keys]
+        for candidate_key in candidate_keys:
             candidate = (ROOT / archive).with_suffix(f".inlines-{candidate_key}.json")
             if candidate.is_file():
                 record = json.loads(candidate.read_text())
                 if (record["key"] != candidate_key or record["archive_sha256"] != expected
+                        or record.get("source_directory") != (str(source_dir) if source_dir else None)
+                        or (source_dir and (not record["ranges"] or
+                            any(source_dir not in Path(n).parents for n in record["ranges"])))
                         or record.get("source_layout", "lines") not in ("lines", "byte_offsets")
                         or (candidate_key in strict_keys and "source_layout" in record)):
                     raise ValueError(f"stale Cargo private-inline proof: {candidate}")
@@ -172,7 +191,8 @@ def check_linux_cargo(archive, publish=False):
                         "-v", f"{tmp / 'source'}:/work/{source}",
                         "-v", f"{tmp / 'output'}:/work/{base}", "rustbox-e2fsprogs:2026-11-24",
                         "python3", "-B", "/work/scripts/check_cargo_private_inlines.py",
-                        str(archive), "--verify-mounted-copy", expected], check=True)
+                        str(archive), "--verify-mounted-copy", expected,
+                        *(["--source-dir", str(source_dir)] if source_dir else [])], check=True)
 
         if publish:
             record = json.loads((tmp / "output/.rustbox-private-inlines.json").read_text())
@@ -203,12 +223,12 @@ def prepare_package(package):
     prepare_archives(package, paths)
 
 
-def prepare_archives(package, paths):
+def prepare_archives(package, paths, source_dir=None):
     if not package or not all(c.isascii() and (c.isalnum() or c == "-") for c in package):
         raise ValueError("expected a package name")
     index_file = ROOT / f"work/analysis/{package}-cargo-inline-proofs.json"
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as workers:
-        futures = {path: workers.submit(check_linux_cargo, path, True) for path in paths}
+        futures = {path: workers.submit(check_linux_cargo, path, True, source_dir) for path in paths}
         index = {str(path): task.result() for path, task in futures.items()}
     with tempfile.NamedTemporaryFile(mode="w", dir=index_file.parent, delete=False) as file:
         json.dump(index, file, indent=2, sort_keys=True)
@@ -225,13 +245,17 @@ if __name__ == "__main__":
     group.add_argument("--prepare-inetutils", action="store_const", const="inetutils", dest="package")
     group.add_argument("--prepare-archive", metavar="PACKAGE",
                        help="certify the given release archive and publish its package index")
+    parser.add_argument("--source-dir", type=source_directory, metavar="DIRECTORY",
+                        help="limit removal to compiler-selected helpers beneath this crate directory")
     parser.add_argument("--verify-mounted-copy", metavar="SHA256")
     args = parser.parse_args()
+    if args.source_dir and (args.package or not args.archive):
+        parser.error("--source-dir requires a single archive")
     if args.prepare_archive and args.archive and not args.verify_mounted_copy:
         if (len(args.archive.parts) < 5 or not args.archive.parts[2].startswith(args.prepare_archive + "-")
                 or args.archive.parts[3] != "translations"):
             parser.error("expected a single-crate translation archive for the requested package")
-        prepare_archives(args.prepare_archive, [args.archive])
+        prepare_archives(args.prepare_archive, [args.archive], args.source_dir)
     elif args.prepare_archive:
         parser.error("--prepare-archive requires one release archive path")
     elif args.package and not args.archive and not args.verify_mounted_copy:
@@ -241,6 +265,6 @@ if __name__ == "__main__":
     elif args.verify_mounted_copy:
         if ROOT != Path("/work") or not Path("/.dockerenv").exists():
             parser.error("verification requires the isolated Linux checkout")
-        verify_in_container(args.archive, args.verify_mounted_copy)
+        verify_in_container(args.archive, args.verify_mounted_copy, args.source_dir)
     else:
-        check_linux_cargo(args.archive)
+        check_linux_cargo(args.archive, source_dir=args.source_dir)
