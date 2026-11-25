@@ -767,6 +767,8 @@ parents byte for byte. These counts describe candidate builds.
 [Three-archive replay](evidence/static-array-replay-three-utilities.json) ·
 [Missing and altered receipt tests](tests/c-string-literals/array-batch-replay.py)
 
+All 13 utilities archive outcomes were independently reconstructed from their compiler-selected sources and existing archive bytes. Run the read-only batch check against the saved report to repeat the comparison. [Utilities replay inputs](evidence/mixed-array-c-string-utilities.json)
+
 All 14 legacy archive outcomes were independently reconstructed from their compiler-selected sources and existing archive bytes. Run the read-only batch check against the saved report to repeat the comparison. [Legacy replay inputs](evidence/mixed-array-c-string-legacy.json)
 
 For a static-array candidate that still changes archive bytes,
