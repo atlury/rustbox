@@ -476,6 +476,17 @@ fields. To repeat the archive checks, run
 `python3 -B scripts/build_va_list_layout_batch.py LINK OUT --package grep-3.12`.
 [Variadic ABI measurements and both archive comparisons](evidence/x86-64-va-list-layout-pilots.json)
 
+The optional release selector accepts verified variadic layouts after the
+C-string substitutions. Starting with only the original `e4defrag` archive
+in a fresh cache, the normal preparation step rebuilt the same bytes and
+compiler receipt. The inventory replay checked 4,908 source inputs across
+127 archives and attributed the 100-field change to `e4defrag`. Five
+negative tests rejected altered hashes, a different provider, an incomplete
+module list, and a missing C-string parent. Use
+`scripts/prepare_va_list_layouts.py enroll LINK MANIFEST PILOT` with Python,
+then pass `--va-list-layouts MANIFEST` before the parent build options.
+[Clean rebuild and source receipt](evidence/e4defrag-va-list-preparation.json)
+
 Ncurses 6.6 has separate narrow and wide numeric terminal layouts. Sharing
 each declaration inside its own crate removes 2,439 repeated raw pointer
 fields in a replay of all 266 compiler inputs. GCC and Clang each confirmed

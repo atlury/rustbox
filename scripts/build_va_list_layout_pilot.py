@@ -22,10 +22,12 @@ pub struct __va_list_tag {
 MARKER = ".rustbox-va-list-layout"
 
 
-def substitute(crate, sources):
+def substitute(crate, sources, read=None):
+    if read is None:
+        read = lambda name: (crate / name).read_bytes()
     matches = []
     for name in sorted(sources):
-        data = (crate / name).read_bytes()
+        data = read(name)
         if data.count(TAG) == 1 and data.count(b"pub struct __va_list_tag {") == 1:
             matches.append(name)
     if len(matches) < 2:
@@ -37,7 +39,7 @@ def substitute(crate, sources):
         raise ValueError("unrecognized provider module")
     alias = ("pub use crate::" + "::".join(parts) + "::__va_list_tag;").encode()
     alias += b"\n" * TAG.count(b"\n")
-    changed = {name: (crate / name).read_bytes().replace(TAG, alias) for name in matches[1:]}
+    changed = {name: read(name).replace(TAG, alias) for name in matches[1:]}
     return changed, dict(provider=owner, provider_namespace=str(namespace), reexporting_modules=matches[1:],
                          declaration_sha256=sha256(TAG).hexdigest(), raw_pointer_types_removed=2 * len(changed))
 

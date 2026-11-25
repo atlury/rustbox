@@ -88,6 +88,8 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
     link_archive_hashes = link["source_library_sha256"]
     stdio_records = link.get("shared_stdio_layouts", {})
     stdio_deltas = {}
+    va_records = link.get("shared_va_list_layouts", {})
+    va_deltas = {}
     literal_records = link.get("native_c_strings", {})
     literal_deltas = {}
     literal_tool = native_strings.syntax_tool() if literal_records else None
@@ -141,6 +143,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
             length_record = None
         stdio_records = for_key(stdio_records, selected_path)
         literal_records = for_key(literal_records, selected_path)
+        va_records = for_key(va_records, selected_path)
     if not second.keys() <= proofs.keys() & link["source_library_sha256"].keys():
         raise ValueError("second-layer receipt has no linked parent archive")
     for name, expected in sorted(hashes.items()):
@@ -294,22 +297,39 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
         if stdio is not None:
             replacements = share_stdio_layout.replay(crate, files, stdio, linked_path, link_archive_hashes[str(linked_path)])
             stdio_deltas[str(linked_path)] = stdio["raw_pointer_types_removed"]
+        def read_parent(module):
+            path = crate / module
+            return replacements[path] if path in replacements else path.read_bytes()
+
         literal = literal_records.get(str(linked_path))
+        va = va_records.get(str(linked_path))
+        if literal is not None or va is not None:
+            modules = [str(path.relative_to(crate)) for path in files]
+            parent = {module: hashlib.sha256(read_parent(module)).hexdigest() for module in modules}
         if literal is not None:
             archive_sha = link_archive_hashes[str(linked_path)]
             if (literal["archive"] != str(linked_path) or literal["control_sha256"] != archive_sha
                     or literal["candidate_sha256"] != archive_sha):
                 raise ValueError(f"C-string archive differs from the cold build: {linked_path}")
 
-            def read_parent(module):
-                path = crate / module
-                return replacements[path] if path in replacements else path.read_bytes()
-
-            modules = [str(path.relative_to(crate)) for path in files]
-            parent = {module: hashlib.sha256(read_parent(module)).hexdigest() for module in modules}
             changed = native_strings.replay(parent, read_parent, literal, literal_tool)
             replacements.update({crate / module: data for module, data in changed.items()})
             literal_deltas[str(linked_path)] = literal["c_string_literals"]
+        if va is not None:
+            from build_va_list_layout_pilot import substitute as share_va_list
+            if (va["archive"] != str(linked_path) or va["control_sha256"] != link_archive_hashes[str(linked_path)]
+                    or va["candidate_sha256"] != va["control_sha256"]):
+                raise ValueError(f"variadic layout archive differs from its cold build: {linked_path}")
+            if literal is not None:
+                parent.update({module: hashlib.sha256(data).hexdigest() for module, data in changed.items()})
+            if len(parent) != va["compiler_selected_sources"] or source_list_digest(parent) != va["parent_sources_sha256"]:
+                raise ValueError("variadic layout parent sources differ from the cold build")
+            changes, facts = share_va_list(crate, parent, read_parent)
+            after = {**parent, **{module: hashlib.sha256(data).hexdigest() for module, data in changes.items()}}
+            if any(va[k] != v for k, v in facts.items()) or source_list_digest(after) != va["candidate_sources_sha256"]:
+                raise ValueError("variadic layout substitutes different compiler inputs")
+            replacements.update({crate / module: data for module, data in changes.items()})
+            va_deltas[str(linked_path)] = facts["raw_pointer_types_removed"]
         for file, source_sha in files.items():
             file.relative_to(crate)
             data = file.read_bytes()
@@ -340,6 +360,8 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
         raise ValueError("Bison length receipt outside the compiler inputs")
     if timestamp_records.keys() != timestamp_deltas.keys():
         raise ValueError("tar timestamp receipt outside linked compiler inputs")
+    if va_deltas.keys() != va_records.keys():
+        raise ValueError("variadic layout receipt lies outside the selected archives")
     if literal_deltas.keys() != literal_records.keys():
         raise ValueError("C-string receipt is outside the selected archive set")
     if stdio_deltas.keys() != stdio_records.keys():
@@ -361,6 +383,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
             **({"byte_identical_inline_cleanups": cleanups} if cleanups else {}),
             **({"byte_identical_second_inline_cleanups": second_cleanups} if second_cleanups else {}),
             **({"native_c_string_conversions": literal_deltas} if literal_deltas else {}),
+            **({"shared_va_list_layout_deltas": va_deltas} if va_deltas else {}),
             **({"shared_stdio_layout_deltas": stdio_deltas} if stdio_deltas else {}),
             **({"bison_length_deltas": length_deltas} if length_deltas else {}),
             **({"tar_timestamp_deltas": timestamp_deltas} if timestamp_deltas else {}),
@@ -541,6 +564,8 @@ def check_identical_layer(previous, selected, before, after, field):
             count = after["native_c_string_conversions"][key]
             delta["raw_pointer_type_tokens"] -= 2 * count
             delta["as_ptr_calls"] += count
+        elif field == "shared_va_list_layouts":
+            delta["raw_pointer_type_tokens"] -= after["shared_va_list_layout_deltas"][key]
         elif field == "shared_stdio_layouts":
             delta["raw_pointer_type_tokens"] -= after["shared_stdio_layout_deltas"][key]
         else:
@@ -570,6 +595,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("link_report", type=Path)
     previous = parser.add_mutually_exclusive_group()
+    previous.add_argument("--verify-va-list-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-native-c-strings-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-shared-stdio-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-bison-lengths-from", type=Path, metavar="CONTROL")
@@ -590,6 +616,9 @@ if __name__ == "__main__":
     if args.verify_cleanup_from:
         previous_link = json.loads(args.verify_cleanup_from.read_bytes())
         check_added_cleanups(previous_link, link, measure(previous_link), current)
+    if args.verify_va_list_from:
+        prior = json.loads(args.verify_va_list_from.read_bytes())
+        check_identical_layer(prior, link, measure(prior), current, "shared_va_list_layouts")
     if args.verify_native_c_strings_from:
         prior = json.loads(args.verify_native_c_strings_from.read_bytes())
         check_identical_layer(prior, link, measure(prior), current, "native_c_strings")

@@ -18,9 +18,11 @@ from test_inline_release import all_packages
 
 
 def verify(previous, binary, replay_path, output, layer="shared_stdio_layouts"):
-    native_strings = layer == "native_c_strings"
-    option = "--verify-native-c-strings-from" if native_strings else "--verify-shared-stdio-from"
-    stage = "native-c-strings" if native_strings else "shared-stdio"
+    stage, option, metric, summary_field = {
+        "native_c_strings": ("native-c-strings", "--verify-native-c-strings-from", "native_c_string_conversions", "c_string_conversions"),
+        "shared_stdio_layouts": ("shared-stdio", "--verify-shared-stdio-from", "shared_stdio_layout_deltas", "repeated_pointer_fields_removed"),
+        "shared_va_list_layouts": ("va-list-layouts", "--verify-va-list-from", "shared_va_list_layout_deltas", "repeated_pointer_fields_removed"),
+    }[layer]
     output.mkdir()
     old, current = previous.read_bytes(), LINK_REPORT.read_bytes()
     parent, selected = json.loads(old), json.loads(current)
@@ -65,8 +67,7 @@ def verify(previous, binary, replay_path, output, layer="shared_stdio_layouts"):
             "binary_sha256": sha, "link_report_sha256": current_sha, "previous_link_report_sha256": previous_sha,
             "previous_replays_sha256": sha256(replay_bytes).hexdigest(), "packages": replay["packages"],
             "package_replay_basis": "identical ELF, link map, dynamic dependencies and archive inputs",
-            **({"c_string_conversions": inventory["native_c_string_conversions"]} if native_strings else
-               {"repeated_pointer_fields_removed": inventory["shared_stdio_layout_deltas"]}), **public},
+            summary_field: inventory[metric], **public},
     }
     with TemporaryDirectory(dir=ROOT / "evidence") as temp:
         staged = Path(temp)
@@ -87,7 +88,10 @@ if __name__ == "__main__":
     parser.add_argument("binary", type=Path)
     parser.add_argument("previous_replays", type=Path)
     parser.add_argument("new_directory", type=Path)
-    parser.add_argument("--native-c-strings", action="store_true")
+    selection = parser.add_mutually_exclusive_group()
+    selection.add_argument("--native-c-strings", dest="layer", action="store_const", const="native_c_strings")
+    selection.add_argument("--va-list-layouts", dest="layer", action="store_const", const="shared_va_list_layouts")
+    parser.set_defaults(layer="shared_stdio_layouts")
     args = parser.parse_args()
     verify(args.previous_link.resolve(), args.binary.resolve(), args.previous_replays.resolve(), args.new_directory.resolve(),
-           "native_c_strings" if args.native_c_strings else "shared_stdio_layouts")
+           args.layer)
