@@ -631,6 +631,15 @@ retains 5,005 pointer extractions for the C interface. The verified archive
 is eligible for the next C-string selection.
 [Gawk archive and source digests](evidence/gawk-native-c-strings.json)
 
+For archives that changed bytes, `recover_literal_array_modules.py` can
+select modules where every eligible cast falls inside a top-level static or
+constant array. It matches parsed Rust byte ranges against the existing
+C-string edits. In curl, 906 literals in three modules meet this condition.
+A further 680 array literals occur in modules with other casts. Passing
+`--output DIRECTORY` cold-builds the selected subset and checks its full
+archive and compiler sources.
+[Selection counts for five packages](evidence/static-array-c-string-selection.json)
+
 To select cold-built C-string archives in the multicall, enroll them against
 the same compiler inputs as the intended parent release. When that release
 shares stdio layouts, rebuild overlapping literal pilots on top of those
