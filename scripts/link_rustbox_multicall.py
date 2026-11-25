@@ -2430,6 +2430,7 @@ def main() -> int:
     parser.add_argument("--curl-c-residue-directory", type=Path, required=True)
     parser.add_argument("--inetutils-rust-directory", type=Path, required=True)
     parser.add_argument("--inetutils-telnet-c-boundary", type=Path, required=True)
+    parser.add_argument("--iproute2-netlink-protocols", action="store_true")
     parser.add_argument("--iproute2-route-names", action="store_true")
     parser.add_argument("--iproute2-address-protocols", action="store_true")
     parser.add_argument("--iproute2-address-protocol-copies", action="store_true")
@@ -2791,16 +2792,23 @@ def main() -> int:
         del source_library_hashes[str(original)]
         source_library_hashes[str(relative)] = record["candidate_sha256"]
         iproute2_libraries[name] = libraries[iproute2_library_indices[name]] = candidate
-    route_records = {}
-    if args.iproute2_route_names:
-        parent_link = {"iproute2_address_protocols": address_record, "iproute2_address_protocol_copies": address_copies}
-        route_records = route_names.verified_records(parent_link, route_names.manifest())
-        for key, record in route_records.items():
+    parent_link = {"iproute2_address_protocols": address_record, "iproute2_address_protocol_copies": address_copies}
+    route_selections = {}
+    for field, enabled, archive_path in (
+        ("iproute2_route_names", args.iproute2_route_names, route_names.candidate_path),
+        ("iproute2_netlink_protocols", args.iproute2_netlink_protocols, route_names.netlink_path),
+    ):
+        if not enabled:
+            continue
+        netlink = field == "iproute2_netlink_protocols"
+        rows = route_names.verified_records(parent_link, route_names.manifest(netlink=netlink), netlink=netlink)
+        parent_link[field] = route_selections[field] = rows
+        for key, record in rows.items():
             name = Path(key).stem.removeprefix("lib").removesuffix("_audit")
             old = iproute2_libraries[name]
             if name == "bridge":
-                route_names.prepare(record, mounted_bridge=True)
-            relative = route_names.candidate_path(record)
+                route_names.prepare(record, mounted_bridge=True, netlink=netlink)
+            relative = archive_path(record)
             candidate = repository / relative
             if (source_library_hashes[str(old.relative_to(repository))] != record["control_sha256"]
                     or sha256(candidate) != record["candidate_sha256"] or c_exports(candidate) != c_exports(old)):
@@ -3782,7 +3790,7 @@ def main() -> int:
             }
         },
         "source_library_sha256": source_library_hashes,
-        **({"iproute2_route_names": route_records} if route_records else {}),
+        **route_selections,
         **({"iproute2_address_protocol_copies": address_copies} if address_copies else {}),
         **({"iproute2_address_protocols": address_record} if address_record else {}),
         **({"e2fsprogs_dirhash_arrays": dirhash_arrays} if dirhash_arrays else {}),

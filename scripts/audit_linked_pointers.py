@@ -14,7 +14,7 @@ import tempfile
 
 import iproute2_address_protocol_archive as address_protocols
 import iproute2_route_name_archives as route_archives
-from iproute2_route_names import replace_route_names
+from iproute2_route_names import replace_route_names, replace_netlink_protocols
 from check_e2fsprogs_dirhash_arrays import borrow_arrays, source_list_digest
 from e2fsprogs_dirhash_archives import candidate_path, control_view, prior_stage
 from e2fsprogs_hangul import replace_hangul
@@ -78,6 +78,8 @@ def measure_layer(crate, files, proof, item_count="private_functions_removed"):
 
 def audit(link, temporary, inspect_source=None, *, inspect_module=None):
     fixed_arrays = link.get("e2fsprogs_dirhash_arrays", {})
+    netlink_records = link.get("iproute2_netlink_protocols", {})
+    netlink_deltas = {}
     route_records = link.get("iproute2_route_names", {})
     address_records = address_protocols.selected_records(link)
     link = address_protocols.control_view(control_view(link))
@@ -173,6 +175,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None):
         for records, archive_path, transform, deltas in (
             (address_records, address_protocols.candidate_path, address_protocols.replace_table, address_deltas),
             (route_records, route_archives.candidate_path, replace_route_names, route_deltas),
+            (netlink_records, route_archives.netlink_path, replace_netlink_protocols, netlink_deltas),
         ):
             if name not in records:
                 continue
@@ -262,6 +265,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None):
             "packages": packages, "non_applet_archive_inputs": excluded,
             **({"byte_identical_inline_cleanups": cleanups} if cleanups else {}),
             **({"byte_identical_second_inline_cleanups": second_cleanups} if second_cleanups else {}),
+            **({"iproute2_netlink_protocol_deltas": netlink_deltas} if netlink_deltas else {}),
             **({"iproute2_route_name_deltas": route_deltas} if route_deltas else {}),
             **({"iproute2_address_protocol_deltas": address_deltas} if address_deltas else {}),
             **({"trie_pointer_types_removed": trie_counts} if trie_counts else {}),
@@ -429,6 +433,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("link_report", type=Path)
     previous = parser.add_mutually_exclusive_group()
+    previous.add_argument("--verify-netlink-protocols-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-route-names-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-address-protocols-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-dirhash-from", type=Path, metavar="CONTROL",
@@ -443,6 +448,13 @@ if __name__ == "__main__":
     if args.verify_cleanup_from:
         previous_link = json.loads(args.verify_cleanup_from.read_bytes())
         check_added_cleanups(previous_link, link, measure(previous_link), current)
+    if args.verify_netlink_protocols_from:
+        prior = json.loads(args.verify_netlink_protocols_from.read_bytes())
+        rows = link["iproute2_netlink_protocols"]
+        if "iproute2_netlink_protocols" in prior or any(row["control_binary_sha256"] != prior["binary"]["sha256"] for row in rows.values()):
+            raise ValueError("netlink protocol archives differ from the requested transition")
+        check_iproute2_counts(prior, route_archives.parent_view(link), measure(prior), current, rows,
+                              "iproute2_netlink_protocol_deltas")
     if args.verify_route_names_from:
         prior = json.loads(args.verify_route_names_from.read_bytes())
         if "iproute2_route_names" in prior or "iproute2_route_names" not in link:

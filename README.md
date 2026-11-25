@@ -504,6 +504,13 @@ All 18 netlink candidates reproduced their parent archives. Together they
 matched 393,480 canonical lookup results and passed 72 Memcheck runs. The
 compiler receipts are in [the batch manifest](batches/iproute2-netlink-protocols.json).
 
+The optional `scripts/build_rustbox_multicall.sh --iproute2-netlink-protocols`
+build links these archives into the 499-name executable. The linked inventory
+has 954,965 raw-pointer type occurrences, or 694,842 when identical files
+are counted once. This candidate is 25,113,312 bytes stripped. Use
+`scripts/audit_linked_pointers.py CANDIDATE_LINK --verify-netlink-protocols-from PARENT_LINK`
+to replay the compiler inputs and verify the difference.
+
 To reproduce the netlink candidates for all 18 engines, use the scope/realm
 parent link report and two output directories. The batch builds larger
 crates first, reproduces each parent archive and checks each candidate

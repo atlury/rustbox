@@ -70,7 +70,11 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
     if copies:
         image_id = subprocess.check_output(["docker", "image", "inspect", "--format", "{{.Id}}", "rustbox-e2fsprogs:2026-11-24"], text=True).strip()
         tasks.append(("iproute2-address-protocol-copies", ["test_iproute2_address_protocols.sh", "--linked-copies"]))
-    routes = release.get("iproute2_route_names", {})
+    netlink = release.get("iproute2_netlink_protocols", {})
+    if netlink:
+        tasks.append(("iproute2-netlink-protocols", ["test_iproute2_netlink_protocols.py", "--linked", "--link", current,
+                                                    "--batch", output / "netlink-comparisons", "--jobs", "3"]))
+    routes = netlink or release.get("iproute2_route_names", {})
     if routes:
         tasks.append(("iproute2-route-names", ["test_iproute2_route_names.py", "--linked", "--link", current,
                                               "--batch", output / "route-name-comparisons", "--jobs", "3"]))
@@ -83,7 +87,7 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
     inventory = output / "inventory.json"
     with inventory.open("wb") as stream:
         subprocess.run([sys.executable, "-B", scripts / "audit_linked_pointers.py", current,
-                        "--verify-route-names-from" if routes else
+                        "--verify-netlink-protocols-from" if netlink else "--verify-route-names-from" if routes else
                         "--verify-address-protocols-from" if address_change else "--verify-dirhash-from", previous], cwd=ROOT, stdout=stream, check=True)
     registered = all_packages()
     with ThreadPoolExecutor(max_workers=2) as worker:
@@ -189,6 +193,17 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
             "public_commands_per_dispatch_mode": pilot["public_commands"],
             "lookup_results": sum(r["lookup_rows"] for v in data.values() for r in v["profiles"]),
             "strong_symbol_changes": {k: v["strong_symbol_changes"] for k, v in data.items() if any(v["strong_symbol_changes"].values())},
+        }
+    if netlink:
+        replay = json.loads((output / "netlink-comparisons/results.json").read_bytes())
+        if replay.keys() != netlink.keys() or any(r["multicall_sha256"] != digest(binary) for r in replay.values()):
+            raise ValueError("incomplete netlink protocol release comparison")
+        profiles = [p for r in replay.values() for p in r["profiles"]]
+        result["iproute2_netlink_protocols"] = {
+            "canonical_lookups": sum(p["forward"] + p["reverse"] for p in profiles),
+            "public_commands_per_dispatch_mode": sum(p["public_commands"] for p in profiles),
+            "memcheck_runs": sum(r["memcheck_runs"] for r in replay.values()),
+            "archive_sha256": {k: v["candidate_sha256"] for k, v in replay.items()},
         }
     (output / "replays.json").write_text(json.dumps(result, sort_keys=True, indent=2) + "\n")
     print(f"Verified the linked executable with {len(tasks)} integration checks and {len(registered)} package suites", flush=True)

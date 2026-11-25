@@ -31,7 +31,14 @@ def compare(pilot, key, live=False):
     from iproute2_route_name_archives import build_control_view, candidate_path as route_path
     release = json.loads(Path("/control-link.json").read_bytes())
     binary = Path("/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox")
-    if live:
+    if live and "iproute2_netlink_protocols" in release:
+        from iproute2_route_name_archives import netlink_path, netlink_control_view
+        report = release["iproute2_netlink_protocols"][key]
+        link = netlink_control_view(release)
+        variant = ROOT / netlink_path(report)
+        if digest(binary) != release["binary"]["sha256"]:
+            raise ValueError("unexpected multicall executable")
+    elif live:
         report = release["iproute2_route_names"][key]
         link = build_control_view(release)
         variant = ROOT / route_path(report)
@@ -41,7 +48,8 @@ def compare(pilot, key, live=False):
         link = build_control_view(release)
         report = json.loads((pilot / "pilot.json").read_bytes())
         variant = pilot / Path(key).name
-    parent = ROOT / candidate_path(selected_records(link)[key])
+    parent = ROOT / (route_path(link["iproute2_route_names"][key]) if "iproute2_route_names" in link
+                     else candidate_path(selected_records(link)[key]))
     if (report["archive"] != key or digest(parent) != report["control_sha256"]
             or link["source_library_sha256"][str(parent.relative_to(ROOT))] != report["control_sha256"]
             or report["control_binary_sha256"] != link["binary"]["sha256"]
@@ -169,7 +177,8 @@ if __name__ == "__main__":
     elif args.batch:
         release = json.loads(args.link.read_bytes())
         parents = selected_records(release)
-        manifest = release["iproute2_route_names"] if args.linked else json.loads((args.pilot / "archives.json").read_bytes())
+        manifest = (release.get("iproute2_netlink_protocols", release["iproute2_route_names"]) if args.linked
+                    else json.loads((args.pilot / "archives.json").read_bytes()))
         if len(parents) != 18 or parents.keys() != manifest.keys() or args.jobs < 1:
             parser.error("expected all linked IPRoute2 archives and a positive job count")
         args.batch.mkdir()
