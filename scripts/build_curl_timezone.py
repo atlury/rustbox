@@ -21,11 +21,12 @@ BOUND = b"""            // datestring counted len readable ASCII letters startin
             (*w).tzoff = checktz(word);"""
 
 
-def substitute(crate, sources):
-    if MODULE not in sources or digest(CANONICAL) != "ad58e5aed9b7c9f334186bab69e423bf37c2b941aa2e5b0a93536bfd4aca0881":
+def replace_timezone(data, *, after_month=False):
+    if digest(CANONICAL) != "ad58e5aed9b7c9f334186bab69e423bf37c2b941aa2e5b0a93536bfd4aca0881":
         raise ValueError("unexpected curl date parser")
-    data = (crate / MODULE).read_bytes()
-    caller = function(data, b"datestring", "518ae37ab865d0bd9e06da3953b2f3a94262aa4a738b64f7168a01f2b231824d")
+    caller_sha = ("0f9d0c84920c2320c26884613742915afdb77ab8dd3cf2863aa68c1290aa0463" if after_month else
+                  "518ae37ab865d0bd9e06da3953b2f3a94262aa4a738b64f7168a01f2b231824d")
+    caller = function(data, b"datestring", caller_sha)
     old = function(data, b"checktz", "e702c19ab72520b014a62a2795dbbaf5336becb0e3c41db137df3a647717fa6f")
     compare = function(data, b"tzcompare", "5518529ab252585250e920b519fac41a8a4e86c2abe1eb57bcc216cf32e32aa9")
     search = b"#[inline]\n" + function(data, b"bsearch", "b9bcda5f35cb13592c73cb0b797e9326c09236a360ec3e5cf659bc4ffb92ab2a")
@@ -36,10 +37,17 @@ def substitute(crate, sources):
     helper = HELPER.read_bytes()
     result = data.replace(search, b"").replace(compare, b"").replace(old, helper).replace(CALL, BOUND)
     result = result.replace(tables, tables.replace(b"static mut ", b"static "))
-    return {MODULE: result}, dict(module=MODULE, canonical_sha256=digest(CANONICAL), helper_sha256=sha256(helper).hexdigest(),
+    return result, dict(module=MODULE, canonical_sha256=digest(CANONICAL), helper_sha256=sha256(helper).hexdigest(),
                                   tables_sha256=TABLES_SHA, control_module_sha256=sha256(data).hexdigest(),
                                   candidate_module_sha256=sha256(result).hexdigest(), mutable_tables_removed=3,
                                   raw_pointer_types_removed=len(POINTER.findall(data)) - len(POINTER.findall(result)))
+
+
+def substitute(crate, sources):
+    if MODULE not in sources:
+        raise ValueError("curl date parser outside the selected compiler inputs")
+    result, facts = replace_timezone((crate / MODULE).read_bytes())
+    return {MODULE: result}, facts
 
 
 if __name__ == "__main__":

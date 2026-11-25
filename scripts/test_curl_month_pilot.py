@@ -26,7 +26,7 @@ def cases():
     return b"\n".join(dates) + b"\n", required, len(dates)
 
 
-def compare(pilot, link):
+def compare(pilot, link, case_set=cases):
     release = json.loads(link.read_bytes())
     row = json.loads((pilot / "pilot.json").read_bytes())
     parent = ROOT / row["archive"]
@@ -39,7 +39,7 @@ def compare(pilot, link):
             or release["source_library_sha256"][row["archive"]] != digest(parent) or digest(parent) != row["control_sha256"]
             or release["source_library_sha256"][str(obj.relative_to(ROOT))] != digest(obj)):
         raise ValueError("curl candidate or retained object differs from selected release")
-    inputs, required, count = cases()
+    inputs, required, count = case_set()
     driver = ROOT / "tests/curl-calendar/getdate.c"
     flags = ["-ldl", "-lpthread", "-lm", "-lrt"]
     with TemporaryDirectory() as temp:

@@ -981,6 +981,15 @@ signed and unsigned plain char, agreed for all 7,454,980 one- to four-letter
 inputs per build, including the 69 accepted spellings. These counts cover
 the isolated lookup. [Time-zone comparison](evidence/curl-timezone-lookup.json)
 
+The source replay composes the month and time-zone changes in the same
+date parser and the FTP decoder in a second module. It reproduces all
+241 compiler inputs after the previously qualified 1,586 native C strings.
+The three readers together remove another 30 raw-pointer types. For the
+public API baseline, the production and checked-month archives matched
+both canonical builds on 3,010 dates. The checked-month archive repeated
+all 3,010 under Memcheck.
+[Compiler inputs and public baseline](evidence/curl-checked-parser-composition.json)
+
 The curl FTP permission decoder now has a checked nine-byte candidate.
 Its only caller checks the available buffer before copying the field.
 This removes 24 raw offset reads in the decoder and one raw-pointer type.
