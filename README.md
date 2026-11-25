@@ -1015,6 +1015,12 @@ mode, all four implementations read the invalid multibyte stream as one
 record and produced identical warnings and output. Eight Memcheck runs passed.
 [GNU awk array-key baseline](evidence/gawk-integer-key-baseline.json)
 
+Both dispatch modes of the original full executable also reproduced these
+40 locale profiles and the `awk` alias checks. The standalone command suite
+added 104 comparisons against the two canonical compilers. In subcommand
+mode, Memcheck ran the multicall executable directly with `gawk` as its
+first argument. [Release executable baseline](evidence/gawk-array-key-multicall-baseline.json)
+
 GNU Inetutils' argument-help formatter contains four unsigned-byte blank
 tests in each of its 26 engine archives. Five distinct compiled versions of
 the formatter account for all 26 copies. Replaying the substitution on each
