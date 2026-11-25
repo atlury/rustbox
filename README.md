@@ -363,6 +363,14 @@ under their content hashes.
 python3 -B scripts/e2fsprogs_dirhash_archives.py work/analysis/rustbox-multicall-link.json work/analysis/dirhash-archive-trial --jobs 3
 ```
 
+The 13 rebuilt candidate archives are pinned in
+`batches/e2fsprogs-dirhash-arrays.json`. Replaying their compiler inputs
+accounts for 520 converted pointer accesses, 130 raw-pointer type occurrences
+and 52 raw borrows. A fresh build of `badblocks` reproduced its entire
+compiler receipt and archive. The candidate `e2fsck` and `debugfs` also
+matched canonical tools on a 1,200-entry indexed ext4 directory, including
+the complete image after `e2fsck -D`.
+
 Reproduce the linked Rust source inventory with
 `python3 -B scripts/audit_linked_pointers.py work/analysis/rustbox-multicall-link.json`.
 It checks the archive hashes, reads the Rust compiler's source lists and
