@@ -765,6 +765,13 @@ and 6,922 removed casts across the 12 engines. The counts include the
 earlier individual trials. Each archive still has its own source digest.
 [Per-engine counts and hashes](evidence/e2fsprogs-twelve-static-array-replay.json)
 
+The Less message-catalog baseline checks all 331 built-in messages against
+the canonical definitions. It reloads every override, checks that earlier
+pointers still return their original strings, and exercises a help buffer
+with an embedded NUL. Both canonical compilers and the linked Rust archive
+returned identical output. The Rust archive also passed Memcheck.
+[Less API baseline](evidence/less-message-catalog-baseline.json)
+
 The native C-string manifest can grow within an archive already selected.
 `prepare_native_c_strings.py enroll --extend` checks that the new cold
 build covers every earlier edit on the same compiler sources and produces
