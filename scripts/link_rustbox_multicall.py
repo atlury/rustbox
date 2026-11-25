@@ -15,6 +15,7 @@ import tempfile
 from pathlib import Path
 
 import iproute2_address_protocol_archive as address_protocols
+import iproute2_route_name_archives as route_names
 from build_iproute2_bridge import build_bridge
 from build_e2fsprogs_checksums import build_shared, BITCOUNT_SYMBOL, CRC_SYMBOLS
 from batch_cargo_private_inlines import release_archives
@@ -2429,6 +2430,7 @@ def main() -> int:
     parser.add_argument("--curl-c-residue-directory", type=Path, required=True)
     parser.add_argument("--inetutils-rust-directory", type=Path, required=True)
     parser.add_argument("--inetutils-telnet-c-boundary", type=Path, required=True)
+    parser.add_argument("--iproute2-route-names", action="store_true")
     parser.add_argument("--iproute2-address-protocols", action="store_true")
     parser.add_argument("--iproute2-address-protocol-copies", action="store_true")
     parser.add_argument("--iproute2-rust-directory", type=Path, required=True)
@@ -2789,6 +2791,23 @@ def main() -> int:
         del source_library_hashes[str(original)]
         source_library_hashes[str(relative)] = record["candidate_sha256"]
         iproute2_libraries[name] = libraries[iproute2_library_indices[name]] = candidate
+    route_records = {}
+    if args.iproute2_route_names:
+        parent_link = {"iproute2_address_protocols": address_record, "iproute2_address_protocol_copies": address_copies}
+        route_records = route_names.verified_records(parent_link, route_names.manifest())
+        for key, record in route_records.items():
+            name = Path(key).stem.removeprefix("lib").removesuffix("_audit")
+            old = iproute2_libraries[name]
+            if name == "bridge":
+                route_names.prepare(record, mounted_bridge=True)
+            relative = route_names.candidate_path(record)
+            candidate = repository / relative
+            if (source_library_hashes[str(old.relative_to(repository))] != record["control_sha256"]
+                    or sha256(candidate) != record["candidate_sha256"] or c_exports(candidate) != c_exports(old)):
+                raise ValueError(f"scope/realm archive or its C exports differ for {name}")
+            del source_library_hashes[str(old.relative_to(repository))]
+            source_library_hashes[str(relative)] = record["candidate_sha256"]
+            iproute2_libraries[name] = libraries[iproute2_library_indices[name]] = candidate
     expected_symbols.update(f"rustbox_{symbol}_main" for symbol in util_dispatch.values())
     expected_symbols.add("rustbox_m4_main")
     expected_symbols.update({
@@ -3763,6 +3782,7 @@ def main() -> int:
             }
         },
         "source_library_sha256": source_library_hashes,
+        **({"iproute2_route_names": route_records} if route_records else {}),
         **({"iproute2_address_protocol_copies": address_copies} if address_copies else {}),
         **({"iproute2_address_protocols": address_record} if address_record else {}),
         **({"e2fsprogs_dirhash_arrays": dirhash_arrays} if dirhash_arrays else {}),
