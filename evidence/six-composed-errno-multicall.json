@@ -1,0 +1,346 @@
+{
+  "archive_evidence_sha256": {
+    "findutils": "af052e3c12ab32e7a1436e553d1788fb3c3a307f6367fc8fb472e825a68d0cf1",
+    "gawk": "dba70895c4479034c529077b0198a178d8567da356f23df1bc860d06962a259c",
+    "grep": "b979862b7ea91c88720c2d691b5e864ff3b9437700c92bbca15acb6997a1bdef",
+    "gzip": "b979862b7ea91c88720c2d691b5e864ff3b9437700c92bbca15acb6997a1bdef",
+    "sed": "b979862b7ea91c88720c2d691b5e864ff3b9437700c92bbca15acb6997a1bdef",
+    "shadow": "a2b2b056f4dac2021e7e86eb6ad03bc6806cc8049228f7876df968759c066f9e"
+  },
+  "candidate": {
+    "bytes": 42451160,
+    "packages": {
+      "findutils": "36f72ffdb021c04badc77176b527a92100a782e9e640b02da3187f8c60ca4b0c",
+      "gawk": "72b13f62273c1f2a757ce94da2becfcb1286cc40d0200b5192f64fe9b26c890c",
+      "grep": "7eb58eaf6aa14f79405b63981505776b4f8fd3d295b4c819aa4125e523224433",
+      "gzip": "5a24acb51b65681bce0dd4232a1be754bd484a41967c8581f2d326e4a646d4cc",
+      "sed": "173d07e24f484da1336259e316b339bce197eba1eb0e88029fc71a42c9f65458",
+      "shadow": "6df4952d6fea191aa03830a805cdc359e651d2ff7bba9d9e5e100591512d64f0"
+    },
+    "sha256": "b30311f90ca9ac7f199d4f76121422dca3f879fb42fad5fc12713690887728c5",
+    "stripped_bytes": 24961776,
+    "stripped_sha256": "aaac114a500dcab28826bef232687a27a2588953c96661b10ae11570faa7bf05"
+  },
+  "linker_command_sha256": "411fb9679311197f0273b170625142d2fa40e9016b74ba6255e2c4fe02f7183e",
+  "parent": {
+    "bytes": 42450832,
+    "packages": {
+      "findutils": "b6def5e6a86efc3bc82d66f15829b5fd0c3e19a46dfc6d0dd973202be2780da7",
+      "gawk": "ca02f86dbb647f04f50d507ac7a4ee9f08267af7cd3e54a50dec67564e83eac4",
+      "grep": "773734b6968c400631b9404b1195ac5929648fb397c59caba84bcee0e58c1a11",
+      "gzip": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd",
+      "sed": "99cddd80c240b7f1fce4fb5a278fef15a1a836b6b3b5ae1c6a82065407ef708c",
+      "shadow": "1f03d771809640b56a6df61f4f297ebfbf08cdb2ae3fd2b88303da7b58d8a917"
+    },
+    "sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+    "stripped_bytes": 24961776,
+    "stripped_sha256": "a12c31721cf685e3827f4ea859583a60d670d3ead4a6fd71e649798dab900913"
+  },
+  "parent_link_report_sha256": "e4cccf40558c6b77560f9d99b50e34eb2e0a9ebb26727cb07beb6bcbaf77615a",
+  "public": {
+    "findutils": {
+      "applet": {
+        "clang": {
+          "cases": 38,
+          "passed": 38
+        },
+        "gcc": {
+          "cases": 38,
+          "passed": 38
+        }
+      },
+      "subcommand": {
+        "clang": {
+          "cases": 38,
+          "passed": 38
+        },
+        "gcc": {
+          "cases": 38,
+          "passed": 38
+        }
+      }
+    },
+    "gawk": {
+      "awk_alias": [
+        "applet",
+        "subcommand"
+      ],
+      "byte_keys": {
+        "input_records_per_run": 2140,
+        "input_sha256": "5e0fa3a669a50fcbfce03cd155dafac54f6c18d7d0576af413e203659b6b1d0e",
+        "locales": 20,
+        "memcheck_runs": 8,
+        "parsed_records": {
+          "C.utf8/bytes": 2140,
+          "C.utf8/locale": 2140,
+          "C/bytes": 2140,
+          "C/locale": 2140,
+          "POSIX/bytes": 2140,
+          "POSIX/locale": 2140,
+          "am_ET.utf8/bytes": 2140,
+          "am_ET.utf8/locale": 2140,
+          "ar_SY.utf8/bytes": 2140,
+          "ar_SY.utf8/locale": 2140,
+          "en_US.utf8/bytes": 2140,
+          "en_US.utf8/locale": 2140,
+          "fa_IR.utf8/bytes": 2140,
+          "fa_IR.utf8/locale": 2140,
+          "fi_FI.utf8/bytes": 2140,
+          "fi_FI.utf8/locale": 2140,
+          "fr_FR.iso88591/bytes": 2140,
+          "fr_FR.iso88591/locale": 2140,
+          "fr_FR.utf8/bytes": 2140,
+          "fr_FR.utf8/locale": 2140,
+          "fr_FR/bytes": 2140,
+          "fr_FR/locale": 2140,
+          "ga_IE.utf8/bytes": 2140,
+          "ga_IE.utf8/locale": 2140,
+          "gv_GB.utf8/bytes": 2140,
+          "gv_GB.utf8/locale": 2140,
+          "ja_JP.eucjp/bytes": 2140,
+          "ja_JP.eucjp/locale": 1,
+          "sv_SE.iso88591/bytes": 2140,
+          "sv_SE.iso88591/locale": 2140,
+          "sv_SE.utf8/bytes": 2140,
+          "sv_SE.utf8/locale": 2140,
+          "sv_SE/bytes": 2140,
+          "sv_SE/locale": 2140,
+          "th_TH.utf8/bytes": 2140,
+          "th_TH.utf8/locale": 2140,
+          "tr_TR.utf8/bytes": 2140,
+          "tr_TR.utf8/locale": 2140,
+          "zh_CN.gb18030/bytes": 2140,
+          "zh_CN.gb18030/locale": 1
+        },
+        "profiles": {
+          "C.utf8/bytes": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          ],
+          "C.utf8/locale": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "20d3f3a36ab23e295bb780e2191ec4d7505f56a51567eb6134ad15d0979da344"
+          ],
+          "C/bytes": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          ],
+          "C/locale": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          ],
+          "POSIX/bytes": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          ],
+          "POSIX/locale": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          ],
+          "am_ET.utf8/bytes": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          ],
+          "am_ET.utf8/locale": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "20d3f3a36ab23e295bb780e2191ec4d7505f56a51567eb6134ad15d0979da344"
+          ],
+          "ar_SY.utf8/bytes": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          ],
+          "ar_SY.utf8/locale": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "20d3f3a36ab23e295bb780e2191ec4d7505f56a51567eb6134ad15d0979da344"
+          ],
+          "en_US.utf8/bytes": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          ],
+          "en_US.utf8/locale": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "20d3f3a36ab23e295bb780e2191ec4d7505f56a51567eb6134ad15d0979da344"
+          ],
+          "fa_IR.utf8/bytes": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          ],
+          "fa_IR.utf8/locale": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "20d3f3a36ab23e295bb780e2191ec4d7505f56a51567eb6134ad15d0979da344"
+          ],
+          "fi_FI.utf8/bytes": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          ],
+          "fi_FI.utf8/locale": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "20d3f3a36ab23e295bb780e2191ec4d7505f56a51567eb6134ad15d0979da344"
+          ],
+          "fr_FR.iso88591/bytes": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          ],
+          "fr_FR.iso88591/locale": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          ],
+          "fr_FR.utf8/bytes": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          ],
+          "fr_FR.utf8/locale": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "20d3f3a36ab23e295bb780e2191ec4d7505f56a51567eb6134ad15d0979da344"
+          ],
+          "fr_FR/bytes": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          ],
+          "fr_FR/locale": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          ],
+          "ga_IE.utf8/bytes": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          ],
+          "ga_IE.utf8/locale": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "20d3f3a36ab23e295bb780e2191ec4d7505f56a51567eb6134ad15d0979da344"
+          ],
+          "gv_GB.utf8/bytes": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          ],
+          "gv_GB.utf8/locale": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "20d3f3a36ab23e295bb780e2191ec4d7505f56a51567eb6134ad15d0979da344"
+          ],
+          "ja_JP.eucjp/bytes": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          ],
+          "ja_JP.eucjp/locale": [
+            "73fee5557bfd050929c77984175b7b0b051733f839ee897d2a7c120b4a87b829",
+            "9e44f3d57df1c716f811ee509d648bf2da86afdc8ef8fd6cc98ecc1ae89950f2"
+          ],
+          "sv_SE.iso88591/bytes": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          ],
+          "sv_SE.iso88591/locale": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          ],
+          "sv_SE.utf8/bytes": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          ],
+          "sv_SE.utf8/locale": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "20d3f3a36ab23e295bb780e2191ec4d7505f56a51567eb6134ad15d0979da344"
+          ],
+          "sv_SE/bytes": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          ],
+          "sv_SE/locale": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          ],
+          "th_TH.utf8/bytes": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          ],
+          "th_TH.utf8/locale": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "20d3f3a36ab23e295bb780e2191ec4d7505f56a51567eb6134ad15d0979da344"
+          ],
+          "tr_TR.utf8/bytes": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          ],
+          "tr_TR.utf8/locale": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "20d3f3a36ab23e295bb780e2191ec4d7505f56a51567eb6134ad15d0979da344"
+          ],
+          "zh_CN.gb18030/bytes": [
+            "877cd52d3a341e13e39279f98d1da85ef6c70969addc67a78278cda4773ae229",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          ],
+          "zh_CN.gb18030/locale": [
+            "cc141837f93deff99733d767297697b7343d857d065fdda367c4a9b80339eff9",
+            "9e44f3d57df1c716f811ee509d648bf2da86afdc8ef8fd6cc98ecc1ae89950f2"
+          ]
+        }
+      },
+      "commands": {
+        "applet-clang": 26,
+        "applet-gcc": 26,
+        "subcommand-clang": 26,
+        "subcommand-gcc": 26
+      }
+    },
+    "grep": {
+      "alias_cases": {
+        "applet-clang": 4,
+        "applet-gcc": 4,
+        "subcommand-clang": 4,
+        "subcommand-gcc": 4
+      },
+      "commands": {
+        "applet-clang": 36,
+        "applet-gcc": 36,
+        "subcommand-clang": 36,
+        "subcommand-gcc": 36
+      }
+    },
+    "gzip": {
+      "commands": {
+        "applet-clang": 108,
+        "applet-gcc": 108,
+        "subcommand-clang": 108,
+        "subcommand-gcc": 108
+      }
+    },
+    "sed": {
+      "commands": {
+        "applet-clang": 30,
+        "applet-gcc": 30,
+        "subcommand-clang": 30,
+        "subcommand-gcc": 30
+      }
+    },
+    "shadow": {
+      "applet": {
+        "clang": {
+          "cases": 79,
+          "passed": 79,
+          "programs": 32,
+          "stateful_cases": 8
+        },
+        "gcc": {
+          "cases": 79,
+          "passed": 79,
+          "programs": 32,
+          "stateful_cases": 8
+        }
+      },
+      "subcommand": {
+        "clang": {
+          "cases": 79,
+          "passed": 79,
+          "programs": 32,
+          "stateful_cases": 8
+        },
+        "gcc": {
+          "cases": 79,
+          "passed": 79,
+          "programs": 32,
+          "stateful_cases": 8
+        }
+      }
+    }
+  }
+}

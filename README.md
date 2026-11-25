@@ -949,6 +949,12 @@ python3 -B scripts/prepare_errno_parents.py work/analysis/shared-stdio-final/rel
 
 [Per-package compiler input hashes and counts](evidence/errno-composed-source-counts.json)
 
+All six checked errno archives also linked into one 499-name executable.
+This candidate used the native-string inputs for GNU awk, grep, gzip, sed,
+Findutils and Shadow. Its command and locale results matched their independent
+checks in both dispatch modes. It measured 24,961,776 bytes stripped.
+[Six-archive multicall comparison](evidence/six-composed-errno-multicall.json)
+
 Across all 713 compiler inputs for those six rebuilt archives, the packed-curl
 release contained 82,241 explicit raw-pointer type occurrences. The prepared
 inputs contained 70,493 after verified stdio and native-string changes.
