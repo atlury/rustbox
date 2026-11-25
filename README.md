@@ -283,8 +283,8 @@ production reduction.
 The default 499-name Linux executable uses verified private-helper cleanups
 for 89 linked Rust archives. These cover the 20 E2fsprogs, 18 IPRoute2 and
 26 GNU Inetutils engines and 25 other package archives. Across the linked
-applet sources the raw-pointer type count fell from **1,379,960 to 1,062,083**.
-Counting byte-identical Rust files once gives **744,397** remaining occurrences.
+applet sources the raw-pointer type count fell from **1,379,960 to 1,056,624**.
+Counting byte-identical Rust files once gives **746,529** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
 | Production change | Raw-pointer type occurrences removed |
@@ -301,13 +301,14 @@ The count of applets certified pointer-free is still zero.
 | Compiler-verified removal of unused private helpers in GNU bc, GNU Findutils, LZ4 and ncurses | 13,777 |
 | Compiler-verified removal of unused private helpers in zstd command-line modules | 498 |
 | Compiler-verified removal of unused private helpers across 17 further package archives (breakdown below) | 41,548 |
-| **Total** | **317,877** |
+| Second-pass private-helper removal across 15 linked archives | 5,459 |
+| **Total** | **323,336** |
 
 E2fsprogs accounts for 215,007 remaining occurrences, down from 401,012.
-IPRoute2 accounts for 223,692, down from 265,323. GNU Inetutils accounts
+IPRoute2 accounts for 221,200, down from 265,323. GNU Inetutils accounts
 for 85,898, down from 104,385. The curl crate accounts for 89,022, down
 from 96,855. GNU gzip accounts for 3,063, down from 4,086, and XZ Utils
-accounts for 15,164, down from 22,239.
+accounts for 13,411, down from 22,239.
 The checksum replacement saved 135,168 stripped bytes. Removing unused source
 preserved the entire ELF and link map byte-for-byte in those cleanup releases.
 Sharing the live bitmap counter kept the stripped size at 25,081,136 bytes.
@@ -609,7 +610,7 @@ evidence retains the previous 14,022 Coreutils and util-linux comparisons.
 The GNU patch replay used the pinned GNU ed from its oracle image and
 exercised the upstream `ed-style` case.
 
-| Package | Unused functions removed | Raw-pointer type occurrences removed | Raw-pointer type occurrences remaining |
+| Package | Unused functions removed | Raw-pointer type occurrences removed | Occurrences after the first pass |
 |---|---:|---:|---:|
 | acl-2.4.0 | 1,149 | 2,221 | 5,261 |
 | attr-2.6.0 | 208 | 444 | 1,815 |
@@ -631,8 +632,8 @@ exercised the upstream `ed-style` case.
 
 A second pass can find functions whose only remaining callers disappeared in
 the first pass. To prioritize builds, rank only functions that became newly
-unreferenced in their source files. This estimates 1,144 candidates across
-14 of the 25 single-crate package archives. Each selected archive still
+unreferenced in their source files. The first ranking estimated 1,144 candidates
+across 14 of the 25 single-crate package archives. Each selected archive still
 requires fresh compiler diagnostics, an offline rebuild, matching archive
 bytes and an independent replay of both edits from the original sources.
 
@@ -661,12 +662,53 @@ To enroll completed batches, pass their `results.json` files to
 `scripts/prepare_second_inline_layers.py --from-link "$link" --enroll-results`.
 It verifies each receipt against the original release before writing the manifest.
 Run the multicall build and the previous-to-current inventory comparison above
-to record the production count.
+to record the production count. Package suites can also run on partial selections
+while other archives compile. To combine their results, run
+`python3 -B scripts/verify_inline_replays.py PREVIOUS FINAL --replay SELECTION RESULTS`
+and repeat `--replay` for each group. This checks the binary hash, both link reports
+and coverage of every changed archive in each package.
 
-The XZ Utils experiment verified 569 further private functions containing
-1,753 raw-pointer type occurrences across 89 files. GNU gzip yielded zero
-additional functions. These isolated experiments are outside the production
-counts above.
+The second pass checked 16 archives. It removed 1,789 private helpers and
+5,459 raw-pointer type occurrences across 530 compiler-selected source entries
+in 15 archives. The source files shrank by 724,266 bytes. All 14 affected
+package suites passed on the final ELF digest, as recorded in
+`evidence/rustbox-second-inline-replays.json`. All 884 dispatcher comparisons
+passed. The live IPRoute2 replay matched canonical bridge on 259 records and
+the kernel monitor matched two add and two delete notifications. The executable
+and link map retained their previous hashes. GNU M4 had no
+eligible second-pass helper. GNU gzip had also yielded zero in its prior
+experiment.
+
+| Archive | Additional private helpers removed | Additional raw-pointer type occurrences removed |
+|---|---:|---:|
+| bison-3.8.2 | 157 | 231 |
+| diffutils-3.12 | 10 | 10 |
+| findutils-4.10.0 | 11 | 2 |
+| gawk-5.4.0 | 41 | 295 |
+| grep-3.12 | 37 | 8 |
+| iproute2-7.3.0 (ip) | 261 | 1,044 |
+| iproute2-7.3.0 (tc) | 362 | 1,448 |
+| kmod-34.3 | 33 | 33 |
+| m4-1.4.21 | 0 | 0 |
+| patch-2.8 | 1 | 2 |
+| pkgconf-3.0.11 | 117 | 199 |
+| sed-4.10 | 18 | 8 |
+| shadow-4.20.4 | 75 | 285 |
+| tar-1.35 | 11 | 33 |
+| xz-5.8.4 | 569 | 1,753 |
+| zstd-1.5.7 | 86 | 108 |
+| **Total** | **1,789** | **5,459** |
+
+Counting each distinct file once rose from 744,397 to 746,529 occurrences.
+Sixteen groups of formerly identical IPRoute2 files now have separate source
+variants. For example, `ip` and `tc` removed additional helpers from
+`src/lib/ll_addr.rs` while `arpd` retains its earlier version. The inventory
+across all 4,908 linked source entries fell by 5,459.
+
+The next grouped Cargo ranking estimates 1,482 newly unreferenced helpers in
+43 engine archives. The largest remaining estimates are IPRoute2 `rdma` (310),
+`dcb` (149) and `ss` (113). These figures guide build order. The production
+count credits only verified removals.
 
 The default build removes 9,189 unused private helper definitions and 18,487
 raw-pointer type occurrences from 606 GNU Inetutils source entries. The
