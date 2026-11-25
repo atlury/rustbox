@@ -1534,6 +1534,13 @@ The test also verifies the hash of the executable and the coverage from
 both canonical compiler builds.
 [Archive selection regression](tests/iproute2-netlink-protocols/routing-release.py)
 
+The regular Linux linker also rebuilt the 499-name candidate in an isolated
+build directory. Its stripped and unstripped SHA-256 digests matched the
+independent relink. All 288 command comparisons passed again on the saved
+executable. Run `scripts/build_rustbox_multicall.sh --iproute2-routing-protocols
+--curl-manual` for the routing and packed-curl combination.
+[Normal build, inventory and command results](evidence/iproute2-routing-protocol-normal-link.json)
+
 The IPRoute2 `ip` pilot replaces the 256-slot mutable DS field name table
 with checked indices and optional borrowed C strings. It preserves lazy
 configuration loading, the cached name across numeric conversions, and the
