@@ -401,6 +401,12 @@ For a whole-crate candidate with changed archive bytes,
 tries smaller groups. Each trial cold-builds the union of the proposed group
 and every previously accepted module. The results file identifies the exact
 pilot directory that can be enrolled and lists the remaining modules.
+In a separate 43-archive sweep, 27 cold builds reproduced their complete
+static archives after sharing `FILE` layouts. Those compiler inputs contain
+8,028 fewer repeated raw-pointer fields. The other 16 rebuilt archives
+differed from their controls and remain outside this selection.
+[Archive comparisons and per-module counts](evidence/stdio-package-archive-comparisons.json)
+
 The optional build below selects a manifest on top of the packed curl manual.
 Compare the resulting link report with the saved parent to verify the ELF,
 link map, archive inputs and source counts.
