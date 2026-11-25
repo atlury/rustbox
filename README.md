@@ -353,6 +353,27 @@ The stripped SHA-256 is
 | E2fsprogs directory-hash TEA and half-MD4 transforms | Fixed-array borrows in all 13 linked engines | The outer directory-hash function still accepts C ABI buffers |
 | E2fsprogs Hangul decomposition and Unicode trie lookup | Default multicall across 13 engines | The legacy cursor still reads caller-provided filename bytes and writes to its own scratch buffer through raw pointers |
 
+GNU gzip 1.14 has a verified pilot for sharing glibc's `FILE` layout. One
+Rust module supplies the original `#[repr(C)]` struct and its three opaque
+pointees to 26 other modules. This removes 468 duplicate raw-pointer field
+declarations. The 18 pointer fields in the shared layout still describe the
+glibc ABI. The complete static archive and the standalone executable each
+matched their respective controls byte for byte. The Linux C and Rust probes
+agreed on the struct's 216-byte size, 8-byte alignment, and all 29 field
+offsets and widths. All 108 GNU gzip command cases and two Memcheck runs
+passed. [Gzip pilot evidence](evidence/gzip-stdio-layout-pilot.json)
+
+To find identical layouts within other linked crates and reproduce the gzip
+comparison, run the following locally. The ranker counts one retained
+provider per archive. The pilot checks the compiler input set on both builds.
+
+```sh
+link=work/analysis/rustbox-multicall-link.json
+python3 -B scripts/rank_stdio_layouts.py "$link"
+python3 -B scripts/build_shared_stdio_pilot.py --link "$link" --output work/analysis/gzip-stdio-test
+python3 -B scripts/test_gzip_stdio_pilot.py work/analysis/gzip-stdio-test "$link"
+```
+
 Run `python3 -B scripts/rank_fixed_array_helpers.py work/analysis/rustbox-multicall-link.json`
 to find private functions in generated Rust whose pointer parameters occur
 only in constant-offset accesses. The scan groups identical definitions and
