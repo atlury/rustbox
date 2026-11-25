@@ -1,0 +1,82 @@
+{
+  "archive_evidence_sha256": {
+    "findutils": "af052e3c12ab32e7a1436e553d1788fb3c3a307f6367fc8fb472e825a68d0cf1",
+    "shadow": "a2b2b056f4dac2021e7e86eb6ad03bc6806cc8049228f7876df968759c066f9e"
+  },
+  "candidate": {
+    "bytes": 42450752,
+    "packages": {
+      "findutils": "36f72ffdb021c04badc77176b527a92100a782e9e640b02da3187f8c60ca4b0c",
+      "shadow": "6df4952d6fea191aa03830a805cdc359e651d2ff7bba9d9e5e100591512d64f0"
+    },
+    "sha256": "8710666fd9782900efd0318d4fd1d3cb980a18734ebbbaadebb9e64deb760ab5",
+    "stripped_bytes": 24961776,
+    "stripped_sha256": "86f781e16c392440a5d2070ded4c2175807d5800e4cc558514ae12da627cde4d"
+  },
+  "linker_command_sha256": "411fb9679311197f0273b170625142d2fa40e9016b74ba6255e2c4fe02f7183e",
+  "parent": {
+    "bytes": 42450832,
+    "packages": {
+      "findutils": "b6def5e6a86efc3bc82d66f15829b5fd0c3e19a46dfc6d0dd973202be2780da7",
+      "shadow": "1f03d771809640b56a6df61f4f297ebfbf08cdb2ae3fd2b88303da7b58d8a917"
+    },
+    "sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+    "stripped_bytes": 24961776,
+    "stripped_sha256": "a12c31721cf685e3827f4ea859583a60d670d3ead4a6fd71e649798dab900913"
+  },
+  "parent_link_report_sha256": "e4cccf40558c6b77560f9d99b50e34eb2e0a9ebb26727cb07beb6bcbaf77615a",
+  "public": {
+    "findutils": {
+      "applet": {
+        "clang": {
+          "cases": 38,
+          "passed": 38
+        },
+        "gcc": {
+          "cases": 38,
+          "passed": 38
+        }
+      },
+      "subcommand": {
+        "clang": {
+          "cases": 38,
+          "passed": 38
+        },
+        "gcc": {
+          "cases": 38,
+          "passed": 38
+        }
+      }
+    },
+    "shadow": {
+      "applet": {
+        "clang": {
+          "cases": 79,
+          "passed": 79,
+          "programs": 32,
+          "stateful_cases": 8
+        },
+        "gcc": {
+          "cases": 79,
+          "passed": 79,
+          "programs": 32,
+          "stateful_cases": 8
+        }
+      },
+      "subcommand": {
+        "clang": {
+          "cases": 79,
+          "passed": 79,
+          "programs": 32,
+          "stateful_cases": 8
+        },
+        "gcc": {
+          "cases": 79,
+          "passed": 79,
+          "programs": 32,
+          "stateful_cases": 8
+        }
+      }
+    }
+  }
+}

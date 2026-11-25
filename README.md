@@ -928,6 +928,12 @@ Findutils covers 38 per compiler. Its archive tests run the canonical
 `updatedb` shell with the selected `find` and `frcode` engines.
 [Canonical command baselines](evidence/errno-ranked-command-baselines.json)
 
+Shadow and Findutils also passed together in a full 499-name executable.
+Each dispatch mode matched both canonical compilers for all 79 Shadow and
+38 Findutils cases, for 468 comparisons. The in-binary `updatedb` produced
+the same database bytes. The stripped candidate measured 24,961,776 bytes.
+[Combined executable evidence](evidence/shadow-findutils-errno-multicall.json)
+
 The source replay also composes these passes across GNU awk, grep, gzip,
 sed, Findutils and Shadow. All six replayed from the shared-stdio release
 through their verified native string selections. Across their compiled
