@@ -387,6 +387,20 @@ python3 -B scripts/build_shared_stdio_batch.py "$link" work/analysis/stdio-ranks
   work/analysis/stdio-batch --package coreutils-9.12 --package util-linux-2.42.4
 ```
 
+To select byte-identical builds in a multicall release, enroll their pilot
+directories against the actual parent link. Enrollment replays every selected
+compiler source, installs the cold-built archives and records the receipts.
+The optional build below selects a manifest on top of the packed curl manual.
+Compare the resulting link report with the saved parent to verify the ELF,
+link map, archive inputs and source counts.
+
+```sh
+python3 -B scripts/prepare_shared_stdio.py enroll PARENT_LINK work/analysis/stdio-selection.json PILOT_DIR...
+scripts/build_rustbox_multicall.sh --shared-stdio work/analysis/stdio-selection.json
+python3 -B scripts/audit_linked_pointers.py "$link" --verify-shared-stdio-from PARENT_LINK
+```
+
+
 
 Run `python3 -B scripts/rank_fixed_array_helpers.py work/analysis/rustbox-multicall-link.json`
 to find private functions in generated Rust whose pointer parameters occur
