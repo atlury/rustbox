@@ -1,0 +1,102 @@
+{
+  "archive": {
+    "archive": "work/analysis/zstd-1.5.7/translations/c2rust-0.22.1/zstd-1.5.7-stable/target/release/libzstd_1_5_7_normalized_audit.a",
+    "archive_pilot": true,
+    "boundary_cases": 2625,
+    "candidate_module_sha256": "186cbbf24686e09ef2f865e2a29ea922d56710bab7589df82a75c263ca9c43d9",
+    "candidate_sha256": "addc444994786e332600daa7fcf9c072890a92d53166174a3fac6fb44c230a55",
+    "candidate_sources_sha256": "04f5b07ba0fc94be4b9e03af9e46be3a7f7d7c2258143b18dd409fa0043044f4",
+    "canonical_sha256": "d0f7bfbc9dc4f906532e71cbe7500324e02d8947eb8d4d99ae9ad3638e86b5d5",
+    "comparisons": {
+      "blocks.c": {
+        "bytes": 647605,
+        "driver_sha256": "4c9c38a280e0bda6df4554e75404a1db19d17049fe1152e5364f81c7897b55ad",
+        "sha256": "8a9402dd7fb5cb5a89789de91e42e2b69467ee91631e6fa7a430fdfa356c64ba"
+      },
+      "long-block.c": {
+        "bytes": 10000759,
+        "driver_sha256": "1188e781c2f03cb627da9e1d7627f6c6902932828c06c1acc8ec418779a88368",
+        "sha256": "395b66422c0cab1f0c1e889ccba78bd43ba348c0c90a82c5957123849e05285d"
+      }
+    },
+    "compiler_selected_sources": 46,
+    "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+    "control_module_sha256": "4b88bb82f0d31aba86f9ccdc0760112490e8495db5992a2f1e193a1f0b1cb43f",
+    "control_sha256": "91146c566f13c2058e0cb10ecebbcebb2ee3925e6708cf14a1b17a6b4a8c97d8",
+    "helper_sha256": "1b6410620f70982b546efde181e86a0ed8d76ad63770dd581131fb150f35a2b3",
+    "memcheck_runs": 2,
+    "module": "src/programs/lorem.rs",
+    "mutable_statics_removed": 13,
+    "packed_bytes": 1598,
+    "parent_sources_sha256": "65a0f3b164c03f1323d8130b9b793e0585c2a651327de61d7af7071824ded6b2",
+    "public_generators": 2,
+    "raw_pointer_types_removed": 64,
+    "replayed_sources": 46,
+    "words": 255
+  },
+  "native_c_string_receipt": {
+    "archive": "work/analysis/zstd-1.5.7/translations/c2rust-0.22.1/zstd-1.5.7-stable/target/release/libzstd_1_5_7_normalized_audit.a",
+    "c_string_literals": 369,
+    "candidate_sha256": "91146c566f13c2058e0cb10ecebbcebb2ee3925e6708cf14a1b17a6b4a8c97d8",
+    "candidate_sources_sha256": "65a0f3b164c03f1323d8130b9b793e0585c2a651327de61d7af7071824ded6b2",
+    "compiler_selected_sources": 46,
+    "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+    "control_sha256": "91146c566f13c2058e0cb10ecebbcebb2ee3925e6708cf14a1b17a6b4a8c97d8",
+    "modules": {
+      "src/programs/fileio.rs": 104,
+      "src/programs/lorem.rs": 255,
+      "src/programs/zstdcli.rs": 10
+    },
+    "parent_sources_sha256": "37b033ac29ddc8a2792a01ec077e36d92fbda08538361c5863ec7b0da237f12d",
+    "raw_ffi_pointer_extractions": 369,
+    "raw_pointer_types_removed": 738,
+    "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+    "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+  },
+  "parent_sha256": "7e1b3f7659e6d1522ad45a057d2f64da7672a78f388c1877d9a389a64a0be5a0",
+  "prior_archive_identical": true,
+  "public": {
+    "candidate_sha256": "addc444994786e332600daa7fcf9c072890a92d53166174a3fac6fb44c230a55",
+    "command_cases": {
+      "clang": 17,
+      "gcc": 17
+    },
+    "command_driver_sha256": "4664e9807924882d518d6a5466d2104c5239145dcdcbb392ef9ed5a19a9ca9c5",
+    "synthetic": {
+      "10000000": {
+        "compressed_bytes": 3240239,
+        "ratio": "3.086"
+      },
+      "65536": {
+        "compressed_bytes": 22185,
+        "ratio": "2.954"
+      }
+    }
+  },
+  "stdio_receipt": {
+    "archive": "work/analysis/zstd-1.5.7/translations/c2rust-0.22.1/zstd-1.5.7-stable/target/release/libzstd_1_5_7_normalized_audit.a",
+    "candidate_sha256": "91146c566f13c2058e0cb10ecebbcebb2ee3925e6708cf14a1b17a6b4a8c97d8",
+    "candidate_sources_sha256": "37b033ac29ddc8a2792a01ec077e36d92fbda08538361c5863ec7b0da237f12d",
+    "compiler_selected_sources": 46,
+    "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+    "control_sha256": "91146c566f13c2058e0cb10ecebbcebb2ee3925e6708cf14a1b17a6b4a8c97d8",
+    "parent_sources_sha256": "64832e93ca95ae047509e82badf1909753fc3c588920f6fe206831abcffcbd4f",
+    "provider": "src/lib/dictBuilder/cover.rs",
+    "raw_pointer_types_removed": 234,
+    "reexporting_modules": [
+      "src/lib/dictBuilder/divsufsort.rs",
+      "src/lib/dictBuilder/fastcover.rs",
+      "src/lib/dictBuilder/zdict.rs",
+      "src/lib/legacy/zstd_v05.rs",
+      "src/programs/benchzstd.rs",
+      "src/programs/datagen.rs",
+      "src/programs/dibio.rs",
+      "src/programs/fileio.rs",
+      "src/programs/fileio_asyncio.rs",
+      "src/programs/timefn.rs",
+      "src/programs/util.rs",
+      "src/programs/zstdcli.rs",
+      "src/programs/zstdcli_trace.rs"
+    ]
+  }
+}

@@ -926,6 +926,13 @@ command comparisons. The public benchmark compressed the 64 KiB and
 10 MB generated inputs to the same sizes as the Rust candidate.
 [Zstd archive and public benchmark evidence](evidence/zstd-lorem-archive.json)
 
+A separate cold build applies the writer after the verified Zstd stdio layout
+and 369 selected native C strings across the archive.
+Relative to that compiler input it removes 64 explicit pointer types.
+All 46 compiler inputs were replayed, both generator drivers passed
+Memcheck, and both canonical command suites and benchmark sizes matched.
+[Composed archive and exact input receipts](evidence/zstd-lorem-composed-archive.json)
+
 The isolated 499-name link reproduced the complete parent ELF before replacing the archive. All six Zstd command names passed 68 differential cases across both dispatch modes. The 64 KiB and 10 MB benchmarks matched the canonical compression sizes. The candidate measured 24,949,472 bytes stripped.
 [Multicall results](evidence/zstd-checked-buffer-multicall.json)
 
