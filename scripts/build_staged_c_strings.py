@@ -2,6 +2,7 @@
 """Cold-build source substitutions in the directly compiled E2fsprogs engines and IPRoute2 bridge."""
 # SPDX-License-Identifier: GPL-3.0-or-later
 import argparse
+import errno
 from hashlib import sha256
 import json
 import shutil
@@ -76,6 +77,21 @@ def compile_archive(snapshot, output, key, modules=None, *, routing_protocols=Fa
         (output / "pilot.json").write_text(json.dumps(row, indent=2, sort_keys=True) + "\n")
 
 
+def publish(result, output, archive_name):
+    try:
+        result.rename(output)
+    except OSError as exc:
+        if exc.errno not in (errno.EEXIST, errno.ENOTEMPTY):
+            raise
+        # A second builder can finish after the initial new-directory check.
+        # Accept its result only when both independent runs produced the same bytes.
+        receipt = (result / "pilot.json").read_bytes()
+        expected = json.loads(receipt)["candidate_sha256"]
+        if ((output / "pilot.json").read_bytes() != receipt
+                or digest(output / archive_name) != expected or digest(result / archive_name) != expected):
+            raise ValueError("concurrently published archive or compiler receipt differs") from exc
+
+
 def build(link, output, key, modules=None, *, routing_protocols=False):
     output = output.resolve()
     raw = link.read_bytes()
@@ -93,7 +109,7 @@ def build(link, output, key, modules=None, *, routing_protocols=False):
                         *(["--routing-protocol-table"] if routing_protocols else []), *(modules or ())], check=True)
         if link.read_bytes() != raw:
             raise ValueError("selected release changed during direct compilation")
-        result.rename(output)
+        publish(result, output, Path(key).name)
 
 
 if __name__ == "__main__":
