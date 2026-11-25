@@ -445,6 +445,26 @@ all 884 dispatcher checks and all 14,022 Coreutils and util-linux comparisons.
 The 28 package suites and ten integration check results are recorded in
 `evidence/rustbox-address-protocol-replays.json`.
 
+The next IPRoute2 substitution shares the route-scope and route-realm table
+implementation. A built-in lookup can return before configuration loads. A
+later missing ID loads the configuration and can replace a built-in name.
+The reverse lookup retains its last matched name across numeric parses.
+For example, in a fresh default configuration, looking up `global`, then
+`256`, then `global` returns success with ID 0, a parse failure, and success
+with ID 256. The Rust cache preserves that observable sequence.
+
+The standalone `ip` archive reproduces the linked parent byte for byte and
+removes 553 raw-pointer type occurrences from its compiler-selected source.
+It matched 42,048 canonical lookup results, including errno, and 96 public
+commands. Four Memcheck runs passed. See
+`evidence/iproute2-route-names-pilot.json`. To repeat the experiment with a
+fresh output directory, run the following on the local build host.
+
+```sh
+python3 -B scripts/build_iproute2_address_protocol_pilot.py --route-names --output work/analysis/route-name-pilot
+python3 -B scripts/test_iproute2_route_names.py work/analysis/route-name-pilot
+```
+
 In E2fsprogs the sole caller of the TEA and half-MD4 directory-hash transforms
 owns two distinct, initialized stack arrays of four and eight words. The
 transforms now borrow those arrays. Forty constant-offset dereferences become
