@@ -3,11 +3,11 @@
 # Build and verify one substitution against the saved parent link.
 set -eu
 if [ "$#" -lt 3 ] || [ "$#" -gt 4 ]; then
-    echo "usage: $0 --iproute2-netlink-protocols|--curl-manual|--tar-borrowed-timestamps|--bison-literal-lengths PARENT_LINK NEW_DIRECTORY [PARENT_REPLAYS]" >&2
+    echo "usage: $0 --iproute2-netlink-protocols|--curl-manual|--tar-borrowed-timestamps|--bison-literal-lengths|--iproute2-routing-protocols PARENT_LINK NEW_DIRECTORY [PARENT_REPLAYS]" >&2
     exit 2
 fi
 case "$1" in
-    --iproute2-netlink-protocols|--curl-manual|--tar-borrowed-timestamps|--bison-literal-lengths) selection=$1 ;;
+    --iproute2-netlink-protocols|--curl-manual|--tar-borrowed-timestamps|--bison-literal-lengths|--iproute2-routing-protocols) selection=$1 ;;
     *) echo "unsupported pointer substitution: $1" >&2; exit 2 ;;
 esac
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)

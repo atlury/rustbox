@@ -12,6 +12,7 @@ import sys
 
 from check_cargo_private_inlines import ROOT, LINK_REPORT, digest
 from iproute2_route_name_archives import candidate_path, netlink_control_view, netlink_path, verified_records
+from iproute2_route_name_archives import lookup_archive, lookup_records, routing_lookup_pair
 from test_iproute2_route_names import SOURCE, capture, run
 
 DRIVER = ROOT / "tests/iproute2-netlink-protocols/lookups.c"
@@ -21,7 +22,12 @@ def compare(linked_key=None):
     pilot = Path("/pilot")
     link = json.loads(Path("/control-link.json").read_bytes())
     binary = Path("/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox")
-    if linked_key:
+    routing = linked_key and "iproute2_routing_protocols" in link
+    if routing:
+        row, control, candidate = routing_lookup_pair(link, linked_key)
+        if digest(binary) != link["binary"]["sha256"]:
+            raise ValueError("unexpected multicall executable")
+    elif linked_key:
         row = link["iproute2_netlink_protocols"][linked_key]
         verified_records(link, link["iproute2_netlink_protocols"], netlink=True)
         candidate = ROOT / netlink_path(row)
@@ -32,16 +38,17 @@ def compare(linked_key=None):
         control_link = netlink_control_view(link)
         row = json.loads((pilot / "pilot.json").read_bytes())
         candidate = pilot / Path(row["archive"]).name
-    key = row["archive"]
-    parent = verified_records(link, link["iproute2_route_names"])[key]
-    control = ROOT / candidate_path(parent)
+    if not routing:
+        key = row["archive"]
+        parent = verified_records(link, link["iproute2_route_names"])[key]
+        control = ROOT / candidate_path(parent)
+        if (row["control_sha256"] != parent["candidate_sha256"]
+                or row["control_binary_sha256"] != control_link["binary"]["sha256"]
+                or control_link["source_library_sha256"].get(str(candidate_path(parent))) != row["control_sha256"]):
+            raise ValueError("unexpected netlink control")
     public_ss = candidate.name == "libss_audit.a"
-    if (digest(control) != row["control_sha256"]
-            or row["control_sha256"] != parent["candidate_sha256"]
-            or row["control_binary_sha256"] != control_link["binary"]["sha256"]
-            or control_link["source_library_sha256"].get(str(candidate_path(parent))) != row["control_sha256"]
-            or digest(candidate) != row["candidate_sha256"]):
-        raise ValueError("unexpected ss control or candidate")
+    if digest(control) != row["control_sha256"] or digest(candidate) != row["candidate_sha256"]:
+        raise ValueError("unexpected netlink archive bytes")
     canonical = SOURCE / "lib/rt_names.c"
     header = SOURCE / "include/rt_names.h"
     if (digest(canonical) != "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e"
@@ -134,7 +141,7 @@ def qualify_archive(key, row, pilot, link_path, output, reference, multicall_has
             profile.update(public_commands=0, public_successes=0)
     expected = dict(row, profiles=profiles, **{k: reference[k] for k in
                     ("driver_sha256", "canonical_sha256", "memcheck_runs")})
-    archive = ROOT / netlink_path(row) if multicall_hash is not None else pilot / name / Path(key).name
+    archive = ROOT / lookup_archive(json.loads(link_path.read_bytes()), key) if multicall_hash is not None else pilot / name / Path(key).name
     if multicall_hash is not None:
         expected["multicall_sha256"] = multicall_hash
     if result != expected or digest(archive) != result["candidate_sha256"]:
@@ -161,11 +168,12 @@ if __name__ == "__main__":
             parser.error("--jobs must be positive")
         args.batch.mkdir(parents=True, exist_ok=True)
         link = json.loads(args.link.read_bytes())
-        rows = link["iproute2_netlink_protocols"] if args.linked else json.loads((args.pilot / "archives.json").read_bytes())
-        verified_records(link, rows, netlink=True)
-        control_sha = netlink_control_view(link)["binary"]["sha256"]
-        if any(row["control_binary_sha256"] != control_sha for row in rows.values()):
-            raise ValueError("netlink protocol candidates refer to another parent release")
+        rows = lookup_records(link) if args.linked else json.loads((args.pilot / "archives.json").read_bytes())
+        if not (args.linked and "iproute2_routing_protocols" in link):
+            verified_records(link, rows, netlink=True)
+            control_sha = netlink_control_view(link)["binary"]["sha256"]
+            if any(row["control_binary_sha256"] != control_sha for row in rows.values()):
+                raise ValueError("netlink protocol candidates refer to another parent release")
         reference = json.loads((ROOT / "evidence/iproute2-netlink-protocols-pilot.json").read_bytes())
 
         def check(key):
@@ -173,8 +181,8 @@ if __name__ == "__main__":
                                    link["binary"]["sha256"] if args.linked else None)
 
         with ThreadPoolExecutor(max_workers=args.jobs) as pool:
-            checked = list(pool.map(check, sorted(rows)))
-        (args.batch / "results.json").write_text(json.dumps({r["archive"]: r for r in checked},
+            checked = dict(zip(sorted(rows), pool.map(check, sorted(rows))))
+        (args.batch / "results.json").write_text(json.dumps(checked,
                                                             indent=2, sort_keys=True) + "\n")
     elif args.pilot or args.linked_key:
         pilot = args.pilot or ROOT / "scripts"

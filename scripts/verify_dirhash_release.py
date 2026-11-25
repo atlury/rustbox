@@ -14,7 +14,7 @@ import sys
 from check_cargo_private_inlines import ROOT, LINK_REPORT, digest
 from curl_manual_replay import lookup as curl_replay
 from iproute2_address_protocol_archive import ARCHIVE, validate_copy_results
-from iproute2_route_name_archives import additional_lookup_records
+from iproute2_route_name_archives import additional_lookup_records, lookup_records
 from test_inline_release import SENSITIVE, all_packages
 from verify_declaration_release import logged
 
@@ -100,7 +100,11 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
     if copies:
         image_id = subprocess.check_output(["docker", "image", "inspect", "--format", "{{.Id}}", "rustbox-e2fsprogs:2026-11-24"], text=True).strip()
         tasks.append(("iproute2-address-protocol-copies", ["test_iproute2_address_protocols.sh", "--linked-copies"]))
-    netlink = release.get("iproute2_netlink_protocols", {})
+    routing = release.get("iproute2_routing_protocols")
+    if routing:
+        tasks.append(("iproute2-routing-protocols", ["test_routing_protocol_multicall.py", binary,
+                      ROOT / "evidence/iproute2-routing-protocol-multicall.json", "--link", current]))
+    netlink = lookup_records(release) if release.get("iproute2_netlink_protocols") else {}
     if netlink:
         tasks.append(("iproute2-netlink-protocols", ["test_iproute2_netlink_protocols.py", "--linked", "--link", current,
                                                     "--batch", output / "netlink-comparisons", "--jobs", "3"]))
@@ -129,11 +133,20 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
         with (output / "intermediate-inventory.json").open("wb") as stream:
             subprocess.run([sys.executable, "-B", scripts / "audit_linked_pointers.py", previous,
                             "--verify-dirhash-from", original], cwd=ROOT, stdout=stream, check=True)
+    stages = (
+        ("iproute2_routing_protocols", "--verify-routing-protocols-from"),
+        ("bison_literal_lengths", "--verify-bison-lengths-from"),
+        ("tar_borrowed_timestamps", "--verify-tar-timestamps-from"),
+        ("curl_manual", "--verify-curl-manual-from"),
+        ("iproute2_netlink_protocols", "--verify-netlink-protocols-from"),
+        ("iproute2_route_names", "--verify-route-names-from"),
+    )
+    fallback = "--verify-address-protocols-from" if address_change else "--verify-dirhash-from"
+    option = next((flag for key, flag in stages if release.get(key) and release[key] != prior.get(key)), fallback)
     inventory = output / "inventory.json"
     with inventory.open("wb") as stream:
-        subprocess.run([sys.executable, "-B", scripts / "audit_linked_pointers.py", current,
-                        "--verify-bison-lengths-from" if lengths else "--verify-tar-timestamps-from" if timestamps else "--verify-curl-manual-from" if packed_manual else "--verify-netlink-protocols-from" if netlink else "--verify-route-names-from" if routes else
-                        "--verify-address-protocols-from" if address_change else "--verify-dirhash-from", previous], cwd=ROOT, stdout=stream, check=True)
+        subprocess.run([sys.executable, "-B", scripts / "audit_linked_pointers.py", current, option, previous],
+                       cwd=ROOT, stdout=stream, check=True)
     registered = all_packages()
     with ThreadPoolExecutor(max_workers=2) as worker:
         independent = None
@@ -171,6 +184,8 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
         raise ValueError("release changed during verification")
     result = {"link_report_sha256": hashlib.sha256(selected).hexdigest(), "previous_link_report_sha256": digest(previous),
               "binary_sha256": release["binary"]["sha256"], "packages": statuses, "passed_checks": [name for name, _ in tasks]}
+    if routing:
+        result["iproute2_routing_protocols"] = json.loads((output / "iproute2-routing-protocols.log").read_bytes())
     if lengths:
         result["bison_literal_lengths"] = json.loads((output / "bison-literal-lengths.log").read_bytes())
     if timestamps:

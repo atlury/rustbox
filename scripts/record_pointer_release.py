@@ -7,7 +7,7 @@ from pathlib import Path
 from tempfile import NamedTemporaryFile
 
 from check_cargo_private_inlines import ROOT, LINK_REPORT, digest
-from iproute2_route_name_archives import manifest
+from iproute2_route_name_archives import lookup_records, manifest
 from test_inline_release import all_packages
 
 
@@ -25,9 +25,10 @@ def record(binary, results, rankings):
     curl = release.get("curl_manual")
     timestamps = release.get("tar_borrowed_timestamps")
     lengths = release.get("bison_literal_lengths")
+    routing = release.get("iproute2_routing_protocols")
     replay_name = "rustbox-netlink-protocol-replays"
     for record, name in ((curl, "rustbox-curl-manual-replays"), (timestamps, "rustbox-tar-timestamps-replays"),
-                         (lengths, "rustbox-bison-length-replays")):
+                         (lengths, "rustbox-bison-length-replays"), (routing, "rustbox-routing-protocol-replays")):
         if record:
             replay_name = name
     inputs = {
@@ -49,8 +50,9 @@ def record(binary, results, rankings):
         raise ValueError("package results or tested parent differ")
     pilot = json.loads((evidence / "iproute2-netlink-protocols-pilot.json").read_bytes())
     profiles = pilot["profiles"]
+    tested = lookup_records(release)
     expected = {
-        "archive_sha256": {key: row["candidate_sha256"] for key, row in rows.items()},
+        "archive_sha256": {key: row["candidate_sha256"] for key, row in tested.items()},
         "canonical_lookups": len(rows) * sum(p["forward"] + p["reverse"] for p in profiles),
         "memcheck_runs": len(rows) * pilot["memcheck_runs"],
         "public_commands_per_dispatch_mode": sum(p["public_commands"] for p in profiles),
@@ -62,6 +64,15 @@ def record(binary, results, rankings):
     if {k: d["raw_pointer_type_tokens"] for k, d in deltas.items()} != {
             k: row["raw_pointer_types_removed_in_pilot_module"] for k, row in rows.items()}:
         raise ValueError("compiled inventory and per-engine reductions differ")
+    if routing:
+        from test_routing_protocol_multicall import expected_binary, validate_coverage
+        preview = json.loads((evidence / "iproute2-routing-protocol-multicall.json").read_bytes())
+        tested_routes = replay["iproute2_routing_protocols"]
+        if (expected_binary(preview, release) != binary_sha or tested_routes["elf_sha256"] != binary_sha
+                or {k: d["raw_pointer_type_tokens"] for k, d in inventory["routing_protocol_deltas"].items()}
+                != {k: r["raw_pointer_types_removed"] for k, r in routing.items()}):
+            raise ValueError("routing reader inventory or tested executable differs from the selected archives")
+        validate_coverage(preview, tested_routes)
     if lengths:
         from bison_length_archive import selection
         row = selection.pinned()["pilot"]

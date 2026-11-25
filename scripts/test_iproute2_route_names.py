@@ -12,6 +12,7 @@ import subprocess
 
 from check_cargo_private_inlines import ROOT, LINK_REPORT, digest
 from iproute2_address_protocol_archive import ARCHIVE, candidate_path, selected_records
+from iproute2_route_name_archives import lookup_records, routing_lookup_pair
 
 HERE = Path(__file__).resolve()
 SOURCE = ROOT / "work/upstream/iproute2-7.3.0"
@@ -31,30 +32,32 @@ def compare(pilot, key, live=False):
     from iproute2_route_name_archives import build_control_view, candidate_path as route_path
     release = json.loads(Path("/control-link.json").read_bytes())
     binary = Path("/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox")
-    if live and "iproute2_netlink_protocols" in release:
+    routing = live and "iproute2_routing_protocols" in release
+    if routing:
+        report, parent, variant = routing_lookup_pair(release, key)
+    elif live and "iproute2_netlink_protocols" in release:
         from iproute2_route_name_archives import netlink_path, netlink_control_view
         report = release["iproute2_netlink_protocols"][key]
         link = netlink_control_view(release)
         variant = ROOT / netlink_path(report)
-        if digest(binary) != release["binary"]["sha256"]:
-            raise ValueError("unexpected multicall executable")
     elif live:
         report = release["iproute2_route_names"][key]
         link = build_control_view(release)
         variant = ROOT / route_path(report)
-        if digest(binary) != release["binary"]["sha256"]:
-            raise ValueError("unexpected multicall executable")
     else:
         link = build_control_view(release)
         report = json.loads((pilot / "pilot.json").read_bytes())
         variant = pilot / Path(key).name
-    parent = ROOT / (route_path(link["iproute2_route_names"][key]) if "iproute2_route_names" in link
-                     else candidate_path(selected_records(link)[key]))
-    if (report["archive"] != key or digest(parent) != report["control_sha256"]
-            or link["source_library_sha256"][str(parent.relative_to(ROOT))] != report["control_sha256"]
-            or report["control_binary_sha256"] != link["binary"]["sha256"]
-            or digest(variant) != report["candidate_sha256"]):
-        raise ValueError("unexpected scope/realm pilot or linked parent")
+    if not routing:
+        parent = ROOT / (route_path(link["iproute2_route_names"][key]) if "iproute2_route_names" in link
+                         else candidate_path(selected_records(link)[key]))
+        if (report["archive"] != key or link["source_library_sha256"][str(parent.relative_to(ROOT))] != report["control_sha256"]
+                or report["control_binary_sha256"] != link["binary"]["sha256"]):
+            raise ValueError("unexpected scope/realm control")
+    if live and digest(binary) != release["binary"]["sha256"]:
+        raise ValueError("unexpected multicall executable")
+    if digest(parent) != report["control_sha256"] or digest(variant) != report["candidate_sha256"]:
+        raise ValueError("unexpected scope/realm archive bytes")
     oracle_sources = {key: digest(SOURCE / key) for key in ("lib/rt_names.c", "include/rt_names.h")}
     if list(oracle_sources.values()) != ["c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e",
                                          "b8223569a65254ecd3ea34c0368b253e355f558c270e246fdb7c240823b29414"]:
@@ -177,7 +180,7 @@ if __name__ == "__main__":
     elif args.batch:
         release = json.loads(args.link.read_bytes())
         parents = selected_records(release)
-        manifest = (release.get("iproute2_netlink_protocols", release["iproute2_route_names"]) if args.linked
+        manifest = (lookup_records(release) if args.linked
                     else json.loads((args.pilot / "archives.json").read_bytes()))
         if len(parents) != 18 or parents.keys() != manifest.keys() or args.jobs < 1:
             parser.error("expected all linked IPRoute2 archives and a positive job count")
@@ -191,7 +194,7 @@ if __name__ == "__main__":
             print(f"{name} passed", flush=True)
             return data
         with ThreadPoolExecutor(max_workers=args.jobs) as pool:
-            rows = list(pool.map(compare_one, sorted(parents)))
-        (args.batch / "results.json").write_text(json.dumps({r["archive"]: r for r in rows}, indent=2, sort_keys=True) + "\n")
+            rows = dict(zip(sorted(parents), pool.map(compare_one, sorted(parents))))
+        (args.batch / "results.json").write_text(json.dumps(rows, indent=2, sort_keys=True) + "\n")
     else:
         linux_comparison(args.pilot, str(ARCHIVE), args.link, live=args.linked)

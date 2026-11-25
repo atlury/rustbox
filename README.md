@@ -1201,6 +1201,13 @@ archives and verifies their C exports before linking. It accepts an
 explicit C-string manifest or prepares the required IPRoute2 entries.
 [Build option regression](tests/iproute2-netlink-protocols/routing-build-options.py)
 
+With the new routing archives selected, the earlier IPRoute2 interfaces
+also matched canonical C across 393,480 netlink and 756,864 scope and realm
+lookups. The two suites passed 144 Memcheck runs across the 18 engines.
+The address-protocol checks covered the public `ip` commands and the
+other 17 archives on the same executable.
+[Per-engine lookup and command results](evidence/iproute2-routing-protocol-abi-regressions.json)
+
 With the `ip` engine switched to the new routing protocol reader, all 21
 IPRoute2 names passed 288 canonical comparisons in the complete multicall.
 The suite covers six live `routel` queries and six route-protocol filters,
