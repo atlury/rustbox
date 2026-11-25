@@ -1006,6 +1006,14 @@ archive's compiler inputs would remove 104 classification-table reads and
 archive is the first build under test.
 [Per-engine compiler-source hashes](evidence/inetutils-argp-classification-sources.json)
 
+The hostname archive cold-built and reproduced its compiler inputs. The
+default C-locale help, usage and version matched, including four clean
+Memcheck runs for default help. At a custom right margin, Memcheck reported
+an error on the canonical GCC executable. The public comparison stopped
+there. The direct formatter stress run also failed on canonical GCC.
+All 26 formatter substitutions remain outside the release pending a reliable
+comparison for that behavior. [Hostname test result](evidence/inetutils-hostname-ctype-gate.json)
+
 GNU sed's two canonical gnulib builds and its production Rust archive
 preserved the caller's errno in all 75 quoting calls, including signed
 integer endpoints and buffers too small for the output. Five overflowing
