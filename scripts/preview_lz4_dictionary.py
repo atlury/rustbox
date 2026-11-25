@@ -72,6 +72,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ("parent", "log", "pilot", "output"):
         parser.add_argument(name, type=Path)
+    parser.add_argument("--qualification", type=Path, help="canonical checks for a new compiler-source parent")
     args = parser.parse_args()
     qualified = json.loads((ROOT / "evidence/lz4-benchmark-dictionary-pilot.json").read_bytes())
+    if args.qualification:
+        tested = json.loads(args.qualification.read_bytes())
+        for key in ("canonical_sha256", "driver_sha256", "generator_cases", "memcheck_cases", "command_cases",
+                    "result_bytes", "result_sha256", "words", "packed_bytes"):
+            if tested[key] != qualified[key]:
+                raise ValueError(f"changed canonical dictionary, output or coverage: {key}")
+        qualified = tested
     preview(args.parent, args.log, args.pilot, args.output, qualified, namespace, commands)

@@ -799,6 +799,13 @@ four runs, with successful decompression and checksum checks. The packed
 dictionary reduced this preview by 4,096 stripped bytes.
 [LZ4 multicall results](evidence/lz4-benchmark-dictionary-multicall.json)
 
+With 1,382 native C-string literals already compiled into LZ4, the dictionary
+removes another 11 raw-pointer type occurrences. A fresh build reproduced the
+same dictionary archive and the same stripped multicall executable as the
+earlier trial. All 2,625 generator and Memcheck cases, 108 multicall command
+comparisons and four 10 MB benchmark runs passed again.
+[Combined source, archive and executable evidence](evidence/lz4-native-c-string-dictionary.json)
+
 ```sh
 python3 -B tests/lz4-dictionary/source.py "$link"
 python3 -B scripts/build_lz4_dictionary_pilot.py --link "$link" --archive "$lz4_archive" --output "$pilot"
