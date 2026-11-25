@@ -1,14 +1,14 @@
 {
   "all": {
     "archives": 127,
-    "as_ptr_calls": 5237,
+    "as_ptr_calls": 5240,
     "files": 4908,
-    "raw_borrows": 84209,
-    "raw_pointer_type_tokens": 954965,
+    "raw_borrows": 84206,
+    "raw_pointer_type_tokens": 943552,
     "slices_from_raw_parts": 4,
     "standalone_objects": 3
   },
-  "binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+  "binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
   "byte_identical_foreign_declarations": {
     "acl_2_4_0_normalized": {
       "changed_files": 70,
@@ -1525,10 +1525,18 @@
     }
   },
   "counting_identical_files_once": {
-    "as_ptr_calls": 4434,
-    "raw_borrows": 60771,
-    "raw_pointer_type_tokens": 694842,
+    "as_ptr_calls": 4437,
+    "raw_borrows": 60768,
+    "raw_pointer_type_tokens": 683429,
     "slices_from_raw_parts": 4
+  },
+  "curl_manual_deltas": {
+    "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/release/libcurl_8_23_0_normalized_audit.a": {
+      "as_ptr_calls": -3,
+      "raw_borrows": 3,
+      "raw_pointer_type_tokens": 11413,
+      "slices_from_raw_parts": 0
+    }
   },
   "fixed_array_conversions": {
     "badblocks": {
@@ -1942,7 +1950,7 @@
       "slices_from_raw_parts": 0
     }
   },
-  "link_report_sha256": "fef8418385bf5a6837d0221f55c7b1c999ed0b469e3a8c68a735830510041df6",
+  "link_report_sha256": "e4cccf40558c6b77560f9d99b50e34eb2e0a9ebb26727cb07beb6bcbaf77615a",
   "non_applet_archive_inputs": [
     "/rustbox-gzip/normalized-clang/lib/libgzip.a",
     "/rustbox-inetutils/normalized-clang/lib/libgnu_a-printf-args.o",
@@ -2004,10 +2012,10 @@
     },
     "curl-8.23.0": {
       "archives": 1,
-      "as_ptr_calls": 239,
+      "as_ptr_calls": 242,
       "files": 241,
-      "raw_borrows": 5525,
-      "raw_pointer_type_tokens": 85468,
+      "raw_borrows": 5522,
+      "raw_pointer_type_tokens": 74055,
       "slices_from_raw_parts": 0
     },
     "diffutils-3.12": {

@@ -221,7 +221,7 @@ E2fsprogs integration passes 112/112 canonical comparisons and all 32
 Valgrind paths; its 20 private namespaces rename 8,126 symbols after removing
 3,966 byte-identical Rust runtime members already provided by Procps-ng.
 Exact evidence is in `evidence/e2fsprogs-1.47.4-multicall.json`.  The resulting
-499-name executable is 43,069,296 bytes unstripped and 25,113,312 bytes
+499-name executable is 42,450,832 bytes unstripped and 24,961,776 bytes
 stripped. Sharing the Coreutils runtime with Gzip saved 289,264 stripped
 bytes. The linker compares 328 archive members byte-for-byte before sharing
 them. The exact hashes and
@@ -295,8 +295,8 @@ for 89 linked Rust archives. These cover the 20 E2fsprogs, 18 IPRoute2 and
 26 GNU Inetutils engines and 25 other package archives. A second compiler pass
 removed additional helpers in 58 of those archives. The declaration cleanup
 covers 89 archives, including 20 E2fsprogs engines. Across the linked applet
-sources the raw-pointer type count fell from **1,379,960 to 954,965**.
-Counting byte-identical Rust files once gives **694,842** remaining occurrences.
+sources the raw-pointer type count fell from **1,379,960 to 943,552**.
+Counting byte-identical Rust files once gives **683,429** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
 The IPRoute2 `ss` pilot replaces the netlink protocol name table and removes
@@ -333,11 +333,12 @@ integration. [Pilot evidence](evidence/iproute2-netlink-protocols-pilot.json)
 | Immutable IPRoute2 address-protocol names across 18 engines | 5,166 |
 | IPRoute2 route-scope and route-realm tables across 18 engines | 9,954 |
 | IPRoute2 netlink protocol names across 18 engines | 5,670 |
-| **Total** | **424,995** |
+| Packed curl manual and its readers | 11,413 |
+| **Total** | **436,408** |
 
 E2fsprogs accounts for 197,728 remaining occurrences, down from 401,012.
 IPRoute2 accounts for 175,260, down from 265,323. GNU Inetutils accounts
-for 78,019, down from 104,385. The curl crate accounts for 85,468, down
+for 78,019, down from 104,385. The curl crate accounts for 74,055, down
 from 96,855. GNU gzip accounts for 2,604, down from 4,086, and XZ Utils
 accounts for 9,784, down from 22,239.
 The checksum replacement saved 135,168 stripped bytes. Removing unused source
@@ -349,10 +350,11 @@ added 11,264 stripped bytes. The IPRoute2 address-protocol conversion added
 6,144 stripped bytes and 6,184 unstripped bytes across the multicall. The
 scope and realm tables added 9,408 stripped bytes and 4,720 unstripped bytes.
 The netlink tables added 5,360 stripped bytes and 12,112 unstripped bytes.
+Packing the curl manual saved 151,536 stripped bytes and 618,464 unstripped bytes.
 The current unstripped SHA-256 is
-`4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a`.
+`e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341`.
 The stripped SHA-256 is
-`ceb375c3e0b182dcfea04ac53e48aa82a6b58eea6482265b97626e6010fbff24`.
+`a12c31721cf685e3827f4ea859583a60d670d3ead4a6fd71e649798dab900913`.
 
 | Code | Where it runs | Remaining work |
 |---|---|---|
@@ -360,6 +362,7 @@ The stripped SHA-256 is
 | IPRoute2 address-protocol names | Immutable lookup table in all 18 linked engine archives. The two public lookup functions are emitted in the `ip` namespace | The configuration loader uses a temporary pointer array and the public functions still take raw ABI arguments |
 | IPRoute2 route scope and realm names | Shared Rust implementation across all 18 engines, including the separate `bridge` build | The loader and four public C interfaces still exchange raw pointers |
 | IPRoute2 netlink protocol names | Shared table in all 18 linked engines, including the public `ss` command | Loader and public C entry points still have raw ABI arguments |
+| curl built-in manual | Immutable packed bytes shared by full manual and option help | Each output or help callback still receives a C string at the ABI boundary |
 | IPRoute2 generic `parse_rtattr_flags` | Disposable `bridge` build | Audit the remaining callers before wider use |
 | E2fsprogs bitmap population count | Shared by the filesystem checker and resizer | Move the bitmap buffer owners to safe Rust to remove the remaining raw ABI argument |
 | E2fsprogs CRC16, CRC32C and big-endian CRC32 | One linked provider for each function, shared across 13 engines | Replace the raw buffers at the caller boundary as their owners are migrated |
@@ -879,9 +882,9 @@ To rank complete static C-string pointer tables, run
 `python3 -B scripts/rank_shared_applet_modules.py LINK_REPORT --tables --limit 20`.
 This scan groups identical declarations even when their surrounding modules
 differ. It includes single-engine tables and records whether the translated
-static is public. Curl's private manual table contains 5,704 literal entries
-and one null sentinel, accounting for 11,409 raw-pointer type occurrences
-in one declaration. Public tables such as Flex's scanner skeleton require a
+static is public. The scan identified curl's former private manual table, which contained
+5,704 literal entries, one null sentinel and 11,409 raw-pointer type occurrences
+in its declaration. Public tables such as Flex's scanner skeleton require a
 separate check of their ABI consumers.
 
 The curl 8.23.0 pilot packs the manual into one immutable buffer. Its
@@ -892,8 +895,10 @@ selected parent and removed 11,413 raw-pointer type occurrences. The
 and Clang builds, including option-specific help for 274 long spellings
 and 59 short spellings. Closed-pipe and full-device behavior matched, and
 five Memcheck runs passed. The isolated stripped curl executable fell from
-2,046,200 to 1,894,656 bytes, a saving of 151,544 bytes. These measurements
-are for the curl pilot. [Pilot evidence](evidence/curl-manual-pilot.json)
+2,046,200 to 1,894,656 bytes, a saving of 151,544 bytes. In the default multicall, all 614 cases passed through both
+`rustbox curl` and the `curl` applet name. All 28 package suites and 14,022
+batch differential cases passed. [Pilot evidence](evidence/curl-manual-pilot.json)
+[Release replay](evidence/rustbox-curl-manual-replays.json)
 
 ```sh
 link=work/analysis/rustbox-multicall-link.json
@@ -901,7 +906,7 @@ python3 -B scripts/build_curl_manual_pilot.py --link "$link" --output work/analy
 python3 -B scripts/test_curl_manual_pilot.py work/analysis/curl-manual-pilot --link "$link"
 ```
 
-The full multicall can select this archive with
+The default multicall selects this archive. The explicit build command is
 `scripts/build_rustbox_multicall.sh --curl-manual`. To build it from the
 saved netlink release, run the local package suites and publish the source
 inventory together, use the command below. The results directory must be new.

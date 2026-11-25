@@ -1,28 +1,10 @@
 {
-  "binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
-  "copies": 487,
-  "groups": 389,
-  "link_report_sha256": "fef8418385bf5a6837d0221f55c7b1c999ed0b469e3a8c68a735830510041df6",
-  "raw_pointer_type_tokens": 45991,
+  "binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+  "copies": 486,
+  "groups": 388,
+  "link_report_sha256": "e4cccf40558c6b77560f9d99b50e34eb2e0a9ebb26727cb07beb6bcbaf77615a",
+  "raw_pointer_type_tokens": 34582,
   "tables": [
-    {
-      "archives": {
-        "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/release/libcurl_8_23_0_normalized_audit.a": [
-          "src/src/tool_hugehelp.rs"
-        ]
-      },
-      "capacity": 5705,
-      "copies": 1,
-      "declaration_sha256": "53280cafdce99fbeb0b7e9f92eb8e3914d278fac1747ec0ff8d22d10ebece376",
-      "literal_names": 5704,
-      "name": "curlman",
-      "null_slots": 1,
-      "package": "curl-8.23.0",
-      "pointee": "const",
-      "public": false,
-      "raw_pointer_type_tokens": 11409,
-      "raw_pointer_types_per_copy": 11409
-    },
     {
       "archives": {
         "work/analysis/flex-2.6.4/translations/c2rust-0.22.1/flex-2.6.4-stable/target/release/libflex_2_6_4_normalized_audit.a": [
@@ -565,6 +547,24 @@
       "public": false,
       "raw_pointer_type_tokens": 111,
       "raw_pointer_types_per_copy": 37
+    },
+    {
+      "archives": {
+        "work/analysis/bc-1.08.2/translations/c2rust-0.22.1/bc-1.08.2-stable/target/release/libbc_1_08_2_normalized_audit.a": [
+          "src/bc/global.rs"
+        ]
+      },
+      "capacity": 47,
+      "copies": 1,
+      "declaration_sha256": "5dc569ef1119897d4107f09382581153a0ae32f033f4257ce2bf0cfa1490afb9",
+      "literal_names": 46,
+      "name": "libmath",
+      "null_slots": 1,
+      "package": "bc-1.08.2",
+      "pointee": "const",
+      "public": true,
+      "raw_pointer_type_tokens": 93,
+      "raw_pointer_types_per_copy": 93
     }
   ]
 }

@@ -40,8 +40,8 @@ if [ "$#" -eq 2 ] && [ "$1" = --shared-stdio ]; then
 fi
 case "$#:${1:-}" in
     1:--iproute2-address-protocols) set -- --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
-    1:--curl-manual) set -- --curl-manual --iproute2-netlink-protocols --iproute2-route-names --iproute2-address-protocol-copies --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
-    0:|1:--iproute2-netlink-protocols) set -- --iproute2-netlink-protocols --iproute2-route-names --iproute2-address-protocol-copies --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
+    0:|1:--curl-manual) set -- --curl-manual --iproute2-netlink-protocols --iproute2-route-names --iproute2-address-protocol-copies --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
+    1:--iproute2-netlink-protocols) set -- --iproute2-netlink-protocols --iproute2-route-names --iproute2-address-protocol-copies --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
     1:--iproute2-route-names) set -- --iproute2-route-names --iproute2-address-protocol-copies --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
     1:--iproute2-address-protocol-copies) set -- --iproute2-address-protocol-copies --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
     2:--e2fsprogs-dirhash-arrays) ;;
