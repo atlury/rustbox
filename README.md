@@ -283,9 +283,10 @@ production reduction.
 The default 499-name Linux executable uses verified private-helper cleanups
 for 89 linked Rust archives. These cover the 20 E2fsprogs, 18 IPRoute2 and
 26 GNU Inetutils engines and 25 other package archives. A second compiler pass
-removed additional helpers in 58 of those archives. Across the linked
-applet sources the raw-pointer type count fell from **1,379,960 to 1,053,368**.
-Counting byte-identical Rust files once gives **744,042** remaining occurrences.
+removed additional helpers in 58 of those archives. Another pass removed
+unused C declarations in 13 E2fsprogs engines. Across the linked
+applet sources the raw-pointer type count fell from **1,379,960 to 1,036,752**.
+Counting byte-identical Rust files once gives **741,005** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
 | Production change | Raw-pointer type occurrences removed |
@@ -304,9 +305,10 @@ The count of applets certified pointer-free is still zero.
 | Compiler-verified removal of unused private helpers across 17 further package archives (breakdown below) | 41,548 |
 | Second-pass private-helper removal across 15 linked archives | 5,459 |
 | Second-pass private-helper removal across 43 further engine archives | 3,256 |
-| **Total** | **326,592** |
+| Compiler-verified removal of unused C declarations in 13 E2fsprogs engines | 16,616 |
+| **Total** | **343,208** |
 
-E2fsprogs accounts for 214,956 remaining occurrences, down from 401,012.
+E2fsprogs accounts for 198,340 remaining occurrences, down from 401,012.
 IPRoute2 accounts for 218,111, down from 265,323. GNU Inetutils accounts
 for 85,782, down from 104,385. The curl crate accounts for 89,022, down
 from 96,855. GNU gzip accounts for 3,063, down from 4,086, and XZ Utils
@@ -733,12 +735,35 @@ deletes. The executable, its stripped
 form and its link map reproduced their previous hashes. The package replay
 record is in `evidence/rustbox-grouped-second-inline-replays.json`.
 
-An independent E2fsprogs `badblocks` experiment removed 1,533 unused C
+The linked E2fsprogs declaration cleanup removed 24,724 unused declarations
+from 937 source entries. This eliminated 16,616 raw-pointer type occurrences
+and 2,585,798 source bytes. All 13 engines reproduced their complete archives
+with compact source removal. See `evidence/rustbox-e2fsprogs-declaration-replays.json`
+for the E2fsprogs suite and its release hashes.
+
+| E2fsprogs engine | Unused declarations removed | Raw-pointer type occurrences removed |
+|---|---:|---:|
+| badblocks | 1,533 | 1,011 |
+| debugfs | 2,792 | 1,979 |
+| dumpe2fs | 1,651 | 1,145 |
+| e2freefrag | 1,472 | 979 |
+| e2fsck | 2,997 | 1,972 |
+| e2image | 1,687 | 1,111 |
+| e2initrd_helper | 1,540 | 1,021 |
+| e2undo | 1,533 | 1,018 |
+| e4defrag | 1,470 | 970 |
+| fuse2fs | 1,666 | 1,107 |
+| mke2fs | 2,315 | 1,568 |
+| resize2fs | 1,989 | 1,311 |
+| tune2fs | 2,079 | 1,424 |
+| **Total** | **24,724** | **16,616** |
+
+The original E2fsprogs `badblocks` experiment removed 1,533 unused C
 declarations across 55 files. This eliminated 1,011 raw-pointer type
 occurrences and 160,356 source bytes in the trial. Both builds reproduced
 the complete release archive. Four comparisons with canonical E2fsprogs
 matched exit status and output and preserved the input image. The production
-inventory above counts only changes selected by the multicall linker.
+table includes these `badblocks` removals once, within the 13-engine total.
 See `evidence/badblocks-foreign-declarations-trial.json` for the hashes.
 
 To repeat the trial, build the selector and run it against the current link.
@@ -779,6 +804,12 @@ archive and analyzes identical file contents once. The text scan recognizes
 generated declarations whose names appear once in a leaf module. Its counts
 are estimates. A removal still needs a fresh rustc diagnostic, an exact syntax
 match, a clean rebuild and a matching full archive.
+
+The ranking after the 13-engine release flags 81,652 pointer types in 46,220
+possible declarations across the 127 archives. For calibration, the same scan
+flagged 22,158 pointer types in the 13 E2fsprogs engines before their cleanup.
+The verified removal was 16,616. See `evidence/rustbox-foreign-declaration-candidates.json`
+for the ranked archive paths and the link-report hash.
 
 The default build removes 9,189 unused private helper definitions and 18,487
 raw-pointer type occurrences from 606 GNU Inetutils source entries. The
