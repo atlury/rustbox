@@ -32,6 +32,20 @@ def substitute(crate, sources):
     return changes, dict(month=first, timezone=second, ftp_permissions=third, raw_pointer_types_removed=removed)
 
 
+def prepare_parent(link):
+    proof = json.loads((ROOT / "evidence/curl-static-array-c-string-extension.json").read_bytes())
+    raw = link.read_bytes()
+    parent = json.loads(raw)
+    row = proof["candidate"]
+    key = row["archive"]
+    if (sha256(raw).hexdigest() != proof["link_report_sha256"] or parent.get("native_c_strings")
+            or row["candidate_sha256"] != row["control_sha256"]
+            or parent["source_library_sha256"].get(key) != row["control_sha256"]):
+        raise ValueError("expected the qualified link before the curl native C strings")
+    parent["native_c_strings"] = {key: row}
+    return parent
+
+
 def replay(link, pilot=None):
     from audit_linked_pointers import measure
     from cargo_source_parent import cargo_origin
@@ -70,9 +84,13 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ("mounted", "link", "output"):
         parser.add_argument("--" + name, type=Path)
-    parser.add_argument("--replay", action="store_true", help="check the selected sources and optionally an existing archive")
+    modes = parser.add_mutually_exclusive_group()
+    modes.add_argument("--prepare-parent", action="store_true", help="emit the exact qualified native-string link on stdout")
+    modes.add_argument("--replay", action="store_true", help="check the selected sources and optionally an existing archive")
     args = parser.parse_args()
-    if args.replay and args.link and not args.mounted:
+    if args.prepare_parent and args.link and not args.output and not args.mounted:
+        print(json.dumps(prepare_parent(args.link), sort_keys=True), end="")
+    elif args.replay and args.link and not args.mounted:
         print(json.dumps(replay(args.link, args.output), sort_keys=True, indent=2))
     elif args.mounted:
         compile_mounted_sources(args.mounted, substitute, MARKER, allow_identical=False)

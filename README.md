@@ -1000,6 +1000,15 @@ both canonical builds on 3,010 dates. The checked-month archive repeated
 all 3,010 under Memcheck.
 [Compiler inputs and public baseline](evidence/curl-checked-parser-composition.json)
 
+To reproduce the combined compiler inputs, start with the recorded
+pre-string link and select its verified curl parent.
+
+```sh
+python3 -B scripts/build_curl_checked_parsers.py --prepare-parent \
+  --link work/analysis/native-strings-remaining-parent.json > work/analysis/curl-checked-parent.json
+python3 -B scripts/build_curl_checked_parsers.py --replay --link work/analysis/curl-checked-parent.json
+```
+
 The curl FTP permission decoder now has a checked nine-byte candidate.
 Its only caller checks the available buffer before copying the field.
 This removes 24 raw offset reads in the decoder and one raw-pointer type.
