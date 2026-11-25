@@ -1,0 +1,96 @@
+{
+  "archive": {
+    "archive": "work/analysis/sed-4.10/translations/c2rust-0.22.1/sed-4.10-stable/target/release/libsed_4_10_normalized_audit.a",
+    "candidate_sha256": "173d07e24f484da1336259e316b339bce197eba1eb0e88029fc71a42c9f65458",
+    "candidate_sources_sha256": "9ab90d5db2c11a9de7c3ea5f2637002c85ad60c21bce18ea4663692f35245323",
+    "compiler_selected_sources": 87,
+    "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+    "control_sha256": "99cddd80c240b7f1fce4fb5a278fef15a1a836b6b3b5ae1c6a82065407ef708c",
+    "helper_sha256": "554946bffc2381da8b362a86ed2063db1c610eca3458430c22fae407ac6eb35d",
+    "modules": {
+      "src/normalized_source/lib/get_permissions.rs": [
+        1,
+        0
+      ],
+      "src/normalized_source/lib/ialloc.rs": [
+        0,
+        1
+      ],
+      "src/normalized_source/lib/malloc/dynarray_emplace_enlarge.rs": [
+        0,
+        1
+      ],
+      "src/normalized_source/lib/malloc/dynarray_resize.rs": [
+        0,
+        1
+      ],
+      "src/normalized_source/lib/malloc/scratch_buffer_grow.rs": [
+        0,
+        1
+      ],
+      "src/normalized_source/lib/malloc/scratch_buffer_grow_preserve.rs": [
+        0,
+        1
+      ],
+      "src/normalized_source/lib/malloc/scratch_buffer_set_array_size.rs": [
+        0,
+        1
+      ],
+      "src/normalized_source/lib/quotearg.rs": [
+        4,
+        4
+      ],
+      "src/normalized_source/lib/reallocarray.rs": [
+        0,
+        1
+      ],
+      "src/normalized_source/lib/se_context.rs": [
+        0,
+        10
+      ],
+      "src/normalized_source/lib/se_label.rs": [
+        0,
+        4
+      ],
+      "src/normalized_source/lib/se_selinux.rs": [
+        0,
+        27
+      ],
+      "src/normalized_source/lib/xmalloc.rs": [
+        0,
+        1
+      ]
+    },
+    "parent_sources_sha256": "140027d2659e5a028d9849819bb0f7e35736464971bfbebdd586639c2e4f2dd8",
+    "raw_pointer_types_removed": 12,
+    "scanner_sha256": "2266bce319952459557e16063cbb60eb40884309a4c18addcfdc39f112a4ccd6",
+    "value_reads": 5,
+    "value_writes": 53
+  },
+  "archive_byte_identical": false,
+  "public": {
+    "allocation_errors_per_run": 5,
+    "api_outputs": {
+      "candidate": "2583e8a9524c2287d28d3853c7ef778608b79862e51ee58be6c7d210a6394ab9",
+      "candidate-memcheck": "2583e8a9524c2287d28d3853c7ef778608b79862e51ee58be6c7d210a6394ab9",
+      "clang": "2583e8a9524c2287d28d3853c7ef778608b79862e51ee58be6c7d210a6394ab9",
+      "clang-memcheck": "2583e8a9524c2287d28d3853c7ef778608b79862e51ee58be6c7d210a6394ab9",
+      "gcc": "2583e8a9524c2287d28d3853c7ef778608b79862e51ee58be6c7d210a6394ab9",
+      "gcc-memcheck": "2583e8a9524c2287d28d3853c7ef778608b79862e51ee58be6c7d210a6394ab9",
+      "parent": "2583e8a9524c2287d28d3853c7ef778608b79862e51ee58be6c7d210a6394ab9",
+      "parent-memcheck": "2583e8a9524c2287d28d3853c7ef778608b79862e51ee58be6c7d210a6394ab9"
+    },
+    "archive_sha256": {
+      "candidate": "173d07e24f484da1336259e316b339bce197eba1eb0e88029fc71a42c9f65458",
+      "clang": "4576fd1d6c6e01ede1ef28d8195914d6ba0c0dfea6ecda585b0529a0e9f4dcc9",
+      "gcc": "706dce863326a42b99ed33f01fb9d8548179c0fd38578330ab1b58f28d07f15a",
+      "parent": "99cddd80c240b7f1fce4fb5a278fef15a1a836b6b3b5ae1c6a82065407ef708c"
+    },
+    "driver_sha256": "b5737a6efbb6f07a1fac1c72a03251fa4fec258fbca4028b1058026bac2b61cc",
+    "public_commands": {
+      "clang": 30,
+      "gcc": 30
+    },
+    "quote_calls_per_run": 75
+  }
+}

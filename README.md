@@ -850,6 +850,12 @@ four concurrent threads. GCC and Clang each exercised the canonical and Rust
 accessors, then repeated the runs under Memcheck.
 [Source projections and thread checks](evidence/errno-value-access-source.json)
 
+The GNU sed candidate changed the archive bytes after replay of all 87 compiler inputs.
+It replaced 5 direct errno reads and 53 stores in 13 modules.
+Both canonical compilers matched all 30 public command cases,
+and the linked API tests agreed across all four builds with four Memcheck runs.
+[GNU sed archive and comparisons](evidence/sed-errno-archive.json)
+
 Across all 127 linked archives at the packed-manual release, the syntax scan
 found 942 value reads and 860 stores in 477 eligible modules across 78
 archives. One retained glibc declaration per eligible archive would remove
