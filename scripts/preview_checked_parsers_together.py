@@ -36,9 +36,11 @@ def compare(parent, log, output, pilots, packages=PACKAGES):
     prepare_package = {}
     evidence = {}
     for name, pilot in pilots.items():
-        filename, namespace, _ = packages[name]
+        source, namespace, _ = packages[name]
+        filename, section = source if isinstance(source, tuple) else (source, None)
         path = ROOT / "evidence" / filename
-        proof = json.loads(path.read_bytes())["archive"]
+        verified = json.loads(path.read_bytes())
+        proof = (verified[section] if section else verified)["archive"]
         prepare_package[name] = qualified_inputs(release, pilot, proof, namespace)
         evidence[name] = digest(path)
 

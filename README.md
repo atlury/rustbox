@@ -1029,6 +1029,8 @@ repeated the checks under Memcheck. The driver checks that the tested
 functions are defined in each archive.
 [Descriptor and allocation baselines](evidence/gnu-descriptor-errno-baselines.json)
 
+The checked GNU sed, grep and gzip archives linked into one 499-name executable. The saved control reproduced the release ELF exactly. Both dispatch modes passed 712 command comparisons against GCC and Clang, including grep aliases and all 14 gzip names. The candidate measured 24,961,760 bytes stripped. [Complete multicall results](evidence/gnu-errno-multicall.json)
+
 The native C-string manifest can grow within an archive already selected.
 `prepare_native_c_strings.py enroll --extend` checks that the new cold
 build covers every earlier edit on the same compiler sources and produces

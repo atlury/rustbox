@@ -32,11 +32,13 @@ def run(argv: list[str], directory: Path, environment: dict[str, str]) -> dict[s
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--canonical-directory", type=Path, required=True)
-    parser.add_argument("--rustbox", type=Path, required=True)
+    target = parser.add_mutually_exclusive_group(required=True)
+    target.add_argument("--rustbox", type=Path)
+    target.add_argument("--applet-directory", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     canonical = args.canonical_directory.resolve()
-    rustbox = args.rustbox.resolve()
+    rustbox = args.rustbox.resolve() if args.rustbox else None
     cases = (
         ("egrep-match", "egrep", "alpha|beta"),
         ("egrep-no-match", "egrep", "absent|missing"),
@@ -56,7 +58,8 @@ def main() -> int:
         })
         for name, alias, pattern in cases:
             oracle = run([str(canonical / alias), pattern, "input"], directory, environment)
-            actual = run([str(rustbox), alias, pattern, "input"], directory, environment)
+            applet = [str(rustbox), alias] if rustbox else [str(args.applet_directory.resolve() / alias)]
+            actual = run([*applet, pattern, "input"], directory, environment)
             if oracle != actual:
                 raise RuntimeError(f"GNU {alias} multicall mismatch: {name}\n{oracle}\n{actual}")
             records.append({"name": name, "alias": alias, "exact": True, "result": oracle})
