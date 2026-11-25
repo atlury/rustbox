@@ -850,6 +850,15 @@ four concurrent threads. GCC and Clang each exercised the canonical and Rust
 accessors, then repeated the runs under Memcheck.
 [Source projections and thread checks](evidence/errno-value-access-source.json)
 
+Across all 127 linked archives at the packed-manual release, the syntax scan
+found 942 value reads and 860 stores in 477 eligible modules across 78
+archives. One retained glibc declaration per eligible archive would remove
+399 duplicate pointer declarations. The four largest groups by access count
+are Shadow, Findutils, GNU tar and Gawk. Their individual compiler-source
+replays matched the batch scanner, as did GNU sed, grep and gzip.
+These are candidate counts. Rebuild and runtime results are recorded separately.
+[Per-archive errno candidates](evidence/errno-value-access-candidates.json)
+
 GNU sed's two canonical gnulib builds and its production Rust archive
 preserved the caller's errno in all 75 quoting calls, including signed
 integer endpoints and buffers too small for the output. Five overflowing

@@ -1,0 +1,484 @@
+{
+  "binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+  "candidates": {
+    "work/analysis/acl-2.4.0/translations/c2rust-0.22.1/acl-2.4.0-stable/target/release/libacl_2_4_0_normalized_audit.a": {
+      "eligible_modules": 26,
+      "net_pointer_declarations": 25,
+      "value_reads": 17,
+      "value_writes": 47
+    },
+    "work/analysis/attr-2.6.0/translations/c2rust-0.22.1/attr-2.6.0-stable/target/release/libattr_2_6_0_normalized_audit.a": {
+      "eligible_modules": 3,
+      "net_pointer_declarations": 2,
+      "value_reads": 16,
+      "value_writes": 4
+    },
+    "work/analysis/bc-1.08.2/translations/c2rust-0.22.1/bc-1.08.2-stable/target/release/libbc_1_08_2_normalized_audit.a": {
+      "eligible_modules": 1,
+      "net_pointer_declarations": 0,
+      "value_reads": 1,
+      "value_writes": 1
+    },
+    "work/analysis/bison-3.8.2/translations/c2rust-0.22.1/bison-3.8.2-stable/target/release/libbison_3_8_2_normalized_audit.a": {
+      "eligible_modules": 15,
+      "net_pointer_declarations": 14,
+      "value_reads": 16,
+      "value_writes": 19
+    },
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-05-stable/target/release/libcoreutils_small_05_normalized_reachable.a": {
+      "eligible_modules": 1,
+      "net_pointer_declarations": 0,
+      "value_reads": 0,
+      "value_writes": 4
+    },
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-10-stable/target/release/libcoreutils_small_10_normalized_reachable.a": {
+      "eligible_modules": 1,
+      "net_pointer_declarations": 0,
+      "value_reads": 0,
+      "value_writes": 4
+    },
+    "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/packed-manual/5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7/libcurl_8_23_0_normalized_audit.a": {
+      "eligible_modules": 11,
+      "net_pointer_declarations": 10,
+      "value_reads": 30,
+      "value_writes": 1
+    },
+    "work/analysis/diffutils-3.12/translations/c2rust-0.22.1/diffutils-3.12-stable/target/release/libdiffutils_3_12_normalized_audit.a": {
+      "eligible_modules": 13,
+      "net_pointer_declarations": 12,
+      "value_reads": 13,
+      "value_writes": 36
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/chattr/release/libchattr_audit.a": {
+      "eligible_modules": 4,
+      "net_pointer_declarations": 3,
+      "value_reads": 11,
+      "value_writes": 2
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/fsck/release/libfsck_audit.a": {
+      "eligible_modules": 1,
+      "net_pointer_declarations": 0,
+      "value_reads": 2,
+      "value_writes": 0
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/lsattr/release/liblsattr_audit.a": {
+      "eligible_modules": 4,
+      "net_pointer_declarations": 3,
+      "value_reads": 9,
+      "value_writes": 2
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/badblocks/2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff/libbadblocks_audit.a": {
+      "eligible_modules": 5,
+      "net_pointer_declarations": 4,
+      "value_reads": 19,
+      "value_writes": 0
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/debugfs/0b1483e5fe35bab542de5f9285e9f2df6edd6c215a6d1481e2a004cdc203958a/libdebugfs_audit.a": {
+      "eligible_modules": 13,
+      "net_pointer_declarations": 12,
+      "value_reads": 47,
+      "value_writes": 2
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/dumpe2fs/0e7dd48180b25ee0e893f7ec2254bd62400c208fdd873858cc56cd62c40ad12f/libdumpe2fs_audit.a": {
+      "eligible_modules": 3,
+      "net_pointer_declarations": 2,
+      "value_reads": 15,
+      "value_writes": 0
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2freefrag/dff1d228a46ef9b0bb99a0a2fb7995385f762f3c86aa51463a100dbec84294b5/libe2freefrag_audit.a": {
+      "eligible_modules": 4,
+      "net_pointer_declarations": 3,
+      "value_reads": 18,
+      "value_writes": 0
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2fsck/564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd/libe2fsck_audit.a": {
+      "eligible_modules": 10,
+      "net_pointer_declarations": 9,
+      "value_reads": 31,
+      "value_writes": 4
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2image/399a863ff0c37471b7e8ab0cbad3d9cd6f80d6f326871ba85e85bed25225fc2e/libe2image_audit.a": {
+      "eligible_modules": 5,
+      "net_pointer_declarations": 4,
+      "value_reads": 26,
+      "value_writes": 0
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2initrd_helper/6edccc168e7742f23fafe09103351a09528c8e57699efe07b6009d65fca34cab/libe2initrd_helper_audit.a": {
+      "eligible_modules": 3,
+      "net_pointer_declarations": 2,
+      "value_reads": 15,
+      "value_writes": 0
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2undo/cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8/libe2undo_audit.a": {
+      "eligible_modules": 3,
+      "net_pointer_declarations": 2,
+      "value_reads": 15,
+      "value_writes": 0
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e4defrag/0de205baddb49a145d654d7972d120739e38af71596acd5a07da8a43a43d0734/libe4defrag_audit.a": {
+      "eligible_modules": 3,
+      "net_pointer_declarations": 2,
+      "value_reads": 15,
+      "value_writes": 0
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/fuse2fs/0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a/libfuse2fs_audit.a": {
+      "eligible_modules": 3,
+      "net_pointer_declarations": 2,
+      "value_reads": 15,
+      "value_writes": 0
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a": {
+      "eligible_modules": 7,
+      "net_pointer_declarations": 6,
+      "value_reads": 25,
+      "value_writes": 4
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/resize2fs/b0c8126d1bdf73d216736f090e322dc52c1a9aa2f37ab78ba534910fc9e68005/libresize2fs_audit.a": {
+      "eligible_modules": 5,
+      "net_pointer_declarations": 4,
+      "value_reads": 19,
+      "value_writes": 0
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/tune2fs/03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966/libtune2fs_audit.a": {
+      "eligible_modules": 4,
+      "net_pointer_declarations": 3,
+      "value_reads": 16,
+      "value_writes": 0
+    },
+    "work/analysis/file-5.48/translations/c2rust-0.22.1/file-5.48-stable/target/release/libfile_5_48_normalized_audit.a": {
+      "eligible_modules": 8,
+      "net_pointer_declarations": 7,
+      "value_reads": 18,
+      "value_writes": 27
+    },
+    "work/analysis/findutils-4.10.0/translations/c2rust-0.22.1/findutils-4.10.0-stable/target/release/libfindutils_4_10_0_combined.a": {
+      "eligible_modules": 27,
+      "net_pointer_declarations": 26,
+      "value_reads": 27,
+      "value_writes": 90
+    },
+    "work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-core-stable/target/release/libgawk_5_4_0_core.a": {
+      "eligible_modules": 19,
+      "net_pointer_declarations": 18,
+      "value_reads": 76,
+      "value_writes": 18
+    },
+    "work/analysis/grep-3.12/translations/c2rust-0.22.1/grep-3.12-stable/target/release/libgrep_3_12_normalized_audit.a": {
+      "eligible_modules": 14,
+      "net_pointer_declarations": 13,
+      "value_reads": 11,
+      "value_writes": 21
+    },
+    "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a": {
+      "eligible_modules": 8,
+      "net_pointer_declarations": 7,
+      "value_reads": 4,
+      "value_writes": 8
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libdnsdomainname_audit.a": {
+      "eligible_modules": 3,
+      "net_pointer_declarations": 2,
+      "value_reads": 0,
+      "value_writes": 3
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftp_audit.a": {
+      "eligible_modules": 7,
+      "net_pointer_declarations": 6,
+      "value_reads": 1,
+      "value_writes": 8
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftpd_audit.a": {
+      "eligible_modules": 11,
+      "net_pointer_declarations": 10,
+      "value_reads": 13,
+      "value_writes": 12
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libhostname_audit.a": {
+      "eligible_modules": 5,
+      "net_pointer_declarations": 4,
+      "value_reads": 1,
+      "value_writes": 6
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libifconfig_audit.a": {
+      "eligible_modules": 6,
+      "net_pointer_declarations": 5,
+      "value_reads": 4,
+      "value_writes": 8
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libinetd_audit.a": {
+      "eligible_modules": 3,
+      "net_pointer_declarations": 2,
+      "value_reads": 1,
+      "value_writes": 4
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/liblogger_audit.a": {
+      "eligible_modules": 4,
+      "net_pointer_declarations": 3,
+      "value_reads": 0,
+      "value_writes": 5
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libping6_audit.a": {
+      "eligible_modules": 3,
+      "net_pointer_declarations": 2,
+      "value_reads": 0,
+      "value_writes": 3
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libping_audit.a": {
+      "eligible_modules": 3,
+      "net_pointer_declarations": 2,
+      "value_reads": 0,
+      "value_writes": 3
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librcp_audit.a": {
+      "eligible_modules": 3,
+      "net_pointer_declarations": 2,
+      "value_reads": 0,
+      "value_writes": 3
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexec_audit.a": {
+      "eligible_modules": 1,
+      "net_pointer_declarations": 0,
+      "value_reads": 0,
+      "value_writes": 1
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexecd_audit.a": {
+      "eligible_modules": 3,
+      "net_pointer_declarations": 2,
+      "value_reads": 0,
+      "value_writes": 3
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogin_audit.a": {
+      "eligible_modules": 1,
+      "net_pointer_declarations": 0,
+      "value_reads": 0,
+      "value_writes": 1
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogind_audit.a": {
+      "eligible_modules": 3,
+      "net_pointer_declarations": 2,
+      "value_reads": 0,
+      "value_writes": 3
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librsh_audit.a": {
+      "eligible_modules": 1,
+      "net_pointer_declarations": 0,
+      "value_reads": 0,
+      "value_writes": 1
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librshd_audit.a": {
+      "eligible_modules": 3,
+      "net_pointer_declarations": 2,
+      "value_reads": 0,
+      "value_writes": 3
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libsyslogd_audit.a": {
+      "eligible_modules": 4,
+      "net_pointer_declarations": 3,
+      "value_reads": 1,
+      "value_writes": 4
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalk_audit.a": {
+      "eligible_modules": 1,
+      "net_pointer_declarations": 0,
+      "value_reads": 0,
+      "value_writes": 1
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalkd_audit.a": {
+      "eligible_modules": 4,
+      "net_pointer_declarations": 3,
+      "value_reads": 1,
+      "value_writes": 4
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnet_audit.a": {
+      "eligible_modules": 7,
+      "net_pointer_declarations": 6,
+      "value_reads": 3,
+      "value_writes": 16
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnetd_audit.a": {
+      "eligible_modules": 3,
+      "net_pointer_declarations": 2,
+      "value_reads": 0,
+      "value_writes": 3
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftp_audit.a": {
+      "eligible_modules": 3,
+      "net_pointer_declarations": 2,
+      "value_reads": 0,
+      "value_writes": 3
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftpd_audit.a": {
+      "eligible_modules": 3,
+      "net_pointer_declarations": 2,
+      "value_reads": 0,
+      "value_writes": 3
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtraceroute_audit.a": {
+      "eligible_modules": 3,
+      "net_pointer_declarations": 2,
+      "value_reads": 0,
+      "value_writes": 3
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libuucpd_audit.a": {
+      "eligible_modules": 1,
+      "net_pointer_declarations": 0,
+      "value_reads": 0,
+      "value_writes": 1
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libwhois_audit.a": {
+      "eligible_modules": 3,
+      "net_pointer_declarations": 2,
+      "value_reads": 0,
+      "value_writes": 3
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dcb/netlink-protocols/4a440cf7b33680d750161a4fd6ea401408ac1a68aa84aa3c29fb7b6589784489/libdcb_audit.a": {
+      "eligible_modules": 1,
+      "net_pointer_declarations": 0,
+      "value_reads": 1,
+      "value_writes": 2
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/devlink/netlink-protocols/d275ec6441764af49e36894b289f4be955c376fbc7e783d1d8bc6338250cc4d8/libdevlink_audit.a": {
+      "eligible_modules": 1,
+      "net_pointer_declarations": 0,
+      "value_reads": 0,
+      "value_writes": 1
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dpll/netlink-protocols/630ee0aae13ace86689dc83417adbc77f306823eff770ccec0e53a029dfd63bb/libdpll_audit.a": {
+      "eligible_modules": 1,
+      "net_pointer_declarations": 0,
+      "value_reads": 0,
+      "value_writes": 1
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ifstat/netlink-protocols/ffaa8c5610fc41466f5122c1ba22de9dc601ac6691b75f5c20d21942c1ff6e5c/libifstat_audit.a": {
+      "eligible_modules": 1,
+      "net_pointer_declarations": 0,
+      "value_reads": 1,
+      "value_writes": 4
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/netlink-protocols/0db83e0df290e9bbf1b6470ecbcdae3385221a6f8f3b50d53300feccf2ab4ba2/libip_audit.a": {
+      "eligible_modules": 2,
+      "net_pointer_declarations": 1,
+      "value_reads": 1,
+      "value_writes": 4
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/netshaper/netlink-protocols/1f65ac8aa500b8907a7e69fdd008acf206380971734bc4efc86e9caa88547ba6/libnetshaper_audit.a": {
+      "eligible_modules": 1,
+      "net_pointer_declarations": 0,
+      "value_reads": 0,
+      "value_writes": 4
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/nstat/netlink-protocols/114d3e271fcc1ea7db90fff7623479e558e624811664b8d6284851094bb5afe2/libnstat_audit.a": {
+      "eligible_modules": 1,
+      "net_pointer_declarations": 0,
+      "value_reads": 1,
+      "value_writes": 0
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rdma/netlink-protocols/f23016a6a9869ea5a5105d8295689f371176c8efb5fd4983d7ce97d7fb56bcf0/librdma_audit.a": {
+      "eligible_modules": 3,
+      "net_pointer_declarations": 2,
+      "value_reads": 4,
+      "value_writes": 1
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/netlink-protocols/0be4dacb9b83b542f87d7172b5b18b35ae6c392985ee1fde0fcbdcd3f4415cf9/libtc_audit.a": {
+      "eligible_modules": 2,
+      "net_pointer_declarations": 1,
+      "value_reads": 2,
+      "value_writes": 1
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tipc/netlink-protocols/2a3532e759a556fb9cd18d0e6b444e183ba86a2a894486ff772e53a2e5a59f78/libtipc_audit.a": {
+      "eligible_modules": 2,
+      "net_pointer_declarations": 1,
+      "value_reads": 3,
+      "value_writes": 0
+    },
+    "work/analysis/kmod-34.3/translations/c2rust-0.22.1/kmod-34.3-stable/target/release/libkmod_34_3_normalized_audit.a": {
+      "eligible_modules": 1,
+      "net_pointer_declarations": 0,
+      "value_reads": 0,
+      "value_writes": 1
+    },
+    "work/analysis/lz4-1.11.1/translations/c2rust-0.22.1/lz4-1.11.1-stable/target/release/liblz4_1_11_1_normalized_audit.a": {
+      "eligible_modules": 4,
+      "net_pointer_declarations": 3,
+      "value_reads": 19,
+      "value_writes": 13
+    },
+    "work/analysis/m4-1.4.21/translations/c2rust-0.22.1/m4-1.4.21-stable/target/release/libm4_1_4_21_normalized_audit.a": {
+      "eligible_modules": 5,
+      "net_pointer_declarations": 4,
+      "value_reads": 24,
+      "value_writes": 3
+    },
+    "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a": {
+      "eligible_modules": 12,
+      "net_pointer_declarations": 11,
+      "value_reads": 8,
+      "value_writes": 15
+    },
+    "work/analysis/patch-2.8/translations/c2rust-0.22.1/patch-2.8-stable/target/release/libpatch_2_8_normalized_audit.a": {
+      "eligible_modules": 10,
+      "net_pointer_declarations": 9,
+      "value_reads": 10,
+      "value_writes": 18
+    },
+    "work/analysis/pkgconf-3.0.11/translations/c2rust-0.22.1/pkgconf-3.0.11-stable/target/release/libpkgconf_3_0_11_normalized_audit.a": {
+      "eligible_modules": 4,
+      "net_pointer_declarations": 3,
+      "value_reads": 40,
+      "value_writes": 0
+    },
+    "work/analysis/procps-ng-4.0.7/translations/c2rust-0.22.1/procps-ng-4.0.7-nightly/target/release/libprocps_ng_4_0_7_normalized_audit.a": {
+      "eligible_modules": 8,
+      "net_pointer_declarations": 7,
+      "value_reads": 30,
+      "value_writes": 14
+    },
+    "work/analysis/sed-4.10/translations/c2rust-0.22.1/sed-4.10-stable/target/release/libsed_4_10_normalized_audit.a": {
+      "eligible_modules": 13,
+      "net_pointer_declarations": 12,
+      "value_reads": 5,
+      "value_writes": 53
+    },
+    "work/analysis/shadow-4.20.4/translations/c2rust-0.22.1/shadow-4.20.4-nightly/target/release/libshadow_4_20_4_normalized_audit.a": {
+      "eligible_modules": 49,
+      "net_pointer_declarations": 48,
+      "value_reads": 187,
+      "value_writes": 224
+    },
+    "work/analysis/tar-1.35/translations/c2rust-0.22.1/tar-1.35-stable/target/release/libtar_1_35_normalized_audit.a": {
+      "eligible_modules": 31,
+      "net_pointer_declarations": 30,
+      "value_reads": 21,
+      "value_writes": 91
+    },
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-05-stable/target/release/libutil_linux_small_05_normalized_reachable.a": {
+      "eligible_modules": 1,
+      "net_pointer_declarations": 0,
+      "value_reads": 0,
+      "value_writes": 2
+    },
+    "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a": {
+      "eligible_modules": 4,
+      "net_pointer_declarations": 3,
+      "value_reads": 6,
+      "value_writes": 6
+    },
+    "work/analysis/zstd-1.5.7/translations/c2rust-0.22.1/zstd-1.5.7-stable/target/release/libzstd_1_5_7_normalized_audit.a": {
+      "eligible_modules": 4,
+      "net_pointer_declarations": 3,
+      "value_reads": 27,
+      "value_writes": 0
+    }
+  },
+  "link_report_sha256": "e4cccf40558c6b77560f9d99b50e34eb2e0a9ebb26727cb07beb6bcbaf77615a",
+  "scanned_archives": 127,
+  "scanner_sha256": "2266bce319952459557e16063cbb60eb40884309a4c18addcfdc39f112a4ccd6",
+  "scope": "all linked compiler inputs",
+  "totals": {
+    "eligible_modules": 477,
+    "net_pointer_declarations": 399,
+    "value_reads": 942,
+    "value_writes": 860
+  },
+  "unique_declaration_sources": 1027
+}
