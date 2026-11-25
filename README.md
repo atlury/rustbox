@@ -643,6 +643,16 @@ this selection. Each converted literal still crosses the C interface
 through one pointer extraction.
 [Complete 22-archive comparison](evidence/e2fsprogs-procps-shadow-native-c-strings.json)
 
+In `badblocks`, converting all 215 literals changed the archive. Splitting
+them into 112 literals from shared library code and 103 from the utility
+also changed each archive. Testing smaller groups recovered eight modules
+with 51 literals. Those 102 explicit casts can be removed while retaining
+the original archive bytes. All 60 compiler inputs were replayed against
+the packed-curl build. The 51 C-interface pointer extractions remain.
+`recover_e2fsprogs_literal_modules.py` can use a verified peer as its seed,
+then check the complete target archive independently.
+[Badblocks selections and archive hashes](evidence/e2fsprogs-badblocks-literal-subsets.json)
+
 GNU Gawk 5.4.0 reproduced its complete archive after converting 5,005 C
 literals in 28 modules. Independent replay checked all 39 compiler inputs,
 including the 11 untouched modules. This removes 10,010 explicit casts and
