@@ -497,6 +497,14 @@ The source replay confirmed both providers and all 139 changed modules.
 The published pointer count will change when the release selects this archive.
 [Ncurses source projections and C ABI measurements](evidence/ncurses-termtype-layout-sources.json)
 
+The optional `--ncurses-termtypes MANIFEST` build selection can follow
+other source changes. A combined source replay with the verified
+`e4defrag` variadic layout removed 2,539 repeated fields across the two
+packages. Every other measured pointer metric matched the parent. The
+ncurses verifier also rejected swapped narrow and wide layout hashes,
+a wrong provider, missing modules, and changed archive and source hashes.
+[Combined inventory and manifest digests](evidence/ncurses-e4defrag-layouts-combined.json)
+
 The GNU Bison 3.8.2 pilot replaced 225 calls to `strlen` and 450 raw
 pointer casts in eight modules. Rebuilding all 150 selected sources
 produced a different archive. The resulting `bison` and `yacc` passed

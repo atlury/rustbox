@@ -18,10 +18,12 @@ DEFINITIONS = {
 MARKER = ".rustbox-ncurses-termtype-layouts"
 
 
-def substitute(crate, sources):
+def substitute(crate, sources, read=None):
+    if read is None:
+        read = lambda name: (crate / name).read_bytes()
     matches = {name: {} for name in DEFINITIONS}
     for module in sorted(sources):
-        data = (crate / module).read_bytes()
+        data = read(module)
         for declaration in STRUCT.finditer(data):
             name = declaration[1].decode()
             if name in matches and sha256(declaration[0]).hexdigest() == DEFINITIONS[name]:
@@ -42,7 +44,7 @@ def substitute(crate, sources):
         consumers[name] = sorted(copies.keys() - {owner})
         for module in consumers[name]:
             original = copies[module]
-            data = updated[module] if module in updated else (crate / module).read_bytes()
+            data = updated[module] if module in updated else read(module)
             if data.count(original) != 1 or original.count(b"*mut ") != 9:
                 raise ValueError("unexpected terminal type declaration")
             updated[module] = data.replace(original, alias + b"\n" * original.count(b"\n"))

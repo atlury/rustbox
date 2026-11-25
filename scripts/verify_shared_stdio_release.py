@@ -21,6 +21,7 @@ def verify(previous, binary, replay_path, output, layer="shared_stdio_layouts"):
     stage, option, metric, summary_field = {
         "native_c_strings": ("native-c-strings", "--verify-native-c-strings-from", "native_c_string_conversions", "c_string_conversions"),
         "shared_stdio_layouts": ("shared-stdio", "--verify-shared-stdio-from", "shared_stdio_layout_deltas", "repeated_pointer_fields_removed"),
+        "shared_ncurses_termtypes": ("ncurses-termtypes", "--verify-termtypes-from", "shared_ncurses_termtype_deltas", "repeated_pointer_fields_removed"),
         "shared_va_list_layouts": ("va-list-layouts", "--verify-va-list-from", "shared_va_list_layout_deltas", "repeated_pointer_fields_removed"),
     }[layer]
     output.mkdir()
@@ -90,6 +91,7 @@ if __name__ == "__main__":
     parser.add_argument("new_directory", type=Path)
     selection = parser.add_mutually_exclusive_group()
     selection.add_argument("--native-c-strings", dest="layer", action="store_const", const="native_c_strings")
+    selection.add_argument("--ncurses-termtypes", dest="layer", action="store_const", const="shared_ncurses_termtypes")
     selection.add_argument("--va-list-layouts", dest="layer", action="store_const", const="shared_va_list_layouts")
     parser.set_defaults(layer="shared_stdio_layouts")
     args = parser.parse_args()

@@ -14,6 +14,8 @@ PROOFS = ("linked_private_inline_proofs", "linked_second_inline_proofs", "linked
 
 
 def parent_fields(layer):
+    if layer == "shared_ncurses_termtypes":
+        return (*PROOFS, "shared_stdio_layouts", "native_c_strings", "shared_va_list_layouts")
     if layer == "shared_va_list_layouts":
         return (*PROOFS, "shared_stdio_layouts", "native_c_strings")
     if layer == "native_c_strings":
@@ -27,14 +29,15 @@ def selected_receipts(link, key, layer):
     receipts = {}
     origin = str(cargo_origin(link, key))
     for field in parent_fields(layer):
-        location = key if field in ("shared_stdio_layouts", "native_c_strings") else origin
+        location = key if field not in PROOFS else origin
         if location in link.get(field, {}):
             receipts[field] = link[field][location]
     return receipts
 
 
 def marker(archive, row, layer):
-    suffix = {"native_c_strings": ".c-strings-", "shared_stdio_layouts": ".stdio-", "shared_va_list_layouts": ".va-list-"}[layer]
+    suffix = {"native_c_strings": ".c-strings-", "shared_stdio_layouts": ".stdio-", "shared_va_list_layouts": ".va-list-",
+              "shared_ncurses_termtypes": ".termtypes-"}[layer]
     return archive.with_name(archive.stem + suffix + row["candidate_sources_sha256"] + ".json")
 
 
@@ -105,7 +108,7 @@ def prepare(manifest, layer, *, mounted_direct=False):
             link = pinned_parent(key, row)
             link["binary"] = {"sha256": row["control_binary_sha256"]}
             for field, receipt in item["parent_receipts"].items():
-                location = key if field in ("shared_stdio_layouts", "native_c_strings") else row_origin(row)
+                location = key if field not in PROOFS else row_origin(row)
                 target = link.setdefault(field, {})
                 if target.get(location, receipt) != receipt:
                     raise ValueError("archived compiler receipt differs from the pinned parent")
@@ -119,6 +122,10 @@ def prepare(manifest, layer, *, mounted_direct=False):
                 compile_archive(root / "parent.json", root / "built", key,
                                 sorted(row["modules"]) if layer == "native_c_strings" else None,
                                 va_list_layout=layer == "shared_va_list_layouts")
+            elif layer == "shared_ncurses_termtypes":
+                from build_ncurses_termtype_layouts import MARKER
+                from cargo_archive_pilot import stage_selected_archive
+                stage_selected_archive(root / "parent.json", root / "built", key, MARKER, "build_ncurses_termtype_layouts.py")
             elif layer == "shared_va_list_layouts":
                 from build_va_list_layout_pilot import build
                 build(root / "parent.json", key, root / "built")

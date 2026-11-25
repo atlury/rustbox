@@ -2437,6 +2437,7 @@ def main() -> int:
     parser.add_argument("--shared-stdio", type=Path)
     parser.add_argument("--native-c-strings", type=Path)
     parser.add_argument("--va-list-layouts", type=Path)
+    parser.add_argument("--ncurses-termtypes", type=Path)
     parser.add_argument("--curl-manual", action="store_true")
     parser.add_argument("--tar-borrowed-timestamps", action="store_true")
     parser.add_argument("--bison-literal-lengths", action="store_true")
@@ -2860,7 +2861,7 @@ def main() -> int:
               "linked_foreign_declaration_proofs": foreign_proofs}
     identical_layers = {}
     for manifest, layer in ((args.shared_stdio, "shared_stdio_layouts"), (args.native_c_strings, "native_c_strings"),
-                            (args.va_list_layouts, "shared_va_list_layouts")):
+                            (args.va_list_layouts, "shared_va_list_layouts"), (args.ncurses_termtypes, "shared_ncurses_termtypes")):
         if manifest:
             items = json.loads(manifest.read_bytes())
             if layer in ("native_c_strings", "shared_va_list_layouts"):

@@ -3,6 +3,11 @@
 set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
+term_manifest=
+if [ "$#" -ge 2 ] && [ "$1" = --ncurses-termtypes ]; then
+    term_manifest=$(python3 -c 'import sys; from pathlib import Path; print(Path(sys.argv[1]).resolve(strict=True).relative_to(Path(sys.argv[2])))' "$2" "$root")
+    shift 2
+fi
 va_manifest=
 if [ "$#" -ge 2 ] && [ "$1" = --va-list-layouts ]; then
     va_manifest=$(python3 -c 'import sys; from pathlib import Path; print(Path(sys.argv[1]).resolve(strict=True).relative_to(Path(sys.argv[2])))' "$2" "$root")
@@ -35,7 +40,7 @@ case "$#:${1:-}" in
     1:--iproute2-route-names) set -- --iproute2-route-names --iproute2-address-protocol-copies --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
     1:--iproute2-address-protocol-copies) set -- --iproute2-address-protocol-copies --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
     2:--e2fsprogs-dirhash-arrays) ;;
-    *) echo "usage: $0 [--va-list-layouts MANIFEST] [--bison-literal-lengths] [--tar-borrowed-timestamps] [--native-c-strings MANIFEST] [--shared-stdio MANIFEST | --curl-manual | --iproute2-netlink-protocols | --iproute2-route-names | --iproute2-address-protocols | --iproute2-address-protocol-copies | --e2fsprogs-dirhash-arrays MANIFEST]" >&2; exit 2 ;;
+    *) echo "usage: $0 [--ncurses-termtypes MANIFEST] [--va-list-layouts MANIFEST] [--bison-literal-lengths] [--tar-borrowed-timestamps] [--native-c-strings MANIFEST] [--shared-stdio MANIFEST | --curl-manual | --iproute2-netlink-protocols | --iproute2-route-names | --iproute2-address-protocols | --iproute2-address-protocol-copies | --e2fsprogs-dirhash-arrays MANIFEST]" >&2; exit 2 ;;
 esac
 "$root/scripts/build_private_inline_tool.sh"
 python3 -B "$root/scripts/check_cargo_private_inlines.py" --prepare-e2fsprogs
@@ -77,6 +82,10 @@ fi
 if [ -n "$va_manifest" ]; then
     python3 -B "$root/scripts/prepare_va_list_layouts.py" prepare --cargo-only "$root/$va_manifest"
     set -- "$@" --va-list-layouts "/work/$va_manifest"
+fi
+if [ -n "$term_manifest" ]; then
+    python3 -B "$root/scripts/prepare_ncurses_termtypes.py" prepare "$root/$term_manifest"
+    set -- "$@" --ncurses-termtypes "/work/$term_manifest"
 fi
 unset RUSTBOX_MULTICALL_TEST_BINARY
 exec "$root/scripts/run_multicall_tool.sh" python3 -B /work/scripts/link_rustbox_multicall.py \
