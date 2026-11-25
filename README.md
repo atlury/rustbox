@@ -1105,6 +1105,9 @@ both canonical builds on 3,010 dates. The checked-month archive repeated
 all 3,010 under Memcheck.
 [Compiler inputs and public baseline](evidence/curl-checked-parser-composition.json)
 
+The cold-built time-zone archive reproduced its control, then matched the original archive and both canonical compilers for all 3,010 public dates. Memcheck repeated those dates and the curl CLI passed 12 cases per compiler.
+[Time-zone archive results](evidence/curl-timezone-archive.json)
+
 At the HTTP boundary, both canonical curl builds and both dispatch paths
 of the checked-FTP multicall emitted the expected conditional headers for
 206 requests each. The cases exercise month spellings and seven named time
