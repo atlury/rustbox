@@ -3,7 +3,7 @@
 set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
-exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
+exec "$root/scripts/run_multicall_tool.sh" --patch-test-image sh -eu -c '
     output=/work/work/analysis/patch-2.8/multicall
     rustbox=${RUSTBOX_TEST_ELF:-/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox}
     build=/rustbox-patch/normalized-gcc
@@ -17,6 +17,7 @@ exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
       --gcc "$canonical" --clang "$rustbox" \
       --output "$output/differential.json"
 
+    test -x /usr/bin/ed
     test ! -e "$saved"
     mv "$installed" "$saved"
     ln -s "$rustbox" "$installed"
@@ -31,6 +32,7 @@ exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
     cd "$build"
     runuser --user=nobody -- make -j"$(nproc)" check \
       > "$output/upstream-tests.log" 2>&1
+    grep -qx "PASS: ed-style" "$output/upstream-tests.log"
     restore
     trap - EXIT HUP INT TERM
 

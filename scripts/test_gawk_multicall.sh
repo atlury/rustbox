@@ -78,9 +78,11 @@ exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
         --log-file="$output/valgrind-$name.log" \
         "$stage/$name" --version >"$output/valgrind-$name.out" 2>&1
       grep -q "ERROR SUMMARY: 0 errors" "$output/valgrind-$name.log"
-      grep -q "definitely lost: 0 bytes" "$output/valgrind-$name.log"
-      grep -q "indirectly lost: 0 bytes" "$output/valgrind-$name.log"
-      grep -q "possibly lost: 0 bytes" "$output/valgrind-$name.log"
+      if ! grep -q "All heap blocks were freed -- no leaks are possible" "$output/valgrind-$name.log"; then
+        grep -q "definitely lost: 0 bytes" "$output/valgrind-$name.log"
+        grep -q "indirectly lost: 0 bytes" "$output/valgrind-$name.log"
+        grep -q "possibly lost: 0 bytes" "$output/valgrind-$name.log"
+      fi
     done
     cmp "$output/valgrind-gawk.out" "$output/valgrind-awk.out"
   '

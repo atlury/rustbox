@@ -4,6 +4,11 @@
 set -eu
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 image=rustbox-e2fsprogs:2026-11-24
+if [ "${1:-}" = "--patch-test-image" ]; then
+    shift
+    image=rustbox-patch-multicall-tests:2026-11-25
+    docker build --network none --platform linux/amd64 --tag "$image" - < "$root/tools/PatchMulticallTest.Dockerfile"
+fi
 if [ -n "${RUSTBOX_MULTICALL_TEST_BINARY:-}" ]; then
     candidate=$RUSTBOX_MULTICALL_TEST_BINARY
     case "$candidate" in
