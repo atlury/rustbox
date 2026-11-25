@@ -1,0 +1,77 @@
+{
+  "archive": {
+    "archive": "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a",
+    "candidate_sha256": "5a24acb51b65681bce0dd4232a1be754bd484a41967c8581f2d326e4a646d4cc",
+    "candidate_sources_sha256": "25bebc7c2ed706465518cb409d0dbdbc07436a0c573a1da5acb0d8de1bceabc7",
+    "compiler_selected_sources": 66,
+    "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+    "control_sha256": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd",
+    "helper_sha256": "554946bffc2381da8b362a86ed2063db1c610eca3458430c22fae407ac6eb35d",
+    "modules": {
+      "src/normalized_source/lib/fclose.rs": [
+        1,
+        1
+      ],
+      "src/normalized_source/lib/fd_safer.rs": [
+        1,
+        1
+      ],
+      "src/normalized_source/lib/ialloc.rs": [
+        0,
+        1
+      ],
+      "src/normalized_source/lib/pipe_safer.rs": [
+        1,
+        1
+      ],
+      "src/normalized_source/lib/reallocarray.rs": [
+        0,
+        1
+      ],
+      "src/normalized_source/lib/savedir.rs": [
+        1,
+        1
+      ],
+      "src/normalized_source/lib/vfzprintf.rs": [
+        0,
+        1
+      ],
+      "src/normalized_source/lib/xmalloc.rs": [
+        0,
+        1
+      ]
+    },
+    "parent_sources_sha256": "b40e8f7416b61aacb51120150f202af1647e99e1a4fa3ee70c8f32b851de0569",
+    "raw_pointer_types_removed": 7,
+    "scanner_sha256": "2266bce319952459557e16063cbb60eb40884309a4c18addcfdc39f112a4ccd6",
+    "value_reads": 4,
+    "value_writes": 8
+  },
+  "archive_byte_identical": false,
+  "public": {
+    "allocation_errors_per_run": 5,
+    "api_outputs": {
+      "candidate": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+      "candidate-memcheck": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+      "clang": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+      "clang-memcheck": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+      "gcc": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+      "gcc-memcheck": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+      "parent": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+      "parent-memcheck": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669"
+    },
+    "archive_sha256": {
+      "candidate": "5a24acb51b65681bce0dd4232a1be754bd484a41967c8581f2d326e4a646d4cc",
+      "clang": "b0d156417c5f3bc5a5997823c6ec23efd52bc267ecb2f28cde75e708b180780b",
+      "gcc": "ce669148968bd70399c9c2705dd8dfb0c3cb98d7cb418dea43e046c3631e6134",
+      "parent": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd"
+    },
+    "driver_sha256": "705adf843a07147e2eb814b15a82a3d2e73918d6beadfce49e8f40db4f169abf",
+    "fd_calls_per_run": 15,
+    "pipe_transfers_per_run": 5,
+    "public_commands": {
+      "clang": 14,
+      "gcc": 14
+    }
+  }
+}

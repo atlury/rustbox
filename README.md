@@ -850,6 +850,12 @@ four concurrent threads. GCC and Clang each exercised the canonical and Rust
 accessors, then repeated the runs under Memcheck.
 [Source projections and thread checks](evidence/errno-value-access-source.json)
 
+The GNU gzip candidate changed the archive bytes after replay of all 66 compiler inputs.
+It replaced 4 direct errno reads and 8 stores in 8 modules.
+Both canonical compilers matched all 14 public command cases,
+and the linked API tests agreed across all four builds with four Memcheck runs.
+[GNU gzip archive and comparisons](evidence/gzip-errno-archive.json)
+
 The GNU sed candidate changed the archive bytes after replay of all 87 compiler inputs.
 It replaced 5 direct errno reads and 53 stores in 13 modules.
 Both canonical compilers matched all 30 public command cases,
