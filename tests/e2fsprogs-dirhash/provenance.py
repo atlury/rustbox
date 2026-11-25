@@ -8,6 +8,7 @@ import sys
 import tempfile
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
 from e2fsprogs_dirhash_archives import candidate_path, control_view, prepare, prior_stage
+from audit_linked_pointers import unicode_namespace
 
 base = Path("work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-e2fsprogs-shared/debugfs/libdebugfs_audit.a")
 before, after = "a" * 64, "b" * 64
@@ -64,3 +65,18 @@ with tempfile.TemporaryDirectory() as tmp:
             else:
                 raise AssertionError(f"accepted mismatched stage {stage}, field {field}")
 print("Both Unicode stages reject altered archive or source parents and partial selections before rebuilding.")
+
+
+# The expected map retains existing symbols and binds every permitted addition to an archive pair.
+baseline = {Path(key).parent.name: ["existing_c_symbol"] for key in hangul}
+expected = unicode_namespace(baseline, hangul, "hangul")
+assert all("existing_c_symbol" in symbols and len(symbols) == 2 for symbols in expected.values())
+stale = deepcopy(hangul)
+stale[next(iter(stale))]["candidate_sha256"] = "0" * 64
+try:
+    unicode_namespace(baseline, stale, "hangul")
+except ValueError:
+    pass
+else:
+    raise AssertionError("accepted a private-symbol record for a different archive")
+print("The private-symbol map retained existing C symbols and rejected an unmeasured archive.")
