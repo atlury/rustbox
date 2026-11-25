@@ -12,6 +12,9 @@ from prune_private_inlines import POINTER
 MODULE = Path("src/lib/rt_names.rs")
 MODULE_SHA256 = "33bbef39e15386546d9f98bc07ecd371b3ba7e1c455ab1f1d347273ecd85d271"
 
+BRIDGE_MODULE_SHA256 = "490e1818f493ff12382f74052804fbd44715ed91f3fa444996c524cb3268f7bf"
+TABLE_SHA256 = "b8fe9bf3139128f9c1d86959ab53b33d2bf599b00ef8124bef95bee9841335b5"
+
 
 def compiler_inputs(link, archive, destination=None):
     from audit_linked_pointers import measure
@@ -33,7 +36,7 @@ def compiler_inputs(link, archive, destination=None):
             if target.read_bytes() != data:
                 target.write_bytes(data)
         if module == MODULE:
-            if digest.hex() != MODULE_SHA256:
+            if digest.hex() != (BRIDGE_MODULE_SHA256 if Path(archive).name == "libbridge_audit.a" else MODULE_SHA256):
                 raise ValueError("unexpected compiler-selected rt_names.rs")
             matches.append(data)
 
@@ -43,15 +46,18 @@ def compiler_inputs(link, archive, destination=None):
 
 
 def replace_table(control):
-    if sha256(control).hexdigest() != MODULE_SHA256:
+    parent = sha256(control).hexdigest()
+    if parent not in (MODULE_SHA256, BRIDGE_MODULE_SHA256):
         raise ValueError("the address-protocol conversion requires the measured rt_names.rs")
     start = control.index(b"static mut rtnl_addrprot_tab:")
     end = control.index(b"static mut rtnl_rtscope_tab:", start)
+    if sha256(control[start:end]).hexdigest() != TABLE_SHA256:
+        raise ValueError("address-protocol table and functions differ from the qualified transformation")
     replacement = (ROOT / "compat/iproute2/address_protocols.rs").read_bytes()
     candidate = control[:start] + replacement + b"\n" + control[end:]
     if any(name in candidate for name in (b"rtnl_addrprot_tab", b"rtnl_addrprot_initialize")):
         raise ValueError("the legacy address-protocol table is still referenced")
-    return candidate, {"control_module_sha256": MODULE_SHA256, "candidate_module_sha256": sha256(candidate).hexdigest(),
+    return candidate, {"control_module_sha256": parent, "candidate_module_sha256": sha256(candidate).hexdigest(),
                        "raw_pointer_types_removed_in_pilot_module": len(POINTER.findall(control)) - len(POINTER.findall(candidate))}
 
 

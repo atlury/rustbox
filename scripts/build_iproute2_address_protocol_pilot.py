@@ -9,7 +9,8 @@ import shutil
 import subprocess
 import tempfile
 
-from check_cargo_private_inlines import LINK_REPORT, ROOT, digest, layout, rust_inputs
+from check_cargo_private_inlines import IPROUTE2_CARGO_ENGINES, LINK_REPORT, ROOT, digest, layout, rust_inputs
+from check_e2fsprogs_dirhash_arrays import source_list_digest
 from stage_iproute2_address_protocols import MODULE, compiler_inputs, replace_table
 
 
@@ -43,25 +44,26 @@ def compile_mounted(archive):
     if built.exists():
         raise ValueError("package clean retained the control archive")
     (crate / MODULE).write_bytes(candidate)
+    parent_sources_sha256 = source_list_digest(sources)
     sources[str(MODULE)] = changes["candidate_module_sha256"]
     sha = build(sources)
     if sha == record["control_sha256"]:
         raise ValueError("the live conversion did not change the engine archive")
-    record.update(changes, candidate_sha256=sha, compiler_selected_sources=len(sources))
+    record.update(changes, candidate_sha256=sha, compiler_selected_sources=len(sources),
+                  parent_sources_sha256=parent_sources_sha256, candidate_sources_sha256=source_list_digest(sources))
     (target / "pilot.json").write_text(json.dumps(record, indent=2, sort_keys=True) + "\n")
 
 
-def build_pilot(output, link=None):
+def build_pilot(output, link=None, engine="ip"):
     if output.exists():
         raise ValueError("expected a new pilot output directory")
     raw = LINK_REPORT.read_bytes() if link is None else None
     if raw is not None:
-        from iproute2_address_protocol_archive import control_view
-        current = json.loads(raw)
-        link = control_view(current)
-        if record := current.get("iproute2_address_protocols"):
-            link["binary"] = {"sha256": record["control_binary_sha256"]}
-    key, = (n for n in link["source_library_sha256"] if n.endswith("/libip_audit.a"))
+        from iproute2_address_protocol_archive import build_control_view
+        link = build_control_view(json.loads(raw))
+    if engine not in IPROUTE2_CARGO_ENGINES:
+        raise ValueError(f"unknown IPRoute2 Cargo engine: {engine}")
+    key, = (n for n in link["source_library_sha256"] if n.endswith(f"/lib{engine}_audit.a") and "/iproute2-" in n)
     archive = Path(key)
     source, base = layout(archive)
     with tempfile.TemporaryDirectory(dir=ROOT / "work/analysis") as scratch:
@@ -97,13 +99,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--output", type=Path, help="new directory under an existing parent")
+    group.add_argument("--prepare-copies", action="store_true", help="prepare all 17 pinned production archives")
     group.add_argument("--prepare", action="store_true", help="prepare the pinned production archive")
     group.add_argument("--mounted", type=Path, help=argparse.SUPPRESS)
     args = parser.parse_args()
     if args.mounted:
         compile_mounted(args.mounted)
-    elif args.prepare:
+    elif args.prepare or args.prepare_copies:
         from iproute2_address_protocol_archive import prepare
-        prepare()
+        prepare(include_copies=args.prepare_copies)
     else:
         build_pilot(args.output.resolve())
