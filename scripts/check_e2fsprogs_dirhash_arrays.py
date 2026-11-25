@@ -58,6 +58,16 @@ def source_list_digest(files):
     return hashlib.sha256(data).hexdigest()
 
 
+def compile_staged(crate, inputs, rustc, candidate):
+    depfile = candidate.parent / "compiler.d"
+    subprocess.run([*rustc, "--cap-lints=allow", f"--emit=link,dep-info={depfile}",
+                    "lib.rs", "-o", candidate], cwd=crate, check=True)
+    rule = depfile.read_text().splitlines()[0].split(": ", 1)[1]
+    if {name for name in shlex.split(rule) if name.endswith(".rs")} != inputs:
+        raise ValueError("compiler source list changed")
+    return digest(candidate)
+
+
 def compile_candidate(link, archive, scratch, hangul_parent=None):
     if not scratch.is_dir() or any(scratch.iterdir()):
         raise ValueError("expected an empty scratch directory")
@@ -66,22 +76,12 @@ def compile_candidate(link, archive, scratch, hangul_parent=None):
         apply_receipt(crate, read_proof(link, archive, selection)["declarations"], inputs)
     module, = [crate / p for p in inputs if p.endswith("/lib/ext2fs/dirhash.rs")]
     candidate = scratch / archive.name
-    depfile = scratch / "compiler.d"
-
-    def build():
-        subprocess.run([*rustc, "--cap-lints=allow", f"--emit=link,dep-info={depfile}",
-                        "lib.rs", "-o", candidate], cwd=crate, check=True)
-        rule = depfile.read_text().splitlines()[0].split(": ", 1)[1]
-        if {name for name in shlex.split(rule) if name.endswith(".rs")} != inputs:
-            raise ValueError("pilot compiler source list changed")
-        return digest(candidate)
-
-    control = build()
+    control = compile_staged(crate, inputs, rustc, candidate)
     if control != link["source_library_sha256"][str(archive)]:
         raise ValueError("control did not reproduce the production archive")
     original_module = digest(module)
     accesses = borrow_arrays(module)
-    rebuilt = build()
+    rebuilt = compile_staged(crate, inputs, rustc, candidate)
     record = {
         "production_sha256": control,
         "candidate_sha256": rebuilt,
@@ -102,7 +102,7 @@ def compile_candidate(link, archive, scratch, hangul_parent=None):
         layer = replace_hangul(module)
         record["hangul"] = dict(layer, module=str(module.relative_to(crate)),
                                 parent_archive_sha256=rebuilt, parent_sources_sha256=record["compiler_sources_sha256"])
-        record["candidate_sha256"] = build()
+        record["candidate_sha256"] = compile_staged(crate, inputs, rustc, candidate)
         record["compiler_sources_sha256"] = source_list_digest({name: digest(crate / name) for name in inputs})
     return record
 

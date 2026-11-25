@@ -409,6 +409,17 @@ layouts, destination limits, invalid bytes, normalization and public directory
 hashing. Its exact counts and archive hashes are in
 `evidence/e2fsprogs-hangul-pilot.json`.
 
+The Unicode trie pilot makes the 64,256-byte canonical table immutable and
+uses checked table indices for each branch. Its input reader visits only the
+bytes requested by the trie, including when the legacy caller passes
+`SIZE_MAX`. The differential test compares the exact leaf selected by all six
+canonical trie roots and the public validation and case-folding results for
+every code point through U+10FFFF, including surrogate encodings. Truncated
+inputs end at an inaccessible page. The standalone pilot build and test are
+`scripts/check_e2fsprogs_utf8_trie.py` and `scripts/test_e2fsprogs_utf8_trie.sh`.
+The measured archive and comparison counts are in
+`evidence/e2fsprogs-utf8-trie-pilot.json`.
+
 Reproduce the linked Rust source inventory with
 `python3 -B scripts/audit_linked_pointers.py work/analysis/rustbox-multicall-link.json`.
 It checks the archive hashes, reads the Rust compiler's source lists and
