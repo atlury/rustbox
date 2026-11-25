@@ -523,6 +523,13 @@ These source counts enter the production inventory only after the complete
 link and public multicall checks.
 [GNU Coreutils archive results](evidence/coreutils-native-c-strings.json)
 
+All 14 util-linux 2.42.4 archive groups also completed both cold builds.
+Groups 01 through 12 reproduced the original archives byte for byte after
+11,128 literal conversions, removing 22,256 explicit casts. Groups 13 and
+14 changed archive bytes. Across Coreutils and util-linux, 33 of 38 whole
+archives qualified, accounting for 42,890 cast occurrences before release
+integration. [util-linux archive results](evidence/util-linux-native-c-strings.json)
+
 To select cold-built C-string archives in the multicall, enroll them against
 the same compiler inputs as the intended parent release. When that release
 shares stdio layouts, rebuild overlapping literal pilots on top of those
