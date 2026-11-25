@@ -381,8 +381,11 @@ On the tested netlink release, 93 archives contained duplicate `FILE`
 definitions matching the full layout, its three opaque pointees and all
 three field type aliases. Retaining one provider per crate gives 39,618
 candidate field declarations. To qualify a group, save the ranker's JSON
-and supply package names from that report. The batch rebuilds each full
-archive twice and records the packages that produced different bytes.
+and supply package names from that report. The first batch cold-built 13
+GNU Coreutils and 13 util-linux archives. Eight Coreutils archives preserved
+all bytes after removing 792 repeated fields. Six util-linux archives
+preserved all bytes after removing 972. The other 12 produced different
+archive bytes and are deferred. [Batch evidence](evidence/coreutils-util-linux-stdio-pilots.json)
 
 ```sh
 python3 -B scripts/rank_stdio_layouts.py "$link" > work/analysis/stdio-ranks.json
