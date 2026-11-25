@@ -69,7 +69,7 @@ def measure_layer(crate, files, proof, item_count="private_functions_removed"):
     return stats
 
 
-def audit(link, temporary):
+def audit(link, temporary, inspect_source=None):
     packages = {}
     unique = {}
     measured = Counter()
@@ -163,6 +163,8 @@ def audit(link, temporary):
             if digest not in unique:
                 unique[digest] = Counter({k: len(regex.findall(data)) for k, regex in METRICS.items()})
             tally.update(unique[digest])
+            if inspect_source is not None and not shared_object:
+                inspect_source(path, digest, data)
             tally["files"] += 1
     if len(second_cleanups) != len(second):
         raise ValueError("second-layer archive was outside the linked source inventory")
@@ -225,9 +227,9 @@ def check_added_cleanups(previous_link, link, previous, current):
         raise ValueError("cleanup receipts do not explain the linked pointer count")
 
 
-def measure(link):
+def measure(link, inspect_source=None):
     with tempfile.TemporaryDirectory() as temp:
-        return audit(link, Path(temp))
+        return audit(link, Path(temp), inspect_source)
 
 
 if __name__ == "__main__":

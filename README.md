@@ -772,6 +772,14 @@ a missing receipt is rebuilt from its pinned parents and must reproduce its
 recorded hash. The linked inventory independently replays the source changes
 and checks the count of declarations, pointer types and bytes removed.
 
+Run `python3 -B scripts/rank_foreign_declarations.py work/analysis/rustbox-multicall-link.json`
+to rank the remaining engine archives. It reads the compiler-selected sources
+after applying the linked receipts, counts candidate pointer types in each
+archive and analyzes identical file contents once. The text scan recognizes
+generated declarations whose names appear once in a leaf module. Its counts
+are estimates. A removal still needs a fresh rustc diagnostic, an exact syntax
+match, a clean rebuild and a matching full archive.
+
 The default build removes 9,189 unused private helper definitions and 18,487
 raw-pointer type occurrences from 606 GNU Inetutils source entries. The
 25 engines using compact removal account for all 3,148,896 source bytes saved.

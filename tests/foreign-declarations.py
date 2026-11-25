@@ -7,6 +7,9 @@ import subprocess
 import sys
 import tempfile
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+from rank_foreign_declarations import estimate
+
 
 def check(selector, directory):
     source = b'''extern "C" {
@@ -23,6 +26,10 @@ extern "Rust" { fn native(); }
 unsafe fn body() { called(); }
 '''
     (directory / "lib.rs").write_bytes(source)
+    # The ranking only sees syntax. The verified selector also needs a matching
+    # compiler diagnostic for each declaration.
+    if estimate(source) != (4, 2) or estimate(b'mod child;\n' + source) != (0, 0):
+        raise ValueError("unexpected declaration estimate for a leaf or parent module")
     nested = b'mod child;\nextern "C" { fn nested(); }\n'
     (directory / "parent.rs").write_bytes(nested)
     records = []
