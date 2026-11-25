@@ -1352,6 +1352,12 @@ candidate occurrences. Only the `ip` build is counted in this pilot.
 [Canonical observations](evidence/iproute2-dsfield-pilot.json) ·
 [Per-engine source estimates](evidence/iproute2-dsfield-source-candidates.json)
 
+All 18 IPRoute2 engine archives then reproduced their controls and passed
+the same comparisons on their rebuilt DS field readers. This covers 391,968
+canonical lookup observations, 72 Memcheck runs and 36 public `ip` route
+filters. Together the archives remove 4,770 raw-pointer type occurrences.
+[Per-engine checks and compiled source hashes](evidence/iproute2-dsfield-archives.json)
+
 The DS field multicall driver checks the 21 IPRoute2 command names and
 runs each route filter through symlink and subcommand dispatch against both
 canonical compilers. The routing parent passed all 288 general comparisons
