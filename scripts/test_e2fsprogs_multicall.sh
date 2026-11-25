@@ -7,12 +7,8 @@ if [ "$#" -gt 1 ]; then
     exit 2
 fi
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
-exec docker run --rm --platform linux/amd64 \
-  --volume "$root:/work" \
-  --volume rustbox-coreutils-9.12:/rustbox-coreutils \
-  --volume rustbox-e2fsprogs-1.47.4:/rustbox-e2fsprogs \
-  --workdir /work rustbox-e2fsprogs:2026-11-24 sh -eu -c '
-    rustbox=${1:-/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox}
+exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
+    rustbox=${1:-${RUSTBOX_TEST_ELF:-/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox}}
     canonical=/rustbox-e2fsprogs/stage-gcc
     source=/work/work/upstream/e2fsprogs-1.47.4
     output=/work/work/analysis/e2fsprogs-1.47.4/multicall
