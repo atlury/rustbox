@@ -666,6 +666,13 @@ the packed-curl build. The 51 C-interface pointer extractions remain.
 then check the complete target archive independently.
 [Badblocks selections and archive hashes](evidence/e2fsprogs-badblocks-literal-subsets.json)
 
+The same eight modules also passed in `mke2fs`. The full 1,394-literal
+conversion had changed its archive. The smaller selection reproduced the
+original archive and removed 102 explicit casts across its 97 compiler
+inputs. The batch script tests each remaining engine against its own
+archive and records matching and differing builds separately.
+[Verified mke2fs subset](evidence/e2fsprogs-mke2fs-literal-subset.json)
+
 GNU Gawk 5.4.0 reproduced its complete archive after converting 5,005 C
 literals in 28 modules. Independent replay checked all 39 compiler inputs,
 including the 11 untouched modules. This removes 10,010 explicit casts and
