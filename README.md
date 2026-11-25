@@ -1003,6 +1003,13 @@ pointer types from those two modules. Generate the parent with
 script with `--link PREPARED_LINK --replay` to check all compiler inputs.
 [Pkgconf compiler sources](evidence/pkgconf-ctype-parser-sources.json)
 
+The rebuilt pkgconf archive matched both canonical compilers in
+55 command comparisons each. Each full API run covered 51,200
+argument splits and 5,120 package files across 20 locales. The comparison
+checks raw and decoded arguments, error returns, callback keys and values,
+and warnings. Eight Memcheck runs passed across the canonical builds,
+original and candidate. [Pkgconf archive results](evidence/pkgconf-ctype-parser-archive.json)
+
 An inventory of the shared-stdio release found 527 table-read expressions
 with an explicit unsigned-byte index in 131 modules across 44 archives.
 All uses matched the narrow spelling in 67 modules. The first selected
