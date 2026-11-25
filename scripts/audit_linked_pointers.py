@@ -13,7 +13,8 @@ import shutil
 import tempfile
 
 from check_e2fsprogs_dirhash_arrays import borrow_arrays, source_list_digest
-from e2fsprogs_dirhash_archives import candidate_path, control_view
+from e2fsprogs_dirhash_archives import candidate_path, control_view, dirhash_parent
+from e2fsprogs_hangul import replace_hangul
 from build_iproute2_bridge import stage as stage_bridge
 from build_e2fsprogs_checksums import CONSUMERS, SHARED_SOURCES, stage as stage_checksum
 from check_next_inline_layer import apply_receipt, read_second_layer
@@ -75,6 +76,7 @@ def audit(link, temporary, inspect_source=None):
     fixed_arrays = link.get("e2fsprogs_dirhash_arrays", {})
     link = control_view(link)
     array_counts = {}
+    hangul_counts = {}
     packages = {}
     unique = {}
     measured = Counter()
@@ -176,6 +178,14 @@ def audit(link, temporary, inspect_source=None):
             removed = len(pointer.findall(original)) - len(pointer.findall(module.read_bytes()))
             array_counts[engine_name] = {"raw_pointer_type_tokens_removed": removed,
                                          "raw_offset_accesses_replaced": accesses, "archive": str(linked_path)}
+            if layer := record.get("hangul"):
+                nls, = [f for f in files if f.as_posix().endswith("/lib/ext2fs/nls_utf8.rs")]
+                observed = replace_hangul(nls)
+                if (str(nls.relative_to(crate)) != layer["module"]
+                        or any(layer[key] != value for key, value in observed.items())):
+                    raise ValueError(f"Hangul compiler source differs from its receipt: {name}")
+                files[nls] = observed["module_after"]
+                hangul_counts[engine_name] = observed["raw_pointer_type_tokens_removed"]
         root_module = ROOT / f"compat/e2fsprogs/{SHARED_SOURCES[archive.name]}" if shared_object else crate / "lib.rs"
         if root_module not in files:
             raise ValueError(f"unexpected compiler inputs for {archive}")
@@ -195,6 +205,10 @@ def audit(link, temporary, inspect_source=None):
             tally["files"] += 1
         if name in fixed_arrays and source_list_digest(source_digests) != fixed_arrays[name]["compiler_sources_sha256"]:
             raise ValueError(f"directory hash compiler inputs differ from the candidate: {name}")
+        if record and (layer := record.get("hangul")):
+            source_digests[layer["module"]] = layer["module_before"]
+            if source_list_digest(source_digests) != layer["parent_sources_sha256"]:
+                raise ValueError(f"Hangul parent source list differs from the directory hash release: {name}")
     if len(array_counts) != len(fixed_arrays):
         raise ValueError("directory hash conversion outside the measured archive set")
     if len(second_cleanups) != len(second):
@@ -211,6 +225,7 @@ def audit(link, temporary, inspect_source=None):
             "packages": packages, "non_applet_archive_inputs": excluded,
             **({"byte_identical_inline_cleanups": cleanups} if cleanups else {}),
             **({"byte_identical_second_inline_cleanups": second_cleanups} if second_cleanups else {}),
+            **({"hangul_pointer_types_removed": hangul_counts} if hangul_counts else {}),
             **({"fixed_array_conversions": array_counts} if array_counts else {}),
             **({"byte_identical_foreign_declarations": declarations} if declarations else {})}
 
@@ -260,9 +275,19 @@ def check_added_cleanups(previous_link, link, previous, current):
 
 
 def check_dirhash_conversion(before_link, after_link, before, after):
+    parents = before_link.get("e2fsprogs_dirhash_arrays", {})
+    records = after_link.get("e2fsprogs_dirhash_arrays", {})
+    if not records:
+        raise ValueError("missing post-conversion archives")
+    if parents:
+        if any("hangul" not in row for row in records.values()) or {
+            name: dirhash_parent(row) for name, row in records.items()
+        } != parents:
+            raise ValueError("Hangul archives did not retain every previous directory hash receipt")
+    elif any("hangul" in row for row in records.values()):
+        raise ValueError("missing directory hash parents for the Hangul conversion")
     controls = control_view(after_link)
-    if before_link.get("e2fsprogs_dirhash_arrays") or not after_link.get("e2fsprogs_dirhash_arrays"):
-        raise ValueError("expected the first directory hash conversion from the selected control")
+    before_link = control_view(before_link)
     for key in before_link.keys() | controls.keys():
         if key in {"binary", "e2fsprogs_dirhash_arrays"}:
             continue
@@ -275,6 +300,10 @@ def check_dirhash_conversion(before_link, after_link, before, after):
             or row["raw_offset_accesses_replaced"] != 40 for row in changes.values()):
         raise ValueError("expected both fixed-array conversions in all 13 E2fsprogs engines")
     expected = {"raw_pointer_type_tokens": 10 * len(changes), "raw_borrows": 4 * len(changes)}
+    if parents:
+        if after.get("hangul_pointer_types_removed") != {engine: 10 for engine in CONSUMERS}:
+            raise ValueError("expected the live Hangul conversion in all 13 engines")
+        expected = {"raw_pointer_type_tokens": 10 * len(changes)}
     if before["packages"].keys() != after["packages"].keys():
         raise ValueError("package set changed during directory hash conversion")
     for package, counts in before["packages"].items():
