@@ -11,11 +11,10 @@ from cargo_archive_pilot import compile_mounted_sources, stage_selected_archive
 from check_cargo_private_inlines import ROOT, digest
 from check_e2fsprogs_dirhash_arrays import source_list_digest
 from prune_private_inlines import POINTER
-from rank_ctype_bytes import DECL, matches
+from rank_ctype_bytes import DECL, HELPER, matches, selected_helper
 
 MODULE = "src/int_array.rs"
 CANONICAL = ROOT / "work/upstream/gawk-5.4.0/int_array.c"
-HELPER = ROOT / "compat/linux/ctype.rs"
 MARKER = ".rustbox-gawk-ctype"
 
 
@@ -39,13 +38,7 @@ def substitute(crate, sources):
     edited = edit.replace(DECL, b"")
     if b"__ctype_b_loc" in edited or len(POINTER.findall(data)) - len(POINTER.findall(edited)) != 2:
         raise ValueError("unexpected GNU awk pointer substitution")
-    helper = HELPER.read_bytes()
-    if digest(HELPER) != json.loads((ROOT / "evidence/glibc-ctype-values.json").read_bytes())["helper_sha256"]:
-        raise ValueError("classification helper differs from the locale tests")
-    # Only publish the one operation used in this compiled crate.
-    helper = b"".join(line for line in helper.splitlines(keepends=True)
-                      if b"classification!(" not in line or b"classification!(digit," in line)
-    changed["lib.rs"] += b"\n" + helper
+    changed["lib.rs"] += b"\n" + selected_helper("digit")
     changed[MODULE] = edited
     return changed, dict(errno=details, after_errno_sources_sha256=proof["candidate_sources_sha256"],
                          module=MODULE, canonical_sha256=digest(CANONICAL), helper_sha256=digest(HELPER),

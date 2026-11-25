@@ -9,6 +9,7 @@ from pathlib import Path
 import re
 
 from audit_linked_pointers import measure
+from check_cargo_private_inlines import ROOT, digest
 
 # Match the narrow emitted spelling. This is a source ranking. Each
 # substitution must separately establish the types, bindings and evaluation order.
@@ -21,6 +22,19 @@ ACCESS = re.compile(rb"\*\s*\(\s*\*\s*__ctype_b_loc\(\)\s*\)\s*\.offset\(\s*"
                     rb"(?P<value>\*?\s*[A-Za-z_]\w*)\s+as\s+" + BYTE + rb"\s+as\s+" + INT +
                     rb"\s+as\s+isize\s*,?\s*\)\s+as\s+" + INT + rb"\s*&\s*_IS(?P<flag>\w+)\s+as\s+" +
                     INT + rb"\s+as\s+" + USHORT + rb"\s+as\s+" + INT + rb"\b")
+
+
+HELPER = ROOT / "compat/linux/ctype.rs"
+
+
+def selected_helper(flag):
+    if flag not in FLAGS or digest(HELPER) != json.loads((ROOT / "evidence/glibc-ctype-values.json").read_bytes())["helper_sha256"]:
+        raise ValueError("unknown classification or helper differs from the locale tests")
+    selector = ("classification!(" + flag + ",").encode()
+    data = HELPER.read_bytes()
+    if data.count(selector) != 1:
+        raise ValueError("expected exactly one classified operation")
+    return b"".join(line for line in data.splitlines(keepends=True) if b"classification!(" not in line or selector in line)
 
 
 def matches(data):

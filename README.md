@@ -984,6 +984,14 @@ Run `scripts/rank_ctype_bytes.py LINK` for the inventory or
 [Inventory](evidence/glibc-ctype-byte-candidates.json) ·
 [GNU awk compiler-source replay](evidence/gawk-ctype-key-source.json)
 
+GNU Inetutils' argument-help formatter contains four unsigned-byte blank
+tests in each of its 26 engine archives. Five distinct compiled versions of
+the formatter account for all 26 copies. Replaying the substitution on each
+archive's compiler inputs would remove 104 classification-table reads and
+52 explicit raw-pointer types. These are source counts. The hostname
+archive is the first build under test.
+[Per-engine compiler-source hashes](evidence/inetutils-argp-classification-sources.json)
+
 GNU sed's two canonical gnulib builds and its production Rust archive
 preserved the caller's errno in all 75 quoting calls, including signed
 integer endpoints and buffers too small for the output. Five overflowing
