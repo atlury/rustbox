@@ -613,7 +613,12 @@ computed at compile time. The original generator still allocates the
 padded work buffer that its 16-byte copies require. A compiled C reader
 and the Rust dictionary matched on every word and length. The source
 change removes 539 raw-pointer type occurrences on the stdio parent, or
-11 additional occurrences when native C strings are already selected.
+11 additional occurrences when native C strings are already selected. The
+cold-built archive matched both upstream compilers on 2,625 generator
+cases, comparing all 647,605 result bytes and checking the buffer guards.
+All 2,625 cases passed Memcheck. Each canonical compiler also agreed on
+all 27 CLI cases across the four LZ4 command names.
+[LZ4 generator and command results](evidence/lz4-benchmark-dictionary-pilot.json)
 
 ```sh
 python3 -B tests/lz4-dictionary/source.py "$link"
