@@ -15,7 +15,7 @@ from check_cargo_private_inlines import ROOT, digest
 from check_e2fsprogs_dirhash_arrays import compile_staged, source_list_digest
 
 
-def compile_archive(snapshot, output, key, modules=None, *, routing_protocols=False, va_list_layout=False, static_arrays=False):
+def compile_archive(snapshot, output, key, modules=None, *, routing_protocols=False, dsfield=False, va_list_layout=False, static_arrays=False):
     from audit_linked_pointers import measure
     from build_c_string_literal_pilot import substitute
     from e2fsprogs_foreign_declarations import staged_compiler_inputs
@@ -26,7 +26,7 @@ def compile_archive(snapshot, output, key, modules=None, *, routing_protocols=Fa
     if not output.is_dir() or any(output.iterdir()):
         raise ValueError("direct compilation requires an empty output directory")
     link = json.loads(snapshot.read_bytes())
-    if not (routing_protocols or va_list_layout) and key in link.get("native_c_strings", {}):
+    if not (routing_protocols or dsfield or va_list_layout) and key in link.get("native_c_strings", {}):
         link["native_c_strings"] = {k: v for k, v in link["native_c_strings"].items() if k != key}
     selected = Path(key)
     original = cargo_origin(link, key)
@@ -52,11 +52,16 @@ def compile_archive(snapshot, output, key, modules=None, *, routing_protocols=Fa
             raise ValueError("direct compiler recipe failed to reproduce the selected archive")
         if va_list_layout:
             from build_va_list_layout_pilot import substitute as share_tag
-            if routing_protocols or modules or static_arrays:
+            if routing_protocols or dsfield or modules or static_arrays:
                 raise ValueError("the variadic layout selection uses its own complete module set")
             replacements, changes = share_tag(crate, sources)
-        elif routing_protocols:
-            from build_routing_protocol_pilot import substitute as replace_routing_table
+        elif routing_protocols or dsfield:
+            if routing_protocols and dsfield:
+                raise ValueError("select one routing table per compilation")
+            if dsfield:
+                from build_dsfield_names import substitute as replace_routing_table
+            else:
+                from build_routing_protocol_pilot import substitute as replace_routing_table
             if modules or static_arrays:
                 raise ValueError("routing table substitution selects its complete module")
             replacements, changes = replace_routing_table(crate, sources)
@@ -97,7 +102,7 @@ def publish(result, output, archive_name):
             raise ValueError("concurrently published archive or compiler receipt differs") from exc
 
 
-def build(link, output, key, modules=None, *, routing_protocols=False, va_list_layout=False, static_arrays=False):
+def build(link, output, key, modules=None, *, routing_protocols=False, dsfield=False, va_list_layout=False, static_arrays=False):
     output = output.resolve()
     raw = link.read_bytes()
     if output.exists():
@@ -111,6 +116,7 @@ def build(link, output, key, modules=None, *, routing_protocols=False, va_list_l
                         "-v", f"{ROOT}:/work:ro", "-v", f"{stage}:/trial", "rustbox-e2fsprogs:2026-11-24",
                         "python3", "-B", "/work/scripts/build_staged_c_strings.py",
                         "/trial/snapshot.json", "/trial/result", key,
+                        *(["--dsfield"] if dsfield else []),
                         *(["--routing-protocol-table"] if routing_protocols else []),
                         *(["--va-list-layout"] if va_list_layout else []), *(modules or ()),
                         *(["--static-arrays"] if static_arrays else [])], check=True)
@@ -127,8 +133,10 @@ if __name__ == "__main__":
     parser.add_argument("modules", nargs="*")
     choice = parser.add_mutually_exclusive_group()
     choice.add_argument("--routing-protocol-table", action="store_true")
+    choice.add_argument("--dsfield", action="store_true")
     choice.add_argument("--static-arrays", action="store_true")
     choice.add_argument("--va-list-layout", action="store_true")
     args = parser.parse_args()
     compile_archive(args.snapshot, args.output, args.archive, args.modules or None,
-                    routing_protocols=args.routing_protocol_table, va_list_layout=args.va_list_layout, static_arrays=args.static_arrays)
+                    routing_protocols=args.routing_protocol_table, dsfield=args.dsfield,
+                    va_list_layout=args.va_list_layout, static_arrays=args.static_arrays)

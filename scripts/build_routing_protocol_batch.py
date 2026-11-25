@@ -9,27 +9,39 @@ from pathlib import Path
 import subprocess
 import sys
 
-from build_routing_protocol_pilot import build
 from check_cargo_private_inlines import ROOT, digest
 from rank_routing_protocols import rank
 
 
-def expected_profiles(baseline, public_ip):
+def expected_profiles(baseline, public_ip, *, dsfield=False):
     profiles = [dict(profile) for profile in baseline["profiles"]]
     if not public_ip:
         for profile in profiles:
-            profile.update(public_successes=0, public_ip_commands=0)
+            if dsfield:
+                profile["public_filter_status"] = []
+            else:
+                profile.update(public_successes=0, public_ip_commands=0)
     return profiles
 
 
-def run(link, output, jobs, engine=None):
-    ranking = rank(link)
+def run(link, output, jobs, engine=None, *, dsfield=False):
+    if dsfield:
+        from build_dsfield_names import build
+        evidence_name = "iproute2-dsfield-pilot.json"
+        driver = "test_dsfield_names.py"
+        qualification = ("memcheck_runs", "canonical_inputs", "driver_sha256", "oracle_compilers")
+    else:
+        from build_routing_protocol_pilot import build
+        evidence_name = "iproute2-routing-protocol-pilot.json"
+        driver = "test_routing_protocol_pilot.py"
+        qualification = ("memcheck_runs", "canonical_source_sha256", "lookup_driver_sha256", "oracle_compilers")
+    ranking = rank(link, dsfield=dsfield)
     selected = ranking["engines"]
     if engine is not None:
         selected = {key: row for key, row in selected.items() if Path(key).name == f"lib{engine}_audit.a"}
         if len(selected) != 1:
             raise ValueError(f"unknown routing protocol engine {engine!r}")
-    baseline = json.loads((ROOT / "evidence/iproute2-routing-protocol-pilot.json").read_bytes())
+    baseline = json.loads((ROOT / "evidence" / evidence_name).read_bytes())
     output.mkdir(exist_ok=True)
     def check_archive(key, predicted, archive, folder):
         if not folder.exists():
@@ -42,15 +54,16 @@ def run(link, output, jobs, engine=None):
             raise ValueError(f"cold build differs from source replay for {archive}")
         receipt = folder / "comparison.json"
         if not receipt.exists():
-            result = subprocess.check_output([sys.executable, "-B", ROOT / "scripts/test_routing_protocol_pilot.py",
+            result = subprocess.check_output([sys.executable, "-B", ROOT / "scripts" / driver,
                                               folder, link])
         else:
             result = receipt.read_bytes()
         compared = json.loads(result)
-        profiles = expected_profiles(baseline, archive.name == "libip_audit.a")
+        profiles = expected_profiles(baseline, archive.name == "libip_audit.a", dsfield=dsfield)
+        if dsfield and compared.get("public_oracle_sha256") != (baseline["public_oracle_sha256"] if archive.name == "libip_audit.a" else {}):
+            raise ValueError(f"canonical ip filter binaries differ for {archive}")
         if (any(compared.get(k) != v for k, v in row.items()) or compared["profiles"] != profiles
-                or any(compared.get(k) != baseline[k] for k in ("memcheck_runs", "canonical_source_sha256",
-                                                                 "lookup_driver_sha256", "oracle_compilers"))):
+                or any(compared.get(k) != baseline[k] for k in qualification)):
             raise ValueError(f"incomplete or different canonical observations for {archive}")
         if not receipt.exists():
             pending = folder / "comparison.json.tmp"
@@ -69,10 +82,16 @@ def run(link, output, jobs, engine=None):
         checked = dict(pool.map(test, sorted(selected.items())))
     if digest(link) != ranking["link_report_sha256"]:
         raise ValueError("release changed during archive comparisons")
+    profiles = [p for row in checked.values() for p in row["profiles"]]
+    if dsfield:
+        lookups = sum(sum(p["counts"].values()) for p in profiles)
+        commands = sum(len(p["public_filter_status"]) for p in profiles)
+    else:
+        lookups = sum(p["forward"] + p["reverse"] for p in profiles)
+        commands = sum(p["public_ip_commands"] for p in profiles)
     totals = dict(verified=checked, binary_sha256=ranking["binary_sha256"], link_report_sha256=ranking["link_report_sha256"],
                   raw_pointer_types_removed=sum(r["raw_pointer_types_removed"] for r in checked.values()),
-                  canonical_lookups=sum(p["forward"]+p["reverse"] for r in checked.values() for p in r["profiles"]),
-                  public_ip_commands=sum(p["public_ip_commands"] for r in checked.values() for p in r["profiles"]),
+                  canonical_lookups=lookups, public_ip_commands=commands,
                   memcheck_runs=sum(r["memcheck_runs"] for r in checked.values()))
     destination = output / ("results.json" if engine is None else f"{engine}-results.json")
     pending = destination.with_suffix(".json.tmp")
@@ -86,7 +105,8 @@ if __name__ == "__main__":
     p.add_argument("output", type=Path)
     p.add_argument("--engine", help="qualify a single engine and save its own result")
     p.add_argument("--jobs", type=int, default=2)
+    p.add_argument("--dsfield", action="store_true", help="qualify the DS field and DSCP reader on the routing parent")
     args = p.parse_args()
     if args.jobs < 1:
         p.error("--jobs must be positive")
-    run(args.link.resolve(), args.output.resolve(), args.jobs, args.engine)
+    run(args.link.resolve(), args.output.resolve(), args.jobs, args.engine, dsfield=args.dsfield)

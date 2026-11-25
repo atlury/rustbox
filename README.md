@@ -1167,6 +1167,18 @@ The test also verifies the hash of the executable and the coverage from
 both canonical compiler builds.
 [Archive selection regression](tests/iproute2-netlink-protocols/routing-release.py)
 
+The IPRoute2 `ip` pilot replaces the 256-slot mutable DS field name table
+with checked indices and optional borrowed C strings. It preserves lazy
+configuration loading, the cached name across numeric conversions, and the
+different numeric rules for DS fields and DSCP. All five C interfaces agreed
+with GCC and Clang on 21,776 lookup observations across four configuration
+profiles. The candidate passed four Memcheck runs and all 36 public route
+filters. The compiled `ip` archive removes 265 explicit raw-pointer types.
+Source replay found the same opportunity in 18 engines, totaling 4,770
+candidate occurrences. Only the `ip` build is counted in this pilot.
+[Canonical observations](evidence/iproute2-dsfield-pilot.json) ·
+[Per-engine source estimates](evidence/iproute2-dsfield-source-candidates.json)
+
 The optional `--iproute2-routing-protocols` build flag selects all 18
 archives and verifies their C exports before linking. It accepts an
 explicit C-string manifest or prepares the required IPRoute2 entries.
