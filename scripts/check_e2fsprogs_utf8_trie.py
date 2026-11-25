@@ -9,7 +9,6 @@ import re
 from check_cargo_private_inlines import digest
 from check_e2fsprogs_dirhash_arrays import borrow_arrays, compile_staged, source_list_digest
 from check_next_inline_layer import apply_receipt
-from e2fsprogs_dirhash_archives import control_view
 from e2fsprogs_foreign_declarations import read_proof, staged_compiler_inputs
 from e2fsprogs_hangul import replace_hangul
 
@@ -56,9 +55,7 @@ def replace_lookup(module):
             len(re.findall(rb"\*(?:mut|const)\b", output)), "module_after": digest(module)}
 
 
-def trial(link, archive, scratch):
-    receipt = link["e2fsprogs_dirhash_arrays"][str(archive)]
-    parent = control_view(link)
+def compile_trie(parent, archive, scratch, receipt):
     crate, inputs, rustc = staged_compiler_inputs(parent, archive, scratch)
     selection = parent["linked_foreign_declaration_proofs"][str(archive)]
     apply_receipt(crate, read_proof(parent, archive, selection)["declarations"], inputs)
@@ -69,9 +66,10 @@ def trial(link, archive, scratch):
     if (source_list_digest({n: digest(crate / n) for n in inputs}) != receipt["compiler_sources_sha256"]
             or compile_staged(crate, inputs, rustc, candidate) != receipt["candidate_sha256"]):
         raise ValueError("trial did not reproduce the complete Hangul compiler inputs and archive")
-    result = replace_lookup(module)
-    return dict(result, archive=str(archive), parent_sha256=receipt["candidate_sha256"],
-                candidate_sha256=compile_staged(crate, inputs, rustc, candidate),
+    layer = replace_lookup(module)
+    layer.update(module=receipt["hangul"]["module"], module_before=receipt["hangul"]["module_after"],
+                 parent_archive_sha256=receipt["candidate_sha256"], parent_sources_sha256=receipt["compiler_sources_sha256"])
+    return dict(receipt, trie=layer, candidate_sha256=compile_staged(crate, inputs, rustc, candidate),
                 compiler_sources_sha256=source_list_digest({n: digest(crate / n) for n in inputs}))
 
 
@@ -83,5 +81,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
     scratch = args.scratch.resolve()
     scratch.mkdir()
-    result = trial(json.loads(args.link_report.read_bytes()), args.archive, scratch)
+    from e2fsprogs_dirhash_archives import control_view
+    link = json.loads(args.link_report.read_bytes())
+    record = compile_trie(control_view(link), args.archive, scratch, link["e2fsprogs_dirhash_arrays"][str(args.archive)])
+    layer = record["trie"]
+    result = dict(archive=str(args.archive), parent_sha256=layer["parent_archive_sha256"],
+                  candidate_sha256=record["candidate_sha256"], compiler_sources_sha256=record["compiler_sources_sha256"],
+                  module_after=layer["module_after"], raw_pointer_type_tokens_removed=layer["raw_pointer_type_tokens_removed"])
     (scratch / "result.json").write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")

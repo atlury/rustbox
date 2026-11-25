@@ -418,7 +418,11 @@ every code point through U+10FFFF, including surrogate encodings. Truncated
 inputs end at an inaccessible page. The standalone pilot build and test are
 `scripts/check_e2fsprogs_utf8_trie.py` and `scripts/test_e2fsprogs_utf8_trie.sh`.
 The measured archive and comparison counts are in
-`evidence/e2fsprogs-utf8-trie-pilot.json`.
+`evidence/e2fsprogs-utf8-trie-pilot.json`. To reproduce all 13 archives, run
+`scripts/e2fsprogs_dirhash_archives.py HANGUL_LINK NEW_DIRECTORY --jobs 3 --trie`
+inside the Linux build environment. The release preparer verifies the
+compiler inputs and archive hash at each preceding stage. The final archive
+records are in `batches/e2fsprogs-trie-arrays.json`.
 
 Reproduce the linked Rust source inventory with
 `python3 -B scripts/audit_linked_pointers.py work/analysis/rustbox-multicall-link.json`.

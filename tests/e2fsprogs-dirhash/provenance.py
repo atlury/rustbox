@@ -2,10 +2,12 @@
 """Check the link projection back to the exact archive and earlier source receipts."""
 # SPDX-License-Identifier: GPL-2.0-only
 from copy import deepcopy
+import json
 from pathlib import Path
 import sys
+import tempfile
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
-from e2fsprogs_dirhash_archives import candidate_path, control_view
+from e2fsprogs_dirhash_archives import candidate_path, control_view, prepare, prior_stage
 
 base = Path("work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-e2fsprogs-shared/debugfs/libdebugfs_audit.a")
 before, after = "a" * 64, "b" * 64
@@ -34,3 +36,31 @@ for field, key, value in (("source_library_sha256", str(base), before),
         continue
     raise AssertionError(f"accepted invalid {field}")
 print("Matched the source control and rejected ambiguous archives, changed hashes and stale parent receipts.")
+
+# A later stage keeps the complete earlier compiler record for every selected archive.
+root = Path(__file__).resolve().parents[2]
+arrays = json.loads((root / "batches/e2fsprogs-dirhash-arrays.json").read_bytes())
+hangul = json.loads((root / "batches/e2fsprogs-hangul-arrays.json").read_bytes())
+assert {key: prior_stage(row, "hangul") for key, row in hangul.items()} == arrays
+minimal = {"linked_private_inline_proofs": {key: row["inlines"] for key, row in arrays.items()}}
+with tempfile.TemporaryDirectory() as tmp:
+    manifest = Path(tmp) / "invalid.json"
+    for stage, records in (("hangul", hangul), ("trie", {
+        key: dict(row, trie={"parent_archive_sha256": row["candidate_sha256"],
+                             "parent_sources_sha256": row["compiler_sources_sha256"]}) for key, row in hangul.items()
+    })):
+        for field in ("parent_archive_sha256", "parent_sources_sha256", None):
+            changed = deepcopy(records)
+            row = changed[next(iter(changed))]
+            if field is None:
+                del row[stage]
+            else:
+                row[stage][field] = "0" * 64
+            manifest.write_text(json.dumps(changed))
+            try:
+                prepare(minimal, manifest, root)
+            except ValueError as e:
+                assert stage in str(e)
+            else:
+                raise AssertionError(f"accepted mismatched stage {stage}, field {field}")
+print("Both Unicode stages reject altered archive or source parents and partial selections before rebuilding.")
