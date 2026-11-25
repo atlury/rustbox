@@ -790,6 +790,12 @@ passed 22 command comparisons. The API checks cover invalid IDs,
 unknown names and retained strings under Memcheck.
 [Catalog archive and comparisons](evidence/less-checked-message-catalog.json)
 
+The saved 499-name candidate passed 88 public comparisons for
+Less and lessecho. The custom help tests exercised raw bytes, newlines,
+repeated overrides and embedded NULs through both dispatch modes and
+both canonical compilers. The stripped candidate is 24,938,640 bytes.
+[Multicall comparison](evidence/less-checked-catalog-multicall.json)
+
 The compiler-source audit follows each archive through preparation and the
 live rewrite. It verifies the before and after source hashes, the complete
 archive digest, and the pointer counts on the actual compiled Rust. Against
