@@ -949,6 +949,13 @@ python3 -B scripts/prepare_errno_parents.py work/analysis/shared-stdio-final/rel
 
 [Per-package compiler input hashes and counts](evidence/errno-composed-source-counts.json)
 
+The complete GNU awk archive replaced 76 errno reads and 18 writes after
+5,005 native string substitutions. Both canonical compilers matched 26
+public command cases and 17 additional field-width, numeric conversion and
+I/O profiles. The two canonical binaries, original archive and candidate
+each passed three of those profiles under Memcheck.
+[Archive comparisons](evidence/gawk-errno-archive.json)
+
 The GNU awk baseline exercises `FIELDWIDTHS` at and above the 64-bit
 unsigned limit, MPFR parsing in decimal and non-decimal modes, and errors
 for a missing script with a non-UTF-8 filename. Seventeen profiles matched

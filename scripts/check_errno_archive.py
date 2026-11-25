@@ -11,7 +11,7 @@ import sys
 from build_checked_errno import replay
 from check_cargo_private_inlines import ROOT
 
-VERSIONS = {"sed": "4.10", "grep": "3.12", "gzip": "1.14", "shadow": "4.20.4", "findutils": "4.10.0"}
+VERSIONS = {"sed": "4.10", "grep": "3.12", "gzip": "1.14", "shadow": "4.20.4", "findutils": "4.10.0", "gawk": "5.4.0"}
 
 
 def checked(package, link, pilot, *, build):
@@ -31,8 +31,8 @@ def checked(package, link, pilot, *, build):
     public = package in ("findutils", "shadow")
     if public:
         script = ["tests/errno-values/command-archives.py", package]
-    elif package == "sed":
-        script = ["tests/errno-values/sed.py"]
+    elif package in ("gawk", "sed"):
+        script = ["tests/errno-values/" + package + ".py"]
     else:
         script = ["tests/errno-values/descriptors.py", package]
     arg = str(link.resolve().relative_to(ROOT))
@@ -45,6 +45,12 @@ def checked(package, link, pilot, *, build):
         if (baseline["public"] != candidate["public"] or baseline["archive_sha256"] != row["control_sha256"]
                 or candidate["archive_sha256"] != row["candidate_sha256"] or candidate["memcheck_runs"] != 6):
             raise ValueError("command or memory results differ on the specified archives")
+    elif package == "gawk":
+        if (baseline["archives"] != {"parent": row["control_sha256"]}
+                or candidate["archives"] != dict(baseline["archives"], candidate=row["candidate_sha256"])
+                or any(baseline[k] != candidate[k] for k in ("public", "canonical", "profiles"))
+                or baseline["memcheck_runs"] != 9 or candidate["memcheck_runs"] != 12):
+            raise ValueError("GNU awk archive, command, numeric or errno results differ")
     else:
         archives = dict(baseline["archive_sha256"], candidate=row["candidate_sha256"])
         if (baseline["archive_sha256"]["parent"] != row["control_sha256"] or candidate["archive_sha256"] != archives

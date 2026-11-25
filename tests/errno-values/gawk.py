@@ -27,7 +27,7 @@ def profiles():
     yield "errno-io", ['BEGIN { n = getline s < "missing"; print n, ERRNO; print close("missing"), ERRNO }'], b""
 
 
-def compare(link, pilot, work):
+def compare(link, pilot, work, *, byte_keys=False):
     selected = json.loads(link.read_bytes())
     key, = [k for k in selected["source_library_sha256"] if Path(k).name.startswith("libgawk_") and k.endswith(".a")]
     pma = "build/gawk-5.4.0-hybrid/c-residue/pma.o"
@@ -57,6 +57,11 @@ def compare(link, pilot, work):
                         "-ldl", "-lpthread", "-lm"], check=True)
         programs[name] = exe
         (folder / "extension").symlink_to(ROOT / "build/gawk-5.4.0-hybrid/extension")
+    if byte_keys:
+        sys.path.insert(0, str(ROOT / "tests/ctype-values"))
+        import gawk_keys
+        return dict(archives={name: digest(path) for name, path in archives.items()},
+                    canonical={cc: digest(programs[cc]) for cc in ("gcc", "clang")}, **gawk_keys.run(programs, work))
     target = "candidate" if pilot else "parent"
     public = {}
     for cc in ("gcc", "clang"):
@@ -103,6 +108,7 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("link", type=Path)
     p.add_argument("pilot", type=Path, nargs="?")
+    p.add_argument("--byte-keys", action="store_true", help="compare numeric and byte-string array indices across locales")
     a = p.parse_args()
     with TemporaryDirectory() as tmp:
-        print(json.dumps(compare(a.link, a.pilot, Path(tmp)), indent=2, sort_keys=True))
+        print(json.dumps(compare(a.link, a.pilot, Path(tmp), byte_keys=a.byte_keys), indent=2, sort_keys=True))
