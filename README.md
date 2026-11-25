@@ -888,6 +888,12 @@ replays matched the batch scanner, as did GNU sed, grep and gzip.
 These are candidate counts. Rebuild and runtime results are recorded separately.
 [Per-archive errno candidates](evidence/errno-value-access-candidates.json)
 
+The GNU Findutils archive applies the accessor after 265 verified native C strings.
+It replaces 27 direct reads and 90 writes in 27 modules.
+Both canonical compilers matched 38 public cases each.
+Two error paths also matched across the canonical builds and candidate in six Memcheck runs.
+[GNU Findutils archive evidence](evidence/findutils-errno-archive.json)
+
 To reproduce the source selection and Linux command checks for one archive,
 run the following from the repository with the saved link report and package
 oracle volume. The optional `--build` cold-builds a missing candidate.
