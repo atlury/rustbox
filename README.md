@@ -854,6 +854,21 @@ Use
 `scripts/audit_linked_pointers.py CANDIDATE_LINK --verify-netlink-protocols-from PARENT_LINK`
 to replay the compiler inputs and verify the difference.
 
+The routing protocol table `rt_protos` also has 18 copies. Replaying the
+source substitution on the packed-curl compiler inputs replaced 319 raw
+pointer type occurrences per copy, or 5,742 in total. With the separate
+native C-string pass already applied to `ip`, its measured reduction was
+267. The totals overlap. The `ip` pilot reproduced its parent archive
+before compiling the changed routing table. The default still uses the
+previous table until multicall qualification.
+[Per-engine source hashes](evidence/iproute2-routing-protocol-candidates.json)
+
+```sh
+python3 -B scripts/rank_routing_protocols.py "$link"
+python3 -B scripts/build_routing_protocol_pilot.py --link "$link" --archive "$ip_archive" --output "$pilot"
+python3 -B scripts/test_routing_protocol_pilot.py "$pilot" "$link"
+```
+
 To reproduce the netlink candidates for all 18 engines, use the scope/realm
 parent link report and two output directories. The batch builds larger
 crates first, reproduces each parent archive and checks each candidate
