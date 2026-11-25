@@ -1,0 +1,55 @@
+{
+  "archive": {
+    "archive": "work/analysis/zstd-1.5.7/translations/c2rust-0.22.1/zstd-1.5.7-stable/target/release/libzstd_1_5_7_normalized_audit.a",
+    "archive_pilot": true,
+    "boundary_cases": 2625,
+    "candidate_module_sha256": "186cbbf24686e09ef2f865e2a29ea922d56710bab7589df82a75c263ca9c43d9",
+    "candidate_sha256": "addc444994786e332600daa7fcf9c072890a92d53166174a3fac6fb44c230a55",
+    "candidate_sources_sha256": "4bb16ce160eb55c62ea47881678bf8a6388b77a2cabfcc270aec3b89a87c37f4",
+    "canonical_sha256": "d0f7bfbc9dc4f906532e71cbe7500324e02d8947eb8d4d99ae9ad3638e86b5d5",
+    "comparisons": {
+      "blocks.c": {
+        "bytes": 647605,
+        "driver_sha256": "4c9c38a280e0bda6df4554e75404a1db19d17049fe1152e5364f81c7897b55ad",
+        "sha256": "8a9402dd7fb5cb5a89789de91e42e2b69467ee91631e6fa7a430fdfa356c64ba"
+      },
+      "long-block.c": {
+        "bytes": 10000759,
+        "driver_sha256": "1188e781c2f03cb627da9e1d7627f6c6902932828c06c1acc8ec418779a88368",
+        "sha256": "395b66422c0cab1f0c1e889ccba78bd43ba348c0c90a82c5957123849e05285d"
+      }
+    },
+    "compiler_selected_sources": 46,
+    "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+    "control_module_sha256": "d6acfb1c1ed89112136101faaf9236000e1fb8f8a3ebd91d34b2cea78f912791",
+    "control_sha256": "91146c566f13c2058e0cb10ecebbcebb2ee3925e6708cf14a1b17a6b4a8c97d8",
+    "helper_sha256": "1b6410620f70982b546efde181e86a0ed8d76ad63770dd581131fb150f35a2b3",
+    "memcheck_runs": 2,
+    "module": "src/programs/lorem.rs",
+    "mutable_statics_removed": 13,
+    "packed_bytes": 1598,
+    "parent_sources_sha256": "64832e93ca95ae047509e82badf1909753fc3c588920f6fe206831abcffcbd4f",
+    "public_generators": 2,
+    "raw_pointer_types_removed": 574,
+    "replayed_sources": 46,
+    "words": 255
+  },
+  "public": {
+    "candidate_sha256": "addc444994786e332600daa7fcf9c072890a92d53166174a3fac6fb44c230a55",
+    "command_cases": {
+      "clang": 17,
+      "gcc": 17
+    },
+    "command_driver_sha256": "4664e9807924882d518d6a5466d2104c5239145dcdcbb392ef9ed5a19a9ca9c5",
+    "synthetic": {
+      "10000000": {
+        "compressed_bytes": 3240239,
+        "ratio": "3.086"
+      },
+      "65536": {
+        "compressed_bytes": 22185,
+        "ratio": "2.954"
+      }
+    }
+  }
+}

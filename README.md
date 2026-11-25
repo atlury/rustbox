@@ -878,6 +878,13 @@ block. Memcheck covered both drivers. The original oversize assertion and
 zero-length null-buffer behavior were also exercised.
 [Canonical generator comparison](evidence/zstd-lorem-generator.json)
 
+A cold rebuild reproduced the selected Zstd control archive. All 46
+compiler inputs were replayed, and both generator drivers passed again
+against the candidate archive. Each canonical compiler passed 17 public
+command comparisons. The public benchmark compressed the 64 KiB and
+10 MB generated inputs to the same sizes as the Rust candidate.
+[Zstd archive and public benchmark evidence](evidence/zstd-lorem-archive.json)
+
 The source replay also checks the Zstd generator after native C-string
 conversion. With the 255 dictionary literals already converted, the writer
 removes 64 more raw-pointer types and reproduces the original pilot source
