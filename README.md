@@ -221,7 +221,7 @@ E2fsprogs integration passes 112/112 canonical comparisons and all 32
 Valgrind paths; its 20 private namespaces rename 8,126 symbols after removing
 3,966 byte-identical Rust runtime members already provided by Procps-ng.
 Exact evidence is in `evidence/e2fsprogs-1.47.4-multicall.json`.  The resulting
-499-name executable is 43,057,184 bytes unstripped and 25,107,952 bytes
+499-name executable is 43,069,296 bytes unstripped and 25,113,312 bytes
 stripped. Sharing the Coreutils runtime with Gzip saved 289,264 stripped
 bytes. The linker compares 328 archive members byte-for-byte before sharing
 them. The exact hashes and
@@ -285,8 +285,8 @@ for 89 linked Rust archives. These cover the 20 E2fsprogs, 18 IPRoute2 and
 26 GNU Inetutils engines and 25 other package archives. A second compiler pass
 removed additional helpers in 58 of those archives. The declaration cleanup
 covers 89 archives, including 20 E2fsprogs engines. Across the linked applet
-sources the raw-pointer type count fell from **1,379,960 to 960,635**.
-Counting byte-identical Rust files once gives **695,472** remaining occurrences.
+sources the raw-pointer type count fell from **1,379,960 to 954,965**.
+Counting byte-identical Rust files once gives **694,842** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
 The IPRoute2 `ss` pilot replaces the netlink protocol name table and removes
@@ -322,10 +322,11 @@ integration. [Pilot evidence](evidence/iproute2-netlink-protocols-pilot.json)
 | Checked Unicode trie traversal in the same 13 engines | 65 |
 | Immutable IPRoute2 address-protocol names across 18 engines | 5,166 |
 | IPRoute2 route-scope and route-realm tables across 18 engines | 9,954 |
-| **Total** | **419,325** |
+| IPRoute2 netlink protocol names across 18 engines | 5,670 |
+| **Total** | **424,995** |
 
 E2fsprogs accounts for 197,728 remaining occurrences, down from 401,012.
-IPRoute2 accounts for 180,930, down from 265,323. GNU Inetutils accounts
+IPRoute2 accounts for 175,260, down from 265,323. GNU Inetutils accounts
 for 78,019, down from 104,385. The curl crate accounts for 85,468, down
 from 96,855. GNU gzip accounts for 2,604, down from 4,086, and XZ Utils
 accounts for 9,784, down from 22,239.
@@ -337,16 +338,18 @@ and added 72 unstripped bytes. The Hangul and trie conversions together
 added 11,264 stripped bytes. The IPRoute2 address-protocol conversion added
 6,144 stripped bytes and 6,184 unstripped bytes across the multicall. The
 scope and realm tables added 9,408 stripped bytes and 4,720 unstripped bytes.
+The netlink tables added 5,360 stripped bytes and 12,112 unstripped bytes.
 The current unstripped SHA-256 is
-`b374a5bd3c3c68bd49c1472b8e4275b31aff83cb3d32cc954562e72b552565f9`.
+`4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a`.
 The stripped SHA-256 is
-`8735d8d061e973f57356f2cfef69475730c6428f31f9953c5c62f177fcda4c7d`.
+`ceb375c3e0b182dcfea04ac53e48aa82a6b58eea6482265b97626e6010fbff24`.
 
 | Code | Where it runs | Remaining work |
 |---|---|---|
 | IPRoute2 nested FDB activity | Default multicall, verified against canonical `bridge` on 259 records and live kernel operations | The adapter still constructs a borrowed slice from the initialized receive buffer |
 | IPRoute2 address-protocol names | Immutable lookup table in all 18 linked engine archives. The two public lookup functions are emitted in the `ip` namespace | The configuration loader uses a temporary pointer array and the public functions still take raw ABI arguments |
 | IPRoute2 route scope and realm names | Shared Rust implementation across all 18 engines, including the separate `bridge` build | The loader and four public C interfaces still exchange raw pointers |
+| IPRoute2 netlink protocol names | Shared table in all 18 linked engines, including the public `ss` command | Loader and public C entry points still have raw ABI arguments |
 | IPRoute2 generic `parse_rtattr_flags` | Disposable `bridge` build | Audit the remaining callers before wider use |
 | E2fsprogs bitmap population count | Shared by the filesystem checker and resizer | Move the bitmap buffer owners to safe Rust to remove the remaining raw ABI argument |
 | E2fsprogs CRC16, CRC32C and big-endian CRC32 | One linked provider for each function, shared across 13 engines | Replace the raw buffers at the caller boundary as their owners are migrated |
@@ -458,10 +461,10 @@ To find work that can be reused across engines, run
 `python3 -B scripts/rank_shared_applet_modules.py LINK_REPORT --limit 20`.
 The scanner groups compiler-selected modules by package and exact source
 bytes and selects groups containing a public C-ABI function. Across 174
-groups it measures 242,521 raw-pointer type occurrences in copies beyond the
-first archive. IPRoute2's `rt_names.rs` contains 1,704 occurrences in each of
-17 identical copies, or 27,264 beyond the first. Three remaining 256-slot name tables in
-each copy contain 725 explicit null initializers. These entries contribute
+groups it measures 237,481 raw-pointer type occurrences in copies beyond the
+first archive. IPRoute2's `rt_names.rs` contains 1,389 occurrences in each of
+17 identical copies, or 22,224 beyond the first. Two remaining 256-slot name tables in
+each copy contain 490 explicit null initializers. These entries contribute
 to the source count even before any lookup executes. The tables load local
 configuration and keep process state. A shared implementation must preserve
 those behaviors and its callers' ownership rules. The 20 leading groups are
@@ -588,10 +591,12 @@ All 18 netlink candidates reproduced their parent archives. Together they
 matched 393,480 canonical lookup results and passed 72 Memcheck runs. The
 compiler receipts are in [the batch manifest](batches/iproute2-netlink-protocols.json).
 
-The optional `scripts/build_rustbox_multicall.sh --iproute2-netlink-protocols`
-build links these archives into the 499-name executable. The linked inventory
-has 954,965 raw-pointer type occurrences, or 694,842 when identical files
-are counted once. This candidate is 25,113,312 bytes stripped. Use
+The default build links all 18 netlink archives. All 28 package suites and
+14,022 batch differential cases passed. Both public dispatch forms matched
+canonical `ss` on all 48 socket-fixture commands. The table lookup count
+covers all 18 archives. [Release replay](evidence/rustbox-netlink-protocol-replays.json)
+
+Use
 `scripts/audit_linked_pointers.py CANDIDATE_LINK --verify-netlink-protocols-from PARENT_LINK`
 to replay the compiler inputs and verify the difference.
 
