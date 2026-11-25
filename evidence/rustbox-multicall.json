@@ -732,7 +732,7 @@
       "xfail": 0,
       "xpass": 0
     },
-    "upstream_log_sha256": "6a2c34ba19d9a67cc77fc43f9e9c872ad8cc025e06fe5b8c3a52bce3824c4f4d",
+    "upstream_log_sha256": "8cb8ca276382d1c6142b8318e0c811b1ae1942e28c8666334787d3e39caa329d",
     "upstream_suite": {
       "error": 0,
       "fail": 0,
@@ -1254,8 +1254,8 @@
     },
     "valgrind_allocation_lifecycle_matches_canonical": true,
     "valgrind_log_sha256": {
-      "getfattr": "b487a3d657a8bf7356c833d0d669eb0e95090d062625d1d311c6d2d121317586",
-      "setfattr": "3efd41f3006696f883ebe9b01bea56b1290f2f58f25e6ddfbcedcf02c2f01c24"
+      "getfattr": "6e210296b4ddff42c2b7f44e8f78c79cb6cfb0877d717feb367727ea4642a5b0",
+      "setfattr": "b2a0cf18cacc64e05162f712b8c7a66e6d0dd218de9e8cea0e99cc5868d82dea"
     }
   },
   "batch_differential": {
@@ -3202,7 +3202,7 @@
     "translated_entrypoint": "rustbox_bison_engine_main",
     "upstream_log_sha256": "083e71ad667817f014180849acf5d13d51547120379c390a2b7f40412dbefd58",
     "valgrind_errors": 0,
-    "valgrind_log_sha256": "3bd152c2a36256ed9f301bac4afc1f94856cc6d4ba70b098cc5b8674e432d77b",
+    "valgrind_log_sha256": "be8bc9dbc231e1433ff7378be8c96239d1dbd6599d6af6d4baa01b5b44b628c4",
     "yacc": {
       "compile_status": 0,
       "generated_sha256": {
@@ -8572,13 +8572,29 @@
       ],
       "less_public_names": 2,
       "linked_private_inline_proofs": {
+        "work/analysis/acl-2.4.0/translations/c2rust-0.22.1/acl-2.4.0-stable/target/release/libacl_2_4_0_normalized_audit.a": {
+          "file": "libacl_2_4_0_normalized_audit.inlines-0b2edaeaa6af1bd4d5ec0977962aa7a51b4c414de7f0b068eac713a96b671aee.json",
+          "sha256": "073dc4a329efb138d97ee687af7965e7da932597f2d0ebd80c72f8c8b8218f63"
+        },
+        "work/analysis/attr-2.6.0/translations/c2rust-0.22.1/attr-2.6.0-stable/target/release/libattr_2_6_0_normalized_audit.a": {
+          "file": "libattr_2_6_0_normalized_audit.inlines-1fa56692ce48276bcbd9481f5565cdc9a9229f709fed2549258d62b76026ec02.json",
+          "sha256": "d8df6b8d4090ff6c6ede0c8a35886ad959fa1cbd165b132ecae4fa51da34e7cb"
+        },
         "work/analysis/bc-1.08.2/translations/c2rust-0.22.1/bc-1.08.2-stable/target/release/libbc_1_08_2_normalized_audit.a": {
           "file": "libbc_1_08_2_normalized_audit.inlines-e733f4c3df45a89a1a31f14584dccad5c2a47a608431c1fc7fc5b5f714f4c1e1.json",
           "sha256": "e1e13b8c2715880dcb30c1f6d84fb8d3387411706a320f265ce9bbe27fc9c9b2"
         },
+        "work/analysis/bison-3.8.2/translations/c2rust-0.22.1/bison-3.8.2-stable/target/release/libbison_3_8_2_normalized_audit.a": {
+          "file": "libbison_3_8_2_normalized_audit.inlines-de234211d4da1d33bd5c457f25f1495cbd8d0625c6e060f6408590ddbaee765b.json",
+          "sha256": "bd9612a6de8c592cc4dab86d1ab5955c9c3afc8df9af97ce0a16d0653b708f62"
+        },
         "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/release/libcurl_8_23_0_normalized_audit.a": {
           "file": "libcurl_8_23_0_normalized_audit.inlines-51ce79c28f8856ded0cee9012facca61c20819c5fdf07cba6f9137665acbb869.json",
           "sha256": "35836c71c2dd371e37f8f82a12c4a9b09798da1126a92ff38bfe6d0498357c14"
+        },
+        "work/analysis/diffutils-3.12/translations/c2rust-0.22.1/diffutils-3.12-stable/target/release/libdiffutils_3_12_normalized_audit.a": {
+          "file": "libdiffutils_3_12_normalized_audit.inlines-3b3ea449921ac4b70f1277459687655f13d1e9640505e3086683af3f779a09c6.json",
+          "sha256": "36658360bd98b746a1070ae5f2f35fe01e988279baa7fb2699a057e8813a99e5"
         },
         "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/chattr/release/libchattr_audit.a": {
           "file": "libchattr_audit.inlines-4fd33d5b6db727ec42efef659c1c8f3f47e160292f52c04cbc55f4d2c3ab2b5c.json",
@@ -8660,9 +8676,25 @@
           "file": "libtune2fs_audit.inlines-6ace1cd28e3cbed5eb01ca5e843ccb5072e7fe15bb02add4e1ff728110f0a4db.json",
           "sha256": "4dc7d5d8ede94516a270aeab2d618be12536ce81639bf0660f8d6bc9f59fb1f6"
         },
+        "work/analysis/file-5.48/translations/c2rust-0.22.1/file-5.48-stable/target/release/libfile_5_48_normalized_audit.a": {
+          "file": "libfile_5_48_normalized_audit.inlines-41940fcd7a226f92c47a7f768134a9839a92f38ebe7508f852ac9fcbee12fc51.json",
+          "sha256": "ed0b5e063db9cfec08aa62b6cd444c26d04ec31fa9d498f15daa4a6302c9a8af"
+        },
         "work/analysis/findutils-4.10.0/translations/c2rust-0.22.1/findutils-4.10.0-stable/target/release/libfindutils_4_10_0_combined.a": {
           "file": "libfindutils_4_10_0_combined.inlines-41f8bde732ffdf6ae660a7004d330cbd09342f81c7cf7db2260b7720085a887a.json",
           "sha256": "ccd79a328dc9a30ce96e530de3ac06b57846967ff78dacbe2178e5392e3d7145"
+        },
+        "work/analysis/flex-2.6.4/translations/c2rust-0.22.1/flex-2.6.4-stable/target/release/libflex_2_6_4_normalized_audit.a": {
+          "file": "libflex_2_6_4_normalized_audit.inlines-2ac003b5bd9a556aa637d04b4eebb82acafab5555ce6417a0ed1cc9521a7ae27.json",
+          "sha256": "a1748efc06b7cf4a05a528ce105b48caac03daba7f07604dccffa2109eb31c8e"
+        },
+        "work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-core-stable/target/release/libgawk_5_4_0_core.a": {
+          "file": "libgawk_5_4_0_core.inlines-85eb380a655f3251198a38697ca70b749284a9e179094d74eac473d8298be1bf.json",
+          "sha256": "817cd7a9dee281faf6484ddb60b45be2f3d7eccc93c52f25fccdce81daafcf5d"
+        },
+        "work/analysis/grep-3.12/translations/c2rust-0.22.1/grep-3.12-stable/target/release/libgrep_3_12_normalized_audit.a": {
+          "file": "libgrep_3_12_normalized_audit.inlines-8948c77bbf23ca830536a604aa571c5a97b97f0a1cefead066557a58586d5f51.json",
+          "sha256": "60e495737ec8214ad00abaaaabde17e9d9d3c9970560e61b06fe10bc10703a02"
         },
         "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a": {
           "file": "libgzip_1_14_reachable_audit.inlines-d81f327985166c29d61e824e83eaca4e03543a1f4875e7bd22ac3cf0d30850ec.json",
@@ -8844,13 +8876,49 @@
           "file": "libbridge_audit.inlines-d6197c65cb9880065053d8822264f9aabaf8f589676eeb4661bc1eb63dbeaf18.json",
           "sha256": "d6197c65cb9880065053d8822264f9aabaf8f589676eeb4661bc1eb63dbeaf18"
         },
+        "work/analysis/kmod-34.3/translations/c2rust-0.22.1/kmod-34.3-stable/target/release/libkmod_34_3_normalized_audit.a": {
+          "file": "libkmod_34_3_normalized_audit.inlines-855282459e1e8cf2e0d64562605096b960dfc6afd8f9bac2c168bab969816d8f.json",
+          "sha256": "29783988e185a5102fd236c8c481079a0e0d25e9c500be980682d08d77dd8d81"
+        },
+        "work/analysis/less-710/translations/c2rust-0.22.1/less-710-stable/target/release/libless_710_normalized_audit.a": {
+          "file": "libless_710_normalized_audit.inlines-937f7b4b077152abb6f622d3549fa184162c210f8bdc04dd491923bcdd7739ac.json",
+          "sha256": "1e9a6b6b49b8013bf4257131869de85fdccbb4d51545e5285b573b6b37a7a861"
+        },
         "work/analysis/lz4-1.11.1/translations/c2rust-0.22.1/lz4-1.11.1-stable/target/release/liblz4_1_11_1_normalized_audit.a": {
           "file": "liblz4_1_11_1_normalized_audit.inlines-614dec7637c25e3f84b336b6d4ba2b40ee45787c88b9a78721ccc39af189550c.json",
           "sha256": "37981902a2d5026ecef94e2857bdf5b3696378ef46a3b4361cc3b7dbd322c23e"
         },
+        "work/analysis/m4-1.4.21/translations/c2rust-0.22.1/m4-1.4.21-stable/target/release/libm4_1_4_21_normalized_audit.a": {
+          "file": "libm4_1_4_21_normalized_audit.inlines-076356bc294583079d47e22610e784449c9eddd9888eb89307e55a31df28ea9e.json",
+          "sha256": "bbbd44b7435948ec2ed4395bb1823b5c181f5ccea5d2ffda98c1b5bff5a1b343"
+        },
         "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a": {
           "file": "libncurses_6_6_normalized_audit.inlines-fc013fdadeb69597c32cd67c04a442366c10a7b391b8e88f4aba905929f6c235.json",
           "sha256": "7819deeb70e3099f51a0cd39dbd19270502f8900b2599349b2568447aa2fc32c"
+        },
+        "work/analysis/patch-2.8/translations/c2rust-0.22.1/patch-2.8-stable/target/release/libpatch_2_8_normalized_audit.a": {
+          "file": "libpatch_2_8_normalized_audit.inlines-6b7df3632614a3a774244e803add58f2e0e8f3cafe5c26fa0e016f304d861e94.json",
+          "sha256": "c17cd01874ddaaceef14f388fdbf10febfe0060260ace0921bc5b6102a4c495b"
+        },
+        "work/analysis/pkgconf-3.0.11/translations/c2rust-0.22.1/pkgconf-3.0.11-stable/target/release/libpkgconf_3_0_11_normalized_audit.a": {
+          "file": "libpkgconf_3_0_11_normalized_audit.inlines-5f7b92e201f1f550275d8861046f85a167bd266f4bac9dd8d07bc7a9e74df212.json",
+          "sha256": "9f9f62a0e4bb5dfc3c0bcce6babfebc23ffdfe0ea0edb5e358dff5d81da47421"
+        },
+        "work/analysis/procps-ng-4.0.7/translations/c2rust-0.22.1/procps-ng-4.0.7-nightly/target/release/libprocps_ng_4_0_7_normalized_audit.a": {
+          "file": "libprocps_ng_4_0_7_normalized_audit.inlines-df22932f78372d9de5b0ead0b3f589a39688f8d1f3c727c9becf68ef5c1b06ad.json",
+          "sha256": "77d2ff385c4b56c26a93f11089d86d3a310859fe360ad4515f07fc7fca99ebbd"
+        },
+        "work/analysis/sed-4.10/translations/c2rust-0.22.1/sed-4.10-stable/target/release/libsed_4_10_normalized_audit.a": {
+          "file": "libsed_4_10_normalized_audit.inlines-b0884dee609484dc2332e80e3e4d0aeca3f846643ecedbc7b887c6f5707a07e0.json",
+          "sha256": "ee06bca983619e23475b77bc02abf3343943917a3d8bc4cae8a768de4d4abaef"
+        },
+        "work/analysis/shadow-4.20.4/translations/c2rust-0.22.1/shadow-4.20.4-nightly/target/release/libshadow_4_20_4_normalized_audit.a": {
+          "file": "libshadow_4_20_4_normalized_audit.inlines-41796504f46cca0fb088a2231350c515ddb46e0cfe190c7de84fe2d1600a7310.json",
+          "sha256": "9a82162dd2d5ee50ac76b4405ddc1385327b9ac7d307f36bab98ddf4d4731043"
+        },
+        "work/analysis/tar-1.35/translations/c2rust-0.22.1/tar-1.35-stable/target/release/libtar_1_35_normalized_audit.a": {
+          "file": "libtar_1_35_normalized_audit.inlines-748aa08cd3cf412461ed26ead9b7782f7bd5af3117196e49fba90c0a6980112b.json",
+          "sha256": "5e8d0a17f2e856539613064dcf5cf9a4643402dd5c9c774b3202c782760eb768"
         },
         "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a": {
           "file": "libxz_5_8_4_normalized_audit.inlines-dbe6df97b9af094cab5c51fe367f792c9de251cd576a4f4a7ee1678a1be8a7c9.json",
@@ -15816,7 +15884,7 @@
       "schema": 1
     },
     "differential_sha256": "77f1c4a04abfe585a41d54584a597e7132d2ecea54a625e246d598502b156f64",
-    "upstream_log_sha256": "105b78c20ffe70b8a655e4f0bd299df9969ac34dc6a0ed9af3c1604e188f0b4a",
+    "upstream_log_sha256": "f5c0cce78486786d867aa936f607a4a8c2d96a15fd1005be21c88ebcaf4f3a0b",
     "upstream_suites": [
       {
         "error": 0,
@@ -15843,10 +15911,10 @@
       "sdiff"
     ],
     "valgrind_log_sha256": {
-      "cmp": "4af1845021d4dd1286a2b420a955ed299303d25f95d2cf8879d0baad3f2e5407",
-      "diff": "9233db965d5e9b3683490af4d70452d8b4e96c8efb457eda2cdb5abdeb0b3ebd",
-      "diff3": "3aed29831525f7b941867a71127953d64c812b68b754c8d092fe57cd73186a84",
-      "sdiff": "cb18f2b0485005330733fe98a68ac462d0f288266f7e081c61a68fd684d0d417"
+      "cmp": "c7ceb4c3aaa6412c8880fbbce1e6b03c9a3f290ab64fda57d29559a6295f0c88",
+      "diff": "4a4321bf20b269c791f0cf36e5b52845c6dcb8e421c9efe12bb998f4ffa82ed6",
+      "diff3": "2ab4c410dcf2a1177ec4f28b91f28b873a60851b155b3189bf4347fd16a66716",
+      "sdiff": "6a7f1a52b31b9a7a94a0aeaf69ccfa053b2c7095e624fd5dfee98f586db3f2e9"
     }
   },
   "dispatch": {
@@ -18207,7 +18275,7 @@
       "rustbox_e2fsprogs_e2scrub_all_main",
       "rustbox_e2fsprogs_mk_cmds_main"
     ],
-    "evidence_sha256": "0b34e817e6fe6c05f39393124947adbb2125e28ebdbd3f34d7188f0fa4d05a7c",
+    "evidence_sha256": "6b1e85ece52395a7431230448d6f0de5d6fb46de586f5a227b1f3189e0aadb93",
     "frontend_differential": {
       "cases": 24,
       "native_builds": 1,
@@ -18339,7 +18407,7 @@
       "schema": 1
     },
     "frontend_differential_sha256": "acc9df19138d06e336eff6bd26988e12259beac839aa9e30340e22c7cf058596",
-    "link_report_sha256": "e613b3b4b7884b5e47bee595b14e5c74dff1cfa0b7e5d5bb84a3b1d06662216d",
+    "link_report_sha256": "bc8e408843dda67327b0df13c0573d42fc0644918cfa529ffdbaf177bceb9e5d",
     "lvm_differential": {
       "cases": 4,
       "native_builds": 1,
@@ -19393,18 +19461,18 @@
         },
         {
           "arguments": [
-            "/tmp/rustbox-file-oracle-kbjaamd7/empty"
+            "/tmp/rustbox-file-oracle-ouvq2kum/empty"
           ],
-          "clang_sha256": "79832f273c894936bda3ff165c1aecc304f09972df68d2f45e245a0662722d6b",
+          "clang_sha256": "747d70d936052f0003df27e361b3a4a04d80eca722c54504acda9bc0f56df3bd",
           "exact": true,
-          "gcc_sha256": "79832f273c894936bda3ff165c1aecc304f09972df68d2f45e245a0662722d6b",
+          "gcc_sha256": "747d70d936052f0003df27e361b3a4a04d80eca722c54504acda9bc0f56df3bd",
           "index": 83,
           "name": "generated:empty:default"
         },
         {
           "arguments": [
             "-b",
-            "/tmp/rustbox-file-oracle-kbjaamd7/empty"
+            "/tmp/rustbox-file-oracle-ouvq2kum/empty"
           ],
           "clang_sha256": "f19b460689e4040e6d98cd3697ea61a2839c1390ab88117636b3e85ddd012149",
           "exact": true,
@@ -19415,61 +19483,61 @@
         {
           "arguments": [
             "-i",
-            "/tmp/rustbox-file-oracle-kbjaamd7/empty"
+            "/tmp/rustbox-file-oracle-ouvq2kum/empty"
           ],
-          "clang_sha256": "bf77db5acf131af3d980b78adafe0e6acdff8479fd693ea5ecb3ca19569adc22",
+          "clang_sha256": "d1d8844e37042b8d4a6e452c3ec49191d6e7da74b57bf954daa2e4f30bf9a8b8",
           "exact": true,
-          "gcc_sha256": "bf77db5acf131af3d980b78adafe0e6acdff8479fd693ea5ecb3ca19569adc22",
+          "gcc_sha256": "d1d8844e37042b8d4a6e452c3ec49191d6e7da74b57bf954daa2e4f30bf9a8b8",
           "index": 85,
           "name": "generated:empty:-i"
         },
         {
           "arguments": [
             "-k",
-            "/tmp/rustbox-file-oracle-kbjaamd7/empty"
+            "/tmp/rustbox-file-oracle-ouvq2kum/empty"
           ],
-          "clang_sha256": "79832f273c894936bda3ff165c1aecc304f09972df68d2f45e245a0662722d6b",
+          "clang_sha256": "747d70d936052f0003df27e361b3a4a04d80eca722c54504acda9bc0f56df3bd",
           "exact": true,
-          "gcc_sha256": "79832f273c894936bda3ff165c1aecc304f09972df68d2f45e245a0662722d6b",
+          "gcc_sha256": "747d70d936052f0003df27e361b3a4a04d80eca722c54504acda9bc0f56df3bd",
           "index": 86,
           "name": "generated:empty:-k"
         },
         {
           "arguments": [
             "--extension",
-            "/tmp/rustbox-file-oracle-kbjaamd7/empty"
+            "/tmp/rustbox-file-oracle-ouvq2kum/empty"
           ],
-          "clang_sha256": "b7c706456f5905c41787c828115287f94fee632b665ac02e2b6a344e4396f775",
+          "clang_sha256": "2e1b0c8b5474c1736730d214d3d399031f24ac338da40fe45f6c6d9e52d04c50",
           "exact": true,
-          "gcc_sha256": "b7c706456f5905c41787c828115287f94fee632b665ac02e2b6a344e4396f775",
+          "gcc_sha256": "2e1b0c8b5474c1736730d214d3d399031f24ac338da40fe45f6c6d9e52d04c50",
           "index": 87,
           "name": "generated:empty:--extension"
         },
         {
           "arguments": [
             "--apple",
-            "/tmp/rustbox-file-oracle-kbjaamd7/empty"
+            "/tmp/rustbox-file-oracle-ouvq2kum/empty"
           ],
-          "clang_sha256": "7aed0275b056d369a1fc5e304eb2120e7bb643f722abe72f6ecbe0fdff920672",
+          "clang_sha256": "627e4506ab4571206e6e0bb6fa21827292bfb0e154274d7aeb399bb19a7a4258",
           "exact": true,
-          "gcc_sha256": "7aed0275b056d369a1fc5e304eb2120e7bb643f722abe72f6ecbe0fdff920672",
+          "gcc_sha256": "627e4506ab4571206e6e0bb6fa21827292bfb0e154274d7aeb399bb19a7a4258",
           "index": 88,
           "name": "generated:empty:--apple"
         },
         {
           "arguments": [
-            "/tmp/rustbox-file-oracle-kbjaamd7/ascii"
+            "/tmp/rustbox-file-oracle-ouvq2kum/ascii"
           ],
-          "clang_sha256": "daf000aaf54828e6ec2e8eeaafd15bc5cad789ddb2287112a98f0e7548bd48bf",
+          "clang_sha256": "daa7de5020d30a6ed968a649ac90969db55b040da7a065157f387d81995af2a7",
           "exact": true,
-          "gcc_sha256": "daf000aaf54828e6ec2e8eeaafd15bc5cad789ddb2287112a98f0e7548bd48bf",
+          "gcc_sha256": "daa7de5020d30a6ed968a649ac90969db55b040da7a065157f387d81995af2a7",
           "index": 89,
           "name": "generated:ascii:default"
         },
         {
           "arguments": [
             "-b",
-            "/tmp/rustbox-file-oracle-kbjaamd7/ascii"
+            "/tmp/rustbox-file-oracle-ouvq2kum/ascii"
           ],
           "clang_sha256": "418751227a8b0edd04b6e59db13dacb6a3e96a6215cc829349eee8d6017c098d",
           "exact": true,
@@ -19480,61 +19548,61 @@
         {
           "arguments": [
             "-i",
-            "/tmp/rustbox-file-oracle-kbjaamd7/ascii"
+            "/tmp/rustbox-file-oracle-ouvq2kum/ascii"
           ],
-          "clang_sha256": "6d50f321808e2c38ad07f6719d21002f1c1ea9c5c6fc96581ee5d2e5ed3492ac",
+          "clang_sha256": "176077baefd394940b42de5a1103934f9b56c0aaaefa4be6211e1d532dcda389",
           "exact": true,
-          "gcc_sha256": "6d50f321808e2c38ad07f6719d21002f1c1ea9c5c6fc96581ee5d2e5ed3492ac",
+          "gcc_sha256": "176077baefd394940b42de5a1103934f9b56c0aaaefa4be6211e1d532dcda389",
           "index": 91,
           "name": "generated:ascii:-i"
         },
         {
           "arguments": [
             "-k",
-            "/tmp/rustbox-file-oracle-kbjaamd7/ascii"
+            "/tmp/rustbox-file-oracle-ouvq2kum/ascii"
           ],
-          "clang_sha256": "daf000aaf54828e6ec2e8eeaafd15bc5cad789ddb2287112a98f0e7548bd48bf",
+          "clang_sha256": "daa7de5020d30a6ed968a649ac90969db55b040da7a065157f387d81995af2a7",
           "exact": true,
-          "gcc_sha256": "daf000aaf54828e6ec2e8eeaafd15bc5cad789ddb2287112a98f0e7548bd48bf",
+          "gcc_sha256": "daa7de5020d30a6ed968a649ac90969db55b040da7a065157f387d81995af2a7",
           "index": 92,
           "name": "generated:ascii:-k"
         },
         {
           "arguments": [
             "--extension",
-            "/tmp/rustbox-file-oracle-kbjaamd7/ascii"
+            "/tmp/rustbox-file-oracle-ouvq2kum/ascii"
           ],
-          "clang_sha256": "352bdd4e4dac45600d692e70a191fd16f0c7c0cd9e40e83705895179c5d36f18",
+          "clang_sha256": "fd0a0f705ea52b486d29b29c0a44e7764dd3a8ef433a3190c922acbebf1d19e7",
           "exact": true,
-          "gcc_sha256": "352bdd4e4dac45600d692e70a191fd16f0c7c0cd9e40e83705895179c5d36f18",
+          "gcc_sha256": "fd0a0f705ea52b486d29b29c0a44e7764dd3a8ef433a3190c922acbebf1d19e7",
           "index": 93,
           "name": "generated:ascii:--extension"
         },
         {
           "arguments": [
             "--apple",
-            "/tmp/rustbox-file-oracle-kbjaamd7/ascii"
+            "/tmp/rustbox-file-oracle-ouvq2kum/ascii"
           ],
-          "clang_sha256": "23c69fcecd540169c9daf65ae661f3cc2eed8f06dc459f24da2a69774c5d7c5a",
+          "clang_sha256": "ce0c17929f70942b66b6f5e9563421aec192dc8e0bb5e11e46d526ee2506009f",
           "exact": true,
-          "gcc_sha256": "23c69fcecd540169c9daf65ae661f3cc2eed8f06dc459f24da2a69774c5d7c5a",
+          "gcc_sha256": "ce0c17929f70942b66b6f5e9563421aec192dc8e0bb5e11e46d526ee2506009f",
           "index": 94,
           "name": "generated:ascii:--apple"
         },
         {
           "arguments": [
-            "/tmp/rustbox-file-oracle-kbjaamd7/utf8"
+            "/tmp/rustbox-file-oracle-ouvq2kum/utf8"
           ],
-          "clang_sha256": "ae133309e45e86ad43f318f340f1265f31fed6a42c8dbbf0da7f6ce8e03ff3f3",
+          "clang_sha256": "6bcc3170f1b1f9a3a049f44f744fa2af16b52ab1b3a7adb0345f9cb8af76c82a",
           "exact": true,
-          "gcc_sha256": "ae133309e45e86ad43f318f340f1265f31fed6a42c8dbbf0da7f6ce8e03ff3f3",
+          "gcc_sha256": "6bcc3170f1b1f9a3a049f44f744fa2af16b52ab1b3a7adb0345f9cb8af76c82a",
           "index": 95,
           "name": "generated:utf8:default"
         },
         {
           "arguments": [
             "-b",
-            "/tmp/rustbox-file-oracle-kbjaamd7/utf8"
+            "/tmp/rustbox-file-oracle-ouvq2kum/utf8"
           ],
           "clang_sha256": "8fb2427d377abb9d053018d55066fafa20118716f23353f7e5315d298446edc0",
           "exact": true,
@@ -19545,61 +19613,61 @@
         {
           "arguments": [
             "-i",
-            "/tmp/rustbox-file-oracle-kbjaamd7/utf8"
+            "/tmp/rustbox-file-oracle-ouvq2kum/utf8"
           ],
-          "clang_sha256": "8f292fac30878875560999d6ca9217028f48db67c204a76da66a2628d5a0d598",
+          "clang_sha256": "99bb327ea2ee807c9bb941f8e90d41ed062e5f210becc6210d233b96b3ee6715",
           "exact": true,
-          "gcc_sha256": "8f292fac30878875560999d6ca9217028f48db67c204a76da66a2628d5a0d598",
+          "gcc_sha256": "99bb327ea2ee807c9bb941f8e90d41ed062e5f210becc6210d233b96b3ee6715",
           "index": 97,
           "name": "generated:utf8:-i"
         },
         {
           "arguments": [
             "-k",
-            "/tmp/rustbox-file-oracle-kbjaamd7/utf8"
+            "/tmp/rustbox-file-oracle-ouvq2kum/utf8"
           ],
-          "clang_sha256": "ae133309e45e86ad43f318f340f1265f31fed6a42c8dbbf0da7f6ce8e03ff3f3",
+          "clang_sha256": "6bcc3170f1b1f9a3a049f44f744fa2af16b52ab1b3a7adb0345f9cb8af76c82a",
           "exact": true,
-          "gcc_sha256": "ae133309e45e86ad43f318f340f1265f31fed6a42c8dbbf0da7f6ce8e03ff3f3",
+          "gcc_sha256": "6bcc3170f1b1f9a3a049f44f744fa2af16b52ab1b3a7adb0345f9cb8af76c82a",
           "index": 98,
           "name": "generated:utf8:-k"
         },
         {
           "arguments": [
             "--extension",
-            "/tmp/rustbox-file-oracle-kbjaamd7/utf8"
+            "/tmp/rustbox-file-oracle-ouvq2kum/utf8"
           ],
-          "clang_sha256": "43d129e7b30dd9a07a031897f969226176d85b570eebb0edab3e650cfac2b585",
+          "clang_sha256": "7be2b53c6b03c05bb683c2e0902f07200ae918f409ab0c2ff49690d5fa8e66dd",
           "exact": true,
-          "gcc_sha256": "43d129e7b30dd9a07a031897f969226176d85b570eebb0edab3e650cfac2b585",
+          "gcc_sha256": "7be2b53c6b03c05bb683c2e0902f07200ae918f409ab0c2ff49690d5fa8e66dd",
           "index": 99,
           "name": "generated:utf8:--extension"
         },
         {
           "arguments": [
             "--apple",
-            "/tmp/rustbox-file-oracle-kbjaamd7/utf8"
+            "/tmp/rustbox-file-oracle-ouvq2kum/utf8"
           ],
-          "clang_sha256": "bb4fda620f5096dd8c2a5baf16fb514668d32e8785cfd21b6c1e2ad81145b1fc",
+          "clang_sha256": "1ce61207ffb81e424321c4b5f6383a238192bd4f7c766ead8c3a3c7ec0f268a4",
           "exact": true,
-          "gcc_sha256": "bb4fda620f5096dd8c2a5baf16fb514668d32e8785cfd21b6c1e2ad81145b1fc",
+          "gcc_sha256": "1ce61207ffb81e424321c4b5f6383a238192bd4f7c766ead8c3a3c7ec0f268a4",
           "index": 100,
           "name": "generated:utf8:--apple"
         },
         {
           "arguments": [
-            "/tmp/rustbox-file-oracle-kbjaamd7/json"
+            "/tmp/rustbox-file-oracle-ouvq2kum/json"
           ],
-          "clang_sha256": "ba90771fcb9e064e1708cd512d43bd383fca40d08b388e3d5fc9db8ad3793865",
+          "clang_sha256": "d866af54bb303a6141566469bfa0a0ecad63a14b19befba96bee1a0bce9a93e8",
           "exact": true,
-          "gcc_sha256": "ba90771fcb9e064e1708cd512d43bd383fca40d08b388e3d5fc9db8ad3793865",
+          "gcc_sha256": "d866af54bb303a6141566469bfa0a0ecad63a14b19befba96bee1a0bce9a93e8",
           "index": 101,
           "name": "generated:json:default"
         },
         {
           "arguments": [
             "-b",
-            "/tmp/rustbox-file-oracle-kbjaamd7/json"
+            "/tmp/rustbox-file-oracle-ouvq2kum/json"
           ],
           "clang_sha256": "df56efa90a4696fa49b344aeaf7a02837978b37e4a39cd414d7671a75feae8dc",
           "exact": true,
@@ -19610,61 +19678,61 @@
         {
           "arguments": [
             "-i",
-            "/tmp/rustbox-file-oracle-kbjaamd7/json"
+            "/tmp/rustbox-file-oracle-ouvq2kum/json"
           ],
-          "clang_sha256": "deeb7c48de353b672a638821ae2d3a93e62d0da331d80f091f3e3377cfd3a058",
+          "clang_sha256": "f702488618caf4ab65dfd84e59e58d27daa899f05b14810d5df7362034b10b68",
           "exact": true,
-          "gcc_sha256": "deeb7c48de353b672a638821ae2d3a93e62d0da331d80f091f3e3377cfd3a058",
+          "gcc_sha256": "f702488618caf4ab65dfd84e59e58d27daa899f05b14810d5df7362034b10b68",
           "index": 103,
           "name": "generated:json:-i"
         },
         {
           "arguments": [
             "-k",
-            "/tmp/rustbox-file-oracle-kbjaamd7/json"
+            "/tmp/rustbox-file-oracle-ouvq2kum/json"
           ],
-          "clang_sha256": "0d6f7d78f0ff83390afa4406828a3364699e4b9661aa971089505a9b59659f95",
+          "clang_sha256": "cd47dc6b7033b55ac972ef784403858cb992112c6e2feff445e91f9982d80495",
           "exact": true,
-          "gcc_sha256": "0d6f7d78f0ff83390afa4406828a3364699e4b9661aa971089505a9b59659f95",
+          "gcc_sha256": "cd47dc6b7033b55ac972ef784403858cb992112c6e2feff445e91f9982d80495",
           "index": 104,
           "name": "generated:json:-k"
         },
         {
           "arguments": [
             "--extension",
-            "/tmp/rustbox-file-oracle-kbjaamd7/json"
+            "/tmp/rustbox-file-oracle-ouvq2kum/json"
           ],
-          "clang_sha256": "5669edf66ba150cc130cd5b981eec1ca9ae0abb0cfc9fecf9c97df4aaa04c297",
+          "clang_sha256": "8943f6ab1631dd3a71e23a95b9b5f323f2710afb708d0f9816b7456e0a5648c2",
           "exact": true,
-          "gcc_sha256": "5669edf66ba150cc130cd5b981eec1ca9ae0abb0cfc9fecf9c97df4aaa04c297",
+          "gcc_sha256": "8943f6ab1631dd3a71e23a95b9b5f323f2710afb708d0f9816b7456e0a5648c2",
           "index": 105,
           "name": "generated:json:--extension"
         },
         {
           "arguments": [
             "--apple",
-            "/tmp/rustbox-file-oracle-kbjaamd7/json"
+            "/tmp/rustbox-file-oracle-ouvq2kum/json"
           ],
-          "clang_sha256": "f2840b7a84631d68f223e967e5c1d2211aa8fabc4266abbb4aa9a51539a814dc",
+          "clang_sha256": "eb48586f56ea270b33c8195a487fa230a0acd7c0e3dec0d4318cc08be366086f",
           "exact": true,
-          "gcc_sha256": "f2840b7a84631d68f223e967e5c1d2211aa8fabc4266abbb4aa9a51539a814dc",
+          "gcc_sha256": "eb48586f56ea270b33c8195a487fa230a0acd7c0e3dec0d4318cc08be366086f",
           "index": 106,
           "name": "generated:json:--apple"
         },
         {
           "arguments": [
-            "/tmp/rustbox-file-oracle-kbjaamd7/binary"
+            "/tmp/rustbox-file-oracle-ouvq2kum/binary"
           ],
-          "clang_sha256": "c3cb303b7c7f7ec38793a7a646faf3f935bd04cb5d35e4671da21cf5e51bd126",
+          "clang_sha256": "80451878ae9ddb6e86103cb1b3982a492252aae379b6aa97003beedf59f7f419",
           "exact": true,
-          "gcc_sha256": "c3cb303b7c7f7ec38793a7a646faf3f935bd04cb5d35e4671da21cf5e51bd126",
+          "gcc_sha256": "80451878ae9ddb6e86103cb1b3982a492252aae379b6aa97003beedf59f7f419",
           "index": 107,
           "name": "generated:binary:default"
         },
         {
           "arguments": [
             "-b",
-            "/tmp/rustbox-file-oracle-kbjaamd7/binary"
+            "/tmp/rustbox-file-oracle-ouvq2kum/binary"
           ],
           "clang_sha256": "ada3a687e9c1ddb74724ab169c92a20d4726c7c1837b1dcdfe8a02a9b29f1d16",
           "exact": true,
@@ -19675,61 +19743,61 @@
         {
           "arguments": [
             "-i",
-            "/tmp/rustbox-file-oracle-kbjaamd7/binary"
+            "/tmp/rustbox-file-oracle-ouvq2kum/binary"
           ],
-          "clang_sha256": "41204739e94036865085b98c1a3172f7cda0502717b2e08fd2bbded41fd73e00",
+          "clang_sha256": "e54ec3a41c4daec69ec23f05287d27882c10aeb558f23c8cc7d3ec18afa89414",
           "exact": true,
-          "gcc_sha256": "41204739e94036865085b98c1a3172f7cda0502717b2e08fd2bbded41fd73e00",
+          "gcc_sha256": "e54ec3a41c4daec69ec23f05287d27882c10aeb558f23c8cc7d3ec18afa89414",
           "index": 109,
           "name": "generated:binary:-i"
         },
         {
           "arguments": [
             "-k",
-            "/tmp/rustbox-file-oracle-kbjaamd7/binary"
+            "/tmp/rustbox-file-oracle-ouvq2kum/binary"
           ],
-          "clang_sha256": "66b96ced17f5547b1e114c316bbb1a5a8270eba736bdea4e01a37f05eeed8d05",
+          "clang_sha256": "6147c9d98c55e9724f0073911fc66e13285c357a03a5d6d5a184b749ba7220a7",
           "exact": true,
-          "gcc_sha256": "66b96ced17f5547b1e114c316bbb1a5a8270eba736bdea4e01a37f05eeed8d05",
+          "gcc_sha256": "6147c9d98c55e9724f0073911fc66e13285c357a03a5d6d5a184b749ba7220a7",
           "index": 110,
           "name": "generated:binary:-k"
         },
         {
           "arguments": [
             "--extension",
-            "/tmp/rustbox-file-oracle-kbjaamd7/binary"
+            "/tmp/rustbox-file-oracle-ouvq2kum/binary"
           ],
-          "clang_sha256": "ef9aee6f86aba08e6f5d7fa8cb1eecf86cb2cd00a5313cb84b7d02bc0eb36be1",
+          "clang_sha256": "02b17fa2fd623deffaebce1b4ce127e2387255c5844cdccdf33e8a6421063dd2",
           "exact": true,
-          "gcc_sha256": "ef9aee6f86aba08e6f5d7fa8cb1eecf86cb2cd00a5313cb84b7d02bc0eb36be1",
+          "gcc_sha256": "02b17fa2fd623deffaebce1b4ce127e2387255c5844cdccdf33e8a6421063dd2",
           "index": 111,
           "name": "generated:binary:--extension"
         },
         {
           "arguments": [
             "--apple",
-            "/tmp/rustbox-file-oracle-kbjaamd7/binary"
+            "/tmp/rustbox-file-oracle-ouvq2kum/binary"
           ],
-          "clang_sha256": "665afb1df162ee69313bd39fb369cf5e20b080d35b7062f7207b61a5e8b6f574",
+          "clang_sha256": "1eb8166d017da96794b8286fd47260e4244d43b336bdfd08afa8c6ce27d160d1",
           "exact": true,
-          "gcc_sha256": "665afb1df162ee69313bd39fb369cf5e20b080d35b7062f7207b61a5e8b6f574",
+          "gcc_sha256": "1eb8166d017da96794b8286fd47260e4244d43b336bdfd08afa8c6ce27d160d1",
           "index": 112,
           "name": "generated:binary:--apple"
         },
         {
           "arguments": [
-            "/tmp/rustbox-file-oracle-kbjaamd7/png"
+            "/tmp/rustbox-file-oracle-ouvq2kum/png"
           ],
-          "clang_sha256": "ff0315a6cd4d9d0766ba91068bb10a977c06dd308da0d8a0c9856925d4d0fc6b",
+          "clang_sha256": "26d63a2e4eaa89ff1fbedf3569260b3ef8167c5c5bd8ac51707acc703660d19f",
           "exact": true,
-          "gcc_sha256": "ff0315a6cd4d9d0766ba91068bb10a977c06dd308da0d8a0c9856925d4d0fc6b",
+          "gcc_sha256": "26d63a2e4eaa89ff1fbedf3569260b3ef8167c5c5bd8ac51707acc703660d19f",
           "index": 113,
           "name": "generated:png:default"
         },
         {
           "arguments": [
             "-b",
-            "/tmp/rustbox-file-oracle-kbjaamd7/png"
+            "/tmp/rustbox-file-oracle-ouvq2kum/png"
           ],
           "clang_sha256": "035fb92e9d811963d4e057272a81097e4c6493a5c9cc50194f3b444206bc8eb6",
           "exact": true,
@@ -19740,126 +19808,126 @@
         {
           "arguments": [
             "-i",
-            "/tmp/rustbox-file-oracle-kbjaamd7/png"
+            "/tmp/rustbox-file-oracle-ouvq2kum/png"
           ],
-          "clang_sha256": "cb4a2a6912c9f62297a49eeb0014e205a4eb839de0c6d8ab2db4cf6c8a6f4ea6",
+          "clang_sha256": "9e095a1948f785f4a3bc46988f2bec95b04e33241ecec5607cae7f1c1cea9e25",
           "exact": true,
-          "gcc_sha256": "cb4a2a6912c9f62297a49eeb0014e205a4eb839de0c6d8ab2db4cf6c8a6f4ea6",
+          "gcc_sha256": "9e095a1948f785f4a3bc46988f2bec95b04e33241ecec5607cae7f1c1cea9e25",
           "index": 115,
           "name": "generated:png:-i"
         },
         {
           "arguments": [
             "-k",
-            "/tmp/rustbox-file-oracle-kbjaamd7/png"
+            "/tmp/rustbox-file-oracle-ouvq2kum/png"
           ],
-          "clang_sha256": "ff0315a6cd4d9d0766ba91068bb10a977c06dd308da0d8a0c9856925d4d0fc6b",
+          "clang_sha256": "26d63a2e4eaa89ff1fbedf3569260b3ef8167c5c5bd8ac51707acc703660d19f",
           "exact": true,
-          "gcc_sha256": "ff0315a6cd4d9d0766ba91068bb10a977c06dd308da0d8a0c9856925d4d0fc6b",
+          "gcc_sha256": "26d63a2e4eaa89ff1fbedf3569260b3ef8167c5c5bd8ac51707acc703660d19f",
           "index": 116,
           "name": "generated:png:-k"
         },
         {
           "arguments": [
             "--extension",
-            "/tmp/rustbox-file-oracle-kbjaamd7/png"
+            "/tmp/rustbox-file-oracle-ouvq2kum/png"
           ],
-          "clang_sha256": "55b9a5659b7a82181674f9498068c08dbda7de6934a395e73c17d29461ba5dd0",
+          "clang_sha256": "ea5bc9cf1a384fb78237b610ed3427730f07bf352811d5317bc4c5621213a1a1",
           "exact": true,
-          "gcc_sha256": "55b9a5659b7a82181674f9498068c08dbda7de6934a395e73c17d29461ba5dd0",
+          "gcc_sha256": "ea5bc9cf1a384fb78237b610ed3427730f07bf352811d5317bc4c5621213a1a1",
           "index": 117,
           "name": "generated:png:--extension"
         },
         {
           "arguments": [
             "--apple",
-            "/tmp/rustbox-file-oracle-kbjaamd7/png"
+            "/tmp/rustbox-file-oracle-ouvq2kum/png"
           ],
-          "clang_sha256": "5cb0bfa1fd262b9a9ecafa56aa8cfceaf95119283ed4c5b3c010794436ec9216",
+          "clang_sha256": "7547ce53cd0b5f2732501157dd82d01b42f200a22a18ba60b8683ed0be4d5bde",
           "exact": true,
-          "gcc_sha256": "5cb0bfa1fd262b9a9ecafa56aa8cfceaf95119283ed4c5b3c010794436ec9216",
+          "gcc_sha256": "7547ce53cd0b5f2732501157dd82d01b42f200a22a18ba60b8683ed0be4d5bde",
           "index": 118,
           "name": "generated:png:--apple"
         },
         {
           "arguments": [
-            "/tmp/rustbox-file-oracle-kbjaamd7/gzip"
+            "/tmp/rustbox-file-oracle-ouvq2kum/gzip"
           ],
-          "clang_sha256": "86add9ba60755df14b7da04a75fcde0886d5e6be4b3e5133a28dd0ec4ea52b38",
+          "clang_sha256": "e74d096595212b2a6100f272b1b6927fd01622a355d8f0a6cd71fa24b5a1025c",
           "exact": true,
-          "gcc_sha256": "86add9ba60755df14b7da04a75fcde0886d5e6be4b3e5133a28dd0ec4ea52b38",
+          "gcc_sha256": "e74d096595212b2a6100f272b1b6927fd01622a355d8f0a6cd71fa24b5a1025c",
           "index": 119,
           "name": "generated:gzip:default"
         },
         {
           "arguments": [
             "-b",
-            "/tmp/rustbox-file-oracle-kbjaamd7/gzip"
+            "/tmp/rustbox-file-oracle-ouvq2kum/gzip"
           ],
-          "clang_sha256": "26171a73eca71b6c165f5b3ebdda2838540daf18b742af96b98298c1614048f0",
+          "clang_sha256": "799e43109b5400adb8a064476fd88417964f7e05a9b2416ac3fd21c17eb526f0",
           "exact": true,
-          "gcc_sha256": "26171a73eca71b6c165f5b3ebdda2838540daf18b742af96b98298c1614048f0",
+          "gcc_sha256": "799e43109b5400adb8a064476fd88417964f7e05a9b2416ac3fd21c17eb526f0",
           "index": 120,
           "name": "generated:gzip:-b"
         },
         {
           "arguments": [
             "-i",
-            "/tmp/rustbox-file-oracle-kbjaamd7/gzip"
+            "/tmp/rustbox-file-oracle-ouvq2kum/gzip"
           ],
-          "clang_sha256": "1633d0150888e7774c8ac0d7757b48ce3dd03e25fe05b6253de704a78b9ad7b2",
+          "clang_sha256": "f3eb9433859bc61d93de33fb2cbba849e430d97df7314302c3e4076ebf736898",
           "exact": true,
-          "gcc_sha256": "1633d0150888e7774c8ac0d7757b48ce3dd03e25fe05b6253de704a78b9ad7b2",
+          "gcc_sha256": "f3eb9433859bc61d93de33fb2cbba849e430d97df7314302c3e4076ebf736898",
           "index": 121,
           "name": "generated:gzip:-i"
         },
         {
           "arguments": [
             "-k",
-            "/tmp/rustbox-file-oracle-kbjaamd7/gzip"
+            "/tmp/rustbox-file-oracle-ouvq2kum/gzip"
           ],
-          "clang_sha256": "727a0f13bf6d07a2e161388ecb3caa2ab7d45b81c549e56456b6efbaf717e41a",
+          "clang_sha256": "fb7524239581cee38c08610655c0ba023f2a53722c60966f433367db2dc816cf",
           "exact": true,
-          "gcc_sha256": "727a0f13bf6d07a2e161388ecb3caa2ab7d45b81c549e56456b6efbaf717e41a",
+          "gcc_sha256": "fb7524239581cee38c08610655c0ba023f2a53722c60966f433367db2dc816cf",
           "index": 122,
           "name": "generated:gzip:-k"
         },
         {
           "arguments": [
             "--extension",
-            "/tmp/rustbox-file-oracle-kbjaamd7/gzip"
+            "/tmp/rustbox-file-oracle-ouvq2kum/gzip"
           ],
-          "clang_sha256": "ce435fddc7cfc75fecc5ab539805870d003e4f7677d30fd14738f7fc346fc690",
+          "clang_sha256": "5251182896aab84e596991d5766cda583825c3c4e472a3b6870ea154c65e0e91",
           "exact": true,
-          "gcc_sha256": "ce435fddc7cfc75fecc5ab539805870d003e4f7677d30fd14738f7fc346fc690",
+          "gcc_sha256": "5251182896aab84e596991d5766cda583825c3c4e472a3b6870ea154c65e0e91",
           "index": 123,
           "name": "generated:gzip:--extension"
         },
         {
           "arguments": [
             "--apple",
-            "/tmp/rustbox-file-oracle-kbjaamd7/gzip"
+            "/tmp/rustbox-file-oracle-ouvq2kum/gzip"
           ],
-          "clang_sha256": "ba9eeada91f2d7f45ce7148b21c8c56bbd46a5338d0b3f9fe5905d38afed109c",
+          "clang_sha256": "55c51308034c2cd783b1f6c6edf8a2bc505db2f25eb5ac97c343dd7a7fdb3a28",
           "exact": true,
-          "gcc_sha256": "ba9eeada91f2d7f45ce7148b21c8c56bbd46a5338d0b3f9fe5905d38afed109c",
+          "gcc_sha256": "55c51308034c2cd783b1f6c6edf8a2bc505db2f25eb5ac97c343dd7a7fdb3a28",
           "index": 124,
           "name": "generated:gzip:--apple"
         },
         {
           "arguments": [
-            "/tmp/rustbox-file-oracle-kbjaamd7/bzip2"
+            "/tmp/rustbox-file-oracle-ouvq2kum/bzip2"
           ],
-          "clang_sha256": "70683b406cb5e2cb07b4b1b400c46de7835b80bdd2240835c91527474026f0f9",
+          "clang_sha256": "a4351289114a6cd1adf58376e75c719372512b05c9bbb799b68a6de4765ec2cb",
           "exact": true,
-          "gcc_sha256": "70683b406cb5e2cb07b4b1b400c46de7835b80bdd2240835c91527474026f0f9",
+          "gcc_sha256": "a4351289114a6cd1adf58376e75c719372512b05c9bbb799b68a6de4765ec2cb",
           "index": 125,
           "name": "generated:bzip2:default"
         },
         {
           "arguments": [
             "-b",
-            "/tmp/rustbox-file-oracle-kbjaamd7/bzip2"
+            "/tmp/rustbox-file-oracle-ouvq2kum/bzip2"
           ],
           "clang_sha256": "d411875039c136f61aa92a389283de5275ed043cf0b50767c77245b02e5ea785",
           "exact": true,
@@ -19870,61 +19938,61 @@
         {
           "arguments": [
             "-i",
-            "/tmp/rustbox-file-oracle-kbjaamd7/bzip2"
+            "/tmp/rustbox-file-oracle-ouvq2kum/bzip2"
           ],
-          "clang_sha256": "133f8262963ffbfd5ba63d4507c032fdfd5b7a6b44bf5d8574bf9a6ecc138c4a",
+          "clang_sha256": "8ace53033a4f675e488269cc3174212eadc7b2ef01ab7ab387ce68c932734fbf",
           "exact": true,
-          "gcc_sha256": "133f8262963ffbfd5ba63d4507c032fdfd5b7a6b44bf5d8574bf9a6ecc138c4a",
+          "gcc_sha256": "8ace53033a4f675e488269cc3174212eadc7b2ef01ab7ab387ce68c932734fbf",
           "index": 127,
           "name": "generated:bzip2:-i"
         },
         {
           "arguments": [
             "-k",
-            "/tmp/rustbox-file-oracle-kbjaamd7/bzip2"
+            "/tmp/rustbox-file-oracle-ouvq2kum/bzip2"
           ],
-          "clang_sha256": "b52f49554da1c6b66fcb516302495604ca07a54e001d80ef7e508b1451d318a4",
+          "clang_sha256": "d05468d9163e6f51080c30ffa07e031919e17ecd596080d0d4c5b550a6a88428",
           "exact": true,
-          "gcc_sha256": "b52f49554da1c6b66fcb516302495604ca07a54e001d80ef7e508b1451d318a4",
+          "gcc_sha256": "d05468d9163e6f51080c30ffa07e031919e17ecd596080d0d4c5b550a6a88428",
           "index": 128,
           "name": "generated:bzip2:-k"
         },
         {
           "arguments": [
             "--extension",
-            "/tmp/rustbox-file-oracle-kbjaamd7/bzip2"
+            "/tmp/rustbox-file-oracle-ouvq2kum/bzip2"
           ],
-          "clang_sha256": "fd909e3800d9921c9ccc3b5b797330889876ce729f0c6b046e3f940d5017b4b3",
+          "clang_sha256": "ce29e045380706619330a3feba245c6d47c735f5cc281f79fedc76c2e1e83388",
           "exact": true,
-          "gcc_sha256": "fd909e3800d9921c9ccc3b5b797330889876ce729f0c6b046e3f940d5017b4b3",
+          "gcc_sha256": "ce29e045380706619330a3feba245c6d47c735f5cc281f79fedc76c2e1e83388",
           "index": 129,
           "name": "generated:bzip2:--extension"
         },
         {
           "arguments": [
             "--apple",
-            "/tmp/rustbox-file-oracle-kbjaamd7/bzip2"
+            "/tmp/rustbox-file-oracle-ouvq2kum/bzip2"
           ],
-          "clang_sha256": "d5f803b371c14cbcc6fbccd73a092a8c1dcbbdc660bc48f12784dd624022f65b",
+          "clang_sha256": "c55fd5d3e8afad1c0ebd0e8b28d0b2f9379a27bd0e98c9cdf6712d09837d97ab",
           "exact": true,
-          "gcc_sha256": "d5f803b371c14cbcc6fbccd73a092a8c1dcbbdc660bc48f12784dd624022f65b",
+          "gcc_sha256": "c55fd5d3e8afad1c0ebd0e8b28d0b2f9379a27bd0e98c9cdf6712d09837d97ab",
           "index": 130,
           "name": "generated:bzip2:--apple"
         },
         {
           "arguments": [
-            "/tmp/rustbox-file-oracle-kbjaamd7/xz"
+            "/tmp/rustbox-file-oracle-ouvq2kum/xz"
           ],
-          "clang_sha256": "6516b03afc1c5308cf08c1c8c7c937a0a29140ea3065f3eeb900585c47d61055",
+          "clang_sha256": "0014ec332bb0414930d8f47717fd9d7d362a4de45856b256706d2af9e251fe4c",
           "exact": true,
-          "gcc_sha256": "6516b03afc1c5308cf08c1c8c7c937a0a29140ea3065f3eeb900585c47d61055",
+          "gcc_sha256": "0014ec332bb0414930d8f47717fd9d7d362a4de45856b256706d2af9e251fe4c",
           "index": 131,
           "name": "generated:xz:default"
         },
         {
           "arguments": [
             "-b",
-            "/tmp/rustbox-file-oracle-kbjaamd7/xz"
+            "/tmp/rustbox-file-oracle-ouvq2kum/xz"
           ],
           "clang_sha256": "13e31babb415db440b228c82a60ccc486c40e5da703069788ed91b8f8c0fc0a9",
           "exact": true,
@@ -19935,127 +20003,127 @@
         {
           "arguments": [
             "-i",
-            "/tmp/rustbox-file-oracle-kbjaamd7/xz"
+            "/tmp/rustbox-file-oracle-ouvq2kum/xz"
           ],
-          "clang_sha256": "98685f8f5435dc61182b5399a2c4620b65d05854249fe0a8276222c990622775",
+          "clang_sha256": "adc95c0598d2cfdca0b4b3402ea4ec8aa4be98fe5731314cd5c73d89a02bdbb0",
           "exact": true,
-          "gcc_sha256": "98685f8f5435dc61182b5399a2c4620b65d05854249fe0a8276222c990622775",
+          "gcc_sha256": "adc95c0598d2cfdca0b4b3402ea4ec8aa4be98fe5731314cd5c73d89a02bdbb0",
           "index": 133,
           "name": "generated:xz:-i"
         },
         {
           "arguments": [
             "-k",
-            "/tmp/rustbox-file-oracle-kbjaamd7/xz"
+            "/tmp/rustbox-file-oracle-ouvq2kum/xz"
           ],
-          "clang_sha256": "62baf8cbcd8b1252662d7db2ab96369b952707d853be846427b749762c0297e3",
+          "clang_sha256": "5dfb9ab0b8adb2c4474534d1d03eae01c19d5131dae2bee442e3e543ae823ea5",
           "exact": true,
-          "gcc_sha256": "62baf8cbcd8b1252662d7db2ab96369b952707d853be846427b749762c0297e3",
+          "gcc_sha256": "5dfb9ab0b8adb2c4474534d1d03eae01c19d5131dae2bee442e3e543ae823ea5",
           "index": 134,
           "name": "generated:xz:-k"
         },
         {
           "arguments": [
             "--extension",
-            "/tmp/rustbox-file-oracle-kbjaamd7/xz"
+            "/tmp/rustbox-file-oracle-ouvq2kum/xz"
           ],
-          "clang_sha256": "b1a8921ab212b65fb16593361895a919eb5e5e67ac195b33f86cbd4153c4375a",
+          "clang_sha256": "42dd3d1a89bc6d622e7107ad949c9dc2b1287886a0f611aa872fab5e9eaea2a5",
           "exact": true,
-          "gcc_sha256": "b1a8921ab212b65fb16593361895a919eb5e5e67ac195b33f86cbd4153c4375a",
+          "gcc_sha256": "42dd3d1a89bc6d622e7107ad949c9dc2b1287886a0f611aa872fab5e9eaea2a5",
           "index": 135,
           "name": "generated:xz:--extension"
         },
         {
           "arguments": [
             "--apple",
-            "/tmp/rustbox-file-oracle-kbjaamd7/xz"
+            "/tmp/rustbox-file-oracle-ouvq2kum/xz"
           ],
-          "clang_sha256": "b22fc8b43377dacaae965ec9ce6db60f365a0ce3b1d1035353c4d21162b35374",
+          "clang_sha256": "260324d36400e78efecd7c3676f5b5d2e2b7c39300bd94c1549e36ddadba7c37",
           "exact": true,
-          "gcc_sha256": "b22fc8b43377dacaae965ec9ce6db60f365a0ce3b1d1035353c4d21162b35374",
+          "gcc_sha256": "260324d36400e78efecd7c3676f5b5d2e2b7c39300bd94c1549e36ddadba7c37",
           "index": 136,
           "name": "generated:xz:--apple"
         },
         {
           "arguments": [
             "-z",
-            "/tmp/rustbox-file-oracle-kbjaamd7/gzip"
+            "/tmp/rustbox-file-oracle-ouvq2kum/gzip"
           ],
-          "clang_sha256": "ae038a38c146da1069db5f509b8e590c2bd028d7a88ed96d7c0478fbe0de1cf8",
+          "clang_sha256": "22d15b7e790029c66ebbc43cc34ec3ce036e4e5738d8a0a694bfc7bbce4055ca",
           "exact": true,
-          "gcc_sha256": "ae038a38c146da1069db5f509b8e590c2bd028d7a88ed96d7c0478fbe0de1cf8",
+          "gcc_sha256": "22d15b7e790029c66ebbc43cc34ec3ce036e4e5738d8a0a694bfc7bbce4055ca",
           "index": 137,
           "name": "compressed:gzip:z"
         },
         {
           "arguments": [
             "-Z",
-            "/tmp/rustbox-file-oracle-kbjaamd7/gzip"
+            "/tmp/rustbox-file-oracle-ouvq2kum/gzip"
           ],
-          "clang_sha256": "d4434bbdd46d16c71906e7b7f2cc0cd0d5cc504fdc5332a148485924db9a0543",
+          "clang_sha256": "5eb08fabced345e5ecdea13ef5c4d288b4353a88c92fde427fa10861f65018fb",
           "exact": true,
-          "gcc_sha256": "d4434bbdd46d16c71906e7b7f2cc0cd0d5cc504fdc5332a148485924db9a0543",
+          "gcc_sha256": "5eb08fabced345e5ecdea13ef5c4d288b4353a88c92fde427fa10861f65018fb",
           "index": 138,
           "name": "compressed:gzip:Z"
         },
         {
           "arguments": [
             "-z",
-            "/tmp/rustbox-file-oracle-kbjaamd7/bzip2"
+            "/tmp/rustbox-file-oracle-ouvq2kum/bzip2"
           ],
-          "clang_sha256": "81eec994e83c32d6a0dd23bdfc813b7f3848cf569a4cdb8a46ce3d33263f897a",
+          "clang_sha256": "b05bf5170939c0a26513d0194022b555700f8ef817e11f8736ec107f8748b401",
           "exact": true,
-          "gcc_sha256": "81eec994e83c32d6a0dd23bdfc813b7f3848cf569a4cdb8a46ce3d33263f897a",
+          "gcc_sha256": "b05bf5170939c0a26513d0194022b555700f8ef817e11f8736ec107f8748b401",
           "index": 139,
           "name": "compressed:bzip2:z"
         },
         {
           "arguments": [
             "-Z",
-            "/tmp/rustbox-file-oracle-kbjaamd7/bzip2"
+            "/tmp/rustbox-file-oracle-ouvq2kum/bzip2"
           ],
-          "clang_sha256": "e4ac50d298963dfce778a67837936c3f3efbbb3f0392d2413103624ad13f8b8c",
+          "clang_sha256": "e7785c081ea43e5cbb206239f910ca57fe9ee8ac7f5740d2d1d71dfd3dd1dba1",
           "exact": true,
-          "gcc_sha256": "e4ac50d298963dfce778a67837936c3f3efbbb3f0392d2413103624ad13f8b8c",
+          "gcc_sha256": "e7785c081ea43e5cbb206239f910ca57fe9ee8ac7f5740d2d1d71dfd3dd1dba1",
           "index": 140,
           "name": "compressed:bzip2:Z"
         },
         {
           "arguments": [
             "-z",
-            "/tmp/rustbox-file-oracle-kbjaamd7/xz"
+            "/tmp/rustbox-file-oracle-ouvq2kum/xz"
           ],
-          "clang_sha256": "0d6e9d414cc79046a8035f1dce99647c6bb629e26a57fdd0ca227d864bdaa2e9",
+          "clang_sha256": "87017e9d63e5603d14d6631b6ebf4aff8aa939733de7448a32da7a43440ce674",
           "exact": true,
-          "gcc_sha256": "0d6e9d414cc79046a8035f1dce99647c6bb629e26a57fdd0ca227d864bdaa2e9",
+          "gcc_sha256": "87017e9d63e5603d14d6631b6ebf4aff8aa939733de7448a32da7a43440ce674",
           "index": 141,
           "name": "compressed:xz:z"
         },
         {
           "arguments": [
             "-Z",
-            "/tmp/rustbox-file-oracle-kbjaamd7/xz"
+            "/tmp/rustbox-file-oracle-ouvq2kum/xz"
           ],
-          "clang_sha256": "8bd1813137440715e627c6bf7f4eac70f7bbd1483475b90fc63491fbc3b8eda2",
+          "clang_sha256": "4f820b68f872608e3210c1a54cd6f3b58a722272859f681401051780cb2c1315",
           "exact": true,
-          "gcc_sha256": "8bd1813137440715e627c6bf7f4eac70f7bbd1483475b90fc63491fbc3b8eda2",
+          "gcc_sha256": "4f820b68f872608e3210c1a54cd6f3b58a722272859f681401051780cb2c1315",
           "index": 142,
           "name": "compressed:xz:Z"
         },
         {
           "arguments": [
-            "/tmp/rustbox-file-oracle-kbjaamd7/directory"
+            "/tmp/rustbox-file-oracle-ouvq2kum/directory"
           ],
-          "clang_sha256": "340ee35424a832bb930f23082fefde830db6669205c4c3661d4c0ce119b1f3ab",
+          "clang_sha256": "7740f583190eecc7d758d61107f20cf56f7d338689b2b8396267fd23aaabe7b0",
           "exact": true,
-          "gcc_sha256": "340ee35424a832bb930f23082fefde830db6669205c4c3661d4c0ce119b1f3ab",
+          "gcc_sha256": "7740f583190eecc7d758d61107f20cf56f7d338689b2b8396267fd23aaabe7b0",
           "index": 143,
           "name": "filesystem:directory"
         },
         {
           "arguments": [
             "-b",
-            "/tmp/rustbox-file-oracle-kbjaamd7/directory"
+            "/tmp/rustbox-file-oracle-ouvq2kum/directory"
           ],
           "clang_sha256": "bcd65543f7ef0841ab22d39a6c489d7de9e0d7eb52cf37df054d04cb141f5265",
           "exact": true,
@@ -20065,60 +20133,60 @@
         },
         {
           "arguments": [
-            "/tmp/rustbox-file-oracle-kbjaamd7/symlink"
+            "/tmp/rustbox-file-oracle-ouvq2kum/symlink"
           ],
-          "clang_sha256": "16411b7f6822523851ab6a0e1aa870c2b5b0f32f30b382dd632d57746e3a9180",
+          "clang_sha256": "b86c4bad74f45e6fbb25ff606ddbfffc9b968516946e9f99e4936ff3b77cb13f",
           "exact": true,
-          "gcc_sha256": "16411b7f6822523851ab6a0e1aa870c2b5b0f32f30b382dd632d57746e3a9180",
+          "gcc_sha256": "b86c4bad74f45e6fbb25ff606ddbfffc9b968516946e9f99e4936ff3b77cb13f",
           "index": 145,
           "name": "filesystem:symlink"
         },
         {
           "arguments": [
             "-b",
-            "/tmp/rustbox-file-oracle-kbjaamd7/symlink"
+            "/tmp/rustbox-file-oracle-ouvq2kum/symlink"
           ],
-          "clang_sha256": "ff2e546d1e082a9e48fe6df5bd97e4e2a4b4ec178fff07c8feb163d804271335",
+          "clang_sha256": "d343045dec3f5fd69831e53b37d4ffa2c794eae23ef4ad38630c31dbfe50775e",
           "exact": true,
-          "gcc_sha256": "ff2e546d1e082a9e48fe6df5bd97e4e2a4b4ec178fff07c8feb163d804271335",
+          "gcc_sha256": "d343045dec3f5fd69831e53b37d4ffa2c794eae23ef4ad38630c31dbfe50775e",
           "index": 146,
           "name": "filesystem:symlink:brief"
         },
         {
           "arguments": [
-            "/tmp/rustbox-file-oracle-kbjaamd7/broken"
+            "/tmp/rustbox-file-oracle-ouvq2kum/broken"
           ],
-          "clang_sha256": "cf6d93e1908a1443371bfb2f4ba3ada29117d2bbe8dfb65df6e660897d38ef1a",
+          "clang_sha256": "c7f09bc2fed7ca598890b20c55d6d137fcc747dbcb19fa60e3026c8b60764259",
           "exact": true,
-          "gcc_sha256": "cf6d93e1908a1443371bfb2f4ba3ada29117d2bbe8dfb65df6e660897d38ef1a",
+          "gcc_sha256": "c7f09bc2fed7ca598890b20c55d6d137fcc747dbcb19fa60e3026c8b60764259",
           "index": 147,
           "name": "filesystem:broken"
         },
         {
           "arguments": [
             "-b",
-            "/tmp/rustbox-file-oracle-kbjaamd7/broken"
+            "/tmp/rustbox-file-oracle-ouvq2kum/broken"
           ],
-          "clang_sha256": "4a20e7bf1f196a19e73d27c9c95ee243148c6e7faf6b0b32d021a0e214cbf6dd",
+          "clang_sha256": "3762d2a98a21e0c4eca1f14e7555f512e4c14e48ddd4edb9c72cfaceb080ce14",
           "exact": true,
-          "gcc_sha256": "4a20e7bf1f196a19e73d27c9c95ee243148c6e7faf6b0b32d021a0e214cbf6dd",
+          "gcc_sha256": "3762d2a98a21e0c4eca1f14e7555f512e4c14e48ddd4edb9c72cfaceb080ce14",
           "index": 148,
           "name": "filesystem:broken:brief"
         },
         {
           "arguments": [
-            "/tmp/rustbox-file-oracle-kbjaamd7/fifo"
+            "/tmp/rustbox-file-oracle-ouvq2kum/fifo"
           ],
-          "clang_sha256": "ba73fb984a563ac0755d768b10a65e7d8098d117013d00ade1fec9a5b008b3cb",
+          "clang_sha256": "bc5cde2f648a63f34a50e6a570b6e2fbbc5c87a5f68d88147b88fc938f2b4d10",
           "exact": true,
-          "gcc_sha256": "ba73fb984a563ac0755d768b10a65e7d8098d117013d00ade1fec9a5b008b3cb",
+          "gcc_sha256": "bc5cde2f648a63f34a50e6a570b6e2fbbc5c87a5f68d88147b88fc938f2b4d10",
           "index": 149,
           "name": "filesystem:fifo"
         },
         {
           "arguments": [
             "-b",
-            "/tmp/rustbox-file-oracle-kbjaamd7/fifo"
+            "/tmp/rustbox-file-oracle-ouvq2kum/fifo"
           ],
           "clang_sha256": "6f294cc795dff3f4c055aa3565ca17c066728a6041413678ece130328e54e442",
           "exact": true,
@@ -20128,18 +20196,18 @@
         },
         {
           "arguments": [
-            "/tmp/rustbox-file-oracle-kbjaamd7/socket"
+            "/tmp/rustbox-file-oracle-ouvq2kum/socket"
           ],
-          "clang_sha256": "de70a939dda36a4b255c4bf677e8daac1a4ccc642af78487874ef27135b806ac",
+          "clang_sha256": "c5e749f5d7be14370a12addd5703d8c6bccecb69d188fdbb764cedef6674e1db",
           "exact": true,
-          "gcc_sha256": "de70a939dda36a4b255c4bf677e8daac1a4ccc642af78487874ef27135b806ac",
+          "gcc_sha256": "c5e749f5d7be14370a12addd5703d8c6bccecb69d188fdbb764cedef6674e1db",
           "index": 151,
           "name": "filesystem:socket"
         },
         {
           "arguments": [
             "-b",
-            "/tmp/rustbox-file-oracle-kbjaamd7/socket"
+            "/tmp/rustbox-file-oracle-ouvq2kum/socket"
           ],
           "clang_sha256": "7b5acc44c7c89ae0b5a5872078c2e21971675e60c1c62741c7bcabd12b8d8c67",
           "exact": true,
@@ -20362,20 +20430,20 @@
         {
           "arguments": [
             "-f",
-            "/tmp/rustbox-file-oracle-kbjaamd7/inputs.list"
+            "/tmp/rustbox-file-oracle-ouvq2kum/inputs.list"
           ],
-          "clang_sha256": "87dcbc9b6f92e9687026cd9a9d5f2cd1f13c87b121f6289cb59f71c30024f25c",
+          "clang_sha256": "ab97a921a7a90c01270ced68ac45cd6b2daac1820545f4d1c74f5b4b404cec1e",
           "exact": true,
-          "gcc_sha256": "87dcbc9b6f92e9687026cd9a9d5f2cd1f13c87b121f6289cb59f71c30024f25c",
+          "gcc_sha256": "ab97a921a7a90c01270ced68ac45cd6b2daac1820545f4d1c74f5b4b404cec1e",
           "index": 173,
           "name": "interface:list"
         }
       ],
       "schema": 1
     },
-    "differential_sha256": "0229c154d5a2a008efe542435e3488a35240de747d7608ac162937e99cf3428c",
+    "differential_sha256": "82a32a153eb98b3a2df858394afb1a70696ac208666f8ea4c50c46433b3e0f0d",
     "valgrind_errors": 0,
-    "valgrind_log_sha256": "980b649b2f44fe3db0e0c23124d21a296e3a15b4979a639ddd95eecf168667d9"
+    "valgrind_log_sha256": "18754810208fed53957edc0a28443cd6062e40db9a431bd6f0020ef54de733e8"
   },
   "findutils_integration": {
     "canonical_c_abi_residue_units": 3,
@@ -21478,14 +21546,14 @@
     ],
     "possibly_lost_bytes": 0,
     "translated_entrypoint": "rustbox_flex_main",
-    "upstream_log_sha256": "b5dc511ab422ba0a5d6a3de3af633276bb903a197590a996f7dafb9af86b33ab",
+    "upstream_log_sha256": "afe2a810264fb3f2aaae320d3eb72d606d3af851816a15179bd83cc9b11799bf",
     "upstream_tests": 114,
     "valgrind_errors": 0,
     "valgrind_log_sha256": {
-      "flex++-version": "a1c19994d3391e11229924ee30a08c85c1ab9bb5d4ebac58c0b2927dc00f76db",
-      "flex-invalid": "0e5f49671722b26ef1a49746c8afc1ced6cbfbfd6d2ccf493a3da021b49f0497",
-      "flex-version": "e35c60295350a3b454cae05e3452979c19afb6612ba5962f7bd1428864ca4bd5",
-      "lex-version": "63815dff8dfe7fc0170c0dfc5587da3f3d457cef79fe671fdb5c1dc161757a08"
+      "flex++-version": "39418f61796dd7702cf43982c0141b14f1da90d4dbcf2c578362aec6f5477ecd",
+      "flex-invalid": "ac12adc77eb0167e8e6ff3e66c4bea7ebe1820eadcbd73cdea67ba1731d08e9d",
+      "flex-version": "be135f72ac2814b0835c6ffb668075198b95cb4eb9d8bb8317034bb5e4a6069e",
+      "lex-version": "a3f2e71ee35406fdc1b43f19a2844d6b07a2194b620dd56c353c778ec1635024"
     }
   },
   "gawk_integration": {
@@ -21584,7 +21652,7 @@
           "arguments": [
             "-F:",
             "{ print $2, $1 }",
-            "/tmp/rustbox-gawk-oracle-7_o532id/data"
+            "/tmp/rustbox-gawk-oracle-ddb8ormq/data"
           ],
           "clang": {
             "status": 0,
@@ -21629,7 +21697,7 @@
         {
           "arguments": [
             "{ n[$1] += $2 } END { for (k in n) print k, n[k] }",
-            "/tmp/rustbox-gawk-oracle-7_o532id/data"
+            "/tmp/rustbox-gawk-oracle-ddb8ormq/data"
           ],
           "clang": {
             "status": 0,
@@ -21672,7 +21740,7 @@
         {
           "arguments": [
             "/^[ab].*:[23]0$/ { print $1 }",
-            "/tmp/rustbox-gawk-oracle-7_o532id/data"
+            "/tmp/rustbox-gawk-oracle-ddb8ormq/data"
           ],
           "clang": {
             "status": 0,
@@ -21890,7 +21958,7 @@
           "arguments": [
             "--csv",
             "NR > 1 { print $1, $2 }",
-            "/tmp/rustbox-gawk-oracle-7_o532id/data.csv"
+            "/tmp/rustbox-gawk-oracle-ddb8ormq/data.csv"
           ],
           "clang": {
             "status": 0,
@@ -21912,7 +21980,7 @@
         {
           "arguments": [
             "-f",
-            "/tmp/rustbox-gawk-oracle-7_o532id/library.awk",
+            "/tmp/rustbox-gawk-oracle-ddb8ormq/library.awk",
             "-e",
             "BEGIN { print twice(21) }"
           ],
@@ -21936,22 +22004,22 @@
         {
           "arguments": [
             "{ print FILENAME, FNR; nextfile }",
-            "/tmp/rustbox-gawk-oracle-7_o532id/data",
-            "/tmp/rustbox-gawk-oracle-7_o532id/data.csv"
+            "/tmp/rustbox-gawk-oracle-ddb8ormq/data",
+            "/tmp/rustbox-gawk-oracle-ddb8ormq/data.csv"
           ],
           "clang": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 86,
-            "stdout_sha256": "cf0be2e3aea669f6e35877f37137a4ecf1a0f4a372ea666562e5cc260aba7b17"
+            "stdout_sha256": "fa092bfbcd3dab065c08cbde85cf38c155c51b230c67790ccd5450e6892736a6"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 86,
-            "stdout_sha256": "cf0be2e3aea669f6e35877f37137a4ecf1a0f4a372ea666562e5cc260aba7b17"
+            "stdout_sha256": "fa092bfbcd3dab065c08cbde85cf38c155c51b230c67790ccd5450e6892736a6"
           },
           "label": "nextfile",
           "passed": true
@@ -22065,8 +22133,8 @@
       ],
       "schema": 1
     },
-    "differential_sha256": "a5f0e1d6215558cbee267519f0fc75f04b8d0e4a4938fd15684c883dc9ccaec7",
-    "gawkbug_differential_sha256": "86b4779dd0fc80896cbd323d64326c49354e2b58215a48be6a0cdabaf6a4de08",
+    "differential_sha256": "0159268c3327d303b9d1562615e37f574adfa42e4b1dc5dd4a7b609075fbe155",
+    "gawkbug_differential_sha256": "ca6412dba1b2e95cd30dd87221c2911c9223964a23a44e4b7e79493e928a4ec9",
     "gawkbug_stateful_differential": {
       "cases": 6,
       "passed": 6,
@@ -22157,7 +22225,7 @@
             "dead_letter": null,
             "mail_capture": {
               "bytes": 1025,
-              "sha256": "bc6cae72d59cdba3be67128c94f9b800c6460eb66897b8fa972e799f52a48003"
+              "sha256": "b0c6c59ed9575f15893a110605f931c1e4177f3392165336b7b64d3b8096f485"
             },
             "status": 0,
             "stderr": "",
@@ -22169,7 +22237,7 @@
             "dead_letter": null,
             "mail_capture": {
               "bytes": 1025,
-              "sha256": "bc6cae72d59cdba3be67128c94f9b800c6460eb66897b8fa972e799f52a48003"
+              "sha256": "b0c6c59ed9575f15893a110605f931c1e4177f3392165336b7b64d3b8096f485"
             },
             "status": 0,
             "stderr": "",
@@ -22183,11 +22251,11 @@
           "canonical": {
             "dead_letter": {
               "bytes": 1025,
-              "sha256": "bc6cae72d59cdba3be67128c94f9b800c6460eb66897b8fa972e799f52a48003"
+              "sha256": "b0c6c59ed9575f15893a110605f931c1e4177f3392165336b7b64d3b8096f485"
             },
             "mail_capture": {
               "bytes": 1025,
-              "sha256": "bc6cae72d59cdba3be67128c94f9b800c6460eb66897b8fa972e799f52a48003"
+              "sha256": "b0c6c59ed9575f15893a110605f931c1e4177f3392165336b7b64d3b8096f485"
             },
             "status": 0,
             "stderr": "gawkbug: mail to bugs@example.test failed: report saved in <ROOT>/home/dead.gawkbug\ngawkbug: please send it manually to bugs@example.test\n",
@@ -22198,11 +22266,11 @@
           "rustbox": {
             "dead_letter": {
               "bytes": 1025,
-              "sha256": "bc6cae72d59cdba3be67128c94f9b800c6460eb66897b8fa972e799f52a48003"
+              "sha256": "b0c6c59ed9575f15893a110605f931c1e4177f3392165336b7b64d3b8096f485"
             },
             "mail_capture": {
               "bytes": 1025,
-              "sha256": "bc6cae72d59cdba3be67128c94f9b800c6460eb66897b8fa972e799f52a48003"
+              "sha256": "b0c6c59ed9575f15893a110605f931c1e4177f3392165336b7b64d3b8096f485"
             },
             "status": 0,
             "stderr": "gawkbug: mail to bugs@example.test failed: report saved in <ROOT>/home/dead.gawkbug\ngawkbug: please send it manually to bugs@example.test\n",
@@ -22216,12 +22284,12 @@
     "integrated_public_names": 3,
     "pma_virtualization_failure_matches_canonical": true,
     "possibly_lost_bytes": 0,
-    "upstream_log_sha256": "38fe33f3d01d2d4f9d674d28150cbe80367d217223218bd1d38e5d0ba5d0dda7",
+    "upstream_log_sha256": "1bfe36a04a35f5a28c0d0a91dc503e7b3209fcf0e41074bbd9f6e110282a5d15",
     "valgrind_errors": 0,
     "valgrind_log_sha256": {
-      "awk": "cf29f7f3beb57f6030daec531b8cb623ba4159bc807fb2a88c59d01bf6cd33b2",
-      "gawk": "a1ee337e3175c155b590b98cabe315978f44b48fbbf3d3b2f847c719360dab58",
-      "gawkbug": "b917e1b5d9c9b828040ac0a6583242dd30a899e0e0c5718f3cccbb31102b744b"
+      "awk": "e49d21fd2268ae72cb1a7fb3b5170f6493758795cac492b2dc62a847ede85a59",
+      "gawk": "157a7955dc91f74dcb70afe7f3b3e6414949867eb378fa06a1e6ddeea94e229c",
+      "gawkbug": "113cd86abe7baafb1b1f0806012e96e64968147fed817070d36489b2e189937e"
     }
   },
   "grep_integration": {
@@ -22721,7 +22789,7 @@
       "schema": 1
     },
     "differential_sha256": "178032d09c44a592b1fff674bba84dd33bf5906356056a25cd88bbfea9b1d3ac",
-    "upstream_log_sha256": "b09b48672e95e24366a0fcc7001ac5cb0a65223b77d231d16233b11f34d94055",
+    "upstream_log_sha256": "78af3d6aff722c1134c5087d5baa7d429b1ea486d77fe92c27c35d20060fc49e",
     "upstream_suites": [
       {
         "error": 0,
@@ -22743,7 +22811,7 @@
       }
     ],
     "valgrind_allocation_lifecycle_matches_canonical": true,
-    "valgrind_log_sha256": "f122e44790cddfe40855f85ca291b77620f04fc02d78f2d2dbb43f84898a85bd"
+    "valgrind_log_sha256": "03160ff90b1166210cad8c10f8498676d0dd096734906a5b65e61d3d0e07b5e9"
   },
   "gzip_integration": {
     "alias_bridge": {
@@ -29723,17 +29791,17 @@
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-            "stdout_bytes": 3278,
+            "stdout_bytes": 4166,
             "stdout_normalization": "mask kernel-maintained Used-by reference count only",
-            "stdout_sha256": "53ee54b9e48416975b39d299ea439dc5edc26601d6b9eccb79bd5ec4e10dab1d"
+            "stdout_sha256": "098d15b08cd8e6ec046d8d5557d264aa6b90b585b8e8277dd727a71095646c4b"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-            "stdout_bytes": 3278,
+            "stdout_bytes": 4166,
             "stdout_normalization": "mask kernel-maintained Used-by reference count only",
-            "stdout_sha256": "53ee54b9e48416975b39d299ea439dc5edc26601d6b9eccb79bd5ec4e10dab1d"
+            "stdout_sha256": "098d15b08cd8e6ec046d8d5557d264aa6b90b585b8e8277dd727a71095646c4b"
           },
           "passed": true
         },
@@ -29809,20 +29877,20 @@
       ],
       "schema": 1
     },
-    "differential_sha256": "ba6e86ba6e9cfddbf55ddb8d74dbf4c27cc34e63ae19f7432f6f3e77e71f55d8",
+    "differential_sha256": "561ff92e18af01fccdc5caca243f7067af8a2fb63fc72011d2011330763e4323",
     "indirectly_lost_bytes": 0,
     "integrated_programs": 7,
     "possibly_lost_bytes": 0,
     "stable_translated_sources": 26,
     "valgrind_errors": 0,
     "valgrind_log_sha256": {
-      "depmod": "9b4e0cdd2c10456b6abaab3cb989da049ac5a676f95c29774b4ef00025be39cf",
-      "insmod": "d2c2b28c2c508f4f47df2750db2130910e75033ec3eecaad2707be0cd68ed14a",
-      "kmod": "a029f5656baeed384428fb95e5c593d2350817a4cb8c5109860729943488d05c",
-      "lsmod": "cc5905ff74fa756e34c43656450b6831d7c535a834bde605ffc6e224631325c7",
-      "modinfo": "90c7bc8fb7ac93739c1947dbd23646cd642eda24d31ae46024bed3df7b4db72e",
-      "modprobe": "185c673707ec5d1f37917b694c73e777a0b6b56d9067e2114cbdd5eb7c0ab7b4",
-      "rmmod": "8a0742c5fbdef49a0dfcb9ec9638569945d0495dd1647e397eddeab4fc840d87"
+      "depmod": "f9079c345e82cf65d56df92b327d91a034dc85690645f96ca70094902d177d60",
+      "insmod": "2817980e116968c4b0633c01e57b88f97d7fe61d903fb792f47c8919a9e245b4",
+      "kmod": "e8dd65cf6d52a2f737bb8529263f6e23afe5194e77a27759b7bf9536a521fafb",
+      "lsmod": "97f39c40a260590b345e3c451d8c24dcbf2e9f2568c70c04e3a2d058ef8a953a",
+      "modinfo": "ecada19d0dec38abe58fc22de07e21b8b4f79f5a736dc3084aade4ff53a57128",
+      "modprobe": "e3c3d14ce0714aeb6fd70de9ac3db4043946e7c67101455bd7f27c0548d8ba02",
+      "rmmod": "643254522bb7024e2b68511c54f0ab0816a76f2f2542fa778ec90ed69a4f46c5"
     },
     "valgrind_programs": 7
   },
@@ -30117,7 +30185,7 @@
     "lessecho_all_allocations_freed": true,
     "valgrind_errors": 0,
     "valgrind_log_sha256": {
-      "less": "3a89a96a850f4e83e23ab3967310e22067e7633420a2b0b52caa419361e0c342",
+      "less": "668061c2e945516aea81851127c3d9399ac7f07db734d9a00d57162faed7e22f",
       "lessecho": "ecce58cc478b5d8c5528589143189cd3fa545fd96ef7b57c272ec6fda525d806"
     }
   },
@@ -31013,7 +31081,7 @@
     "numbered_language_checks": 242,
     "stack_overflow_check": "pass",
     "valgrind_errors": 0,
-    "valgrind_log_sha256": "b254f4cbe8a43a74fd251d8f1fe9958e9d8239bf2840671caab2a62207a38572"
+    "valgrind_log_sha256": "d7118388e7e482a13d5297eef1f2dad8d3088c1fa228b1242924aaf55e56c5ee"
   },
   "ncurses_integration": {
     "canonical_c_abi_residue_units": 0,
@@ -32677,7 +32745,7 @@
       "schema": 1
     },
     "differential_sha256": "c283872417f31652310579117e11712fe2db576969136c7165764a051d098a65",
-    "upstream_log_sha256": "1a9f7338eaf1d65a3aba7852c388f58ed120a5d9b14c8cca077b80f020230e7c",
+    "upstream_log_sha256": "ee1858fb2aa32dc0737cad56199f6373399c46b08d7b7fc7bc59cc1ed959b277",
     "upstream_suite": {
       "error": 0,
       "fail": 0,
@@ -32688,7 +32756,7 @@
       "xpass": 0
     },
     "valgrind_errors": 0,
-    "valgrind_log_sha256": "193fb708a44af29444b15d3b81dae06ecd56d28c0fc4ccb48585ee3852245cd6"
+    "valgrind_log_sha256": "b372de24b275c0e7434b4cdcf6745d3140a9b2dec0919b16e2ec875754372b01"
   },
   "pkgconf_integration": {
     "differential": {
@@ -34372,14 +34440,14 @@
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 20,
-            "stdout_sha256": "63d2142d8b6464ffda850fdc1358284d70cc911172889be2673253d7abf24c57"
+            "stdout_sha256": "8304af800005d268c959cae35088b0fe6dd6263f912ea7bfa99683feaf5122c7"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 20,
-            "stdout_sha256": "63d2142d8b6464ffda850fdc1358284d70cc911172889be2673253d7abf24c57"
+            "stdout_sha256": "8304af800005d268c959cae35088b0fe6dd6263f912ea7bfa99683feaf5122c7"
           },
           "passed": true,
           "program": "uptime"
@@ -34387,7 +34455,7 @@
       ],
       "schema": 1
     },
-    "differential_sha256": "84aa827fc723395a6a64f11ffd8ee11f118a39b81fdc6bce4db0fd576d011969",
+    "differential_sha256": "43d3c0eb58cd77687a65e09c7aabd8e83f835b25b64e22d3467bff304a3826ac",
     "dispatch_aliases": {
       "kill": "procps-kill",
       "uptime": "procps-uptime"
@@ -34406,14 +34474,14 @@
       "pmap": "432716a432ad58af60fd5dcbe4f20a26369305a781e6aa6393d5e0a81961ca72",
       "procps-kill": "bc9b39a065a12c2095c0e9496861b99e121197093941284e4287a5e9792f206e",
       "procps-uptime": "e2bfc8c179f7166667877506c4e2c4fe48952b2045341d797ca8166c29ad5b26",
-      "ps": "e991f1155ebb50b2f47c51d995c5bb83a17a1034892ec406f37ce6476e1118b8",
+      "ps": "b21bcde04df96ccfede469812c7d05e06044d08687330c71eacbbf08c90494ad",
       "pwdx": "cce025bb7632934e7c70b9eac2267ac7b9e46e8a855f2fdd1772e3b019263457",
       "skill": "eef41e989c5813ca50a85194cc89bee809aab88728a5f00e9eebc5f9268bb813",
       "slabtop": "75a3467ad5179137b3c69585e681af0bf3dd7a6bbc8c6485a5e2ed8f44cc8141",
       "snice": "837578655f20892eae0c06115f20b62d9a48ee9276db341c8cddc0dc3b217dd3",
-      "sysctl": "a4342535f778b20fdc7ebd28751ad6d0e70dccdfd9de5ff0c51b107a7f52e37d",
+      "sysctl": "91c996dd6592d8c50bd5a52f8b7cf776d1ff5e7c13fc9234d1b13a9e5650aeed",
       "tload": "5927def2c64e4cf0d2d58186eac635fb9b94b9542c5843a78eb43e714decfbed",
-      "top": "b12176480db0fa9094a958d17d74d99483f6b18daae86a7a36a1c9f63bcd114e",
+      "top": "2204fcee89b401b1eb447a06ce8190e64814294911f7329d9e0c9933993dbc47",
       "vmstat": "1d17a5d70edcc1ef7014ccd92bb8fe74a42a16b5a792015171978e20e559e4af",
       "w": "1b9968dee014ac947f1d36c7ff9738863f9270fbb785695871c176df7911b4e9",
       "watch": "611269b3614f1eb945ae146cf183146e94fd73af663e0bd9a08b63db0d00352f"
@@ -34866,7 +34934,7 @@
       "schema": 1
     },
     "differential_sha256": "264cacae91cb1661c9e8340821c4db405388a507ee0cd21dbdd1dc09c303fc22",
-    "upstream_log_sha256": "83b8123ea18b5d6bf390b5a8223a65e47c59e41da510ce193bdb3a7067e7cb61",
+    "upstream_log_sha256": "ba131637982aa0bb706084abaa8e4644cdd01caea683993517c50a0ea2cec7cb",
     "upstream_suites": [
       {
         "error": 0,
@@ -34888,7 +34956,7 @@
       }
     ],
     "valgrind_errors": 0,
-    "valgrind_log_sha256": "3b9688d3d14582709f223e2b6a6da1440bc8885c5615fb3a781b1689359d34a5"
+    "valgrind_log_sha256": "58982a83326c17f9d638ad10ae3fb2c15b402271dbd877ebd405afc32604a0b1"
   },
   "shadow_integration": {
     "canonical_c_abi_residue_units": 0,
@@ -37599,7 +37667,7 @@
                 "bytes": 71,
                 "kind": "file",
                 "mode": 384,
-                "sha256": "79cfbffa44a341771d564659598f133a0e26f6555978671f01c6436305622be2"
+                "sha256": "377b1e860656b351c73d196bcf21fc07ddd37072ed987747d5104fb1e2dcc68c"
               },
               "etc/shadow-": {
                 "bytes": 53,
@@ -37708,7 +37776,7 @@
                 "bytes": 71,
                 "kind": "file",
                 "mode": 384,
-                "sha256": "79cfbffa44a341771d564659598f133a0e26f6555978671f01c6436305622be2"
+                "sha256": "377b1e860656b351c73d196bcf21fc07ddd37072ed987747d5104fb1e2dcc68c"
               },
               "etc/shadow-": {
                 "bytes": 53,
@@ -38194,7 +38262,7 @@
       "schema": 1,
       "stateful_cases": 8
     },
-    "differential_sha256": "350fa7f3d2ae8cc48af4c16d0ae64f15eb13c25a60d1d899713db4f9e878b147",
+    "differential_sha256": "857d0775541ae7a0b8b38eef08281e1054bde2cab87b1d09e7296980a5bbb85a",
     "dispatch_aliases": {
       "chfn": "shadow-chfn",
       "chsh": "shadow-chsh",
@@ -38210,38 +38278,38 @@
     "translated_engines": 30,
     "translated_sources": 196,
     "valgrind_log_sha256": {
-      "chage": "a7c46e1cd30872348d4ad2767fef16f83e632ddef8c4ced7937540e0cf1c3d3f",
-      "chfn": "5cc087752917377002375a5e6ad2bf0959390ff9221d7f3bebcadce2e6246831",
-      "chgpasswd": "b7c60cc65846641bcec45e0173fa637c6f93ceb78a4779cc33dad8125674525d",
-      "chpasswd": "869438836e51591bd79a3f339d72e4a82e14eea49ad627828a2f2c1830dc4d68",
-      "chsh": "dfec303891e91cff34154f157da774b2ae326e7b0a4c837ee18ec2ee41c4c392",
-      "faillog": "7a1dbbfabad1a8e6b414f143d01a63bd7cf65ab34e9cc7210598ce1238f05996",
-      "getsubids": "b108383479be766ec526e5b72c6575485f26469a34531b006f9102eb0779665c",
-      "gpasswd": "4f36291f9ddefc7fde931c73635a269d51cef0977c61b08d4ccc70f14359dea5",
-      "groupadd": "20c5d6bff62b75120b1be1bf339b1ed4cce05443ed3d3225f1829f14ca682e8b",
-      "groupdel": "e63810ead41ac72749f7f75d1a7487d35b1e518b86bf7a3eaa5f15a87b6c9e06",
-      "groupmod": "97d51020c6bcc8606e4351f27e63248fc96a878d7b2aed6ceac192d0bd8816c9",
-      "grpck": "e8798c3e7e4c3497efc9324fd62c8b402afdc877ad2b8112349585badccb0b99",
-      "grpconv": "d1892635154f5e3e405a0803e268342d4724055e2e7f124af83f07cc7078b889",
-      "grpunconv": "b49361ec10bd4cce3fd722cb3c4d4fc5d48d18bc4a68edc4a4b6836a5ef26d92",
-      "lastlog": "db3f1c378cafdaca317f58e1829f48f396e546bfb4aa55913645b1bab831bf12",
-      "login": "9ab73f732d6f9d09e9da6ce122eb2e39381caeac8d2e17ddfedbc9038362afb5",
-      "newgidmap": "d807418a6779173b139b46cf3e3abf477ac6ac031164b3756ae19eb4c0ceedd6",
-      "newgrp": "3e0dbe827df5d24167c206ac28d41b791101ce65559ed0f3abaefb870925632a",
-      "newuidmap": "1d3c7bd59199a4208358f43a00369fa129a05fdd89950bca02d040fc6a3fdfbc",
-      "newusers": "bc12eca3ea7bfd3fee3342571cdbfc1e88354fe5fb073c44c4ec268c9ad05f65",
-      "nologin": "5cafd2eef91b41e0d1464e5b1f65950481e5856f67ae40881ffa67a2cc43aa85",
-      "passwd": "2fdfe7b4050f71a382572e5dc295c82fcc83c5bd69a87df4618d1114889763af",
-      "pwck": "af01fefe180f9793e466cac6efb0a873fb68ebc01d4a3c4eaa6fbcc693cc2b2a",
-      "pwconv": "b722de193928695fa880836453fa18770827fc0bccf189e43f97311b7e36f64e",
-      "pwunconv": "03ef2dc6f89e017902652c94f869c7d749de545e82d5b0135b6c5c97ced5e9de",
-      "sg": "08a1153699b7dbab215d3fd228f3b1e8dfdff06334dbbaa0fa96e097b993c92b",
-      "su": "0183f20a2c16d4d8010b1f6ead856722b5aea6649528ba88f06b7ba2033973fe",
-      "useradd": "b8ef476e1c4f1ae84f5368980f0bb9d47b39b710ef23ae3a678d5480060ad66b",
-      "userdel": "1fc9bdb744ca9c29a6049443c1b40ab288078868fa3900ca3b13218e88856263",
-      "usermod": "aefd1a9f3e694560163e865982b4256eb64cec8c493b813826e9afe290cfee3b",
-      "vigr": "b7f670d79d7457263fe697fe6536b986c0b04ec19a7cdf0bd91ea17447e71ab9",
-      "vipw": "1758ee038a16b5664ad3e9223baeaf3fc8a6f43090c9c90952f1ea8774190386"
+      "chage": "18f6ccb433ad9f23d7edd6374e95fb004cb10209fafd03c8663c62185e9b77b7",
+      "chfn": "4b7871c4be14a8dbac3c8e4f606c35e65356c29147006946364e38ef1c639466",
+      "chgpasswd": "cd5ba837bb86bc42e79072a85af98b047b8e9e673c4799ba9c02cc36066514d0",
+      "chpasswd": "571d58c8b920ecd0257fb376c60953b714d95e31962e27e05a52ff36ebd70550",
+      "chsh": "75888887b94e357359f3696919e84d55a8d0ee531f53dfac5f1546504a945682",
+      "faillog": "7e72bf0e49d6ec8272e4ffa0577f747e51d464f7d90641a22e06a042f0933ad1",
+      "getsubids": "527de24820a45b2e77c34491616d09f7f59098d43c7a7292da5d3495b441aa20",
+      "gpasswd": "a56c9abf33f79164b5d282f857704130841edede47220759df082dd9f0721644",
+      "groupadd": "1a010448af4bc4d7cb288db5655230327cac8a3d15fbc7f1624f715f6be02b87",
+      "groupdel": "6ab8dd1b631f736306559a3417f97b251d8c0d764dcf07ede43fcb48450562ba",
+      "groupmod": "4d1eb9864e5f13c09ea2b76f7abd5450f733db1f5fe353a6bfcbcb89531587d4",
+      "grpck": "7bcf822e1f3b4b54dfcfb154b1da4a91d9af3342d34fada3a7bc894e0dca7dfc",
+      "grpconv": "27b00e7a61d1d1058fa81466a26cae427a26b29c6eb2b36378d20048294463ce",
+      "grpunconv": "4caf727b0af2225ef0166fab19bef86a9b9fd224166b1ca440d16c2da7733b43",
+      "lastlog": "949afb9ffb8477fde00e3ed8423d45108dd18bbb8357382227c7a634c36b1132",
+      "login": "2594d299bf4972595b8ca619e65ca7b9304071fa563a71aa833a05637d7e845f",
+      "newgidmap": "33c18f3b618693fcce6ec7b75893f3dee11223d54d21cc457966a957bcaa7cfb",
+      "newgrp": "aa09e9ca725d98d30938e22bfb5d48abd00263b469f103b3f326ff54d37ea8bf",
+      "newuidmap": "6a2cebf4f5f8e620164f786fbd7507f703e6c94f5b49d9ea9584cb6534c91e11",
+      "newusers": "895cbcebb275d0fc623764499abf23d2de228a8ccc32de5dceedba0bd870c59b",
+      "nologin": "c062fa7e49d2a4b1f8c3c09aa99814e0b24e45bde9994e470405a50f321123df",
+      "passwd": "5a7ca6b129289a7015ebeef84d548ccd568d78b8c930c2fb870970fcdc066f75",
+      "pwck": "5506764a8e1afb442d953b143fb686d94a0fad9642fe8dfbf8bf30be0fbb63b7",
+      "pwconv": "7c674c719d80dad4aece9700ad44f3d45b62b7a53139757c1e0703c6d6885d44",
+      "pwunconv": "18d3a02417fd43ef858ed855c993f7aa98204de2d78e5103f12d692b53e14fc7",
+      "sg": "be8f89fd725b4fefd08d25fbe0fdc262a8a1fcbb9b543d20a508d62abb5af4a6",
+      "su": "178fab3b8ebe0711e8dc20be528d9db0e142f068cc357f46d4bb7be5c402f9ef",
+      "useradd": "05591774403f89266826c259e2b7a051e213a12187f775aaf2509107527dbf9c",
+      "userdel": "9acf6badb2ca95d7d24148c8e8bd0b0136d61e923d8b79a221fc4b77b7b51287",
+      "usermod": "69574e561d12c9432a8e9a30f80e541cbdc638feb31b28041e4ad4a31aec6740",
+      "vigr": "fa7142297e3e5a73adb0e3c6463142483eb5c76d4b032476092e6188c5cee57d",
+      "vipw": "7eb98386e0167dfa63a97a2b1896d0a66cea1c27b09f4d76339ed205f242be67"
     },
     "valgrind_programs": 32
   },
@@ -38412,7 +38480,7 @@
             "-cf",
             "-",
             "-C",
-            "/tmp/rustbox-tar-differential-vygzk8e3/source",
+            "/tmp/rustbox-tar-differential-9wc4wpts/source",
             "."
           ],
           "byte_identical_archive": true,
@@ -38437,7 +38505,7 @@
         {
           "arguments": [
             "-tf",
-            "/tmp/rustbox-tar-differential-vygzk8e3/archive.tar"
+            "/tmp/rustbox-tar-differential-9wc4wpts/archive.tar"
           ],
           "clang": {
             "status": 0,
@@ -38461,7 +38529,7 @@
           "arguments": [
             "--numeric-owner",
             "-tvf",
-            "/tmp/rustbox-tar-differential-vygzk8e3/archive.tar"
+            "/tmp/rustbox-tar-differential-9wc4wpts/archive.tar"
           ],
           "clang": {
             "status": 0,
@@ -38508,7 +38576,7 @@
           "arguments": [
             "--test-label",
             "-f",
-            "/tmp/rustbox-tar-differential-vygzk8e3/archive.tar"
+            "/tmp/rustbox-tar-differential-9wc4wpts/archive.tar"
           ],
           "clang": {
             "status": 0,
@@ -38545,15 +38613,15 @@
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-            "stdout_bytes": 642,
-            "stdout_sha256": "f0c102cd76146e4b5dbd3e6dd6fc62b3e0700774a4d3a94a6b20727a1eb5bc7d"
+            "stdout_bytes": 646,
+            "stdout_sha256": "e9d0d867b9eaea60e5abf066da3c3b4ed75b1105d454a95a614bdec5949afea9"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-            "stdout_bytes": 642,
-            "stdout_sha256": "f0c102cd76146e4b5dbd3e6dd6fc62b3e0700774a4d3a94a6b20727a1eb5bc7d"
+            "stdout_bytes": 646,
+            "stdout_sha256": "e9d0d867b9eaea60e5abf066da3c3b4ed75b1105d454a95a614bdec5949afea9"
           },
           "label": "tar-create-gz",
           "name": "tar",
@@ -38591,14 +38659,14 @@
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 552,
-            "stdout_sha256": "42990eada2eed606aa88f9eb88bbc4fa9fca7aab1081c512b5f2b57aef173ee8"
+            "stdout_sha256": "2dd6654f936d65e1ba8139a143bd487c8205839850949ef1257adbc37796d218"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 552,
-            "stdout_sha256": "42990eada2eed606aa88f9eb88bbc4fa9fca7aab1081c512b5f2b57aef173ee8"
+            "stdout_sha256": "2dd6654f936d65e1ba8139a143bd487c8205839850949ef1257adbc37796d218"
           },
           "label": "tar-create-xz",
           "name": "tar",
@@ -38636,14 +38704,14 @@
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 543,
-            "stdout_sha256": "1094e4375fe56b70b5b093345991a7f1d8eea523e1f9e93c5a90e6d63fb65eb4"
+            "stdout_sha256": "93f674feb77620fea3e8669458e76e012542049e5da8a38ef73081c4a6547380"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 543,
-            "stdout_sha256": "1094e4375fe56b70b5b093345991a7f1d8eea523e1f9e93c5a90e6d63fb65eb4"
+            "stdout_sha256": "93f674feb77620fea3e8669458e76e012542049e5da8a38ef73081c4a6547380"
           },
           "label": "tar-create-zst",
           "name": "tar",
@@ -38675,7 +38743,7 @@
       ],
       "schema": 1
     },
-    "differential_sha256": "d3473158d67c08fef1b4a7d5d47bdd6024ab9e3c87b4839d23bac12a507b70ad",
+    "differential_sha256": "eac175f6f7df305c7286d8f5a02aed18a5a9497d5af4e90b45b4cdbca5b92636",
     "extracted_tree_matches_canonical": true,
     "indirectly_lost_bytes": 0,
     "integrated_public_names": 2,
@@ -38698,10 +38766,10 @@
     ],
     "valgrind_errors": 0,
     "valgrind_log_sha256": {
-      "create": "0522753df397c4436e0115cad8b207e5c987478e1baa1a5858f69bf32dd07e36",
-      "extract": "8efebc6827df45680db58de4d1987490cf6107a3fce6a812b29c8e72e30ec538",
-      "list": "4d3166c5725f13a51b27d75738b439f4f9782202510394fa583361ab7722d49a",
-      "rmt": "c332263882239abeddc0341d1947018bbeed82b633a31b656c100c2a79f5becb"
+      "create": "5f457db76cb34b1c30793379a3ec8f59eca0fe3c86acb3fe105ebc810fa0dfbb",
+      "extract": "1f795c8c97fde15860adb5d6e10cd9d880ee4f2c3ee2fd4e83c3132e9d98beab",
+      "list": "a7ecece2c4b489268aed2aec09f4568cafc52044090b284a494b95d88b74d37b",
+      "rmt": "c43d1ea8b3b1ba2dd36807898b7fb320946c7664660203af12a81dbf10577bd1"
     }
   },
   "xz_integration": {

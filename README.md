@@ -280,12 +280,11 @@ Count residual adapters explicitly. Track shared implementations by their
 actual callers and verify the final linked executable before recording a
 production reduction.
 
-The default 499-name Linux executable now uses the cleaned sources for
-all 20 E2fsprogs, 18 IPRoute2 and 26 GNU Inetutils engines, as well as curl,
-GNU gzip, XZ Utils, GNU bc, GNU Findutils, LZ4, ncurses and the zstd command-line
-modules. Across the linked applet sources the raw-pointer type count fell from
-**1,379,960 to 1,103,631**.
-Counting byte-identical Rust files once gives **786,086** remaining occurrences.
+The default 499-name Linux executable uses verified private-helper cleanups
+for 89 linked Rust archives. These cover the 20 E2fsprogs, 18 IPRoute2 and
+26 GNU Inetutils engines and 25 other package archives. Across the linked
+applet sources the raw-pointer type count fell from **1,379,960 to 1,062,083**.
+Counting byte-identical Rust files once gives **744,397** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
 | Production change | Raw-pointer type occurrences removed |
@@ -301,7 +300,8 @@ The count of applets certified pointer-free is still zero.
 | Shared E2fsprogs bitmap counter, including its raw ABI argument | 77 |
 | Compiler-verified removal of unused private helpers in GNU bc, GNU Findutils, LZ4 and ncurses | 13,777 |
 | Compiler-verified removal of unused private helpers in zstd command-line modules | 498 |
-| **Total** | **276,329** |
+| Compiler-verified removal of unused private helpers across 17 further package archives (breakdown below) | 41,548 |
+| **Total** | **317,877** |
 
 E2fsprogs accounts for 215,007 remaining occurrences, down from 401,012.
 IPRoute2 accounts for 223,692, down from 265,323. GNU Inetutils accounts
@@ -599,6 +599,54 @@ python3 -B scripts/test_inline_release.py previous-link.json work/analysis/rustb
 The runner checks the ELF hash before and after testing. It runs independent
 suites in parallel and runs the timing-sensitive suites separately. Use
 `--package NAME` to replay one changed package with the same checks.
+
+The 17-package batch removed 20,691 unused private functions across 1,090
+compiler-selected source entries, saving 7,434,700 source bytes. Each package
+reproduced its entire original release archive. The linked executable and link
+map also reproduced their original hashes. All 17 affected package suites and
+884 unified dispatcher comparisons passed on this executable. The unified
+evidence retains the previous 14,022 Coreutils and util-linux comparisons.
+The GNU patch replay used the pinned GNU ed from its oracle image and
+exercised the upstream `ed-style` case.
+
+| Package | Unused functions removed | Raw-pointer type occurrences removed | Raw-pointer type occurrences remaining |
+|---|---:|---:|---:|
+| acl-2.4.0 | 1,149 | 2,221 | 5,261 |
+| attr-2.6.0 | 208 | 444 | 1,815 |
+| bison-3.8.2 | 2,782 | 5,775 | 24,769 |
+| diffutils-3.12 | 1,956 | 3,616 | 8,825 |
+| file-5.48 | 411 | 685 | 6,935 |
+| flex-2.6.4 | 374 | 606 | 13,686 |
+| gawk-5.4.0 | 989 | 3,668 | 29,789 |
+| grep-3.12 | 1,628 | 2,830 | 7,419 |
+| kmod-34.3 | 1,038 | 1,599 | 9,672 |
+| less-710 | 661 | 1,061 | 8,980 |
+| m4-1.4.21 | 452 | 813 | 3,740 |
+| patch-2.8 | 913 | 1,826 | 6,337 |
+| pkgconf-3.0.11 | 1,057 | 2,097 | 10,646 |
+| procps-ng-4.0.7 | 901 | 1,640 | 30,543 |
+| sed-4.10 | 980 | 2,436 | 8,351 |
+| shadow-4.20.4 | 2,615 | 5,561 | 26,311 |
+| tar-1.35 | 2,577 | 4,670 | 19,837 |
+
+A second pass can find functions whose only remaining callers disappeared in
+the first pass. To prioritize builds, rank only functions that became newly
+unreferenced in their source files. This estimates 1,144 candidates across
+14 of the 25 single-crate package archives. Each selected archive still
+requires fresh compiler diagnostics, an offline rebuild, matching archive
+bytes and an independent replay of both edits from the original sources.
+
+```sh
+link=work/analysis/rustbox-multicall-link.json
+python3 -B scripts/check_next_inline_layer.py "$link" --rank
+archive=work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a
+python3 -B scripts/check_next_inline_layer.py "$link" "$archive" work/analysis/xz-next-layer.json
+```
+
+The XZ Utils experiment verified 569 further private functions containing
+1,753 raw-pointer type occurrences across 89 files. GNU gzip yielded zero
+additional functions. These isolated experiments are outside the production
+counts above.
 
 The default build removes 9,189 unused private helper definitions and 18,487
 raw-pointer type occurrences from 606 GNU Inetutils source entries. The
