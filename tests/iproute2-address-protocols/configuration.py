@@ -1,4 +1,5 @@
 """Compare address-protocol name tables using only the two tmpfs mounts of the test container."""
+from concurrent.futures import ThreadPoolExecutor
 from itertools import zip_longest
 import json
 import os
@@ -41,13 +42,20 @@ for profile, (files, expected) in enumerate(profiles, start=1):
     for path, contents in files.items():
         path.write_bytes(contents)
     a = subprocess.run(["/tmp/canonical"], capture_output=True, check=True)
-    for variant in variants:
+    def compare(variant):
         b = subprocess.run(command(variant), capture_output=True)
         if b.returncode or a.stderr != b.stderr:
             raise ValueError(("address-protocol status or diagnostics differ", profile, variant, b.returncode, a.stderr, b.stderr))
         if a.stdout != b.stdout:
             rows = zip_longest(a.stdout.splitlines(keepends=True), b.stdout.splitlines(keepends=True))
             raise ValueError(("address-protocol output differs", profile, variant, next(row for row in rows if row[0] != row[1])))
+
+    if os.environ.get("RUSTBOX_ADDRPROT_BATCH"):
+        with ThreadPoolExecutor(max_workers=3) as pool:
+            list(pool.map(compare, variants))
+    else:
+        for variant in variants:
+            compare(variant)
     if bool(a.stderr) != (b"invalid-line" in files.get(local, b"")):
         raise ValueError(("unexpected canonical diagnostics", a.stderr))
     lines = a.stdout.splitlines()
@@ -72,7 +80,8 @@ print("Verified deferred loading, cached contents and stable returned name addre
 memcheck_runs = 0
 if any(v.endswith("-memcheck") for v in variants):
     logs = list(Path("/tmp").glob("addrprot-memcheck.*.log"))
-    if len(logs) != len(profiles) + 1 or any(b"ERROR SUMMARY: 0 errors" not in log.read_bytes() for log in logs):
+    expected_runs = (len(profiles) + 1) * sum(v.endswith("-memcheck") for v in variants)
+    if len(logs) != expected_runs or any(b"ERROR SUMMARY: 0 errors" not in log.read_bytes() for log in logs):
         raise ValueError("incomplete Memcheck coverage")
     print(f"{len(logs)} Memcheck runs completed with zero errors.")
     memcheck_runs = len(logs)

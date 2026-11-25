@@ -365,30 +365,47 @@ Coverage includes all 256 protocol IDs, short output buffers, vendor and
 local configuration precedence, duplicate names, raw bytes and diagnostics
 for a malformed configuration line.
 
-The address-protocol pilot replaces the mutable global array with a
-256-entry table of immutable optional C-string references, initialized once
-on the first lookup that needs names. The existing C-compatible loader
-still fills a temporary pointer array. Loaded names retain their original
-process lifetime, and the public C functions still accept raw arguments.
-The pilot removes 287 raw-pointer type occurrences in one compiler-selected
-module. Of the 18 IPRoute2 namespaces, only `ip` emits the two address-protocol
-function symbols in the current multicall ELF. The canonical callers are in
-`ip/ipaddress.c`. The production total above excludes this pilot.
+The IPRoute2 address-protocol conversion stores 256 immutable optional
+C-string references in a table initialized on the first lookup that needs
+names. The C-compatible configuration loader still fills a temporary raw
+pointer array. Loaded names retain their process lifetime, and the public
+C functions still accept raw arguments. Each converted module contains 287
+fewer raw-pointer type occurrences. Only the `ip` namespace emitted the two
+lookup symbols in the control executable. Its canonical callers are in
+`ip/ipaddress.c`.
 
-Run the isolated module comparison with
-`scripts/test_iproute2_address_protocols.sh --pilot`. To rebuild the whole
-`ip` archive, use the commands below with a fresh output directory. The
-first Cargo build must reproduce the production archive byte for byte before
-the replacement is compiled with the same inputs. The second command compares
-the complete candidate with canonical IPRoute2 and exercises its public
-`ip` command. All 6,320 lookup results and 17 public commands matched. Five
-Memcheck runs reported zero errors. The stripped standalone `ip` executable
-grew by 1,168 bytes, from 1,287,904 to 1,289,072. Results are in
+The cold builds reproduced all 18 original static archives byte for byte.
+Seventeen engines compile identical copies of `rt_names.rs` with Cargo.
+The separate `bridge` build uses rustc directly and has a different enclosing
+module. Its address-protocol definitions match the same 22,725 source bytes.
+The manifests in `batches/iproute2-address-protocols.json` and
+`batches/iproute2-address-protocol-copies.json` record the original and
+replacement archive hashes and the compiler-selected source hashes.
+
+To reproduce the standalone `ip` experiment, use a fresh output directory.
+The candidate passed 6,320 canonical lookup comparisons, 17 public command
+comparisons and five Memcheck runs. Its stripped executable grew by 1,168
+bytes, from 1,287,904 to 1,289,072. The results are in
 `evidence/iproute2-address-protocol-pilot.json`.
 
 ```sh
 python3 -B scripts/build_iproute2_address_protocol_pilot.py --output work/analysis/ip-address-pilot
 scripts/test_iproute2_address_protocols.sh --archive work/analysis/ip-address-pilot
+```
+
+The following commands rebuild the other 17 archives, compare them with
+canonical IPRoute2, and publish the verified artifacts into the local build
+cache. Each of the 17 candidates matched all 6,320 canonical lookup results.
+Their 85 Memcheck runs covered the four configuration profiles and a separate
+cache-lifetime check per candidate. Use a fresh batch directory for a cold
+rebuild.
+
+```sh
+link=work/analysis/rustbox-multicall-link.json
+batch=work/analysis/ip-address-copies
+python3 -B scripts/build_iproute2_address_protocol_batch.py "$link" "$batch" --jobs 3
+scripts/test_iproute2_address_protocols.sh --batch "$batch"
+python3 -B scripts/build_iproute2_address_protocol_batch.py "$link" "$batch" --cache
 ```
 
 In E2fsprogs the sole caller of the TEA and half-MD4 directory-hash transforms

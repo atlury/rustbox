@@ -4,15 +4,27 @@ set -eu
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 case "$#" in
     0) set -- ;;
-    1) test "$1" = --pilot || exit 2; set -- -e RUSTBOX_ADDRPROT_PILOT=1 ;;
-    2) test "$1" = --archive || exit 2
-       pilot=$(CDPATH= cd -- "$2" && pwd)
+    1) case "$1" in
+           --pilot) set -- -e RUSTBOX_ADDRPROT_PILOT=1 ;;
+           --linked-copies) set -- -e RUSTBOX_ADDRPROT_BATCH=1 -e RUSTBOX_ADDRPROT_LINKED=1 ;;
+           --multicall) set -- -e RUSTBOX_ADDRPROT_MULTICALL=1 -v rustbox-iproute2-7.3.0:/rustbox-iproute2:ro \
+               -v rustbox-coreutils-9.12:/rustbox-coreutils:ro ;;
+           *) exit 2 ;;
+       esac ;;
+    2) if [ "$1" = --batch ]; then
+           batch=$(CDPATH= cd -- "$2" && pwd)
+           set -- -e RUSTBOX_ADDRPROT_BATCH=1 -v "$batch:/batch:ro"
+       else
+           test "$1" = --archive || exit 2
+           pilot=$(CDPATH= cd -- "$2" && pwd)
        set -- -e RUSTBOX_ADDRPROT_FULL=1 -v "$pilot:/pilot:ro" -v rustbox-iproute2-7.3.0:/rustbox-iproute2:ro \
-           -v rustbox-coreutils-9.12:/rustbox-coreutils:ro ;;
+           -v rustbox-coreutils-9.12:/rustbox-coreutils:ro
+       fi ;;
     *) exit 2 ;;
 esac
-docker run --rm -i --network none "$@" --platform linux/amd64 --tmpfs /etc/iproute2 --tmpfs /usr/share/iproute2 \
-    -v "$root:/work:ro" --workdir /tmp rustbox-e2fsprogs:2026-11-24 sh -seu <<'CHECK'
+image_id=$(docker image inspect --format '{{.Id}}' rustbox-e2fsprogs:2026-11-24)
+docker run --rm -i --network none -e "RUSTBOX_ADDRPROT_IMAGE=$image_id" "$@" --platform linux/amd64 --tmpfs /etc/iproute2 --tmpfs /usr/share/iproute2 \
+    -v "$root:/work:ro" --workdir /tmp "$image_id" sh -seu <<'CHECK'
 export LC_ALL=C TZ=UTC
 base=/work/work/analysis/iproute2-7.3.0
 src=/work/work/upstream/iproute2-7.3.0
@@ -34,7 +46,11 @@ archive=$(PYTHONPATH=/work/scripts python3 -B - <<'ARCHIVE'
 from pathlib import Path
 import json
 from check_cargo_private_inlines import digest
+from iproute2_address_protocol_archive import control_view
+import os
 link = json.loads(Path("/work/work/analysis/rustbox-multicall-link.json").read_bytes())
+if os.environ.get("RUSTBOX_ADDRPROT_FULL"):
+    link = control_view(link)
 name, = (k for k in link["source_library_sha256"] if k.endswith("/libip_audit.a"))
 archive = Path("/work") / name
 if digest(archive) != link["source_library_sha256"][name]:
@@ -68,7 +84,8 @@ release = json.loads(Path("/work/work/analysis/rustbox-multicall-link.json").rea
 binary = Path("/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox")
 if (str(control.relative_to("/work")) != record["archive"] or sha256(control.read_bytes()).hexdigest() != record["control_sha256"]
         or sha256(Path("/pilot/libip_audit.a").read_bytes()).hexdigest() != record["candidate_sha256"]
-        or sha256(binary.read_bytes()).hexdigest() != release["binary"]["sha256"] or release["binary"]["sha256"] != record["control_binary_sha256"]):
+        or sha256(binary.read_bytes()).hexdigest() != release["binary"]["sha256"]
+        or release.get("iproute2_address_protocols", {}).get("control_binary_sha256", release["binary"]["sha256"]) != record["control_binary_sha256"]):
     raise ValueError("pilot archive differs from the recorded Cargo build")
 symbols = {line.split()[-1] for line in subprocess.check_output(["nm", "--defined-only", binary], text=True).splitlines() if line.strip()}
 for name in ("rtnl_addrprot_a2n", "rtnl_addrprot_n2a"):
@@ -89,7 +106,40 @@ VERIFY
     done
     set -- "$@" complete complete-memcheck
 fi
+if [ "${RUSTBOX_ADDRPROT_MULTICALL:-0}" = 1 ]; then
+    binary=/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox
+    PYTHONPATH=/work/scripts python3 -B - "$archive" "$binary" <<'SELECTED'
+from pathlib import Path
+import json, sys
+from check_cargo_private_inlines import digest
+from iproute2_address_protocol_archive import candidate_path, control_view, pinned
+link = json.loads(Path("/work/work/analysis/rustbox-multicall-link.json").read_bytes())
+control_view(link)
+if (link.get("iproute2_address_protocols") != pinned() or Path(sys.argv[1]) != Path("/work") / candidate_path(pinned())
+        or digest(Path(sys.argv[2])) != link["binary"]["sha256"]):
+    raise ValueError("unexpected multicall binary or address-protocol archive")
+SELECTED
+    set -- translated translated-memcheck
+fi
+if [ "${RUSTBOX_ADDRPROT_BATCH:-0}" = 1 ]; then
+    selection=/batch
+    if [ "${RUSTBOX_ADDRPROT_LINKED:-0}" = 1 ]; then selection=--linked; fi
+    variants=$(PYTHONPATH=/work/scripts python3 -B /work/tests/iproute2-address-protocols/archives.py "$selection")
+    set -- $variants
+fi
 python3 -B /work/tests/iproute2-address-protocols/configuration.py "$@"
+if [ "${RUSTBOX_ADDRPROT_BATCH:-0}" = 1 ]; then
+    python3 -B - <<'BATCH'
+import json
+from pathlib import Path
+print(json.dumps({**json.loads(Path("/tmp/addrprot-batch.json").read_bytes()),
+                  "lookup_checks": json.loads(Path("/tmp/addrprot-lookups.json").read_bytes())}, sort_keys=True))
+BATCH
+fi
+if [ "${RUSTBOX_ADDRPROT_MULTICALL:-0}" = 1 ]; then
+    python3 -B /work/tests/iproute2-address-protocols/command.py --multicall /rustbox-iproute2/programs-gcc/ip "$binary"
+    cat /tmp/addrprot-commands.json
+fi
 if [ "${RUSTBOX_ADDRPROT_FULL:-0}" = 1 ]; then
     python3 -B /work/tests/iproute2-address-protocols/command.py /rustbox-iproute2/programs-gcc/ip /tmp/ip-control /tmp/ip
     python3 -B - "$src" <<'REPORT'

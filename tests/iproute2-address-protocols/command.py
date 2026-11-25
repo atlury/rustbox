@@ -5,7 +5,12 @@ from pathlib import Path
 import subprocess
 import sys
 
-canonical, control, pilot = sys.argv[1:]
+if sys.argv[1] == "--multicall":
+    _, canonical, binary = sys.argv[1:]
+    targets = [(binary, ["ip"]), (binary, ["rustbox", "ip"])]
+else:
+    canonical, control, pilot = sys.argv[1:]
+    targets = [(control, ["ip"]), (pilot, ["ip"])]
 etc = Path("/etc/iproute2")
 if not os.path.ismount(etc):
     raise RuntimeError("expected a private configuration mount")
@@ -22,8 +27,8 @@ for protocol in ("kernel_lo", "custom-zero", "custom-high", b"raw-\xff", "0xff",
 statuses = []
 for args in commands:
     old = subprocess.run(["ip", *args], executable=canonical, capture_output=True, timeout=15)
-    for exe in (control, pilot):
-        new = subprocess.run(["ip", *args], executable=exe, capture_output=True, timeout=15)
+    for exe, prefix in targets:
+        new = subprocess.run([*prefix, *args], executable=exe, capture_output=True, timeout=15)
         if (old.returncode, old.stdout, old.stderr) != (new.returncode, new.stdout, new.stderr):
             raise ValueError((args, exe, old.returncode, new.returncode, old.stdout, new.stdout, old.stderr, new.stderr))
     if args[:2] == ["address", "add"]:
