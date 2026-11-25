@@ -1022,6 +1022,9 @@ archive pilot pending multicall integration.
 [Source and test evidence](evidence/curl-ftp-permissions-pilot.json) ·
 [Public API comparison](tests/curl-ftp-permissions/wildcard.py)
 
+The isolated 499-name link reproduced the complete parent ELF before replacing the archive. The curl command passed 48 comparisons across both dispatch modes. The candidate measured 24,961,776 bytes stripped.
+[Multicall results](evidence/curl-checked-buffer-multicall.json)
+
 The isolated 499-name link reproduced the packed-curl parent executable
 byte for byte before substituting the tar archive. The resulting tar and rmt
 passed all 18 cases through each dispatch mode against each canonical compiler.
