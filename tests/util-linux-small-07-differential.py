@@ -8,8 +8,10 @@ import hashlib
 import json
 import os
 import stat
+import struct
 import subprocess
 import tempfile
+import time
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
@@ -29,7 +31,7 @@ def drop_privileges() -> None:
     os.setuid(65534)
 
 
-def tree(root: Path, *, scrub_bfs_timestamps: bool = False) -> list[tuple[object, ...]]:
+def tree(root: Path, bfs_image: Optional[Path], started: int, finished: int) -> list[tuple[object, ...]]:
     result = []
     for path in sorted(root.rglob("*")):
         relative = str(path.relative_to(root))
@@ -38,11 +40,14 @@ def tree(root: Path, *, scrub_bfs_timestamps: bool = False) -> list[tuple[object
             result.append((relative, "symlink", mode, os.readlink(path)))
         elif path.is_file():
             content = path.read_bytes()
-            # mkfs.bfs writes time(NULL) into the root inode at byte 512.
-            # Canonical and hybrid commands run sequentially, so crossing a
-            # one-second boundary can change only these three 32-bit fields.
-            if scrub_bfs_timestamps and len(content) >= 564:
-                content = content[:552] + bytes(12) + content[564:]
+            if path == bfs_image:
+                # In upstream struct bfsi, eight uint32_t fields follow i_ino and its pad.
+                # The root inode starts at block 1. Keep its padding in the comparison.
+                offset = 512 + 4 + 8 * 4
+                atime, mtime, ctime = struct.unpack_from("<III", content, offset)
+                if not started <= atime <= finished or (mtime, ctime) != (atime, atime):
+                    raise ValueError(f"invalid BFS inode times {(atime, mtime, ctime)} in {started}..{finished}")
+                content = content[:offset] + bytes(12) + content[offset + 12:]
             result.append((relative, "file", mode, path.stat().st_size, hashlib.sha256(content).hexdigest()))
         elif path.is_dir():
             result.append((relative, "directory", mode, ""))
@@ -58,17 +63,22 @@ def invoke(command: list[str], case: Case, root: Path, *, executable: Optional[P
         root.chmod(0o755)
     environment = os.environ.copy()
     environment.update({"LC_ALL": "C", "LANG": "C", "TZ": "UTC"})
+    started = int(time.time())
     process = subprocess.run(
         [*command, *case.arguments], executable=str(executable) if executable else None,
         cwd=root, env=environment, input=case.stdin, stdout=subprocess.PIPE,
         stderr=subprocess.PIPE, timeout=15,
         preexec_fn=drop_privileges if case.unprivileged and os.geteuid() == 0 else None,
     )
+    finished = int(time.time())
+    bfs_image = None
+    if case.applet == "mkfs.bfs" and process.returncode == 0 and case.arguments:
+        bfs_image = root / case.arguments[-1]
     return {
         "status": process.returncode,
         "stdout": process.stdout,
         "stderr": process.stderr,
-        "tree": tree(root, scrub_bfs_timestamps=case.applet == "mkfs.bfs" and process.returncode == 0),
+        "tree": tree(root, bfs_image, started, finished),
     }
 
 
@@ -129,6 +139,9 @@ def main() -> int:
     for number, case in enumerate(all_cases, 1):
         with tempfile.TemporaryDirectory(prefix="rustbox-util-c-") as left, tempfile.TemporaryDirectory(prefix="rustbox-util-r-") as right:
             canonical = invoke([case.applet], case, Path(left), executable=args.canonical_directory / case.applet)
+            if case.applet == "mkfs.bfs" and case.files and canonical["status"] == 0:
+                # Make the two on-disk timestamps differ on every regression run.
+                time.sleep(1)
             hybrid = invoke([str(args.hybrid), case.applet], case, Path(right))
         if canonical != hybrid:
             failures.append({"case": number, "applet": case.applet, "arguments": case.arguments, "canonical": canonical, "hybrid": hybrid})
