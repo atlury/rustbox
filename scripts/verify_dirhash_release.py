@@ -18,7 +18,28 @@ from test_inline_release import SENSITIVE, all_packages
 from verify_declaration_release import logged
 
 
-def verify(before, binary, output, jobs, independent_replay=None, chain_from=None, copy_replay=None, fresh_curl=False):
+def checked_package_retries(result, retries, previous, current, binary):
+    """Accept a complete suite rerun only for a failed package on the same ELF and links."""
+    identity = {"previous_link_report_sha256": digest(previous), "link_report_sha256": digest(current),
+                "binary_sha256": digest(binary)}
+    statuses = result["statuses"].copy()
+    if any(result[k] != v for k, v in identity.items()) or any(type(v) is not int for v in statuses.values()):
+        raise ValueError("initial package result belongs to another release or has invalid statuses")
+    trace = []
+    for path in retries:
+        raw = path.read_bytes()
+        retry = json.loads(raw)
+        checks = retry["statuses"]
+        if (not checks or any(retry[k] != v for k, v in identity.items())
+                or any(type(code) is not int or code != 0 or statuses.get(name, 0) == 0 for name, code in checks.items())):
+            raise ValueError(f"retry must pass previously failed complete suites on the same release: {path}")
+        trace.append(dict(result_sha256=hashlib.sha256(raw).hexdigest(),
+                          previous_statuses={name: statuses[name] for name in checks}, statuses=checks))
+        statuses.update(checks)
+    return statuses, trace
+
+
+def verify(before, binary, output, jobs, independent_replay=None, chain_from=None, copy_replay=None, fresh_curl=False, independent_retries=()):
     selected = LINK_REPORT.read_bytes()
     release = json.loads(selected)
     if digest(binary) != release["binary"]["sha256"]:
@@ -29,6 +50,10 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
     previous = output / "control.json"
     previous.write_bytes(before.read_bytes())
     scripts = ROOT / "scripts"
+
+    package_retries = []
+    if independent_retries and not independent_replay:
+        raise ValueError("independent retries require the full set of original package results")
 
     def packages(names, folder):
         if folder == "independent" and independent_replay:
@@ -41,6 +66,9 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
             logged(command, output / f"{folder}.log")
             result = json.loads((output / folder / "results.json").read_bytes())
         statuses = result["statuses"]
+        if folder == "independent" and independent_retries:
+            statuses, trace = checked_package_retries(result, independent_retries, previous, current, binary)
+            package_retries.extend(trace)
         if (set(statuses) != names or any(type(code) is not int or code != 0 for code in statuses.values())
                 or result["binary_sha256"] != digest(binary)
                 or result["link_report_sha256"] != digest(current)
@@ -135,6 +163,8 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
         raise ValueError("release changed during verification")
     result = {"link_report_sha256": hashlib.sha256(selected).hexdigest(), "previous_link_report_sha256": digest(previous),
               "binary_sha256": release["binary"]["sha256"], "packages": statuses, "passed_checks": [name for name, _ in tasks]}
+    if package_retries:
+        result["package_retries"] = dict(original_result_sha256=digest(independent_replay), completed=package_retries)
     if chain_from:
         intermediate = json.loads((output / "intermediate-inventory.json").read_bytes())
         result["original_link_report_sha256"] = digest(original)
@@ -243,10 +273,12 @@ if __name__ == "__main__":
     parser.add_argument("--jobs", type=int, default=3)
     parser.add_argument("--independent-replay", type=Path,
                         help="verified results from all independent packages for this exact release and control")
+    parser.add_argument("--independent-retry", action="append", type=Path, default=[],
+                        help="complete successful rerun of failed packages for the same ELF and both link reports")
     parser.add_argument("--copy-replay", type=Path, help="completed canonical comparisons for the exact address-protocol archive and test hashes")
     parser.add_argument("--chain-from", type=Path, help="also verify the intermediate archive migration against its original release")
     parser.add_argument("--fresh-curl", action="store_true", help="rerun all curl manual cases even if the precise inputs and tested ELF match")
     args = parser.parse_args()
     if args.jobs < 1:
         parser.error("--jobs must be positive")
-    verify(args.previous.resolve(), args.binary.resolve(), args.output.resolve(), args.jobs, args.independent_replay, args.chain_from, args.copy_replay, args.fresh_curl)
+    verify(args.previous.resolve(), args.binary.resolve(), args.output.resolve(), args.jobs, args.independent_replay, args.chain_from, args.copy_replay, args.fresh_curl, args.independent_retry)

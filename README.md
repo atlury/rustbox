@@ -559,6 +559,15 @@ scripts/build_rustbox_multicall.sh --native-c-strings "$manifest" --shared-stdio
 python3 -B scripts/audit_linked_pointers.py work/analysis/rustbox-multicall-link.json --verify-native-c-strings-from "$link"
 ```
 
+A failed independent package suite can be rerun with
+`scripts/test_inline_release.py --all-packages --package NAME` on the saved
+ELF and its original link reports. Supply the initial complete result to
+`verify_dirhash_release.py --independent-replay` and the successful rerun
+to `--independent-retry`. Verification checks all three hashes, requires a
+passing result for each failed package, and records the original exit status
+alongside the retry receipt. `RUSTBOX_GREP_TEST_JOBS` controls upstream GNU
+grep test concurrency when reproducing its timed signal checks.
+
 Run `python3 -B scripts/rank_fixed_array_helpers.py work/analysis/rustbox-multicall-link.json`
 to find private functions in generated Rust whose pointer parameters occur
 only in constant-offset accesses. The scan groups identical definitions and

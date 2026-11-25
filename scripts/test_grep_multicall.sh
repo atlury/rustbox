@@ -4,6 +4,8 @@ set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
+    jobs=${1:-$(nproc)}
+    case "$jobs" in *[!0-9]*|0*) exit 2;; esac
     output=/work/work/analysis/grep-3.12/multicall
     rustbox=${RUSTBOX_TEST_ELF:-/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox}
     canonical=/rustbox-grep/normalized-gcc/src/grep
@@ -37,9 +39,9 @@ exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
     ln -s "$rustbox" "$installed"
     find "$build/tests" "$build/gnulib-tests" -type f \
       \( -name "*.log" -o -name "*.trs" \) -delete
-    runuser --user=nobody -- make -C "$build/tests" -j"$(nproc)" check \
+    runuser --user=nobody -- make -C "$build/tests" -j"$jobs" check \
       > "$output/upstream-tests.log" 2>&1
-    runuser --user=nobody -- make -C "$build/gnulib-tests" -j"$(nproc)" check \
+    runuser --user=nobody -- make -C "$build/gnulib-tests" -j"$jobs" check \
       >> "$output/upstream-tests.log" 2>&1
     restore
     trap - EXIT HUP INT TERM
@@ -57,4 +59,4 @@ exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
     grep -q "indirectly lost: 0 bytes in 0 blocks" "$output/valgrind.log"
     grep -q "possibly lost: 18,688 bytes in 11 blocks" "$output/valgrind.log"
     grep -q "still reachable: 119,466 bytes in 39 blocks" "$output/valgrind.log"
-  '
+  ' grep-suite "${RUSTBOX_GREP_TEST_JOBS:-}"
