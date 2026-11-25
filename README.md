@@ -999,6 +999,14 @@ Run `scripts/rank_ctype_bytes.py LINK` for the inventory or
 [Inventory](evidence/glibc-ctype-byte-candidates.json) ·
 [GNU awk compiler-source replay](evidence/gawk-ctype-key-source.json)
 
+The cold-built GNU awk archive passed the same 26 public commands and
+17 errno profiles as its predecessor. For array keys, GCC, Clang, the
+original and the candidate each processed 2,140 records in 40
+locale and byte-mode combinations. Keys included every possible initial byte,
+integer bounds, spellings such as `01` and repeated insertions. Outputs matched
+the previous errno-only archive. Eight additional Memcheck runs passed.
+[Compiled GNU awk array-key results](evidence/gawk-ctype-key-archive.json)
+
 The predecessor and both canonical compilers also agree on array-key
 identity for a corpus of 2,140 input records per invocation. It contains
 every leading byte, repeated keys, signed numbers and integer bounds.

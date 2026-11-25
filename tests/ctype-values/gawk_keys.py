@@ -18,7 +18,7 @@ END {
 }'''
 
 
-def run(programs, work):
+def run(programs, work, *, subcommand=None):
     locales = sorted(set(subprocess.check_output(["locale", "-a"], text=True).splitlines()))
     if not {"C", "fr_FR.iso88591", "ja_JP.eucjp"} <= set(locales):
         raise ValueError("expected canonical locale coverage")
@@ -41,7 +41,7 @@ def run(programs, work):
                     log = work / "keys-memcheck"
                     entry = work / "gawk"
                     entry.symlink_to(binary)
-                    cmd = ["./gawk", *opts, SCRIPT]
+                    cmd = [str(subcommand), "gawk", *opts, SCRIPT] if name == "subcommand" and subcommand else ["./gawk", *opts, SCRIPT]
                     if check:
                         cmd = ["valgrind", "--error-exitcode=99", "--leak-check=no", "--log-file=" + str(log), *cmd]
                     result = subprocess.run(cmd, input=stdin, capture_output=True, timeout=100, cwd=work,
