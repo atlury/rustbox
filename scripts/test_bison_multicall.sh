@@ -43,8 +43,7 @@ exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
     printf "%s\n" "$datadir" >"$evidence/print-datadir.txt"
 
     stripped="$aliases/rustbox.stripped"
-    cp "$binary" "$stripped"
-    strip --strip-all "$stripped"
+    strip --strip-all -o "$stripped" "$binary"
     stripped_bytes=$(stat -c %s "$stripped")
     stripped_sha256=$(sha256sum "$stripped" | awk '\''{ print $1 }'\'')
     printf '\''{"bytes": %s, "sha256": "%s"}\n'\'' \

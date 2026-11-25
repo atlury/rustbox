@@ -44,8 +44,7 @@ exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
     cmp "$output/input" "$output/multicall.out"
 
     cp "$rustbox" "$output/rustbox.unstripped"
-    cp "$rustbox" "$output/rustbox.stripped"
-    strip --strip-all "$output/rustbox.stripped"
+    strip --strip-all -o "$output/rustbox.stripped" "$output/rustbox.unstripped"
     size -A "$output/rustbox.unstripped" >"$output/rustbox.sections"
     readelf -d "$output/rustbox.unstripped" >"$output/rustbox.dynamic"
     nm -g --defined-only "$output/rustbox.unstripped" >"$output/rustbox.symbols"
