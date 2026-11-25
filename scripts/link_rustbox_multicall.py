@@ -14,6 +14,7 @@ import subprocess
 import tempfile
 from pathlib import Path
 
+import iproute2_address_protocol_archive as address_protocols
 from build_iproute2_bridge import build_bridge
 from build_e2fsprogs_checksums import build_shared, BITCOUNT_SYMBOL, CRC_SYMBOLS
 from batch_cargo_private_inlines import release_archives
@@ -2428,6 +2429,8 @@ def main() -> int:
     parser.add_argument("--curl-c-residue-directory", type=Path, required=True)
     parser.add_argument("--inetutils-rust-directory", type=Path, required=True)
     parser.add_argument("--inetutils-telnet-c-boundary", type=Path, required=True)
+    parser.add_argument("--iproute2-address-protocols", action="store_true")
+    parser.add_argument("--iproute2-address-protocol-copies", action="store_true")
     parser.add_argument("--iproute2-rust-directory", type=Path, required=True)
     parser.add_argument("--e2fsprogs-rust-directory", type=Path, required=True)
     parser.add_argument("--e2fsprogs-dirhash-arrays", type=Path,
@@ -2762,6 +2765,30 @@ def main() -> int:
             libraries[e2fsprogs_library_indices[name]] = candidate_archive
             del source_library_hashes[key]
             source_library_hashes[str(relative)] = record["candidate_sha256"]
+    address_record = address_protocols.pinned(repository) if args.iproute2_address_protocols else None
+    address_copies = address_protocols.pinned_copies(repository) if args.iproute2_address_protocol_copies else {}
+    if address_copies and not address_record:
+        raise ValueError("the IPRoute2 address-protocol batch requires the ip archive")
+    selected_addresses = ([address_record] if address_record else []) + list(address_copies.values())
+    for record in selected_addresses:
+        address_control = {
+            "source_library_sha256": source_library_hashes, "linked_private_inline_proofs": inline_proofs,
+            "linked_second_inline_proofs": second_inline_proofs, "linked_foreign_declaration_proofs": foreign_proofs,
+        }
+        address_protocols.validate_control(address_control, record)
+        relative = address_protocols.candidate_path(record)
+        candidate = repository / relative
+        original = Path(record["archive"])
+        name = "bridge" if original == address_protocols.BRIDGE else original.parent.parent.name
+        if name == "bridge":
+            address_protocols.prepare_bridge_for_link(address_control, record, repository)
+        parent = iproute2_libraries[name]
+        if (parent.relative_to(repository) != original or sha256(candidate) != record["candidate_sha256"]
+                or c_exports(candidate) != c_exports(parent)):
+            raise RuntimeError(f"IPRoute2 {name} archive or its C exports differ from the verified conversion")
+        del source_library_hashes[str(original)]
+        source_library_hashes[str(relative)] = record["candidate_sha256"]
+        iproute2_libraries[name] = libraries[iproute2_library_indices[name]] = candidate
     expected_symbols.update(f"rustbox_{symbol}_main" for symbol in util_dispatch.values())
     expected_symbols.add("rustbox_m4_main")
     expected_symbols.update({
@@ -3736,6 +3763,8 @@ def main() -> int:
             }
         },
         "source_library_sha256": source_library_hashes,
+        **({"iproute2_address_protocol_copies": address_copies} if address_copies else {}),
+        **({"iproute2_address_protocols": address_record} if address_record else {}),
         **({"e2fsprogs_dirhash_arrays": dirhash_arrays} if dirhash_arrays else {}),
         "bridge_raw_pointer_types": bridge_raw_types,
         "linked_private_inline_proofs": inline_proofs,

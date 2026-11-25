@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify an array-hardened multicall against its control release and all local package suites."""
+"""Verify linked E2fsprogs and IPRoute2 conversions against the control release and local package suites."""
 # SPDX-License-Identifier: GPL-2.0-only
 import argparse
 from concurrent.futures import ThreadPoolExecutor
@@ -11,15 +11,16 @@ import subprocess
 import sys
 
 from check_cargo_private_inlines import ROOT, LINK_REPORT, digest
+from iproute2_address_protocol_archive import validate_copy_results
 from test_inline_release import SENSITIVE, all_packages
 from verify_declaration_release import logged
 
 
-def verify(before, binary, output, jobs, independent_replay=None, chain_from=None):
+def verify(before, binary, output, jobs, independent_replay=None, chain_from=None, copy_replay=None):
     selected = LINK_REPORT.read_bytes()
     release = json.loads(selected)
     if digest(binary) != release["binary"]["sha256"]:
-        raise ValueError("test executable differs from the linked directory hash release")
+        raise ValueError("test executable differs from the linked release")
     output.mkdir()
     current = output / "release.json"
     current.write_bytes(selected)
@@ -57,6 +58,16 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
         tasks.append(("e2fsprogs-hangul", ["test_e2fsprogs_hangul.sh", "--multicall"]))
     if any("trie" in row for row in release["e2fsprogs_dirhash_arrays"].values()):
         tasks.append(("e2fsprogs-utf8-trie", ["test_e2fsprogs_utf8_trie.sh", "--multicall"]))
+    address_record = release.get("iproute2_address_protocols")
+    prior = json.loads(previous.read_bytes())
+    address_change = any(release.get(k) != prior.get(k) for k in ("iproute2_address_protocols", "iproute2_address_protocol_copies"))
+    if address_record:
+        tasks.append(("iproute2-address-protocols", ["test_iproute2_address_protocols.sh", "--multicall"]))
+    if copy_replay and not release.get("iproute2_address_protocol_copies"):
+        raise ValueError("archive replay supplied for a release without IPRoute2 address-protocol copies")
+    if release.get("iproute2_address_protocol_copies"):
+        image_id = subprocess.check_output(["docker", "image", "inspect", "--format", "{{.Id}}", "rustbox-e2fsprogs:2026-11-24"], text=True).strip()
+        tasks.append(("iproute2-address-protocol-copies", ["test_iproute2_address_protocols.sh", "--linked-copies"]))
     if chain_from:
         original = output / "original-control.json"
         original.write_bytes(chain_from.read_bytes())
@@ -66,12 +77,19 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
     inventory = output / "inventory.json"
     with inventory.open("wb") as stream:
         subprocess.run([sys.executable, "-B", scripts / "audit_linked_pointers.py", current,
-                        "--verify-dirhash-from", previous], cwd=ROOT, stdout=stream, check=True)
+                        "--verify-address-protocols-from" if address_change else "--verify-dirhash-from", previous], cwd=ROOT, stdout=stream, check=True)
     registered = all_packages()
     with ThreadPoolExecutor(max_workers=1) as worker:
         independent = worker.submit(packages, registered - SENSITIVE, "independent")
         for name, (tool, *args) in tasks:
-            logged([scripts / tool, *args], output / f"{name}.log")
+            log = output / f"{name}.log"
+            if copy_replay and name == "iproute2-address-protocol-copies":
+                data = copy_replay.read_bytes()
+                pilot = json.loads((ROOT / "evidence/iproute2-address-protocol-pilot.json").read_bytes())
+                validate_copy_results(release["iproute2_address_protocol_copies"], json.loads(data), pilot["lookup_checks"], image_id)
+                log.write_bytes(data)
+            else:
+                logged([scripts / tool, *args], log)
             print(f"{name} passed", flush=True)
         statuses = independent.result()
     statuses.update(packages(registered & SENSITIVE, "sensitive"))
@@ -109,8 +127,27 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
             raise ValueError("multicall trie comparisons differ from the exhaustively tested archive")
         result["trie"] = {key: pilot[key] for key in ("canonical_leaf_selections", "canonical_nls_cases",
                                                       "memcheck_leaf_selections", "memcheck_nls_cases", "debugfs_commands")}
+    if address_record:
+        log = (output / "iproute2-address-protocols.log").read_text()
+        pilot = json.loads((ROOT / "evidence/iproute2-address-protocol-pilot.json").read_bytes())
+        checks = pilot["lookup_checks"]
+        commands = json.loads(log.splitlines()[-1])
+        if (address_record["candidate_sha256"] != pilot["candidate_sha256"] or commands != pilot["command_checks"]
+                or f'{checks["lookup_results_per_variant"]} address-protocol results matched across {checks["configurations"]} isolated configurations' not in log
+                or f'{checks["memcheck_runs"]} Memcheck runs completed with zero errors.' not in log):
+            raise ValueError("multicall IPRoute2 comparison differs from the verified pilot")
+        result["iproute2_address_protocols"] = {"archive_sha256": address_record["candidate_sha256"],
+                                                "lookup_results": checks["lookup_results_per_variant"],
+                                                "memcheck_runs": checks["memcheck_runs"], "commands_per_dispatch_mode": commands}
+    if records := release.get("iproute2_address_protocol_copies"):
+        batch = json.loads((output / "iproute2-address-protocol-copies.log").read_text().splitlines()[-1])
+        pilot = json.loads((ROOT / "evidence/iproute2-address-protocol-pilot.json").read_bytes())
+        validate_copy_results(records, batch, pilot["lookup_checks"], image_id)
+        if copy_replay:
+            batch["replay_basis"] = "identical parent and candidate archives, oracle and test inputs"
+        result["iproute2_address_protocol_copies"] = batch
     (output / "replays.json").write_text(json.dumps(result, sort_keys=True, indent=2) + "\n")
-    print(f"Verified the directory hash conversion and {len(registered)} package suites", flush=True)
+    print(f"Verified the linked executable with {len(tasks)} integration checks and {len(registered)} package suites", flush=True)
 
 
 if __name__ == "__main__":
@@ -121,8 +158,9 @@ if __name__ == "__main__":
     parser.add_argument("--jobs", type=int, default=3)
     parser.add_argument("--independent-replay", type=Path,
                         help="verified results from all independent packages for this exact release and control")
+    parser.add_argument("--copy-replay", type=Path, help="completed canonical comparisons for the exact address-protocol archive and test hashes")
     parser.add_argument("--chain-from", type=Path, help="also verify the intermediate archive migration against its original release")
     args = parser.parse_args()
     if args.jobs < 1:
         parser.error("--jobs must be positive")
-    verify(args.previous.resolve(), args.binary.resolve(), args.output.resolve(), args.jobs, args.independent_replay, args.chain_from)
+    verify(args.previous.resolve(), args.binary.resolve(), args.output.resolve(), args.jobs, args.independent_replay, args.chain_from, args.copy_replay)
