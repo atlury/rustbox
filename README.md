@@ -790,6 +790,22 @@ passed 22 command comparisons. The API checks cover invalid IDs,
 unknown names and retained strings under Memcheck.
 [Catalog archive and comparisons](evidence/less-checked-message-catalog.json)
 
+The compiler-source audit follows each archive through preparation and the
+live rewrite. It verifies the before and after source hashes, the complete
+archive digest, and the pointer counts on the actual compiled Rust. Against
+the packed-manual release, the two candidate archives together account for
+3,063 fewer explicit pointer types.
+
+| Archive | Release source | After byte-identical changes | After live rewrite |
+|---|---:|---:|---:|
+| Less | 8,441 | 6,747 | 6,414 |
+| Zstd | 24,547 | 23,575 | 23,511 |
+
+The audit also counts raw borrows, pointer extractions and slices created
+at raw C boundaries. Run `scripts/count_checked_parser_changes.py` with
+the package, original link, prepared link and cold-build directory.
+[Exact source inventories](evidence/zstd-less-compiled-pointer-counts.json)
+
 The native C-string manifest can grow within an archive already selected.
 `prepare_native_c_strings.py enroll --extend` checks that the new cold
 build covers every earlier edit on the same compiler sources and produces
