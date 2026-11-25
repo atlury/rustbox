@@ -465,6 +465,14 @@ Run `python3 -B scripts/rank_leaf_c_layouts.py LINK --limit 30` to reproduce
 the ranking.
 [Ranked layouts and per-archive counts](evidence/rustbox-leaf-c-layout-candidates.json)
 
+Ncurses 6.6 has separate narrow and wide numeric terminal layouts. Sharing
+each declaration inside its own crate removes 2,439 repeated raw pointer
+fields in a replay of all 266 compiler inputs. GCC and Clang each confirmed
+the size, alignment and 13 field offsets of both layouts. They also checked
+eight numeric reads each, including a wide value of 65,537. The source
+count is separate from the release inventory.
+[Ncurses source projections and C ABI measurements](evidence/ncurses-termtype-layout-sources.json)
+
 The GNU Bison 3.8.2 pilot replaced 225 calls to `strlen` and 450 raw
 pointer casts in eight modules. Rebuilding all 150 selected sources
 produced a different archive. The resulting `bison` and `yacc` passed
