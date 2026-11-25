@@ -902,6 +902,15 @@ candidate still needs a check of its callers, allocation sizes and aliasing.
 The ranked candidates and compiler-selected archive paths are in
 `evidence/rustbox-fixed-array-candidates.json`.
 
+For curl's FTP mode reader, run `tests/curl-ftp-permissions/decoder.py` in
+the Linux tool image to compare the nine-byte Rust helper against upstream C.
+The four compiler and char-signedness combinations each passed 9,437,184
+byte mutations. Running `tests/curl-ftp-permissions/wildcard.py` without
+arguments checks the public libcurl baseline. GCC and Clang both delivered
+all 4,096 mode values and rejected five malformed directory listings.
+[Decoder comparisons](evidence/curl-ftp-permissions-decoder.json) ·
+[Canonical FTP transfers](evidence/curl-ftp-wildcard-oracle.json)
+
 GNU tar 1.35 now has a tested fixed-array pilot. Both callers copy two
 timestamps into a local array. The private validator borrows that array and
 uses checked indexing for all 16 former raw offsets. The compiler forbids
