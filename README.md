@@ -988,6 +988,12 @@ Every result and caller errno matched, including under Memcheck. These checks
 cover the helper before it is selected in an applet.
 [Classification and locale results](evidence/glibc-ctype-values.json)
 
+The helper also matched glibc while four threads independently switched
+locales. Each thread checked all 256 bytes and 12 masks over 32 rounds,
+with a distinct errno sentinel in every thread and round. GCC and Clang
+each passed 393,216 comparisons and repeated them under Memcheck.
+[Thread-local locale results](evidence/glibc-ctype-thread-local.json)
+
 An inventory of the shared-stdio release found 527 table-read expressions
 with an explicit unsigned-byte index in 131 modules across 44 archives.
 All uses matched the narrow spelling in 67 modules. The first selected
