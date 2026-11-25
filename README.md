@@ -690,6 +690,13 @@ retains 5,005 pointer extractions for the C interface. The verified archive
 is eligible for the next C-string selection.
 [Gawk archive and source digests](evidence/gawk-native-c-strings.json)
 
+The broader C-string sweep cold-built 44 archives.
+Of those, 31 reproduced every archive byte and passed a separate replay
+of their compiler inputs. They cover 17,407 literals and 34,814
+removable casts, including the Gawk result above. The 13 changed archives
+remain eligible for smaller, separately compiled selections.
+[Per-archive C-string results](evidence/remaining-utility-native-c-strings.json)
+
 For archives that changed bytes, `recover_literal_array_modules.py` can
 select modules where every eligible cast falls inside a top-level static or
 constant array. It matches parsed Rust byte ranges against the existing
