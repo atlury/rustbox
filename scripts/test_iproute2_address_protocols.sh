@@ -112,10 +112,11 @@ if [ "${RUSTBOX_ADDRPROT_MULTICALL:-0}" = 1 ]; then
 from pathlib import Path
 import json, sys
 from check_cargo_private_inlines import digest
-from iproute2_address_protocol_archive import candidate_path, control_view, pinned
+from iproute2_address_protocol_archive import ARCHIVE, control_view, pinned
+from iproute2_route_name_archives import lookup_archive
 link = json.loads(Path("/work/work/analysis/rustbox-multicall-link.json").read_bytes())
 control_view(link)
-if (link.get("iproute2_address_protocols") != pinned() or Path(sys.argv[1]) != Path("/work") / candidate_path(pinned())
+if (link.get("iproute2_address_protocols") != pinned() or Path(sys.argv[1]) != Path("/work") / lookup_archive(link, str(ARCHIVE))
         or digest(Path(sys.argv[2])) != link["binary"]["sha256"]):
     raise ValueError("unexpected multicall binary or address-protocol archive")
 SELECTED

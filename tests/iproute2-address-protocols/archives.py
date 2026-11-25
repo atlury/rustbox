@@ -7,12 +7,14 @@ import subprocess
 import sys
 
 from check_cargo_private_inlines import IPROUTE2_CARGO_ENGINES, digest
-from iproute2_address_protocol_archive import BRIDGE, RECEIPTS, candidate_path, comparison_inputs, control_view
+from iproute2_address_protocol_archive import BRIDGE, RECEIPTS, comparison_inputs, control_view
+
+from iproute2_route_name_archives import additional_lookup_records, lookup_archive, parent_view
 
 release = json.loads(Path("/work/work/analysis/rustbox-multicall-link.json").read_bytes())
 link = control_view(release)
 batch = None if sys.argv[1] == "--linked" else Path(sys.argv[1])
-records = (release["iproute2_address_protocol_copies"] if batch is None else json.loads((batch / "archives.json").read_bytes()))
+records = (additional_lookup_records(release) if batch is None else json.loads((batch / "archives.json").read_bytes()))
 engines = (set(IPROUTE2_CARGO_ENGINES) | {"bridge"}) - {"ip"}
 if len(records) != len(engines):
     raise ValueError("address-protocol batch must cover every remaining identical module")
@@ -30,11 +32,18 @@ for name in sorted(engines):
     if name == "bridge":
         key = str(BRIDGE)
     record = records[key]
-    candidate = Path("/work") / candidate_path(record) if batch is None else batch / name / Path(key).name
+    candidate = Path("/work") / lookup_archive(release, key) if batch is None else batch / name / Path(key).name
     parent = Path("/work") / key
     expected_receipts = {key_type: link[key_type][key] for key_type in RECEIPTS if key in link.get(key_type, {})}
-    if (record["archive"] != key or record["parent_receipts"] != expected_receipts
-            or record["control_sha256"] != link["source_library_sha256"][key]
+    if batch is None and "iproute2_route_names" in release:
+        parent_release = parent_view(release)
+        parent = Path("/work") / lookup_archive(parent_release, key)
+        parent_hash = parent_release["source_library_sha256"][str(parent.relative_to("/work"))]
+    else:
+        if record["parent_receipts"] != expected_receipts:
+            raise ValueError(f"{name} lost its checked sources")
+        parent_hash = link["source_library_sha256"][key]
+    if (record["archive"] != key or record["control_sha256"] != parent_hash
             or record["control_sha256"] != digest(parent) or digest(candidate) != record["candidate_sha256"]
             or exports(parent) != exports(candidate)):
         raise ValueError(f"unexpected {name} archive provenance or C exports")

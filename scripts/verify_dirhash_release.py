@@ -11,7 +11,8 @@ import subprocess
 import sys
 
 from check_cargo_private_inlines import ROOT, LINK_REPORT, digest
-from iproute2_address_protocol_archive import validate_copy_results
+from iproute2_address_protocol_archive import ARCHIVE, validate_copy_results
+from iproute2_route_name_archives import additional_lookup_records
 from test_inline_release import SENSITIVE, all_packages
 from verify_declaration_release import logged
 
@@ -65,9 +66,14 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
         tasks.append(("iproute2-address-protocols", ["test_iproute2_address_protocols.sh", "--multicall"]))
     if copy_replay and not release.get("iproute2_address_protocol_copies"):
         raise ValueError("archive replay supplied for a release without IPRoute2 address-protocol copies")
-    if release.get("iproute2_address_protocol_copies"):
+    copies = additional_lookup_records(release)
+    if copies:
         image_id = subprocess.check_output(["docker", "image", "inspect", "--format", "{{.Id}}", "rustbox-e2fsprogs:2026-11-24"], text=True).strip()
         tasks.append(("iproute2-address-protocol-copies", ["test_iproute2_address_protocols.sh", "--linked-copies"]))
+    routes = release.get("iproute2_route_names", {})
+    if routes:
+        tasks.append(("iproute2-route-names", ["test_iproute2_route_names.py", "--linked", "--link", current,
+                                              "--batch", output / "route-name-comparisons", "--jobs", "3"]))
     if chain_from:
         original = output / "original-control.json"
         original.write_bytes(chain_from.read_bytes())
@@ -77,21 +83,29 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
     inventory = output / "inventory.json"
     with inventory.open("wb") as stream:
         subprocess.run([sys.executable, "-B", scripts / "audit_linked_pointers.py", current,
+                        "--verify-route-names-from" if routes else
                         "--verify-address-protocols-from" if address_change else "--verify-dirhash-from", previous], cwd=ROOT, stdout=stream, check=True)
     registered = all_packages()
-    with ThreadPoolExecutor(max_workers=1) as worker:
-        independent = worker.submit(packages, registered - SENSITIVE, "independent")
+    with ThreadPoolExecutor(max_workers=2) as worker:
+        independent = None
+        if not independent_replay:
+            independent = worker.submit(packages, registered - SENSITIVE, "independent")
+        if routes:
+            route_task = tasks[-1][1]
+            scope_run = worker.submit(logged, [scripts / route_task[0], *route_task[1:]], output / "iproute2-route-names.log")
         for name, (tool, *args) in tasks:
             log = output / f"{name}.log"
-            if copy_replay and name == "iproute2-address-protocol-copies":
+            if name == "iproute2-route-names":
+                scope_run.result()
+            elif copy_replay and name == "iproute2-address-protocol-copies":
                 data = copy_replay.read_bytes()
                 pilot = json.loads((ROOT / "evidence/iproute2-address-protocol-pilot.json").read_bytes())
-                validate_copy_results(release["iproute2_address_protocol_copies"], json.loads(data), pilot["lookup_checks"], image_id)
+                validate_copy_results(copies, json.loads(data), pilot["lookup_checks"], image_id)
                 log.write_bytes(data)
             else:
                 logged([scripts / tool, *args], log)
             print(f"{name} passed", flush=True)
-        statuses = independent.result()
+        statuses = independent.result() if independent else packages(registered - SENSITIVE, "independent")
     statuses.update(packages(registered & SENSITIVE, "sensitive"))
     for family in ("inetutils", "e2fsprogs", "iproute2", "curl", "rustbox"):
         logged([scripts / f"summarize_{family}_multicall.sh"], output / f"summary-{family}.log")
@@ -136,16 +150,46 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
                 or f'{checks["lookup_results_per_variant"]} address-protocol results matched across {checks["configurations"]} isolated configurations' not in log
                 or f'{checks["memcheck_runs"]} Memcheck runs completed with zero errors.' not in log):
             raise ValueError("multicall IPRoute2 comparison differs from the verified pilot")
-        result["iproute2_address_protocols"] = {"archive_sha256": address_record["candidate_sha256"],
+        result["iproute2_address_protocols"] = {"archive_sha256": routes.get(str(ARCHIVE), address_record)["candidate_sha256"],
                                                 "lookup_results": checks["lookup_results_per_variant"],
                                                 "memcheck_runs": checks["memcheck_runs"], "commands_per_dispatch_mode": commands}
-    if records := release.get("iproute2_address_protocol_copies"):
+    if records := copies:
         batch = json.loads((output / "iproute2-address-protocol-copies.log").read_text().splitlines()[-1])
         pilot = json.loads((ROOT / "evidence/iproute2-address-protocol-pilot.json").read_bytes())
         validate_copy_results(records, batch, pilot["lookup_checks"], image_id)
         if copy_replay:
             batch["replay_basis"] = "identical parent and candidate archives, oracle and test inputs"
         result["iproute2_address_protocol_copies"] = batch
+    if routes:
+        data = json.loads((output / "route-name-comparisons/results.json").read_bytes())
+        pilot = json.loads((ROOT / "evidence/iproute2-route-names-pilot.json").read_bytes())
+        if data.keys() != routes.keys():
+            raise ValueError("incomplete scope/realm archive comparison")
+        namespaces = prior["iproute2_namespaced_symbols"]
+        for key, row in routes.items():
+            actual = data[key]
+            public = key == str(ARCHIVE)
+            if (any(actual[k] != v for k, v in row.items()) or actual["profiles"] != pilot["profiles"]
+                    or actual["driver_sha256"] != pilot["driver_sha256"] or actual["canonical_sources"] != pilot["canonical_sources"]
+                    or actual["multicall_sha256"] != digest(binary) or actual["memcheck_runs"] != pilot["memcheck_runs"]
+                    or actual["public_commands"] != (pilot["public_commands"] if public else 0)
+                    or actual["public_successes"] != (pilot["public_successes"] if public else 0)):
+                raise ValueError(f"unexpected canonical scope/realm replay for {key}")
+            name = Path(key).stem.removeprefix("lib").removesuffix("_audit")
+            observed = actual["strong_symbol_changes"]
+            original = set(namespaces[name])
+            final = set(release["iproute2_namespaced_symbols"][name])
+            if observed != {"added": sorted(final - original), "removed": sorted(original - final)}:
+                raise ValueError(f"independent scope/realm symbol comparison differs for {name}")
+        result["iproute2_route_names"] = {
+            "archive_sha256": {k: v["candidate_sha256"] for k, v in routes.items()},
+            "control_sha256": {k: v["control_sha256"] for k, v in routes.items()},
+            "profiles": pilot["profiles"], "canonical_sources": pilot["canonical_sources"], "driver_sha256": pilot["driver_sha256"],
+            "memcheck_runs": sum(v["memcheck_runs"] for v in data.values()),
+            "public_commands_per_dispatch_mode": pilot["public_commands"],
+            "lookup_results": sum(r["lookup_rows"] for v in data.values() for r in v["profiles"]),
+            "strong_symbol_changes": {k: v["strong_symbol_changes"] for k, v in data.items() if any(v["strong_symbol_changes"].values())},
+        }
     (output / "replays.json").write_text(json.dumps(result, sort_keys=True, indent=2) + "\n")
     print(f"Verified the linked executable with {len(tasks)} integration checks and {len(registered)} package suites", flush=True)
 
