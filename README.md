@@ -911,6 +911,21 @@ Findutils covers 38 per compiler. Its archive tests run the canonical
 `updatedb` shell with the selected `find` and `frcode` engines.
 [Canonical command baselines](evidence/errno-ranked-command-baselines.json)
 
+The source replay also composes these passes across GNU awk, grep, gzip,
+sed, Findutils and Shadow. All six replayed from the shared-stdio release
+through their verified native string selections. Across their compiled
+sources, the errno conversion would replace 310 reads and 414 writes and
+remove 124 raw-pointer declarations. Those counts include the package
+results above. Reproduce the selection and pass its output link to the
+archive checker for the supported package.
+
+```sh
+python3 -B scripts/prepare_errno_parents.py work/analysis/shared-stdio-final/release.json \
+  work/analysis/composed-errno-parent.json grep gzip sed gawk shadow findutils
+```
+
+[Per-package compiler input hashes and counts](evidence/errno-composed-source-counts.json)
+
 GNU sed's two canonical gnulib builds and its production Rust archive
 preserved the caller's errno in all 75 quoting calls, including signed
 integer endpoints and buffers too small for the output. Five overflowing
