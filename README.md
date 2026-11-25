@@ -941,6 +941,13 @@ python3 -B scripts/prepare_errno_parents.py work/analysis/shared-stdio-final/rel
 
 [Per-package compiler input hashes and counts](evidence/errno-composed-source-counts.json)
 
+The GNU awk baseline exercises `FIELDWIDTHS` at and above the 64-bit
+unsigned limit, MPFR parsing in decimal and non-decimal modes, and errors
+for a missing script with a non-UTF-8 filename. Seventeen profiles matched
+between both canonical compilers and the original Rust archive. Each ran
+the overflow, non-decimal numeric and I/O cases under Memcheck.
+[GNU awk baseline](evidence/gawk-errno-baseline.json)
+
 GNU sed's two canonical gnulib builds and its production Rust archive
 preserved the caller's errno in all 75 quoting calls, including signed
 integer endpoints and buffers too small for the output. Five overflowing

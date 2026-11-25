@@ -1,0 +1,101 @@
+{
+  "archives": {
+    "parent": "ca02f86dbb647f04f50d507ac7a4ee9f08267af7cd3e54a50dec67564e83eac4"
+  },
+  "canonical": {
+    "clang": "bb87b5c385f8f1713efb2cfdf01d328b69a1116d6af7068fb0765dda3f4efd60",
+    "gcc": "3104bf3571f6148f15bc8fae53029c94a50e7b7854d734fca71816725de0f564"
+  },
+  "memcheck_runs": 9,
+  "profiles": {
+    "decimal": {
+      "status": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "294a69aaad5831e7bb5f6d7517c53331b522cbb4368db40ed44eeb22492ba4f9"
+    },
+    "errno-io": {
+      "status": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "03dc5fe8f8c193badf6c9ac491ecb4a2789e5a2810f41a7c215fdd7774fee124"
+    },
+    "non-decimal": {
+      "status": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "218c9e3a576d850c1146269bc07a1395b49afbcd9f08f7a033fc08728a18aff5"
+    },
+    "source-error": {
+      "status": 2,
+      "stderr_sha256": "0d0cb62829143e92aa7e08ee80337b2f3f2cd3f0adc86e398972d614d48e2464",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "width-*": {
+      "status": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "9d7ab65eb9545f96c88f71b588fb4858e3d3e07ff406cd936a1a4ad98423491a"
+    },
+    "width--1": {
+      "status": 2,
+      "stderr_sha256": "1af24d90e43dba16d557cea0eb405e520a943c64920f59e005fcf4f510d4ffad",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "width-0": {
+      "status": 2,
+      "stderr_sha256": "e00380e856b2c84b2f81dc3606a99d53e783c47f28fe1f89b19fcd73354c22cc",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "width-0:1": {
+      "status": 2,
+      "stderr_sha256": "ec95dc80021e9e30837a993fb506d3c045eca0bcd986d4fa1f80c1af3b86a25d",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "width-1 *": {
+      "status": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "766e1e6b1441f089877368b15f56f55e10f953e5be60f100b3ed19bc190ac9c8"
+    },
+    "width-1 2": {
+      "status": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "a9f63c0dced1f4db8cefc56000f6159b797b07b513120b0a651760da753dc6fb"
+    },
+    "width-18446744073709551615": {
+      "status": 2,
+      "stderr_sha256": "5abf490049a3a3897a51d7996edc737b1e5ae138a631a26c8baf827749f9d31e",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "width-18446744073709551616": {
+      "status": 2,
+      "stderr_sha256": "baae36bafcb7ec752bfacd09da4a0ad021e66a0b776b7bf15da221b28af49ef1",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "width-18446744073709551616:1": {
+      "status": 2,
+      "stderr_sha256": "43e5fccb2395b45ad5faa44b24fbe694b94109890202e75586d01327da7356df",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "width-1:": {
+      "status": 2,
+      "stderr_sha256": "be8bbab02907331244b04b54d1c647378d1e41ac2406282a5ba7acd371f26dc3",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "width-1:0": {
+      "status": 2,
+      "stderr_sha256": "e00380e856b2c84b2f81dc3606a99d53e783c47f28fe1f89b19fcd73354c22cc",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "width-1:2 2": {
+      "status": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "0965678c1116b6457ee9185b29f21006bd213a9fa5a7549087fa61b8590a29bc"
+    },
+    "width-x": {
+      "status": 2,
+      "stderr_sha256": "398381a7106514d2f3f2e810d7f4f19460c34d4f4958c3924888d9337e19307c",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "public": {
+    "clang": 26,
+    "gcc": 26
+  }
+}
