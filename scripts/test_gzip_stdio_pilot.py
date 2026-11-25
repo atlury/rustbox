@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check the shared stdio layout against glibc and the complete gzip candidate against GNU gzip."""
+"""Compare a complete gzip archive with GNU gzip and check glibc ABI for layout candidates."""
 # SPDX-License-Identifier: GPL-3.0-or-later
 import argparse
 import hashlib
@@ -49,7 +49,13 @@ def compare(pilot, link):
         raise ValueError("unexpected parent link, control archive or candidate")
     with TemporaryDirectory() as temp:
         tmp = Path(temp)
-        abi = abi_probe(ROOT / src / GZIP_OWNER, tmp)
+        extra = {}
+        if "reexporting_modules" in row:
+            extra["glibc_file"] = abi_probe(ROOT / src / GZIP_OWNER, tmp)
+        elif (row["c_string_literals"] != sum(row["modules"].values())
+              or row["raw_pointer_types_removed"] != 2 * row["c_string_literals"]
+              or row["raw_ffi_pointer_extractions"] != row["c_string_literals"]):
+            raise ValueError("unexpected C-string pilot receipt")
         canonical = Path("/rustbox-gzip/normalized-install-gcc/usr/bin")
         support = Path("/rustbox-gzip/normalized-clang/lib/libgzip.a")
         variants = []
@@ -85,7 +91,7 @@ def compare(pilot, link):
             if actual.stdout != expected or actual.stderr or "ERROR SUMMARY: 0 errors" not in log or "All heap blocks were freed" not in log:
                 raise ValueError("candidate Memcheck or stdout differed from canonical gzip")
             checks += 1
-        return dict(row, glibc_file=abi, standalone_sha256=binaries, memcheck_runs=checks,
+        return dict(row, **extra, standalone_sha256=binaries, memcheck_runs=checks,
                     public_cases=len(cases), case_names=[case.name for case in cases],
                     differential_driver_sha256=digest(ROOT / "tests/gzip-oracle-differential.py"),
                     gcc_gzip_sha256=digest(canonical / "gzip"))

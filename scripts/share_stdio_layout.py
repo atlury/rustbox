@@ -41,6 +41,20 @@ def eligible(data):
         return False
 
 
+def provider_namespace(crate_root, owner):
+    # Combined crates such as Findutils place flat modules at the crate root
+    # with #[path]. Other generated crates mirror their module tree on disk.
+    source = crate_root.read_bytes()
+    if not re.search(rb"^\s*(?:pub )?mod \w+\s*\{", source, re.M):
+        targets = re.findall(rb'^#\[path = "' + re.escape(owner.as_posix().encode())
+                             + rb'"\]\s*pub mod ([A-Za-z_][A-Za-z_0-9]*);', source, re.M)
+        if len(targets) == 1:
+            return Path(targets[0].decode()).with_suffix(".rs")
+        if targets:
+            raise ValueError("ambiguous physical module path in the crate root")
+    return owner
+
+
 def share(data, owner):
     entries = declarations(data)
     pieces = []
@@ -70,12 +84,16 @@ def replay(crate, files, row, archive, archive_sha):
             or len(set(copied)) != len(copied) or str(owner) in copied or not set(copied) <= before.keys()
             or len(before) != row["compiler_selected_sources"] or source_list_digest(before) != row["parent_sources_sha256"]):
         raise ValueError(f"invalid FILE layout parent or module selection in {archive}")
+    namespace = provider_namespace(crate / "lib.rs", owner)
+    expected_namespace = row.get("provider_namespace", str(owner))
+    if str(namespace) != expected_namespace:
+        raise ValueError("changed stdio provider module namespace")
     after = before.copy()
     replacements = {}
     for name in copied:
         path = crate / name
         data = path.read_bytes()
-        candidate = share(data, owner)
+        candidate = share(data, namespace)
         if candidate == data:
             raise ValueError(f"FILE layout did not change in {name}")
         after[name] = hashlib.sha256(candidate).hexdigest()

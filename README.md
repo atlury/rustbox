@@ -420,6 +420,30 @@ regenerates the source inventory and rankings for the selected layouts.
 
 
 
+The C-string pass recognizes the Rust expression that casts a NUL-terminated
+byte literal to `*const u8` and then to `*const c_char`. It parses both
+literal spellings and checks their full byte sequences, including the
+terminator, before generating `c"...".as_ptr()`. It skips embedded NULs,
+macro token bodies and other pointer types. The netlink release had 133,397
+matching expressions across 127 archives, or 118,690 in distinct source
+files. These are candidates for crates whose compiler supports C literals.
+[Candidate inventory](evidence/rustbox-c-string-candidates.json)
+
+In a separate GNU gzip pilot, 240 literals across 15 modules removed 480
+explicit raw-pointer type occurrences and added 240 pointer extractions
+at existing C interfaces. The Rust compiler now checks each string's
+termination. Both the full archive and the standalone gzip executable matched
+their controls byte for byte. All 108 GNU gzip command cases and both
+Memcheck runs passed. [Gzip comparison](evidence/gzip-c-string-pilot.json)
+
+```sh
+python3 -B tests/c-string-literals/check.py
+scripts/build_private_inline_tool.sh
+python3 -B scripts/rank_c_string_literals.py "$link"
+python3 -B scripts/build_c_string_literal_pilot.py --link "$link" --archive GZIP_ARCHIVE --output NEW_DIRECTORY
+python3 -B scripts/test_gzip_stdio_pilot.py NEW_DIRECTORY "$link"
+```
+
 Run `python3 -B scripts/rank_fixed_array_helpers.py work/analysis/rustbox-multicall-link.json`
 to find private functions in generated Rust whose pointer parameters occur
 only in constant-offset accesses. The scan groups identical definitions and
