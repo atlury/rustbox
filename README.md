@@ -1074,7 +1074,7 @@ protocol filters. The stripped preview measured 24,979,328
 bytes against 24,961,776 for the reproduced parent.
 [Complete multicall comparison](evidence/iproute2-routing-protocol-multicall.json)
 
-`stage_routing_protocol_archives.py` reconstructs all 18 compiler inputs
+`stage_routing_protocol_archives.py` reconstructs the compiler inputs for all 18 engines
 from the pinned netlink and C-string records and stages each resulting
 archive under its SHA-256. Replaying the selected sources measured 4,806
 fewer explicit raw pointer types, 72 fewer raw borrows and 414 fewer
@@ -1082,6 +1082,15 @@ pointer extractions. A separate rebuild of the directly compiled bridge
 reproduced its archive from all 24 sources, and the stage rejected an
 altered cached copy.
 [Staged archive digests and measured source changes](evidence/iproute2-routing-protocol-stage.json)
+
+The release checks resolve each engine’s original name to the exact parent
+and replacement archives. They verify the preceding C-string sources and
+both archive hashes. To repeat the public commands on a saved executable,
+run `python3 scripts/test_routing_protocol_multicall.py ELF
+evidence/iproute2-routing-protocol-multicall.json --link RELEASE.json`.
+The test also verifies the hash of the executable and the coverage from
+both canonical compiler builds.
+[Archive selection regression](tests/iproute2-netlink-protocols/routing-release.py)
 
 With the `ip` engine switched to the new routing protocol reader, all 21
 IPRoute2 names passed 288 canonical comparisons in the complete multicall.

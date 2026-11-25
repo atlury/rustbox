@@ -46,6 +46,9 @@ def manifest(*, netlink=False):
 
 
 def parent_view(link):
+    if "iproute2_routing_protocols" in link:
+        from stage_routing_protocol_archives import parent_view as routing_parent
+        return routing_parent(link)
     netlink = "iproute2_netlink_protocols" in link
     field = "iproute2_netlink_protocols" if netlink else "iproute2_route_names"
     if field not in link:
@@ -121,6 +124,10 @@ def prepare(record, built=None, *, mounted_bridge=False, netlink=False):
 def lookup_archive(link, key):
     """Archive currently providing a given address-protocol C interface."""
     parent_view(link)
+    if "iproute2_routing_protocols" in link:
+        from stage_routing_protocol_archives import candidate_path as routing_path
+        parent = netlink_path(link["iproute2_netlink_protocols"][key])
+        return routing_path(link["iproute2_routing_protocols"][str(parent)])
     if "iproute2_netlink_protocols" in link:
         return netlink_path(link["iproute2_netlink_protocols"][key])
     if "iproute2_route_names" in link:
@@ -128,13 +135,40 @@ def lookup_archive(link, key):
     return address_path(selected_records(link)[key])
 
 
+def lookup_records(link):
+    """Index the selected lookup archives by their original engine paths."""
+    if "iproute2_routing_protocols" in link:
+        parent_view(link)
+        return {key: link["iproute2_routing_protocols"][str(netlink_path(row))]
+                for key, row in verified_records(link, link["iproute2_netlink_protocols"], netlink=True).items()}
+    return link.get("iproute2_netlink_protocols", link.get("iproute2_route_names", selected_records(link)))
+
+
+def routing_lookup_pair(link, key):
+    row = lookup_records(link)[key]
+    parent = parent_view(link)
+    before = lookup_archive(parent, key)
+    after = lookup_archive(link, key)
+    if (row["archive"] != str(before) or parent["source_library_sha256"][str(before)] != row["control_sha256"]
+            or link["source_library_sha256"][str(after)] != row["candidate_sha256"]):
+        raise ValueError(f"wrong routing lookup archive pair for {key}")
+    return row, ROOT / before, ROOT / after
+
+
 def additional_lookup_records(link):
+    if "iproute2_routing_protocols" in link:
+        # The address ABI driver keys its comparison by the original engine path.
+        return {key: dict(archive=key, control_sha256=row["control_sha256"], candidate_sha256=row["candidate_sha256"])
+                for key, row in lookup_records(link).items() if key != str(ARCHIVE)}
+
     records = link.get("iproute2_route_names", link.get("iproute2_address_protocol_copies", {}))
     records = link.get("iproute2_netlink_protocols", records)
     return {k: row for k, row in records.items() if k != str(ARCHIVE)}
 
 
 def netlink_control_view(link):
+    if "iproute2_routing_protocols" in link:
+        link = parent_view(link)
     if "iproute2_netlink_protocols" not in link:
         return link
     control = parent_view(link)
