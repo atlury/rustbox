@@ -385,6 +385,15 @@ by package is bc-1.08.2 (342), coreutils-9.12 (792), diffutils-3.12 (630), gzip-
 release byte for byte, and the dispatcher and all 14,022 batch cases passed
 again. [Release evidence](evidence/rustbox-shared-stdio-replays.json)
 
+Sharing the layout changed 570 compiler inputs. When counting every compiled
+copy, the total fell by 10,260. When counting each distinct source file once,
+the total rose from 683,429 to 683,588. Copies of 46 formerly identical files
+now have different contents across crates. This introduced 378 distinct files
+and retired 300. All of those changes compiled to the same executable bytes.
+Run `scripts/compare_pointer_source_variants.py PARENT_LINK SELECTED_LINK`
+to reproduce both counts from the compiler inputs.
+[Distinct source comparison](evidence/shared-stdio-distinct-source-counts.json)
+
 To find identical layouts within other linked crates and reproduce the gzip
 comparison, run the following locally. The ranker counts one retained
 provider per archive. The pilot checks the compiler input set on both builds.
