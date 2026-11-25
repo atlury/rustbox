@@ -48,7 +48,7 @@ if [ -n "$stdio_manifest" ]; then
     set -- "$@" --shared-stdio "/work/$stdio_manifest"
 fi
 if [ -n "$literal_manifest" ]; then
-    python3 -B "$root/scripts/prepare_native_c_strings.py" prepare "$root/$literal_manifest"
+    python3 -B "$root/scripts/prepare_native_c_strings.py" prepare --cargo-only "$root/$literal_manifest"
     set -- "$@" --native-c-strings "/work/$literal_manifest"
 fi
 unset RUSTBOX_MULTICALL_TEST_BINARY

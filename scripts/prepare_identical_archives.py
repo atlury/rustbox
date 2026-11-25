@@ -7,7 +7,7 @@ from pathlib import Path
 import shutil
 from tempfile import TemporaryDirectory
 
-from cargo_source_parent import cargo_origin, pinned_parent
+from cargo_source_parent import cargo_origin, direct_crate, pinned_parent, row_origin
 from check_cargo_private_inlines import ROOT, digest, layout
 
 PROOFS = ("linked_private_inline_proofs", "linked_second_inline_proofs", "linked_foreign_declaration_proofs")
@@ -38,8 +38,12 @@ def marker(archive, row, layer):
 
 def check_row(key, row):
     archive = Path(key)
-    origin = Path(row.get("cargo_archive", key))
-    layout(origin)
+    origin = Path(row_origin(row))
+    if "rustc_archive" in row:
+        if direct_crate(origin) is None:
+            raise ValueError("unknown directly compiled engine")
+    else:
+        layout(origin)
     if origin != archive:
         pinned_parent(key, row)
     for name in ("control_sha256", "candidate_sha256", "candidate_sources_sha256", "parent_sources_sha256", "control_binary_sha256"):
@@ -57,7 +61,7 @@ def validate_link(manifest, hashes, proofs, layer):
         row = item["pilot"]
         archive = check_row(key, row)
         stamp = marker(archive, row, layer)
-        if (hashes.get(key) != row["control_sha256"] or str(cargo_origin(proofs, key)) != row.get("cargo_archive", key)
+        if (hashes.get(key) != row["control_sha256"] or str(cargo_origin(proofs, key)) != row_origin(row)
                 or selected_receipts(proofs, key, layer) != item["parent_receipts"]
                 or json.loads(stamp.read_bytes()) != item or digest(archive) != row["candidate_sha256"]):
             raise ValueError(f"{layer} archive or compiler receipt changed for {key}")
@@ -85,7 +89,7 @@ def install(item, candidate, layer):
         receipt.replace(marker(archive, row, layer))
 
 
-def prepare(manifest, layer):
+def prepare(manifest, layer, *, mounted_direct=False):
     for key, item in manifest.items():
         row = item["pilot"]
         archive = check_row(key, row)
@@ -99,13 +103,19 @@ def prepare(manifest, layer):
             link = pinned_parent(key, row)
             link["binary"] = {"sha256": row["control_binary_sha256"]}
             for field, receipt in item["parent_receipts"].items():
-                location = key if field == "shared_stdio_layouts" else row.get("cargo_archive", key)
+                location = key if field == "shared_stdio_layouts" else row_origin(row)
                 target = link.setdefault(field, {})
                 if target.get(location, receipt) != receipt:
                     raise ValueError("archived compiler receipt differs from the pinned parent")
                 target[location] = receipt
             (root / "parent.json").write_text(json.dumps(link))
-            if layer == "native_c_strings":
+            if mounted_direct:
+                from build_staged_c_strings import compile_archive
+                if "rustc_archive" not in row or layer != "native_c_strings":
+                    raise ValueError("expected a directly compiled C-string archive")
+                (root / "built").mkdir()
+                compile_archive(root / "parent.json", root / "built", key)
+            elif layer == "native_c_strings":
                 from build_c_string_literal_pilot import build
                 build(root / "parent.json", root / "built", Path(key))
             else:
@@ -138,7 +148,7 @@ def enroll(link_file, output, pilots, layer):
     current = {**base, layer: records}
     for key, row in records.items():
         origin = cargo_origin(link, key)
-        if str(origin) != row.get("cargo_archive", key):
+        if str(origin) != row_origin(row):
             raise ValueError(f"cold build used the wrong Cargo origin for {key}")
         pair = (origin, Path(key))
         check_identical_layer(base, {**base, layer: {key: row}}, measure(base, archive_pair=pair),
@@ -163,9 +173,16 @@ def main(layer):
     p.add_argument("link", type=Path)
     p.add_argument("manifest", type=Path)
     p.add_argument("pilots", nargs="+", type=Path)
-    sub.add_parser("prepare").add_argument("manifest", type=Path)
+    p = sub.add_parser("prepare")
+    p.add_argument("manifest", type=Path)
+    if layer == "native_c_strings":
+        p.add_argument("--cargo-only", action="store_true",
+                       help="the Linux linker prepares direct-rustc engines after building their parents")
     args = parser.parse_args()
     if args.command == "prepare":
-        prepare(json.loads(args.manifest.read_bytes()), layer)
+        manifest = json.loads(args.manifest.read_bytes())
+        if getattr(args, "cargo_only", False):
+            manifest = {k: item for k, item in manifest.items() if "rustc_archive" not in item["pilot"]}
+        prepare(manifest, layer)
     else:
         enroll(args.link, args.manifest, args.pilots, layer)

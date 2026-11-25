@@ -12,7 +12,7 @@ import sys
 
 import legacy_checked_c_strings as legacy
 from check_cargo_private_inlines import ROOT, digest, layout
-from cargo_source_parent import cargo_origin
+from cargo_source_parent import cargo_origin, direct_crate, row_origin
 
 
 def run(link_file, ranks, output, packages, jobs, *, c_strings=False):
@@ -42,7 +42,9 @@ def run(link_file, ranks, output, packages, jobs, *, c_strings=False):
         control = link["source_library_sha256"][key]
         try:
             origin = cargo_origin(link, key) if c_strings else archive
-            src, _ = layout(origin)
+            src = direct_crate(origin) if c_strings else None
+            if src is None:
+                src, _ = layout(origin)
         except ValueError:
             return key, None, "requires its package-specific staged build"
         toolchain = ROOT / src / "rust-toolchain.toml"
@@ -69,7 +71,7 @@ def run(link_file, ranks, output, packages, jobs, *, c_strings=False):
         if c_strings:
             total = ranked["c_string_literals"]
             coverage = (total == sum(row["modules"].values()) == row["c_string_literals"] == row["raw_ffi_pointer_extractions"]
-                        and row.get("cargo_archive", key) == str(origin)
+                        and row_origin(row) == str(origin)
                         and row.get("legacy_compiler") == (channel if channel == legacy.MODE else None)
                         and row["raw_pointer_types_removed"] == 2 * total
                         and row["syntax_tool_sha256"] == digest(ROOT / "work/analysis/private-inlines-linux/release/c-string-literals"))

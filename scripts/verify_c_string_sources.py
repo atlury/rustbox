@@ -66,9 +66,9 @@ def verify(link_path, pilot):
     if (selection["source_library_sha256"].get(key) != row["control_sha256"]
             or digest(ROOT / archive) != row["control_sha256"] or digest(pilot / archive.name) != row["candidate_sha256"]):
         raise ValueError("archive selection or candidate binary differs")
-    from cargo_source_parent import cargo_origin
+    from cargo_source_parent import cargo_origin, row_origin
     origin = cargo_origin(selection, key)
-    if row.get("cargo_archive", key) != str(origin):
+    if row_origin(row) != str(origin):
         raise ValueError("literal receipt selected another Cargo target")
     if key in selection.get("native_c_strings", {}):
         selection["native_c_strings"] = {k: v for k, v in selection["native_c_strings"].items() if k != key}

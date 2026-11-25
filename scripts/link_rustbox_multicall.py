@@ -2851,8 +2851,14 @@ def main() -> int:
     identical_layers = {}
     for manifest, layer in ((args.shared_stdio, "shared_stdio_layouts"), (args.native_c_strings, "native_c_strings")):
         if manifest:
-            identical_layers[layer] = prepare_identical_archives.validate_link(
-                json.loads(manifest.read_bytes()), source_library_hashes, {**proofs, **identical_layers, **route_selections, "curl_manual": curl_manual_record}, layer)
+            items = json.loads(manifest.read_bytes())
+            if layer == "native_c_strings":
+                # Direct-rustc parents are materialized in this Linux process.
+                direct = {k: item for k, item in items.items() if "rustc_archive" in item["pilot"]}
+                prepare_identical_archives.prepare(direct, layer, mounted_direct=True)
+            context = {**proofs, **identical_layers, **route_selections,
+                       "e2fsprogs_dirhash_arrays": dirhash_arrays, "curl_manual": curl_manual_record}
+            identical_layers[layer] = prepare_identical_archives.validate_link(items, source_library_hashes, context, layer)
     expected_symbols.update(f"rustbox_{symbol}_main" for symbol in util_dispatch.values())
     expected_symbols.add("rustbox_m4_main")
     expected_symbols.update({

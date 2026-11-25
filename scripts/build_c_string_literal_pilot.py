@@ -59,6 +59,11 @@ def substitute(crate, sources):
 
 
 def build(link_file, out, archive):
+    from cargo_source_parent import cargo_origin, direct_crate
+    if direct_crate(cargo_origin(json.loads(link_file.read_bytes()), str(archive))):
+        from build_staged_c_strings import build as build_direct
+        build_direct(link_file, out, str(archive))
+        return
     stage_selected_archive(link_file, out, str(archive), MARKER, Path(__file__).name, omit_layer="native_c_strings")
 
 

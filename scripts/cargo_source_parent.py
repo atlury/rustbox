@@ -13,12 +13,33 @@ def cargo_origin(link, key):
     for original, row in link.get("iproute2_netlink_protocols", {}).items():
         if netlink_path(row) == selected:
             return Path(original)
+    from e2fsprogs_dirhash_archives import candidate_path as array_path
+    for original, row in link.get("e2fsprogs_dirhash_arrays", {}).items():
+        if array_path(Path(original), row["candidate_sha256"]) == selected:
+            return Path(original)
     return selected
+
+
+def row_origin(row):
+    return row.get("rustc_archive", row.get("cargo_archive", row["archive"]))
+
+
+def direct_crate(archive):
+    from build_e2fsprogs_checksums import CONSUMERS
+    from e2fsprogs_foreign_declarations import is_bridge
+    if is_bridge(archive):
+        return archive.parents[1] / "bridge/bridge-final"
+    name = archive.parent.name
+    if (len(archive.parts) == 7 and archive.parts[:2] == ("work", "analysis")
+            and archive.parts[2].startswith("e2fsprogs-") and archive.parts[3:5] == ("program-translations", "rustbox-e2fsprogs-shared")
+            and name in CONSUMERS and archive.name == f"lib{name}_audit.a"):
+        return archive.parents[2] / name / f"{name}-final"
+    return None
 
 
 def pinned_parent(key, row):
     """Reconstruct exactly the preceding link fields needed for a standalone cold rebuild."""
-    original = row.get("cargo_archive", key)
+    original = row_origin(row)
     if original == key:
         return {"source_library_sha256": {key: row["control_sha256"]}}
     from curl_manual_archive import KEY, candidate_path, pinned
@@ -27,6 +48,17 @@ def pinned_parent(key, row):
         previous = pinned()
         prior = previous["pilot"]
         link = {"curl_manual": previous, "source_library_sha256": {str(candidate_path(prior)): prior["candidate_sha256"]}}
+    elif Path(original).parent.parent.name == "rustbox-e2fsprogs-shared":
+        import json
+        from check_cargo_private_inlines import ROOT
+        from e2fsprogs_dirhash_archives import candidate_path as array_path
+        prior = json.loads((ROOT / "batches/e2fsprogs-trie-arrays.json").read_bytes())[original]
+        link = {"source_library_sha256": {str(array_path(Path(original), prior["candidate_sha256"])): prior["candidate_sha256"]},
+                "e2fsprogs_dirhash_arrays": {original: prior}}
+        for field, item in (("linked_private_inline_proofs", "inlines"), ("linked_second_inline_proofs", "second_inlines"),
+                            ("linked_foreign_declaration_proofs", "declarations")):
+            if prior[item]:
+                link[field] = {original: prior[item]}
     else:
         rows = routes.manifest(netlink=True)
         if original not in rows:

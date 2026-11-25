@@ -10,7 +10,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
 from audit_linked_pointers import check_identical_layer, measure
-from cargo_source_parent import cargo_origin, pinned_parent
+from cargo_source_parent import cargo_origin, pinned_parent, row_origin
 
 
 def rejected(action):
@@ -27,7 +27,7 @@ def run(link, pilot):
     key = row["archive"]
     layer = "native_c_strings"
     origin = cargo_origin(parent, key)
-    assert str(origin) == row.get("cargo_archive", key)
+    assert str(origin) == row_origin(row)
     pair = (origin, Path(key))
     parent.pop(layer, None)
     candidate = {**parent, layer: {key: row}}
@@ -53,7 +53,7 @@ def run(link, pilot):
         assert scoped(historical)["all"] == before["all"]
         broken = {**parent, "source_library_sha256": {**parent["source_library_sha256"], key: "0" * 64}}
         rejected(lambda: scoped(broken))
-        rejected(lambda: pinned_parent(key, {**row, "cargo_archive": "work/analysis/unknown/target/release/libother.a"}))
+        rejected(lambda: pinned_parent(key, {**row, ("rustc_archive" if "rustc_archive" in row else "cargo_archive"): "work/analysis/unknown/target/release/libother.a"}))
     if key in parent.get("shared_stdio_layouts", {}):
         rejected(lambda: scoped({k: v for k, v in candidate.items() if k != "shared_stdio_layouts"}))
     changed = deepcopy(after)

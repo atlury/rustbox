@@ -490,6 +490,15 @@ preserving every archive byte. The independent inventory also reconstructed
 the inputs from the checked-in manifests.
 [IPRoute2 arpd compiler evidence](evidence/iproute2-arpd-c-string-pilot.json)
 
+The same batch command handles engines that invoke `rustc` directly. It
+replays their compiler arguments, dependency archives and source path
+remapping, then checks every Rust input to each compilation. IPRoute2
+`bridge` reproduced its selected archive after converting 1,309 literals
+and removing 2,618 explicit casts. E2fsprogs `badblocks` rebuilt successfully
+with 215 checked literals, but its archive bytes changed. It remains outside
+the byte-identical selection.
+[Direct compiler results](evidence/direct-rustc-c-string-pilots.json)
+
 All 24 GNU Coreutils archives were cold-built with the previously verified
 stdio changes applied wherever eligible. Twenty-one reproduced their
 original bytes after 10,317 literal conversions, removing 20,634 explicit
