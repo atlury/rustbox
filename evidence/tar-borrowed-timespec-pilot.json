@@ -1,0 +1,35 @@
+{
+  "archive": "work/analysis/tar-1.35/translations/c2rust-0.22.1/tar-1.35-stable/target/release/libtar_1_35_normalized_audit.a",
+  "callers": 2,
+  "candidate_executables": {
+    "rmt": "115440f9a8a82ac7489e939cfd7a21a6b23e34a05baa2b1472ab452eee92f8bc",
+    "tar": "268b42499d86c32e0d34d9cd2ca2b4892051d6d88bcfd0584606f045d74e5ed0"
+  },
+  "candidate_module_sha256": "68c16415dab228a0cea0fd8a508f79d66e959d714679bdd0fac51b06d0abc039",
+  "candidate_sha256": "30ac31a37c96970ff8b030c8e71981914d4d117fd78b4a8bec8283628a69a2f3",
+  "candidate_sources_sha256": "9d6af7c683ab32556634151281d687d4662e88544debefaf4e106159ea0b7a4b",
+  "canonical_cli_cases": {
+    "clang": 18,
+    "gcc": 18
+  },
+  "cli_driver_sha256": "8439f255ea660b232e033f6194c698a68d747915533176cf67e06a61151373c7",
+  "compiler_selected_sources": 195,
+  "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+  "control_module_sha256": "05f917ba398c36fe9f6b6ebf74dcdec8aa82a136987e34f85eb7c071f49e3dea",
+  "control_sha256": "52c974cd1868c0e735e243d1fb05ddec76e760240e91b7941ccd0902019e2e18",
+  "memcheck_cases": 732,
+  "module": "src/gnu/utimens.rs",
+  "parent_sources_sha256": "c22693a0c1eb19beaa5dbd634ff1f7d242a6db546b4d6d8822ec2beafed4f0a1",
+  "raw_offset_accesses_replaced": 16,
+  "raw_pointer_types_removed": 7,
+  "safe_helpers": 1,
+  "tested_archives": {
+    "candidate": "30ac31a37c96970ff8b030c8e71981914d4d117fd78b4a8bec8283628a69a2f3",
+    "clang": "3478c8700053702a19e49005ace24c9d2069e035505976a2104c50ee3c9529ba",
+    "gcc": "8cd53d7049d7a92de57effb4f73dbc473db9c8ce6b600cebd1619f5640a82bfd",
+    "parent": "52c974cd1868c0e735e243d1fb05ddec76e760240e91b7941ccd0902019e2e18"
+  },
+  "timestamp_cases_per_build": 732,
+  "timestamp_output_sha256": "f3f327a2f73b16750c86037382f953b855a1a8fbcb3b6d8d5e056042929e27d7",
+  "timestamp_probe_sha256": "85bd2227441fdb14827a7af805ad9f358eac6b02e16c7c680ddbaf644ae2246b"
+}

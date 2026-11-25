@@ -491,6 +491,23 @@ candidate still needs a check of its callers, allocation sizes and aliasing.
 The ranked candidates and compiler-selected archive paths are in
 `evidence/rustbox-fixed-array-candidates.json`.
 
+GNU tar 1.35 now has a tested fixed-array pilot. Both callers copy two
+timestamps into a local array. The private validator borrows that array and
+uses checked indexing for all 16 former raw offsets. The compiler forbids
+unsafe code in the validator. Its public callers preserve the null-input
+path and report invalid nanoseconds through `errno`. This removes seven
+explicit raw-pointer types. Timestamp results, errno and filesystem effects
+matched canonical GCC and Clang builds in 732 cases each. All 732 cases
+also passed Memcheck. The candidate tar and rmt executables passed 18 public
+comparisons against each canonical build. The archive changed, so promotion
+still requires the full multicall release checks.
+[GNU tar timestamp evidence](evidence/tar-borrowed-timespec-pilot.json)
+
+```sh
+python3 -B scripts/build_tar_timespec_pilot.py --link "$link" --output "$pilot"
+python3 -B scripts/test_tar_timespec_pilot.py "$pilot" "$link"
+```
+
 To rank complete static C-string pointer tables, run
 `python3 -B scripts/rank_shared_applet_modules.py LINK_REPORT --tables --limit 20`.
 This scan groups identical declarations even when their surrounding modules
