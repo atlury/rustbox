@@ -1,0 +1,67 @@
+#!/usr/bin/env python3
+"""Reconstruct the ip archive's compiler input and stage an address-protocol pilot."""
+# SPDX-License-Identifier: GPL-2.0-or-later
+from hashlib import sha256
+import json
+from pathlib import Path
+import sys
+
+from audit_linked_pointers import METRICS, ROOT, measure
+
+MODULE = Path("src/lib/rt_names.rs")
+MODULE_SHA256 = "33bbef39e15386546d9f98bc07ecd371b3ba7e1c455ab1f1d347273ecd85d271"
+
+
+def compiler_inputs(link, archive, destination=None):
+    inputs = {"binary": link["binary"]}
+    for key in ("source_library_sha256", "linked_private_inline_proofs", "linked_second_inline_proofs",
+                "linked_foreign_declaration_proofs"):
+        if archive in link.get(key, {}):
+            inputs[key] = {archive: link[key][archive]}
+    matches = []
+    files = {}
+
+    def capture(selected, module, digest, data):
+        if str(selected) != archive or module in files:
+            raise ValueError("unexpected archive or repeated compiler input")
+        files[module] = digest.hex()
+        if destination is not None:
+            target = destination / module
+            if target.read_bytes() != data:
+                target.write_bytes(data)
+        if module == MODULE:
+            if digest.hex() != MODULE_SHA256:
+                raise ValueError("unexpected compiler-selected rt_names.rs")
+            matches.append(data)
+
+    measure(inputs, inspect_module=capture)
+    control, = matches
+    return control, files
+
+
+def replace_table(control):
+    if sha256(control).hexdigest() != MODULE_SHA256:
+        raise ValueError("the address-protocol conversion requires the measured rt_names.rs")
+    start = control.index(b"static mut rtnl_addrprot_tab:")
+    end = control.index(b"static mut rtnl_rtscope_tab:", start)
+    replacement = (ROOT / "compat/iproute2/address_protocols.rs").read_bytes()
+    candidate = control[:start] + replacement + b"\n" + control[end:]
+    if any(name in candidate for name in (b"rtnl_addrprot_tab", b"rtnl_addrprot_initialize")):
+        raise ValueError("the legacy address-protocol table is still referenced")
+    metric = METRICS["raw_pointer_type_tokens"]
+    return candidate, {"control_module_sha256": MODULE_SHA256, "candidate_module_sha256": sha256(candidate).hexdigest(),
+                       "raw_pointer_types_removed_in_pilot_module": len(metric.findall(control)) - len(metric.findall(candidate))}
+
+
+def stage(link_path, output):
+    link = json.loads(link_path.read_bytes())
+    archive, = (key for key in link["source_library_sha256"] if key.endswith("/libip_audit.a"))
+    control, _ = compiler_inputs(link, archive)
+    candidate, report = replace_table(control)
+    (output / "control.rs").write_bytes(control)
+    (output / "candidate.rs").write_bytes(candidate)
+    print(json.dumps(dict(report, archive_sha256=link["source_library_sha256"][archive])))
+
+
+if __name__ == "__main__":
+    stage(Path(sys.argv[1]), Path(sys.argv[2]))

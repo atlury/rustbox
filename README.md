@@ -365,6 +365,32 @@ Coverage includes all 256 protocol IDs, short output buffers, vendor and
 local configuration precedence, duplicate names, raw bytes and diagnostics
 for a malformed configuration line.
 
+The address-protocol pilot replaces the mutable global array with a
+256-entry table of immutable optional C-string references, initialized once
+on the first lookup that needs names. The existing C-compatible loader
+still fills a temporary pointer array. Loaded names retain their original
+process lifetime, and the public C functions still accept raw arguments.
+The pilot removes 287 raw-pointer type occurrences in one compiler-selected
+module. Of the 18 IPRoute2 namespaces, only `ip` emits the two address-protocol
+function symbols in the current multicall ELF. The canonical callers are in
+`ip/ipaddress.c`. The production total above excludes this pilot.
+
+Run the isolated module comparison with
+`scripts/test_iproute2_address_protocols.sh --pilot`. To rebuild the whole
+`ip` archive, use the commands below with a fresh output directory. The
+first Cargo build must reproduce the production archive byte for byte before
+the replacement is compiled with the same inputs. The second command compares
+the complete candidate with canonical IPRoute2 and exercises its public
+`ip` command. All 6,320 lookup results and 17 public commands matched. Five
+Memcheck runs reported zero errors. The stripped standalone `ip` executable
+grew by 1,168 bytes, from 1,287,904 to 1,289,072. Results are in
+`evidence/iproute2-address-protocol-pilot.json`.
+
+```sh
+python3 -B scripts/build_iproute2_address_protocol_pilot.py --output work/analysis/ip-address-pilot
+scripts/test_iproute2_address_protocols.sh --archive work/analysis/ip-address-pilot
+```
+
 In E2fsprogs the sole caller of the TEA and half-MD4 directory-hash transforms
 owns two distinct, initialized stack arrays of four and eight words. The
 transforms now borrow those arrays. Forty constant-offset dereferences become

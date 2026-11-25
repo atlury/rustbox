@@ -1,0 +1,43 @@
+{
+  "archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/release/libip_audit.a",
+  "candidate_module_sha256": "6c44eab843968e8a0142469798fcd61edd4af4bae5106ed0cc170fc44848d81e",
+  "candidate_sha256": "ca8dbd114600912e362ad6263b423595cd8e90eab00ea6ae1b6f0260fccd917b",
+  "canonical_source_sha256": {
+    "include/rt_names.h": "b8223569a65254ecd3ea34c0368b253e355f558c270e246fdb7c240823b29414",
+    "lib/rt_names.c": "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e"
+  },
+  "command_checks": {
+    "canonical_failures_matched": 13,
+    "canonical_successes": 4,
+    "public_commands": 17
+  },
+  "compiler_selected_sources": 102,
+  "control_binary_sha256": "841ff62da945360208c312f785f9c218963549ad82100a3d02b54d7664b7ed18",
+  "control_elf_address_protocol_symbol_owners": [
+    "ip"
+  ],
+  "control_module_sha256": "33bbef39e15386546d9f98bc07ecd371b3ba7e1c455ab1f1d347273ecd85d271",
+  "control_sha256": "43a4da04eb68774d34997a8c5d5196db0ff0b74ea17d7dda672983494f7679c2",
+  "lookup_checks": {
+    "configurations": 4,
+    "deferred_load_and_cache_checks_per_variant": 1,
+    "lookup_results_per_variant": 6320,
+    "memcheck_runs": 5,
+    "variants_compared_to_canonical": [
+      "translated",
+      "complete",
+      "complete-memcheck"
+    ]
+  },
+  "raw_pointer_types_removed_in_pilot_module": 287,
+  "standalone_ip": {
+    "candidate": {
+      "stripped_bytes": 1289072,
+      "stripped_sha256": "0b46b8e5b41bd35386607b7a165e7e1469183b5fc49292b8fa1e937108153b6a"
+    },
+    "control": {
+      "stripped_bytes": 1287904,
+      "stripped_sha256": "13592641c53489af6a1dc221983d5fe65cda939b47eec534079f666edd8ee6e8"
+    }
+  }
+}
