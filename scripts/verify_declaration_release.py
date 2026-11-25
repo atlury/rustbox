@@ -9,6 +9,7 @@ import subprocess
 import sys
 
 from check_cargo_private_inlines import LINK_REPORT, ROOT, digest
+from e2fsprogs_foreign_declarations import staged_selection
 from test_inline_release import SENSITIVE, changed_packages
 from verify_inline_replays import validate_replays, verify
 
@@ -23,11 +24,11 @@ def check(binary, directory, jobs, supplied_replays):
     release = json.loads(before)
     if digest(binary) != release["binary"]["sha256"]:
         raise ValueError("snapshot differs from the current release executable")
-    e2fs = json.loads((ROOT / "batches/e2fsprogs-foreign-declarations.json").read_bytes())
+    staged = staged_selection(ROOT)
     cargo = json.loads((ROOT / "batches/multicall-cargo-foreign-declarations.json").read_bytes())
-    if e2fs.keys() & cargo.keys():
+    if staged.keys() & cargo.keys():
         raise ValueError("duplicate declaration archive in release manifests")
-    candidate = dict(release, linked_foreign_declaration_proofs={**e2fs, **cargo})
+    candidate = dict(release, linked_foreign_declaration_proofs={**staged, **cargo})
     packages = set(changed_packages(release, candidate))
     if not packages:
         raise ValueError("the manifests add no declaration changes to this release")

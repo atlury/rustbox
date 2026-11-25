@@ -854,6 +854,16 @@ See `evidence/rustbox-twelve-cargo-declaration-replays.json` for package coverag
 | xz-5.8.4 | 1,924 | 3,627 |
 | **Total** | **13,017** | **22,617** |
 
+IPRoute2 `bridge` has a separate rustc build. Its declaration trial uses the
+production bridge compiler arguments and the same remapped source path.
+Run the following inside the local multicall Linux build environment. The
+resulting manifest can be pinned in
+`batches/iproute2-bridge-foreign-declarations.json` after verification.
+
+```sh
+python3 -B scripts/e2fsprogs_foreign_declarations.py work/analysis/rustbox-multicall-link.json work/analysis/bridge-declaration-trial --bridge
+```
+
 For a Cargo archive, take its full path from that ranking and run a trial
 against the same link. The trial restages earlier helper removals in order,
 then rebuilds a control and a candidate at the original Linux compiler paths.

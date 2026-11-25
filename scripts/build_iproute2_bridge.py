@@ -106,6 +106,16 @@ def count_raw_types(engine):
     return sum(len(POINTER.findall(path.read_bytes())) for path in engine.rglob("*.rs"))
 
 
+def compiler_arguments(deps, scratch):
+    arguments = ["rustc", "--edition=2021", "--crate-type=staticlib",
+                 "--crate-name", "bridge_audit", "-C", "opt-level=3", "--cap-lints=allow",
+                 "--remap-path-prefix", f"{scratch}=/rustbox-bridge", "-L", f"dependency={deps}"]
+    for dependency in ("c2rust_asm_casts", "f128"):
+        library, = deps.glob(f"lib{dependency}-*.rlib")
+        arguments.extend(["--extern", f"{dependency}={library}"])
+    return arguments
+
+
 def build_bridge(target, output, *, pilot=False, prune_inlines=False):
     source = target.parent / "bridge/bridge-final"
     deps = target / "bridge/release/deps"
@@ -116,12 +126,7 @@ def build_bridge(target, output, *, pilot=False, prune_inlines=False):
         before = count_raw_types(engine)
         stage(engine, pilot)
         after = count_raw_types(engine)
-        arguments = ["rustc", "--edition=2021", "--crate-type=staticlib",
-                     "--crate-name", "bridge_audit", "-C", "opt-level=3", "--cap-lints=allow",
-                     "--remap-path-prefix", f"{scratch}=/rustbox-bridge", "-L", f"dependency={deps}"]
-        for dependency in ("c2rust_asm_casts", "f128"):
-            library, = deps.glob(f"lib{dependency}-*.rlib")
-            arguments.extend(["--extern", f"{dependency}={library}"])
+        arguments = compiler_arguments(deps, scratch)
         # Publish only after rustc finishes; concurrent builds use private output files.
         with tempfile.TemporaryDirectory(dir=output.parent) as staging:
             archive = Path(staging) / output.name

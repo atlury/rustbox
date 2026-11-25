@@ -1,4 +1,4 @@
-"""Verify unused foreign declarations against the staged, linked E2fsprogs archive."""
+"""Verify unused foreign declarations against the staged, linked E2fsprogs and IPRoute2 bridge archives."""
 # SPDX-License-Identifier: 0BSD
 import argparse
 from concurrent.futures import ThreadPoolExecutor
@@ -46,20 +46,30 @@ def validate_proof(link, relative, report, *, allow_empty=False):
         raise ValueError(f"inconsistent declaration counts: {relative}")
 
 
-def prove(link, relative, scratch, repository=ROOT):
+def staged_compiler_inputs(link, relative, scratch, repository=ROOT):
     from audit_linked_pointers import crate_for
     from check_e2fsprogs_private_inlines import compiler
 
     archive = repository / relative
     name = archive.parent.name
-    if (relative.parts[:2] != ("work", "analysis") or relative.parts[3:5] != ("program-translations", "rustbox-e2fsprogs-shared")
+    bridge = is_bridge(relative)
+    if not bridge and (relative.parts[:2] != ("work", "analysis") or relative.parts[3:5] != ("program-translations", "rustbox-e2fsprogs-shared")
             or len(relative.parts) != 7 or ".." in relative.parts or archive.name != f"lib{name}_audit.a"):
         raise ValueError(f"unexpected shared E2fsprogs archive: {relative}")
     expected = link["source_library_sha256"][str(relative)]
     manifest = json.loads(archive.with_suffix(".sources.json").read_bytes())
     if digest(archive) != expected or manifest["archive_sha256"] != expected:
-        raise ValueError("E2fsprogs archive differs from the selected link")
+        raise ValueError("archive differs from the selected link")
     source = crate_for(archive, scratch)
+    if bridge:
+        # Match the release compiler's remapped /rustbox-bridge/engine input path.
+        from build_iproute2_bridge import compiler_arguments
+        source = source.rename(scratch / "engine")
+        deps = archive.parents[1] / "cargo-target/bridge/release/deps"
+        rustc = compiler_arguments(deps, scratch)
+    else:
+        deps = archive.parents[2] / "cargo-target" / name / "release/deps"
+        rustc = [*compiler(source, deps, scratch, "/rustbox-e2fsprogs"), "--crate-type=staticlib"]
     inputs = set(manifest["sources"])
     if any(digest(source / name) != sha for name, sha in manifest["sources"].items()):
         raise ValueError("staged input differs from the compiler manifest")
@@ -67,16 +77,20 @@ def prove(link, relative, scratch, repository=ROOT):
     receipt = archive.with_name(parent["file"])
     parent_proof = json.loads(receipt.read_bytes())
     if digest(receipt) != parent["sha256"] or parent_proof["archive_sha256"] != expected:
-        raise ValueError("E2fsprogs parent receipt differs from the selected link")
+        raise ValueError("parent receipt differs from the selected link")
     apply_receipt(source, parent_proof, inputs)
     second = link.get("linked_second_inline_proofs", {}).get(str(relative))
     if second:
         record = read_second_layer(archive, relative, second, parent, expected)
         apply_receipt(source, record["second_layer"], inputs)
 
-    deps = archive.parents[2] / "cargo-target" / name / "release/deps"
-    rustc = [*compiler(source, deps, scratch, "/rustbox-e2fsprogs"), "--crate-type=staticlib"]
-    staged = scratch / archive.name
+    return source, inputs, rustc
+
+
+def prove(link, relative, scratch, repository=ROOT):
+    source, inputs, rustc = staged_compiler_inputs(link, relative, scratch, repository)
+    expected = link["source_library_sha256"][str(relative)]
+    staged = scratch / relative.name
     depfile = scratch / "compiler.d"
 
     def build():
@@ -90,7 +104,7 @@ def prove(link, relative, scratch, repository=ROOT):
         return digest(staged)
 
     if build() != expected:
-        raise ValueError("control build differs from the released E2fsprogs archive")
+        raise ValueError("control build differs from the released archive")
     diagnostics = scratch / "rustc.jsonl"
     with diagnostics.open("wb") as stream:
         subprocess.run([*rustc, "--emit=metadata", "-A", "warnings", "--force-warn", "dead_code",
@@ -98,7 +112,9 @@ def prove(link, relative, scratch, repository=ROOT):
                        cwd=source, stderr=stream, check=True)
     selector = repository / "work/analysis/private-inlines-linux/release/foreign-declarations"
     report = verify_declarations(source, inputs, diagnostics, selector, expected, build)
-    return {**report, "archive": str(relative), "archive_sha256": expected, "parent": parent, "second": second}, staged
+    return {**report, "archive": str(relative), "archive_sha256": expected,
+            "parent": link["linked_private_inline_proofs"][str(relative)],
+            "second": link.get("linked_second_inline_proofs", {}).get(str(relative))}, staged
 
 
 def verify_declarations(source, inputs, diagnostics, selector, expected, build, *, allow_empty=False):
@@ -147,13 +163,28 @@ def publish_verified(archive, staged, report, pinned=None):
         return selected
 
 
+def is_bridge(path):
+    return (len(path.parts) == 6 and path.parts[:2] == ("work", "analysis")
+            and path.parts[2].startswith("iproute2-")
+            and path.parts[3:] == ("program-translations", "rustbox-bridge", "libbridge_audit.a"))
+
+
 def staged_archives(link):
     return {name for name in link["linked_private_inline_proofs"]
-            if Path(name).parent.parent.name == "rustbox-e2fsprogs-shared"}
+            if Path(name).parent.parent.name == "rustbox-e2fsprogs-shared" or is_bridge(Path(name))}
+
+
+def staged_selection(repository):
+    directory = repository / "batches"
+    e2fs = json.loads((directory / "e2fsprogs-foreign-declarations.json").read_bytes())
+    bridge = json.loads((directory / "iproute2-bridge-foreign-declarations.json").read_bytes())
+    if any(is_bridge(Path(name)) for name in e2fs) or any(not is_bridge(Path(name)) for name in bridge):
+        raise ValueError("staged declaration receipt is in the wrong package manifest")
+    return {**e2fs, **bridge}
 
 
 def prepare_release(repository, source_hashes, parents, second):
-    selected = json.loads((repository / "batches/e2fsprogs-foreign-declarations.json").read_bytes())
+    selected = staged_selection(repository)
     link = {"source_library_sha256": source_hashes, "linked_private_inline_proofs": parents,
             "linked_second_inline_proofs": second}
     if not selected.keys() <= staged_archives(link) & source_hashes.keys():
@@ -185,14 +216,15 @@ if __name__ == "__main__":
     parser.add_argument("link_report", type=Path)
     parser.add_argument("output", type=Path, help="new directory for verified archive selections")
     parser.add_argument("--jobs", type=int, default=2)
+    parser.add_argument("--bridge", action="store_true", help="verify the staged IPRoute2 bridge instead of E2fsprogs")
     args = parser.parse_args()
     if args.jobs < 1:
         parser.error("--jobs must be positive")
     link = json.loads(args.link_report.read_bytes())
     args.output.mkdir()
-    archives = sorted(staged_archives(link))
+    archives = sorted(name for name in staged_archives(link) if is_bridge(Path(name)) == args.bridge)
     if not archives:
-        parser.error("the selected link has no staged E2fsprogs archives")
+        parser.error("the selected link has no matching staged archives")
 
     def build(name):
         path = Path(name)
