@@ -759,6 +759,12 @@ The source replay checked 60 inputs. These 16 removed casts are already
 covered by the earlier 184-cast result.
 [Mixed-module build and source digests](evidence/e2fsprogs-mixed-array-c-strings.json)
 
+The same array-only conversion reproduced 12 complete E2fsprogs archives.
+An independent scan of every compiler input verified 3,461 replaced literals
+and 6,922 removed casts across the 12 engines. The counts include the
+earlier individual trials. Each archive still has its own source digest.
+[Per-engine counts and hashes](evidence/e2fsprogs-twelve-static-array-replay.json)
+
 The native C-string manifest can grow within an archive already selected.
 `prepare_native_c_strings.py enroll --extend` checks that the new cold
 build covers every earlier edit on the same compiler sources and produces
