@@ -1,0 +1,76 @@
+{
+  "comparison": {
+    "advertised_long": 274,
+    "advertised_short": 59,
+    "archive": "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/release/libcurl_8_23_0_normalized_audit.a",
+    "candidate_module_sha256": "60c9a971ae7b374c44502b33c39bd7f85ab95b73b2526952aec936352845c018",
+    "candidate_sha256": "5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7",
+    "candidate_sources_sha256": "842096d82e7809d47e6b44d8f9964c70099177419382db3ca576b339e301db19",
+    "canonical_clang_sha256": "5772b0a811e85d7fdcfac912b874f602e0c28f09ed19188cae28820240749f45",
+    "canonical_gcc_sha256": "ded386aadc2f9abfcc5cae0c6dbb4797d2f4702681622eb8e16cce1f0471e627",
+    "compiler_selected_sources": 241,
+    "control_binary_sha256": "b374a5bd3c3c68bd49c1472b8e4275b31aff83cb3d32cc954562e72b552565f9",
+    "control_module_sha256": "95fe5376476cf0f4904ae8ad99a25dcd4bee3b5c023aded403007148030e301b",
+    "control_sha256": "d360a77e53bca31d38899c506cad8e1837c10134663a6aed6210b28160d6668b",
+    "manual_bytes": 299017,
+    "manual_sha256": "36b86ddf4660e65c4cbcb2ada287c390a8c07abdc66a0cb47c53b033941c3ce7",
+    "memcheck_runs": 5,
+    "multicall_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+    "option_sections": 274,
+    "output_sha256": "50d25399bdaad6c63560d5c3c0639fb71d37af8d737c3f2d5fc86f0b18ed8677",
+    "parent_sources_sha256": "fdc46e29a33f272c9f7d8e5c4334df0919deb3d1028abdb3b6609d00de8e3e6a",
+    "public_cases": 614,
+    "raw_pointer_types_removed_in_pilot_module": 11413,
+    "standalone_stripped_bytes": {
+      "candidate": 1894656,
+      "parent": 2046200
+    },
+    "write_errors": {
+      "full": {
+        "status": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "pipe": {
+        "status": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  },
+  "identity": {
+    "binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+    "docker_image": "sha256:67a05efc33545947d397b039e8857913f3fde379190a482a4e5dc61babf699f7",
+    "environment": {
+      "LC_ALL": "C",
+      "TZ": "UTC"
+    },
+    "inputs": {
+      "batches/curl-manual.json": "19b6f5aced8ca3dc2d1497df05658fa2453e65a4209245dcdc5fd389880e0343",
+      "bridges/curl_main.c": "20ae751ffa16b612ea38996a23b678d6107174c2600e491c807943e79cd69933",
+      "evidence/curl-8.23.0-oracle.json": "51be108520d5358d6ee4d194bd42d6da72c498d0a1f08682062f647bc92c55db",
+      "evidence/curl-manual-pilot.json": "fd86235cfa1dc214ecea6b60b046a6effd60193b68035a43ba48639a8a7c4a04",
+      "scripts/check_cargo_private_inlines.py": "8ffd62d8cc9f76720c60730929da4deb8c77773ccf95bbe6bd9a98199b91718d",
+      "scripts/curl_manual_archive.py": "e764b0f499d23e6d5a3b82d4fbb93456be8a6dd63ce05f6ef806f1bfa4e98471",
+      "scripts/test_curl_manual_pilot.py": "18b04c6d73d5f32306d950a64f61b68e74b53bc77c47bd4a9d7e5ba6b0f954d3",
+      "work/analysis/curl-8.23.0/hybrid-artifacts/c-residue/mprintf.o": "309c6068d62a70da404624c6c960bdfb693a1b0bdbb3646997006db85bd9549d",
+      "work/analysis/curl-8.23.0/oracle/curl-clang": "5772b0a811e85d7fdcfac912b874f602e0c28f09ed19188cae28820240749f45",
+      "work/analysis/curl-8.23.0/oracle/curl-gcc": "ded386aadc2f9abfcc5cae0c6dbb4797d2f4702681622eb8e16cce1f0471e627",
+      "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/packed-manual/5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7/libcurl_8_23_0_normalized_audit.a": "5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7",
+      "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/release/libcurl_8_23_0_normalized_audit.a": "d360a77e53bca31d38899c506cad8e1837c10134663a6aed6210b28160d6668b"
+    },
+    "network": "none"
+  },
+  "links": {
+    "candidate": {
+      "bytes": 42450832,
+      "sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "stripped_bytes": 24961776,
+      "stripped_sha256": "a12c31721cf685e3827f4ea859583a60d670d3ead4a6fd71e649798dab900913"
+    },
+    "parent": {
+      "bytes": 43069296,
+      "sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "stripped_bytes": 25113312,
+      "stripped_sha256": "ceb375c3e0b182dcfea04ac53e48aa82a6b58eea6482265b97626e6010fbff24"
+    }
+  }
+}

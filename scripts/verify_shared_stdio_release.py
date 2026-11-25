@@ -1,0 +1,87 @@
+#!/usr/bin/env python3
+"""Verify a byte-identical multicall release, rerun public dispatch and record the compiler inventory."""
+# SPDX-License-Identifier: GPL-3.0-or-later
+import argparse
+from hashlib import sha256
+import json
+import os
+from pathlib import Path
+import subprocess
+import sys
+from tempfile import TemporaryDirectory
+
+from check_cargo_private_inlines import LINK_REPORT, ROOT, digest
+from rank_fixed_array_helpers import rank as fixed_arrays
+from rank_foreign_declarations import rank as foreign_declarations
+from rank_shared_applet_modules import rank as shared_modules, rank_tables
+from test_inline_release import all_packages
+
+
+def verify(previous, binary, replay_path, output):
+    output.mkdir()
+    old, current = previous.read_bytes(), LINK_REPORT.read_bytes()
+    parent, selected = json.loads(old), json.loads(current)
+    saved = output / "release.json"
+    saved.write_bytes(current)
+    sha = digest(binary)
+    previous_sha = sha256(old).hexdigest()
+    replay_bytes = replay_path.read_bytes()
+    replay = json.loads(replay_bytes)
+    if (selected["binary"] != parent["binary"] or selected["binary"]["sha256"] != sha
+            or replay["binary_sha256"] != sha or replay["link_report_sha256"] != previous_sha
+            or replay["packages"] != dict.fromkeys(all_packages(), 0)):
+        raise ValueError("the ELF, link map, parent or completed package suites differ")
+    summary = json.loads((ROOT / "evidence/rustbox-multicall.json").read_bytes())
+    if any(summary["binary"][key] != value for key, value in selected["binary"].items() if key in summary["binary"]):
+        raise ValueError("published release summary differs from the selected executable")
+    scripts = ROOT / "scripts"
+    with (output / "inventory.json").open("wb") as stream:
+        subprocess.run([sys.executable, "-B", scripts / "audit_linked_pointers.py", saved,
+                        "--verify-shared-stdio-from", previous], stdout=stream, check=True)
+    public = {}
+    for name, tool in (("dispatch", "test_rustbox_multicall.sh"), ("batch_differential", "test_rustbox_batch_differential.sh")):
+        log = output / (name + ".log")
+        with log.open("wb") as stream:
+            subprocess.run([scripts / tool], cwd=ROOT, stdout=stream, stderr=subprocess.STDOUT, check=True,
+                           env=dict(os.environ, RUSTBOX_MULTICALL_TEST_BINARY=str(binary)))
+        actual = json.loads(log.read_bytes().splitlines()[-1])
+        expected = summary[name]
+        if any(actual[k] != expected[k] for k in actual) or actual["passed"] != actual["cases"]:
+            raise ValueError(f"{name} coverage differs from the previously tested binary")
+        public[name] = actual
+
+    current_sha = sha256(current).hexdigest()
+    inventory = json.loads((output / "inventory.json").read_bytes())
+    reports = {
+        "rustbox-linked-pointers": inventory,
+        "rustbox-foreign-declaration-candidates": foreign_declarations(saved),
+        "rustbox-fixed-array-candidates": fixed_arrays(saved),
+        "rustbox-shared-module-candidates": shared_modules(saved, 20),
+        "rustbox-static-name-tables": rank_tables(saved, 20),
+        "rustbox-shared-stdio-replays": {
+            "binary_sha256": sha, "link_report_sha256": current_sha, "previous_link_report_sha256": previous_sha,
+            "previous_replays_sha256": sha256(replay_bytes).hexdigest(), "packages": replay["packages"],
+            "package_replay_basis": "identical ELF, link map, dynamic dependencies and archive inputs",
+            "repeated_pointer_fields_removed": inventory["shared_stdio_layout_deltas"], **public},
+    }
+    with TemporaryDirectory(dir=ROOT / "evidence") as temp:
+        staged = Path(temp)
+        for name, report in reports.items():
+            if (report["binary_sha256"], report["link_report_sha256"]) != (sha, current_sha):
+                raise ValueError(f"{name} belongs to another release")
+            (staged / (name + ".json")).write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
+        if LINK_REPORT.read_bytes() != current or digest(binary) != sha:
+            raise ValueError("release changed during verification")
+        for path in staged.iterdir():
+            path.replace(ROOT / "evidence" / path.name)
+    print(f"{len(selected['shared_stdio_layouts'])} identical archives, {public['batch_differential']['passed']} differential cases, ELF {sha}")
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("previous_link", type=Path)
+    parser.add_argument("binary", type=Path)
+    parser.add_argument("previous_replays", type=Path)
+    parser.add_argument("new_directory", type=Path)
+    args = parser.parse_args()
+    verify(args.previous_link.resolve(), args.binary.resolve(), args.previous_replays.resolve(), args.new_directory.resolve())

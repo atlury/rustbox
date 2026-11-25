@@ -11,13 +11,14 @@ import subprocess
 import sys
 
 from check_cargo_private_inlines import ROOT, LINK_REPORT, digest
+from curl_manual_replay import lookup as curl_replay
 from iproute2_address_protocol_archive import ARCHIVE, validate_copy_results
 from iproute2_route_name_archives import additional_lookup_records
 from test_inline_release import SENSITIVE, all_packages
 from verify_declaration_release import logged
 
 
-def verify(before, binary, output, jobs, independent_replay=None, chain_from=None, copy_replay=None):
+def verify(before, binary, output, jobs, independent_replay=None, chain_from=None, copy_replay=None, fresh_curl=False):
     selected = LINK_REPORT.read_bytes()
     release = json.loads(selected)
     if digest(binary) != release["binary"]["sha256"]:
@@ -75,6 +76,12 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
         tasks.append(("iproute2-netlink-protocols", ["test_iproute2_netlink_protocols.py", "--linked", "--link", current,
                                                     "--batch", output / "netlink-comparisons", "--jobs", "3"]))
     packed_manual = release.get("curl_manual")
+    saved_curl = None
+    curl_receipt = ROOT / "evidence/curl-manual-multicall-comparison.json"
+    if packed_manual and not fresh_curl:
+        curl_image = subprocess.check_output(["docker", "image", "inspect", "--format", "{{.Id}}",
+                                              "rustbox-e2fsprogs:2026-11-24"], text=True).strip()
+        saved_curl = curl_replay(release, curl_image, curl_receipt)
     if packed_manual:
         tasks.append(("curl-manual", ["test_curl_manual_pilot.py", "--linked", "--link", current]))
     routes = netlink or release.get("iproute2_route_names", {})
@@ -101,11 +108,16 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
         # filesystems. Queue them beside the package suites and wait at their gates.
         comparisons = {}
         for name, (tool, *args) in tasks:
+            if name == "curl-manual" and saved_curl is not None:
+                continue
             if name in {"iproute2-route-names", "iproute2-netlink-protocols", "curl-manual"}:
                 comparisons[name] = worker.submit(logged, [scripts / tool, *args], output / f"{name}.log")
         for name, (tool, *args) in tasks:
             log = output / f"{name}.log"
-            if name in comparisons:
+            if name == "curl-manual" and saved_curl is not None:
+                log.write_text(json.dumps(saved_curl, indent=2, sort_keys=True) + "\n")
+                print("Reused completed curl comparisons for the identical ELF, image, driver and oracle inputs", flush=True)
+            elif name in comparisons:
                 comparisons[name].result()
             elif copy_replay and name == "iproute2-address-protocol-copies":
                 data = copy_replay.read_bytes()
@@ -217,6 +229,8 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
         if checked != dict(baseline, multicall_sha256=digest(binary)):
             raise ValueError("linked curl manual replay differs from the qualified archive, cases or outputs")
         result["curl_manual"] = checked
+        if saved_curl is not None:
+            result["curl_manual_replay_sha256"] = digest(curl_receipt)
     (output / "replays.json").write_text(json.dumps(result, sort_keys=True, indent=2) + "\n")
     print(f"Verified the linked executable with {len(tasks)} integration checks and {len(registered)} package suites", flush=True)
 
@@ -231,7 +245,8 @@ if __name__ == "__main__":
                         help="verified results from all independent packages for this exact release and control")
     parser.add_argument("--copy-replay", type=Path, help="completed canonical comparisons for the exact address-protocol archive and test hashes")
     parser.add_argument("--chain-from", type=Path, help="also verify the intermediate archive migration against its original release")
+    parser.add_argument("--fresh-curl", action="store_true", help="rerun all curl manual cases even if the precise inputs and tested ELF match")
     args = parser.parse_args()
     if args.jobs < 1:
         parser.error("--jobs must be positive")
-    verify(args.previous.resolve(), args.binary.resolve(), args.output.resolve(), args.jobs, args.independent_replay, args.chain_from, args.copy_replay)
+    verify(args.previous.resolve(), args.binary.resolve(), args.output.resolve(), args.jobs, args.independent_replay, args.chain_from, args.copy_replay, args.fresh_curl)

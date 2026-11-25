@@ -408,6 +408,13 @@ scripts/build_rustbox_multicall.sh --shared-stdio work/analysis/stdio-selection.
 python3 -B scripts/audit_linked_pointers.py "$link" --verify-shared-stdio-from PARENT_LINK
 ```
 
+`scripts/verify_shared_stdio_release.py PARENT_LINK SAVED_ELF PARENT_REPLAYS NEW_DIRECTORY`
+checks that the entire binary, link map and every archive input match the
+parent, then reruns the dispatcher and batch differential tests on the saved
+ELF. It records the parent package-suite results with their hashes and
+regenerates the source inventory and rankings for the selected layouts.
+
+
 
 
 Run `python3 -B scripts/rank_fixed_array_helpers.py work/analysis/rustbox-multicall-link.json`
@@ -450,7 +457,12 @@ saved netlink release, run the local package suites and publish the source
 inventory together, use the command below. The results directory must be new.
 The optional fourth argument supplies the previous release's address-protocol
 comparisons. The verifier checks those archive hashes and test inputs again.
-Both curl dispatch forms are exercised on the newly linked executable.
+The full 499-name test link matched all 614 cases through both dispatch forms.
+That executable was 24,961,776 bytes stripped. The release verifier can reuse
+the comparisons when the ELF, archives, canonical binaries, bridge, test driver
+and Docker image match the recorded hashes. A change runs the full comparison
+again. Pass `--fresh-curl` to `verify_dirhash_release.py` to force a rerun.
+[Multicall comparison](evidence/curl-manual-multicall-comparison.json)
 
 ```sh
 scripts/qualify_pointer_release.sh --curl-manual NETLINK_LINK NEW_DIRECTORY NETLINK_REPLAYS
