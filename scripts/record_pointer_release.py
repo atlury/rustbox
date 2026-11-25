@@ -25,10 +25,12 @@ def record(binary, results, rankings):
     curl = release.get("curl_manual")
     timestamps = release.get("tar_borrowed_timestamps")
     lengths = release.get("bison_literal_lengths")
+    dictionary = release.get("lz4_benchmark_dictionary")
     routing = release.get("iproute2_routing_protocols")
     replay_name = "rustbox-netlink-protocol-replays"
     for record, name in ((curl, "rustbox-curl-manual-replays"), (timestamps, "rustbox-tar-timestamps-replays"),
-                         (lengths, "rustbox-bison-length-replays"), (routing, "rustbox-routing-protocol-replays")):
+                         (lengths, "rustbox-bison-length-replays"), (routing, "rustbox-routing-protocol-replays"),
+                         (dictionary, "rustbox-lz4-dictionary-replays")):
         if record:
             replay_name = name
     inputs = {
@@ -64,6 +66,9 @@ def record(binary, results, rankings):
     if {k: d["raw_pointer_type_tokens"] for k, d in deltas.items()} != {
             k: row["raw_pointer_types_removed_in_pilot_module"] for k, row in rows.items()}:
         raise ValueError("compiled inventory and per-engine reductions differ")
+    if dictionary:
+        from test_lz4_dictionary_multicall import verify_release
+        verify_release(release, json.loads((results / "control.json").read_bytes()), inventory, replay["lz4_benchmark_dictionary"])
     if routing:
         from test_routing_protocol_multicall import expected_binary, validate_coverage
         preview = json.loads((evidence / "iproute2-routing-protocol-multicall.json").read_bytes())

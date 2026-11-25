@@ -100,6 +100,9 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
     if copies:
         image_id = subprocess.check_output(["docker", "image", "inspect", "--format", "{{.Id}}", "rustbox-e2fsprogs:2026-11-24"], text=True).strip()
         tasks.append(("iproute2-address-protocol-copies", ["test_iproute2_address_protocols.sh", "--linked-copies"]))
+    dictionary = release.get("lz4_benchmark_dictionary")
+    if dictionary:
+        tasks.append(("lz4-benchmark-dictionary", ["test_lz4_dictionary_multicall.py", "--link", current, "--binary", binary]))
     routing = release.get("iproute2_routing_protocols")
     if routing:
         tasks.append(("iproute2-routing-protocols", ["test_routing_protocol_multicall.py", binary,
@@ -134,6 +137,7 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
             subprocess.run([sys.executable, "-B", scripts / "audit_linked_pointers.py", previous,
                             "--verify-dirhash-from", original], cwd=ROOT, stdout=stream, check=True)
     stages = (
+        ("lz4_benchmark_dictionary", "--verify-lz4-dictionary-from"),
         ("iproute2_routing_protocols", "--verify-routing-protocols-from"),
         ("bison_literal_lengths", "--verify-bison-lengths-from"),
         ("tar_borrowed_timestamps", "--verify-tar-timestamps-from"),
@@ -188,6 +192,8 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
         result["iproute2_routing_protocols"] = json.loads((output / "iproute2-routing-protocols.log").read_bytes())
     if lengths:
         result["bison_literal_lengths"] = json.loads((output / "bison-literal-lengths.log").read_bytes())
+    if dictionary:
+        result["lz4_benchmark_dictionary"] = json.loads((output / "lz4-benchmark-dictionary.log").read_bytes())
     if timestamps:
         result["tar_borrowed_timestamps"] = json.loads((output / "tar-borrowed-timestamps.log").read_bytes())
     if package_retries:
