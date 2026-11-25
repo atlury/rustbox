@@ -9,7 +9,7 @@ from pathlib import Path
 from test_inline_release import changed_packages
 
 
-def verify(previous_path, final_path, replays):
+def validate_replays(previous_path, final_path, replays):
     before = previous_path.read_bytes()
     previous_sha = hashlib.sha256(before).hexdigest()
     previous = json.loads(before)
@@ -32,10 +32,16 @@ def verify(previous_path, final_path, replays):
             if package not in covered or type(status) is not int or status != 0:
                 raise ValueError(f"incomplete {package} replay in {result_path}")
             passed[package] = sha
-    if passed.keys() != required:
-        raise ValueError(f"missing completed replays for {sorted(required - passed.keys())}")
     return {"binary_sha256": binary_sha, "previous_link_report_sha256": previous_sha,
-            "link_report_sha256": hashlib.sha256(final_bytes).hexdigest(), "passing_package_selections": passed}
+            "link_report_sha256": hashlib.sha256(final_bytes).hexdigest(), "passing_package_selections": passed}, required
+
+
+def verify(previous_path, final_path, replays):
+    report, required = validate_replays(previous_path, final_path, replays)
+    passed = report["passing_package_selections"].keys()
+    if passed != required:
+        raise ValueError(f"missing completed replays for {sorted(required - passed)}")
+    return report
 
 
 if __name__ == "__main__":

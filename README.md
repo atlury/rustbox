@@ -864,7 +864,10 @@ and a new output directory. It snapshots the old link report, runs independent
 package suites against the hash-pinned ELF during the build, and waits for the
 build to finish before starting timing-sensitive suites. It compares every
 link-report field, independently inventories both source selections, replays
-the dispatcher and refreshes the multicall summaries.
+the dispatcher and refreshes the multicall summaries. If a package suite
+already finished on a partial selection, pass `--replay SELECTION RESULTS`.
+It can cover that package only when the ELF hash and all of its changed
+archive selections match the final release.
 
 ```sh
 python3 -B scripts/verify_declaration_release.py /absolute/path/to/saved/rustbox work/analysis/verified-declaration-release

@@ -10,7 +10,7 @@ import sys
 
 from check_cargo_private_inlines import LINK_REPORT, ROOT, digest
 from test_inline_release import SENSITIVE, changed_packages
-from verify_inline_replays import verify
+from verify_inline_replays import validate_replays, verify
 
 
 def logged(command, log):
@@ -18,7 +18,7 @@ def logged(command, log):
         subprocess.run(command, cwd=ROOT, stdout=stream, stderr=subprocess.STDOUT, check=True)
 
 
-def check(binary, directory, jobs):
+def check(binary, directory, jobs, supplied_replays):
     before = LINK_REPORT.read_bytes()
     release = json.loads(before)
     if digest(binary) != release["binary"]["sha256"]:
@@ -51,9 +51,11 @@ def check(binary, directory, jobs):
             subprocess.run([sys.executable, "-B", scripts / "audit_linked_pointers.py",
                             LINK_REPORT, "--verify-cleanup-from", previous], cwd=ROOT, stdout=out, check=True)
 
-    replays = []
+    replays = list(supplied_replays)
+    checked, _ = validate_replays(previous, expected, replays)
+    pending = packages - checked["passing_package_selections"].keys()
     with ThreadPoolExecutor(max_workers=2) as workers:
-        independent = packages - SENSITIVE
+        independent = pending - SENSITIVE
         early = workers.submit(suite, independent, "independent-tests") if independent else None
         logged([scripts / "build_rustbox_multicall.sh"], directory / "build.log")
         if LINK_REPORT.read_bytes() != expected.read_bytes():
@@ -62,7 +64,7 @@ def check(binary, directory, jobs):
         if early:
             replays.append(early.result())
         audit.result()
-    if sensitive := packages & SENSITIVE:
+    if sensitive := pending & SENSITIVE:
         replays.append(suite(sensitive, "sensitive-tests"))
     (directory / "replays.json").write_text(json.dumps(verify(previous, LINK_REPORT, replays),
                                                       sort_keys=True, indent=2) + "\n")
@@ -84,7 +86,9 @@ if __name__ == "__main__":
     parser.add_argument("binary", type=Path, help="saved unstripped Linux multicall")
     parser.add_argument("directory", type=Path, help="new output directory")
     parser.add_argument("--jobs", type=int, default=3)
+    parser.add_argument("--replay", nargs=2, type=Path, action="append", default=[], metavar=("SELECTION", "RESULTS"),
+                        help="reuse a completed package replay after checking it against the expected release")
     args = parser.parse_args()
     if args.jobs < 1:
         parser.error("--jobs must be positive")
-    check(args.binary.resolve(), args.directory.resolve(), args.jobs)
+    check(args.binary.resolve(), args.directory.resolve(), args.jobs, args.replay)
