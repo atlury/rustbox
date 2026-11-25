@@ -370,6 +370,23 @@ and one null sentinel, accounting for 11,409 raw-pointer type occurrences
 in one declaration. Public tables such as Flex's scanner skeleton require a
 separate check of their ABI consumers.
 
+The curl 8.23.0 pilot packs the manual into one immutable buffer. Its
+converter checks all 5,704 record boundaries and escaped bytes against
+canonical `src/tool_hugehelp.c`. The complete curl archive reproduced the
+selected parent and removed 11,413 raw-pointer type occurrences. The
+299,017-byte manual and all 614 public test cases matched canonical GCC
+and Clang builds, including option-specific help for 274 long spellings
+and 59 short spellings. Closed-pipe and full-device behavior matched, and
+five Memcheck runs passed. The isolated stripped curl executable fell from
+2,046,200 to 1,894,656 bytes, a saving of 151,544 bytes. These measurements
+are for the curl pilot. [Pilot evidence](evidence/curl-manual-pilot.json)
+
+```sh
+link=work/analysis/rustbox-multicall-link.json
+python3 -B scripts/build_curl_manual_pilot.py --link "$link" --output work/analysis/curl-manual-pilot
+python3 -B scripts/test_curl_manual_pilot.py work/analysis/curl-manual-pilot --link "$link"
+```
+
 To find work that can be reused across engines, run
 `python3 -B scripts/rank_shared_applet_modules.py LINK_REPORT --limit 20`.
 The scanner groups compiler-selected modules by package and exact source
