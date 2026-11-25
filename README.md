@@ -1058,6 +1058,12 @@ The isolated change removes 267 pointer types in `ip`. Its stripped ELF
 grew by 2,176 bytes, from 24,961,776 to 24,963,952.
 [Full link and IPRoute2 command results](evidence/iproute2-routing-protocol-ip-multicall.json)
 
+To repeat these comparisons, run
+`python3 -B scripts/test_routing_protocol_multicall.py ELF RECEIPT`.
+The runner verifies the saved executable, copies it to a Linux volume, and
+compares output and status against each compiler's oracle in the same
+network namespace. It records fresh hashes for the observed route output.
+
 ```sh
 python3 -B scripts/rank_routing_protocols.py "$link"
 python3 -B scripts/build_routing_protocol_pilot.py --link "$link" --archive "$ip_archive" --output "$pilot"
