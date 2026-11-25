@@ -892,6 +892,9 @@ command comparisons. The public benchmark compressed the 64 KiB and
 10 MB generated inputs to the same sizes as the Rust candidate.
 [Zstd archive and public benchmark evidence](evidence/zstd-lorem-archive.json)
 
+The isolated 499-name link reproduced the complete parent ELF before replacing the archive. All six Zstd command names passed 68 differential cases across both dispatch modes. The 64 KiB and 10 MB benchmarks matched the canonical compression sizes. The candidate measured 24,949,472 bytes stripped.
+[Multicall results](evidence/zstd-checked-buffer-multicall.json)
+
 The source replay also checks the Zstd generator after native C-string
 conversion. With the 255 dictionary literals already converted, the writer
 removes 64 more raw-pointer types and reproduces the original pilot source
