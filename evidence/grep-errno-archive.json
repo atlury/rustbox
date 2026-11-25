@@ -1,0 +1,101 @@
+{
+  "archive": {
+    "archive": "work/analysis/grep-3.12/translations/c2rust-0.22.1/grep-3.12-stable/target/release/libgrep_3_12_normalized_audit.a",
+    "candidate_sha256": "7eb58eaf6aa14f79405b63981505776b4f8fd3d295b4c819aa4125e523224433",
+    "candidate_sources_sha256": "3b466aedf7f9b1c912b8bafc9617ac6e4b62aa17c6901e80210d364fc6efcb64",
+    "compiler_selected_sources": 131,
+    "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+    "control_sha256": "773734b6968c400631b9404b1195ac5929648fb397c59caba84bcee0e58c1a11",
+    "helper_sha256": "554946bffc2381da8b362a86ed2063db1c610eca3458430c22fae407ac6eb35d",
+    "modules": {
+      "src/normalized_source/lib/c_stack.rs": [
+        0,
+        1
+      ],
+      "src/normalized_source/lib/fd_safer.rs": [
+        1,
+        1
+      ],
+      "src/normalized_source/lib/fopen.rs": [
+        1,
+        1
+      ],
+      "src/normalized_source/lib/hash.rs": [
+        2,
+        5
+      ],
+      "src/normalized_source/lib/ialloc.rs": [
+        0,
+        1
+      ],
+      "src/normalized_source/lib/malloc/dynarray_emplace_enlarge.rs": [
+        0,
+        1
+      ],
+      "src/normalized_source/lib/malloc/dynarray_resize.rs": [
+        0,
+        1
+      ],
+      "src/normalized_source/lib/mbsrtowcs.rs": [
+        0,
+        1
+      ],
+      "src/normalized_source/lib/opendirat.rs": [
+        1,
+        1
+      ],
+      "src/normalized_source/lib/pipe_safer.rs": [
+        1,
+        1
+      ],
+      "src/normalized_source/lib/quotearg.rs": [
+        4,
+        4
+      ],
+      "src/normalized_source/lib/reallocarray.rs": [
+        0,
+        1
+      ],
+      "src/normalized_source/lib/sigsegv.rs": [
+        1,
+        1
+      ],
+      "src/normalized_source/lib/xmalloc.rs": [
+        0,
+        1
+      ]
+    },
+    "parent_sources_sha256": "bf291e2c76cf74b5be8faffd2258a17e7e4c845d12eb62ab789feb38ab8f0320",
+    "raw_pointer_types_removed": 13,
+    "scanner_sha256": "2266bce319952459557e16063cbb60eb40884309a4c18addcfdc39f112a4ccd6",
+    "value_reads": 11,
+    "value_writes": 21
+  },
+  "archive_byte_identical": false,
+  "public": {
+    "allocation_errors_per_run": 5,
+    "api_outputs": {
+      "candidate": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+      "candidate-memcheck": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+      "clang": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+      "clang-memcheck": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+      "gcc": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+      "gcc-memcheck": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+      "parent": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669",
+      "parent-memcheck": "572dce55f9ca4ee347a5bf8f4b0ee49620206e89f0356b5b4e318e7feb66f669"
+    },
+    "archive_sha256": {
+      "candidate": "7eb58eaf6aa14f79405b63981505776b4f8fd3d295b4c819aa4125e523224433",
+      "clang": "eb08e54ace5f68265adda3d3a9575436d37e628fea038f27c5f585d0f8926bf9",
+      "gcc": "a882db2ec4249f524a72a48059e636d090f852d0147b950e68b9d6c8aa366d08",
+      "parent": "773734b6968c400631b9404b1195ac5929648fb397c59caba84bcee0e58c1a11"
+    },
+    "driver_sha256": "705adf843a07147e2eb814b15a82a3d2e73918d6beadfce49e8f40db4f169abf",
+    "fd_calls_per_run": 15,
+    "pipe_transfers_per_run": 5,
+    "public_commands": {
+      "clang": 36,
+      "gcc": 36
+    }
+  }
+}
