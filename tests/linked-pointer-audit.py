@@ -65,3 +65,30 @@ with tempfile.TemporaryDirectory() as workspace:
                     assert cleanup.get("source_layout", "lines") == layout
             assert source.read_bytes() == original
 print("Repeated and rejected audit replays both preserved the original Cargo source.")
+
+with tempfile.TemporaryDirectory() as workspace:
+    root = Path(workspace)
+    package = Path("work/analysis/e2fsprogs-test/program-translations")
+    archive = package / "rustbox-e2fsprogs-shared/bitcount.o"
+    obj = root / archive
+    obj.parent.mkdir(parents=True)
+    obj.write_bytes(b"test object")
+    source = Path("compat/e2fsprogs/bitcount.rs")
+    (root / source).parent.mkdir(parents=True)
+    (root / source).write_text("pub fn count(_: *const u8) {}\n")
+    checksum = sha(obj.read_bytes())
+    manifest = {"archive_sha256": checksum, "sources": {str(source): sha((root / source).read_bytes())}}
+    obj.with_suffix(".sources.json").write_text(json.dumps(manifest))
+    link = {"binary": {"sha256": "fixture"}, "source_library_sha256": {str(archive): checksum}}
+    with patch.object(inventory, "ROOT", root), tempfile.TemporaryDirectory() as scratch:
+        measured = inventory.audit(link, Path(scratch))["all"]
+        assert measured["standalone_objects"] == measured["files"] == measured["raw_pointer_type_tokens"] == 1
+        (root / source).write_text("pub fn count(_: &[u8]) {}\n")
+        try:
+            inventory.audit(link, Path(scratch))
+        except ValueError as error:
+            if "restaged source differs" not in str(error):
+                raise
+        else:
+            raise AssertionError("bitmap provider source changed without invalidating the release audit")
+print("The shared bitmap provider is counted once and its source digest is checked.")

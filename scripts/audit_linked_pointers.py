@@ -13,7 +13,7 @@ import shutil
 import tempfile
 
 from build_iproute2_bridge import stage as stage_bridge
-from build_e2fsprogs_checksums import stage as stage_checksum
+from build_e2fsprogs_checksums import SHARED_SOURCES, stage as stage_checksum
 from inline_source_layout import pad_removed_items
 from prune_private_inlines import replay
 
@@ -34,12 +34,12 @@ def crate_for(archive, temporary):
         shutil.copytree(archive.parents[1] / "bridge/bridge-final", engine)
         stage_bridge(engine, pilot=False)
         return engine
-    if archive.parent.parent.name == "rustbox-checksums":
+    if archive.parent.parent.name in ("rustbox-checksums", "rustbox-e2fsprogs-shared"):
         name = archive.parent.name
         engine = temporary / name
         shutil.copytree(archive.parents[2] / name / f"{name}-final", engine,
                         ignore=shutil.ignore_patterns("target"))
-        stage_checksum(engine)
+        stage_checksum(engine, share_bitcount=archive.parent.parent.name == "rustbox-e2fsprogs-shared")
         return engine
     target = next(p for p in archive.parents if p.name == "cargo-target")
     name = archive.name.removeprefix("lib").removesuffix("_audit.a")
@@ -56,7 +56,7 @@ def audit(link, temporary):
     proofs = link.get("linked_private_inline_proofs", link.get("e2fsprogs_inline_proofs", {}))
     for name, expected in sorted(link["source_library_sha256"].items()):
         path = Path(name)
-        shared_object = path.name in ("crc16.o", "crc32.o") and path.parent.name == "rustbox-checksums"
+        shared_object = path.name in SHARED_SOURCES and path.parent.name in ("rustbox-checksums", "rustbox-e2fsprogs-shared")
         if path.is_absolute() or (path.suffix != ".a" and not shared_object):
             excluded.append(name)
             continue
@@ -73,7 +73,8 @@ def audit(link, temporary):
         package = path.relative_to("work/analysis").parts[0]
         tally = packages.setdefault(package, Counter())
         tally["standalone_objects" if shared_object else "archives"] += 1
-        if shared_object or archive.parent.name == "rustbox-bridge" or archive.parent.parent.name == "rustbox-checksums":
+        if shared_object or archive.parent.name == "rustbox-bridge" or archive.parent.parent.name in (
+                "rustbox-checksums", "rustbox-e2fsprogs-shared"):
             manifest = json.loads(archive.with_suffix(".sources.json").read_text())
             if manifest["archive_sha256"] != expected:
                 raise ValueError(f"stale compiler source list: {name}")
@@ -125,7 +126,7 @@ def audit(link, temporary):
             if layout == "byte_offsets":
                 cleanups[engine_name]["source_layout"] = layout
             files.update({crate / n: sha for n, sha in proof["sources"].items()})
-        root_module = ROOT / f"compat/e2fsprogs/{archive.stem}_abi.rs" if shared_object else crate / "lib.rs"
+        root_module = ROOT / f"compat/e2fsprogs/{SHARED_SOURCES[archive.name]}" if shared_object else crate / "lib.rs"
         if root_module not in files:
             raise ValueError(f"unexpected compiler inputs for {archive}")
         for file, source_sha in files.items():

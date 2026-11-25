@@ -218,10 +218,10 @@ binary.  IPRoute2 passes all 66 global canonical comparisons, including six
 real-kernel `routel` cases, and all 21 Valgrind paths; exact integration
 evidence is in `evidence/iproute2-7.3.0-multicall.json`.  The resulting
 E2fsprogs integration passes 112/112 canonical comparisons and all 32
-Valgrind paths; its 20 private namespaces rename 8,113 symbols after removing
+Valgrind paths; its 20 private namespaces rename 8,100 symbols after removing
 3,966 byte-identical Rust runtime members already provided by Procps-ng.
 Exact evidence is in `evidence/e2fsprogs-1.47.4-multicall.json`.  The resulting
-499-name executable is 43,033,392 bytes unstripped and 25,081,136 bytes
+499-name executable is 43,034,336 bytes unstripped and 25,081,136 bytes
 stripped. Sharing the Coreutils runtime with Gzip saved 289,264 stripped
 bytes. The linker compares 328 archive members byte-for-byte before sharing
 them. The exact hashes and
@@ -283,8 +283,8 @@ production reduction.
 The default 499-name Linux executable now uses the cleaned sources for
 all 20 E2fsprogs, 18 IPRoute2 and 26 GNU Inetutils engines, as well as curl,
 GNU gzip and XZ Utils. Across the linked applet sources the raw-pointer type
-count fell from **1,379,960 to 1,117,983**.
-Counting byte-identical Rust files once gives **798,473** remaining occurrences.
+count fell from **1,379,960 to 1,117,906**.
+Counting byte-identical Rust files once gives **798,468** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
 | Production change | Raw-pointer type occurrences removed |
@@ -297,29 +297,33 @@ The count of applets certified pointer-free is still zero.
 | Compiler-verified removal of unused private helpers in curl 8.23.0 | 7,833 |
 | Compiler-verified removal of unused private helpers in GNU gzip 1.14 | 1,023 |
 | Compiler-verified removal of unused private helpers in XZ Utils 5.8.4 | 7,075 |
-| **Total** | **261,977** |
+| Shared E2fsprogs bitmap counter, including its raw ABI argument | 77 |
+| **Total** | **262,054** |
 
-E2fsprogs accounts for 215,084 remaining occurrences, down from 401,012.
+E2fsprogs accounts for 215,007 remaining occurrences, down from 401,012.
 IPRoute2 accounts for 223,692, down from 265,323. GNU Inetutils accounts
 for 85,898, down from 104,385. The curl crate accounts for 89,022, down
 from 96,855. GNU gzip accounts for 3,063, down from 4,086, and XZ Utils
 accounts for 15,164, down from 22,239.
 The checksum replacement saved 135,168 stripped bytes. Removing unused source
-preserved the entire ELF and link map byte-for-byte. The executable is
-25,081,136 bytes stripped and its unstripped SHA-256 is
-`b8241ee1e9194ad785f897ca56358df4da82643b86187748da53fd2724d4a0ae`.
+preserved the entire ELF and link map byte-for-byte in those cleanup releases.
+Sharing the live bitmap counter kept the stripped size at 25,081,136 bytes.
+The current unstripped SHA-256 is
+`aa3e3eea0e2ac5175759fa759dc44b2456a1cd710c854e2938ce18c66f8dc8e0`.
 
 | Code | Where it runs | Remaining work |
 |---|---|---|
 | IPRoute2 nested FDB activity | Default multicall, verified against canonical `bridge` on 259 records and live kernel operations | The adapter still constructs a borrowed slice from the initialized receive buffer |
 | IPRoute2 generic `parse_rtattr_flags` | Disposable `bridge` build | Audit the remaining callers before wider use |
+| E2fsprogs bitmap population count | Shared by the filesystem checker and resizer | Move the bitmap buffer owners to safe Rust to remove the remaining raw ABI argument |
 | E2fsprogs CRC16, CRC32C and big-endian CRC32 | One linked provider for each function, shared across 13 engines | Replace the raw buffers at the caller boundary as their owners are migrated |
 
 Reproduce the linked Rust source inventory with
 `python3 -B scripts/audit_linked_pointers.py work/analysis/rustbox-multicall-link.json`.
 It checks the archive hashes, reads the Rust compiler's source lists and
 counts textual occurrences of `*const` and `*mut`. The current report covers
-4,907 source entries from 127 applet archives and two checksum objects. It separately tracks raw borrows, pointer accessors and
+4,908 source entries from 127 applet archives and three shared objects.
+It separately tracks raw borrows, pointer accessors and
 raw slice constructors. It excludes native C objects, dependent libraries and
 code outside the selected applet crates. See `evidence/rustbox-linked-pointers.json`
 for package counts and the executable hash. Run
@@ -366,18 +370,24 @@ including all 32 input alignments, single-bit seeds and zero-length inputs.
 The production source count above credits only changes present in its recorded
 executable. The CRC32 ABI adapter still accepts raw input buffers.
 
-E2fsprogs bitmap counting has a verified standalone replacement in
-`compat/e2fsprogs/bitcount.rs`. The algorithm counts set bits in safe eight-byte
-chunks and then the remaining bytes. Its unsigned 32-bit result wraps as in
-upstream C. Under the pinned x86-64 size build, the Rust function occupies
-200 bytes of machine code. Its C entry
-point takes one raw buffer pointer. Run `scripts/test_e2fsprogs_bitcount.sh`
-for 16,452 comparisons with the pinned C, including inputs against protected
-page boundaries and an all-ones bitmap that overflows the accumulator.
-Callgrind confirmed calls from both translated consumers, `e2fsck` during
-a read-only check and `resize2fs` during a 32-to-40 MiB grow. Both commands
-matched canonical output and exit status, and both copies of the grown
-filesystem were byte-identical. This standalone pilot awaits multicall integration.
+E2fsprogs uses one shared bitmap counter in `compat/e2fsprogs/bitcount.rs`.
+The algorithm counts set bits in safe eight-byte chunks and then in the
+remaining bytes. Its unsigned 32-bit result wraps as in upstream C. The
+x86-64 function occupies 200 machine-code bytes. The C entry point takes
+one raw pointer and a byte length. The build checks the original source
+hashes before removing the counter and its two internal helpers from 13
+archives. It verifies that only `e2fsck` and `resize2fs` reference the shared
+symbol and that the executable defines it exactly once.
+
+Run `scripts/test_e2fsprogs_bitcount.sh --multicall` to compare the linked
+Rust object with the pinned E2fsprogs C on 16,452 inputs, including guarded
+page boundaries and an all-ones bitmap large enough to wrap the counter.
+The same test checks a 32 MiB ext4 image with `e2fsck` and grows it to
+40 MiB with `resize2fs`. It compares output, status and the complete image,
+traces both callers with Callgrind, and checks both operations with Memcheck.
+The report binds the results to the executable and object hashes. Omit
+`--multicall` to test a rebuilt provider with standalone copies of the two
+engines.
 
 Run the following audit to group finalized files by their SHA-256 and list
 every engine path in each group. The counts use the translation inventory's

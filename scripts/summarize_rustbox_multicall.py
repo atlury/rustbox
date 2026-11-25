@@ -10,6 +10,7 @@ import re
 import shutil
 import subprocess
 import tempfile
+from datetime import datetime, timezone
 from pathlib import Path
 
 
@@ -835,6 +836,7 @@ def main() -> int:
         or e2fsprogs.get("collision_isolation", {}).get("renamed_symbols")
             != sum(map(len, link["e2fsprogs_namespaced_symbols"].values()))
         or e2fsprogs.get("shared_checksums") != link.get("e2fsprogs_shared_checksums")
+        or e2fsprogs.get("shared_bitcount") != link.get("e2fsprogs_shared_bitcount")
         or e2fsprogs.get("collision_isolation", {}).get("coalesced_runtime_members") != 3966
         or e2fsprogs.get("binary", {}).get("verified_sha256") != link["binary"]["sha256"]
         or e2fsprogs.get("binary", {}).get("verified_link_map_sha256")
@@ -948,7 +950,7 @@ def main() -> int:
     }
     evidence = {
         "schema": 1,
-        "recorded_at": "2026-11-24",
+        "recorded_at": datetime.fromtimestamp(args.link_report.stat().st_mtime, timezone.utc).date().isoformat(),
         "status": "Coreutils, util-linux, GNU M4, pkgconf, File, GNU patch, GNU sed, GNU Diffutils, GNU Grep, GNU bc, GNU dc, attr, acl, LZ4, Less, GNU Gzip, XZ Utils, zstd, GNU tar, Ncurses, GNU Findutils, GNU Gawk, Flex, Bison, curl, GNU Inetutils, IPRoute2, Kmod, Procps-ng, Shadow, and E2fsprogs integrated at canonical parity",
         "scope": {
             "coreutils": 106,

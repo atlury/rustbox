@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the E2fsprogs archives that call Rustbox's shared CRC implementations."""
+"""Build the E2fsprogs archives that call Rustbox's shared checksum and bitmap implementations."""
 # SPDX-License-Identifier: GPL-2.0-only
 
 import argparse
@@ -25,7 +25,34 @@ MODULE_SHA = "c3e5eff63f35648b28420174e58a0646ab5ec29d93e9d37321c5f557beed45cd"
 CALLER_SHA = "df60cd81ca32e4acb08f47c7d9c84b8ce03c5784d9634558dc57987b8623dab4"
 
 
-def stage(engine, shared=True):
+BITCOUNT_SYMBOL = "rustbox_e2fsprogs_bitcount"
+BITCOUNT_CALLERS = {
+    "e2fsck/pass5.rs": "71df0858941f8e7e928eb22801df324ff27e708b906bcd5d5c4d37bc4b29ff03",
+    "resize/resize2fs.rs": "8bdd2f7e4ad9f8addc8c4bb5b291e9c2657694408a456e656395002a57dc39da",
+}
+SHARED_SOURCES = {"crc16.o": "crc16_abi.rs", "crc32.o": "crc32_abi.rs", "bitcount.o": "bitcount.rs"}
+
+
+def stage_bitcount(module):
+    bitops = module.with_name("bitops.rs")
+    data = bitops.read_bytes()
+    if hashlib.sha256(data).hexdigest() != "0e380796c9a66bdbd6249ae9b6ae5b2f2fbf55495f45d6c5fe665334c9651aca":
+        raise ValueError("unexpected E2fsprogs bitmap operations module")
+    # The pinned module ends with popcount8, popcount32 and ext2fs_bitcount.
+    start = data.index(b'unsafe extern "C" fn popcount8(')
+    bitops.write_bytes(data[:start])
+    declaration = b"    fn ext2fs_bitcount("
+    for relative, expected in BITCOUNT_CALLERS.items():
+        source = module.parents[2] / relative
+        if source.is_file():
+            data = source.read_bytes()
+            if hashlib.sha256(data).hexdigest() != expected or data.count(declaration) != 1:
+                raise ValueError(f"unexpected bitmap counter caller: {relative}")
+            attribute = f'    #[link_name = "{BITCOUNT_SYMBOL}"]\n'.encode()
+            source.write_bytes(data.replace(declaration, attribute + declaration))
+
+
+def stage(engine, shared=True, share_bitcount=True):
     module, = engine.glob("**/lib/ext2fs/crc16.rs")
     if hashlib.sha256(module.read_bytes()).hexdigest() != MODULE_SHA:
         raise ValueError(f"unexpected checksum module in {engine}")
@@ -55,6 +82,8 @@ def stage(engine, shared=True):
             updated = declarations.sub(link_name, data)
             if updated != data:
                 source.write_bytes(updated)
+        if share_bitcount:
+            stage_bitcount(module)
 
 
 def build_archive(name, translations, archive, shared=True):
@@ -116,8 +145,8 @@ def build_shared(translations, output):
         raise ValueError(f"unexpected set of CRC16 consumers: {actual}")
     output.mkdir(parents=True, exist_ok=True)
     objects = []
-    for algorithm in ("crc16", "crc32"):
-        obj = output / f"{algorithm}.o"
+    for name, source in SHARED_SOURCES.items():
+        obj = output / name
         objects.append(obj)
         with tempfile.TemporaryDirectory(dir=output) as tmp:
             staged = Path(tmp) / obj.name
@@ -125,7 +154,7 @@ def build_shared(translations, output):
             subprocess.run(["rustc", "--edition=2021", "--crate-type=lib",
                             f"--emit=obj,dep-info={depfile}", "--cfg", "rustbox_multicall",
                             "-C", "opt-level=s", "-C", "panic=abort",
-                            f"compat/e2fsprogs/{algorithm}_abi.rs", "-o", staged], cwd=REPO, check=True)
+                            f"compat/e2fsprogs/{source}", "-o", staged], cwd=REPO, check=True)
             rule = depfile.read_text().splitlines()[0].split(": ", 1)[1]
             sources = sorted({n for n in shlex.split(rule) if n.endswith(".rs")})
             manifest = {"archive_sha256": hashlib.sha256(staged.read_bytes()).hexdigest(),

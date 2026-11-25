@@ -8,6 +8,7 @@ import hashlib
 import json
 import re
 import subprocess
+from datetime import datetime, timezone
 from pathlib import Path
 
 
@@ -105,7 +106,7 @@ def main() -> int:
     ).encode()
     evidence = {
         "schema": 1,
-        "recorded_at": "2026-11-24",
+        "recorded_at": datetime.fromtimestamp(differential_path.stat().st_mtime, timezone.utc).date().isoformat(),
         "release": "7.3.0",
         "status": "all 21 IPRoute2 public names integrated at canonical parity",
         "dispatch": {

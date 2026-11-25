@@ -8,6 +8,7 @@ import hashlib
 import json
 import re
 import subprocess
+from datetime import datetime, timezone
 from pathlib import Path
 
 
@@ -177,7 +178,7 @@ def main() -> int:
     ).encode()
     evidence = {
         "schema": 1,
-        "recorded_at": "2026-11-24",
+        "recorded_at": datetime.fromtimestamp(differential_path.stat().st_mtime, timezone.utc).date().isoformat(),
         "release": "1.47.4",
         "status": "all 32 E2fsprogs public names integrated at canonical parity",
         "dispatch": {
@@ -224,6 +225,22 @@ def main() -> int:
                 any(symbols.count(name) != 1 for name in expected)):
             raise RuntimeError("incomplete shared E2fsprogs checksum linkage")
         evidence["shared_checksums"] = checksums
+    if bitmap := link.get("e2fsprogs_shared_bitcount"):
+        provider = "rustbox_e2fsprogs_bitcount"
+        objects = [v for k, v in link["source_library_sha256"].items()
+                   if k.endswith("/rustbox-e2fsprogs-shared/bitcount.o")]
+        if (bitmap["symbol"] != provider or bitmap["callers"] != ["e2fsck", "resize2fs"]
+                or objects != [bitmap["object_sha256"]] or symbols.count(provider) != 1):
+            raise RuntimeError("incomplete shared E2fsprogs bitmap linkage")
+        tests = json.loads((args.report_directory.parent / "multicall-bitcount.json").read_bytes())
+        if (tests["binary_sha256"] != binary_record["sha256"] or tests["object_sha256"] != objects[0]
+                or tests["canonical_comparisons"] != 16452 or tests["traced_callers"] != bitmap["callers"]
+                or tests["memcheck_errors"] != {"e2fsck": 0, "resize2fs": 0}
+                or tests["grown_image_bytes"] != 40 * 1024 * 1024
+                or tests["canonical_image_sha256"] != tests["rustbox_image_sha256"]):
+            raise RuntimeError("bitmap count tests do not match the release")
+        evidence["shared_bitcount"] = bitmap
+        evidence["bitcount_verification"] = tests
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")
     print(json.dumps({

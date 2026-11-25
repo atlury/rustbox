@@ -15,7 +15,7 @@ import tempfile
 from pathlib import Path
 
 from build_iproute2_bridge import build_bridge
-from build_e2fsprogs_checksums import build_shared, CRC_SYMBOLS
+from build_e2fsprogs_checksums import build_shared, BITCOUNT_SYMBOL, CRC_SYMBOLS
 from prune_private_inlines import prepare_archive
 
 ISOLATION_CACHE_VERSION = 18
@@ -2494,7 +2494,7 @@ def main() -> int:
         for name in E2FSPROGS_PROGRAMS
     }
     checksum_consumers, checksum_objects = build_shared(
-        e2fsprogs_rust_directory.parent, e2fsprogs_rust_directory.parent / "rustbox-checksums"
+        e2fsprogs_rust_directory.parent, e2fsprogs_rust_directory.parent / "rustbox-e2fsprogs-shared"
     )
     # Each proof binds the trimmed compiler inputs to the exact pre-cleanup release archive.
     selected_archives = list(checksum_consumers.values())
@@ -2518,15 +2518,22 @@ def main() -> int:
     def c_exports(path):
         return {name for name in defined_symbols(path) if not name.startswith(("_ZN", "_R"))
                 and re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", name)}
+    bitmap_callers = []
     for name, archive in checksum_consumers.items():
         original = c_exports(e2fsprogs_libraries[name])
         hardened = c_exports(archive)
-        if original - hardened != set(CRC_SYMBOLS) or hardened - original:
+        if original - hardened != set(CRC_SYMBOLS) | {"ext2fs_bitcount"} or hardened - original:
             raise RuntimeError(f"unexpected C export changes in checksum consumer {name}")
         references = undefined_symbols(archive)
+        if "ext2fs_bitcount" in references:
+            raise RuntimeError(f"stale bitmap reference in {name}")
+        if BITCOUNT_SYMBOL in references:
+            bitmap_callers.append(name)
         if references.intersection(CRC_SYMBOLS) or not {
                 CRC_SYMBOLS["ext2fs_crc16"], CRC_SYMBOLS["ext2fs_crc32c_le"]} <= references:
             raise RuntimeError(f"unexpected checksum linkage in {name}")
+    if sorted(bitmap_callers) != ["e2fsck", "resize2fs"]:
+        raise RuntimeError(f"unexpected bitmap counter callers: {bitmap_callers}")
     e2fsprogs_libraries.update(checksum_consumers)
     kmod_rust_library = args.kmod_rust_library.resolve()
     procps_rust_library = args.procps_rust_library.resolve()
@@ -3601,6 +3608,8 @@ def main() -> int:
     if any(name.startswith("libacl.so") for name in dynamic_needed):
         raise RuntimeError("combined Rustbox still depends on system libacl")
     symbols = defined_symbols(output)
+    if symbols.count(BITCOUNT_SYMBOL) != 1 or any(s.endswith("_private_ext2fs_bitcount") for s in symbols):
+        raise RuntimeError("expected exactly one shared bitmap counter")
     if any(symbols.count(name) != 1 for name in CRC_SYMBOLS.values()):
         raise RuntimeError("expected one provider for each E2fsprogs checksum")
     if any(symbol.endswith(f"_private_{name}") for symbol in symbols for name in CRC_SYMBOLS):
@@ -3694,7 +3703,11 @@ def main() -> int:
         "linked_private_inline_proofs": inline_proofs,
         "e2fsprogs_shared_checksums": {
             "symbols": sorted(CRC_SYMBOLS.values()), "consumers": sorted(checksum_consumers),
-            "object_sha256": {o.name: sha256(o) for o in checksum_objects},
+            "object_sha256": {o.name: sha256(o) for o in checksum_objects if o.name != "bitcount.o"},
+        },
+        "e2fsprogs_shared_bitcount": {
+            "symbol": BITCOUNT_SYMBOL, "callers": sorted(bitmap_callers),
+            "object_sha256": sha256(next(o for o in checksum_objects if o.name == "bitcount.o")),
         },
         "namespaced_symbols": namespaced_symbols,
         "namespaced_support_symbols": namespaced_support,
