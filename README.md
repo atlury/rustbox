@@ -821,6 +821,24 @@ at raw C boundaries. Run `scripts/count_checked_parser_changes.py` with
 the package, original link, prepared link and cold-build directory.
 [Exact source inventories](evidence/zstd-less-compiled-pointer-counts.json)
 
+The Linux errno candidate replaces integer reads and stores through
+`__errno_location()` with a shared pair of Rust functions. The functions
+access glibc's thread-local cell at each operation. Modules qualify only
+when the syntax checker accounts for the private declaration and every
+use. Address-taking and compound assignments leave a module ineligible.
+
+| Compiler-selected sources | Eligible modules | Integer reads | Integer writes | Net pointer declarations removed |
+|---|---:|---:|---:|---:|
+| GNU gzip | 8 | 4 | 8 | 7 |
+| GNU grep | 14 | 11 | 21 | 13 |
+| GNU sed | 13 | 5 | 53 | 12 |
+
+These are source projections. The accessor itself matched glibc for signed
+integer endpoints, failed file operations and signal-handler save/restore in
+four concurrent threads. GCC and Clang each exercised the canonical and Rust
+accessors, then repeated the runs under Memcheck.
+[Source projections and thread checks](evidence/errno-value-access-source.json)
+
 The native C-string manifest can grow within an archive already selected.
 `prepare_native_c_strings.py enroll --extend` checks that the new cold
 build covers every earlier edit on the same compiler sources and produces

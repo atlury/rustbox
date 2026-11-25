@@ -1,0 +1,237 @@
+{
+  "projections": {
+    "grep": {
+      "archive": "work/analysis/grep-3.12/translations/c2rust-0.22.1/grep-3.12-stable/target/release/libgrep_3_12_normalized_audit.a",
+      "candidate_sources_sha256": "3b466aedf7f9b1c912b8bafc9617ac6e4b62aa17c6901e80210d364fc6efcb64",
+      "compiler_selected_sources": 131,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_sha256": "773734b6968c400631b9404b1195ac5929648fb397c59caba84bcee0e58c1a11",
+      "helper_sha256": "554946bffc2381da8b362a86ed2063db1c610eca3458430c22fae407ac6eb35d",
+      "modules": {
+        "src/normalized_source/lib/c_stack.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/fd_safer.rs": [
+          1,
+          1
+        ],
+        "src/normalized_source/lib/fopen.rs": [
+          1,
+          1
+        ],
+        "src/normalized_source/lib/hash.rs": [
+          2,
+          5
+        ],
+        "src/normalized_source/lib/ialloc.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/malloc/dynarray_emplace_enlarge.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/malloc/dynarray_resize.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/mbsrtowcs.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/opendirat.rs": [
+          1,
+          1
+        ],
+        "src/normalized_source/lib/pipe_safer.rs": [
+          1,
+          1
+        ],
+        "src/normalized_source/lib/quotearg.rs": [
+          4,
+          4
+        ],
+        "src/normalized_source/lib/reallocarray.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/sigsegv.rs": [
+          1,
+          1
+        ],
+        "src/normalized_source/lib/xmalloc.rs": [
+          0,
+          1
+        ]
+      },
+      "parent_sources_sha256": "bf291e2c76cf74b5be8faffd2258a17e7e4c845d12eb62ab789feb38ab8f0320",
+      "raw_pointer_types_removed": 13,
+      "scanner_sha256": "2266bce319952459557e16063cbb60eb40884309a4c18addcfdc39f112a4ccd6",
+      "value_reads": 11,
+      "value_writes": 21
+    },
+    "gzip": {
+      "archive": "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a",
+      "candidate_sources_sha256": "25bebc7c2ed706465518cb409d0dbdbc07436a0c573a1da5acb0d8de1bceabc7",
+      "compiler_selected_sources": 66,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_sha256": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd",
+      "helper_sha256": "554946bffc2381da8b362a86ed2063db1c610eca3458430c22fae407ac6eb35d",
+      "modules": {
+        "src/normalized_source/lib/fclose.rs": [
+          1,
+          1
+        ],
+        "src/normalized_source/lib/fd_safer.rs": [
+          1,
+          1
+        ],
+        "src/normalized_source/lib/ialloc.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/pipe_safer.rs": [
+          1,
+          1
+        ],
+        "src/normalized_source/lib/reallocarray.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/savedir.rs": [
+          1,
+          1
+        ],
+        "src/normalized_source/lib/vfzprintf.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/xmalloc.rs": [
+          0,
+          1
+        ]
+      },
+      "parent_sources_sha256": "b40e8f7416b61aacb51120150f202af1647e99e1a4fa3ee70c8f32b851de0569",
+      "raw_pointer_types_removed": 7,
+      "scanner_sha256": "2266bce319952459557e16063cbb60eb40884309a4c18addcfdc39f112a4ccd6",
+      "value_reads": 4,
+      "value_writes": 8
+    },
+    "sed": {
+      "archive": "work/analysis/sed-4.10/translations/c2rust-0.22.1/sed-4.10-stable/target/release/libsed_4_10_normalized_audit.a",
+      "candidate_sources_sha256": "9ab90d5db2c11a9de7c3ea5f2637002c85ad60c21bce18ea4663692f35245323",
+      "compiler_selected_sources": 87,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_sha256": "99cddd80c240b7f1fce4fb5a278fef15a1a836b6b3b5ae1c6a82065407ef708c",
+      "helper_sha256": "554946bffc2381da8b362a86ed2063db1c610eca3458430c22fae407ac6eb35d",
+      "modules": {
+        "src/normalized_source/lib/get_permissions.rs": [
+          1,
+          0
+        ],
+        "src/normalized_source/lib/ialloc.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/malloc/dynarray_emplace_enlarge.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/malloc/dynarray_resize.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/malloc/scratch_buffer_grow.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/malloc/scratch_buffer_grow_preserve.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/malloc/scratch_buffer_set_array_size.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/quotearg.rs": [
+          4,
+          4
+        ],
+        "src/normalized_source/lib/reallocarray.rs": [
+          0,
+          1
+        ],
+        "src/normalized_source/lib/se_context.rs": [
+          0,
+          10
+        ],
+        "src/normalized_source/lib/se_label.rs": [
+          0,
+          4
+        ],
+        "src/normalized_source/lib/se_selinux.rs": [
+          0,
+          27
+        ],
+        "src/normalized_source/lib/xmalloc.rs": [
+          0,
+          1
+        ]
+      },
+      "parent_sources_sha256": "140027d2659e5a028d9849819bb0f7e35736464971bfbebdd586639c2e4f2dd8",
+      "raw_pointer_types_removed": 12,
+      "scanner_sha256": "2266bce319952459557e16063cbb60eb40884309a4c18addcfdc39f112a4ccd6",
+      "value_reads": 5,
+      "value_writes": 53
+    }
+  },
+  "thread_and_signal_checks": {
+    "driver_sha256": "90dc5466bf4261ae37d9d862775305537bea3523e8be884f005fb4d3075db6d2",
+    "helper_sha256": "554946bffc2381da8b362a86ed2063db1c610eca3458430c22fae407ac6eb35d",
+    "rounds_per_run": 64,
+    "runs": [
+      {
+        "compiler": "gcc",
+        "memcheck": false,
+        "target": "canonical"
+      },
+      {
+        "compiler": "gcc",
+        "memcheck": true,
+        "target": "canonical"
+      },
+      {
+        "compiler": "gcc",
+        "memcheck": false,
+        "target": "rust"
+      },
+      {
+        "compiler": "gcc",
+        "memcheck": true,
+        "target": "rust"
+      },
+      {
+        "compiler": "clang-18",
+        "memcheck": false,
+        "target": "canonical"
+      },
+      {
+        "compiler": "clang-18",
+        "memcheck": true,
+        "target": "canonical"
+      },
+      {
+        "compiler": "clang-18",
+        "memcheck": false,
+        "target": "rust"
+      },
+      {
+        "compiler": "clang-18",
+        "memcheck": true,
+        "target": "rust"
+      }
+    ],
+    "threads_per_run": 4
+  }
+}
