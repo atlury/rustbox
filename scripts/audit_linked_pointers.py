@@ -15,6 +15,7 @@ import tempfile
 from cargo_archive_pilot import verify_source_substitution
 import curl_manual
 import curl_manual_archive
+import share_stdio_layout
 import iproute2_address_protocol_archive as address_protocols
 import iproute2_route_name_archives as route_archives
 from iproute2_route_names import replace_route_names, replace_netlink_protocols
@@ -80,6 +81,9 @@ def measure_layer(crate, files, proof, item_count="private_functions_removed"):
 
 
 def audit(link, temporary, inspect_source=None, *, inspect_module=None):
+    link_archive_hashes = link["source_library_sha256"]
+    stdio_records = link.get("shared_stdio_layouts", {})
+    stdio_deltas = {}
     curl_record = link.get("curl_manual", {}).get("pilot")
     curl_records = {curl_manual_archive.KEY: curl_record} if curl_record else {}
     curl_deltas = {}
@@ -234,16 +238,24 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None):
         root_module = ROOT / f"compat/e2fsprogs/{SHARED_SOURCES[archive.name]}" if shared_object else crate / "lib.rs"
         if root_module not in files:
             raise ValueError(f"unexpected compiler inputs for {archive}")
+        stdio = stdio_records.get(str(linked_path))
+        replacements = {}
+        if stdio is not None:
+            replacements = share_stdio_layout.replay(crate, files, stdio, linked_path, link_archive_hashes[str(linked_path)])
+            stdio_deltas[str(linked_path)] = stdio["raw_pointer_types_removed"]
         for file, source_sha in files.items():
             file.relative_to(crate)
             data = file.read_bytes()
             digest = hashlib.sha256(data).digest()
             if source_sha and digest.hex() != source_sha:
                 raise ValueError(f"restaged source differs from linked version: {file.name}")
-            if digest not in unique:
-                unique[digest] = Counter({k: len(regex.findall(data)) for k, regex in METRICS.items()})
             if name in fixed_arrays:
                 source_digests[str(file.relative_to(crate))] = digest.hex()
+            if file in replacements:
+                data = replacements[file]
+                digest = hashlib.sha256(data).digest()
+            if digest not in unique:
+                unique[digest] = Counter({k: len(regex.findall(data)) for k, regex in METRICS.items()})
             tally.update(unique[digest])
             if inspect_source is not None and not shared_object:
                 inspect_source(linked_path, digest, data)
@@ -257,6 +269,8 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None):
                 source_digests[layer["module"]] = layer["module_before"]
                 if source_list_digest(source_digests) != layer["parent_sources_sha256"]:
                     raise ValueError(f"{stage} parent source list differs from its receipt: {name}")
+    if stdio_deltas.keys() != stdio_records.keys():
+        raise ValueError("stdio receipt is outside the selected archive set")
     if len(array_counts) != len(fixed_arrays):
         raise ValueError("directory hash conversion outside the measured archive set")
     if len(second_cleanups) != len(second):
@@ -273,6 +287,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None):
             "packages": packages, "non_applet_archive_inputs": excluded,
             **({"byte_identical_inline_cleanups": cleanups} if cleanups else {}),
             **({"byte_identical_second_inline_cleanups": second_cleanups} if second_cleanups else {}),
+            **({"shared_stdio_layout_deltas": stdio_deltas} if stdio_deltas else {}),
             **({"curl_manual_deltas": curl_deltas} if curl_deltas else {}),
             **({"iproute2_netlink_protocol_deltas": netlink_deltas} if netlink_deltas else {}),
             **({"iproute2_route_name_deltas": route_deltas} if route_deltas else {}),
@@ -433,6 +448,28 @@ def check_archive_counts(previous_link, control, before, after, added, delta_fie
             raise ValueError(f"unexplained archive inventory change for {package}")
 
 
+def check_shared_stdio(previous, selected, before, after):
+    previous_records = previous.get("shared_stdio_layouts", {})
+    records = selected["shared_stdio_layouts"]
+    if (not previous_records.keys() < records.keys()
+            or any(records[k] != row for k, row in previous_records.items())
+            or {k: v for k, v in previous.items() if k != "shared_stdio_layouts"}
+               != {k: v for k, v in selected.items() if k != "shared_stdio_layouts"}):
+        raise ValueError("sharing FILE layouts must preserve the complete ELF and every existing linker input")
+    removed = Counter()
+    for key in records.keys() - previous_records.keys():
+        removed[Path(key).relative_to("work/analysis").parts[0]] += after["shared_stdio_layout_deltas"][key]
+    expected = Counter(before["all"])
+    expected["raw_pointer_type_tokens"] -= sum(removed.values())
+    if expected != after["all"] or before["packages"].keys() != after["packages"].keys():
+        raise ValueError("layout receipts do not explain the linked inventory")
+    for package, counts in before["packages"].items():
+        expected = Counter(counts)
+        expected["raw_pointer_type_tokens"] -= removed[package]
+        if expected != after["packages"][package]:
+            raise ValueError(f"unexplained layout inventory change in {package}")
+
+
 def measure(link, inspect_source=None, *, inspect_module=None):
     with tempfile.TemporaryDirectory() as temp:
         return audit(link, Path(temp), inspect_source, inspect_module=inspect_module)
@@ -442,6 +479,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("link_report", type=Path)
     previous = parser.add_mutually_exclusive_group()
+    previous.add_argument("--verify-shared-stdio-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-curl-manual-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-netlink-protocols-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-route-names-from", type=Path, metavar="CONTROL")
@@ -458,6 +496,9 @@ if __name__ == "__main__":
     if args.verify_cleanup_from:
         previous_link = json.loads(args.verify_cleanup_from.read_bytes())
         check_added_cleanups(previous_link, link, measure(previous_link), current)
+    if args.verify_shared_stdio_from:
+        prior = json.loads(args.verify_shared_stdio_from.read_bytes())
+        check_shared_stdio(prior, link, measure(prior), current)
     if args.verify_curl_manual_from:
         prior = json.loads(args.verify_curl_manual_from.read_bytes())
         row = link["curl_manual"]["pilot"]

@@ -56,3 +56,31 @@ def share(data, owner):
     if entries and len(POINTER.findall(data)) - len(POINTER.findall(candidate)) != 18:
         raise ValueError("unexpected raw-pointer change in FILE layout")
     return candidate
+
+
+def replay(crate, files, row, archive, archive_sha):
+    """Regenerate the exact compiler-selected source map from a byte-identical build receipt."""
+    from check_e2fsprogs_dirhash_arrays import source_list_digest
+
+    before = {str(path.relative_to(crate)): hashlib.sha256(path.read_bytes()).hexdigest() for path in files}
+    copied = row["reexporting_modules"]
+    owner = Path(row["provider"])
+    if (row["archive"] != str(archive) or row["control_sha256"] != archive_sha or row["candidate_sha256"] != archive_sha
+            or str(owner) not in before or not eligible((crate / owner).read_bytes())
+            or len(set(copied)) != len(copied) or str(owner) in copied or not set(copied) <= before.keys()
+            or len(before) != row["compiler_selected_sources"] or source_list_digest(before) != row["parent_sources_sha256"]):
+        raise ValueError(f"invalid FILE layout parent or module selection in {archive}")
+    after = before.copy()
+    replacements = {}
+    for name in copied:
+        path = crate / name
+        data = path.read_bytes()
+        candidate = share(data, owner)
+        if candidate == data:
+            raise ValueError(f"FILE layout did not change in {name}")
+        after[name] = hashlib.sha256(candidate).hexdigest()
+        replacements[path] = candidate
+    if (row["raw_pointer_types_removed"] != 18 * len(copied) or not copied
+            or source_list_digest(after) != row["candidate_sources_sha256"]):
+        raise ValueError(f"FILE layout replay differs from the cold compilation for {archive}")
+    return replacements

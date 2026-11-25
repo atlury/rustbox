@@ -374,6 +374,20 @@ python3 -B scripts/build_shared_stdio_pilot.py --link "$link" --output work/anal
 python3 -B scripts/test_gzip_stdio_pilot.py work/analysis/gzip-stdio-test "$link"
 ```
 
+On the tested netlink release, 93 archives contained duplicate `FILE`
+definitions matching the full layout, its three opaque pointees and all
+three field type aliases. Retaining one provider per crate gives 39,618
+candidate field declarations. To qualify a group, save the ranker's JSON
+and supply package names from that report. The batch rebuilds each full
+archive twice and records the packages that produced different bytes.
+
+```sh
+python3 -B scripts/rank_stdio_layouts.py "$link" > work/analysis/stdio-ranks.json
+python3 -B scripts/build_shared_stdio_batch.py "$link" work/analysis/stdio-ranks.json \
+  work/analysis/stdio-batch --package coreutils-9.12 --package util-linux-2.42.4
+```
+
+
 Run `python3 -B scripts/rank_fixed_array_helpers.py work/analysis/rustbox-multicall-link.json`
 to find private functions in generated Rust whose pointer parameters occur
 only in constant-offset accesses. The scan groups identical definitions and
