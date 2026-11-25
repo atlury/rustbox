@@ -583,6 +583,20 @@ passing result for each failed package, and records the original exit status
 alongside the retry receipt. `RUSTBOX_GREP_TEST_JOBS` controls upstream GNU
 grep test concurrency when reproducing its timed signal checks.
 
+The curl calendar pilot replaces 23 raw offsets in `checkmonth` with a
+three-byte array match. Its single caller copies three bytes only after
+the existing date scanner has counted three ASCII letters. The Rust helper
+forbids unsafe code. Across all 16,777,216 three-byte inputs it returned the
+same month number as upstream curl under GCC and Clang, each with signed
+and unsigned `char`. Exactly 96 spellings matched. This check covers the
+helper. Full-archive and public-command results are tracked separately.
+[Exhaustive month comparison](evidence/curl-month-exhaustive.json)
+
+```sh
+scripts/run_multicall_tool.sh python3 -B /work/tests/curl-calendar/exhaustive.py
+python3 -B scripts/build_curl_month_pilot.py --link "$link" --output "$pilot"
+```
+
 Run `python3 -B scripts/rank_fixed_array_helpers.py work/analysis/rustbox-multicall-link.json`
 to find private functions in generated Rust whose pointer parameters occur
 only in constant-offset accesses. The scan groups identical definitions and

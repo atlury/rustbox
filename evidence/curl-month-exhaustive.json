@@ -1,0 +1,24 @@
+{
+  "accepted_spellings": 96,
+  "canonical_file_sha256": "ad58e5aed9b7c9f334186bab69e423bf37c2b941aa2e5b0a93536bfd4aca0881",
+  "canonical_function_sha256": "0484f2b6023f335207bc050462c6f9b44ed05b818ee26f74e912dda7db7f5d58",
+  "cases_per_build": {
+    "clang-18-signed": 16777216,
+    "clang-18-unsigned": 16777216,
+    "gcc-signed": 16777216,
+    "gcc-unsigned": 16777216
+  },
+  "parent_archive": "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/packed-manual/5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7/libcurl_8_23_0_normalized_audit.a",
+  "parent_archive_sha256": "5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7",
+  "safe_helper_sha256": "bcc1ae27d131e9a6b3b9f7c87f7e3687a2a275f2ad76a925644b68d45c7012e4",
+  "selected_module": {
+    "bounded_array_reads": 1,
+    "candidate_module_sha256": "8a878055506dc10397607a456ba78e975ad35b5ba723a9a9afb59517a8dd7432",
+    "checked_helper_sha256": "bcc1ae27d131e9a6b3b9f7c87f7e3687a2a275f2ad76a925644b68d45c7012e4",
+    "control_module_sha256": "56d4a4bf1703cfa915eeb462536cf4ee4e97a4b690483f1063052cbfd757fa04",
+    "module": "src/lib/parsedate.rs",
+    "raw_offset_accesses_replaced": 23,
+    "raw_pointer_types_removed": 1,
+    "safe_helpers": 1
+  }
+}
