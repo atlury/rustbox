@@ -282,9 +282,10 @@ production reduction.
 
 The default 499-name Linux executable uses verified private-helper cleanups
 for 89 linked Rust archives. These cover the 20 E2fsprogs, 18 IPRoute2 and
-26 GNU Inetutils engines and 25 other package archives. Across the linked
-applet sources the raw-pointer type count fell from **1,379,960 to 1,056,624**.
-Counting byte-identical Rust files once gives **746,529** remaining occurrences.
+26 GNU Inetutils engines and 25 other package archives. A second compiler pass
+removed additional helpers in 58 of those archives. Across the linked
+applet sources the raw-pointer type count fell from **1,379,960 to 1,053,368**.
+Counting byte-identical Rust files once gives **744,042** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
 | Production change | Raw-pointer type occurrences removed |
@@ -302,11 +303,12 @@ The count of applets certified pointer-free is still zero.
 | Compiler-verified removal of unused private helpers in zstd command-line modules | 498 |
 | Compiler-verified removal of unused private helpers across 17 further package archives (breakdown below) | 41,548 |
 | Second-pass private-helper removal across 15 linked archives | 5,459 |
-| **Total** | **323,336** |
+| Second-pass private-helper removal across 43 further engine archives | 3,256 |
+| **Total** | **326,592** |
 
-E2fsprogs accounts for 215,007 remaining occurrences, down from 401,012.
-IPRoute2 accounts for 221,200, down from 265,323. GNU Inetutils accounts
-for 85,898, down from 104,385. The curl crate accounts for 89,022, down
+E2fsprogs accounts for 214,956 remaining occurrences, down from 401,012.
+IPRoute2 accounts for 218,111, down from 265,323. GNU Inetutils accounts
+for 85,782, down from 104,385. The curl crate accounts for 89,022, down
 from 96,855. GNU gzip accounts for 3,063, down from 4,086, and XZ Utils
 accounts for 13,411, down from 22,239.
 The checksum replacement saved 135,168 stripped bytes. Removing unused source
@@ -712,10 +714,24 @@ variants. For example, `ip` and `tc` removed additional helpers from
 `src/lib/ll_addr.rs` while `arpd` retains its earlier version. The inventory
 across all 4,908 linked source entries fell by 5,459.
 
-The next grouped Cargo ranking estimates 1,482 newly unreferenced helpers in
-43 engine archives. The largest remaining estimates are IPRoute2 `rdma` (310),
-`dcb` (149) and `ss` (113). These figures guide build order. The production
-count credits only verified removals.
+The grouped second pass checked 43 more engines. It removed 833 private
+helpers containing 3,256 raw-pointer type occurrences from 234 source entries,
+saving 424,242 source bytes. The initial ranking estimated 1,482 possible
+helpers. The compiler and whole-archive comparisons determined which removals
+entered the release.
+
+| Package | Engines | Private helpers removed | Raw-pointer type occurrences removed |
+|---|---:|---:|---:|
+| IPRoute2 | 15 | 774 | 3,089 |
+| GNU Inetutils | 26 | 38 | 116 |
+| E2fsprogs | 2 | 21 | 51 |
+
+All three package suites passed on the release ELF, including 66 IPRoute2,
+133 GNU Inetutils and 112 E2fsprogs comparisons. All 884 dispatcher checks
+passed. The live bridge replay matched 259 nested records, two adds and two
+deletes. The executable, its stripped
+form and its link map reproduced their previous hashes. The package replay
+record is in `evidence/rustbox-grouped-second-inline-replays.json`.
 
 An independent E2fsprogs `badblocks` experiment removed 1,533 unused C
 declarations across 55 files. This eliminated 1,011 raw-pointer type
