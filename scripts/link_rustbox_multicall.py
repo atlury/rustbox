@@ -14,6 +14,7 @@ import subprocess
 import tempfile
 from pathlib import Path
 
+import curl_manual_archive
 import iproute2_address_protocol_archive as address_protocols
 import iproute2_route_name_archives as route_names
 from build_iproute2_bridge import build_bridge
@@ -2430,6 +2431,7 @@ def main() -> int:
     parser.add_argument("--curl-c-residue-directory", type=Path, required=True)
     parser.add_argument("--inetutils-rust-directory", type=Path, required=True)
     parser.add_argument("--inetutils-telnet-c-boundary", type=Path, required=True)
+    parser.add_argument("--curl-manual", action="store_true")
     parser.add_argument("--iproute2-netlink-protocols", action="store_true")
     parser.add_argument("--iproute2-route-names", action="store_true")
     parser.add_argument("--iproute2-address-protocols", action="store_true")
@@ -2792,6 +2794,21 @@ def main() -> int:
         del source_library_hashes[str(original)]
         source_library_hashes[str(relative)] = record["candidate_sha256"]
         iproute2_libraries[name] = libraries[iproute2_library_indices[name]] = candidate
+    curl_manual_record = None
+    if args.curl_manual:
+        curl_manual_record = curl_manual_archive.pinned()
+        curl_parent = {"source_library_sha256": source_library_hashes, "linked_private_inline_proofs": inline_proofs,
+                       "linked_second_inline_proofs": second_inline_proofs, "linked_foreign_declaration_proofs": foreign_proofs}
+        curl_manual_archive.validate_parent(curl_parent, curl_manual_record)
+        row = curl_manual_record["pilot"]
+        relative = curl_manual_archive.candidate_path(row)
+        candidate = repository / relative
+        if (libraries[curl_library_index] != repository / row["archive"] or sha256(candidate) != row["candidate_sha256"]
+                or c_exports(candidate) != c_exports(libraries[curl_library_index])):
+            raise ValueError("packed curl manual archive or its exported C interface differs")
+        del source_library_hashes[row["archive"]]
+        source_library_hashes[str(relative)] = row["candidate_sha256"]
+        libraries[curl_library_index] = candidate
     parent_link = {"iproute2_address_protocols": address_record, "iproute2_address_protocol_copies": address_copies}
     route_selections = {}
     for field, enabled, archive_path in (
@@ -3791,6 +3808,7 @@ def main() -> int:
         },
         "source_library_sha256": source_library_hashes,
         **route_selections,
+        **({"curl_manual": curl_manual_record} if curl_manual_record else {}),
         **({"iproute2_address_protocol_copies": address_copies} if address_copies else {}),
         **({"iproute2_address_protocols": address_record} if address_record else {}),
         **({"e2fsprogs_dirhash_arrays": dirhash_arrays} if dirhash_arrays else {}),

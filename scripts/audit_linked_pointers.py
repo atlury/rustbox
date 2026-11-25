@@ -12,6 +12,9 @@ import shlex
 import shutil
 import tempfile
 
+from cargo_archive_pilot import verify_source_substitution
+import curl_manual
+import curl_manual_archive
 import iproute2_address_protocol_archive as address_protocols
 import iproute2_route_name_archives as route_archives
 from iproute2_route_names import replace_route_names, replace_netlink_protocols
@@ -77,6 +80,10 @@ def measure_layer(crate, files, proof, item_count="private_functions_removed"):
 
 
 def audit(link, temporary, inspect_source=None, *, inspect_module=None):
+    curl_record = link.get("curl_manual", {}).get("pilot")
+    curl_records = {curl_manual_archive.KEY: curl_record} if curl_record else {}
+    curl_deltas = {}
+    link = curl_manual_archive.parent_view(link)
     fixed_arrays = link.get("e2fsprogs_dirhash_arrays", {})
     netlink_records = link.get("iproute2_netlink_protocols", {})
     netlink_deltas = {}
@@ -172,23 +179,24 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None):
             declarations[engine_name] = stats
         linked_path = path
         source_digests = {}
-        for records, archive_path, transform, deltas in (
-            (address_records, address_protocols.candidate_path, address_protocols.replace_table, address_deltas),
-            (route_records, route_archives.candidate_path, replace_route_names, route_deltas),
-            (netlink_records, route_archives.netlink_path, replace_netlink_protocols, netlink_deltas),
+        for records, archive_path, transform, deltas, relative_module in (
+            (address_records, address_protocols.candidate_path, address_protocols.replace_table, address_deltas, address_protocols.MODULE),
+            (route_records, route_archives.candidate_path, replace_route_names, route_deltas, address_protocols.MODULE),
+            (netlink_records, route_archives.netlink_path, replace_netlink_protocols, netlink_deltas, address_protocols.MODULE),
+            (curl_records, curl_manual_archive.candidate_path, curl_manual.replace_manual, curl_deltas, curl_manual.MODULE),
         ):
             if name not in records:
                 continue
             record = records[name]
             linked_path = archive_path(record)
             if hashlib.sha256((ROOT / linked_path).read_bytes()).hexdigest() != record["candidate_sha256"]:
-                raise ValueError(f"IPRoute2 archive differs from link evidence: {linked_path}")
+                raise ValueError(f"archive differs from link evidence: {linked_path}")
             crate.relative_to(temporary)
-            module = crate / address_protocols.MODULE
+            module = crate / relative_module
             sources = {str(f.relative_to(crate)): hashlib.sha256(f.read_bytes()).hexdigest() for f in files}
             original = module.read_bytes()
             replacement, changes = transform(original)
-            address_protocols.verify_sources(record, sources, changes)
+            verify_source_substitution(record, sources, changes, relative_module)
             deltas[name] = {k: len(regex.findall(original)) - len(regex.findall(replacement)) for k, regex in METRICS.items()}
             module.write_bytes(replacement)
             files[module] = changes["candidate_module_sha256"]
@@ -265,6 +273,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None):
             "packages": packages, "non_applet_archive_inputs": excluded,
             **({"byte_identical_inline_cleanups": cleanups} if cleanups else {}),
             **({"byte_identical_second_inline_cleanups": second_cleanups} if second_cleanups else {}),
+            **({"curl_manual_deltas": curl_deltas} if curl_deltas else {}),
             **({"iproute2_netlink_protocol_deltas": netlink_deltas} if netlink_deltas else {}),
             **({"iproute2_route_name_deltas": route_deltas} if route_deltas else {}),
             **({"iproute2_address_protocol_deltas": address_deltas} if address_deltas else {}),
@@ -394,34 +403,34 @@ def check_address_protocol_conversion(previous_link, link, before, after):
     control = address_protocols.control_view(link)
     previous_link = address_protocols.control_view(previous_link)
     added = {k: v for k, v in records.items() if k not in previous_records}
-    check_iproute2_counts(previous_link, control, before, after, added, "iproute2_address_protocol_deltas")
+    check_archive_counts(previous_link, control, before, after, added, "iproute2_address_protocol_deltas")
 
 
-def check_iproute2_counts(previous_link, control, before, after, added, delta_field):
+def check_archive_counts(previous_link, control, before, after, added, delta_field):
     for field in (control.keys() | previous_link.keys()) - {"binary"}:
         if field not in control or field not in previous_link or control[field] != previous_link[field]:
-            raise ValueError(f"address-protocol link changed an unrelated field: {field}")
+            raise ValueError(f"archive substitution changed an unrelated link field: {field}")
     if control["binary"]["dynamic_needed"] != previous_link["binary"]["dynamic_needed"]:
-        raise ValueError("address-protocol link changed runtime dependencies")
+        raise ValueError("archive substitution changed runtime dependencies")
     delta = Counter()
     for key, row in added.items():
         observed = after[delta_field][key]
         if observed["raw_pointer_type_tokens"] != row["raw_pointer_types_removed_in_pilot_module"]:
-            raise ValueError(f"address-protocol type reduction differs from the pilot for {key}")
+            raise ValueError(f"archive type reduction differs from the pilot for {key}")
         delta.update(observed)
     expected_total = Counter(before["all"])
     expected_total.subtract(delta)
     if dict(expected_total) != after["all"]:
         raise ValueError("archive substitutions do not explain the linked pointer inventory")
-    changed = address_protocols.ARCHIVE.relative_to("work/analysis").parts[0]
+    changed, = {Path(key).relative_to("work/analysis").parts[0] for key in added}
     if before["packages"].keys() != after["packages"].keys():
-        raise ValueError("package set changed during address-protocol substitution")
+        raise ValueError("package set changed during archive substitution")
     for package, stats in before["packages"].items():
         expected = Counter(stats)
         if package == changed:
             expected.subtract(delta)
         if dict(expected) != after["packages"][package]:
-            raise ValueError(f"unexplained address-protocol inventory change for {package}")
+            raise ValueError(f"unexplained archive inventory change for {package}")
 
 
 def measure(link, inspect_source=None, *, inspect_module=None):
@@ -433,6 +442,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("link_report", type=Path)
     previous = parser.add_mutually_exclusive_group()
+    previous.add_argument("--verify-curl-manual-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-netlink-protocols-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-route-names-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-address-protocols-from", type=Path, metavar="CONTROL")
@@ -448,12 +458,19 @@ if __name__ == "__main__":
     if args.verify_cleanup_from:
         previous_link = json.loads(args.verify_cleanup_from.read_bytes())
         check_added_cleanups(previous_link, link, measure(previous_link), current)
+    if args.verify_curl_manual_from:
+        prior = json.loads(args.verify_curl_manual_from.read_bytes())
+        row = link["curl_manual"]["pilot"]
+        if "curl_manual" in prior or link["curl_manual"]["selection_parent_sha256"] != prior["binary"]["sha256"]:
+            raise ValueError("packed curl manual refers to another release")
+        check_archive_counts(prior, curl_manual_archive.parent_view(link), measure(prior), current,
+                             {row["archive"]: row}, "curl_manual_deltas")
     if args.verify_netlink_protocols_from:
         prior = json.loads(args.verify_netlink_protocols_from.read_bytes())
         rows = link["iproute2_netlink_protocols"]
         if "iproute2_netlink_protocols" in prior or any(row["control_binary_sha256"] != prior["binary"]["sha256"] for row in rows.values()):
             raise ValueError("netlink protocol archives differ from the requested transition")
-        check_iproute2_counts(prior, route_archives.parent_view(link), measure(prior), current, rows,
+        check_archive_counts(prior, route_archives.parent_view(link), measure(prior), current, rows,
                               "iproute2_netlink_protocol_deltas")
     if args.verify_route_names_from:
         prior = json.loads(args.verify_route_names_from.read_bytes())
@@ -462,7 +479,7 @@ if __name__ == "__main__":
         restored = route_archives.parent_view(link)
         if any(row["control_binary_sha256"] != prior["binary"]["sha256"] for row in link["iproute2_route_names"].values()):
             raise ValueError("scope/realm substitutions refer to another parent release")
-        check_iproute2_counts(prior, restored, measure(prior), current, link["iproute2_route_names"], "iproute2_route_name_deltas")
+        check_archive_counts(prior, restored, measure(prior), current, link["iproute2_route_names"], "iproute2_route_name_deltas")
     if args.verify_address_protocols_from:
         previous_link = json.loads(args.verify_address_protocols_from.read_bytes())
         check_address_protocol_conversion(previous_link, link, measure(previous_link), current)

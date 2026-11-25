@@ -387,6 +387,19 @@ python3 -B scripts/build_curl_manual_pilot.py --link "$link" --output work/analy
 python3 -B scripts/test_curl_manual_pilot.py work/analysis/curl-manual-pilot --link "$link"
 ```
 
+The full multicall can select this archive with
+`scripts/build_rustbox_multicall.sh --curl-manual`. To build it from the
+saved netlink release, run the local package suites and publish the source
+inventory together, use the command below. The results directory must be new.
+The optional fourth argument supplies the previous release's address-protocol
+comparisons. The verifier checks those archive hashes and test inputs again.
+Both curl dispatch forms are exercised on the newly linked executable.
+
+```sh
+scripts/qualify_pointer_release.sh --curl-manual NETLINK_LINK NEW_DIRECTORY NETLINK_REPLAYS
+```
+
+
 To find work that can be reused across engines, run
 `python3 -B scripts/rank_shared_applet_modules.py LINK_REPORT --limit 20`.
 The scanner groups compiler-selected modules by package and exact source

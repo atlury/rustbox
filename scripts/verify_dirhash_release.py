@@ -74,6 +74,9 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
     if netlink:
         tasks.append(("iproute2-netlink-protocols", ["test_iproute2_netlink_protocols.py", "--linked", "--link", current,
                                                     "--batch", output / "netlink-comparisons", "--jobs", "3"]))
+    packed_manual = release.get("curl_manual")
+    if packed_manual:
+        tasks.append(("curl-manual", ["test_curl_manual_pilot.py", "--linked", "--link", current]))
     routes = netlink or release.get("iproute2_route_names", {})
     if routes:
         tasks.append(("iproute2-route-names", ["test_iproute2_route_names.py", "--linked", "--link", current,
@@ -87,20 +90,23 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
     inventory = output / "inventory.json"
     with inventory.open("wb") as stream:
         subprocess.run([sys.executable, "-B", scripts / "audit_linked_pointers.py", current,
-                        "--verify-netlink-protocols-from" if netlink else "--verify-route-names-from" if routes else
+                        "--verify-curl-manual-from" if packed_manual else "--verify-netlink-protocols-from" if netlink else "--verify-route-names-from" if routes else
                         "--verify-address-protocols-from" if address_change else "--verify-dirhash-from", previous], cwd=ROOT, stdout=stream, check=True)
     registered = all_packages()
     with ThreadPoolExecutor(max_workers=2) as worker:
         independent = None
         if not independent_replay:
             independent = worker.submit(packages, registered - SENSITIVE, "independent")
-        if routes:
-            route_task = tasks[-1][1]
-            scope_run = worker.submit(logged, [scripts / route_task[0], *route_task[1:]], output / "iproute2-route-names.log")
+        # These comparisons use independent read-only inputs and private Docker
+        # filesystems. Queue them beside the package suites and wait at their gates.
+        comparisons = {}
+        for name, (tool, *args) in tasks:
+            if name in {"iproute2-route-names", "iproute2-netlink-protocols", "curl-manual"}:
+                comparisons[name] = worker.submit(logged, [scripts / tool, *args], output / f"{name}.log")
         for name, (tool, *args) in tasks:
             log = output / f"{name}.log"
-            if name == "iproute2-route-names":
-                scope_run.result()
+            if name in comparisons:
+                comparisons[name].result()
             elif copy_replay and name == "iproute2-address-protocol-copies":
                 data = copy_replay.read_bytes()
                 pilot = json.loads((ROOT / "evidence/iproute2-address-protocol-pilot.json").read_bytes())
@@ -205,6 +211,12 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
             "memcheck_runs": sum(r["memcheck_runs"] for r in replay.values()),
             "archive_sha256": {k: v["candidate_sha256"] for k, v in replay.items()},
         }
+    if packed_manual:
+        checked = json.loads((output / "curl-manual.log").read_bytes())
+        baseline = json.loads((ROOT / "evidence/curl-manual-pilot.json").read_bytes())
+        if checked != dict(baseline, multicall_sha256=digest(binary)):
+            raise ValueError("linked curl manual replay differs from the qualified archive, cases or outputs")
+        result["curl_manual"] = checked
     (output / "replays.json").write_text(json.dumps(result, sort_keys=True, indent=2) + "\n")
     print(f"Verified the linked executable with {len(tasks)} integration checks and {len(registered)} package suites", flush=True)
 

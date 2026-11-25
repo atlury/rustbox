@@ -104,11 +104,8 @@ def build_control_view(link):
 
 
 def verify_sources(record, sources, changes):
-    if (len(sources) != record["compiler_selected_sources"] or any(record[k] != v for k, v in changes.items())
-            or sources[str(MODULE)] != record["control_module_sha256"]
-            or source_list_digest(sources) != record["parent_sources_sha256"]
-            or source_list_digest({**sources, str(MODULE): changes["candidate_module_sha256"]}) != record["candidate_sources_sha256"]):
-        raise ValueError("IPRoute2 compiler inputs differ from the pinned address-protocol substitution")
+    from cargo_archive_pilot import verify_source_substitution
+    verify_source_substitution(record, sources, changes, MODULE)
 
 
 def prepare_record(record, verified_archive=None):
