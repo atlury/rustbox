@@ -1,4 +1,5 @@
 /* SPDX-License-Identifier: 0BSD */
+#include <limits.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -28,8 +29,23 @@ static int print_bytes(const char *p, size_t len)
     return 0;
 }
 
-int __wrap_main(void)
+int __wrap_main(int argc, char **argv)
 {
+    if (argc == 2 && strcmp(argv[1], "invalid") == 0) {
+        const unsigned invalid[] = {0, COUNT + 1, UINT_MAX};
+        lmsg_init(NULL);
+        for (size_t i = 0; i < sizeof(invalid)/sizeof(invalid[0]); ++i) {
+            if (lmsg(invalid[i]) != NULL) return 20;
+            printf("rejected %u\n", invalid[i]);
+        }
+        FILE *file = fopen("unknown", "wb");
+        if (!file) return 21;
+        fputs("not_a_less_message ignored\n", file);
+        fprintf(file, "%s after-error\n", names[0]);
+        if (fclose(file)) return 22;
+        lmsg_init("unknown");
+        return strcmp(lmsg(1), "after-error") != 0;
+    }
     const char *before[COUNT], *loaded[COUNT];
     lmsg_init(NULL);
     FILE *f = fopen("messages", "wb");

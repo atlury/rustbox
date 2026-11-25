@@ -772,6 +772,16 @@ with an embedded NUL. Both canonical compilers and the linked Rust archive
 returned identical output. The Rust archive also passed Memcheck.
 [Less API baseline](evidence/less-message-catalog-baseline.json)
 
+The candidate packs the 331 default texts and 332 symbolic names into
+immutable byte tables. Overrides retain their original C allocation
+addresses across reloads. After 847 native C strings were selected in the
+Less archive, this separate conversion removed another 333 explicit pointer
+types and 662 pointer extractions. The cold build reproduced its control,
+and all 40 compiler inputs were replayed. Both canonical compilers
+passed 22 command comparisons. The API checks cover invalid IDs,
+unknown names and retained strings under Memcheck.
+[Catalog archive and comparisons](evidence/less-checked-message-catalog.json)
+
 The native C-string manifest can grow within an archive already selected.
 `prepare_native_c_strings.py enroll --extend` checks that the new cold
 build covers every earlier edit on the same compiler sources and produces

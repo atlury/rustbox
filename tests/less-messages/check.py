@@ -53,22 +53,46 @@ def run(link_file, pilot, work):
                         "-ltinfo", "-ldl", "-lm", "-lpthread", "-o", target], check=True)
         programs[name] = target
     baseline = None
+    invalid_result = None
     for name, target in programs.items():
         run = subprocess.run([target], cwd=work, capture_output=True, timeout=60)
         if (run.returncode or run.stderr or not run.stdout.endswith(b"count 331\n")
                 or len(run.stdout.splitlines()) != 663 or baseline is not None and run.stdout != baseline):
             raise ValueError((name, run.returncode, run.stderr[:200], run.stdout[-80:]))
         baseline = run.stdout
+        invalid = subprocess.run([target, "invalid"], cwd=work, capture_output=True, timeout=30)
+        observation = (invalid.stdout, invalid.stderr)
+        if (invalid.returncode or invalid.stdout.splitlines() != [b"rejected 0", b"rejected 332", b"rejected 4294967295"]
+                or invalid_result is not None and observation != invalid_result):
+            raise ValueError((name, "invalid message", invalid.returncode, observation))
+        invalid_result = observation
     current = programs["candidate" if pilot else "parent"]
     log = work / "memcheck.log"
     run = subprocess.run(["valgrind", "--error-exitcode=99", "--leak-check=no", f"--log-file={log}", current], cwd=work,
                          capture_output=True, timeout=150, check=True)
     if run.stdout != baseline or run.stderr or "ERROR SUMMARY: 0 errors" not in log.read_text():
         raise ValueError("Less catalog memory check differs")
+    public = {}
+    if pilot:
+        directory = work / "cli"
+        directory.mkdir()
+        subprocess.run(["clang-18", "-O2", "-Wl,--gc-sections", ROOT / "bridges/less_main.c", libraries["candidate"],
+                        "-ltinfo", "-ldl", "-lm", "-lpthread", "-o", directory / "less"], check=True)
+        (directory / "lessecho").symlink_to("less")
+        for cc in ("gcc", "clang"):
+            report = directory / (cc + ".json")
+            subprocess.run(["python3", ROOT / "tests/less-oracle-differential.py", "--gcc-directory",
+                            ROOT / "work/analysis/less-710/oracle" / cc, "--clang-directory", directory,
+                            "--output", report], stdout=subprocess.DEVNULL, check=True)
+            checked = json.loads(report.read_bytes())
+            if not checked["cases"] or checked["cases"] != checked["passed"]:
+                raise ValueError("incomplete Less command suite")
+            public[cc] = checked["passed"]
     return dict(canonical_sources=inputs, canonical_builds={cc: digest(ROOT / "work/analysis/less-710/oracle" / cc / "less")
                 for cc in ("gcc", "clang")}, compiler_archive_sha256=digest(archive), public_messages=331, reload_observations=662,
-                help_with_embedded_nul=True, output_sha256=sha256(baseline).hexdigest(), driver_sha256=digest(DRIVER),
-                **({"candidate_sha256": digest(libraries["candidate"])} if pilot else {}))
+                invalid_ids=3, unknown_symbol_followed_by_valid_override=True,
+                invalid_stderr_sha256=sha256(invalid_result[1]).hexdigest(), help_with_embedded_nul=True, output_sha256=sha256(baseline).hexdigest(), driver_sha256=digest(DRIVER),
+                **({"candidate_sha256": digest(libraries["candidate"]), "command_cases": public} if pilot else {}))
 
 
 if __name__ == "__main__":
