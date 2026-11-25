@@ -1,4 +1,150 @@
 {
+  "adaptive_trials": {
+    "accepted_modules": [
+      "src/lib/et/com_err.rs",
+      "src/lib/et/error_message.rs",
+      "src/lib/ext2fs/alloc_stats.rs",
+      "src/lib/ext2fs/bitops.rs",
+      "src/lib/ext2fs/blkmap64_ba.rs",
+      "src/lib/ext2fs/blkmap64_rb.rs",
+      "src/lib/ext2fs/ext_attr.rs",
+      "src/lib/ext2fs/fallocate.rs",
+      "src/lib/ext2fs/gen_bitmap.rs",
+      "src/lib/ext2fs/gen_bitmap64.rs",
+      "src/lib/ext2fs/mkjournal.rs",
+      "src/lib/ext2fs/openfs.rs",
+      "src/lib/ext2fs/rw_bitmaps.rs",
+      "src/lib/ext2fs/unix_io.rs"
+    ],
+    "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/badblocks/2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff/libbadblocks_audit.a",
+    "raw_pointer_types_removed": 184,
+    "trials": [
+      {
+        "archive_sha256": "2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff",
+        "identical": true,
+        "modules": [
+          "src/lib/et/com_err.rs",
+          "src/lib/et/error_message.rs",
+          "src/lib/ext2fs/alloc_stats.rs",
+          "src/lib/ext2fs/bitops.rs",
+          "src/lib/ext2fs/blkmap64_ba.rs",
+          "src/lib/ext2fs/blkmap64_rb.rs",
+          "src/lib/ext2fs/ext_attr.rs",
+          "src/lib/ext2fs/fallocate.rs"
+        ]
+      },
+      {
+        "archive_sha256": "8b96b079f30323a38994ca63a30627ffbf795211c7100c34f440fb824f4151f2",
+        "identical": false,
+        "modules": [
+          "src/lib/et/com_err.rs",
+          "src/lib/et/error_message.rs",
+          "src/lib/ext2fs/alloc_stats.rs",
+          "src/lib/ext2fs/bitops.rs",
+          "src/lib/ext2fs/blkmap64_ba.rs",
+          "src/lib/ext2fs/blkmap64_rb.rs",
+          "src/lib/ext2fs/ext_attr.rs",
+          "src/lib/ext2fs/fallocate.rs",
+          "src/lib/ext2fs/gen_bitmap.rs",
+          "src/lib/ext2fs/gen_bitmap64.rs",
+          "src/lib/ext2fs/inline_data.rs",
+          "src/lib/ext2fs/ismounted.rs",
+          "src/lib/ext2fs/mkjournal.rs",
+          "src/lib/ext2fs/openfs.rs",
+          "src/lib/ext2fs/rw_bitmaps.rs",
+          "src/lib/ext2fs/unix_io.rs"
+        ]
+      },
+      {
+        "archive_sha256": "8b96b079f30323a38994ca63a30627ffbf795211c7100c34f440fb824f4151f2",
+        "identical": false,
+        "modules": [
+          "src/lib/et/com_err.rs",
+          "src/lib/et/error_message.rs",
+          "src/lib/ext2fs/alloc_stats.rs",
+          "src/lib/ext2fs/bitops.rs",
+          "src/lib/ext2fs/blkmap64_ba.rs",
+          "src/lib/ext2fs/blkmap64_rb.rs",
+          "src/lib/ext2fs/ext_attr.rs",
+          "src/lib/ext2fs/fallocate.rs",
+          "src/lib/ext2fs/gen_bitmap.rs",
+          "src/lib/ext2fs/gen_bitmap64.rs",
+          "src/lib/ext2fs/inline_data.rs",
+          "src/lib/ext2fs/ismounted.rs"
+        ]
+      },
+      {
+        "archive_sha256": "2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff",
+        "identical": true,
+        "modules": [
+          "src/lib/et/com_err.rs",
+          "src/lib/et/error_message.rs",
+          "src/lib/ext2fs/alloc_stats.rs",
+          "src/lib/ext2fs/bitops.rs",
+          "src/lib/ext2fs/blkmap64_ba.rs",
+          "src/lib/ext2fs/blkmap64_rb.rs",
+          "src/lib/ext2fs/ext_attr.rs",
+          "src/lib/ext2fs/fallocate.rs",
+          "src/lib/ext2fs/mkjournal.rs",
+          "src/lib/ext2fs/openfs.rs",
+          "src/lib/ext2fs/rw_bitmaps.rs",
+          "src/lib/ext2fs/unix_io.rs"
+        ]
+      },
+      {
+        "archive_sha256": "2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff",
+        "identical": true,
+        "modules": [
+          "src/lib/et/com_err.rs",
+          "src/lib/et/error_message.rs",
+          "src/lib/ext2fs/alloc_stats.rs",
+          "src/lib/ext2fs/bitops.rs",
+          "src/lib/ext2fs/blkmap64_ba.rs",
+          "src/lib/ext2fs/blkmap64_rb.rs",
+          "src/lib/ext2fs/ext_attr.rs",
+          "src/lib/ext2fs/fallocate.rs",
+          "src/lib/ext2fs/gen_bitmap.rs",
+          "src/lib/ext2fs/gen_bitmap64.rs",
+          "src/lib/ext2fs/mkjournal.rs",
+          "src/lib/ext2fs/openfs.rs",
+          "src/lib/ext2fs/rw_bitmaps.rs",
+          "src/lib/ext2fs/unix_io.rs"
+        ]
+      }
+    ],
+    "verified_directory": "subset-05"
+  },
+  "best_verified_candidate": {
+    "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/badblocks/2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff/libbadblocks_audit.a",
+    "c_string_literals": 92,
+    "candidate_sha256": "2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff",
+    "candidate_sources_sha256": "c6a72b4818a2575a76efc059ca574287436d5d3dfedfe6d7178ad23ee517edce",
+    "compiler_selected_sources": 60,
+    "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+    "control_sha256": "2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff",
+    "legacy_compiler": "nightly-2023-04-15",
+    "modules": {
+      "src/lib/et/com_err.rs": 2,
+      "src/lib/et/error_message.rs": 11,
+      "src/lib/ext2fs/alloc_stats.rs": 6,
+      "src/lib/ext2fs/bitops.rs": 2,
+      "src/lib/ext2fs/blkmap64_ba.rs": 1,
+      "src/lib/ext2fs/blkmap64_rb.rs": 5,
+      "src/lib/ext2fs/ext_attr.rs": 14,
+      "src/lib/ext2fs/fallocate.rs": 10,
+      "src/lib/ext2fs/gen_bitmap.rs": 14,
+      "src/lib/ext2fs/gen_bitmap64.rs": 11,
+      "src/lib/ext2fs/mkjournal.rs": 1,
+      "src/lib/ext2fs/openfs.rs": 2,
+      "src/lib/ext2fs/rw_bitmaps.rs": 4,
+      "src/lib/ext2fs/unix_io.rs": 9
+    },
+    "parent_sources_sha256": "38f1a3589133e4353a15becd3379b9267cb7aee289e16e698794174dd0f0d6c5",
+    "raw_ffi_pointer_extractions": 92,
+    "raw_pointer_types_removed": 184,
+    "rustc_archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-e2fsprogs-shared/badblocks/libbadblocks_audit.a",
+    "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+  },
   "complement": {
     "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/badblocks/2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff/libbadblocks_audit.a",
     "byte_identical": false,

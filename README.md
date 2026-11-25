@@ -669,7 +669,9 @@ them into 112 literals from shared library code and 103 from the utility
 also changed each archive. Testing smaller groups recovered eight modules
 with 51 literals. Those 102 explicit casts can be removed while retaining
 the original archive bytes. All 60 compiler inputs were replayed against
-the packed-curl build. The 51 C-interface pointer extractions remain.
+the packed-curl build. Five subset comparisons expanded that group to 14 modules and 92 literals.
+The jointly rebuilt archive reproduced the original bytes, removing a total
+of 184 casts and leaving 92 C-interface pointer extractions.
 `recover_e2fsprogs_literal_modules.py` can use a verified peer as its seed,
 then check the complete target archive independently.
 [Badblocks selections and archive hashes](evidence/e2fsprogs-badblocks-literal-subsets.json)
