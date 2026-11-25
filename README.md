@@ -513,7 +513,9 @@ shares stdio layouts, rebuild overlapping literal pilots on top of those
 layouts first. Enrollment replays every changed module, checks the hashes
 of all compiler inputs, and requires a byte-identical archive. The linked
 inventory checks both raw casts removed and C-interface pointer extractions
-added per package.
+added per package. To add further archives to an existing release, pass
+`--extend LINKED_MANIFEST` to enrollment. The new manifest keeps every
+verified prior entry and rejects duplicate archives.
 
 ```sh
 python3 -B scripts/prepare_native_c_strings.py enroll "$link" "$manifest" "$pilot"

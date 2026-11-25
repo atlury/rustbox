@@ -126,16 +126,22 @@ def prepare(manifest, layer, *, mounted_direct=False):
             install(item, root / "built" / archive.name, layer)
 
 
-def enroll(link_file, output, pilots, layer):
+def enroll(link_file, output, pilots, layer, *, previous_manifest=None):
     from audit_linked_pointers import measure, check_identical_layer
     original = link_file.read_bytes()
     link = json.loads(original)
     records, manifest = {}, {}
+    previous_bytes = None
+    if previous_manifest is not None:
+        previous_bytes = previous_manifest.read_bytes()
+        manifest = json.loads(previous_bytes)
+        if validate_link(manifest, link["source_library_sha256"], link, layer) != link.get(layer):
+            raise ValueError("previous manifest differs from the active linked source layer")
     for directory in pilots:
         row = json.loads((directory / "pilot.json").read_bytes())
         key = row["archive"]
         archive = check_row(key, row)
-        if key in records or link["source_library_sha256"].get(key) != row["control_sha256"]:
+        if key in manifest or link["source_library_sha256"].get(key) != row["control_sha256"]:
             raise ValueError(f"duplicate archive or different parent: {key}")
         manifest[key] = dict(pilot=row, parent_receipts=selected_receipts(link, key, layer))
         records[key] = row
@@ -158,8 +164,9 @@ def enroll(link_file, output, pilots, layer):
         key = row["archive"]
         install(manifest[key], directory / Path(key).name, layer)
     validate_link(manifest, link["source_library_sha256"], link, layer)
-    if link_file.read_bytes() != original:
-        raise ValueError("link changed during enrollment")
+    if (link_file.read_bytes() != original
+            or (previous_manifest is not None and previous_manifest.read_bytes() != previous_bytes)):
+        raise ValueError("link or previous manifest changed during enrollment")
     with TemporaryDirectory(dir=output.parent) as directory:
         staged = Path(directory) / "manifest.json"
         staged.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
@@ -173,6 +180,7 @@ def main(layer):
     p.add_argument("link", type=Path)
     p.add_argument("manifest", type=Path)
     p.add_argument("pilots", nargs="+", type=Path)
+    p.add_argument("--extend", type=Path, metavar="LINKED_MANIFEST", help="carry forward every existing verified entry")
     p = sub.add_parser("prepare")
     p.add_argument("manifest", type=Path)
     if layer == "native_c_strings":
@@ -185,4 +193,4 @@ def main(layer):
             manifest = {k: item for k, item in manifest.items() if "rustc_archive" not in item["pilot"]}
         prepare(manifest, layer)
     else:
-        enroll(args.link, args.manifest, args.pilots, layer)
+        enroll(args.link, args.manifest, args.pilots, layer, previous_manifest=args.extend)
