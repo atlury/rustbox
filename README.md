@@ -458,6 +458,11 @@ passes `./bison` for the symlink invocation and `bison` for the multicall
 subcommand, matching upstream's `argv[0]` in each case. It compares the
 original output bytes, including the usage line.
 
+An empty-cache build reproduced all 150 selected Bison module digests and
+the complete archive after the 225 length substitutions. The optional
+multicall build accepts `--bison-literal-lengths`. Its source inventory
+replays each edited module against the pinned compiler inputs.
+
 ```sh
 python3 -B tests/c-string-literals/lengths.py
 python3 -B scripts/rank_c_string_literals.py --lengths "$link"

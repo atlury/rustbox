@@ -16,6 +16,7 @@ from cargo_archive_pilot import verify_source_substitution
 import curl_manual
 import curl_manual_archive
 from tar_timespec_archive import selection as tar_timestamps
+from bison_length_archive import selection as bison_lengths
 from build_tar_timespec_pilot import MODULE as TIMESTAMP_MODULE, replace_timestamps
 import share_stdio_layout
 import verify_c_string_sources as native_strings
@@ -90,6 +91,9 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
     literal_records = link.get("native_c_strings", {})
     literal_deltas = {}
     literal_tool = native_strings.syntax_tool() if literal_records else None
+    length_record = link.get(bison_lengths.field, {}).get("pilot")
+    length_deltas = {}
+    link = bison_lengths.parent_view(link)
     timestamp_record = link.get(tar_timestamps.field, {}).get("pilot")
     timestamp_records = {tar_timestamps.key: timestamp_record} if timestamp_record else {}
     timestamp_deltas = {}
@@ -133,6 +137,8 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
         address_records, route_records, netlink_records, fixed_arrays, curl_records = map(
             for_key, (address_records, route_records, netlink_records, fixed_arrays, curl_records))
         timestamp_records = for_key(timestamp_records)
+        if original != bison_lengths.key:
+            length_record = None
         stdio_records = for_key(stdio_records, selected_path)
         literal_records = for_key(literal_records, selected_path)
     if not second.keys() <= proofs.keys() & link["source_library_sha256"].keys():
@@ -231,6 +237,22 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
             deltas[name] = {k: len(regex.findall(original)) - len(regex.findall(replacement)) for k, regex in METRICS.items()}
             module.write_bytes(replacement)
             files[module] = changes["candidate_module_sha256"]
+        if length_record and name == bison_lengths.key:
+            linked_path = bison_lengths.candidate_path(length_record)
+            if hashlib.sha256((ROOT / linked_path).read_bytes()).hexdigest() != length_record["candidate_sha256"]:
+                raise ValueError("Bison archive differs from the source receipt")
+            crate.relative_to(temporary)
+            sources = {str(f.relative_to(crate)): hashlib.sha256(f.read_bytes()).hexdigest() for f in files}
+            changes = native_strings.replay(sources, lambda module: (crate / module).read_bytes(),
+                                           length_record, native_strings.syntax_tool("literal-lengths"), lengths=True)
+            counts = Counter(dict.fromkeys(METRICS, 0))
+            for module, replacement in changes.items():
+                f = crate / module
+                original = f.read_bytes()
+                counts.update({k: len(regex.findall(original)) - len(regex.findall(replacement)) for k, regex in METRICS.items()})
+                f.write_bytes(replacement)
+                files[f] = hashlib.sha256(replacement).hexdigest()
+            length_deltas[name] = dict(counts)
         if record := fixed_arrays.get(name):
             linked_path = candidate_path(path, record["candidate_sha256"])
             if hashlib.sha256((ROOT / linked_path).read_bytes()).hexdigest() != record["candidate_sha256"]:
@@ -314,6 +336,8 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
                 source_digests[layer["module"]] = layer["module_before"]
                 if source_list_digest(source_digests) != layer["parent_sources_sha256"]:
                     raise ValueError(f"{stage} parent source list differs from its receipt: {name}")
+    if bool(length_record) != bool(length_deltas):
+        raise ValueError("Bison length receipt outside the compiler inputs")
     if timestamp_records.keys() != timestamp_deltas.keys():
         raise ValueError("tar timestamp receipt outside linked compiler inputs")
     if literal_deltas.keys() != literal_records.keys():
@@ -338,6 +362,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
             **({"byte_identical_second_inline_cleanups": second_cleanups} if second_cleanups else {}),
             **({"native_c_string_conversions": literal_deltas} if literal_deltas else {}),
             **({"shared_stdio_layout_deltas": stdio_deltas} if stdio_deltas else {}),
+            **({"bison_length_deltas": length_deltas} if length_deltas else {}),
             **({"tar_timestamp_deltas": timestamp_deltas} if timestamp_deltas else {}),
             **({"curl_manual_deltas": curl_deltas} if curl_deltas else {}),
             **({"iproute2_netlink_protocol_deltas": netlink_deltas} if netlink_deltas else {}),
@@ -481,7 +506,7 @@ def check_archive_counts(previous_link, control, before, after, added, delta_fie
     delta = Counter()
     for key, row in added.items():
         observed = after[delta_field][key]
-        count_key = "raw_pointer_types_removed" if delta_field == "tar_timestamp_deltas" else "raw_pointer_types_removed_in_pilot_module"
+        count_key = "raw_pointer_types_removed" if "raw_pointer_types_removed" in row else "raw_pointer_types_removed_in_pilot_module"
         if observed["raw_pointer_type_tokens"] != row[count_key]:
             raise ValueError(f"archive type reduction differs from the pilot for {key}")
         delta.update(observed)
@@ -547,6 +572,7 @@ if __name__ == "__main__":
     previous = parser.add_mutually_exclusive_group()
     previous.add_argument("--verify-native-c-strings-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-shared-stdio-from", type=Path, metavar="CONTROL")
+    previous.add_argument("--verify-bison-lengths-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-tar-timestamps-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-curl-manual-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-netlink-protocols-from", type=Path, metavar="CONTROL")
@@ -570,13 +596,15 @@ if __name__ == "__main__":
     if args.verify_shared_stdio_from:
         prior = json.loads(args.verify_shared_stdio_from.read_bytes())
         check_shared_stdio(prior, link, measure(prior), current)
-    if args.verify_tar_timestamps_from:
-        prior = json.loads(args.verify_tar_timestamps_from.read_bytes())
-        record = tar_timestamps.pinned()
-        if tar_timestamps.field in prior or link.get(tar_timestamps.field) != record:
-            raise ValueError("missing or previously selected borrowed timestamp archive")
-        check_archive_counts(prior, tar_timestamps.parent_view(link), measure(prior), current,
-                             {tar_timestamps.key: record["pilot"]}, "tar_timestamp_deltas")
+    for path, layer, field in ((args.verify_bison_lengths_from, bison_lengths, "bison_length_deltas"),
+                               (args.verify_tar_timestamps_from, tar_timestamps, "tar_timestamp_deltas")):
+        if path:
+            prior = json.loads(path.read_bytes())
+            record = layer.pinned()
+            if layer.field in prior or link.get(layer.field) != record:
+                raise ValueError(f"missing or previously selected {layer.field} archive")
+            check_archive_counts(prior, layer.parent_view(link), measure(prior), current,
+                                 {layer.key: record["pilot"]}, field)
     if args.verify_curl_manual_from:
         prior = json.loads(args.verify_curl_manual_from.read_bytes())
         row = link["curl_manual"]["pilot"]

@@ -3,6 +3,11 @@
 set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
+bison_lengths=
+if [ "${1:-}" = --bison-literal-lengths ]; then
+    bison_lengths=1
+    shift
+fi
 tar_timestamps=
 if [ "${1:-}" = --tar-borrowed-timestamps ]; then
     tar_timestamps=1
@@ -25,7 +30,7 @@ case "$#:${1:-}" in
     1:--iproute2-route-names) set -- --iproute2-route-names --iproute2-address-protocol-copies --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
     1:--iproute2-address-protocol-copies) set -- --iproute2-address-protocol-copies --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
     2:--e2fsprogs-dirhash-arrays) ;;
-    *) echo "usage: $0 [--tar-borrowed-timestamps] [--native-c-strings MANIFEST] [--shared-stdio MANIFEST | --curl-manual | --iproute2-netlink-protocols | --iproute2-route-names | --iproute2-address-protocols | --iproute2-address-protocol-copies | --e2fsprogs-dirhash-arrays MANIFEST]" >&2; exit 2 ;;
+    *) echo "usage: $0 [--bison-literal-lengths] [--tar-borrowed-timestamps] [--native-c-strings MANIFEST] [--shared-stdio MANIFEST | --curl-manual | --iproute2-netlink-protocols | --iproute2-route-names | --iproute2-address-protocols | --iproute2-address-protocol-copies | --e2fsprogs-dirhash-arrays MANIFEST]" >&2; exit 2 ;;
 esac
 "$root/scripts/build_private_inline_tool.sh"
 python3 -B "$root/scripts/check_cargo_private_inlines.py" --prepare-e2fsprogs
@@ -47,6 +52,10 @@ elif [ "$1" = --iproute2-address-protocol-copies ]; then
     python3 -B "$root/scripts/build_iproute2_address_protocol_pilot.py" --prepare-copies
 elif [ "$1" = --iproute2-address-protocols ]; then
     python3 -B "$root/scripts/build_iproute2_address_protocol_pilot.py" --prepare
+fi
+if [ -n "$bison_lengths" ]; then
+    python3 -B "$root/scripts/bison_length_archive.py"
+    set -- "$@" --bison-literal-lengths
 fi
 if [ -n "$tar_timestamps" ]; then
     python3 -B "$root/scripts/tar_timespec_archive.py"

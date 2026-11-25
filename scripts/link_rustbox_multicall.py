@@ -16,6 +16,7 @@ from pathlib import Path
 
 import curl_manual_archive
 from tar_timespec_archive import selection as tar_timestamps
+from bison_length_archive import selection as bison_lengths
 import prepare_identical_archives
 import iproute2_address_protocol_archive as address_protocols
 import iproute2_route_name_archives as route_names
@@ -2437,6 +2438,7 @@ def main() -> int:
     parser.add_argument("--native-c-strings", type=Path)
     parser.add_argument("--curl-manual", action="store_true")
     parser.add_argument("--tar-borrowed-timestamps", action="store_true")
+    parser.add_argument("--bison-literal-lengths", action="store_true")
     parser.add_argument("--iproute2-netlink-protocols", action="store_true")
     parser.add_argument("--iproute2-route-names", action="store_true")
     parser.add_argument("--iproute2-address-protocols", action="store_true")
@@ -2813,7 +2815,8 @@ def main() -> int:
     archive_parent = {"source_library_sha256": source_library_hashes, "linked_private_inline_proofs": inline_proofs,
                       "linked_second_inline_proofs": second_inline_proofs, "linked_foreign_declaration_proofs": foreign_proofs}
     for enabled, selection, index in ((args.curl_manual, curl_manual_archive.selection, curl_library_index),
-                                      (args.tar_borrowed_timestamps, tar_timestamps, tar_library_index)):
+                                      (args.tar_borrowed_timestamps, tar_timestamps, tar_library_index),
+                                      (args.bison_literal_lengths, bison_lengths, bison_library_index)):
         if not enabled:
             continue
         record = selection.pinned()
