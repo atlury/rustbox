@@ -1066,6 +1066,15 @@ Memcheck runs. The `ip` engine also matched the canonical process on 40
 read-only route commands.
 [Per-engine build and command results](evidence/iproute2-routing-protocol-archives.json)
 
+`stage_routing_protocol_archives.py` reconstructs all 18 compiler inputs
+from the pinned netlink and C-string records and stages each resulting
+archive under its SHA-256. Replaying the selected sources measured 4,806
+fewer explicit raw pointer types, 72 fewer raw borrows and 414 fewer
+pointer extractions. A separate rebuild of the directly compiled bridge
+reproduced its archive from all 24 sources, and the stage rejected an
+altered cached copy.
+[Staged archive digests and measured source changes](evidence/iproute2-routing-protocol-stage.json)
+
 With the `ip` engine switched to the new routing protocol reader, all 21
 IPRoute2 names passed 288 canonical comparisons in the complete multicall.
 The suite covers six live `routel` queries and six route-protocol filters,

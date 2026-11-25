@@ -17,6 +17,7 @@ import curl_manual
 import curl_manual_archive
 from tar_timespec_archive import selection as tar_timestamps
 from bison_length_archive import selection as bison_lengths
+import stage_routing_protocol_archives as routing_protocols
 from build_tar_timespec_pilot import MODULE as TIMESTAMP_MODULE, replace_timestamps
 import share_stdio_layout
 import verify_c_string_sources as native_strings
@@ -85,6 +86,10 @@ def measure_layer(crate, files, proof, item_count="private_functions_removed"):
 
 
 def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_pair=None):
+    final_hashes = link["source_library_sha256"]
+    routing_records = link.get(routing_protocols.FIELD, {})
+    routing_deltas = {}
+    link = routing_protocols.parent_view(link)
     link_archive_hashes = link["source_library_sha256"]
     stdio_records = link.get("shared_stdio_layouts", {})
     stdio_deltas = {}
@@ -130,7 +135,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
     hashes = link["source_library_sha256"]
     if archive_pair:
         original, selected_path = map(str, archive_pair)
-        if original not in hashes or selected_path not in link_archive_hashes:
+        if original not in hashes or selected_path not in final_hashes:
             raise ValueError("requested Cargo archive lies outside the checked link")
         hashes = {original: hashes[original]}
 
@@ -143,8 +148,10 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
         timestamp_records = for_key(timestamp_records)
         if original != bison_lengths.key:
             length_record = None
-        stdio_records = for_key(stdio_records, selected_path)
-        literal_records = for_key(literal_records, selected_path)
+        routing_records = {k: r for k, r in routing_records.items() if str(routing_protocols.candidate_path(r)) == selected_path}
+        pre_routing_key = next(iter(routing_records), selected_path)
+        stdio_records = for_key(stdio_records, pre_routing_key)
+        literal_records = for_key(literal_records, pre_routing_key)
         va_records = for_key(va_records, selected_path)
         term_records = for_key(term_records, selected_path)
     if not second.keys() <= proofs.keys() & link["source_library_sha256"].keys():
@@ -293,8 +300,6 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
         root_module = ROOT / f"compat/e2fsprogs/{SHARED_SOURCES[archive.name]}" if shared_object else crate / "lib.rs"
         if root_module not in files:
             raise ValueError(f"unexpected compiler inputs for {archive}")
-        if archive_pair and str(linked_path) != selected_path:
-            raise ValueError("Cargo origin does not yield the requested linked archive")
         stdio = stdio_records.get(str(linked_path))
         replacements = {}
         if stdio is not None:
@@ -305,9 +310,13 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
             return replacements[path] if path in replacements else path.read_bytes()
 
         literal = literal_records.get(str(linked_path))
-        va = va_records.get(str(linked_path))
-        term = term_records.get(str(linked_path))
-        if literal is not None or va is not None or term is not None:
+        routing = routing_records.get(str(linked_path))
+        final_path = routing_protocols.candidate_path(routing) if routing else linked_path
+        if archive_pair and str(final_path) != selected_path:
+            raise ValueError("Cargo origin does not yield the requested linked archive")
+        va = va_records.get(str(final_path))
+        term = term_records.get(str(final_path))
+        if any(record is not None for record in (literal, routing, va, term)):
             modules = [str(path.relative_to(crate)) for path in files]
             parent = {module: hashlib.sha256(read_parent(module)).hexdigest() for module in modules}
         if literal is not None:
@@ -319,8 +328,21 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
             changed = native_strings.replay(parent, read_parent, literal, literal_tool)
             replacements.update({crate / module: data for module, data in changed.items()})
             literal_deltas[str(linked_path)] = literal["c_string_literals"]
-        if literal is not None and (va is not None or term is not None):
+        if literal is not None and any(record is not None for record in (routing, va, term)):
             parent.update({module: hashlib.sha256(data).hexdigest() for module, data in changed.items()})
+        if routing is not None:
+            from build_routing_protocol_pilot import transform as replace_protocols
+            if hashlib.sha256((ROOT / final_path).read_bytes()).hexdigest() != routing["candidate_sha256"]:
+                raise ValueError("staged routing protocol archive differs from its compiler receipt")
+            module = routing["module"]
+            old = read_parent(module)
+            new, facts = replace_protocols(old)
+            verify_source_substitution(routing, parent, facts, module)
+            routing_deltas[str(linked_path)] = {k: len(regex.findall(old)) - len(regex.findall(new))
+                                               for k, regex in METRICS.items()}
+            replacements[crate / module] = new
+            parent[module] = facts["candidate_module_sha256"]
+            linked_path = final_path
         for record_layout, kind, deltas in ((va, "va-list", va_deltas), (term, "termtype", term_deltas)):
             if record_layout is None:
                 continue
@@ -331,7 +353,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
             else:
                 from build_va_list_layout_pilot import substitute as share_layout
             if (record_layout["archive"] != str(linked_path)
-                    or record_layout["control_sha256"] != link_archive_hashes[str(linked_path)]
+                    or record_layout["control_sha256"] != final_hashes[str(linked_path)]
                     or record_layout["candidate_sha256"] != record_layout["control_sha256"]):
                 raise ValueError(f"{kind} archive differs from its cold build: {linked_path}")
             if (len(parent) != record_layout["compiler_selected_sources"]
@@ -374,6 +396,8 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
         raise ValueError("Bison length receipt outside the compiler inputs")
     if timestamp_records.keys() != timestamp_deltas.keys():
         raise ValueError("tar timestamp receipt outside linked compiler inputs")
+    if routing_deltas.keys() != routing_records.keys():
+        raise ValueError("routing protocol record lies outside the selected compiler inputs")
     if term_deltas.keys() != term_records.keys():
         raise ValueError("terminal layout receipt lies outside the selected archives")
     if va_deltas.keys() != va_records.keys():
@@ -399,6 +423,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
             **({"byte_identical_inline_cleanups": cleanups} if cleanups else {}),
             **({"byte_identical_second_inline_cleanups": second_cleanups} if second_cleanups else {}),
             **({"native_c_string_conversions": literal_deltas} if literal_deltas else {}),
+            **({"routing_protocol_deltas": routing_deltas} if routing_deltas else {}),
             **({"shared_ncurses_termtype_deltas": term_deltas} if term_deltas else {}),
             **({"shared_va_list_layout_deltas": va_deltas} if va_deltas else {}),
             **({"shared_stdio_layout_deltas": stdio_deltas} if stdio_deltas else {}),
@@ -614,6 +639,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("link_report", type=Path)
     previous = parser.add_mutually_exclusive_group()
+    previous.add_argument("--verify-routing-protocols-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-termtypes-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-va-list-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-native-c-strings-from", type=Path, metavar="CONTROL")
@@ -636,6 +662,12 @@ if __name__ == "__main__":
     if args.verify_cleanup_from:
         previous_link = json.loads(args.verify_cleanup_from.read_bytes())
         check_added_cleanups(previous_link, link, measure(previous_link), current)
+    if args.verify_routing_protocols_from:
+        prior = json.loads(args.verify_routing_protocols_from.read_bytes())
+        if routing_protocols.FIELD in prior or routing_protocols.FIELD not in link:
+            raise ValueError("expected a new routing protocol selection")
+        check_archive_counts(prior, routing_protocols.parent_view(link), measure(prior), current,
+                             link[routing_protocols.FIELD], "routing_protocol_deltas")
     if args.verify_termtypes_from:
         prior = json.loads(args.verify_termtypes_from.read_bytes())
         check_identical_layer(prior, link, measure(prior), current, "shared_ncurses_termtypes")

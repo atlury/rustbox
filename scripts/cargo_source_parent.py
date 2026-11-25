@@ -7,6 +7,11 @@ def cargo_origin(link, key):
     from curl_manual_archive import KEY, candidate_path
     from iproute2_route_name_archives import netlink_path
     selected = Path(key)
+    from stage_routing_protocol_archives import FIELD, candidate_path as routing_path
+    for prior, row in link.get(FIELD, {}).items():
+        if routing_path(row) == selected:
+            selected = Path(prior)
+            break
     from tar_timespec_archive import selection as tar
     from bison_length_archive import selection as bison
     for layer in (tar, bison):
@@ -45,6 +50,13 @@ def direct_crate(archive):
 def pinned_parent(key, row):
     """Reconstruct exactly the preceding link fields needed for a standalone cold rebuild."""
     original = row_origin(row)
+    if Path(key).parent.parent.name == "routing-protocols":
+        from stage_routing_protocol_archives import parent_build_link, select
+        link = select(parent_build_link())
+        if (str(cargo_origin(link, key)) != original
+                or link["source_library_sha256"].get(key) != row["control_sha256"]):
+            raise ValueError("staged routing archive differs from its qualified parent")
+        return link
     if original == key:
         return {"source_library_sha256": {key: row["control_sha256"]}}
     from curl_manual_archive import KEY, candidate_path, pinned
