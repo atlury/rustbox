@@ -688,6 +688,14 @@ inputs. The batch script tests each remaining engine against its own
 archive and records matching and differing builds separately.
 [Verified mke2fs subset](evidence/e2fsprogs-mke2fs-literal-subset.json)
 
+Applying the 14-module `badblocks` selection to the 11 other differing
+E2fsprogs engines reproduced the entire archive in 4 cases (`dumpe2fs`, `fuse2fs`, `mke2fs`, `tune2fs`).
+Those matching builds remove 736 explicit casts across their compiler inputs.
+The other 7 archives changed bytes and are recorded individually.
+Each engine contributes at most one independently verified selection to
+the release tally.
+[Per-engine source and archive hashes](evidence/e2fsprogs-seeded-c-string-archives.json)
+
 In a separate `mke2fs` build, selecting individual static-array literals
 covered 319 strings across 11 modules, including the generated error
 tables and filesystem feature names. Replaying all 97 compiler inputs
