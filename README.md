@@ -501,6 +501,8 @@ The optional `--ncurses-termtypes MANIFEST` build selection can follow
 other source changes. A combined source replay with the verified
 `e4defrag` variadic layout removed 2,539 repeated fields across the two
 packages. Every other measured pointer metric matched the parent. The
+normal preparation step repeated the ncurses cold build from an empty
+selection cache and reproduced the archive and its compiler receipt. The
 ncurses verifier also rejected swapped narrow and wide layout hashes,
 a wrong provider, missing modules, and changed archive and source hashes.
 [Combined inventory and manifest digests](evidence/ncurses-e4defrag-layouts-combined.json)
