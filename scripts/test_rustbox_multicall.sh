@@ -7,6 +7,8 @@ if [ "$#" -ne 0 ] && [ "$#" -ne 2 ]; then
     exit 2
 fi
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
+binary=/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox
+if [ -n "${RUSTBOX_MULTICALL_TEST_BINARY:-}" ]; then binary=/rustbox-test-elf/rustbox; fi
 exec "$root/scripts/run_multicall_tool.sh" python3 /work/scripts/test_rustbox_multicall.py \
     --repository /work \
     --coreutils-build /rustbox-coreutils/canonical-clang-no-security-compdb \
@@ -38,5 +40,5 @@ exec "$root/scripts/run_multicall_tool.sh" python3 /work/scripts/test_rustbox_mu
     --procps-oracle-root /rustbox-procps/programs-gcc \
     --procps-oracle-library /rustbox-procps/oracle-gcc/library/.libs \
     --shadow-oracle-root /rustbox-shadow/programs-gcc \
-    --rustbox "${1:-/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox}" \
+    --rustbox "${1:-$binary}" \
     --output "${2:-/work/work/analysis/rustbox-multicall-dispatch.json}"

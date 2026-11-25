@@ -7,7 +7,8 @@ tool_image=${RUSTBOX_TOOL_IMAGE:-rustbox-tools:2026-11-19}
 if [ "${1:-}" = "--multicall-test-volume" ]; then
     volume=$2
     shift 2
-    set -- --mount "type=volume,src=$volume,dst=/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox,volume-subpath=rustbox,readonly" "$tool_image" "$@"
+    set -- --mount "type=volume,src=$volume,dst=/rustbox-test-elf,readonly" \
+        --env RUSTBOX_TEST_ELF=/rustbox-test-elf/rustbox "$tool_image" "$@"
 else
     set -- "$tool_image" "$@"
 fi

@@ -4,7 +4,7 @@ set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
-    binary=/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox
+    binary=${RUSTBOX_TEST_ELF:-/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox}
     oracle=/work/work/analysis/bison-3.8.2/oracle/gcc-root
     source=/work/work/upstream/bison-3.8.2
     evidence=/work/work/analysis/bison-3.8.2/multicall

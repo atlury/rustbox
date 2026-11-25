@@ -5,7 +5,7 @@ set -eu
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
     oracle=/rustbox-shadow/programs-gcc
-    rustbox=/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox
+    rustbox=${RUSTBOX_TEST_ELF:-/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox}
     evidence=/work/work/analysis/shadow-4.20.4/multicall
     programs="chage chfn chgpasswd chpasswd chsh faillog getsubids gpasswd groupadd groupdel groupmod grpck grpconv grpunconv lastlog login newgidmap newgrp newuidmap newusers nologin passwd pwck pwconv pwunconv su useradd userdel usermod vipw sg vigr"
     collisions=" chfn chsh login newgrp nologin su vigr vipw "

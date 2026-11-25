@@ -5,7 +5,7 @@ set -eu
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
     output=/work/work/analysis/diffutils-3.12/multicall
-    rustbox=/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox
+    rustbox=${RUSTBOX_TEST_ELF:-/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox}
     canonical=/rustbox-diffutils/normalized-gcc/src
     build=/rustbox-diffutils/normalized-gcc
     rm -rf "$output"
@@ -43,9 +43,10 @@ exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
     done
     find "$build/tests" "$build/gnulib-tests" -type f \
       \( -name "*.log" -o -name "*.trs" \) -delete
-    runuser --user=nobody -- make -C "$build/tests" -j"$(nproc)" check \
+    # The upstream suite includes wall-clock assertions under x86_64 emulation.
+    runuser --user=nobody -- make -C "$build/tests" -j2 check \
       > "$output/upstream-tests.log" 2>&1
-    runuser --user=nobody -- make -C "$build/gnulib-tests" -j"$(nproc)" check \
+    runuser --user=nobody -- make -C "$build/gnulib-tests" -j2 check \
       >> "$output/upstream-tests.log" 2>&1
     restore
     trap - EXIT HUP INT TERM

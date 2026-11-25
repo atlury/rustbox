@@ -5,7 +5,7 @@ set -eu
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
     canonical=/rustbox-inetutils/normalized-gcc
-    rustbox=/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox
+    rustbox=${RUSTBOX_TEST_ELF:-/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox}
     evidence=/work/work/analysis/inetutils-2.8/multicall
     python3 /work/tests/inetutils-multicall-differential.py \
       --canonical-root "$canonical" --rustbox "$rustbox" \

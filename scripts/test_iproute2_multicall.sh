@@ -4,7 +4,7 @@ set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
-    rustbox=/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox
+    rustbox=${RUSTBOX_TEST_ELF:-/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox}
     canonical=/rustbox-iproute2/programs-gcc
     routel=/work/work/upstream/iproute2-7.3.0/ip/routel
     output=/work/work/analysis/iproute2-7.3.0/multicall

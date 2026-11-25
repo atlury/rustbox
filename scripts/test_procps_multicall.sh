@@ -6,7 +6,7 @@ root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
     oracle=/rustbox-procps/programs-gcc
     oracle_library=/rustbox-procps/oracle-gcc/library/.libs
-    rustbox=/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox
+    rustbox=${RUSTBOX_TEST_ELF:-/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox}
     evidence=/work/work/analysis/procps-ng-4.0.7/multicall
     rm -rf "$evidence"
     mkdir -p "$evidence"

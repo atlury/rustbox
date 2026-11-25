@@ -585,7 +585,8 @@ each package's reduction against its receipts. Package test launchers use the
 release's Linux image. For checks that overlap a build, set
 `RUSTBOX_MULTICALL_TEST_BINARY` to the absolute path of a saved Linux executable.
 The launcher verifies the file, caches it in a Linux Docker volume named for
-its SHA-256, and mounts the volume file read-only over the test executable.
+its SHA-256, and mounts it read-only at `/rustbox-test-elf/rustbox`. Package
+suites use that path even while the linker replaces its own output.
 Compare that SHA-256 with the final link report before attributing the tests
 to that release.
 

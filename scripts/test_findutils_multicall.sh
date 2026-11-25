@@ -6,7 +6,7 @@ root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
     stage=/rustbox-findutils/multicall
     report=/work/work/analysis/findutils-4.10.0/multicall
-    binary=/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox
+    binary=${RUSTBOX_TEST_ELF:-/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox}
     rm -rf "$stage" "$report"
     mkdir -p "$stage/find" "$stage/xargs" "$stage/locate" "$report"
     ln -s "$binary" "$stage/find/find"

@@ -6,7 +6,7 @@ root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 
 exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
     output=/work/work/analysis/m4-1.4.21/multicall
-    rustbox=/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox
+    rustbox=${RUSTBOX_TEST_ELF:-/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox}
     canonical=/rustbox-m4/normalized-clang/src/m4
     bindir="$output/bin"
     mkdir -p "$bindir"

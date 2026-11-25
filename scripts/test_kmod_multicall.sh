@@ -5,7 +5,7 @@ set -eu
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
     canonical=/rustbox-kmod/oracle-gcc
-    rustbox=/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox
+    rustbox=${RUSTBOX_TEST_ELF:-/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox}
     dispatch=/rustbox-kmod/multicall-dispatch
     evidence=/work/work/analysis/kmod-34.3/multicall
     rm -rf "$dispatch" "$evidence"

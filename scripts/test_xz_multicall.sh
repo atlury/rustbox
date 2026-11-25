@@ -5,7 +5,7 @@ set -eu
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
     output=/work/work/analysis/xz-5.8.4/multicall
-    rustbox=/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox
+    rustbox=${RUSTBOX_TEST_ELF:-/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox}
     source=/work/work/analysis/xz-5.8.4/normalized/clang-root/usr/bin
     canonical=/rustbox-xz/multicall-canonical
     dispatch=/rustbox-xz/multicall-dispatch

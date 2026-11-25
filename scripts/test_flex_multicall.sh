@@ -6,7 +6,7 @@ root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
     analysis=/work/work/analysis/flex-2.6.4/multicall
     canonical=/rustbox-flex/normalized-gcc/src/flex
-    rustbox=/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox
+    rustbox=${RUSTBOX_TEST_ELF:-/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox}
     source=/rustbox-flex/normalized-source
     suite=/rustbox-flex/hybrid-suite
     mkdir -p "$analysis" /work/build/rustbox-flex-dispatch

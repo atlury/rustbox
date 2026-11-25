@@ -6,7 +6,7 @@ root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
     stage=/rustbox-gawk/multicall
     output=/work/work/analysis/gawk-5.4.0/multicall
-    binary=/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox
+    binary=${RUSTBOX_TEST_ELF:-/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox}
     canonical=/rustbox-gawk/normalized-gcc
     extensions=/work/build/gawk-5.4.0-hybrid/extension/.libs
     rm -rf "$stage" "$output"
@@ -37,7 +37,8 @@ exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
     mv "$installed" "$saved"
     ln -s "$stage/gawk" "$installed"
     set +e
-    runuser --user=nobody -- make -C "$canonical" -k -j"$(nproc)" check \
+    # The upstream suite includes wall-clock assertions under x86_64 emulation.
+    runuser --user=nobody -- make -C "$canonical" -k -j2 check \
       >"$output/upstream-tests.log" 2>&1
     check_status=$?
     set -e
