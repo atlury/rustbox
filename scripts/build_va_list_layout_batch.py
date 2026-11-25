@@ -40,11 +40,15 @@ def run(link, output, packages, jobs):
                 if process.returncode:
                     print(f"{Path(key).name}: compiler exited {process.returncode}, see {log.name}", flush=True)
                     return key, "errors", dict(status=process.returncode, log=log.name)
-            verify(link, folder, "va-list")
-            row = json.loads((folder / "pilot.json").read_bytes())
-            if (row["archive"] != key or row["raw_pointer_types_removed"] != fields * (copies - 1)
-                    or len(row["reexporting_modules"]) + 1 != copies):
-                raise ValueError("compiler inputs differ from the ranked variadic declarations")
+            try:
+                verify(link, folder, "va-list")
+                row = json.loads((folder / "pilot.json").read_bytes())
+                if (row["archive"] != key or row["raw_pointer_types_removed"] != fields * (copies - 1)
+                        or len(row["reexporting_modules"]) + 1 != copies):
+                    raise ValueError("compiler inputs differ from the ranked variadic declarations")
+            except (ValueError, OSError, KeyError, subprocess.CalledProcessError) as error:
+                print(f"{Path(key).name}: source replay failed: {error}", flush=True)
+                return key, "errors", dict(stage="source replay", error=str(error))
             category = "identical" if row["candidate_sha256"] == row["control_sha256"] else "changed"
             print(f"{Path(key).name}: {row['raw_pointer_types_removed']} repeated fields, archive {category}", flush=True)
             return key, category, row
