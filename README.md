@@ -607,6 +607,19 @@ entire 53-case util-linux batch passed. Release qualification runs the
 dispatcher and all differential batches on the saved executable.
 [Original mismatch and corrected results](evidence/util-linux-pipesz-fixture.json)
 
+The LZ4 benchmark dictionary pilot stores its 255 ordered words in 1,598
+immutable bytes. Rust slices use checked offsets, and word lengths are
+computed at compile time. The original generator still allocates the
+padded work buffer that its 16-byte copies require. A compiled C reader
+and the Rust dictionary matched on every word and length. The source
+change removes 539 raw-pointer type occurrences on the stdio parent, or
+11 additional occurrences when native C strings are already selected.
+
+```sh
+python3 -B tests/lz4-dictionary/source.py "$link"
+python3 -B scripts/build_lz4_dictionary_pilot.py --link "$link" --archive "$lz4_archive" --output "$pilot"
+```
+
 The curl calendar pilot replaces 23 raw offsets in `checkmonth` with a
 three-byte array match. Its single caller copies three bytes only after
 the existing date scanner has counted three ASCII letters. The Rust helper
