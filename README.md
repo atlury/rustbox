@@ -483,6 +483,13 @@ archives after 5,741 literal conversions, removing 11,482 explicit casts.
 The complete Bison and tar archives differed and are deferred for separate
 verification. [Five-package compiler results](evidence/native-c-string-first-batch.json)
 
+For IPRoute2 the builder starts from the selected netlink archive and
+replays the earlier address, scope and realm changes before it converts
+strings. In `arpd`, 397 native C strings removed 794 explicit casts while
+preserving every archive byte. The independent inventory also reconstructed
+the inputs from the checked-in manifests.
+[IPRoute2 arpd compiler evidence](evidence/iproute2-arpd-c-string-pilot.json)
+
 To select cold-built C-string archives in the multicall, enroll them against
 the same compiler inputs as the intended parent release. When that release
 shares stdio layouts, rebuild overlapping literal pilots on top of those

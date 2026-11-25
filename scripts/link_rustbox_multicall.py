@@ -2852,7 +2852,7 @@ def main() -> int:
     for manifest, layer in ((args.shared_stdio, "shared_stdio_layouts"), (args.native_c_strings, "native_c_strings")):
         if manifest:
             identical_layers[layer] = prepare_identical_archives.validate_link(
-                json.loads(manifest.read_bytes()), source_library_hashes, {**proofs, **identical_layers}, layer)
+                json.loads(manifest.read_bytes()), source_library_hashes, {**proofs, **identical_layers, **route_selections, "curl_manual": curl_manual_record}, layer)
     expected_symbols.update(f"rustbox_{symbol}_main" for symbol in util_dispatch.values())
     expected_symbols.add("rustbox_m4_main")
     expected_symbols.update({

@@ -7,6 +7,7 @@ from pathlib import Path
 import shutil
 from tempfile import TemporaryDirectory
 
+from cargo_source_parent import cargo_origin, pinned_parent
 from check_cargo_private_inlines import ROOT, digest, layout
 
 PROOFS = ("linked_private_inline_proofs", "linked_second_inline_proofs", "linked_foreign_declaration_proofs")
@@ -21,7 +22,13 @@ def parent_fields(layer):
 
 
 def selected_receipts(link, key, layer):
-    return {f: link[f][key] for f in parent_fields(layer) if key in link.get(f, {})}
+    receipts = {}
+    origin = str(cargo_origin(link, key))
+    for field in parent_fields(layer):
+        location = key if field == "shared_stdio_layouts" else origin
+        if location in link.get(field, {}):
+            receipts[field] = link[field][location]
+    return receipts
 
 
 def marker(archive, row, layer):
@@ -31,7 +38,10 @@ def marker(archive, row, layer):
 
 def check_row(key, row):
     archive = Path(key)
-    layout(archive)
+    origin = Path(row.get("cargo_archive", key))
+    layout(origin)
+    if origin != archive:
+        pinned_parent(key, row)
     for name in ("control_sha256", "candidate_sha256", "candidate_sources_sha256", "parent_sources_sha256", "control_binary_sha256"):
         value = row[name]
         if len(value) != 64 or any(c not in "0123456789abcdef" for c in value):
@@ -47,7 +57,8 @@ def validate_link(manifest, hashes, proofs, layer):
         row = item["pilot"]
         archive = check_row(key, row)
         stamp = marker(archive, row, layer)
-        if (hashes.get(key) != row["control_sha256"] or selected_receipts(proofs, key, layer) != item["parent_receipts"]
+        if (hashes.get(key) != row["control_sha256"] or str(cargo_origin(proofs, key)) != row.get("cargo_archive", key)
+                or selected_receipts(proofs, key, layer) != item["parent_receipts"]
                 or json.loads(stamp.read_bytes()) != item or digest(archive) != row["candidate_sha256"]):
             raise ValueError(f"{layer} archive or compiler receipt changed for {key}")
         records[key] = row
@@ -85,8 +96,14 @@ def prepare(manifest, layer):
             continue
         with TemporaryDirectory(dir=archive.parent) as temp:
             root = Path(temp)
-            link = {"binary": {"sha256": row["control_binary_sha256"]}, "source_library_sha256": {key: row["control_sha256"]},
-                    **{field: {key: value} for field, value in item["parent_receipts"].items()}}
+            link = pinned_parent(key, row)
+            link["binary"] = {"sha256": row["control_binary_sha256"]}
+            for field, receipt in item["parent_receipts"].items():
+                location = key if field == "shared_stdio_layouts" else row.get("cargo_archive", key)
+                target = link.setdefault(field, {})
+                if target.get(location, receipt) != receipt:
+                    raise ValueError("archived compiler receipt differs from the pinned parent")
+                target[location] = receipt
             (root / "parent.json").write_text(json.dumps(link))
             if layer == "native_c_strings":
                 from build_c_string_literal_pilot import build
@@ -116,16 +133,21 @@ def enroll(link_file, output, pilots, layer):
             raise ValueError(f"missing compiler output for {key}")
     # Bind the cold builds to this actual link, including all compiler source
     # hashes. Cached receipts from an earlier release may have the same inputs.
-    subset = {"binary": link["binary"], "source_library_sha256": {k: link["source_library_sha256"][k] for k in records}}
-    for field in parent_fields(layer):
-        subset[field] = {key: link[field][key] for key in records if key in link.get(field, {})}
-    current = {**subset, layer: records}
-    check_identical_layer(subset, current, measure(subset), measure(current), layer)
+    base = dict(link)
+    base.pop(layer, None)
+    current = {**base, layer: records}
+    for key, row in records.items():
+        origin = cargo_origin(link, key)
+        if str(origin) != row.get("cargo_archive", key):
+            raise ValueError(f"cold build used the wrong Cargo origin for {key}")
+        pair = (origin, Path(key))
+        check_identical_layer(base, {**base, layer: {key: row}}, measure(base, archive_pair=pair),
+                              measure(current, archive_pair=pair), layer)
     for directory in pilots:
         row = json.loads((directory / "pilot.json").read_bytes())
         key = row["archive"]
         install(manifest[key], directory / Path(key).name, layer)
-    validate_link(manifest, subset["source_library_sha256"], subset, layer)
+    validate_link(manifest, link["source_library_sha256"], link, layer)
     if link_file.read_bytes() != original:
         raise ValueError("link changed during enrollment")
     with TemporaryDirectory(dir=output.parent) as directory:

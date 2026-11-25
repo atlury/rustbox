@@ -81,7 +81,7 @@ def measure_layer(crate, files, proof, item_count="private_functions_removed"):
     return stats
 
 
-def audit(link, temporary, inspect_source=None, *, inspect_module=None):
+def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_pair=None):
     link_archive_hashes = link["source_library_sha256"]
     stdio_records = link.get("shared_stdio_layouts", {})
     stdio_deltas = {}
@@ -113,9 +113,24 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None):
     second_cleanups = {}
     foreign = link.get("linked_foreign_declaration_proofs", {})
     declarations = {}
+    hashes = link["source_library_sha256"]
+    if archive_pair:
+        original, selected_path = map(str, archive_pair)
+        if original not in hashes or selected_path not in link_archive_hashes:
+            raise ValueError("requested Cargo archive lies outside the checked link")
+        hashes = {original: hashes[original]}
+
+        def for_key(records, key=original):
+            return {key: records[key]} if key in records else {}
+
+        proofs, second, foreign = map(for_key, (proofs, second, foreign))
+        address_records, route_records, netlink_records, fixed_arrays, curl_records = map(
+            for_key, (address_records, route_records, netlink_records, fixed_arrays, curl_records))
+        stdio_records = for_key(stdio_records, selected_path)
+        literal_records = for_key(literal_records, selected_path)
     if not second.keys() <= proofs.keys() & link["source_library_sha256"].keys():
         raise ValueError("second-layer receipt has no linked parent archive")
-    for name, expected in sorted(link["source_library_sha256"].items()):
+    for name, expected in sorted(hashes.items()):
         path = Path(name)
         shared_object = path.name in SHARED_SOURCES and path.parent.name in ("rustbox-checksums", "rustbox-e2fsprogs-shared")
         if path.is_absolute() or (path.suffix != ".a" and not shared_object):
@@ -242,6 +257,8 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None):
         root_module = ROOT / f"compat/e2fsprogs/{SHARED_SOURCES[archive.name]}" if shared_object else crate / "lib.rs"
         if root_module not in files:
             raise ValueError(f"unexpected compiler inputs for {archive}")
+        if archive_pair and str(linked_path) != selected_path:
+            raise ValueError("Cargo origin does not yield the requested linked archive")
         stdio = stdio_records.get(str(linked_path))
         replacements = {}
         if stdio is not None:
@@ -507,9 +524,9 @@ def check_shared_stdio(previous, selected, before, after):
     check_identical_layer(previous, selected, before, after, "shared_stdio_layouts")
 
 
-def measure(link, inspect_source=None, *, inspect_module=None):
+def measure(link, inspect_source=None, *, inspect_module=None, archive_pair=None):
     with tempfile.TemporaryDirectory() as temp:
-        return audit(link, Path(temp), inspect_source, inspect_module=inspect_module)
+        return audit(link, Path(temp), inspect_source, inspect_module=inspect_module, archive_pair=archive_pair)
 
 
 if __name__ == "__main__":

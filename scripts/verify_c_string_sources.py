@@ -66,9 +66,12 @@ def verify(link_path, pilot):
     if (selection["source_library_sha256"].get(key) != row["control_sha256"]
             or digest(ROOT / archive) != row["control_sha256"] or digest(pilot / archive.name) != row["candidate_sha256"]):
         raise ValueError("archive selection or candidate binary differs")
-    layers = ("source_library_sha256", "linked_private_inline_proofs", "linked_second_inline_proofs",
-              "linked_foreign_declaration_proofs", "shared_stdio_layouts")
-    selected = {f: {key: selection[f][key]} for f in layers if key in selection.get(f, {})}
+    from cargo_source_parent import cargo_origin
+    origin = cargo_origin(selection, key)
+    if row.get("cargo_archive", key) != str(origin):
+        raise ValueError("literal receipt selected another Cargo target")
+    if key in selection.get("native_c_strings", {}):
+        selection["native_c_strings"] = {k: v for k, v in selection["native_c_strings"].items() if k != key}
     hashes, data = {}, {}
     def inspect(selected_archive, module, checksum, source):
         if selected_archive != archive or str(module) in hashes:
@@ -76,7 +79,7 @@ def verify(link_path, pilot):
         hashes[str(module)] = checksum.hex()
         if str(module) in row["modules"] or ("legacy_compiler" in row and str(module) == "lib.rs"):
             data[str(module)] = source
-    measure(dict(selected, binary=selection["binary"]), inspect_module=inspect)
+    measure(selection, inspect_module=inspect, archive_pair=(origin, archive))
     replay(hashes, data.__getitem__, row, syntax_tool())
     print(f"Reproduced {row['c_string_literals']} C literals from {len(hashes)} checked compiler inputs.")
 

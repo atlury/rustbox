@@ -8,6 +8,7 @@ import subprocess
 import shutil
 from tempfile import TemporaryDirectory
 
+from cargo_source_parent import cargo_origin
 from check_cargo_private_inlines import ROOT, digest, layout, rust_inputs
 from check_e2fsprogs_dirhash_arrays import source_list_digest
 
@@ -29,7 +30,7 @@ def compile_mounted_sources(archive, substitute, marker, *, allow_identical):
     source, base = layout(archive)
     crate, target = ROOT / source, ROOT / base
     record = json.loads((target / "control.json").read_bytes())
-    if record["archive"] != str(archive) or (crate / marker).read_text() != record["control_sha256"]:
+    if record.get("cargo_archive", record["archive"]) != str(archive) or (crate / marker).read_text() != record["control_sha256"]:
         raise ValueError("expected this archive's disposable pilot directories")
     built = ROOT / archive
     if built.exists():
@@ -83,12 +84,16 @@ def stage_selected_archive(link_file, out, key, marker, script, prepare_crate=No
     link = json.loads(raw)
     sha = link["source_library_sha256"][key]
     archive = Path(key)
-    src, base = layout(archive)
+    origin = cargo_origin(link, key)
+    src, base = layout(origin)
     if out.exists() or digest(ROOT / archive) != sha:
         raise ValueError("expected an empty destination and the linked archive")
-    layers = ("source_library_sha256", "linked_private_inline_proofs", "linked_second_inline_proofs",
-              "linked_foreign_declaration_proofs", "shared_stdio_layouts")
-    receipts = {k: {key: link[k][key]} for k in layers if k != omit_layer and key in link.get(k, {})}
+    # Reconstruct the selected Cargo sources after all preceding substitutions.
+    # Rebuilding a layer from its own receipt starts with its parent sources.
+    if omit_layer and key in link.get(omit_layer, {}):
+        link[omit_layer] = {k: v for k, v in link[omit_layer].items() if k != key}
+        if not link[omit_layer]:
+            del link[omit_layer]
     with TemporaryDirectory(dir=out.parent) as tmp:
         crate, target, result = (Path(tmp) / n for n in ("crate", "target", "result"))
         shutil.copytree(ROOT / src, crate, ignore=shutil.ignore_patterns("target"))
@@ -103,16 +108,17 @@ def stage_selected_archive(link_file, out, key, marker, script, prepare_crate=No
             (crate / module).write_bytes(data)
             sources[str(module)] = checksum.hex()
 
-        measure(dict(receipts, binary=link["binary"]), inspect_module=capture)
+        measure(link, inspect_module=capture, archive_pair=(origin, archive))
         (crate / marker).write_text(sha)
         (target / "control.json").write_text(json.dumps(dict(archive=key, control_sha256=sha,
-            control_binary_sha256=link["binary"]["sha256"], sources=sources)))
+            control_binary_sha256=link["binary"]["sha256"], sources=sources,
+            **({"cargo_archive": str(origin)} if origin != archive else {}))))
         subprocess.run(["docker", "run", "--rm", "--network", "none", "--platform", "linux/amd64",
                         "-v", f"{ROOT}:/work:ro", "--tmpfs", "/work/.git:ro",
                         "-v", f"{crate}:/work/{src}", "-v", f"{target}:/work/{base}",
                         "-v", "rustbox-pointer-cargo-registry:/root/.cargo/registry:ro",
                         "rustbox-e2fsprogs:2026-11-24", "python3", "-B",
-                        str(Path("/work/scripts") / script), "--mounted", key], check=True)
+                        str(Path("/work/scripts") / script), "--mounted", str(origin)], check=True)
         row = json.loads((target / "pilot.json").read_bytes())
         candidate = target / "release" / archive.name
         if digest(candidate) != row["candidate_sha256"] or row["control_sha256"] != sha or link_file.read_bytes() != raw:
