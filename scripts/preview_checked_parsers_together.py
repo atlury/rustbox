@@ -28,7 +28,7 @@ PACKAGES = {
 }
 
 
-def compare(parent, log, output, pilots):
+def compare(parent, log, output, pilots, packages=PACKAGES):
     if len(pilots) < 2:
         raise ValueError("select at least two checked packages")
     raw = parent.read_bytes()
@@ -36,7 +36,7 @@ def compare(parent, log, output, pilots):
     prepare_package = {}
     evidence = {}
     for name, pilot in pilots.items():
-        filename, namespace, _ = PACKAGES[name]
+        filename, namespace, _ = packages[name]
         path = ROOT / "evidence" / filename
         proof = json.loads(path.read_bytes())["archive"]
         prepare_package[name] = qualified_inputs(release, pilot, proof, namespace)
@@ -56,7 +56,7 @@ def compare(parent, log, output, pilots):
         for package in pilots:
             directory = stage / ("test-" + package)
             directory.mkdir()
-            results[package] = PACKAGES[package][2](elf, directory)
+            results[package] = packages[package][2](elf, directory)
         return dict(public=results, archive_evidence_sha256=evidence)
 
     preview_link(parent, raw, log, output, prepare, exercise)

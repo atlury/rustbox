@@ -830,6 +830,8 @@ repeated overrides and embedded NULs through both dispatch modes and
 both canonical compilers. The stripped candidate is 24,938,640 bytes.
 [Multicall comparison](evidence/less-checked-catalog-multicall.json)
 
+The same 499-name executable also passed the zstd, less, curl suites with those checked archives linked together. Relative to the reproduced production parent it measured 24,934,528 bytes stripped (a signed reduction of 27,248 bytes). [Combined executable results](evidence/checked-triple-multicall.json)
+
 The same 499-name executable also passed the zstd, less suites with those checked archives linked together. Relative to the reproduced production parent it measured 24,934,528 bytes stripped (a signed reduction of 27,248 bytes). [Combined executable results](evidence/checked-pair-multicall.json)
 
 The compiler-source audit follows each archive through preparation and the
