@@ -1,0 +1,44 @@
+{
+  "archive": "work/analysis/bison-3.8.2/translations/c2rust-0.22.1/bison-3.8.2-stable/target/release/libbison_3_8_2_normalized_audit.a",
+  "candidate_executable_sha256": "c35f984153e7b18ac49e9b4820790556a02dba0a9a6105111dd84d0665e3d52d",
+  "candidate_sha256": "e60a4fb2be106db3ecffe4380214d26b6fd9198d93ba2ccb380f3babc49aa0d2",
+  "candidate_sources_sha256": "a0b39e24a0cf56624b52f91f1d89adb8201b88fbb81253e7298e3dcf14d4ac11",
+  "canonical": {
+    "clang": {
+      "bison_cases": 12,
+      "compiled_parsers": 5,
+      "generated_yacc_files": {
+        "y.tab.c": "4cd5e3fcd1c8d752a319d6758444a7070c7ad80961b33ace3916a1cae2d45a7a",
+        "y.tab.h": "405501cb57bb539a16ea532adb5963e67958478fa1a12f97c48e6f398bdb8329"
+      },
+      "yacc_cases": 1
+    },
+    "gcc": {
+      "bison_cases": 12,
+      "compiled_parsers": 5,
+      "generated_yacc_files": {
+        "y.tab.c": "4cd5e3fcd1c8d752a319d6758444a7070c7ad80961b33ace3916a1cae2d45a7a",
+        "y.tab.h": "405501cb57bb539a16ea532adb5963e67958478fa1a12f97c48e6f398bdb8329"
+      },
+      "yacc_cases": 1
+    }
+  },
+  "compiler_selected_sources": 150,
+  "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+  "control_sha256": "b67a33ec59e822fb55a7b54b560a6720f22377122f05a4389353629bda4f10e4",
+  "memcheck_parser_generations": 2,
+  "modules": {
+    "src/src/conflicts.rs": 5,
+    "src/src/getargs.rs": 6,
+    "src/src/graphviz.rs": 3,
+    "src/src/muscle_tab.rs": 54,
+    "src/src/output.rs": 87,
+    "src/src/print_graph.rs": 13,
+    "src/src/scan_code_c.rs": 36,
+    "src/src/scan_gram_c.rs": 21
+  },
+  "parent_sources_sha256": "93f74462add5f4d3d20cb41979b89f68618b4aa81af0c0cd3e0ee0c03545df37",
+  "raw_pointer_types_removed": 450,
+  "strlen_calls_removed": 225,
+  "syntax_tool_sha256": "ef99e3cca3c84461273926bd743521ab360399897d633fac363e21c27757223f"
+}

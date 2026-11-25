@@ -438,6 +438,15 @@ foreign declaration and skips modules with ambiguous bindings. On the
 These are candidate counts. The release inventory records accepted builds.
 [Literal length candidates](evidence/rustbox-literal-length-candidates.json)
 
+The GNU Bison 3.8.2 pilot replaced 225 calls to `strlen` and 450 raw
+pointer casts in eight modules. Rebuilding all 150 selected sources
+produced a different archive. The resulting `bison` and `yacc` passed
+13 comparisons against each of the GCC and Clang upstream builds,
+including five generated parsers and a yacc parser compiled and exercised
+for each oracle. Both frontends generated a parser under Memcheck with
+zero reported errors. This result applies to the isolated Bison executable.
+[Bison pilot and generated-file digests](evidence/bison-literal-length-pilot.json)
+
 ```sh
 python3 -B tests/c-string-literals/lengths.py
 python3 -B scripts/rank_c_string_literals.py --lengths "$link"
