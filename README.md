@@ -574,6 +574,13 @@ python3 -B scripts/recover_applet_literal_modules.py "$link" "$whole_pilot" "$su
 python3 -B tests/c-string-literals/release.py "$link" "$subset_pilot/pilot.json"
 ```
 
+All 18 IPRoute2 engines reproduced their full static archives after 26,787
+literal conversions removed 53,574 explicit casts. This included the
+separate direct-rustc build for `bridge`. Each replacement retains one
+pointer extraction at the C interface. An independent source replay against
+the packed-curl parent checked all 18 compiler-input digests and archives.
+[IPRoute2 per-engine receipts](evidence/iproute2-native-c-string-archives.json)
+
 To select cold-built C-string archives in the multicall, enroll them against
 the same compiler inputs as the intended parent release. When that release
 shares stdio layouts, rebuild overlapping literal pilots on top of those
