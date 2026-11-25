@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: 0BSD
 import argparse
 from collections import Counter
+import hashlib
 import json
 from pathlib import Path
 import shutil
@@ -26,7 +27,7 @@ def apply_receipt(crate, record, inputs):
         directory = Path(scope)
         if (not directory.parts or directory.is_absolute() or ".." in directory.parts
                 or any(directory not in Path(name).parents for name in spans)):
-            raise ValueError("cleanup path outside selected source directory")
+            raise ValueError("cleanup path outside the selected source directory")
     source_layout = record.get("source_layout", "lines")
     if source_layout not in ("lines", "byte_offsets"):
         raise ValueError("unknown cleanup layout")
@@ -39,10 +40,27 @@ def apply_receipt(crate, record, inputs):
     return removed
 
 
+def read_second_layer(archive, relative, selected, parent, archive_sha):
+    checksum = selected["sha256"]
+    expected = archive.with_suffix(f".layer2-{checksum}.json")
+    if selected["file"] != expected.name:
+        raise ValueError(f"unexpected second-layer receipt filename: {relative}")
+    data = expected.read_bytes()
+    if hashlib.sha256(data).hexdigest() != checksum:
+        raise ValueError(f"second-layer receipt differs from release: {relative}")
+    report = json.loads(data)
+    record = report["second_layer"]
+    if (report["archive"] != str(relative) or report["archive_sha256"] != archive_sha
+            or report["parent"] != parent or record["archive_sha256"] != archive_sha
+            or not record["ranges"]):
+        raise ValueError(f"invalid second-layer provenance: {relative}")
+    return report
+
+
 def baseline(release, archive):
     layout(archive)
-    if archive.parts[3] != "translations":
-        raise ValueError("expected a single-crate package translation")
+    if archive.parts[3] not in ("translations", "program-translations"):
+        raise ValueError("expected a linked Cargo translation")
     sha = release["source_library_sha256"][str(archive)]
     if digest(ROOT / archive) != sha:
         raise ValueError("archive differs from release")
@@ -70,11 +88,16 @@ def new_leaf_estimate(data, ranges):
     return sum(after[name] == 1 and before[name] > 1 for name in INLINE.findall(current))
 
 
-def rank(release):
+def rank(release, *, grouped=False):
     rows = []
     for name in release["linked_private_inline_proofs"]:
+        if name in release.get("linked_second_inline_proofs", {}):
+            continue
         archive = Path(name)
-        if archive.parts[3] != "translations":
+        if grouped:
+            if archive.parts[3] != "program-translations" or "cargo-target" not in archive.parts:
+                continue
+        elif archive.parts[3] != "translations":
             continue
         _, _, parent = baseline(release, archive)
         source, _ = layout(archive)
@@ -87,7 +110,7 @@ def rank(release):
     return sorted(rows, key=lambda row: (-row["estimated_new_leaves"], row["archive"]))
 
 
-def check_layer(release, archive):
+def check_layer(release, archive, *, publish=False, expected_receipt=None):
     sha, selection, parent = baseline(release, archive)
     source, base = layout(archive)
     inputs = {str(p.relative_to(source)) for p in rust_inputs(ROOT / archive)}
@@ -100,10 +123,12 @@ def check_layer(release, archive):
         for path in (crate, target):
             (path / ".rustbox-inline-scratch").write_text(sha)
         scope = parent.get("source_directory")
+        registry = [] if archive.parts[2].startswith("e2fsprogs-") else [
+            "-v", "rustbox-pointer-cargo-registry:/root/.cargo/registry:ro"]
         subprocess.run([
             "docker", "run", "--rm", "--network", "none", "--platform", "linux/amd64",
             "--workdir", "/work", "-v", f"{ROOT}:/work:ro",
-            "-v", "rustbox-pointer-cargo-registry:/root/.cargo/registry:ro",
+            *registry,
             "-v", f"{crate}:/work/{source}", "-v", f"{target}:/work/{base}",
             "rustbox-e2fsprogs:2026-11-24", "python3", "-B", "/work/scripts/check_cargo_private_inlines.py",
             str(archive), "--verify-mounted-copy", sha, *(["--source-dir", scope] if scope else []),
@@ -126,9 +151,22 @@ def check_layer(release, archive):
             return {"archive": str(archive), "archive_sha256": sha, "parent": selection,
                     "private_functions_removed": 0, "raw_pointer_type_tokens_removed": 0}
         removed = apply_receipt(check, next_record, inputs)
-        return {"archive": str(archive), "archive_sha256": sha, "parent": selection,
+        report = {"archive": str(archive), "archive_sha256": sha, "parent": selection,
                 "private_functions_removed": sum(map(len, next_record["ranges"].values())),
                 "raw_pointer_type_tokens_removed": removed, "second_layer": next_record}
+        if publish:
+            data = (json.dumps(report, sort_keys=True) + "\n").encode()
+            checksum = hashlib.sha256(data).hexdigest()
+            receipt = (ROOT / archive).with_suffix(f".layer2-{checksum}.json")
+            selected = {"file": receipt.name, "sha256": checksum}
+            if expected_receipt is not None and selected != expected_receipt:
+                raise ValueError("newly compiled layer differs from the pinned release receipt")
+            # Both files are on the same filesystem. Readers always see a complete archive.
+            pending = scratch / "receipt.json"
+            pending.write_bytes(data)
+            (target / "release" / archive.name).replace(ROOT / archive)
+            pending.replace(receipt)
+        return report
 
 
 if __name__ == "__main__":
@@ -137,16 +175,20 @@ if __name__ == "__main__":
     parser.add_argument("archive", type=Path, nargs="?")
     parser.add_argument("output", type=Path, nargs="?", help="new experiment report outside the release")
     parser.add_argument("--rank", action="store_true", help="estimate newly unreferenced functions by archive")
+    parser.add_argument("--grouped", action="store_true", help="rank Cargo-built engines of multi-engine packages")
+    parser.add_argument("--publish", action="store_true", help="install the byte-identical archive and its receipt")
     args = parser.parse_args()
     release = json.loads(args.link_report.read_bytes())
     if args.rank:
-        if args.archive or args.output:
+        if args.archive or args.output or args.publish:
             parser.error("--rank needs only the release report")
-        print(json.dumps(rank(release), indent=2))
+        print(json.dumps(rank(release, grouped=args.grouped), indent=2))
         raise SystemExit(0)
+    if args.grouped:
+        parser.error("--grouped applies only to ranking")
     if not args.archive or not args.output:
         parser.error("provide the archive and output path, or use --rank")
-    report = check_layer(release, args.archive)
+    report = check_layer(release, args.archive, publish=args.publish)
     with args.output.open("x") as stream:
         json.dump(report, stream, sort_keys=True)
         stream.write("\n")
