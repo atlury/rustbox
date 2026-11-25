@@ -21,6 +21,13 @@ def substitute(crate, sources):
     if len(matched) < 2:
         raise ValueError("expected two compiler-selected copies of the canonical FILE layout")
     owner = GZIP_OWNER if GZIP_OWNER in matched else matched[0]
+    selection = crate / ".rustbox-stdio-modules.json"
+    if selection.is_file():
+        names = json.loads(selection.read_bytes())
+        available = {str(module) for module in matched if module != owner}
+        if not names or len(names) != len(set(names)) or not set(names) <= available:
+            raise ValueError("requested modules lie outside the checked stdio family")
+        matched = sorted(Path(name) for name in names)
     replacements = {}
     for module in matched:
         name = str(module)
@@ -34,7 +41,7 @@ def substitute(crate, sources):
                           "raw_pointer_types_removed": 18 * len(replacements)}
 
 
-def build(link_file, out, archive=None):
+def build(link_file, out, archive=None, modules=None):
     raw = link_file.read_bytes()
     link = json.loads(raw)
     if archive is None:
@@ -52,6 +59,11 @@ def build(link_file, out, archive=None):
         crate, target, result = (Path(tmp) / n for n in ("crate", "target", "result"))
         shutil.copytree(ROOT / src, crate, ignore=shutil.ignore_patterns("target"))
         target.mkdir()
+        subset = crate / ".rustbox-stdio-modules.json"
+        if subset.exists():
+            raise ValueError("unexpected stdio module selection in generated source")
+        if modules is not None:
+            subset.write_text(json.dumps(modules))
         sources = {}
 
         def capture(selected, module, checksum, data):

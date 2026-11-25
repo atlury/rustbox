@@ -80,7 +80,7 @@ def prepare(manifest):
             link = {"binary": {"sha256": row["control_binary_sha256"]}, "source_library_sha256": {key: row["control_sha256"]},
                     **{field: {key: value} for field, value in item["parent_receipts"].items()}}
             (root / "parent.json").write_text(json.dumps(link))
-            build(root / "parent.json", root / "built", Path(key))
+            build(root / "parent.json", root / "built", Path(key), row["reexporting_modules"])
             if json.loads((root / "built/pilot.json").read_bytes()) != row:
                 raise ValueError(f"cold compiler receipt differed for {key}")
             install(item, root / "built" / archive.name)

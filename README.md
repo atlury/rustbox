@@ -390,6 +390,11 @@ python3 -B scripts/build_shared_stdio_batch.py "$link" work/analysis/stdio-ranks
 To select byte-identical builds in a multicall release, enroll their pilot
 directories against the actual parent link. Enrollment replays every selected
 compiler source, installs the cold-built archives and records the receipts.
+For a whole-crate candidate with changed archive bytes,
+`scripts/recover_shared_stdio.py LINK WHOLE_PILOT NEW_RESULTS --limit 8`
+tries smaller groups. Each trial cold-builds the union of the proposed group
+and every previously accepted module. The results file identifies the exact
+pilot directory that can be enrolled and lists the remaining modules.
 The optional build below selects a manifest on top of the packed curl manual.
 Compare the resulting link report with the saved parent to verify the ELF,
 link map, archive inputs and source counts.
