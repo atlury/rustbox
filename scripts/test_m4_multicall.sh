@@ -4,8 +4,7 @@ set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 
-RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
-  exec "$root/scripts/run_tool.sh" sh -eu -c '
+exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
     output=/work/work/analysis/m4-1.4.21/multicall
     rustbox=/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox
     canonical=/rustbox-m4/normalized-clang/src/m4

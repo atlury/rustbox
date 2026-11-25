@@ -4,6 +4,21 @@ set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 tool_image=${RUSTBOX_TOOL_IMAGE:-rustbox-tools:2026-11-19}
+if [ "${1:-}" = "--multicall-test-binary" ]; then
+    candidate=$2
+    shift 2
+    case "$candidate" in
+        /*) ;;
+        *) echo "Expected an absolute path to the multicall test executable" >&2; exit 2 ;;
+    esac
+    if [ ! -f "$candidate" ] || [ ! -x "$candidate" ]; then
+        echo "Missing multicall test executable: $candidate" >&2
+        exit 2
+    fi
+    set -- --volume "$candidate:/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox:ro" "$tool_image" "$@"
+else
+    set -- "$tool_image" "$@"
+fi
 exec docker run --rm \
   --platform linux/amd64 \
   --interactive \
@@ -41,5 +56,5 @@ exec docker run --rm \
   --volume rustbox-iproute2-7.3.0:/rustbox-iproute2 \
   --volume rustbox-e2fsprogs-1.47.4:/rustbox-e2fsprogs \
   --workdir /work \
-  "$tool_image" "$@"
+  "$@"
 

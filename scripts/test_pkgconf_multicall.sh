@@ -3,8 +3,7 @@
 set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
-RUSTBOX_TOOL_IMAGE=rustbox-file:2026-11-20 \
-  exec "$root/scripts/run_tool.sh" sh -eu -c '
+exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
     output=/work/work/analysis/pkgconf-3.0.11/multicall
     rustbox=/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox
     source=/rustbox-pkgconf/normalized-source

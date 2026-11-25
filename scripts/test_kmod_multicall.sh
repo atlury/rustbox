@@ -3,8 +3,7 @@
 set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
-RUSTBOX_TOOL_IMAGE=rustbox-kmod:2026-11-24 \
-  exec "$root/scripts/run_tool.sh" sh -eu -c '
+exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
     canonical=/rustbox-kmod/oracle-gcc
     rustbox=/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox
     dispatch=/rustbox-kmod/multicall-dispatch

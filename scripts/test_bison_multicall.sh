@@ -3,8 +3,7 @@
 set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
-RUSTBOX_TOOL_IMAGE=rustbox-bison:2026-11-23 \
-  exec "$root/scripts/run_tool.sh" sh -eu -c '
+exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
     binary=/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox
     oracle=/work/work/analysis/bison-3.8.2/oracle/gcc-root
     source=/work/work/upstream/bison-3.8.2

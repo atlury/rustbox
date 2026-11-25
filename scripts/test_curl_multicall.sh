@@ -3,8 +3,7 @@
 set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
-RUSTBOX_TOOL_IMAGE=rustbox-e2fsprogs:2026-11-24 \
-  exec "$root/scripts/run_tool.sh" sh -eu -c '
+exec "$root/scripts/run_multicall_tool.sh" sh -eu -c '
     rustbox=/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox
     canonical=/work/work/analysis/curl-8.23.0/oracle
     output=/work/work/analysis/curl-8.23.0/multicall
