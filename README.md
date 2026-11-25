@@ -290,16 +290,12 @@ Counting byte-identical Rust files once gives **695,472** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
 The IPRoute2 `ss` pilot replaces the netlink protocol name table and removes
-315 raw-pointer type occurrences from its compiler-selected Rust module. The
-parent archive rebuilt byte-for-byte. Under empty, vendor, local and malformed
-configurations, the candidate matched IPRoute2 7.3.0 on 21,860 forward/reverse
-lookups and 48 public `ss` invocations. Four Valgrind runs passed. The release
-totals below count substitutions after multicall integration. Rebuild the pilot
-with `python3 -B scripts/build_iproute2_address_protocol_pilot.py --engine ss
---netlink-protocols --output work/analysis/ss-netlink-protocols` and verify
-with `python3 -B scripts/test_iproute2_netlink_protocols.py
-work/analysis/ss-netlink-protocols`. The recorded results are in
-[evidence/iproute2-netlink-protocols-pilot.json](evidence/iproute2-netlink-protocols-pilot.json).
+315 raw-pointer type occurrences from its compiler-selected Rust module.
+The parent archive rebuilt byte-for-byte. Under empty, vendor, local and
+malformed configurations, the candidate matched IPRoute2 7.3.0 on 21,860
+forward/reverse lookups and 48 public `ss` invocations. Four Valgrind runs
+passed. The release totals below count substitutions after multicall
+integration. [Pilot evidence](evidence/iproute2-netlink-protocols-pilot.json)
 
 | Production change | Raw-pointer type occurrences removed |
 |---|---:|
@@ -481,6 +477,33 @@ fresh output directory, run the following on the local build host.
 ```sh
 python3 -B scripts/build_iproute2_address_protocol_pilot.py --route-names --output work/analysis/route-name-pilot
 python3 -B scripts/test_iproute2_route_names.py work/analysis/route-name-pilot
+```
+
+For the netlink protocol pilot, build the `ss` engine and run the lookup
+driver and public command tests against canonical IPRoute2. The socket
+fixture uses the upstream `PROC_NET_NETLINK` override. It makes symbolic
+and numeric output reproducible across binaries. The tests cover first-call
+overrides of built-in names, duplicate names, non-UTF-8 bytes, short output
+buffers, cached reverse lookups and malformed configuration diagnostics.
+
+```sh
+python3 -B scripts/build_iproute2_address_protocol_pilot.py --netlink-protocols --engine ss --output work/analysis/ss-netlink-protocols
+python3 -B scripts/test_iproute2_netlink_protocols.py work/analysis/ss-netlink-protocols
+```
+
+All 18 netlink candidates reproduced their parent archives. Together they
+matched 393,480 canonical lookup results and passed 72 Memcheck runs. The
+compiler receipts are in [the batch manifest](batches/iproute2-netlink-protocols.json).
+
+To reproduce the netlink candidates for all 18 engines, use the scope/realm
+parent link report and two output directories. The batch builds larger
+crates first, reproduces each parent archive and checks each candidate
+against the canonical program as soon as its build finishes.
+
+```sh
+link=work/analysis/rustbox-multicall-link.json
+python3 -B scripts/build_iproute2_route_names.py "$link" work/analysis/netlink-batch \
+  --netlink-protocols --compare work/analysis/netlink-comparisons --jobs 4
 ```
 
 The same substitution applies to the compiler-selected scope and realm

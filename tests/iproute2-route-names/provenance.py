@@ -32,3 +32,31 @@ for broken_case in ("missing", "stale digest", "wrong module", "two parents", "l
         continue
     raise AssertionError(broken_case)
 print("Reconstructed 18 scope/realm parents and rejected missing, stale and ambiguous inputs.")
+
+# The newer layer must peel back to the scope/realm archives before the
+# address-protocol parent can be reconstructed.
+from iproute2_route_name_archives import netlink_control_view, netlink_path
+
+parent = parent_build_link(netlink=True)
+rows = manifest(netlink=True)
+selected = dict(parent, source_library_sha256={str(netlink_path(r)): r["candidate_sha256"] for r in rows.values()},
+                iproute2_netlink_protocols=rows, binary={"sha256": "new executable"})
+assert netlink_control_view(selected) == parent
+assert build_control_view(selected) == parent_build_link()
+for field in ("control_sha256", "control_module_sha256", "parent_sources_sha256", "compiler_selected_sources"):
+    broken = deepcopy(selected)
+    broken["iproute2_netlink_protocols"][key][field] = None
+    try:
+        parent_view(broken)
+    except ValueError:
+        continue
+    raise AssertionError(field)
+ambiguous = deepcopy(selected)
+ambiguous["source_library_sha256"].update(parent["source_library_sha256"])
+try:
+    parent_view(ambiguous)
+except ValueError:
+    pass
+else:
+    raise AssertionError("both parent and candidate selected")
+print("Reconstructed all 18 netlink parents and rejected stale or ambiguous inputs.")

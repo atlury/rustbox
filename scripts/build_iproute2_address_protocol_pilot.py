@@ -68,7 +68,8 @@ def build_pilot(output, link=None, engine="ip", *, route_names=False, netlink_pr
     if raw is not None:
         link = json.loads(raw)
         if netlink_protocols:
-            from iproute2_route_name_archives import verified_records
+            from iproute2_route_name_archives import netlink_control_view, verified_records
+            link = netlink_control_view(link)
             verified_records(link, link["iproute2_route_names"])
         elif route_names:
             from iproute2_route_name_archives import build_control_view
