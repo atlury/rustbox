@@ -97,7 +97,9 @@ def enroll(repository, link_path, results_paths):
     with tempfile.NamedTemporaryFile(mode="w", dir=destination.parent, delete=False) as pending:
         json.dump(records, pending, indent=2, sort_keys=True)
         pending.write("\n")
-    Path(pending.name).replace(destination)
+    staged = Path(pending.name)
+    staged.chmod(destination.stat().st_mode & 0o777)
+    staged.replace(destination)
 
 
 if __name__ == "__main__":

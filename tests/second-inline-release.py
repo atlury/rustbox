@@ -10,6 +10,7 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 import prepare_second_inline_layers as release
+from verify_inline_replays import verify
 
 
 with tempfile.TemporaryDirectory() as tmp:
@@ -88,3 +89,31 @@ with tempfile.TemporaryDirectory() as tmp:
         else:
             raise AssertionError("reused a receipt for a different archive")
 print("Single-crate and grouped release preparation, cache reuse, stale archives and changed parents passed.")
+
+with tempfile.TemporaryDirectory() as tmp:
+    root = Path(tmp)
+    previous, partial, final, result = [root / name for name in ("previous", "partial", "final", "result")]
+    def save(path, data):
+        path.write_text(json.dumps(data))
+        return release.digest(path)
+    parents = {f"work/analysis/iproute2-1/translations/{engine}.a": {"file": engine} for engine in ("ip", "tc")}
+    base = {"binary": {"sha256": "same"}, "linked_private_inline_proofs": parents}
+    b = save(previous, base)
+    children = {name: {"file": "child-" + r["file"]} for name, r in parents.items()}
+    part = save(partial, dict(base, linked_second_inline_proofs={next(iter(parents)): {"file": "child-ip"}}))
+    full = save(final, dict(base, linked_second_inline_proofs=children))
+    valid = {"binary_sha256": "same", "previous_link_report_sha256": b,
+             "link_report_sha256": full, "statuses": {"iproute2": 0}}
+    save(result, valid)
+    assert verify(previous, final, [(final, result)])["passing_package_selections"] == {"iproute2": full}
+    for selected, data in ((partial, dict(valid, link_report_sha256=part)),
+                           (final, dict(valid, binary_sha256="other")), (final, dict(valid, statuses={})),
+                           (final, dict(valid, statuses={"iproute2": 1}))):
+        save(result, data)
+        try:
+            verify(previous, final, [(selected, result)])
+        except ValueError:
+            pass
+        else:
+            raise AssertionError("incomplete package replay was counted")
+print("Partial replays must cover every changed engine in each package on the exact release ELF.")
