@@ -114,10 +114,10 @@ def prepare(manifest, layer, *, mounted_direct=False):
                 if "rustc_archive" not in row or layer != "native_c_strings":
                     raise ValueError("expected a directly compiled C-string archive")
                 (root / "built").mkdir()
-                compile_archive(root / "parent.json", root / "built", key)
+                compile_archive(root / "parent.json", root / "built", key, sorted(row["modules"]))
             elif layer == "native_c_strings":
                 from build_c_string_literal_pilot import build
-                build(root / "parent.json", root / "built", Path(key))
+                build(root / "parent.json", root / "built", Path(key), sorted(row["modules"]))
             else:
                 from build_shared_stdio_pilot import build
                 build(root / "parent.json", root / "built", Path(key), row["reexporting_modules"])

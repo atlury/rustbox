@@ -80,6 +80,7 @@ def verify_source_substitution(record, sources, changes, module):
 
 def stage_selected_archive(link_file, out, key, marker, script, prepare_crate=None, omit_layer=None):
     from audit_linked_pointers import measure
+    out = out.resolve()
     raw = link_file.read_bytes()
     link = json.loads(raw)
     sha = link["source_library_sha256"][key]

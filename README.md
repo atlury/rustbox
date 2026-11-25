@@ -530,6 +530,19 @@ Groups 01 through 12 reproduced the original archives byte for byte after
 archives qualified, accounting for 42,890 cast occurrences before release
 integration. [util-linux archive results](evidence/util-linux-native-c-strings.json)
 
+For a differing Coreutils or util-linux archive, inspect the applet entry
+sections with `objdump`. The recovery script uses the changed entries to
+choose modules for a second cold build and replays the source modifications.
+Only an exact match of the entire archive qualifies the resulting subset.
+For Coreutils group 07, retaining the original `ln` module recovered
+1,412 literal conversions in 12 other modules, or 2,824 explicit casts.
+[Coreutils group 07 recovery](evidence/coreutils-07-literal-recovery.json)
+
+```sh
+python3 -B scripts/recover_applet_literal_modules.py "$link" "$whole_pilot" "$subset_pilot"
+python3 -B tests/c-string-literals/release.py "$link" "$subset_pilot/pilot.json"
+```
+
 To select cold-built C-string archives in the multicall, enroll them against
 the same compiler inputs as the intended parent release. When that release
 shares stdio layouts, rebuild overlapping literal pilots on top of those

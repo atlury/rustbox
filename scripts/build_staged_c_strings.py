@@ -14,7 +14,7 @@ from check_cargo_private_inlines import ROOT, digest
 from check_e2fsprogs_dirhash_arrays import compile_staged, source_list_digest
 
 
-def compile_archive(snapshot, output, key):
+def compile_archive(snapshot, output, key, modules=None):
     from audit_linked_pointers import measure
     from build_c_string_literal_pilot import substitute
     from e2fsprogs_foreign_declarations import staged_compiler_inputs
@@ -49,7 +49,7 @@ def compile_archive(snapshot, output, key):
         built = scratch / selected.name
         if sources.keys() != inputs or compile_staged(crate, inputs, rustc, built) != expected:
             raise ValueError("direct compiler recipe failed to reproduce the selected archive")
-        replacements, changes = substitute(crate, sources)
+        replacements, changes = substitute(crate, sources, modules)
         if not replacements or not replacements.keys() <= inputs:
             raise ValueError("expected checked C strings in compiler-selected modules")
         for module, new in replacements.items():
@@ -70,7 +70,7 @@ def compile_archive(snapshot, output, key):
         (output / "pilot.json").write_text(json.dumps(row, indent=2, sort_keys=True) + "\n")
 
 
-def build(link, output, key):
+def build(link, output, key, modules=None):
     output = output.resolve()
     raw = link.read_bytes()
     if output.exists():
@@ -83,11 +83,11 @@ def build(link, output, key):
         subprocess.run(["docker", "run", "--rm", "--network", "none", "--platform", "linux/amd64",
                         "-v", f"{ROOT}:/work:ro", "-v", f"{stage}:/trial", "rustbox-e2fsprogs:2026-11-24",
                         "python3", "-B", "/work/scripts/build_staged_c_strings.py",
-                        "/trial/snapshot.json", "/trial/result", key], check=True)
+                        "/trial/snapshot.json", "/trial/result", key, *(modules or ())], check=True)
         if link.read_bytes() != raw:
             raise ValueError("selected release changed during direct compilation")
         result.rename(output)
 
 
 if __name__ == "__main__":
-    compile_archive(Path(sys.argv[1]), Path(sys.argv[2]), sys.argv[3])
+    compile_archive(Path(sys.argv[1]), Path(sys.argv[2]), sys.argv[3], sys.argv[4:] or None)

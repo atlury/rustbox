@@ -45,7 +45,7 @@ def replay(sources, read, row, tool):
             dest = scratch / path
             dest.parent.mkdir(parents=True, exist_ok=True)
             dest.write_bytes(data)
-        replacements, actual = rewrite(scratch, selected, tool, row.get("legacy_compiler"))
+        replacements, actual = rewrite(scratch, selected, tool, row.get("legacy_compiler"), sorted(row["modules"]))
     # Host and Linux scanner binaries can differ. Require identical generated
     # Rust source for every compiled module, including the untouched modules.
     for k in ("modules", "c_string_literals", "raw_pointer_types_removed", "raw_ffi_pointer_extractions"):
