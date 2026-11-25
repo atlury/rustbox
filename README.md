@@ -1022,6 +1022,12 @@ integer bounds, spellings such as `01` and repeated insertions. Outputs matched
 the previous errno-only archive. Eight additional Memcheck runs passed.
 [Compiled GNU awk array-key results](evidence/gawk-ctype-key-archive.json)
 
+The full 499-name core also passed 104 GNU awk command comparisons,
+the `awk` alias checks and all 40 raw-key locale profiles through both
+dispatch forms. The control reproduced the full release, and the candidate
+measured 24,961,776 bytes stripped.
+[Full GNU awk multicall results](evidence/gawk-ctype-multicall.json)
+
 The predecessor and both canonical compilers also agree on array-key
 identity for a corpus of 2,140 input records per invocation. It contains
 every leading byte, repeated keys, signed numbers and integer bounds.
