@@ -436,6 +436,12 @@ termination. Both the full archive and the standalone gzip executable matched
 their controls byte for byte. All 108 GNU gzip command cases and both
 Memcheck runs passed. [Gzip comparison](evidence/gzip-c-string-pilot.json)
 
+Applied in sequence, the shared stdio and C-string changes remove 948
+explicit raw-pointer type occurrences from gzip. The combined build
+reproduced the original archive and executable. The 108 GNU gzip command
+cases and two Memcheck runs also passed on that executable.
+[Combined compiler and test evidence](evidence/gzip-composed-stdio-c-strings.json)
+
 Flex 2.6.4 qualified 5,271 literals across 18 modules, including the
 built-in scanner skeleton. This removes 10,542 explicit raw-pointer type
 occurrences and adds 5,271 typed pointer extractions at C interfaces. Both
