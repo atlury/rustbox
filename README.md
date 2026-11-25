@@ -1117,6 +1117,9 @@ both canonical builds on 3,010 dates. The checked-month archive repeated
 all 3,010 under Memcheck.
 [Compiler inputs and public baseline](evidence/curl-checked-parser-composition.json)
 
+The cold-built combined archive passed the 3,010 time-zone dates, the month API and all 4,096 FTP file modes. The public tests ran against GCC, Clang, the original and the candidate, with another run of each API under Memcheck. The source replay includes all 241 compiler inputs.
+[Combined archive results](evidence/curl-checked-parser-archive.json)
+
 The cold-built time-zone archive reproduced its control, then matched the original archive and both canonical compilers for all 3,010 public dates. Memcheck repeated those dates and the curl CLI passed 12 cases per compiler.
 [Time-zone archive results](evidence/curl-timezone-archive.json)
 

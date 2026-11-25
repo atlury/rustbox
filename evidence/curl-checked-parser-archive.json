@@ -1,0 +1,88 @@
+{
+  "archive": {
+    "archive": "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/packed-manual/5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7/libcurl_8_23_0_normalized_audit.a",
+    "candidate_sha256": "a2399c12be7cc1c338cac10bfca13d7c19822174b86c17301fbc9ee8ec36998d",
+    "candidate_sources_sha256": "1fc3043a50305d92ff64d0101cb2d2a8a940ed5d92d247cc9f9b466f58ca5c2f",
+    "cargo_archive": "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/release/libcurl_8_23_0_normalized_audit.a",
+    "compiler_selected_sources": 241,
+    "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+    "control_sha256": "5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7",
+    "ftp_permissions": {
+      "bounded_array_reads": 1,
+      "candidate_module_sha256": "2acc100d6d23f5a711fbdb2c0d812f799025b32e5af03f49353998e5dfc23f29",
+      "canonical_sha256": "abda2491568be631d71d699410aeeaeadd338705da3429b64b0909953dda7b42",
+      "checked_helper_sha256": "3cc76be69d0caec50c1cc0dca641b31650ecd338ea82111eda6a336fa46bed22",
+      "control_module_sha256": "ead9b7154518c05f283ca4cb4ce3e1c17b3cbefb2daf928c5b54dfaaa8fa8f5d",
+      "decoder_raw_offsets_removed": 24,
+      "module": "src/lib/ftplistparser.rs",
+      "raw_pointer_types_removed": 1
+    },
+    "month": {
+      "bounded_array_reads": 1,
+      "candidate_module_sha256": "d7a1bf814aff6a16cc7faf87c88940e0853a1525734f926d4c11eee9c070a59b",
+      "checked_helper_sha256": "bcc1ae27d131e9a6b3b9f7c87f7e3687a2a275f2ad76a925644b68d45c7012e4",
+      "control_module_sha256": "268873a58dd5698aacc95d9863f209ce4d529aa9b929bd578d7bd07e443dd04a",
+      "module": "src/lib/parsedate.rs",
+      "raw_offset_accesses_replaced": 23,
+      "raw_pointer_types_removed": 1,
+      "safe_helpers": 1
+    },
+    "parent_sources_sha256": "c1f721d712aa792f52984574b94f2c15e69406183eff156611417472a47e1704",
+    "raw_pointer_types_removed": 30,
+    "timezone": {
+      "candidate_module_sha256": "b65ff13f1f08230cf4af1f6a53c4f56f60d3d8baf126de2d4c54dce3cfb6ebf1",
+      "canonical_sha256": "ad58e5aed9b7c9f334186bab69e423bf37c2b941aa2e5b0a93536bfd4aca0881",
+      "control_module_sha256": "d7a1bf814aff6a16cc7faf87c88940e0853a1525734f926d4c11eee9c070a59b",
+      "helper_sha256": "20c4c1e695710e7cf72af9e0a7994c70adc5aa1d275b9830da6dedb67cb3c3e0",
+      "module": "src/lib/parsedate.rs",
+      "mutable_tables_removed": 3,
+      "raw_pointer_types_removed": 28,
+      "tables_sha256": "7f6dcc78f9219637bdf26d7bb038a031b2aff2d971b6b1fc360677318825f064"
+    }
+  },
+  "ftp_api": {
+    "builds": [
+      "gcc",
+      "clang",
+      "parent",
+      "candidate",
+      "memcheck"
+    ],
+    "driver_sha256": "d332ef4e4c89626fddcf9dfe3e530672a73cc065f4aa73dd19d7012a8c601242",
+    "known_modes": 4096,
+    "listing_sha256": [
+      "afe0e250c2bea7818e388637293318ba0ca4c7607c25125ac296a9aa2e50320e",
+      "55f3f576eae7996f2ffd5873dd08cbd4ca2edbcf25317e87893c09d143ba7ad5",
+      "3a9c6324950d37bde62cef1d9aeffdbe0aae3513f3b29726ef849b442554c352",
+      "63c1ba38856840f509b1fd3b992c30705dcdb28cf3ddc93b321740ef21c31328",
+      "8d20e98d42fbbc992d3a4405243cbcf7ef9e90f7b1f410c2ac4d1ed6d8bb328c",
+      "07dc17b5b86b65df876c2c2654c5164eb65e31583581f5d52fcdca3facbe8713"
+    ],
+    "output_sha256": "b7b3762a4f09530b68d9855cf5dfbc4b79d84f9bd327be7173ef02c0ad74f964",
+    "rejected_listings": 5,
+    "transfers": 30
+  },
+  "month_api": {
+    "calendar_known_answers": 96,
+    "date_inputs_sha256": "0d0d058963dd7d87095c09befaf41effba839786dec360e3f07227082f3f2760",
+    "date_outputs_sha256": "f24f1edd7cd37768c3b93d6b3893622ad75ab82fe3b935eb92bf64a42073d94c",
+    "memcheck_date_cases": 106,
+    "public_cli": {
+      "clang": 12,
+      "gcc": 12
+    },
+    "public_date_cases_per_build": 106
+  },
+  "parent_link_sha256": "d4b31a4970a9a83ca03fef303984eaa14d612fddcf7b91d58a9e49141758296b",
+  "timezone_api": {
+    "calendar_known_answers": 15,
+    "date_inputs_sha256": "960ede88921f8a55309d1d06d1217988aea3db7de7b33c22eda5d0bdcfa1777f",
+    "date_outputs_sha256": "f309dc41c1fcdeb429da34b81aeb4a8963f5ce978c94d4a858cc251861964432",
+    "memcheck_date_cases": 3010,
+    "public_cli": {
+      "clang": 12,
+      "gcc": 12
+    },
+    "public_date_cases_per_build": 3010
+  }
+}
