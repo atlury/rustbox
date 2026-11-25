@@ -458,6 +458,7 @@ python3 -B tests/c-string-literals/lengths.py
 python3 -B scripts/rank_c_string_literals.py --lengths "$link"
 scripts/build_private_inline_tool.sh
 python3 -B scripts/build_literal_lengths_pilot.py --link "$link" --archive "$archive" --output "$pilot"
+python3 -B scripts/verify_c_string_sources.py --lengths "$link" "$pilot"
 ```
 
 On the pinned April 2023 nightly, the same scan uses a crate-private macro
