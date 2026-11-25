@@ -454,6 +454,17 @@ foreign declaration and skips modules with ambiguous bindings. On the
 These are candidate counts. The release inventory records accepted builds.
 [Literal length candidates](evidence/rustbox-literal-length-candidates.json)
 
+A scan of the packed-curl build found 185 distinct C struct layouts with
+repeated definitions inside individual archives. Their additional copies
+account for 17,237 explicit pointer fields. On x86-64 Linux the largest
+group is the System V variadic argument tag. Keeping one definition per
+archive would remove 6,300 repeated fields across 98 archives. The scan
+checks scalar alias targets and counts each archive separately. A cold
+build and ABI checks are still required before sharing a definition.
+Run `python3 -B scripts/rank_leaf_c_layouts.py LINK --limit 30` to reproduce
+the ranking.
+[Ranked layouts and per-archive counts](evidence/rustbox-leaf-c-layout-candidates.json)
+
 The GNU Bison 3.8.2 pilot replaced 225 calls to `strlen` and 450 raw
 pointer casts in eight modules. Rebuilding all 150 selected sources
 produced a different archive. The resulting `bison` and `yacc` passed
@@ -473,14 +484,9 @@ dispatch modes and both canonical compilers, using embedded M4 and Bison
 resources. Each combination compiled and ran five C/C++ parsers and a
 yacc-generated parser. Rerunning the suite on the saved executable gave
 the same results. An empty-cache rebuild reproduced the complete archive
-and compiler-source receipt. Use `--bison-literal-lengths` to select the
+and all 150 compiler-input digests. Use `--bison-literal-lengths` to select the
 archive explicitly in the normal multicall build.
 [Full Bison multicall comparison](evidence/bison-literal-length-multicall.json)
-
-An empty-cache build reproduced all 150 selected Bison module digests and
-the complete archive after the 225 length substitutions. The optional
-multicall build accepts `--bison-literal-lengths`. Its source inventory
-replays each edited module against the pinned compiler inputs.
 
 ```sh
 python3 -B tests/c-string-literals/lengths.py
