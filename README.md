@@ -465,6 +465,19 @@ python3 -B scripts/build_iproute2_address_protocol_pilot.py --route-names --outp
 python3 -B scripts/test_iproute2_route_names.py work/analysis/route-name-pilot
 ```
 
+The same substitution applies to the compiler-selected scope and realm
+functions in all 18 engine archives. The batch builder checks the exact
+address-protocol parent and every selected compiler input. `bridge` uses
+its recorded rustc command. The other 17 archives use their original Cargo
+builds. To repeat the cold build and canonical lookup comparisons, use fresh
+output directories.
+
+```sh
+link=work/analysis/rustbox-multicall-link.json
+python3 -B scripts/build_iproute2_route_names.py "$link" work/analysis/route-name-batch --jobs 4
+python3 -B scripts/test_iproute2_route_names.py work/analysis/route-name-batch --link "$link" --batch work/analysis/route-name-test
+```
+
 In E2fsprogs the sole caller of the TEA and half-MD4 directory-hash transforms
 owns two distinct, initialized stack arrays of four and eight words. The
 transforms now borrow those arrays. Forty constant-offset dereferences become

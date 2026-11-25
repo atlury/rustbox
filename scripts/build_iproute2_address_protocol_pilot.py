@@ -63,8 +63,11 @@ def build_pilot(output, link=None, engine="ip", *, route_names=False):
         raise ValueError("expected a new pilot output directory")
     raw = LINK_REPORT.read_bytes() if link is None else None
     if raw is not None:
-        from iproute2_address_protocol_archive import build_control_view
-        link = json.loads(raw) if route_names else build_control_view(json.loads(raw))
+        if route_names:
+            from iproute2_route_name_archives import build_control_view
+        else:
+            from iproute2_address_protocol_archive import build_control_view
+        link = build_control_view(json.loads(raw))
     if engine not in IPROUTE2_CARGO_ENGINES:
         raise ValueError(f"unknown IPRoute2 Cargo engine: {engine}")
     if route_names:

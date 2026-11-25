@@ -16,19 +16,35 @@ from stage_iproute2_address_protocols import MODULE, replace_table
 BRIDGE = Path("work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/libbridge_audit.a")
 
 
-def compile_bridge(link, output):
+def compile_bridge(link, output, route_names=False):
     key = str(BRIDGE)
     archive = output / BRIDGE.name
+    if route_names:
+        from iproute2_address_protocol_archive import candidate_path, control_view, selected_records
+        parent_record = selected_records(link)[key]
+        linked_parent = ROOT / candidate_path(parent_record)
+        if digest(linked_parent) != parent_record["candidate_sha256"]:
+            raise ValueError("bridge route-name parent differs from linked archive")
+        link = control_view(link)
     with tempfile.TemporaryDirectory() as tmp:
         crate, inputs, rustc = staged_compiler_inputs(link, BRIDGE, Path(tmp))
         receipt = link["linked_foreign_declaration_proofs"][key]
         apply_receipt(crate, read_proof(link, BRIDGE, receipt)["declarations"], inputs)
-        sources = {n: digest(crate / n) for n in inputs}
         parent = compile_staged(crate, inputs, rustc, archive)
         if parent != link["source_library_sha256"][key]:
             raise ValueError("bridge control failed to reproduce the actual linked archive")
         module = crate / MODULE
-        after, changes = replace_table(module.read_bytes())
+        transform = replace_table
+        if route_names:
+            from iproute2_route_names import replace_route_names
+            baseline, _ = replace_table(module.read_bytes())
+            module.write_bytes(baseline)
+            parent = compile_staged(crate, inputs, rustc, archive)
+            if parent != parent_record["candidate_sha256"]:
+                raise ValueError("bridge did not reproduce the linked address-protocol archive")
+            transform = replace_route_names
+        sources = {n: digest(crate / n) for n in inputs}
+        after, changes = transform(module.read_bytes())
         module.write_bytes(after)
         candidate = compile_staged(crate, inputs, rustc, archive)
         if candidate == parent:
@@ -41,7 +57,7 @@ def compile_bridge(link, output):
         return record
 
 
-def build_bridge_trial(output, link):
+def build_bridge_trial(output, link, route_names=False):
     output = output.resolve()
     with tempfile.TemporaryDirectory(dir=output.parent) as tmp:
         scratch = Path(tmp)
@@ -51,9 +67,9 @@ def build_bridge_trial(output, link):
         subprocess.run(["docker", "run", "--rm", "--network", "none", "--platform", "linux/amd64",
                         "-v", f"{ROOT}:/work:ro", "-v", f"{scratch}:/trial", "rustbox-e2fsprogs:2026-11-24",
                         "python3", "-B", "/work/scripts/build_iproute2_bridge_address_protocols.py",
-                        "/trial/control.json", "/trial/result"], check=True)
+                        "/trial/control.json", "/trial/result", *(["--route-names"] if route_names else [])], check=True)
         result.rename(output)
 
 
 if __name__ == "__main__":
-    compile_bridge(json.loads(Path(sys.argv[1]).read_bytes()), Path(sys.argv[2]))
+    compile_bridge(json.loads(Path(sys.argv[1]).read_bytes()), Path(sys.argv[2]), sys.argv[3:] == ["--route-names"])

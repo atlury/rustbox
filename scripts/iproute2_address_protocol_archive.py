@@ -74,6 +74,9 @@ def selected_records(link):
 
 
 def control_view(link):
+    if "iproute2_route_names" in link:
+        from iproute2_route_name_archives import parent_view
+        link = parent_view(link)
     records = selected_records(link)
     if not records:
         return link
