@@ -973,6 +973,14 @@ comparisons against each canonical build. The archive changed, so promotion
 still requires the full multicall release checks.
 [GNU tar timestamp evidence](evidence/tar-borrowed-timespec-pilot.json)
 
+Curl's time-zone parser has a checked Rust lookup over the original three
+tables. The caller passes the ASCII word it has already counted. Making
+the tables immutable and replacing the private C binary search removes
+28 explicit pointer types in the parser module. GCC and Clang, each with
+signed and unsigned plain char, agreed for all 7,454,980 one- to four-letter
+inputs per build, including the 69 accepted spellings. These counts cover
+the isolated lookup. [Time-zone comparison](evidence/curl-timezone-lookup.json)
+
 The curl FTP permission decoder now has a checked nine-byte candidate.
 Its only caller checks the available buffer before copying the field.
 This removes 24 raw offset reads in the decoder and one raw-pointer type.
