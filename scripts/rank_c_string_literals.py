@@ -13,13 +13,15 @@ from audit_linked_pointers import measure
 from check_cargo_private_inlines import ROOT
 
 
-def rank(link, tool):
+def rank(link, tool, *, lengths=False):
     raw = link.read_bytes()
     uses = defaultdict(Counter)
     with TemporaryDirectory() as temp:
         scratch = Path(temp)
         def collect(archive, module, digest, data):
-            if b"c_char" not in data or b"*const u8" not in data or b'\\0"' not in data:
+            if b"c_char" not in data or b"*const u8" not in data:
+                return
+            if (b"fn strlen(" if lengths else b'\\0"') not in data:
                 return
             name = digest.hex() + ".rs"
             if name not in uses:
@@ -35,8 +37,9 @@ def rank(link, tool):
             counts[archive] += len(edits) * copies
     if raw != link.read_bytes():
         raise ValueError("release changed during the scan")
+    syntax = "literal-lengths" if lengths else "c-string-literals"
     return dict(binary_sha256=inventory["binary_sha256"], link_report_sha256=sha256(raw).hexdigest(),
-                syntax_source_sha256=sha256((ROOT / "tools/private-inlines/src/bin/c-string-literals.rs").read_bytes()).hexdigest(),
+                syntax_source_sha256=sha256((ROOT / "tools/private-inlines/src/bin" / (syntax + ".rs")).read_bytes()).hexdigest(),
                 unique_source_conversions=unique, compiler_input_conversions=sum(counts.values()),
                 archives=dict(sorted(counts.items())))
 
@@ -44,8 +47,10 @@ def rank(link, tool):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("link", type=Path)
+    parser.add_argument("--lengths", action="store_true", help="rank direct libc strlen calls on byte literals")
     args = parser.parse_args()
+    syntax = "literal-lengths" if args.lengths else "c-string-literals"
     target = ROOT / "work/analysis/syntax-tools-native"
     subprocess.run(["cargo", "build", "--locked", "--offline", "--release", "--manifest-path",
-                    ROOT / "tools/private-inlines/Cargo.toml", "--bin", "c-string-literals", "--target-dir", target], check=True)
-    print(json.dumps(rank(args.link, target / "release/c-string-literals"), indent=2, sort_keys=True))
+                    ROOT / "tools/private-inlines/Cargo.toml", "--bin", syntax, "--target-dir", target], check=True)
+    print(json.dumps(rank(args.link, target / "release" / syntax, lengths=args.lengths), indent=2, sort_keys=True))

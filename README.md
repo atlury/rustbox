@@ -429,6 +429,22 @@ matching expressions across 127 archives, or 118,690 in distinct source
 files. These are candidates for crates whose compiler supports C literals.
 [Candidate inventory](evidence/rustbox-c-string-candidates.json)
 
+A separate pass removes calls to libc `strlen` on byte literals with a single
+trailing NUL. It counts decoded bytes, including non-UTF-8 data, and emits a
+Rust `usize` constant. Both casts and the call disappear. The pass checks the
+foreign declaration and skips modules with ambiguous bindings. On the
+499-name packed-curl build it identified 301 calls in 25 archives, including
+225 in GNU Bison. Counting identical source files once gives 283 calls.
+These are candidate counts. The release inventory records accepted builds.
+[Literal length candidates](evidence/rustbox-literal-length-candidates.json)
+
+```sh
+python3 -B tests/c-string-literals/lengths.py
+python3 -B scripts/rank_c_string_literals.py --lengths "$link"
+scripts/build_private_inline_tool.sh
+python3 -B scripts/build_literal_lengths_pilot.py --link "$link" --archive "$archive" --output "$pilot"
+```
+
 On the pinned April 2023 nightly, the same scan uses a crate-private macro
 with a `const CStr::from_bytes_with_nul` result and the compiler's
 `const_cstr_methods` feature. Each call validates its terminator during
