@@ -436,6 +436,14 @@ termination. Both the full archive and the standalone gzip executable matched
 their controls byte for byte. All 108 GNU gzip command cases and both
 Memcheck runs passed. [Gzip comparison](evidence/gzip-c-string-pilot.json)
 
+Flex 2.6.4 qualified 5,271 literals across 18 modules, including the
+built-in scanner skeleton. This removes 10,542 explicit raw-pointer type
+occurrences and adds 5,271 typed pointer extractions at C interfaces. Both
+the complete archive and the standalone Flex executable reproduced their
+original bytes. Fourteen canonical comparisons passed, including ten
+generated scanner builds and executions. All three frontend comparisons
+and four Memcheck runs passed. [Flex comparison](evidence/flex-c-string-pilot.json)
+
 ```sh
 python3 -B tests/c-string-literals/check.py
 scripts/build_private_inline_tool.sh
@@ -443,6 +451,12 @@ python3 -B scripts/rank_c_string_literals.py "$link"
 python3 -B scripts/build_c_string_literal_pilot.py --link "$link" --archive GZIP_ARCHIVE --output NEW_DIRECTORY
 python3 -B scripts/test_gzip_stdio_pilot.py NEW_DIRECTORY "$link"
 ```
+
+For a group of packages, save the JSON from `rank_c_string_literals.py`
+and run `scripts/build_c_string_batch.py LINK RANKS NEW_DIRECTORY --package PACKAGE`.
+The batch compares the complete archive for each package and records changed
+builds separately. To replay an individual pilot's complete source receipt,
+run `scripts/verify_c_string_sources.py LINK PILOT_DIRECTORY`.
 
 Run `python3 -B scripts/rank_fixed_array_helpers.py work/analysis/rustbox-multicall-link.json`
 to find private functions in generated Rust whose pointer parameters occur

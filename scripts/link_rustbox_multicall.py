@@ -2521,9 +2521,19 @@ def main() -> int:
         }
     # Verify the C-facing interface before namespace isolation or section GC.
     # Rust compiler-internal symbols may change when a translation unit is removed.
+    exports_by_sha = {}
+
     def c_exports(path):
-        return {name for name in defined_symbols(path) if not name.startswith(("_ZN", "_R"))
-                and re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", name)}
+        # An archive can serve as the candidate of one conversion and the
+        # control of the next. Read GNU nm once for each distinct set of bytes.
+        checksum = sha256(path)
+        if checksum not in exports_by_sha:
+            names = frozenset(name for name in defined_symbols(path) if not name.startswith(("_ZN", "_R"))
+                              and re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", name))
+            if sha256(path) != checksum:
+                raise ValueError(f"archive changed during symbol comparison: {path}")
+            exports_by_sha[checksum] = names
+        return exports_by_sha[checksum]
     bitmap_callers = []
     for name, archive in checksum_consumers.items():
         original = c_exports(e2fsprogs_libraries[name])

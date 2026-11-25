@@ -1,0 +1,52 @@
+{
+  "archive": "work/analysis/flex-2.6.4/translations/c2rust-0.22.1/flex-2.6.4-stable/target/release/libflex_2_6_4_normalized_audit.a",
+  "c_string_literals": 5271,
+  "candidate_sha256": "edb751afc4ae042655c57eb6aedd8afc1cbd15bdd1ea4185aada669914561371",
+  "candidate_sources_sha256": "4b749efebec9f1725333abacc91c55ab3d97fd243f619251541336821b4fca6f",
+  "compiler_selected_sources": 23,
+  "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+  "control_sha256": "edb751afc4ae042655c57eb6aedd8afc1cbd15bdd1ea4185aada669914561371",
+  "frontends": {
+    "cases": 3,
+    "driver_sha256": "313e7e787811974933764a1a7675230880820f945f40147e0f703205807b091e",
+    "passed": 3,
+    "results_sha256": "9d551d4a1b8c0362918fd142fd0714936c0c059140f9c8941720426b7f5b31d8"
+  },
+  "gcc_flex_sha256": "e688dd9741066b72b268abacf03389dd676879433cdb405489fbc11dff30d41a",
+  "memcheck_runs": 4,
+  "modules": {
+    "src/normalized_clang/src/stage1scan.rs": 122,
+    "src/normalized_source/src/buf.rs": 14,
+    "src/normalized_source/src/ccl.rs": 2,
+    "src/normalized_source/src/dfa.rs": 28,
+    "src/normalized_source/src/filter.rs": 50,
+    "src/normalized_source/src/gen.rs": 418,
+    "src/normalized_source/src/main.rs": 204,
+    "src/normalized_source/src/misc.rs": 87,
+    "src/normalized_source/src/nfa.rs": 24,
+    "src/normalized_source/src/options.rs": 115,
+    "src/normalized_source/src/parse.rs": 44,
+    "src/normalized_source/src/regex.rs": 6,
+    "src/normalized_source/src/scanflags.rs": 1,
+    "src/normalized_source/src/scanopt.rs": 25,
+    "src/normalized_source/src/skel.rs": 4067,
+    "src/normalized_source/src/sym.rs": 3,
+    "src/normalized_source/src/tables.rs": 45,
+    "src/normalized_source/src/yylex.rs": 16
+  },
+  "parent_sources_sha256": "a528c882e767dcb3a72af510cc9daa388157da85dcece98e9c26b59158b5863e",
+  "raw_ffi_pointer_extractions": 5271,
+  "raw_pointer_types_removed": 10542,
+  "scanners": {
+    "cases": 14,
+    "driver_sha256": "a44fd8a8d4cc8988f735cb070ec7921617beabb8b798dc1b45e0bc7b7adc20f4",
+    "generated_scanners": 10,
+    "passed": 14,
+    "results_sha256": "487fc397a8ff8a6851968eba0e2531049a25f35f16c5582e0f4d365e3edb4f1f"
+  },
+  "standalone_sha256": {
+    "candidate": "089c131006e37069671eb9e9b2691e95fa2dc848bf8beeef0deec60689c06e5d",
+    "parent": "089c131006e37069671eb9e9b2691e95fa2dc848bf8beeef0deec60689c06e5d"
+  },
+  "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+}
