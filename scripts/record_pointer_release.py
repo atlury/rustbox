@@ -24,7 +24,12 @@ def record(binary, results, rankings):
         raise ValueError("the release selected different netlink protocol archives")
     curl = release.get("curl_manual")
     timestamps = release.get("tar_borrowed_timestamps")
-    replay_name = "rustbox-tar-timestamps-replays" if timestamps else "rustbox-curl-manual-replays" if curl else "rustbox-netlink-protocol-replays"
+    lengths = release.get("bison_literal_lengths")
+    replay_name = "rustbox-netlink-protocol-replays"
+    for record, name in ((curl, "rustbox-curl-manual-replays"), (timestamps, "rustbox-tar-timestamps-replays"),
+                         (lengths, "rustbox-bison-length-replays")):
+        if record:
+            replay_name = name
     inputs = {
         replay_name: results / "replays.json",
         "rustbox-linked-pointers": results / "inventory.json",
@@ -57,6 +62,16 @@ def record(binary, results, rankings):
     if {k: d["raw_pointer_type_tokens"] for k, d in deltas.items()} != {
             k: row["raw_pointer_types_removed_in_pilot_module"] for k, row in rows.items()}:
         raise ValueError("compiled inventory and per-engine reductions differ")
+    if lengths:
+        from bison_length_archive import selection
+        row = selection.pinned()["pilot"]
+        preview = json.loads((evidence / "bison-literal-length-multicall.json").read_bytes())
+        prior = json.loads((results / "control.json").read_bytes())
+        if (lengths != selection.pinned() or lengths["preview_elf_sha256"] != preview["candidate"]["sha256"]
+                or (prior["binary"]["sha256"] == preview["parent"]["sha256"] and binary_sha != lengths["preview_elf_sha256"])
+                or inventory["bison_length_deltas"][row["archive"]]["raw_pointer_type_tokens"] != row["raw_pointer_types_removed"]
+                or replay["bison_literal_lengths"] != dict(canonical=preview["canonical"], multicall_sha256=binary_sha)):
+            raise ValueError("Bison lengths, compiler inputs or parser comparisons differ")
     if timestamps:
         from tar_timespec_archive import selection
         row = selection.pinned()["pilot"]

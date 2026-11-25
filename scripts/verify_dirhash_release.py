@@ -104,6 +104,9 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
     if netlink:
         tasks.append(("iproute2-netlink-protocols", ["test_iproute2_netlink_protocols.py", "--linked", "--link", current,
                                                     "--batch", output / "netlink-comparisons", "--jobs", "3"]))
+    lengths = release.get("bison_literal_lengths")
+    if lengths:
+        tasks.append(("bison-literal-lengths", ["test_bison_length_multicall.py", "--link", current, "--binary", binary]))
     timestamps = release.get("tar_borrowed_timestamps")
     if timestamps:
         tasks.append(("tar-borrowed-timestamps", ["test_tar_timestamp_multicall.py", "--link", current, "--binary", binary]))
@@ -129,7 +132,7 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
     inventory = output / "inventory.json"
     with inventory.open("wb") as stream:
         subprocess.run([sys.executable, "-B", scripts / "audit_linked_pointers.py", current,
-                        "--verify-tar-timestamps-from" if timestamps else "--verify-curl-manual-from" if packed_manual else "--verify-netlink-protocols-from" if netlink else "--verify-route-names-from" if routes else
+                        "--verify-bison-lengths-from" if lengths else "--verify-tar-timestamps-from" if timestamps else "--verify-curl-manual-from" if packed_manual else "--verify-netlink-protocols-from" if netlink else "--verify-route-names-from" if routes else
                         "--verify-address-protocols-from" if address_change else "--verify-dirhash-from", previous], cwd=ROOT, stdout=stream, check=True)
     registered = all_packages()
     with ThreadPoolExecutor(max_workers=2) as worker:
@@ -168,6 +171,8 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
         raise ValueError("release changed during verification")
     result = {"link_report_sha256": hashlib.sha256(selected).hexdigest(), "previous_link_report_sha256": digest(previous),
               "binary_sha256": release["binary"]["sha256"], "packages": statuses, "passed_checks": [name for name, _ in tasks]}
+    if lengths:
+        result["bison_literal_lengths"] = json.loads((output / "bison-literal-lengths.log").read_bytes())
     if timestamps:
         result["tar_borrowed_timestamps"] = json.loads((output / "tar-borrowed-timestamps.log").read_bytes())
     if package_retries:

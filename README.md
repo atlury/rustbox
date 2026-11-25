@@ -468,6 +468,15 @@ passes `./bison` for the symlink invocation and `bison` for the multicall
 subcommand, matching upstream's `argv[0]` in each case. It compares the
 original output bytes, including the usage line.
 
+The full 499-name Bison preview passed all 52 comparisons across both
+dispatch modes and both canonical compilers, using embedded M4 and Bison
+resources. Each combination compiled and ran five C/C++ parsers and a
+yacc-generated parser. Rerunning the suite on the saved executable gave
+the same results. An empty-cache rebuild reproduced the complete archive
+and compiler-source receipt. Use `--bison-literal-lengths` to select the
+archive explicitly in the normal multicall build.
+[Full Bison multicall comparison](evidence/bison-literal-length-multicall.json)
+
 An empty-cache build reproduced all 150 selected Bison module digests and
 the complete archive after the 225 length substitutions. The optional
 multicall build accepts `--bison-literal-lengths`. Its source inventory
