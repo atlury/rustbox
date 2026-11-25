@@ -13,6 +13,8 @@ import shutil
 import tempfile
 
 import iproute2_address_protocol_archive as address_protocols
+import iproute2_route_name_archives as route_archives
+from iproute2_route_names import replace_route_names
 from check_e2fsprogs_dirhash_arrays import borrow_arrays, source_list_digest
 from e2fsprogs_dirhash_archives import candidate_path, control_view, prior_stage
 from e2fsprogs_hangul import replace_hangul
@@ -76,9 +78,11 @@ def measure_layer(crate, files, proof, item_count="private_functions_removed"):
 
 def audit(link, temporary, inspect_source=None, *, inspect_module=None):
     fixed_arrays = link.get("e2fsprogs_dirhash_arrays", {})
+    route_records = link.get("iproute2_route_names", {})
     address_records = address_protocols.selected_records(link)
     link = address_protocols.control_view(control_view(link))
     address_deltas = {}
+    route_deltas = {}
     array_counts = {}
     hangul_counts = {}
     trie_counts = {}
@@ -166,17 +170,23 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None):
             declarations[engine_name] = stats
         linked_path = path
         source_digests = {}
-        if address_record := address_records.get(name):
-            linked_path = address_protocols.candidate_path(address_record)
-            if hashlib.sha256((ROOT / linked_path).read_bytes()).hexdigest() != address_record["candidate_sha256"]:
-                raise ValueError("address-protocol archive differs from link evidence")
+        for records, archive_path, transform, deltas in (
+            (address_records, address_protocols.candidate_path, address_protocols.replace_table, address_deltas),
+            (route_records, route_archives.candidate_path, replace_route_names, route_deltas),
+        ):
+            if name not in records:
+                continue
+            record = records[name]
+            linked_path = archive_path(record)
+            if hashlib.sha256((ROOT / linked_path).read_bytes()).hexdigest() != record["candidate_sha256"]:
+                raise ValueError(f"IPRoute2 archive differs from link evidence: {linked_path}")
             crate.relative_to(temporary)
             module = crate / address_protocols.MODULE
             sources = {str(f.relative_to(crate)): hashlib.sha256(f.read_bytes()).hexdigest() for f in files}
             original = module.read_bytes()
-            replacement, changes = address_protocols.replace_table(original)
-            address_protocols.verify_sources(address_record, sources, changes)
-            address_deltas[name] = {k: len(regex.findall(original)) - len(regex.findall(replacement)) for k, regex in METRICS.items()}
+            replacement, changes = transform(original)
+            address_protocols.verify_sources(record, sources, changes)
+            deltas[name] = {k: len(regex.findall(original)) - len(regex.findall(replacement)) for k, regex in METRICS.items()}
             module.write_bytes(replacement)
             files[module] = changes["candidate_module_sha256"]
         if record := fixed_arrays.get(name):
@@ -252,6 +262,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None):
             "packages": packages, "non_applet_archive_inputs": excluded,
             **({"byte_identical_inline_cleanups": cleanups} if cleanups else {}),
             **({"byte_identical_second_inline_cleanups": second_cleanups} if second_cleanups else {}),
+            **({"iproute2_route_name_deltas": route_deltas} if route_deltas else {}),
             **({"iproute2_address_protocol_deltas": address_deltas} if address_deltas else {}),
             **({"trie_pointer_types_removed": trie_counts} if trie_counts else {}),
             **({"hangul_pointer_types_removed": hangul_counts} if hangul_counts else {}),
@@ -378,15 +389,20 @@ def check_address_protocol_conversion(previous_link, link, before, after):
         raise ValueError("address-protocol conversion lost an existing archive or added no new one")
     control = address_protocols.control_view(link)
     previous_link = address_protocols.control_view(previous_link)
+    added = {k: v for k, v in records.items() if k not in previous_records}
+    check_iproute2_counts(previous_link, control, before, after, added, "iproute2_address_protocol_deltas")
+
+
+def check_iproute2_counts(previous_link, control, before, after, added, delta_field):
     for field in (control.keys() | previous_link.keys()) - {"binary"}:
         if field not in control or field not in previous_link or control[field] != previous_link[field]:
             raise ValueError(f"address-protocol link changed an unrelated field: {field}")
     if control["binary"]["dynamic_needed"] != previous_link["binary"]["dynamic_needed"]:
         raise ValueError("address-protocol link changed runtime dependencies")
     delta = Counter()
-    for key in records.keys() - previous_records.keys():
-        observed = after["iproute2_address_protocol_deltas"][key]
-        if observed["raw_pointer_type_tokens"] != records[key]["raw_pointer_types_removed_in_pilot_module"]:
+    for key, row in added.items():
+        observed = after[delta_field][key]
+        if observed["raw_pointer_type_tokens"] != row["raw_pointer_types_removed_in_pilot_module"]:
             raise ValueError(f"address-protocol type reduction differs from the pilot for {key}")
         delta.update(observed)
     expected_total = Counter(before["all"])
@@ -413,6 +429,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("link_report", type=Path)
     previous = parser.add_mutually_exclusive_group()
+    previous.add_argument("--verify-route-names-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-address-protocols-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-dirhash-from", type=Path, metavar="CONTROL",
                           help="verify 13 live fixed-array conversions against the previous production link")
@@ -426,6 +443,14 @@ if __name__ == "__main__":
     if args.verify_cleanup_from:
         previous_link = json.loads(args.verify_cleanup_from.read_bytes())
         check_added_cleanups(previous_link, link, measure(previous_link), current)
+    if args.verify_route_names_from:
+        prior = json.loads(args.verify_route_names_from.read_bytes())
+        if "iproute2_route_names" in prior or "iproute2_route_names" not in link:
+            raise ValueError("expected a new scope/realm release")
+        restored = route_archives.parent_view(link)
+        if any(row["control_binary_sha256"] != prior["binary"]["sha256"] for row in link["iproute2_route_names"].values()):
+            raise ValueError("scope/realm substitutions refer to another parent release")
+        check_iproute2_counts(prior, restored, measure(prior), current, link["iproute2_route_names"], "iproute2_route_name_deltas")
     if args.verify_address_protocols_from:
         previous_link = json.loads(args.verify_address_protocols_from.read_bytes())
         check_address_protocol_conversion(previous_link, link, measure(previous_link), current)
