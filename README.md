@@ -458,6 +458,20 @@ The batch compares the complete archive for each package and records changed
 builds separately. To replay an individual pilot's complete source receipt,
 run `scripts/verify_c_string_sources.py LINK PILOT_DIRECTORY`.
 
+To select cold-built C-string archives in the multicall, enroll them against
+the same compiler inputs as the intended parent release. When that release
+shares stdio layouts, rebuild overlapping literal pilots on top of those
+layouts first. Enrollment replays every changed module, checks the hashes
+of all compiler inputs, and requires a byte-identical archive. The linked
+inventory checks both raw casts removed and C-interface pointer extractions
+added per package.
+
+```sh
+python3 -B scripts/prepare_native_c_strings.py enroll "$link" "$manifest" "$pilot"
+scripts/build_rustbox_multicall.sh --native-c-strings "$manifest" --shared-stdio "$stdio_manifest"
+python3 -B scripts/audit_linked_pointers.py work/analysis/rustbox-multicall-link.json --verify-native-c-strings-from "$link"
+```
+
 Run `python3 -B scripts/rank_fixed_array_helpers.py work/analysis/rustbox-multicall-link.json`
 to find private functions in generated Rust whose pointer parameters occur
 only in constant-offset accesses. The scan groups identical definitions and

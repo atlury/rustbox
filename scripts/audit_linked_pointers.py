@@ -16,6 +16,7 @@ from cargo_archive_pilot import verify_source_substitution
 import curl_manual
 import curl_manual_archive
 import share_stdio_layout
+import verify_c_string_sources as native_strings
 import iproute2_address_protocol_archive as address_protocols
 import iproute2_route_name_archives as route_archives
 from iproute2_route_names import replace_route_names, replace_netlink_protocols
@@ -84,6 +85,9 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None):
     link_archive_hashes = link["source_library_sha256"]
     stdio_records = link.get("shared_stdio_layouts", {})
     stdio_deltas = {}
+    literal_records = link.get("native_c_strings", {})
+    literal_deltas = {}
+    literal_tool = native_strings.syntax_tool() if literal_records else None
     curl_record = link.get("curl_manual", {}).get("pilot")
     curl_records = {curl_manual_archive.KEY: curl_record} if curl_record else {}
     curl_deltas = {}
@@ -243,6 +247,22 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None):
         if stdio is not None:
             replacements = share_stdio_layout.replay(crate, files, stdio, linked_path, link_archive_hashes[str(linked_path)])
             stdio_deltas[str(linked_path)] = stdio["raw_pointer_types_removed"]
+        literal = literal_records.get(str(linked_path))
+        if literal is not None:
+            archive_sha = link_archive_hashes[str(linked_path)]
+            if (literal["archive"] != str(linked_path) or literal["control_sha256"] != archive_sha
+                    or literal["candidate_sha256"] != archive_sha):
+                raise ValueError(f"C-string archive differs from the cold build: {linked_path}")
+
+            def read_parent(module):
+                path = crate / module
+                return replacements[path] if path in replacements else path.read_bytes()
+
+            modules = [str(path.relative_to(crate)) for path in files]
+            parent = {module: hashlib.sha256(read_parent(module)).hexdigest() for module in modules}
+            changed = native_strings.replay(parent, read_parent, literal, literal_tool)
+            replacements.update({crate / module: data for module, data in changed.items()})
+            literal_deltas[str(linked_path)] = literal["c_string_literals"]
         for file, source_sha in files.items():
             file.relative_to(crate)
             data = file.read_bytes()
@@ -269,6 +289,8 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None):
                 source_digests[layer["module"]] = layer["module_before"]
                 if source_list_digest(source_digests) != layer["parent_sources_sha256"]:
                     raise ValueError(f"{stage} parent source list differs from its receipt: {name}")
+    if literal_deltas.keys() != literal_records.keys():
+        raise ValueError("C-string receipt is outside the selected archive set")
     if stdio_deltas.keys() != stdio_records.keys():
         raise ValueError("stdio receipt is outside the selected archive set")
     if len(array_counts) != len(fixed_arrays):
@@ -287,6 +309,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None):
             "packages": packages, "non_applet_archive_inputs": excluded,
             **({"byte_identical_inline_cleanups": cleanups} if cleanups else {}),
             **({"byte_identical_second_inline_cleanups": second_cleanups} if second_cleanups else {}),
+            **({"native_c_string_conversions": literal_deltas} if literal_deltas else {}),
             **({"shared_stdio_layout_deltas": stdio_deltas} if stdio_deltas else {}),
             **({"curl_manual_deltas": curl_deltas} if curl_deltas else {}),
             **({"iproute2_netlink_protocol_deltas": netlink_deltas} if netlink_deltas else {}),
@@ -448,26 +471,40 @@ def check_archive_counts(previous_link, control, before, after, added, delta_fie
             raise ValueError(f"unexplained archive inventory change for {package}")
 
 
-def check_shared_stdio(previous, selected, before, after):
-    previous_records = previous.get("shared_stdio_layouts", {})
-    records = selected["shared_stdio_layouts"]
+def check_identical_layer(previous, selected, before, after, field):
+    previous_records = previous.get(field, {})
+    records = selected[field]
     if (not previous_records.keys() < records.keys()
             or any(records[k] != row for k, row in previous_records.items())
-            or {k: v for k, v in previous.items() if k != "shared_stdio_layouts"}
-               != {k: v for k, v in selected.items() if k != "shared_stdio_layouts"}):
-        raise ValueError("sharing FILE layouts must preserve the complete ELF and every existing linker input")
-    removed = Counter()
+            or {k: v for k, v in previous.items() if k != field}
+               != {k: v for k, v in selected.items() if k != field}):
+        raise ValueError(f"{field} must preserve the complete ELF and every existing linker input")
+    changes = {}
     for key in records.keys() - previous_records.keys():
-        removed[Path(key).relative_to("work/analysis").parts[0]] += after["shared_stdio_layout_deltas"][key]
+        package = Path(key).relative_to("work/analysis").parts[0]
+        delta = changes.setdefault(package, Counter())
+        if field == "native_c_strings":
+            count = after["native_c_string_conversions"][key]
+            delta["raw_pointer_type_tokens"] -= 2 * count
+            delta["as_ptr_calls"] += count
+        elif field == "shared_stdio_layouts":
+            delta["raw_pointer_type_tokens"] -= after["shared_stdio_layout_deltas"][key]
+        else:
+            raise ValueError(f"unknown byte-identical source layer {field}")
     expected = Counter(before["all"])
-    expected["raw_pointer_type_tokens"] -= sum(removed.values())
+    for delta in changes.values():
+        expected.update(delta)
     if expected != after["all"] or before["packages"].keys() != after["packages"].keys():
-        raise ValueError("layout receipts do not explain the linked inventory")
+        raise ValueError(f"{field} receipts do not explain the linked inventory")
     for package, counts in before["packages"].items():
         expected = Counter(counts)
-        expected["raw_pointer_type_tokens"] -= removed[package]
+        expected.update(changes.get(package, {}))
         if expected != after["packages"][package]:
-            raise ValueError(f"unexplained layout inventory change in {package}")
+            raise ValueError(f"unexplained {field} inventory change in {package}")
+
+
+def check_shared_stdio(previous, selected, before, after):
+    check_identical_layer(previous, selected, before, after, "shared_stdio_layouts")
 
 
 def measure(link, inspect_source=None, *, inspect_module=None):
@@ -479,6 +516,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("link_report", type=Path)
     previous = parser.add_mutually_exclusive_group()
+    previous.add_argument("--verify-native-c-strings-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-shared-stdio-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-curl-manual-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-netlink-protocols-from", type=Path, metavar="CONTROL")
@@ -496,6 +534,9 @@ if __name__ == "__main__":
     if args.verify_cleanup_from:
         previous_link = json.loads(args.verify_cleanup_from.read_bytes())
         check_added_cleanups(previous_link, link, measure(previous_link), current)
+    if args.verify_native_c_strings_from:
+        prior = json.loads(args.verify_native_c_strings_from.read_bytes())
+        check_identical_layer(prior, link, measure(prior), current, "native_c_strings")
     if args.verify_shared_stdio_from:
         prior = json.loads(args.verify_shared_stdio_from.read_bytes())
         check_shared_stdio(prior, link, measure(prior), current)

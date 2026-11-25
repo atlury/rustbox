@@ -15,7 +15,7 @@ import tempfile
 from pathlib import Path
 
 import curl_manual_archive
-import prepare_shared_stdio
+import prepare_identical_archives
 import iproute2_address_protocol_archive as address_protocols
 import iproute2_route_name_archives as route_names
 from build_iproute2_bridge import build_bridge
@@ -2433,6 +2433,7 @@ def main() -> int:
     parser.add_argument("--inetutils-rust-directory", type=Path, required=True)
     parser.add_argument("--inetutils-telnet-c-boundary", type=Path, required=True)
     parser.add_argument("--shared-stdio", type=Path)
+    parser.add_argument("--native-c-strings", type=Path)
     parser.add_argument("--curl-manual", action="store_true")
     parser.add_argument("--iproute2-netlink-protocols", action="store_true")
     parser.add_argument("--iproute2-route-names", action="store_true")
@@ -2845,11 +2846,13 @@ def main() -> int:
             del source_library_hashes[str(old.relative_to(repository))]
             source_library_hashes[str(relative)] = record["candidate_sha256"]
             iproute2_libraries[name] = libraries[iproute2_library_indices[name]] = candidate
-    shared_stdio = {}
-    if args.shared_stdio:
-        proofs = {"linked_private_inline_proofs": inline_proofs, "linked_second_inline_proofs": second_inline_proofs,
-                  "linked_foreign_declaration_proofs": foreign_proofs}
-        shared_stdio = prepare_shared_stdio.validate_link(json.loads(args.shared_stdio.read_bytes()), source_library_hashes, proofs)
+    proofs = {"linked_private_inline_proofs": inline_proofs, "linked_second_inline_proofs": second_inline_proofs,
+              "linked_foreign_declaration_proofs": foreign_proofs}
+    identical_layers = {}
+    for manifest, layer in ((args.shared_stdio, "shared_stdio_layouts"), (args.native_c_strings, "native_c_strings")):
+        if manifest:
+            identical_layers[layer] = prepare_identical_archives.validate_link(
+                json.loads(manifest.read_bytes()), source_library_hashes, {**proofs, **identical_layers}, layer)
     expected_symbols.update(f"rustbox_{symbol}_main" for symbol in util_dispatch.values())
     expected_symbols.add("rustbox_m4_main")
     expected_symbols.update({
@@ -3825,7 +3828,7 @@ def main() -> int:
         },
         "source_library_sha256": source_library_hashes,
         **route_selections,
-        **({"shared_stdio_layouts": shared_stdio} if shared_stdio else {}),
+        **identical_layers,
         **({"curl_manual": curl_manual_record} if curl_manual_record else {}),
         **({"iproute2_address_protocol_copies": address_copies} if address_copies else {}),
         **({"iproute2_address_protocols": address_record} if address_record else {}),

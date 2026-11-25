@@ -17,7 +17,10 @@ from rank_shared_applet_modules import rank as shared_modules, rank_tables
 from test_inline_release import all_packages
 
 
-def verify(previous, binary, replay_path, output):
+def verify(previous, binary, replay_path, output, layer="shared_stdio_layouts"):
+    native_strings = layer == "native_c_strings"
+    option = "--verify-native-c-strings-from" if native_strings else "--verify-shared-stdio-from"
+    stage = "native-c-strings" if native_strings else "shared-stdio"
     output.mkdir()
     old, current = previous.read_bytes(), LINK_REPORT.read_bytes()
     parent, selected = json.loads(old), json.loads(current)
@@ -37,7 +40,7 @@ def verify(previous, binary, replay_path, output):
     scripts = ROOT / "scripts"
     with (output / "inventory.json").open("wb") as stream:
         subprocess.run([sys.executable, "-B", scripts / "audit_linked_pointers.py", saved,
-                        "--verify-shared-stdio-from", previous], stdout=stream, check=True)
+                        option, previous], stdout=stream, check=True)
     public = {}
     for name, tool in (("dispatch", "test_rustbox_multicall.sh"), ("batch_differential", "test_rustbox_batch_differential.sh")):
         log = output / (name + ".log")
@@ -58,11 +61,12 @@ def verify(previous, binary, replay_path, output):
         "rustbox-fixed-array-candidates": fixed_arrays(saved),
         "rustbox-shared-module-candidates": shared_modules(saved, 20),
         "rustbox-static-name-tables": rank_tables(saved, 20),
-        "rustbox-shared-stdio-replays": {
+        f"rustbox-{stage}-replays": {
             "binary_sha256": sha, "link_report_sha256": current_sha, "previous_link_report_sha256": previous_sha,
             "previous_replays_sha256": sha256(replay_bytes).hexdigest(), "packages": replay["packages"],
             "package_replay_basis": "identical ELF, link map, dynamic dependencies and archive inputs",
-            "repeated_pointer_fields_removed": inventory["shared_stdio_layout_deltas"], **public},
+            **({"c_string_conversions": inventory["native_c_string_conversions"]} if native_strings else
+               {"repeated_pointer_fields_removed": inventory["shared_stdio_layout_deltas"]}), **public},
     }
     with TemporaryDirectory(dir=ROOT / "evidence") as temp:
         staged = Path(temp)
@@ -74,7 +78,7 @@ def verify(previous, binary, replay_path, output):
             raise ValueError("release changed during verification")
         for path in staged.iterdir():
             path.replace(ROOT / "evidence" / path.name)
-    print(f"{len(selected['shared_stdio_layouts'])} identical archives, {public['batch_differential']['passed']} differential cases, ELF {sha}")
+    print(f"{len(selected[layer])} identical archives, {public['batch_differential']['passed']} differential cases, ELF {sha}")
 
 
 if __name__ == "__main__":
@@ -83,5 +87,7 @@ if __name__ == "__main__":
     parser.add_argument("binary", type=Path)
     parser.add_argument("previous_replays", type=Path)
     parser.add_argument("new_directory", type=Path)
+    parser.add_argument("--native-c-strings", action="store_true")
     args = parser.parse_args()
-    verify(args.previous_link.resolve(), args.binary.resolve(), args.previous_replays.resolve(), args.new_directory.resolve())
+    verify(args.previous_link.resolve(), args.binary.resolve(), args.previous_replays.resolve(), args.new_directory.resolve(),
+           "native_c_strings" if args.native_c_strings else "shared_stdio_layouts")

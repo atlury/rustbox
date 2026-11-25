@@ -45,6 +45,10 @@ def substitute(crate, sources):
     return rewrite(crate, sources, tool)
 
 
+def build(link_file, out, archive):
+    stage_selected_archive(link_file, out, str(archive), MARKER, Path(__file__).name, omit_layer="native_c_strings")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--link", type=Path, default=LINK_REPORT)
@@ -58,4 +62,4 @@ if __name__ == "__main__":
     else:
         if not args.archive:
             parser.error("--output requires --archive")
-        stage_selected_archive(args.link, args.output.resolve(), str(args.archive), MARKER, Path(__file__).name)
+        build(args.link, args.output.resolve(), args.archive)
