@@ -361,6 +361,15 @@ candidate still needs a check of its callers, allocation sizes and aliasing.
 The ranked candidates and compiler-selected archive paths are in
 `evidence/rustbox-fixed-array-candidates.json`.
 
+To rank complete static C-string pointer tables, run
+`python3 -B scripts/rank_shared_applet_modules.py LINK_REPORT --tables --limit 20`.
+This scan groups identical declarations even when their surrounding modules
+differ. It includes single-engine tables and records whether the translated
+static is public. Curl's private manual table contains 5,704 literal entries
+and one null sentinel, accounting for 11,409 raw-pointer type occurrences
+in one declaration. Public tables such as Flex's scanner skeleton require a
+separate check of their ABI consumers.
+
 To find work that can be reused across engines, run
 `python3 -B scripts/rank_shared_applet_modules.py LINK_REPORT --limit 20`.
 The scanner groups compiler-selected modules by package and exact source

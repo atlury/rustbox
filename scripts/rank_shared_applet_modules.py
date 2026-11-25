@@ -11,30 +11,79 @@ import re
 from audit_linked_pointers import METRICS, measure
 
 EXPORT = re.compile(rb'^pub (?:unsafe )?extern "C" fn ([A-Za-z_][A-Za-z_0-9]*)\(', re.M)
-CHAR_POINTER = rb"\*mut\s+::core::ffi::c_char"
-NAME_ARRAY = re.compile(rb"^static mut (\w+): \[" + CHAR_POINTER + rb"; (\d+)\] = \[\n", re.M)
-NULL_SLOT = rb"::core::ptr::null::<::core::ffi::c_char>\(\)\s+as\s+" + CHAR_POINTER
-NAME_SLOT = rb'b"(?:[^"\\\r\n]|\\.)*\\0"\s+as\s+\*const u8\s+as\s+\*const ::core::ffi::c_char\s+as\s+' + CHAR_POINTER
-SLOT = re.compile(rb"\s*(?:(?P<empty>" + NULL_SLOT + rb")|" + NAME_SLOT + rb"),")
+CHAR = rb"::core::ffi::c_char"
+NAME_ARRAY = re.compile(
+    rb"^(?P<public>pub )?static mut (?P<name>\w+): \[\*(?P<kind>mut|const)\s+" + CHAR +
+    rb"; (?P<size>\d+)\] = \[\n", re.M)
+NULL_VALUE = rb"::core::ptr::null::<" + CHAR + rb">\(\)"
+NAME_VALUE = rb'b"(?:[^"\\\r\n]|\\.)*\\0"\s+as\s+\*const u8\s+as\s+\*const ' + CHAR
 
 
-def generated_name_tables(data):
-    """Recognize only fully enumerated translated static char-pointer arrays."""
-    tables = []
+def slot_pattern(cast):
+    return re.compile(rb"\s*(?:(?P<empty>" + NULL_VALUE + cast + rb")|" + NAME_VALUE + cast + rb"),")
+
+
+SLOTS = {b"mut": slot_pattern(rb"\s+as\s+\*mut\s+" + CHAR), b"const": slot_pattern(b"")}
+
+
+def name_table_spans(data):
+    """Yield complete, literal-or-null arrays and their exact declaration spans."""
     for declaration in NAME_ARRAY.finditer(data):
         position = declaration.end()
-        capacity = int(declaration[2])
+        capacity = int(declaration["size"])
+        slots = SLOTS[declaration["kind"]]
         filled = empty = 0
-        while slot := SLOT.match(data, position):
+        while slot := slots.match(data, position):
             if slot["empty"] is None:
                 filled += 1
             else:
                 empty += 1
             position = slot.end()
         if filled + empty == capacity and data.startswith(b"\n];", position):
-            tables.append({"name": declaration[1].decode(), "capacity": capacity,
-                           "literal_names": filled, "null_slots": empty})
-    return tables
+            yield declaration, position + 3, {"name": declaration["name"].decode(), "capacity": capacity,
+                                            "literal_names": filled, "null_slots": empty}
+
+
+def generated_name_tables(data):
+    """Preserve the private mutable-table inventory in shared-module reports."""
+    return [row for decl, _, row in name_table_spans(data)
+            if not decl["public"] and decl["kind"] == b"mut"]
+
+
+def rank_tables(link_path, limit=None):
+    raw = link_path.read_bytes()
+    by_module = {}
+    groups = {}
+
+    def inspect(archive, module, sha, data):
+        if sha not in by_module:
+            matches = []
+            for decl, end, row in name_table_spans(data):
+                source = data[decl.start():end]
+                matches.append(dict(row, declaration_sha256=hashlib.sha256(source).hexdigest(),
+                                    public=bool(decl["public"]), pointee=decl["kind"].decode(),
+                                    raw_pointer_types_per_copy=len(METRICS["raw_pointer_type_tokens"].findall(source))))
+            by_module[sha] = matches
+        package = archive.relative_to("work/analysis").parts[0]
+        for row in by_module[sha]:
+            key = (package, row["declaration_sha256"])
+            if key not in groups:
+                groups[key] = dict(row, package=package, archives=defaultdict(list))
+            groups[key]["archives"][str(archive)].append(str(module))
+
+    inventory = measure(json.loads(raw), inspect_module=inspect)
+    if link_path.read_bytes() != raw:
+        raise ValueError("link report changed during static table scan")
+    rows = []
+    for row in groups.values():
+        copies = sum(len(paths) for paths in row["archives"].values())
+        row.update(copies=copies, raw_pointer_type_tokens=copies * row["raw_pointer_types_per_copy"])
+        rows.append(row)
+    rows.sort(key=lambda r: (-r["raw_pointer_type_tokens"], r["package"], r["name"], r["declaration_sha256"]))
+    return {"binary_sha256": inventory["binary_sha256"], "link_report_sha256": hashlib.sha256(raw).hexdigest(),
+            "groups": len(rows), "copies": sum(r["copies"] for r in rows),
+            "raw_pointer_type_tokens": sum(r["raw_pointer_type_tokens"] for r in rows),
+            "tables": rows[:limit]}
 
 
 def rank(link_path, limit=None):
@@ -76,8 +125,10 @@ def rank(link_path, limit=None):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("link_report", type=Path)
+    parser.add_argument("--tables", action="store_true", help="rank complete literal/null name-table definitions across all selected modules")
     parser.add_argument("--limit", type=int, help="emit the leading modules while retaining the complete totals")
     args = parser.parse_args()
     if args.limit is not None and args.limit < 1:
         parser.error("--limit must be positive")
-    print(json.dumps(rank(args.link_report, args.limit), indent=2, sort_keys=True))
+    scan = rank_tables if args.tables else rank
+    print(json.dumps(scan(args.link_report, args.limit), indent=2, sort_keys=True))
