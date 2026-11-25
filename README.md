@@ -994,6 +994,15 @@ with a distinct errno sentinel in every thread and round. GCC and Clang
 each passed 393,216 comparisons and repeated them under Memcheck.
 [Thread-local locale results](evidence/glibc-ctype-thread-local.json)
 
+Pkgconf's argument splitter and package-file parser contain nine calls to
+the canonical unsigned-byte classifiers. The matching Rust expressions
+read the glibc table directly. A replay through the shared stdio layout and
+1,202 native strings preserves the C call order and removes four explicit
+pointer types from those two modules. Generate the parent with
+`scripts/build_pkgconf_ctype.py --prepare-parent LINK`, then run the same
+script with `--link PREPARED_LINK --replay` to check all compiler inputs.
+[Pkgconf compiler sources](evidence/pkgconf-ctype-parser-sources.json)
+
 An inventory of the shared-stdio release found 527 table-read expressions
 with an explicit unsigned-byte index in 131 modules across 44 archives.
 All uses matched the narrow spelling in 67 modules. The first selected

@@ -27,14 +27,15 @@ ACCESS = re.compile(rb"\*\s*\(\s*\*\s*__ctype_b_loc\(\)\s*\)\s*\.offset\(\s*"
 HELPER = ROOT / "compat/linux/ctype.rs"
 
 
-def selected_helper(flag):
-    if flag not in FLAGS or digest(HELPER) != json.loads((ROOT / "evidence/glibc-ctype-values.json").read_bytes())["helper_sha256"]:
+def selected_helper(*flags):
+    if not flags or not set(flags) <= set(FLAGS) or digest(HELPER) != json.loads((ROOT / "evidence/glibc-ctype-values.json").read_bytes())["helper_sha256"]:
         raise ValueError("unknown classification or helper differs from the locale tests")
-    selector = ("classification!(" + flag + ",").encode()
+    selectors = [("classification!(" + flag + ",").encode() for flag in flags]
     data = HELPER.read_bytes()
-    if data.count(selector) != 1:
-        raise ValueError("expected exactly one classified operation")
-    return b"".join(line for line in data.splitlines(keepends=True) if b"classification!(" not in line or selector in line)
+    if any(data.count(selector) != 1 for selector in selectors):
+        raise ValueError("expected one definition for every selected operation")
+    return b"".join(line for line in data.splitlines(keepends=True)
+                    if b"classification!(" not in line or any(s in line for s in selectors))
 
 
 def matches(data):
