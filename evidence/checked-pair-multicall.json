@@ -1,0 +1,83 @@
+{
+  "archive_evidence_sha256": {
+    "less": "2b195dc01bfe6e61dc7b44890d8a7da6ee29e7fbdce81570761d1e4a8cce99f7",
+    "zstd": "b547ce12a971b1e72ca9032c9cf002726b763aeddb37dcee33f087047e0f6a04"
+  },
+  "candidate": {
+    "bytes": 42425184,
+    "packages": {
+      "less": "b53cc50e72ebbc12b96b65c36a25616b722e5b477fe6237c57f5d1849f59a9bf",
+      "zstd": "addc444994786e332600daa7fcf9c072890a92d53166174a3fac6fb44c230a55"
+    },
+    "sha256": "47348170eef33852b2fe2fa5c5ffe15af2940fe908378a736ed9db12432d75e4",
+    "stripped_bytes": 24934528,
+    "stripped_sha256": "4c263ce03800b6fe518db7532f01654dbc52b42345ad71b636fccfb75c98bc6d"
+  },
+  "linker_command_sha256": "411fb9679311197f0273b170625142d2fa40e9016b74ba6255e2c4fe02f7183e",
+  "parent": {
+    "bytes": 42450832,
+    "packages": {
+      "less": "8bc04efc48267bec72b1ee58f01dc78d2826527efdf64de082ca416768aae689",
+      "zstd": "91146c566f13c2058e0cb10ecebbcebb2ee3925e6708cf14a1b17a6b4a8c97d8"
+    },
+    "sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+    "stripped_bytes": 24961776,
+    "stripped_sha256": "a12c31721cf685e3827f4ea859583a60d670d3ead4a6fd71e649798dab900913"
+  },
+  "parent_link_report_sha256": "e4cccf40558c6b77560f9d99b50e34eb2e0a9ebb26727cb07beb6bcbaf77615a",
+  "public": {
+    "less": {
+      "command_suites": {
+        "applet-clang": 22,
+        "applet-gcc": 22,
+        "subcommand-clang": 22,
+        "subcommand-gcc": 22
+      },
+      "help_commands": 16,
+      "help_output_sha256": [
+        "c45a198763b676d2866ef4a6fe942cf1ad2c8a656492ec93e5e3b1e9ffb8a285",
+        "16367aacb67a4a017c8da8ab95682ccb390863780f7114dda0a0e0c55644c7c4",
+        "c45fd5afd14b3e18f9cfb676e7cda30bbb79d9951041fac26f9f500065a72eab",
+        "50030308ce792e1a8f25bc0ad154ade7644caa97c3568ba200df5dd77fcd072f"
+      ]
+    },
+    "zstd": {
+      "canonical": {
+        "applet": {
+          "command_cases": {
+            "clang": 17,
+            "gcc": 17
+          },
+          "command_driver_sha256": "4664e9807924882d518d6a5466d2104c5239145dcdcbb392ef9ed5a19a9ca9c5",
+          "synthetic": {
+            "10000000": {
+              "compressed_bytes": 3240239,
+              "ratio": "3.086"
+            },
+            "65536": {
+              "compressed_bytes": 22185,
+              "ratio": "2.954"
+            }
+          }
+        },
+        "subcommand": {
+          "command_cases": {
+            "clang": 17,
+            "gcc": 17
+          },
+          "command_driver_sha256": "4664e9807924882d518d6a5466d2104c5239145dcdcbb392ef9ed5a19a9ca9c5",
+          "synthetic": {
+            "10000000": {
+              "compressed_bytes": 3240239,
+              "ratio": "3.086"
+            },
+            "65536": {
+              "compressed_bytes": 22185,
+              "ratio": "2.954"
+            }
+          }
+        }
+      }
+    }
+  }
+}

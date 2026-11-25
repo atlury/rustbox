@@ -13,15 +13,12 @@ from check_cargo_private_inlines import ROOT, digest
 COMMAND_SHA = "411fb9679311197f0273b170625142d2fa40e9016b74ba6255e2c4fe02f7183e"
 
 
-def preview(parent, log, pilot, output, qualified, namespace, exercise):
-    parent_bytes = parent.read_bytes()
-    release = json.loads(parent_bytes)
+def qualified_inputs(release, pilot, qualified, namespace):
     row = json.loads((pilot / "pilot.json").read_bytes())
     key = Path(row["archive"])
     if (any(qualified.get(k) != value for k, value in row.items())
-            or release["source_library_sha256"].get(str(key)) != row["control_sha256"]
-            or output.exists()):
-        raise ValueError("expected a fresh destination and qualified archive for the selected parent")
+            or release["source_library_sha256"].get(str(key)) != row["control_sha256"]):
+        raise ValueError("expected a qualified archive for the selected parent")
     residue_dir = Path(*key.parts[:3]) / "hybrid-artifacts/c-residue"
     inputs = release["source_library_sha256"]
     residues = sorted(ROOT / name for name in inputs if Path(name).parent == residue_dir and Path(name).suffix == ".o")
@@ -39,6 +36,12 @@ def preview(parent, log, pilot, output, qualified, namespace, exercise):
         archive, objs = namespace(path, residues, release, stage)
         return [archive, *objs], {archive}, {"archive_sha256": expected}
 
+    return prepare
+
+
+def preview(parent, log, pilot, output, qualified, namespace, exercise):
+    parent_bytes = parent.read_bytes()
+    prepare = qualified_inputs(json.loads(parent_bytes), pilot, qualified, namespace)
     preview_link(parent, parent_bytes, log, output, prepare, exercise)
 
 
