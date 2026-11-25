@@ -284,9 +284,9 @@ The default 499-name Linux executable uses verified private-helper cleanups
 for 89 linked Rust archives. These cover the 20 E2fsprogs, 18 IPRoute2 and
 26 GNU Inetutils engines and 25 other package archives. A second compiler pass
 removed additional helpers in 58 of those archives. The declaration cleanup
-covers 28 archives, including 13 E2fsprogs engines. Across the linked applet
-sources the raw-pointer type count fell from **1,379,960 to 998,816**.
-Counting byte-identical Rust files once gives **716,105** remaining occurrences.
+covers 89 archives, including 20 E2fsprogs engines. Across the linked applet
+sources the raw-pointer type count fell from **1,379,960 to 976,080**.
+Counting byte-identical Rust files once gives **697,177** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
 | Production change | Raw-pointer type occurrences removed |
@@ -308,12 +308,13 @@ The count of applets certified pointer-free is still zero.
 | Compiler-verified removal of unused C declarations in 13 E2fsprogs engines | 16,616 |
 | Compiler-verified removal of unused C declarations in IPRoute2 `ip`, `tc` and ncurses | 15,319 |
 | Compiler-verified removal of unused C declarations across 12 more archives | 22,617 |
-| **Total** | **381,144** |
+| Compiler-verified removal of unused C declarations in 61 additional archives | 22,736 |
+| **Total** | **403,880** |
 
-E2fsprogs accounts for 198,340 remaining occurrences, down from 401,012.
-IPRoute2 accounts for 204,690, down from 265,323. GNU Inetutils accounts
-for 85,782, down from 104,385. The curl crate accounts for 85,468, down
-from 96,855. GNU gzip accounts for 3,063, down from 4,086, and XZ Utils
+E2fsprogs accounts for 198,053 remaining occurrences, down from 401,012.
+IPRoute2 accounts for 196,050, down from 265,323. GNU Inetutils accounts
+for 78,019, down from 104,385. The curl crate accounts for 85,468, down
+from 96,855. GNU gzip accounts for 2,604, down from 4,086, and XZ Utils
 accounts for 9,784, down from 22,239.
 The checksum replacement saved 135,168 stripped bytes. Removing unused source
 preserved the entire ELF and link map byte-for-byte in those cleanup releases.
@@ -855,10 +856,12 @@ possible declarations across the 127 archives. For calibration, the same scan
 flagged 22,158 pointer types in the 13 E2fsprogs engines before their cleanup.
 The verified removal was 16,616. After the following three Cargo archives,
 the scan flagged 66,333 pointer types. Following the 12-archive batch below,
-the scan flags 43,736 pointer types in 25,533 possible declarations. The next
-three eligible Cargo candidates by estimated pointer count are GNU sed (1,219),
-Procps-ng (1,088) and IPRoute2 ss (1,027). The ranked paths and the current
-link-report hash are in `evidence/rustbox-foreign-declaration-candidates.json`.
+the scan flagged 43,736 pointer types in 25,533 possible declarations.
+After checking the remaining ranked Cargo archives and the staged IPRoute2
+bridge, the scan flags 21,022 types in 13,500 potential declarations.
+Every archive with a positive estimate now has a compiler-checked selection. See
+`evidence/rustbox-foreign-declaration-candidates.json` for the current paths
+and link-report hash.
 
 The next production batch removed 7,688 private declarations containing
 15,319 raw-pointer types from 474 source entries. It saved 1,150,651 bytes of
@@ -896,6 +899,37 @@ See `evidence/rustbox-twelve-cargo-declaration-replays.json` for package coverag
 | tar-1.35 | 1,069 | 1,722 |
 | xz-5.8.4 | 1,924 | 3,627 |
 | **Total** | **13,017** | **22,617** |
+
+The next release checked 60 ranked Cargo archives and the separately staged
+IPRoute2 `bridge`. Across 61 nonempty archive selections the compiler verified
+12,053 unused declarations. Removing them eliminated 22,736 raw-pointer
+type occurrences and 1,495,382 generated source bytes. Every resulting archive,
+the final multicall ELF and the link map matched the preceding release
+byte-for-byte. All 17 affected package suites and 884 dispatch checks passed.
+The filesystem image checks and live IPRoute2 bridge replay also passed.
+See `evidence/rustbox-remaining-declaration-replays.json` for package coverage
+and `evidence/rustbox-linked-pointers.json` for individual archive counts.
+
+| Package | Archives | Unused declarations removed | Raw-pointer type occurrences removed |
+|---|---:|---:|---:|
+| attr-2.6.0 | 1 | 94 | 200 |
+| bc-1.08.2 | 1 | 126 | 240 |
+| e2fsprogs-1.47.4 | 7 | 237 | 287 |
+| file-5.48 | 1 | 169 | 294 |
+| flex-2.6.4 | 1 | 153 | 294 |
+| gzip-1.14 | 1 | 245 | 459 |
+| inetutils-2.8 | 26 | 4,326 | 7,763 |
+| iproute2-7.3.0 | 14 | 4,373 | 8,640 |
+| kmod-34.3 | 1 | 218 | 376 |
+| less-710 | 1 | 288 | 539 |
+| lz4-1.11.1 | 1 | 59 | 137 |
+| m4-1.4.21 | 1 | 132 | 288 |
+| patch-2.8 | 1 | 336 | 710 |
+| pkgconf-3.0.11 | 1 | 345 | 642 |
+| procps-ng-4.0.7 | 1 | 372 | 700 |
+| sed-4.10 | 1 | 516 | 1,036 |
+| zstd-1.5.7 | 1 | 64 | 131 |
+| **Total** | **61** | **12,053** | **22,736** |
 
 IPRoute2 `bridge` has a separate rustc build. Its declaration trial uses the
 production bridge compiler arguments and the same remapped source path.
