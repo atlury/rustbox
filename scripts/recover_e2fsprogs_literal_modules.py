@@ -72,6 +72,10 @@ def recover(link, batch, output, engine, *, complement=False, trials=0, seed=Non
           flush=True)
     if trials and not result["byte_identical"]:
         def compare(index, chosen):
+            # A successful first half can make the next union the entire failed group.
+            # Its exact compiler inputs and complete archive were already replayed above.
+            if set(chosen) == modules.keys():
+                return False, row["candidate_sha256"]
             trial = output / f"subset-{index:02d}"
             if not trial.exists():
                 build(link, trial, Path(key), modules=chosen)
