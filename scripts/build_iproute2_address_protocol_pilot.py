@@ -51,11 +51,16 @@ def compile_mounted(archive):
     (target / "pilot.json").write_text(json.dumps(record, indent=2, sort_keys=True) + "\n")
 
 
-def build_pilot(output):
+def build_pilot(output, link=None):
     if output.exists():
         raise ValueError("expected a new pilot output directory")
-    raw = LINK_REPORT.read_bytes()
-    link = json.loads(raw)
+    raw = LINK_REPORT.read_bytes() if link is None else None
+    if raw is not None:
+        from iproute2_address_protocol_archive import control_view
+        current = json.loads(raw)
+        link = control_view(current)
+        if record := current.get("iproute2_address_protocols"):
+            link["binary"] = {"sha256": record["control_binary_sha256"]}
     key, = (n for n in link["source_library_sha256"] if n.endswith("/libip_audit.a"))
     archive = Path(key)
     source, base = layout(archive)
@@ -77,7 +82,7 @@ def build_pilot(output):
                         "/work/scripts/build_iproute2_address_protocol_pilot.py", "--mounted", key], check=True)
         receipt = json.loads((target / "pilot.json").read_bytes())
         candidate = target / "release" / archive.name
-        if digest(candidate) != receipt["candidate_sha256"] or LINK_REPORT.read_bytes() != raw:
+        if digest(candidate) != receipt["candidate_sha256"] or (raw is not None and LINK_REPORT.read_bytes() != raw):
             raise ValueError("pilot archive or release changed after build")
         with tempfile.TemporaryDirectory(dir=output.parent) as staging:
             result = Path(staging) / "result"
@@ -92,9 +97,13 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--output", type=Path, help="new directory under an existing parent")
+    group.add_argument("--prepare", action="store_true", help="prepare the pinned production archive")
     group.add_argument("--mounted", type=Path, help=argparse.SUPPRESS)
     args = parser.parse_args()
     if args.mounted:
         compile_mounted(args.mounted)
+    elif args.prepare:
+        from iproute2_address_protocol_archive import prepare
+        prepare()
     else:
         build_pilot(args.output.resolve())

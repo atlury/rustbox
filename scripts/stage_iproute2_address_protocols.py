@@ -6,13 +6,16 @@ import json
 from pathlib import Path
 import sys
 
-from audit_linked_pointers import METRICS, ROOT, measure
+from check_cargo_private_inlines import ROOT
+from prune_private_inlines import POINTER
 
 MODULE = Path("src/lib/rt_names.rs")
 MODULE_SHA256 = "33bbef39e15386546d9f98bc07ecd371b3ba7e1c455ab1f1d347273ecd85d271"
 
 
 def compiler_inputs(link, archive, destination=None):
+    from audit_linked_pointers import measure
+
     inputs = {"binary": link["binary"]}
     for key in ("source_library_sha256", "linked_private_inline_proofs", "linked_second_inline_proofs",
                 "linked_foreign_declaration_proofs"):
@@ -48,13 +51,13 @@ def replace_table(control):
     candidate = control[:start] + replacement + b"\n" + control[end:]
     if any(name in candidate for name in (b"rtnl_addrprot_tab", b"rtnl_addrprot_initialize")):
         raise ValueError("the legacy address-protocol table is still referenced")
-    metric = METRICS["raw_pointer_type_tokens"]
     return candidate, {"control_module_sha256": MODULE_SHA256, "candidate_module_sha256": sha256(candidate).hexdigest(),
-                       "raw_pointer_types_removed_in_pilot_module": len(metric.findall(control)) - len(metric.findall(candidate))}
+                       "raw_pointer_types_removed_in_pilot_module": len(POINTER.findall(control)) - len(POINTER.findall(candidate))}
 
 
 def stage(link_path, output):
-    link = json.loads(link_path.read_bytes())
+    from iproute2_address_protocol_archive import control_view
+    link = control_view(json.loads(link_path.read_bytes()))
     archive, = (key for key in link["source_library_sha256"] if key.endswith("/libip_audit.a"))
     control, _ = compiler_inputs(link, archive)
     candidate, report = replace_table(control)
