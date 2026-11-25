@@ -1,0 +1,185 @@
+{
+  "binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+  "deferred": {
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/badblocks/2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff/libbadblocks_audit.a": "rebuilt archive bytes differ",
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/debugfs/0b1483e5fe35bab542de5f9285e9f2df6edd6c215a6d1481e2a004cdc203958a/libdebugfs_audit.a": "rebuilt archive bytes differ",
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/dumpe2fs/0e7dd48180b25ee0e893f7ec2254bd62400c208fdd873858cc56cd62c40ad12f/libdumpe2fs_audit.a": "rebuilt archive bytes differ",
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2freefrag/dff1d228a46ef9b0bb99a0a2fb7995385f762f3c86aa51463a100dbec84294b5/libe2freefrag_audit.a": "rebuilt archive bytes differ",
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2fsck/564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd/libe2fsck_audit.a": "rebuilt archive bytes differ",
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2image/399a863ff0c37471b7e8ab0cbad3d9cd6f80d6f326871ba85e85bed25225fc2e/libe2image_audit.a": "rebuilt archive bytes differ",
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2initrd_helper/6edccc168e7742f23fafe09103351a09528c8e57699efe07b6009d65fca34cab/libe2initrd_helper_audit.a": "rebuilt archive bytes differ",
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2undo/cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8/libe2undo_audit.a": "rebuilt archive bytes differ",
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/fuse2fs/0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a/libfuse2fs_audit.a": "rebuilt archive bytes differ",
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a": "rebuilt archive bytes differ",
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/resize2fs/b0c8126d1bdf73d216736f090e322dc52c1a9aa2f37ab78ba534910fc9e68005/libresize2fs_audit.a": "rebuilt archive bytes differ",
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/tune2fs/03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966/libtune2fs_audit.a": "rebuilt archive bytes differ",
+    "work/analysis/procps-ng-4.0.7/translations/c2rust-0.22.1/procps-ng-4.0.7-nightly/target/release/libprocps_ng_4_0_7_normalized_audit.a": "rebuilt archive bytes differ",
+    "work/analysis/shadow-4.20.4/translations/c2rust-0.22.1/shadow-4.20.4-nightly/target/release/libshadow_4_20_4_normalized_audit.a": "rebuilt archive bytes differ"
+  },
+  "link_report_sha256": "fef8418385bf5a6837d0221f55c7b1c999ed0b469e3a8c68a735830510041df6",
+  "raw_pointer_types_removed": 1504,
+  "verified": {
+    "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/chattr/release/libchattr_audit.a": {
+      "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/chattr/release/libchattr_audit.a",
+      "c_string_literals": 87,
+      "candidate_sha256": "36b039f2a9ae0c6b9237580cb2ee86bbfcf33ba4e973520ab3c064dd48d336cb",
+      "candidate_sources_sha256": "baf970c12ac801d2f663ad15d934543b374e20f0db246ec54be7a22d5dcb00b4",
+      "compiler_selected_sources": 12,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "36b039f2a9ae0c6b9237580cb2ee86bbfcf33ba4e973520ab3c064dd48d336cb",
+      "legacy_compiler": "nightly-2023-04-15",
+      "modules": {
+        "src/lib/e2p/pf.rs": 47,
+        "src/lib/et/com_err.rs": 2,
+        "src/lib/et/error_message.rs": 11,
+        "src/misc/chattr.rs": 27
+      },
+      "parent_sources_sha256": "3d10f8e9ccf346a85860a4b09e3a789f6d04227262f42284ee3026f34baa5861",
+      "raw_ffi_pointer_extractions": 87,
+      "raw_pointer_types_removed": 174,
+      "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/e4crypt/release/libe4crypt_audit.a": {
+      "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/e4crypt/release/libe4crypt_audit.a",
+      "c_string_literals": 67,
+      "candidate_sha256": "ddfedb3b9ae441522012c682ab5f9bf036010b3f58c680ddfa182367aee594eb",
+      "candidate_sources_sha256": "eb9f262a7f6170fce5f329d964d2958a58c0dad84bca0ba13637d1be5172cf5c",
+      "compiler_selected_sources": 4,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "ddfedb3b9ae441522012c682ab5f9bf036010b3f58c680ddfa182367aee594eb",
+      "legacy_compiler": "nightly-2023-04-15",
+      "modules": {
+        "src/misc/e4crypt.rs": 67
+      },
+      "parent_sources_sha256": "1aa041fac3ddaae24bf5a99deb126f0efb26564441c63f0f639d4d71c72b2de9",
+      "raw_ffi_pointer_extractions": 67,
+      "raw_pointer_types_removed": 134,
+      "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/filefrag/release/libfilefrag_audit.a": {
+      "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/filefrag/release/libfilefrag_audit.a",
+      "c_string_literals": 55,
+      "candidate_sha256": "0f21cbb3421fddd12423d97aa2f4c84590051cec3cd85106c9d149b5361163f8",
+      "candidate_sources_sha256": "d5c92f2ca64850947c18164824dc24147426a33234e3396727e1f7fe2d3b9b4a",
+      "compiler_selected_sources": 3,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "0f21cbb3421fddd12423d97aa2f4c84590051cec3cd85106c9d149b5361163f8",
+      "legacy_compiler": "nightly-2023-04-15",
+      "modules": {
+        "src/filefrag.rs": 55
+      },
+      "parent_sources_sha256": "feb4e12fbcc071a82d72f79f8fd434d1780b9067541b4dd6f52caa329b9d576f",
+      "raw_ffi_pointer_extractions": 55,
+      "raw_pointer_types_removed": 110,
+      "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/fsck/release/libfsck_audit.a": {
+      "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/fsck/release/libfsck_audit.a",
+      "c_string_literals": 113,
+      "candidate_sha256": "28d4986cd680b55854ebcc54b209c55fb8bd59ea2ae922dd357c4de81d2984ed",
+      "candidate_sources_sha256": "6cd32d244fad1c5cbefb9315b59a2adac9d3e65e43e7ee6a5300e9633d2a132f",
+      "compiler_selected_sources": 6,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "28d4986cd680b55854ebcc54b209c55fb8bd59ea2ae922dd357c4de81d2984ed",
+      "legacy_compiler": "nightly-2023-04-15",
+      "modules": {
+        "src/lib/support/devname.rs": 1,
+        "src/misc/base_device.rs": 13,
+        "src/misc/fsck.rs": 95,
+        "src/misc/ismounted.rs": 4
+      },
+      "parent_sources_sha256": "98ad7d569983a5ae5908304ebe31a082713e2c51b842510eb4ace12996ef3b8b",
+      "raw_ffi_pointer_extractions": 113,
+      "raw_pointer_types_removed": 226,
+      "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/logsave/release/liblogsave_audit.a": {
+      "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/logsave/release/liblogsave_audit.a",
+      "c_string_literals": 17,
+      "candidate_sha256": "0c1ba271f084bb6529fcde197e1285839d32f09a3db01e6ff0329d1ccea9c61c",
+      "candidate_sources_sha256": "97e537f1c7d0dc0011835ee359f0241b14fa42e4c27fb7e46e0d43b88e030715",
+      "compiler_selected_sources": 3,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "0c1ba271f084bb6529fcde197e1285839d32f09a3db01e6ff0329d1ccea9c61c",
+      "legacy_compiler": "nightly-2023-04-15",
+      "modules": {
+        "src/logsave.rs": 17
+      },
+      "parent_sources_sha256": "f27f64716257d0b4956713e013fc63c7586a50aaba0c8da32fe29edad94747fe",
+      "raw_ffi_pointer_extractions": 17,
+      "raw_pointer_types_removed": 34,
+      "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/lsattr/release/liblsattr_audit.a": {
+      "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/lsattr/release/liblsattr_audit.a",
+      "c_string_literals": 82,
+      "candidate_sha256": "5ccea8b5de5c4da29e48c9efcbca1457d7dcb9b67c4ba10469ed5c62a60df965",
+      "candidate_sources_sha256": "deeca9db07c8f058c389b6676f6b63265e9c870e62c324974f6b5b31603b9b38",
+      "compiler_selected_sources": 11,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "5ccea8b5de5c4da29e48c9efcbca1457d7dcb9b67c4ba10469ed5c62a60df965",
+      "legacy_compiler": "nightly-2023-04-15",
+      "modules": {
+        "src/lib/e2p/pf.rs": 47,
+        "src/lib/et/com_err.rs": 2,
+        "src/lib/et/error_message.rs": 11,
+        "src/misc/lsattr.rs": 22
+      },
+      "parent_sources_sha256": "669e84172e52eebb0232ab6731fff5586e48d3988ac7d52b3e32854d92de987f",
+      "raw_ffi_pointer_extractions": 82,
+      "raw_pointer_types_removed": 164,
+      "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/mklost_found/release/libmklost_found_audit.a": {
+      "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/mklost_found/release/libmklost_found_audit.a",
+      "c_string_literals": 13,
+      "candidate_sha256": "7f6f69f0aef9f1709f9c86623464e3507afc037918aaca047740a1b5015e6ae5",
+      "candidate_sources_sha256": "333d3f0f78fc0537e7469f29f324f9dc446898a776690b323f71b98308f2c3c9",
+      "compiler_selected_sources": 3,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "7f6f69f0aef9f1709f9c86623464e3507afc037918aaca047740a1b5015e6ae5",
+      "legacy_compiler": "nightly-2023-04-15",
+      "modules": {
+        "src/mklost_found.rs": 13
+      },
+      "parent_sources_sha256": "cd1570846a3d6c1638bd77babdca982fccb5c8787108b318c5ace33adcf19a25",
+      "raw_ffi_pointer_extractions": 13,
+      "raw_pointer_types_removed": 26,
+      "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e4defrag/0de205baddb49a145d654d7972d120739e38af71596acd5a07da8a43a43d0734/libe4defrag_audit.a": {
+      "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e4defrag/0de205baddb49a145d654d7972d120739e38af71596acd5a07da8a43a43d0734/libe4defrag_audit.a",
+      "c_string_literals": 318,
+      "candidate_sha256": "0de205baddb49a145d654d7972d120739e38af71596acd5a07da8a43a43d0734",
+      "candidate_sources_sha256": "7aa9e1b85638025b3839f381b213a408efa2a37b186db41852117036bf6afcd3",
+      "compiler_selected_sources": 58,
+      "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+      "control_sha256": "0de205baddb49a145d654d7972d120739e38af71596acd5a07da8a43a43d0734",
+      "legacy_compiler": "nightly-2023-04-15",
+      "modules": {
+        "src/lib/et/com_err.rs": 2,
+        "src/lib/et/error_message.rs": 11,
+        "src/lib/ext2fs/alloc_stats.rs": 6,
+        "src/lib/ext2fs/bitops.rs": 2,
+        "src/lib/ext2fs/blkmap64_ba.rs": 1,
+        "src/lib/ext2fs/blkmap64_rb.rs": 5,
+        "src/lib/ext2fs/ext_attr.rs": 14,
+        "src/lib/ext2fs/fallocate.rs": 10,
+        "src/lib/ext2fs/gen_bitmap.rs": 14,
+        "src/lib/ext2fs/gen_bitmap64.rs": 11,
+        "src/lib/ext2fs/inline_data.rs": 3,
+        "src/lib/ext2fs/ismounted.rs": 17,
+        "src/lib/ext2fs/mkjournal.rs": 1,
+        "src/lib/ext2fs/openfs.rs": 2,
+        "src/lib/ext2fs/rw_bitmaps.rs": 4,
+        "src/lib/ext2fs/unix_io.rs": 9,
+        "src/misc/e4defrag.rs": 206
+      },
+      "parent_sources_sha256": "ded7edb90e047046147dd18d70d6b70c346563ed85dc7c7aaab74701528d8b62",
+      "raw_ffi_pointer_extractions": 318,
+      "raw_pointer_types_removed": 636,
+      "rustc_archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-e2fsprogs-shared/e4defrag/libe4defrag_audit.a",
+      "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+    }
+  }
+}

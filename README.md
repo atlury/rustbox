@@ -601,6 +601,14 @@ pointer extraction at the C interface. An independent source replay against
 the packed-curl parent checked all 18 compiler-input digests and archives.
 [IPRoute2 per-engine receipts](evidence/iproute2-native-c-string-archives.json)
 
+Eight E2fsprogs archives reproduced every byte after 752 checked C-string
+conversions removed 1,504 explicit casts. Source replay verified all eight
+against the packed-curl parent. The remaining twelve E2fsprogs archives
+and the Procps-ng and Shadow archives changed bytes and remain outside
+this selection. Each converted literal still crosses the C interface
+through one pointer extraction.
+[Complete 22-archive comparison](evidence/e2fsprogs-procps-shadow-native-c-strings.json)
+
 To select cold-built C-string archives in the multicall, enroll them against
 the same compiler inputs as the intended parent release. When that release
 shares stdio layouts, rebuild overlapping literal pilots on top of those
