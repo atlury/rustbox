@@ -15,6 +15,7 @@ import tempfile
 from build_iproute2_bridge import stage as stage_bridge
 from build_e2fsprogs_checksums import SHARED_SOURCES, stage as stage_checksum
 from check_next_inline_layer import apply_receipt, read_second_layer
+from e2fsprogs_foreign_declarations import read_proof as read_declaration_proof
 
 ROOT = Path(__file__).resolve().parents[1]
 METRICS = {
@@ -50,7 +51,7 @@ def crate_for(archive, temporary):
     return target.parent / name / f"{name}-{suffix}"
 
 
-def measure_layer(crate, files, proof):
+def measure_layer(crate, files, proof, item_count="private_functions_removed"):
     inputs = {str(file.relative_to(crate)) for file in files}
     if not set(proof["ranges"]) <= inputs:
         raise ValueError("unexpected compiler input in cleanup")
@@ -60,7 +61,7 @@ def measure_layer(crate, files, proof):
     files.update({crate / name: checksum for name, checksum in proof["sources"].items()})
     stats = {"raw_pointer_type_tokens_removed": removed,
              "source_bytes_removed": size - sum(path.stat().st_size for path in paths),
-             "private_functions_removed": sum(map(len, proof["ranges"].values())),
+             item_count: sum(map(len, proof["ranges"].values())),
              "changed_files": len(paths)}
     for field in ("source_layout", "source_directory"):
         if field in proof:
@@ -77,6 +78,8 @@ def audit(link, temporary):
     proofs = link.get("linked_private_inline_proofs", link.get("e2fsprogs_inline_proofs", {}))
     second = link.get("linked_second_inline_proofs", {})
     second_cleanups = {}
+    foreign = link.get("linked_foreign_declaration_proofs", {})
+    declarations = {}
     if not second.keys() <= proofs.keys() & link["source_library_sha256"].keys():
         raise ValueError("second-layer receipt has no linked parent archive")
     for name, expected in sorted(link["source_library_sha256"].items()):
@@ -141,6 +144,13 @@ def audit(link, temporary):
                 if any(stats[key] != report[key] for key in ("raw_pointer_type_tokens_removed", "private_functions_removed")):
                     raise ValueError("second-layer totals differ from independent source replay")
                 second_cleanups[engine_name] = stats
+            if name in foreign:
+                report = read_declaration_proof(link, path, foreign[name])
+                stats = measure_layer(crate, files, report["declarations"], "declarations_removed")
+                if any(stats[key] != report[key] for key in (
+                        "raw_pointer_type_tokens_removed", "declarations_removed", "source_bytes_removed")):
+                    raise ValueError("foreign declaration totals differ from independent source replay")
+                declarations[engine_name] = stats
         root_module = ROOT / f"compat/e2fsprogs/{SHARED_SOURCES[archive.name]}" if shared_object else crate / "lib.rs"
         if root_module not in files:
             raise ValueError(f"unexpected compiler inputs for {archive}")
@@ -156,6 +166,8 @@ def audit(link, temporary):
             tally["files"] += 1
     if len(second_cleanups) != len(second):
         raise ValueError("second-layer archive was outside the linked source inventory")
+    if len(declarations) != len(foreign):
+        raise ValueError("foreign declaration proof was outside the linked source inventory")
     for tally in packages.values():
         measured.update(tally)
     distinct = Counter()
@@ -165,11 +177,13 @@ def audit(link, temporary):
             "unique_files": len(unique), "counting_identical_files_once": distinct,
             "packages": packages, "non_applet_archive_inputs": excluded,
             **({"byte_identical_inline_cleanups": cleanups} if cleanups else {}),
-            **({"byte_identical_second_inline_cleanups": second_cleanups} if second_cleanups else {})}
+            **({"byte_identical_second_inline_cleanups": second_cleanups} if second_cleanups else {}),
+            **({"byte_identical_foreign_declarations": declarations} if declarations else {})}
 
 
 RECEIPT_SETS = (("linked_private_inline_proofs", "byte_identical_inline_cleanups"),
-                ("linked_second_inline_proofs", "byte_identical_second_inline_cleanups"))
+                ("linked_second_inline_proofs", "byte_identical_second_inline_cleanups"),
+                ("linked_foreign_declaration_proofs", "byte_identical_foreign_declarations"))
 
 
 def added_receipts(previous_link, link):
@@ -222,9 +236,13 @@ if __name__ == "__main__":
     parser.add_argument("--verify-cleanup-from", type=Path, metavar="PREVIOUS_LINK",
                         help="replay both releases and check the reduction against their added cleanup receipts")
     args = parser.parse_args()
-    link = json.loads(args.link_report.read_bytes())
+    link_bytes = args.link_report.read_bytes()
+    link = json.loads(link_bytes)
     current = measure(link)
+    current["link_report_sha256"] = hashlib.sha256(link_bytes).hexdigest()
     if args.verify_cleanup_from:
         previous_link = json.loads(args.verify_cleanup_from.read_bytes())
         check_added_cleanups(previous_link, link, measure(previous_link), current)
+    if args.link_report.read_bytes() != link_bytes:
+        raise ValueError("selected link report changed during the inventory")
     print(json.dumps(current, indent=2, sort_keys=True))

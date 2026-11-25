@@ -330,7 +330,9 @@ counts textual occurrences of `*const` and `*mut`. The current report covers
 It separately tracks raw borrows, pointer accessors and
 raw slice constructors. It excludes native C objects, dependent libraries and
 code outside the selected applet crates. See `evidence/rustbox-linked-pointers.json`
-for package counts and the executable hash. For a release that only adds
+for package counts. The inventory command records both the executable hash and
+the link-report hash so successive source cleanups can be distinguished when
+they compile to identical machine code. For a release that only adds
 unused-helper cleanup receipts, save the previous link report before the
 build. Both reports can then be replayed against the verified archives.
 
@@ -735,6 +737,24 @@ RUSTBOX_TOOL_IMAGE=rustbox-e2fsprogs:2026-11-24 scripts/run_tool.sh \
 RUSTBOX_TOOL_IMAGE=rustbox-e2fsprogs:2026-11-24 scripts/run_tool.sh \
   python3 -B scripts/check_badblocks_foreign_declarations.py work/analysis/rustbox-multicall-link.json
 ```
+
+To check the same transformation across the staged E2fsprogs engines, run the
+following command with a new output directory. Each archive must first rebuild
+from its released compiler inputs and earlier cleanup receipts. The candidate
+must then reproduce the same archive hash and compiler input list.
+
+```sh
+RUSTBOX_TOOL_IMAGE=rustbox-e2fsprogs:2026-11-24 scripts/run_tool.sh \
+  python3 -B scripts/e2fsprogs_foreign_declarations.py \
+  work/analysis/rustbox-multicall-link.json work/analysis/e2fs-declaration-results --jobs 3
+```
+
+The output directory holds a receipt selection for each successful engine.
+The complete `manifest.json` can be installed as
+`batches/e2fsprogs-foreign-declarations.json`. During the production link,
+a missing receipt is rebuilt from its pinned parents and must reproduce its
+recorded hash. The linked inventory independently replays the source changes
+and checks the count of declarations, pointer types and bytes removed.
 
 The default build removes 9,189 unused private helper definitions and 18,487
 raw-pointer type occurrences from 606 GNU Inetutils source entries. The

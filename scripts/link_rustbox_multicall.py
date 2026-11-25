@@ -18,6 +18,7 @@ from build_iproute2_bridge import build_bridge
 from build_e2fsprogs_checksums import build_shared, BITCOUNT_SYMBOL, CRC_SYMBOLS
 from batch_cargo_private_inlines import release_archives
 from prepare_second_inline_layers import linked_layers
+from e2fsprogs_foreign_declarations import prepare_release as prepare_foreign_declarations
 from prune_private_inlines import prepare_archive
 
 ISOLATION_CACHE_VERSION = 18
@@ -2733,6 +2734,7 @@ def main() -> int:
         inline_proofs.update(verified_cargo_inline_proofs(repository, package, [archive], source_library_hashes))
     inline_proofs[str(bridge_archive.relative_to(repository))] = bridge_inline_proof
     second_inline_proofs = linked_layers(repository, inline_proofs, source_library_hashes)
+    foreign_proofs = prepare_foreign_declarations(repository, source_library_hashes, inline_proofs, second_inline_proofs)
     expected_symbols.update(f"rustbox_{symbol}_main" for symbol in util_dispatch.values())
     expected_symbols.add("rustbox_m4_main")
     expected_symbols.update({
@@ -3710,6 +3712,7 @@ def main() -> int:
         "bridge_raw_pointer_types": bridge_raw_types,
         "linked_private_inline_proofs": inline_proofs,
         **({"linked_second_inline_proofs": second_inline_proofs} if second_inline_proofs else {}),
+        **({"linked_foreign_declaration_proofs": foreign_proofs} if foreign_proofs else {}),
         "e2fsprogs_shared_checksums": {
             "symbols": sorted(CRC_SYMBOLS.values()), "consumers": sorted(checksum_consumers),
             "object_sha256": {o.name: sha256(o) for o in checksum_objects if o.name != "bitcount.o"},
