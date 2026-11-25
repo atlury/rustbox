@@ -753,6 +753,14 @@ parents byte for byte. These counts describe candidate builds.
 [Three-archive replay](evidence/static-array-replay-three-utilities.json) ·
 [Missing and altered receipt tests](tests/c-string-literals/array-batch-replay.py)
 
+For a static-array candidate that still changes archive bytes,
+`scripts/refine_static_array_selection.py LINK CANDIDATE OUTPUT` tests
+smaller sets of modules. Each newly accepted set is rebuilt together and
+checked against the original archive and compiler inputs. The Inetutils
+`ifconfig` trial examined 6 combinations after the original four-module
+selection changed the archive. It verified 0 removed casts.
+[ifconfig refinement outcomes](evidence/ifconfig-array-refinement.json)
+
 In E2fsprogs `badblocks`, the older Rust compiler reproduced all archive
 bytes after changing eight literals in the extended-attribute module.
 The source replay checked 60 inputs. These 16 removed casts are already
