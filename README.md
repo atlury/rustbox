@@ -538,6 +538,13 @@ For Coreutils group 07, retaining the original `ln` module recovered
 1,412 literal conversions in 12 other modules, or 2,824 explicit casts.
 [Coreutils group 07 recovery](evidence/coreutils-07-literal-recovery.json)
 
+The same check recovered 1,799 literals in 14 Coreutils group 08 modules
+with `date` excluded and 1,902 in nine util-linux group 13 modules with
+`unshare` excluded. Both complete archives reproduced their original bytes.
+Together the first three subset builds recovered another 10,226 casts.
+[Coreutils group 08](evidence/coreutils-08-literal-recovery.json) ·
+[util-linux group 13](evidence/util-linux-13-literal-recovery.json)
+
 ```sh
 python3 -B scripts/recover_applet_literal_modules.py "$link" "$whole_pilot" "$subset_pilot"
 python3 -B tests/c-string-literals/release.py "$link" "$subset_pilot/pilot.json"

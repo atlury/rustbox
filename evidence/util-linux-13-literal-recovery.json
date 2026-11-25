@@ -1,0 +1,32 @@
+{
+  "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-13-stable/target/release/libutil_linux_small_13_normalized_reachable.a",
+  "byte_identical": true,
+  "candidate": {
+    "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-13-stable/target/release/libutil_linux_small_13_normalized_reachable.a",
+    "c_string_literals": 1902,
+    "candidate_sha256": "655b8e12e5048dcd5c1511de0877ad4b38a338358f00f19fdef5594d7fbaa099",
+    "candidate_sources_sha256": "442b8a3642edb6704141b75a772fc9b251dea6f23dd6f8f0853626f2bf441ebc",
+    "compiler_selected_sources": 12,
+    "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+    "control_sha256": "655b8e12e5048dcd5c1511de0877ad4b38a338358f00f19fdef5594d7fbaa099",
+    "modules": {
+      "src/disk_utils/fsck.rs": 149,
+      "src/login_utils/chfn.rs": 81,
+      "src/login_utils/lslogins.rs": 250,
+      "src/sys_utils/hwclock.rs": 184,
+      "src/sys_utils/lscpu.rs": 428,
+      "src/sys_utils/lsns.rs": 253,
+      "src/sys_utils/swapon.rs": 234,
+      "src/term_utils/script.rs": 252,
+      "src/text_utils/hexdump.rs": 71
+    },
+    "parent_sources_sha256": "48dee6c7fee3ec4bf91eba3a1813d7e1e5bb9e78b78c7d5cc52724d795f36bd4",
+    "raw_ffi_pointer_extractions": 1902,
+    "raw_pointer_types_removed": 3804,
+    "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+  },
+  "excluded_entry_modules": [
+    "src/sys_utils/unshare.rs"
+  ],
+  "whole_candidate_sha256": "a81fda2c8fddd0f64ea98d2c64b320ef4b70c11b8afab683a178d9ab811f98a2"
+}

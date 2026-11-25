@@ -1,0 +1,37 @@
+{
+  "archive": "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-08-stable/target/release/libcoreutils_small_08_normalized_reachable.a",
+  "byte_identical": true,
+  "candidate": {
+    "archive": "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-08-stable/target/release/libcoreutils_small_08_normalized_reachable.a",
+    "c_string_literals": 1799,
+    "candidate_sha256": "558128ac26fc4a13efb58cb498a20da95f9719d5312aa7332d761c6300ac5111",
+    "candidate_sources_sha256": "d449e066cdc7ab3a2493dda4e5c5f22b0135f13c250fc6b82f791dc1f7fb02f7",
+    "compiler_selected_sources": 18,
+    "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+    "control_sha256": "558128ac26fc4a13efb58cb498a20da95f9719d5312aa7332d761c6300ac5111",
+    "modules": {
+      "src/basenc.rs": 146,
+      "src/chown.rs": 143,
+      "src/chown_core.rs": 52,
+      "src/cut.rs": 136,
+      "src/env.rs": 237,
+      "src/expand_common.rs": 67,
+      "src/operand2sig.rs": 3,
+      "src/pr.rs": 176,
+      "src/ptx.rs": 144,
+      "src/set_fields.rs": 30,
+      "src/show_date.rs": 4,
+      "src/stty.rs": 392,
+      "src/tr.rs": 187,
+      "src/unexpand.rs": 82
+    },
+    "parent_sources_sha256": "756fe2aed3e7b31c45579e8fc768562f50b464d082eb0ca8ddd9146d7c67d093",
+    "raw_ffi_pointer_extractions": 1799,
+    "raw_pointer_types_removed": 3598,
+    "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+  },
+  "excluded_entry_modules": [
+    "src/date.rs"
+  ],
+  "whole_candidate_sha256": "3c01c7d584122126258a5d88fe4cbdc6ec0f681399df5522133e93e1fa81f8b4"
+}
