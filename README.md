@@ -966,6 +966,17 @@ Every result and caller errno matched, including under Memcheck. These checks
 cover the helper before it is selected in an applet.
 [Classification and locale results](evidence/glibc-ctype-values.json)
 
+An inventory of the shared-stdio release found 527 table-read expressions
+with an explicit unsigned-byte index in 131 modules across 44 archives.
+All uses matched the narrow spelling in 67 modules. The first selected
+site is GNU awk's integer array-key classifier. Its exact compiled source
+matches the canonical unsigned-byte `isdigit` check. After the errno pass,
+the candidate replaces one table read and drops its two pointer types.
+Run `scripts/rank_ctype_bytes.py LINK` for the inventory or
+`scripts/build_gawk_ctype.py --link LINK --replay` for the reviewed substitution.
+[Inventory](evidence/glibc-ctype-byte-candidates.json) ·
+[GNU awk compiler-source replay](evidence/gawk-ctype-key-source.json)
+
 GNU sed's two canonical gnulib builds and its production Rust archive
 preserved the caller's errno in all 75 quoting calls, including signed
 integer endpoints and buffers too small for the output. Five overflowing

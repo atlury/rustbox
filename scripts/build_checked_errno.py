@@ -47,7 +47,7 @@ def substitute(crate, sources):
                          raw_pointer_types_removed=reduction, helper_sha256=digest(HELPER), scanner_sha256=digest(SCANNER))
 
 
-def replay(link, key, pilot=None):
+def replay(link, key, pilot=None, *, transform=substitute):
     from audit_linked_pointers import measure
     from check_e2fsprogs_dirhash_arrays import source_list_digest
     base = json.loads(link.read_bytes())
@@ -63,7 +63,7 @@ def replay(link, key, pilot=None):
             sources[str(module)] = checksum.hex()
         origin = cargo_origin(base, key)
         measure(base, inspect_module=capture, archive_pair=(origin, Path(key)))
-        changes, facts = substitute(crate, sources)
+        changes, facts = transform(crate, sources)
     result = dict(**facts, compiler_selected_sources=len(sources), parent_sources_sha256=source_list_digest(sources),
                   candidate_sources_sha256=source_list_digest({**sources, **{k: sha256(v).hexdigest() for k,v in changes.items()}}),
                   archive=key, control_sha256=digest(ROOT / key), control_binary_sha256=base["binary"]["sha256"])
