@@ -4,12 +4,19 @@
     "as_ptr_calls": 4859,
     "files": 4908,
     "raw_borrows": 84508,
-    "raw_pointer_type_tokens": 1021433,
+    "raw_pointer_type_tokens": 998816,
     "slices_from_raw_parts": 4,
     "standalone_objects": 3
   },
   "binary_sha256": "aa3e3eea0e2ac5175759fa759dc44b2456a1cd710c854e2938ce18c66f8dc8e0",
   "byte_identical_foreign_declarations": {
+    "acl_2_4_0_normalized": {
+      "changed_files": 70,
+      "declarations_removed": 528,
+      "raw_pointer_type_tokens_removed": 1007,
+      "source_bytes_removed": 53364,
+      "source_layout": "lines"
+    },
     "badblocks": {
       "changed_files": 55,
       "declarations_removed": 1533,
@@ -17,11 +24,39 @@
       "source_bytes_removed": 160356,
       "source_layout": "lines"
     },
+    "bison_3_8_2_normalized": {
+      "changed_files": 115,
+      "declarations_removed": 993,
+      "raw_pointer_type_tokens_removed": 1993,
+      "source_bytes_removed": 112192,
+      "source_layout": "lines"
+    },
+    "curl_8_23_0_normalized": {
+      "changed_files": 238,
+      "declarations_removed": 1925,
+      "raw_pointer_type_tokens_removed": 3554,
+      "source_bytes_removed": 190440,
+      "source_layout": "lines"
+    },
+    "dcb": {
+      "changed_files": 23,
+      "declarations_removed": 586,
+      "raw_pointer_type_tokens_removed": 1154,
+      "source_bytes_removed": 98834,
+      "source_layout": "lines"
+    },
     "debugfs": {
       "changed_files": 117,
       "declarations_removed": 2792,
       "raw_pointer_type_tokens_removed": 1979,
       "source_bytes_removed": 291937,
+      "source_layout": "lines"
+    },
+    "diffutils_3_12_normalized": {
+      "changed_files": 106,
+      "declarations_removed": 1144,
+      "raw_pointer_type_tokens_removed": 1625,
+      "source_bytes_removed": 106520,
       "source_layout": "lines"
     },
     "dumpe2fs": {
@@ -73,11 +108,32 @@
       "source_bytes_removed": 153651,
       "source_layout": "lines"
     },
+    "findutils_4_10_0_combined": {
+      "changed_files": 137,
+      "declarations_removed": 1212,
+      "raw_pointer_type_tokens_removed": 1786,
+      "source_bytes_removed": 114694,
+      "source_layout": "lines"
+    },
     "fuse2fs": {
       "changed_files": 61,
       "declarations_removed": 1666,
       "raw_pointer_type_tokens_removed": 1107,
       "source_bytes_removed": 174267,
+      "source_layout": "lines"
+    },
+    "gawk_5_4_0_core": {
+      "changed_files": 37,
+      "declarations_removed": 489,
+      "raw_pointer_type_tokens_removed": 916,
+      "source_bytes_removed": 48247,
+      "source_layout": "lines"
+    },
+    "grep_3_12_normalized": {
+      "changed_files": 94,
+      "declarations_removed": 1102,
+      "raw_pointer_type_tokens_removed": 1376,
+      "source_bytes_removed": 95583,
       "source_layout": "lines"
     },
     "ip": {
@@ -101,11 +157,32 @@
       "source_bytes_removed": 243672,
       "source_layout": "lines"
     },
+    "rdma": {
+      "changed_files": 30,
+      "declarations_removed": 828,
+      "raw_pointer_type_tokens_removed": 1628,
+      "source_bytes_removed": 137759,
+      "source_layout": "lines"
+    },
     "resize2fs": {
       "changed_files": 72,
       "declarations_removed": 1989,
       "raw_pointer_type_tokens_removed": 1311,
       "source_bytes_removed": 208420,
+      "source_layout": "lines"
+    },
+    "shadow_4_20_4_normalized": {
+      "changed_files": 172,
+      "declarations_removed": 1217,
+      "raw_pointer_type_tokens_removed": 2229,
+      "source_bytes_removed": 118118,
+      "source_layout": "lines"
+    },
+    "tar_1_35_normalized": {
+      "changed_files": 130,
+      "declarations_removed": 1069,
+      "raw_pointer_type_tokens_removed": 1722,
+      "source_bytes_removed": 105486,
       "source_layout": "lines"
     },
     "tc": {
@@ -120,6 +197,13 @@
       "declarations_removed": 2079,
       "raw_pointer_type_tokens_removed": 1424,
       "source_bytes_removed": 217213,
+      "source_layout": "lines"
+    },
+    "xz_5_8_4_normalized": {
+      "changed_files": 102,
+      "declarations_removed": 1924,
+      "raw_pointer_type_tokens_removed": 3627,
+      "source_bytes_removed": 230039,
       "source_layout": "lines"
     }
   },
@@ -1014,12 +1098,12 @@
     }
   },
   "counting_identical_files_once": {
-    "as_ptr_calls": 4406,
-    "raw_borrows": 61203,
-    "raw_pointer_type_tokens": 733567,
+    "as_ptr_calls": 4407,
+    "raw_borrows": 61251,
+    "raw_pointer_type_tokens": 716105,
     "slices_from_raw_parts": 4
   },
-  "link_report_sha256": "30d3d487b99bffcae332bd41eaa0744ad328bedff325c3b873173280b0f6199a",
+  "link_report_sha256": "e53efb41a98f8529a28905129a76cccab5a2af146d85a6c83a72bcea07a386f2",
   "non_applet_archive_inputs": [
     "/rustbox-gzip/normalized-clang/lib/libgzip.a",
     "/rustbox-inetutils/normalized-clang/lib/libgnu_a-printf-args.o",
@@ -1044,7 +1128,7 @@
       "as_ptr_calls": 28,
       "files": 74,
       "raw_borrows": 212,
-      "raw_pointer_type_tokens": 5261,
+      "raw_pointer_type_tokens": 4254,
       "slices_from_raw_parts": 0
     },
     "attr-2.6.0": {
@@ -1068,7 +1152,7 @@
       "as_ptr_calls": 40,
       "files": 150,
       "raw_borrows": 2203,
-      "raw_pointer_type_tokens": 24538,
+      "raw_pointer_type_tokens": 22545,
       "slices_from_raw_parts": 0
     },
     "coreutils-9.12": {
@@ -1084,7 +1168,7 @@
       "as_ptr_calls": 239,
       "files": 241,
       "raw_borrows": 5525,
-      "raw_pointer_type_tokens": 89022,
+      "raw_pointer_type_tokens": 85468,
       "slices_from_raw_parts": 0
     },
     "diffutils-3.12": {
@@ -1092,7 +1176,7 @@
       "as_ptr_calls": 32,
       "files": 141,
       "raw_borrows": 654,
-      "raw_pointer_type_tokens": 8815,
+      "raw_pointer_type_tokens": 7190,
       "slices_from_raw_parts": 0
     },
     "e2fsprogs-1.47.4": {
@@ -1117,7 +1201,7 @@
       "as_ptr_calls": 56,
       "files": 192,
       "raw_borrows": 1029,
-      "raw_pointer_type_tokens": 15706,
+      "raw_pointer_type_tokens": 13920,
       "slices_from_raw_parts": 0
     },
     "flex-2.6.4": {
@@ -1133,7 +1217,7 @@
       "as_ptr_calls": 23,
       "files": 39,
       "raw_borrows": 2448,
-      "raw_pointer_type_tokens": 29494,
+      "raw_pointer_type_tokens": 28578,
       "slices_from_raw_parts": 0
     },
     "grep-3.12": {
@@ -1141,7 +1225,7 @@
       "as_ptr_calls": 11,
       "files": 131,
       "raw_borrows": 579,
-      "raw_pointer_type_tokens": 7411,
+      "raw_pointer_type_tokens": 6035,
       "slices_from_raw_parts": 0
     },
     "gzip-1.14": {
@@ -1165,7 +1249,7 @@
       "as_ptr_calls": 360,
       "files": 498,
       "raw_borrows": 15264,
-      "raw_pointer_type_tokens": 207472,
+      "raw_pointer_type_tokens": 204690,
       "slices_from_raw_parts": 1
     },
     "kmod-34.3": {
@@ -1245,7 +1329,7 @@
       "as_ptr_calls": 95,
       "files": 198,
       "raw_borrows": 2097,
-      "raw_pointer_type_tokens": 26026,
+      "raw_pointer_type_tokens": 23797,
       "slices_from_raw_parts": 0
     },
     "tar-1.35": {
@@ -1253,7 +1337,7 @@
       "as_ptr_calls": 109,
       "files": 195,
       "raw_borrows": 1839,
-      "raw_pointer_type_tokens": 19804,
+      "raw_pointer_type_tokens": 18082,
       "slices_from_raw_parts": 0
     },
     "util-linux-2.42.4": {
@@ -1269,7 +1353,7 @@
       "as_ptr_calls": 7,
       "files": 104,
       "raw_borrows": 1267,
-      "raw_pointer_type_tokens": 13411,
+      "raw_pointer_type_tokens": 9784,
       "slices_from_raw_parts": 0
     },
     "zstd-1.5.7": {
@@ -1281,5 +1365,5 @@
       "slices_from_raw_parts": 0
     }
   },
-  "unique_files": 2876
+  "unique_files": 2910
 }

@@ -732,7 +732,7 @@
       "xfail": 0,
       "xpass": 0
     },
-    "upstream_log_sha256": "8cb8ca276382d1c6142b8318e0c811b1ae1942e28c8666334787d3e39caa329d",
+    "upstream_log_sha256": "923411edfa32644b1dc82f97537482042f0423717ed5acbeab464c4b04e1eb0c",
     "upstream_suite": {
       "error": 0,
       "fail": 0,
@@ -744,8 +744,8 @@
     },
     "valgrind_allocation_lifecycle_matches_translated_hybrid": true,
     "valgrind_log_sha256": {
-      "getfacl": "25f5ac0594c5da8f7c4b13dcf7ebee8ba1e9f43ac636baf666fcc2e82dfb3824",
-      "setfacl": "a1a91afc04239c7c3a4ed3e120a8db8d96e47cbde1ba9156c0ab5ef718b0f135"
+      "getfacl": "71cf1454ad02542e696849ae589640461fef2b25677d8cf6c009122c815f41de",
+      "setfacl": "a3be1e6bcae9dd22be298080d26628f4a811fdc670b91375e84a17007ca0d270"
     }
   },
   "attr_integration": {
@@ -3202,7 +3202,7 @@
     "translated_entrypoint": "rustbox_bison_engine_main",
     "upstream_log_sha256": "083e71ad667817f014180849acf5d13d51547120379c390a2b7f40412dbefd58",
     "valgrind_errors": 0,
-    "valgrind_log_sha256": "db3c640dba5df410418836acdae1bff0327b171da1bc8831f1db5454752b97ce",
+    "valgrind_log_sha256": "d6f915625a1f02f6ba4d0a7286e3982a3ac5bfbc51bdd74b02f7ecde2df5e3cb",
     "yacc": {
       "compile_status": 0,
       "generated_sha256": {
@@ -8572,6 +8572,22 @@
       ],
       "less_public_names": 2,
       "linked_foreign_declaration_proofs": {
+        "work/analysis/acl-2.4.0/translations/c2rust-0.22.1/acl-2.4.0-stable/target/release/libacl_2_4_0_normalized_audit.a": {
+          "file": "libacl_2_4_0_normalized_audit.foreign-05d88562c84fc4cae5a38b1320c502e556aa31c39114c5d9fd7f4919fb279932.json",
+          "sha256": "05d88562c84fc4cae5a38b1320c502e556aa31c39114c5d9fd7f4919fb279932"
+        },
+        "work/analysis/bison-3.8.2/translations/c2rust-0.22.1/bison-3.8.2-stable/target/release/libbison_3_8_2_normalized_audit.a": {
+          "file": "libbison_3_8_2_normalized_audit.foreign-4255b99b40d7d8d9818f4d1f6e09c2d3735922da45bf3b474690273a6b14d413.json",
+          "sha256": "4255b99b40d7d8d9818f4d1f6e09c2d3735922da45bf3b474690273a6b14d413"
+        },
+        "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/release/libcurl_8_23_0_normalized_audit.a": {
+          "file": "libcurl_8_23_0_normalized_audit.foreign-5f2f7e74b1f577937d75dc1edb5886672cfead2490f9645ee842f1cf1ea81991.json",
+          "sha256": "5f2f7e74b1f577937d75dc1edb5886672cfead2490f9645ee842f1cf1ea81991"
+        },
+        "work/analysis/diffutils-3.12/translations/c2rust-0.22.1/diffutils-3.12-stable/target/release/libdiffutils_3_12_normalized_audit.a": {
+          "file": "libdiffutils_3_12_normalized_audit.foreign-275f930eca7875ffce4232c5412c119f760fa0567471bcc9409b421fde8620e7.json",
+          "sha256": "275f930eca7875ffce4232c5412c119f760fa0567471bcc9409b421fde8620e7"
+        },
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-e2fsprogs-shared/badblocks/libbadblocks_audit.a": {
           "file": "libbadblocks_audit.foreign-8602cfc5bab6371a56e92eadc4041fe55150e29200cecc8e5fe140e4b78d2a45.json",
           "sha256": "8602cfc5bab6371a56e92eadc4041fe55150e29200cecc8e5fe140e4b78d2a45"
@@ -8624,9 +8640,29 @@
           "file": "libtune2fs_audit.foreign-8c8cefbed72119a274ff05d13e080f166b68ec48b06c0b7715dee7326b3c0828.json",
           "sha256": "8c8cefbed72119a274ff05d13e080f166b68ec48b06c0b7715dee7326b3c0828"
         },
+        "work/analysis/findutils-4.10.0/translations/c2rust-0.22.1/findutils-4.10.0-stable/target/release/libfindutils_4_10_0_combined.a": {
+          "file": "libfindutils_4_10_0_combined.foreign-9083362a0e3aa2b2ad569c2da84b7df3baa2fa457a86e2b999556d4092c596d0.json",
+          "sha256": "9083362a0e3aa2b2ad569c2da84b7df3baa2fa457a86e2b999556d4092c596d0"
+        },
+        "work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-core-stable/target/release/libgawk_5_4_0_core.a": {
+          "file": "libgawk_5_4_0_core.foreign-24a57cccedcbca48097dfbe74117a618477545f36bb2ea1c974fa94993cfa331.json",
+          "sha256": "24a57cccedcbca48097dfbe74117a618477545f36bb2ea1c974fa94993cfa331"
+        },
+        "work/analysis/grep-3.12/translations/c2rust-0.22.1/grep-3.12-stable/target/release/libgrep_3_12_normalized_audit.a": {
+          "file": "libgrep_3_12_normalized_audit.foreign-38176f7c5cf38777be1fd25ccf04ccc7f891d0ce7206230a971f0dfb8c53a32d.json",
+          "sha256": "38176f7c5cf38777be1fd25ccf04ccc7f891d0ce7206230a971f0dfb8c53a32d"
+        },
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dcb/release/libdcb_audit.a": {
+          "file": "libdcb_audit.foreign-db752a18a0e42977a280237b60828ec59cb33a067d066ebb213e4c56b06c5655.json",
+          "sha256": "db752a18a0e42977a280237b60828ec59cb33a067d066ebb213e4c56b06c5655"
+        },
         "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/release/libip_audit.a": {
           "file": "libip_audit.foreign-6e70c5c72923e92c1621daba5e96f7e33422ce9acbabab3eab376ad9c50cf648.json",
           "sha256": "6e70c5c72923e92c1621daba5e96f7e33422ce9acbabab3eab376ad9c50cf648"
+        },
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rdma/release/librdma_audit.a": {
+          "file": "librdma_audit.foreign-e5dd8ec6db106264c963f9e5b63fc8ef897a5e847b7bf96846a60a96e5924cee.json",
+          "sha256": "e5dd8ec6db106264c963f9e5b63fc8ef897a5e847b7bf96846a60a96e5924cee"
         },
         "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/release/libtc_audit.a": {
           "file": "libtc_audit.foreign-6def9f94dae252cd2ff63e0d6efb897516079a57a1564acf502d7843b2666ea3.json",
@@ -8635,6 +8671,18 @@
         "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a": {
           "file": "libncurses_6_6_normalized_audit.foreign-e4d580cb4e5c92f21a5f13e03b61aefcc5c84175bc67ddb351f3303221354595.json",
           "sha256": "e4d580cb4e5c92f21a5f13e03b61aefcc5c84175bc67ddb351f3303221354595"
+        },
+        "work/analysis/shadow-4.20.4/translations/c2rust-0.22.1/shadow-4.20.4-nightly/target/release/libshadow_4_20_4_normalized_audit.a": {
+          "file": "libshadow_4_20_4_normalized_audit.foreign-8eb15f4ae28f9fdf44a8f41051acc1c462ad0b8c94fa4485ebacc9eb08ba6817.json",
+          "sha256": "8eb15f4ae28f9fdf44a8f41051acc1c462ad0b8c94fa4485ebacc9eb08ba6817"
+        },
+        "work/analysis/tar-1.35/translations/c2rust-0.22.1/tar-1.35-stable/target/release/libtar_1_35_normalized_audit.a": {
+          "file": "libtar_1_35_normalized_audit.foreign-4242b635cf4db72cbbf0f5667435f4ceadf20626e4ca0d8900a953a9f907e22a.json",
+          "sha256": "4242b635cf4db72cbbf0f5667435f4ceadf20626e4ca0d8900a953a9f907e22a"
+        },
+        "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a": {
+          "file": "libxz_5_8_4_normalized_audit.foreign-05797a02e474593fb80ae0c28a8c30217664a865a879839a1fd4c58885e594b5.json",
+          "sha256": "05797a02e474593fb80ae0c28a8c30217664a865a879839a1fd4c58885e594b5"
         }
       },
       "linked_private_inline_proofs": {
@@ -16184,7 +16232,7 @@
       "schema": 1
     },
     "differential_sha256": "77f1c4a04abfe585a41d54584a597e7132d2ecea54a625e246d598502b156f64",
-    "upstream_log_sha256": "e8f6c65ea4c89ef24eccc6af40e346617b19b6d30086301ed79effe7838bd600",
+    "upstream_log_sha256": "aa6766327a0c234b61dc5fff2b4db9df1260ad17628803337b06b7cbce0a8c33",
     "upstream_suites": [
       {
         "error": 0,
@@ -18575,7 +18623,7 @@
       "rustbox_e2fsprogs_e2scrub_all_main",
       "rustbox_e2fsprogs_mk_cmds_main"
     ],
-    "evidence_sha256": "968f2662d22a32c2d18622b69c598ad3df610af695c86f9f9da80a928c89b727",
+    "evidence_sha256": "59936165df6b708d44fc2e00fe5591244dd0039ba6cc338f5f39fbafc20fbe6f",
     "frontend_differential": {
       "cases": 24,
       "native_builds": 1,
@@ -18707,7 +18755,7 @@
       "schema": 1
     },
     "frontend_differential_sha256": "acc9df19138d06e336eff6bd26988e12259beac839aa9e30340e22c7cf058596",
-    "link_report_sha256": "30d3d487b99bffcae332bd41eaa0744ad328bedff325c3b873173280b0f6199a",
+    "link_report_sha256": "e53efb41a98f8529a28905129a76cccab5a2af146d85a6c83a72bcea07a386f2",
     "lvm_differential": {
       "cases": 4,
       "native_builds": 1,
@@ -21314,7 +21362,7 @@
           "bytes": 120,
           "label": "frcode-database",
           "passed": true,
-          "sha256": "38e0685805f80ed17daf0a66ac756880d8a0334e2c9eeb72346d51f32e4b8999",
+          "sha256": "0831392f576f9338fdc9b061ba4fa96644ebe6d9958a092dc2fecd184cef00b6",
           "utility": "frcode"
         },
         {
@@ -21392,14 +21440,14 @@
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 58,
-            "stdout_sha256": "d36d6c160cd1e4b699761cf3fc78d505f41d5901bf33191ccc55c6a548249d54"
+            "stdout_sha256": "880b423e7fa10546a9fdbb1663d2bb3de98d505bf340f3d887ba68f7f26e6caf"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 58,
-            "stdout_sha256": "d36d6c160cd1e4b699761cf3fc78d505f41d5901bf33191ccc55c6a548249d54"
+            "stdout_sha256": "880b423e7fa10546a9fdbb1663d2bb3de98d505bf340f3d887ba68f7f26e6caf"
           },
           "label": "locate-name",
           "passed": true,
@@ -21415,14 +21463,14 @@
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 65,
-            "stdout_sha256": "b67823e94440fb7f69794d22f32cadce15d6d30d0c7549dbeac7c0a2502600ff"
+            "stdout_sha256": "f2f7ac3e9d14ccea9c11c366660b9d964f9e99882bc5084fd59388ddabced0df"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 65,
-            "stdout_sha256": "b67823e94440fb7f69794d22f32cadce15d6d30d0c7549dbeac7c0a2502600ff"
+            "stdout_sha256": "f2f7ac3e9d14ccea9c11c366660b9d964f9e99882bc5084fd59388ddabced0df"
           },
           "label": "locate-ignore-case",
           "passed": true,
@@ -21438,14 +21486,14 @@
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 59,
-            "stdout_sha256": "98a9fd4bf99a91e72b52a7587a8245396c19fc5f3a0a5a23e40bef1c0569e019"
+            "stdout_sha256": "abf575577e5055d7522e1ff51c49d949fb94ed0c0c424a4a8e4e93dd7b01d54d"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 59,
-            "stdout_sha256": "98a9fd4bf99a91e72b52a7587a8245396c19fc5f3a0a5a23e40bef1c0569e019"
+            "stdout_sha256": "abf575577e5055d7522e1ff51c49d949fb94ed0c0c424a4a8e4e93dd7b01d54d"
           },
           "label": "locate-basename",
           "passed": true,
@@ -21461,14 +21509,14 @@
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 58,
-            "stdout_sha256": "d36d6c160cd1e4b699761cf3fc78d505f41d5901bf33191ccc55c6a548249d54"
+            "stdout_sha256": "880b423e7fa10546a9fdbb1663d2bb3de98d505bf340f3d887ba68f7f26e6caf"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 58,
-            "stdout_sha256": "d36d6c160cd1e4b699761cf3fc78d505f41d5901bf33191ccc55c6a548249d54"
+            "stdout_sha256": "880b423e7fa10546a9fdbb1663d2bb3de98d505bf340f3d887ba68f7f26e6caf"
           },
           "label": "locate-regex",
           "passed": true,
@@ -21508,14 +21556,14 @@
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 58,
-            "stdout_sha256": "d36d6c160cd1e4b699761cf3fc78d505f41d5901bf33191ccc55c6a548249d54"
+            "stdout_sha256": "880b423e7fa10546a9fdbb1663d2bb3de98d505bf340f3d887ba68f7f26e6caf"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 58,
-            "stdout_sha256": "d36d6c160cd1e4b699761cf3fc78d505f41d5901bf33191ccc55c6a548249d54"
+            "stdout_sha256": "880b423e7fa10546a9fdbb1663d2bb3de98d505bf340f3d887ba68f7f26e6caf"
           },
           "label": "locate-limit",
           "passed": true,
@@ -21551,7 +21599,7 @@
           "bytes": 122,
           "label": "updatedb-functional",
           "passed": true,
-          "sha256": "9b63b7bc017bcb2037e3904e742edbb54fd1633d81171c4e69da7e6999e37b82",
+          "sha256": "5c6aa0e8b3c436426343e631d84f7ac132dfaa820ca8dff56029bffdc5c7fc55",
           "utility": "updatedb"
         },
         {
@@ -21623,7 +21671,7 @@
       ],
       "schema": 1
     },
-    "differential_sha256": "bdbf18d96a6148929ba7c5cdbdf5b03a12875efd49397db70eb36dab0401ea47",
+    "differential_sha256": "97b3e46f7b73087f562ff95b0f0fdaf092f1956bbad96edc32fcc28b876d034c",
     "integrated_public_names": 4,
     "translated_entrypoints": [
       "find",
@@ -21952,7 +22000,7 @@
           "arguments": [
             "-F:",
             "{ print $2, $1 }",
-            "/tmp/rustbox-gawk-oracle-50_ecaze/data"
+            "/tmp/rustbox-gawk-oracle-w5oy4ok_/data"
           ],
           "clang": {
             "status": 0,
@@ -21997,7 +22045,7 @@
         {
           "arguments": [
             "{ n[$1] += $2 } END { for (k in n) print k, n[k] }",
-            "/tmp/rustbox-gawk-oracle-50_ecaze/data"
+            "/tmp/rustbox-gawk-oracle-w5oy4ok_/data"
           ],
           "clang": {
             "status": 0,
@@ -22040,7 +22088,7 @@
         {
           "arguments": [
             "/^[ab].*:[23]0$/ { print $1 }",
-            "/tmp/rustbox-gawk-oracle-50_ecaze/data"
+            "/tmp/rustbox-gawk-oracle-w5oy4ok_/data"
           ],
           "clang": {
             "status": 0,
@@ -22258,7 +22306,7 @@
           "arguments": [
             "--csv",
             "NR > 1 { print $1, $2 }",
-            "/tmp/rustbox-gawk-oracle-50_ecaze/data.csv"
+            "/tmp/rustbox-gawk-oracle-w5oy4ok_/data.csv"
           ],
           "clang": {
             "status": 0,
@@ -22280,7 +22328,7 @@
         {
           "arguments": [
             "-f",
-            "/tmp/rustbox-gawk-oracle-50_ecaze/library.awk",
+            "/tmp/rustbox-gawk-oracle-w5oy4ok_/library.awk",
             "-e",
             "BEGIN { print twice(21) }"
           ],
@@ -22304,22 +22352,22 @@
         {
           "arguments": [
             "{ print FILENAME, FNR; nextfile }",
-            "/tmp/rustbox-gawk-oracle-50_ecaze/data",
-            "/tmp/rustbox-gawk-oracle-50_ecaze/data.csv"
+            "/tmp/rustbox-gawk-oracle-w5oy4ok_/data",
+            "/tmp/rustbox-gawk-oracle-w5oy4ok_/data.csv"
           ],
           "clang": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 86,
-            "stdout_sha256": "ffc922cd0ec4794a560a517f4dadc87e3ea9aae2a2824d339f672ddc204e6484"
+            "stdout_sha256": "e4d11e2c20551ea00b193eca1441f92e4d1f0af350ab64774dbeca68615d224d"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 86,
-            "stdout_sha256": "ffc922cd0ec4794a560a517f4dadc87e3ea9aae2a2824d339f672ddc204e6484"
+            "stdout_sha256": "e4d11e2c20551ea00b193eca1441f92e4d1f0af350ab64774dbeca68615d224d"
           },
           "label": "nextfile",
           "passed": true
@@ -22433,8 +22481,8 @@
       ],
       "schema": 1
     },
-    "differential_sha256": "d51bff9bf3ae1721e060a46362f7d2c402eefb76571e6e8be7cb146b65d1d9db",
-    "gawkbug_differential_sha256": "9f4bd167c30867e1bc4641853d896ab5cc42c922cd556e4a0ba24b1040c2b5c9",
+    "differential_sha256": "5300204e2820d8a7c9a1ce5e41f19c56bebaac0434ba1da7eb29e030fc840ab4",
+    "gawkbug_differential_sha256": "8c784c6ec08de8ccfe76fcea4069f4b0609f5f19d2ce1359f0d551ae262d6751",
     "gawkbug_stateful_differential": {
       "cases": 6,
       "passed": 6,
@@ -22525,7 +22573,7 @@
             "dead_letter": null,
             "mail_capture": {
               "bytes": 1025,
-              "sha256": "684fd20793d236762766d8f7c8a3d8fa3ab64f160a02506cc40693ba1d1e4cd0"
+              "sha256": "d50aa2059d39c3c0b8098a34cf1b688d28309a1813e43c590b6b3f06c20762e2"
             },
             "status": 0,
             "stderr": "",
@@ -22537,7 +22585,7 @@
             "dead_letter": null,
             "mail_capture": {
               "bytes": 1025,
-              "sha256": "684fd20793d236762766d8f7c8a3d8fa3ab64f160a02506cc40693ba1d1e4cd0"
+              "sha256": "d50aa2059d39c3c0b8098a34cf1b688d28309a1813e43c590b6b3f06c20762e2"
             },
             "status": 0,
             "stderr": "",
@@ -22551,11 +22599,11 @@
           "canonical": {
             "dead_letter": {
               "bytes": 1025,
-              "sha256": "684fd20793d236762766d8f7c8a3d8fa3ab64f160a02506cc40693ba1d1e4cd0"
+              "sha256": "d50aa2059d39c3c0b8098a34cf1b688d28309a1813e43c590b6b3f06c20762e2"
             },
             "mail_capture": {
               "bytes": 1025,
-              "sha256": "684fd20793d236762766d8f7c8a3d8fa3ab64f160a02506cc40693ba1d1e4cd0"
+              "sha256": "d50aa2059d39c3c0b8098a34cf1b688d28309a1813e43c590b6b3f06c20762e2"
             },
             "status": 0,
             "stderr": "gawkbug: mail to bugs@example.test failed: report saved in <ROOT>/home/dead.gawkbug\ngawkbug: please send it manually to bugs@example.test\n",
@@ -22566,11 +22614,11 @@
           "rustbox": {
             "dead_letter": {
               "bytes": 1025,
-              "sha256": "684fd20793d236762766d8f7c8a3d8fa3ab64f160a02506cc40693ba1d1e4cd0"
+              "sha256": "d50aa2059d39c3c0b8098a34cf1b688d28309a1813e43c590b6b3f06c20762e2"
             },
             "mail_capture": {
               "bytes": 1025,
-              "sha256": "684fd20793d236762766d8f7c8a3d8fa3ab64f160a02506cc40693ba1d1e4cd0"
+              "sha256": "d50aa2059d39c3c0b8098a34cf1b688d28309a1813e43c590b6b3f06c20762e2"
             },
             "status": 0,
             "stderr": "gawkbug: mail to bugs@example.test failed: report saved in <ROOT>/home/dead.gawkbug\ngawkbug: please send it manually to bugs@example.test\n",
@@ -22584,7 +22632,7 @@
     "integrated_public_names": 3,
     "pma_virtualization_failure_matches_canonical": true,
     "possibly_lost_bytes": 0,
-    "upstream_log_sha256": "394f2ea947673aa23d1a664326e10ede112a71f04451ccbfa245794b53e0d1ed",
+    "upstream_log_sha256": "46b7fdfcc754d4f1c17f5036b6e771178e920c70796312b15acba455c352e044",
     "valgrind_errors": 0,
     "valgrind_log_sha256": {
       "awk": "e49d21fd2268ae72cb1a7fb3b5170f6493758795cac492b2dc62a847ede85a59",
@@ -23089,7 +23137,7 @@
       "schema": 1
     },
     "differential_sha256": "178032d09c44a592b1fff674bba84dd33bf5906356056a25cd88bbfea9b1d3ac",
-    "upstream_log_sha256": "5b50a9aad7c82fa32980a72ccc611ed5f231ee7d0163ad28bd62c50edc31a685",
+    "upstream_log_sha256": "a20f7e47ac473efd22a0872a402477ca515c3b4e3602701219ad2fb2ff1f2c3b",
     "upstream_suites": [
       {
         "error": 0,
@@ -38780,7 +38828,7 @@
             "-cf",
             "-",
             "-C",
-            "/tmp/rustbox-tar-differential-cvwdrivf/source",
+            "/tmp/rustbox-tar-differential-qgovkytk/source",
             "."
           ],
           "byte_identical_archive": true,
@@ -38805,7 +38853,7 @@
         {
           "arguments": [
             "-tf",
-            "/tmp/rustbox-tar-differential-cvwdrivf/archive.tar"
+            "/tmp/rustbox-tar-differential-qgovkytk/archive.tar"
           ],
           "clang": {
             "status": 0,
@@ -38829,7 +38877,7 @@
           "arguments": [
             "--numeric-owner",
             "-tvf",
-            "/tmp/rustbox-tar-differential-cvwdrivf/archive.tar"
+            "/tmp/rustbox-tar-differential-qgovkytk/archive.tar"
           ],
           "clang": {
             "status": 0,
@@ -38876,7 +38924,7 @@
           "arguments": [
             "--test-label",
             "-f",
-            "/tmp/rustbox-tar-differential-cvwdrivf/archive.tar"
+            "/tmp/rustbox-tar-differential-qgovkytk/archive.tar"
           ],
           "clang": {
             "status": 0,
@@ -38913,15 +38961,15 @@
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-            "stdout_bytes": 640,
-            "stdout_sha256": "c275539c38a98ac56a2e5d610023526416c8c6f6577f897f6fdc27508b04ecd3"
+            "stdout_bytes": 643,
+            "stdout_sha256": "e8afb592419ad83b2d55a2739c06ceccd38cd268e7057a4ce476b240aff9c4b7"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-            "stdout_bytes": 640,
-            "stdout_sha256": "c275539c38a98ac56a2e5d610023526416c8c6f6577f897f6fdc27508b04ecd3"
+            "stdout_bytes": 643,
+            "stdout_sha256": "e8afb592419ad83b2d55a2739c06ceccd38cd268e7057a4ce476b240aff9c4b7"
           },
           "label": "tar-create-gz",
           "name": "tar",
@@ -38958,15 +39006,15 @@
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-            "stdout_bytes": 556,
-            "stdout_sha256": "41d1e870ec53d58ef91c7fc02a829e81ff5faa6126668d04009b328d944c573e"
+            "stdout_bytes": 552,
+            "stdout_sha256": "95d2bfd3fdeccb7265ddfa8b47325a9d027de88627ee87e4473e5f5fc451d6c0"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-            "stdout_bytes": 556,
-            "stdout_sha256": "41d1e870ec53d58ef91c7fc02a829e81ff5faa6126668d04009b328d944c573e"
+            "stdout_bytes": 552,
+            "stdout_sha256": "95d2bfd3fdeccb7265ddfa8b47325a9d027de88627ee87e4473e5f5fc451d6c0"
           },
           "label": "tar-create-xz",
           "name": "tar",
@@ -39003,15 +39051,15 @@
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-            "stdout_bytes": 541,
-            "stdout_sha256": "d124a25fada2938b1497d636c14b49e8f9b857c863f1987dfc2fe31c823c0bb4"
+            "stdout_bytes": 543,
+            "stdout_sha256": "3a3aee9739ceb6ebb00d7bd31a3ab3f6b4554ab139839d70d9a6249f79170d21"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-            "stdout_bytes": 541,
-            "stdout_sha256": "d124a25fada2938b1497d636c14b49e8f9b857c863f1987dfc2fe31c823c0bb4"
+            "stdout_bytes": 543,
+            "stdout_sha256": "3a3aee9739ceb6ebb00d7bd31a3ab3f6b4554ab139839d70d9a6249f79170d21"
           },
           "label": "tar-create-zst",
           "name": "tar",
@@ -39043,7 +39091,7 @@
       ],
       "schema": 1
     },
-    "differential_sha256": "4e1b34155a52d2118fa4b0d20da8840b0ab7527181e302bbcf0b6f308ccd7ae4",
+    "differential_sha256": "99809f4fa20bb8f29ca48c088862834173d24afd7d136e411f3ebf29862170c6",
     "extracted_tree_matches_canonical": true,
     "indirectly_lost_bytes": 0,
     "integrated_public_names": 2,
@@ -39066,9 +39114,9 @@
     ],
     "valgrind_errors": 0,
     "valgrind_log_sha256": {
-      "create": "d37b2416b4d0ff973c969a56c0341c2a134f540a8a773c57926f5fe0009709b3",
-      "extract": "af33864c576c8b855b1e847b3b06df5d5051e346344721956f96aee6a722495e",
-      "list": "581770baef44b31276e0d01bffe9544d976956ad8e8db0f9c34f879ef476dc0b",
+      "create": "6e28bedce98e78d8572fb2b28081b94acb765fe41a4f1c70d3d1577092426226",
+      "extract": "810d116d62ff662bd9e3aa568255391b695a3b4f1e2e0ce2c5424ba52fd0d020",
+      "list": "99223ef50ccaebdc8cc73da7bbc783d1b6cbc658c9052878f1bdaaef337de275",
       "rmt": "fc27f121083a910daef600cf05c8094595ec18ce84c0e347e9dc7d149f38f971"
     }
   },
@@ -40169,7 +40217,7 @@
         {
           "arguments": [
             "--stdout",
-            "/tmp/rustbox-xz-differential-8usm2dia/input-gcc.xz"
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input-gcc.xz"
           ],
           "clang": {
             "status": 0,
@@ -40191,7 +40239,7 @@
         },
         {
           "arguments": [
-            "/tmp/rustbox-xz-differential-8usm2dia/input-gcc.xz"
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input-gcc.xz"
           ],
           "clang": {
             "status": 0,
@@ -40214,7 +40262,7 @@
         {
           "arguments": [
             "--test",
-            "/tmp/rustbox-xz-differential-8usm2dia/input-gcc.xz"
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input-gcc.xz"
           ],
           "clang": {
             "status": 0,
@@ -40238,21 +40286,21 @@
           "arguments": [
             "--list",
             "--verbose",
-            "/tmp/rustbox-xz-differential-8usm2dia/input-gcc.xz"
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input-gcc.xz"
           ],
           "clang": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 684,
-            "stdout_sha256": "eff0c2aaf1b652937896b3c39b9d423ef0b2a9fa48721506e7eedbfccdf87083"
+            "stdout_sha256": "85cc10d1fc4b2f038fc3d6c5c4c28cdd28fb4862a1b537fda2f0264a610f8aff"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 684,
-            "stdout_sha256": "eff0c2aaf1b652937896b3c39b9d423ef0b2a9fa48721506e7eedbfccdf87083"
+            "stdout_sha256": "85cc10d1fc4b2f038fc3d6c5c4c28cdd28fb4862a1b537fda2f0264a610f8aff"
           },
           "label": "xz-list",
           "name": "xz",
@@ -40261,7 +40309,7 @@
         {
           "arguments": [
             "--stdout",
-            "/tmp/rustbox-xz-differential-8usm2dia/input-gcc.lzma"
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input-gcc.lzma"
           ],
           "clang": {
             "status": 0,
@@ -40283,7 +40331,7 @@
         },
         {
           "arguments": [
-            "/tmp/rustbox-xz-differential-8usm2dia/input-gcc.lzma"
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input-gcc.lzma"
           ],
           "clang": {
             "status": 0,
@@ -40305,7 +40353,7 @@
         },
         {
           "arguments": [
-            "/tmp/rustbox-xz-differential-8usm2dia/input-gcc.xz"
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input-gcc.xz"
           ],
           "clang": {
             "status": 0,
@@ -40327,7 +40375,7 @@
         },
         {
           "arguments": [
-            "/tmp/rustbox-xz-differential-8usm2dia/input-gcc.lzma"
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input-gcc.lzma"
           ],
           "clang": {
             "status": 0,
@@ -40349,21 +40397,21 @@
         },
         {
           "arguments": [
-            "/tmp/rustbox-xz-differential-8usm2dia/input-gcc.lzma"
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input-gcc.lzma"
           ],
           "clang": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 242,
-            "stdout_sha256": "265983e812f537bffd94d5f9211b4ad8f55c4445969fe80b505466be10c5fbe7"
+            "stdout_sha256": "e1cc69852b9e8bb60eefcac498d76488eb2ce9c7a7237f497ff81adb39a69be6"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 242,
-            "stdout_sha256": "265983e812f537bffd94d5f9211b4ad8f55c4445969fe80b505466be10c5fbe7"
+            "stdout_sha256": "e1cc69852b9e8bb60eefcac498d76488eb2ce9c7a7237f497ff81adb39a69be6"
           },
           "label": "lzmainfo-file",
           "name": "lzmainfo",
@@ -40372,7 +40420,7 @@
         {
           "arguments": [
             "needle",
-            "/tmp/rustbox-xz-differential-8usm2dia/input-gcc.xz"
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input-gcc.xz"
           ],
           "clang": {
             "status": 0,
@@ -40395,7 +40443,7 @@
         {
           "arguments": [
             "needle",
-            "/tmp/rustbox-xz-differential-8usm2dia/input-gcc.xz"
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input-gcc.xz"
           ],
           "clang": {
             "status": 0,
@@ -40418,7 +40466,7 @@
         {
           "arguments": [
             "needle",
-            "/tmp/rustbox-xz-differential-8usm2dia/input-gcc.xz"
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input-gcc.xz"
           ],
           "clang": {
             "status": 0,
@@ -40441,7 +40489,7 @@
         {
           "arguments": [
             "needle",
-            "/tmp/rustbox-xz-differential-8usm2dia/input-gcc.lzma"
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input-gcc.lzma"
           ],
           "clang": {
             "status": 0,
@@ -40464,7 +40512,7 @@
         {
           "arguments": [
             "needle",
-            "/tmp/rustbox-xz-differential-8usm2dia/input-gcc.lzma"
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input-gcc.lzma"
           ],
           "clang": {
             "status": 0,
@@ -40487,7 +40535,7 @@
         {
           "arguments": [
             "needle",
-            "/tmp/rustbox-xz-differential-8usm2dia/input-gcc.lzma"
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input-gcc.lzma"
           ],
           "clang": {
             "status": 0,
@@ -40509,8 +40557,8 @@
         },
         {
           "arguments": [
-            "/tmp/rustbox-xz-differential-8usm2dia/input-gcc.xz",
-            "/tmp/rustbox-xz-differential-8usm2dia/input.txt"
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input-gcc.xz",
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input.txt"
           ],
           "clang": {
             "status": 0,
@@ -40532,8 +40580,8 @@
         },
         {
           "arguments": [
-            "/tmp/rustbox-xz-differential-8usm2dia/input-gcc.xz",
-            "/tmp/rustbox-xz-differential-8usm2dia/input.txt"
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input-gcc.xz",
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input.txt"
           ],
           "clang": {
             "status": 0,
@@ -40555,8 +40603,8 @@
         },
         {
           "arguments": [
-            "/tmp/rustbox-xz-differential-8usm2dia/input-gcc.lzma",
-            "/tmp/rustbox-xz-differential-8usm2dia/input.txt"
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input-gcc.lzma",
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input.txt"
           ],
           "clang": {
             "status": 0,
@@ -40578,8 +40626,8 @@
         },
         {
           "arguments": [
-            "/tmp/rustbox-xz-differential-8usm2dia/input-gcc.lzma",
-            "/tmp/rustbox-xz-differential-8usm2dia/input.txt"
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input-gcc.lzma",
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input.txt"
           ],
           "clang": {
             "status": 0,
@@ -40601,7 +40649,7 @@
         },
         {
           "arguments": [
-            "/tmp/rustbox-xz-differential-8usm2dia/input-gcc.xz"
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input-gcc.xz"
           ],
           "clang": {
             "status": 0,
@@ -40623,21 +40671,21 @@
         },
         {
           "arguments": [
-            "/tmp/rustbox-xz-differential-8usm2dia/input-gcc.xz"
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input-gcc.xz"
           ],
           "clang": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 7519,
-            "stdout_sha256": "13edea48623b29396952ae0abf0a70d6fdbd11100b0d2bbad23984e025751acd"
+            "stdout_sha256": "1705a656aa440d49b4d7239324231b2fa1f0fe34797027bc5e82ae21c1f16aa0"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 7519,
-            "stdout_sha256": "13edea48623b29396952ae0abf0a70d6fdbd11100b0d2bbad23984e025751acd"
+            "stdout_sha256": "1705a656aa440d49b4d7239324231b2fa1f0fe34797027bc5e82ae21c1f16aa0"
           },
           "label": "xzmore-view",
           "name": "xzmore",
@@ -40645,7 +40693,7 @@
         },
         {
           "arguments": [
-            "/tmp/rustbox-xz-differential-8usm2dia/input-gcc.lzma"
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input-gcc.lzma"
           ],
           "clang": {
             "status": 0,
@@ -40667,21 +40715,21 @@
         },
         {
           "arguments": [
-            "/tmp/rustbox-xz-differential-8usm2dia/input-gcc.lzma"
+            "/tmp/rustbox-xz-differential-6sgyhdhw/input-gcc.lzma"
           ],
           "clang": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 7521,
-            "stdout_sha256": "b79153385c1766ec411c94a483bff89e4f9f8d7ab73c1d31a2ca64c00b79031e"
+            "stdout_sha256": "b1fe1cfa209e41af48c90ecdd8213465d13ccbe3982bb23adae1a43ba5c65b1b"
           },
           "gcc": {
             "status": 0,
             "stderr_bytes": 0,
             "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "stdout_bytes": 7521,
-            "stdout_sha256": "b79153385c1766ec411c94a483bff89e4f9f8d7ab73c1d31a2ca64c00b79031e"
+            "stdout_sha256": "b1fe1cfa209e41af48c90ecdd8213465d13ccbe3982bb23adae1a43ba5c65b1b"
           },
           "label": "lzmore-view",
           "name": "lzmore",
@@ -40690,7 +40738,7 @@
       ],
       "schema": 1
     },
-    "differential_sha256": "9c2864340d54ffc9dd25aef451c4ce0c62d445fe307ddfa13373390af73e9741",
+    "differential_sha256": "44c659f2c644eb0c0af6a050549c8e64750ad18c01e4a9f42b65d8f07101f1d4",
     "engine_valgrind_errors": 0,
     "indirectly_lost_bytes": 0,
     "integrated_public_names": 23,

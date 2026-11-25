@@ -283,11 +283,10 @@ production reduction.
 The default 499-name Linux executable uses verified private-helper cleanups
 for 89 linked Rust archives. These cover the 20 E2fsprogs, 18 IPRoute2 and
 26 GNU Inetutils engines and 25 other package archives. A second compiler pass
-removed additional helpers in 58 of those archives. Another pass removed
-unused C declarations in 13 E2fsprogs engines, IPRoute2 `ip` and `tc`, and
-the ncurses archive. Across the linked
-applet sources the raw-pointer type count fell from **1,379,960 to 1,021,433**.
-Counting byte-identical Rust files once gives **733,567** remaining occurrences.
+removed additional helpers in 58 of those archives. The declaration cleanup
+covers 28 archives, including 13 E2fsprogs engines. Across the linked applet
+sources the raw-pointer type count fell from **1,379,960 to 998,816**.
+Counting byte-identical Rust files once gives **716,105** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
 | Production change | Raw-pointer type occurrences removed |
@@ -308,13 +307,14 @@ The count of applets certified pointer-free is still zero.
 | Second-pass private-helper removal across 43 further engine archives | 3,256 |
 | Compiler-verified removal of unused C declarations in 13 E2fsprogs engines | 16,616 |
 | Compiler-verified removal of unused C declarations in IPRoute2 `ip`, `tc` and ncurses | 15,319 |
-| **Total** | **358,527** |
+| Compiler-verified removal of unused C declarations across 12 more archives | 22,617 |
+| **Total** | **381,144** |
 
 E2fsprogs accounts for 198,340 remaining occurrences, down from 401,012.
-IPRoute2 accounts for 207,472, down from 265,323. GNU Inetutils accounts
-for 85,782, down from 104,385. The curl crate accounts for 89,022, down
+IPRoute2 accounts for 204,690, down from 265,323. GNU Inetutils accounts
+for 85,782, down from 104,385. The curl crate accounts for 85,468, down
 from 96,855. GNU gzip accounts for 3,063, down from 4,086, and XZ Utils
-accounts for 13,411, down from 22,239.
+accounts for 9,784, down from 22,239.
 The checksum replacement saved 135,168 stripped bytes. Removing unused source
 preserved the entire ELF and link map byte-for-byte in those cleanup releases.
 Sharing the live bitmap counter kept the stripped size at 25,081,136 bytes.
@@ -811,8 +811,11 @@ The ranking after the 13-engine release flags 81,652 pointer types in 46,220
 possible declarations across the 127 archives. For calibration, the same scan
 flagged 22,158 pointer types in the 13 E2fsprogs engines before their cleanup.
 The verified removal was 16,616. After the following three Cargo archives,
-the scan flags 66,333 pointer types. See `evidence/rustbox-foreign-declaration-candidates.json`
-for the current ranked archive paths and link-report hash.
+the scan flagged 66,333 pointer types. Following the 12-archive batch below,
+the scan flags 43,736 pointer types in 25,533 possible declarations. The next
+three eligible Cargo candidates by estimated pointer count are GNU sed (1,219),
+Procps-ng (1,088) and IPRoute2 ss (1,027). The ranked paths and the current
+link-report hash are in `evidence/rustbox-foreign-declaration-candidates.json`.
 
 The next production batch removed 7,688 private declarations containing
 15,319 raw-pointer types from 474 source entries. It saved 1,150,651 bytes of
@@ -825,6 +828,31 @@ for the package tests.
 | IPRoute2 tc | 2,903 | 5,724 |
 | IPRoute2 ip | 2,452 | 4,915 |
 | ncurses | 2,333 | 4,680 |
+
+The following 12 archives removed 13,017 private declarations from 1,254
+compiler-selected source entries. They contained 22,617 raw-pointer types
+and occupied 1,411,276 source bytes. Each compiler run reproduced its complete
+release archive. All 11 affected packages met their recorded regression criteria,
+and all 884 multicall dispatch comparisons passed. The live IPRoute2 bridge
+replay matched 259 records and four notifications. The GNU Awk upstream suite
+retains its documented QEMU persistent-memory exception.
+See `evidence/rustbox-twelve-cargo-declaration-replays.json` for package coverage.
+
+| Package or engine | Unused declarations removed | Raw-pointer type occurrences removed |
+|---|---:|---:|
+| acl-2.4.0 | 528 | 1,007 |
+| bison-3.8.2 | 993 | 1,993 |
+| curl-8.23.0 | 1,925 | 3,554 |
+| diffutils-3.12 | 1,144 | 1,625 |
+| findutils-4.10.0 | 1,212 | 1,786 |
+| gawk-5.4.0 | 489 | 916 |
+| grep-3.12 | 1,102 | 1,376 |
+| iproute2-7.3.0 (dcb) | 586 | 1,154 |
+| iproute2-7.3.0 (rdma) | 828 | 1,628 |
+| shadow-4.20.4 | 1,217 | 2,229 |
+| tar-1.35 | 1,069 | 1,722 |
+| xz-5.8.4 | 1,924 | 3,627 |
+| **Total** | **13,017** | **22,617** |
 
 For a Cargo archive, take its full path from that ranking and run a trial
 against the same link. The trial restages earlier helper removals in order,
