@@ -603,6 +603,19 @@ the symlink recovered the original nanosecond modification time. The candidate
 remained 24,961,776 bytes stripped and grew by 208 bytes unstripped.
 [Tar multicall comparison](evidence/tar-borrowed-timespec-multicall.json)
 
+The normal build accepts `--tar-borrowed-timestamps` before its other
+selection flags. Its source audit reconstructs all 195 tar compiler inputs
+from the pinned parent and verifies the seven removed types. The release
+gate repeats the canonical comparisons and Memchecks on the saved ELF.
+When the preceding release has the packed-curl preview's executable hash,
+the resulting executable must also reproduce the tested tar preview hash.
+
+```sh
+python3 -B scripts/tar_timespec_archive.py
+python3 -B tests/tar-timestamps/release.py "$packed_curl_parent"
+scripts/qualify_pointer_release.sh --tar-borrowed-timestamps "$parent_link" "$new_results"
+```
+
 ```sh
 python3 -B scripts/build_tar_timespec_pilot.py --link "$link" --output "$pilot"
 python3 -B scripts/test_tar_timespec_pilot.py "$pilot" "$link"

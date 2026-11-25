@@ -3,61 +3,20 @@
 import argparse
 import json
 from pathlib import Path
-import re
-import shutil
-from tempfile import TemporaryDirectory
+from qualified_cargo_archive import QualifiedArchive
 
 from check_cargo_private_inlines import ROOT, digest
 from check_e2fsprogs_dirhash_arrays import source_list_digest
 from curl_manual import MODULE, replace_manual
 
 KEY = "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/release/libcurl_8_23_0_normalized_audit.a"
-RECEIPTS = ("linked_private_inline_proofs", "linked_second_inline_proofs", "linked_foreign_declaration_proofs")
 MANIFEST = ROOT / "batches/curl-manual.json"
-
-
-def candidate_path(row):
-    if row["archive"] != KEY or not re.fullmatch(r"[a-f0-9]{64}", row["candidate_sha256"]):
-        raise ValueError("unexpected curl manual archive")
-    path = Path(KEY)
-    return path.parents[1] / "packed-manual" / row["candidate_sha256"] / path.name
-
-
-def receipts(link):
-    return {name: link[name][KEY] for name in RECEIPTS if KEY in link.get(name, {})}
-
-
-def pinned():
-    record = json.loads(MANIFEST.read_bytes())
-    pilot = json.loads((ROOT / "evidence/curl-manual-pilot.json").read_bytes())
-    row = record["pilot"]
-    candidate_path(row)
-    if any(pilot[k] != v for k, v in row.items()):
-        raise ValueError("curl manifest differs from the qualified pilot")
-    return record
-
-
-def validate_parent(link, record):
-    if (link["source_library_sha256"].get(KEY) != record["pilot"]["control_sha256"]
-            or receipts(link) != record["parent_receipts"]):
-        raise ValueError("curl archive or compiler proof differs from the qualified parent")
-
-
-def parent_view(link):
-    if "curl_manual" not in link:
-        return link
-    record = link["curl_manual"]
-    if record != pinned():
-        raise ValueError("unrecognized curl manual substitution")
-    row = record["pilot"]
-    hashes = link["source_library_sha256"].copy()
-    if KEY in hashes or hashes.pop(str(candidate_path(row)), None) != row["candidate_sha256"]:
-        raise ValueError("ambiguous or stale packed curl manual")
-    hashes[KEY] = row["control_sha256"]
-    parent = dict(link, source_library_sha256=hashes)
-    del parent["curl_manual"]
-    validate_parent(parent, record)
-    return parent
+selection = QualifiedArchive(KEY, "curl_manual", "packed-manual", MANIFEST, ROOT / "evidence/curl-manual-pilot.json")
+candidate_path = selection.candidate_path
+receipts = selection.receipts
+pinned = selection.pinned
+validate_parent = selection.validate_parent
+parent_view = selection.parent_view
 
 
 def pilot_parent_view(link):
@@ -69,29 +28,7 @@ def pilot_parent_view(link):
 
 def prepare(record, built=None):
     from build_curl_manual_pilot import build
-    row = record["pilot"]
-    destination = ROOT / candidate_path(row)
-    if not destination.exists():
-        destination.parent.mkdir(parents=True, exist_ok=True)
-        with TemporaryDirectory(dir=destination.parent) as tmp:
-            scratch = Path(tmp)
-            if built is None:
-                link = {"binary": {"sha256": row["control_binary_sha256"]},
-                        "source_library_sha256": {KEY: row["control_sha256"]},
-                        **{name: {KEY: proof} for name, proof in record["parent_receipts"].items()}}
-                source = scratch / "parent.json"
-                source.write_text(json.dumps(link))
-                build(source, scratch / "pilot")
-                if json.loads((scratch / "pilot/pilot.json").read_bytes()) != row:
-                    raise ValueError("cold curl build differs from the qualified pilot")
-                built = scratch / "pilot" / destination.name
-            if digest(built) != row["candidate_sha256"]:
-                raise ValueError("unexpected packed curl archive bytes")
-            staged = scratch / destination.name
-            shutil.copyfile(built, staged)
-            staged.replace(destination)
-    if digest(destination) != row["candidate_sha256"]:
-        raise ValueError("cached packed curl archive differs from manifest")
+    selection.prepare(record, build, built)
 
 
 def pin(pilot, qualified, parent):

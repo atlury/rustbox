@@ -15,6 +15,7 @@ import tempfile
 from pathlib import Path
 
 import curl_manual_archive
+from tar_timespec_archive import selection as tar_timestamps
 import prepare_identical_archives
 import iproute2_address_protocol_archive as address_protocols
 import iproute2_route_name_archives as route_names
@@ -2435,6 +2436,7 @@ def main() -> int:
     parser.add_argument("--shared-stdio", type=Path)
     parser.add_argument("--native-c-strings", type=Path)
     parser.add_argument("--curl-manual", action="store_true")
+    parser.add_argument("--tar-borrowed-timestamps", action="store_true")
     parser.add_argument("--iproute2-netlink-protocols", action="store_true")
     parser.add_argument("--iproute2-route-names", action="store_true")
     parser.add_argument("--iproute2-address-protocols", action="store_true")
@@ -2807,21 +2809,25 @@ def main() -> int:
         del source_library_hashes[str(original)]
         source_library_hashes[str(relative)] = record["candidate_sha256"]
         iproute2_libraries[name] = libraries[iproute2_library_indices[name]] = candidate
-    curl_manual_record = None
-    if args.curl_manual:
-        curl_manual_record = curl_manual_archive.pinned()
-        curl_parent = {"source_library_sha256": source_library_hashes, "linked_private_inline_proofs": inline_proofs,
-                       "linked_second_inline_proofs": second_inline_proofs, "linked_foreign_declaration_proofs": foreign_proofs}
-        curl_manual_archive.validate_parent(curl_parent, curl_manual_record)
-        row = curl_manual_record["pilot"]
-        relative = curl_manual_archive.candidate_path(row)
+    cargo_changes = {}
+    archive_parent = {"source_library_sha256": source_library_hashes, "linked_private_inline_proofs": inline_proofs,
+                      "linked_second_inline_proofs": second_inline_proofs, "linked_foreign_declaration_proofs": foreign_proofs}
+    for enabled, selection, index in ((args.curl_manual, curl_manual_archive.selection, curl_library_index),
+                                      (args.tar_borrowed_timestamps, tar_timestamps, tar_library_index)):
+        if not enabled:
+            continue
+        record = selection.pinned()
+        selection.validate_parent(archive_parent, record)
+        row = record["pilot"]
+        relative = selection.candidate_path(row)
         candidate = repository / relative
-        if (libraries[curl_library_index] != repository / row["archive"] or sha256(candidate) != row["candidate_sha256"]
-                or c_exports(candidate) != c_exports(libraries[curl_library_index])):
-            raise ValueError("packed curl manual archive or its exported C interface differs")
+        if (libraries[index] != repository / row["archive"] or sha256(candidate) != row["candidate_sha256"]
+                or c_exports(candidate) != c_exports(libraries[index])):
+            raise ValueError(f"{selection.field} archive or exported C interface differs")
         del source_library_hashes[row["archive"]]
         source_library_hashes[str(relative)] = row["candidate_sha256"]
-        libraries[curl_library_index] = candidate
+        libraries[index] = candidate
+        cargo_changes[selection.field] = record
     parent_link = {"iproute2_address_protocols": address_record, "iproute2_address_protocol_copies": address_copies}
     route_selections = {}
     for field, enabled, archive_path in (
@@ -2857,7 +2863,7 @@ def main() -> int:
                 direct = {k: item for k, item in items.items() if "rustc_archive" in item["pilot"]}
                 prepare_identical_archives.prepare(direct, layer, mounted_direct=True)
             context = {**proofs, **identical_layers, **route_selections,
-                       "e2fsprogs_dirhash_arrays": dirhash_arrays, "curl_manual": curl_manual_record}
+                       "e2fsprogs_dirhash_arrays": dirhash_arrays, **cargo_changes}
             identical_layers[layer] = prepare_identical_archives.validate_link(items, source_library_hashes, context, layer)
     expected_symbols.update(f"rustbox_{symbol}_main" for symbol in util_dispatch.values())
     expected_symbols.add("rustbox_m4_main")
@@ -3835,7 +3841,7 @@ def main() -> int:
         "source_library_sha256": source_library_hashes,
         **route_selections,
         **identical_layers,
-        **({"curl_manual": curl_manual_record} if curl_manual_record else {}),
+        **cargo_changes,
         **({"iproute2_address_protocol_copies": address_copies} if address_copies else {}),
         **({"iproute2_address_protocols": address_record} if address_record else {}),
         **({"e2fsprogs_dirhash_arrays": dirhash_arrays} if dirhash_arrays else {}),

@@ -23,7 +23,8 @@ def record(binary, results, rankings):
     if release["iproute2_netlink_protocols"] != rows:
         raise ValueError("the release selected different netlink protocol archives")
     curl = release.get("curl_manual")
-    replay_name = "rustbox-curl-manual-replays" if curl else "rustbox-netlink-protocol-replays"
+    timestamps = release.get("tar_borrowed_timestamps")
+    replay_name = "rustbox-tar-timestamps-replays" if timestamps else "rustbox-curl-manual-replays" if curl else "rustbox-netlink-protocol-replays"
     inputs = {
         replay_name: results / "replays.json",
         "rustbox-linked-pointers": results / "inventory.json",
@@ -56,6 +57,18 @@ def record(binary, results, rankings):
     if {k: d["raw_pointer_type_tokens"] for k, d in deltas.items()} != {
             k: row["raw_pointer_types_removed_in_pilot_module"] for k, row in rows.items()}:
         raise ValueError("compiled inventory and per-engine reductions differ")
+    if timestamps:
+        from tar_timespec_archive import selection
+        row = selection.pinned()["pilot"]
+        preview = json.loads((evidence / "tar-borrowed-timespec-multicall.json").read_bytes())
+        expected = {k: preview[k] for k in ("canonical_cases", "memcheck_runs", "restored_file_and_symlink_mtime_ns",
+                                             "command_driver_sha256")}
+        prior = json.loads((results / "control.json").read_bytes())
+        if (timestamps["preview_elf_sha256"] != preview["candidate"]["sha256"]
+                or (prior["binary"]["sha256"] == preview["parent"]["sha256"] and binary_sha != timestamps["preview_elf_sha256"])
+                or timestamps != selection.pinned() or inventory["tar_timestamp_deltas"][row["archive"]]["raw_pointer_type_tokens"] != 7
+                or replay["tar_borrowed_timestamps"] != dict(expected, multicall_sha256=binary_sha)):
+            raise ValueError("tar timestamp sources or tested multicall differ from the qualified archive")
     if curl:
         qualified = json.loads((evidence / "curl-manual-pilot.json").read_bytes())
         row = curl["pilot"]

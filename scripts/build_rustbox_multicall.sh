@@ -3,6 +3,11 @@
 set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
+tar_timestamps=
+if [ "${1:-}" = --tar-borrowed-timestamps ]; then
+    tar_timestamps=1
+    shift
+fi
 literal_manifest=
 if [ "$#" -ge 2 ] && [ "$1" = --native-c-strings ]; then
     literal_manifest=$(python3 -c 'import sys; from pathlib import Path; print(Path(sys.argv[1]).resolve(strict=True).relative_to(Path(sys.argv[2])))' "$2" "$root")
@@ -20,7 +25,7 @@ case "$#:${1:-}" in
     1:--iproute2-route-names) set -- --iproute2-route-names --iproute2-address-protocol-copies --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
     1:--iproute2-address-protocol-copies) set -- --iproute2-address-protocol-copies --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
     2:--e2fsprogs-dirhash-arrays) ;;
-    *) echo "usage: $0 [--native-c-strings MANIFEST] [--shared-stdio MANIFEST | --curl-manual | --iproute2-netlink-protocols | --iproute2-route-names | --iproute2-address-protocols | --iproute2-address-protocol-copies | --e2fsprogs-dirhash-arrays MANIFEST]" >&2; exit 2 ;;
+    *) echo "usage: $0 [--tar-borrowed-timestamps] [--native-c-strings MANIFEST] [--shared-stdio MANIFEST | --curl-manual | --iproute2-netlink-protocols | --iproute2-route-names | --iproute2-address-protocols | --iproute2-address-protocol-copies | --e2fsprogs-dirhash-arrays MANIFEST]" >&2; exit 2 ;;
 esac
 "$root/scripts/build_private_inline_tool.sh"
 python3 -B "$root/scripts/check_cargo_private_inlines.py" --prepare-e2fsprogs
@@ -42,6 +47,10 @@ elif [ "$1" = --iproute2-address-protocol-copies ]; then
     python3 -B "$root/scripts/build_iproute2_address_protocol_pilot.py" --prepare-copies
 elif [ "$1" = --iproute2-address-protocols ]; then
     python3 -B "$root/scripts/build_iproute2_address_protocol_pilot.py" --prepare
+fi
+if [ -n "$tar_timestamps" ]; then
+    python3 -B "$root/scripts/tar_timespec_archive.py"
+    set -- "$@" --tar-borrowed-timestamps
 fi
 if [ -n "$stdio_manifest" ]; then
     python3 -B "$root/scripts/prepare_shared_stdio.py" prepare "$root/$stdio_manifest"

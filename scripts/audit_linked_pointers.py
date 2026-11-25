@@ -15,6 +15,8 @@ import tempfile
 from cargo_archive_pilot import verify_source_substitution
 import curl_manual
 import curl_manual_archive
+from tar_timespec_archive import selection as tar_timestamps
+from build_tar_timespec_pilot import MODULE as TIMESTAMP_MODULE, replace_timestamps
 import share_stdio_layout
 import verify_c_string_sources as native_strings
 import iproute2_address_protocol_archive as address_protocols
@@ -88,6 +90,10 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
     literal_records = link.get("native_c_strings", {})
     literal_deltas = {}
     literal_tool = native_strings.syntax_tool() if literal_records else None
+    timestamp_record = link.get(tar_timestamps.field, {}).get("pilot")
+    timestamp_records = {tar_timestamps.key: timestamp_record} if timestamp_record else {}
+    timestamp_deltas = {}
+    link = tar_timestamps.parent_view(link)
     curl_record = link.get("curl_manual", {}).get("pilot")
     curl_records = {curl_manual_archive.KEY: curl_record} if curl_record else {}
     curl_deltas = {}
@@ -126,6 +132,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
         proofs, second, foreign = map(for_key, (proofs, second, foreign))
         address_records, route_records, netlink_records, fixed_arrays, curl_records = map(
             for_key, (address_records, route_records, netlink_records, fixed_arrays, curl_records))
+        timestamp_records = for_key(timestamp_records)
         stdio_records = for_key(stdio_records, selected_path)
         literal_records = for_key(literal_records, selected_path)
     if not second.keys() <= proofs.keys() & link["source_library_sha256"].keys():
@@ -206,6 +213,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
             (address_records, address_protocols.candidate_path, address_protocols.replace_table, address_deltas, address_protocols.MODULE),
             (route_records, route_archives.candidate_path, replace_route_names, route_deltas, address_protocols.MODULE),
             (netlink_records, route_archives.netlink_path, replace_netlink_protocols, netlink_deltas, address_protocols.MODULE),
+            (timestamp_records, tar_timestamps.candidate_path, replace_timestamps, timestamp_deltas, TIMESTAMP_MODULE),
             (curl_records, curl_manual_archive.candidate_path, curl_manual.replace_manual, curl_deltas, curl_manual.MODULE),
         ):
             if name not in records:
@@ -306,6 +314,8 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
                 source_digests[layer["module"]] = layer["module_before"]
                 if source_list_digest(source_digests) != layer["parent_sources_sha256"]:
                     raise ValueError(f"{stage} parent source list differs from its receipt: {name}")
+    if timestamp_records.keys() != timestamp_deltas.keys():
+        raise ValueError("tar timestamp receipt outside linked compiler inputs")
     if literal_deltas.keys() != literal_records.keys():
         raise ValueError("C-string receipt is outside the selected archive set")
     if stdio_deltas.keys() != stdio_records.keys():
@@ -328,6 +338,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
             **({"byte_identical_second_inline_cleanups": second_cleanups} if second_cleanups else {}),
             **({"native_c_string_conversions": literal_deltas} if literal_deltas else {}),
             **({"shared_stdio_layout_deltas": stdio_deltas} if stdio_deltas else {}),
+            **({"tar_timestamp_deltas": timestamp_deltas} if timestamp_deltas else {}),
             **({"curl_manual_deltas": curl_deltas} if curl_deltas else {}),
             **({"iproute2_netlink_protocol_deltas": netlink_deltas} if netlink_deltas else {}),
             **({"iproute2_route_name_deltas": route_deltas} if route_deltas else {}),
@@ -470,7 +481,8 @@ def check_archive_counts(previous_link, control, before, after, added, delta_fie
     delta = Counter()
     for key, row in added.items():
         observed = after[delta_field][key]
-        if observed["raw_pointer_type_tokens"] != row["raw_pointer_types_removed_in_pilot_module"]:
+        count_key = "raw_pointer_types_removed" if delta_field == "tar_timestamp_deltas" else "raw_pointer_types_removed_in_pilot_module"
+        if observed["raw_pointer_type_tokens"] != row[count_key]:
             raise ValueError(f"archive type reduction differs from the pilot for {key}")
         delta.update(observed)
     expected_total = Counter(before["all"])
@@ -535,6 +547,7 @@ if __name__ == "__main__":
     previous = parser.add_mutually_exclusive_group()
     previous.add_argument("--verify-native-c-strings-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-shared-stdio-from", type=Path, metavar="CONTROL")
+    previous.add_argument("--verify-tar-timestamps-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-curl-manual-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-netlink-protocols-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-route-names-from", type=Path, metavar="CONTROL")
@@ -557,6 +570,13 @@ if __name__ == "__main__":
     if args.verify_shared_stdio_from:
         prior = json.loads(args.verify_shared_stdio_from.read_bytes())
         check_shared_stdio(prior, link, measure(prior), current)
+    if args.verify_tar_timestamps_from:
+        prior = json.loads(args.verify_tar_timestamps_from.read_bytes())
+        record = tar_timestamps.pinned()
+        if tar_timestamps.field in prior or link.get(tar_timestamps.field) != record:
+            raise ValueError("missing or previously selected borrowed timestamp archive")
+        check_archive_counts(prior, tar_timestamps.parent_view(link), measure(prior), current,
+                             {tar_timestamps.key: record["pilot"]}, "tar_timestamp_deltas")
     if args.verify_curl_manual_from:
         prior = json.loads(args.verify_curl_manual_from.read_bytes())
         row = link["curl_manual"]["pilot"]

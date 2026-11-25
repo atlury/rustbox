@@ -33,10 +33,9 @@ NEW_POINTER_INIT = b"""    let mut ts = if timespec.is_null() {
 CHECK = b"    if adjustment_needed < 0 as ::core::ffi::c_int {\n"
 
 
-def substitute(crate, sources):
-    path = crate / MODULE
-    original = data = path.read_bytes()
-    if MODULE not in sources or data.count(b"validate_timespec(") != 3:
+def replace_timestamps(original):
+    data = original
+    if data.count(b"validate_timespec(") != 3:
         raise ValueError("unexpected compiler module or caller set")
     accesses = 0
     for start, checksum in FUNCTIONS.items():
@@ -62,9 +61,20 @@ def substitute(crate, sources):
             function = function.replace(b"validate_timespec(ts as *mut timespec)", b"validate_timespec(&mut adjusted_timespec)")
             function = function.replace(CHECK, NEW_POINTER_INIT + CHECK + b"        *__errno_location() = EINVAL;\n")
         data = data[:i] + function + data[j:]
-    return {MODULE: data}, dict(module=MODULE, raw_offset_accesses_replaced=accesses, safe_helpers=1, callers=2,
+    return data, dict(module=MODULE, raw_offset_accesses_replaced=accesses, safe_helpers=1, callers=2,
         raw_pointer_types_removed=len(POINTER.findall(original))-len(POINTER.findall(data)),
         control_module_sha256=sha256(original).hexdigest(), candidate_module_sha256=sha256(data).hexdigest())
+
+
+def substitute(crate, sources):
+    if MODULE not in sources:
+        raise ValueError("timestamp module absent from compiler inputs")
+    data, changes = replace_timestamps((crate / MODULE).read_bytes())
+    return {MODULE: data}, changes
+
+
+def build(link, output):
+    stage_selected_archive(link, output, ARCHIVE, MARKER, Path(__file__).name)
 
 
 if __name__ == "__main__":
@@ -77,4 +87,4 @@ if __name__ == "__main__":
     if args.mounted:
         compile_mounted_sources(args.mounted, substitute, MARKER, allow_identical=True)
     else:
-        stage_selected_archive(args.link, args.output.resolve(), ARCHIVE, MARKER, Path(__file__).name)
+        build(args.link, args.output.resolve())

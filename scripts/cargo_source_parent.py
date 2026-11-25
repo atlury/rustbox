@@ -7,6 +7,10 @@ def cargo_origin(link, key):
     from curl_manual_archive import KEY, candidate_path
     from iproute2_route_name_archives import netlink_path
     selected = Path(key)
+    from tar_timespec_archive import selection as tar
+    if record := link.get(tar.field):
+        if tar.candidate_path(record["pilot"]) == selected:
+            return Path(tar.key)
     if record := link.get("curl_manual"):
         if candidate_path(record["pilot"]) == selected:
             return Path(KEY)
@@ -44,7 +48,14 @@ def pinned_parent(key, row):
         return {"source_library_sha256": {key: row["control_sha256"]}}
     from curl_manual_archive import KEY, candidate_path, pinned
     import iproute2_route_name_archives as routes
-    if original == KEY:
+    from tar_timespec_archive import selection as tar
+    if original == tar.key:
+        previous = tar.pinned()
+        prior = previous["pilot"]
+        link = {tar.field: previous, "source_library_sha256": {str(tar.candidate_path(prior)): prior["candidate_sha256"]}}
+        for field, receipt in previous["parent_receipts"].items():
+            link[field] = {original: receipt}
+    elif original == KEY:
         previous = pinned()
         prior = previous["pilot"]
         link = {"curl_manual": previous, "source_library_sha256": {str(candidate_path(prior)): prior["candidate_sha256"]}}

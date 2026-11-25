@@ -1,0 +1,33 @@
+{
+  "parent_receipts": {
+    "linked_foreign_declaration_proofs": {
+      "file": "libtar_1_35_normalized_audit.foreign-4242b635cf4db72cbbf0f5667435f4ceadf20626e4ca0d8900a953a9f907e22a.json",
+      "sha256": "4242b635cf4db72cbbf0f5667435f4ceadf20626e4ca0d8900a953a9f907e22a"
+    },
+    "linked_private_inline_proofs": {
+      "file": "libtar_1_35_normalized_audit.inlines-748aa08cd3cf412461ed26ead9b7782f7bd5af3117196e49fba90c0a6980112b.json",
+      "sha256": "5e8d0a17f2e856539613064dcf5cf9a4643402dd5c9c774b3202c782760eb768"
+    },
+    "linked_second_inline_proofs": {
+      "file": "libtar_1_35_normalized_audit.layer2-dad83db41b63030141103574734d3932b37b0c2cae334bbea47c6342a665efc2.json",
+      "sha256": "dad83db41b63030141103574734d3932b37b0c2cae334bbea47c6342a665efc2"
+    }
+  },
+  "pilot": {
+    "archive": "work/analysis/tar-1.35/translations/c2rust-0.22.1/tar-1.35-stable/target/release/libtar_1_35_normalized_audit.a",
+    "callers": 2,
+    "candidate_module_sha256": "68c16415dab228a0cea0fd8a508f79d66e959d714679bdd0fac51b06d0abc039",
+    "candidate_sha256": "30ac31a37c96970ff8b030c8e71981914d4d117fd78b4a8bec8283628a69a2f3",
+    "candidate_sources_sha256": "9d6af7c683ab32556634151281d687d4662e88544debefaf4e106159ea0b7a4b",
+    "compiler_selected_sources": 195,
+    "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+    "control_module_sha256": "05f917ba398c36fe9f6b6ebf74dcdec8aa82a136987e34f85eb7c071f49e3dea",
+    "control_sha256": "52c974cd1868c0e735e243d1fb05ddec76e760240e91b7941ccd0902019e2e18",
+    "module": "src/gnu/utimens.rs",
+    "parent_sources_sha256": "c22693a0c1eb19beaa5dbd634ff1f7d242a6db546b4d6d8822ec2beafed4f0a1",
+    "raw_offset_accesses_replaced": 16,
+    "raw_pointer_types_removed": 7,
+    "safe_helpers": 1
+  },
+  "preview_elf_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a"
+}
