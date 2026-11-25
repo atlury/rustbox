@@ -857,6 +857,14 @@ integer endpoints and buffers too small for the output. Five overflowing
 All three builds repeated these cases under Memcheck.
 [GNU sed errno baseline](evidence/sed-gnulib-errno-baseline.json)
 
+GNU grep and gzip also exercise errno when moving low file descriptors
+away from standard input, duplicating a closed descriptor, creating
+a pipe, and detecting allocation overflow. Each package's GCC, Clang
+and production archives passed five initial errno values. Every build
+repeated the checks under Memcheck. The driver checks that the tested
+functions are defined in each archive.
+[Descriptor and allocation baselines](evidence/gnu-descriptor-errno-baselines.json)
+
 The native C-string manifest can grow within an archive already selected.
 `prepare_native_c_strings.py enroll --extend` checks that the new cold
 build covers every earlier edit on the same compiler sources and produces
