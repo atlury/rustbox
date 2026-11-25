@@ -886,6 +886,14 @@ The latter source retains the checked C strings in the size assertion.
 These are incremental counts from two alternative compiler inputs.
 [Source hashes and counts](evidence/zstd-lorem-c-string-composition.json)
 
+The Zstd command suite uses an initial NUL for the binary grep fixture
+and separately checks the exact matching line on plain text. On the older
+fixture, canonical GCC zstdgrep printed 1,024 matching lines in 14 of
+16 runs and a binary-match diagnostic in two, depending on how the
+decompression pipe delivered the late NUL. The revised fixture passed
+the GCC and Clang command suite.
+[Zstd differential test](tests/zstd-oracle-differential.py)
+
 ```sh
 python3 -B tests/lz4-dictionary/source.py "$link"
 python3 -B scripts/build_lz4_dictionary_pilot.py --link "$link" --archive "$lz4_archive" --output "$pilot"

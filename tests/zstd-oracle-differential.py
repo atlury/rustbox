@@ -92,8 +92,24 @@ def main() -> int:
         compare("zstd-test", "zstd", ["--test", str(frame)])
         compare("zstd-list", "zstd", ["--list", str(frame)])
         compare("zstdmt-compress", "zstdmt", ["-T1", "--stdout", str(plain)])
-        compare("zstdgrep-match", "zstdgrep", ["needle", str(frame)])
-        compare("zstdgrep-no-match", "zstdgrep", ["absent-pattern", str(frame)])
+        # grep classifies binary data as it reads. A late NUL can arrive after
+        # matching lines have already been printed by a decompression pipe.
+        def grep_frame(name: str, data: bytes) -> Path:
+            compressed = run(args.gcc_directory, "zstd", ["-T1", "--stdout"], data)
+            if compressed["status"] != 0 or not compressed["stdout"]:
+                raise RuntimeError("could not create zstdgrep fixture")
+            path = root / name
+            path.write_bytes(compressed["stdout"])
+            return path
+
+        binary_frame = grep_frame("binary.zst", b"\0" + payload)
+        text_frame = grep_frame("text.zst", b"skip\nneedle one\n")
+        for directory in (args.gcc_directory, args.clang_directory):
+            match = run(directory, "zstdgrep", ["needle", str(text_frame)])
+            if match != {"status": 0, "stdout": b"needle one\n", "stderr": b""}:
+                raise RuntimeError("zstdgrep plain-text match failed")
+        compare("zstdgrep-match", "zstdgrep", ["needle", str(binary_frame)])
+        compare("zstdgrep-no-match", "zstdgrep", ["absent-pattern", str(binary_frame)])
         compare("zstdless-view", "zstdless", [str(frame)])
 
     output = {
