@@ -264,7 +264,9 @@ def check_dirhash_conversion(before_link, after_link, before, after):
     if before_link.get("e2fsprogs_dirhash_arrays") or not after_link.get("e2fsprogs_dirhash_arrays"):
         raise ValueError("expected the first directory hash conversion from the selected control")
     for key in before_link.keys() | controls.keys():
-        if key not in {"binary", "e2fsprogs_dirhash_arrays"} and before_link.get(key) != controls.get(key):
+        if key in {"binary", "e2fsprogs_dirhash_arrays"}:
+            continue
+        if key not in before_link or key not in controls or before_link[key] != controls[key]:
             raise ValueError(f"unrelated directory hash release field changed: {key}")
     if before_link["binary"]["dynamic_needed"] != after_link["binary"]["dynamic_needed"]:
         raise ValueError("directory hash conversion changed runtime dependencies")

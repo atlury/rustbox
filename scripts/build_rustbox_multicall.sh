@@ -2,6 +2,11 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 set -eu
 
+case "$#:${1:-}" in
+    0:) set -- --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-dirhash-arrays.json ;;
+    2:--e2fsprogs-dirhash-arrays) ;;
+    *) echo "usage: $0 [--e2fsprogs-dirhash-arrays MANIFEST]" >&2; exit 2 ;;
+esac
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 "$root/scripts/build_private_inline_tool.sh"
 python3 -B "$root/scripts/check_cargo_private_inlines.py" --prepare-e2fsprogs
@@ -28,4 +33,4 @@ exec "$root/scripts/run_multicall_tool.sh" python3 -B /work/scripts/link_rustbox
     --iproute2-rust-directory /work/work/analysis/iproute2-7.3.0/program-translations/cargo-target \
     --e2fsprogs-rust-directory /work/work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target \
     --reuse-isolation \
-    --link-report /work/work/analysis/rustbox-multicall-link.json
+    --link-report /work/work/analysis/rustbox-multicall-link.json "$@"

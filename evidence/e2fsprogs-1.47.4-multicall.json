@@ -1,6 +1,6 @@
 {
   "binary": {
-    "bytes": 43034336,
+    "bytes": 43034408,
     "dynamic_needed": [
       "ld-linux-x86-64.so.2",
       "libattr.so.1",
@@ -37,23 +37,23 @@
       "libz.so.1",
       "libzstd.so.1"
     ],
-    "link_map_sha256": "d8d6e0983edea0d48292b21b7b0cdf0b201e8005bf5fad34ae95bb89e3a63b1b",
-    "sha256": "aa3e3eea0e2ac5175759fa759dc44b2456a1cd710c854e2938ce18c66f8dc8e0",
-    "verified_bytes": 43034336,
-    "verified_link_map_sha256": "d8d6e0983edea0d48292b21b7b0cdf0b201e8005bf5fad34ae95bb89e3a63b1b",
-    "verified_sha256": "aa3e3eea0e2ac5175759fa759dc44b2456a1cd710c854e2938ce18c66f8dc8e0"
+    "link_map_sha256": "f199426241ac93e2ef608bd6cf31be224270bdd2f2b8dd9b1d322df9d24f3c01",
+    "sha256": "72ef35ed33a430244c0ae9ab73473daf86a1e18b4f60c6bb944a358d87d5aa6b",
+    "verified_bytes": 43034408,
+    "verified_link_map_sha256": "f199426241ac93e2ef608bd6cf31be224270bdd2f2b8dd9b1d322df9d24f3c01",
+    "verified_sha256": "72ef35ed33a430244c0ae9ab73473daf86a1e18b4f60c6bb944a358d87d5aa6b"
   },
   "bitcount_verification": {
-    "binary_sha256": "aa3e3eea0e2ac5175759fa759dc44b2456a1cd710c854e2938ce18c66f8dc8e0",
+    "binary_sha256": "72ef35ed33a430244c0ae9ab73473daf86a1e18b4f60c6bb944a358d87d5aa6b",
     "canonical_comparisons": 16452,
-    "canonical_image_sha256": "ee339e8b30e9b2454e521f702487e4573a9f05b415fd3a15dbc922a53bd01b38",
+    "canonical_image_sha256": "5358d28de4a2d1cdf57dec791dcdc053778d303d81876276ad7cd38e478482b3",
     "grown_image_bytes": 41943040,
     "memcheck_errors": {
       "e2fsck": 0,
       "resize2fs": 0
     },
     "object_sha256": "ec4051776ce8620390e94bd0850f185dab405d64f2c4047f831af784b3860009",
-    "rustbox_image_sha256": "ee339e8b30e9b2454e521f702487e4573a9f05b415fd3a15dbc922a53bd01b38",
+    "rustbox_image_sha256": "5358d28de4a2d1cdf57dec791dcdc053778d303d81876276ad7cd38e478482b3",
     "traced_callers": [
       "e2fsck",
       "resize2fs"
@@ -2252,6 +2252,15 @@
     "schema": 1
   },
   "differential_sha256": "e8e0e4abede74d8b22b65b880f182aa42bc05b5370bfaa97c6a88ba08d513570",
+  "dirhash_array_verification": {
+    "binary_sha256": "72ef35ed33a430244c0ae9ab73473daf86a1e18b4f60c6bb944a358d87d5aa6b",
+    "canonical_comparisons": 98592,
+    "canonical_image_sha256": "6c4e92047e4df86c877a7830d7b44f2bd8a1c20c5a0f7402d010f8dd6cbd1309",
+    "debugfs_archive_sha256": "214c5fcd34e14b2550dc7aedbfd360cecd88e02b3a64423f81bde37475fed508",
+    "debugfs_commands": 12,
+    "memcheck_comparisons": 14148,
+    "rustbox_image_sha256": "6c4e92047e4df86c877a7830d7b44f2bd8a1c20c5a0f7402d010f8dd6cbd1309"
+  },
   "dispatch": {
     "aggregate_names": 499,
     "collision_aliases": {
@@ -2453,7 +2462,7 @@
     "schema": 1
   },
   "frontend_differential_sha256": "acc9df19138d06e336eff6bd26988e12259beac839aa9e30340e22c7cf058596",
-  "link_report_sha256": "1205982a5b305fa00ee7bb7045a3ac3ea6efc302caa1fee63ae1863e02b02d25",
+  "link_report_sha256": "f3156d605e512c3716a43cbf5652fb63cd71bd56e4d6aa70889bbe500b327b19",
   "lvm_differential": {
     "cases": 4,
     "native_builds": 1,
@@ -2542,131 +2551,131 @@
   "valgrind": {
     "badblocks": {
       "errors": 0,
-      "sha256": "564f83930861a56e0fd027d248ead840650419728b5d3c6749aff920bd060e96"
+      "sha256": "4fa83ad287b364e2fc0ce82c634f7e5d481215ab66a01c1519659481f423636f"
     },
     "chattr": {
       "errors": 0,
-      "sha256": "481b7d6b028a1f9dea6b8566dd99cd21981de8204ca8c62dc8629746d4f20ca2"
+      "sha256": "b2a780b84e2aa930402543264cc72758443fe3e70d42ab6b69bb2032eea57ae0"
     },
     "compile_et": {
       "errors": 0,
-      "sha256": "0b54883e357a955288b053d2d828ea63180ee4ef954777bcf19b354c708c7f8b"
+      "sha256": "c446f381fc597085dab32b16ef2605f3f5c9fcd3b218ea4e3efbf58c64a50843"
     },
     "debugfs": {
       "errors": 0,
-      "sha256": "ab096e818607e4499faaf2b48a3c65d23964d2a5ef36583d339c9a252257835e"
+      "sha256": "8c78ea47cd1a85d41471112dd334bd59cf6586d8b267ab94de1eeab37e989ba0"
     },
     "dumpe2fs": {
       "errors": 0,
-      "sha256": "1584f5a3069a916b6a743177c90aaf6cb48503bb3fee7d378052cc0d99934604"
+      "sha256": "eff27bf2563693acf09929d9a0a4ee948a4052fd17e54b7035a28161a929a907"
     },
     "e2freefrag": {
       "errors": 0,
-      "sha256": "2a0ecec120871899fb760fbf2562995ea55d3931efd11111fad89d26fa4330b1"
+      "sha256": "62ab2efc1833726cb1ec766f81480095eed9d4fceb50648779af22213d9976bb"
     },
     "e2fsck": {
       "errors": 0,
-      "sha256": "e9eaa1ec4483d2c203d447c76839b8531255bcaff543bb2a30badee15b6e65df"
+      "sha256": "a63ba5c437b766e069fc8bf07e8051c82743c371bee49c9cec7ea70673dead93"
     },
     "e2fsprogs-fsck": {
       "errors": 0,
-      "sha256": "4619a7e5ba6173d3d0cf86da0a300546659ad9b3e8d3a43919b19900b82d240b"
+      "sha256": "b5934a7eaa1133926be30a9c7ac30e0a99da7f9bcaf7abf8a60fc9ca31cc8d2e"
     },
     "e2image": {
       "errors": 0,
-      "sha256": "218803c425a62d50096b8f94ee49ee16beb86d94ee0d3310e0439b97aa825529"
+      "sha256": "1ff08d7730dac6cb90c55a4b76ef29d2ec07c43eb986015971783ef0dc087175"
     },
     "e2initrd_helper": {
       "errors": 0,
-      "sha256": "0680a70c1821d5c2e7591b34527e2457cf07b87e76a49a844915860ab76c95de"
+      "sha256": "390d632176df42cd372e3a1f6eed4514ecb4a9c424dee2f7e3b481a03faf5d64"
     },
     "e2label": {
       "errors": 0,
-      "sha256": "ffffd4d7702b172d308043928d79b05befb0209b87f92012dbf06e20012fcb72"
+      "sha256": "1c336b77a7267d063622bce5bf244fd73bc527c81793c22692f3bb9ce3244ee1"
     },
     "e2mmpstatus": {
       "errors": 0,
-      "sha256": "03df14ec3baf9ac820cfdd90d11be0e9fd8f1ad7f0fc7a300a4376ccffbd540b"
+      "sha256": "6c95af42c825d63a67721aad36dddea26385b701b2d8e7a616a80496bfbc3427"
     },
     "e2scrub": {
       "errors": 0,
-      "sha256": "9fbaf4b12f430780061767a9df47b0d053c546f98f9ef83fe7b26f12bfdaec72"
+      "sha256": "6e79883596c9b017276eceeec468b7dc8b991c3d86c788a6e1e866c4d548a4af"
     },
     "e2scrub_all": {
       "errors": 0,
-      "sha256": "93c811674963f33fcf929923fc57b5a23a822eb8db6da359412a1dda48608642"
+      "sha256": "055aa39d675052e131e523e7dbda1af0db2cada2fca68e4e2b244277c9947ef0"
     },
     "e2undo": {
       "errors": 0,
-      "sha256": "9e0d973e83aebb0c9a3338c5aa89c5d65e09a294cf6be6a9122d1589d88d402f"
+      "sha256": "36d0c541b98a8970f3ed33a8a261c57702b982cc27f3abce9a27a84047d54795"
     },
     "e4crypt": {
       "errors": 0,
-      "sha256": "d5eee43b6e8cb5255012569ce86660b9aa08fb56b16f7658fc31b1947e7c4092"
+      "sha256": "dd0d8ef330447d7ab81d435c29d1fc4bbfaad45ffd0249c74408a365abee4c69"
     },
     "e4defrag": {
       "errors": 0,
-      "sha256": "1ad3adc3ae1e8d046c86e38e6e86a37fced4423dd9a1a5ccc800c87f01812daf"
+      "sha256": "3a3f8c42b4798fef84f948deb567825dd45741f1c84edab88be12b0fda1e5eb3"
     },
     "filefrag": {
       "errors": 0,
-      "sha256": "98cab371d421901b3500a5165d2bd3a9ed9518ea422339a56d0714bf26dbf108"
+      "sha256": "c2498aa727da1cb023b8e0be0c8f131d647aaeb2e9fc768344b3ec5241d9072e"
     },
     "fsck.ext2": {
       "errors": 0,
-      "sha256": "51cde397e599fd778ab529af86660b70e34b21cc7624510b86a5ae045b35f676"
+      "sha256": "96bdad06426c512d13b2700bc4e78ae7aa2256937c8a5d746020125a6771ccb8"
     },
     "fsck.ext3": {
       "errors": 0,
-      "sha256": "3fd0ac5d753f15fdf48c2a840882ffe23eca347d6fcf3d6efeb89e19cf42ac9e"
+      "sha256": "6c93ea5b3a0aa035b5689aa48c439d97d7d38fbeaf1b5c3fd609acae6dfd2a65"
     },
     "fsck.ext4": {
       "errors": 0,
-      "sha256": "535c9e0d60b5295e6a3b2254b49ab6affc172d9c76690274e3313be13f711c53"
+      "sha256": "266a7afbacdf01991cfe233635e5ff99aacdd1c48719f876fe8cf2ed9a3f8969"
     },
     "fuse2fs": {
       "errors": 0,
-      "sha256": "47580c297656ace5d105c639226020bf54e6c1944cb9205eb77d310515b60913"
+      "sha256": "03074f50ebf31e6b52c43d6fab0aa47903c0c2cdf5dc8703c11d973c8a3aa06d"
     },
     "logsave": {
       "errors": 0,
-      "sha256": "5c028ac91a055c8a545d3af269fbb138dd6461d61087cf07d8d932d55a01c920"
+      "sha256": "31892d8b9fbc396c370531447cc2ba563e14493f473a5dce3fecd9c16a5b3330"
     },
     "lsattr": {
       "errors": 0,
-      "sha256": "d83228fbc89e22dc98eb6e27cbc620916b02b09a8022b9dfe1ebd50f4293c093"
+      "sha256": "4a2999802df1cf1d3eb6114780dd900ddf43a81756c09ef8c92c4bcef0288c52"
     },
     "mk_cmds": {
       "errors": 0,
-      "sha256": "cc34dcd809b81500439b72195effcc5cab27902e26cc351246ed4a5c36a4e99c"
+      "sha256": "046af74bfef19daab81eec2abdff5137e52e8dfe2efda637b5d88a4453e31ac3"
     },
     "mke2fs": {
       "errors": 0,
-      "sha256": "e3d1aa18d283529e5a8102c5bd1f3429adc38f6409f528fe850b7ace22833180"
+      "sha256": "2bc0973f125456694fbf9f1ae30cc2368c2c21af0c1b09661a80220ead963866"
     },
     "mkfs.ext2": {
       "errors": 0,
-      "sha256": "875ecd0e7e947396ab74a9490ad4d25daeb7e0c7b3d6ebbb539d3448b9eea5f4"
+      "sha256": "3bb3636a463a543102731dc4f9c6fd9655da72e9916f36804240500d1ada7995"
     },
     "mkfs.ext3": {
       "errors": 0,
-      "sha256": "c7ce373867015f2d5af2e1b332c24ad9b80a426399a03c2a609ea191ea8d20f3"
+      "sha256": "461bb55b5d1cfcb8e1c4ca058cf475268f2aaf32c0bff43ecbeb3261be08330b"
     },
     "mkfs.ext4": {
       "errors": 0,
-      "sha256": "c5a17574100a7faaf66d5845aed887b381a1cb6ed8b820f9a747323f1202db5f"
+      "sha256": "bf511324d5c932729324e66da3d7628496d08612796e8e47ee24421796ae405f"
     },
     "mklost+found": {
       "errors": 0,
-      "sha256": "d2b7887632c7e8b022780b5461c8477cb75c71e44c180c0c05557b94c326e16b"
+      "sha256": "e1548687deea6a1f51a062211afc2b03f7d609013b830b436c6f4d8430644f89"
     },
     "resize2fs": {
       "errors": 0,
-      "sha256": "6e971c093752adc48f9e746e7919d9c9da45b773ac2d9735f320a76e7de90cdd"
+      "sha256": "1599acc66f5dc4532367f90f3d2edd00d186590937b5933c55cb00c7339bf99c"
     },
     "tune2fs": {
       "errors": 0,
-      "sha256": "91e594c876283dd9bae3786df475d33d4fbd19cc32e712c602c363c91dc11de1"
+      "sha256": "7a435a27d44d7f565b5d69b2112b692cd518693e63af2647c94c74c8ab792c5c"
     }
   }
 }

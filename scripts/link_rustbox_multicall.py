@@ -19,6 +19,7 @@ from build_e2fsprogs_checksums import build_shared, BITCOUNT_SYMBOL, CRC_SYMBOLS
 from batch_cargo_private_inlines import release_archives
 from prepare_second_inline_layers import linked_layers
 from e2fsprogs_foreign_declarations import prepare_release as prepare_foreign_declarations
+from e2fsprogs_dirhash_archives import candidate_path as array_archive, prepare as prepare_dirhash
 from prune_private_inlines import prepare_archive
 
 ISOLATION_CACHE_VERSION = 18
@@ -2429,6 +2430,8 @@ def main() -> int:
     parser.add_argument("--inetutils-telnet-c-boundary", type=Path, required=True)
     parser.add_argument("--iproute2-rust-directory", type=Path, required=True)
     parser.add_argument("--e2fsprogs-rust-directory", type=Path, required=True)
+    parser.add_argument("--e2fsprogs-dirhash-arrays", type=Path,
+                        help="pinned fixed-array directory hash candidates for the staged E2fsprogs archives")
     parser.add_argument("--kmod-rust-library", type=Path, required=True)
     parser.add_argument("--procps-rust-library", type=Path, required=True)
     parser.add_argument("--shadow-rust-library", type=Path, required=True)
@@ -2735,6 +2738,30 @@ def main() -> int:
     inline_proofs[str(bridge_archive.relative_to(repository))] = bridge_inline_proof
     second_inline_proofs = linked_layers(repository, inline_proofs, source_library_hashes)
     foreign_proofs = prepare_foreign_declarations(repository, source_library_hashes, inline_proofs, second_inline_proofs)
+    dirhash_arrays = {}
+    if args.e2fsprogs_dirhash_arrays:
+        control = {
+            "source_library_sha256": source_library_hashes.copy(),
+            "linked_private_inline_proofs": inline_proofs,
+            "linked_second_inline_proofs": second_inline_proofs,
+            "linked_foreign_declaration_proofs": foreign_proofs,
+        }
+        dirhash_arrays = prepare_dirhash(control, args.e2fsprogs_dirhash_arrays, repository)
+        shared_symbols = {BITCOUNT_SYMBOL, *CRC_SYMBOLS.values()}
+        for key, record in dirhash_arrays.items():
+            base = Path(key)
+            name = base.parent.name
+            relative = array_archive(base, record["candidate_sha256"])
+            candidate_archive = repository / relative
+            original = e2fsprogs_libraries[name]
+            shared_references = undefined_symbols(original) & shared_symbols
+            if (c_exports(candidate_archive) != c_exports(original)
+                    or undefined_symbols(candidate_archive) & shared_symbols != shared_references):
+                raise RuntimeError(f"E2fsprogs directory hash changed the C interface of {name}")
+            e2fsprogs_libraries[name] = candidate_archive
+            libraries[e2fsprogs_library_indices[name]] = candidate_archive
+            del source_library_hashes[key]
+            source_library_hashes[str(relative)] = record["candidate_sha256"]
     expected_symbols.update(f"rustbox_{symbol}_main" for symbol in util_dispatch.values())
     expected_symbols.add("rustbox_m4_main")
     expected_symbols.update({
@@ -3709,6 +3736,7 @@ def main() -> int:
             }
         },
         "source_library_sha256": source_library_hashes,
+        **({"e2fsprogs_dirhash_arrays": dirhash_arrays} if dirhash_arrays else {}),
         "bridge_raw_pointer_types": bridge_raw_types,
         "linked_private_inline_proofs": inline_proofs,
         **({"linked_second_inline_proofs": second_inline_proofs} if second_inline_proofs else {}),

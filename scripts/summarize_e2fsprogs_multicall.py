@@ -241,6 +241,15 @@ def main() -> int:
             raise RuntimeError("bitmap count tests do not match the release")
         evidence["shared_bitcount"] = bitmap
         evidence["bitcount_verification"] = tests
+    if fixed_arrays := link.get("e2fsprogs_dirhash_arrays"):
+        tests = json.loads((args.report_directory.parent / "multicall-dirhash.json").read_bytes())
+        debugfs, = (r for path, r in fixed_arrays.items() if Path(path).parent.name == "debugfs")
+        if (len(fixed_arrays) != 13 or tests["binary_sha256"] != binary_record["sha256"]
+                or tests["debugfs_archive_sha256"] != debugfs["candidate_sha256"]
+                or tests["canonical_comparisons"] != 98592 or tests["memcheck_comparisons"] != 14148
+                or tests["debugfs_commands"] != 12 or tests["canonical_image_sha256"] != tests["rustbox_image_sha256"]):
+            raise RuntimeError("fixed-array directory hash tests do not match this binary and archive")
+        evidence["dirhash_array_verification"] = tests
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n")
     print(json.dumps({

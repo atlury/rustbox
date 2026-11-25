@@ -18,6 +18,13 @@ from check_cargo_private_inlines import ROOT, digest
 SENSITIVE = {"diffutils", "gawk", "procps-ng", "shadow"}
 
 
+def all_packages():
+    scripts = (ROOT / "scripts").glob("test_*_multicall.sh")
+    names = {script.stem.removeprefix("test_").removesuffix("_multicall") for script in scripts}
+    names.remove("rustbox")  # The aggregate dispatcher is a separate gate.
+    return {"procps-ng" if name == "procps" else name for name in names}
+
+
 def changed_packages(before, after):
     return sorted({re.sub(r"-[0-9].*$", "", Path(path).relative_to("work/analysis").parts[0])
                    for path in added_receipts(before, after)})
@@ -28,7 +35,9 @@ def main():
     parser.add_argument("previous", type=Path)
     parser.add_argument("release", type=Path)
     parser.add_argument("binary", type=Path, help="host path to the unstripped Linux executable")
-    parser.add_argument("--package", action="append", help="rerun only this changed package (repeatable)")
+    parser.add_argument("--all-packages", action="store_true",
+                        help="test the new executable across all registered package suites after a live-code change")
+    parser.add_argument("--package", action="append", help="run only this selected package (repeatable)")
     parser.add_argument("--jobs", type=int, default=3)
     parser.add_argument("--output", type=Path, help="new directory for logs and the verified result")
     args = parser.parse_args()
@@ -37,10 +46,13 @@ def main():
     before_data = args.previous.read_bytes()
     release_data = args.release.read_bytes()
     release = json.loads(release_data)
-    packages = changed_packages(json.loads(before_data), release)
+    if args.all_packages:
+        packages = sorted(all_packages())
+    else:
+        packages = changed_packages(json.loads(before_data), release)
     if args.package:
         if set(args.package) - set(packages):
-            parser.error("requested package has no added cleanup receipt")
+            parser.error("requested package is outside the selected suites")
         packages = sorted(set(args.package))
     binary = args.binary.resolve()
     sha = release["binary"]["sha256"]

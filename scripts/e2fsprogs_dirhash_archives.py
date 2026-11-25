@@ -73,7 +73,8 @@ def prepare(link, manifest, repository):
     records = json.loads(manifest.read_bytes())
     controls = {name for name in link["linked_private_inline_proofs"]
                 if Path(name).parent.parent.name == "rustbox-e2fsprogs-shared"}
-    if records.keys() != controls or {Path(name).parent.name for name in controls} != set(CONSUMERS):
+    if (len(records) != len(CONSUMERS) or records.keys() != controls
+            or {Path(name).parent.name for name in controls} != set(CONSUMERS)):
         raise ValueError("directory hash manifest must cover the release's 13 staged engines")
 
     def verify(item):

@@ -221,7 +221,7 @@ E2fsprogs integration passes 112/112 canonical comparisons and all 32
 Valgrind paths; its 20 private namespaces rename 8,100 symbols after removing
 3,966 byte-identical Rust runtime members already provided by Procps-ng.
 Exact evidence is in `evidence/e2fsprogs-1.47.4-multicall.json`.  The resulting
-499-name executable is 43,034,336 bytes unstripped and 25,081,136 bytes
+499-name executable is 43,034,408 bytes unstripped and 25,081,136 bytes
 stripped. Sharing the Coreutils runtime with Gzip saved 289,264 stripped
 bytes. The linker compares 328 archive members byte-for-byte before sharing
 them. The exact hashes and
@@ -285,8 +285,8 @@ for 89 linked Rust archives. These cover the 20 E2fsprogs, 18 IPRoute2 and
 26 GNU Inetutils engines and 25 other package archives. A second compiler pass
 removed additional helpers in 58 of those archives. The declaration cleanup
 covers 89 archives, including 20 E2fsprogs engines. Across the linked applet
-sources the raw-pointer type count fell from **1,379,960 to 976,080**.
-Counting byte-identical Rust files once gives **697,177** remaining occurrences.
+sources the raw-pointer type count fell from **1,379,960 to 975,950**.
+Counting byte-identical Rust files once gives **697,167** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
 | Production change | Raw-pointer type occurrences removed |
@@ -309,9 +309,10 @@ The count of applets certified pointer-free is still zero.
 | Compiler-verified removal of unused C declarations in IPRoute2 `ip`, `tc` and ncurses | 15,319 |
 | Compiler-verified removal of unused C declarations across 12 more archives | 22,617 |
 | Compiler-verified removal of unused C declarations in 61 additional archives | 22,736 |
-| **Total** | **403,880** |
+| Fixed-array directory hashing in 13 E2fsprogs engines | 130 |
+| **Total** | **404,010** |
 
-E2fsprogs accounts for 198,053 remaining occurrences, down from 401,012.
+E2fsprogs accounts for 197,923 remaining occurrences, down from 401,012.
 IPRoute2 accounts for 196,050, down from 265,323. GNU Inetutils accounts
 for 78,019, down from 104,385. The curl crate accounts for 85,468, down
 from 96,855. GNU gzip accounts for 2,604, down from 4,086, and XZ Utils
@@ -319,8 +320,9 @@ accounts for 9,784, down from 22,239.
 The checksum replacement saved 135,168 stripped bytes. Removing unused source
 preserved the entire ELF and link map byte-for-byte in those cleanup releases.
 Sharing the live bitmap counter kept the stripped size at 25,081,136 bytes.
-The current unstripped SHA-256 is
-`aa3e3eea0e2ac5175759fa759dc44b2456a1cd710c854e2938ce18c66f8dc8e0`.
+The directory-hash conversion also kept the stripped size at 25,081,136 bytes
+and added 72 unstripped bytes. The current unstripped SHA-256 is
+`72ef35ed33a430244c0ae9ab73473daf86a1e18b4f60c6bb944a358d87d5aa6b`.
 
 | Code | Where it runs | Remaining work |
 |---|---|---|
@@ -328,20 +330,21 @@ The current unstripped SHA-256 is
 | IPRoute2 generic `parse_rtattr_flags` | Disposable `bridge` build | Audit the remaining callers before wider use |
 | E2fsprogs bitmap population count | Shared by the filesystem checker and resizer | Move the bitmap buffer owners to safe Rust to remove the remaining raw ABI argument |
 | E2fsprogs CRC16, CRC32C and big-endian CRC32 | One linked provider for each function, shared across 13 engines | Replace the raw buffers at the caller boundary as their owners are migrated |
-| E2fsprogs directory-hash TEA and half-MD4 transforms | Verified in a disposable full `debugfs` build | Promote the fixed-array calls after checking the linked engines and multicall |
+| E2fsprogs directory-hash TEA and half-MD4 transforms | Fixed-array borrows in all 13 linked engines | The outer directory-hash function still accepts C ABI buffers |
 
 Run `python3 -B scripts/rank_fixed_array_helpers.py work/analysis/rustbox-multicall-link.json`
 to find private functions in generated Rust whose pointer parameters occur
 only in constant-offset accesses. The scan groups identical definitions and
 ranks them by total accesses across the compiler-selected sources. Each
 candidate still needs a check of its callers, allocation sizes and aliasing.
+The current scan lists 32 definitions. The largest remaining candidate is
+E2fsprogs `utf8encode3`, with three byte writes per copy in 13 engines. See
+`evidence/rustbox-fixed-array-candidates.json` for the compiler-selected files.
 
-The two highest-ranked functions are the TEA and half-MD4 directory-hash
-transforms in E2fsprogs. Their only caller owns two distinct initialized stack
-arrays of four and eight words. The pilot borrows those arrays, replaces 40
-constant pointer offsets with array indexing, and preserves the arithmetic.
-Those two definitions occur in 13 linked engines. The pilot covers one engine
-and contributes zero to the production reduction above.
+In E2fsprogs the sole caller of the TEA and half-MD4 directory-hash transforms
+owns two distinct, initialized stack arrays of four and eight words. The
+transforms now borrow those arrays. Forty constant-offset dereferences become
+bounds-checked array accesses in each engine. The hash arithmetic is unchanged.
 
 Run `scripts/test_e2fsprogs_dirhash_arrays.sh` to rebuild the release
 `debugfs` control from its actual source selection, compile the candidate,
@@ -364,13 +367,30 @@ under their content hashes.
 python3 -B scripts/e2fsprogs_dirhash_archives.py work/analysis/rustbox-multicall-link.json work/analysis/dirhash-archive-trial --jobs 3
 ```
 
-The 13 rebuilt candidate archives are pinned in
-`batches/e2fsprogs-dirhash-arrays.json`. Replaying their compiler inputs
-accounts for 520 converted pointer accesses, 130 raw-pointer type occurrences
-and 52 raw borrows. A fresh build of `badblocks` reproduced its entire
-compiler receipt and archive. The candidate `e2fsck` and `debugfs` also
-matched canonical tools on a 1,200-entry indexed ext4 directory, including
-the complete image after `e2fsck -D`.
+The default multicall build reads the 13 converted archive hashes from
+`batches/e2fsprogs-dirhash-arrays.json` and checks their exported symbols.
+Across the 13 compiler-selected copies this replaces 520 pointer dereferences
+and removes 130 raw-pointer type occurrences and 52 raw borrows. A fresh build
+of `badblocks` reproduced its entire compiler receipt and archive.
+
+To verify a migration from the preceding release, save the previous link
+report, run `scripts/build_rustbox_multicall.sh`, and copy the resulting ELF
+out of the build volume. Run the following on the build host:
+
+```sh
+python3 -B scripts/verify_dirhash_release.py PREVIOUS_LINK_REPORT SAVED_ELF NEW_RESULTS_DIRECTORY --jobs 4
+```
+
+The verifier replays the compiler inputs against both inventories, runs the
+package suites, and exercises the linked `debugfs` and `e2fsck` against their
+canonical counterparts. To repeat the directory-hash checks alone, run
+`scripts/test_e2fsprogs_dirhash_arrays.sh --multicall`. This also compiles the
+two extracted functions with unsafe code forbidden and compares the complete
+filesystem images and index dumps after rebuilding a 1,200-entry ext4 directory.
+On this release the directory hashes matched canonical C in 98,592 direct
+comparisons and another 14,148 under Memcheck. All 12 public `debugfs` cases
+matched both output streams. The package and integration results for this
+binary are in `evidence/rustbox-dirhash-array-replays.json`.
 
 Reproduce the linked Rust source inventory with
 `python3 -B scripts/audit_linked_pointers.py work/analysis/rustbox-multicall-link.json`.
