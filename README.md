@@ -689,6 +689,13 @@ A further 680 array literals occur in modules with other casts. Passing
 archive and compiler sources.
 [Selection counts for five packages](evidence/static-array-c-string-selection.json)
 
+A clean curl build with just those three static-array modules reproduced
+the complete packed-manual archive. The independent replay checked all
+241 compiler inputs and counted 1,812 removed casts and 906 C-interface
+pointer extractions. The next native C-string release can enroll this
+subset alongside other byte-identical archives.
+[Verified curl static-array subset](evidence/curl-static-array-native-c-strings.json)
+
 To select cold-built C-string archives in the multicall, enroll them against
 the same compiler inputs as the intended parent release. When that release
 shares stdio layouts, rebuild overlapping literal pilots on top of those
