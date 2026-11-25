@@ -28,14 +28,14 @@ class Capture(BaseHTTPRequestHandler):
         pass
 
 
-def calendar_requests(engines):
+def calendar_requests(engines, extra_dates=()):
     inputs, times, _ = cases()
     valid = inputs.decode("latin1").splitlines()[:len(times)]
     checked = {}
     with HTTPServer(("127.0.0.1", 0), Capture) as server:
         origin = f"http://127.0.0.1:{server.server_port}"
         expected, command = [], []
-        for day, timestamp in zip(valid, times, strict=True):
+        for day, timestamp in [*zip(valid, times, strict=True), *extra_dates]:
             header = [formatdate(timestamp, usegmt=True)]
             for sign in ("", "-"):
                 path = f"/date/{len(expected)}"
@@ -61,7 +61,7 @@ def calendar_requests(engines):
     return dict(http_requests=checked, observed_headers_sha256=sha256(json.dumps(expected).encode()).hexdigest())
 
 
-def commands(elf, tmp):
+def commands(elf, tmp, extra_dates=()):
     oracle = ROOT / "work/analysis/curl-8.23.0/oracle"
     refs = json.loads((ROOT / "evidence/curl-8.23.0-oracle.json").read_bytes())["binaries"]
     engines = {}
@@ -73,7 +73,7 @@ def commands(elf, tmp):
     symlink = tmp / "curl"
     symlink.symlink_to(elf)
     engines.update(applet=[symlink], subcommand=[elf, "curl"])
-    return calendar_requests(engines)
+    return calendar_requests(engines, extra_dates)
 
 
 def namespace(path, residues, release, stage):

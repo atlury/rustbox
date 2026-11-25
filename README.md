@@ -1037,6 +1037,12 @@ both canonical builds on 3,010 dates. The checked-month archive repeated
 all 3,010 under Memcheck.
 [Compiler inputs and public baseline](evidence/curl-checked-parser-composition.json)
 
+At the HTTP boundary, both canonical curl builds and both dispatch paths
+of the checked-FTP multicall emitted the expected conditional headers for
+206 requests each. The cases exercise month spellings and seven named time
+zones east and west of UTC.
+[HTTP header baseline](evidence/curl-timezone-http-baseline.json)
+
 To reproduce the combined compiler inputs, start with the recorded
 pre-string link and select its verified curl parent.
 
