@@ -674,6 +674,15 @@ cases against each canonical compiler.
 [Exhaustive month comparison](evidence/curl-month-exhaustive.json)
 [Archive, date API and command results](evidence/curl-month-array-pilot.json)
 
+In the 499-name multicall preview, a local HTTP server captured both
+`If-Modified-Since` and `If-Unmodified-Since` for every one of the 96
+month spellings. All 192 requests per invocation matched independently
+calculated GMT headers for GCC curl, Clang curl, the `curl` symlink and
+`rustbox curl`. The isolated linker reproduced the entire packed-manual
+parent before substituting the date reader. Its stripped candidate was
+24,961,760 bytes, 16 bytes smaller than that parent.
+[Multicall HTTP results](evidence/curl-month-array-multicall.json)
+
 ```sh
 scripts/run_multicall_tool.sh python3 -B /work/tests/curl-calendar/exhaustive.py
 python3 -B scripts/build_curl_month_pilot.py --link "$link" --output "$pilot"

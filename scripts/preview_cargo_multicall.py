@@ -27,8 +27,12 @@ def preview(parent, log, pilot, output, qualified, namespace, exercise):
     build = Path("/rustbox-coreutils/canonical-clang-no-security-compdb")
     if digest(build / "src/rustbox") != release["binary"]["sha256"]:
         raise ValueError("installed ELF differs from the specified parent")
-    residues = sorted((ROOT.joinpath(*key.parts[:3]) / "hybrid-artifacts/c-residue").glob("*.o"))
-    if len(residues) != 4 or any(release["source_library_sha256"][str(p.relative_to(ROOT))] != digest(p) for p in residues):
+    residue_dir = Path(*key.parts[:3]) / "hybrid-artifacts/c-residue"
+    inputs = release["source_library_sha256"]
+    residues = sorted(ROOT / name for name in inputs if Path(name).parent == residue_dir and Path(name).suffix == ".o")
+    if set(residues) != set((ROOT / residue_dir).glob("*.o")) or any(
+        inputs[str(p.relative_to(ROOT))] != digest(p) for p in residues
+    ):
         raise ValueError("package C linkage inputs differ from the specified parent")
     checks = {}
     with TemporaryDirectory() as scratch, TemporaryDirectory(dir=output.parent) as workspace:
