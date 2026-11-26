@@ -1720,6 +1720,11 @@ canonical lookup observations, 72 Memcheck runs and 36 public `ip` route
 filters. Together the archives remove 4,770 raw-pointer type occurrences.
 [Per-engine checks and compiled source hashes](evidence/iproute2-dsfield-archives.json)
 
+A 499-name multicall containing all 18 rebuilt DS field engines matched both canonical compilers on
+288 IPRoute2 command comparisons and 144 DS field filter comparisons in four
+configuration profiles. Its stripped size was 24,983,632 bytes.
+[Full executable comparison](evidence/iproute2-dsfield-all-multicall.json)
+
 The DS field multicall driver checks the 21 IPRoute2 command names and
 runs each route filter through symlink and subcommand dispatch against both
 canonical compilers. The routing parent passed all 288 general comparisons
