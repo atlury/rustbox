@@ -1,10 +1,10 @@
 {
   "all": {
     "archives": 127,
-    "as_ptr_calls": 5240,
+    "as_ptr_calls": 32426,
     "files": 4908,
     "raw_borrows": 84206,
-    "raw_pointer_type_tokens": 933292,
+    "raw_pointer_type_tokens": 878920,
     "slices_from_raw_parts": 4,
     "standalone_objects": 3
   },
@@ -1525,9 +1525,9 @@
     }
   },
   "counting_identical_files_once": {
-    "as_ptr_calls": 4477,
-    "raw_borrows": 61124,
-    "raw_pointer_type_tokens": 683588,
+    "as_ptr_calls": 31230,
+    "raw_borrows": 61155,
+    "raw_pointer_type_tokens": 630382,
     "slices_from_raw_parts": 4
   },
   "curl_manual_deltas": {
@@ -1950,7 +1950,45 @@
       "slices_from_raw_parts": 0
     }
   },
-  "link_report_sha256": "d4ebd5ec2208e39e5557b7ea214d9a0c50a91e2226e4fd4050868096d01df14e",
+  "link_report_sha256": "8c22defce63118218d3f2e8a2d0089c6309fde4775e48b5baf6ce547d40fcb1e",
+  "native_c_string_conversions": {
+    "work/analysis/acl-2.4.0/translations/c2rust-0.22.1/acl-2.4.0-stable/target/release/libacl_2_4_0_normalized_audit.a": 230,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-01-stable/target/release/libcoreutils_small_01_reachable.a": 663,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-02-stable/target/release/libcoreutils_small_02_normalized_reachable.a": 672,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-03-stable/target/release/libcoreutils_small_03_reachable.a": 87,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-04-stable/target/release/libcoreutils_small_04_normalized_reachable.a": 1020,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-05-stable/target/release/libcoreutils_small_05_normalized_reachable.a": 1059,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-06-stable/target/release/libcoreutils_small_06_normalized_reachable.a": 1256,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-09-stable/target/release/libcoreutils_small_09_normalized_reachable.a": 1520,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-10-stable/target/release/libcoreutils_small_10_normalized_reachable.a": 423,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-11-stable/target/release/libcoreutils_small_11_normalized_reachable.a": 1090,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-12-stable/target/release/libcoreutils_small_12_reachable.a": 84,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-13-stable/target/release/libcoreutils_small_13_reachable.a": 107,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-14-stable/target/release/libcoreutils_small_14_normalized_reachable.a": 411,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-15-stable/target/release/libcoreutils_small_15_normalized_reachable.a": 378,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-16-stable/target/release/libcoreutils_small_16_normalized_reachable.a": 382,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-17-stable/target/release/libcoreutils_small_17_normalized_reachable.a": 145,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-18-stable/target/release/libcoreutils_small_18_normalized_reachable.a": 102,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-19-stable/target/release/libcoreutils_small_19_normalized_reachable.a": 233,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-21-stable/target/release/libcoreutils_small_21_normalized_reachable.a": 109,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-22-stable/target/release/libcoreutils_small_22_normalized_reachable.a": 181,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-23-stable/target/release/libcoreutils_small_23_normalized_reachable.a": 323,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/true-false-stable/target/release/libtrue_false_reachable.a": 72,
+    "work/analysis/flex-2.6.4/translations/c2rust-0.22.1/flex-2.6.4-stable/target/release/libflex_2_6_4_normalized_audit.a": 5271,
+    "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a": 240,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-01-stable/target/release/libutil_linux_small_01_normalized_reachable.a": 308,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-02-stable/target/release/libutil_linux_small_02_normalized_reachable.a": 295,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-03-stable/target/release/libutil_linux_small_03_normalized_reachable.a": 502,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-04-stable/target/release/libutil_linux_small_04_normalized_reachable.a": 493,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-05-stable/target/release/libutil_linux_small_05_normalized_reachable.a": 645,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-06-stable/target/release/libutil_linux_small_06_normalized_reachable.a": 846,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-07-stable/target/release/libutil_linux_small_07_normalized_reachable.a": 1005,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-08-stable/target/release/libutil_linux_small_08_normalized_reachable.a": 160,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-09-stable/target/release/libutil_linux_small_09_normalized_reachable.a": 1137,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-10-stable/target/release/libutil_linux_small_10_normalized_reachable.a": 2139,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-11-stable/target/release/libutil_linux_small_11_normalized_reachable.a": 1823,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-12-stable/target/release/libutil_linux_small_12_normalized_reachable.a": 1775
+  },
   "non_applet_archive_inputs": [
     "/rustbox-gzip/normalized-clang/lib/libgzip.a",
     "/rustbox-inetutils/normalized-clang/lib/libgnu_a-printf-args.o",
@@ -1972,10 +2010,10 @@
   "packages": {
     "acl-2.4.0": {
       "archives": 1,
-      "as_ptr_calls": 28,
+      "as_ptr_calls": 258,
       "files": 74,
       "raw_borrows": 212,
-      "raw_pointer_type_tokens": 4254,
+      "raw_pointer_type_tokens": 3794,
       "slices_from_raw_parts": 0
     },
     "attr-2.6.0": {
@@ -2004,10 +2042,10 @@
     },
     "coreutils-9.12": {
       "archives": 24,
-      "as_ptr_calls": 1671,
+      "as_ptr_calls": 11988,
       "files": 206,
       "raw_borrows": 2762,
-      "raw_pointer_type_tokens": 52084,
+      "raw_pointer_type_tokens": 31450,
       "slices_from_raw_parts": 0
     },
     "curl-8.23.0": {
@@ -2053,10 +2091,10 @@
     },
     "flex-2.6.4": {
       "archives": 1,
-      "as_ptr_calls": 13,
+      "as_ptr_calls": 5284,
       "files": 23,
       "raw_borrows": 410,
-      "raw_pointer_type_tokens": 13392,
+      "raw_pointer_type_tokens": 2850,
       "slices_from_raw_parts": 0
     },
     "gawk-5.4.0": {
@@ -2077,10 +2115,10 @@
     },
     "gzip-1.14": {
       "archives": 1,
-      "as_ptr_calls": 14,
+      "as_ptr_calls": 254,
       "files": 66,
       "raw_borrows": 481,
-      "raw_pointer_type_tokens": 2136,
+      "raw_pointer_type_tokens": 1656,
       "slices_from_raw_parts": 0
     },
     "inetutils-2.8": {
@@ -2189,10 +2227,10 @@
     },
     "util-linux-2.42.4": {
       "archives": 14,
-      "as_ptr_calls": 1090,
+      "as_ptr_calls": 12218,
       "files": 161,
       "raw_borrows": 5038,
-      "raw_pointer_type_tokens": 62947,
+      "raw_pointer_type_tokens": 40691,
       "slices_from_raw_parts": 0
     },
     "xz-5.8.4": {
@@ -2271,5 +2309,5 @@
     "resize2fs": 5,
     "tune2fs": 5
   },
-  "unique_files": 2932
+  "unique_files": 2937
 }

@@ -295,8 +295,8 @@ for 89 linked Rust archives. These cover the 20 E2fsprogs, 18 IPRoute2 and
 26 GNU Inetutils engines and 25 other package archives. A second compiler pass
 removed additional helpers in 58 of those archives. The declaration cleanup
 covers 89 archives, including 20 E2fsprogs engines. Across the linked applet
-sources the raw-pointer type count fell from **1,379,960 to 933,292**.
-Counting byte-identical Rust files once gives **683,588** remaining occurrences.
+sources the raw-pointer type count fell from **1,379,960 to 878,920**.
+Counting byte-identical Rust files once gives **630,382** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
 The IPRoute2 `ss` pilot replaces the netlink protocol name table and removes
@@ -335,12 +335,13 @@ integration. [Pilot evidence](evidence/iproute2-netlink-protocols-pilot.json)
 | IPRoute2 netlink protocol names across 18 engines | 5,670 |
 | Packed curl manual and its readers | 11,413 |
 | Shared glibc FILE layouts in 42 byte-identical archives | 10,260 |
-| **Total** | **446,668** |
+| Compiler-checked C-string literals in 36 byte-identical archives | 54,372 |
+| **Total** | **501,040** |
 
 E2fsprogs accounts for 197,728 remaining occurrences, down from 401,012.
 IPRoute2 accounts for 175,260, down from 265,323. GNU Inetutils accounts
 for 72,637, down from 104,385. The curl crate accounts for 74,055, down
-from 96,855. GNU gzip accounts for 2,136, down from 4,086, and XZ Utils
+from 96,855. GNU gzip accounts for 1,656, down from 4,086, and XZ Utils
 accounts for 9,478, down from 22,239.
 The checksum replacement saved 135,168 stripped bytes. Removing unused source
 preserved the entire ELF and link map byte-for-byte in those cleanup releases.
@@ -1112,6 +1113,12 @@ selection is 1,360 casts. The source audit replayed both selections and
 checked the 680 additional C-interface pointer extractions.
 [Verified extension and overlap](evidence/curl-static-array-c-string-extension.json)
 
+The default build selects 27,186 native C strings across 36 archives.
+Their 54,372 removed explicit casts leave 27,186 typed pointer extractions at
+C interfaces. The ELF and link map reproduced the previous release. Public
+dispatch and all 14,022 batch comparisons passed again.
+[Linked release evidence](evidence/rustbox-native-c-strings-replays.json)
+
 To select cold-built C-string archives in the multicall, enroll them against
 the same compiler inputs as the intended parent release. When that release
 shares stdio layouts, rebuild overlapping literal pilots on top of those
@@ -1427,8 +1434,8 @@ scripts/qualify_pointer_release.sh --curl-manual NETLINK_LINK NEW_DIRECTORY NETL
 To find work that can be reused across engines, run
 `python3 -B scripts/rank_shared_applet_modules.py LINK_REPORT --limit 20`.
 The scanner groups compiler-selected modules by package and exact source
-bytes and selects groups containing a public C-ABI function. Across 175
-groups it measures 230,352 raw-pointer type occurrences in copies beyond the
+bytes and selects groups containing a public C-ABI function. Across 173
+groups it measures 229,347 raw-pointer type occurrences in copies beyond the
 first archive. IPRoute2's `rt_names.rs` contains 1,389 occurrences in each of
 17 identical copies, or 22,224 beyond the first. Two remaining 256-slot name tables in
 each copy contain 490 explicit null initializers. These entries contribute
