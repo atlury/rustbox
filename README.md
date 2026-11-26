@@ -2755,6 +2755,8 @@ by 20 explicit raw-pointer type occurrences. The shared transformation
 reproduces the previously checked GNU patch compiler inputs byte for byte.
 [Diffutils source replay](evidence/diffutils-packed-help-sources.json)
 
+Both packed GNU help implementations also ran in one 499-name executable. Each public dispatch mode matched both canonical compilers for all five utilities, including translated help. The candidate measured 24,957,680 bytes stripped. [Results](evidence/diffutils-patch-packed-help-multicall.json)
+
 The rebuilt archive matched GCC and Clang on 48 file cases each and 24 help and error profiles across four commands. French and German runs checked actual translated option text from the shipped GNU catalogs. All 16 Memcheck runs passed. [Results](evidence/diffutils-packed-help-archive.json)
 
 GNU patch 2.8 is pinned to its canonical signed release.  The exact production
