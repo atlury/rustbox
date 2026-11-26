@@ -15,12 +15,12 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from check_cargo_private_inlines import digest
 
 
-def compare(programs, work, row, *, memcheck_command=None):
+def compare(programs, work, row, *, memcheck_command=None, argv_zero="./patch"):
     public = {}
     for cc in ("gcc", "clang"):
         report = work / (cc + ".json")
         subprocess.run([sys.executable, ROOT / "tests/patch-oracle-differential.py", "--gcc", programs[cc],
-                        "--clang", programs["candidate"], "--output", report], check=True, stdout=subprocess.DEVNULL)
+                        "--clang", programs["candidate"], "--argv-zero", argv_zero, "--output", report], check=True, stdout=subprocess.DEVNULL)
         data = json.loads(report.read_bytes())
         if not data["gcc_clang_exact"] or not data["records"] or not all(r["exact"] for r in data["records"]):
             raise ValueError("patch file application differs")

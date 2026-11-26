@@ -2702,6 +2702,8 @@ Memcheck runs passed. Reproduce the 69 compiler inputs with
 `scripts/build_patch_help_catalog.py --prepare-parent LINK` and replay or
 cold-build against that saved parent. [GNU patch archive results](evidence/patch-packed-help-archive.json)
 
+The full 499-name executable passed 112 file comparisons across both dispatch modes and both canonical compilers. Each mode also reproduced the canonical upstream outcome of 47 passes and two expected failures, including a pass for the ed-style fixture. The candidate measured 24,961,776 bytes stripped. [Results](evidence/patch-packed-help-multicall.json)
+
 The same transformation covers 120 GNU Diffutils message IDs across
 `cmp`, `diff`, `diff3` and `sdiff`. Each applet still calls gettext for
 individual messages. The source replay removes four traversal cursors and

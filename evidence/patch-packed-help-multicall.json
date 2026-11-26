@@ -1,0 +1,110 @@
+{
+  "candidate": {
+    "archive_sha256": "4928ef74b7d318060c20f1b71db4ba07c8a594e36f6f8cd4c739c05d1b227d19",
+    "bytes": 42450832,
+    "sha256": "8537cdb1a29c69efae8a56d202ab9e357d84f7dc7ad408a077e8ed4c7d72c6a9",
+    "stripped_bytes": 24961776,
+    "stripped_sha256": "9eaaa73c2b85951b17c5f801520ff14e8daae4783fc1849588569c073e9cdd3e"
+  },
+  "linker_command_sha256": "411fb9679311197f0273b170625142d2fa40e9016b74ba6255e2c4fe02f7183e",
+  "parent": {
+    "archive_sha256": "f1e490fe25bd6115ddaf22e699b49094d1f505f2e0d039abb233309f41108516",
+    "bytes": 42450832,
+    "sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+    "stripped_bytes": 24961776,
+    "stripped_sha256": "a12c31721cf685e3827f4ea859583a60d670d3ead4a6fd71e649798dab900913"
+  },
+  "parent_link_report_sha256": "e4cccf40558c6b77560f9d99b50e34eb2e0a9ebb26727cb07beb6bcbaf77615a",
+  "public": {
+    "applet": {
+      "file_cases": {
+        "clang": 28,
+        "gcc": 28
+      },
+      "help_or_error_cases": 60,
+      "locales": [
+        "C",
+        "C.utf8",
+        "POSIX",
+        "am_ET.utf8",
+        "ar_SY.utf8",
+        "en_US.utf8",
+        "fa_IR.utf8",
+        "fi_FI.utf8",
+        "fr_FR",
+        "fr_FR.iso88591",
+        "fr_FR.utf8",
+        "ga_IE.utf8",
+        "gv_GB.utf8",
+        "ja_JP.eucjp",
+        "sv_SE",
+        "sv_SE.iso88591",
+        "sv_SE.utf8",
+        "th_TH.utf8",
+        "tr_TR.utf8",
+        "zh_CN.gb18030"
+      ],
+      "memcheck_runs": 3,
+      "outputs_sha256": "6cee7835fb123be84adc2de3237b94b51bb9752535d4089b38f3acda68257cda"
+    },
+    "subcommand": {
+      "file_cases": {
+        "clang": 28,
+        "gcc": 28
+      },
+      "help_or_error_cases": 60,
+      "locales": [
+        "C",
+        "C.utf8",
+        "POSIX",
+        "am_ET.utf8",
+        "ar_SY.utf8",
+        "en_US.utf8",
+        "fa_IR.utf8",
+        "fi_FI.utf8",
+        "fr_FR",
+        "fr_FR.iso88591",
+        "fr_FR.utf8",
+        "ga_IE.utf8",
+        "gv_GB.utf8",
+        "ja_JP.eucjp",
+        "sv_SE",
+        "sv_SE.iso88591",
+        "sv_SE.utf8",
+        "th_TH.utf8",
+        "tr_TR.utf8",
+        "zh_CN.gb18030"
+      ],
+      "memcheck_runs": 3,
+      "outputs_sha256": "6cee7835fb123be84adc2de3237b94b51bb9752535d4089b38f3acda68257cda"
+    }
+  },
+  "upstream": {
+    "candidate": {
+      "cases_per_mode": 49,
+      "elf_sha256": "8537cdb1a29c69efae8a56d202ab9e357d84f7dc7ad408a077e8ed4c7d72c6a9",
+      "expected_failures": [
+        "context-format",
+        "dash-o-append"
+      ],
+      "modes": [
+        "applet",
+        "subcommand"
+      ],
+      "passed_per_mode": 47
+    },
+    "control": {
+      "cases_per_mode": 49,
+      "elf_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "expected_failures": [
+        "context-format",
+        "dash-o-append"
+      ],
+      "modes": [
+        "applet",
+        "subcommand"
+      ],
+      "passed_per_mode": 47
+    }
+  }
+}

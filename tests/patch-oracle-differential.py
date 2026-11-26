@@ -42,7 +42,7 @@ def snapshot(root: Path) -> list[dict[str, object]]:
     return records
 
 
-def run(binary: Path, case: Case, root: Path) -> dict[str, object]:
+def run(binary: Path, case: Case, root: Path, argv_zero: str = "./patch") -> dict[str, object]:
     runner = root / "patch"
     runner.symlink_to(binary)
     for name, payload in case.files:
@@ -60,7 +60,8 @@ def run(binary: Path, case: Case, root: Path) -> dict[str, object]:
     environment = dict(os.environ)
     environment.update({"LC_ALL": "C", "TZ": "UTC", "POSIXLY_CORRECT": "1"})
     result = subprocess.run(
-        ["./patch", *arguments],
+        [argv_zero, *arguments],
+        executable="./patch",
         cwd=root,
         input=input_bytes,
         stdout=subprocess.PIPE,
@@ -118,6 +119,7 @@ def main() -> int:
     parser.add_argument("--gcc", type=Path, required=True)
     parser.add_argument("--clang", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--argv-zero", choices=("./patch", "patch"), default="./patch")
     args = parser.parse_args()
     records = []
     with tempfile.TemporaryDirectory(prefix="rustbox-patch-differential-") as temporary:
@@ -127,8 +129,8 @@ def main() -> int:
             clang_root = base / f"{index:02d}-clang"
             gcc_root.mkdir()
             clang_root.mkdir()
-            gcc = run(args.gcc.resolve(), case, gcc_root)
-            clang = run(args.clang.resolve(), case, clang_root)
+            gcc = run(args.gcc.resolve(), case, gcc_root, args.argv_zero)
+            clang = run(args.clang.resolve(), case, clang_root, args.argv_zero)
             exact = gcc == clang
             records.append({"index": index, "name": case.name, "exact": exact, "result": gcc})
             if not exact:
