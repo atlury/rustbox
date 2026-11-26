@@ -1017,6 +1017,13 @@ checks raw and decoded arguments, error returns, callback keys and values,
 and warnings. Eight Memcheck runs passed across the canonical builds,
 original and candidate. [Pkgconf archive results](evidence/pkgconf-ctype-parser-archive.json)
 
+All five pkgconf commands passed 220 comparisons in the complete 499-name
+candidate through symlink and subcommand dispatch. Across all 14 upstream
+fixture suites, the control and candidate each passed 430 cases per dispatch
+mode. The upstream runner skipped four Windows sysroot cases on Linux.
+The stripped candidate measured 24,961,776 bytes.
+[Pkgconf multicall and fixture results](evidence/pkgconf-ctype-multicall.json)
+
 An inventory of the shared-stdio release found 527 table-read expressions
 with an explicit unsigned-byte index in 131 modules across 44 archives.
 All uses matched the narrow spelling in 67 modules. The first selected

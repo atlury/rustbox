@@ -45,7 +45,7 @@ def preview(parent, log, pilot, output, qualified, namespace, exercise):
     preview_link(parent, parent_bytes, log, output, prepare, exercise)
 
 
-def preview_link(parent, parent_bytes, log, output, prepare, exercise):
+def preview_link(parent, parent_bytes, log, output, prepare, exercise, *, direct_archives=()):
     """Replay the full linker command with explicitly selected inputs and compare the complete control ELF."""
     release = json.loads(parent_bytes)
     if output.exists():
@@ -67,7 +67,8 @@ def preview_link(parent, parent_bytes, log, output, prepare, exercise):
                 raise ValueError("expected distinct linker inputs and candidate archives")
             cmd = [str(build / "lib/.rustbox-libcoreutils.a") if x == "lib/libcoreutils.a" else x for x in raw[0]]
             for obj in objects:
-                old = build / obj.relative_to(stage)
+                relative = obj.relative_to(stage)
+                old = (ROOT if relative in direct_archives else build) / relative
                 if cmd.count(str(old)) != 1 or ((name == "parent" or obj not in changed) and digest(obj) != digest(old)):
                     raise ValueError(f"unexpected previous linker input {obj.name}")
                 cmd[cmd.index(str(old))] = str(obj)

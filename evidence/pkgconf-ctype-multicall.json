@@ -1,0 +1,98 @@
+{
+  "candidate": {
+    "archive_sha256": "da40853ec2c131be68f9784e03ce4d640822d20d4509173f45b7e76d8b31d4fe",
+    "bytes": 42450880,
+    "sha256": "b260064257ed644f2fad6921f9893ef925484a21ef2da399bf7a3b71198a3be1",
+    "stripped_bytes": 24961776,
+    "stripped_sha256": "0223d51665a6b212250a969ac89b275e92b43a10b113476248cf161d89a706ff"
+  },
+  "commands": {
+    "applet-clang": 55,
+    "applet-gcc": 55,
+    "subcommand-clang": 55,
+    "subcommand-gcc": 55
+  },
+  "linker_command_sha256": "411fb9679311197f0273b170625142d2fa40e9016b74ba6255e2c4fe02f7183e",
+  "parent": {
+    "archive_sha256": "d3e6b0b4d941a034d0b40511835bf1177dc62bfa38bf05287fad2775a9f2da26",
+    "bytes": 42450832,
+    "sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+    "stripped_bytes": 24961776,
+    "stripped_sha256": "a12c31721cf685e3827f4ea859583a60d670d3ead4a6fd71e649798dab900913"
+  },
+  "parent_link_report_sha256": "e4cccf40558c6b77560f9d99b50e34eb2e0a9ebb26727cb07beb6bcbaf77615a",
+  "upstream_fixtures": {
+    "executables": [
+      "parent",
+      "candidate"
+    ],
+    "modes": [
+      "applet",
+      "subcommand"
+    ],
+    "outcomes_sha256": "8955ede6d44c5314524e71822bc3fa8fb9c91ffbc09397da5dfc5e6e1b7a590f",
+    "suites": {
+      "basic": {
+        "passed": 64,
+        "skipped": []
+      },
+      "bomtool": {
+        "passed": 21,
+        "skipped": []
+      },
+      "cli": {
+        "passed": 79,
+        "skipped": []
+      },
+      "link-abi": {
+        "passed": 7,
+        "skipped": []
+      },
+      "ordering": {
+        "passed": 14,
+        "skipped": []
+      },
+      "parser": {
+        "passed": 51,
+        "skipped": []
+      },
+      "pccritic": {
+        "passed": 11,
+        "skipped": []
+      },
+      "personality": {
+        "passed": 4,
+        "skipped": []
+      },
+      "sbom": {
+        "passed": 7,
+        "skipped": []
+      },
+      "solver": {
+        "passed": 66,
+        "skipped": []
+      },
+      "spdxtool": {
+        "passed": 28,
+        "skipped": []
+      },
+      "symlink": {
+        "passed": 24,
+        "skipped": []
+      },
+      "sysroot": {
+        "passed": 41,
+        "skipped": [
+          "windows-drive-path-no-inject.test",
+          "windows-sysroot-inject.test",
+          "windows-system-libdir-filter.test",
+          "windows-top-builddir.test"
+        ]
+      },
+      "tuple": {
+        "passed": 13,
+        "skipped": []
+      }
+    }
+  }
+}
