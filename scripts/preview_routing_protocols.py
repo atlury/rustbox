@@ -85,6 +85,37 @@ def dsfield_commands(elf, stage):
     return dict(checked, dsfield_profiles=profiles, dsfield_public_comparisons=len(PROFILES) * len(QUERIES) * 4)
 
 
+def qualified_engines(release, selected, wanted_names, resolve):
+    """Map exactly the named engine replacements into both complete link commands."""
+    package_inputs = {key: value for key, value in release["source_library_sha256"].items()
+                      if Path(key).parts[2] == "iproute2-7.3.0"}
+    inputs = {Path(key).name: (key, value) for key, value in package_inputs.items()}
+    names = {f"lib{name}_audit.a" for name in IPROUTE2_PROGRAMS}
+    if inputs.keys() != names or len(package_inputs) != len(names):
+        raise ValueError("unexpected IPRoute2 engine archives")
+    if set(selected) != {inputs[f"lib{name}_audit.a"][0] for name in wanted_names}:
+        raise ValueError("incomplete selection of verified engines")
+
+    def prepare(which, stage):
+        archives, hashes = {}, {}
+        for name in IPROUTE2_PROGRAMS:
+            key, expected = inputs[f"lib{name}_audit.a"]
+            archive = ROOT / key
+            if key in selected:
+                candidate, candidate_sha = resolve(name, key, expected)
+                if which == "candidate":
+                    archive, expected = candidate, candidate_sha
+            if digest(archive) != expected:
+                raise ValueError(f"wrong {name} {which} archive")
+            archives[name], hashes[name] = archive, expected
+        mapped, symbols = namespace_iproute2_programs(archives, stage)
+        if symbols != release["iproute2_namespaced_symbols"]:
+            raise ValueError("IPRoute2 public symbol isolation differs from the selected release")
+        changed = {mapped[name] for name, archive in archives.items() if inputs[archive.name][0] in selected}
+        return list(mapped.values()), changed, {"engine_archive_sha256": hashes}
+    return prepare
+
+
 def preview(parent, log, batch, output, single, *, dsfield=False):
     parent_bytes = parent.read_bytes()
     release = json.loads(parent_bytes)
@@ -99,42 +130,20 @@ def preview(parent, log, batch, output, single, *, dsfield=False):
     baseline = json.loads((ROOT / "evidence" / baseline_name).read_bytes())
     if qualified["link_report_sha256"] != digest(parent) or qualified["binary_sha256"] != release["binary"]["sha256"]:
         raise ValueError("routing protocol comparisons belong to a different parent")
-    package_inputs = {key: value for key, value in release["source_library_sha256"].items()
-                      if Path(key).parts[2] == "iproute2-7.3.0"}
-    inputs = {Path(key).name: (key, value) for key, value in package_inputs.items()}
-    names = {f"lib{name}_audit.a" for name in IPROUTE2_PROGRAMS}
-    if inputs.keys() != names or len(package_inputs) != len(names):
-        raise ValueError("unexpected IPRoute2 engine archives")
     selected = qualified["verified"]
-    wanted = {inputs["libip_audit.a"][0]} if single else {key for key, _ in inputs.values()}
-    if set(selected) != wanted:
-        raise ValueError("incomplete selection of verified engines")
 
-    def prepare(which, stage):
-        archives, hashes = {}, {}
-        for name in IPROUTE2_PROGRAMS:
-            key, expected = inputs[f"lib{name}_audit.a"]
-            archive = ROOT / key
-            if key in selected:
-                row = selected[key]
-                directory = batch / archive.stem
-                compared = json.loads((directory / "comparison.json").read_bytes())
-                if (compared != row or row["archive"] != key or row["control_sha256"] != expected
-                        or row["control_binary_sha256"] != release["binary"]["sha256"]
-                        or any(row[field] != baseline[field] for field in fields)
-                        or row["profiles"] != expected_profiles(baseline, name == "ip", dsfield=dsfield)):
-                    raise ValueError(f"incomplete archive qualification for {name}")
-                if which == "candidate":
-                    archive = directory / archive.name
-                    expected = row["candidate_sha256"]
-            if digest(archive) != expected:
-                raise ValueError(f"wrong {name} {which} archive")
-            archives[name], hashes[name] = archive, expected
-        mapped, symbols = namespace_iproute2_programs(archives, stage)
-        if symbols != release["iproute2_namespaced_symbols"]:
-            raise ValueError("IPRoute2 public symbol isolation differs from the selected release")
-        changed = {mapped[name] for name, archive in archives.items() if inputs[archive.name][0] in selected}
-        return list(mapped.values()), changed, {"engine_archive_sha256": hashes}
+    def resolve(name, key, expected):
+        row = selected[key]
+        directory = batch / Path(key).stem
+        compared = json.loads((directory / "comparison.json").read_bytes())
+        if (compared != row or row["archive"] != key or row["control_sha256"] != expected
+                or row["control_binary_sha256"] != release["binary"]["sha256"]
+                or any(row[field] != baseline[field] for field in fields)
+                or row["profiles"] != expected_profiles(baseline, name == "ip", dsfield=dsfield)):
+            raise ValueError(f"incomplete archive qualification for {name}")
+        return directory / Path(key).name, row["candidate_sha256"]
+
+    prepare = qualified_engines(release, selected, ["ip"] if single else IPROUTE2_PROGRAMS, resolve)
     preview_link(parent, parent_bytes, log, output, prepare, dsfield_commands if dsfield else commands)
 
 
