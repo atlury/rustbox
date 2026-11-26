@@ -1692,6 +1692,15 @@ candidate occurrences. Only the `ip` build is counted in this pilot.
 [Canonical observations](evidence/iproute2-dsfield-pilot.json) ·
 [Per-engine source estimates](evidence/iproute2-dsfield-source-candidates.json)
 
+A source replay replaced the IPRoute2 terminal color palettes in all 18 engine
+archives. Each palette now stores seven bounded eight-byte rows for each
+background brightness. The printer takes a row address at the `fprintf`
+boundary. Across the 18 compiler selections this removes 288 static pointer
+slots, 54 mutable tables and 18 explicit raw-pointer types after the earlier
+C-string conversion. Run `scripts/build_iproute2_colors.py --link LINK
+--all-replay` against the checked routing-protocol parent to reproduce the
+source results. [Color palette source hashes](evidence/iproute2-color-palette-sources.json)
+
 All 18 IPRoute2 engine archives then reproduced their controls and passed
 the same comparisons on their rebuilt DS field readers. This covers 391,968
 canonical lookup observations, 72 Memcheck runs and 36 public `ip` route
