@@ -44,6 +44,16 @@ def substitute(crate, sources):
                               raw_pointer_types_removed=len(POINTER.findall(data))-len(POINTER.findall(new)))
 
 
+def build(link, output, key):
+    from cargo_source_parent import cargo_origin, direct_crate
+    origin = cargo_origin(json.loads(link.read_bytes()), key)
+    if direct_crate(origin) is None:
+        stage_selected_archive(link, output, key, MARKER, Path(__file__).name)
+    else:
+        from build_staged_c_strings import build as stage_direct
+        stage_direct(link, output, key, color_palette=True)
+
+
 def replay_all(link):
     from link_rustbox_multicall import IPROUTE2_PROGRAMS
     raw = link.read_bytes()
@@ -77,6 +87,6 @@ if __name__ == "__main__":
     elif a.link and a.archive and a.replay:
         print(json.dumps(replay(a.link,a.archive,a.output,transform=substitute),indent=2,sort_keys=True))
     elif a.link and a.archive and a.output:
-        stage_selected_archive(a.link,a.output,a.archive,MARKER,Path(__file__).name)
+        build(a.link,a.output,a.archive)
     else:
         p.error("supply the target archive and its link report")
