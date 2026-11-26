@@ -1701,6 +1701,14 @@ C-string conversion. Run `scripts/build_iproute2_colors.py --link LINK
 --all-replay` against the checked routing-protocol parent to reproduce the
 source results. [Color palette source hashes](evidence/iproute2-color-palette-sources.json)
 
+The original `ip` archive and the GCC and Clang builds of canonical
+`lib/color.c` matched all 336 attribute cases per build. These cover seven
+attributes, twelve background settings and four color/JSON modes. The probe
+compares the formatted bytes, the reported length and the null-format return.
+Eight public loopback queries matched, including forced color on dark and
+light backgrounds. All three baseline Memcheck runs passed.
+[Canonical palette and public-output baselines](evidence/iproute2-color-palette-baseline.json)
+
 All 18 IPRoute2 engine archives then reproduced their controls and passed
 the same comparisons on their rebuilt DS field readers. This covers 391,968
 canonical lookup observations, 72 Memcheck runs and 36 public `ip` route
