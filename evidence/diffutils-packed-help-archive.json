@@ -1,0 +1,326 @@
+{
+  "archive": {
+    "archive": "work/analysis/diffutils-3.12/translations/c2rust-0.22.1/diffutils-3.12-stable/target/release/libdiffutils_3_12_normalized_audit.a",
+    "candidate_sha256": "e2bb2c39c28b83829246dd96db28298ecf2225d96b80f295ca068a9df56300ee",
+    "candidate_sources_sha256": "e2f3482621fffef665afd9e1de7f28fd1ca6c5ed02ec90c16422712dedd146a1",
+    "catalogs": {
+      "cmp": {
+        "candidate_sha256": "5bb3883020d587c1f5c63d3569c0df3489a78184e1ff66d7b54e6b9c05924130",
+        "canonical_sha256": "9fc2b64cecfaa008fde27ec0ee177b8a17ac3b05d851e06e40f6db62e276d42c",
+        "catalog_bytes": 554,
+        "catalog_sha256": "ad0d13c5c9689c4ac32b8c95e7fafe1bfa7f0d0991291c7557924fb9df4f6097",
+        "empty_lines": 0,
+        "lines": 8,
+        "parent_sha256": "6bd6ada712ea5c40d79374cb20ff62df279b6aa607bef1b2e067e64e9dcb7d97",
+        "static_pointer_entries_removed": 9
+      },
+      "diff": {
+        "candidate_sha256": "78f0422ec8416e063983330425496e928700e87b0468807723f00e2a553f8beb",
+        "canonical_sha256": "f89740750bda61c5fabc71ea26c6ea3a9e4f8623a1e765680e241ac8c559d13e",
+        "catalog_bytes": 4928,
+        "catalog_sha256": "a95e37736e5089a7655e978dce530b5935a678e88a943338d934252dc63c5f14",
+        "empty_lines": 9,
+        "lines": 68,
+        "parent_sha256": "234166245fe5cfe33d4f4ba8b3b9f80b37acb8d50273e2ecc066347c4c47e3cb",
+        "static_pointer_entries_removed": 69
+      },
+      "diff3": {
+        "candidate_sha256": "f5bf5e1b24eccda6857ce373dbb7de3682f81eacca79e2faaa92852d9c6f194d",
+        "canonical_sha256": "b893b782f84193ab4eb6756b350f3c89ef4b89e3b54df761505721e75cba52b9",
+        "catalog_bytes": 1178,
+        "catalog_sha256": "03707b94963f326f7466ee9e769e03366a341181a9c2d9c11e010d9faddc0ad1",
+        "empty_lines": 4,
+        "lines": 19,
+        "parent_sha256": "abae2dd564c6e35935157ce944de23139f896c982a41ee14136a07f56827bf0c",
+        "static_pointer_entries_removed": 20
+      },
+      "sdiff": {
+        "candidate_sha256": "87c7d5907bda6b08516a8c1ecd29fc95d240e45eb1c17259b84ad4ca731072aa",
+        "canonical_sha256": "62e1f9753eb2be18685aca5995ab418038b269442c54c56077d8ef56427bd1c4",
+        "catalog_bytes": 1341,
+        "catalog_sha256": "c0860b074b936d07d8b659782cafef200480681a1d1d2056fa07d20ce9c2fe08",
+        "empty_lines": 5,
+        "lines": 25,
+        "parent_sha256": "1ef218d562c00745a6177872706079164c040e49a68a78c50dd69957fd0fa8b1",
+        "static_pointer_entries_removed": 26
+      }
+    },
+    "compiler_selected_sources": 141,
+    "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+    "control_sha256": "8719c2aa863f0a23a71f722642c22d8b935a7819094695e5dbb5a23272332575",
+    "parent_sources_sha256": "802a0fb86c05b5aa3a4afbc07aefb8d804443ffae5c1ac6ac174f325d686aad9",
+    "raw_pointer_types_removed": 20,
+    "static_pointer_entries_removed": 124
+  },
+  "baseline": {
+    "archives": {
+      "parent": "8719c2aa863f0a23a71f722642c22d8b935a7819094695e5dbb5a23272332575"
+    },
+    "file_comparisons": {
+      "clang": 48,
+      "gcc": 48
+    },
+    "public": {
+      "cases": 24,
+      "memcheck_runs": 12,
+      "profiles": {
+        "cmp/C/--help": [
+          0,
+          "1e423d0e7bc439688462e6bc9810d8c4afcc9d3470afc244433b58ba46d41cbb",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "cmp/C/--invalid-rustbox-option": [
+          2,
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "160fcf5d8e03580a0b836e914a2609550818a133beb1d6d9243aaa9df0183b30"
+        ],
+        "cmp/de/--help": [
+          0,
+          "a3a510692e80d71174f38afb81abe718e60b1c4dd4a7a7696752e4b9c328e448",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "cmp/de/--invalid-rustbox-option": [
+          2,
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "66abb8131478e08a80f75f329dc95d4ba97fee00d6481128443950afca47b71d"
+        ],
+        "cmp/fr/--help": [
+          0,
+          "61b03fc57a1c82919cd736b753fb08c8ee199036935b521d7c6514506cc26a1c",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "cmp/fr/--invalid-rustbox-option": [
+          2,
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "7b3c708faf30e415d957a53aff98a8290a01df8ef695e0b272f06e830134ecbb"
+        ],
+        "diff/C/--help": [
+          0,
+          "e21811284fd4f831df800a4627e715dcebefc462fdf51e2b9e7476c49f3ca04d",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "diff/C/--invalid-rustbox-option": [
+          2,
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "c9495196c82ce2f8417c3e4992287a8777f5481942d6d0f7805abd3a6a2643c4"
+        ],
+        "diff/de/--help": [
+          0,
+          "4b56df2547b3a2f67ee091fd83de023185994bd1508e2b5255cb91cdc8c5e054",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "diff/de/--invalid-rustbox-option": [
+          2,
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "0d4a9c37040a3f9bb56d51a28d1f468e468b30ba8d9a269fd4daa8f3d45faa5e"
+        ],
+        "diff/fr/--help": [
+          0,
+          "311b536b7cf84392baa9577c91db69bd8611d800d50319d571b3a8b01b498f6f",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "diff/fr/--invalid-rustbox-option": [
+          2,
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "7b99056123362362e022483ae2761c79281fe891a1cc454336f131ffe8ac0d71"
+        ],
+        "diff3/C/--help": [
+          0,
+          "669676ad35a1241578d6c9111246562a3108f2ac3347652e01b7e9a92012073e",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "diff3/C/--invalid-rustbox-option": [
+          2,
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "cc874da1aac702a84a28eecfa4ae0c9622e1e49717698356b92e0520e333c9f4"
+        ],
+        "diff3/de/--help": [
+          0,
+          "c26e0c7719fd79a435be3242c3e7a3bafbd0b1c4527c516d22782c5b870a2ffd",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "diff3/de/--invalid-rustbox-option": [
+          2,
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "01d80f1066dea356702f47a1faf4ac3f336f2b91c4702bdc0fd8328922581171"
+        ],
+        "diff3/fr/--help": [
+          0,
+          "59ef913e389428cb18ade90720bedf936bd00363d77be298b1f3febe072f6f77",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "diff3/fr/--invalid-rustbox-option": [
+          2,
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "7cffec7f9d10b100a7548fb40622170dc1b886d5c7d51efde19fe06b10e3328e"
+        ],
+        "sdiff/C/--help": [
+          0,
+          "b53026facb7c14a08a90c23da736889f4e1e3115c35dce79cebe9965c81ab41d",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "sdiff/C/--invalid-rustbox-option": [
+          2,
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "2465467e26d017d82969826c20a92f4c8fd56535cb700c8f2a69f67cb1fa4042"
+        ],
+        "sdiff/de/--help": [
+          0,
+          "051a627fed9158e057e4db27b8606058b061e144914640e4a452128c3e29dc19",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "sdiff/de/--invalid-rustbox-option": [
+          2,
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "ad0e1c398165b0846d0d2b0cbf917d4738c73b72d85268d09734202ac988f9cc"
+        ],
+        "sdiff/fr/--help": [
+          0,
+          "57db0d59479c2ba7835dd49560d8feee35ac75665e42f2e9868ec37d9a9f6330",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "sdiff/fr/--invalid-rustbox-option": [
+          2,
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "1d4c7533531792397da3c3516208cd34862924da9d6992756e9696d11132adc4"
+        ]
+      }
+    }
+  },
+  "results": {
+    "archives": {
+      "candidate": "e2bb2c39c28b83829246dd96db28298ecf2225d96b80f295ca068a9df56300ee",
+      "parent": "8719c2aa863f0a23a71f722642c22d8b935a7819094695e5dbb5a23272332575"
+    },
+    "file_comparisons": {
+      "clang": 48,
+      "gcc": 48
+    },
+    "public": {
+      "cases": 24,
+      "memcheck_runs": 16,
+      "profiles": {
+        "cmp/C/--help": [
+          0,
+          "1e423d0e7bc439688462e6bc9810d8c4afcc9d3470afc244433b58ba46d41cbb",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "cmp/C/--invalid-rustbox-option": [
+          2,
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "160fcf5d8e03580a0b836e914a2609550818a133beb1d6d9243aaa9df0183b30"
+        ],
+        "cmp/de/--help": [
+          0,
+          "a3a510692e80d71174f38afb81abe718e60b1c4dd4a7a7696752e4b9c328e448",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "cmp/de/--invalid-rustbox-option": [
+          2,
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "66abb8131478e08a80f75f329dc95d4ba97fee00d6481128443950afca47b71d"
+        ],
+        "cmp/fr/--help": [
+          0,
+          "61b03fc57a1c82919cd736b753fb08c8ee199036935b521d7c6514506cc26a1c",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "cmp/fr/--invalid-rustbox-option": [
+          2,
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "7b3c708faf30e415d957a53aff98a8290a01df8ef695e0b272f06e830134ecbb"
+        ],
+        "diff/C/--help": [
+          0,
+          "e21811284fd4f831df800a4627e715dcebefc462fdf51e2b9e7476c49f3ca04d",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "diff/C/--invalid-rustbox-option": [
+          2,
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "c9495196c82ce2f8417c3e4992287a8777f5481942d6d0f7805abd3a6a2643c4"
+        ],
+        "diff/de/--help": [
+          0,
+          "4b56df2547b3a2f67ee091fd83de023185994bd1508e2b5255cb91cdc8c5e054",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "diff/de/--invalid-rustbox-option": [
+          2,
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "0d4a9c37040a3f9bb56d51a28d1f468e468b30ba8d9a269fd4daa8f3d45faa5e"
+        ],
+        "diff/fr/--help": [
+          0,
+          "311b536b7cf84392baa9577c91db69bd8611d800d50319d571b3a8b01b498f6f",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "diff/fr/--invalid-rustbox-option": [
+          2,
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "7b99056123362362e022483ae2761c79281fe891a1cc454336f131ffe8ac0d71"
+        ],
+        "diff3/C/--help": [
+          0,
+          "669676ad35a1241578d6c9111246562a3108f2ac3347652e01b7e9a92012073e",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "diff3/C/--invalid-rustbox-option": [
+          2,
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "cc874da1aac702a84a28eecfa4ae0c9622e1e49717698356b92e0520e333c9f4"
+        ],
+        "diff3/de/--help": [
+          0,
+          "c26e0c7719fd79a435be3242c3e7a3bafbd0b1c4527c516d22782c5b870a2ffd",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "diff3/de/--invalid-rustbox-option": [
+          2,
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "01d80f1066dea356702f47a1faf4ac3f336f2b91c4702bdc0fd8328922581171"
+        ],
+        "diff3/fr/--help": [
+          0,
+          "59ef913e389428cb18ade90720bedf936bd00363d77be298b1f3febe072f6f77",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "diff3/fr/--invalid-rustbox-option": [
+          2,
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "7cffec7f9d10b100a7548fb40622170dc1b886d5c7d51efde19fe06b10e3328e"
+        ],
+        "sdiff/C/--help": [
+          0,
+          "b53026facb7c14a08a90c23da736889f4e1e3115c35dce79cebe9965c81ab41d",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "sdiff/C/--invalid-rustbox-option": [
+          2,
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "2465467e26d017d82969826c20a92f4c8fd56535cb700c8f2a69f67cb1fa4042"
+        ],
+        "sdiff/de/--help": [
+          0,
+          "051a627fed9158e057e4db27b8606058b061e144914640e4a452128c3e29dc19",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "sdiff/de/--invalid-rustbox-option": [
+          2,
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "ad0e1c398165b0846d0d2b0cbf917d4738c73b72d85268d09734202ac988f9cc"
+        ],
+        "sdiff/fr/--help": [
+          0,
+          "57db0d59479c2ba7835dd49560d8feee35ac75665e42f2e9868ec37d9a9f6330",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "sdiff/fr/--invalid-rustbox-option": [
+          2,
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "1d4c7533531792397da3c3516208cd34862924da9d6992756e9696d11132adc4"
+        ]
+      }
+    }
+  }
+}
