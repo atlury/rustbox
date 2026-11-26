@@ -306,18 +306,19 @@ types and 96 additional textual matches outside those parsed types. Across
 source before macro expansion. These counts describe source types and give
 no measure of how often a pointer is dereferenced at runtime.
 
-| Where the parsed type occurs | Occurrences in that release |
-|---|---:|
-| Destination of a cast | 363,624 |
-| Struct, union or enum field | 171,770 |
-| Foreign declaration | 132,832 |
-| Defined function signature | 111,477 |
-| Pattern type annotation | 51,622 |
-| Type alias | 25,826 |
-| Generic argument outside the other contexts | 11,308 |
-| Static or constant type declaration | 10,365 |
+| Where the parsed type occurs | 36-archive release (`daff5c9`) | 123-archive release (`51c7a90`) |
+|---|---:|---:|
+| Destination of a cast | 363,624 | 239,708 |
+| Struct, union or enum field | 171,770 | 171,770 |
+| Foreign declaration | 132,832 | 132,832 |
+| Defined function signature | 111,477 | 111,477 |
+| Pattern type annotation | 51,622 | 51,622 |
+| Type alias | 25,826 | 25,826 |
+| Generic argument outside the other contexts | 11,308 | 11,308 |
+| Static or constant type declaration | 10,365 | 10,365 |
+| **Total parsed types** | **878,824** | **754,908** |
 
-IPRoute2 accounted for 100,120 cast-destination types. In E2fsprogs the
+In the 36-archive release, IPRoute2 accounted for 100,120 cast-destination types. In E2fsprogs the
 largest category was fields at 62,033, followed by 55,074 cast-destination
 types. Run `python3 -B scripts/count_pointer_contexts.py LINK` to repeat the
 classification for a saved multicall link report.
