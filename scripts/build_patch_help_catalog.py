@@ -5,13 +5,13 @@ import argparse
 from hashlib import sha256
 import json
 from pathlib import Path
-import re
 
 from build_checked_errno import replay
 from cargo_archive_pilot import compile_mounted_sources, stage_selected_archive
 from check_cargo_private_inlines import ROOT, digest
 from check_e2fsprogs_dirhash_arrays import source_list_digest
 from prune_private_inlines import POINTER
+from packed_help_catalog import replace_table
 
 MODULE = "src/src/patch.rs"
 PARENT = "8dd05bb9400df6c91bde5e300146c56774c42f4b16268afda42f81300fc2362e"
@@ -43,20 +43,7 @@ def substitute(crate, sources):
     if (digest(canonical) != CANONICAL or sources[MODULE] != PARENT or sha256(original).hexdigest() != PARENT
             or source_list_digest(sources) != row["candidate_sources_sha256"]):
         raise ValueError("GNU patch source or compiler inputs differ")
-    start = original.index(b"static mut option_help:")
-    end = original.index(b"];\n", start) + 3
-    table = original[start:end]
-    header = b"static mut option_help: [*const ::core::ffi::c_char; 66] = [\n"
-    tail = b"    ::core::ptr::null::<::core::ffi::c_char>(),\n];\n"
-    entry = re.compile(rb'\s*c"((?:[^"\\\x00-\x1f]|\\t)*)"\s*\.as_ptr\(\),')
-    body = table.removeprefix(header).removesuffix(tail)
-    items = entry.findall(body)
-    if (not table.startswith(header) or not table.endswith(tail) or len(items) != 65
-            or entry.sub(b"", body).strip() or original.count(b"option_help") != 2):
-        raise ValueError("expected only the 65 canonical printable lines and their trailing sentinel")
-    packed = b'static OPTION_HELP: &[u8] = concat!(\n' + b"".join(
-        b'    "' + line + b'\\0",\n' for line in items) + b').as_bytes();\n'
-    data = original[:start] + packed + original[end:]
+    data, table = replace_table(original, b"option_help", 66)
     cursor = b"""    let mut p: *const *const ::core::ffi::c_char = ::core::ptr::null::<
         *const ::core::ffi::c_char,
     >();
@@ -72,10 +59,7 @@ def substitute(crate, sources):
     if data.count(cursor) != 1 or data.count(loop) != 1:
         raise ValueError("GNU patch usage traversal differs")
     data = data.replace(cursor, b"").replace(loop, bounded)
-    payload = b"".join(line.replace(br"\t", b"\t") + b"\0" for line in items)
-    return {MODULE: data}, dict(canonical_sha256=CANONICAL, module=MODULE, lines=len(items),
-                                empty_lines=items.count(b""), catalog_bytes=len(payload), catalog_sha256=sha256(payload).hexdigest(),
-                                static_pointer_entries_removed=len(items)+1,
+    return {MODULE: data}, dict(canonical_sha256=CANONICAL, module=MODULE, **table,
                                 raw_pointer_types_removed=len(POINTER.findall(original))-len(POINTER.findall(data)))
 
 

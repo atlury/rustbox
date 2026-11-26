@@ -2678,6 +2678,14 @@ Memcheck runs passed. Reproduce the 69 compiler inputs with
 `scripts/build_patch_help_catalog.py --prepare-parent LINK` and replay or
 cold-build against that saved parent. [GNU patch archive results](evidence/patch-packed-help-archive.json)
 
+The same transformation covers 120 GNU Diffutils message IDs across
+`cmp`, `diff`, `diff3` and `sdiff`. Each applet still calls gettext for
+individual messages. The source replay removes four traversal cursors and
+124 pointer-array slots, including four sentinels. Its source count falls
+by 20 explicit raw-pointer type occurrences. The shared transformation
+reproduces the previously checked GNU patch compiler inputs byte for byte.
+[Diffutils source replay](evidence/diffutils-packed-help-sources.json)
+
 GNU patch 2.8 is pinned to its canonical signed release.  The exact production
 closure is 67 C translation units: all seven program sources and all 60 gnulib
 support sources selected by the configured build.  Independent GCC, Clang,
