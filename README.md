@@ -299,6 +299,30 @@ sources the raw-pointer type count fell from **1,379,960 to 878,920**.
 Counting byte-identical Rust files once gives **630,382** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
+The 36-archive native-string release at `daff5c9` had 878,920 lexical
+occurrences. Parsing all 4,908 compiler inputs found 878,824 raw-pointer
+types and 96 additional textual matches outside those parsed types. Across
+2,937 distinct inputs the parser found 630,286 types. The parser reads the
+source before macro expansion. These counts describe source types and give
+no measure of how often a pointer is dereferenced at runtime.
+
+| Where the parsed type occurs | Occurrences in that release |
+|---|---:|
+| Destination of a cast | 363,624 |
+| Struct, union or enum field | 171,770 |
+| Foreign declaration | 132,832 |
+| Defined function signature | 111,477 |
+| Pattern type annotation | 51,622 |
+| Type alias | 25,826 |
+| Generic argument outside the other contexts | 11,308 |
+| Static or constant type declaration | 10,365 |
+
+IPRoute2 accounted for 100,120 cast-destination types. In E2fsprogs the
+largest category was fields at 62,033, followed by 55,074 cast-destination
+types. Run `python3 -B scripts/count_pointer_contexts.py LINK` to repeat the
+classification for a saved multicall link report.
+[Const and mutable types by package](evidence/rustbox-pointer-contexts-native-36.json)
+
 The IPRoute2 `ss` pilot replaces the netlink protocol name table and removes
 315 raw-pointer type occurrences from its compiler-selected Rust module.
 The parent archive rebuilt byte-for-byte. Under empty, vendor, local and

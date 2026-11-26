@@ -86,7 +86,7 @@ def measure_layer(crate, files, proof, item_count="private_functions_removed"):
     return stats
 
 
-def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_pair=None):
+def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_pair=None, include_standalone_modules=False):
     final_hashes = link["source_library_sha256"]
     dictionary_record = link.get(lz4_dictionary.field, {}).get("pilot")
     dictionary_deltas = {}
@@ -399,7 +399,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
             tally.update(unique[digest])
             if inspect_source is not None and not shared_object:
                 inspect_source(linked_path, digest, data)
-            if inspect_module is not None and not shared_object:
+            if inspect_module is not None and (include_standalone_modules or not shared_object):
                 inspect_module(linked_path, file.relative_to(crate), digest, data)
             tally["files"] += 1
         if name in fixed_arrays and source_list_digest(source_digests) != fixed_arrays[name]["compiler_sources_sha256"]:
@@ -658,9 +658,9 @@ def check_shared_stdio(previous, selected, before, after):
     check_identical_layer(previous, selected, before, after, "shared_stdio_layouts")
 
 
-def measure(link, inspect_source=None, *, inspect_module=None, archive_pair=None):
+def measure(link, inspect_source=None, *, inspect_module=None, archive_pair=None, include_standalone_modules=False):
     with tempfile.TemporaryDirectory() as temp:
-        return audit(link, Path(temp), inspect_source, inspect_module=inspect_module, archive_pair=archive_pair)
+        return audit(link, Path(temp), inspect_source, inspect_module=inspect_module, archive_pair=archive_pair, include_standalone_modules=include_standalone_modules)
 
 
 if __name__ == "__main__":

@@ -13,8 +13,8 @@ from check_cargo_private_inlines import ROOT, digest
 from check_e2fsprogs_dirhash_arrays import source_list_digest
 
 
-def syntax_tool(name="c-string-literals"):
-    if sys.platform.startswith("linux"):
+def syntax_tool(name="c-string-literals", *, rebuild=False):
+    if not rebuild and sys.platform.startswith("linux"):
         built = ROOT / "work/analysis/private-inlines-linux/release" / name
         if built.is_file():
             return built
