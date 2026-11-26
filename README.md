@@ -392,6 +392,7 @@ The stripped SHA-256 is
 | IPRoute2 generic `parse_rtattr_flags` | Disposable `bridge` build | Audit the remaining callers before wider use |
 | E2fsprogs bitmap population count | Shared by the filesystem checker and resizer | Move the bitmap buffer owners to safe Rust to remove the remaining raw ABI argument |
 | E2fsprogs CRC16, CRC32C and big-endian CRC32 | One linked provider for each function, shared across 13 engines | Replace the raw buffers at the caller boundary as their owners are migrated |
+| E2fsprogs error names | Three checked archives replace 54 static pointer slots with bounded byte offsets for 18 names | The public C interface still returns a pointer and reuses its fallback buffer for unknown values |
 | E2fsprogs directory-hash TEA and half-MD4 transforms | Fixed-array borrows in all 13 linked engines | The outer directory-hash function still accepts C ABI buffers |
 | E2fsprogs Hangul decomposition and Unicode trie lookup | Default multicall across 13 engines | The legacy cursor still reads caller-provided filename bytes and writes to its own scratch buffer through raw pointers |
 
@@ -1886,6 +1887,8 @@ covers all 11,172 modern Hangul syllables, four overlapping or disjoint buffer
 layouts, destination limits, invalid bytes, normalization and public directory
 hashing. Its exact counts and archive hashes are in
 `evidence/e2fsprogs-hangul-pilot.json`.
+
+The error-name lookup in `debugfs`, `dumpe2fs` and `tune2fs` now has a separately qualified archive selection. Each uses a 134-byte string table and eighteen one-byte offsets. Both canonical compilers and all parent and candidate archives passed Memcheck on all 18 named values and 4,096 fallback calls per build, including returned-buffer reuse and errno. Tests also compared complete output for regular ext2 images containing known and unknown error codes. [Archive, API and image comparisons](evidence/e2fsprogs-packed-error-names-archives.json)
 
 The error-name baseline covers all 18 defined E2fsprogs codes and 4,096 unknown-code calls per build. Canonical GCC and Clang and all three selected Rustbox archives preserved errno and the lifetime of returned strings under Memcheck. On unmounted ext2 images, both multicall dispatch modes also matched both canonical compilers in 48 comparisons through `debugfs`, `dumpe2fs` and `tune2fs`. [API and filesystem-image baseline](evidence/e2fsprogs-error-name-baseline.json)
 

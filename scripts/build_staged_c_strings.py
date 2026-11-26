@@ -15,7 +15,7 @@ from check_cargo_private_inlines import ROOT, digest
 from check_e2fsprogs_dirhash_arrays import compile_staged, source_list_digest
 
 
-def compile_archive(snapshot, output, key, modules=None, *, routing_protocols=False, dsfield=False, va_list_layout=False, static_arrays=False, color_palette=False):
+def compile_archive(snapshot, output, key, modules=None, *, routing_protocols=False, dsfield=False, va_list_layout=False, static_arrays=False, color_palette=False, e2p_error_names=False):
     from audit_linked_pointers import measure
     from build_c_string_literal_pilot import substitute
     from e2fsprogs_foreign_declarations import staged_compiler_inputs
@@ -26,7 +26,7 @@ def compile_archive(snapshot, output, key, modules=None, *, routing_protocols=Fa
     if not output.is_dir() or any(output.iterdir()):
         raise ValueError("direct compilation requires an empty output directory")
     link = json.loads(snapshot.read_bytes())
-    if not (routing_protocols or dsfield or va_list_layout or color_palette) and key in link.get("native_c_strings", {}):
+    if not (routing_protocols or dsfield or va_list_layout or color_palette or e2p_error_names) and key in link.get("native_c_strings", {}):
         link["native_c_strings"] = {k: v for k, v in link["native_c_strings"].items() if k != key}
     selected = Path(key)
     original = cargo_origin(link, key)
@@ -50,11 +50,14 @@ def compile_archive(snapshot, output, key, modules=None, *, routing_protocols=Fa
         built = scratch / selected.name
         if sources.keys() != inputs or compile_staged(crate, inputs, rustc, built) != expected:
             raise ValueError("direct compiler recipe failed to reproduce the selected archive")
-        if color_palette:
-            if any((va_list_layout, routing_protocols, dsfield, modules, static_arrays)):
-                raise ValueError("the color palette selects its complete module")
-            from build_iproute2_colors import substitute as replace_colors
-            replacements, changes = replace_colors(crate, sources)
+        if color_palette or e2p_error_names:
+            if (color_palette and e2p_error_names) or any((va_list_layout, routing_protocols, dsfield, modules, static_arrays)):
+                raise ValueError("select one complete lookup table module")
+            if e2p_error_names:
+                from build_e2p_error_names import substitute as replace_table
+            else:
+                from build_iproute2_colors import substitute as replace_table
+            replacements, changes = replace_table(crate, sources)
         elif va_list_layout:
             from build_va_list_layout_pilot import substitute as share_tag
             if routing_protocols or dsfield or modules or static_arrays:
@@ -107,7 +110,7 @@ def publish(result, output, archive_name):
             raise ValueError("concurrently published archive or compiler receipt differs") from exc
 
 
-def build(link, output, key, modules=None, *, routing_protocols=False, dsfield=False, va_list_layout=False, static_arrays=False, color_palette=False):
+def build(link, output, key, modules=None, *, routing_protocols=False, dsfield=False, va_list_layout=False, static_arrays=False, color_palette=False, e2p_error_names=False):
     output = output.resolve()
     raw = link.read_bytes()
     if output.exists():
@@ -121,7 +124,7 @@ def build(link, output, key, modules=None, *, routing_protocols=False, dsfield=F
                         "-v", f"{ROOT}:/work:ro", "-v", f"{stage}:/trial", "rustbox-e2fsprogs:2026-11-24",
                         "python3", "-B", "/work/scripts/build_staged_c_strings.py",
                         "/trial/snapshot.json", "/trial/result", key,
-                        *(["--color-palette"] if color_palette else []),
+                        *(["--color-palette"] if color_palette else []), *(["--e2p-error-names"] if e2p_error_names else []),
                         *(["--dsfield"] if dsfield else []),
                         *(["--routing-protocol-table"] if routing_protocols else []),
                         *(["--va-list-layout"] if va_list_layout else []), *(modules or ()),
@@ -140,10 +143,12 @@ if __name__ == "__main__":
     choice = parser.add_mutually_exclusive_group()
     choice.add_argument("--routing-protocol-table", action="store_true")
     choice.add_argument("--color-palette", action="store_true")
+    choice.add_argument("--e2p-error-names", action="store_true")
     choice.add_argument("--dsfield", action="store_true")
     choice.add_argument("--static-arrays", action="store_true")
     choice.add_argument("--va-list-layout", action="store_true")
     args = parser.parse_args()
     compile_archive(args.snapshot, args.output, args.archive, args.modules or None,
                     routing_protocols=args.routing_protocol_table, dsfield=args.dsfield,
-                    va_list_layout=args.va_list_layout, static_arrays=args.static_arrays, color_palette=args.color_palette)
+                    va_list_layout=args.va_list_layout, static_arrays=args.static_arrays, color_palette=args.color_palette,
+                    e2p_error_names=args.e2p_error_names)
