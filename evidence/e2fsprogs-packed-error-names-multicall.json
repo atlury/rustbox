@@ -1,0 +1,83 @@
+{
+  "archive_evidence_sha256": "7f0cc430378c9fec905d801d88592d2ee65b5ba3b4bb68c7ee0d83ce37a18e55",
+  "candidate": {
+    "bytes": 42446976,
+    "engine_sha256": {
+      "debugfs": "d78018d922195cc9c50e11f05f43af3206c94ed06efc8ac9b89d7a9eb226ba3c",
+      "dumpe2fs": "2327c8533e28703615e6a3670868730ac45af54bc17a00648b60c412ada19930",
+      "tune2fs": "5290d2a0482a6f4dff066f5ec0d3328da0af9e7f56c15d902ea7cdca297624d3"
+    },
+    "sha256": "dacefb1700f2fb528eee5a1d9ca09c02092b3e66ca092a6888e5f7b4d8970c06",
+    "stripped_bytes": 24961776,
+    "stripped_sha256": "d7c20a8206a43b6641d442dbc94db6a8b6b90500cbb4f4b351a5fee3ae8987fa"
+  },
+  "ext2_images": {
+    "archive_comparisons": 0,
+    "archives": {},
+    "cases_per_command": 4,
+    "commands": [
+      "debugfs",
+      "dumpe2fs",
+      "tune2fs"
+    ],
+    "dispatch_comparisons": 48,
+    "elf_sha256": "dacefb1700f2fb528eee5a1d9ca09c02092b3e66ca092a6888e5f7b4d8970c06",
+    "error_codes": [
+      [
+        0,
+        0
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        17,
+        18
+      ],
+      [
+        255,
+        1
+      ]
+    ]
+  },
+  "linker_command_sha256": "411fb9679311197f0273b170625142d2fa40e9016b74ba6255e2c4fe02f7183e",
+  "parent": {
+    "bytes": 42450832,
+    "engine_sha256": {
+      "debugfs": "0b1483e5fe35bab542de5f9285e9f2df6edd6c215a6d1481e2a004cdc203958a",
+      "dumpe2fs": "0e7dd48180b25ee0e893f7ec2254bd62400c208fdd873858cc56cd62c40ad12f",
+      "tune2fs": "03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966"
+    },
+    "sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+    "stripped_bytes": 24961776,
+    "stripped_sha256": "a12c31721cf685e3827f4ea859583a60d670d3ead4a6fd71e649798dab900913"
+  },
+  "parent_link_report_sha256": "5d26982adb6498e5e35259507d8ebabb962e6972e69bdb0d814b16078bb55c0a",
+  "public_commands": {
+    "clang-18": {
+      "canonical_multicall_exact": true,
+      "cases": 84,
+      "collision_aliases": {
+        "fsck": "e2fsprogs-fsck"
+      },
+      "native_engines": 20,
+      "native_names": 28,
+      "passed": 84,
+      "release": "1.47.4",
+      "schema": 1
+    },
+    "gcc": {
+      "canonical_multicall_exact": true,
+      "cases": 84,
+      "collision_aliases": {
+        "fsck": "e2fsprogs-fsck"
+      },
+      "native_engines": 20,
+      "native_names": 28,
+      "passed": 84,
+      "release": "1.47.4",
+      "schema": 1
+    }
+  }
+}
