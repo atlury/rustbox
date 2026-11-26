@@ -2668,6 +2668,16 @@ passes all 536 dispatcher comparisons, the full 14,022-case Coreutils and
 util-linux replay, the complete M4 and pkgconf replays, File's 174 exact CLI
 comparisons, and Valgrind.
 
+GNU patch’s help candidate stores the 65 canonical lines in 2,907 bytes and
+walks bounded, NUL-terminated slices. It removes a 66-entry static pointer
+array, its raw traversal cursor and eight explicit pointer type occurrences.
+The 18 blank lines and the tab in the backup-style description matched the
+canonical help bytes. GCC, Clang, the parent and the rebuilt archive agreed
+on help, invalid options and writes to a full device in 20 locales. Four
+Memcheck runs passed. Reproduce the 69 compiler inputs with
+`scripts/build_patch_help_catalog.py --prepare-parent LINK` and replay or
+cold-build against that saved parent. [GNU patch archive results](evidence/patch-packed-help-archive.json)
+
 GNU patch 2.8 is pinned to its canonical signed release.  The exact production
 closure is 67 C translation units: all seven program sources and all 60 gnulib
 support sources selected by the configured build.  Independent GCC, Clang,
