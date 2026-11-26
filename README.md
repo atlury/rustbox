@@ -1885,6 +1885,8 @@ layouts, destination limits, invalid bytes, normalization and public directory
 hashing. Its exact counts and archive hashes are in
 `evidence/e2fsprogs-hangul-pilot.json`.
 
+The error-name baseline covers all 18 defined E2fsprogs codes and 4,096 unknown-code calls per build. Canonical GCC and Clang and all three selected Rustbox archives preserved errno and the lifetime of returned strings under Memcheck. On unmounted ext2 images, both multicall dispatch modes also matched both canonical compilers in 48 comparisons through `debugfs`, `dumpe2fs` and `tune2fs`. [API and filesystem-image baseline](evidence/e2fsprogs-error-name-baseline.json)
+
 The Unicode trie conversion makes the 64,256-byte canonical table immutable and
 uses checked table indices for each branch. Its input reader visits only the
 bytes requested by the trie, including when the legacy caller passes

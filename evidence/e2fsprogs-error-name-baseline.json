@@ -1,0 +1,56 @@
+{
+  "api": {
+    "archive_checks": {},
+    "canonical_sources": {
+      "clang-18": "c0a5a9e6690e0686b2d06ea4960eadcebb89ee61c5a77c7df136b3fe8c1836a4",
+      "gcc": "c0a5a9e6690e0686b2d06ea4960eadcebb89ee61c5a77c7df136b3fe8c1836a4"
+    },
+    "defined_codes_per_build": 18,
+    "driver_sha256": "7a93f8c1f4d8c3280e1c0ce6c8e4fd725e2427aeee85cbad76644941fc91ee88",
+    "fallback_calls_per_build": 4096,
+    "input_sha256": {
+      "clang-18": "5ca6b1e369b42ec86f1a927005507a1b170b80812199272b9830567e6e512cb0",
+      "debugfs-parent": "0b1483e5fe35bab542de5f9285e9f2df6edd6c215a6d1481e2a004cdc203958a",
+      "dumpe2fs-parent": "0e7dd48180b25ee0e893f7ec2254bd62400c208fdd873858cc56cd62c40ad12f",
+      "gcc": "756644f70d85b9beefbda76a5568dbb4e635860eae09f5db74b22e4965d18097",
+      "tune2fs-parent": "03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966"
+    },
+    "memcheck_runs": 5,
+    "stdout_sha256": "52d3948e12a079ca7e5d52dda0c6a35a82acac59dac8513f65c1acebad14d876"
+  },
+  "drivers": {
+    "compare.c": "7a93f8c1f4d8c3280e1c0ce6c8e4fd725e2427aeee85cbad76644941fc91ee88",
+    "compare.py": "9dd3ab10e9047e8444db837a2840d2ac8504b281a3fc054879d69a1c8903f187",
+    "images.py": "c41c856da6963ee2e2fd2dc8773b2942d91c366e5e211e561f4c44a398f2bff1"
+  },
+  "public": {
+    "archive_comparisons": 0,
+    "archives": {},
+    "cases_per_command": 4,
+    "commands": [
+      "debugfs",
+      "dumpe2fs",
+      "tune2fs"
+    ],
+    "dispatch_comparisons": 48,
+    "elf_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+    "error_codes": [
+      [
+        0,
+        0
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        17,
+        18
+      ],
+      [
+        255,
+        1
+      ]
+    ]
+  }
+}
