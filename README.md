@@ -1692,6 +1692,11 @@ candidate occurrences. Only the `ip` build is counted in this pilot.
 [Canonical observations](evidence/iproute2-dsfield-pilot.json) ·
 [Per-engine source estimates](evidence/iproute2-dsfield-source-candidates.json)
 
+A 499-name multicall containing the rebuilt `ip` engine matched both canonical compilers on
+288 IPRoute2 command comparisons and 144 DS field filter comparisons in four
+configuration profiles. Its stripped size was 24,981,488 bytes.
+[Full executable comparison](evidence/iproute2-dsfield-ip-multicall.json)
+
 A source replay replaced the IPRoute2 terminal color palettes in all 18 engine
 archives. Each palette now stores seven bounded eight-byte rows for each
 background brightness. The printer takes a row address at the `fprintf`
