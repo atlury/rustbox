@@ -1725,6 +1725,8 @@ light backgrounds. All three baseline Memcheck runs passed.
 
 All 18 rebuilt IPRoute2 archives matched canonical GCC and Clang on 336 attribute and formatting cases per engine. The `ip` command also matched eight loopback output profiles. The probes passed 72 Memcheck runs across both compilers, the parent archives and the replacements. The checked sources remove 288 static pointer slots. [Archive comparisons](evidence/iproute2-color-palette-archives.json)
 
+Both dispatch modes of the complete executable matched canonical IPRoute2 on 288 command comparisons and 32 color-output comparisons with 18 engine replacements. The candidate measured 24,975,232 bytes stripped. [Complete multicall results](evidence/iproute2-color-palette-archives-multicall.json)
+
 A Linux pseudoterminal exercised automatic color with an actual terminal on stdout. The default executable matched both canonical compilers through both dispatch modes in all 30 combinations of background, explicit color mode and unset, empty or nonempty `NO_COLOR`. [Terminal profiles](evidence/iproute2-color-terminal-baseline.json)
 
 The rebuilt `ip` and `bridge` archives matched canonical GCC and Clang on 336 attribute and formatting cases per engine. The `ip` command also matched eight loopback output profiles. The probes passed 8 Memcheck runs across both compilers, the parent archives and the replacements. The checked sources remove 32 static pointer slots. [Archive comparisons](evidence/iproute2-color-palette-first-archives.json) To replay the batch, run `python3 -B scripts/build_iproute2_color_batch.py LINK OUTPUT evidence/iproute2-color-palette-baseline.json --jobs 2` with the pinned routing-protocol link report.
