@@ -1714,6 +1714,8 @@ Eight public loopback queries matched, including forced color on dark and
 light backgrounds. All three baseline Memcheck runs passed.
 [Canonical palette and public-output baselines](evidence/iproute2-color-palette-baseline.json)
 
+A Linux pseudoterminal exercised automatic color with an actual terminal on stdout. The default executable matched both canonical compilers through both dispatch modes in all 30 combinations of background, explicit color mode and unset, empty or nonempty `NO_COLOR`. [Terminal profiles](evidence/iproute2-color-terminal-baseline.json)
+
 The rebuilt `ip` and `bridge` archives matched canonical GCC and Clang on 336 attribute and formatting cases per engine. The `ip` command also matched eight loopback output profiles. The probes passed 8 Memcheck runs across both compilers, the parent archives and the replacements. The checked sources remove 32 static pointer slots. [Archive comparisons](evidence/iproute2-color-palette-first-archives.json) To replay the batch, run `python3 -B scripts/build_iproute2_color_batch.py LINK OUTPUT evidence/iproute2-color-palette-baseline.json --jobs 2` with the pinned routing-protocol link report.
 
 All 18 IPRoute2 engine archives then reproduced their controls and passed
