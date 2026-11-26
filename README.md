@@ -323,6 +323,13 @@ types. Run `python3 -B scripts/count_pointer_contexts.py LINK` to repeat the
 classification for a saved multicall link report.
 [Const and mutable types by package](evidence/rustbox-pointer-contexts-native-36.json)
 
+After the native-string build expanded to 123 archives, the same parser
+found 754,908 pointer types. All 123,916 additional removals
+were cast destinations. Fields, foreign declarations and defined function
+signatures retained their previous counts. The lexical audit found
+755,004 occurrences, including 96 outside parsed types.
+[Expanded release by source context](evidence/rustbox-pointer-contexts-native-expanded.json)
+
 The IPRoute2 `ss` pilot replaces the netlink protocol name table and removes
 315 raw-pointer type occurrences from its compiler-selected Rust module.
 The parent archive rebuilt byte-for-byte. Under empty, vendor, local and
