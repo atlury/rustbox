@@ -1,7 +1,7 @@
 {
   "binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
-  "groups": 173,
-  "link_report_sha256": "8c22defce63118218d3f2e8a2d0089c6309fde4775e48b5baf6ce547d40fcb1e",
+  "groups": 187,
+  "link_report_sha256": "5d26982adb6498e5e35259507d8ebabb962e6972e69bdb0d814b16078bb55c0a",
   "modules": [
     {
       "archive_count": 17,
@@ -30,27 +30,13 @@
         "rtnl_rtprot_a2n",
         "rtnl_addrprot_n2a"
       ],
-      "module_sha256": "b5778ec43e5ea4723c0881d866f8b55155de9749013664837a03852d38458ac8",
+      "module_sha256": "e06c205623b310442e689f8ce6c5b43811f9d17182ab27fc956b494889fd94dd",
       "package": "iproute2-7.3.0",
       "paths": [
         "src/lib/rt_names.rs"
       ],
-      "raw_pointer_types_per_copy": 1389,
-      "repeated_types_across_archives": 22224,
-      "static_name_tables": [
-        {
-          "capacity": 256,
-          "literal_names": 21,
-          "name": "rtnl_rtprot_tab",
-          "null_slots": 235
-        },
-        {
-          "capacity": 256,
-          "literal_names": 1,
-          "name": "rtnl_rtdsfield_tab",
-          "null_slots": 255
-        }
-      ]
+      "raw_pointer_types_per_copy": 1267,
+      "repeated_types_across_archives": 20272
     },
     {
       "archive_count": 17,
@@ -79,13 +65,13 @@
         "get_long",
         "get_integer"
       ],
-      "module_sha256": "28ab13145d41a569398a2b33fda15e35d7489e0afd32c33bfa7ad496f25de3be",
+      "module_sha256": "7b70f358a352d27e20abadf8c62b62fd9a930175eb2e7ac6f059779104a1a918",
       "package": "iproute2-7.3.0",
       "paths": [
         "src/lib/utils.rs"
       ],
-      "raw_pointer_types_per_copy": 951,
-      "repeated_types_across_archives": 15216
+      "raw_pointer_types_per_copy": 671,
+      "repeated_types_across_archives": 10736
     },
     {
       "archive_count": 17,
@@ -114,13 +100,13 @@
         "nl_dump_ext_ack_done",
         "rtnl_set_strict_dump"
       ],
-      "module_sha256": "0a5777ae9dd4f98ec8ff3729e54bef0fb5ca766dd54e7efc58f3db61a2231f13",
+      "module_sha256": "d9f553fc99ccc430dbc4e2d5b79acce08456bcb34558d5e15fd0d5bfa5cd2fd5",
       "package": "iproute2-7.3.0",
       "paths": [
         "src/lib/libnetlink.rs"
       ],
-      "raw_pointer_types_per_copy": 574,
-      "repeated_types_across_archives": 9184
+      "raw_pointer_types_per_copy": 462,
+      "repeated_types_across_archives": 7392
     },
     {
       "archive_count": 18,
@@ -150,18 +136,17 @@
         "argp_state_help",
         "argp_error"
       ],
-      "module_sha256": "8d331bfc4c80180a1339e192088f6deb18e0815a9b8b581aefe7e25afffc8552",
+      "module_sha256": "9f823e1a98e3c9895c061a65b1fc480ea7c9f2947e7195bc761f8818509cdece",
       "package": "inetutils-2.8",
       "paths": [
         "src/lib/argp_help.rs"
       ],
-      "raw_pointer_types_per_copy": 491,
-      "repeated_types_across_archives": 8347
+      "raw_pointer_types_per_copy": 395,
+      "repeated_types_across_archives": 6715
     },
     {
-      "archive_count": 13,
+      "archive_count": 11,
       "archives": [
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/badblocks/2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff/libbadblocks_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/debugfs/0b1483e5fe35bab542de5f9285e9f2df6edd6c215a6d1481e2a004cdc203958a/libdebugfs_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/dumpe2fs/0e7dd48180b25ee0e893f7ec2254bd62400c208fdd873858cc56cd62c40ad12f/libdumpe2fs_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2freefrag/dff1d228a46ef9b0bb99a0a2fb7995385f762f3c86aa51463a100dbec84294b5/libe2freefrag_audit.a",
@@ -169,7 +154,6 @@
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2image/399a863ff0c37471b7e8ab0cbad3d9cd6f80d6f326871ba85e85bed25225fc2e/libe2image_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2initrd_helper/6edccc168e7742f23fafe09103351a09528c8e57699efe07b6009d65fca34cab/libe2initrd_helper_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2undo/cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8/libe2undo_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e4defrag/0de205baddb49a145d654d7972d120739e38af71596acd5a07da8a43a43d0734/libe4defrag_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/fuse2fs/0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a/libfuse2fs_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/resize2fs/b0c8126d1bdf73d216736f090e322dc52c1a9aa2f37ab78ba534910fc9e68005/libresize2fs_audit.a",
@@ -181,46 +165,13 @@
         "ext2fs_ext_attr_hash_entry_signed",
         "ext2fs_ext_attr_hash_entry3"
       ],
-      "module_sha256": "75a69ee3794141a6c90a3e0bef955d8ace90ff88f46431ad4b95405eb68e52c1",
+      "module_sha256": "dffac1405972824ef8b1f9910452053c418f72e9f4d7ea59fd8757279687f506",
       "package": "e2fsprogs-1.47.4",
       "paths": [
-        "src/lib/ext2fs/ext_attr.rs",
         "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/ext_attr.rs"
       ],
-      "raw_pointer_types_per_copy": 551,
-      "repeated_types_across_archives": 6612
-    },
-    {
-      "archive_count": 13,
-      "archives": [
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/badblocks/2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff/libbadblocks_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/debugfs/0b1483e5fe35bab542de5f9285e9f2df6edd6c215a6d1481e2a004cdc203958a/libdebugfs_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/dumpe2fs/0e7dd48180b25ee0e893f7ec2254bd62400c208fdd873858cc56cd62c40ad12f/libdumpe2fs_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2freefrag/dff1d228a46ef9b0bb99a0a2fb7995385f762f3c86aa51463a100dbec84294b5/libe2freefrag_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2fsck/564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd/libe2fsck_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2image/399a863ff0c37471b7e8ab0cbad3d9cd6f80d6f326871ba85e85bed25225fc2e/libe2image_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2initrd_helper/6edccc168e7742f23fafe09103351a09528c8e57699efe07b6009d65fca34cab/libe2initrd_helper_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2undo/cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8/libe2undo_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e4defrag/0de205baddb49a145d654d7972d120739e38af71596acd5a07da8a43a43d0734/libe4defrag_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/fuse2fs/0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a/libfuse2fs_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/resize2fs/b0c8126d1bdf73d216736f090e322dc52c1a9aa2f37ab78ba534910fc9e68005/libresize2fs_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/tune2fs/03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966/libtune2fs_audit.a"
-      ],
-      "c_function_definitions": 3,
-      "example_functions": [
-        "ext2fs_open_file",
-        "ext2fs_stat",
-        "ext2fs_fstat"
-      ],
-      "module_sha256": "80a3d7cb2c5a57f472efd80d51bbbf77eb349f441be36d032b7e078a49fd5d7f",
-      "package": "e2fsprogs-1.47.4",
-      "paths": [
-        "src/lib/ext2fs/unix_io.rs",
-        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/unix_io.rs"
-      ],
-      "raw_pointer_types_per_copy": 378,
-      "repeated_types_across_archives": 4536
+      "raw_pointer_types_per_copy": 535,
+      "repeated_types_across_archives": 5350
     },
     {
       "archive_count": 17,
@@ -249,83 +200,13 @@
         "ll_remember_index",
         "ll_idx_n2a"
       ],
-      "module_sha256": "2cf3c75a436318c8953883989e46d3c69cd779b60199f377e83d324a52ac44b8",
+      "module_sha256": "76871bf84c3a347478f3fef50644f136c63f34089045d363779923c51643ccc6",
       "package": "iproute2-7.3.0",
       "paths": [
         "src/lib/ll_map.rs"
       ],
-      "raw_pointer_types_per_copy": 268,
-      "repeated_types_across_archives": 4288
-    },
-    {
-      "archive_count": 18,
-      "archives": [
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libdnsdomainname_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libhostname_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libinetd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/liblogger_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librcp_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexec_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexecd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogin_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogind_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librsh_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librshd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libsyslogd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalk_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnet_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftp_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftpd_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtraceroute_audit.a",
-        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libuucpd_audit.a"
-      ],
-      "c_function_definitions": 2,
-      "example_functions": [
-        "rpl_argp_parse",
-        "_argp_input"
-      ],
-      "module_sha256": "b5106853eac8dff29d72e48595b879e920b3528aa1b8248c68059d59d5fcb20d",
-      "package": "inetutils-2.8",
-      "paths": [
-        "src/lib/argp_parse.rs"
-      ],
-      "raw_pointer_types_per_copy": 250,
-      "repeated_types_across_archives": 4250
-    },
-    {
-      "archive_count": 17,
-      "archives": [
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/arpd/netlink-protocols/b71d750c6cccad7ee62398c79b99e12b0dbd1a7c83d4d50925dc17758cf5bc63/libarpd_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dcb/netlink-protocols/4a440cf7b33680d750161a4fd6ea401408ac1a68aa84aa3c29fb7b6589784489/libdcb_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/devlink/netlink-protocols/d275ec6441764af49e36894b289f4be955c376fbc7e783d1d8bc6338250cc4d8/libdevlink_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dpll/netlink-protocols/630ee0aae13ace86689dc83417adbc77f306823eff770ccec0e53a029dfd63bb/libdpll_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/genl/netlink-protocols/adba9eacfe93e17700cb35277e537b66198d302970099a37318ab794c0e71a92/libgenl_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ifstat/netlink-protocols/ffaa8c5610fc41466f5122c1ba22de9dc601ac6691b75f5c20d21942c1ff6e5c/libifstat_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/netlink-protocols/0db83e0df290e9bbf1b6470ecbcdae3385221a6f8f3b50d53300feccf2ab4ba2/libip_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/lnstat/netlink-protocols/54cae1fa020ed1cea5a072ec6025bca97d87e69efc508bfca53e9e05c4f86c93/liblnstat_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/netshaper/netlink-protocols/1f65ac8aa500b8907a7e69fdd008acf206380971734bc4efc86e9caa88547ba6/libnetshaper_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/nstat/netlink-protocols/114d3e271fcc1ea7db90fff7623479e558e624811664b8d6284851094bb5afe2/libnstat_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rdma/netlink-protocols/f23016a6a9869ea5a5105d8295689f371176c8efb5fd4983d7ce97d7fb56bcf0/librdma_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtacct/netlink-protocols/da98d3497ed0cd5ca072a33ea0626a3e8a90cf5116153c00c4a1628212a4c044/librtacct_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtmon/netlink-protocols/b292a6480adff1e5c10db2feb3ee7af5535ff1eff1b94bb80b5134dae7498d87/librtmon_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ss/netlink-protocols/5ff1aa4867dcf89d52f43a11f79cc9001955f2b36119224115fe174e4ca318ef/libss_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/netlink-protocols/0be4dacb9b83b542f87d7172b5b18b35ae6c392985ee1fde0fcbdcd3f4415cf9/libtc_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tipc/netlink-protocols/2a3532e759a556fb9cd18d0e6b444e183ba86a2a894486ff772e53a2e5a59f78/libtipc_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/vdpa/netlink-protocols/8cd900b37be86726894069e717a0ad928d9485d8b0fbf85b1d57612c85309c5b/libvdpa_audit.a"
-      ],
-      "c_function_definitions": 33,
-      "example_functions": [
-        "new_json_obj",
-        "delete_json_obj",
-        "new_json_obj_plain"
-      ],
-      "module_sha256": "20c7f9cb341d670559f9747d36513043732a6bbd451c2276fc6336dd79cfa030",
-      "package": "iproute2-7.3.0",
-      "paths": [
-        "src/lib/json_print.rs"
-      ],
-      "raw_pointer_types_per_copy": 247,
-      "repeated_types_across_archives": 3952
+      "raw_pointer_types_per_copy": 256,
+      "repeated_types_across_archives": 4096
     },
     {
       "archive_count": 13,
@@ -372,18 +253,19 @@
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/resize2fs/b0c8126d1bdf73d216736f090e322dc52c1a9aa2f37ab78ba534910fc9e68005/libresize2fs_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/tune2fs/03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966/libtune2fs_audit.a"
       ],
-      "c_function_definitions": 2,
+      "c_function_definitions": 3,
       "example_functions": [
-        "initialize_ext2_error_table",
-        "initialize_ext2_error_table_r"
+        "ext2fs_open_file",
+        "ext2fs_stat",
+        "ext2fs_fstat"
       ],
-      "module_sha256": "3cb7d4c0103e629e14fc0396613ad5888b75ba71457f8194ea2df8ea123773e6",
+      "module_sha256": "80a3d7cb2c5a57f472efd80d51bbbf77eb349f441be36d032b7e078a49fd5d7f",
       "package": "e2fsprogs-1.47.4",
       "paths": [
-        "src/rustbox_e2fsprogs/normalized_clang_18/lib/ext2fs/ext2_err.rs"
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/unix_io.rs"
       ],
-      "raw_pointer_types_per_copy": 388,
-      "repeated_types_across_archives": 3880
+      "raw_pointer_types_per_copy": 378,
+      "repeated_types_across_archives": 3780
     },
     {
       "archive_count": 13,
@@ -418,36 +300,39 @@
       "repeated_types_across_archives": 3504
     },
     {
-      "archive_count": 13,
+      "archive_count": 18,
       "archives": [
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/badblocks/2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff/libbadblocks_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/debugfs/0b1483e5fe35bab542de5f9285e9f2df6edd6c215a6d1481e2a004cdc203958a/libdebugfs_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/dumpe2fs/0e7dd48180b25ee0e893f7ec2254bd62400c208fdd873858cc56cd62c40ad12f/libdumpe2fs_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2freefrag/dff1d228a46ef9b0bb99a0a2fb7995385f762f3c86aa51463a100dbec84294b5/libe2freefrag_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2fsck/564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd/libe2fsck_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2image/399a863ff0c37471b7e8ab0cbad3d9cd6f80d6f326871ba85e85bed25225fc2e/libe2image_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2initrd_helper/6edccc168e7742f23fafe09103351a09528c8e57699efe07b6009d65fca34cab/libe2initrd_helper_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2undo/cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8/libe2undo_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e4defrag/0de205baddb49a145d654d7972d120739e38af71596acd5a07da8a43a43d0734/libe4defrag_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/fuse2fs/0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a/libfuse2fs_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/resize2fs/b0c8126d1bdf73d216736f090e322dc52c1a9aa2f37ab78ba534910fc9e68005/libresize2fs_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/tune2fs/03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966/libtune2fs_audit.a"
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libdnsdomainname_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libhostname_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libinetd_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/liblogger_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librcp_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexec_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexecd_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogin_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogind_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librsh_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librshd_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libsyslogd_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalk_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnet_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftp_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftpd_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtraceroute_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libuucpd_audit.a"
       ],
-      "c_function_definitions": 11,
+      "c_function_definitions": 2,
       "example_functions": [
-        "ext2fs_create_journal_superblock2",
-        "ext2fs_create_journal_superblock",
-        "ext2fs_zero_blocks2"
+        "rpl_argp_parse",
+        "_argp_input"
       ],
-      "module_sha256": "4b884c242c3133d4f8eb80280fc20a9bb97ff1714f0f75a4d6e1aa157b3cdfad",
-      "package": "e2fsprogs-1.47.4",
+      "module_sha256": "73e399ec0ff3226525ca202e6d7d7c36fbb0981d39cf727216ade5073c4e8c42",
+      "package": "inetutils-2.8",
       "paths": [
-        "src/lib/ext2fs/mkjournal.rs",
-        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/mkjournal.rs"
+        "src/lib/argp_parse.rs"
       ],
-      "raw_pointer_types_per_copy": 271,
-      "repeated_types_across_archives": 3252
+      "raw_pointer_types_per_copy": 206,
+      "repeated_types_across_archives": 3502
     },
     {
       "archive_count": 13,
@@ -514,7 +399,42 @@
       "repeated_types_across_archives": 3120
     },
     {
-      "archive_count": 13,
+      "archive_count": 17,
+      "archives": [
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/arpd/netlink-protocols/b71d750c6cccad7ee62398c79b99e12b0dbd1a7c83d4d50925dc17758cf5bc63/libarpd_audit.a",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dcb/netlink-protocols/4a440cf7b33680d750161a4fd6ea401408ac1a68aa84aa3c29fb7b6589784489/libdcb_audit.a",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/devlink/netlink-protocols/d275ec6441764af49e36894b289f4be955c376fbc7e783d1d8bc6338250cc4d8/libdevlink_audit.a",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dpll/netlink-protocols/630ee0aae13ace86689dc83417adbc77f306823eff770ccec0e53a029dfd63bb/libdpll_audit.a",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/genl/netlink-protocols/adba9eacfe93e17700cb35277e537b66198d302970099a37318ab794c0e71a92/libgenl_audit.a",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ifstat/netlink-protocols/ffaa8c5610fc41466f5122c1ba22de9dc601ac6691b75f5c20d21942c1ff6e5c/libifstat_audit.a",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/netlink-protocols/0db83e0df290e9bbf1b6470ecbcdae3385221a6f8f3b50d53300feccf2ab4ba2/libip_audit.a",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/lnstat/netlink-protocols/54cae1fa020ed1cea5a072ec6025bca97d87e69efc508bfca53e9e05c4f86c93/liblnstat_audit.a",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/netshaper/netlink-protocols/1f65ac8aa500b8907a7e69fdd008acf206380971734bc4efc86e9caa88547ba6/libnetshaper_audit.a",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/nstat/netlink-protocols/114d3e271fcc1ea7db90fff7623479e558e624811664b8d6284851094bb5afe2/libnstat_audit.a",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rdma/netlink-protocols/f23016a6a9869ea5a5105d8295689f371176c8efb5fd4983d7ce97d7fb56bcf0/librdma_audit.a",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtacct/netlink-protocols/da98d3497ed0cd5ca072a33ea0626a3e8a90cf5116153c00c4a1628212a4c044/librtacct_audit.a",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtmon/netlink-protocols/b292a6480adff1e5c10db2feb3ee7af5535ff1eff1b94bb80b5134dae7498d87/librtmon_audit.a",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ss/netlink-protocols/5ff1aa4867dcf89d52f43a11f79cc9001955f2b36119224115fe174e4ca318ef/libss_audit.a",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/netlink-protocols/0be4dacb9b83b542f87d7172b5b18b35ae6c392985ee1fde0fcbdcd3f4415cf9/libtc_audit.a",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tipc/netlink-protocols/2a3532e759a556fb9cd18d0e6b444e183ba86a2a894486ff772e53a2e5a59f78/libtipc_audit.a",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/vdpa/netlink-protocols/8cd900b37be86726894069e717a0ad928d9485d8b0fbf85b1d57612c85309c5b/libvdpa_audit.a"
+      ],
+      "c_function_definitions": 33,
+      "example_functions": [
+        "new_json_obj",
+        "delete_json_obj",
+        "new_json_obj_plain"
+      ],
+      "module_sha256": "80d2cf99fa7141d64df70d5c7f15ab0ccff2f80c95dc4097989d22539e48b028",
+      "package": "iproute2-7.3.0",
+      "paths": [
+        "src/lib/json_print.rs"
+      ],
+      "raw_pointer_types_per_copy": 191,
+      "repeated_types_across_archives": 3056
+    },
+    {
+      "archive_count": 12,
       "archives": [
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/badblocks/2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff/libbadblocks_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/debugfs/0b1483e5fe35bab542de5f9285e9f2df6edd6c215a6d1481e2a004cdc203958a/libdebugfs_audit.a",
@@ -524,7 +444,6 @@
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2image/399a863ff0c37471b7e8ab0cbad3d9cd6f80d6f326871ba85e85bed25225fc2e/libe2image_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2initrd_helper/6edccc168e7742f23fafe09103351a09528c8e57699efe07b6009d65fca34cab/libe2initrd_helper_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2undo/cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8/libe2undo_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e4defrag/0de205baddb49a145d654d7972d120739e38af71596acd5a07da8a43a43d0734/libe4defrag_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/fuse2fs/0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a/libfuse2fs_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/resize2fs/b0c8126d1bdf73d216736f090e322dc52c1a9aa2f37ab78ba534910fc9e68005/libresize2fs_audit.a",
@@ -543,7 +462,36 @@
         "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/inline_data.rs"
       ],
       "raw_pointer_types_per_copy": 257,
-      "repeated_types_across_archives": 3084
+      "repeated_types_across_archives": 2827
+    },
+    {
+      "archive_count": 11,
+      "archives": [
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/debugfs/0b1483e5fe35bab542de5f9285e9f2df6edd6c215a6d1481e2a004cdc203958a/libdebugfs_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/dumpe2fs/0e7dd48180b25ee0e893f7ec2254bd62400c208fdd873858cc56cd62c40ad12f/libdumpe2fs_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2freefrag/dff1d228a46ef9b0bb99a0a2fb7995385f762f3c86aa51463a100dbec84294b5/libe2freefrag_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2fsck/564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd/libe2fsck_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2image/399a863ff0c37471b7e8ab0cbad3d9cd6f80d6f326871ba85e85bed25225fc2e/libe2image_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2initrd_helper/6edccc168e7742f23fafe09103351a09528c8e57699efe07b6009d65fca34cab/libe2initrd_helper_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2undo/cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8/libe2undo_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/fuse2fs/0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a/libfuse2fs_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/resize2fs/b0c8126d1bdf73d216736f090e322dc52c1a9aa2f37ab78ba534910fc9e68005/libresize2fs_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/tune2fs/03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966/libtune2fs_audit.a"
+      ],
+      "c_function_definitions": 11,
+      "example_functions": [
+        "ext2fs_create_journal_superblock2",
+        "ext2fs_create_journal_superblock",
+        "ext2fs_zero_blocks2"
+      ],
+      "module_sha256": "4b884c242c3133d4f8eb80280fc20a9bb97ff1714f0f75a4d6e1aa157b3cdfad",
+      "package": "e2fsprogs-1.47.4",
+      "paths": [
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/mkjournal.rs"
+      ],
+      "raw_pointer_types_per_copy": 271,
+      "repeated_types_across_archives": 2710
     },
     {
       "archive_count": 13,
@@ -557,6 +505,98 @@
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2initrd_helper/6edccc168e7742f23fafe09103351a09528c8e57699efe07b6009d65fca34cab/libe2initrd_helper_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2undo/cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8/libe2undo_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e4defrag/0de205baddb49a145d654d7972d120739e38af71596acd5a07da8a43a43d0734/libe4defrag_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/fuse2fs/0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a/libfuse2fs_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/resize2fs/b0c8126d1bdf73d216736f090e322dc52c1a9aa2f37ab78ba534910fc9e68005/libresize2fs_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/tune2fs/03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966/libtune2fs_audit.a"
+      ],
+      "c_function_definitions": 15,
+      "example_functions": [
+        "ext2fs_file_open2",
+        "ext2fs_file_open",
+        "ext2fs_file_get_fs"
+      ],
+      "module_sha256": "fb1d70294248d61744118e9d89855e766996c705eed5fd72f5781094f645cee2",
+      "package": "e2fsprogs-1.47.4",
+      "paths": [
+        "src/lib/ext2fs/fileio.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/fileio.rs"
+      ],
+      "raw_pointer_types_per_copy": 224,
+      "repeated_types_across_archives": 2688
+    },
+    {
+      "archive_count": 12,
+      "archives": [
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/badblocks/2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff/libbadblocks_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/debugfs/0b1483e5fe35bab542de5f9285e9f2df6edd6c215a6d1481e2a004cdc203958a/libdebugfs_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/dumpe2fs/0e7dd48180b25ee0e893f7ec2254bd62400c208fdd873858cc56cd62c40ad12f/libdumpe2fs_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2freefrag/dff1d228a46ef9b0bb99a0a2fb7995385f762f3c86aa51463a100dbec84294b5/libe2freefrag_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2fsck/564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd/libe2fsck_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2image/399a863ff0c37471b7e8ab0cbad3d9cd6f80d6f326871ba85e85bed25225fc2e/libe2image_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2initrd_helper/6edccc168e7742f23fafe09103351a09528c8e57699efe07b6009d65fca34cab/libe2initrd_helper_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2undo/cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8/libe2undo_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/fuse2fs/0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a/libfuse2fs_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/resize2fs/b0c8126d1bdf73d216736f090e322dc52c1a9aa2f37ab78ba534910fc9e68005/libresize2fs_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/tune2fs/03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966/libtune2fs_audit.a"
+      ],
+      "c_function_definitions": 2,
+      "example_functions": [
+        "ext2fs_check_mount_point",
+        "ext2fs_check_if_mounted"
+      ],
+      "module_sha256": "6c91d06fe6ef460e5d69565f8def074350d5f1663b3baced397713a6f7b10146",
+      "package": "e2fsprogs-1.47.4",
+      "paths": [
+        "src/lib/ext2fs/ismounted.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/ismounted.rs"
+      ],
+      "raw_pointer_types_per_copy": 224,
+      "repeated_types_across_archives": 2464
+    },
+    {
+      "archive_count": 13,
+      "archives": [
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/badblocks/2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff/libbadblocks_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/debugfs/0b1483e5fe35bab542de5f9285e9f2df6edd6c215a6d1481e2a004cdc203958a/libdebugfs_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/dumpe2fs/0e7dd48180b25ee0e893f7ec2254bd62400c208fdd873858cc56cd62c40ad12f/libdumpe2fs_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2freefrag/dff1d228a46ef9b0bb99a0a2fb7995385f762f3c86aa51463a100dbec84294b5/libe2freefrag_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2fsck/564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd/libe2fsck_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2image/399a863ff0c37471b7e8ab0cbad3d9cd6f80d6f326871ba85e85bed25225fc2e/libe2image_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2initrd_helper/6edccc168e7742f23fafe09103351a09528c8e57699efe07b6009d65fca34cab/libe2initrd_helper_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2undo/cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8/libe2undo_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e4defrag/0de205baddb49a145d654d7972d120739e38af71596acd5a07da8a43a43d0734/libe4defrag_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/fuse2fs/0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a/libfuse2fs_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/resize2fs/b0c8126d1bdf73d216736f090e322dc52c1a9aa2f37ab78ba534910fc9e68005/libresize2fs_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/tune2fs/03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966/libtune2fs_audit.a"
+      ],
+      "c_function_definitions": 3,
+      "example_functions": [
+        "ext2fs_load_nls_table",
+        "ext2fs_check_encoded_name",
+        "ext2fs_casefold_cmp"
+      ],
+      "module_sha256": "7a977b0d6f5751e2dc1f23f6fd88913ca0af6452afca6ce726cfdfcb1ec537bd",
+      "package": "e2fsprogs-1.47.4",
+      "paths": [
+        "src/lib/ext2fs/nls_utf8.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/nls_utf8.rs"
+      ],
+      "raw_pointer_types_per_copy": 193,
+      "repeated_types_across_archives": 2316
+    },
+    {
+      "archive_count": 11,
+      "archives": [
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/debugfs/0b1483e5fe35bab542de5f9285e9f2df6edd6c215a6d1481e2a004cdc203958a/libdebugfs_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/dumpe2fs/0e7dd48180b25ee0e893f7ec2254bd62400c208fdd873858cc56cd62c40ad12f/libdumpe2fs_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2freefrag/dff1d228a46ef9b0bb99a0a2fb7995385f762f3c86aa51463a100dbec84294b5/libe2freefrag_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2fsck/564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd/libe2fsck_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2image/399a863ff0c37471b7e8ab0cbad3d9cd6f80d6f326871ba85e85bed25225fc2e/libe2image_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2initrd_helper/6edccc168e7742f23fafe09103351a09528c8e57699efe07b6009d65fca34cab/libe2initrd_helper_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2undo/cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8/libe2undo_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/fuse2fs/0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a/libfuse2fs_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/resize2fs/b0c8126d1bdf73d216736f090e322dc52c1a9aa2f37ab78ba534910fc9e68005/libresize2fs_audit.a",
@@ -571,52 +611,14 @@
       "module_sha256": "1622c075ca4624bb9025506f7a4f5bda5fa2ef3ae0a3d27448db07b0309ac689",
       "package": "e2fsprogs-1.47.4",
       "paths": [
-        "src/lib/ext2fs/gen_bitmap.rs",
         "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/gen_bitmap.rs"
       ],
       "raw_pointer_types_per_copy": 231,
-      "repeated_types_across_archives": 2772
+      "repeated_types_across_archives": 2310
     },
     {
-      "archive_count": 18,
+      "archive_count": 11,
       "archives": [
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/arpd/netlink-protocols/b71d750c6cccad7ee62398c79b99e12b0dbd1a7c83d4d50925dc17758cf5bc63/libarpd_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dcb/netlink-protocols/4a440cf7b33680d750161a4fd6ea401408ac1a68aa84aa3c29fb7b6589784489/libdcb_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/devlink/netlink-protocols/d275ec6441764af49e36894b289f4be955c376fbc7e783d1d8bc6338250cc4d8/libdevlink_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dpll/netlink-protocols/630ee0aae13ace86689dc83417adbc77f306823eff770ccec0e53a029dfd63bb/libdpll_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/genl/netlink-protocols/adba9eacfe93e17700cb35277e537b66198d302970099a37318ab794c0e71a92/libgenl_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ifstat/netlink-protocols/ffaa8c5610fc41466f5122c1ba22de9dc601ac6691b75f5c20d21942c1ff6e5c/libifstat_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/netlink-protocols/0db83e0df290e9bbf1b6470ecbcdae3385221a6f8f3b50d53300feccf2ab4ba2/libip_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/lnstat/netlink-protocols/54cae1fa020ed1cea5a072ec6025bca97d87e69efc508bfca53e9e05c4f86c93/liblnstat_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/netshaper/netlink-protocols/1f65ac8aa500b8907a7e69fdd008acf206380971734bc4efc86e9caa88547ba6/libnetshaper_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/nstat/netlink-protocols/114d3e271fcc1ea7db90fff7623479e558e624811664b8d6284851094bb5afe2/libnstat_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rdma/netlink-protocols/f23016a6a9869ea5a5105d8295689f371176c8efb5fd4983d7ce97d7fb56bcf0/librdma_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtacct/netlink-protocols/da98d3497ed0cd5ca072a33ea0626a3e8a90cf5116153c00c4a1628212a4c044/librtacct_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtmon/netlink-protocols/b292a6480adff1e5c10db2feb3ee7af5535ff1eff1b94bb80b5134dae7498d87/librtmon_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ss/netlink-protocols/5ff1aa4867dcf89d52f43a11f79cc9001955f2b36119224115fe174e4ca318ef/libss_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/netlink-protocols/0be4dacb9b83b542f87d7172b5b18b35ae6c392985ee1fde0fcbdcd3f4415cf9/libtc_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tipc/netlink-protocols/2a3532e759a556fb9cd18d0e6b444e183ba86a2a894486ff772e53a2e5a59f78/libtipc_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/vdpa/netlink-protocols/8cd900b37be86726894069e717a0ad928d9485d8b0fbf85b1d57612c85309c5b/libvdpa_audit.a",
-        "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/netlink-protocols/c5f385f0b2d9951bed3f38267a6fee516188648ba489be22e552f1741d17f93e/libbridge_audit.a"
-      ],
-      "c_function_definitions": 35,
-      "example_functions": [
-        "jsonw_new",
-        "jsonw_destroy",
-        "jsonw_pretty"
-      ],
-      "module_sha256": "2bf53b9a2ab0e57cdffc0c074a991bd7edcd1aa49739083c976f05588e82d7f1",
-      "package": "iproute2-7.3.0",
-      "paths": [
-        "src/lib/json_writer.rs"
-      ],
-      "raw_pointer_types_per_copy": 162,
-      "repeated_types_across_archives": 2754
-    },
-    {
-      "archive_count": 13,
-      "archives": [
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/badblocks/2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff/libbadblocks_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/debugfs/0b1483e5fe35bab542de5f9285e9f2df6edd6c215a6d1481e2a004cdc203958a/libdebugfs_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/dumpe2fs/0e7dd48180b25ee0e893f7ec2254bd62400c208fdd873858cc56cd62c40ad12f/libdumpe2fs_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2freefrag/dff1d228a46ef9b0bb99a0a2fb7995385f762f3c86aa51463a100dbec84294b5/libe2freefrag_audit.a",
@@ -624,7 +626,6 @@
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2image/399a863ff0c37471b7e8ab0cbad3d9cd6f80d6f326871ba85e85bed25225fc2e/libe2image_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2initrd_helper/6edccc168e7742f23fafe09103351a09528c8e57699efe07b6009d65fca34cab/libe2initrd_helper_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2undo/cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8/libe2undo_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e4defrag/0de205baddb49a145d654d7972d120739e38af71596acd5a07da8a43a43d0734/libe4defrag_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/fuse2fs/0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a/libfuse2fs_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a",
         "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/resize2fs/b0c8126d1bdf73d216736f090e322dc52c1a9aa2f37ab78ba534910fc9e68005/libresize2fs_audit.a",
@@ -639,44 +640,11 @@
       "module_sha256": "496b8758495767ad139ba0144baf643808cf654d4a338ea84c0487974ddb5f60",
       "package": "e2fsprogs-1.47.4",
       "paths": [
-        "src/lib/ext2fs/gen_bitmap64.rs",
         "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/gen_bitmap64.rs"
       ],
       "raw_pointer_types_per_copy": 228,
-      "repeated_types_across_archives": 2736
-    },
-    {
-      "archive_count": 13,
-      "archives": [
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/badblocks/2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff/libbadblocks_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/debugfs/0b1483e5fe35bab542de5f9285e9f2df6edd6c215a6d1481e2a004cdc203958a/libdebugfs_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/dumpe2fs/0e7dd48180b25ee0e893f7ec2254bd62400c208fdd873858cc56cd62c40ad12f/libdumpe2fs_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2freefrag/dff1d228a46ef9b0bb99a0a2fb7995385f762f3c86aa51463a100dbec84294b5/libe2freefrag_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2fsck/564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd/libe2fsck_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2image/399a863ff0c37471b7e8ab0cbad3d9cd6f80d6f326871ba85e85bed25225fc2e/libe2image_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2initrd_helper/6edccc168e7742f23fafe09103351a09528c8e57699efe07b6009d65fca34cab/libe2initrd_helper_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2undo/cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8/libe2undo_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e4defrag/0de205baddb49a145d654d7972d120739e38af71596acd5a07da8a43a43d0734/libe4defrag_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/fuse2fs/0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a/libfuse2fs_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/resize2fs/b0c8126d1bdf73d216736f090e322dc52c1a9aa2f37ab78ba534910fc9e68005/libresize2fs_audit.a",
-        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/tune2fs/03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966/libtune2fs_audit.a"
-      ],
-      "c_function_definitions": 7,
-      "example_functions": [
-        "ext2fs_rw_bitmaps",
-        "ext2fs_read_inode_bitmap",
-        "ext2fs_read_block_bitmap"
-      ],
-      "module_sha256": "6999bb7170a6eb27ad54fe756ecc6aef933d59e74e50b936f30894417c62098f",
-      "package": "e2fsprogs-1.47.4",
-      "paths": [
-        "src/lib/ext2fs/rw_bitmaps.rs",
-        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/rw_bitmaps.rs"
-      ],
-      "raw_pointer_types_per_copy": 224,
-      "repeated_types_across_archives": 2688
+      "repeated_types_across_archives": 2280
     }
   ],
-  "repeated_types_across_archives": 229347
+  "repeated_types_across_archives": 203855
 }
