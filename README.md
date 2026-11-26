@@ -1230,6 +1230,11 @@ then compares 108 commands and four benchmark runs against the canonical
 results. It accepts later builds that retain the qualified LZ4 inputs.
 [Saved-executable test](scripts/test_lz4_dictionary_multicall.py)
 
+The ordinary Linux linker reproduced both the complete and stripped LZ4
+preview executables byte-for-byte. The saved ordinary build passed all four
+10 MB benchmark runs and 108 canonical command comparisons.
+[Ordinary Linux link evidence](evidence/lz4-dictionary-normal-link.json)
+
 Zstd 1.5.7 uses a related 255-word benchmark dictionary. Its separate Rust
 generator writes into a bounded slice of potentially uninitialized output.
 The candidate removes 13 mutable statics and 574 explicit pointer types

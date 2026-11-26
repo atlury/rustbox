@@ -1,0 +1,59 @@
+{
+  "candidate": {
+    "archive_sha256": "f3e4435913115dfc9c3550deae4e8cc06abcb910d56fb5da98627b5ff4a3f91f",
+    "bytes": 42446632,
+    "sha256": "5f674015c9fa2d425923fcbbcf3877a5b7bb2b8fb278e5cfb1324358b0cbbe68",
+    "stripped_bytes": 24957680,
+    "stripped_sha256": "835f44cc3be1096f7d32947614d9f7554c212a8510f5051cdc65f221483c25c3"
+  },
+  "deltas": {
+    "work/analysis/lz4-1.11.1/translations/c2rust-0.22.1/lz4-1.11.1-stable/target/release/liblz4_1_11_1_normalized_audit.a": {
+      "as_ptr_calls": 261,
+      "raw_borrows": 3,
+      "raw_pointer_type_tokens": 11,
+      "slices_from_raw_parts": 0
+    }
+  },
+  "link_report_sha256": "2ae0e8fef813d3b48504d43adb77d27f9e53bc80e1621e11dceae384418630ff",
+  "parent": {
+    "archive_sha256": "779209b0e860728ce9bc73fad12a8df323af367c245c9ffd5ac0ae4b303bb39b",
+    "bytes": 42450832,
+    "sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+    "stripped_bytes": 24961776,
+    "stripped_sha256": "a12c31721cf685e3827f4ea859583a60d670d3ead4a6fd71e649798dab900913"
+  },
+  "parent_report_sha256": "100fafce2612b934850dcf8a428b3a9a968c6c60c079465bd9905f49b7976f8d",
+  "public": {
+    "canonical_cases": {
+      "applet-clang": 27,
+      "applet-gcc": 27,
+      "subcommand-clang": 27,
+      "subcommand-gcc": 27
+    },
+    "cli_driver_sha256": "800c0c55213760850e2dd9f601c28b85ecbac63742fa2dd11c3fa384a39381f9",
+    "multicall_sha256": "5f674015c9fa2d425923fcbbcf3877a5b7bb2b8fb278e5cfb1324358b0cbbe68",
+    "synthetic_benchmark": {
+      "applet": {
+        "compressed_bytes": 4658239,
+        "input_bytes": 10000000,
+        "ratio": "2.147"
+      },
+      "clang": {
+        "compressed_bytes": 4658239,
+        "input_bytes": 10000000,
+        "ratio": "2.147"
+      },
+      "gcc": {
+        "compressed_bytes": 4658239,
+        "input_bytes": 10000000,
+        "ratio": "2.147"
+      },
+      "subcommand": {
+        "compressed_bytes": 4658239,
+        "input_bytes": 10000000,
+        "ratio": "2.147"
+      }
+    }
+  },
+  "source_inventory_sha256": "a7ba99dfcfcdfdc6ee32a3f78045b67b04588d0ab8bd83bcafda657b7bc37dba"
+}
