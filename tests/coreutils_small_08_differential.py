@@ -9,6 +9,7 @@ import os
 import stat
 import subprocess
 import tempfile
+import time
 from pathlib import Path
 from typing import Callable
 
@@ -110,6 +111,23 @@ def run(
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=30,
     )
     return process.returncode, normalize_output(process.stdout, cwd), normalize_output(process.stderr, cwd)
+
+
+def compare_stateless(canonical: Path, hybrid: Path, link: Path, applet: bytes,
+                      arguments: list[bytes], data: bytes, mode: str, locale: str) -> None:
+    # pr reads CLOCK_REALTIME when formatting the default header for stdin.
+    # Compare both commands within one UTC minute, including the full header.
+    timed_header = applet == b"pr" and not arguments
+    for _ in range(3):
+        minute = time.time_ns() // 60_000_000_000 if timed_header else None
+        expected = run(canonical, link, applet, arguments, data, mode, locale)
+        actual = run(hybrid, link, applet, arguments, data, mode, locale)
+        if timed_header and time.time_ns() // 60_000_000_000 != minute:
+            continue
+        if actual != expected:
+            raise AssertionError((applet, locale, mode, arguments, expected, actual))
+        return
+    raise RuntimeError("could not compare the two default pr headers within one minute")
 
 
 def snapshot(directory: Path) -> list[dict[str, object]]:
@@ -226,10 +244,7 @@ def main() -> int:
             for locale in LOCALES:
                 for mode in ("explicit", "argv0"):
                     for arguments, input_bytes in [*cases, *[(option, b"") for option in OPTIONS]]:
-                        expected = run(canonical, link(applet), applet, arguments, input_bytes, mode, locale)
-                        actual = run(hybrid, link(applet), applet, arguments, input_bytes, mode, locale)
-                        if actual != expected:
-                            raise AssertionError((applet, locale, mode, arguments, expected, actual))
+                        compare_stateless(canonical, hybrid, link(applet), applet, arguments, input_bytes, mode, locale)
                         checked += 1
 
         for applet, cases in FILESYSTEM.items():
