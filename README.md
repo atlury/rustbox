@@ -2421,6 +2421,8 @@ tar baseline is still 754,997. The Zstd trial removed 4,965 declarations in
 raw-pointer declarations eligible for this pass.
 [E2fsck compiler receipt](evidence/e2fsck-closed-inline-groups.json)
 
+The combined optional selection removes 11,667 declarations in 24 byte-identical archives. Its complete 499-name Linux ELF and link map match the tar baseline, with 743,330 pointer types in the selected compiler inputs. [Combined verification](evidence/rustbox-closed-inline-sweep.json)
+
 The first four verified archives remove 3,861 declarations on the tar baseline:
 1,367 in E2fsck, 1,237 in debugfs, 1,011 in mke2fs and 246 in Shadow.
 Replaying the E2fsck and mke2fs receipts together on the Bison candidate
