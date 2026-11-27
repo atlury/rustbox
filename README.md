@@ -2392,7 +2392,7 @@ narrow gzip receipt in the manifest. Its additional reduction is 56.
 Use `--all-scalar-ffi --narrow-sweep PREVIOUS_OUTPUT` to skip archives already
 at their ranked maximum, then `scripts/select_scalar_ffi_sweeps.py` to retain
 the strongest independently verified result for each archive.
-[Expanded gzip compiler receipt](evidence/gzip-expanded-scalar-ffi.json)
+[Expanded gzip compiler receipt](evidence/gzip-expanded-scalar-ffi.json) The release-level replay retained E2fsck and lowered the two-archive selection from 753,967 to 753,911 raw-pointer types. Use `scripts/extend_verified_scalar_ffi.py` to extend an active manifest while retaining earlier verified imports. [Release-extension inventory](evidence/gzip-scalar-ffi-release-extension.json)
 
 Both transformations also work together in E2fsck. A fresh build shared the
 976 ABI pointer declarations after removing 1,367 declarations in private
