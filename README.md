@@ -545,6 +545,8 @@ with the link report from `51c7a90`. To select the 55 identical results, pass
 
 The util-linux `isosize` candidate reads ISO 9660 sector counts and block sizes from borrowed eight- and four-byte arrays. It removes eight raw-pointer types and fourteen pointer offsets. The archive matched both canonical compilers on 196 generated images, including disagreements between the two byte orders, truncated inputs and mixed-success file lists. Four Memcheck runs passed. [ISO numeric reader checks](evidence/util-linux-isosize-borrowed-numbers.json)
 
+The complete 499-name candidate matched the same ISO profiles through both dispatch modes, passed 100 further util-linux command comparisons, and measured 24,961,776 bytes stripped. [Full executable results](evidence/util-linux-isosize-borrowed-numbers-multicall.json)
+
 The optional release selector accepts verified variadic layouts after the
 C-string substitutions. Starting with only the original `e4defrag` archive
 in a fresh cache, the normal preparation step rebuilt the same bytes and
