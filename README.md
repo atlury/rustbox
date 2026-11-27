@@ -2385,6 +2385,16 @@ when both archives are selected. Pass `--shared-scalar-ffi MANIFEST` to the
 multicall builder to select them. [Two-archive manifest](batches/multicall-initial-scalar-ffi.json)
 [Replayed release counts](evidence/rustbox-initial-scalar-ffi-rebase.json)
 
+Expanding the selector to every matching scalar C interface in gzip raises
+its verified reduction from 54 to 110 while preserving identical archive
+bytes. The broader receipt retains every previous import and replaces the
+narrow gzip receipt in the manifest. Its additional reduction is 56.
+Use `--all-scalar-ffi --narrow-sweep PREVIOUS_OUTPUT` to skip archives already
+at their ranked maximum, then `scripts/select_scalar_ffi_sweeps.py` to retain
+the strongest independently verified result for each archive.
+[Expanded gzip compiler receipt](evidence/gzip-expanded-scalar-ffi.json)
+
+
 
 
 

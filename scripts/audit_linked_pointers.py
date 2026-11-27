@@ -662,9 +662,13 @@ def check_identical_layer(previous, selected, before, after, field):
         if old == row:
             continue
         if old is not None:
-            if field != "native_c_strings":
+            if field == "native_c_strings":
+                native_strings.check_extension(old, row)
+            elif field == "shared_scalar_ffi":
+                from build_scalar_ffi import check_extension
+                check_extension(old, row)
+            else:
                 raise ValueError(f"changed previously verified {field} record for {key}")
-            native_strings.check_extension(old, row)
         package = Path(key).relative_to("work/analysis").parts[0]
         delta = changes.setdefault(package, Counter())
         if field == "native_c_strings":
@@ -675,6 +679,8 @@ def check_identical_layer(previous, selected, before, after, field):
             delta["as_ptr_calls"] += count
         elif field == "shared_scalar_ffi":
             delta.subtract(after["scalar_ffi_deltas"][key])
+            if old is not None:
+                delta.update(before["scalar_ffi_deltas"][key])
         elif field == "closed_inline_groups":
             delta.subtract(after["closed_inline_deltas"][key])
         elif field == "shared_ncurses_termtypes":

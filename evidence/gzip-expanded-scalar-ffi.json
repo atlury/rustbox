@@ -1,0 +1,129 @@
+{
+  "all_scalar_interfaces": true,
+  "archive": "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a",
+  "candidate_sha256": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd",
+  "candidate_sources_sha256": "cf846be8b93ee972298aeeefe45f2759c9225bc4871e6c16d271936de1da3cb4",
+  "compiler_selected_sources": 66,
+  "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+  "control_sha256": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd",
+  "parent_sources_sha256": "f434a0ff91a141c889d330f04a4dda1200a519b61cdcfd5ef3aa4b41ca3ec963",
+  "raw_pointer_types_removed": 110,
+  "scalar_ffi": {
+    "__ctype_tolower_loc": {
+      "copies": 4,
+      "provider": "src/normalized_source/gzip.rs",
+      "signature": "fn __ctype_tolower_loc() -> *mut *const i32;"
+    },
+    "__ctype_toupper_loc": {
+      "copies": 4,
+      "provider": "src/normalized_source/gzip.rs",
+      "signature": "fn __ctype_toupper_loc() -> *mut *const i32;"
+    },
+    "__errno_location": {
+      "copies": 13,
+      "provider": "src/normalized_source/gzip.rs",
+      "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+    },
+    "base_len": {
+      "copies": 2,
+      "provider": "src/normalized_source/lib/filenamecat_lgpl.rs",
+      "signature": "fn base_len(a0: *const ::core::ffi::c_char) -> usize;"
+    },
+    "calloc": {
+      "copies": 2,
+      "provider": "src/normalized_source/lib/ialloc.rs",
+      "signature": "fn calloc(a0: usize, a1: usize) -> *mut ::core::ffi::c_void;"
+    },
+    "free": {
+      "copies": 7,
+      "provider": "src/normalized_source/gzip.rs",
+      "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+    },
+    "gzip_base_name": {
+      "copies": 2,
+      "provider": "src/normalized_source/gzip.rs",
+      "signature": "fn gzip_base_name(a0: *mut ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+    },
+    "gzip_error": {
+      "copies": 7,
+      "provider": "src/normalized_source/deflate.rs",
+      "signature": "fn gzip_error(a0: *const ::core::ffi::c_char);"
+    },
+    "last_component": {
+      "copies": 5,
+      "provider": "src/normalized_source/gzip.rs",
+      "signature": "fn last_component(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+    },
+    "malloc": {
+      "copies": 7,
+      "provider": "src/normalized_source/inflate.rs",
+      "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+    },
+    "memcpy": {
+      "copies": 8,
+      "provider": "src/normalized_source/deflate.rs",
+      "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+    },
+    "memset": {
+      "copies": 4,
+      "provider": "src/normalized_source/deflate.rs",
+      "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+    },
+    "realloc": {
+      "copies": 4,
+      "provider": "src/normalized_source/lib/ialloc.rs",
+      "signature": "fn realloc(a0: *mut ::core::ffi::c_void, a1: usize) -> *mut ::core::ffi::c_void;"
+    },
+    "rpl_reallocarray": {
+      "copies": 2,
+      "provider": "src/normalized_source/lib/ialloc.rs",
+      "signature": "fn rpl_reallocarray(a0: *mut ::core::ffi::c_void, a1: usize, a2: usize) -> *mut ::core::ffi::c_void;"
+    },
+    "strcmp": {
+      "copies": 2,
+      "provider": "src/normalized_source/gzip.rs",
+      "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+    },
+    "strcpy": {
+      "copies": 2,
+      "provider": "src/normalized_source/gzip.rs",
+      "signature": "fn strcpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+    },
+    "strcspn": {
+      "copies": 2,
+      "provider": "src/normalized_source/gzip.rs",
+      "signature": "fn strcspn(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_ulong;"
+    },
+    "strerror": {
+      "copies": 2,
+      "provider": "src/normalized_source/gzip.rs",
+      "signature": "fn strerror(a0: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+    },
+    "strlen": {
+      "copies": 7,
+      "provider": "src/normalized_source/gzip.rs",
+      "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+    },
+    "strspn": {
+      "copies": 2,
+      "provider": "src/normalized_source/lib/chdir_long.rs",
+      "signature": "fn strspn(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_ulong;"
+    },
+    "updcrc": {
+      "copies": 3,
+      "provider": "src/normalized_source/gzip.rs",
+      "signature": "fn updcrc(a0: *const ::core::ffi::c_uchar, a1: ::core::ffi::c_uint) -> ::core::ffi::c_ulong;"
+    },
+    "warning": {
+      "copies": 2,
+      "provider": "src/normalized_source/trees.rs",
+      "signature": "fn warning(a0: *const ::core::ffi::c_char);"
+    },
+    "xstrdup": {
+      "copies": 2,
+      "provider": "src/normalized_source/gzip.rs",
+      "signature": "fn xstrdup(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+    }
+  },
+  "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+}

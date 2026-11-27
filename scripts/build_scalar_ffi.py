@@ -19,10 +19,11 @@ from verify_c_string_sources import syntax_tool
 
 SOURCE = ROOT / "tools/private-inlines/src/bin/scalar-ffi.rs"
 MARKER = ".rustbox-scalar-ffi-pilot"
+ALL_INTERFACES = ".rustbox-all-scalar-ffi"
 SYMBOLS = {"free", "malloc", "realloc", "calloc", "strcmp", "strncmp", "strlen", "memcmp", "memcpy", "memmove", "memset"}
 
 
-def substitute(crate, sources, tool):
+def substitute(crate, sources, tool, *, all_interfaces=False):
     selected = json.loads(subprocess.check_output([tool, crate], input=json.dumps(sorted(sources)).encode()))
     if not selected.keys() <= sources.keys():
         raise ValueError("foreign declaration outside compiler inputs")
@@ -30,7 +31,7 @@ def substitute(crate, sources, tool):
     for module, declarations in selected.items():
         for signature, start, end, after in declarations:
             symbol = signature[3:signature.index("(")]
-            if symbol in SYMBOLS:
+            if symbol in SYMBOLS or (all_interfaces and re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", symbol)):
                 groups[symbol][signature].append((module, start, end, after))
 
     edits = defaultdict(list)
@@ -83,7 +84,21 @@ def substitute(crate, sources, tool):
         changes[module] = new
     if observed != removed:
         raise ValueError("pointer delta disagrees with selected ABI signatures")
-    return changes, dict(scalar_ffi=owners, raw_pointer_types_removed=removed, scanner_source_sha256=digest(SOURCE))
+    facts = dict(scalar_ffi=owners, raw_pointer_types_removed=removed, scanner_source_sha256=digest(SOURCE))
+    if all_interfaces:
+        facts["all_scalar_interfaces"] = True
+    return changes, facts
+
+
+def check_extension(before, after):
+    fields = ("archive", "cargo_archive", "rustc_archive", "compiler_selected_sources", "control_sha256",
+              "candidate_sha256", "parent_sources_sha256", "scanner_source_sha256")
+    if (any(before.get(k) != after.get(k) for k in fields)
+            or before["candidate_sha256"] != before["control_sha256"]
+            or not after.get("all_scalar_interfaces") or before.get("all_scalar_interfaces")
+            or before["raw_pointer_types_removed"] >= after["raw_pointer_types_removed"]
+            or any(after["scalar_ffi"].get(k) != v for k, v in before["scalar_ffi"].items())):
+        raise ValueError("scalar ABI extension must retain the original imports on identical parent sources")
 
 
 def replay_layer(parent, read_parent, row, tool):
@@ -104,7 +119,7 @@ def replay_layer(parent, read_parent, row, tool):
             if sha256(data).hexdigest() != checksum:
                 raise ValueError("scalar ABI module differs from the verified parent")
             path.write_bytes(data)
-        changed, facts = substitute(crate, parent, tool)
+        changed, facts = substitute(crate, parent, tool, all_interfaces=row.get("all_scalar_interfaces", False))
     updated = {**parent, **{k: sha256(v).hexdigest() for k, v in changed.items()}}
     if (any(row.get(k) != v for k,v in facts.items())
             or source_list_digest(updated) != row["candidate_sources_sha256"]):
@@ -112,18 +127,25 @@ def replay_layer(parent, read_parent, row, tool):
     return changed
 
 
-def build(link, key, output):
+def build(link, key, output, *, all_interfaces=False):
     origin = cargo_origin(json.loads(link.read_bytes()), key)
     if direct_crate(origin) is not None:
         from build_staged_c_strings import build as direct
-        direct(link, output, key, scalar_ffi=True)
+        direct(link, output, key, scalar_ffi="all" if all_interfaces else True)
     else:
-        stage_selected_archive(link, output, key, MARKER, Path(__file__).name)
+        def select(crate):
+            selector = crate / ALL_INTERFACES
+            if selector.exists():
+                raise ValueError("unexpected scalar ABI selector in generated crate")
+            if all_interfaces:
+                selector.write_text("all\n")
+        stage_selected_archive(link, output, key, MARKER, Path(__file__).name, select)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--mounted", type=Path)
+    parser.add_argument("--all-interfaces", action="store_true")
     parser.add_argument("--link", type=Path)
     parser.add_argument("--archive")
     parser.add_argument("--output", type=Path)
@@ -131,11 +153,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
     if args.mounted:
         scanner = syntax_tool("scalar-ffi")
-        compile_mounted_sources(args.mounted, lambda c,s: substitute(c,s,scanner), MARKER, allow_identical=True)
+        compile_mounted_sources(args.mounted, lambda c,s: substitute(c,s,scanner, all_interfaces=(c / ALL_INTERFACES).is_file()), MARKER, allow_identical=True)
     elif args.link and args.replay:
         row = json.loads((args.replay / "pilot.json").read_bytes())
         scanner = syntax_tool("scalar-ffi")
-        result = replay(args.link, row["archive"], transform=lambda c,s: substitute(c,s,scanner))
+        result = replay(args.link, row["archive"], transform=lambda c,s: substitute(c,s,scanner, all_interfaces=row.get("all_scalar_interfaces", False)))
         origin = cargo_origin(json.loads(args.link.read_bytes()), row["archive"])
         if direct_crate(origin) is not None:
             result.pop("cargo_archive", None)
@@ -145,6 +167,6 @@ if __name__ == "__main__":
             raise ValueError("foreign declaration source replay differs from the compiler receipt")
         print(f'Replayed {row["raw_pointer_types_removed"]} duplicate pointer declarations.')
     elif args.link and args.archive and args.output:
-        build(args.link, args.archive, args.output)
+        build(args.link, args.archive, args.output, all_interfaces=args.all_interfaces)
     else:
         parser.error("supply a link and an archive and output, or a pilot to replay")

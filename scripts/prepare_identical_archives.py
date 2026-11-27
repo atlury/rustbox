@@ -123,10 +123,11 @@ def prepare(manifest, layer, *, mounted_direct=False):
                 if "rustc_archive" not in row:
                     raise ValueError("expected a directly compiled scalar ABI archive")
                 (root / "built").mkdir()
-                compile_archive(root / "parent.json", root / "built", key, scalar_ffi=True)
+                compile_archive(root / "parent.json", root / "built", key,
+                                scalar_ffi="all" if row.get("all_scalar_interfaces") else True)
             elif layer == "shared_scalar_ffi":
                 from build_scalar_ffi import build
-                build(root / "parent.json", key, root / "built")
+                build(root / "parent.json", key, root / "built", all_interfaces=row.get("all_scalar_interfaces", False))
             elif mounted_direct and layer == "closed_inline_groups":
                 from build_staged_c_strings import compile_archive
                 if "rustc_archive" not in row:
@@ -181,9 +182,12 @@ def enroll(link_file, output, pilots, layer, *, previous_manifest=None):
         if key in records or link["source_library_sha256"].get(key) != row["control_sha256"]:
             raise ValueError(f"duplicate archive or different parent: {key}")
         if key in manifest:
-            if layer != "native_c_strings":
+            if layer == "native_c_strings":
+                from verify_c_string_sources import check_extension
+            elif layer == "shared_scalar_ffi":
+                from build_scalar_ffi import check_extension
+            else:
                 raise ValueError(f"duplicate archive: {key}")
-            from verify_c_string_sources import check_extension
             check_extension(manifest[key]["pilot"], row)
         manifest[key] = dict(pilot=row, parent_receipts=selected_receipts(link, key, layer))
         records[key] = row

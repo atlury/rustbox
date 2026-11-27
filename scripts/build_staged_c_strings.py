@@ -55,7 +55,7 @@ def compile_archive(snapshot, output, key, modules=None, *, routing_protocols=Fa
                 raise ValueError("select only scalar ABI declaration sharing")
             from build_scalar_ffi import substitute as share_scalar_ffi
             from verify_c_string_sources import syntax_tool
-            replacements, changes = share_scalar_ffi(crate, sources, syntax_tool("scalar-ffi"))
+            replacements, changes = share_scalar_ffi(crate, sources, syntax_tool("scalar-ffi"), all_interfaces=scalar_ffi == "all")
         elif closed_inlines:
             if any((color_palette, e2p_error_names, va_list_layout, routing_protocols, dsfield, static_arrays)):
                 raise ValueError("select only the private inline groups")
@@ -135,7 +135,7 @@ def build(link, output, key, modules=None, *, routing_protocols=False, dsfield=F
                         "-v", f"{ROOT}:/work:ro", "-v", f"{stage}:/trial", "rustbox-e2fsprogs:2026-11-24",
                         "python3", "-B", "/work/scripts/build_staged_c_strings.py",
                         "/trial/snapshot.json", "/trial/result", key,
-                        *(["--scalar-ffi"] if scalar_ffi else []), *(["--closed-inlines"] if closed_inlines else []), *(["--color-palette"] if color_palette else []), *(["--e2p-error-names"] if e2p_error_names else []),
+                        *(["--all-scalar-ffi" if scalar_ffi == "all" else "--scalar-ffi"] if scalar_ffi else []), *(["--closed-inlines"] if closed_inlines else []), *(["--color-palette"] if color_palette else []), *(["--e2p-error-names"] if e2p_error_names else []),
                         *(["--dsfield"] if dsfield else []),
                         *(["--routing-protocol-table"] if routing_protocols else []),
                         *(modules or ()), *(["--va-list-layout"] if va_list_layout else []),
@@ -158,6 +158,7 @@ if __name__ == "__main__":
     choice.add_argument("--dsfield", action="store_true")
     choice.add_argument("--static-arrays", action="store_true")
     choice.add_argument("--scalar-ffi", action="store_true")
+    choice.add_argument("--all-scalar-ffi", action="store_const", const="all", dest="scalar_ffi")
     choice.add_argument("--closed-inlines", action="store_true")
     choice.add_argument("--va-list-layout", action="store_true")
     args = parser.parse_args()

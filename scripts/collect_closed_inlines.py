@@ -39,7 +39,8 @@ def collect(link, ranking, batches, manifest, evidence, complete=False, *, scala
                 directory = archive_folder(batch, key)
                 source = directory / "pilot.json"
                 row = json.loads(source.read_bytes())
-                if (digest(source) != receipt["receipt_sha256"] or row["archive"] != key
+                if (bool(row.get("all_scalar_interfaces")) != (scalar_ffi == "all")
+                        or digest(source) != receipt["receipt_sha256"] or row["archive"] != key
                         or {k: v for k, v in row.items() if k != "dead_sites"}
                             != {k: v for k, v in receipt.items() if k != "receipt_sha256"}):
                     raise ValueError("verified batch receipt changed")
@@ -73,6 +74,8 @@ if __name__ == "__main__":
     parser.add_argument("summary", type=Path)
     parser.add_argument("batches", type=Path, nargs="+")
     parser.add_argument("--complete", action="store_true")
-    parser.add_argument("--scalar-ffi", action="store_true")
+    scope = parser.add_mutually_exclusive_group()
+    scope.add_argument("--all-scalar-ffi", action="store_const", const="all", dest="scalar_ffi")
+    scope.add_argument("--scalar-ffi", action="store_true")
     args = parser.parse_args()
     collect(args.link, args.ranking, args.batches, args.manifest, args.summary, args.complete, scalar_ffi=args.scalar_ffi)
