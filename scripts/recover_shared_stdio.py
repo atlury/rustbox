@@ -47,6 +47,9 @@ def recover(link, whole, out, limit, kind="stdio"):
     out.mkdir(exist_ok=True)
 
     def compare(n, modules):
+        if kind == "va-list" and modules == sorted(row["reexporting_modules"]):
+            print("Reused the verified, differing whole-archive result.", flush=True)
+            return False, row["candidate_sha256"]
         trial = out / f"trial-{n:02d}"
         if not trial.exists():
             with (out / f"trial-{n:02d}.log").open("wb") as log:
