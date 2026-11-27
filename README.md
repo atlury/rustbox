@@ -529,6 +529,20 @@ fields. To repeat the archive checks, run
 `python3 -B scripts/build_va_list_layout_batch.py LINK OUT --package grep-3.12`.
 [Variadic ABI measurements and both archive comparisons](evidence/x86-64-va-list-layout-pilots.json)
 
+The full x86-64 System V variadic-layout sweep rebuilt all 98 eligible archives
+against the 123-archive native-string release. Fifty-five rebuilt byte for byte.
+Selecting those 55 in an optional build removes 2,158 duplicate raw-pointer
+field declarations from the compiler inputs, bringing the source count from
+755,004 to 752,846. The other 43 archives changed during compilation and
+account for 4,142 further candidate declarations. The ABI still uses two
+pointer fields per shared definition.
+
+To reproduce the sweep, run `python3 -B scripts/build_va_list_layout_batch.py LINK OUT`
+with the link report from `51c7a90`. To select the 55 identical results, pass
+`--va-list-layouts batches/multicall-va-list-layouts.json` to
+`scripts/build_rustbox_multicall.sh` with the same parent selections.
+[98-archive results](evidence/x86-64-va-list-layout-batch.json)
+
 The optional release selector accepts verified variadic layouts after the
 C-string substitutions. Starting with only the original `e4defrag` archive
 in a fresh cache, the normal preparation step rebuilt the same bytes and
