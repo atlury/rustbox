@@ -101,6 +101,9 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
     va_deltas = {}
     term_records = link.get("shared_ncurses_termtypes", {})
     term_deltas = {}
+    closed_records = link.get("closed_inline_groups", {})
+    closed_tool = native_strings.syntax_tool("closed-inlines") if closed_records else None
+    closed_deltas = {}
     literal_records = link.get("native_c_strings", {})
     literal_deltas = {}
     literal_tool = native_strings.syntax_tool() if literal_records else None
@@ -160,6 +163,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
         literal_records = for_key(literal_records, before_table)
         va_records = for_key(va_records, selected_path)
         term_records = for_key(term_records, selected_path)
+        closed_records = for_key(closed_records, selected_path)
     if not second.keys() <= proofs.keys() & link["source_library_sha256"].keys():
         raise ValueError("second-layer receipt has no linked parent archive")
     for name, expected in sorted(hashes.items()):
@@ -328,7 +332,8 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
             raise ValueError("Cargo origin does not yield the requested linked archive")
         va = va_records.get(str(final_path))
         term = term_records.get(str(final_path))
-        if any(record is not None for record in (literal, table, va, term)):
+        closed = closed_records.get(str(final_path))
+        if any(record is not None for record in (literal, table, va, term, closed)):
             modules = [str(path.relative_to(crate)) for path in files]
             parent = {module: hashlib.sha256(read_parent(module)).hexdigest() for module in modules}
         if literal is not None:
@@ -340,7 +345,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
             changed = native_strings.replay(parent, read_parent, literal, literal_tool)
             replacements.update({crate / module: data for module, data in changed.items()})
             literal_deltas[str(linked_path)] = literal["c_string_literals"]
-        if literal is not None and any(record is not None for record in (table, va, term)):
+        if literal is not None and any(record is not None for record in (table, va, term, closed)):
             parent.update({module: hashlib.sha256(data).hexdigest() for module, data in changed.items()})
         if table is not None:
             if routing:
@@ -384,6 +389,21 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
                 raise ValueError(f"{kind} substitution differs from its verified compiler inputs")
             replacements.update({crate / module: data for module, data in changes.items()})
             deltas[str(linked_path)] = facts["raw_pointer_types_removed"]
+        if closed is not None:
+            from build_closed_inlines import replay_layer
+            key = str(final_path)
+            if (closed["archive"] != key or closed["control_sha256"] != final_hashes[key]
+                    or closed["candidate_sha256"] != closed["control_sha256"]):
+                raise ValueError("closed helper archive differs from its cold build")
+            changes = replay_layer(parent, read_parent, closed, closed_tool)
+            delta = Counter()
+            for module, data in changes.items():
+                original = read_parent(module)
+                delta.update({k: len(regex.findall(original)) - len(regex.findall(data)) for k, regex in METRICS.items()})
+            if delta["raw_pointer_type_tokens"] != closed["raw_pointer_types_removed"]:
+                raise ValueError("closed helper pointer count differs from its receipt")
+            closed_deltas[key] = dict(delta)
+            replacements.update({crate / module: data for module, data in changes.items()})
         for file, source_sha in files.items():
             file.relative_to(crate)
             data = file.read_bytes()
@@ -418,6 +438,8 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
         raise ValueError("tar timestamp receipt outside linked compiler inputs")
     if routing_deltas.keys() != routing_records.keys():
         raise ValueError("routing protocol record lies outside the selected compiler inputs")
+    if closed_deltas.keys() != closed_records.keys():
+        raise ValueError("closed helper receipt outside the linked archive set")
     if term_deltas.keys() != term_records.keys():
         raise ValueError("terminal layout receipt lies outside the selected archives")
     if va_deltas.keys() != va_records.keys():
@@ -444,6 +466,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
             **({"byte_identical_second_inline_cleanups": second_cleanups} if second_cleanups else {}),
             **({"native_c_string_conversions": literal_deltas} if literal_deltas else {}),
             **({"routing_protocol_deltas": routing_deltas} if routing_deltas else {}),
+            **({"closed_inline_deltas": closed_deltas} if closed_deltas else {}),
             **({"shared_ncurses_termtype_deltas": term_deltas} if term_deltas else {}),
             **({"shared_va_list_layout_deltas": va_deltas} if va_deltas else {}),
             **({"shared_stdio_layout_deltas": stdio_deltas} if stdio_deltas else {}),
@@ -635,6 +658,8 @@ def check_identical_layer(previous, selected, before, after, field):
                 count -= before["native_c_string_conversions"][key]
             delta["raw_pointer_type_tokens"] -= 2 * count
             delta["as_ptr_calls"] += count
+        elif field == "closed_inline_groups":
+            delta.subtract(after["closed_inline_deltas"][key])
         elif field == "shared_ncurses_termtypes":
             delta["raw_pointer_type_tokens"] -= after["shared_ncurses_termtype_deltas"][key]
         elif field == "shared_va_list_layouts":
@@ -669,6 +694,7 @@ if __name__ == "__main__":
     parser.add_argument("link_report", type=Path)
     previous = parser.add_mutually_exclusive_group()
     previous.add_argument("--verify-routing-protocols-from", type=Path, metavar="CONTROL")
+    previous.add_argument("--verify-closed-inlines-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-termtypes-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-va-list-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-native-c-strings-from", type=Path, metavar="CONTROL")
@@ -698,6 +724,9 @@ if __name__ == "__main__":
             raise ValueError("expected a new routing protocol selection")
         check_archive_counts(prior, routing_protocols.parent_view(link), measure(prior), current,
                              link[routing_protocols.FIELD], "routing_protocol_deltas")
+    if args.verify_closed_inlines_from:
+        prior = json.loads(args.verify_closed_inlines_from.read_bytes())
+        check_identical_layer(prior, link, measure(prior), current, "closed_inline_groups")
     if args.verify_termtypes_from:
         prior = json.loads(args.verify_termtypes_from.read_bytes())
         check_identical_layer(prior, link, measure(prior), current, "shared_ncurses_termtypes")

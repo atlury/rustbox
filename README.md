@@ -2367,6 +2367,20 @@ tar baseline is still 754,997. The Zstd trial removed 4,965 declarations in
 raw-pointer declarations eligible for this pass.
 [E2fsck compiler receipt](evidence/e2fsck-closed-inline-groups.json)
 
+The multicall linker accepts `--closed-inlines MANIFEST`. To make a manifest
+from independently replayed batches, run `scripts/collect_closed_inlines.py`
+with the release, ranking, output manifest, output summary and batch directories.
+Add `--complete` to require a result for every ranked archive. Enrollment
+reconstructs the preceding substitutions and checks the change in each
+package's pointer types, raw borrows, pointer conversions and slice creation.
+The linker verifies the selected archive hashes and their compiler receipts.
+
+For an archive whose bytes changed, `scripts/recover_closed_inlines.py LINK
+WHOLE_PILOT OUTPUT` tests smaller groups of modules. Each accepted group is built
+together with the modules already accepted. A resumed search checks the saved
+compiler sites and archive hashes before reusing a completed trial.
+
+
 To reproduce one archive, use the archive path recorded in its receipt.
 The batch runner checks each completed pilot again when resumed and saves
 verified counts to `results.json` after each archive.

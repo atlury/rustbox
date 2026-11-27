@@ -14,6 +14,8 @@ PROOFS = ("linked_private_inline_proofs", "linked_second_inline_proofs", "linked
 
 
 def parent_fields(layer):
+    if layer == "closed_inline_groups":
+        return (*parent_fields("shared_ncurses_termtypes"), "shared_ncurses_termtypes")
     if layer == "shared_ncurses_termtypes":
         return (*PROOFS, "shared_stdio_layouts", "native_c_strings", "shared_va_list_layouts")
     if layer == "shared_va_list_layouts":
@@ -37,7 +39,7 @@ def selected_receipts(link, key, layer):
 
 def marker(archive, row, layer):
     suffix = {"native_c_strings": ".c-strings-", "shared_stdio_layouts": ".stdio-", "shared_va_list_layouts": ".va-list-",
-              "shared_ncurses_termtypes": ".termtypes-"}[layer]
+              "shared_ncurses_termtypes": ".termtypes-", "closed_inline_groups": ".closed-inlines-"}[layer]
     return archive.with_name(archive.stem + suffix + row["candidate_sources_sha256"] + ".json")
 
 
@@ -114,7 +116,16 @@ def prepare(manifest, layer, *, mounted_direct=False):
                     raise ValueError("archived compiler receipt differs from the pinned parent")
                 target[location] = receipt
             (root / "parent.json").write_text(json.dumps(link))
-            if mounted_direct:
+            if mounted_direct and layer == "closed_inline_groups":
+                from build_staged_c_strings import compile_archive
+                if "rustc_archive" not in row:
+                    raise ValueError("expected a directly compiled closed helper archive")
+                (root / "built").mkdir()
+                compile_archive(root / "parent.json", root / "built", key, sorted(row["dead_sites"]), closed_inlines=True)
+            elif layer == "closed_inline_groups":
+                from build_closed_inlines import build
+                build(root / "parent.json", key, root / "built", sorted(row["dead_sites"]))
+            elif mounted_direct:
                 from build_staged_c_strings import compile_archive
                 if "rustc_archive" not in row or layer not in ("native_c_strings", "shared_va_list_layouts"):
                     raise ValueError("expected a directly compiled archive substitution")
@@ -206,7 +217,7 @@ def main(layer):
     p.add_argument("--extend", type=Path, metavar="LINKED_MANIFEST", help="carry forward every existing verified entry")
     p = sub.add_parser("prepare")
     p.add_argument("manifest", type=Path)
-    if layer in ("native_c_strings", "shared_va_list_layouts"):
+    if layer in ("native_c_strings", "shared_va_list_layouts", "closed_inline_groups"):
         p.add_argument("--cargo-only", action="store_true",
                        help="the Linux linker prepares direct-rustc engines after building their parents")
     args = parser.parse_args()

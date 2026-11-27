@@ -19,6 +19,7 @@ from test_inline_release import all_packages
 
 def verify(previous, binary, replay_path, output, layer="shared_stdio_layouts"):
     stage, option, metric, summary_field = {
+        "closed_inline_groups": ("closed-inlines", "--verify-closed-inlines-from", "closed_inline_deltas", "private_helper_deltas"),
         "native_c_strings": ("native-c-strings", "--verify-native-c-strings-from", "native_c_string_conversions", "c_string_conversions"),
         "shared_stdio_layouts": ("shared-stdio", "--verify-shared-stdio-from", "shared_stdio_layout_deltas", "repeated_pointer_fields_removed"),
         "shared_ncurses_termtypes": ("ncurses-termtypes", "--verify-termtypes-from", "shared_ncurses_termtype_deltas", "repeated_pointer_fields_removed"),
@@ -90,6 +91,7 @@ if __name__ == "__main__":
     parser.add_argument("previous_replays", type=Path)
     parser.add_argument("new_directory", type=Path)
     selection = parser.add_mutually_exclusive_group()
+    selection.add_argument("--closed-inlines", dest="layer", action="store_const", const="closed_inline_groups")
     selection.add_argument("--native-c-strings", dest="layer", action="store_const", const="native_c_strings")
     selection.add_argument("--ncurses-termtypes", dest="layer", action="store_const", const="shared_ncurses_termtypes")
     selection.add_argument("--va-list-layouts", dest="layer", action="store_const", const="shared_va_list_layouts")

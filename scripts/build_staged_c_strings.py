@@ -51,10 +51,10 @@ def compile_archive(snapshot, output, key, modules=None, *, routing_protocols=Fa
         if sources.keys() != inputs or compile_staged(crate, inputs, rustc, built) != expected:
             raise ValueError("direct compiler recipe failed to reproduce the selected archive")
         if closed_inlines:
-            if any((color_palette, e2p_error_names, va_list_layout, routing_protocols, dsfield, modules, static_arrays)):
+            if any((color_palette, e2p_error_names, va_list_layout, routing_protocols, dsfield, static_arrays)):
                 raise ValueError("select only the private inline groups")
             from build_closed_inlines import direct_substitution
-            replacements, changes = direct_substitution(crate, sources, rustc, scratch)
+            replacements, changes = direct_substitution(crate, sources, rustc, scratch, modules)
         elif color_palette or e2p_error_names:
             if (color_palette and e2p_error_names) or any((va_list_layout, routing_protocols, dsfield, modules, static_arrays)):
                 raise ValueError("select one complete lookup table module")
