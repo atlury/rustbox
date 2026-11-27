@@ -86,6 +86,41 @@ def substitute(crate, sources, tool):
     return changes, dict(scalar_ffi=owners, raw_pointer_types_removed=removed, scanner_source_sha256=digest(SOURCE))
 
 
+def replay_layer(parent, read_parent, row, tool):
+    from hashlib import sha256
+    from tempfile import TemporaryDirectory
+    from check_e2fsprogs_dirhash_arrays import source_list_digest
+    if len(parent) != row["compiler_selected_sources"] or source_list_digest(parent) != row["parent_sources_sha256"]:
+        raise ValueError("scalar ABI parent differs from the verified compiler inputs")
+    with TemporaryDirectory() as tmp:
+        crate = Path(tmp)
+        for module, checksum in parent.items():
+            relative = Path(module)
+            if relative.is_absolute() or ".." in relative.parts:
+                raise ValueError("expected a crate-relative compiler input")
+            path = crate / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            data = read_parent(module)
+            if sha256(data).hexdigest() != checksum:
+                raise ValueError("scalar ABI module differs from the verified parent")
+            path.write_bytes(data)
+        changed, facts = substitute(crate, parent, tool)
+    updated = {**parent, **{k: sha256(v).hexdigest() for k, v in changed.items()}}
+    if (any(row.get(k) != v for k,v in facts.items())
+            or source_list_digest(updated) != row["candidate_sources_sha256"]):
+        raise ValueError("scalar ABI source replay differs from the cold compiler receipt")
+    return changed
+
+
+def build(link, key, output):
+    origin = cargo_origin(json.loads(link.read_bytes()), key)
+    if direct_crate(origin) is not None:
+        from build_staged_c_strings import build as direct
+        direct(link, output, key, scalar_ffi=True)
+    else:
+        stage_selected_archive(link, output, key, MARKER, Path(__file__).name)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--mounted", type=Path)
@@ -110,11 +145,6 @@ if __name__ == "__main__":
             raise ValueError("foreign declaration source replay differs from the compiler receipt")
         print(f'Replayed {row["raw_pointer_types_removed"]} duplicate pointer declarations.')
     elif args.link and args.archive and args.output:
-        origin = cargo_origin(json.loads(args.link.read_bytes()), args.archive)
-        if direct_crate(origin) is not None:
-            from build_staged_c_strings import build
-            build(args.link, args.output, args.archive, scalar_ffi=True)
-        else:
-            stage_selected_archive(args.link, args.output, args.archive, MARKER, Path(__file__).name)
+        build(args.link, args.archive, args.output)
     else:
         parser.error("supply a link and an archive and output, or a pilot to replay")

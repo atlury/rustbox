@@ -2378,6 +2378,14 @@ the eleven-interface batch, pass the scalar ranking to
 identified up to 16,029 repeated pointer types for these interfaces across
 111 archives. [Gzip compiler receipt](evidence/gzip-shared-scalar-ffi.json)
 
+E2fsck also reproduced its archive after sharing 976 duplicate pointer types.
+The E2fsck and gzip source selections together account for 1,030 declarations
+on the verified Bison release. Its inventory goes from 754,547 to 753,517
+when both archives are selected. Pass `--shared-scalar-ffi MANIFEST` to the
+multicall builder to select them. [Two-archive manifest](batches/multicall-initial-scalar-ffi.json)
+[Replayed release counts](evidence/rustbox-initial-scalar-ffi-rebase.json)
+
+
 
 
 The first cold build removed 599 private helpers from the E2fsck Rust compiler

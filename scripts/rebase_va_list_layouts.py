@@ -15,7 +15,7 @@ LAYER = "shared_va_list_layouts"
 
 
 def rebase(link, manifests, output, *, layer=LAYER):
-    if layer not in (LAYER, "closed_inline_groups"):
+    if layer not in (LAYER, "closed_inline_groups", "shared_scalar_ffi"):
         raise ValueError("unknown byte-identical release layer")
     inputs = {p: p.read_bytes() for p in (link, *manifests)}
     if output.resolve() in {p.resolve() for p in inputs}:
@@ -46,8 +46,9 @@ def rebase(link, manifests, output, *, layer=LAYER):
     candidate = {**parent, layer:records}
     before, after = measure(parent), measure(candidate)
     check_identical_layer(parent, candidate, before, after, layer)
-    if layer == "closed_inline_groups":
-        changes = {key: counts["raw_pointer_type_tokens"] for key, counts in after["closed_inline_deltas"].items()}
+    if layer in ("closed_inline_groups", "shared_scalar_ffi"):
+        metric = "closed_inline_deltas" if layer == "closed_inline_groups" else "scalar_ffi_deltas"
+        changes = {key: counts["raw_pointer_type_tokens"] for key, counts in after[metric].items()}
     else:
         changes = after["shared_va_list_layout_deltas"]
     if changes != {k:r["raw_pointer_types_removed"] for k,r in records.items()}:
@@ -70,6 +71,9 @@ if __name__ == "__main__":
     p.add_argument("link", type=Path)
     p.add_argument("output", type=Path)
     p.add_argument("manifests", nargs="+", type=Path)
-    p.add_argument("--closed-inlines", action="store_true")
+    choice = p.add_mutually_exclusive_group()
+    choice.add_argument("--closed-inlines", action="store_const", dest="layer", const="closed_inline_groups")
+    choice.add_argument("--shared-scalar-ffi", action="store_const", dest="layer", const="shared_scalar_ffi")
+    p.set_defaults(layer=LAYER)
     args = p.parse_args()
-    print(json.dumps(rebase(args.link, args.manifests, args.output, layer="closed_inline_groups" if args.closed_inlines else LAYER), indent=2, sort_keys=True))
+    print(json.dumps(rebase(args.link, args.manifests, args.output, layer=args.layer), indent=2, sort_keys=True))
