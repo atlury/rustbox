@@ -581,6 +581,8 @@ counts measure declarations.
 [Ncurses selection](batches/ncurses-va-list-subset.json) ·
 [Combined source inventory](evidence/x86-64-va-list-58-source-selection.json)
 
+The terminal layouts were also cold-built on top of the 132-module variadic selection. Across the same 266 ncurses inputs the two changes removed 2,703 duplicate pointer fields together, with the archive still byte-identical. [Combined ncurses build](evidence/ncurses-combined-layouts.json)
+
 The util-linux `isosize` candidate reads ISO 9660 sector counts and block sizes from borrowed eight- and four-byte arrays. It removes eight raw-pointer types and fourteen pointer offsets. The archive matched both canonical compilers on 196 generated images, including disagreements between the two byte orders, truncated inputs and mixed-success file lists. Four Memcheck runs passed. [ISO numeric reader checks](evidence/util-linux-isosize-borrowed-numbers.json)
 
 The complete 499-name candidate matched the same ISO profiles through both dispatch modes, passed 100 further util-linux command comparisons, and measured 24,961,776 bytes stripped. [Full executable results](evidence/util-linux-isosize-borrowed-numbers-multicall.json)
