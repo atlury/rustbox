@@ -2356,6 +2356,17 @@ are estimates pending rustc diagnostics and archive comparisons. Reproduce the
 ranking with `python3 -B scripts/rank_closed_inlines.py LINK`.
 [Per-archive candidates](evidence/rustbox-closed-inline-candidates.json)
 
+The scalar C ABI audit found 37,532 repeated raw-pointer declarations in 113
+archives on the same tar baseline. It groups private, fixed-arity C functions
+with matching names, scalar argument and return types, and pointer qualifiers.
+For example, the most frequent `memcpy` signature accounts for 4,173 repeated
+pointer types. Sharing a declaration keeps one raw C boundary per archive.
+These are source estimates across 720 signatures. They can overlap other
+candidate changes. Reproduce them with
+`python3 -B scripts/rank_scalar_ffi.py LINK`.
+[Signature and package counts](evidence/rustbox-scalar-ffi-ranking.json)
+
+
 The first cold build removed 599 private helpers from the E2fsck Rust compiler
 inputs, including 1,367 raw-pointer declarations. Twelve of those helpers
 referenced one another or appeared elsewhere inside the removed group. The

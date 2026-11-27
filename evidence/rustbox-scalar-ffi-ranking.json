@@ -1,0 +1,143 @@
+{
+  "archives": 113,
+  "binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+  "candidate_pointer_types": 37532,
+  "link_sha256": "2a84c3b7f6c4f9af582b7f4269011ea118763c79865b2b17b250e67426fc9d9d",
+  "packages": {
+    "acl-2.4.0": 163,
+    "attr-2.6.0": 128,
+    "bc-1.08.2": 124,
+    "bison-3.8.2": 741,
+    "coreutils-9.12": 3025,
+    "curl-8.23.0": 1204,
+    "diffutils-3.12": 450,
+    "e2fsprogs-1.47.4": 9881,
+    "file-5.48": 224,
+    "findutils-4.10.0": 727,
+    "flex-2.6.4": 265,
+    "gawk-5.4.0": 775,
+    "grep-3.12": 327,
+    "gzip-1.14": 110,
+    "inetutils-2.8": 3598,
+    "iproute2-7.3.0": 5697,
+    "kmod-34.3": 296,
+    "less-710": 587,
+    "lz4-1.11.1": 109,
+    "m4-1.4.21": 107,
+    "ncurses-6.6": 1367,
+    "patch-2.8": 225,
+    "pkgconf-3.0.11": 342,
+    "procps-ng-4.0.7": 846,
+    "sed-4.10": 338,
+    "shadow-4.20.4": 1624,
+    "tar-1.35": 1342,
+    "util-linux-2.42.4": 2225,
+    "xz-5.8.4": 261,
+    "zstd-1.5.7": 424
+  },
+  "rank_sha256": "bf48e6c3482dfac12c2503b59e41ccd2d380ac6563c4de8f88a8d274c82f586e",
+  "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd",
+  "signature_groups": 720,
+  "top_signatures": [
+    {
+      "pointer_types": 4173,
+      "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+    },
+    {
+      "pointer_types": 2558,
+      "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+    },
+    {
+      "pointer_types": 1948,
+      "signature": "fn realloc(a0: *mut ::core::ffi::c_void, a1: usize) -> *mut ::core::ffi::c_void;"
+    },
+    {
+      "pointer_types": 1750,
+      "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+    },
+    {
+      "pointer_types": 1468,
+      "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+    },
+    {
+      "pointer_types": 1402,
+      "signature": "fn __ctype_tolower_loc() -> *mut *const i32;"
+    },
+    {
+      "pointer_types": 1399,
+      "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+    },
+    {
+      "pointer_types": 1398,
+      "signature": "fn __ctype_toupper_loc() -> *mut *const i32;"
+    },
+    {
+      "pointer_types": 1347,
+      "signature": "fn dcgettext(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+    },
+    {
+      "pointer_types": 1267,
+      "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+    },
+    {
+      "pointer_types": 1064,
+      "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+    },
+    {
+      "pointer_types": 1002,
+      "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+    },
+    {
+      "pointer_types": 984,
+      "signature": "fn strcpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+    },
+    {
+      "pointer_types": 902,
+      "signature": "fn strchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+    },
+    {
+      "pointer_types": 716,
+      "signature": "fn strncmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> ::core::ffi::c_int;"
+    },
+    {
+      "pointer_types": 624,
+      "signature": "fn bindtextdomain(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+    },
+    {
+      "pointer_types": 597,
+      "signature": "fn strtol(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_long;"
+    },
+    {
+      "pointer_types": 522,
+      "signature": "fn getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+    },
+    {
+      "pointer_types": 498,
+      "signature": "fn setlocale(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+    },
+    {
+      "pointer_types": 434,
+      "signature": "fn memcmp(a0: *const ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> ::core::ffi::c_int;"
+    },
+    {
+      "pointer_types": 429,
+      "signature": "fn print_color_string(a0: ::core::ffi::c_uint, a1: ::core::ffi::c_uint, a2: *const ::core::ffi::c_char, a3: *const ::core::ffi::c_char, a4: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+    },
+    {
+      "pointer_types": 414,
+      "signature": "fn textdomain(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+    },
+    {
+      "pointer_types": 400,
+      "signature": "fn strdup(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+    },
+    {
+      "pointer_types": 393,
+      "signature": "fn strtoul(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_ulong;"
+    },
+    {
+      "pointer_types": 306,
+      "signature": "fn strncpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> *mut ::core::ffi::c_char;"
+    }
+  ]
+}
