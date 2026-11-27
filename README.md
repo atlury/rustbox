@@ -1350,6 +1350,12 @@ produced identical bytes for 144 frames spanning external sequences and all
 nine compression strategies, and decoded every frame back to its input. Both
 Memcheck runs passed. [Zstd updater checks](evidence/zstd-repeat-updates-archive.json)
 
+The 499-name multicall with the shared updater passed 68 command comparisons
+across applet and subcommand dispatch. Both canonical compilers matched its
+benchmark output sizes. The candidate measured 24,961,776
+bytes stripped, compared with 24,961,776 for its control.
+[Shared updater multicall](evidence/zstd-repeat-updates-multicall.json)
+
 A separate cold build applies the writer after the verified Zstd stdio layout
 and 369 selected native C strings across the archive.
 Relative to that compiler input it removes 64 explicit pointer types.
