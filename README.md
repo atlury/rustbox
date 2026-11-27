@@ -221,7 +221,7 @@ E2fsprogs integration passes 112/112 canonical comparisons and all 32
 Valgrind paths; its 20 private namespaces rename 8,126 symbols after removing
 3,966 byte-identical Rust runtime members already provided by Procps-ng.
 Exact evidence is in `evidence/e2fsprogs-1.47.4-multicall.json`.  The resulting
-499-name executable is 42,450,832 bytes unstripped and 24,961,776 bytes
+499-name executable is 42,451,040 bytes unstripped and 24,961,776 bytes
 stripped. Sharing the Coreutils runtime with Gzip saved 289,264 stripped
 bytes. The linker compares 328 archive members byte-for-byte before sharing
 them. The exact hashes and
@@ -295,8 +295,8 @@ for 89 linked Rust archives. These cover the 20 E2fsprogs, 18 IPRoute2 and
 26 GNU Inetutils engines and 25 other package archives. A second compiler pass
 removed additional helpers in 58 of those archives. The declaration cleanup
 covers 89 archives, including 20 E2fsprogs engines. Across the linked applet
-sources the raw-pointer type count fell from **1,379,960 to 755,004**.
-Counting byte-identical Rust files once gives **532,355** remaining occurrences.
+sources the raw-pointer type count fell from **1,379,960 to 754,997**.
+Counting byte-identical Rust files once gives **532,348** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
 The 36-archive native-string release at `daff5c9` had 878,920 lexical
@@ -368,7 +368,8 @@ integration. [Pilot evidence](evidence/iproute2-netlink-protocols-pilot.json)
 | Packed curl manual and its readers | 11,413 |
 | Shared glibc FILE layouts in 42 byte-identical archives | 10,260 |
 | Compiler-checked C-string literals in 123 byte-identical archives | 178,288 |
-| **Total** | **624,956** |
+| Borrowed GNU tar timestamp array | 7 |
+| **Total** | **624,963** |
 
 E2fsprogs accounts for 189,134 remaining occurrences, down from 401,012.
 IPRoute2 accounts for 121,686, down from 265,323. GNU Inetutils accounts
@@ -386,9 +387,9 @@ scope and realm tables added 9,408 stripped bytes and 4,720 unstripped bytes.
 The netlink tables added 5,360 stripped bytes and 12,112 unstripped bytes.
 Packing the curl manual saved 151,536 stripped bytes and 618,464 unstripped bytes.
 The current unstripped SHA-256 is
-`e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341`.
+`45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a`.
 The stripped SHA-256 is
-`a12c31721cf685e3827f4ea859583a60d670d3ead4a6fd71e649798dab900913`.
+`8b23c7ad8b7e3cd781ed03ae073dd14d4895c09b10bdb8f96820c142931c7b04`.
 
 | Code | Where it runs | Remaining work |
 |---|---|---|
@@ -1416,8 +1417,8 @@ path and report invalid nanoseconds through `errno`. This removes seven
 explicit raw-pointer types. Timestamp results, errno and filesystem effects
 matched canonical GCC and Clang builds in 732 cases each. All 732 cases
 also passed Memcheck. The candidate tar and rmt executables passed 18 public
-comparisons against each canonical build. The archive changed, so promotion
-still requires the full multicall release checks.
+comparisons against each canonical build. The default 499-name executable includes the checked timestamp borrow.
+[Release checks](evidence/rustbox-tar-timestamps-replays.json)
 [GNU tar timestamp evidence](evidence/tar-borrowed-timespec-pilot.json)
 
 Curl's time-zone parser has a checked Rust lookup over the original three

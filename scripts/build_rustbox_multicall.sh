@@ -29,6 +29,7 @@ if [ "${1:-}" = --bison-literal-lengths ]; then
     shift
 fi
 tar_timestamps=
+if [ "$#" -eq 0 ]; then tar_timestamps=1; fi
 if [ "${1:-}" = --tar-borrowed-timestamps ]; then
     tar_timestamps=1
     shift
