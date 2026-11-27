@@ -2372,6 +2372,8 @@ candidate changes. Reproduce them with
 `python3 -B scripts/rank_scalar_ffi.py LINK`.
 [Signature and package counts](evidence/rustbox-scalar-ffi-ranking.json)
 
+The first eleven libc interfaces yielded 15,794 fewer raw-pointer declarations in 109 independently replayed byte-identical archives. The batch examined 111 ranked archives. [Compiler comparisons](evidence/rustbox-scalar-ffi-sweep.json)
+
 The gzip pilot shares eight libc declarations across the selected translation
 units. Its complete archive rebuilt byte for byte with 54 fewer raw-pointer
 types and the independent replay reproduced the changed source hashes. To run
