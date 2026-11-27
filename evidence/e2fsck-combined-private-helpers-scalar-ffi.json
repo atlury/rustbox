@@ -1,0 +1,90 @@
+{
+  "closed_receipt_sha256": "585eae81b90a9f8c4f950794ecef2058745907790102a3115a5f446456fbaacc",
+  "combined_e2fsck_pointer_types_removed": 2343,
+  "refresh_including_gzip": {
+    "counts": {
+      "all": {
+        "after": 752600,
+        "before": 753630
+      },
+      "counting_identical_files_once": {
+        "after": 544143,
+        "before": 544223
+      }
+    },
+    "deferred": {},
+    "manifest_sha256": "1c12ec8e08b4666359d1495ab897d8f322c429b58b40c2701cba3796dd741542",
+    "parent_link_sha256": "fbd30da3d140bb2e33f051a2fe9e6f1fcd5025e405503f03403188c04ca33b8a",
+    "rebuilt_identical": 1,
+    "reused": 1
+  },
+  "scalar_ffi_after_closed": {
+    "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2fsck/564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd/libe2fsck_audit.a",
+    "candidate_sha256": "564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd",
+    "candidate_sources_sha256": "9c7a73898a6da663ed43e8dfe03a7f95953a7fd5ca1f94ef075cc022cf9d5864",
+    "compiler_selected_sources": 115,
+    "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+    "control_sha256": "564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd",
+    "parent_sources_sha256": "001736c1472ac9ebe153c68114250ea7f8222a489f13309cfc0bf21d5e387f39",
+    "raw_pointer_types_removed": 976,
+    "rustc_archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-e2fsprogs-shared/e2fsck/libe2fsck_audit.a",
+    "scalar_ffi": {
+      "calloc": {
+        "copies": 5,
+        "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/fileio.rs",
+        "signature": "fn calloc(a0: usize, a1: usize) -> *mut ::core::ffi::c_void;"
+      },
+      "free": {
+        "copies": 68,
+        "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/dirinfo.rs",
+        "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+      },
+      "malloc": {
+        "copies": 105,
+        "provider": "src/rustbox_e2fsprogs/normalized_clang_18/lib/ext2fs/ext2_err.rs",
+        "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+      },
+      "memcmp": {
+        "copies": 15,
+        "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/encrypted_files.rs",
+        "signature": "fn memcmp(a0: *const ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> ::core::ffi::c_int;"
+      },
+      "memcpy": {
+        "copies": 101,
+        "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/badblocks.rs",
+        "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+      },
+      "memmove": {
+        "copies": 8,
+        "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/ea_refcount.rs",
+        "signature": "fn memmove(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+      },
+      "memset": {
+        "copies": 100,
+        "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/badblocks.rs",
+        "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+      },
+      "realloc": {
+        "copies": 100,
+        "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/badblocks.rs",
+        "signature": "fn realloc(a0: *mut ::core::ffi::c_void, a1: usize) -> *mut ::core::ffi::c_void;"
+      },
+      "strcmp": {
+        "copies": 9,
+        "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/unix.rs",
+        "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+      },
+      "strlen": {
+        "copies": 25,
+        "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/dirinfo.rs",
+        "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+      },
+      "strncmp": {
+        "copies": 9,
+        "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/pass2.rs",
+        "signature": "fn strncmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> ::core::ffi::c_int;"
+      }
+    },
+    "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+  }
+}

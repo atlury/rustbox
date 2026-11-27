@@ -2394,6 +2394,16 @@ at their ranked maximum, then `scripts/select_scalar_ffi_sweeps.py` to retain
 the strongest independently verified result for each archive.
 [Expanded gzip compiler receipt](evidence/gzip-expanded-scalar-ffi.json)
 
+Both transformations also work together in E2fsck. A fresh build shared the
+976 ABI pointer declarations after removing 1,367 declarations in private
+helpers. The combined reduction is 2,343, with identical archive bytes.
+The ABI pass started from exactly the compiler sources produced by the helper
+pass. Including the narrow gzip selection gives 2,397 fewer declarations
+across the two engines. Run `scripts/refresh_pointer_selections.py` to
+reuse compatible receipts and rebuild engines whose parent sources changed.
+[Combined build and source hashes](evidence/e2fsck-combined-private-helpers-scalar-ffi.json)
+
+
 
 
 
