@@ -2356,6 +2356,29 @@ are estimates pending rustc diagnostics and archive comparisons. Reproduce the
 ranking with `python3 -B scripts/rank_closed_inlines.py LINK`.
 [Per-archive candidates](evidence/rustbox-closed-inline-candidates.json)
 
+The first cold build removed 599 private helpers from the E2fsck Rust compiler
+inputs, including 1,367 raw-pointer declarations. Twelve of those helpers
+referenced one another or appeared elsewhere inside the removed group. The
+control and rebuilt archive had identical SHA-256 hashes. An independent
+source replay reproduced both compiler input hashes and the removal counts.
+This is a candidate for the multicall release. The shipped inventory on the
+tar baseline is still 754,997. The Zstd trial removed 4,965 declarations in
+4,012 helpers and changed its archive bytes. Flex had no compiler-confirmed
+raw-pointer declarations eligible for this pass.
+[E2fsck compiler receipt](evidence/e2fsck-closed-inline-groups.json)
+
+To reproduce one archive, use the archive path recorded in its receipt.
+The batch runner checks each completed pilot again when resumed and saves
+verified counts to `results.json` after each archive.
+
+```sh
+link=work/analysis/tar-timestamps-final/release.json
+archive=$(python3 -c 'import json; print(json.load(open("evidence/e2fsck-closed-inline-groups.json"))["archive"])')
+python3 -B scripts/build_closed_inlines.py --link "$link" --archive "$archive" --output work/analysis/e2fsck-closed-inline-pilot
+python3 -B scripts/build_closed_inlines.py --link "$link" --replay work/analysis/e2fsck-closed-inline-pilot
+python3 -B scripts/batch_closed_inlines.py "$link" evidence/rustbox-closed-inline-candidates.json work/analysis/e2fs-ip-closed-inlines --package e2fsprogs-1.47.4 --package iproute2-7.3.0
+```
+
 A second pass can find functions whose only remaining callers disappeared in
 the first pass. To prioritize builds, rank only functions that became newly
 unreferenced in their source files. The first ranking estimated 1,144 candidates

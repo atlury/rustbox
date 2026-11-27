@@ -50,7 +50,8 @@ def rank(link):
         raise ValueError("release changed during candidate ranking")
     return dict(link_sha256=sha256(raw).hexdigest(), binary_sha256=json.loads(raw)["binary"]["sha256"],
                 unique_candidates=dict(unique), compiler_input_candidates=dict(sum(by_archive.values(),Counter())),
-                archives=dict(sorted(by_archive.items(),key=lambda pair:(-pair[1]["pointer_types"],pair[0]))))
+                archives=dict(sorted(by_archive.items(),key=lambda pair:(-pair[1]["pointer_types"],pair[0]))),
+                scanner_source_sha256=sha256((ROOT / "tools/private-inlines/src/bin/closed-inlines.rs").read_bytes()).hexdigest())
 
 
 if __name__ == "__main__":
