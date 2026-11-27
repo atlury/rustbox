@@ -560,6 +560,14 @@ All 88 compiler inputs replayed, and the cold-built archive matched its
 original SHA-256. The optional archive went from 16,459 raw-pointer type
 occurrences to 16,381, a reduction of 78. [Compiler receipt](evidence/tune2fs-va-list-subset.json)
 
+The next jointly verified groups cover 58 `tune2fs` modules (116 fields,
+including those first 78) and eight GNU grep modules (16 fields). All
+88 and 131 compiler inputs respectively replayed, and both archives
+matched their controls byte for byte. To select those 132 reductions on
+the native-string parent, pass
+`--va-list-layouts batches/multicall-va-list-subsets.json`.
+[Two-archive selection](batches/multicall-va-list-subsets.json)
+
 The util-linux `isosize` candidate reads ISO 9660 sector counts and block sizes from borrowed eight- and four-byte arrays. It removes eight raw-pointer types and fourteen pointer offsets. The archive matched both canonical compilers on 196 generated images, including disagreements between the two byte orders, truncated inputs and mixed-success file lists. Four Memcheck runs passed. [ISO numeric reader checks](evidence/util-linux-isosize-borrowed-numbers.json)
 
 The complete 499-name candidate matched the same ISO profiles through both dispatch modes, passed 100 further util-linux command comparisons, and measured 24,961,776 bytes stripped. [Full executable results](evidence/util-linux-isosize-borrowed-numbers-multicall.json)

@@ -1,0 +1,173 @@
+{
+  "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/tune2fs/03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966/libtune2fs_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libtune2fs_audit.foreign-8c8cefbed72119a274ff05d13e080f166b68ec48b06c0b7715dee7326b3c0828.json",
+        "sha256": "8c8cefbed72119a274ff05d13e080f166b68ec48b06c0b7715dee7326b3c0828"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libtune2fs_audit.inlines-6ace1cd28e3cbed5eb01ca5e843ccb5072e7fe15bb02add4e1ff728110f0a4db.json",
+        "sha256": "4dc7d5d8ede94516a270aeab2d618be12536ce81639bf0660f8d6bc9f59fb1f6"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/tune2fs/03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966/libtune2fs_audit.a",
+        "c_string_literals": 295,
+        "candidate_sha256": "03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966",
+        "candidate_sources_sha256": "c989dce436e2a9252d78543737719edd3d2d0f443575b61d820931e2a4ed4e04",
+        "compiler_selected_sources": 88,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966",
+        "legacy_compiler": "nightly-2023-04-15",
+        "modules": {
+          "src/rustbox_e2fsprogs/normalized_clang_18/lib/ext2fs/ext2_err.rs": 183,
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/encoding.rs": 3,
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/errcode.rs": 18,
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/feature.rs": 52,
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/hashstr.rs": 3,
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/ls.rs": 3,
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/mntopts.rs": 12,
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/ostype.rs": 5,
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/ext_attr.rs": 8,
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/support/quotaio.rs": 8
+        },
+        "parent_sources_sha256": "4fe77d59470f5e14ee9bfb411eeeb1fefdd66706d23ebc106acf8d864872c63c",
+        "raw_ffi_pointer_extractions": 295,
+        "raw_pointer_types_removed": 590,
+        "rustc_archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-e2fsprogs-shared/tune2fs/libtune2fs_audit.a",
+        "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/tune2fs/03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966/libtune2fs_audit.a",
+      "candidate_sha256": "03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966",
+      "candidate_sources_sha256": "de0bce42b37e6207972d2b9d0b1f81e2a025e235103004e8520dd4573d5932d9",
+      "compiler_selected_sources": 88,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_sha256": "03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966",
+      "declaration_sha256": "d296c17ccd61fe78f5aaa568a8a8ea08b0e811edb049764982240829565ee797",
+      "parent_sources_sha256": "c989dce436e2a9252d78543737719edd3d2d0f443575b61d820931e2a4ed4e04",
+      "provider": "src/work/work/normalized/e2fsprogs_1_47_4/debugfs/journal.rs",
+      "provider_namespace": "src/work/work/normalized/e2fsprogs_1_47_4/debugfs/journal.rs",
+      "raw_pointer_types_removed": 116,
+      "reexporting_modules": [
+        "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/recovery.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/revoke.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/encoding.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/errcode.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/feature.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/hashstr.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/ls.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/mntopts.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/ostype.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/parse_num.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/pe.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/ps.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/uuid.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/et/com_err.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/et/error_message.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/alloc.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/alloc_sb.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/alloc_stats.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/atexit.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/badblocks.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/bitmaps.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/bitops.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/blkmap64_ba.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/blkmap64_rb.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/blknum.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/block.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/bmap.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/check_desc.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/closefs.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/csum.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/dir_iterate.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/dirblock.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/dirhash.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/expanddir.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/ext_attr.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/extent.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/fallocate.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/fileio.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/finddev.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/freefs.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/gen_bitmap.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/gen_bitmap64.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/get_num_dirs.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/getenv.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/getsectsize.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/i_block.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/ind_block.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/initialize.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/inline.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/inline_data.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/inode.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/io_manager.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/ismounted.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/link.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/lookup.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/mkjournal.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/mmp.rs",
+        "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/newdir.rs"
+      ],
+      "rustc_archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-e2fsprogs-shared/tune2fs/libtune2fs_audit.a"
+    }
+  },
+  "work/analysis/grep-3.12/translations/c2rust-0.22.1/grep-3.12-stable/target/release/libgrep_3_12_normalized_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libgrep_3_12_normalized_audit.foreign-38176f7c5cf38777be1fd25ccf04ccc7f891d0ce7206230a971f0dfb8c53a32d.json",
+        "sha256": "38176f7c5cf38777be1fd25ccf04ccc7f891d0ce7206230a971f0dfb8c53a32d"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libgrep_3_12_normalized_audit.inlines-8948c77bbf23ca830536a604aa571c5a97b97f0a1cefead066557a58586d5f51.json",
+        "sha256": "60e495737ec8214ad00abaaaabde17e9d9d3c9970560e61b06fe10bc10703a02"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libgrep_3_12_normalized_audit.layer2-a3c5b8a63291d0466005d6ed9d78d3b939d452e6097b9403e26316c5a1858447.json",
+        "sha256": "a3c5b8a63291d0466005d6ed9d78d3b939d452e6097b9403e26316c5a1858447"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/grep-3.12/translations/c2rust-0.22.1/grep-3.12-stable/target/release/libgrep_3_12_normalized_audit.a",
+        "c_string_literals": 13,
+        "candidate_sha256": "773734b6968c400631b9404b1195ac5929648fb397c59caba84bcee0e58c1a11",
+        "candidate_sources_sha256": "d2712e0cfa2156ee32eec1a0a796123570e87e33ac7df225131f9eca57b53f89",
+        "compiler_selected_sources": 131,
+        "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+        "control_sha256": "773734b6968c400631b9404b1195ac5929648fb397c59caba84bcee0e58c1a11",
+        "modules": {
+          "src/normalized_source/lib/quotearg.rs": 10,
+          "src/normalized_source/src/grep.rs": 3
+        },
+        "parent_sources_sha256": "bf291e2c76cf74b5be8faffd2258a17e7e4c845d12eb62ab789feb38ab8f0320",
+        "raw_ffi_pointer_extractions": 13,
+        "raw_pointer_types_removed": 26,
+        "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/grep-3.12/translations/c2rust-0.22.1/grep-3.12-stable/target/release/libgrep_3_12_normalized_audit.a",
+      "candidate_sha256": "773734b6968c400631b9404b1195ac5929648fb397c59caba84bcee0e58c1a11",
+      "candidate_sources_sha256": "ad0232ead5d8b09a13774f8d0446973e3889ea6e10d498674b48e38e92589998",
+      "compiler_selected_sources": 131,
+      "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+      "control_sha256": "773734b6968c400631b9404b1195ac5929648fb397c59caba84bcee0e58c1a11",
+      "declaration_sha256": "d296c17ccd61fe78f5aaa568a8a8ea08b0e811edb049764982240829565ee797",
+      "parent_sources_sha256": "d2712e0cfa2156ee32eec1a0a796123570e87e33ac7df225131f9eca57b53f89",
+      "provider": "src/normalized_clang/lib/colorize.rs",
+      "provider_namespace": "src/normalized_clang/lib/colorize.rs",
+      "raw_pointer_types_removed": 16,
+      "reexporting_modules": [
+        "src/normalized_source/lib/argmatch.rs",
+        "src/normalized_source/lib/binary_io.rs",
+        "src/normalized_source/lib/btoc32.rs",
+        "src/normalized_source/lib/btowc.rs",
+        "src/normalized_source/lib/c32tob.rs",
+        "src/normalized_source/lib/chdir_long.rs",
+        "src/normalized_source/lib/close_stream.rs",
+        "src/normalized_source/lib/closeout.rs"
+      ]
+    }
+  }
+}
