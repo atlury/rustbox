@@ -24,6 +24,7 @@ if [ "${1:-}" = --iproute2-routing-protocols ]; then
     shift
 fi
 term_manifest=
+if [ "$#" -eq 0 ]; then term_manifest=batches/multicall-ncurses-termtypes.json; fi
 if [ "$#" -ge 2 ] && [ "$1" = --ncurses-termtypes ]; then
     term_manifest=$(python3 -c 'import sys; from pathlib import Path; print(Path(sys.argv[1]).resolve(strict=True).relative_to(Path(sys.argv[2])))' "$2" "$root")
     shift 2

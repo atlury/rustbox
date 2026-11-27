@@ -295,8 +295,8 @@ for 89 linked Rust archives. These cover the 20 E2fsprogs, 18 IPRoute2 and
 26 GNU Inetutils engines and 25 other package archives. A second compiler pass
 removed additional helpers in 58 of those archives. The declaration cleanup
 covers 89 archives, including 20 E2fsprogs engines. Across the linked applet
-sources the raw-pointer type count fell from **1,379,960 to 754,547**.
-Counting byte-identical Rust files once gives **531,898** remaining occurrences.
+sources the raw-pointer type count fell from **1,379,960 to 752,108**.
+Counting byte-identical Rust files once gives **529,459** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
 The 36-archive native-string release at `daff5c9` had 878,920 lexical
@@ -370,7 +370,8 @@ integration. [Pilot evidence](evidence/iproute2-netlink-protocols-pilot.json)
 | Compiler-checked C-string literals in 123 byte-identical archives | 178,288 |
 | Borrowed GNU tar timestamp array | 7 |
 | GNU Bison constant literal lengths | 450 |
-| **Total** | **625,413** |
+| Shared ncurses terminal layouts | 2,439 |
+| **Total** | **627,852** |
 
 E2fsprogs accounts for 189,134 remaining occurrences, down from 401,012.
 IPRoute2 accounts for 121,686, down from 265,323. GNU Inetutils accounts
@@ -614,7 +615,8 @@ the size, alignment and 13 field offsets of both layouts. They also checked
 eight numeric reads each, including a wide value of 65,537. A cold rebuild
 of all 266 inputs reproduced the complete original archive byte for byte.
 The source replay confirmed both providers and all 139 changed modules.
-The published pointer count will change when the release selects this archive.
+The default release now selects both shared terminal layouts.
+[Complete release verification](evidence/rustbox-ncurses-termtypes-replays.json)
 [Ncurses source projections and C ABI measurements](evidence/ncurses-termtype-layout-sources.json)
 
 The optional `--ncurses-termtypes MANIFEST` build selection can follow
