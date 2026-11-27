@@ -1305,6 +1305,15 @@ command comparisons. The public benchmark compressed the 64 KiB and
 10 MB generated inputs to the same sizes as the Rust candidate.
 [Zstd archive and public benchmark evidence](evidence/zstd-lorem-archive.json)
 
+The Zstd repeat-offset candidate borrows the caller's three-element array in
+all three sequence encoder paths. This removes seven raw-pointer type
+occurrences and four unchecked offsets. Each of GCC and Clang matched the safe
+Rust helper on 131,072 input combinations, including equal repeat offsets and
+unsigned wraparound. Both canonical builds and both translated archives produced
+the same 72 compressed frames and decoded every frame back to its input.
+The candidate also passed Memcheck and all 17 command comparisons per compiler.
+[Zstd repeat-offset checks](evidence/zstd-repeat-offsets-archive.json)
+
 A separate cold build applies the writer after the verified Zstd stdio layout
 and 369 selected native C strings across the archive.
 Relative to that compiler input it removes 64 explicit pointer types.
