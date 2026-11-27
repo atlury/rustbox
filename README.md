@@ -2428,6 +2428,8 @@ helpers in two engines left distinct versions of previously identical files
 in the other engines. [Four archive receipts](evidence/rustbox-closed-inline-checkpoint.json)
 [Cross-release inventory](evidence/rustbox-closed-inline-bison-rebase.json)
 
+The next checkpoint qualifies 11,276 declarations in 4,871 private helpers across 15 byte-identical archives on the tar baseline. This includes the first four verified archives. [Per-archive counts](evidence/closed-inline-first-ten-thousand.json) [Reproducible source selection](batches/multicall-closed-inline-first-ten-thousand.json)
+
 The file compression candidate matches all 15 canonical compression methods using bounded byte slices. It removes 37 raw-pointer type occurrences and 12 unchecked pointer offsets from the complete file archive. Each canonical compiler agreed on 988,678 header comparisons and 174 public command cases. The gzip decompression path passed Memcheck. [Archive and command checks](evidence/file-borrowed-compression-headers.json)
 
 
