@@ -551,6 +551,11 @@ accepted module. The provider stays fixed. The final source replay checks the
 selected modules and their hashes. `OUT/results.json` identifies the accepted
 trial and lists the modules still outstanding.
 
+In E2fsprogs `tune2fs`, the first group shared the layout in 39 modules.
+All 88 compiler inputs replayed, and the cold-built archive matched its
+original SHA-256. The optional archive went from 16,459 raw-pointer type
+occurrences to 16,381, a reduction of 78. [Compiler receipt](evidence/tune2fs-va-list-subset.json)
+
 The util-linux `isosize` candidate reads ISO 9660 sector counts and block sizes from borrowed eight- and four-byte arrays. It removes eight raw-pointer types and fourteen pointer offsets. The archive matched both canonical compilers on 196 generated images, including disagreements between the two byte orders, truncated inputs and mixed-success file lists. Four Memcheck runs passed. [ISO numeric reader checks](evidence/util-linux-isosize-borrowed-numbers.json)
 
 The complete 499-name candidate matched the same ISO profiles through both dispatch modes, passed 100 further util-linux command comparisons, and measured 24,961,776 bytes stripped. [Full executable results](evidence/util-linux-isosize-borrowed-numbers-multicall.json)

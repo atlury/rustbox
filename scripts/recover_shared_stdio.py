@@ -40,6 +40,10 @@ def recover(link, whole, out, limit, kind="stdio"):
     fields = 2 if kind == "va-list" else 18
     if row["raw_pointer_types_removed"] != fields * len(row["reexporting_modules"]):
         raise ValueError("whole archive receipt differs from the requested layout")
+    if kind == "va-list":
+        # Byte-identical release layers may have different Rust compiler inputs.
+        from verify_shared_layout_sources import verify
+        verify(link, whole, kind)
     out.mkdir(exist_ok=True)
 
     def compare(n, modules):
@@ -61,7 +65,6 @@ def recover(link, whole, out, limit, kind="stdio"):
     accepted, trace = search(row["reexporting_modules"], limit, compare)
     chosen = next((f"trial-{n:02d}" for n, r in enumerate(trace, 1) if r["identical"] and r["modules"] == accepted), None)
     if chosen and kind == "va-list":
-        from verify_shared_layout_sources import verify
         verify(link, out / chosen, kind)
     result = dict(archive=key, control_sha256=row["control_sha256"], parent_sources_sha256=row["parent_sources_sha256"],
                   whole_candidate_sha256=row["candidate_sha256"], verified_directory=chosen, raw_pointer_types_removed=fields * len(accepted),
