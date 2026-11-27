@@ -1,0 +1,53 @@
+{
+  "archive": "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a",
+  "candidate_sha256": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd",
+  "candidate_sources_sha256": "a3f213c6538c97c3a55d9f79c234c9428909074661ecf9a788ce1744eb229cc4",
+  "compiler_selected_sources": 66,
+  "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+  "control_sha256": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd",
+  "parent_sources_sha256": "f434a0ff91a141c889d330f04a4dda1200a519b61cdcfd5ef3aa4b41ca3ec963",
+  "raw_pointer_types_removed": 54,
+  "scalar_ffi": {
+    "calloc": {
+      "copies": 2,
+      "provider": "src/normalized_source/lib/ialloc.rs",
+      "signature": "fn calloc(a0: usize, a1: usize) -> *mut ::core::ffi::c_void;"
+    },
+    "free": {
+      "copies": 7,
+      "provider": "src/normalized_source/gzip.rs",
+      "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+    },
+    "malloc": {
+      "copies": 7,
+      "provider": "src/normalized_source/inflate.rs",
+      "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+    },
+    "memcpy": {
+      "copies": 8,
+      "provider": "src/normalized_source/deflate.rs",
+      "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+    },
+    "memset": {
+      "copies": 4,
+      "provider": "src/normalized_source/deflate.rs",
+      "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+    },
+    "realloc": {
+      "copies": 4,
+      "provider": "src/normalized_source/lib/ialloc.rs",
+      "signature": "fn realloc(a0: *mut ::core::ffi::c_void, a1: usize) -> *mut ::core::ffi::c_void;"
+    },
+    "strcmp": {
+      "copies": 2,
+      "provider": "src/normalized_source/gzip.rs",
+      "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+    },
+    "strlen": {
+      "copies": 7,
+      "provider": "src/normalized_source/gzip.rs",
+      "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+    }
+  },
+  "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+}

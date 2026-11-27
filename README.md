@@ -2370,6 +2370,15 @@ candidate changes. Reproduce them with
 `python3 -B scripts/rank_scalar_ffi.py LINK`.
 [Signature and package counts](evidence/rustbox-scalar-ffi-ranking.json)
 
+The gzip pilot shares eight libc declarations across the selected translation
+units. Its complete archive rebuilt byte for byte with 54 fewer raw-pointer
+types and the independent replay reproduced the changed source hashes. To run
+the eleven-interface batch, pass the scalar ranking to
+`scripts/batch_closed_inlines.py LINK RANK OUT --scalar-ffi`. The ranking
+identified up to 16,029 repeated pointer types for these interfaces across
+111 archives. [Gzip compiler receipt](evidence/gzip-shared-scalar-ffi.json)
+
+
 
 The first cold build removed 599 private helpers from the E2fsck Rust compiler
 inputs, including 1,367 raw-pointer declarations. Twelve of those helpers

@@ -15,21 +15,32 @@ from build_va_list_layout_batch import archive_folder
 from check_cargo_private_inlines import ROOT, digest
 
 EMPTY_DIAGNOSTIC = b"ValueError: these compiler-dead groups contain no raw pointer types"
-DRIVER = ROOT / "scripts/build_closed_inlines.py"
+def ranked_inputs(inventory, scalar_ffi):
+    if not scalar_ffi:
+        return inventory["archives"], SOURCE, "build_closed_inlines.py", EMPTY_DIAGNOSTIC
+    from collections import Counter
+    from build_scalar_ffi import SOURCE as ffi_source, SYMBOLS
+    counts = Counter()
+    for group in inventory["signatures"]:
+        if group["signature"].split("(", 1)[0].removeprefix("fn ") in SYMBOLS:
+            counts.update(group["archives"])
+    ordered = {key: {"pointer_types": n} for key, n in sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))}
+    return ordered, ffi_source, "build_scalar_ffi.py", b"ValueError: no repeated eligible libc interfaces in this crate"
 
 
-def run(link, ranking, output, packages, jobs, exclude=()):
+def run(link, ranking, output, packages, jobs, exclude=(), scalar_ffi=False):
     inventory = json.loads(ranking.read_bytes())
+    candidates, source, script, empty_diagnostic = ranked_inputs(inventory, scalar_ffi)
     signature = inventory["link_sha256"]
     if (digest(link) != signature or json.loads(link.read_bytes())["binary"]["sha256"] != inventory["binary_sha256"]
-            or digest(SOURCE) != inventory["scanner_source_sha256"]):
+            or digest(source) != inventory["scanner_source_sha256"]):
         raise ValueError("ranking does not match the selected release and scanner")
-    selected = {key: row for key, row in inventory["archives"].items()
+    selected = {key: row for key, row in candidates.items()
                 if (not packages or Path(key).parts[2] in packages) and Path(key).parts[2] not in exclude}
     if not selected or set(packages) - {Path(key).parts[2] for key in selected}:
         raise ValueError("unknown or empty package selection")
     output.mkdir(parents=True, exist_ok=True)
-    driver = [sys.executable, "-B", DRIVER, "--link", link]
+    driver = [sys.executable, "-B", ROOT / "scripts" / script, "--link", link]
 
     def inspect(key):
         folder = archive_folder(output, key)
@@ -42,7 +53,7 @@ def run(link, ranking, output, packages, jobs, exclude=()):
                                           stdout=stream, stderr=subprocess.STDOUT)
                 if proc.returncode:
                     with log.open("rb") as stream:
-                        if any(line.rstrip() == EMPTY_DIAGNOSTIC for line in stream):
+                        if any(line.rstrip() == empty_diagnostic for line in stream):
                             return "empty", {"log": log.name, "log_sha256": digest(log)}
                     proc.check_returncode()
             with log.open("ab") as stream:
@@ -86,8 +97,9 @@ if __name__ == "__main__":
     parser.add_argument("output", type=Path)
     parser.add_argument("--package", action="append", default=[])
     parser.add_argument("--exclude-package", action="append", default=[])
+    parser.add_argument("--scalar-ffi", action="store_true", help="use the scalar ABI ranking and cold-build driver")
     parser.add_argument("--jobs", type=int, default=2)
     args = parser.parse_args()
     if args.jobs < 1:
         parser.error("--jobs must be positive")
-    sys.exit(0 if run(args.link, args.ranking, args.output, args.package, args.jobs, args.exclude_package) else 1)
+    sys.exit(0 if run(args.link, args.ranking, args.output, args.package, args.jobs, args.exclude_package, args.scalar_ffi) else 1)
