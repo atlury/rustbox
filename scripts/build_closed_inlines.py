@@ -2,6 +2,7 @@
 """Cold-build a Cargo archive after removing closed groups of compiler-dead private inline helpers."""
 # SPDX-License-Identifier: 0BSD
 import argparse
+from contextlib import contextmanager
 import json
 import os
 from pathlib import Path
@@ -21,14 +22,43 @@ MODULES_FILE = ".rustbox-closed-inline-modules.json"
 SOURCE = ROOT / "tools/private-inlines/src/bin" / (SCANNER + ".rs")
 
 
-def record_site(sites, sources, msg):
+PROBE = "rustbox_closed_inline_diagnostic_probe"
+
+
+@contextmanager
+def probe_source(crate, sources, sites):
+    # A fresh private definition proves the diagnostic pass actually inspected this crate,
+    # including when no other eligible unused function exists.
+    root = crate / "lib.rs"
+    original = root.read_bytes()
+    if digest(root) != sources["lib.rs"] or PROBE.encode() in original:
+        raise ValueError("unexpected crate root for diagnostic probe")
+    prefix = b"\nfn "
+    try:
+        root.write_bytes(original + prefix + PROBE.encode() + b"() {}\n")
+        yield
+    finally:
+        root.write_bytes(original)
+    records = sites.get("lib.rs", {})
+    if records.pop(PROBE, None) != len(original) + len(prefix):
+        raise ValueError("rustc did not report the expected diagnostic probe at the crate root")
+    if not records:
+        sites.pop("lib.rs", None)
+
+
+def record_site(sites, sources, msg, crate):
     if (msg.get("code") or {}).get("code") != "dead_code":
         return
     name = re.fullmatch(r"function `([^ `]+)` is never used", msg["message"])
     if not name:
         return
     for span in msg["spans"]:
-        module = span["file_name"]
+        filename = Path(span["file_name"])
+        if filename.is_absolute():
+            if not filename.is_relative_to(crate):
+                continue
+            filename = filename.relative_to(crate)
+        module = filename.as_posix()
         if span["is_primary"] and span["expansion"] is None and module in sources:
             entries = sites.setdefault(module,{})
             old = entries.setdefault(name[1],span["byte_start"])
@@ -38,13 +68,14 @@ def record_site(sites, sources, msg):
 
 def direct_substitution(crate, sources, rustc, scratch, modules=None):
     diagnostics = scratch / "closed-inline-diagnostics.jsonl"
-    with diagnostics.open("w") as output:
-        subprocess.run([*rustc, "--emit=metadata", "-A", "warnings", "--force-warn", "dead_code",
-                        "--error-format=json", "lib.rs", "-o", scratch/"dead.rmeta"], cwd=crate, stderr=output, check=True)
     sites = {}
-    with diagnostics.open() as stream:
-        for line in stream:
-            record_site(sites, sources, json.loads(line))
+    with probe_source(crate, sources, sites):
+        with diagnostics.open("w") as output:
+            subprocess.run([*rustc, "--emit=metadata", "-A", "warnings", "--force-warn", "dead_code",
+                            "--error-format=json", "lib.rs", "-o", scratch/"dead.rmeta"], cwd=crate, stderr=output, check=True)
+        with diagnostics.open() as stream:
+            for line in stream:
+                record_site(sites, sources, json.loads(line), crate)
     return substitution(crate, sources, sites, ROOT/"work/analysis/private-inlines-linux/release"/SCANNER, modules)
 
 
@@ -54,20 +85,23 @@ def compiler_sites(crate, sources, target):
     cmd = ["cargo","rustc","--locked","--offline","--release","--lib","--message-format=json",
            "--","-A","warnings","--force-warn","dead_code"]
     sites = {}
-    with subprocess.Popen(cmd, cwd=crate, env=dict(os.environ, CARGO_TARGET_DIR=str(target), RUSTUP_TOOLCHAIN=toolchain),
-                          stdout=subprocess.PIPE, text=True) as child:
-        for line in child.stdout:
-            note = json.loads(line)
-            if note.get("reason") != "compiler-message" or note["target"]["src_path"] != str(crate / "lib.rs"):
-                continue
-            record_site(sites, sources, note["message"])
-        if child.wait():
-            raise ValueError("rustc failed while collecting private helper diagnostics")
+    with probe_source(crate, sources, sites):
+        with subprocess.Popen(cmd, cwd=crate, env=dict(os.environ, CARGO_TARGET_DIR=str(target), RUSTUP_TOOLCHAIN=toolchain),
+                              stdout=subprocess.PIPE, text=True) as child:
+            for line in child.stdout:
+                note = json.loads(line)
+                if note.get("reason") != "compiler-message" or Path(note["target"]["src_path"]).resolve() != (crate / "lib.rs").resolve():
+                    continue
+                record_site(sites, sources, note["message"], crate)
+            if child.wait():
+                raise ValueError("rustc failed while collecting private helper diagnostics")
     return sites
 
 
 def substitution(crate, sources, sites, scanner, modules=None):
-    if not sites or not sites.keys() <= sources.keys():
+    if not sites:
+        raise ValueError("these compiler-dead groups contain no raw pointer types")
+    if not sites.keys() <= sources.keys():
         raise ValueError("expected dead-code diagnostics from compiler-selected modules")
     if modules is not None:
         if not modules or len(set(modules)) != len(modules) or not set(modules) <= sites.keys():

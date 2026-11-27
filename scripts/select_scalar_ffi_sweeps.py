@@ -23,7 +23,7 @@ def select(link, ranking, narrow, broad, manifest, summary):
     if len(set(inspected)) != len(inspected) or set(inspected) != inventory["archives"].keys():
         raise ValueError("the broad sweep has no unique result for every ranked archive")
     choices = {}
-    for folder, state in zip((narrow, broad), results, strict=True):
+    for folder, state in zip((narrow, broad), results):
         for key, entry in state["identical"].items():
             pilot = archive_folder(folder, key)
             receipt = pilot / "pilot.json"
