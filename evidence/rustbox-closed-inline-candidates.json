@@ -1,0 +1,473 @@
+{
+  "link_sha256": "2a84c3b7f6c4f9af582b7f4269011ea118763c79865b2b17b250e67426fc9d9d",
+  "binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+  "unique_candidates": {
+    "files": 997,
+    "helpers": 14385,
+    "pointer_types": 16957,
+    "referenced_helpers": 1305,
+    "referenced_pointer_types": 1715
+  },
+  "compiler_input_candidates": {
+    "files": 1983,
+    "helpers": 28300,
+    "pointer_types": 31178,
+    "referenced_helpers": 1598,
+    "referenced_pointer_types": 1849
+  },
+  "archives": {
+    "work/analysis/zstd-1.5.7/translations/c2rust-0.22.1/zstd-1.5.7-stable/target/release/libzstd_1_5_7_normalized_audit.a": {
+      "files": 39,
+      "helpers": 4184,
+      "pointer_types": 4993,
+      "referenced_helpers": 789,
+      "referenced_pointer_types": 1327
+    },
+    "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/packed-manual/5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7/libcurl_8_23_0_normalized_audit.a": {
+      "files": 238,
+      "helpers": 1683,
+      "pointer_types": 2162,
+      "referenced_helpers": 16,
+      "referenced_pointer_types": 8
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2fsck/564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd/libe2fsck_audit.a": {
+      "files": 98,
+      "helpers": 1746,
+      "pointer_types": 2158,
+      "referenced_helpers": 14,
+      "referenced_pointer_types": 46
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/debugfs/0b1483e5fe35bab542de5f9285e9f2df6edd6c215a6d1481e2a004cdc203958a/libdebugfs_audit.a": {
+      "files": 86,
+      "helpers": 1502,
+      "pointer_types": 1690,
+      "referenced_helpers": 15,
+      "referenced_pointer_types": 6
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/netlink-protocols/0db83e0df290e9bbf1b6470ecbcdae3385221a6f8f3b50d53300feccf2ab4ba2/libip_audit.a": {
+      "files": 97,
+      "helpers": 1407,
+      "pointer_types": 1487,
+      "referenced_helpers": 324,
+      "referenced_pointer_types": 162
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a": {
+      "files": 74,
+      "helpers": 1257,
+      "pointer_types": 1343,
+      "referenced_helpers": 3,
+      "referenced_pointer_types": 0
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/netlink-protocols/0be4dacb9b83b542f87d7172b5b18b35ae6c392985ee1fde0fcbdcd3f4415cf9/libtc_audit.a": {
+      "files": 110,
+      "helpers": 1045,
+      "pointer_types": 1263,
+      "referenced_helpers": 44,
+      "referenced_pointer_types": 22
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/tune2fs/03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966/libtune2fs_audit.a": {
+      "files": 66,
+      "helpers": 1132,
+      "pointer_types": 1255,
+      "referenced_helpers": 8,
+      "referenced_pointer_types": 2
+    },
+    "work/analysis/shadow-4.20.4/translations/c2rust-0.22.1/shadow-4.20.4-nightly/target/release/libshadow_4_20_4_normalized_audit.a": {
+      "files": 127,
+      "helpers": 909,
+      "pointer_types": 1245,
+      "referenced_helpers": 2,
+      "referenced_pointer_types": 12
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/resize2fs/b0c8126d1bdf73d216736f090e322dc52c1a9aa2f37ab78ba534910fc9e68005/libresize2fs_audit.a": {
+      "files": 65,
+      "helpers": 1093,
+      "pointer_types": 1134,
+      "referenced_helpers": 1,
+      "referenced_pointer_types": 0
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/fuse2fs/0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a/libfuse2fs_audit.a": {
+      "files": 54,
+      "helpers": 921,
+      "pointer_types": 1006,
+      "referenced_helpers": 5,
+      "referenced_pointer_types": 2
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/dumpe2fs/0e7dd48180b25ee0e893f7ec2254bd62400c208fdd873858cc56cd62c40ad12f/libdumpe2fs_audit.a": {
+      "files": 52,
+      "helpers": 893,
+      "pointer_types": 986,
+      "referenced_helpers": 3,
+      "referenced_pointer_types": 0
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2image/399a863ff0c37471b7e8ab0cbad3d9cd6f80d6f326871ba85e85bed25225fc2e/libe2image_audit.a": {
+      "files": 55,
+      "helpers": 922,
+      "pointer_types": 969,
+      "referenced_helpers": 1,
+      "referenced_pointer_types": 0
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/badblocks/2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff/libbadblocks_audit.a": {
+      "files": 50,
+      "helpers": 848,
+      "pointer_types": 904,
+      "referenced_helpers": 1,
+      "referenced_pointer_types": 0
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2initrd_helper/6edccc168e7742f23fafe09103351a09528c8e57699efe07b6009d65fca34cab/libe2initrd_helper_audit.a": {
+      "files": 50,
+      "helpers": 845,
+      "pointer_types": 892,
+      "referenced_helpers": 1,
+      "referenced_pointer_types": 0
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2undo/cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8/libe2undo_audit.a": {
+      "files": 50,
+      "helpers": 844,
+      "pointer_types": 888,
+      "referenced_helpers": 1,
+      "referenced_pointer_types": 0
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2freefrag/dff1d228a46ef9b0bb99a0a2fb7995385f762f3c86aa51463a100dbec84294b5/libe2freefrag_audit.a": {
+      "files": 48,
+      "helpers": 812,
+      "pointer_types": 862,
+      "referenced_helpers": 1,
+      "referenced_pointer_types": 0
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e4defrag/0de205baddb49a145d654d7972d120739e38af71596acd5a07da8a43a43d0734/libe4defrag_audit.a": {
+      "files": 48,
+      "helpers": 812,
+      "pointer_types": 862,
+      "referenced_helpers": 1,
+      "referenced_pointer_types": 0
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rdma/netlink-protocols/f23016a6a9869ea5a5105d8295689f371176c8efb5fd4983d7ce97d7fb56bcf0/librdma_audit.a": {
+      "files": 29,
+      "helpers": 405,
+      "pointer_types": 804,
+      "referenced_helpers": 25,
+      "referenced_pointer_types": 17
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/netlink-protocols/c5f385f0b2d9951bed3f38267a6fee516188648ba489be22e552f1741d17f93e/libbridge_audit.a": {
+      "files": 19,
+      "helpers": 247,
+      "pointer_types": 447,
+      "referenced_helpers": 16,
+      "referenced_pointer_types": 8
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dcb/netlink-protocols/4a440cf7b33680d750161a4fd6ea401408ac1a68aa84aa3c29fb7b6589784489/libdcb_audit.a": {
+      "files": 22,
+      "helpers": 221,
+      "pointer_types": 253,
+      "referenced_helpers": 16,
+      "referenced_pointer_types": 8
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tipc/netlink-protocols/2a3532e759a556fb9cd18d0e6b444e183ba86a2a894486ff772e53a2e5a59f78/libtipc_audit.a": {
+      "files": 21,
+      "helpers": 197,
+      "pointer_types": 228,
+      "referenced_helpers": 16,
+      "referenced_pointer_types": 8
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ss/netlink-protocols/5ff1aa4867dcf89d52f43a11f79cc9001955f2b36119224115fe174e4ca318ef/libss_audit.a": {
+      "files": 17,
+      "helpers": 191,
+      "pointer_types": 214,
+      "referenced_helpers": 25,
+      "referenced_pointer_types": 13
+    },
+    "work/analysis/flex-2.6.4/translations/c2rust-0.22.1/flex-2.6.4-stable/target/release/libflex_2_6_4_normalized_audit.a": {
+      "files": 21,
+      "helpers": 145,
+      "pointer_types": 189
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/devlink/netlink-protocols/d275ec6441764af49e36894b289f4be955c376fbc7e783d1d8bc6338250cc4d8/libdevlink_audit.a": {
+      "files": 14,
+      "helpers": 155,
+      "pointer_types": 170,
+      "referenced_helpers": 20,
+      "referenced_pointer_types": 10
+    },
+    "work/analysis/sed-4.10/translations/c2rust-0.22.1/sed-4.10-stable/target/release/libsed_4_10_normalized_audit.a": {
+      "files": 49,
+      "helpers": 308,
+      "pointer_types": 162,
+      "referenced_helpers": 28,
+      "referenced_pointer_types": 46
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dpll/netlink-protocols/630ee0aae13ace86689dc83417adbc77f306823eff770ccec0e53a029dfd63bb/libdpll_audit.a": {
+      "files": 12,
+      "helpers": 131,
+      "pointer_types": 143,
+      "referenced_helpers": 16,
+      "referenced_pointer_types": 8
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/netshaper/netlink-protocols/1f65ac8aa500b8907a7e69fdd008acf206380971734bc4efc86e9caa88547ba6/libnetshaper_audit.a": {
+      "files": 12,
+      "helpers": 129,
+      "pointer_types": 141,
+      "referenced_helpers": 16,
+      "referenced_pointer_types": 8
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/genl/netlink-protocols/adba9eacfe93e17700cb35277e537b66198d302970099a37318ab794c0e71a92/libgenl_audit.a": {
+      "files": 11,
+      "helpers": 122,
+      "pointer_types": 132,
+      "referenced_helpers": 16,
+      "referenced_pointer_types": 8
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/vdpa/netlink-protocols/8cd900b37be86726894069e717a0ad928d9485d8b0fbf85b1d57612c85309c5b/libvdpa_audit.a": {
+      "files": 11,
+      "helpers": 122,
+      "pointer_types": 132,
+      "referenced_helpers": 16,
+      "referenced_pointer_types": 8
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/arpd/netlink-protocols/b71d750c6cccad7ee62398c79b99e12b0dbd1a7c83d4d50925dc17758cf5bc63/libarpd_audit.a": {
+      "files": 10,
+      "helpers": 119,
+      "pointer_types": 126,
+      "referenced_helpers": 20,
+      "referenced_pointer_types": 10
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ifstat/netlink-protocols/ffaa8c5610fc41466f5122c1ba22de9dc601ac6691b75f5c20d21942c1ff6e5c/libifstat_audit.a": {
+      "files": 10,
+      "helpers": 113,
+      "pointer_types": 121,
+      "referenced_helpers": 16,
+      "referenced_pointer_types": 8
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/nstat/netlink-protocols/114d3e271fcc1ea7db90fff7623479e558e624811664b8d6284851094bb5afe2/libnstat_audit.a": {
+      "files": 10,
+      "helpers": 113,
+      "pointer_types": 121,
+      "referenced_helpers": 16,
+      "referenced_pointer_types": 8
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtmon/netlink-protocols/b292a6480adff1e5c10db2feb3ee7af5535ff1eff1b94bb80b5134dae7498d87/librtmon_audit.a": {
+      "files": 10,
+      "helpers": 113,
+      "pointer_types": 121,
+      "referenced_helpers": 16,
+      "referenced_pointer_types": 8
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtacct/netlink-protocols/da98d3497ed0cd5ca072a33ea0626a3e8a90cf5116153c00c4a1628212a4c044/librtacct_audit.a": {
+      "files": 10,
+      "helpers": 111,
+      "pointer_types": 119,
+      "referenced_helpers": 16,
+      "referenced_pointer_types": 8
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/lnstat/netlink-protocols/54cae1fa020ed1cea5a072ec6025bca97d87e69efc508bfca53e9e05c4f86c93/liblnstat_audit.a": {
+      "files": 9,
+      "helpers": 104,
+      "pointer_types": 110,
+      "referenced_helpers": 16,
+      "referenced_pointer_types": 8
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libping_audit.a": {
+      "files": 15,
+      "helpers": 104,
+      "pointer_types": 102
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftpd_audit.a": {
+      "files": 13,
+      "helpers": 93,
+      "pointer_types": 84
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnetd_audit.a": {
+      "files": 13,
+      "helpers": 98,
+      "pointer_types": 84
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libifconfig_audit.a": {
+      "files": 11,
+      "helpers": 93,
+      "pointer_types": 76
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftp_audit.a": {
+      "files": 12,
+      "helpers": 88,
+      "pointer_types": 75
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalk_audit.a": {
+      "files": 13,
+      "helpers": 87,
+      "pointer_types": 75
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalkd_audit.a": {
+      "files": 12,
+      "helpers": 86,
+      "pointer_types": 75
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnet_audit.a": {
+      "files": 12,
+      "helpers": 90,
+      "pointer_types": 66
+    },
+    "work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-core-stable/target/release/libgawk_5_4_0_core.a": {
+      "files": 17,
+      "helpers": 372,
+      "pointer_types": 64,
+      "referenced_helpers": 4,
+      "referenced_pointer_types": 0
+    },
+    "work/analysis/tar-1.35/translations/c2rust-0.22.1/tar-1.35-stable/target/borrowed-timestamps/30ac31a37c96970ff8b030c8e71981914d4d117fd78b4a8bec8283628a69a2f3/libtar_1_35_normalized_audit.a": {
+      "files": 13,
+      "helpers": 101,
+      "pointer_types": 50,
+      "referenced_helpers": 11,
+      "referenced_pointer_types": 14
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogind_audit.a": {
+      "files": 7,
+      "helpers": 55,
+      "pointer_types": 30
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librshd_audit.a": {
+      "files": 7,
+      "helpers": 55,
+      "pointer_types": 30
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libsyslogd_audit.a": {
+      "files": 7,
+      "helpers": 56,
+      "pointer_types": 30
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftp_audit.a": {
+      "files": 7,
+      "helpers": 55,
+      "pointer_types": 30
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftpd_audit.a": {
+      "files": 7,
+      "helpers": 55,
+      "pointer_types": 30
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtraceroute_audit.a": {
+      "files": 7,
+      "helpers": 54,
+      "pointer_types": 30
+    },
+    "work/analysis/findutils-4.10.0/translations/c2rust-0.22.1/findutils-4.10.0-stable/target/release/libfindutils_4_10_0_combined.a": {
+      "files": 6,
+      "helpers": 47,
+      "pointer_types": 29,
+      "referenced_helpers": 11,
+      "referenced_pointer_types": 14
+    },
+    "work/analysis/bison-3.8.2/translations/c2rust-0.22.1/bison-3.8.2-stable/target/release/libbison_3_8_2_normalized_audit.a": {
+      "files": 8,
+      "helpers": 60,
+      "pointer_types": 28
+    },
+    "work/analysis/diffutils-3.12/translations/c2rust-0.22.1/diffutils-3.12-stable/target/release/libdiffutils_3_12_normalized_audit.a": {
+      "files": 6,
+      "helpers": 50,
+      "pointer_types": 22,
+      "referenced_helpers": 14,
+      "referenced_pointer_types": 14
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libdnsdomainname_audit.a": {
+      "files": 6,
+      "helpers": 49,
+      "pointer_types": 21
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libhostname_audit.a": {
+      "files": 6,
+      "helpers": 49,
+      "pointer_types": 21
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libinetd_audit.a": {
+      "files": 6,
+      "helpers": 48,
+      "pointer_types": 21
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/liblogger_audit.a": {
+      "files": 6,
+      "helpers": 49,
+      "pointer_types": 21
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libping6_audit.a": {
+      "files": 7,
+      "helpers": 53,
+      "pointer_types": 21
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librcp_audit.a": {
+      "files": 6,
+      "helpers": 49,
+      "pointer_types": 21
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexec_audit.a": {
+      "files": 6,
+      "helpers": 48,
+      "pointer_types": 21
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexecd_audit.a": {
+      "files": 6,
+      "helpers": 48,
+      "pointer_types": 21
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogin_audit.a": {
+      "files": 6,
+      "helpers": 48,
+      "pointer_types": 21
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librsh_audit.a": {
+      "files": 6,
+      "helpers": 49,
+      "pointer_types": 21
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libuucpd_audit.a": {
+      "files": 6,
+      "helpers": 49,
+      "pointer_types": 21
+    },
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libwhois_audit.a": {
+      "files": 6,
+      "helpers": 49,
+      "pointer_types": 21
+    },
+    "work/analysis/grep-3.12/translations/c2rust-0.22.1/grep-3.12-stable/target/release/libgrep_3_12_normalized_audit.a": {
+      "files": 5,
+      "helpers": 40,
+      "pointer_types": 20,
+      "referenced_helpers": 11,
+      "referenced_pointer_types": 14
+    },
+    "work/analysis/kmod-34.3/translations/c2rust-0.22.1/kmod-34.3-stable/target/release/libkmod_34_3_normalized_audit.a": {
+      "files": 2,
+      "helpers": 12,
+      "pointer_types": 18
+    },
+    "work/analysis/patch-2.8/translations/c2rust-0.22.1/patch-2.8-stable/target/release/libpatch_2_8_normalized_audit.a": {
+      "files": 1,
+      "helpers": 14,
+      "pointer_types": 16,
+      "referenced_helpers": 7,
+      "referenced_pointer_types": 14
+    },
+    "work/analysis/file-5.48/translations/c2rust-0.22.1/file-5.48-stable/target/release/libfile_5_48_normalized_audit.a": {
+      "files": 1,
+      "helpers": 7,
+      "pointer_types": 9
+    },
+    "work/analysis/procps-ng-4.0.7/translations/c2rust-0.22.1/procps-ng-4.0.7-nightly/target/release/libprocps_ng_4_0_7_normalized_audit.a": {
+      "files": 1,
+      "helpers": 6,
+      "pointer_types": 9
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/e4crypt/release/libe4crypt_audit.a": {
+      "files": 2,
+      "helpers": 22,
+      "pointer_types": 8
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/filefrag/release/libfilefrag_audit.a": {
+      "files": 1,
+      "helpers": 11,
+      "pointer_types": 4
+    }
+  },
+  "scanner_source_sha256": "74e8393122c399359f208509fb81fbe911b75b3d6f9f34edcc7084b88331f2ae"
+}

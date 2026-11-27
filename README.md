@@ -2346,6 +2346,16 @@ exercised the upstream `ed-style` case.
 | shadow-4.20.4 | 2,615 | 5,561 | 26,311 |
 | tar-1.35 | 2,577 | 4,670 | 19,837 |
 
+The private-inline scanner can also follow calls between private helpers in a
+leaf module. It keeps the dependencies of any helper referenced from outside
+the group. On the default tar build (`582f6ba`), the source scan found 31,178
+candidate pointer declarations across 74 archives. Of these, 1,849 occur in
+helpers with more than one identifier reference in their module. Counting
+identical source files once gives 16,957 candidates overall. These figures
+are estimates pending rustc diagnostics and archive comparisons. Reproduce the
+ranking with `python3 -B scripts/rank_closed_inlines.py LINK`.
+[Per-archive candidates](evidence/rustbox-closed-inline-candidates.json)
+
 A second pass can find functions whose only remaining callers disappeared in
 the first pass. To prioritize builds, rank only functions that became newly
 unreferenced in their source files. The first ranking estimated 1,144 candidates
