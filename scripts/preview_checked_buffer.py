@@ -56,15 +56,17 @@ def commands(elf, tmp, package):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("package", choices=("curl", "zstd"))
+    parser.add_argument("package", choices=("curl", "zstd", "zstd-repeat-offsets"))
     for arg in ("parent", "log", "pilot", "output"):
         parser.add_argument(arg, type=Path)
     args = parser.parse_args()
-    if args.package == "zstd":
-        proof = json.loads((ROOT / "evidence/zstd-lorem-archive.json").read_bytes())["archive"]
+    package = "curl" if args.package == "curl" else "zstd"
+    if package == "zstd":
+        receipt = "zstd-repeat-offsets-archive.json" if args.package == "zstd-repeat-offsets" else "zstd-lorem-archive.json"
+        proof = json.loads((ROOT / "evidence" / receipt).read_bytes())["archive"]
         namespace = zstd_namespace
     else:
         proof = json.loads((ROOT / "evidence/curl-ftp-permissions-pilot.json").read_bytes())["public_wildcard"]
         namespace = curl_namespace
     preview(args.parent, args.log, args.pilot, args.output, proof, namespace,
-            lambda elf, tmp: commands(elf, tmp, args.package))
+            lambda elf, tmp: commands(elf, tmp, package))

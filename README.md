@@ -1325,6 +1325,11 @@ the same 72 compressed frames and decoded every frame back to its input.
 The candidate also passed Memcheck and all 17 command comparisons per compiler.
 [Zstd repeat-offset checks](evidence/zstd-repeat-offsets-archive.json)
 
+The complete 499-name multicall candidate passed all 68 Zstd command
+comparisons across both dispatch modes and both canonical compilers. Compressed
+benchmark sizes matched at 64 KiB and 10 MB. Both the parent and candidate
+measured 24,961,776 bytes stripped. [Full multicall comparison](evidence/zstd-repeat-offsets-multicall.json)
+
 A separate cold build applies the writer after the verified Zstd stdio layout
 and 369 selected native C strings across the archive.
 Relative to that compiler input it removes 64 explicit pointer types.
