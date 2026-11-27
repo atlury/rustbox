@@ -23,8 +23,8 @@ def run(*args, **kwargs):
     return subprocess.run(args, check=True, **kwargs)
 
 
-def capture(args, *, executable=None):
-    result = subprocess.run(args, executable=executable, capture_output=True, timeout=60)
+def capture(args, *, executable=None, timeout=60):
+    result = subprocess.run(args, executable=executable, capture_output=True, timeout=timeout)
     return result.returncode, result.stdout, result.stderr
 
 

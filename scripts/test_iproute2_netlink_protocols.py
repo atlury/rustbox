@@ -92,7 +92,7 @@ def compare(linked_key=None):
             raise ValueError(("unexpected canonical ABI observations", profile, expected[0], expected[2], len(lines)))
         for cmd in (["./parent"], ["./candidate"], ["valgrind", "--leak-check=no", "--error-exitcode=91",
                                                      "--log-file=/tmp/memcheck.log", "./candidate"]):
-            actual = capture(cmd)
+            actual = capture(cmd, timeout=240) if cmd[0] == "valgrind" else capture(cmd)
             if actual != expected:
                 raise ValueError((profile, cmd, actual[0], actual[2],
                                   next(((x, y) for x, y in zip(lines, actual[1].splitlines()) if x != y), None)))
