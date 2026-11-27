@@ -29,6 +29,7 @@ if [ "$#" -ge 2 ] && [ "$1" = --va-list-layouts ]; then
     shift 2
 fi
 bison_lengths=
+if [ "$#" -eq 0 ]; then bison_lengths=1; fi
 if [ "${1:-}" = --bison-literal-lengths ]; then
     bison_lengths=1
     shift

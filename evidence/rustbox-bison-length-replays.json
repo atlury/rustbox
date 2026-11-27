@@ -1,0 +1,383 @@
+{
+  "binary_sha256": "a8b07738a1985cb6ff68e70cc87870fec0712eebe994e920389918136048379b",
+  "bison_literal_lengths": {
+    "canonical": {
+      "applet": {
+        "clang": {
+          "bison_cases": 12,
+          "compiled_parsers": 5,
+          "generated_yacc_files": {
+            "y.tab.c": "4cd5e3fcd1c8d752a319d6758444a7070c7ad80961b33ace3916a1cae2d45a7a",
+            "y.tab.h": "405501cb57bb539a16ea532adb5963e67958478fa1a12f97c48e6f398bdb8329"
+          },
+          "yacc_cases": 1
+        },
+        "gcc": {
+          "bison_cases": 12,
+          "compiled_parsers": 5,
+          "generated_yacc_files": {
+            "y.tab.c": "4cd5e3fcd1c8d752a319d6758444a7070c7ad80961b33ace3916a1cae2d45a7a",
+            "y.tab.h": "405501cb57bb539a16ea532adb5963e67958478fa1a12f97c48e6f398bdb8329"
+          },
+          "yacc_cases": 1
+        }
+      },
+      "subcommand": {
+        "clang": {
+          "bison_cases": 12,
+          "compiled_parsers": 5,
+          "generated_yacc_files": {
+            "y.tab.c": "4cd5e3fcd1c8d752a319d6758444a7070c7ad80961b33ace3916a1cae2d45a7a",
+            "y.tab.h": "405501cb57bb539a16ea532adb5963e67958478fa1a12f97c48e6f398bdb8329"
+          },
+          "yacc_cases": 1
+        },
+        "gcc": {
+          "bison_cases": 12,
+          "compiled_parsers": 5,
+          "generated_yacc_files": {
+            "y.tab.c": "4cd5e3fcd1c8d752a319d6758444a7070c7ad80961b33ace3916a1cae2d45a7a",
+            "y.tab.h": "405501cb57bb539a16ea532adb5963e67958478fa1a12f97c48e6f398bdb8329"
+          },
+          "yacc_cases": 1
+        }
+      }
+    },
+    "multicall_sha256": "a8b07738a1985cb6ff68e70cc87870fec0712eebe994e920389918136048379b"
+  },
+  "curl_manual": {
+    "advertised_long": 274,
+    "advertised_short": 59,
+    "archive": "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/release/libcurl_8_23_0_normalized_audit.a",
+    "candidate_module_sha256": "60c9a971ae7b374c44502b33c39bd7f85ab95b73b2526952aec936352845c018",
+    "candidate_sha256": "5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7",
+    "candidate_sources_sha256": "842096d82e7809d47e6b44d8f9964c70099177419382db3ca576b339e301db19",
+    "canonical_clang_sha256": "5772b0a811e85d7fdcfac912b874f602e0c28f09ed19188cae28820240749f45",
+    "canonical_gcc_sha256": "ded386aadc2f9abfcc5cae0c6dbb4797d2f4702681622eb8e16cce1f0471e627",
+    "compiler_selected_sources": 241,
+    "control_binary_sha256": "b374a5bd3c3c68bd49c1472b8e4275b31aff83cb3d32cc954562e72b552565f9",
+    "control_module_sha256": "95fe5376476cf0f4904ae8ad99a25dcd4bee3b5c023aded403007148030e301b",
+    "control_sha256": "d360a77e53bca31d38899c506cad8e1837c10134663a6aed6210b28160d6668b",
+    "manual_bytes": 299017,
+    "manual_sha256": "36b86ddf4660e65c4cbcb2ada287c390a8c07abdc66a0cb47c53b033941c3ce7",
+    "memcheck_runs": 5,
+    "multicall_sha256": "a8b07738a1985cb6ff68e70cc87870fec0712eebe994e920389918136048379b",
+    "option_sections": 274,
+    "output_sha256": "50d25399bdaad6c63560d5c3c0639fb71d37af8d737c3f2d5fc86f0b18ed8677",
+    "parent_sources_sha256": "fdc46e29a33f272c9f7d8e5c4334df0919deb3d1028abdb3b6609d00de8e3e6a",
+    "public_cases": 614,
+    "raw_pointer_types_removed_in_pilot_module": 11413,
+    "standalone_stripped_bytes": {
+      "candidate": 1894656,
+      "parent": 2046200
+    },
+    "write_errors": {
+      "full": {
+        "status": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "pipe": {
+        "status": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  },
+  "hangul": {
+    "debugfs_archive_sha256": "0b1483e5fe35bab542de5f9285e9f2df6edd6c215a6d1481e2a004cdc203958a",
+    "debugfs_commands": 40,
+    "leaf_buffer_comparisons": 44688,
+    "memcheck_comparisons": 12407,
+    "public_nls_comparisons": 437501
+  },
+  "iproute2_address_protocol_copies": {
+    "archive_sha256": {
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/arpd/release/libarpd_audit.a": "b71d750c6cccad7ee62398c79b99e12b0dbd1a7c83d4d50925dc17758cf5bc63",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dcb/release/libdcb_audit.a": "4a440cf7b33680d750161a4fd6ea401408ac1a68aa84aa3c29fb7b6589784489",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/devlink/release/libdevlink_audit.a": "d275ec6441764af49e36894b289f4be955c376fbc7e783d1d8bc6338250cc4d8",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dpll/release/libdpll_audit.a": "630ee0aae13ace86689dc83417adbc77f306823eff770ccec0e53a029dfd63bb",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/genl/release/libgenl_audit.a": "adba9eacfe93e17700cb35277e537b66198d302970099a37318ab794c0e71a92",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ifstat/release/libifstat_audit.a": "ffaa8c5610fc41466f5122c1ba22de9dc601ac6691b75f5c20d21942c1ff6e5c",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/lnstat/release/liblnstat_audit.a": "54cae1fa020ed1cea5a072ec6025bca97d87e69efc508bfca53e9e05c4f86c93",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/netshaper/release/libnetshaper_audit.a": "1f65ac8aa500b8907a7e69fdd008acf206380971734bc4efc86e9caa88547ba6",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/nstat/release/libnstat_audit.a": "114d3e271fcc1ea7db90fff7623479e558e624811664b8d6284851094bb5afe2",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rdma/release/librdma_audit.a": "f23016a6a9869ea5a5105d8295689f371176c8efb5fd4983d7ce97d7fb56bcf0",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtacct/release/librtacct_audit.a": "da98d3497ed0cd5ca072a33ea0626a3e8a90cf5116153c00c4a1628212a4c044",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtmon/release/librtmon_audit.a": "b292a6480adff1e5c10db2feb3ee7af5535ff1eff1b94bb80b5134dae7498d87",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ss/release/libss_audit.a": "5ff1aa4867dcf89d52f43a11f79cc9001955f2b36119224115fe174e4ca318ef",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/release/libtc_audit.a": "0be4dacb9b83b542f87d7172b5b18b35ae6c392985ee1fde0fcbdcd3f4415cf9",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tipc/release/libtipc_audit.a": "2a3532e759a556fb9cd18d0e6b444e183ba86a2a894486ff772e53a2e5a59f78",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/vdpa/release/libvdpa_audit.a": "8cd900b37be86726894069e717a0ad928d9485d8b0fbf85b1d57612c85309c5b",
+      "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/libbridge_audit.a": "c5f385f0b2d9951bed3f38267a6fee516188648ba489be22e552f1741d17f93e"
+    },
+    "control_sha256": {
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/arpd/release/libarpd_audit.a": "910363252e4c9e6ba8c122fa07a73ea34773dab83f84c9b9fc22a68ecebff33b",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dcb/release/libdcb_audit.a": "03c5379d895fdf27d0b7a2295bfb799bf6357e6ecd512d59a1102dc57a9fc784",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/devlink/release/libdevlink_audit.a": "fbd7bbcb2ca049158e830f136a2ed6c90ed29f1892b94bf9d2380a6a1351f917",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dpll/release/libdpll_audit.a": "d7be9799a0e6a4233d17f9148d2024134bf581aeb7c58b29683ed3102611b993",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/genl/release/libgenl_audit.a": "2a2d86869190828d357b06fede880e4672fa2e1a34786060375c9bc4aa267534",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ifstat/release/libifstat_audit.a": "2315005f030d61853d13865465b5c6d90f92bacfdb138e96f08a301be645154b",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/lnstat/release/liblnstat_audit.a": "6d801f6ff932c49656c43aeba612d819c67385f5002a49a9e17daf9f0d961e9b",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/netshaper/release/libnetshaper_audit.a": "da5171e75b5f87f8a815cbb1ef5f76b188270c74cc6e68a03fdf81d995f411a5",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/nstat/release/libnstat_audit.a": "5533f509d7b0b0f4f0cfcec580e84bfeea311ca1e771671e6f38efc4a9f4fe48",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rdma/release/librdma_audit.a": "96b5effdf03cac518c6782e470600f543aa819f37d88a95f7f870d5773409687",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtacct/release/librtacct_audit.a": "431a6486493fb8b236a304d3e393b08206cb6d797266da97d01ef66a0adb8101",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtmon/release/librtmon_audit.a": "19cee99e38eae9f60c2c91c0e099636656d444a68ee939c6e532e262637868b2",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ss/release/libss_audit.a": "6edc27d76ca54a4692152c1a1731c8f98f84a147d1e089f3bb9a3293a36ef08e",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/release/libtc_audit.a": "f25748545a6c010900e70f9cfa8f51ebea7d8ba68fb228b470c5535e76d119eb",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tipc/release/libtipc_audit.a": "7987b515b0d7af62f202562f4550ba8700ec1af3e9c0b190b9383db6ae2eb86c",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/vdpa/release/libvdpa_audit.a": "7679b9fbb0cec93216e9fba045a79e542f112c478cc218e18a3d06dcf6d443b6",
+      "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/libbridge_audit.a": "45c4dccae23245b2630b2a8dcba9a46993d2aac01e78711271d4ea6ea7c02b7e"
+    },
+    "image_id": "sha256:67a05efc33545947d397b039e8857913f3fde379190a482a4e5dc61babf699f7",
+    "lookup_checks": {
+      "configurations": 4,
+      "deferred_load_and_cache_checks_per_variant": 1,
+      "lookup_results_per_variant": 6320,
+      "memcheck_runs": 85,
+      "variants_compared_to_canonical": [
+        "arpd-parent",
+        "arpd-candidate",
+        "arpd-candidate-memcheck",
+        "bridge-parent",
+        "bridge-candidate",
+        "bridge-candidate-memcheck",
+        "dcb-parent",
+        "dcb-candidate",
+        "dcb-candidate-memcheck",
+        "devlink-parent",
+        "devlink-candidate",
+        "devlink-candidate-memcheck",
+        "dpll-parent",
+        "dpll-candidate",
+        "dpll-candidate-memcheck",
+        "genl-parent",
+        "genl-candidate",
+        "genl-candidate-memcheck",
+        "ifstat-parent",
+        "ifstat-candidate",
+        "ifstat-candidate-memcheck",
+        "lnstat-parent",
+        "lnstat-candidate",
+        "lnstat-candidate-memcheck",
+        "netshaper-parent",
+        "netshaper-candidate",
+        "netshaper-candidate-memcheck",
+        "nstat-parent",
+        "nstat-candidate",
+        "nstat-candidate-memcheck",
+        "rdma-parent",
+        "rdma-candidate",
+        "rdma-candidate-memcheck",
+        "rtacct-parent",
+        "rtacct-candidate",
+        "rtacct-candidate-memcheck",
+        "rtmon-parent",
+        "rtmon-candidate",
+        "rtmon-candidate-memcheck",
+        "ss-parent",
+        "ss-candidate",
+        "ss-candidate-memcheck",
+        "tc-parent",
+        "tc-candidate",
+        "tc-candidate-memcheck",
+        "tipc-parent",
+        "tipc-candidate",
+        "tipc-candidate-memcheck",
+        "vdpa-parent",
+        "vdpa-candidate",
+        "vdpa-candidate-memcheck"
+      ]
+    },
+    "replay_basis": "identical parent and candidate archives, oracle and test inputs",
+    "test_input_sha256": {
+      "iproute2_include_headers": "8adda531975d514bb6748e2feb734c6848097447a61a47a5fa4cfc1e055c18d7",
+      "scripts/test_iproute2_address_protocols.sh": "f76327384481af141a89ef1b8cbaaec83e5190d68f2abfc10011fb04858ac9ad",
+      "tests/iproute2-address-protocols/archives.py": "3ab859f0be0237f9996c120e100ce285f87a9ff54fff7631427b13118775082e",
+      "tests/iproute2-address-protocols/compare.c": "d10248f80ed3dd321ded803c819641bbb75a3c9e86ee29174dc143ba8720ff1a",
+      "tests/iproute2-address-protocols/configuration.py": "f5653b489931ac470f28fb03f56b684b5835a30731afeff1ba16a01708883624",
+      "work/analysis/iproute2-7.3.0/oracle/gcc-compile-commands.json": "37b2ccd2e9ab28af2d9def64bcdf5057a5b638443e0e0dfc3b7ad9f5b522053e",
+      "work/upstream/iproute2-7.3.0/include/rt_names.h": "b8223569a65254ecd3ea34c0368b253e355f558c270e246fdb7c240823b29414",
+      "work/upstream/iproute2-7.3.0/lib/rt_names.c": "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e"
+    }
+  },
+  "iproute2_address_protocols": {
+    "archive_sha256": "0db83e0df290e9bbf1b6470ecbcdae3385221a6f8f3b50d53300feccf2ab4ba2",
+    "commands_per_dispatch_mode": {
+      "canonical_failures_matched": 13,
+      "canonical_successes": 4,
+      "public_commands": 17
+    },
+    "lookup_results": 6320,
+    "memcheck_runs": 5
+  },
+  "iproute2_netlink_protocols": {
+    "archive_sha256": {
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/arpd/release/libarpd_audit.a": "b71d750c6cccad7ee62398c79b99e12b0dbd1a7c83d4d50925dc17758cf5bc63",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dcb/release/libdcb_audit.a": "4a440cf7b33680d750161a4fd6ea401408ac1a68aa84aa3c29fb7b6589784489",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/devlink/release/libdevlink_audit.a": "d275ec6441764af49e36894b289f4be955c376fbc7e783d1d8bc6338250cc4d8",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dpll/release/libdpll_audit.a": "630ee0aae13ace86689dc83417adbc77f306823eff770ccec0e53a029dfd63bb",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/genl/release/libgenl_audit.a": "adba9eacfe93e17700cb35277e537b66198d302970099a37318ab794c0e71a92",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ifstat/release/libifstat_audit.a": "ffaa8c5610fc41466f5122c1ba22de9dc601ac6691b75f5c20d21942c1ff6e5c",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/release/libip_audit.a": "0db83e0df290e9bbf1b6470ecbcdae3385221a6f8f3b50d53300feccf2ab4ba2",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/lnstat/release/liblnstat_audit.a": "54cae1fa020ed1cea5a072ec6025bca97d87e69efc508bfca53e9e05c4f86c93",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/netshaper/release/libnetshaper_audit.a": "1f65ac8aa500b8907a7e69fdd008acf206380971734bc4efc86e9caa88547ba6",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/nstat/release/libnstat_audit.a": "114d3e271fcc1ea7db90fff7623479e558e624811664b8d6284851094bb5afe2",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rdma/release/librdma_audit.a": "f23016a6a9869ea5a5105d8295689f371176c8efb5fd4983d7ce97d7fb56bcf0",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtacct/release/librtacct_audit.a": "da98d3497ed0cd5ca072a33ea0626a3e8a90cf5116153c00c4a1628212a4c044",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtmon/release/librtmon_audit.a": "b292a6480adff1e5c10db2feb3ee7af5535ff1eff1b94bb80b5134dae7498d87",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ss/release/libss_audit.a": "5ff1aa4867dcf89d52f43a11f79cc9001955f2b36119224115fe174e4ca318ef",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/release/libtc_audit.a": "0be4dacb9b83b542f87d7172b5b18b35ae6c392985ee1fde0fcbdcd3f4415cf9",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tipc/release/libtipc_audit.a": "2a3532e759a556fb9cd18d0e6b444e183ba86a2a894486ff772e53a2e5a59f78",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/vdpa/release/libvdpa_audit.a": "8cd900b37be86726894069e717a0ad928d9485d8b0fbf85b1d57612c85309c5b",
+      "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/libbridge_audit.a": "c5f385f0b2d9951bed3f38267a6fee516188648ba489be22e552f1741d17f93e"
+    },
+    "canonical_lookups": 393480,
+    "memcheck_runs": 72,
+    "public_commands_per_dispatch_mode": 48
+  },
+  "iproute2_route_names": {
+    "archive_sha256": {
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/arpd/release/libarpd_audit.a": "b71d750c6cccad7ee62398c79b99e12b0dbd1a7c83d4d50925dc17758cf5bc63",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dcb/release/libdcb_audit.a": "4a440cf7b33680d750161a4fd6ea401408ac1a68aa84aa3c29fb7b6589784489",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/devlink/release/libdevlink_audit.a": "d275ec6441764af49e36894b289f4be955c376fbc7e783d1d8bc6338250cc4d8",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dpll/release/libdpll_audit.a": "630ee0aae13ace86689dc83417adbc77f306823eff770ccec0e53a029dfd63bb",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/genl/release/libgenl_audit.a": "adba9eacfe93e17700cb35277e537b66198d302970099a37318ab794c0e71a92",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ifstat/release/libifstat_audit.a": "ffaa8c5610fc41466f5122c1ba22de9dc601ac6691b75f5c20d21942c1ff6e5c",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/release/libip_audit.a": "0db83e0df290e9bbf1b6470ecbcdae3385221a6f8f3b50d53300feccf2ab4ba2",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/lnstat/release/liblnstat_audit.a": "54cae1fa020ed1cea5a072ec6025bca97d87e69efc508bfca53e9e05c4f86c93",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/netshaper/release/libnetshaper_audit.a": "1f65ac8aa500b8907a7e69fdd008acf206380971734bc4efc86e9caa88547ba6",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/nstat/release/libnstat_audit.a": "114d3e271fcc1ea7db90fff7623479e558e624811664b8d6284851094bb5afe2",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rdma/release/librdma_audit.a": "f23016a6a9869ea5a5105d8295689f371176c8efb5fd4983d7ce97d7fb56bcf0",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtacct/release/librtacct_audit.a": "da98d3497ed0cd5ca072a33ea0626a3e8a90cf5116153c00c4a1628212a4c044",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtmon/release/librtmon_audit.a": "b292a6480adff1e5c10db2feb3ee7af5535ff1eff1b94bb80b5134dae7498d87",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ss/release/libss_audit.a": "5ff1aa4867dcf89d52f43a11f79cc9001955f2b36119224115fe174e4ca318ef",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/release/libtc_audit.a": "0be4dacb9b83b542f87d7172b5b18b35ae6c392985ee1fde0fcbdcd3f4415cf9",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tipc/release/libtipc_audit.a": "2a3532e759a556fb9cd18d0e6b444e183ba86a2a894486ff772e53a2e5a59f78",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/vdpa/release/libvdpa_audit.a": "8cd900b37be86726894069e717a0ad928d9485d8b0fbf85b1d57612c85309c5b",
+      "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/libbridge_audit.a": "c5f385f0b2d9951bed3f38267a6fee516188648ba489be22e552f1741d17f93e"
+    },
+    "canonical_sources": {
+      "include/rt_names.h": "b8223569a65254ecd3ea34c0368b253e355f558c270e246fdb7c240823b29414",
+      "lib/rt_names.c": "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e"
+    },
+    "control_sha256": {
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/arpd/release/libarpd_audit.a": "910363252e4c9e6ba8c122fa07a73ea34773dab83f84c9b9fc22a68ecebff33b",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dcb/release/libdcb_audit.a": "03c5379d895fdf27d0b7a2295bfb799bf6357e6ecd512d59a1102dc57a9fc784",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/devlink/release/libdevlink_audit.a": "fbd7bbcb2ca049158e830f136a2ed6c90ed29f1892b94bf9d2380a6a1351f917",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dpll/release/libdpll_audit.a": "d7be9799a0e6a4233d17f9148d2024134bf581aeb7c58b29683ed3102611b993",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/genl/release/libgenl_audit.a": "2a2d86869190828d357b06fede880e4672fa2e1a34786060375c9bc4aa267534",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ifstat/release/libifstat_audit.a": "2315005f030d61853d13865465b5c6d90f92bacfdb138e96f08a301be645154b",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/release/libip_audit.a": "87d6a113a7e82fe463f09855629c6a4278b195408810feb03b8a2566b7734620",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/lnstat/release/liblnstat_audit.a": "6d801f6ff932c49656c43aeba612d819c67385f5002a49a9e17daf9f0d961e9b",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/netshaper/release/libnetshaper_audit.a": "da5171e75b5f87f8a815cbb1ef5f76b188270c74cc6e68a03fdf81d995f411a5",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/nstat/release/libnstat_audit.a": "5533f509d7b0b0f4f0cfcec580e84bfeea311ca1e771671e6f38efc4a9f4fe48",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rdma/release/librdma_audit.a": "96b5effdf03cac518c6782e470600f543aa819f37d88a95f7f870d5773409687",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtacct/release/librtacct_audit.a": "431a6486493fb8b236a304d3e393b08206cb6d797266da97d01ef66a0adb8101",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtmon/release/librtmon_audit.a": "19cee99e38eae9f60c2c91c0e099636656d444a68ee939c6e532e262637868b2",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ss/release/libss_audit.a": "6edc27d76ca54a4692152c1a1731c8f98f84a147d1e089f3bb9a3293a36ef08e",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/release/libtc_audit.a": "f25748545a6c010900e70f9cfa8f51ebea7d8ba68fb228b470c5535e76d119eb",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tipc/release/libtipc_audit.a": "7987b515b0d7af62f202562f4550ba8700ec1af3e9c0b190b9383db6ae2eb86c",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/vdpa/release/libvdpa_audit.a": "7679b9fbb0cec93216e9fba045a79e542f112c478cc218e18a3d06dcf6d443b6",
+      "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/libbridge_audit.a": "45c4dccae23245b2630b2a8dcba9a46993d2aac01e78711271d4ea6ea7c02b7e"
+    },
+    "driver_sha256": "d3ec18119ae5609a0c776e9cfece54191cd1d9aeeef082ed526c1f71f89399a4",
+    "lookup_results": 756864,
+    "memcheck_runs": 72,
+    "profiles": [
+      {
+        "lookup_rows": 10512,
+        "profile": "empty",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "f1c8b2787f313f6a0d705debd5c6c74643807035d2067867f7e4efaa1516dbc4"
+      },
+      {
+        "lookup_rows": 10512,
+        "profile": "vendor",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "619d6cc0587f8c57a0b2cf194c5137bf319cfc01536255c85157dd90a5a15bd7"
+      },
+      {
+        "lookup_rows": 10512,
+        "profile": "local",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_sha256": "a780492ab931beecb043a1037a1ec8cba0437a3b1b09dcf9b1f8a83cd3027e5b"
+      },
+      {
+        "lookup_rows": 10512,
+        "profile": "malformed",
+        "stderr_sha256": "35393fe1410aad0872ee01a07df53e570820e84524745f07ac99657e68713465",
+        "stdout_sha256": "19907d493e3fb2f0ee71bc7210ef8ffa3290338cbf0bce8d7733c586230a4ba5"
+      }
+    ],
+    "public_commands_per_dispatch_mode": 96,
+    "strong_symbol_changes": {}
+  },
+  "link_report_sha256": "8ce93ffa227adf95cf608f5afcf0fd4a43fd3d8077eecccd897adcadd95811bc",
+  "packages": {
+    "acl": 0,
+    "attr": 0,
+    "bc": 0,
+    "bison": 0,
+    "curl": 0,
+    "diffutils": 0,
+    "e2fsprogs": 0,
+    "file": 0,
+    "findutils": 0,
+    "flex": 0,
+    "gawk": 0,
+    "grep": 0,
+    "gzip": 0,
+    "inetutils": 0,
+    "iproute2": 0,
+    "kmod": 0,
+    "less": 0,
+    "lz4": 0,
+    "m4": 0,
+    "ncurses": 0,
+    "patch": 0,
+    "pkgconf": 0,
+    "procps-ng": 0,
+    "sed": 0,
+    "shadow": 0,
+    "tar": 0,
+    "xz": 0,
+    "zstd": 0
+  },
+  "passed_checks": [
+    "dispatcher",
+    "batch-differential",
+    "iproute2-live",
+    "e2fsprogs-dirhash",
+    "e2fsprogs-bitcount",
+    "e2fsprogs-crc16",
+    "e2fsprogs-hangul",
+    "e2fsprogs-utf8-trie",
+    "iproute2-address-protocols",
+    "iproute2-address-protocol-copies",
+    "iproute2-netlink-protocols",
+    "bison-literal-lengths",
+    "tar-borrowed-timestamps",
+    "curl-manual",
+    "iproute2-route-names"
+  ],
+  "previous_link_report_sha256": "2a84c3b7f6c4f9af582b7f4269011ea118763c79865b2b17b250e67426fc9d9d",
+  "tar_borrowed_timestamps": {
+    "canonical_cases": {
+      "applet-clang": 18,
+      "applet-gcc": 18,
+      "subcommand-clang": 18,
+      "subcommand-gcc": 18
+    },
+    "command_driver_sha256": "8439f255ea660b232e033f6194c698a68d747915533176cf67e06a61151373c7",
+    "memcheck_runs": 2,
+    "multicall_sha256": "a8b07738a1985cb6ff68e70cc87870fec0712eebe994e920389918136048379b",
+    "restored_file_and_symlink_mtime_ns": 1710000000123456789
+  },
+  "trie": {
+    "canonical_leaf_selections": 6684972,
+    "canonical_nls_cases": 1114162,
+    "debugfs_commands": 40,
+    "memcheck_leaf_selections": 26934,
+    "memcheck_nls_cases": 4489
+  }
+}

@@ -221,7 +221,7 @@ E2fsprogs integration passes 112/112 canonical comparisons and all 32
 Valgrind paths; its 20 private namespaces rename 8,126 symbols after removing
 3,966 byte-identical Rust runtime members already provided by Procps-ng.
 Exact evidence is in `evidence/e2fsprogs-1.47.4-multicall.json`.  The resulting
-499-name executable is 42,451,040 bytes unstripped and 24,961,776 bytes
+499-name executable is 42,451,144 bytes unstripped and 24,961,792 bytes
 stripped. Sharing the Coreutils runtime with Gzip saved 289,264 stripped
 bytes. The linker compares 328 archive members byte-for-byte before sharing
 them. The exact hashes and
@@ -295,8 +295,8 @@ for 89 linked Rust archives. These cover the 20 E2fsprogs, 18 IPRoute2 and
 26 GNU Inetutils engines and 25 other package archives. A second compiler pass
 removed additional helpers in 58 of those archives. The declaration cleanup
 covers 89 archives, including 20 E2fsprogs engines. Across the linked applet
-sources the raw-pointer type count fell from **1,379,960 to 754,997**.
-Counting byte-identical Rust files once gives **532,348** remaining occurrences.
+sources the raw-pointer type count fell from **1,379,960 to 754,547**.
+Counting byte-identical Rust files once gives **531,898** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
 The 36-archive native-string release at `daff5c9` had 878,920 lexical
@@ -369,7 +369,8 @@ integration. [Pilot evidence](evidence/iproute2-netlink-protocols-pilot.json)
 | Shared glibc FILE layouts in 42 byte-identical archives | 10,260 |
 | Compiler-checked C-string literals in 123 byte-identical archives | 178,288 |
 | Borrowed GNU tar timestamp array | 7 |
-| **Total** | **624,963** |
+| GNU Bison constant literal lengths | 450 |
+| **Total** | **625,413** |
 
 E2fsprogs accounts for 189,134 remaining occurrences, down from 401,012.
 IPRoute2 accounts for 121,686, down from 265,323. GNU Inetutils accounts
@@ -387,9 +388,9 @@ scope and realm tables added 9,408 stripped bytes and 4,720 unstripped bytes.
 The netlink tables added 5,360 stripped bytes and 12,112 unstripped bytes.
 Packing the curl manual saved 151,536 stripped bytes and 618,464 unstripped bytes.
 The current unstripped SHA-256 is
-`45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a`.
+`a8b07738a1985cb6ff68e70cc87870fec0712eebe994e920389918136048379b`.
 The stripped SHA-256 is
-`8b23c7ad8b7e3cd781ed03ae073dd14d4895c09b10bdb8f96820c142931c7b04`.
+`e4811399269cc456b99bbd63b89ca445fdea2c29bb159bb1d8825330a1716d97`.
 
 | Code | Where it runs | Remaining work |
 |---|---|---|
@@ -634,6 +635,9 @@ including five generated parsers and a yacc parser compiled and exercised
 for each oracle. Both frontends generated a parser under Memcheck with
 zero reported errors. This result applies to the isolated Bison executable.
 [Bison pilot and generated-file digests](evidence/bison-literal-length-pilot.json)
+
+The default 499-name executable selects the checked Bison constant lengths.
+[Complete release checks](evidence/rustbox-bison-length-replays.json)
 
 Bison includes its invocation name in help and diagnostics. The comparison
 passes `./bison` for the symlink invocation and `bison` for the multicall
