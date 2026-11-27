@@ -543,6 +543,14 @@ with the link report from `51c7a90`. To select the 55 identical results, pass
 `scripts/build_rustbox_multicall.sh` with the same parent selections.
 [98-archive results](evidence/x86-64-va-list-layout-batch.json)
 
+For an archive whose full variadic substitution changed the compiled bytes, run
+`python3 -B scripts/recover_shared_stdio.py LINK WHOLE_PILOT OUT --kind va-list --limit 8`.
+It tests groups of consumer modules against the original archive, retaining a
+group only when it compiles byte for byte together with every previously
+accepted module. The provider stays fixed. The final source replay checks the
+selected modules and their hashes. `OUT/results.json` identifies the accepted
+trial and lists the modules still outstanding.
+
 The util-linux `isosize` candidate reads ISO 9660 sector counts and block sizes from borrowed eight- and four-byte arrays. It removes eight raw-pointer types and fourteen pointer offsets. The archive matched both canonical compilers on 196 generated images, including disagreements between the two byte orders, truncated inputs and mixed-success file lists. Four Memcheck runs passed. [ISO numeric reader checks](evidence/util-linux-isosize-borrowed-numbers.json)
 
 The complete 499-name candidate matched the same ISO profiles through both dispatch modes, passed 100 further util-linux command comparisons, and measured 24,961,776 bytes stripped. [Full executable results](evidence/util-linux-isosize-borrowed-numbers-multicall.json)

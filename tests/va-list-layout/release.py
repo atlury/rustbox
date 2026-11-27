@@ -4,11 +4,13 @@
 from copy import deepcopy
 import json
 from pathlib import Path
+from tempfile import TemporaryDirectory
 import sys
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
 from audit_linked_pointers import check_identical_layer, measure
+from build_va_list_layout_pilot import TAG, substitute
 from cargo_source_parent import cargo_origin
 from prepare_identical_archives import validate_link
 
@@ -40,3 +42,17 @@ for case, bad in invalid:
         continue
     raise AssertionError("accepted " + case)
 print("Replayed 100 shared fields after the C-string layer and rejected five mismatches.")
+
+with TemporaryDirectory() as tmp:
+    crate = Path(tmp)
+    (crate / "lib.rs").write_bytes(b"")
+    inputs = {"a.rs": TAG, "b.rs": TAG, "c.rs": TAG, "different.rs": TAG.replace(b"gp_offset", b"other")}
+    changed, facts = substitute(crate, inputs, inputs.__getitem__, modules=["c.rs"])
+    assert set(changed) == {"c.rs"} and facts["provider"] == "a.rs" and facts["raw_pointer_types_removed"] == 2
+    for selection in ([], ["a.rs"], ["b.rs", "b.rs"], ["different.rs"], ["unknown.rs"]):
+        try:
+            substitute(crate, inputs, inputs.__getitem__, modules=selection)
+        except ValueError:
+            continue
+        raise AssertionError(f"accepted invalid module selection {selection}")
+print("Replayed a partial variadic selection and rejected five invalid selections.")

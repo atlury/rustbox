@@ -40,7 +40,8 @@ def verify(link_file, pilot, kind):
         measure(release, inspect_module=copy, archive_pair=(cargo_origin(release, str(archive)), archive))
         if len(hashes) != row["compiler_selected_sources"] or source_list_digest(hashes) != row["parent_sources_sha256"]:
             raise ValueError("compiler input set differs from the cold build")
-        replacements, facts = substitute(crate, hashes)
+        options = {"modules": row["reexporting_modules"]} if kind == "va-list" else {}
+        replacements, facts = substitute(crate, hashes, **options)
         observed = 0
         for name, data in replacements.items():
             old = (crate / name).read_bytes()

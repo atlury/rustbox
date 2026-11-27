@@ -22,7 +22,7 @@ pub struct __va_list_tag {
 MARKER = ".rustbox-va-list-layout"
 
 
-def substitute(crate, sources, read=None):
+def substitute(crate, sources, read=None, *, modules=None):
     if read is None:
         read = lambda name: (crate / name).read_bytes()
     matches = []
@@ -39,18 +39,29 @@ def substitute(crate, sources, read=None):
         raise ValueError("unrecognized provider module")
     alias = ("pub use crate::" + "::".join(parts) + "::__va_list_tag;").encode()
     alias += b"\n" * TAG.count(b"\n")
-    changed = {name: read(name).replace(TAG, alias) for name in matches[1:]}
-    return changed, dict(provider=owner, provider_namespace=str(namespace), reexporting_modules=matches[1:],
+    selected = matches[1:]
+    if modules is not None:
+        if not modules or len(set(modules)) != len(modules) or not set(modules) <= set(selected):
+            raise ValueError("requested variadic modules must be distinct matched consumers")
+        selected = sorted(modules)
+    changed = {name: read(name).replace(TAG, alias) for name in selected}
+    return changed, dict(provider=owner, provider_namespace=str(namespace), reexporting_modules=selected,
                          declaration_sha256=sha256(TAG).hexdigest(), raw_pointer_types_removed=2 * len(changed))
 
 
-def build(link, key, output):
+def build(link, key, output, modules=None):
     from cargo_source_parent import cargo_origin, direct_crate
     if direct_crate(cargo_origin(json.loads(link.read_bytes()), key)) is not None:
         from build_staged_c_strings import build as direct
-        direct(link, output, key, va_list_layout=True)
+        direct(link, output, key, modules, va_list_layout=True)
     else:
-        stage_selected_archive(link, output, key, MARKER, Path(__file__).name)
+        def select(crate):
+            path = crate / ".rustbox-va-list-modules.json"
+            if path.exists():
+                raise ValueError("unexpected module selection in generated crate")
+            if modules is not None:
+                path.write_text(json.dumps(modules))
+        stage_selected_archive(link, output, key, MARKER, Path(__file__).name, select)
 
 
 if __name__ == "__main__":
@@ -61,7 +72,10 @@ if __name__ == "__main__":
     p.add_argument("--mounted", type=Path)
     args = p.parse_args()
     if args.mounted:
-        compile_mounted_sources(args.mounted, substitute, MARKER, allow_identical=True)
+        def selected(crate, sources):
+            path = crate / ".rustbox-va-list-modules.json"
+            return substitute(crate, sources, modules=json.loads(path.read_bytes()) if path.exists() else None)
+        compile_mounted_sources(args.mounted, selected, MARKER, allow_identical=True)
     elif args.link and args.archive and args.output:
         build(args.link, args.archive, args.output)
     else:

@@ -60,9 +60,9 @@ def compile_archive(snapshot, output, key, modules=None, *, routing_protocols=Fa
             replacements, changes = replace_table(crate, sources)
         elif va_list_layout:
             from build_va_list_layout_pilot import substitute as share_tag
-            if routing_protocols or dsfield or modules or static_arrays:
-                raise ValueError("the variadic layout selection uses its own complete module set")
-            replacements, changes = share_tag(crate, sources)
+            if routing_protocols or dsfield or static_arrays:
+                raise ValueError("select only the variadic layout substitution")
+            replacements, changes = share_tag(crate, sources, modules=modules)
         elif routing_protocols or dsfield:
             if routing_protocols and dsfield:
                 raise ValueError("select one routing table per compilation")
@@ -127,7 +127,7 @@ def build(link, output, key, modules=None, *, routing_protocols=False, dsfield=F
                         *(["--color-palette"] if color_palette else []), *(["--e2p-error-names"] if e2p_error_names else []),
                         *(["--dsfield"] if dsfield else []),
                         *(["--routing-protocol-table"] if routing_protocols else []),
-                        *(["--va-list-layout"] if va_list_layout else []), *(modules or ()),
+                        *(modules or ()), *(["--va-list-layout"] if va_list_layout else []),
                         *(["--static-arrays"] if static_arrays else [])], check=True)
         if link.read_bytes() != raw:
             raise ValueError("selected release changed during direct compilation")

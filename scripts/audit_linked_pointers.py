@@ -376,7 +376,8 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
             if (len(parent) != record_layout["compiler_selected_sources"]
                     or source_list_digest(parent) != record_layout["parent_sources_sha256"]):
                 raise ValueError(f"{kind} parent sources differ from the cold build")
-            changes, facts = share_layout(crate, parent, read_parent)
+            options = {"modules": record_layout["reexporting_modules"]} if kind == "va-list" else {}
+            changes, facts = share_layout(crate, parent, read_parent, **options)
             parent.update({module: hashlib.sha256(data).hexdigest() for module, data in changes.items()})
             if (any(record_layout[k] != v for k, v in facts.items())
                     or source_list_digest(parent) != record_layout["candidate_sources_sha256"]):

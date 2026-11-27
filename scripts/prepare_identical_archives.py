@@ -120,7 +120,7 @@ def prepare(manifest, layer, *, mounted_direct=False):
                     raise ValueError("expected a directly compiled archive substitution")
                 (root / "built").mkdir()
                 compile_archive(root / "parent.json", root / "built", key,
-                                sorted(row["modules"]) if layer == "native_c_strings" else None,
+                                sorted(row["modules"]) if layer == "native_c_strings" else row["reexporting_modules"],
                                 va_list_layout=layer == "shared_va_list_layouts", static_arrays="static_array_selector_sha256" in row)
             elif layer == "shared_ncurses_termtypes":
                 from build_ncurses_termtype_layouts import MARKER
@@ -128,7 +128,7 @@ def prepare(manifest, layer, *, mounted_direct=False):
                 stage_selected_archive(root / "parent.json", root / "built", key, MARKER, "build_ncurses_termtype_layouts.py")
             elif layer == "shared_va_list_layouts":
                 from build_va_list_layout_pilot import build
-                build(root / "parent.json", key, root / "built")
+                build(root / "parent.json", key, root / "built", row["reexporting_modules"])
             elif layer == "native_c_strings":
                 from build_c_string_literal_pilot import build
                 build(root / "parent.json", root / "built", Path(key), sorted(row["modules"]),
