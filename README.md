@@ -570,6 +570,17 @@ the native-string parent, pass
 `--va-list-layouts batches/multicall-va-list-subsets.json`.
 [Two-archive selection](batches/multicall-va-list-subsets.json)
 
+In ncurses, 132 modules shared the variadic layout and removed another 264
+duplicate pointer fields. All 266 compiler inputs replayed, and the archive
+SHA-256 matched. Combining this optional selection with the 55 full-archive
+results and the initial grep and tune2fs selections brought the compiler-input
+count from 755,004 to 752,450 across 58 affected archives. When identical
+files are counted once, the count increased from 532,355 to 593,216 because
+re-exports can give formerly identical files different source bytes. Both
+counts measure declarations.
+[Ncurses selection](batches/ncurses-va-list-subset.json) ·
+[Combined source inventory](evidence/x86-64-va-list-58-source-selection.json)
+
 The util-linux `isosize` candidate reads ISO 9660 sector counts and block sizes from borrowed eight- and four-byte arrays. It removes eight raw-pointer types and fourteen pointer offsets. The archive matched both canonical compilers on 196 generated images, including disagreements between the two byte orders, truncated inputs and mixed-success file lists. Four Memcheck runs passed. [ISO numeric reader checks](evidence/util-linux-isosize-borrowed-numbers.json)
 
 The complete 499-name candidate matched the same ISO profiles through both dispatch modes, passed 100 further util-linux command comparisons, and measured 24,961,776 bytes stripped. [Full executable results](evidence/util-linux-isosize-borrowed-numbers-multicall.json)
