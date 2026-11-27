@@ -550,6 +550,10 @@ group only when it compiles byte for byte together with every previously
 accepted module. The provider stays fixed. The final source replay checks the
 selected modules and their hashes. `OUT/results.json` identifies the accepted
 trial and lists the modules still outstanding.
+To apply this search across a completed sweep, run
+`python3 -B scripts/build_va_list_layout_batch.py LINK OUT --recover-from SWEEP --trials 4`.
+The command processes changed archives in order of potential savings and reuses
+completed trials on restart. Add `--package grep-3.12` to select one package.
 
 In E2fsprogs `tune2fs`, the first group shared the layout in 39 modules.
 All 88 compiler inputs replayed, and the cold-built archive matched its

@@ -17,6 +17,35 @@ from rank_leaf_c_layouts import leaf_layouts, rank
 from verify_shared_layout_sources import verify
 
 
+def archive_folder(output, key):
+    return output / (Path(key).stem + "-" + sha256(key.encode()).hexdigest()[:12])
+
+
+def recover_changed(link, sweep, output, packages, limit):
+    from recover_shared_stdio import recover
+    source = sweep / "results.json"
+    proof = json.loads(source.read_bytes())
+    if digest(link) != proof["link_report_sha256"] or proof["errors"]:
+        raise ValueError("expected a complete archive sweep for this link report")
+    selected = {k: v for k, v in proof["changed"].items() if not packages or Path(k).parts[2] in packages}
+    if not selected or set(packages) - {Path(k).parts[2] for k in selected}:
+        raise ValueError("no changed archive for the selected package")
+    output.mkdir(exist_ok=True)
+    # Try the highest potential savings first. Each archive has its own resumable trials.
+    for key, row in sorted(selected.items(), key=lambda item: (-item[1]["raw_pointer_types_removed"], item[0])):
+        whole = archive_folder(sweep, key)
+        if json.loads((whole / "pilot.json").read_bytes()) != row:
+            raise ValueError(f"whole-archive compiler receipt changed for {key}")
+        folder = archive_folder(output, key)
+        with folder.with_name(folder.name + ".lock").open("a") as lock:
+            fcntl.flock(lock, fcntl.LOCK_EX)
+            recover(link, whole, folder, limit, "va-list")
+            result = json.loads((folder / "results.json").read_bytes())
+            print(f"{Path(key).name}: {result['raw_pointer_types_removed']} fields recovered", flush=True)
+    if digest(link) != proof["link_report_sha256"]:
+        raise ValueError("linked source release changed during recovery")
+
+
 def run(link, output, packages, jobs):
     inventory = rank(link, None)
     name, fingerprint, fields = leaf_layouts(TAG)[0]
@@ -28,7 +57,7 @@ def run(link, output, packages, jobs):
 
     def inspect(item):
         key, copies = item
-        folder = output / (Path(key).stem + "-" + sha256(key.encode()).hexdigest()[:12])
+        folder = archive_folder(output, key)
         with folder.with_name(folder.name + ".lock").open("a") as lock:
             fcntl.flock(lock, fcntl.LOCK_EX)
             if not folder.exists():
@@ -74,7 +103,18 @@ if __name__ == "__main__":
     p.add_argument("output", type=Path)
     p.add_argument("--package", action="append", default=[])
     p.add_argument("--jobs", type=int, default=2)
+    p.add_argument("--recover-from", type=Path, help="recover changed archives from a completed sweep into a separate output")
+    p.add_argument("--trials", type=int, help="maximum cumulative subset comparisons per changed archive (default 4)")
     args = p.parse_args()
+    if args.recover_from:
+        if args.trials is not None and args.trials < 1:
+            p.error("--trials must be positive")
+        if args.output.resolve() == args.recover_from.resolve():
+            p.error("subset results need a separate directory")
+        recover_changed(args.link.resolve(), args.recover_from.resolve(), args.output.resolve(), args.package, args.trials or 4)
+        raise SystemExit(0)
+    if args.trials is not None:
+        p.error("--trials requires --recover-from")
     if args.jobs < 1:
         p.error("jobs must be positive")
     raise SystemExit(run(args.link.resolve(), args.output.resolve(), args.package, args.jobs))
