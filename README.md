@@ -2408,6 +2408,8 @@ helpers in two engines left distinct versions of previously identical files
 in the other engines. [Four archive receipts](evidence/rustbox-closed-inline-checkpoint.json)
 [Cross-release inventory](evidence/rustbox-closed-inline-bison-rebase.json)
 
+The file compression candidate matches all 15 canonical compression methods using bounded byte slices. It removes 37 raw-pointer type occurrences and 12 unchecked pointer offsets from the complete file archive. Each canonical compiler agreed on 988,678 header comparisons and 174 public command cases. The gzip decompression path passed Memcheck. [Archive and command checks](evidence/file-borrowed-compression-headers.json)
+
 
 The multicall linker accepts `--closed-inlines MANIFEST`. To make a manifest
 from independently replayed batches, run `scripts/collect_closed_inlines.py`
