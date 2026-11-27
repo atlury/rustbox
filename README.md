@@ -2378,6 +2378,16 @@ tar baseline is still 754,997. The Zstd trial removed 4,965 declarations in
 raw-pointer declarations eligible for this pass.
 [E2fsck compiler receipt](evidence/e2fsck-closed-inline-groups.json)
 
+The first four verified archives remove 3,861 declarations on the tar baseline:
+1,367 in E2fsck, 1,237 in debugfs, 1,011 in mke2fs and 246 in Shadow.
+Replaying the E2fsck and mke2fs receipts together on the Bison candidate
+reduced its full compiler-input count from 754,547 to 752,169. Counting
+each distinct source file once gave 544,237, up from 531,898. Removing
+helpers in two engines left distinct versions of previously identical files
+in the other engines. [Four archive receipts](evidence/rustbox-closed-inline-checkpoint.json)
+[Cross-release inventory](evidence/rustbox-closed-inline-bison-rebase.json)
+
+
 The multicall linker accepts `--closed-inlines MANIFEST`. To make a manifest
 from independently replayed batches, run `scripts/collect_closed_inlines.py`
 with the release, ranking, output manifest, output summary and batch directories.
