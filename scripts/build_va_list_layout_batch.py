@@ -21,7 +21,7 @@ def archive_folder(output, key):
     return output / (Path(key).stem + "-" + sha256(key.encode()).hexdigest()[:12])
 
 
-def recover_changed(link, sweep, output, packages, limit):
+def recover_changed(link, sweep, output, packages, limit, manifest=None):
     from recover_shared_stdio import recover
     source = sweep / "results.json"
     proof = json.loads(source.read_bytes())
@@ -31,6 +31,7 @@ def recover_changed(link, sweep, output, packages, limit):
     if not selected or set(packages) - {Path(k).parts[2] for k in selected}:
         raise ValueError("no changed archive for the selected package")
     output.mkdir(exist_ok=True)
+    accepted = []
     # Try the highest potential savings first. Each archive has its own resumable trials.
     for key, row in sorted(selected.items(), key=lambda item: (-item[1]["raw_pointer_types_removed"], item[0])):
         whole = archive_folder(sweep, key)
@@ -41,9 +42,16 @@ def recover_changed(link, sweep, output, packages, limit):
             fcntl.flock(lock, fcntl.LOCK_EX)
             recover(link, whole, folder, limit, "va-list")
             result = json.loads((folder / "results.json").read_bytes())
+            if result["verified_directory"]:
+                accepted.append(folder / result["verified_directory"])
             print(f"{Path(key).name}: {result['raw_pointer_types_removed']} fields recovered", flush=True)
     if digest(link) != proof["link_report_sha256"]:
         raise ValueError("linked source release changed during recovery")
+    if manifest is not None:
+        if not accepted:
+            raise ValueError("no byte-identical subset qualified for the requested manifest")
+        from prepare_identical_archives import enroll
+        enroll(link, manifest, accepted, "shared_va_list_layouts")
 
 
 def run(link, output, packages, jobs):
@@ -104,6 +112,7 @@ if __name__ == "__main__":
     p.add_argument("--package", action="append", default=[])
     p.add_argument("--jobs", type=int, default=2)
     p.add_argument("--recover-from", type=Path, help="recover changed archives from a completed sweep into a separate output")
+    p.add_argument("--manifest", type=Path, help="enroll the recovered byte-identical subsets in an optional link manifest")
     p.add_argument("--trials", type=int, help="maximum cumulative subset comparisons per changed archive (default 4)")
     args = p.parse_args()
     if args.recover_from:
@@ -111,10 +120,10 @@ if __name__ == "__main__":
             p.error("--trials must be positive")
         if args.output.resolve() == args.recover_from.resolve():
             p.error("subset results need a separate directory")
-        recover_changed(args.link.resolve(), args.recover_from.resolve(), args.output.resolve(), args.package, args.trials or 4)
+        recover_changed(args.link.resolve(), args.recover_from.resolve(), args.output.resolve(), args.package, args.trials or 4, args.manifest)
         raise SystemExit(0)
-    if args.trials is not None:
-        p.error("--trials requires --recover-from")
+    if args.trials is not None or args.manifest is not None:
+        p.error("--trials and --manifest require --recover-from")
     if args.jobs < 1:
         p.error("jobs must be positive")
     raise SystemExit(run(args.link.resolve(), args.output.resolve(), args.package, args.jobs))

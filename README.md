@@ -554,6 +554,8 @@ To apply this search across a completed sweep, run
 `python3 -B scripts/build_va_list_layout_batch.py LINK OUT --recover-from SWEEP --trials 4`.
 The command processes changed archives in order of potential savings and reuses
 completed trials on restart. Add `--package grep-3.12` to select one package.
+Pass `--manifest PATH` to write an optional multicall selection after all the
+requested archives finish and their accepted source hashes replay.
 
 In E2fsprogs `tune2fs`, the first group shared the layout in 39 modules.
 All 88 compiler inputs replayed, and the cold-built archive matched its
