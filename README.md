@@ -541,7 +541,7 @@ To reproduce the sweep, run `python3 -B scripts/build_va_list_layout_batch.py LI
 with the link report from `51c7a90`. To select the 55 identical results, pass
 `--va-list-layouts batches/multicall-va-list-layouts.json` to
 `scripts/build_rustbox_multicall.sh` with the same parent selections.
-[98-archive results](evidence/x86-64-va-list-layout-batch.json)
+[98-archive results](evidence/x86-64-va-list-layout-batch.json) The ordinary Linux linker reproduced the complete 499-name executable and link map byte for byte with these 55 archives selected. [Linux link comparison](evidence/x86-64-va-list-layout-normal-link.json)
 
 For an archive whose full variadic substitution changed the compiled bytes, run
 `python3 -B scripts/recover_shared_stdio.py LINK WHOLE_PILOT OUT --kind va-list --limit 8`.
