@@ -1,0 +1,107 @@
+{
+  "archive": {
+    "archive": "work/analysis/zstd-1.5.7/translations/c2rust-0.22.1/zstd-1.5.7-stable/target/release/libzstd_1_5_7_normalized_audit.a",
+    "candidate_sha256": "66cf9a6bcf1c79a781623d4ed9b8387a6eb05d16a2440392eb1f2cb8c133f68c",
+    "candidate_sources_sha256": "f1a3bd7a4f3dab14d803e7ce44b87bd34d7572ef82dbcbc382075206dfcf9457",
+    "canonical_header_sha256": "ab7754413cef565da559bda7eb738bc2b3708c48877cb9ec37aff767d32c57d1",
+    "compiler_selected_sources": 46,
+    "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+    "control_sha256": "91146c566f13c2058e0cb10ecebbcebb2ee3925e6708cf14a1b17a6b4a8c97d8",
+    "modules": {
+      "src/lib/compress/zstd_compress.rs": {
+        "raw_offsets_removed": 17,
+        "raw_pointer_types_removed": 18
+      },
+      "src/lib/compress/zstd_compress_literals.rs": {
+        "raw_offsets_removed": 13,
+        "raw_pointer_types_removed": 5
+      },
+      "src/lib/compress/zstd_compress_sequences.rs": {
+        "raw_offsets_removed": 13,
+        "raw_pointer_types_removed": 5
+      },
+      "src/lib/compress/zstd_compress_superblock.rs": {
+        "raw_offsets_removed": 13,
+        "raw_pointer_types_removed": 6
+      },
+      "src/lib/compress/zstd_double_fast.rs": {
+        "raw_offsets_removed": 13,
+        "raw_pointer_types_removed": 5
+      },
+      "src/lib/compress/zstd_fast.rs": {
+        "raw_offsets_removed": 13,
+        "raw_pointer_types_removed": 5
+      },
+      "src/lib/compress/zstd_lazy.rs": {
+        "raw_offsets_removed": 13,
+        "raw_pointer_types_removed": 5
+      },
+      "src/lib/compress/zstd_ldm.rs": {
+        "raw_offsets_removed": 13,
+        "raw_pointer_types_removed": 5
+      },
+      "src/lib/compress/zstd_opt.rs": {
+        "raw_offsets_removed": 13,
+        "raw_pointer_types_removed": 11
+      },
+      "src/lib/compress/zstdmt_compress.rs": {
+        "raw_offsets_removed": 13,
+        "raw_pointer_types_removed": 5
+      },
+      "src/lib/dictBuilder/fastcover.rs": {
+        "raw_offsets_removed": 13,
+        "raw_pointer_types_removed": 5
+      },
+      "src/lib/dictBuilder/zdict.rs": {
+        "raw_offsets_removed": 13,
+        "raw_pointer_types_removed": 5
+      }
+    },
+    "new_rep_helper_sha256": "1a96a964b4f80c3abdfffc34e0d046cb5a63cf1f972b442864276a707102e195",
+    "parent_offset_helper_sha256": "ec771a0017ef4593989c529824c4dbee5d5faa243cee36c885e55266dd6e29ca",
+    "parent_sources_sha256": "65a0f3b164c03f1323d8130b9b793e0585c2a651327de61d7af7071824ded6b2",
+    "raw_offsets_removed": 160,
+    "raw_pointer_types_removed": 80,
+    "shared_update_helper_sha256": "16974729df36f4a4b4cd9e6e4b3be7d1257ee35306131f067f39eb52b3ddca84"
+  },
+  "compared_helpers": [
+    "ZSTD_updateRep",
+    "ZSTD_newRep"
+  ],
+  "driver_sha256": {
+    "check_updates.py": "e72ace6db64ea646f0013e39db300e2465079fd48b7d7970c59b13f9eb1af2dc",
+    "sequences.c": "d1412ee63d191a639d265cf5a1592a21a7b4c0516c6b5e7e330e9c88389946f7",
+    "strategies.c": "2fb59b5c5d7c82216920254c12c71cbf500a376501ad239cbf7f2f5080f4dfc5",
+    "updates.c": "c265e5c424aa93159187f50ff7677755b0757a7d12fcbdeb9a21654e863825e1"
+  },
+  "framed_output_sha256": {
+    "sequences": "513146ea915afb0965a7b2e067cd5d97d1ca5ee5a146345206b2c102bf4cd064",
+    "strategies": "36ea0710ce1b4b250630647d69d6e4a1376d7d3f3c79587803b402ef686895de",
+    "strategies-quick": "7f56c21a59e7bc28dab3b439ea074c6158377f12563e37e3175094358286b50d"
+  },
+  "frames_per_target": {
+    "sequences": 72,
+    "strategies": 72
+  },
+  "helper_inputs_per_compiler": 131072,
+  "memcheck_runs": 2,
+  "previous_offset_receipt_sha256": "e36ecc0d9f0b78fac6fcf49484a66fe23c79eccd3d296ef7b9199e97ded2b90c",
+  "public_commands": {
+    "candidate_sha256": "66cf9a6bcf1c79a781623d4ed9b8387a6eb05d16a2440392eb1f2cb8c133f68c",
+    "command_cases": {
+      "clang": 17,
+      "gcc": 17
+    },
+    "command_driver_sha256": "4664e9807924882d518d6a5466d2104c5239145dcdcbb392ef9ed5a19a9ca9c5",
+    "synthetic": {
+      "10000000": {
+        "compressed_bytes": 3240239,
+        "ratio": "3.086"
+      },
+      "65536": {
+        "compressed_bytes": 22185,
+        "ratio": "2.954"
+      }
+    }
+  }
+}

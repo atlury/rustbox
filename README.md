@@ -1340,6 +1340,16 @@ comparisons across both dispatch modes and both canonical compilers. Compressed
 benchmark sizes matched at 64 KiB and 10 MB. Both the parent and candidate
 measured 24,961,776 bytes stripped. [Full multicall comparison](evidence/zstd-repeat-offsets-multicall.json)
 
+The next Zstd candidate replaces twelve generated copies of the repeat-offset
+updater with one safe Rust function used by the sequence encoders, optimal
+parser and superblock compressor. The optimal parser copies the three-element
+array by value. Together with the preceding change, the candidate removes
+80 raw-pointer type occurrences and 160 unchecked offsets. Each canonical
+compiler matched both helper results for 131,072 inputs. The four builds
+produced identical bytes for 144 frames spanning external sequences and all
+nine compression strategies, and decoded every frame back to its input. Both
+Memcheck runs passed. [Zstd updater checks](evidence/zstd-repeat-updates-archive.json)
+
 A separate cold build applies the writer after the verified Zstd stdio layout
 and 369 selected native C strings across the archive.
 Relative to that compiler input it removes 64 explicit pointer types.
