@@ -582,6 +582,13 @@ counts measure declarations.
 [Ncurses selection](batches/ncurses-va-list-subset.json) ·
 [Combined source inventory](evidence/x86-64-va-list-58-source-selection.json)
 
+To carry these selections to a later release, run
+`python3 -B scripts/rebase_va_list_layouts.py LINK OUTPUT_MANIFEST INPUT_MANIFEST...`.
+It checks archive bytes, replays the selected compiler sources, and lists any
+archives that need a new build. On the default tar release at `582f6ba`, all 58
+selections replayed. Selecting them would bring the count from 754,997 to
+752,443. [Tar release source replay](evidence/tar-default-va-list-rebase.json)
+
 The terminal layouts were also cold-built on top of the 132-module variadic selection. Across the same 266 ncurses inputs the two changes removed 2,703 duplicate pointer fields together, with the archive still byte-identical. [Combined ncurses build](evidence/ncurses-combined-layouts.json)
 
 The util-linux `isosize` candidate reads ISO 9660 sector counts and block sizes from borrowed eight- and four-byte arrays. It removes eight raw-pointer types and fourteen pointer offsets. The archive matched both canonical compilers on 196 generated images, including disagreements between the two byte orders, truncated inputs and mixed-success file lists. Four Memcheck runs passed. [ISO numeric reader checks](evidence/util-linux-isosize-borrowed-numbers.json)
