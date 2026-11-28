@@ -30,6 +30,8 @@ def additions(parent, layer, manifest):
         if key in parent.get(layer, {}):
             if parent[layer][key] != row:
                 deferred[key] = "layer already selected with another receipt"
+            elif item["parent_receipts"] != selected_receipts(parent, key, layer):
+                deferred[key] = "preceding compiler inputs differ"
         elif row["control_sha256"] != parent["source_library_sha256"].get(key):
             deferred[key] = "linked control differs"
         elif str(cargo_origin(parent, key)) != row_origin(row) or item["parent_receipts"] != selected_receipts(parent, key, layer):

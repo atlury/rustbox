@@ -37,6 +37,26 @@ class Chains(unittest.TestCase):
         wrong = self.choice(12, {ORDER[1]:self.choice(1)["pilot"]})
         self.assertEqual(best_chain(self.parent, self.key, {ORDER[2]:[wrong]}), (0, {}))
 
+    def test_incremental_receipts_preserve_independent_archives(self):
+        from extend_pointer_selection import additions
+        scalar, variadic = "shared_scalar_ffi", "shared_variadic_ffi"
+        row = self.choice(7)
+        parent = dict(self.parent, **{scalar: {self.key: row["pilot"]}})
+        self.assertEqual(additions(parent, scalar, {self.key: row}), ({}, {}))
+        stale = dict(row, parent_receipts={"native_c_strings": {"archive": self.key}})
+        self.assertIn(self.key, additions(parent, scalar, {self.key: stale})[1])
+
+        other = "other/" + self.key
+        independent = dict(pilot=dict(row["pilot"], archive=other, cargo_archive=other), parent_receipts={})
+        parent = {"source_library_sha256": {self.key: "archive", other: "archive"},
+                  variadic: {self.key: self.choice(3)["pilot"]}}
+        accepted, deferred = additions(parent, scalar, {self.key: row, other: independent})
+        self.assertEqual(accepted, {other: independent})
+        self.assertIn("recompilation", deferred[self.key])
+        changed = dict(row, pilot=dict(row["pilot"], candidate_sha256="changed"))
+        with self.assertRaises(ValueError):
+            additions(parent, scalar, {self.key: changed})
+
     def test_keep_existing_terminal_layout(self):
         parent = dict(self.parent, shared_ncurses_termtypes={self.key: "terminal"})
         self.assertEqual(best_chain(parent, self.key, {ORDER[0]:[self.choice(1)]}), (0, {}))
