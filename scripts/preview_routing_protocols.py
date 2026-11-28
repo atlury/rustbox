@@ -116,7 +116,30 @@ def qualified_engines(release, selected, wanted_names, resolve):
     return prepare
 
 
-def preview(parent, log, batch, output, single, *, dsfield=False):
+def check_dsfield_replay(ranking, qualified, release, link_sha):
+    if ranking["link_report_sha256"] != link_sha or ranking["binary_sha256"] != release["binary"]["sha256"]:
+        raise ValueError("DS field source replay belongs to a different release")
+    rows = qualified["verified"]
+    if set(ranking["engines"]) != set(rows) or len(rows) != len(IPROUTE2_PROGRAMS):
+        raise ValueError("DS field source replay must cover every qualified engine")
+    fields = ("candidate_module_sha256", "candidate_sources_sha256", "canonical_sha256",
+              "compiler_selected_sources", "control_module_sha256", "helper_sha256", "module",
+              "parent_sources_sha256", "raw_pointer_types_removed")
+    total = 0
+    for key, ranked in ranking["engines"].items():
+        row = rows[key]
+        if (row["archive"] != key or row["control_binary_sha256"] != qualified["binary_sha256"]
+                or ranked["control_archive_sha256"] != row["control_sha256"]
+                or release["source_library_sha256"].get(key) != row["control_sha256"]
+                or any(ranked[field] != row[field] for field in fields)):
+            raise ValueError(f"current DS field compiler inputs differ for {key}")
+        total += ranked["raw_pointer_types_removed"]
+    if total != ranking["candidate_pointer_types"] or total != qualified["raw_pointer_types_removed"]:
+        raise ValueError("DS field pointer reduction differs from the per-engine receipts")
+    return total
+
+
+def preview(parent, log, batch, output, single, *, dsfield=False, source_replay=None):
     parent_bytes = parent.read_bytes()
     release = json.loads(parent_bytes)
     path = batch / ("ip-results.json" if single else "results.json")
@@ -128,7 +151,18 @@ def preview(parent, log, batch, output, single, *, dsfield=False):
         baseline_name = "iproute2-routing-protocol-pilot.json"
         fields = ("lookup_driver_sha256", "canonical_source_sha256", "memcheck_runs", "oracle_compilers")
     baseline = json.loads((ROOT / "evidence" / baseline_name).read_bytes())
-    if qualified["link_report_sha256"] != digest(parent) or qualified["binary_sha256"] != release["binary"]["sha256"]:
+    reuse = {}
+    if source_replay is not None:
+        if single or not dsfield:
+            raise ValueError("source replay requires the complete DS field batch")
+        historic = ROOT / "evidence/iproute2-dsfield-archives.json"
+        if qualified != json.loads(historic.read_bytes()):
+            raise ValueError("original qualification differs from the published engine comparisons")
+        source_bytes = source_replay.read_bytes()
+        total = check_dsfield_replay(json.loads(source_bytes), qualified, release, sha256(parent_bytes).hexdigest())
+        reuse = dict(source_replay_sha256=sha256(source_bytes).hexdigest(), qualified_batch_sha256=digest(historic),
+                     archive_qualification_link_sha256=qualified["link_report_sha256"], raw_pointer_types_removed=total)
+    elif qualified["link_report_sha256"] != digest(parent) or qualified["binary_sha256"] != release["binary"]["sha256"]:
         raise ValueError("routing protocol comparisons belong to a different parent")
     selected = qualified["verified"]
 
@@ -137,14 +171,17 @@ def preview(parent, log, batch, output, single, *, dsfield=False):
         directory = batch / Path(key).stem
         compared = json.loads((directory / "comparison.json").read_bytes())
         if (compared != row or row["archive"] != key or row["control_sha256"] != expected
-                or row["control_binary_sha256"] != release["binary"]["sha256"]
+                or row["control_binary_sha256"] != qualified["binary_sha256"]
                 or any(row[field] != baseline[field] for field in fields)
                 or row["profiles"] != expected_profiles(baseline, name == "ip", dsfield=dsfield)):
             raise ValueError(f"incomplete archive qualification for {name}")
         return directory / Path(key).name, row["candidate_sha256"]
 
     prepare = qualified_engines(release, selected, ["ip"] if single else IPROUTE2_PROGRAMS, resolve)
-    preview_link(parent, parent_bytes, log, output, prepare, dsfield_commands if dsfield else commands)
+    def exercise(elf, stage):
+        observations = dsfield_commands(elf, stage) if dsfield else commands(elf, stage)
+        return {**observations, **reuse}
+    preview_link(parent, parent_bytes, log, output, prepare, exercise)
 
 
 if __name__ == "__main__":
@@ -153,5 +190,6 @@ if __name__ == "__main__":
         parser.add_argument(name, type=Path)
     parser.add_argument("--ip-only", action="store_true")
     parser.add_argument("--dsfield", action="store_true", help="qualify DS field readers on the routing protocol parent")
+    parser.add_argument("--source-replay", type=Path, help="current DS field compiler-input ranking for a previously qualified batch")
     args = parser.parse_args()
-    preview(args.parent, args.log, args.batch, args.output, args.ip_only, dsfield=args.dsfield)
+    preview(args.parent, args.log, args.batch, args.output, args.ip_only, dsfield=args.dsfield, source_replay=args.source_replay)
