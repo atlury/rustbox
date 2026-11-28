@@ -299,6 +299,20 @@ sources the raw-pointer type count fell from **1,379,960 to 747,302**.
 Counting byte-identical Rust files once gives **528,925** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
+The development candidate has a separate source census. To see its lowest
+verified count from this checkout, run the following from the repository root.
+It selects one complete census for the executable that passed the public
+comparisons. The filename identifies the archive selection behind the count.
+
+```sh
+jq -n --slurpfile tested evidence/dsfield-optimized-expanded-public.json '
+  [inputs | select(.binary_sha256 == $tested[0].binary_sha256
+                   and .layers.shared_leaf_layouts and .counts.all.after)
+          | {remaining: .counts.all.after, evidence: input_filename}]
+  | min_by(.remaining)
+' evidence/dsfield-*.json
+```
+
 To combine existing compiler receipts on a saved executable, run
 `python3 -B scripts/optimize_pointer_selections.py RELEASE.json NEW_DIRECTORY --shared-va-list-layouts VA.json --closed-inline-groups HELPERS.json --shared-scalar-ffi ABI.json`.
 Each flag accepts multiple manifests. The tool tries compatible combinations for each archive, checks the selected archive bytes, and recounts the full compiler inputs. The output contains a manifest for each selected layer and the before-and-after counts in `results.json`. Its optimization target is the total across compiler inputs. The report also gives the count with identical files counted once.
