@@ -2152,6 +2152,10 @@ including all 32 input alignments, single-bit seeds and zero-length inputs.
 The production source count above credits only changes present in its recorded
 executable. The CRC32 ABI adapter still accepts raw input buffers.
 
+E2fsprogs’ portable 32-bit and 64-bit set, clear and test operations use the previous **masked byte value** as their return value. The Rust candidate preserves that convention and borrows only the selected byte for an update. The six C entry points retain their bitmap address argument. The source replay found 12 fewer raw-pointer type occurrences in each of 13 selected engine archives, for 156 across those compiler inputs. [Bitmap source inventory](evidence/e2fsprogs-bitmap-bits-selected-sources.json)
+
+Run `python3 -B scripts/test_e2fsprogs_bitmap_bits.py` for the standalone comparison with GCC and Clang E2fsprogs. All 393,260 calls agreed, including every possible input byte, unchanged neighboring bytes, read-only bitmap tests and bit indices crossing 2³². The Rust helper passed Memcheck. To check an archive, add `--link LINK --pilot PILOT`. The batch command is `python3 -B scripts/qualify_e2fsprogs_bitmap_bits.py LINK INVENTORY OUTPUT`. [Standalone bitmap results](evidence/e2fsprogs-bitmap-bits-standalone.json)
+
 E2fsprogs uses one shared bitmap counter in `compat/e2fsprogs/bitcount.rs`.
 The algorithm counts set bits in safe eight-byte chunks and then in the
 remaining bytes. Its unsigned 32-bit result wraps as in upstream C. The
