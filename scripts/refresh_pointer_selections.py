@@ -18,6 +18,13 @@ from check_cargo_private_inlines import ROOT, digest
 from prepare_identical_archives import enroll, prepare, selected_receipts, validate_link
 
 
+DRIVERS = {
+    "closed_inline_groups": "build_closed_inlines.py",
+    "shared_scalar_ffi": "build_scalar_ffi.py",
+    "shared_va_list_layouts": "build_va_list_layout_pilot.py",
+}
+
+
 def refresh(link, source_manifest, output, workspace, layer, jobs):
     raw = link.read_bytes()
     parent = json.loads(raw)
@@ -25,7 +32,7 @@ def refresh(link, source_manifest, output, workspace, layer, jobs):
     prior = json.loads(original)
     if layer in parent or output.resolve() in (source_manifest.resolve(), link.resolve()):
         raise ValueError("expected a separate manifest and a parent without this selection")
-    if not prior or layer not in ("closed_inline_groups", "shared_scalar_ffi"):
+    if not prior or layer not in DRIVERS:
         raise ValueError("expected a populated pointer source selection")
     workspace.mkdir(parents=True, exist_ok=True)
     # Include release and source-manifest identity in the directory used by resumable builds.
@@ -40,7 +47,7 @@ def refresh(link, source_manifest, output, workspace, layer, jobs):
             raise ValueError("ambiguous linked origin " + origin)
         by_origin[origin] = key
     kept, rebuild, pending = {}, {}, {}
-    driver = ROOT / "scripts" / ("build_scalar_ffi.py" if layer == "shared_scalar_ffi" else "build_closed_inlines.py")
+    driver = ROOT / "scripts" / DRIVERS[layer]
     for old, item in prior.items():
         row = item["pilot"]
         if row["archive"] != old or row["candidate_sha256"] != row["control_sha256"]:
@@ -48,6 +55,9 @@ def refresh(link, source_manifest, output, workspace, layer, jobs):
         key = by_origin.get(row_origin(row))
         if key is None:
             pending[old] = "archive origin absent from new release"
+        elif layer == "shared_va_list_layouts" and any(key in parent.get(later, {}) for later in
+                                                       ("shared_ncurses_termtypes", "closed_inline_groups", "shared_scalar_ffi")):
+            pending[key] = "a later source selection requires a joint rebuild"
         elif (key == old and parent["source_library_sha256"][key] == row["candidate_sha256"]
                 and selected_receipts(parent, key, layer) == item["parent_receipts"]):
             kept[key] = item
@@ -57,6 +67,8 @@ def refresh(link, source_manifest, output, workspace, layer, jobs):
     def cold(key):
         folder = archive_folder(cache, key)
         selection = ["--modules", *sorted(rebuild[key]["dead_sites"])] if layer == "closed_inline_groups" else []
+        if layer == "shared_va_list_layouts":
+            selection = ["--modules", *rebuild[key]["reexporting_modules"]]
         if rebuild[key].get("all_scalar_interfaces"):
             selection = ["--all-interfaces"]
         cmd = [sys.executable, "-B", driver, "--link", link]
@@ -68,6 +80,10 @@ def refresh(link, source_manifest, output, workspace, layer, jobs):
         row = json.loads((folder / "pilot.json").read_bytes())
         if row["archive"] != key or row["control_binary_sha256"] != parent["binary"]["sha256"]:
             raise ValueError("fresh compiler receipt does not belong to this release")
+        if layer == "shared_va_list_layouts" and any(row[field] != rebuild[key][field] for field in
+                                                    ("declaration_sha256", "provider", "provider_namespace", "reexporting_modules",
+                                                     "raw_pointer_types_removed")):
+            raise ValueError("variadic layout rebuild changed the selected provider or consumers")
         return folder if row["candidate_sha256"] == row["control_sha256"] else None
 
     new = []
@@ -112,7 +128,7 @@ if __name__ == "__main__":
     parser.add_argument("source_manifest", type=Path)
     parser.add_argument("output", type=Path)
     parser.add_argument("workspace", type=Path)
-    parser.add_argument("--layer", required=True, choices=("closed_inline_groups","shared_scalar_ffi"))
+    parser.add_argument("--layer", required=True, choices=sorted(DRIVERS))
     parser.add_argument("--jobs", type=int, default=2)
     args = parser.parse_args()
     if args.jobs < 1:

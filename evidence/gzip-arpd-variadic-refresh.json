@@ -1,0 +1,129 @@
+{
+  "engines": {
+    "arpd": {
+      "pilot": {
+        "archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/arpd/routing-protocols/e71f89f4a2d5a7c140ec11be955d742c186493532f495a6fb5f00eb6d53c4815/libarpd_audit.a",
+        "candidate_sha256": "e71f89f4a2d5a7c140ec11be955d742c186493532f495a6fb5f00eb6d53c4815",
+        "candidate_sources_sha256": "44bccb7c81b9bf9ac40c6b90c1b24fda32d839cd25ba0da8a3d5b41cc11b285d",
+        "cargo_archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/arpd/release/libarpd_audit.a",
+        "compiler_selected_sources": 13,
+        "control_binary_sha256": "c0e71f2883d5f8a42ac51ea3de9b6db278b95d1a02d85eb5b2bde5df302b562e",
+        "control_sha256": "e71f89f4a2d5a7c140ec11be955d742c186493532f495a6fb5f00eb6d53c4815",
+        "declaration_sha256": "d296c17ccd61fe78f5aaa568a8a8ea08b0e811edb049764982240829565ee797",
+        "parent_sources_sha256": "1ba5bc55f970aeaa88cec906711c837a93ca6f5f7d39a051db6165a1f365c56b",
+        "provider": "src/lib/color.rs",
+        "provider_namespace": "src/lib/color.rs",
+        "raw_pointer_types_removed": 20,
+        "reexporting_modules": [
+          "src/lib/json_print.rs",
+          "src/lib/json_writer.rs",
+          "src/lib/libnetlink.rs",
+          "src/lib/ll_addr.rs",
+          "src/lib/ll_map.rs",
+          "src/lib/mpls_ntop.rs",
+          "src/lib/mpls_pton.rs",
+          "src/lib/rt_names.rs",
+          "src/lib/utils.rs",
+          "src/misc/arpd.rs"
+        ]
+      },
+      "refresh": {
+        "counts": {
+          "all": {
+            "after": 747271,
+            "before": 747291
+          },
+          "counting_identical_files_once": {
+            "after": 531852,
+            "before": 528914
+          }
+        },
+        "deferred": {},
+        "manifest_sha256": "fd90981d9be4d348fa59e5d9f61e24857e80788ea44293c4b2ac9f81bd46e00c",
+        "parent_link_sha256": "70f459a3770e92d00559586b3bd9d04939b74dda7590ec8bc09dc9c84180b2b7",
+        "rebuilt_identical": 1,
+        "reused": 0
+      }
+    },
+    "gzip": {
+      "pilot": {
+        "archive": "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a",
+        "candidate_sha256": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd",
+        "candidate_sources_sha256": "ed0a13728d958ea0f4d50a2ab7944e2fb0d6cacb3c62ed4cb0fd67bce1e39ab5",
+        "compiler_selected_sources": 66,
+        "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+        "control_sha256": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd",
+        "declaration_sha256": "d296c17ccd61fe78f5aaa568a8a8ea08b0e811edb049764982240829565ee797",
+        "parent_sources_sha256": "f434a0ff91a141c889d330f04a4dda1200a519b61cdcfd5ef3aa4b41ca3ec963",
+        "provider": "src/normalized_source/bits.rs",
+        "provider_namespace": "src/normalized_source/bits.rs",
+        "raw_pointer_types_removed": 58,
+        "reexporting_modules": [
+          "src/normalized_source/deflate.rs",
+          "src/normalized_source/gzip.rs",
+          "src/normalized_source/inflate.rs",
+          "src/normalized_source/lib/asnprintf.rs",
+          "src/normalized_source/lib/chdir_long.rs",
+          "src/normalized_source/lib/fclose.rs",
+          "src/normalized_source/lib/fcntl.rs",
+          "src/normalized_source/lib/fflush.rs",
+          "src/normalized_source/lib/fopen.rs",
+          "src/normalized_source/lib/fpurge.rs",
+          "src/normalized_source/lib/freading.rs",
+          "src/normalized_source/lib/fseek.rs",
+          "src/normalized_source/lib/fseeko.rs",
+          "src/normalized_source/lib/fseterr.rs",
+          "src/normalized_source/lib/open_safer.rs",
+          "src/normalized_source/lib/openat_die.rs",
+          "src/normalized_source/lib/openat_proc.rs",
+          "src/normalized_source/lib/openat_safer.rs",
+          "src/normalized_source/lib/save_cwd.rs",
+          "src/normalized_source/lib/vfzprintf.rs",
+          "src/normalized_source/lib/xalloc_die.rs",
+          "src/normalized_source/lib/yesno.rs",
+          "src/normalized_source/trees.rs",
+          "src/normalized_source/unlzh.rs",
+          "src/normalized_source/unlzw.rs",
+          "src/normalized_source/unpack.rs",
+          "src/normalized_source/unzip.rs",
+          "src/normalized_source/util.rs",
+          "src/normalized_source/zip.rs"
+        ]
+      },
+      "refresh": {
+        "counts": {
+          "all": {
+            "after": 747233,
+            "before": 747291
+          },
+          "counting_identical_files_once": {
+            "after": 528864,
+            "before": 528914
+          }
+        },
+        "deferred": {},
+        "manifest_sha256": "7bd6c1af3bc9407b0e121e0fdf5792174af18c1fb812728d541f66d08c2e7f95",
+        "parent_link_sha256": "70f459a3770e92d00559586b3bd9d04939b74dda7590ec8bc09dc9c84180b2b7",
+        "rebuilt_identical": 0,
+        "reused": 1
+      }
+    }
+  },
+  "joint": {
+    "binary_sha256": "c0e71f2883d5f8a42ac51ea3de9b6db278b95d1a02d85eb5b2bde5df302b562e",
+    "counts": {
+      "all": {
+        "after": 747213,
+        "before": 747291
+      },
+      "counting_identical_files_once": {
+        "after": 531802,
+        "before": 528914
+      }
+    },
+    "deferred": {},
+    "manifest_sha256": "b793ba6ad3b063344a9ce95e8d3cf525eed16fdcc59e1c378260ba8fbcd25629",
+    "parent_link_sha256": "70f459a3770e92d00559586b3bd9d04939b74dda7590ec8bc09dc9c84180b2b7",
+    "selected": 2
+  }
+}

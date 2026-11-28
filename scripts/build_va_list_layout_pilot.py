@@ -70,13 +70,18 @@ if __name__ == "__main__":
     p.add_argument("--archive")
     p.add_argument("--output", type=Path)
     p.add_argument("--mounted", type=Path)
+    p.add_argument("--modules", nargs="+", help="rebuild only the specified consumer modules")
+    p.add_argument("--replay", type=Path, help="verify a cold build against the selected compiler inputs")
     args = p.parse_args()
     if args.mounted:
         def selected(crate, sources):
             path = crate / ".rustbox-va-list-modules.json"
             return substitute(crate, sources, modules=json.loads(path.read_bytes()) if path.exists() else None)
         compile_mounted_sources(args.mounted, selected, MARKER, allow_identical=True)
+    elif args.link and args.replay:
+        from verify_shared_layout_sources import verify
+        verify(args.link, args.replay, "va-list")
     elif args.link and args.archive and args.output:
-        build(args.link, args.archive, args.output)
+        build(args.link, args.archive, args.output, args.modules)
     else:
         p.error("--link, --archive and --output are required")
