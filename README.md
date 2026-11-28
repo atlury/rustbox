@@ -2539,7 +2539,9 @@ The multicall repeated all 132 option cases through subcommand and applet dispat
 
 Both rewrites together removed 155 raw-pointer type occurrences on four GNU tar compiler inputs. The same candidate archive matched all 12 exclusion profiles and 132 option cases against GCC and Clang, and passed both Memcheck runs. [Combined GNU tar archive](evidence/tar-combined-name-tables-pilot.json)
 
-Rebuilding scalar ABI declarations on the DS field compiler inputs qualified 2 of 2 additional engines in the ip-tc batch. The candidate retained 705,124 raw-pointer occurrences after this batch. [DS field ABI ip-tc results](evidence/dsfield-optimized-scalar-ip-tc.json) The two additional archive selections are stored in [the ip/tc manifest](batches/dsfield-ip-tc-scalar-ffi.json). Combining these entries with the preceding 78 reconstructs the tested 80-archive scalar manifest byte for byte.
+Rebuilding scalar ABI declarations on the DS field compiler inputs qualified 2 of 2 additional engines in the ip-tc batch. The candidate retained 705,124 raw-pointer occurrences after this batch. [DS field ABI ip-tc results](evidence/dsfield-optimized-scalar-ip-tc.json)
+
+Rebuilding scalar ABI declarations on the DS field compiler inputs qualified 16 of 16 additional engines in the other-engines batch. The candidate retained 703,020 raw-pointer occurrences after this batch. [DS field ABI other-engines results](evidence/dsfield-optimized-scalar-other-engines.json) The two additional archive selections are stored in [the ip/tc manifest](batches/dsfield-ip-tc-scalar-ffi.json). Combining these entries with the preceding 78 reconstructs the tested 80-archive scalar manifest byte for byte.
 
 The saved 499-name executable for this source selection passed all 884 dispatch checks and 14,022 differential cases. [Full public comparisons](evidence/dsfield-optimized-expanded-public.json)
 
