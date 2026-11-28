@@ -1,0 +1,636 @@
+{
+  "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libncurses_6_6_normalized_audit.foreign-e4d580cb4e5c92f21a5f13e03b61aefcc5c84175bc67ddb351f3303221354595.json",
+        "sha256": "e4d580cb4e5c92f21a5f13e03b61aefcc5c84175bc67ddb351f3303221354595"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libncurses_6_6_normalized_audit.inlines-fc013fdadeb69597c32cd67c04a442366c10a7b391b8e88f4aba905929f6c235.json",
+        "sha256": "7819deeb70e3099f51a0cd39dbd19270502f8900b2599349b2568447aa2fc32c"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a",
+        "c_string_literals": 1491,
+        "candidate_sha256": "ea368da66151d2217604544b72bbef827f2982e0ad2c9b8231aa4d4412c52b97",
+        "candidate_sources_sha256": "7154f6d1bcdcbd409dfa2dabc26b0b427a121871b39367bedc0dd3875292b042",
+        "compiler_selected_sources": 266,
+        "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+        "control_sha256": "ea368da66151d2217604544b72bbef827f2982e0ad2c9b8231aa4d4412c52b97",
+        "modules": {
+          "src/ncurses/codes.rs": 497,
+          "src/ncurses/names.rs": 994
+        },
+        "parent_sources_sha256": "4cd2ab8538779e6f6b03b678ce87e0df8c1e5e23ead1edbca162bf25909f8640",
+        "raw_ffi_pointer_extractions": 1491,
+        "raw_pointer_types_removed": 2982,
+        "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_ncurses_termtypes": {
+        "archive": "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a",
+        "candidate_sha256": "ea368da66151d2217604544b72bbef827f2982e0ad2c9b8231aa4d4412c52b97",
+        "candidate_sources_sha256": "beceb719ff943b1960a933be04f42663719e3f3af81b8f5aa4f9e38aa275b4f9",
+        "compiler_selected_sources": 266,
+        "control_binary_sha256": "a8b07738a1985cb6ff68e70cc87870fec0712eebe994e920389918136048379b",
+        "control_sha256": "ea368da66151d2217604544b72bbef827f2982e0ad2c9b8231aa4d4412c52b97",
+        "declarations_sha256": {
+          "termtype": "41e6697aa396d30f041da30c021d4441e087f90441c0baad2c37433e365035bb",
+          "termtype2": "c36e97e28f231f2d4363ee09c8341f094db0515716b0069065dd21a8c465e894"
+        },
+        "parent_sources_sha256": "7154f6d1bcdcbd409dfa2dabc26b0b427a121871b39367bedc0dd3875292b042",
+        "providers": {
+          "termtype": "src/form/frm_def.rs",
+          "termtype2": "src/form/frm_def.rs"
+        },
+        "raw_pointer_types_removed": 2439,
+        "reexporting_modules": {
+          "termtype": [
+            "src/form/frm_driver.rs",
+            "src/form/frm_post.rs",
+            "src/form/frm_sub.rs",
+            "src/form/frm_win.rs",
+            "src/menu/m_cursor.rs",
+            "src/menu/m_driver.rs",
+            "src/menu/m_global.rs",
+            "src/menu/m_new.rs",
+            "src/menu/m_post.rs",
+            "src/menu/m_sub.rs",
+            "src/menu/m_win.rs",
+            "src/ncurses/base/define_key.rs",
+            "src/ncurses/base/key_defined.rs",
+            "src/ncurses/base/keybound.rs",
+            "src/ncurses/base/keyok.rs",
+            "src/ncurses/base/legacy_coding.rs",
+            "src/ncurses/base/lib_addch.rs",
+            "src/ncurses/base/lib_beep.rs",
+            "src/ncurses/base/lib_bkgd.rs",
+            "src/ncurses/base/lib_color.rs",
+            "src/ncurses/base/lib_colorset.rs",
+            "src/ncurses/base/lib_delwin.rs",
+            "src/ncurses/base/lib_dft_fgbg.rs",
+            "src/ncurses/base/lib_echo.rs",
+            "src/ncurses/base/lib_endwin.rs",
+            "src/ncurses/base/lib_flash.rs",
+            "src/ncurses/base/lib_freeall.rs",
+            "src/ncurses/base/lib_getch.rs",
+            "src/ncurses/base/lib_getstr.rs",
+            "src/ncurses/base/lib_initscr.rs",
+            "src/ncurses/base/lib_insch.rs",
+            "src/ncurses/base/lib_insnstr.rs",
+            "src/ncurses/base/lib_isendwin.rs",
+            "src/ncurses/base/lib_mouse.rs",
+            "src/ncurses/base/lib_mvwin.rs",
+            "src/ncurses/base/lib_newterm.rs",
+            "src/ncurses/base/lib_newwin.rs",
+            "src/ncurses/base/lib_nl.rs",
+            "src/ncurses/base/lib_pad.rs",
+            "src/ncurses/base/lib_printw.rs",
+            "src/ncurses/base/lib_redrawln.rs",
+            "src/ncurses/base/lib_refresh.rs",
+            "src/ncurses/base/lib_restart.rs",
+            "src/ncurses/base/lib_screen.rs",
+            "src/ncurses/base/lib_scroll.rs",
+            "src/ncurses/base/lib_set_term.rs",
+            "src/ncurses/base/lib_slk.rs",
+            "src/ncurses/base/lib_slkatr_set.rs",
+            "src/ncurses/base/lib_slkatrof.rs",
+            "src/ncurses/base/lib_slkatron.rs",
+            "src/ncurses/base/lib_slkatrset.rs",
+            "src/ncurses/base/lib_slkattr.rs",
+            "src/ncurses/base/lib_slkclear.rs",
+            "src/ncurses/base/lib_slkcolor.rs",
+            "src/ncurses/base/lib_slkinit.rs",
+            "src/ncurses/base/lib_slklab.rs",
+            "src/ncurses/base/lib_slkrefr.rs",
+            "src/ncurses/base/lib_slkset.rs",
+            "src/ncurses/base/lib_slktouch.rs",
+            "src/ncurses/base/lib_ungetch.rs",
+            "src/ncurses/base/lib_window.rs",
+            "src/ncurses/base/nc_panel.rs",
+            "src/ncurses/base/new_pair.rs",
+            "src/ncurses/base/resizeterm.rs",
+            "src/ncurses/base/safe_sprintf.rs",
+            "src/ncurses/base/wresize.rs",
+            "src/ncurses/fallback.rs",
+            "src/ncurses/lib_keyname.rs",
+            "src/ncurses/report_offsets.rs",
+            "src/ncurses/tinfo/alloc_ttype.rs",
+            "src/ncurses/tinfo/comp_error.rs",
+            "src/ncurses/tinfo/comp_parse.rs",
+            "src/ncurses/tinfo/db_iterator.rs",
+            "src/ncurses/tinfo/free_ttype.rs",
+            "src/ncurses/tinfo/home_terminfo.rs",
+            "src/ncurses/tinfo/init_keytry.rs",
+            "src/ncurses/tinfo/lib_acs.rs",
+            "src/ncurses/tinfo/lib_baudrate.rs",
+            "src/ncurses/tinfo/lib_cur_term.rs",
+            "src/ncurses/tinfo/lib_data.rs",
+            "src/ncurses/tinfo/lib_has_cap.rs",
+            "src/ncurses/tinfo/lib_kernel.rs",
+            "src/ncurses/tinfo/lib_longname.rs",
+            "src/ncurses/tinfo/lib_napms.rs",
+            "src/ncurses/tinfo/lib_options.rs",
+            "src/ncurses/tinfo/lib_print.rs",
+            "src/ncurses/tinfo/lib_raw.rs",
+            "src/ncurses/tinfo/lib_setup.rs",
+            "src/ncurses/tinfo/lib_termcap.rs",
+            "src/ncurses/tinfo/lib_termname.rs",
+            "src/ncurses/tinfo/lib_ti.rs",
+            "src/ncurses/tinfo/lib_tparm.rs",
+            "src/ncurses/tinfo/lib_tputs.rs",
+            "src/ncurses/tinfo/lib_ttyflags.rs",
+            "src/ncurses/tinfo/name_match.rs",
+            "src/ncurses/tinfo/obsolete.rs",
+            "src/ncurses/tinfo/read_entry.rs",
+            "src/ncurses/tinfo/use_screen.rs",
+            "src/ncurses/tty/hardscroll.rs",
+            "src/ncurses/tty/hashmap.rs",
+            "src/ncurses/tty/lib_mvcur.rs",
+            "src/ncurses/tty/lib_tstp.rs",
+            "src/ncurses/tty/lib_twait.rs",
+            "src/ncurses/tty/lib_vidattr.rs",
+            "src/ncurses/tty/tty_update.rs",
+            "src/ncurses/unctrl.rs",
+            "src/ncurses/widechar/lib_erasewchar.rs",
+            "src/ncurses/widechar/lib_get_wch.rs",
+            "src/ncurses/widechar/lib_get_wstr.rs",
+            "src/ncurses/widechar/lib_ins_wch.rs",
+            "src/ncurses/widechar/lib_key_name.rs",
+            "src/ncurses/widechar/lib_unget_wch.rs",
+            "src/ncurses/widechar/lib_vid_attr.rs",
+            "src/ncurses/widechar/lib_wunctrl.rs",
+            "src/panel/p_above.rs",
+            "src/panel/p_below.rs",
+            "src/panel/p_bottom.rs",
+            "src/panel/p_delete.rs",
+            "src/panel/p_hidden.rs",
+            "src/panel/p_hide.rs",
+            "src/panel/p_move.rs",
+            "src/panel/p_new.rs",
+            "src/panel/p_replace.rs",
+            "src/panel/p_show.rs",
+            "src/panel/p_update.rs",
+            "src/progs/clear_cmd.rs",
+            "src/progs/dump_entry.rs",
+            "src/progs/reset_cmd.rs",
+            "src/progs/tabs.rs",
+            "src/progs/tic.rs",
+            "src/progs/tput.rs",
+            "src/progs/tset.rs"
+          ],
+          "termtype2": [
+            "src/form/frm_driver.rs",
+            "src/form/frm_post.rs",
+            "src/form/frm_sub.rs",
+            "src/form/frm_win.rs",
+            "src/menu/m_cursor.rs",
+            "src/menu/m_driver.rs",
+            "src/menu/m_global.rs",
+            "src/menu/m_new.rs",
+            "src/menu/m_post.rs",
+            "src/menu/m_sub.rs",
+            "src/menu/m_win.rs",
+            "src/ncurses/base/define_key.rs",
+            "src/ncurses/base/key_defined.rs",
+            "src/ncurses/base/keybound.rs",
+            "src/ncurses/base/keyok.rs",
+            "src/ncurses/base/legacy_coding.rs",
+            "src/ncurses/base/lib_addch.rs",
+            "src/ncurses/base/lib_beep.rs",
+            "src/ncurses/base/lib_bkgd.rs",
+            "src/ncurses/base/lib_color.rs",
+            "src/ncurses/base/lib_colorset.rs",
+            "src/ncurses/base/lib_delwin.rs",
+            "src/ncurses/base/lib_dft_fgbg.rs",
+            "src/ncurses/base/lib_echo.rs",
+            "src/ncurses/base/lib_endwin.rs",
+            "src/ncurses/base/lib_flash.rs",
+            "src/ncurses/base/lib_freeall.rs",
+            "src/ncurses/base/lib_getch.rs",
+            "src/ncurses/base/lib_getstr.rs",
+            "src/ncurses/base/lib_initscr.rs",
+            "src/ncurses/base/lib_insch.rs",
+            "src/ncurses/base/lib_insnstr.rs",
+            "src/ncurses/base/lib_isendwin.rs",
+            "src/ncurses/base/lib_mouse.rs",
+            "src/ncurses/base/lib_mvwin.rs",
+            "src/ncurses/base/lib_newterm.rs",
+            "src/ncurses/base/lib_newwin.rs",
+            "src/ncurses/base/lib_nl.rs",
+            "src/ncurses/base/lib_pad.rs",
+            "src/ncurses/base/lib_printw.rs",
+            "src/ncurses/base/lib_redrawln.rs",
+            "src/ncurses/base/lib_refresh.rs",
+            "src/ncurses/base/lib_restart.rs",
+            "src/ncurses/base/lib_screen.rs",
+            "src/ncurses/base/lib_scroll.rs",
+            "src/ncurses/base/lib_set_term.rs",
+            "src/ncurses/base/lib_slk.rs",
+            "src/ncurses/base/lib_slkatr_set.rs",
+            "src/ncurses/base/lib_slkatrof.rs",
+            "src/ncurses/base/lib_slkatron.rs",
+            "src/ncurses/base/lib_slkatrset.rs",
+            "src/ncurses/base/lib_slkattr.rs",
+            "src/ncurses/base/lib_slkclear.rs",
+            "src/ncurses/base/lib_slkcolor.rs",
+            "src/ncurses/base/lib_slkinit.rs",
+            "src/ncurses/base/lib_slklab.rs",
+            "src/ncurses/base/lib_slkrefr.rs",
+            "src/ncurses/base/lib_slkset.rs",
+            "src/ncurses/base/lib_slktouch.rs",
+            "src/ncurses/base/lib_ungetch.rs",
+            "src/ncurses/base/lib_window.rs",
+            "src/ncurses/base/nc_panel.rs",
+            "src/ncurses/base/new_pair.rs",
+            "src/ncurses/base/resizeterm.rs",
+            "src/ncurses/base/safe_sprintf.rs",
+            "src/ncurses/base/wresize.rs",
+            "src/ncurses/fallback.rs",
+            "src/ncurses/lib_keyname.rs",
+            "src/ncurses/report_offsets.rs",
+            "src/ncurses/tinfo/alloc_entry.rs",
+            "src/ncurses/tinfo/alloc_ttype.rs",
+            "src/ncurses/tinfo/comp_error.rs",
+            "src/ncurses/tinfo/comp_parse.rs",
+            "src/ncurses/tinfo/db_iterator.rs",
+            "src/ncurses/tinfo/entries.rs",
+            "src/ncurses/tinfo/free_ttype.rs",
+            "src/ncurses/tinfo/home_terminfo.rs",
+            "src/ncurses/tinfo/init_keytry.rs",
+            "src/ncurses/tinfo/lib_acs.rs",
+            "src/ncurses/tinfo/lib_baudrate.rs",
+            "src/ncurses/tinfo/lib_cur_term.rs",
+            "src/ncurses/tinfo/lib_data.rs",
+            "src/ncurses/tinfo/lib_has_cap.rs",
+            "src/ncurses/tinfo/lib_kernel.rs",
+            "src/ncurses/tinfo/lib_longname.rs",
+            "src/ncurses/tinfo/lib_napms.rs",
+            "src/ncurses/tinfo/lib_options.rs",
+            "src/ncurses/tinfo/lib_print.rs",
+            "src/ncurses/tinfo/lib_raw.rs",
+            "src/ncurses/tinfo/lib_setup.rs",
+            "src/ncurses/tinfo/lib_termcap.rs",
+            "src/ncurses/tinfo/lib_termname.rs",
+            "src/ncurses/tinfo/lib_ti.rs",
+            "src/ncurses/tinfo/lib_tparm.rs",
+            "src/ncurses/tinfo/lib_tputs.rs",
+            "src/ncurses/tinfo/lib_ttyflags.rs",
+            "src/ncurses/tinfo/name_match.rs",
+            "src/ncurses/tinfo/obsolete.rs",
+            "src/ncurses/tinfo/parse_entry.rs",
+            "src/ncurses/tinfo/read_entry.rs",
+            "src/ncurses/tinfo/trim_sgr0.rs",
+            "src/ncurses/tinfo/use_screen.rs",
+            "src/ncurses/tinfo/write_entry.rs",
+            "src/ncurses/tty/hardscroll.rs",
+            "src/ncurses/tty/hashmap.rs",
+            "src/ncurses/tty/lib_mvcur.rs",
+            "src/ncurses/tty/lib_tstp.rs",
+            "src/ncurses/tty/lib_twait.rs",
+            "src/ncurses/tty/lib_vidattr.rs",
+            "src/ncurses/tty/tty_update.rs",
+            "src/ncurses/unctrl.rs",
+            "src/ncurses/widechar/lib_erasewchar.rs",
+            "src/ncurses/widechar/lib_get_wch.rs",
+            "src/ncurses/widechar/lib_get_wstr.rs",
+            "src/ncurses/widechar/lib_ins_wch.rs",
+            "src/ncurses/widechar/lib_key_name.rs",
+            "src/ncurses/widechar/lib_unget_wch.rs",
+            "src/ncurses/widechar/lib_vid_attr.rs",
+            "src/ncurses/widechar/lib_wunctrl.rs",
+            "src/panel/p_above.rs",
+            "src/panel/p_below.rs",
+            "src/panel/p_bottom.rs",
+            "src/panel/p_delete.rs",
+            "src/panel/p_hidden.rs",
+            "src/panel/p_hide.rs",
+            "src/panel/p_move.rs",
+            "src/panel/p_new.rs",
+            "src/panel/p_replace.rs",
+            "src/panel/p_show.rs",
+            "src/panel/p_update.rs",
+            "src/progs/clear_cmd.rs",
+            "src/progs/dump_entry.rs",
+            "src/progs/infocmp.rs",
+            "src/progs/reset_cmd.rs",
+            "src/progs/tabs.rs",
+            "src/progs/tic.rs",
+            "src/progs/toe.rs",
+            "src/progs/tput.rs",
+            "src/progs/tset.rs"
+          ]
+        }
+      }
+    },
+    "pilot": {
+      "all_scalar_interfaces": true,
+      "archive": "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a",
+      "candidate_sha256": "ea368da66151d2217604544b72bbef827f2982e0ad2c9b8231aa4d4412c52b97",
+      "candidate_sources_sha256": "50d81279fe02a95fbac5612ea87de0dd424af6c0d1db057bdff3b52ee546ee2e",
+      "compiler_selected_sources": 266,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "ea368da66151d2217604544b72bbef827f2982e0ad2c9b8231aa4d4412c52b97",
+      "parent_sources_sha256": "beceb719ff943b1960a933be04f42663719e3f3af81b8f5aa4f9e38aa275b4f9",
+      "raw_pointer_types_removed": 1367,
+      "scalar_ffi": {
+        "__ctype_b_loc": {
+          "copies": 33,
+          "provider": "src/form/fld_pad.rs",
+          "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+        },
+        "__ctype_tolower_loc": {
+          "copies": 109,
+          "provider": "src/form/fld_arg.rs",
+          "signature": "fn __ctype_tolower_loc() -> *mut *const i32;"
+        },
+        "__ctype_toupper_loc": {
+          "copies": 109,
+          "provider": "src/form/fld_arg.rs",
+          "signature": "fn __ctype_toupper_loc() -> *mut *const i32;"
+        },
+        "__errno_location": {
+          "copies": 72,
+          "provider": "src/form/fld_arg.rs",
+          "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+        },
+        "_nc_access": {
+          "copies": 4,
+          "provider": "src/ncurses/base/lib_screen.rs",
+          "signature": "fn _nc_access(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> ::core::ffi::c_int;"
+        },
+        "_nc_capcmp": {
+          "copies": 2,
+          "provider": "src/progs/infocmp.rs",
+          "signature": "fn _nc_capcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "_nc_doalloc": {
+          "copies": 16,
+          "provider": "src/ncurses/base/lib_slk.rs",
+          "signature": "fn _nc_doalloc(a0: *mut ::core::ffi::c_void, a1: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "_nc_first_db": {
+          "copies": 3,
+          "provider": "src/ncurses/tinfo/read_entry.rs",
+          "signature": "fn _nc_first_db(a0: *mut ::core::ffi::c_uint, a1: *mut ::core::ffi::c_int);"
+        },
+        "_nc_first_name": {
+          "copies": 6,
+          "provider": "src/ncurses/tinfo/comp_parse.rs",
+          "signature": "fn _nc_first_name(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "_nc_getenv_num": {
+          "copies": 2,
+          "provider": "src/ncurses/base/lib_newterm.rs",
+          "signature": "fn _nc_getenv_num(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "_nc_home_terminfo": {
+          "copies": 3,
+          "provider": "src/ncurses/tinfo/db_iterator.rs",
+          "signature": "fn _nc_home_terminfo() -> *mut ::core::ffi::c_char;"
+        },
+        "_nc_infotocap": {
+          "copies": 2,
+          "provider": "src/progs/dump_entry.rs",
+          "signature": "fn _nc_infotocap(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        },
+        "_nc_name_match": {
+          "copies": 5,
+          "provider": "src/ncurses/tinfo/comp_parse.rs",
+          "signature": "fn _nc_name_match(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "_nc_next_db": {
+          "copies": 3,
+          "provider": "src/ncurses/tinfo/read_entry.rs",
+          "signature": "fn _nc_next_db(a0: *mut ::core::ffi::c_uint, a1: *mut ::core::ffi::c_int) -> *const ::core::ffi::c_char;"
+        },
+        "_nc_pathlast": {
+          "copies": 2,
+          "provider": "src/ncurses/tinfo/read_entry.rs",
+          "signature": "fn _nc_pathlast(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_uint;"
+        },
+        "_nc_rootname": {
+          "copies": 7,
+          "provider": "src/progs/clear.rs",
+          "signature": "fn _nc_rootname(a0: *mut ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "_nc_set_source": {
+          "copies": 4,
+          "provider": "src/ncurses/tinfo/read_entry.rs",
+          "signature": "fn _nc_set_source(a0: *const ::core::ffi::c_char);"
+        },
+        "_nc_set_type": {
+          "copies": 5,
+          "provider": "src/ncurses/tinfo/comp_parse.rs",
+          "signature": "fn _nc_set_type(a0: *const ::core::ffi::c_char);"
+        },
+        "_nc_setupterm": {
+          "copies": 3,
+          "provider": "src/ncurses/base/lib_newterm.rs",
+          "signature": "fn _nc_setupterm(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, a2: *mut ::core::ffi::c_int, a3: ::core::ffi::c_int) -> ::core::ffi::c_int;"
+        },
+        "_nc_tic_dir": {
+          "copies": 2,
+          "provider": "src/ncurses/tinfo/write_entry.rs",
+          "signature": "fn _nc_tic_dir(a0: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char;"
+        },
+        "_nc_visbuf": {
+          "copies": 2,
+          "provider": "src/ncurses/tinfo/parse_entry.rs",
+          "signature": "fn _nc_visbuf(a0: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char;"
+        },
+        "access": {
+          "copies": 2,
+          "provider": "src/ncurses/tinfo/access.rs",
+          "signature": "fn access(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> ::core::ffi::c_int;"
+        },
+        "calloc": {
+          "copies": 32,
+          "provider": "src/form/fld_def.rs",
+          "signature": "fn calloc(a0: usize, a1: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "chdir": {
+          "copies": 2,
+          "provider": "src/ncurses/tinfo/write_entry.rs",
+          "signature": "fn chdir(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "curses_version": {
+          "copies": 8,
+          "provider": "src/ncurses/base/lib_screen.rs",
+          "signature": "fn curses_version() -> *const ::core::ffi::c_char;"
+        },
+        "free": {
+          "copies": 56,
+          "provider": "src/form/fld_def.rs",
+          "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+        },
+        "getenv": {
+          "copies": 14,
+          "provider": "src/ncurses/base/lib_initscr.rs",
+          "signature": "fn getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "getopt": {
+          "copies": 6,
+          "provider": "src/progs/clear.rs",
+          "signature": "fn getopt(a0: ::core::ffi::c_int, a1: *const *mut ::core::ffi::c_char, a2: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "malloc": {
+          "copies": 39,
+          "provider": "src/form/fld_def.rs",
+          "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "mblen": {
+          "copies": 2,
+          "provider": "src/form/frm_driver.rs",
+          "signature": "fn mblen(a0: *const ::core::ffi::c_char, a1: usize) -> ::core::ffi::c_int;"
+        },
+        "memcmp": {
+          "copies": 12,
+          "provider": "src/form/frm_driver.rs",
+          "signature": "fn memcmp(a0: *const ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> ::core::ffi::c_int;"
+        },
+        "memcpy": {
+          "copies": 17,
+          "provider": "src/form/fld_dup.rs",
+          "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "memset": {
+          "copies": 42,
+          "provider": "src/form/frm_driver.rs",
+          "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "perror": {
+          "copies": 6,
+          "provider": "src/progs/dump_entry.rs",
+          "signature": "fn perror(a0: *const ::core::ffi::c_char);"
+        },
+        "puts": {
+          "copies": 7,
+          "provider": "src/progs/clear.rs",
+          "signature": "fn puts(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "read": {
+          "copies": 2,
+          "provider": "src/ncurses/base/lib_getch.rs",
+          "signature": "fn read(a0: ::core::ffi::c_int, a1: *mut ::core::ffi::c_void, a2: usize) -> isize;"
+        },
+        "realloc": {
+          "copies": 3,
+          "provider": "src/ncurses/base/lib_screen.rs",
+          "signature": "fn realloc(a0: *mut ::core::ffi::c_void, a1: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "remove": {
+          "copies": 2,
+          "provider": "src/ncurses/tinfo/write_entry.rs",
+          "signature": "fn remove(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "set_window_size": {
+          "copies": 2,
+          "provider": "src/progs/tput.rs",
+          "signature": "fn set_window_size(a0: ::core::ffi::c_int, a1: *mut ::core::ffi::c_int, a2: *mut ::core::ffi::c_int);"
+        },
+        "setupterm": {
+          "copies": 4,
+          "provider": "src/progs/clear.rs",
+          "signature": "fn setupterm(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, a2: *mut ::core::ffi::c_int) -> ::core::ffi::c_int;"
+        },
+        "strcat": {
+          "copies": 6,
+          "provider": "src/ncurses/tinfo/comp_scan.rs",
+          "signature": "fn strcat(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "strchr": {
+          "copies": 15,
+          "provider": "src/ncurses/base/lib_screen.rs",
+          "signature": "fn strchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        },
+        "strcmp": {
+          "copies": 30,
+          "provider": "src/form/frm_req_name.rs",
+          "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "strcpy": {
+          "copies": 20,
+          "provider": "src/ncurses/base/lib_screen.rs",
+          "signature": "fn strcpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "strdup": {
+          "copies": 18,
+          "provider": "src/form/fty_enum.rs",
+          "signature": "fn strdup(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "strerror": {
+          "copies": 6,
+          "provider": "src/ncurses/tinfo/write_entry.rs",
+          "signature": "fn strerror(a0: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        },
+        "strlen": {
+          "copies": 43,
+          "provider": "src/form/frm_driver.rs",
+          "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+        },
+        "strncat": {
+          "copies": 2,
+          "provider": "src/ncurses/tinfo/comp_error.rs",
+          "signature": "fn strncat(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> *mut ::core::ffi::c_char;"
+        },
+        "strncmp": {
+          "copies": 16,
+          "provider": "src/ncurses/base/lib_mouse.rs",
+          "signature": "fn strncmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> ::core::ffi::c_int;"
+        },
+        "strncpy": {
+          "copies": 5,
+          "provider": "src/ncurses/tinfo/comp_parse.rs",
+          "signature": "fn strncpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> *mut ::core::ffi::c_char;"
+        },
+        "strrchr": {
+          "copies": 2,
+          "provider": "src/ncurses/tinfo/access.rs",
+          "signature": "fn strrchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        },
+        "strstr": {
+          "copies": 6,
+          "provider": "src/ncurses/base/lib_mouse.rs",
+          "signature": "fn strstr(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "strtol": {
+          "copies": 10,
+          "provider": "src/form/fty_int.rs",
+          "signature": "fn strtol(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_long;"
+        },
+        "tigetflag": {
+          "copies": 4,
+          "provider": "src/ncurses/base/lib_color.rs",
+          "signature": "fn tigetflag(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "tigetnum": {
+          "copies": 4,
+          "provider": "src/ncurses/base/lib_color.rs",
+          "signature": "fn tigetnum(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "tigetstr": {
+          "copies": 6,
+          "provider": "src/ncurses/base/lib_color.rs",
+          "signature": "fn tigetstr(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "tparm_type": {
+          "copies": 2,
+          "provider": "src/progs/tic.rs",
+          "signature": "fn tparm_type(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "unctrl": {
+          "copies": 2,
+          "provider": "src/ncurses/tinfo/captoinfo.rs",
+          "signature": "fn unctrl(a0: ::core::ffi::c_uint) -> *const ::core::ffi::c_char;"
+        },
+        "write": {
+          "copies": 2,
+          "provider": "src/ncurses/tinfo/lib_print.rs",
+          "signature": "fn write(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_void, a2: usize) -> isize;"
+        }
+      },
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+    }
+  }
+}
