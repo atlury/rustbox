@@ -9,17 +9,23 @@ import subprocess
 from tempfile import TemporaryDirectory
 
 from check_cargo_private_inlines import ROOT, digest
-from preview_routing_protocols import commands
+from preview_routing_protocols import commands, dsfield_commands
 
 
 def expected_binary(previous, release=None):
     if release is None:
         return previous["candidate"]["sha256"]
-    from stage_routing_protocol_archives import FIELD, parent_view
-    if FIELD not in release or release["binary"]["sha256"] == previous["parent"]["sha256"]:
-        raise ValueError("expected a release with the qualified routing substitution")
-    parent_view(release)
-    rows = release[FIELD]
+    import stage_dsfield_archives as dsfield
+    import stage_routing_protocol_archives as routing
+    preceding = dsfield.parent_view(release)
+    if "dsfield_public_comparisons" in previous:
+        field = dsfield.FIELD
+    else:
+        field = routing.FIELD
+    if field not in release or release["binary"]["sha256"] == previous["parent"]["sha256"]:
+        raise ValueError("expected a release with the qualified IPRoute2 substitution")
+    routing.parent_view(preceding)
+    rows = release[field]
     archives = {Path(key).stem.removeprefix("lib").removesuffix("_audit"): row["candidate_sha256"]
                 for key, row in rows.items()}
     if len(archives) != len(rows) or archives != previous["candidate"]["engine_archive_sha256"]:
@@ -33,7 +39,8 @@ def check(elf, receipt, link=None):
     if digest(elf) != expected:
         raise ValueError("the executable differs from the selected routing protocol executable")
     with TemporaryDirectory() as directory:
-        current = commands(elf, Path(directory))
+        exercise = dsfield_commands if "dsfield_public_comparisons" in previous else commands
+        current = exercise(elf, Path(directory))
     validate_coverage(previous, current)
     return dict(current, elf_sha256=expected)
 
@@ -42,6 +49,10 @@ def validate_coverage(previous, current):
     for key in ("public_names", "differential_driver_sha256", "routel_source_sha256"):
         if current[key] != previous[key]:
             raise ValueError(f"changed canonical input or test coverage: {key}")
+    if "dsfield_public_comparisons" in previous:
+        for key in ("dsfield_profiles", "dsfield_public_comparisons"):
+            if current[key] != previous[key]:
+                raise ValueError(f"DS field coverage differs for {key}")
     for cc in ("gcc", "clang-18"):
         before, after = previous["canonical"][cc], current["canonical"][cc]
         # Live route output can change between network namespaces. commands()
@@ -63,7 +74,17 @@ if __name__ == "__main__":
     else:
         receipt = Path("/work") / args.receipt.resolve().relative_to(ROOT)
         options = ["--link", Path("/work") / args.link.resolve().relative_to(ROOT)] if args.link else []
-        subprocess.run([ROOT / "scripts/run_multicall_tool.sh", "python3", "-B",
-                        "/work/scripts/test_routing_protocol_multicall.py", "/rustbox-test-elf/rustbox",
-                        receipt, "--mounted", *options], check=True,
-                       env=dict(os.environ, RUSTBOX_MULTICALL_TEST_BINARY=str(args.elf.resolve())))
+        if "dsfield_public_comparisons" in json.loads(args.receipt.read_bytes()):
+            subprocess.run(["docker", "run", "--rm", "--network", "none", "--platform", "linux/amd64",
+                            "-v", f"{ROOT}:/work:ro", "-v", f"{args.elf.resolve()}:/candidate:ro",
+                            "-v", "rustbox-iproute2-7.3.0:/rustbox-iproute2:ro",
+                            "--tmpfs", "/etc/iproute2", "--tmpfs", "/usr/share/iproute2",
+                            "-w", "/work", "rustbox-e2fsprogs:2026-11-24", "sh", "-ec",
+                            'cp /candidate /tmp/rustbox && chmod 755 /tmp/rustbox && exec "$@"',
+                            "test", "python3", "-B", "/work/scripts/test_routing_protocol_multicall.py",
+                            "/tmp/rustbox", receipt, "--mounted", *options], check=True)
+        else:
+            subprocess.run([ROOT / "scripts/run_multicall_tool.sh", "python3", "-B",
+                            "/work/scripts/test_routing_protocol_multicall.py", "/rustbox-test-elf/rustbox",
+                            receipt, "--mounted", *options], check=True,
+                           env=dict(os.environ, RUSTBOX_MULTICALL_TEST_BINARY=str(args.elf.resolve())))

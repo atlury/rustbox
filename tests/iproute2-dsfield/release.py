@@ -2,6 +2,7 @@
 """Exercise source selection, archive provenance and rejection of stale routing parents."""
 # SPDX-License-Identifier: GPL-2.0-or-later
 from copy import deepcopy
+import json
 from pathlib import Path
 import sys
 import unittest
@@ -30,6 +31,19 @@ class Selection(unittest.TestCase):
             compiler_key = "rustc_archive" if "rustc_archive" in row else "cargo_archive"
             later = {"archive": key, "control_sha256": row["candidate_sha256"], compiler_key: origin}
             self.assertEqual(pinned_parent(key, later), self.selected)
+
+    def test_saved_executable_receipts(self):
+        from test_routing_protocol_multicall import expected_binary
+        receipt = json.loads((ROOT / "evidence/iproute2-dsfield-all-multicall.json").read_bytes())
+        routing = json.loads((ROOT / "evidence/iproute2-routing-protocol-multicall.json").read_bytes())
+        self.selected["binary"] = {"sha256": receipt["candidate"]["sha256"]}
+        for prior in (receipt, routing):
+            self.assertEqual(expected_binary(prior, self.selected), self.selected["binary"]["sha256"])
+        with self.assertRaises(ValueError):
+            expected_binary(receipt, self.parent)
+        receipt["candidate"]["engine_archive_sha256"]["bridge"] = "0" * 64
+        with self.assertRaises(ValueError):
+            expected_binary(receipt, self.selected)
 
     def test_rejects_stale_parent_archive(self):
         self.parent["source_library_sha256"][self.key] = "0" * 64
