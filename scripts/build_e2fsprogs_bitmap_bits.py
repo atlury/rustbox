@@ -9,6 +9,7 @@ import re
 
 from check_cargo_private_inlines import ROOT, digest
 from direct_source_pair import build_pair, direct_receipt, mounted_pair
+from e2fsprogs_source_pair import inventory as source_inventory, selected_module
 from prune_private_inlines import POINTER
 
 SOURCE = ROOT / "work/upstream/e2fsprogs-1.47.4/lib/ext2fs/bitops.c"
@@ -39,12 +40,7 @@ def transform(data):
 
 
 def substitute(crate, sources):
-    module, = [m for m in sources if m.endswith("/lib/ext2fs/bitops.rs")]
-    data = (crate / module).read_bytes()
-    if sha256(data).hexdigest() != sources[module]:
-        raise ValueError("E2fsprogs bitmap module differs from its compiler input")
-    new, facts = transform(data)
-    return {module: new}, dict(facts, module=module)
+    return selected_module(crate, sources, "/lib/ext2fs/bitops.rs", transform)
 
 
 def build(link, archive, output):
@@ -52,24 +48,7 @@ def build(link, archive, output):
 
 
 def inventory(link):
-    from audit_linked_pointers import measure
-
-    raw = link.read_bytes()
-    release = json.loads(raw)
-    archives = {}
-    def inspect(archive, module, checksum, source):
-        if not str(module).endswith("/lib/ext2fs/bitops.rs"):
-            return
-        key = str(archive)
-        if key in archives or sha256(source).digest() != checksum:
-            raise ValueError("duplicate bitmap module or stale compiler input")
-        _, facts = transform(source)
-        archives[key] = dict(facts, module=str(module), archive_sha256=release["source_library_sha256"][key])
-    measure(release, inspect_module=inspect)
-    if not archives or raw != link.read_bytes():
-        raise ValueError("empty bitmap inventory or changed release")
-    return dict(archives=archives, link_sha256=sha256(raw).hexdigest(), binary_sha256=release["binary"]["sha256"],
-                source_pointer_types_removed=sum(row["raw_pointer_types_removed"] for row in archives.values()))
+    return source_inventory(link, "/lib/ext2fs/bitops.rs", transform)
 
 
 if __name__ == "__main__":

@@ -20,8 +20,9 @@ def save(path, record):
     Path(f.name).replace(path)
 
 
-def qualify(link, ranking, output, engines):
+def qualify(link, ranking, output, engines, *, build_pair=build, test_driver="test_e2fsprogs_bitmap_bits.py", cases=393260):
     original = digest(link)
+    inventory_hash = digest(ranking)
     evidence = json.loads(ranking.read_bytes())
     release = json.loads(link.read_bytes())
     if evidence["link_sha256"] != original or evidence["binary_sha256"] != release["binary"]["sha256"]:
@@ -29,29 +30,29 @@ def qualify(link, ranking, output, engines):
     output.mkdir(parents=True, exist_ok=True)
     selected = {k:v for k,v in evidence["archives"].items() if not engines or Path(k).name in engines}
     if not selected or engines - {Path(k).name for k in selected}:
-        raise ValueError("unknown bitmap engine")
+        raise ValueError("unknown E2fsprogs engine")
     rows = {}
     for key, expected in sorted(selected.items()):
         directory = output / Path(key).stem
         with directory.with_suffix(".lock").open("a") as lock:
             fcntl.flock(lock, fcntl.LOCK_EX)
             if not directory.exists():
-                build(link, key, directory)
+                build_pair(link, key, directory)
             # Recheck the current archive, compiler-selected source bytes and native oracles.
-            cmd = [sys.executable, "-B", ROOT/"scripts/test_e2fsprogs_bitmap_bits.py",
+            cmd = [sys.executable, "-B", ROOT/"scripts"/test_driver,
                    "--link", link, "--pilot", directory]
             row = json.loads(subprocess.check_output(cmd))
             archive = row["archive"]
             if (archive["archive"] != key or archive["control_sha256"] != expected["archive_sha256"]
                     or any(archive[k] != v for k,v in expected.items() if k != "archive_sha256")
-                    or row["comparisons"] != 393260 or row["memcheck_runs"] != 1):
+                    or row["comparisons"] != cases or row["memcheck_runs"] != 1):
                 raise ValueError(f"behavior or source substitution differs for {key}")
             save(directory/"comparison.json", row)
             rows[key] = row
             print(f'{Path(key).name} passed both canonical compilers and Memcheck', file=sys.stderr, flush=True)
-    if digest(link) != original:
-        raise ValueError("compiler release changed during bitmap qualification")
-    return dict(link_sha256=original, inventory_sha256=digest(ranking), archived_results=rows,
+    if digest(link) != original or digest(ranking) != inventory_hash:
+        raise ValueError("compiler release or inventory changed during archive qualification")
+    return dict(link_sha256=original, inventory_sha256=inventory_hash, archived_results=rows,
                 raw_pointer_types_removed=sum(r["archive"]["raw_pointer_types_removed"] for r in rows.values()),
                 comparisons=sum(r["comparisons"] for r in rows.values()), memcheck_runs=len(rows))
 
