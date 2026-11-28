@@ -2,8 +2,10 @@
 """Reconstruct exactly the native C strings used in a cold Cargo archive, after existing layout changes."""
 # SPDX-License-Identifier: GPL-3.0-or-later
 import argparse
+from functools import lru_cache
 from hashlib import sha256
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -13,16 +15,50 @@ from check_cargo_private_inlines import ROOT, digest
 from check_e2fsprogs_dirhash_arrays import source_list_digest
 
 
+@lru_cache(maxsize=128)
+def native_snapshot(built, file_identity):
+    # Cargo may unlink its release path during another build. An open file
+    # descriptor retains the selected inode while we publish a private copy.
+    with built.open("rb") as stream:
+        st = os.fstat(stream.fileno())
+        if (st.st_dev, st.st_ino, st.st_size, st.st_mtime_ns) != file_identity:
+            raise FileNotFoundError("Cargo replaced the tool during selection")
+        data = stream.read()
+    checksum = sha256(data).hexdigest()
+    directory = built.parents[1] / "verified-executables" / checksum
+    directory.mkdir(parents=True, exist_ok=True)
+    published = directory / built.name
+    if not published.exists():
+        with TemporaryDirectory(dir=directory) as tmp:
+            stage = Path(tmp) / built.name
+            stage.write_bytes(data)
+            stage.chmod(0o555)
+            try:
+                os.link(stage, published)
+            except FileExistsError:
+                pass
+    if digest(published) != checksum:
+        raise ValueError("published native scanner differs from its Cargo executable")
+    return published
+
+
 def syntax_tool(name="c-string-literals", *, rebuild=False):
     if not rebuild and sys.platform.startswith("linux"):
         built = ROOT / "work/analysis/private-inlines-linux/release" / name
         if built.is_file():
             return built
     target = ROOT / "work/analysis/syntax-tools-native"
-    subprocess.run(["cargo", "build", "--locked", "--offline", "--release", "--manifest-path",
-                    ROOT / "tools/private-inlines/Cargo.toml", "--bin", name,
-                    "--target-dir", target], check=True, stdout=subprocess.DEVNULL)
-    return target / "release" / name
+    built = target / "release" / name
+    for attempt in range(3):
+        subprocess.run(["cargo", "build", "--locked", "--offline", "--release", "--manifest-path",
+                        ROOT / "tools/private-inlines/Cargo.toml", "--bin", name,
+                        "--target-dir", target], check=True, stdout=subprocess.DEVNULL)
+        try:
+            st = built.stat()
+            return native_snapshot(built, (st.st_dev, st.st_ino, st.st_size, st.st_mtime_ns))
+        except FileNotFoundError:
+            if attempt == 2:
+                raise
 
 
 def check_extension(before, after):
