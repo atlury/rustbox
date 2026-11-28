@@ -221,7 +221,7 @@ E2fsprogs integration passes 112/112 canonical comparisons and all 32
 Valgrind paths; its 20 private namespaces rename 8,126 symbols after removing
 3,966 byte-identical Rust runtime members already provided by Procps-ng.
 Exact evidence is in `evidence/e2fsprogs-1.47.4-multicall.json`.  The resulting
-499-name executable is 42,451,144 bytes unstripped and 24,961,792 bytes
+499-name executable is 42,464,504 bytes unstripped and 24,979,344 bytes
 stripped. Sharing the Coreutils runtime with Gzip saved 289,264 stripped
 bytes. The linker compares 328 archive members byte-for-byte before sharing
 them. The exact hashes and
@@ -295,8 +295,8 @@ for 89 linked Rust archives. These cover the 20 E2fsprogs, 18 IPRoute2 and
 26 GNU Inetutils engines and 25 other package archives. A second compiler pass
 removed additional helpers in 58 of those archives. The declaration cleanup
 covers 89 archives, including 20 E2fsprogs engines. Across the linked applet
-sources the raw-pointer type count fell from **1,379,960 to 752,108**.
-Counting byte-identical Rust files once gives **529,459** remaining occurrences.
+sources the raw-pointer type count fell from **1,379,960 to 747,302**.
+Counting byte-identical Rust files once gives **528,925** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
 The 36-archive native-string release at `daff5c9` had 878,920 lexical
@@ -371,10 +371,11 @@ integration. [Pilot evidence](evidence/iproute2-netlink-protocols-pilot.json)
 | Borrowed GNU tar timestamp array | 7 |
 | GNU Bison constant literal lengths | 450 |
 | Shared ncurses terminal layouts | 2,439 |
-| **Total** | **627,852** |
+| IPRoute2 routing protocol readers across 18 engines | 4,806 |
+| **Total** | **632,658** |
 
 E2fsprogs accounts for 189,134 remaining occurrences, down from 401,012.
-IPRoute2 accounts for 121,686, down from 265,323. GNU Inetutils accounts
+IPRoute2 accounts for 116,880, down from 265,323. GNU Inetutils accounts
 for 55,033, down from 104,385. The curl crate accounts for 70,883, down
 from 96,855. GNU gzip accounts for 1,656, down from 4,086, and XZ Utils
 accounts for 9,412, down from 22,239.
@@ -389,9 +390,9 @@ scope and realm tables added 9,408 stripped bytes and 4,720 unstripped bytes.
 The netlink tables added 5,360 stripped bytes and 12,112 unstripped bytes.
 Packing the curl manual saved 151,536 stripped bytes and 618,464 unstripped bytes.
 The current unstripped SHA-256 is
-`a8b07738a1985cb6ff68e70cc87870fec0712eebe994e920389918136048379b`.
+`f154fa79b5642c2cb6d01ff139e7f3b3ac1b32248ccd9b6e086b3be2e6bd7ad2`.
 The stripped SHA-256 is
-`e4811399269cc456b99bbd63b89ca445fdea2c29bb159bb1d8825330a1716d97`.
+`2d3048f05281966b62aba39f5ae1742df42b878dfb8b6ae285ad4d5800c51fc4`.
 
 | Code | Where it runs | Remaining work |
 |---|---|---|
@@ -1582,7 +1583,7 @@ To find work that can be reused across engines, run
 `python3 -B scripts/rank_shared_applet_modules.py LINK_REPORT --limit 20`.
 The scanner groups compiler-selected modules by package and exact source
 bytes and selects groups containing a public C-ABI function. Across 187
-groups it measures 203,855 raw-pointer type occurrences in copies beyond the
+groups it measures 199,583 raw-pointer type occurrences in copies beyond the
 first archive. IPRoute2's `rt_names.rs` contains 1,389 occurrences in each of
 17 identical copies, or 22,224 beyond the first. Two remaining 256-slot name tables in
 each copy contain 490 explicit null initializers. These entries contribute
@@ -1760,6 +1761,10 @@ cases include six real-kernel `routel` queries and six named or numerical
 protocol filters. The stripped preview measured 24,979,328
 bytes against 24,961,776 for the reproduced parent.
 [Complete multicall comparison](evidence/iproute2-routing-protocol-multicall.json)
+
+The default 499-name build uses the 18 checked routing readers. All 28
+package suites, 884 dispatch checks and 14,022 differential cases passed.
+[Release verification](evidence/rustbox-routing-protocol-replays.json)
 
 On that same 18-engine preview, all 884 dispatcher checks and 14,022
 differential cases passed. The records for all 38 batches bind the individual

@@ -19,6 +19,7 @@ if [ "${1:-}" = --lz4-benchmark-dictionary ]; then
     shift
 fi
 routing_protocols=
+if [ "$#" -eq 0 ]; then routing_protocols=1; fi
 if [ "${1:-}" = --iproute2-routing-protocols ]; then
     routing_protocols=1
     shift

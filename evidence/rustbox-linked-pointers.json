@@ -1,14 +1,14 @@
 {
   "all": {
     "archives": 127,
-    "as_ptr_calls": 94386,
+    "as_ptr_calls": 93972,
     "files": 4908,
-    "raw_borrows": 84204,
-    "raw_pointer_type_tokens": 752108,
+    "raw_borrows": 84132,
+    "raw_pointer_type_tokens": 747302,
     "slices_from_raw_parts": 4,
     "standalone_objects": 3
   },
-  "binary_sha256": "a8b07738a1985cb6ff68e70cc87870fec0712eebe994e920389918136048379b",
+  "binary_sha256": "f154fa79b5642c2cb6d01ff139e7f3b3ac1b32248ccd9b6e086b3be2e6bd7ad2",
   "bison_length_deltas": {
     "work/analysis/bison-3.8.2/translations/c2rust-0.22.1/bison-3.8.2-stable/target/release/libbison_3_8_2_normalized_audit.a": {
       "as_ptr_calls": 0,
@@ -1533,9 +1533,9 @@
     }
   },
   "counting_identical_files_once": {
-    "as_ptr_calls": 81945,
-    "raw_borrows": 61624,
-    "raw_pointer_type_tokens": 529459,
+    "as_ptr_calls": 81899,
+    "raw_borrows": 61616,
+    "raw_pointer_type_tokens": 528925,
     "slices_from_raw_parts": 4
   },
   "curl_manual_deltas": {
@@ -1958,7 +1958,7 @@
       "slices_from_raw_parts": 0
     }
   },
-  "link_report_sha256": "5c5f5a13412861ab47ed37610a7489da59dac817d9191e80352ba82b14e6bcc6",
+  "link_report_sha256": "b4fc241f4b720e5cb6212da394c5d021c06285d36645f8412dc04f2261bb5e0b",
   "native_c_string_conversions": {
     "work/analysis/acl-2.4.0/translations/c2rust-0.22.1/acl-2.4.0-stable/target/release/libacl_2_4_0_normalized_audit.a": 230,
     "work/analysis/attr-2.6.0/translations/c2rust-0.22.1/attr-2.6.0-stable/target/release/libattr_2_6_0_normalized_audit.a": 169,
@@ -2226,10 +2226,10 @@
     },
     "iproute2-7.3.0": {
       "archives": 18,
-      "as_ptr_calls": 27525,
+      "as_ptr_calls": 27111,
       "files": 498,
-      "raw_borrows": 15030,
-      "raw_pointer_type_tokens": 121686,
+      "raw_borrows": 14958,
+      "raw_pointer_type_tokens": 116880,
       "slices_from_raw_parts": 1
     },
     "kmod-34.3": {
@@ -2342,6 +2342,116 @@
       "files": 46,
       "raw_borrows": 2513,
       "raw_pointer_type_tokens": 23575,
+      "slices_from_raw_parts": 0
+    }
+  },
+  "routing_protocol_deltas": {
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/arpd/netlink-protocols/b71d750c6cccad7ee62398c79b99e12b0dbd1a7c83d4d50925dc17758cf5bc63/libarpd_audit.a": {
+      "as_ptr_calls": 23,
+      "raw_borrows": 4,
+      "raw_pointer_type_tokens": 267,
+      "slices_from_raw_parts": 0
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dcb/netlink-protocols/4a440cf7b33680d750161a4fd6ea401408ac1a68aa84aa3c29fb7b6589784489/libdcb_audit.a": {
+      "as_ptr_calls": 23,
+      "raw_borrows": 4,
+      "raw_pointer_type_tokens": 267,
+      "slices_from_raw_parts": 0
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/devlink/netlink-protocols/d275ec6441764af49e36894b289f4be955c376fbc7e783d1d8bc6338250cc4d8/libdevlink_audit.a": {
+      "as_ptr_calls": 23,
+      "raw_borrows": 4,
+      "raw_pointer_type_tokens": 267,
+      "slices_from_raw_parts": 0
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dpll/netlink-protocols/630ee0aae13ace86689dc83417adbc77f306823eff770ccec0e53a029dfd63bb/libdpll_audit.a": {
+      "as_ptr_calls": 23,
+      "raw_borrows": 4,
+      "raw_pointer_type_tokens": 267,
+      "slices_from_raw_parts": 0
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/genl/netlink-protocols/adba9eacfe93e17700cb35277e537b66198d302970099a37318ab794c0e71a92/libgenl_audit.a": {
+      "as_ptr_calls": 23,
+      "raw_borrows": 4,
+      "raw_pointer_type_tokens": 267,
+      "slices_from_raw_parts": 0
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ifstat/netlink-protocols/ffaa8c5610fc41466f5122c1ba22de9dc601ac6691b75f5c20d21942c1ff6e5c/libifstat_audit.a": {
+      "as_ptr_calls": 23,
+      "raw_borrows": 4,
+      "raw_pointer_type_tokens": 267,
+      "slices_from_raw_parts": 0
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/netlink-protocols/0db83e0df290e9bbf1b6470ecbcdae3385221a6f8f3b50d53300feccf2ab4ba2/libip_audit.a": {
+      "as_ptr_calls": 23,
+      "raw_borrows": 4,
+      "raw_pointer_type_tokens": 267,
+      "slices_from_raw_parts": 0
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/lnstat/netlink-protocols/54cae1fa020ed1cea5a072ec6025bca97d87e69efc508bfca53e9e05c4f86c93/liblnstat_audit.a": {
+      "as_ptr_calls": 23,
+      "raw_borrows": 4,
+      "raw_pointer_type_tokens": 267,
+      "slices_from_raw_parts": 0
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/netshaper/netlink-protocols/1f65ac8aa500b8907a7e69fdd008acf206380971734bc4efc86e9caa88547ba6/libnetshaper_audit.a": {
+      "as_ptr_calls": 23,
+      "raw_borrows": 4,
+      "raw_pointer_type_tokens": 267,
+      "slices_from_raw_parts": 0
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/nstat/netlink-protocols/114d3e271fcc1ea7db90fff7623479e558e624811664b8d6284851094bb5afe2/libnstat_audit.a": {
+      "as_ptr_calls": 23,
+      "raw_borrows": 4,
+      "raw_pointer_type_tokens": 267,
+      "slices_from_raw_parts": 0
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rdma/netlink-protocols/f23016a6a9869ea5a5105d8295689f371176c8efb5fd4983d7ce97d7fb56bcf0/librdma_audit.a": {
+      "as_ptr_calls": 23,
+      "raw_borrows": 4,
+      "raw_pointer_type_tokens": 267,
+      "slices_from_raw_parts": 0
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtacct/netlink-protocols/da98d3497ed0cd5ca072a33ea0626a3e8a90cf5116153c00c4a1628212a4c044/librtacct_audit.a": {
+      "as_ptr_calls": 23,
+      "raw_borrows": 4,
+      "raw_pointer_type_tokens": 267,
+      "slices_from_raw_parts": 0
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtmon/netlink-protocols/b292a6480adff1e5c10db2feb3ee7af5535ff1eff1b94bb80b5134dae7498d87/librtmon_audit.a": {
+      "as_ptr_calls": 23,
+      "raw_borrows": 4,
+      "raw_pointer_type_tokens": 267,
+      "slices_from_raw_parts": 0
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ss/netlink-protocols/5ff1aa4867dcf89d52f43a11f79cc9001955f2b36119224115fe174e4ca318ef/libss_audit.a": {
+      "as_ptr_calls": 23,
+      "raw_borrows": 4,
+      "raw_pointer_type_tokens": 267,
+      "slices_from_raw_parts": 0
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/netlink-protocols/0be4dacb9b83b542f87d7172b5b18b35ae6c392985ee1fde0fcbdcd3f4415cf9/libtc_audit.a": {
+      "as_ptr_calls": 23,
+      "raw_borrows": 4,
+      "raw_pointer_type_tokens": 267,
+      "slices_from_raw_parts": 0
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tipc/netlink-protocols/2a3532e759a556fb9cd18d0e6b444e183ba86a2a894486ff772e53a2e5a59f78/libtipc_audit.a": {
+      "as_ptr_calls": 23,
+      "raw_borrows": 4,
+      "raw_pointer_type_tokens": 267,
+      "slices_from_raw_parts": 0
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/vdpa/netlink-protocols/8cd900b37be86726894069e717a0ad928d9485d8b0fbf85b1d57612c85309c5b/libvdpa_audit.a": {
+      "as_ptr_calls": 23,
+      "raw_borrows": 4,
+      "raw_pointer_type_tokens": 267,
+      "slices_from_raw_parts": 0
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/netlink-protocols/c5f385f0b2d9951bed3f38267a6fee516188648ba489be22e552f1741d17f93e/libbridge_audit.a": {
+      "as_ptr_calls": 23,
+      "raw_borrows": 4,
+      "raw_pointer_type_tokens": 267,
       "slices_from_raw_parts": 0
     }
   },
