@@ -2553,6 +2553,8 @@ The cold tune2fs archive matched its control after sharing 860 raw-pointer type 
 
 The netshaper declaration cleanup and badblocks layout cleanup removed another 92 and 25 raw-pointer type occurrences, respectively. Both archives rebuilt byte-for-byte and the whole compiler recount reached **702,495**. [Verified combined recount](evidence/dsfield-netshaper-badblocks.json)
 
+The cold declaration builds for badblocks, tune2fs, netshaper matched the original archives. Recounting those compiler inputs gave **701,126** raw-pointer type occurrences on the tested executable. [Combined declaration census](evidence/dsfield-initial-e2fs-netshaper.json)
+
 Replaying the current compiler inputs identified 9,191 possible further raw-pointer type removals across 25 archives after accounting for existing scalar declarations and later layouts. Ten E2fsprogs rebuilds account for 5,859 of those. For ncurses, 1,367 shared declaration occurrences would replace a layout that already saves 500, giving a potential net reduction of 867. These are source projections pending archive verification. [Per-archive arithmetic](evidence/dsfield-scalar-upgrade-projection.json) · [Reproduce the ranking](scripts/preview_scalar_ffi_upgrades.py)
 
 On the mid-sweep source selection, the compatible declaration and layout changes left **702,950** raw-pointer type occurrences. Earlier compiler layers stayed fixed. [Optimized census](evidence/dsfield-optimized-mid-sweep.json)
