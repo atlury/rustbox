@@ -1,0 +1,40 @@
+{
+  "binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+  "candidate_link_sha256": "d870f793c3438294c81523676dd5a6d2064f1bbf0b2eceb71e0e01464e973d17",
+  "counts": {
+    "all": {
+      "after": 688873,
+      "before": 689194
+    },
+    "counting_identical_files_once": {
+      "after": 607275,
+      "before": 608235
+    }
+  },
+  "deferred": {},
+  "input_manifests": {
+    "batches/dsfield-pointer-rollup-688873-shared_variadic_ffi.json": "c474af4b0290497e4beaa7fe982954028a792f3650c122f736eeadf62be02a17",
+    "batches/dsfield-pointer-rollup-688873-unused_c_types.json": "8cf217ae680c614278627f7ac4a862c546a75e2e6f021c3e73c3b22707e61b72"
+  },
+  "layers": {
+    "shared_variadic_ffi": {
+      "archives": [
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-06-stable/target/release/libcoreutils_small_06_normalized_reachable.a"
+      ],
+      "manifest_sha256": "c474af4b0290497e4beaa7fe982954028a792f3650c122f736eeadf62be02a17"
+    },
+    "unused_c_types": {
+      "archives": [
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexec_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnet_audit.a",
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libuucpd_audit.a"
+      ],
+      "manifest_sha256": "8cf217ae680c614278627f7ac4a862c546a75e2e6f021c3e73c3b22707e61b72"
+    }
+  },
+  "parent_census_sha256": "7c1d69a0c5e26a6ed251e8d2a635c6ac681f7852ed5b82413acc8a21477f8394",
+  "parent_link_sha256": "999f5e7de7fea69c41bfc66f78423f19ae470583c2ab3f73eef578a21416b6e1",
+  "public_evidence_sha256": "6599c4ec031ad9207a57a8b15c86be77b07e206ece2f3ce0597fa84c72d57fe5",
+  "raw_pointer_types_removed": 321,
+  "unused_types_ranking_sha256": "2b4468ec2997bed1ceab8d7b9c786ab8f85ba5dc0a3aa5b11ab2f8419d73ddd1"
+}
