@@ -1910,6 +1910,8 @@ The ip archive with both owned name tables passed 31,035 device-group and 21,776
 
 On the 703,346-occurrence compiler selection, the device-group source rewrite still removes 267 occurrences in each of the 18 engines. Twelve source sets match the earlier DS-field inputs exactly. The six changed sets are arpd, bridge, dcb, devlink, ip and tc. This 4,806-occurrence projection awaits a combined executable census. [Per-engine source hashes](evidence/iproute2-group-names-fixed-parent-sources.json)
 
+The route-table pilot replaces a 256-bucket raw linked-list index with owned names. Across seven configurations and three initialization paths, it matched 173,243 canonical lookups from GCC and Clang and passed seven Memcheck runs. The tests include directory overlays, dangling symlinks, malformed files, unsigned conversion, retained pointers and raw names. All 18 compiler source sets accepted the rewrite (271 fewer occurrences each) and produced identical module bytes when applied before or after the device-group rewrite. The 4,878 projected occurrences await a combined ELF census. [Route-table comparisons](evidence/iproute2-route-tables-standalone.json) · [Compiler source projection](evidence/iproute2-route-tables-optimized-sources.json)
+
 On those optimized inputs, arpd reproduced both archive hashes from its earlier 52,811 lookup comparisons and nine Memcheck runs. A fresh compiler-source replay confirms that the 267-occurrence group rewrite coexists with the scalar FFI cleanup. [arpd archive comparison](evidence/iproute2-arpd-group-names-fixed-parent.json)
 
 A 499-name multicall containing all 18 rebuilt DS field engines matched both canonical compilers on

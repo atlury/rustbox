@@ -12,11 +12,18 @@ from iproute2_route_name_archives import netlink_path
 from check_e2fsprogs_dirhash_arrays import source_list_digest
 
 
-def rank(path, *, dsfield=False, group_names=False):
+def rank(path, *, dsfield=False, group_names=False, route_tables=False):
     data = path.read_bytes()
     link = json.loads(data)
-    if group_names:
-        from build_group_names import transform as replace_table
+    if sum((dsfield, group_names, route_tables)) > 1:
+        raise ValueError("select one routing table at a time")
+    if group_names or route_tables:
+        if route_tables:
+            from build_iproute2_route_tables import transform as replace_table
+            if "iproute2_dsfield_names" not in link:
+                raise ValueError("route table replay requires a DS-field release")
+        else:
+            from build_group_names import transform as replace_table
         from iproute2_route_name_archives import lookup_archive, lookup_records
         if dsfield or "iproute2_routing_protocols" not in link:
             raise ValueError("device group names require a routing release and one requested table")
@@ -52,6 +59,12 @@ def rank(path, *, dsfield=False, group_names=False):
             if first != second:
                 raise ValueError(f"DS field and group-name edits differ by selection order in {archive}")
             row["with_dsfield_module_sha256"] = sha256(first).hexdigest()
+        if route_tables:
+            from build_group_names import transform as replace_groups
+            combined = replace_groups(candidate)[0]
+            if combined != replace_table(replace_groups(source)[0])[0]:
+                raise ValueError(f"route table and group rewrites overlap in {archive}")
+            row["with_group_module_sha256"] = sha256(combined).hexdigest()
         if row["control_module_sha256"] != checksum.hex():
             raise ValueError(f"source hash differs for {archive}")
         engines[str(archive)] = dict(row, module=str(module), control_archive_sha256=link["source_library_sha256"][str(archive)])
@@ -73,5 +86,6 @@ if __name__ == "__main__":
     selection = parser.add_mutually_exclusive_group()
     selection.add_argument("--group-names", action="store_true", help="inspect device group lookups in the selected engines")
     selection.add_argument("--dsfield", action="store_true", help="inspect DS field names after routing protocol replacement")
+    selection.add_argument("--route-tables", action="store_true", help="check owned routing tables and compatibility with device groups")
     args = parser.parse_args()
-    print(json.dumps(rank(args.link, dsfield=args.dsfield, group_names=args.group_names), indent=2, sort_keys=True))
+    print(json.dumps(rank(args.link, dsfield=args.dsfield, group_names=args.group_names, route_tables=args.route_tables), indent=2, sort_keys=True))
