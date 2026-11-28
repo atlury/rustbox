@@ -1907,6 +1907,8 @@ The 17 Cargo-built IPRoute2 engines passed 527,595 group-name lookups and 85 Mem
 
 Together the 18 rebuilt engines passed 558,630 canonical lookup cases and 90 Memcheck runs with 4,806 fewer raw-pointer types. [All engine receipts](evidence/iproute2-group-names-archives.json)
 
+The full 499-name LZ4 candidate with all 18 owned group-name readers passed 288 IPRoute2 command comparisons and 200 device-group filter comparisons across both dispatch modes and both canonical compilers. [Source replay](evidence/iproute2-group-names-lz4-source-replay.json) · [Executable comparisons](evidence/iproute2-group-names-lz4-multicall.json)
+
 The 499-name DS field executable establishes the group command baseline. It passed 200 device-group comparisons through symlink and subcommand dispatch against both canonical ip builds. [Public command baseline](evidence/iproute2-group-names-command-baseline.json)
 
 Use `scripts/qualify_iproute2_combined_names.py LINK OUTPUT` to cold-build both readers in each DS field engine and compare both interfaces with canonical IPRoute2. The full multicall comparator in `scripts/preview_iproute2_combined_names.py` checks group and DS field configuration in one run. Its 632 command comparisons passed on the saved control executable. [Combined command control](evidence/iproute2-combined-name-tables-command-control.json)

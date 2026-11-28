@@ -86,9 +86,10 @@ def dsfield_commands(elf, stage, checked=None):
     return dict(checked, dsfield_profiles=profiles, dsfield_public_comparisons=len(PROFILES) * len(QUERIES) * 4)
 
 
-def group_commands(elf, stage):
+def group_commands(elf, stage, *, checked=None):
     from test_group_names import PROFILES, QUERIES, capture, configure
-    checked = commands(elf, stage)
+    if checked is None:
+        checked = commands(elf, stage)
     local, vendor = Path("/etc/iproute2"), Path("/usr/share/iproute2")
     if not all(os.path.ismount(path) and not any(path.iterdir()) for path in (local, vendor)):
         raise ValueError("device group comparisons require empty private configuration mounts")
