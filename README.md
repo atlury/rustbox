@@ -1886,6 +1886,8 @@ The direct-rustc bridge engine reproduced its original archive from all 24 compi
 
 The bridge archive with both owned name tables passed 31,035 device-group and 21,776 DS field lookup cases, plus nine Memcheck runs. Its two edits remove 532 raw-pointer type occurrences from this engine. [Combined bridge tests](evidence/iproute2-bridge-combined-name-tables.json)
 
+The arpd archive with both owned name tables passed 31,035 device-group and 21,776 DS field lookup cases, plus nine Memcheck runs. Its two edits remove 532 raw-pointer type occurrences from this engine. [Combined arpd tests](evidence/iproute2-arpd-combined-name-tables.json)
+
 A 499-name multicall containing all 18 rebuilt DS field engines matched both canonical compilers on
 288 IPRoute2 command comparisons and 144 DS field filter comparisons in four
 configuration profiles. Its stripped size was 24,983,632 bytes.
