@@ -1,0 +1,42 @@
+{
+  "elf_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+  "filesystem": {
+    "attribute_writes": 4,
+    "command_comparisons_per_program": 13,
+    "compared": [
+      "applet",
+      "clang-18",
+      "gcc",
+      "subcommand"
+    ],
+    "external_block": true,
+    "identical_images": true,
+    "raw_names": 3
+  },
+  "public_commands": {
+    "clang-18": {
+      "canonical_multicall_exact": true,
+      "cases": 84,
+      "collision_aliases": {
+        "fsck": "e2fsprogs-fsck"
+      },
+      "native_engines": 20,
+      "native_names": 28,
+      "passed": 84,
+      "release": "1.47.4",
+      "schema": 1
+    },
+    "gcc": {
+      "canonical_multicall_exact": true,
+      "cases": 84,
+      "collision_aliases": {
+        "fsck": "e2fsprogs-fsck"
+      },
+      "native_engines": 20,
+      "native_names": 28,
+      "passed": 84,
+      "release": "1.47.4",
+      "schema": 1
+    }
+  }
+}

@@ -2,15 +2,13 @@
 # SPDX-License-Identifier: LGPL-2.0-only
 from hashlib import sha256
 import os
-from pathlib import Path
 import re
 import shutil
 import subprocess
 
 
-def compare(stage, programs):
+def compare(stage, programs, canonical):
     env = dict(os.environ, LC_ALL="C", TZ="UTC", E2FSPROGS_FAKE_TIME="1700000000", E2FSCK_TIME="1700000000")
-    canonical = Path("/oracle/stage-gcc/sbin")
     image = stage / "original.img"
     with image.open("xb") as f:
         f.truncate(8 * 1024 * 1024)
@@ -21,13 +19,13 @@ def compare(stage, programs):
     names = [b"user.a", b"user.\x80name", b"user.\xff"]
     writes = [(names[0], 1), (names[1], 6), (names[2], 271), (names[1], 33)]
     reference = None
-    for label, program in programs.items():
+    for label, command_prefix in programs.items():
         work = stage / ("image-" + label)
         work.mkdir()
         shutil.copyfile(image, work/"fs.img")
         transcript = []
         def invoke(command):
-            result = subprocess.run([program, "-w", "-R", command, "fs.img"], cwd=work, env=env,
+            result = subprocess.run([*command_prefix, "-w", "-R", command, "fs.img"], cwd=work, env=env,
                                     capture_output=True, check=True, timeout=120)
             transcript.append((result.stdout, result.stderr))
             return result.stdout

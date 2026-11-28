@@ -43,8 +43,12 @@ def oracle(cc, tag, output):
     return includes, live
 
 
-def debugfs_images(stage, targets=None):
-    programs = {cc: Path("/oracle") / ("stage-" + cc) / "sbin/debugfs" for cc in ("gcc", "clang-18")}
+def debugfs_images(stage, targets=None, *, multicall=None, oracle_root=Path("/oracle")):
+    programs = {cc: [oracle_root / ("stage-" + cc) / "sbin/debugfs"] for cc in ("gcc", "clang-18")}
+    if multicall is not None:
+        alias = stage / "debugfs"
+        alias.symlink_to(multicall)
+        programs.update(applet=[alias], subcommand=[multicall, "debugfs"])
     for name in ("control", "candidate") if targets else ():
         dest = stage / (name + "-bin")
         dest.mkdir()
@@ -52,8 +56,8 @@ def debugfs_images(stage, targets=None):
         run("clang-18", "-O2", "-Wl,--gc-sections", "-DRUSTBOX_E2FSPROGS_ENTRY=rustbox_e2fsprogs_debugfs_main",
             ROOT / "bridges/e2fsprogs_program_main.c", *targets[name], "-lblkid", "-luuid", "-lfuse3", "-ldl",
             "-lpthread", "-lm", "-o", program)
-        programs[name] = program
-    return compare_images(stage, programs)
+        programs[name] = [program]
+    return compare_images(stage, programs, oracle_root / "stage-gcc/sbin")
 
 
 def verify(link, pilot):
