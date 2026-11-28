@@ -1,0 +1,45 @@
+{
+  "binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+  "candidate_link_sha256": "64116feaee2d670d39ae2dd5b0b76b721bba905a85d0fcc62aa00f7d67cce677",
+  "counts": {
+    "all": {
+      "after": 694883,
+      "before": 695317
+    },
+    "counting_identical_files_once": {
+      "after": 619600,
+      "before": 619093
+    }
+  },
+  "deferred": {},
+  "input_manifests": {
+    "batches/dsfield-pointer-rollup-694883-shared_scalar_ffi.json": "e985b6ad956a0d701cf0259ac984956c8b95dac96d351ebaf2fe1276327e1ad0",
+    "batches/dsfield-pointer-rollup-694883-shared_variadic_ffi.json": "7ae827056bcfee0e9271314b7cbd63cdb0220cfedb85fdc5e464c481f02fe0b5",
+    "batches/dsfield-pointer-rollup-694883-unused_c_types.json": "ab183708d5f32a5a32db5eea0b0b3e2ca79954e9889a7d03af5d5bc25421f9ff"
+  },
+  "layers": {
+    "shared_scalar_ffi": {
+      "archives": [
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tipc/dsfield-names/9b1ed5fb80ca278df3aef2ba9d980ef04dbdf304f0f45a7a41f86e66c19ce4f7/libtipc_audit.a"
+      ],
+      "manifest_sha256": "e985b6ad956a0d701cf0259ac984956c8b95dac96d351ebaf2fe1276327e1ad0"
+    },
+    "shared_variadic_ffi": {
+      "archives": [
+        "work/analysis/tar-1.35/translations/c2rust-0.22.1/tar-1.35-stable/target/borrowed-timestamps/30ac31a37c96970ff8b030c8e71981914d4d117fd78b4a8bec8283628a69a2f3/libtar_1_35_normalized_audit.a"
+      ],
+      "manifest_sha256": "7ae827056bcfee0e9271314b7cbd63cdb0220cfedb85fdc5e464c481f02fe0b5"
+    },
+    "unused_c_types": {
+      "archives": [
+        "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a"
+      ],
+      "manifest_sha256": "ab183708d5f32a5a32db5eea0b0b3e2ca79954e9889a7d03af5d5bc25421f9ff"
+    }
+  },
+  "parent_census_sha256": "4ffb036a4a8a89a4e04473542e20a2dd6e1549cf27bdbdf8e0c5f96fe840a83d",
+  "parent_link_sha256": "d8ac01f26cab47b3e629bac8eaa62a8a5e5a9e87937d3ac8207957aad6062b43",
+  "public_evidence_sha256": "6599c4ec031ad9207a57a8b15c86be77b07e206ece2f3ce0597fa84c72d57fe5",
+  "raw_pointer_types_removed": 434,
+  "unused_types_ranking_sha256": "2b4468ec2997bed1ceab8d7b9c786ab8f85ba5dc0a3aa5b11ab2f8419d73ddd1"
+}

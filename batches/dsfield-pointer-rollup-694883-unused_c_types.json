@@ -1,0 +1,477 @@
+{
+  "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libxz_5_8_4_normalized_audit.foreign-05797a02e474593fb80ae0c28a8c30217664a865a879839a1fd4c58885e594b5.json",
+        "sha256": "05797a02e474593fb80ae0c28a8c30217664a865a879839a1fd4c58885e594b5"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libxz_5_8_4_normalized_audit.inlines-dbe6df97b9af094cab5c51fe367f792c9de251cd576a4f4a7ee1678a1be8a7c9.json",
+        "sha256": "4cc4c47e4af36517c24f0231117b4cab7723ef0bd21efa2907421b4a646b5cbd"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libxz_5_8_4_normalized_audit.layer2-efdbaf053175281cf13809148271510b71cb27cc12731c7b963f1b8aa399ae18.json",
+        "sha256": "efdbaf053175281cf13809148271510b71cb27cc12731c7b963f1b8aa399ae18"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a",
+        "c_string_literals": 33,
+        "candidate_sha256": "7ae834c8b5389c80495e6f8dc81c3291484df8d2a56d55f7d311d41bc4a43ef7",
+        "candidate_sources_sha256": "27dd6640d4a31f03c3e8920d45686208c3fb1ffab33e4dc39c5ab2e5c3dc3a11",
+        "compiler_selected_sources": 104,
+        "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+        "control_sha256": "7ae834c8b5389c80495e6f8dc81c3291484df8d2a56d55f7d311d41bc4a43ef7",
+        "modules": {
+          "src/xz/list.rs": 26,
+          "src/xz/options.rs": 7
+        },
+        "parent_sources_sha256": "b8e07c66c107b9ffda6fc2ee8525a25aab36c8cc6c9fd204f129ec3d10ef7c82",
+        "raw_ffi_pointer_extractions": 33,
+        "raw_pointer_types_removed": 66,
+        "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_leaf_layouts": {
+        "archive": "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a",
+        "candidate_sha256": "7ae834c8b5389c80495e6f8dc81c3291484df8d2a56d55f7d311d41bc4a43ef7",
+        "candidate_sources_sha256": "5d0b1d8791f90071d8a97eea24fc7b3ab7ce1a4918a78e521d5d9b022fbb45c8",
+        "compiler_selected_sources": 104,
+        "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+        "control_sha256": "7ae834c8b5389c80495e6f8dc81c3291484df8d2a56d55f7d311d41bc4a43ef7",
+        "leaf_layouts": {
+          "C2RustUnnamed_5": {
+            "consumers": [
+              "src/xz/signals.rs"
+            ],
+            "copies": 2,
+            "fingerprint": "54378a73b1c32aa2c3511dc78af5272b22d3e91dc05247a39288eea6b6d10e61",
+            "pointer_fields": 2,
+            "provider": "src/xz/message.rs"
+          },
+          "__pthread_internal_list": {
+            "consumers": [
+              "src/liblzma/check/crc32_fast.rs",
+              "src/liblzma/check/crc64_fast.rs",
+              "src/liblzma/check/sha256.rs",
+              "src/liblzma/common/alone_decoder.rs",
+              "src/liblzma/common/alone_encoder.rs",
+              "src/liblzma/common/auto_decoder.rs",
+              "src/liblzma/common/block_buffer_decoder.rs",
+              "src/liblzma/common/block_buffer_encoder.rs",
+              "src/liblzma/common/block_decoder.rs",
+              "src/liblzma/common/block_encoder.rs",
+              "src/liblzma/common/block_header_decoder.rs",
+              "src/liblzma/common/block_header_encoder.rs",
+              "src/liblzma/common/block_util.rs",
+              "src/liblzma/common/common.rs",
+              "src/liblzma/common/easy_buffer_encoder.rs",
+              "src/liblzma/common/easy_decoder_memusage.rs",
+              "src/liblzma/common/easy_encoder.rs",
+              "src/liblzma/common/easy_encoder_memusage.rs",
+              "src/liblzma/common/easy_preset.rs",
+              "src/liblzma/common/file_info.rs",
+              "src/liblzma/common/filter_buffer_decoder.rs",
+              "src/liblzma/common/filter_buffer_encoder.rs",
+              "src/liblzma/common/filter_common.rs",
+              "src/liblzma/common/filter_decoder.rs",
+              "src/liblzma/common/filter_encoder.rs",
+              "src/liblzma/common/filter_flags_decoder.rs",
+              "src/liblzma/common/filter_flags_encoder.rs",
+              "src/liblzma/common/hardware_cputhreads.rs",
+              "src/liblzma/common/hardware_physmem.rs",
+              "src/liblzma/common/index.rs",
+              "src/liblzma/common/index_decoder.rs",
+              "src/liblzma/common/index_encoder.rs",
+              "src/liblzma/common/index_hash.rs",
+              "src/liblzma/common/lzip_decoder.rs",
+              "src/liblzma/common/microlzma_decoder.rs",
+              "src/liblzma/common/microlzma_encoder.rs",
+              "src/liblzma/common/outqueue.rs",
+              "src/liblzma/common/stream_buffer_decoder.rs",
+              "src/liblzma/common/stream_buffer_encoder.rs",
+              "src/liblzma/common/stream_decoder.rs",
+              "src/liblzma/common/stream_decoder_mt.rs",
+              "src/liblzma/common/stream_encoder.rs",
+              "src/liblzma/common/stream_encoder_mt.rs",
+              "src/liblzma/common/stream_flags_common.rs",
+              "src/liblzma/common/stream_flags_decoder.rs",
+              "src/liblzma/common/stream_flags_encoder.rs",
+              "src/liblzma/common/string_conversion.rs",
+              "src/liblzma/common/vli_decoder.rs",
+              "src/liblzma/common/vli_encoder.rs",
+              "src/liblzma/common/vli_size.rs",
+              "src/liblzma/delta/delta_common.rs",
+              "src/liblzma/delta/delta_decoder.rs",
+              "src/liblzma/delta/delta_encoder.rs",
+              "src/liblzma/lz/lz_decoder.rs",
+              "src/liblzma/lz/lz_encoder.rs",
+              "src/liblzma/lz/lz_encoder_mf.rs",
+              "src/liblzma/lzma/fastpos_table.rs",
+              "src/liblzma/lzma/lzma2_decoder.rs",
+              "src/liblzma/lzma/lzma2_encoder.rs",
+              "src/liblzma/lzma/lzma_decoder.rs",
+              "src/liblzma/lzma/lzma_encoder.rs",
+              "src/liblzma/lzma/lzma_encoder_optimum_fast.rs",
+              "src/liblzma/lzma/lzma_encoder_optimum_normal.rs",
+              "src/liblzma/lzma/lzma_encoder_presets.rs",
+              "src/liblzma/rangecoder/price_table.rs",
+              "src/liblzma/simple/arm.rs",
+              "src/liblzma/simple/arm64.rs",
+              "src/liblzma/simple/armthumb.rs",
+              "src/liblzma/simple/ia64.rs",
+              "src/liblzma/simple/powerpc.rs",
+              "src/liblzma/simple/riscv.rs",
+              "src/liblzma/simple/simple_coder.rs",
+              "src/liblzma/simple/simple_decoder.rs",
+              "src/liblzma/simple/simple_encoder.rs",
+              "src/liblzma/simple/sparc.rs",
+              "src/liblzma/simple/x86.rs",
+              "src/xz/args.rs",
+              "src/xz/coder.rs",
+              "src/xz/file_io.rs",
+              "src/xz/hardware.rs",
+              "src/xz/list.rs",
+              "src/xz/main.rs",
+              "src/xz/message.rs",
+              "src/xz/mytime.rs",
+              "src/xz/options.rs",
+              "src/xz/sandbox.rs",
+              "src/xz/signals.rs",
+              "src/xz/suffix.rs",
+              "src/xz/util.rs"
+            ],
+            "copies": 90,
+            "fingerprint": "a6c5dd5e6dd6e1158342849d3155519f96341e30b143037b5759d3b874558326",
+            "pointer_fields": 2,
+            "provider": "src/liblzma/check/check.rs"
+          },
+          "lzma_filter": {
+            "consumers": [
+              "src/liblzma/common/alone_encoder.rs",
+              "src/liblzma/common/auto_decoder.rs",
+              "src/liblzma/common/block_buffer_decoder.rs",
+              "src/liblzma/common/block_buffer_encoder.rs",
+              "src/liblzma/common/block_decoder.rs",
+              "src/liblzma/common/block_encoder.rs",
+              "src/liblzma/common/block_header_decoder.rs",
+              "src/liblzma/common/block_header_encoder.rs",
+              "src/liblzma/common/block_util.rs",
+              "src/liblzma/common/common.rs",
+              "src/liblzma/common/easy_buffer_encoder.rs",
+              "src/liblzma/common/easy_decoder_memusage.rs",
+              "src/liblzma/common/easy_encoder.rs",
+              "src/liblzma/common/easy_encoder_memusage.rs",
+              "src/liblzma/common/easy_preset.rs",
+              "src/liblzma/common/file_info.rs",
+              "src/liblzma/common/filter_buffer_decoder.rs",
+              "src/liblzma/common/filter_buffer_encoder.rs",
+              "src/liblzma/common/filter_common.rs",
+              "src/liblzma/common/filter_decoder.rs",
+              "src/liblzma/common/filter_encoder.rs",
+              "src/liblzma/common/filter_flags_decoder.rs",
+              "src/liblzma/common/filter_flags_encoder.rs",
+              "src/liblzma/common/index_decoder.rs",
+              "src/liblzma/common/index_encoder.rs",
+              "src/liblzma/common/lzip_decoder.rs",
+              "src/liblzma/common/microlzma_decoder.rs",
+              "src/liblzma/common/microlzma_encoder.rs",
+              "src/liblzma/common/stream_buffer_decoder.rs",
+              "src/liblzma/common/stream_buffer_encoder.rs",
+              "src/liblzma/common/stream_decoder.rs",
+              "src/liblzma/common/stream_decoder_mt.rs",
+              "src/liblzma/common/stream_encoder.rs",
+              "src/liblzma/common/stream_encoder_mt.rs",
+              "src/liblzma/common/string_conversion.rs",
+              "src/liblzma/delta/delta_common.rs",
+              "src/liblzma/delta/delta_decoder.rs",
+              "src/liblzma/delta/delta_encoder.rs",
+              "src/liblzma/lz/lz_decoder.rs",
+              "src/liblzma/lz/lz_encoder.rs",
+              "src/liblzma/lzma/lzma2_decoder.rs",
+              "src/liblzma/lzma/lzma2_encoder.rs",
+              "src/liblzma/lzma/lzma_decoder.rs",
+              "src/liblzma/lzma/lzma_encoder.rs",
+              "src/liblzma/simple/arm.rs",
+              "src/liblzma/simple/arm64.rs",
+              "src/liblzma/simple/armthumb.rs",
+              "src/liblzma/simple/ia64.rs",
+              "src/liblzma/simple/powerpc.rs",
+              "src/liblzma/simple/riscv.rs",
+              "src/liblzma/simple/simple_coder.rs",
+              "src/liblzma/simple/sparc.rs",
+              "src/liblzma/simple/x86.rs",
+              "src/lzmainfo/lzmainfo.rs",
+              "src/xz/coder.rs",
+              "src/xz/list.rs",
+              "src/xz/message.rs"
+            ],
+            "copies": 58,
+            "fingerprint": "530139d2a94b39c2b6b066c740e7aec70a125bb43dcf49125246cc3bb0731cbb",
+            "pointer_fields": 1,
+            "provider": "src/liblzma/common/alone_decoder.rs"
+          },
+          "lzma_options_delta": {
+            "consumers": [
+              "src/liblzma/common/string_conversion.rs",
+              "src/liblzma/delta/delta_common.rs",
+              "src/liblzma/delta/delta_decoder.rs",
+              "src/liblzma/delta/delta_encoder.rs",
+              "src/xz/args.rs",
+              "src/xz/options.rs"
+            ],
+            "copies": 7,
+            "fingerprint": "ff4b40b75eb5c5b7e5f3a6dce0a114880afe39341af87db01312e31a399f82d8",
+            "pointer_fields": 2,
+            "provider": "src/liblzma/common/filter_common.rs"
+          },
+          "lzma_options_lzma": {
+            "consumers": [
+              "src/liblzma/common/alone_encoder.rs",
+              "src/liblzma/common/block_buffer_encoder.rs",
+              "src/liblzma/common/easy_buffer_encoder.rs",
+              "src/liblzma/common/easy_decoder_memusage.rs",
+              "src/liblzma/common/easy_encoder.rs",
+              "src/liblzma/common/easy_encoder_memusage.rs",
+              "src/liblzma/common/easy_preset.rs",
+              "src/liblzma/common/filter_common.rs",
+              "src/liblzma/common/lzip_decoder.rs",
+              "src/liblzma/common/microlzma_decoder.rs",
+              "src/liblzma/common/microlzma_encoder.rs",
+              "src/liblzma/common/stream_encoder_mt.rs",
+              "src/liblzma/common/string_conversion.rs",
+              "src/liblzma/lzma/lzma2_decoder.rs",
+              "src/liblzma/lzma/lzma2_encoder.rs",
+              "src/liblzma/lzma/lzma_decoder.rs",
+              "src/liblzma/lzma/lzma_encoder.rs",
+              "src/liblzma/lzma/lzma_encoder_optimum_fast.rs",
+              "src/liblzma/lzma/lzma_encoder_optimum_normal.rs",
+              "src/liblzma/lzma/lzma_encoder_presets.rs",
+              "src/lzmainfo/lzmainfo.rs",
+              "src/xz/args.rs",
+              "src/xz/coder.rs",
+              "src/xz/options.rs"
+            ],
+            "copies": 25,
+            "fingerprint": "9e10b079e9796453bc4d4c67c7418c8eaf6122986f55abb00c99ae3ba0fa7de9",
+            "pointer_fields": 3,
+            "provider": "src/liblzma/common/alone_decoder.rs"
+          },
+          "lzma_range_encoder": {
+            "consumers": [
+              "src/liblzma/lzma/lzma_encoder_optimum_fast.rs",
+              "src/liblzma/lzma/lzma_encoder_optimum_normal.rs",
+              "src/liblzma/rangecoder/price_table.rs"
+            ],
+            "copies": 4,
+            "fingerprint": "fac62c06721abd4bf07986ab7d8484c76f47ebfc81b27d68cf19f7cb97128f3c",
+            "pointer_fields": 1,
+            "provider": "src/liblzma/lzma/lzma_encoder.rs"
+          },
+          "option": {
+            "consumers": [
+              "src/xz/args.rs",
+              "src/xzdec/rustbox_lzmadec_personality.rs",
+              "src/xzdec/xzdec.rs"
+            ],
+            "copies": 4,
+            "fingerprint": "c6022f295cbc170d6f068fc1aa159c5110aebd368776f2300f8c0c37149a4d10",
+            "pointer_fields": 2,
+            "provider": "src/lzmainfo/lzmainfo.rs"
+          }
+        },
+        "parent_sources_sha256": "9d7ce93bede3ece6a30bd262bd8ee32b3c00ace91fed1bbb23d57e6ef1caee83",
+        "raw_pointer_types_removed": 330
+      },
+      "shared_scalar_ffi": {
+        "all_scalar_interfaces": true,
+        "archive": "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a",
+        "candidate_sha256": "7ae834c8b5389c80495e6f8dc81c3291484df8d2a56d55f7d311d41bc4a43ef7",
+        "candidate_sources_sha256": "9d7ce93bede3ece6a30bd262bd8ee32b3c00ace91fed1bbb23d57e6ef1caee83",
+        "compiler_selected_sources": 104,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "7ae834c8b5389c80495e6f8dc81c3291484df8d2a56d55f7d311d41bc4a43ef7",
+        "parent_sources_sha256": "27dd6640d4a31f03c3e8920d45686208c3fb1ffab33e4dc39c5ab2e5c3dc3a11",
+        "raw_pointer_types_removed": 261,
+        "scalar_ffi": {
+          "__ctype_tolower_loc": {
+            "copies": 2,
+            "provider": "src/xz/args.rs",
+            "signature": "fn __ctype_tolower_loc() -> *mut *const i32;"
+          },
+          "__ctype_toupper_loc": {
+            "copies": 2,
+            "provider": "src/xz/args.rs",
+            "signature": "fn __ctype_toupper_loc() -> *mut *const i32;"
+          },
+          "__errno_location": {
+            "copies": 11,
+            "provider": "src/common/tuklib_exit.rs",
+            "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+          },
+          "free": {
+            "copies": 13,
+            "provider": "src/common/tuklib_mbstr_nonprint.rs",
+            "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+          },
+          "lzma_version_string": {
+            "copies": 3,
+            "provider": "src/xz/message.rs",
+            "signature": "fn lzma_version_string() -> *const ::core::ffi::c_char;"
+          },
+          "malloc": {
+            "copies": 2,
+            "provider": "src/common/tuklib_mbstr_nonprint.rs",
+            "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memcmp": {
+            "copies": 6,
+            "provider": "src/liblzma/common/block_decoder.rs",
+            "signature": "fn memcmp(a0: *const ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "memcpy": {
+            "copies": 33,
+            "provider": "src/common/tuklib_mbstr_nonprint.rs",
+            "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memmove": {
+            "copies": 2,
+            "provider": "src/liblzma/lz/lz_encoder.rs",
+            "signature": "fn memmove(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memset": {
+            "copies": 13,
+            "provider": "src/common/tuklib_mbstr_nonprint.rs",
+            "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "message_filename": {
+            "copies": 2,
+            "provider": "src/xz/coder.rs",
+            "signature": "fn message_filename(a0: *const ::core::ffi::c_char);"
+          },
+          "message_strm": {
+            "copies": 2,
+            "provider": "src/xz/coder.rs",
+            "signature": "fn message_strm(a0: ::core::ffi::c_uint) -> *const ::core::ffi::c_char;"
+          },
+          "pthread_join": {
+            "copies": 2,
+            "provider": "src/liblzma/common/stream_decoder_mt.rs",
+            "signature": "fn pthread_join(a0: ::core::ffi::c_ulong, a1: *mut *mut ::core::ffi::c_void) -> ::core::ffi::c_int;"
+          },
+          "puts": {
+            "copies": 4,
+            "provider": "src/lzmainfo/lzmainfo.rs",
+            "signature": "fn puts(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "setlocale": {
+            "copies": 5,
+            "provider": "src/lzmainfo/lzmainfo.rs",
+            "signature": "fn setlocale(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strchr": {
+            "copies": 3,
+            "provider": "src/xz/args.rs",
+            "signature": "fn strchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strcmp": {
+            "copies": 8,
+            "provider": "src/lzmainfo/lzmainfo.rs",
+            "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strerror": {
+            "copies": 10,
+            "provider": "src/common/tuklib_exit.rs",
+            "signature": "fn strerror(a0: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strlen": {
+            "copies": 6,
+            "provider": "src/common/tuklib_mbstr_nonprint.rs",
+            "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+          },
+          "tuklib_mask_nonprint": {
+            "copies": 12,
+            "provider": "src/lzmainfo/lzmainfo.rs",
+            "signature": "fn tuklib_mask_nonprint(a0: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char;"
+          },
+          "tuklib_mask_nonprint_r": {
+            "copies": 2,
+            "provider": "src/xz/message.rs",
+            "signature": "fn tuklib_mask_nonprint_r(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char) -> *const ::core::ffi::c_char;"
+          },
+          "tuklib_mbstr_fw": {
+            "copies": 3,
+            "provider": "src/xz/hardware.rs",
+            "signature": "fn tuklib_mbstr_fw(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> ::core::ffi::c_int;"
+          },
+          "tuklib_mbstr_width": {
+            "copies": 4,
+            "provider": "src/common/tuklib_mbstr_fw.rs",
+            "signature": "fn tuklib_mbstr_width(a0: *const ::core::ffi::c_char, a1: *mut usize) -> usize;"
+          },
+          "tuklib_progname_init": {
+            "copies": 4,
+            "provider": "src/lzmainfo/lzmainfo.rs",
+            "signature": "fn tuklib_progname_init(a0: *mut *mut ::core::ffi::c_char);"
+          },
+          "xrealloc": {
+            "copies": 4,
+            "provider": "src/xz/args.rs",
+            "signature": "fn xrealloc(a0: *mut ::core::ffi::c_void, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "xstrdup": {
+            "copies": 4,
+            "provider": "src/xz/args.rs",
+            "signature": "fn xstrdup(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          }
+        },
+        "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+      },
+      "shared_stdio_layouts": {
+        "archive": "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a",
+        "candidate_sha256": "7ae834c8b5389c80495e6f8dc81c3291484df8d2a56d55f7d311d41bc4a43ef7",
+        "candidate_sources_sha256": "b8e07c66c107b9ffda6fc2ee8525a25aab36c8cc6c9fd204f129ec3d10ef7c82",
+        "compiler_selected_sources": 104,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "7ae834c8b5389c80495e6f8dc81c3291484df8d2a56d55f7d311d41bc4a43ef7",
+        "parent_sources_sha256": "b7e87a41a426d5bd89637ec7fa3963fa7a2b7c10f81c88801d6eda748c05483c",
+        "provider": "src/common/tuklib_exit.rs",
+        "raw_pointer_types_removed": 306,
+        "reexporting_modules": [
+          "src/common/tuklib_mbstr_wrap.rs",
+          "src/lzmainfo/lzmainfo.rs",
+          "src/xz/args.rs",
+          "src/xz/coder.rs",
+          "src/xz/file_io.rs",
+          "src/xz/hardware.rs",
+          "src/xz/list.rs",
+          "src/xz/main.rs",
+          "src/xz/message.rs",
+          "src/xz/mytime.rs",
+          "src/xz/options.rs",
+          "src/xz/sandbox.rs",
+          "src/xz/signals.rs",
+          "src/xz/suffix.rs",
+          "src/xz/util.rs",
+          "src/xzdec/rustbox_lzmadec_personality.rs",
+          "src/xzdec/xzdec.rs"
+        ]
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a",
+      "candidate_sha256": "7ae834c8b5389c80495e6f8dc81c3291484df8d2a56d55f7d311d41bc4a43ef7",
+      "candidate_sources_sha256": "4dd698cb6f28d581a362d4c5fa5684fcc4ca541e121961b5d210b261628f9afb",
+      "changed_modules": 102,
+      "compiler_selected_sources": 104,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "7ae834c8b5389c80495e6f8dc81c3291484df8d2a56d55f7d311d41bc4a43ef7",
+      "parent_sources_sha256": "5d0b1d8791f90071d8a97eea24fc7b3ab7ce1a4918a78e521d5d9b022fbb45c8",
+      "raw_pointer_types_removed": 242,
+      "removed_declarations": {
+        "struct": 20,
+        "type": 115
+      },
+      "scanner_sha256": "2b7cb8c49225787ddc05c5b6d441089b3a647290119d1473977758e8a6f4e226"
+    }
+  }
+}

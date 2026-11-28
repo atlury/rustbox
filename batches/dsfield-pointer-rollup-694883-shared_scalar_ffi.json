@@ -1,0 +1,148 @@
+{
+  "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tipc/dsfield-names/9b1ed5fb80ca278df3aef2ba9d980ef04dbdf304f0f45a7a41f86e66c19ce4f7/libtipc_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libtipc_audit.foreign-a8b00acf4292d6b4725efc44e43ad26517190706ff0f3ddb8f34af799b13a6f1.json",
+        "sha256": "a8b00acf4292d6b4725efc44e43ad26517190706ff0f3ddb8f34af799b13a6f1"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libtipc_audit.inlines-efc05f0ef576357615506ad70d434695e22c141fc137eaea0609c8a1a34d3487.json",
+        "sha256": "a40ef88e7ed04ec3980d9473adba19631d49bf9537dc9d7f32736fced07f1829"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libtipc_audit.layer2-3b69b8c04eac02169bdf52186c0f446d643d23c7a96907c78373651af81181f9.json",
+        "sha256": "3b69b8c04eac02169bdf52186c0f446d643d23c7a96907c78373651af81181f9"
+      }
+    },
+    "pilot": {
+      "all_scalar_interfaces": true,
+      "archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tipc/dsfield-names/9b1ed5fb80ca278df3aef2ba9d980ef04dbdf304f0f45a7a41f86e66c19ce4f7/libtipc_audit.a",
+      "candidate_sha256": "9b1ed5fb80ca278df3aef2ba9d980ef04dbdf304f0f45a7a41f86e66c19ce4f7",
+      "candidate_sources_sha256": "c43ea769d43614258075af792749f0e171e59b7c2e14fc32de0827b9755bb73a",
+      "cargo_archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tipc/release/libtipc_audit.a",
+      "compiler_selected_sources": 24,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "9b1ed5fb80ca278df3aef2ba9d980ef04dbdf304f0f45a7a41f86e66c19ce4f7",
+      "parent_sources_sha256": "0f872427407dbce1e32fa620c665cfcf2b60c485aa9f7af13eccaf45b2f29f06",
+      "raw_pointer_types_removed": 138,
+      "scalar_ffi": {
+        "__ctype_b_loc": {
+          "copies": 2,
+          "provider": "src/lib/ll_addr.rs",
+          "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+        },
+        "__ctype_tolower_loc": {
+          "copies": 2,
+          "provider": "src/lib/ll_addr.rs",
+          "signature": "fn __ctype_tolower_loc() -> *mut *const i32;"
+        },
+        "__ctype_toupper_loc": {
+          "copies": 2,
+          "provider": "src/lib/ll_addr.rs",
+          "signature": "fn __ctype_toupper_loc() -> *mut *const i32;"
+        },
+        "__errno_location": {
+          "copies": 8,
+          "provider": "src/lib/libnetlink.rs",
+          "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+        },
+        "free": {
+          "copies": 6,
+          "provider": "src/lib/json_print.rs",
+          "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+        },
+        "getenv": {
+          "copies": 2,
+          "provider": "src/lib/color.rs",
+          "signature": "fn getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "malloc": {
+          "copies": 6,
+          "provider": "src/lib/json_writer.rs",
+          "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "memcpy": {
+          "copies": 7,
+          "provider": "src/lib/color.rs",
+          "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "memset": {
+          "copies": 3,
+          "provider": "src/lib/libnetlink.rs",
+          "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "open_json_object": {
+          "copies": 3,
+          "provider": "src/lib/libnetlink.rs",
+          "signature": "fn open_json_object(a0: *const ::core::ffi::c_char);"
+        },
+        "perror": {
+          "copies": 4,
+          "provider": "src/lib/json_print.rs",
+          "signature": "fn perror(a0: *const ::core::ffi::c_char);"
+        },
+        "print_color_string": {
+          "copies": 3,
+          "provider": "src/lib/utils.rs",
+          "signature": "fn print_color_string(a0: ::core::ffi::c_uint, a1: ::core::ffi::c_uint, a2: *const ::core::ffi::c_char, a3: *const ::core::ffi::c_char, a4: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "print_color_uint": {
+          "copies": 2,
+          "provider": "src/tipc/link.rs",
+          "signature": "fn print_color_uint(a0: ::core::ffi::c_uint, a1: ::core::ffi::c_uint, a2: *const ::core::ffi::c_char, a3: *const ::core::ffi::c_char, a4: ::core::ffi::c_uint) -> ::core::ffi::c_int;"
+        },
+        "strchr": {
+          "copies": 2,
+          "provider": "src/lib/ll_addr.rs",
+          "signature": "fn strchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        },
+        "strcmp": {
+          "copies": 9,
+          "provider": "src/lib/color.rs",
+          "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "strcpy": {
+          "copies": 5,
+          "provider": "src/lib/ll_map.rs",
+          "signature": "fn strcpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "strdup": {
+          "copies": 2,
+          "provider": "src/lib/rt_names.rs",
+          "signature": "fn strdup(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "strerror": {
+          "copies": 5,
+          "provider": "src/lib/libnetlink.rs",
+          "signature": "fn strerror(a0: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        },
+        "strlen": {
+          "copies": 8,
+          "provider": "src/lib/color.rs",
+          "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+        },
+        "strrchr": {
+          "copies": 2,
+          "provider": "src/lib/color.rs",
+          "signature": "fn strrchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        },
+        "strstr": {
+          "copies": 3,
+          "provider": "src/lib/utils.rs",
+          "signature": "fn strstr(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "strtol": {
+          "copies": 7,
+          "provider": "src/lib/rt_names.rs",
+          "signature": "fn strtol(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_long;"
+        },
+        "strtoul": {
+          "copies": 4,
+          "provider": "src/lib/ll_addr.rs",
+          "signature": "fn strtoul(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_ulong;"
+        }
+      },
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+    }
+  }
+}
