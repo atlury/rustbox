@@ -7,8 +7,10 @@ import subprocess
 import sys
 from tempfile import TemporaryDirectory
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+from cargo_source_parent import archives_by_origin
 from build_leaf_layout_pilot import substitute
 from check_e2fsprogs_dirhash_arrays import source_list_digest
 from prepare_leaf_layouts import replay_layer
@@ -29,6 +31,15 @@ class LayoutSelection(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.scanner = syntax_tool("leaf-layouts")
+
+    def test_refresh_finds_changed_archive_by_unique_compiler_origin(self):
+        original = Path("build/bridge.a")
+        with patch("cargo_source_parent.cargo_origin", return_value=original):
+            release = {"source_library_sha256": {"new/bridge.a": "one", "helper.o": "two"}}
+            self.assertEqual(archives_by_origin(release), {str(original): "new/bridge.a"})
+            release["source_library_sha256"]["other/bridge.a"] = "three"
+            with self.assertRaisesRegex(ValueError, "ambiguous"):
+                archives_by_origin(release)
 
     def test_refresh_requires_unique_compatible_layouts_in_the_archive(self):
         old = {"record": dict(fingerprint="hash", copies=2, pointer_fields=1)}

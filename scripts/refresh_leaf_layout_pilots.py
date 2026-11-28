@@ -14,7 +14,7 @@ from build_checked_errno import replay
 from build_leaf_layout_pilot import build as cargo_build, substitute
 from build_staged_c_strings import build as direct_build
 from build_va_list_layout_batch import archive_folder
-from cargo_source_parent import cargo_origin, direct_crate
+from cargo_source_parent import archives_by_origin, cargo_origin, direct_crate, row_origin
 from check_cargo_private_inlines import digest
 from direct_source_pair import direct_receipt
 from verify_c_string_sources import syntax_tool
@@ -40,20 +40,21 @@ def refresh(link, ranking, output, prior, jobs):
     ranked = json.loads(ranking.read_bytes())
     if ranked["link_report_sha256"] != link_hash or ranked["binary_sha256"] != release["binary"]["sha256"]:
         raise ValueError("layout ranking belongs to a different compiler selection")
+    by_origin = archives_by_origin(release)
     paths = {}
     for folder in prior:
         row = json.loads((folder/"pilot.json").read_bytes())
-        key = row["archive"]
+        key = by_origin.get(row_origin(row), row["archive"])
         if (key in paths or not row.get("leaf_layouts") or row["control_sha256"] != row["candidate_sha256"]
-                or digest(folder/Path(key).name) != row["candidate_sha256"]):
+                or digest(folder/Path(row["archive"]).name) != row["candidate_sha256"]):
             raise ValueError(f"expected a unique byte-identical layout pilot for {key}")
         paths[key] = (folder, row)
     output.mkdir(parents=True, exist_ok=True)
     scanner = syntax_tool("leaf-layouts")
     def inspect(key):
         old_dir, old = paths[key]
-        if key not in release["source_library_sha256"]:
-            return "deferred", {"reason":"archive path changed"}
+        if by_origin.get(row_origin(old)) != key:
+            return "deferred", {"reason":"archive origin absent from the new release"}
         chosen = current_selection(ranked["layouts"], key, old["leaf_layouts"])
         if chosen is None:
             return "deferred", {"reason":"required layout missing, changed or ambiguous"}

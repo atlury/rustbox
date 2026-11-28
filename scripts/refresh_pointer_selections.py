@@ -13,7 +13,7 @@ from tempfile import TemporaryDirectory
 
 from audit_linked_pointers import check_identical_layer, measure
 from build_va_list_layout_batch import archive_folder
-from cargo_source_parent import cargo_origin, row_origin
+from cargo_source_parent import archives_by_origin, row_origin
 from check_cargo_private_inlines import ROOT, digest
 from prepare_identical_archives import enroll, prepare, selected_receipts, validate_link
 
@@ -38,14 +38,7 @@ def refresh(link, source_manifest, output, workspace, layer, jobs):
     # Include release and source-manifest identity in the directory used by resumable builds.
     cache = workspace / (sha256(raw).hexdigest() + "-" + sha256(original).hexdigest())
     cache.mkdir(exist_ok=True)
-    by_origin = {}
-    for key in parent["source_library_sha256"]:
-        if not key.endswith(".a"):
-            continue
-        origin = str(cargo_origin(parent, key))
-        if origin in by_origin:
-            raise ValueError("ambiguous linked origin " + origin)
-        by_origin[origin] = key
+    by_origin = archives_by_origin(parent)
     kept, rebuild, pending = {}, {}, {}
     driver = ROOT / "scripts" / DRIVERS[layer]
     for old, item in prior.items():

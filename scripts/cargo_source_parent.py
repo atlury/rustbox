@@ -36,6 +36,18 @@ def cargo_origin(link, key):
     return selected
 
 
+def archives_by_origin(parent):
+    by_origin = {}
+    for key in parent["source_library_sha256"]:
+        if not key.endswith(".a"):
+            continue
+        origin = str(cargo_origin(parent, key))
+        if origin in by_origin:
+            raise ValueError("ambiguous linked origin " + origin)
+        by_origin[origin] = key
+    return by_origin
+
+
 def row_origin(row):
     return row.get("rustc_archive", row.get("cargo_archive", row["archive"]))
 
