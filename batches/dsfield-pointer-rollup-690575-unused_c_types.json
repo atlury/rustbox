@@ -1,0 +1,397 @@
+{
+  "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libhostname_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libhostname_audit.foreign-5cc8588faf02a1b91e261ff22093438053b3782e42a736d7a3db6e1123097bfe.json",
+        "sha256": "5cc8588faf02a1b91e261ff22093438053b3782e42a736d7a3db6e1123097bfe"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libhostname_audit.inlines-14efb61e1f0ea29b9fb2d3612ffba4c34f952f23834da8d9139df9fd3b6a1caf.json",
+        "sha256": "d0a78a961fbb0b5d6341f595e1020cc9da4517f23218010f4b2a17527171ccd9"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libhostname_audit.layer2-e2c5071cc92a00f1eb6b5e7811780d5d091a702c577fb31d70ad90798d404c95.json",
+        "sha256": "e2c5071cc92a00f1eb6b5e7811780d5d091a702c577fb31d70ad90798d404c95"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libhostname_audit.a",
+        "c_string_literals": 166,
+        "candidate_sha256": "02f2edfb2c719651a666dc8770c2b93a826d5bec1bb292a35ce3010a61195ab6",
+        "candidate_sources_sha256": "ef19da5a98614f3e538b2f0a2fc43d23945f5309553222d3ca0b91e37c9d726f",
+        "compiler_selected_sources": 26,
+        "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+        "control_sha256": "02f2edfb2c719651a666dc8770c2b93a826d5bec1bb292a35ce3010a61195ab6",
+        "modules": {
+          "src/lib/argp_help.rs": 48,
+          "src/lib/argp_parse.rs": 22,
+          "src/lib/getopt.rs": 15,
+          "src/lib/progname.rs": 2,
+          "src/lib/version_etc.rs": 22,
+          "src/lib/xalloc_die.rs": 4,
+          "src/src/hostname.rs": 53
+        },
+        "parent_sources_sha256": "cb5678842b87d2c9a5c6a01c79f106db61dfc33083e8610ed99d055db8156a4c",
+        "raw_ffi_pointer_extractions": 166,
+        "raw_pointer_types_removed": 332,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_scalar_ffi": {
+        "all_scalar_interfaces": true,
+        "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libhostname_audit.a",
+        "candidate_sha256": "02f2edfb2c719651a666dc8770c2b93a826d5bec1bb292a35ce3010a61195ab6",
+        "candidate_sources_sha256": "c27bac2b6066b40ff3c37b544ccffb933c97c63efd37904e09a11ebf87adef01",
+        "compiler_selected_sources": 26,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "02f2edfb2c719651a666dc8770c2b93a826d5bec1bb292a35ce3010a61195ab6",
+        "parent_sources_sha256": "ef19da5a98614f3e538b2f0a2fc43d23945f5309553222d3ca0b91e37c9d726f",
+        "raw_pointer_types_removed": 113,
+        "scalar_ffi": {
+          "__ctype_b_loc": {
+            "copies": 9,
+            "provider": "src/lib/argp_ba.rs",
+            "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+          },
+          "__ctype_tolower_loc": {
+            "copies": 9,
+            "provider": "src/lib/argp_ba.rs",
+            "signature": "fn __ctype_tolower_loc() -> *mut *const i32;"
+          },
+          "__ctype_toupper_loc": {
+            "copies": 9,
+            "provider": "src/lib/argp_ba.rs",
+            "signature": "fn __ctype_toupper_loc() -> *mut *const i32;"
+          },
+          "__errno_location": {
+            "copies": 8,
+            "provider": "src/lib/argp_fmtstream.rs",
+            "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+          },
+          "free": {
+            "copies": 7,
+            "provider": "src/lib/argp_fmtstream.rs",
+            "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+          },
+          "getenv": {
+            "copies": 2,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "malloc": {
+            "copies": 5,
+            "provider": "src/lib/argp_fmtstream.rs",
+            "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memcpy": {
+            "copies": 3,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memset": {
+            "copies": 5,
+            "provider": "src/lib/argp_fmtstream.rs",
+            "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "realloc": {
+            "copies": 4,
+            "provider": "src/lib/argp_fmtstream.rs",
+            "signature": "fn realloc(a0: *mut ::core::ffi::c_void, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "strchr": {
+            "copies": 4,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn strchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strcmp": {
+            "copies": 3,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strlen": {
+            "copies": 8,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+          },
+          "strncmp": {
+            "copies": 3,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn strncmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "strndup": {
+            "copies": 2,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn strndup(a0: *const ::core::ffi::c_char, a1: usize) -> *mut ::core::ffi::c_char;"
+          },
+          "strtol": {
+            "copies": 2,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn strtol(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_long;"
+          }
+        },
+        "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+      },
+      "shared_stdio_layouts": {
+        "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libhostname_audit.a",
+        "candidate_sha256": "02f2edfb2c719651a666dc8770c2b93a826d5bec1bb292a35ce3010a61195ab6",
+        "candidate_sources_sha256": "cb5678842b87d2c9a5c6a01c79f106db61dfc33083e8610ed99d055db8156a4c",
+        "compiler_selected_sources": 26,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "02f2edfb2c719651a666dc8770c2b93a826d5bec1bb292a35ce3010a61195ab6",
+        "parent_sources_sha256": "678abb1552b4abb8ffc31e5849ab7674fcb062c5d87c4b5a21af80ffc582fc81",
+        "provider": "src/lib/argp_ba.rs",
+        "raw_pointer_types_removed": 270,
+        "reexporting_modules": [
+          "src/lib/argp_eexst.rs",
+          "src/lib/argp_fmtstream.rs",
+          "src/lib/argp_help.rs",
+          "src/lib/argp_parse.rs",
+          "src/lib/argp_pv.rs",
+          "src/lib/argp_pvh.rs",
+          "src/lib/argp_version_etc.rs",
+          "src/lib/fopen.rs",
+          "src/lib/getdelim.rs",
+          "src/lib/getline.rs",
+          "src/lib/getopt.rs",
+          "src/lib/version_etc.rs",
+          "src/lib/version_etc_fsf.rs",
+          "src/lib/xalloc_die.rs",
+          "src/src/hostname.rs"
+        ]
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libhostname_audit.a",
+      "candidate_sha256": "02f2edfb2c719651a666dc8770c2b93a826d5bec1bb292a35ce3010a61195ab6",
+      "candidate_sources_sha256": "10278329fa210227a1cf15b3cf4e3a0228882aa14f3b169d4664b4dffb904d3c",
+      "changed_modules": 21,
+      "compiler_selected_sources": 26,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "02f2edfb2c719651a666dc8770c2b93a826d5bec1bb292a35ce3010a61195ab6",
+      "parent_sources_sha256": "c27bac2b6066b40ff3c37b544ccffb933c97c63efd37904e09a11ebf87adef01",
+      "raw_pointer_types_removed": 123,
+      "removed_declarations": {
+        "struct": 25,
+        "type": 20
+      },
+      "scanner_sha256": "2b7cb8c49225787ddc05c5b6d441089b3a647290119d1473977758e8a6f4e226"
+    }
+  },
+  "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalk_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libtalk_audit.foreign-1f997753d4542f133e39624b83a028ed58eeb7fe6f414aeeafa742d5eecc3406.json",
+        "sha256": "1f997753d4542f133e39624b83a028ed58eeb7fe6f414aeeafa742d5eecc3406"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libtalk_audit.inlines-3dba5ea0f6989e2a59b27fe9c42dd2bfb15e1beea5e4c8a1dbf005817ce32923.json",
+        "sha256": "df719b0296eebc389787652725eec8b73cd3882f982105081c9358b7743830e5"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libtalk_audit.layer2-26c51141b3325cd27d6460d64828af7bc618ed159a45b13a601ae3400ce926e9.json",
+        "sha256": "26c51141b3325cd27d6460d64828af7bc618ed159a45b13a601ae3400ce926e9"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalk_audit.a",
+        "c_string_literals": 176,
+        "candidate_sha256": "89ee067a7e2187903a576a628b0f144d7ba93b03bb19af83a0dfe9acc7a0a72e",
+        "candidate_sources_sha256": "e8e8b291e32a4c66a77e4a2aab5f0f718fc2c841962a548fd1f5c5dd5527962b",
+        "compiler_selected_sources": 29,
+        "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+        "control_sha256": "89ee067a7e2187903a576a628b0f144d7ba93b03bb19af83a0dfe9acc7a0a72e",
+        "modules": {
+          "src/lib/argp_help.rs": 48,
+          "src/lib/argp_parse.rs": 22,
+          "src/lib/getopt.rs": 15,
+          "src/lib/progname.rs": 2,
+          "src/lib/version_etc.rs": 22,
+          "src/talk/ctl.rs": 6,
+          "src/talk/ctl_transact.rs": 3,
+          "src/talk/get_addrs.rs": 11,
+          "src/talk/get_names.rs": 4,
+          "src/talk/init_disp.rs": 5,
+          "src/talk/invite.rs": 17,
+          "src/talk/io.rs": 6,
+          "src/talk/look_up.rs": 4,
+          "src/talk/talk.rs": 11
+        },
+        "parent_sources_sha256": "c51ad9d16b0026869a378467b5cafb254d079ca4a9db666c32f8e3835f9c5922",
+        "raw_ffi_pointer_extractions": 176,
+        "raw_pointer_types_removed": 352,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_scalar_ffi": {
+        "all_scalar_interfaces": true,
+        "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalk_audit.a",
+        "candidate_sha256": "89ee067a7e2187903a576a628b0f144d7ba93b03bb19af83a0dfe9acc7a0a72e",
+        "candidate_sources_sha256": "b11008c340497df531f970b8a0285e33401b3ec87c1e6d88065360e63b454550",
+        "compiler_selected_sources": 29,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "89ee067a7e2187903a576a628b0f144d7ba93b03bb19af83a0dfe9acc7a0a72e",
+        "parent_sources_sha256": "e8e8b291e32a4c66a77e4a2aab5f0f718fc2c841962a548fd1f5c5dd5527962b",
+        "raw_pointer_types_removed": 124,
+        "scalar_ffi": {
+          "__ctype_b_loc": {
+            "copies": 10,
+            "provider": "src/lib/argp_ba.rs",
+            "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+          },
+          "__ctype_tolower_loc": {
+            "copies": 10,
+            "provider": "src/lib/argp_ba.rs",
+            "signature": "fn __ctype_tolower_loc() -> *mut *const i32;"
+          },
+          "__ctype_toupper_loc": {
+            "copies": 10,
+            "provider": "src/lib/argp_ba.rs",
+            "signature": "fn __ctype_toupper_loc() -> *mut *const i32;"
+          },
+          "__errno_location": {
+            "copies": 6,
+            "provider": "src/lib/argp_fmtstream.rs",
+            "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+          },
+          "free": {
+            "copies": 6,
+            "provider": "src/lib/argp_fmtstream.rs",
+            "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+          },
+          "getenv": {
+            "copies": 2,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "malloc": {
+            "copies": 4,
+            "provider": "src/lib/argp_fmtstream.rs",
+            "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memchr": {
+            "copies": 2,
+            "provider": "src/lib/argp_fmtstream.rs",
+            "signature": "fn memchr(a0: *const ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memcpy": {
+            "copies": 4,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memset": {
+            "copies": 6,
+            "provider": "src/lib/argp_fmtstream.rs",
+            "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "message": {
+            "copies": 3,
+            "provider": "src/talk/init_disp.rs",
+            "signature": "fn message(a0: *mut ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "p_error": {
+            "copies": 5,
+            "provider": "src/talk/ctl.rs",
+            "signature": "fn p_error(a0: *mut ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "perror": {
+            "copies": 3,
+            "provider": "src/talk/get_names.rs",
+            "signature": "fn perror(a0: *const ::core::ffi::c_char);"
+          },
+          "read": {
+            "copies": 2,
+            "provider": "src/talk/init_disp.rs",
+            "signature": "fn read(a0: ::core::ffi::c_int, a1: *mut ::core::ffi::c_void, a2: usize) -> isize;"
+          },
+          "realloc": {
+            "copies": 2,
+            "provider": "src/lib/argp_fmtstream.rs",
+            "signature": "fn realloc(a0: *mut ::core::ffi::c_void, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "strchr": {
+            "copies": 4,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn strchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strcmp": {
+            "copies": 4,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strerror": {
+            "copies": 2,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn strerror(a0: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strlen": {
+            "copies": 3,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+          },
+          "strncmp": {
+            "copies": 3,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn strncmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "strtol": {
+            "copies": 2,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn strtol(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_long;"
+          },
+          "write": {
+            "copies": 2,
+            "provider": "src/talk/init_disp.rs",
+            "signature": "fn write(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_void, a2: usize) -> isize;"
+          }
+        },
+        "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+      },
+      "shared_stdio_layouts": {
+        "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalk_audit.a",
+        "candidate_sha256": "89ee067a7e2187903a576a628b0f144d7ba93b03bb19af83a0dfe9acc7a0a72e",
+        "candidate_sources_sha256": "c51ad9d16b0026869a378467b5cafb254d079ca4a9db666c32f8e3835f9c5922",
+        "compiler_selected_sources": 29,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "89ee067a7e2187903a576a628b0f144d7ba93b03bb19af83a0dfe9acc7a0a72e",
+        "parent_sources_sha256": "5de8a65d9d366f6fba82b5a98a776d114a292b063128871ea81c4abfda156134",
+        "provider": "src/lib/argp_ba.rs",
+        "raw_pointer_types_removed": 378,
+        "reexporting_modules": [
+          "src/lib/argp_eexst.rs",
+          "src/lib/argp_fmtstream.rs",
+          "src/lib/argp_help.rs",
+          "src/lib/argp_parse.rs",
+          "src/lib/argp_pv.rs",
+          "src/lib/argp_pvh.rs",
+          "src/lib/argp_version_etc.rs",
+          "src/lib/getopt.rs",
+          "src/lib/version_etc.rs",
+          "src/lib/version_etc_fsf.rs",
+          "src/talk/ctl.rs",
+          "src/talk/ctl_transact.rs",
+          "src/talk/display.rs",
+          "src/talk/get_addrs.rs",
+          "src/talk/get_names.rs",
+          "src/talk/init_disp.rs",
+          "src/talk/invite.rs",
+          "src/talk/io.rs",
+          "src/talk/look_up.rs",
+          "src/talk/msgs.rs",
+          "src/talk/talk.rs"
+        ]
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalk_audit.a",
+      "candidate_sha256": "89ee067a7e2187903a576a628b0f144d7ba93b03bb19af83a0dfe9acc7a0a72e",
+      "candidate_sources_sha256": "dc48b768abde699e488772dd405f305138fbd644788e360d0f24c5e9eb0f1ee8",
+      "changed_modules": 24,
+      "compiler_selected_sources": 29,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "89ee067a7e2187903a576a628b0f144d7ba93b03bb19af83a0dfe9acc7a0a72e",
+      "parent_sources_sha256": "b11008c340497df531f970b8a0285e33401b3ec87c1e6d88065360e63b454550",
+      "raw_pointer_types_removed": 131,
+      "removed_declarations": {
+        "struct": 32,
+        "type": 19
+      },
+      "scanner_sha256": "2b7cb8c49225787ddc05c5b6d441089b3a647290119d1473977758e8a6f4e226"
+    }
+  }
+}
