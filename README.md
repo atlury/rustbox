@@ -2528,6 +2528,8 @@ Ten repeated ncurses C struct definitions can share their existing Rust definiti
 
 Replaying the IPRoute2 `ip` and `tc` declaration changes with both variadic archives and the ncurses layouts brought the same executable’s source count to **704,595**. All selected archive bytes matched their controls. [Joint candidate recount](evidence/dsfield-ip-tc-variadic-ncurses.json)
 
+The common compiler selection with 3 additional scalar-interface archives, 1 additional variadic-interface archives and 1 additional shared-layout archives has **703,380** raw-pointer type occurrences. Every selected archive retained its control bytes. [Combined procps-routing census](evidence/dsfield-joint-procps-routing.json)
+
 The combined extended selection shares layouts in 8 byte-identical archives. Its compiler inputs contain **703,878** raw-pointer type occurrences. [Selected archives and census](evidence/dsfield-extended-leaf-sources.json)
 
 The combined bridge-dumpe2fs selection shares layouts in 6 byte-identical archives. Its compiler inputs contain **703,950** raw-pointer type occurrences. [Selected archives and census](evidence/dsfield-bridge-dumpe2fs-leaf-sources.json)
