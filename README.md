@@ -1921,6 +1921,8 @@ The route-table pilot replaces a 256-bucket raw linked-list index with owned nam
 
 The complete translated ip archive reproduced the same 173,243 canonical lookup results. The archive passed Memcheck on each configuration and all 63 public route-table filters. [Optimized ip archive](evidence/iproute2-ip-owned-route-tables.json) The full multicall with 1 replacement archive(s) passed all 63 route-table filters via both invocation modes against both canonical compilers. [Public executable comparison](evidence/iproute2-ip-route-tables-multicall.json)
 
+This linked executable has 702,679 raw-pointer type occurrences across its compiler inputs. [Whole-source census](evidence/route-tables-ip-compiler-census.json)
+
 For a new linked lookup implementation, `scripts/recount_iproute2_lookup_multicall.py` checks the qualified archive hashes against the final link and replays the source change while counting every compiler input. On the earlier 18-engine DS-field build, it reproduced the release inventory across 4,908 files, 127 archives and three standalone objects, including all four pointer metrics and the counts with identical files counted once. [Independent census comparison](evidence/iproute2-dsfield-link-census-crosscheck.json)
 
 The route-table Cargo builder accepts `--linux-scratch` to keep intermediate files in disposable Linux volumes at the canonical compiler paths. A cold dpll trial reproduced the control, the qualified DS-field candidate and every compiler-source hash on a second parent executable with the same archive inputs. Relative build speed has not been established under matched load. [Scratch build comparison](evidence/iproute2-dpll-linux-cargo-scratch.json)
