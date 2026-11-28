@@ -300,13 +300,13 @@ Counting byte-identical Rust files once gives **528,925** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
 Development builds have separate compiler counts. This query reports the lowest
-verified count for each of two tested executables. The original has completed
-the full dispatcher and batch suites. The grouped package build has passed
-its GCC and Clang command suites. Each row points to a complete source census.
+verified source count separately for the original, five-package and ten-package
+Linux executables. Each row identifies its compiler census and executable.
 
 ```sh
 jq -n --slurpfile public evidence/dsfield-optimized-expanded-public.json \
-      --slurpfile grouped evidence/five-package-unused-types-multicall.json '
+      --slurpfile grouped evidence/five-package-unused-types-multicall.json \
+      --slurpfile ten evidence/ten-package-unused-types-686133.json '
   [inputs | select(.counts.all.after)
    | (if .binary_sha256 == $public[0].binary_sha256 and
         (.candidate_link_sha256 or .layers.shared_leaf_layouts.candidate_link_sha256
@@ -315,10 +315,13 @@ jq -n --slurpfile public evidence/dsfield-optimized-expanded-public.json \
      elif .binary_sha256 == $grouped[0].commands.binary_sha256 and
           .canonical_comparisons == $grouped[0].commands.comparisons
      then "five-package"
+     elif .candidate_binary_sha256 == $ten[0].commands.binary_sha256 and
+          .canonical_comparisons == $ten[0].commands.comparisons
+     then "ten-package"
      else empty end) as $build
    | {build: $build, remaining: .counts.all.after, evidence: input_filename}]
   | group_by(.build) | map(min_by(.remaining))
-' evidence/dsfield-*.json evidence/current-foreign-declarations-*.json evidence/five-package-*.json
+' evidence/dsfield-*.json evidence/current-foreign-declarations-*.json evidence/five-package-*.json evidence/ten-package-projected-*.json
 ```
 
 To combine existing compiler receipts on a saved executable, run
@@ -2587,6 +2590,20 @@ The cold declaration builds for badblocks, tune2fs, netshaper matched the origin
 Adding the byte-identical Gawk archive removed 85 more duplicate raw-pointer types in variadic declarations, bringing the verified compiler count to **701,041**. The incremental selector can now replace a weaker set of declarations or layouts on the same archive. It checks the gain against the whole build and charges back the previous reduction. On badblocks, the 534 declaration occurrences displaced a layout that already saved 25. Use `scripts/extend_pointer_selection.py --replace-weaker` to reproduce that selection. [Combined Gawk and E2fsprogs recount](evidence/dsfield-gawk-e2fs-merged.json)
 
 <a id="combined-pointer-checkpoints"></a>
+
+The ten-package Linux executable has a verified selection with **681,312 raw-pointer type occurrences**, or **605,936** when identical compiler inputs count once. The recount covers all 499 applet names. It combines ten rebuilt packages with compiler-confirmed unused foreign declarations in seven other archives. Eight source-only updates connect the controls. Each archive retains the complete set of compiler inputs from its own build. The executable passed 678 canonical command comparisons and 884 dispatcher checks. [Compiler recount and executable identity](evidence/ten-package-projected-681312.json)
+
+Reproduce the count in a configured build checkout with the pinned archive receipts and Linux executable:
+
+```sh
+python3 -B scripts/qualify_projected_archives.py \
+  work/analysis/dsfield-pointer-rollup-691218/release.json \
+  batches/ten-package-unused-types-686133.json evidence/ten-package-unused-types-686133.json \
+  work/analysis/unused-types-ten-package/linked/rustbox \
+  work/analysis/dsfield-pointer-rollup-691644/release.json \
+  batches/current-foreign-declarations-685700.json evidence/current-foreign-declarations-685700.json \
+  work/analysis/dsfield-pointer-rollup-688873/release.json work/analysis/projected-recount.json
+```
 
 The ten-package Linux build has **686,133 raw-pointer type occurrences** across the full selection. Findutils, Kmod, ncurses, Shadow and tar join curl, Gawk, grep, Diffutils and ACL. The linked executable passed 678 canonical command comparisons across GCC and Clang builds. [Link and tests](evidence/ten-package-unused-types-686133.json) · [Compiler selection](batches/ten-package-unused-types-686133.json).
 
