@@ -39,21 +39,24 @@ PACKAGES = {
 }
 
 
-def plan(link, pilots):
+def plan(link, pilots, *, identical_foreign=False):
     raw = link.read_bytes()
     release = json.loads(raw)
     rows, sources = {}, {}
     for directory in pilots:
         row = json.loads((directory / "pilot.json").read_bytes())
         key = row["archive"]
-        if (key in rows or Path(key).parts[2] not in PACKAGES
+        if (key in rows or (not identical_foreign and Path(key).parts[2] not in PACKAGES)
                 or release["source_library_sha256"].get(key) != row["control_sha256"]
                 or digest(directory / Path(key).name) != row["candidate_sha256"]
-                or row["candidate_sha256"] == row["control_sha256"] or row["raw_pointer_types_removed"] <= 0):
+                or (row["candidate_sha256"] == row["control_sha256"]) != identical_foreign
+                or row["raw_pointer_types_removed"] <= 0):
             raise ValueError(f"unexpected cold archive for {key}")
         rows[key] = dict(directory=directory.resolve().relative_to(ROOT).as_posix(), pilot=row)
         sources[key] = {}
 
+    if not rows:
+        raise ValueError("no archives selected")
     frequency = Counter()
     pointers = {}
     with TemporaryDirectory() as tmp:
@@ -79,12 +82,18 @@ def plan(link, pilots):
         before = totals()
         if any(before[k] != audit[k]["raw_pointer_type_tokens"] for k in before):
             raise ValueError("source enumeration differs from the control census")
-        tool = syntax_tool("unused-c-types")
+        if identical_foreign:
+            from build_current_foreign_declarations import replay_compiler_layer
+            apply = replay_compiler_layer
+        else:
+            scanner = syntax_tool("unused-c-types")
+            def apply(modules, read, row):
+                return replay_layer(modules, read, row, scanner)
         for key, modules in sources.items():
             def read(module):
                 return (store / modules[module]).read_bytes()
             row = rows[key]["pilot"]
-            changes = replay_layer(modules, read, row, tool)
+            changes = apply(modules, read, row)
             removed = 0
             for module, data in changes.items():
                 old, new = modules[module], sha256(data).hexdigest()
@@ -131,15 +140,16 @@ def relink(link, log, selection, output):
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
     operations = p.add_subparsers(dest="operation", required=True)
-    scan = operations.add_parser("plan")
-    scan.add_argument("link", type=Path)
-    scan.add_argument("output", type=Path)
-    scan.add_argument("pilots", type=Path, nargs="+")
+    for operation in ("plan", "identical-foreign"):
+        scan = operations.add_parser(operation)
+        scan.add_argument("link", type=Path)
+        scan.add_argument("output", type=Path)
+        scan.add_argument("pilots", type=Path, nargs="+")
     build = operations.add_parser("link")
     for name in ("link", "log", "selection", "output"):
         build.add_argument(name, type=Path)
     args = p.parse_args()
-    if args.operation == "plan":
-        write_result(args.output, plan(args.link, args.pilots))
+    if args.operation != "link":
+        write_result(args.output, plan(args.link, args.pilots, identical_foreign=args.operation == "identical-foreign"))
     else:
         relink(args.link, args.log, args.selection, args.output)

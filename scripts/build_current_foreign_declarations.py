@@ -110,6 +110,15 @@ def apply_spans(crate, sources, ranges, *, selector=SELECTOR):
                          raw_pointer_types_removed=pointers)
 
 
+def replay_compiler_layer(modules, read, row):
+    from build_scalar_ffi import replay_layer
+
+    def transform(crate, sources, selector):
+        return apply_spans(crate, sources, row["ranges"], selector=selector)
+
+    return replay_layer(modules, read, row, SELECTOR, transform=transform)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--mounted", type=Path)
