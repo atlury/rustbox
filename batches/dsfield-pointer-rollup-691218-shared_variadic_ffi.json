@@ -1,0 +1,1000 @@
+{
+  "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-08-stable/target/release/libcoreutils_small_08_normalized_reachable.a": {
+    "parent_receipts": {
+      "native_c_strings": {
+        "archive": "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-08-stable/target/release/libcoreutils_small_08_normalized_reachable.a",
+        "c_string_literals": 1799,
+        "candidate_sha256": "558128ac26fc4a13efb58cb498a20da95f9719d5312aa7332d761c6300ac5111",
+        "candidate_sources_sha256": "d449e066cdc7ab3a2493dda4e5c5f22b0135f13c250fc6b82f791dc1f7fb02f7",
+        "compiler_selected_sources": 18,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "558128ac26fc4a13efb58cb498a20da95f9719d5312aa7332d761c6300ac5111",
+        "modules": {
+          "src/basenc.rs": 146,
+          "src/chown.rs": 143,
+          "src/chown_core.rs": 52,
+          "src/cut.rs": 136,
+          "src/env.rs": 237,
+          "src/expand_common.rs": 67,
+          "src/operand2sig.rs": 3,
+          "src/pr.rs": 176,
+          "src/ptx.rs": 144,
+          "src/set_fields.rs": 30,
+          "src/show_date.rs": 4,
+          "src/stty.rs": 392,
+          "src/tr.rs": 187,
+          "src/unexpand.rs": 82
+        },
+        "parent_sources_sha256": "756fe2aed3e7b31c45579e8fc768562f50b464d082eb0ca8ddd9146d7c67d093",
+        "raw_ffi_pointer_extractions": 1799,
+        "raw_pointer_types_removed": 3598,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_scalar_ffi": {
+        "all_scalar_interfaces": true,
+        "archive": "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-08-stable/target/release/libcoreutils_small_08_normalized_reachable.a",
+        "candidate_sha256": "558128ac26fc4a13efb58cb498a20da95f9719d5312aa7332d761c6300ac5111",
+        "candidate_sources_sha256": "5111bad56ab3ee12b11229fb654795bc47795c6980a9d3acd18c76252af95bf7",
+        "compiler_selected_sources": 18,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "558128ac26fc4a13efb58cb498a20da95f9719d5312aa7332d761c6300ac5111",
+        "parent_sources_sha256": "d449e066cdc7ab3a2493dda4e5c5f22b0135f13c250fc6b82f791dc1f7fb02f7",
+        "raw_pointer_types_removed": 454,
+        "scalar_ffi": {
+          "__ctype_b_loc": {
+            "copies": 12,
+            "provider": "src/basenc.rs",
+            "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+          },
+          "__ctype_toupper_loc": {
+            "copies": 2,
+            "provider": "src/ptx.rs",
+            "signature": "fn __ctype_toupper_loc() -> *mut *const i32;"
+          },
+          "__errno_location": {
+            "copies": 14,
+            "provider": "src/basenc.rs",
+            "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+          },
+          "bindtextdomain": {
+            "copies": 10,
+            "provider": "src/basenc.rs",
+            "signature": "fn bindtextdomain(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "dcgettext": {
+            "copies": 15,
+            "provider": "src/basenc.rs",
+            "signature": "fn dcgettext(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "free": {
+            "copies": 13,
+            "provider": "src/basenc.rs",
+            "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+          },
+          "getenv": {
+            "copies": 11,
+            "provider": "src/basenc.rs",
+            "signature": "fn getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "memchr": {
+            "copies": 2,
+            "provider": "src/cut.rs",
+            "signature": "fn memchr(a0: *const ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memcmp": {
+            "copies": 3,
+            "provider": "src/cut.rs",
+            "signature": "fn memcmp(a0: *const ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "memcpy": {
+            "copies": 4,
+            "provider": "src/basenc.rs",
+            "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memmove": {
+            "copies": 5,
+            "provider": "src/basenc.rs",
+            "signature": "fn memmove(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memset": {
+            "copies": 3,
+            "provider": "src/basenc.rs",
+            "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "proper_name_lite": {
+            "copies": 10,
+            "provider": "src/basenc.rs",
+            "signature": "fn proper_name_lite(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char;"
+          },
+          "quote": {
+            "copies": 12,
+            "provider": "src/basenc.rs",
+            "signature": "fn quote(a0: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char;"
+          },
+          "quotearg_n_style_colon": {
+            "copies": 9,
+            "provider": "src/basenc.rs",
+            "signature": "fn quotearg_n_style_colon(a0: ::core::ffi::c_int, a1: ::core::ffi::c_uint, a2: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "quotearg_style": {
+            "copies": 4,
+            "provider": "src/chown.rs",
+            "signature": "fn quotearg_style(a0: ::core::ffi::c_uint, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "read_file": {
+            "copies": 2,
+            "provider": "src/env.rs",
+            "signature": "fn read_file(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, a2: *mut usize) -> *mut ::core::ffi::c_char;"
+          },
+          "set_program_name": {
+            "copies": 10,
+            "provider": "src/basenc.rs",
+            "signature": "fn set_program_name(a0: *const ::core::ffi::c_char);"
+          },
+          "setlocale": {
+            "copies": 10,
+            "provider": "src/basenc.rs",
+            "signature": "fn setlocale(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "stpcpy": {
+            "copies": 4,
+            "provider": "src/chown.rs",
+            "signature": "fn stpcpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strchr": {
+            "copies": 12,
+            "provider": "src/basenc.rs",
+            "signature": "fn strchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strcmp": {
+            "copies": 13,
+            "provider": "src/basenc.rs",
+            "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strcspn": {
+            "copies": 11,
+            "provider": "src/basenc.rs",
+            "signature": "fn strcspn(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_ulong;"
+          },
+          "strlen": {
+            "copies": 7,
+            "provider": "src/chown.rs",
+            "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+          },
+          "strncmp": {
+            "copies": 11,
+            "provider": "src/basenc.rs",
+            "signature": "fn strncmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "strspn": {
+            "copies": 12,
+            "provider": "src/basenc.rs",
+            "signature": "fn strspn(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_ulong;"
+          },
+          "textdomain": {
+            "copies": 10,
+            "provider": "src/basenc.rs",
+            "signature": "fn textdomain(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "unsetenv": {
+            "copies": 2,
+            "provider": "src/date.rs",
+            "signature": "fn unsetenv(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "ximemdup0": {
+            "copies": 2,
+            "provider": "src/expand_common.rs",
+            "signature": "fn ximemdup0(a0: *const ::core::ffi::c_void, a1: isize) -> *mut ::core::ffi::c_char;"
+          },
+          "xmalloc": {
+            "copies": 7,
+            "provider": "src/basenc.rs",
+            "signature": "fn xmalloc(a0: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "xnmalloc": {
+            "copies": 4,
+            "provider": "src/env.rs",
+            "signature": "fn xnmalloc(a0: usize, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "xpalloc": {
+            "copies": 7,
+            "provider": "src/basenc.rs",
+            "signature": "fn xpalloc(a0: *mut ::core::ffi::c_void, a1: *mut isize, a2: isize, a3: isize, a4: isize) -> *mut ::core::ffi::c_void;"
+          },
+          "xstrdup": {
+            "copies": 5,
+            "provider": "src/chown.rs",
+            "signature": "fn xstrdup(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "xstrtol": {
+            "copies": 2,
+            "provider": "src/pr.rs",
+            "signature": "fn xstrtol(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int, a3: *mut ::core::ffi::c_long, a4: *const ::core::ffi::c_char) -> ::core::ffi::c_uint;"
+          }
+        },
+        "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-08-stable/target/release/libcoreutils_small_08_normalized_reachable.a",
+      "candidate_sha256": "558128ac26fc4a13efb58cb498a20da95f9719d5312aa7332d761c6300ac5111",
+      "candidate_sources_sha256": "2add31ea6f304d86dabaeb3aa6e278a1c5df8ca2ecc9d22b96e58b763883db73",
+      "compiler_selected_sources": 18,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "558128ac26fc4a13efb58cb498a20da95f9719d5312aa7332d761c6300ac5111",
+      "parent_sources_sha256": "5111bad56ab3ee12b11229fb654795bc47795c6980a9d3acd18c76252af95bf7",
+      "raw_pointer_types_removed": 29,
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd",
+      "variadic_ffi": {
+        "error": {
+          "copies": 15,
+          "provider": "src/basenc.rs",
+          "signature": "fn error(a0: ::core::ffi::c_int, a1: ::core::ffi::c_int, a2: *const ::core::ffi::c_char, ...);"
+        },
+        "printf": {
+          "copies": 12,
+          "provider": "src/basenc.rs",
+          "signature": "fn printf(a0: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "sprintf": {
+          "copies": 3,
+          "provider": "src/pr.rs",
+          "signature": "fn sprintf(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        }
+      },
+      "variadic_scanner_sha256": "b2bbe52ef1c1130dd7c661d86f9f55ec8e38f47a12d3bf0be91cebc2ba2e8858"
+    }
+  },
+  "work/analysis/less-710/translations/c2rust-0.22.1/less-710-stable/target/release/libless_710_normalized_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libless_710_normalized_audit.foreign-131120a3310403c0e9d2f350d48a7cc622e3428142625e4feb626cd35d655b16.json",
+        "sha256": "131120a3310403c0e9d2f350d48a7cc622e3428142625e4feb626cd35d655b16"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libless_710_normalized_audit.inlines-937f7b4b077152abb6f622d3549fa184162c210f8bdc04dd491923bcdd7739ac.json",
+        "sha256": "1e9a6b6b49b8013bf4257131869de85fdccbb4d51545e5285b573b6b37a7a861"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/less-710/translations/c2rust-0.22.1/less-710-stable/target/release/libless_710_normalized_audit.a",
+        "c_string_literals": 847,
+        "candidate_sha256": "8bc04efc48267bec72b1ee58f01dc78d2826527efdf64de082ca416768aae689",
+        "candidate_sources_sha256": "4218e89e9b0817a8727ec2aff46890bf1b692abba7bae2162c7f7e06c5d38773",
+        "compiler_selected_sources": 40,
+        "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+        "control_sha256": "8bc04efc48267bec72b1ee58f01dc78d2826527efdf64de082ca416768aae689",
+        "modules": {
+          "src/charset.rs": 84,
+          "src/lesskey_parse.rs": 100,
+          "src/lmsg.rs": 663
+        },
+        "parent_sources_sha256": "42df45581cd5a63e6af05921e893f9c599044308cddc072618ea126d99482b1e",
+        "raw_ffi_pointer_extractions": 847,
+        "raw_pointer_types_removed": 1694,
+        "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_scalar_ffi": {
+        "all_scalar_interfaces": true,
+        "archive": "work/analysis/less-710/translations/c2rust-0.22.1/less-710-stable/target/release/libless_710_normalized_audit.a",
+        "candidate_sha256": "8bc04efc48267bec72b1ee58f01dc78d2826527efdf64de082ca416768aae689",
+        "candidate_sources_sha256": "c5788e06888f0caccb2a25796c79ed39cac9013456b2af14c271b4c5b7d2f996",
+        "compiler_selected_sources": 40,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "8bc04efc48267bec72b1ee58f01dc78d2826527efdf64de082ca416768aae689",
+        "parent_sources_sha256": "4218e89e9b0817a8727ec2aff46890bf1b692abba7bae2162c7f7e06c5d38773",
+        "raw_pointer_types_removed": 587,
+        "scalar_ffi": {
+          "__ctype_b_loc": {
+            "copies": 4,
+            "provider": "src/charset.rs",
+            "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+          },
+          "__ctype_tolower_loc": {
+            "copies": 37,
+            "provider": "src/brac.rs",
+            "signature": "fn __ctype_tolower_loc() -> *mut *const i32;"
+          },
+          "__ctype_toupper_loc": {
+            "copies": 37,
+            "provider": "src/brac.rs",
+            "signature": "fn __ctype_toupper_loc() -> *mut *const i32;"
+          },
+          "calloc": {
+            "copies": 5,
+            "provider": "src/ch.rs",
+            "signature": "fn calloc(a0: usize, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "cvt_alloc_chpos": {
+            "copies": 2,
+            "provider": "src/search.rs",
+            "signature": "fn cvt_alloc_chpos(a0: usize) -> *mut ::core::ffi::c_int;"
+          },
+          "cvt_text": {
+            "copies": 4,
+            "provider": "src/pattern.rs",
+            "signature": "fn cvt_text(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: *mut ::core::ffi::c_int, a3: *mut usize, a4: ::core::ffi::c_int);"
+          },
+          "del_ifile": {
+            "copies": 2,
+            "provider": "src/command.rs",
+            "signature": "fn del_ifile(a0: *mut ::core::ffi::c_void);"
+          },
+          "dirfile": {
+            "copies": 2,
+            "provider": "src/cmdbuf.rs",
+            "signature": "fn dirfile(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_uint) -> *mut ::core::ffi::c_char;"
+          },
+          "ecalloc": {
+            "copies": 19,
+            "provider": "src/ch.rs",
+            "signature": "fn ecalloc(a0: usize, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "edit": {
+            "copies": 3,
+            "provider": "src/command.rs",
+            "signature": "fn edit(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "edit_ifile": {
+            "copies": 3,
+            "provider": "src/command.rs",
+            "signature": "fn edit_ifile(a0: *mut ::core::ffi::c_void) -> ::core::ffi::c_int;"
+          },
+          "errno_message": {
+            "copies": 2,
+            "provider": "src/edit.rs",
+            "signature": "fn errno_message(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "findtag": {
+            "copies": 2,
+            "provider": "src/main.rs",
+            "signature": "fn findtag(a0: *const ::core::ffi::c_char);"
+          },
+          "free": {
+            "copies": 22,
+            "provider": "src/ch.rs",
+            "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+          },
+          "get_altfilename": {
+            "copies": 2,
+            "provider": "src/command.rs",
+            "signature": "fn get_altfilename(a0: *mut ::core::ffi::c_void) -> *mut ::core::ffi::c_char;"
+          },
+          "get_filename": {
+            "copies": 4,
+            "provider": "src/command.rs",
+            "signature": "fn get_filename(a0: *mut ::core::ffi::c_void) -> *const ::core::ffi::c_char;"
+          },
+          "get_ifile": {
+            "copies": 3,
+            "provider": "src/edit.rs",
+            "signature": "fn get_ifile(a0: *const ::core::ffi::c_char, a1: *mut ::core::ffi::c_void) -> *mut ::core::ffi::c_void;"
+          },
+          "get_index": {
+            "copies": 2,
+            "provider": "src/edit.rs",
+            "signature": "fn get_index(a0: *mut ::core::ffi::c_void) -> ::core::ffi::c_int;"
+          },
+          "get_meta_escape": {
+            "copies": 2,
+            "provider": "src/cmdbuf.rs",
+            "signature": "fn get_meta_escape() -> *const ::core::ffi::c_char;"
+          },
+          "getenv": {
+            "copies": 3,
+            "provider": "src/decode.rs",
+            "signature": "fn getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "getfraction": {
+            "copies": 2,
+            "provider": "src/cmdbuf.rs",
+            "signature": "fn getfraction(a0: *mut *const ::core::ffi::c_char, a1: *mut ::core::ffi::c_long) -> ::core::ffi::c_uint;"
+          },
+          "homefile": {
+            "copies": 2,
+            "provider": "src/decode.rs",
+            "signature": "fn homefile(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "iread": {
+            "copies": 2,
+            "provider": "src/ch.rs",
+            "signature": "fn iread(a0: ::core::ffi::c_int, a1: *mut ::core::ffi::c_uchar, a2: usize) -> isize;"
+          },
+          "is_utf8_well_formed": {
+            "copies": 3,
+            "provider": "src/cmdbuf.rs",
+            "signature": "fn is_utf8_well_formed(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> ::core::ffi::c_uint;"
+          },
+          "isnullenv": {
+            "copies": 12,
+            "provider": "src/charset.rs",
+            "signature": "fn isnullenv(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_uint;"
+          },
+          "last_component": {
+            "copies": 2,
+            "provider": "src/main.rs",
+            "signature": "fn last_component(a0: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char;"
+          },
+          "lgetenv": {
+            "copies": 13,
+            "provider": "src/charset.rs",
+            "signature": "fn lgetenv(a0: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char;"
+          },
+          "lglob": {
+            "copies": 2,
+            "provider": "src/edit.rs",
+            "signature": "fn lglob(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "lmsg": {
+            "copies": 22,
+            "provider": "src/brac.rs",
+            "signature": "fn lmsg(a0: ::core::ffi::c_uint) -> *const ::core::ffi::c_char;"
+          },
+          "lrealpath": {
+            "copies": 2,
+            "provider": "src/ifile.rs",
+            "signature": "fn lrealpath(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "lstrtoi": {
+            "copies": 2,
+            "provider": "src/lesskey_parse.rs",
+            "signature": "fn lstrtoi(a0: *mut ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_int;"
+          },
+          "lstrtoic": {
+            "copies": 3,
+            "provider": "src/mark.rs",
+            "signature": "fn lstrtoic(a0: *const ::core::ffi::c_char, a1: *mut *const ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_int;"
+          },
+          "lstrtoulc": {
+            "copies": 2,
+            "provider": "src/charset.rs",
+            "signature": "fn lstrtoulc(a0: *const ::core::ffi::c_char, a1: *mut *const ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_ulong;"
+          },
+          "lsystem": {
+            "copies": 2,
+            "provider": "src/command.rs",
+            "signature": "fn lsystem(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char);"
+          },
+          "memcpy": {
+            "copies": 3,
+            "provider": "src/line.rs",
+            "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "next_ifile": {
+            "copies": 3,
+            "provider": "src/command.rs",
+            "signature": "fn next_ifile(a0: *mut ::core::ffi::c_void) -> *mut ::core::ffi::c_void;"
+          },
+          "opt_header": {
+            "copies": 2,
+            "provider": "src/main.rs",
+            "signature": "fn opt_header(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char);"
+          },
+          "prchar": {
+            "copies": 6,
+            "provider": "src/cmdbuf.rs",
+            "signature": "fn prchar(a0: ::core::ffi::c_ulong) -> *const ::core::ffi::c_char;"
+          },
+          "prev_ifile": {
+            "copies": 3,
+            "provider": "src/edit.rs",
+            "signature": "fn prev_ifile(a0: *mut ::core::ffi::c_void) -> *mut ::core::ffi::c_void;"
+          },
+          "prutfchar": {
+            "copies": 5,
+            "provider": "src/cmdbuf.rs",
+            "signature": "fn prutfchar(a0: ::core::ffi::c_ulong) -> *const ::core::ffi::c_char;"
+          },
+          "put_wchar": {
+            "copies": 3,
+            "provider": "src/cvt.rs",
+            "signature": "fn put_wchar(a0: *mut *mut ::core::ffi::c_char, a1: ::core::ffi::c_ulong);"
+          },
+          "putstr": {
+            "copies": 7,
+            "provider": "src/ch.rs",
+            "signature": "fn putstr(a0: *const ::core::ffi::c_char);"
+          },
+          "read": {
+            "copies": 3,
+            "provider": "src/decode.rs",
+            "signature": "fn read(a0: ::core::ffi::c_int, a1: *mut ::core::ffi::c_void, a2: usize) -> isize;"
+          },
+          "reedit_ifile": {
+            "copies": 3,
+            "provider": "src/command.rs",
+            "signature": "fn reedit_ifile(a0: *mut ::core::ffi::c_void);"
+          },
+          "save": {
+            "copies": 12,
+            "provider": "src/cmdbuf.rs",
+            "signature": "fn save(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "save_curr_ifile": {
+            "copies": 3,
+            "provider": "src/command.rs",
+            "signature": "fn save_curr_ifile() -> *mut ::core::ffi::c_void;"
+          },
+          "saven": {
+            "copies": 2,
+            "provider": "src/lmsg.rs",
+            "signature": "fn saven(a0: *const ::core::ffi::c_char, a1: usize) -> *mut ::core::ffi::c_char;"
+          },
+          "set_filter_pattern": {
+            "copies": 2,
+            "provider": "src/command.rs",
+            "signature": "fn set_filter_pattern(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int);"
+          },
+          "set_mlist": {
+            "copies": 2,
+            "provider": "src/command.rs",
+            "signature": "fn set_mlist(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int);"
+          },
+          "shell_quote": {
+            "copies": 5,
+            "provider": "src/cmdbuf.rs",
+            "signature": "fn shell_quote(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "shell_unquote": {
+            "copies": 3,
+            "provider": "src/edit.rs",
+            "signature": "fn shell_unquote(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "skipsp": {
+            "copies": 4,
+            "provider": "src/edit.rs",
+            "signature": "fn skipsp(a0: *mut ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "skipspc": {
+            "copies": 5,
+            "provider": "src/edit.rs",
+            "signature": "fn skipspc(a0: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char;"
+          },
+          "step_char": {
+            "copies": 2,
+            "provider": "src/cmdbuf.rs",
+            "signature": "fn step_char(a0: *mut *mut ::core::ffi::c_char, a1: ::core::ffi::c_int, a2: *const ::core::ffi::c_char) -> ::core::ffi::c_ulong;"
+          },
+          "step_charc": {
+            "copies": 8,
+            "provider": "src/cmdbuf.rs",
+            "signature": "fn step_charc(a0: *mut *const ::core::ffi::c_char, a1: ::core::ffi::c_int, a2: *const ::core::ffi::c_char) -> ::core::ffi::c_ulong;"
+          },
+          "strcat": {
+            "copies": 2,
+            "provider": "src/filename.rs",
+            "signature": "fn strcat(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strchr": {
+            "copies": 9,
+            "provider": "src/charset.rs",
+            "signature": "fn strchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strcmp": {
+            "copies": 17,
+            "provider": "src/charset.rs",
+            "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strcpy": {
+            "copies": 11,
+            "provider": "src/charset.rs",
+            "signature": "fn strcpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strlen": {
+            "copies": 22,
+            "provider": "src/cmdbuf.rs",
+            "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+          },
+          "strncmp": {
+            "copies": 7,
+            "provider": "src/cmdbuf.rs",
+            "signature": "fn strncmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "strncpy": {
+            "copies": 6,
+            "provider": "src/cmdbuf.rs",
+            "signature": "fn strncpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> *mut ::core::ffi::c_char;"
+          },
+          "strstr": {
+            "copies": 3,
+            "provider": "src/charset.rs",
+            "signature": "fn strstr(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strtol": {
+            "copies": 4,
+            "provider": "src/cmdbuf.rs",
+            "signature": "fn strtol(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_long;"
+          },
+          "ungetsc": {
+            "copies": 5,
+            "provider": "src/decode.rs",
+            "signature": "fn ungetsc(a0: *const ::core::ffi::c_char);"
+          },
+          "unsave_ifile": {
+            "copies": 2,
+            "provider": "src/command.rs",
+            "signature": "fn unsave_ifile(a0: *mut ::core::ffi::c_void);"
+          },
+          "write": {
+            "copies": 2,
+            "provider": "src/ch.rs",
+            "signature": "fn write(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_void, a2: usize) -> isize;"
+          }
+        },
+        "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/less-710/translations/c2rust-0.22.1/less-710-stable/target/release/libless_710_normalized_audit.a",
+      "candidate_sha256": "8bc04efc48267bec72b1ee58f01dc78d2826527efdf64de082ca416768aae689",
+      "candidate_sources_sha256": "7c8691bb7c92de366b39bbcecfad2456d19e1e7c94d0a6a189f0628119b1a10f",
+      "compiler_selected_sources": 40,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "8bc04efc48267bec72b1ee58f01dc78d2826527efdf64de082ca416768aae689",
+      "parent_sources_sha256": "c5788e06888f0caccb2a25796c79ed39cac9013456b2af14c271b4c5b7d2f996",
+      "raw_pointer_types_removed": 37,
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd",
+      "variadic_ffi": {
+        "open": {
+          "copies": 6,
+          "provider": "src/decode.rs",
+          "signature": "fn open(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;"
+        },
+        "snprintf": {
+          "copies": 11,
+          "provider": "src/charset.rs",
+          "signature": "fn snprintf(a0: *mut ::core::ffi::c_char, a1: usize, a2: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "sprintf": {
+          "copies": 7,
+          "provider": "src/filename.rs",
+          "signature": "fn sprintf(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        }
+      },
+      "variadic_scanner_sha256": "b2bbe52ef1c1130dd7c661d86f9f55ec8e38f47a12d3bf0be91cebc2ba2e8858"
+    }
+  },
+  "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-03-stable/target/release/libutil_linux_small_03_normalized_reachable.a": {
+    "parent_receipts": {
+      "native_c_strings": {
+        "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-03-stable/target/release/libutil_linux_small_03_normalized_reachable.a",
+        "c_string_literals": 502,
+        "candidate_sha256": "5b7614be5f32cf48ab42ecc4aa247ddd259f9f09711a4ed1420cb039bfdf0c88",
+        "candidate_sources_sha256": "2152800648020c3f12c4d3bcbc513d9941c39568d92c88fa616d9aacf572f811",
+        "compiler_selected_sources": 12,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "5b7614be5f32cf48ab42ecc4aa247ddd259f9f09711a4ed1420cb039bfdf0c88",
+        "modules": {
+          "src/disk_utils/fdformat.rs": 57,
+          "src/disk_utils/raw.rs": 49,
+          "src/disk_utils/swaplabel.rs": 36,
+          "src/login_utils/newgrp.rs": 40,
+          "src/misc_utils/copyfilerange.rs": 40,
+          "src/misc_utils/uuidgen.rs": 68,
+          "src/schedutils/ionice.rs": 55,
+          "src/sys_utils/lsirq.rs": 56,
+          "src/sys_utils/renice.rs": 48,
+          "src/sys_utils/switch_root.rs": 53
+        },
+        "parent_sources_sha256": "1b94c808453101e61990d7a90ed52019fad3cdd7bd72ec2744b87c37af79b21e",
+        "raw_ffi_pointer_extractions": 502,
+        "raw_pointer_types_removed": 1004,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_scalar_ffi": {
+        "all_scalar_interfaces": true,
+        "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-03-stable/target/release/libutil_linux_small_03_normalized_reachable.a",
+        "candidate_sha256": "5b7614be5f32cf48ab42ecc4aa247ddd259f9f09711a4ed1420cb039bfdf0c88",
+        "candidate_sources_sha256": "cf05bd63ca585bdf3410bd20cc2afa650dc0f10aa275d282b3b0e2c08f0ff649",
+        "compiler_selected_sources": 12,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "5b7614be5f32cf48ab42ecc4aa247ddd259f9f09711a4ed1420cb039bfdf0c88",
+        "parent_sources_sha256": "2152800648020c3f12c4d3bcbc513d9941c39568d92c88fa616d9aacf572f811",
+        "raw_pointer_types_removed": 117,
+        "scalar_ffi": {
+          "__ctype_b_loc": {
+            "copies": 2,
+            "provider": "src/misc_utils/copyfilerange.rs",
+            "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+          },
+          "__errno_location": {
+            "copies": 10,
+            "provider": "src/disk_utils/fdformat.rs",
+            "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+          },
+          "bindtextdomain": {
+            "copies": 9,
+            "provider": "src/disk_utils/fdformat.rs",
+            "signature": "fn bindtextdomain(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "dcgettext": {
+            "copies": 10,
+            "provider": "src/disk_utils/fdformat.rs",
+            "signature": "fn dcgettext(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "free": {
+            "copies": 5,
+            "provider": "src/disk_utils/fdformat.rs",
+            "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+          },
+          "malloc": {
+            "copies": 3,
+            "provider": "src/disk_utils/fdformat.rs",
+            "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memcpy": {
+            "copies": 2,
+            "provider": "src/disk_utils/swaplabel.rs",
+            "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "setlocale": {
+            "copies": 9,
+            "provider": "src/disk_utils/fdformat.rs",
+            "signature": "fn setlocale(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strcmp": {
+            "copies": 2,
+            "provider": "src/login_utils/newgrp.rs",
+            "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strdup": {
+            "copies": 3,
+            "provider": "src/login_utils/newgrp.rs",
+            "signature": "fn strdup(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strlen": {
+            "copies": 4,
+            "provider": "src/disk_utils/swaplabel.rs",
+            "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+          },
+          "strtol": {
+            "copies": 2,
+            "provider": "src/disk_utils/raw.rs",
+            "signature": "fn strtol(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_long;"
+          },
+          "textdomain": {
+            "copies": 9,
+            "provider": "src/disk_utils/fdformat.rs",
+            "signature": "fn textdomain(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "uuid_parse": {
+            "copies": 2,
+            "provider": "src/disk_utils/swaplabel.rs",
+            "signature": "fn uuid_parse(a0: *const ::core::ffi::c_char, a1: *mut ::core::ffi::c_uchar) -> ::core::ffi::c_int;"
+          }
+        },
+        "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+      },
+      "shared_stdio_layouts": {
+        "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-03-stable/target/release/libutil_linux_small_03_normalized_reachable.a",
+        "candidate_sha256": "5b7614be5f32cf48ab42ecc4aa247ddd259f9f09711a4ed1420cb039bfdf0c88",
+        "candidate_sources_sha256": "1b94c808453101e61990d7a90ed52019fad3cdd7bd72ec2744b87c37af79b21e",
+        "compiler_selected_sources": 12,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "5b7614be5f32cf48ab42ecc4aa247ddd259f9f09711a4ed1420cb039bfdf0c88",
+        "parent_sources_sha256": "d00815711e87b1f80927d2e6494c22299275bf7d4142ed680638e3612fe597d2",
+        "provider": "src/disk_utils/fdformat.rs",
+        "raw_pointer_types_removed": 162,
+        "reexporting_modules": [
+          "src/disk_utils/raw.rs",
+          "src/disk_utils/swaplabel.rs",
+          "src/login_utils/newgrp.rs",
+          "src/misc_utils/copyfilerange.rs",
+          "src/misc_utils/uuidgen.rs",
+          "src/schedutils/ionice.rs",
+          "src/sys_utils/lsirq.rs",
+          "src/sys_utils/renice.rs",
+          "src/sys_utils/switch_root.rs"
+        ]
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-03-stable/target/release/libutil_linux_small_03_normalized_reachable.a",
+      "candidate_sha256": "5b7614be5f32cf48ab42ecc4aa247ddd259f9f09711a4ed1420cb039bfdf0c88",
+      "candidate_sources_sha256": "f46f880c23b35efb6c58afb0eb91d30d59a85e89b85880f7556d42454a7e711c",
+      "compiler_selected_sources": 12,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "5b7614be5f32cf48ab42ecc4aa247ddd259f9f09711a4ed1420cb039bfdf0c88",
+      "parent_sources_sha256": "cf05bd63ca585bdf3410bd20cc2afa650dc0f10aa275d282b3b0e2c08f0ff649",
+      "raw_pointer_types_removed": 34,
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd",
+      "variadic_ffi": {
+        "open": {
+          "copies": 4,
+          "provider": "src/disk_utils/raw.rs",
+          "signature": "fn open(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;"
+        },
+        "printf": {
+          "copies": 10,
+          "provider": "src/disk_utils/fdformat.rs",
+          "signature": "fn printf(a0: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "snprintf": {
+          "copies": 3,
+          "provider": "src/misc_utils/uuidgen.rs",
+          "signature": "fn snprintf(a0: *mut ::core::ffi::c_char, a1: usize, a2: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "warn": {
+          "copies": 10,
+          "provider": "src/disk_utils/fdformat.rs",
+          "signature": "fn warn(a0: *const ::core::ffi::c_char, ...);"
+        },
+        "warnx": {
+          "copies": 10,
+          "provider": "src/disk_utils/fdformat.rs",
+          "signature": "fn warnx(a0: *const ::core::ffi::c_char, ...);"
+        }
+      },
+      "variadic_scanner_sha256": "b2bbe52ef1c1130dd7c661d86f9f55ec8e38f47a12d3bf0be91cebc2ba2e8858"
+    }
+  },
+  "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-04-stable/target/release/libutil_linux_small_04_normalized_reachable.a": {
+    "parent_receipts": {
+      "native_c_strings": {
+        "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-04-stable/target/release/libutil_linux_small_04_normalized_reachable.a",
+        "c_string_literals": 493,
+        "candidate_sha256": "e92f47064a28ad625ed422e6fee68730c8b0ea88e280b7bfdda4e332ef726b97",
+        "candidate_sources_sha256": "f342da3f0acbcad21252a7e0cc201e07dbf162aa0e9bc8a5c14f5f68bc3b79ab",
+        "compiler_selected_sources": 12,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "e92f47064a28ad625ed422e6fee68730c8b0ea88e280b7bfdda4e332ef726b97",
+        "modules": {
+          "src/login_utils/chsh.rs": 45,
+          "src/misc_utils/getino.rs": 63,
+          "src/misc_utils/waitpid.rs": 54,
+          "src/schedutils/taskset.rs": 40,
+          "src/schedutils/uclampset.rs": 56,
+          "src/sys_utils/ipcmk.rs": 59,
+          "src/sys_utils/mountpoint.rs": 46,
+          "src/sys_utils/swapoff.rs": 39,
+          "src/text_utils/bits.rs": 65,
+          "src/text_utils/colcrt.rs": 26
+        },
+        "parent_sources_sha256": "e60c98fd91261899a22eec302722855b446e43a4678a3271b2a0ed625c38814b",
+        "raw_ffi_pointer_extractions": 493,
+        "raw_pointer_types_removed": 986,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_scalar_ffi": {
+        "all_scalar_interfaces": true,
+        "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-04-stable/target/release/libutil_linux_small_04_normalized_reachable.a",
+        "candidate_sha256": "e92f47064a28ad625ed422e6fee68730c8b0ea88e280b7bfdda4e332ef726b97",
+        "candidate_sources_sha256": "96d29f8e08f756ad716cd84a4fdf40a73c170ddfd2a68fd4f46753026aedc15c",
+        "compiler_selected_sources": 12,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "e92f47064a28ad625ed422e6fee68730c8b0ea88e280b7bfdda4e332ef726b97",
+        "parent_sources_sha256": "f342da3f0acbcad21252a7e0cc201e07dbf162aa0e9bc8a5c14f5f68bc3b79ab",
+        "raw_pointer_types_removed": 123,
+        "scalar_ffi": {
+          "__ctype_b_loc": {
+            "copies": 2,
+            "provider": "src/login_utils/chsh.rs",
+            "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+          },
+          "__errno_location": {
+            "copies": 10,
+            "provider": "src/login_utils/chsh.rs",
+            "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+          },
+          "bindtextdomain": {
+            "copies": 10,
+            "provider": "src/login_utils/chsh.rs",
+            "signature": "fn bindtextdomain(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "dcgettext": {
+            "copies": 10,
+            "provider": "src/login_utils/chsh.rs",
+            "signature": "fn dcgettext(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "execvp": {
+            "copies": 2,
+            "provider": "src/schedutils/taskset.rs",
+            "signature": "fn execvp(a0: *const ::core::ffi::c_char, a1: *const *mut ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "free": {
+            "copies": 5,
+            "provider": "src/schedutils/taskset.rs",
+            "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+          },
+          "malloc": {
+            "copies": 2,
+            "provider": "src/schedutils/taskset.rs",
+            "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memmove": {
+            "copies": 2,
+            "provider": "src/login_utils/chsh.rs",
+            "signature": "fn memmove(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memset": {
+            "copies": 2,
+            "provider": "src/schedutils/taskset.rs",
+            "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "setlocale": {
+            "copies": 10,
+            "provider": "src/login_utils/chsh.rs",
+            "signature": "fn setlocale(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strcmp": {
+            "copies": 3,
+            "provider": "src/login_utils/chsh.rs",
+            "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strdup": {
+            "copies": 3,
+            "provider": "src/sys_utils/mountpoint.rs",
+            "signature": "fn strdup(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strlen": {
+            "copies": 2,
+            "provider": "src/login_utils/chsh.rs",
+            "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+          },
+          "textdomain": {
+            "copies": 10,
+            "provider": "src/login_utils/chsh.rs",
+            "signature": "fn textdomain(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          }
+        },
+        "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+      },
+      "shared_stdio_layouts": {
+        "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-04-stable/target/release/libutil_linux_small_04_normalized_reachable.a",
+        "candidate_sha256": "e92f47064a28ad625ed422e6fee68730c8b0ea88e280b7bfdda4e332ef726b97",
+        "candidate_sources_sha256": "e60c98fd91261899a22eec302722855b446e43a4678a3271b2a0ed625c38814b",
+        "compiler_selected_sources": 12,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "e92f47064a28ad625ed422e6fee68730c8b0ea88e280b7bfdda4e332ef726b97",
+        "parent_sources_sha256": "ead134df71d235ceb615d1432631c81cd45e0f3565cac97696c56bffa494fd66",
+        "provider": "src/login_utils/chsh.rs",
+        "raw_pointer_types_removed": 162,
+        "reexporting_modules": [
+          "src/misc_utils/getino.rs",
+          "src/misc_utils/waitpid.rs",
+          "src/schedutils/taskset.rs",
+          "src/schedutils/uclampset.rs",
+          "src/sys_utils/ipcmk.rs",
+          "src/sys_utils/mountpoint.rs",
+          "src/sys_utils/swapoff.rs",
+          "src/text_utils/bits.rs",
+          "src/text_utils/colcrt.rs"
+        ]
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-04-stable/target/release/libutil_linux_small_04_normalized_reachable.a",
+      "candidate_sha256": "e92f47064a28ad625ed422e6fee68730c8b0ea88e280b7bfdda4e332ef726b97",
+      "candidate_sources_sha256": "2a8af08697bdfb36794b887e659ec4a5947a6ed21a874605b68df3f9e9909cc9",
+      "compiler_selected_sources": 12,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "e92f47064a28ad625ed422e6fee68730c8b0ea88e280b7bfdda4e332ef726b97",
+      "parent_sources_sha256": "96d29f8e08f756ad716cd84a4fdf40a73c170ddfd2a68fd4f46753026aedc15c",
+      "raw_pointer_types_removed": 30,
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd",
+      "variadic_ffi": {
+        "printf": {
+          "copies": 10,
+          "provider": "src/login_utils/chsh.rs",
+          "signature": "fn printf(a0: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "snprintf": {
+          "copies": 3,
+          "provider": "src/misc_utils/getino.rs",
+          "signature": "fn snprintf(a0: *mut ::core::ffi::c_char, a1: usize, a2: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "warn": {
+          "copies": 9,
+          "provider": "src/login_utils/chsh.rs",
+          "signature": "fn warn(a0: *const ::core::ffi::c_char, ...);"
+        },
+        "warnx": {
+          "copies": 10,
+          "provider": "src/login_utils/chsh.rs",
+          "signature": "fn warnx(a0: *const ::core::ffi::c_char, ...);"
+        }
+      },
+      "variadic_scanner_sha256": "b2bbe52ef1c1130dd7c661d86f9f55ec8e38f47a12d3bf0be91cebc2ba2e8858"
+    }
+  }
+}

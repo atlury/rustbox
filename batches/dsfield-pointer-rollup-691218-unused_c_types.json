@@ -1,0 +1,721 @@
+{
+  "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftp_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libftp_audit.foreign-95397f4d097100867455ab32f4ca0e020d2892d82a3395d0c5b26cd7096cdccc.json",
+        "sha256": "95397f4d097100867455ab32f4ca0e020d2892d82a3395d0c5b26cd7096cdccc"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libftp_audit.inlines-251fed346b95a70e1965578884009da048b37667d2d03364dff901f31f0ccb22.json",
+        "sha256": "c5124adae4c87a9034719259cde1f4864985201d8e1c75be704a6d4836405962"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libftp_audit.layer2-7a93ba6abf5d87d298b1e31b3a139118dd064c6cfd592a4d8c3a9d8bef84f660.json",
+        "sha256": "7a93ba6abf5d87d298b1e31b3a139118dd064c6cfd592a4d8c3a9d8bef84f660"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftp_audit.a",
+        "c_string_literals": 802,
+        "candidate_sha256": "1cbaa56a34e693834cb675ed84c867bb9e9e27beb9b937a7489ce738bb188e40",
+        "candidate_sources_sha256": "9eea076e44d5de1007f3b962a07d42936e620b7e29a35977ef5e9afe6baf09dc",
+        "compiler_selected_sources": 39,
+        "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+        "control_sha256": "1cbaa56a34e693834cb675ed84c867bb9e9e27beb9b937a7489ce738bb188e40",
+        "modules": {
+          "src/ftp/cmds.rs": 290,
+          "src/ftp/cmdtab.rs": 83,
+          "src/ftp/domacro.rs": 11,
+          "src/ftp/ftp.rs": 206,
+          "src/ftp/main.rs": 43,
+          "src/ftp/ruserpass.rs": 40,
+          "src/lib/argp_help.rs": 48,
+          "src/lib/argp_parse.rs": 22,
+          "src/lib/getopt.rs": 15,
+          "src/lib/glob.rs": 15,
+          "src/lib/progname.rs": 2,
+          "src/lib/version_etc.rs": 22,
+          "src/lib/xalloc_die.rs": 4,
+          "src/libinetutils/defauthors.rs": 1
+        },
+        "parent_sources_sha256": "5ce0d2d4803caf06322ad6257686898c6c7e7d415f8bfdfa354647b0cdec62a9",
+        "raw_ffi_pointer_extractions": 802,
+        "raw_pointer_types_removed": 1604,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_scalar_ffi": {
+        "all_scalar_interfaces": true,
+        "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftp_audit.a",
+        "candidate_sha256": "1cbaa56a34e693834cb675ed84c867bb9e9e27beb9b937a7489ce738bb188e40",
+        "candidate_sources_sha256": "bbfd8da0045fad3a3e8d5e19a4e5a3a3474315819cf09dabeea265d90171cd24",
+        "compiler_selected_sources": 39,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "1cbaa56a34e693834cb675ed84c867bb9e9e27beb9b937a7489ce738bb188e40",
+        "parent_sources_sha256": "9eea076e44d5de1007f3b962a07d42936e620b7e29a35977ef5e9afe6baf09dc",
+        "raw_pointer_types_removed": 265,
+        "scalar_ffi": {
+          "__ctype_b_loc": {
+            "copies": 13,
+            "provider": "src/ftp/cmds.rs",
+            "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+          },
+          "__ctype_tolower_loc": {
+            "copies": 13,
+            "provider": "src/ftp/cmds.rs",
+            "signature": "fn __ctype_tolower_loc() -> *mut *const i32;"
+          },
+          "__ctype_toupper_loc": {
+            "copies": 13,
+            "provider": "src/ftp/cmds.rs",
+            "signature": "fn __ctype_toupper_loc() -> *mut *const i32;"
+          },
+          "__errno_location": {
+            "copies": 13,
+            "provider": "src/ftp/cmds.rs",
+            "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+          },
+          "add_history": {
+            "copies": 2,
+            "provider": "src/ftp/cmds.rs",
+            "signature": "fn add_history(a0: *const ::core::ffi::c_char);"
+          },
+          "calloc": {
+            "copies": 2,
+            "provider": "src/ftp/ftp.rs",
+            "signature": "fn calloc(a0: usize, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "domacro": {
+            "copies": 2,
+            "provider": "src/ftp/cmdtab.rs",
+            "signature": "fn domacro(a0: ::core::ffi::c_int, a1: *mut *mut ::core::ffi::c_char);"
+          },
+          "free": {
+            "copies": 14,
+            "provider": "src/ftp/cmds.rs",
+            "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+          },
+          "getenv": {
+            "copies": 6,
+            "provider": "src/ftp/cmds.rs",
+            "signature": "fn getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "getlogin": {
+            "copies": 2,
+            "provider": "src/ftp/ftp.rs",
+            "signature": "fn getlogin() -> *mut ::core::ffi::c_char;"
+          },
+          "getpass": {
+            "copies": 2,
+            "provider": "src/ftp/cmds.rs",
+            "signature": "fn getpass(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "malloc": {
+            "copies": 12,
+            "provider": "src/ftp/cmds.rs",
+            "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memchr": {
+            "copies": 3,
+            "provider": "src/lib/argp_fmtstream.rs",
+            "signature": "fn memchr(a0: *const ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memcpy": {
+            "copies": 4,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memmove": {
+            "copies": 2,
+            "provider": "src/ftp/ftp.rs",
+            "signature": "fn memmove(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "mempcpy": {
+            "copies": 2,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn mempcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memset": {
+            "copies": 7,
+            "provider": "src/ftp/cmds.rs",
+            "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "quit": {
+            "copies": 3,
+            "provider": "src/ftp/cmdtab.rs",
+            "signature": "fn quit(a0: ::core::ffi::c_int, a1: *mut *mut ::core::ffi::c_char);"
+          },
+          "readline": {
+            "copies": 2,
+            "provider": "src/ftp/cmds.rs",
+            "signature": "fn readline(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "realloc": {
+            "copies": 8,
+            "provider": "src/ftp/cmds.rs",
+            "signature": "fn realloc(a0: *mut ::core::ffi::c_void, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "setpeer": {
+            "copies": 2,
+            "provider": "src/ftp/cmdtab.rs",
+            "signature": "fn setpeer(a0: ::core::ffi::c_int, a1: *mut *mut ::core::ffi::c_char);"
+          },
+          "strcasecmp": {
+            "copies": 2,
+            "provider": "src/ftp/ruserpass.rs",
+            "signature": "fn strcasecmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strchr": {
+            "copies": 7,
+            "provider": "src/ftp/cmds.rs",
+            "signature": "fn strchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strcmp": {
+            "copies": 7,
+            "provider": "src/ftp/cmds.rs",
+            "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strcpy": {
+            "copies": 6,
+            "provider": "src/ftp/cmds.rs",
+            "signature": "fn strcpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strdup": {
+            "copies": 4,
+            "provider": "src/ftp/cmds.rs",
+            "signature": "fn strdup(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strerror": {
+            "copies": 2,
+            "provider": "src/ftp/cmds.rs",
+            "signature": "fn strerror(a0: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strlen": {
+            "copies": 12,
+            "provider": "src/ftp/cmds.rs",
+            "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+          },
+          "strncmp": {
+            "copies": 6,
+            "provider": "src/ftp/cmds.rs",
+            "signature": "fn strncmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "strncpy": {
+            "copies": 2,
+            "provider": "src/ftp/cmds.rs",
+            "signature": "fn strncpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> *mut ::core::ffi::c_char;"
+          },
+          "strrchr": {
+            "copies": 5,
+            "provider": "src/ftp/cmds.rs",
+            "signature": "fn strrchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strtol": {
+            "copies": 3,
+            "provider": "src/ftp/cmds.rs",
+            "signature": "fn strtol(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_long;"
+          },
+          "xmalloc": {
+            "copies": 2,
+            "provider": "src/ftp/cmds.rs",
+            "signature": "fn xmalloc(a0: usize) -> *mut ::core::ffi::c_void;"
+          }
+        },
+        "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+      },
+      "shared_stdio_layouts": {
+        "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftp_audit.a",
+        "candidate_sha256": "1cbaa56a34e693834cb675ed84c867bb9e9e27beb9b937a7489ce738bb188e40",
+        "candidate_sources_sha256": "5ce0d2d4803caf06322ad6257686898c6c7e7d415f8bfdfa354647b0cdec62a9",
+        "compiler_selected_sources": 39,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "1cbaa56a34e693834cb675ed84c867bb9e9e27beb9b937a7489ce738bb188e40",
+        "parent_sources_sha256": "212f1163c6355a38fa75b9217f389975aaf888ef2a93f9224b40d81acf5dbaf4",
+        "provider": "src/ftp/cmds.rs",
+        "raw_pointer_types_removed": 378,
+        "reexporting_modules": [
+          "src/ftp/cmdtab.rs",
+          "src/ftp/domacro.rs",
+          "src/ftp/ftp.rs",
+          "src/ftp/main.rs",
+          "src/ftp/ruserpass.rs",
+          "src/lib/argp_ba.rs",
+          "src/lib/argp_eexst.rs",
+          "src/lib/argp_fmtstream.rs",
+          "src/lib/argp_help.rs",
+          "src/lib/argp_parse.rs",
+          "src/lib/argp_pv.rs",
+          "src/lib/argp_pvh.rs",
+          "src/lib/argp_version_etc.rs",
+          "src/lib/fopen.rs",
+          "src/lib/fseeko.rs",
+          "src/lib/getdelim.rs",
+          "src/lib/getline.rs",
+          "src/lib/getopt.rs",
+          "src/lib/version_etc.rs",
+          "src/lib/version_etc_fsf.rs",
+          "src/lib/xalloc_die.rs"
+        ]
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftp_audit.a",
+      "candidate_sha256": "1cbaa56a34e693834cb675ed84c867bb9e9e27beb9b937a7489ce738bb188e40",
+      "candidate_sources_sha256": "cfb1bf79e331616f460dfe7550debe390399f70abed3b424ccba36650485233e",
+      "changed_modules": 31,
+      "compiler_selected_sources": 39,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "1cbaa56a34e693834cb675ed84c867bb9e9e27beb9b937a7489ce738bb188e40",
+      "parent_sources_sha256": "bbfd8da0045fad3a3e8d5e19a4e5a3a3474315819cf09dabeea265d90171cd24",
+      "raw_pointer_types_removed": 151,
+      "removed_declarations": {
+        "struct": 31,
+        "type": 30
+      },
+      "scanner_sha256": "2b7cb8c49225787ddc05c5b6d441089b3a647290119d1473977758e8a6f4e226"
+    }
+  },
+  "work/analysis/pkgconf-3.0.11/translations/c2rust-0.22.1/pkgconf-3.0.11-stable/target/release/libpkgconf_3_0_11_normalized_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libpkgconf_3_0_11_normalized_audit.foreign-c5868ecf2c2c0c48e5ce0db5ae2e3a566fb85107a1bef0de98e59afe1b06d540.json",
+        "sha256": "c5868ecf2c2c0c48e5ce0db5ae2e3a566fb85107a1bef0de98e59afe1b06d540"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libpkgconf_3_0_11_normalized_audit.inlines-5f7b92e201f1f550275d8861046f85a167bd266f4bac9dd8d07bc7a9e74df212.json",
+        "sha256": "9f9f62a0e4bb5dfc3c0bcce6babfebc23ffdfe0ea0edb5e358dff5d81da47421"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libpkgconf_3_0_11_normalized_audit.layer2-162248f92c75482ba3e1d4591705de7065ec306e91144e8ca7d006d67c7eca98.json",
+        "sha256": "162248f92c75482ba3e1d4591705de7065ec306e91144e8ca7d006d67c7eca98"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/pkgconf-3.0.11/translations/c2rust-0.22.1/pkgconf-3.0.11-stable/target/release/libpkgconf_3_0_11_normalized_audit.a",
+        "c_string_literals": 1202,
+        "candidate_sha256": "d3e6b0b4d941a034d0b40511835bf1177dc62bfa38bf05287fad2775a9f2da26",
+        "candidate_sources_sha256": "836b50483c4edae7d3230a1bf5535eb7105c2254cd962b74a3da7a2848214099",
+        "compiler_selected_sources": 37,
+        "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+        "control_sha256": "d3e6b0b4d941a034d0b40511835bf1177dc62bfa38bf05287fad2775a9f2da26",
+        "modules": {
+          "src/cli/bomtool/main.rs": 111,
+          "src/cli/core.rs": 82,
+          "src/cli/getopt_long.rs": 15,
+          "src/cli/main.rs": 177,
+          "src/cli/pccritic/critic.rs": 117,
+          "src/cli/pccritic/main.rs": 61,
+          "src/cli/renderer_msvc.rs": 4,
+          "src/cli/spdxtool/core.rs": 51,
+          "src/cli/spdxtool/generate.rs": 27,
+          "src/cli/spdxtool/main.rs": 40,
+          "src/cli/spdxtool/serialize.rs": 27,
+          "src/cli/spdxtool/simplelicensing.rs": 8,
+          "src/cli/spdxtool/software.rs": 45,
+          "src/cli/spdxtool/util.rs": 28,
+          "src/libpkgconf/audit.rs": 7,
+          "src/libpkgconf/buffer.rs": 3,
+          "src/libpkgconf/bytecode.rs": 8,
+          "src/libpkgconf/cache.rs": 15,
+          "src/libpkgconf/client.rs": 63,
+          "src/libpkgconf/dependency.rs": 23,
+          "src/libpkgconf/fragment.rs": 60,
+          "src/libpkgconf/license.rs": 12,
+          "src/libpkgconf/parser.rs": 4,
+          "src/libpkgconf/personality.rs": 19,
+          "src/libpkgconf/pkg.rs": 147,
+          "src/libpkgconf/queue.rs": 45,
+          "src/libpkgconf/tuple.rs": 2,
+          "src/libpkgconf/variable.rs": 1
+        },
+        "parent_sources_sha256": "d23391acebe32f6f9c28423306dab9aac5e3b69526e85fa767368390bceff6a6",
+        "raw_ffi_pointer_extractions": 1202,
+        "raw_pointer_types_removed": 2404,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_leaf_layouts": {
+        "archive": "work/analysis/pkgconf-3.0.11/translations/c2rust-0.22.1/pkgconf-3.0.11-stable/target/release/libpkgconf_3_0_11_normalized_audit.a",
+        "candidate_sha256": "d3e6b0b4d941a034d0b40511835bf1177dc62bfa38bf05287fad2775a9f2da26",
+        "candidate_sources_sha256": "d50ee77a7b4056f3a4ed04f33432a6df9f1e027ade45ce5236a5349a956772fa",
+        "compiler_selected_sources": 37,
+        "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+        "control_sha256": "d3e6b0b4d941a034d0b40511835bf1177dc62bfa38bf05287fad2775a9f2da26",
+        "leaf_layouts": {
+          "pkg_option": {
+            "consumers": [
+              "src/cli/getopt_long.rs",
+              "src/cli/main.rs",
+              "src/cli/pccritic/main.rs",
+              "src/cli/spdxtool/main.rs"
+            ],
+            "copies": 5,
+            "fingerprint": "a806488556423d36829f63b28b46295e2201ae02f7b0c7982f5db96d9695acdd",
+            "pointer_fields": 2,
+            "provider": "src/cli/bomtool/main.rs"
+          },
+          "pkgconf_buffer_": {
+            "consumers": [
+              "src/cli/core.rs",
+              "src/cli/main.rs",
+              "src/cli/pccritic/critic.rs",
+              "src/cli/pccritic/main.rs",
+              "src/cli/renderer_msvc.rs",
+              "src/cli/spdxtool/core.rs",
+              "src/cli/spdxtool/generate.rs",
+              "src/cli/spdxtool/main.rs",
+              "src/cli/spdxtool/serialize.rs",
+              "src/cli/spdxtool/simplelicensing.rs",
+              "src/cli/spdxtool/software.rs",
+              "src/cli/spdxtool/util.rs",
+              "src/libpkgconf/argvsplit.rs",
+              "src/libpkgconf/audit.rs",
+              "src/libpkgconf/buffer.rs",
+              "src/libpkgconf/bufferset.rs",
+              "src/libpkgconf/bytecode.rs",
+              "src/libpkgconf/cache.rs",
+              "src/libpkgconf/client.rs",
+              "src/libpkgconf/dependency.rs",
+              "src/libpkgconf/fileio.rs",
+              "src/libpkgconf/fragment.rs",
+              "src/libpkgconf/license.rs",
+              "src/libpkgconf/output.rs",
+              "src/libpkgconf/parser.rs",
+              "src/libpkgconf/path.rs",
+              "src/libpkgconf/personality.rs",
+              "src/libpkgconf/pkg.rs",
+              "src/libpkgconf/queue.rs",
+              "src/libpkgconf/tuple.rs",
+              "src/libpkgconf/variable.rs",
+              "src/libpkgconf/version.rs"
+            ],
+            "copies": 33,
+            "fingerprint": "03a1e6b27f741c05ea30cf52d390fde894b9fc06a9d3657944d653e55497bf1f",
+            "pointer_fields": 2,
+            "provider": "src/cli/bomtool/main.rs"
+          },
+          "pkgconf_bytecode_t": {
+            "consumers": [
+              "src/cli/pccritic/critic.rs",
+              "src/cli/spdxtool/generate.rs",
+              "src/cli/spdxtool/util.rs",
+              "src/libpkgconf/bytecode.rs",
+              "src/libpkgconf/pkg.rs",
+              "src/libpkgconf/tuple.rs",
+              "src/libpkgconf/variable.rs"
+            ],
+            "copies": 8,
+            "fingerprint": "08405905b327d5e39f86cf24ace7ba926fa2f1a922029cee2812feb531f5bd0d",
+            "pointer_fields": 1,
+            "provider": "src/cli/core.rs"
+          },
+          "pkgconf_node_": {
+            "consumers": [
+              "src/cli/core.rs",
+              "src/cli/main.rs",
+              "src/cli/pccritic/critic.rs",
+              "src/cli/pccritic/main.rs",
+              "src/cli/renderer_msvc.rs",
+              "src/cli/spdxtool/core.rs",
+              "src/cli/spdxtool/generate.rs",
+              "src/cli/spdxtool/main.rs",
+              "src/cli/spdxtool/serialize.rs",
+              "src/cli/spdxtool/simplelicensing.rs",
+              "src/cli/spdxtool/software.rs",
+              "src/cli/spdxtool/util.rs",
+              "src/libpkgconf/argvsplit.rs",
+              "src/libpkgconf/audit.rs",
+              "src/libpkgconf/buffer.rs",
+              "src/libpkgconf/bufferset.rs",
+              "src/libpkgconf/bytecode.rs",
+              "src/libpkgconf/cache.rs",
+              "src/libpkgconf/client.rs",
+              "src/libpkgconf/dependency.rs",
+              "src/libpkgconf/fileio.rs",
+              "src/libpkgconf/fragment.rs",
+              "src/libpkgconf/license.rs",
+              "src/libpkgconf/output.rs",
+              "src/libpkgconf/parser.rs",
+              "src/libpkgconf/path.rs",
+              "src/libpkgconf/personality.rs",
+              "src/libpkgconf/pkg.rs",
+              "src/libpkgconf/queue.rs",
+              "src/libpkgconf/tuple.rs",
+              "src/libpkgconf/variable.rs",
+              "src/libpkgconf/version.rs"
+            ],
+            "copies": 33,
+            "fingerprint": "a9e7ac72226bae7e1a393b56cd58ee1e794a674ef283ef07c40e5f242fd3b5c7",
+            "pointer_fields": 3,
+            "provider": "src/cli/bomtool/main.rs"
+          },
+          "spdxtool_core_agent_": {
+            "consumers": [
+              "src/cli/spdxtool/generate.rs",
+              "src/cli/spdxtool/serialize.rs"
+            ],
+            "copies": 3,
+            "fingerprint": "13cd31dfdf9e79ae2c3a58a726ddfb0978d5a9836070385d5e231bb13f9739ff",
+            "pointer_fields": 4,
+            "provider": "src/cli/spdxtool/core.rs"
+          },
+          "spdxtool_core_creation_info_": {
+            "consumers": [
+              "src/cli/spdxtool/generate.rs",
+              "src/cli/spdxtool/serialize.rs"
+            ],
+            "copies": 3,
+            "fingerprint": "0a0ab33fcf0a9b96a822c354a13cff68afe00c0cd30462eb6a9227d84955f1c6",
+            "pointer_fields": 7,
+            "provider": "src/cli/spdxtool/core.rs"
+          },
+          "spdxtool_core_tool_": {
+            "consumers": [
+              "src/cli/spdxtool/generate.rs",
+              "src/cli/spdxtool/serialize.rs"
+            ],
+            "copies": 3,
+            "fingerprint": "99aa0d3f557be12a7f9dfc2586b04e471ff08daec61ef1ddc91d0c094631ce8d",
+            "pointer_fields": 4,
+            "provider": "src/cli/spdxtool/core.rs"
+          },
+          "spdxtool_simplelicensing_license_expression_": {
+            "consumers": [
+              "src/cli/spdxtool/serialize.rs",
+              "src/cli/spdxtool/simplelicensing.rs"
+            ],
+            "copies": 3,
+            "fingerprint": "9eb83114f1da969ab8051f1a21446bfdf786580beab9cfdb821b2190c163d4d8",
+            "pointer_fields": 3,
+            "provider": "src/cli/spdxtool/core.rs"
+          },
+          "tm": {
+            "consumers": [
+              "src/cli/spdxtool/util.rs"
+            ],
+            "copies": 2,
+            "fingerprint": "9b55ef87b99cbfa9e42d56168320412ea0014f3541306dd7e51c579ac7f19a0b",
+            "pointer_fields": 1,
+            "provider": "src/cli/bomtool/main.rs"
+          }
+        },
+        "parent_sources_sha256": "5c39dfc65ac5015a16c2a1f594ebf3a0a5d72c4f0cf908fb334d2e9a9d1e1941",
+        "raw_pointer_types_removed": 212
+      },
+      "shared_scalar_ffi": {
+        "all_scalar_interfaces": true,
+        "archive": "work/analysis/pkgconf-3.0.11/translations/c2rust-0.22.1/pkgconf-3.0.11-stable/target/release/libpkgconf_3_0_11_normalized_audit.a",
+        "candidate_sha256": "d3e6b0b4d941a034d0b40511835bf1177dc62bfa38bf05287fad2775a9f2da26",
+        "candidate_sources_sha256": "5c39dfc65ac5015a16c2a1f594ebf3a0a5d72c4f0cf908fb334d2e9a9d1e1941",
+        "compiler_selected_sources": 37,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "d3e6b0b4d941a034d0b40511835bf1177dc62bfa38bf05287fad2775a9f2da26",
+        "parent_sources_sha256": "836b50483c4edae7d3230a1bf5535eb7105c2254cd962b74a3da7a2848214099",
+        "raw_pointer_types_removed": 342,
+        "scalar_ffi": {
+          "__ctype_b_loc": {
+            "copies": 11,
+            "provider": "src/cli/bomtool/main.rs",
+            "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+          },
+          "__ctype_tolower_loc": {
+            "copies": 28,
+            "provider": "src/cli/bomtool/main.rs",
+            "signature": "fn __ctype_tolower_loc() -> *mut *const i32;"
+          },
+          "__ctype_toupper_loc": {
+            "copies": 28,
+            "provider": "src/cli/bomtool/main.rs",
+            "signature": "fn __ctype_toupper_loc() -> *mut *const i32;"
+          },
+          "__errno_location": {
+            "copies": 6,
+            "provider": "src/cli/bomtool/main.rs",
+            "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+          },
+          "calloc": {
+            "copies": 19,
+            "provider": "src/cli/core.rs",
+            "signature": "fn calloc(a0: usize, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "free": {
+            "copies": 23,
+            "provider": "src/cli/bomtool/main.rs",
+            "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+          },
+          "getenv": {
+            "copies": 8,
+            "provider": "src/cli/bomtool/main.rs",
+            "signature": "fn getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "memcmp": {
+            "copies": 2,
+            "provider": "src/libpkgconf/buffer.rs",
+            "signature": "fn memcmp(a0: *const ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "memcpy": {
+            "copies": 3,
+            "provider": "src/libpkgconf/buffer.rs",
+            "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memmove": {
+            "copies": 3,
+            "provider": "src/libpkgconf/cache.rs",
+            "signature": "fn memmove(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memset": {
+            "copies": 3,
+            "provider": "src/libpkgconf/buffer.rs",
+            "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "pkgconf_argv_free": {
+            "copies": 2,
+            "provider": "src/libpkgconf/fragment.rs",
+            "signature": "fn pkgconf_argv_free(a0: *mut *mut ::core::ffi::c_char);"
+          },
+          "pkgconf_argv_split": {
+            "copies": 2,
+            "provider": "src/libpkgconf/fragment.rs",
+            "signature": "fn pkgconf_argv_split(a0: *const ::core::ffi::c_char, a1: *mut ::core::ffi::c_int, a2: *mut *mut *mut ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "pkgconf_compare_version": {
+            "copies": 2,
+            "provider": "src/cli/core.rs",
+            "signature": "fn pkgconf_compare_version(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "pkgconf_path_normalize_separators": {
+            "copies": 2,
+            "provider": "src/libpkgconf/client.rs",
+            "signature": "fn pkgconf_path_normalize_separators(a0: *mut ::core::ffi::c_char);"
+          },
+          "pkgconf_reallocarray": {
+            "copies": 3,
+            "provider": "src/libpkgconf/argvsplit.rs",
+            "signature": "fn pkgconf_reallocarray(a0: *mut ::core::ffi::c_void, a1: usize, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "pkgconf_strndup": {
+            "copies": 2,
+            "provider": "src/cli/main.rs",
+            "signature": "fn pkgconf_strndup(a0: *const ::core::ffi::c_char, a1: usize) -> *mut ::core::ffi::c_char;"
+          },
+          "strcasecmp": {
+            "copies": 5,
+            "provider": "src/libpkgconf/fragment.rs",
+            "signature": "fn strcasecmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strchr": {
+            "copies": 7,
+            "provider": "src/cli/core.rs",
+            "signature": "fn strchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strcmp": {
+            "copies": 12,
+            "provider": "src/cli/core.rs",
+            "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strdup": {
+            "copies": 16,
+            "provider": "src/cli/core.rs",
+            "signature": "fn strdup(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strerror": {
+            "copies": 5,
+            "provider": "src/cli/bomtool/main.rs",
+            "signature": "fn strerror(a0: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strlen": {
+            "copies": 16,
+            "provider": "src/cli/bomtool/main.rs",
+            "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+          },
+          "strncmp": {
+            "copies": 8,
+            "provider": "src/cli/core.rs",
+            "signature": "fn strncmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "strrchr": {
+            "copies": 3,
+            "provider": "src/cli/main.rs",
+            "signature": "fn strrchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strstr": {
+            "copies": 3,
+            "provider": "src/cli/main.rs",
+            "signature": "fn strstr(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strtol": {
+            "copies": 2,
+            "provider": "src/cli/main.rs",
+            "signature": "fn strtol(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_long;"
+          },
+          "strtoll": {
+            "copies": 2,
+            "provider": "src/cli/bomtool/main.rs",
+            "signature": "fn strtoll(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_longlong;"
+          }
+        },
+        "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+      },
+      "shared_stdio_layouts": {
+        "archive": "work/analysis/pkgconf-3.0.11/translations/c2rust-0.22.1/pkgconf-3.0.11-stable/target/release/libpkgconf_3_0_11_normalized_audit.a",
+        "candidate_sha256": "d3e6b0b4d941a034d0b40511835bf1177dc62bfa38bf05287fad2775a9f2da26",
+        "candidate_sources_sha256": "d23391acebe32f6f9c28423306dab9aac5e3b69526e85fa767368390bceff6a6",
+        "compiler_selected_sources": 37,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "d3e6b0b4d941a034d0b40511835bf1177dc62bfa38bf05287fad2775a9f2da26",
+        "parent_sources_sha256": "515abb47aa9135c541a902d891ad48e0b2d988378de6511cb3b2cb28f504f092",
+        "provider": "src/cli/bomtool/main.rs",
+        "raw_pointer_types_removed": 612,
+        "reexporting_modules": [
+          "src/cli/core.rs",
+          "src/cli/getopt_long.rs",
+          "src/cli/main.rs",
+          "src/cli/pccritic/critic.rs",
+          "src/cli/pccritic/main.rs",
+          "src/cli/renderer_msvc.rs",
+          "src/cli/spdxtool/core.rs",
+          "src/cli/spdxtool/generate.rs",
+          "src/cli/spdxtool/main.rs",
+          "src/cli/spdxtool/serialize.rs",
+          "src/cli/spdxtool/simplelicensing.rs",
+          "src/cli/spdxtool/software.rs",
+          "src/cli/spdxtool/util.rs",
+          "src/libpkgconf/argvsplit.rs",
+          "src/libpkgconf/audit.rs",
+          "src/libpkgconf/bsdstubs.rs",
+          "src/libpkgconf/buffer.rs",
+          "src/libpkgconf/bufferset.rs",
+          "src/libpkgconf/bytecode.rs",
+          "src/libpkgconf/cache.rs",
+          "src/libpkgconf/client.rs",
+          "src/libpkgconf/dependency.rs",
+          "src/libpkgconf/fileio.rs",
+          "src/libpkgconf/fragment.rs",
+          "src/libpkgconf/license.rs",
+          "src/libpkgconf/output.rs",
+          "src/libpkgconf/parser.rs",
+          "src/libpkgconf/path.rs",
+          "src/libpkgconf/personality.rs",
+          "src/libpkgconf/pkg.rs",
+          "src/libpkgconf/queue.rs",
+          "src/libpkgconf/tuple.rs",
+          "src/libpkgconf/variable.rs",
+          "src/libpkgconf/version.rs"
+        ]
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/pkgconf-3.0.11/translations/c2rust-0.22.1/pkgconf-3.0.11-stable/target/release/libpkgconf_3_0_11_normalized_audit.a",
+      "candidate_sha256": "d3e6b0b4d941a034d0b40511835bf1177dc62bfa38bf05287fad2775a9f2da26",
+      "candidate_sources_sha256": "14fdb2af1f4bac2c6c5804349af04b1be55439a52864685b2c38c3b08dc5c92b",
+      "changed_modules": 35,
+      "compiler_selected_sources": 37,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "d3e6b0b4d941a034d0b40511835bf1177dc62bfa38bf05287fad2775a9f2da26",
+      "parent_sources_sha256": "d50ee77a7b4056f3a4ed04f33432a6df9f1e027ade45ce5236a5349a956772fa",
+      "raw_pointer_types_removed": 145,
+      "removed_declarations": {
+        "struct": 42,
+        "type": 52,
+        "union": 1
+      },
+      "scanner_sha256": "2b7cb8c49225787ddc05c5b6d441089b3a647290119d1473977758e8a6f4e226"
+    }
+  }
+}

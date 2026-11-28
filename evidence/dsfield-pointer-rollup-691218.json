@@ -1,0 +1,42 @@
+{
+  "binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+  "candidate_link_sha256": "56f58750faeb2aeff4ffa3820d5f3468e70f2e8d4d5e0c130d452c9ac4c6a6b5",
+  "counts": {
+    "all": {
+      "after": 691218,
+      "before": 691644
+    },
+    "counting_identical_files_once": {
+      "after": 606616,
+      "before": 607038
+    }
+  },
+  "deferred": {},
+  "input_manifests": {
+    "batches/dsfield-pointer-rollup-691218-shared_variadic_ffi.json": "ec95b781d259df8e931715884137854d3809702f51366f8c7c710fc49d4e7be9",
+    "batches/dsfield-pointer-rollup-691218-unused_c_types.json": "dafb8ca26c4a7a15e46fb38a0529ebac65bbc2489b85c144168353efed195191"
+  },
+  "layers": {
+    "shared_variadic_ffi": {
+      "archives": [
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-08-stable/target/release/libcoreutils_small_08_normalized_reachable.a",
+        "work/analysis/less-710/translations/c2rust-0.22.1/less-710-stable/target/release/libless_710_normalized_audit.a",
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-03-stable/target/release/libutil_linux_small_03_normalized_reachable.a",
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-04-stable/target/release/libutil_linux_small_04_normalized_reachable.a"
+      ],
+      "manifest_sha256": "ec95b781d259df8e931715884137854d3809702f51366f8c7c710fc49d4e7be9"
+    },
+    "unused_c_types": {
+      "archives": [
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftp_audit.a",
+        "work/analysis/pkgconf-3.0.11/translations/c2rust-0.22.1/pkgconf-3.0.11-stable/target/release/libpkgconf_3_0_11_normalized_audit.a"
+      ],
+      "manifest_sha256": "dafb8ca26c4a7a15e46fb38a0529ebac65bbc2489b85c144168353efed195191"
+    }
+  },
+  "parent_census_sha256": "58290293f894161ab773d71472d9842d3ca4e06284371ac47c20b7298e219012",
+  "parent_link_sha256": "63f32e414c96365f6deef41b3341c70f9aa0899f0df7b545eaff1dc276a9f06c",
+  "public_evidence_sha256": "6599c4ec031ad9207a57a8b15c86be77b07e206ece2f3ce0597fa84c72d57fe5",
+  "raw_pointer_types_removed": 426,
+  "unused_types_ranking_sha256": "2b4468ec2997bed1ceab8d7b9c786ab8f85ba5dc0a3aa5b11ab2f8419d73ddd1"
+}
