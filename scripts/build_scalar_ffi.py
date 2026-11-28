@@ -21,6 +21,8 @@ SOURCE = ROOT / "tools/private-inlines/src/bin/scalar-ffi.rs"
 MARKER = ".rustbox-scalar-ffi-pilot"
 ALL_INTERFACES = ".rustbox-all-scalar-ffi"
 SYMBOLS = {"free", "malloc", "realloc", "calloc", "strcmp", "strncmp", "strlen", "memcmp", "memcpy", "memmove", "memset"}
+# Earlier passes can already have emitted sibling imports after this extern block.
+IMPORT_TAIL = re.compile(rb"(?: use crate(?:::[A-Za-z_][A-Za-z_0-9]*)+;)*(?=[\r\n]|\Z)")
 
 
 def substitute(crate, sources, tool, *, all_interfaces=False):
@@ -75,7 +77,7 @@ def substitute(crate, sources, tool, *, all_interfaces=False):
                 if not old.startswith(b"fn ") or not old.endswith(b";"):
                     raise ValueError("unexpected foreign declaration range")
                 replacement = old.translate(WHITESPACE)
-            elif replacement.startswith(b" use ") and (data[start-1:start] != b"}" or data[start:start+1] not in (b"\n",b"\r",b"")):
+            elif replacement.startswith(b" use ") and (data[start-1:start] != b"}" or not IMPORT_TAIL.match(data, start)):
                 raise ValueError("foreign import moved outside the module boundary")
             parts.extend((data[stop:start], replacement))
             stop = end

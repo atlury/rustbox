@@ -8,7 +8,9 @@ from tempfile import TemporaryDirectory
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from build_variadic_ffi import substitute
+from build_scalar_ffi import substitute as share_fixed
 from check_cargo_private_inlines import digest
+from verify_c_string_sources import syntax_tool
 
 def main():
     with TemporaryDirectory() as temp:
@@ -17,6 +19,7 @@ def main():
         for name in ("left", "right"):
             (root / (name + ".rs")).write_text(r'''
 extern "C" {
+    fn strlen(text: *const ::core::ffi::c_char) -> usize;
     fn snprintf(dst: *mut ::core::ffi::c_char, len: usize, format: *const ::core::ffi::c_char, ...) -> i32;
 }
 pub fn check() {
@@ -25,6 +28,7 @@ pub fn check() {
     let n = unsafe { snprintf(result.as_mut_ptr(), result.len(), c"%u:%.1f:%s".as_ptr(),
                               17_u32, 1.25_f64, data.as_ptr()) };
     assert_eq!(n, 8);
+    assert_eq!(unsafe { strlen(result.as_ptr()) }, 8);
     let got: Vec<u8> = result[..=n as usize].iter().map(|c| *c as u8).collect();
     assert_eq!(got, b"17:1.2:\xff\0");
 }
@@ -33,6 +37,11 @@ pub fn check() {
             subprocess.run(["rustc", "--edition=2021", "lib.rs", "-o", "test"], cwd=root, check=True)
             subprocess.run([root / "test"], cwd=root, check=True)
         run()
+        inputs = {p.name:digest(p) for p in root.glob("*.rs")}
+        fixed, records = share_fixed(root, inputs, syntax_tool("scalar-ffi"))
+        assert records["raw_pointer_types_removed"] == 1
+        for name, data in fixed.items():
+            (root / name).write_bytes(data)
         inputs = {p.name:digest(p) for p in root.glob("*.rs")}
         changed, facts = substitute(root, inputs)
         assert facts["raw_pointer_types_removed"] == 2 and facts["variadic_ffi"]["snprintf"]["copies"] == 2
