@@ -10,6 +10,9 @@ import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from build_leaf_layout_pilot import substitute
+from check_e2fsprogs_dirhash_arrays import source_list_digest
+from prepare_leaf_layouts import replay_layer
+from refresh_leaf_layout_pilots import current_selection
 from rank_leaf_c_layouts import leaf_layouts
 from verify_c_string_sources import syntax_tool
 
@@ -26,6 +29,14 @@ class LayoutSelection(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.scanner = syntax_tool("leaf-layouts")
+
+    def test_refresh_requires_unique_compatible_layouts_in_the_archive(self):
+        old = {"record": dict(fingerprint="hash", copies=2, pointer_fields=1)}
+        row = dict(name="record", declaration_and_field_types_sha256="hash", pointer_fields=1, archives={"a":4})
+        self.assertEqual(current_selection([row], "a", old), {"record":dict(old["record"], copies=4)})
+        self.assertIsNone(current_selection([row], "b", old))
+        self.assertIsNone(current_selection([row, row], "a", old))
+        self.assertIsNone(current_selection([dict(row, declaration_and_field_types_sha256="other")], "a", old))
 
     def select(self, consumer=DATA, copies=2):
         with TemporaryDirectory() as root:
@@ -45,6 +56,22 @@ class LayoutSelection(unittest.TestCase):
         self.assertEqual(set(changes), {"b.rs"})
         self.assertEqual(changes["b.rs"], DATA.replace(DECL, b"pub use crate::a::record;" + b"\n" * DECL.count(b"\n")))
         self.assertEqual(facts["raw_pointer_types_removed"], 1)
+
+    def test_replay_binds_layout_owners_and_parent_bytes(self):
+        data = {"lib.rs": b"pub mod a;\npub mod b;\npub mod c;\n", "a.rs": DATA, "b.rs": DATA,
+                "c.rs": DATA.replace(b"= u8;", b"= u16;")}
+        hashes = {p: sha256(v).hexdigest() for p, v in data.items()}
+        changes, facts = self.select()
+        result = {**hashes, **{p: sha256(v).hexdigest() for p,v in changes.items()}}
+        row = dict(facts, compiler_selected_sources=len(data), parent_sources_sha256=source_list_digest(hashes),
+                   candidate_sources_sha256=source_list_digest(result))
+        self.assertEqual(replay_layer(hashes, data.__getitem__, row, self.scanner), changes)
+        wrong_owner = {"record": dict(facts["leaf_layouts"]["record"], provider="c.rs")}
+        with self.assertRaises(ValueError):
+            replay_layer(hashes, data.__getitem__, dict(row, leaf_layouts=wrong_owner), self.scanner)
+        data["a.rs"] += b"\n"
+        with self.assertRaises(ValueError):
+            replay_layer(hashes, data.__getitem__, row, self.scanner)
 
     def test_additional_representation_attribute(self):
         with self.assertRaisesRegex(ValueError, "additional attribute"):

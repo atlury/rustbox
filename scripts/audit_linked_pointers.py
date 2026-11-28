@@ -108,6 +108,9 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
     closed_records = link.get("closed_inline_groups", {})
     closed_tool = native_strings.syntax_tool("closed-inlines") if closed_records else None
     closed_deltas = {}
+    leaf_records = link.get("shared_leaf_layouts", {})
+    leaf_tool = native_strings.syntax_tool("leaf-layouts") if leaf_records else None
+    leaf_deltas = {}
     variadic_records = link.get("shared_variadic_ffi", {})
     variadic_tool = native_strings.syntax_tool("variadic-ffi") if variadic_records else None
     variadic_deltas = {}
@@ -177,6 +180,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
         term_records = for_key(term_records, selected_path)
         closed_records = for_key(closed_records, selected_path)
         scalar_records = for_key(scalar_records, selected_path)
+        leaf_records = for_key(leaf_records, selected_path)
         variadic_records = for_key(variadic_records, selected_path)
     if not second.keys() <= proofs.keys() & link["source_library_sha256"].keys():
         raise ValueError("second-layer receipt has no linked parent archive")
@@ -357,8 +361,9 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
         term = term_records.get(str(final_path))
         closed = closed_records.get(str(final_path))
         scalar = scalar_records.get(str(final_path))
+        leaf = leaf_records.get(str(final_path))
         variadic = variadic_records.get(str(final_path))
-        if tables or any(record is not None for record in (literal, va, term, closed, scalar, variadic)):
+        if tables or any(record is not None for record in (literal, va, term, closed, scalar, variadic, leaf)):
             modules = [str(path.relative_to(crate)) for path in files]
             parent = {module: hashlib.sha256(read_parent(module)).hexdigest() for module in modules}
         if literal is not None:
@@ -410,11 +415,14 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
             deltas[str(linked_path)] = facts["raw_pointer_types_removed"]
         for kind, selection, tool, deltas in (("private helpers", closed, closed_tool, closed_deltas),
                                               ("scalar ABI", scalar, scalar_tool, scalar_deltas),
-                                              ("variadic ABI", variadic, variadic_tool, variadic_deltas)):
+                                              ("variadic ABI", variadic, variadic_tool, variadic_deltas),
+                                              ("leaf layouts", leaf, leaf_tool, leaf_deltas)):
             if selection is None:
                 continue
             if kind == "private helpers":
                 from build_closed_inlines import replay_layer
+            elif kind == "leaf layouts":
+                from prepare_leaf_layouts import replay_layer
             elif kind == "variadic ABI":
                 from build_variadic_ffi import replay_layer
             else:
@@ -469,6 +477,8 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
         raise ValueError("DS field receipt outside the compiler inputs")
     if routing_deltas.keys() != routing_records.keys():
         raise ValueError("routing protocol record lies outside the selected compiler inputs")
+    if leaf_deltas.keys() != leaf_records.keys():
+        raise ValueError("leaf layout receipts differ from the selected compiler archives")
     if variadic_deltas.keys() != variadic_records.keys():
         raise ValueError("variadic ABI receipts do not match the selected archives")
     if scalar_deltas.keys() != scalar_records.keys():
@@ -503,6 +513,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
             **({"dsfield_deltas": dsfield_deltas} if dsfield_deltas else {}),
             **({"routing_protocol_deltas": routing_deltas} if routing_deltas else {}),
             **({"scalar_ffi_deltas": scalar_deltas} if scalar_deltas else {}),
+            **({"leaf_layout_deltas": leaf_deltas} if leaf_deltas else {}),
             **({"variadic_ffi_deltas": variadic_deltas} if variadic_deltas else {}),
             **({"closed_inline_deltas": closed_deltas} if closed_deltas else {}),
             **({"shared_ncurses_termtype_deltas": term_deltas} if term_deltas else {}),
@@ -704,6 +715,8 @@ def check_identical_layer(previous, selected, before, after, field):
             delta.subtract(after["scalar_ffi_deltas"][key])
             if old is not None:
                 delta.update(before["scalar_ffi_deltas"][key])
+        elif field == "shared_leaf_layouts":
+            delta.subtract(after["leaf_layout_deltas"][key])
         elif field == "shared_variadic_ffi":
             delta.subtract(after["variadic_ffi_deltas"][key])
         elif field == "closed_inline_groups":
@@ -743,6 +756,7 @@ if __name__ == "__main__":
     previous = parser.add_mutually_exclusive_group()
     previous.add_argument("--verify-dsfield-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-routing-protocols-from", type=Path, metavar="CONTROL")
+    previous.add_argument("--verify-leaf-layouts-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-variadic-ffi-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-scalar-ffi-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-closed-inlines-from", type=Path, metavar="CONTROL")
@@ -781,6 +795,9 @@ if __name__ == "__main__":
             raise ValueError("expected a new routing protocol selection")
         check_archive_counts(prior, routing_protocols.parent_view(link), measure(prior), current,
                              link[routing_protocols.FIELD], "routing_protocol_deltas")
+    if args.verify_leaf_layouts_from:
+        prior = json.loads(args.verify_leaf_layouts_from.read_bytes())
+        check_identical_layer(prior, link, measure(prior), current, "shared_leaf_layouts")
     if args.verify_variadic_ffi_from:
         prior = json.loads(args.verify_variadic_ffi_from.read_bytes())
         check_identical_layer(prior, link, measure(prior), current, "shared_variadic_ffi")

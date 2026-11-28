@@ -3,6 +3,12 @@
 set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd -P)
+leaf_layouts_manifest=
+if [ "$#" -ge 2 ] && [ "$1" = --shared-leaf-layouts ]; then
+    leaf_layouts_manifest=$(python3 -c 'import sys; from pathlib import Path; print(Path(sys.argv[1]).resolve(strict=True).relative_to(Path(sys.argv[2])))' "$2" "$root")
+    shift 2
+fi
+
 variadic_ffi_manifest=
 if [ "$#" -ge 2 ] && [ "$1" = --shared-variadic-ffi ]; then
     variadic_ffi_manifest=$(python3 -c 'import sys; from pathlib import Path; print(Path(sys.argv[1]).resolve(strict=True).relative_to(Path(sys.argv[2])))' "$2" "$root")
@@ -81,7 +87,7 @@ case "$#:${1:-}" in
     1:--iproute2-route-names) set -- --iproute2-route-names --iproute2-address-protocol-copies --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
     1:--iproute2-address-protocol-copies) set -- --iproute2-address-protocol-copies --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
     2:--e2fsprogs-dirhash-arrays) ;;
-    *) echo "usage: $0 [--shared-variadic-ffi MANIFEST] [--shared-scalar-ffi MANIFEST] [--closed-inlines MANIFEST] [--lz4-benchmark-dictionary] [--iproute2-dsfield-names] [--iproute2-routing-protocols] [--ncurses-termtypes MANIFEST] [--va-list-layouts MANIFEST] [--bison-literal-lengths] [--tar-borrowed-timestamps] [--native-c-strings MANIFEST] [--shared-stdio MANIFEST | --curl-manual | --iproute2-netlink-protocols | --iproute2-route-names | --iproute2-address-protocols | --iproute2-address-protocol-copies | --e2fsprogs-dirhash-arrays MANIFEST]" >&2; exit 2 ;;
+    *) echo "usage: $0 [--shared-leaf-layouts MANIFEST] [--shared-variadic-ffi MANIFEST] [--shared-scalar-ffi MANIFEST] [--closed-inlines MANIFEST] [--lz4-benchmark-dictionary] [--iproute2-dsfield-names] [--iproute2-routing-protocols] [--ncurses-termtypes MANIFEST] [--va-list-layouts MANIFEST] [--bison-literal-lengths] [--tar-borrowed-timestamps] [--native-c-strings MANIFEST] [--shared-stdio MANIFEST | --curl-manual | --iproute2-netlink-protocols | --iproute2-route-names | --iproute2-address-protocols | --iproute2-address-protocol-copies | --e2fsprogs-dirhash-arrays MANIFEST]" >&2; exit 2 ;;
 esac
 "$root/scripts/build_private_inline_tool.sh"
 python3 -B "$root/scripts/check_cargo_private_inlines.py" --prepare-e2fsprogs
@@ -166,6 +172,11 @@ fi
 if [ -n "$variadic_ffi_manifest" ]; then
     python3 -B "$root/scripts/prepare_variadic_ffi.py" prepare --cargo-only "$root/$variadic_ffi_manifest"
     set -- "$@" --shared-variadic-ffi "/work/$variadic_ffi_manifest"
+fi
+
+if [ -n "$leaf_layouts_manifest" ]; then
+    python3 -B "$root/scripts/prepare_leaf_layouts.py" prepare --cargo-only "$root/$leaf_layouts_manifest"
+    set -- "$@" --shared-leaf-layouts "/work/$leaf_layouts_manifest"
 fi
 unset RUSTBOX_MULTICALL_TEST_BINARY
 exec "$root/scripts/run_multicall_tool.sh" python3 -B /work/scripts/link_rustbox_multicall.py \

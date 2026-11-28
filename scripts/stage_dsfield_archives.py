@@ -46,7 +46,7 @@ def select(parent):
                 or hashes.pop(key, None) != row["control_sha256"] or new in hashes):
             raise ValueError(f"unexpected routing parent for {key}")
         for layer in ("native_c_strings", "shared_stdio_layouts", "shared_va_list_layouts", "shared_ncurses_termtypes",
-                      "closed_inline_groups", "shared_scalar_ffi", "shared_variadic_ffi"):
+                      "closed_inline_groups", "shared_scalar_ffi", "shared_variadic_ffi", "shared_leaf_layouts"):
             if key in parent.get(layer, {}):
                 raise ValueError(f"DS field archive requires recompilation after {layer} on {key}")
         hashes[new] = row["candidate_sha256"]

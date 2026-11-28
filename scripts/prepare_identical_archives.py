@@ -14,6 +14,8 @@ PROOFS = ("linked_private_inline_proofs", "linked_second_inline_proofs", "linked
 
 
 def parent_fields(layer):
+    if layer == "shared_leaf_layouts":
+        return (*parent_fields("shared_variadic_ffi"), "shared_variadic_ffi")
     if layer == "shared_variadic_ffi":
         return (*parent_fields("shared_scalar_ffi"), "shared_scalar_ffi")
     if layer == "shared_scalar_ffi":
@@ -44,7 +46,7 @@ def selected_receipts(link, key, layer):
 def marker(archive, row, layer):
     suffix = {"native_c_strings": ".c-strings-", "shared_stdio_layouts": ".stdio-", "shared_va_list_layouts": ".va-list-",
               "shared_ncurses_termtypes": ".termtypes-", "closed_inline_groups": ".closed-inlines-", "shared_scalar_ffi": ".scalar-ffi-",
-              "shared_variadic_ffi": ".variadic-ffi-"}[layer]
+              "shared_variadic_ffi": ".variadic-ffi-", "shared_leaf_layouts": ".leaf-layouts-"}[layer]
     return archive.with_name(archive.stem + suffix + row["candidate_sources_sha256"] + ".json")
 
 
@@ -121,7 +123,10 @@ def prepare(manifest, layer, *, mounted_direct=False):
                     raise ValueError("archived compiler receipt differs from the pinned parent")
                 target[location] = receipt
             (root / "parent.json").write_text(json.dumps(link))
-            if layer == "shared_variadic_ffi":
+            if layer == "shared_leaf_layouts":
+                from prepare_leaf_layouts import rebuild
+                rebuild(root / "parent.json", link, key, root / "built", row, mounted_direct)
+            elif layer == "shared_variadic_ffi":
                 from build_variadic_ffi import build, substitute
                 if mounted_direct:
                     from direct_source_pair import mounted_pair
@@ -243,7 +248,7 @@ def main(layer):
     p.add_argument("--extend", type=Path, metavar="LINKED_MANIFEST", help="carry forward every existing verified entry")
     p = sub.add_parser("prepare")
     p.add_argument("manifest", type=Path)
-    if layer in ("native_c_strings", "shared_va_list_layouts", "closed_inline_groups", "shared_scalar_ffi", "shared_variadic_ffi"):
+    if layer in ("native_c_strings", "shared_va_list_layouts", "closed_inline_groups", "shared_scalar_ffi", "shared_variadic_ffi", "shared_leaf_layouts"):
         p.add_argument("--cargo-only", action="store_true",
                        help="the Linux linker prepares direct-rustc engines after building their parents")
     args = parser.parse_args()
