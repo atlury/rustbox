@@ -14,7 +14,7 @@ from prepare_identical_archives import prepare, row_origin, selected_receipts, v
 LAYER = "shared_va_list_layouts"
 
 
-def rebase(link, manifests, output, *, layer=LAYER):
+def rebase(link, manifests, output, *, layer=LAYER, allow_empty=False):
     if layer not in (LAYER, "closed_inline_groups", "shared_scalar_ffi"):
         raise ValueError("unknown byte-identical release layer")
     inputs = {p: p.read_bytes() for p in (link, *manifests)}
@@ -41,16 +41,21 @@ def rebase(link, manifests, output, *, layer=LAYER):
             deferred[key] = "terminal layout needs a cold build on the new variadic inputs"
         else:
             selected[key] = item
-    prepare(selected, layer)
-    records = validate_link(selected, parent["source_library_sha256"], parent, layer)
-    candidate = {**parent, layer:records}
-    before, after = measure(parent), measure(candidate)
-    check_identical_layer(parent, candidate, before, after, layer)
-    if layer in ("closed_inline_groups", "shared_scalar_ffi"):
-        metric = "closed_inline_deltas" if layer == "closed_inline_groups" else "scalar_ffi_deltas"
-        changes = {key: counts["raw_pointer_type_tokens"] for key, counts in after[metric].items()}
+    before = measure(parent)
+    if allow_empty and not selected and deferred:
+        records, changes = {}, {}
+        after = before
     else:
-        changes = after["shared_va_list_layout_deltas"]
+        prepare(selected, layer)
+        records = validate_link(selected, parent["source_library_sha256"], parent, layer)
+        candidate = {**parent, layer:records}
+        after = measure(candidate)
+        check_identical_layer(parent, candidate, before, after, layer)
+        if layer in ("closed_inline_groups", "shared_scalar_ffi"):
+            metric = "closed_inline_deltas" if layer == "closed_inline_groups" else "scalar_ffi_deltas"
+            changes = {key: counts["raw_pointer_type_tokens"] for key, counts in after[metric].items()}
+        else:
+            changes = after["shared_va_list_layout_deltas"]
     if changes != {k:r["raw_pointer_types_removed"] for k,r in records.items()}:
         raise ValueError("source deltas differ from the cold-build receipts")
     data = (json.dumps(selected, indent=2, sort_keys=True) + "\n").encode()

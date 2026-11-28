@@ -593,6 +593,8 @@ counts measure declarations.
 
 On the packed LZ4 candidate, gzip reused its existing compiler receipt and IPRoute2 `arpd` reproduced its changed parent archive byte for byte in a cold build. Selecting both removes 78 repeated variadic pointer fields (58 in gzip and 20 in arpd), taking the compiler-input count from 747,291 to 747,213. Counting identical source files once gives 531,802, up from 528,914 because the edits distinguish compiler inputs that previously shared content. Run `scripts/refresh_pointer_selections.py LINK OLD_MANIFEST NEW_MANIFEST WORKSPACE --layer shared_va_list_layouts` to repeat the check on another release. [Archive receipts and combined counts](evidence/gzip-arpd-variadic-refresh.json)
 
+To measure overlapping reductions together, run `python3 -B scripts/compose_pointer_selections.py LINK NEW_DIRECTORY --shared-va-list-layouts VA_MANIFEST --closed-inline-groups HELPERS_MANIFEST --shared-scalar-ffi FFI_MANIFEST`. Each stage replays compatible archives on the preceding stage’s compiler inputs and records the reason for every deferred archive. The resulting reports describe a candidate source selection for the same executable. The output directory appears after the complete recount passes.
+
 To carry these selections to a later release, run
 `python3 -B scripts/rebase_va_list_layouts.py LINK OUTPUT_MANIFEST INPUT_MANIFEST...`.
 It checks archive bytes, replays the selected compiler sources, and lists any
