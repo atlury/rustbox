@@ -2490,7 +2490,7 @@ On the tested DS field executable, the initial selection chose compatible compil
 
 On the tested DS field executable, the expanded selection chose compatible compiler receipts for 92 archives. Its source count fell from 742,521 to 708,717, with 551,280 when identical files are counted once. [Verified expanded selection](evidence/dsfield-optimized-expanded.json)
 
-Rebuilding scalar ABI declarations on the DS field compiler inputs qualified 2 of 2 additional engines in the ip-tc batch. The candidate retained 705,124 raw-pointer occurrences after this batch. [DS field ABI ip-tc results](evidence/dsfield-optimized-scalar-ip-tc.json)
+Rebuilding scalar ABI declarations on the DS field compiler inputs qualified 2 of 2 additional engines in the ip-tc batch. The candidate retained 705,124 raw-pointer occurrences after this batch. [DS field ABI ip-tc results](evidence/dsfield-optimized-scalar-ip-tc.json) The two additional archive selections are stored in [the ip/tc manifest](batches/dsfield-ip-tc-scalar-ffi.json). Combining these entries with the preceding 78 reconstructs the tested 80-archive scalar manifest byte for byte.
 
 The saved 499-name executable for this source selection passed all 884 dispatch checks and 14,022 differential cases. [Full public comparisons](evidence/dsfield-optimized-expanded-public.json)
 
