@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Remove private foreign declarations reported dead on the current Cargo compiler inputs."""
+"""Remove private foreign declarations reported dead on the current multicall compiler inputs."""
 # SPDX-License-Identifier: 0BSD
 import argparse
 from collections import Counter
@@ -8,10 +8,12 @@ import json
 import os
 from pathlib import Path
 import subprocess
-from tempfile import TemporaryFile
+from tempfile import TemporaryDirectory, TemporaryFile
 
 from batch_cargo_private_inlines import IDENTIFIER
 from build_checked_errno import replay
+from cargo_source_parent import cargo_origin, direct_crate
+from direct_source_pair import build_pair, direct_receipt, mounted_pair
 from cargo_archive_pilot import compile_mounted_sources, stage_selected_archive
 from check_cargo_private_inlines import ROOT, digest, layout
 from inline_source_layout import WHITESPACE
@@ -83,6 +85,21 @@ def substitute(crate, sources, target):
     return apply_spans(crate, sources, ranges)
 
 
+def direct_substitute(crate, sources, compiler, *, selector=SELECTOR):
+    with diagnostic_names(crate, sources), TemporaryDirectory() as scratch, TemporaryFile() as diagnostics:
+        subprocess.run([*compiler, "--emit=metadata", "-A", "warnings", "--force-warn", "dead_code",
+                        "--error-format=json", "lib.rs", "-o", Path(scratch) / "engine.rmeta"], cwd=crate, stderr=diagnostics, check=True)
+        diagnostics.seek(0)
+        ranges = json.loads(subprocess.check_output([selector], stdin=diagnostics, cwd=crate))
+    return apply_spans(crate, sources, ranges, selector=selector)
+
+
+def recorded_transform(row):
+    def apply(crate, sources):
+        return apply_spans(crate, sources, row["ranges"])
+    return apply
+
+
 def apply_spans(crate, sources, ranges, *, selector=SELECTOR):
     if not ranges.keys() <= sources.keys():
         raise ValueError("diagnostic spans outside the selected compiler inputs")
@@ -122,19 +139,35 @@ def replay_compiler_layer(modules, read, row):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--mounted", type=Path)
+    parser.add_argument("--direct")
     parser.add_argument("--link", type=Path)
     parser.add_argument("--archive")
     parser.add_argument("--output", type=Path)
     parser.add_argument("--replay", action="store_true", help="verify an existing compiler receipt")
     args = parser.parse_args()
-    if args.mounted:
+    if args.direct:
+        mounted_pair(Path("/trial/release.json"), Path("/trial/result"), args.direct, direct_substitute,
+                     allow_identical=True, use_compiler=True)
+    elif args.mounted:
         _, target = layout(args.mounted)
         compile_mounted_sources(args.mounted, lambda crate, sources: substitute(crate, sources, ROOT / target),
                                 MARKER, allow_identical=True)
     elif args.link and args.archive and args.output:
-        if not args.replay:
-            stage_selected_archive(args.link, args.output, args.archive, MARKER, Path(__file__).name, linux_scratch=True)
-        spans = json.loads((args.output / "pilot.json").read_bytes())["ranges"]
-        replay(args.link, args.archive, args.output, transform=lambda crate, sources: apply_spans(crate, sources, spans))
+        origin = cargo_origin(json.loads(args.link.read_bytes()), args.archive)
+        if direct_crate(origin) is not None:
+            if args.replay:
+                row = json.loads((args.output / "pilot.json").read_bytes())
+                checked = direct_receipt(args.link, args.archive, recorded_transform(row))
+                checked["candidate_sha256"] = digest(args.output / origin.name)
+                if checked != row:
+                    raise ValueError("direct archive failed independent compiler-input replay")
+            else:
+                build_pair(args.link, args.output, args.archive, Path(__file__).name, ["--direct", args.archive],
+                           None, replay_from_receipt=recorded_transform)
+        else:
+            if not args.replay:
+                stage_selected_archive(args.link, args.output, args.archive, MARKER, Path(__file__).name, linux_scratch=True)
+            row = json.loads((args.output / "pilot.json").read_bytes())
+            replay(args.link, args.archive, args.output, transform=recorded_transform(row))
     else:
         parser.error("supply a link, a Cargo archive and a new output directory")

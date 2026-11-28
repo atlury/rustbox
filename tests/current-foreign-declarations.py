@@ -8,7 +8,7 @@ import sys
 from tempfile import TemporaryDirectory
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
-from build_current_foreign_declarations import apply_spans, diagnostic_names
+from build_current_foreign_declarations import apply_spans, diagnostic_names, direct_substitute
 from check_cargo_private_inlines import digest
 from verify_c_string_sources import syntax_tool
 
@@ -50,6 +50,10 @@ pub unsafe fn run(x: *const u8) { __used(x) }
                     b"fn z_collision(x: *const u8);"]
         if selected != expected or report["raw_pointer_types_removed"] != 3:
             raise AssertionError(f"unexpected selected declarations: {selected}")
+        direct_changes, direct_report = direct_substitute(crate, inputs, ["rustc", "--crate-type", "staticlib",
+                                                                           "--cap-lints=allow"], selector=selector)
+        if direct_changes != changes or direct_report != report:
+            raise AssertionError("direct rustc diagnostics selected different declarations")
         leaf.write_bytes(changes["leaf.rs"])
         subprocess.run(["rustc", "--crate-type", "lib", "--emit=metadata", "-A", "warnings", "lib.rs"],
                        cwd=crate, check=True)

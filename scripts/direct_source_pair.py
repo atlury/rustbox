@@ -28,7 +28,7 @@ def direct_receipt(link, key, transform):
     return dict(row, rustc_archive=str(origin))
 
 
-def mounted_pair(link, output, key, substitute, *, allow_identical):
+def mounted_pair(link, output, key, substitute, *, allow_identical, use_compiler=False):
     release = json.loads(link.read_bytes())
     expected = release["source_library_sha256"][key]
     origin = cargo_origin(release, key)
@@ -49,7 +49,10 @@ def mounted_pair(link, output, key, substitute, *, allow_identical):
                     raise ValueError(f"captured engine source differs for {name}")
             if compile_staged(crate, inputs, compiler, archive) != expected:
                 raise ValueError("cold direct control differs from the release archive")
-            replacements, facts = substitute(crate, sources)
+            if use_compiler:
+                replacements, facts = substitute(crate, sources, compiler)
+            else:
+                replacements, facts = substitute(crate, sources)
             for name, data in replacements.items():
                 (crate / name).write_bytes(data)
             candidate = compile_staged(crate, inputs, compiler, archive)
@@ -65,7 +68,7 @@ def mounted_pair(link, output, key, substitute, *, allow_identical):
         (output / "pilot.json").write_text(json.dumps(row, indent=2, sort_keys=True) + "\n")
 
 
-def build_pair(link, output, key, driver, arguments, transform):
+def build_pair(link, output, key, driver, arguments, transform, *, replay_from_receipt=None):
     archive = Path(key).name
     output = output.resolve()
     raw = link.read_bytes()
@@ -79,8 +82,11 @@ def build_pair(link, output, key, driver, arguments, transform):
         subprocess.run(["docker", "run", "--rm", "--network", "none", "--platform", "linux/amd64",
                         "-v", f"{ROOT}:/work:ro", "-v", f"{stage}:/trial", "rustbox-e2fsprogs:2026-11-24",
                         "python3", "-B", str(Path("/work/scripts") / driver), *arguments], check=True)
+        cold = json.loads((result / "pilot.json").read_bytes())
+        if replay_from_receipt is not None:
+            transform = replay_from_receipt(cold)
         row = direct_receipt(link, key, transform)
         row["candidate_sha256"] = digest(result / archive)
-        if raw != link.read_bytes() or row != json.loads((result / "pilot.json").read_bytes()):
+        if raw != link.read_bytes() or row != cold:
             raise ValueError("direct archive or independent source replay differs")
         publish(result, output, archive)

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Cold-build and replay current Cargo foreign-declaration candidates in descending estimated impact."""
+"""Cold-build and replay current multicall foreign-declaration candidates in descending estimated impact."""
 # SPDX-License-Identifier: 0BSD
 import argparse
 import fcntl
@@ -15,7 +15,7 @@ from qualify_iproute2_combined_names import write_result
 from rank_foreign_declarations import rank
 
 
-def run(link, directory):
+def run(link, directory, only):
     directory.mkdir(parents=True, exist_ok=True)
     with (directory / "lock").open("a") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
@@ -32,12 +32,14 @@ def run(link, directory):
             if not entry["candidate_pointer_types"]:
                 continue
             origin = cargo_origin(release, key)
-            if direct_crate(origin) is not None:
+            direct = direct_crate(origin) is not None
+            if (only == "direct" and not direct) or (only == "cargo" and direct):
                 continue
-            try:
-                layout(origin)
-            except ValueError:
-                continue
+            if not direct:
+                try:
+                    layout(origin)
+                except ValueError:
+                    continue
             identifier = Path(key).stem + "-" + sha256(key.encode()).hexdigest()[:12]
             stage = directory / identifier
             cmd = [sys.executable, "-B", ROOT / "scripts/build_current_foreign_declarations.py",
@@ -62,5 +64,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("link", type=Path)
     parser.add_argument("directory", type=Path)
+    parser.add_argument("--only", choices=("cargo", "direct", "all"), default="all")
     args = parser.parse_args()
-    raise SystemExit(run(args.link, args.directory))
+    raise SystemExit(run(args.link, args.directory, args.only))

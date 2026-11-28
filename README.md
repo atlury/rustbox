@@ -2579,6 +2579,8 @@ Adding the byte-identical Gawk archive removed 85 more duplicate raw-pointer typ
 
 <a id="combined-pointer-checkpoints"></a>
 
+The foreign-declaration sweep covers all 127 Rust archives in the 499-name multicall. Its source scan found 18,319 candidate raw-pointer type occurrences in 89 archives. The Linux compiler must confirm each edit. The queue includes 75 Cargo archives and 14 directly compiled E2fsprogs or IPRoute2 engines. Run the [batch driver](scripts/batch_current_foreign_declarations.py) with the selected release and an output directory to resume. [Per-archive ranking](evidence/current-foreign-declarations-ranking.json)
+
 The newer compiler selection brings the same five-package executable to **689,806 raw-pointer type occurrences** across 499 applet names, or **605,552** when identical source files are counted once. The four additional archive builds reproduced their linked bytes and used separate inputs from the five rebuilt packages. [Recount and executable verification](evidence/five-package-unused-types-689806.json) · [Compiler selection](batches/five-package-unused-types-689806.json)
 
 The combined curl, Gawk, grep, Diffutils and ACL build removes 1,838 raw-pointer type occurrences, bringing its compiler census from 691,945 to **690,107**. All 304 command comparisons passed against the canonical GCC and Clang builds. The two stripped executables matched outside the GNU build ID. [Link, tests and counts](evidence/five-package-unused-types-multicall.json) · [Compiler selection](batches/five-package-unused-types.json)
