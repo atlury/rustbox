@@ -1,0 +1,276 @@
+{
+  "changed": {
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/debugfs/0b1483e5fe35bab542de5f9285e9f2df6edd6c215a6d1481e2a004cdc203958a/libdebugfs_audit.a": {
+      "archive_sha256": "7de603e1a1a783b7c5232ceec06b62e5f722cfe40ed94231455c194bfbe598eb",
+      "layouts": [
+        "__pthread_internal_list",
+        "dnode_t",
+        "error_table",
+        "ext2_struct_u32_list",
+        "file_info",
+        "iovec",
+        "list_head",
+        "tm"
+      ],
+      "pilot_sha256": "20a8dbc60badf9cf72b3c86512acbb6e556d1c3d5850533e998716efb6dd609b",
+      "raw_pointer_types_removed": 67
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2fsck/564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd/libe2fsck_audit.a": {
+      "archive_sha256": "7e43e34b939ba7ec8e40a9c7c067bf7c1665fcfaa8dbfae765aeb81e5922a4bd",
+      "layouts": [
+        "TDB_DATA",
+        "__pthread_internal_list",
+        "dnode_t",
+        "error_table",
+        "ext2_struct_u32_list",
+        "iovec",
+        "list_head",
+        "tm"
+      ],
+      "pilot_sha256": "2959db58f9520e170825ee13f26a5fa5c5207c2349c1040bee4df3903080d7c5",
+      "raw_pointer_types_removed": 144
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2initrd_helper/6edccc168e7742f23fafe09103351a09528c8e57699efe07b6009d65fca34cab/libe2initrd_helper_audit.a": {
+      "archive_sha256": "4f39f7fa83eaa56d0cca31002c25779ce030b1d1c771f03a40bf5052f6bf184d",
+      "layouts": [
+        "__pthread_internal_list",
+        "error_table",
+        "ext2_struct_u32_list"
+      ],
+      "pilot_sha256": "3219dd69190a7ca3f51afe9cf72d6792611aa3584334dac7c0004a0a3dcd6ee0",
+      "raw_pointer_types_removed": 30
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a": {
+      "archive_sha256": "336038adc60981243910183987eeabef78118bd4c7ab3946ea72f203f83e4af6",
+      "layouts": [
+        "__pthread_internal_list",
+        "dnode_t",
+        "error_table",
+        "ext2_struct_u32_list",
+        "file_info",
+        "iovec",
+        "list_head"
+      ],
+      "pilot_sha256": "c9915d904bd701a7e11341513e0e273080d0435c81da1ce27f9a8b4ccc75020a",
+      "raw_pointer_types_removed": 55
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/tune2fs/03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966/libtune2fs_audit.a": {
+      "archive_sha256": "8fb0e8ae11ba50386356789af40803bea67a9d5a3cbf4e9a7eac4fba4d479513",
+      "layouts": [
+        "__pthread_internal_list",
+        "dnode_t",
+        "error_table",
+        "ext2_struct_u32_list",
+        "group",
+        "iovec",
+        "list_head",
+        "passwd"
+      ],
+      "pilot_sha256": "e467cdb5c618dc6af38107f4ec7c8b23c53b43f66bfcf77515592b73ea3aa3ae",
+      "raw_pointer_types_removed": 66
+    }
+  },
+  "direct_compiler_sha256": "91688bb62d7fd54f1bb33e7ee8df137f265fe59d23a9e4ce1b8cc656c9b27f79",
+  "direct_selector_sha256": "14b00ad302647a2ec66fa8f1d3c2ea63f1cfe19ae12f4b22cbc851b738b7a6dd",
+  "errors": {},
+  "exclude_layouts": [
+    "__va_list_tag"
+  ],
+  "exclude_packages": [],
+  "identical": {
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/badblocks/2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff/libbadblocks_audit.a": {
+      "archive_sha256": "2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff",
+      "layouts": [
+        "__pthread_internal_list",
+        "ext2_struct_u32_list"
+      ],
+      "pilot_sha256": "45ec4113a471e8334a7f36f27491e5ff4b40964f0fb871edbb6f26cfc43f01f2",
+      "raw_pointer_types_removed": 25
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/dumpe2fs/0e7dd48180b25ee0e893f7ec2254bd62400c208fdd873858cc56cd62c40ad12f/libdumpe2fs_audit.a": {
+      "archive_sha256": "0e7dd48180b25ee0e893f7ec2254bd62400c208fdd873858cc56cd62c40ad12f",
+      "layouts": [
+        "__pthread_internal_list",
+        "error_table",
+        "ext2_struct_u32_list",
+        "iovec",
+        "list_head"
+      ],
+      "pilot_sha256": "2e0c138924120830b8a2a3ae5f75914c5a428dc11f67a1287e2f91f599a3ddc2",
+      "raw_pointer_types_removed": 38
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2freefrag/dff1d228a46ef9b0bb99a0a2fb7995385f762f3c86aa51463a100dbec84294b5/libe2freefrag_audit.a": {
+      "archive_sha256": "dff1d228a46ef9b0bb99a0a2fb7995385f762f3c86aa51463a100dbec84294b5",
+      "layouts": [
+        "__pthread_internal_list",
+        "error_table",
+        "ext2_struct_u32_list"
+      ],
+      "pilot_sha256": "df5439d623edc9c6f2e1e3371c39eee7a4675fa15468d711ef44f0b5178dfddb",
+      "raw_pointer_types_removed": 29
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2image/399a863ff0c37471b7e8ab0cbad3d9cd6f80d6f326871ba85e85bed25225fc2e/libe2image_audit.a": {
+      "archive_sha256": "399a863ff0c37471b7e8ab0cbad3d9cd6f80d6f326871ba85e85bed25225fc2e",
+      "layouts": [
+        "__pthread_internal_list",
+        "error_table",
+        "ext2_qcow2_l2_table",
+        "ext2_qcow2_refcount",
+        "ext2_struct_u32_list"
+      ],
+      "pilot_sha256": "26d29f5d37adaf8ae56362a5ad1890bff1fbe0c2c7c807434695e56eccc8e134",
+      "raw_pointer_types_removed": 34
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2undo/cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8/libe2undo_audit.a": {
+      "archive_sha256": "cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8",
+      "layouts": [
+        "__pthread_internal_list",
+        "error_table",
+        "ext2_struct_u32_list"
+      ],
+      "pilot_sha256": "5a5a6e3f9687d30dffe1997940c72a6ce64e93923151aae7fcd3b82b2a8cd27e",
+      "raw_pointer_types_removed": 31
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e4defrag/0de205baddb49a145d654d7972d120739e38af71596acd5a07da8a43a43d0734/libe4defrag_audit.a": {
+      "archive_sha256": "0de205baddb49a145d654d7972d120739e38af71596acd5a07da8a43a43d0734",
+      "layouts": [
+        "__pthread_internal_list",
+        "ext2_struct_u32_list",
+        "mntent"
+      ],
+      "pilot_sha256": "b99a0afe4a7b97bdf14a8068a4d03f3c68dbffe6a264cbbde434b0c2348dfe56",
+      "raw_pointer_types_removed": 29
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/fuse2fs/0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a/libfuse2fs_audit.a": {
+      "archive_sha256": "0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a",
+      "layouts": [
+        "__pthread_internal_list",
+        "error_table",
+        "ext2_struct_u32_list",
+        "iovec",
+        "list_head"
+      ],
+      "pilot_sha256": "7e4dc9233419860fda10baed93374544599f307b9bc1fb9d0bd9a7d5f792ff09",
+      "raw_pointer_types_removed": 43
+    },
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/resize2fs/b0c8126d1bdf73d216736f090e322dc52c1a9aa2f37ab78ba534910fc9e68005/libresize2fs_audit.a": {
+      "archive_sha256": "b0c8126d1bdf73d216736f090e322dc52c1a9aa2f37ab78ba534910fc9e68005",
+      "layouts": [
+        "__pthread_internal_list",
+        "error_table",
+        "ext2_struct_u32_list"
+      ],
+      "pilot_sha256": "03fc54d60a78de63f94ebe0de025dbbbc1af2057b092d9f6b5cdc7e6be0dc7d2",
+      "raw_pointer_types_removed": 38
+    },
+    "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/routing-protocols/637afe7c2c47bb9956f7732199be64ec6ba34e5661348e05b95789b47e7215d4/libbridge_audit.a": {
+      "archive_sha256": "637afe7c2c47bb9956f7732199be64ec6ba34e5661348e05b95789b47e7215d4",
+      "layouts": [
+        "iovec",
+        "servent"
+      ],
+      "pilot_sha256": "07447604a0361dee803c08b33b7636cde635451532bf2506209ff18e0d4471c6",
+      "raw_pointer_types_removed": 22
+    }
+  },
+  "link_sha256": "b4fc241f4b720e5cb6212da394c5d021c06285d36645f8412dc04f2261bb5e0b",
+  "manifest_sha256": "4ce560ac430a213d980338817b9c5b5866b050f28c8f997816475f32786b8042",
+  "ranking_script_sha256": "f2d2dfdb43c91ba5bad6ddbb37d500cfb6bffc3953ec395c9cbe53f72ed31ffe",
+  "ranking_sha256": "e445616b2df5d5fa549ce9e9081b882233068ee0e20d776006d0c172521ab971",
+  "scanner_sha256": "10ad99f19beafbec43048ee04a718504963a9fed5412ffca33f3350d24d8552f",
+  "selected": 14,
+  "selector_sha256": "a564cd2efeac4c4cab7ddfb487f000a059c4e476c5695469eec08c8bafd81b90",
+  "skipped": {
+    "work/analysis/acl-2.4.0/translations/c2rust-0.22.1/acl-2.4.0-stable/target/release/libacl_2_4_0_normalized_audit.a": "archive uses Cargo",
+    "work/analysis/attr-2.6.0/translations/c2rust-0.22.1/attr-2.6.0-stable/target/release/libattr_2_6_0_normalized_audit.a": "archive uses Cargo",
+    "work/analysis/bc-1.08.2/translations/c2rust-0.22.1/bc-1.08.2-stable/target/release/libbc_1_08_2_normalized_audit.a": "archive uses Cargo",
+    "work/analysis/bison-3.8.2/translations/c2rust-0.22.1/bison-3.8.2-stable/target/literal-lengths/e60a4fb2be106db3ecffe4380214d26b6fd9198d93ba2ccb380f3babc49aa0d2/libbison_3_8_2_normalized_audit.a": "archive uses Cargo",
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-01-stable/target/release/libcoreutils_small_01_reachable.a": "archive uses Cargo",
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-02-stable/target/release/libcoreutils_small_02_normalized_reachable.a": "archive uses Cargo",
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-04-stable/target/release/libcoreutils_small_04_normalized_reachable.a": "archive uses Cargo",
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-05-stable/target/release/libcoreutils_small_05_normalized_reachable.a": "archive uses Cargo",
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-06-stable/target/release/libcoreutils_small_06_normalized_reachable.a": "archive uses Cargo",
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-07-stable/target/release/libcoreutils_small_07_normalized_reachable.a": "archive uses Cargo",
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-08-stable/target/release/libcoreutils_small_08_normalized_reachable.a": "archive uses Cargo",
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-09-stable/target/release/libcoreutils_small_09_normalized_reachable.a": "archive uses Cargo",
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-11-stable/target/release/libcoreutils_small_11_normalized_reachable.a": "archive uses Cargo",
+    "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/packed-manual/5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7/libcurl_8_23_0_normalized_audit.a": "archive uses Cargo",
+    "work/analysis/diffutils-3.12/translations/c2rust-0.22.1/diffutils-3.12-stable/target/release/libdiffutils_3_12_normalized_audit.a": "archive uses Cargo",
+    "work/analysis/file-5.48/translations/c2rust-0.22.1/file-5.48-stable/target/release/libfile_5_48_normalized_audit.a": "archive uses Cargo",
+    "work/analysis/findutils-4.10.0/translations/c2rust-0.22.1/findutils-4.10.0-stable/target/release/libfindutils_4_10_0_combined.a": "archive uses Cargo",
+    "work/analysis/flex-2.6.4/translations/c2rust-0.22.1/flex-2.6.4-stable/target/release/libflex_2_6_4_normalized_audit.a": "archive uses Cargo",
+    "work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-core-stable/target/release/libgawk_5_4_0_core.a": "archive uses Cargo",
+    "work/analysis/grep-3.12/translations/c2rust-0.22.1/grep-3.12-stable/target/release/libgrep_3_12_normalized_audit.a": "archive uses Cargo",
+    "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a": "archive uses Cargo",
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libdnsdomainname_audit.a": "archive uses Cargo",
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftp_audit.a": "archive uses Cargo",
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftpd_audit.a": "archive uses Cargo",
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libhostname_audit.a": "archive uses Cargo",
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libifconfig_audit.a": "archive uses Cargo",
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libinetd_audit.a": "archive uses Cargo",
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/liblogger_audit.a": "archive uses Cargo",
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libping6_audit.a": "archive uses Cargo",
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libping_audit.a": "archive uses Cargo",
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librcp_audit.a": "archive uses Cargo",
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexec_audit.a": "archive uses Cargo",
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexecd_audit.a": "archive uses Cargo",
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogin_audit.a": "archive uses Cargo",
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogind_audit.a": "archive uses Cargo",
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librsh_audit.a": "archive uses Cargo",
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librshd_audit.a": "archive uses Cargo",
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libsyslogd_audit.a": "archive uses Cargo",
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalk_audit.a": "archive uses Cargo",
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalkd_audit.a": "archive uses Cargo",
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnet_audit.a": "archive uses Cargo",
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnetd_audit.a": "archive uses Cargo",
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftp_audit.a": "archive uses Cargo",
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftpd_audit.a": "archive uses Cargo",
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtraceroute_audit.a": "archive uses Cargo",
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libuucpd_audit.a": "archive uses Cargo",
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libwhois_audit.a": "archive uses Cargo",
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/arpd/routing-protocols/e71f89f4a2d5a7c140ec11be955d742c186493532f495a6fb5f00eb6d53c4815/libarpd_audit.a": "archive uses Cargo",
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dcb/routing-protocols/90605a70d950a4e8f367b6e62e541a45645d3a1d0e09e507c2e516bb56f098da/libdcb_audit.a": "archive uses Cargo",
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/devlink/routing-protocols/cae3cd766504e58db44ba7bb433b0fb9a4d0add282540ed571f69c237174ad5d/libdevlink_audit.a": "archive uses Cargo",
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dpll/routing-protocols/80cb0f32b6738b35f2b738ac8cb02a0270e87ba1d224342f2332416ad8bf90a7/libdpll_audit.a": "archive uses Cargo",
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/genl/routing-protocols/8ff8b69a41c66a8f0e845105886eecdfe5dedb1c7959f79a317eb0a984abd6ef/libgenl_audit.a": "archive uses Cargo",
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ifstat/routing-protocols/dc5c34f225b92264d742411a0e9b8db4b865772f89533640b31c6931dc1e90fe/libifstat_audit.a": "archive uses Cargo",
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/routing-protocols/b798f4f8fec00bb1b57d0296c40083a024ac5c23e768f36f55da22decc6f5cde/libip_audit.a": "archive uses Cargo",
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/lnstat/routing-protocols/1d6294c8f5f20303dc5dd9a288cf521c6036b3e90bd04295409b680fe45ca519/liblnstat_audit.a": "archive uses Cargo",
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/netshaper/routing-protocols/c5f6be1f83d508e662cdc9b84e65d360086f742852fcdd1d0565ad8e5770361f/libnetshaper_audit.a": "archive uses Cargo",
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/nstat/routing-protocols/203b923eafdd4edf56e7770c0a90fb54a6bf9694b3fcfb9ff5ecc009e8d3d020/libnstat_audit.a": "archive uses Cargo",
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rdma/routing-protocols/1732e5a16b0fd9084487999a3487435d400fcf290702bc3ad7991506e7379860/librdma_audit.a": "archive uses Cargo",
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtacct/routing-protocols/3beda3e88b9a92d965f114c7eef1c3e5e862109482c86bee98bd5878d1427dff/librtacct_audit.a": "archive uses Cargo",
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtmon/routing-protocols/977740c95e821be785d59c3d5bee474bb47e45b0d74b0f26d53c002a53f76e64/librtmon_audit.a": "archive uses Cargo",
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ss/routing-protocols/18d689e69622f53c430a532807578d1da23f6156013530a150df1ceb2191de0c/libss_audit.a": "archive uses Cargo",
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/routing-protocols/94a13163da5c630f39cbfbe90e59326ef8d819771eb3beb50b12217e39880e11/libtc_audit.a": "archive uses Cargo",
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tipc/routing-protocols/4f645eb7a654e6cdea2ac08712ef3d5509e1c5e5ddad37accd936a628b19b13d/libtipc_audit.a": "archive uses Cargo",
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/vdpa/routing-protocols/eff8f5092138f0a9ddac055acad0506694cf6504ec5c429daf8b5edc6cbc4081/libvdpa_audit.a": "archive uses Cargo",
+    "work/analysis/kmod-34.3/translations/c2rust-0.22.1/kmod-34.3-stable/target/release/libkmod_34_3_normalized_audit.a": "archive uses Cargo",
+    "work/analysis/less-710/translations/c2rust-0.22.1/less-710-stable/target/release/libless_710_normalized_audit.a": "archive uses Cargo",
+    "work/analysis/lz4-1.11.1/translations/c2rust-0.22.1/lz4-1.11.1-stable/target/release/liblz4_1_11_1_normalized_audit.a": "archive uses Cargo",
+    "work/analysis/m4-1.4.21/translations/c2rust-0.22.1/m4-1.4.21-stable/target/release/libm4_1_4_21_normalized_audit.a": "archive uses Cargo",
+    "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a": "archive uses Cargo",
+    "work/analysis/patch-2.8/translations/c2rust-0.22.1/patch-2.8-stable/target/release/libpatch_2_8_normalized_audit.a": "archive uses Cargo",
+    "work/analysis/pkgconf-3.0.11/translations/c2rust-0.22.1/pkgconf-3.0.11-stable/target/release/libpkgconf_3_0_11_normalized_audit.a": "archive uses Cargo",
+    "work/analysis/procps-ng-4.0.7/translations/c2rust-0.22.1/procps-ng-4.0.7-nightly/target/release/libprocps_ng_4_0_7_normalized_audit.a": "archive uses Cargo",
+    "work/analysis/sed-4.10/translations/c2rust-0.22.1/sed-4.10-stable/target/release/libsed_4_10_normalized_audit.a": "archive uses Cargo",
+    "work/analysis/shadow-4.20.4/translations/c2rust-0.22.1/shadow-4.20.4-nightly/target/release/libshadow_4_20_4_normalized_audit.a": "archive uses Cargo",
+    "work/analysis/tar-1.35/translations/c2rust-0.22.1/tar-1.35-stable/target/borrowed-timestamps/30ac31a37c96970ff8b030c8e71981914d4d117fd78b4a8bec8283628a69a2f3/libtar_1_35_normalized_audit.a": "archive uses Cargo",
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-01-stable/target/release/libutil_linux_small_01_normalized_reachable.a": "archive uses Cargo",
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-02-stable/target/release/libutil_linux_small_02_normalized_reachable.a": "archive uses Cargo",
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-03-stable/target/release/libutil_linux_small_03_normalized_reachable.a": "archive uses Cargo",
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-04-stable/target/release/libutil_linux_small_04_normalized_reachable.a": "archive uses Cargo",
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-05-stable/target/release/libutil_linux_small_05_normalized_reachable.a": "archive uses Cargo",
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-06-stable/target/release/libutil_linux_small_06_normalized_reachable.a": "archive uses Cargo",
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-07-stable/target/release/libutil_linux_small_07_normalized_reachable.a": "archive uses Cargo",
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-09-stable/target/release/libutil_linux_small_09_normalized_reachable.a": "archive uses Cargo",
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-10-stable/target/release/libutil_linux_small_10_normalized_reachable.a": "archive uses Cargo",
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-11-stable/target/release/libutil_linux_small_11_normalized_reachable.a": "archive uses Cargo",
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-12-stable/target/release/libutil_linux_small_12_normalized_reachable.a": "archive uses Cargo",
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-13-stable/target/release/libutil_linux_small_13_normalized_reachable.a": "archive uses Cargo",
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-14-stable/target/release/libutil_linux_small_14_normalized_reachable.a": "archive uses Cargo",
+    "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a": "archive uses Cargo",
+    "work/analysis/zstd-1.5.7/translations/c2rust-0.22.1/zstd-1.5.7-stable/target/release/libzstd_1_5_7_normalized_audit.a": "archive uses Cargo"
+  },
+  "verified_pointer_types_removed": 289
+}
