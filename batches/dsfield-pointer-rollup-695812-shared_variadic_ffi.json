@@ -1,0 +1,249 @@
+{
+  "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-11-stable/target/release/libutil_linux_small_11_normalized_reachable.a": {
+    "parent_receipts": {
+      "native_c_strings": {
+        "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-11-stable/target/release/libutil_linux_small_11_normalized_reachable.a",
+        "c_string_literals": 1823,
+        "candidate_sha256": "1b854a7f59b79fb8007d7623d6e9cad19ee3e66c457f25348458e8f32c99b007",
+        "candidate_sources_sha256": "f75f78b476ae0e448760a6a9ffb1449b9423be095b18f77688efed0623c0e7ac",
+        "compiler_selected_sources": 12,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "1b854a7f59b79fb8007d7623d6e9cad19ee3e66c457f25348458e8f32c99b007",
+        "modules": {
+          "src/disk_utils/partx.rs": 212,
+          "src/misc_utils/blkid.rs": 190,
+          "src/misc_utils/logger.rs": 225,
+          "src/misc_utils/wipefs.rs": 131,
+          "src/sys_utils/eject.rs": 131,
+          "src/sys_utils/losetup.rs": 204,
+          "src/sys_utils/nsenter.rs": 143,
+          "src/sys_utils/setpriv.rs": 249,
+          "src/sys_utils/zramctl.rs": 190,
+          "src/text_utils/column.rs": 148
+        },
+        "parent_sources_sha256": "27c98bd2726e2fc7f257dcee4c4c06dd525896f9010387f97af62e100ee4e461",
+        "raw_ffi_pointer_extractions": 1823,
+        "raw_pointer_types_removed": 3646,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_scalar_ffi": {
+        "all_scalar_interfaces": true,
+        "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-11-stable/target/release/libutil_linux_small_11_normalized_reachable.a",
+        "candidate_sha256": "1b854a7f59b79fb8007d7623d6e9cad19ee3e66c457f25348458e8f32c99b007",
+        "candidate_sources_sha256": "539d894a48576db8c1d932c9eaf3893f895759c40ca8f366e88af777e7bd825f",
+        "compiler_selected_sources": 12,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "1b854a7f59b79fb8007d7623d6e9cad19ee3e66c457f25348458e8f32c99b007",
+        "parent_sources_sha256": "f75f78b476ae0e448760a6a9ffb1449b9423be095b18f77688efed0623c0e7ac",
+        "raw_pointer_types_removed": 233,
+        "scalar_ffi": {
+          "__ctype_b_loc": {
+            "copies": 4,
+            "provider": "src/disk_utils/partx.rs",
+            "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+          },
+          "__errno_location": {
+            "copies": 10,
+            "provider": "src/disk_utils/partx.rs",
+            "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+          },
+          "access": {
+            "copies": 5,
+            "provider": "src/misc_utils/blkid.rs",
+            "signature": "fn access(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> ::core::ffi::c_int;"
+          },
+          "bindtextdomain": {
+            "copies": 10,
+            "provider": "src/disk_utils/partx.rs",
+            "signature": "fn bindtextdomain(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "calloc": {
+            "copies": 6,
+            "provider": "src/misc_utils/blkid.rs",
+            "signature": "fn calloc(a0: usize, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "check_mount_point": {
+            "copies": 2,
+            "provider": "src/misc_utils/blkid.rs",
+            "signature": "fn check_mount_point(a0: *const ::core::ffi::c_char, a1: *mut ::core::ffi::c_int, a2: *mut ::core::ffi::c_char, a3: ::core::ffi::c_int) -> ::core::ffi::c_int;"
+          },
+          "dcgettext": {
+            "copies": 10,
+            "provider": "src/disk_utils/partx.rs",
+            "signature": "fn dcgettext(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "dcngettext": {
+            "copies": 2,
+            "provider": "src/disk_utils/partx.rs",
+            "signature": "fn dcngettext(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: *const ::core::ffi::c_char, a3: ::core::ffi::c_ulong, a4: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "execvp": {
+            "copies": 2,
+            "provider": "src/sys_utils/nsenter.rs",
+            "signature": "fn execvp(a0: *const ::core::ffi::c_char, a1: *const *mut ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "free": {
+            "copies": 10,
+            "provider": "src/disk_utils/partx.rs",
+            "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+          },
+          "isdigit_strend": {
+            "copies": 2,
+            "provider": "src/misc_utils/logger.rs",
+            "signature": "fn isdigit_strend(a0: *const ::core::ffi::c_char, a1: *mut *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "malloc": {
+            "copies": 5,
+            "provider": "src/misc_utils/logger.rs",
+            "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memcpy": {
+            "copies": 5,
+            "provider": "src/misc_utils/blkid.rs",
+            "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memset": {
+            "copies": 4,
+            "provider": "src/misc_utils/logger.rs",
+            "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "realloc": {
+            "copies": 3,
+            "provider": "src/misc_utils/blkid.rs",
+            "signature": "fn realloc(a0: *mut ::core::ffi::c_void, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "setgroups": {
+            "copies": 2,
+            "provider": "src/sys_utils/nsenter.rs",
+            "signature": "fn setgroups(a0: usize, a1: *const ::core::ffi::c_uint) -> ::core::ffi::c_int;"
+          },
+          "setlocale": {
+            "copies": 10,
+            "provider": "src/disk_utils/partx.rs",
+            "signature": "fn setlocale(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strchr": {
+            "copies": 3,
+            "provider": "src/misc_utils/blkid.rs",
+            "signature": "fn strchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strcmp": {
+            "copies": 6,
+            "provider": "src/disk_utils/partx.rs",
+            "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strdup": {
+            "copies": 7,
+            "provider": "src/disk_utils/partx.rs",
+            "signature": "fn strdup(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strlen": {
+            "copies": 7,
+            "provider": "src/disk_utils/partx.rs",
+            "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+          },
+          "strncmp": {
+            "copies": 4,
+            "provider": "src/disk_utils/partx.rs",
+            "signature": "fn strncmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "strndup": {
+            "copies": 2,
+            "provider": "src/misc_utils/blkid.rs",
+            "signature": "fn strndup(a0: *const ::core::ffi::c_char, a1: usize) -> *mut ::core::ffi::c_char;"
+          },
+          "strrchr": {
+            "copies": 4,
+            "provider": "src/disk_utils/partx.rs",
+            "signature": "fn strrchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strtok": {
+            "copies": 3,
+            "provider": "src/misc_utils/logger.rs",
+            "signature": "fn strtok(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strtol": {
+            "copies": 2,
+            "provider": "src/disk_utils/partx.rs",
+            "signature": "fn strtol(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_long;"
+          },
+          "textdomain": {
+            "copies": 10,
+            "provider": "src/disk_utils/partx.rs",
+            "signature": "fn textdomain(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "ul_parse_range": {
+            "copies": 2,
+            "provider": "src/disk_utils/partx.rs",
+            "signature": "fn ul_parse_range(a0: *const ::core::ffi::c_char, a1: *mut ::core::ffi::c_int, a2: *mut ::core::ffi::c_int, a3: ::core::ffi::c_int) -> ::core::ffi::c_int;"
+          },
+          "ul_strv_extend": {
+            "copies": 2,
+            "provider": "src/misc_utils/logger.rs",
+            "signature": "fn ul_strv_extend(a0: *mut *mut *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "ul_strv_free": {
+            "copies": 2,
+            "provider": "src/sys_utils/zramctl.rs",
+            "signature": "fn ul_strv_free(a0: *mut *mut ::core::ffi::c_char) -> *mut *mut ::core::ffi::c_char;"
+          },
+          "ul_strv_split": {
+            "copies": 2,
+            "provider": "src/sys_utils/zramctl.rs",
+            "signature": "fn ul_strv_split(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut *mut ::core::ffi::c_char;"
+          }
+        },
+        "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-11-stable/target/release/libutil_linux_small_11_normalized_reachable.a",
+      "candidate_sha256": "1b854a7f59b79fb8007d7623d6e9cad19ee3e66c457f25348458e8f32c99b007",
+      "candidate_sources_sha256": "f47aabe1e79988ec987727d662b0a47c3057c9c447e8e9751ec429f13934a861",
+      "compiler_selected_sources": 12,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "1b854a7f59b79fb8007d7623d6e9cad19ee3e66c457f25348458e8f32c99b007",
+      "parent_sources_sha256": "539d894a48576db8c1d932c9eaf3893f895759c40ca8f366e88af777e7bd825f",
+      "raw_pointer_types_removed": 54,
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd",
+      "variadic_ffi": {
+        "open": {
+          "copies": 7,
+          "provider": "src/disk_utils/partx.rs",
+          "signature": "fn open(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;"
+        },
+        "printf": {
+          "copies": 10,
+          "provider": "src/disk_utils/partx.rs",
+          "signature": "fn printf(a0: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "snprintf": {
+          "copies": 10,
+          "provider": "src/disk_utils/partx.rs",
+          "signature": "fn snprintf(a0: *mut ::core::ffi::c_char, a1: usize, a2: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "sscanf": {
+          "copies": 2,
+          "provider": "src/sys_utils/setpriv.rs",
+          "signature": "fn sscanf(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "ul_parse_switch": {
+          "copies": 2,
+          "provider": "src/sys_utils/eject.rs",
+          "signature": "fn ul_parse_switch(a0: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "warn": {
+          "copies": 10,
+          "provider": "src/disk_utils/partx.rs",
+          "signature": "fn warn(a0: *const ::core::ffi::c_char, ...);"
+        },
+        "warnx": {
+          "copies": 10,
+          "provider": "src/disk_utils/partx.rs",
+          "signature": "fn warnx(a0: *const ::core::ffi::c_char, ...);"
+        }
+      },
+      "variadic_scanner_sha256": "b2bbe52ef1c1130dd7c661d86f9f55ec8e38f47a12d3bf0be91cebc2ba2e8858"
+    }
+  }
+}

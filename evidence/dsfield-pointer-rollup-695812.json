@@ -1,0 +1,38 @@
+{
+  "binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+  "candidate_link_sha256": "b9a4a4eb67f7e03943b715fbbe386a76d82683ac519013c56b9890a03e71cda3",
+  "counts": {
+    "all": {
+      "after": 695812,
+      "before": 696155
+    },
+    "counting_identical_files_once": {
+      "after": 624057,
+      "before": 621882
+    }
+  },
+  "deferred": {},
+  "input_manifests": {
+    "batches/dsfield-pointer-rollup-695812-shared_scalar_ffi.json": "bce20a38ca77e21a454edbe0365af42ba2de88ff12b6fa53c7d5441b7d7898be",
+    "batches/dsfield-pointer-rollup-695812-shared_variadic_ffi.json": "cd1def13c7630b39b06976d2b7a53cc089c77f09051716a4f231e57da003fb62"
+  },
+  "layers": {
+    "shared_scalar_ffi": {
+      "archives": [
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ss/dsfield-names/773694768d4441e2e36a15dee9300fede61e2c45d417a04cc7a6712482b6e0f4/libss_audit.a",
+        "work/analysis/lz4-1.11.1/translations/c2rust-0.22.1/lz4-1.11.1-stable/target/packed-dictionary/f3e4435913115dfc9c3550deae4e8cc06abcb910d56fb5da98627b5ff4a3f91f/liblz4_1_11_1_normalized_audit.a"
+      ],
+      "manifest_sha256": "bce20a38ca77e21a454edbe0365af42ba2de88ff12b6fa53c7d5441b7d7898be"
+    },
+    "shared_variadic_ffi": {
+      "archives": [
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-11-stable/target/release/libutil_linux_small_11_normalized_reachable.a"
+      ],
+      "manifest_sha256": "cd1def13c7630b39b06976d2b7a53cc089c77f09051716a4f231e57da003fb62"
+    }
+  },
+  "parent_census_sha256": "8cec766f43886e6a673e880a6b21b39ac5e2908d8d79270f80ba8082594504f5",
+  "parent_link_sha256": "e4d730c4a5849ec0b57d413b025f0fbac14e380a82abbb2efe891226ae431bb4",
+  "public_evidence_sha256": "6599c4ec031ad9207a57a8b15c86be77b07e206ece2f3ce0597fa84c72d57fe5",
+  "raw_pointer_types_removed": 343
+}
