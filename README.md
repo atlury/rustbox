@@ -299,6 +299,10 @@ sources the raw-pointer type count fell from **1,379,960 to 747,302**.
 Counting byte-identical Rust files once gives **528,925** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
+To combine existing compiler receipts on a saved executable, run
+`python3 -B scripts/optimize_pointer_selections.py RELEASE.json NEW_DIRECTORY --shared-va-list-layouts VA.json --closed-inline-groups HELPERS.json --shared-scalar-ffi ABI.json`.
+Each flag accepts multiple manifests. The tool tries compatible combinations for each archive, checks the selected archive bytes, and recounts the full compiler inputs. The output contains a manifest for each selected layer and the before-and-after counts in `results.json`. Its optimization target is the total across compiler inputs. The report also gives the count with identical files counted once.
+
 The 36-archive native-string release at `daff5c9` had 878,920 lexical
 occurrences. Parsing all 4,908 compiler inputs found 878,824 raw-pointer
 types and 96 additional textual matches outside those parsed types. Across
