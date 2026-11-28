@@ -1,0 +1,604 @@
+{
+  "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libgzip_1_14_reachable_audit.foreign-86da595a6bf031a52027eca583778dc36b11ec8e8dd0946fe0ea2b02829652cd.json",
+        "sha256": "86da595a6bf031a52027eca583778dc36b11ec8e8dd0946fe0ea2b02829652cd"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libgzip_1_14_reachable_audit.inlines-d81f327985166c29d61e824e83eaca4e03543a1f4875e7bd22ac3cf0d30850ec.json",
+        "sha256": "b262bc28e23414e979e3c9dabc7a31774d53d99dad79def7bc6717bdafa7a2c9"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a",
+        "c_string_literals": 240,
+        "candidate_sha256": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd",
+        "candidate_sources_sha256": "f434a0ff91a141c889d330f04a4dda1200a519b61cdcfd5ef3aa4b41ca3ec963",
+        "compiler_selected_sources": 66,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd",
+        "modules": {
+          "src/normalized_clang/version.rs": 1,
+          "src/normalized_source/deflate.rs": 1,
+          "src/normalized_source/gzip.rs": 166,
+          "src/normalized_source/lib/chdir_long.rs": 21,
+          "src/normalized_source/lib/openat_die.rs": 8,
+          "src/normalized_source/lib/openat_proc.rs": 2,
+          "src/normalized_source/lib/save_cwd.rs": 1,
+          "src/normalized_source/lib/xalloc_die.rs": 4,
+          "src/normalized_source/trees.rs": 2,
+          "src/normalized_source/unlzh.rs": 3,
+          "src/normalized_source/unlzw.rs": 5,
+          "src/normalized_source/unpack.rs": 6,
+          "src/normalized_source/unzip.rs": 11,
+          "src/normalized_source/util.rs": 7,
+          "src/normalized_source/zip.rs": 2
+        },
+        "parent_sources_sha256": "5e289c500bde44824984d63b54b367a72a7dc03e3615876979fe378d023b0ac0",
+        "raw_ffi_pointer_extractions": 240,
+        "raw_pointer_types_removed": 480,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_scalar_ffi": {
+        "all_scalar_interfaces": true,
+        "archive": "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a",
+        "candidate_sha256": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd",
+        "candidate_sources_sha256": "cf846be8b93ee972298aeeefe45f2759c9225bc4871e6c16d271936de1da3cb4",
+        "compiler_selected_sources": 66,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd",
+        "parent_sources_sha256": "f434a0ff91a141c889d330f04a4dda1200a519b61cdcfd5ef3aa4b41ca3ec963",
+        "raw_pointer_types_removed": 110,
+        "scalar_ffi": {
+          "__ctype_tolower_loc": {
+            "copies": 4,
+            "provider": "src/normalized_source/gzip.rs",
+            "signature": "fn __ctype_tolower_loc() -> *mut *const i32;"
+          },
+          "__ctype_toupper_loc": {
+            "copies": 4,
+            "provider": "src/normalized_source/gzip.rs",
+            "signature": "fn __ctype_toupper_loc() -> *mut *const i32;"
+          },
+          "__errno_location": {
+            "copies": 13,
+            "provider": "src/normalized_source/gzip.rs",
+            "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+          },
+          "base_len": {
+            "copies": 2,
+            "provider": "src/normalized_source/lib/filenamecat_lgpl.rs",
+            "signature": "fn base_len(a0: *const ::core::ffi::c_char) -> usize;"
+          },
+          "calloc": {
+            "copies": 2,
+            "provider": "src/normalized_source/lib/ialloc.rs",
+            "signature": "fn calloc(a0: usize, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "free": {
+            "copies": 7,
+            "provider": "src/normalized_source/gzip.rs",
+            "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+          },
+          "gzip_base_name": {
+            "copies": 2,
+            "provider": "src/normalized_source/gzip.rs",
+            "signature": "fn gzip_base_name(a0: *mut ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "gzip_error": {
+            "copies": 7,
+            "provider": "src/normalized_source/deflate.rs",
+            "signature": "fn gzip_error(a0: *const ::core::ffi::c_char);"
+          },
+          "last_component": {
+            "copies": 5,
+            "provider": "src/normalized_source/gzip.rs",
+            "signature": "fn last_component(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "malloc": {
+            "copies": 7,
+            "provider": "src/normalized_source/inflate.rs",
+            "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memcpy": {
+            "copies": 8,
+            "provider": "src/normalized_source/deflate.rs",
+            "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memset": {
+            "copies": 4,
+            "provider": "src/normalized_source/deflate.rs",
+            "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "realloc": {
+            "copies": 4,
+            "provider": "src/normalized_source/lib/ialloc.rs",
+            "signature": "fn realloc(a0: *mut ::core::ffi::c_void, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "rpl_reallocarray": {
+            "copies": 2,
+            "provider": "src/normalized_source/lib/ialloc.rs",
+            "signature": "fn rpl_reallocarray(a0: *mut ::core::ffi::c_void, a1: usize, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "strcmp": {
+            "copies": 2,
+            "provider": "src/normalized_source/gzip.rs",
+            "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strcpy": {
+            "copies": 2,
+            "provider": "src/normalized_source/gzip.rs",
+            "signature": "fn strcpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strcspn": {
+            "copies": 2,
+            "provider": "src/normalized_source/gzip.rs",
+            "signature": "fn strcspn(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_ulong;"
+          },
+          "strerror": {
+            "copies": 2,
+            "provider": "src/normalized_source/gzip.rs",
+            "signature": "fn strerror(a0: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strlen": {
+            "copies": 7,
+            "provider": "src/normalized_source/gzip.rs",
+            "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+          },
+          "strspn": {
+            "copies": 2,
+            "provider": "src/normalized_source/lib/chdir_long.rs",
+            "signature": "fn strspn(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_ulong;"
+          },
+          "updcrc": {
+            "copies": 3,
+            "provider": "src/normalized_source/gzip.rs",
+            "signature": "fn updcrc(a0: *const ::core::ffi::c_uchar, a1: ::core::ffi::c_uint) -> ::core::ffi::c_ulong;"
+          },
+          "warning": {
+            "copies": 2,
+            "provider": "src/normalized_source/trees.rs",
+            "signature": "fn warning(a0: *const ::core::ffi::c_char);"
+          },
+          "xstrdup": {
+            "copies": 2,
+            "provider": "src/normalized_source/gzip.rs",
+            "signature": "fn xstrdup(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          }
+        },
+        "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+      },
+      "shared_stdio_layouts": {
+        "archive": "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a",
+        "candidate_sha256": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd",
+        "candidate_sources_sha256": "5e289c500bde44824984d63b54b367a72a7dc03e3615876979fe378d023b0ac0",
+        "compiler_selected_sources": 66,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd",
+        "parent_sources_sha256": "b40e8f7416b61aacb51120150f202af1647e99e1a4fa3ee70c8f32b851de0569",
+        "provider": "src/normalized_source/gzip.rs",
+        "raw_pointer_types_removed": 468,
+        "reexporting_modules": [
+          "src/normalized_source/bits.rs",
+          "src/normalized_source/deflate.rs",
+          "src/normalized_source/inflate.rs",
+          "src/normalized_source/lib/asnprintf.rs",
+          "src/normalized_source/lib/chdir_long.rs",
+          "src/normalized_source/lib/fclose.rs",
+          "src/normalized_source/lib/fflush.rs",
+          "src/normalized_source/lib/fopen.rs",
+          "src/normalized_source/lib/fpurge.rs",
+          "src/normalized_source/lib/freading.rs",
+          "src/normalized_source/lib/fseek.rs",
+          "src/normalized_source/lib/fseeko.rs",
+          "src/normalized_source/lib/fseterr.rs",
+          "src/normalized_source/lib/openat_die.rs",
+          "src/normalized_source/lib/openat_proc.rs",
+          "src/normalized_source/lib/save_cwd.rs",
+          "src/normalized_source/lib/vfzprintf.rs",
+          "src/normalized_source/lib/xalloc_die.rs",
+          "src/normalized_source/lib/yesno.rs",
+          "src/normalized_source/trees.rs",
+          "src/normalized_source/unlzh.rs",
+          "src/normalized_source/unlzw.rs",
+          "src/normalized_source/unpack.rs",
+          "src/normalized_source/unzip.rs",
+          "src/normalized_source/util.rs",
+          "src/normalized_source/zip.rs"
+        ]
+      },
+      "shared_variadic_ffi": {
+        "archive": "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a",
+        "candidate_sha256": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd",
+        "candidate_sources_sha256": "0c4b93392cbbd53006f70000602a519569b20a6662347e4af6610b9a5235cd73",
+        "compiler_selected_sources": 66,
+        "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+        "control_sha256": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd",
+        "parent_sources_sha256": "cf846be8b93ee972298aeeefe45f2759c9225bc4871e6c16d271936de1da3cb4",
+        "raw_pointer_types_removed": 4,
+        "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd",
+        "variadic_ffi": {
+          "error": {
+            "copies": 2,
+            "provider": "src/normalized_source/lib/openat_die.rs",
+            "signature": "fn error(a0: ::core::ffi::c_int, a1: ::core::ffi::c_int, a2: *const ::core::ffi::c_char, ...);"
+          },
+          "open": {
+            "copies": 2,
+            "provider": "src/normalized_source/lib/open_safer.rs",
+            "signature": "fn open(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;"
+          },
+          "open_safer": {
+            "copies": 2,
+            "provider": "src/normalized_source/gzip.rs",
+            "signature": "fn open_safer(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;"
+          },
+          "openat": {
+            "copies": 2,
+            "provider": "src/normalized_source/lib/chdir_long.rs",
+            "signature": "fn openat(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;"
+          }
+        },
+        "variadic_scanner_sha256": "b2bbe52ef1c1130dd7c661d86f9f55ec8e38f47a12d3bf0be91cebc2ba2e8858"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a",
+      "candidate_sha256": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd",
+      "candidate_sources_sha256": "9e6958894b839d90733bf63a5c9879ed79eaa15762fab98ca74417ce06f31772",
+      "changed_modules": 44,
+      "compiler_selected_sources": 66,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd",
+      "parent_sources_sha256": "0c4b93392cbbd53006f70000602a519569b20a6662347e4af6610b9a5235cd73",
+      "raw_pointer_types_removed": 114,
+      "removed_declarations": {
+        "struct": 30,
+        "type": 36
+      },
+      "scanner_sha256": "2b7cb8c49225787ddc05c5b6d441089b3a647290119d1473977758e8a6f4e226"
+    }
+  },
+  "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libdnsdomainname_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libdnsdomainname_audit.foreign-05cf1d886638c34e670a4154e53468f271c4586e492b36f93b617e8342add73c.json",
+        "sha256": "05cf1d886638c34e670a4154e53468f271c4586e492b36f93b617e8342add73c"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libdnsdomainname_audit.inlines-5bce872d306d12e9ecea22767fe89cc42ee01ba0be0346399f4f39c86998e38e.json",
+        "sha256": "67b547041e03b901ff92225e68036af38263ad619548ef71bcae068afacbb091"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libdnsdomainname_audit.layer2-10430b1086800cfc96d9d8ab5f9774461f617f27ee339531358910ea32aa0231.json",
+        "sha256": "10430b1086800cfc96d9d8ab5f9774461f617f27ee339531358910ea32aa0231"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libdnsdomainname_audit.a",
+        "c_string_literals": 120,
+        "candidate_sha256": "5ff96a206286f7ff4565bfa62f7ee8780603ee72f9c65785c5a15ef290a76b20",
+        "candidate_sources_sha256": "441a79d420253fdeb8170aa4c97ee04945a71aa5d8565cd8d175dd47806df214",
+        "compiler_selected_sources": 22,
+        "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+        "control_sha256": "5ff96a206286f7ff4565bfa62f7ee8780603ee72f9c65785c5a15ef290a76b20",
+        "modules": {
+          "src/lib/argp_help.rs": 48,
+          "src/lib/argp_parse.rs": 22,
+          "src/lib/getopt.rs": 15,
+          "src/lib/progname.rs": 2,
+          "src/lib/version_etc.rs": 22,
+          "src/lib/xalloc_die.rs": 4,
+          "src/src/dnsdomainname.rs": 7
+        },
+        "parent_sources_sha256": "b3c4d23ef2edac043990cbcdbc5703e45545fb90588131cfb8be112b333f2125",
+        "raw_ffi_pointer_extractions": 120,
+        "raw_pointer_types_removed": 240,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_scalar_ffi": {
+        "all_scalar_interfaces": true,
+        "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libdnsdomainname_audit.a",
+        "candidate_sha256": "5ff96a206286f7ff4565bfa62f7ee8780603ee72f9c65785c5a15ef290a76b20",
+        "candidate_sources_sha256": "d8caacb929df8797abaf087dcd65cde045712ecc405d0d00737292101e67419f",
+        "compiler_selected_sources": 22,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "5ff96a206286f7ff4565bfa62f7ee8780603ee72f9c65785c5a15ef290a76b20",
+        "parent_sources_sha256": "441a79d420253fdeb8170aa4c97ee04945a71aa5d8565cd8d175dd47806df214",
+        "raw_pointer_types_removed": 99,
+        "scalar_ffi": {
+          "__ctype_b_loc": {
+            "copies": 9,
+            "provider": "src/lib/argp_ba.rs",
+            "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+          },
+          "__ctype_tolower_loc": {
+            "copies": 9,
+            "provider": "src/lib/argp_ba.rs",
+            "signature": "fn __ctype_tolower_loc() -> *mut *const i32;"
+          },
+          "__ctype_toupper_loc": {
+            "copies": 9,
+            "provider": "src/lib/argp_ba.rs",
+            "signature": "fn __ctype_toupper_loc() -> *mut *const i32;"
+          },
+          "__errno_location": {
+            "copies": 5,
+            "provider": "src/lib/argp_fmtstream.rs",
+            "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+          },
+          "free": {
+            "copies": 6,
+            "provider": "src/lib/argp_fmtstream.rs",
+            "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+          },
+          "getenv": {
+            "copies": 2,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "malloc": {
+            "copies": 5,
+            "provider": "src/lib/argp_fmtstream.rs",
+            "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memcpy": {
+            "copies": 2,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memset": {
+            "copies": 5,
+            "provider": "src/lib/argp_fmtstream.rs",
+            "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "realloc": {
+            "copies": 3,
+            "provider": "src/lib/argp_fmtstream.rs",
+            "signature": "fn realloc(a0: *mut ::core::ffi::c_void, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "strchr": {
+            "copies": 4,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn strchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strcmp": {
+            "copies": 3,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strlen": {
+            "copies": 5,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+          },
+          "strncmp": {
+            "copies": 3,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn strncmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "strtol": {
+            "copies": 2,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn strtol(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_long;"
+          }
+        },
+        "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+      },
+      "shared_stdio_layouts": {
+        "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libdnsdomainname_audit.a",
+        "candidate_sha256": "5ff96a206286f7ff4565bfa62f7ee8780603ee72f9c65785c5a15ef290a76b20",
+        "candidate_sources_sha256": "b3c4d23ef2edac043990cbcdbc5703e45545fb90588131cfb8be112b333f2125",
+        "compiler_selected_sources": 22,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "5ff96a206286f7ff4565bfa62f7ee8780603ee72f9c65785c5a15ef290a76b20",
+        "parent_sources_sha256": "da3a68bdb030bd3d6b16949ea41e46969084752ff3da7b2a46d567079f4e030e",
+        "provider": "src/lib/argp_ba.rs",
+        "raw_pointer_types_removed": 216,
+        "reexporting_modules": [
+          "src/lib/argp_eexst.rs",
+          "src/lib/argp_fmtstream.rs",
+          "src/lib/argp_help.rs",
+          "src/lib/argp_parse.rs",
+          "src/lib/argp_pv.rs",
+          "src/lib/argp_pvh.rs",
+          "src/lib/argp_version_etc.rs",
+          "src/lib/getopt.rs",
+          "src/lib/version_etc.rs",
+          "src/lib/version_etc_fsf.rs",
+          "src/lib/xalloc_die.rs",
+          "src/src/dnsdomainname.rs"
+        ]
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libdnsdomainname_audit.a",
+      "candidate_sha256": "5ff96a206286f7ff4565bfa62f7ee8780603ee72f9c65785c5a15ef290a76b20",
+      "candidate_sources_sha256": "afb2dcb73b593194bf276501f940103dc05d79c7ca10aaa571d5871054124e5a",
+      "changed_modules": 17,
+      "compiler_selected_sources": 22,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "5ff96a206286f7ff4565bfa62f7ee8780603ee72f9c65785c5a15ef290a76b20",
+      "parent_sources_sha256": "d8caacb929df8797abaf087dcd65cde045712ecc405d0d00737292101e67419f",
+      "raw_pointer_types_removed": 113,
+      "removed_declarations": {
+        "struct": 22,
+        "type": 18
+      },
+      "scanner_sha256": "2b7cb8c49225787ddc05c5b6d441089b3a647290119d1473977758e8a6f4e226"
+    }
+  },
+  "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexecd_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "librexecd_audit.foreign-d86ca060bf0e7d2a13e1f1d4f4962a899b323fc3c81575f92fc265716acad880.json",
+        "sha256": "d86ca060bf0e7d2a13e1f1d4f4962a899b323fc3c81575f92fc265716acad880"
+      },
+      "linked_private_inline_proofs": {
+        "file": "librexecd_audit.inlines-f777e174c0209272852199473324a358a058945a729c91a39c5068e529a4ccc7.json",
+        "sha256": "44c2e546974a003d281b612013dbcc43c7a345b92cf837013e3c315b7a7f9ecb"
+      },
+      "linked_second_inline_proofs": {
+        "file": "librexecd_audit.layer2-4ef34d46cb45c994a88e4f36c1762fb6085588d5294e4dfd5ae2878ac0c433ef.json",
+        "sha256": "4ef34d46cb45c994a88e4f36c1762fb6085588d5294e4dfd5ae2878ac0c433ef"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexecd_audit.a",
+        "c_string_literals": 157,
+        "candidate_sha256": "556cdced2a39e7b3c34f88c49e3b3ce689388fd1a2e73b8d07f3196c958039ce",
+        "candidate_sources_sha256": "09dde6bde8c89958721b2afc1e6276005709533b5a901566e953359335df2722",
+        "compiler_selected_sources": 23,
+        "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+        "control_sha256": "556cdced2a39e7b3c34f88c49e3b3ce689388fd1a2e73b8d07f3196c958039ce",
+        "modules": {
+          "src/lib/argp_help.rs": 48,
+          "src/lib/argp_parse.rs": 22,
+          "src/lib/getopt.rs": 15,
+          "src/lib/progname.rs": 2,
+          "src/lib/version_etc.rs": 22,
+          "src/lib/xalloc_die.rs": 4,
+          "src/libinetutils/defauthors.rs": 1,
+          "src/src/rexecd.rs": 43
+        },
+        "parent_sources_sha256": "3cd3e6104c0174a9249442f96aeef61dc41ec031df5bf81d4b9261565cdbd0a3",
+        "raw_ffi_pointer_extractions": 157,
+        "raw_pointer_types_removed": 314,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_scalar_ffi": {
+        "all_scalar_interfaces": true,
+        "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexecd_audit.a",
+        "candidate_sha256": "556cdced2a39e7b3c34f88c49e3b3ce689388fd1a2e73b8d07f3196c958039ce",
+        "candidate_sources_sha256": "160a492b83dc226f7b2f9421b317b45f5b9fdad347cc877cbbdcef4a06a3e000",
+        "compiler_selected_sources": 23,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "556cdced2a39e7b3c34f88c49e3b3ce689388fd1a2e73b8d07f3196c958039ce",
+        "parent_sources_sha256": "09dde6bde8c89958721b2afc1e6276005709533b5a901566e953359335df2722",
+        "raw_pointer_types_removed": 98,
+        "scalar_ffi": {
+          "__ctype_b_loc": {
+            "copies": 9,
+            "provider": "src/lib/argp_ba.rs",
+            "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+          },
+          "__ctype_tolower_loc": {
+            "copies": 9,
+            "provider": "src/lib/argp_ba.rs",
+            "signature": "fn __ctype_tolower_loc() -> *mut *const i32;"
+          },
+          "__ctype_toupper_loc": {
+            "copies": 9,
+            "provider": "src/lib/argp_ba.rs",
+            "signature": "fn __ctype_toupper_loc() -> *mut *const i32;"
+          },
+          "__errno_location": {
+            "copies": 4,
+            "provider": "src/lib/argp_fmtstream.rs",
+            "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+          },
+          "free": {
+            "copies": 4,
+            "provider": "src/lib/argp_fmtstream.rs",
+            "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+          },
+          "getenv": {
+            "copies": 2,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "malloc": {
+            "copies": 6,
+            "provider": "src/lib/argp_fmtstream.rs",
+            "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memcpy": {
+            "copies": 2,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memset": {
+            "copies": 4,
+            "provider": "src/lib/argp_fmtstream.rs",
+            "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "realloc": {
+            "copies": 4,
+            "provider": "src/lib/argp_fmtstream.rs",
+            "signature": "fn realloc(a0: *mut ::core::ffi::c_void, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "strchr": {
+            "copies": 3,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn strchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strcmp": {
+            "copies": 4,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strlen": {
+            "copies": 4,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+          },
+          "strncmp": {
+            "copies": 3,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn strncmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "strrchr": {
+            "copies": 2,
+            "provider": "src/lib/progname.rs",
+            "signature": "fn strrchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strtol": {
+            "copies": 2,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn strtol(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_long;"
+          }
+        },
+        "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+      },
+      "shared_stdio_layouts": {
+        "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexecd_audit.a",
+        "candidate_sha256": "556cdced2a39e7b3c34f88c49e3b3ce689388fd1a2e73b8d07f3196c958039ce",
+        "candidate_sources_sha256": "3cd3e6104c0174a9249442f96aeef61dc41ec031df5bf81d4b9261565cdbd0a3",
+        "compiler_selected_sources": 23,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "556cdced2a39e7b3c34f88c49e3b3ce689388fd1a2e73b8d07f3196c958039ce",
+        "parent_sources_sha256": "50ba4f557e8febd49f0456b279d0c5f4b4ade42fff0b86a83aef76669bc7d173",
+        "provider": "src/lib/argp_ba.rs",
+        "raw_pointer_types_removed": 216,
+        "reexporting_modules": [
+          "src/lib/argp_eexst.rs",
+          "src/lib/argp_fmtstream.rs",
+          "src/lib/argp_help.rs",
+          "src/lib/argp_parse.rs",
+          "src/lib/argp_pv.rs",
+          "src/lib/argp_pvh.rs",
+          "src/lib/argp_version_etc.rs",
+          "src/lib/getopt.rs",
+          "src/lib/version_etc.rs",
+          "src/lib/version_etc_fsf.rs",
+          "src/lib/xalloc_die.rs",
+          "src/src/rexecd.rs"
+        ]
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexecd_audit.a",
+      "candidate_sha256": "556cdced2a39e7b3c34f88c49e3b3ce689388fd1a2e73b8d07f3196c958039ce",
+      "candidate_sources_sha256": "78dcb5a42a700bb389735b66bb46674c299005d61d10a541122ff45496e9c2d6",
+      "changed_modules": 18,
+      "compiler_selected_sources": 23,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "556cdced2a39e7b3c34f88c49e3b3ce689388fd1a2e73b8d07f3196c958039ce",
+      "parent_sources_sha256": "160a492b83dc226f7b2f9421b317b45f5b9fdad347cc877cbbdcef4a06a3e000",
+      "raw_pointer_types_removed": 115,
+      "removed_declarations": {
+        "struct": 23,
+        "type": 23
+      },
+      "scanner_sha256": "2b7cb8c49225787ddc05c5b6d441089b3a647290119d1473977758e8a6f4e226"
+    }
+  }
+}
