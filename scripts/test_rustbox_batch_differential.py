@@ -129,8 +129,15 @@ def main() -> int:
         }
 
     try:
+        # lsns reads the entire live /proc table. Compare it before the other
+        # harnesses start short-lived processes in this container's PID namespace.
+        quiet = [job for job in jobs if job["batch"] == "util-linux-small-13"]
+        parallel = [job for job in jobs if job["batch"] != "util-linux-small-13"]
+        by_batch = {job["batch"]: execute(job) for job in quiet}
         with concurrent.futures.ThreadPoolExecutor(max_workers=args.jobs) as executor:
-            records = list(executor.map(execute, jobs))
+            for record in executor.map(execute, parallel):
+                by_batch[record["batch"]] = record
+        records = [by_batch[job["batch"]] for job in jobs]
     finally:
         temporary.cleanup()
 
