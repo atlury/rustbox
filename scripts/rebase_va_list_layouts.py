@@ -12,10 +12,11 @@ from cargo_source_parent import cargo_origin
 from prepare_identical_archives import prepare, row_origin, selected_receipts, validate_link
 
 LAYER = "shared_va_list_layouts"
+ORDER = (LAYER, "closed_inline_groups", "shared_scalar_ffi", "shared_variadic_ffi")
 
 
 def rebase(link, manifests, output, *, layer=LAYER, allow_empty=False):
-    if layer not in (LAYER, "closed_inline_groups", "shared_scalar_ffi"):
+    if layer not in ORDER:
         raise ValueError("unknown byte-identical release layer")
     inputs = {p: p.read_bytes() for p in (link, *manifests)}
     if output.resolve() in {p.resolve() for p in inputs}:
@@ -51,8 +52,9 @@ def rebase(link, manifests, output, *, layer=LAYER, allow_empty=False):
         candidate = {**parent, layer:records}
         after = measure(candidate)
         check_identical_layer(parent, candidate, before, after, layer)
-        if layer in ("closed_inline_groups", "shared_scalar_ffi"):
-            metric = "closed_inline_deltas" if layer == "closed_inline_groups" else "scalar_ffi_deltas"
+        if layer != LAYER:
+            metric = {"closed_inline_groups": "closed_inline_deltas", "shared_scalar_ffi": "scalar_ffi_deltas",
+                      "shared_variadic_ffi": "variadic_ffi_deltas"}[layer]
             changes = {key: counts["raw_pointer_type_tokens"] for key, counts in after[metric].items()}
         else:
             changes = after["shared_va_list_layout_deltas"]
@@ -77,6 +79,7 @@ if __name__ == "__main__":
     p.add_argument("output", type=Path)
     p.add_argument("manifests", nargs="+", type=Path)
     choice = p.add_mutually_exclusive_group()
+    choice.add_argument("--shared-variadic-ffi", action="store_const", dest="layer", const="shared_variadic_ffi")
     choice.add_argument("--closed-inlines", action="store_const", dest="layer", const="closed_inline_groups")
     choice.add_argument("--shared-scalar-ffi", action="store_const", dest="layer", const="shared_scalar_ffi")
     p.set_defaults(layer=LAYER)

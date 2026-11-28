@@ -101,7 +101,7 @@ def check_extension(before, after):
         raise ValueError("scalar ABI extension must retain the original imports on identical parent sources")
 
 
-def replay_layer(parent, read_parent, row, tool):
+def replay_layer(parent, read_parent, row, tool, *, transform=None):
     from hashlib import sha256
     from tempfile import TemporaryDirectory
     from check_e2fsprogs_dirhash_arrays import source_list_digest
@@ -119,7 +119,10 @@ def replay_layer(parent, read_parent, row, tool):
             if sha256(data).hexdigest() != checksum:
                 raise ValueError("scalar ABI module differs from the verified parent")
             path.write_bytes(data)
-        changed, facts = substitute(crate, parent, tool, all_interfaces=row.get("all_scalar_interfaces", False))
+        if transform is None:
+            changed, facts = substitute(crate, parent, tool, all_interfaces=row.get("all_scalar_interfaces", False))
+        else:
+            changed, facts = transform(crate, parent, tool)
     updated = {**parent, **{k: sha256(v).hexdigest() for k, v in changed.items()}}
     if (any(row.get(k) != v for k,v in facts.items())
             or source_list_digest(updated) != row["candidate_sources_sha256"]):

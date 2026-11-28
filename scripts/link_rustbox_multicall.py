@@ -2443,6 +2443,7 @@ def main() -> int:
     parser.add_argument("--iproute2-dsfield-names", action="store_true")
     parser.add_argument("--iproute2-routing-protocols", action="store_true")
     parser.add_argument("--shared-scalar-ffi", type=Path)
+    parser.add_argument("--shared-variadic-ffi", type=Path)
     parser.add_argument("--closed-inlines", type=Path)
     parser.add_argument("--ncurses-termtypes", type=Path)
     parser.add_argument("--curl-manual", action="store_true")
@@ -2873,7 +2874,8 @@ def main() -> int:
                             (args.iproute2_dsfield_names, dsfield_names.FIELD),
                             (args.lz4_benchmark_dictionary, lz4_dictionary_archive.selection.field),
                             (args.va_list_layouts, "shared_va_list_layouts"), (args.ncurses_termtypes, "shared_ncurses_termtypes"),
-                            (args.closed_inlines, "closed_inline_groups"), (args.shared_scalar_ffi, "shared_scalar_ffi")):
+                            (args.closed_inlines, "closed_inline_groups"), (args.shared_scalar_ffi, "shared_scalar_ffi"),
+                            (args.shared_variadic_ffi, "shared_variadic_ffi")):
         if manifest and layer in (routing_protocols.FIELD, dsfield_names.FIELD):
             reader = dsfield_names if layer == dsfield_names.FIELD else routing_protocols
             context = dict(source_library_sha256=source_library_hashes, **route_selections, **identical_layers)
@@ -2902,7 +2904,7 @@ def main() -> int:
             cargo_changes[layer] = record
         elif manifest:
             items = json.loads(manifest.read_bytes())
-            if layer in ("native_c_strings", "shared_va_list_layouts", "closed_inline_groups", "shared_scalar_ffi"):
+            if layer in ("native_c_strings", "shared_va_list_layouts", "closed_inline_groups", "shared_scalar_ffi", "shared_variadic_ffi"):
                 # Direct-rustc parents are materialized in this Linux process.
                 direct = {k: item for k, item in items.items() if "rustc_archive" in item["pilot"]}
                 prepare_identical_archives.prepare(direct, layer, mounted_direct=True)

@@ -21,9 +21,17 @@ def ranked_inputs(inventory, scalar_ffi):
         return inventory["archives"], SOURCE, "build_closed_inlines.py", EMPTY_DIAGNOSTIC
     from collections import Counter
     from build_scalar_ffi import SOURCE as ffi_source, SYMBOLS
-    if scalar_ffi == "all":
+    if scalar_ffi in ("all", "variadic"):
+        driver = "build_scalar_ffi.py"
+        if scalar_ffi == "variadic":
+            from build_variadic_ffi import SELECTOR
+            if inventory.get("variadic_scanner_sha256") != digest(SELECTOR):
+                raise ValueError("ranking differs from the variadic declaration scanner")
+            driver = "build_variadic_ffi.py"
+        elif "variadic_scanner_sha256" in inventory:
+            raise ValueError("variadic signatures require the variadic driver")
         ordered = {key: {"pointer_types": n} for key, n in sorted(inventory["archives"].items(), key=lambda item: (-item[1], item[0]))}
-        return ordered, ffi_source, "build_scalar_ffi.py", b"ValueError: no repeated eligible libc interfaces in this crate"
+        return ordered, ffi_source, driver, b"ValueError: no repeated eligible libc interfaces in this crate"
     counts = Counter()
     for group in inventory["signatures"]:
         if group["signature"].split("(", 1)[0].removeprefix("fn ") in SYMBOLS:
@@ -93,8 +101,11 @@ def run(link, ranking, output, packages, jobs, exclude=(), scalar_ffi=False, *, 
                             return "empty", {"log": log.name, "log_sha256": digest(log)}
                     proc.check_returncode()
             with log.open("ab") as stream:
-                subprocess.run([*driver, "--replay", folder], check=True, stdout=stream, stderr=subprocess.STDOUT)
+                replay = [*build, "--replay"] if scalar_ffi == "variadic" else [*driver, "--replay", folder]
+                subprocess.run(replay, check=True, stdout=stream, stderr=subprocess.STDOUT)
             row = json.loads((folder / "pilot.json").read_bytes())
+            if scalar_ffi == "variadic" and row.get("variadic_scanner_sha256") != inventory["variadic_scanner_sha256"]:
+                raise ValueError("archive used a different variadic declaration scanner")
             if (bool(row.get("all_scalar_interfaces")) != (scalar_ffi == "all") or row["archive"] != key or row["control_binary_sha256"] != inventory["binary_sha256"]
                     or not 0 < row["raw_pointer_types_removed"] <= selected[key]["pointer_types"]):
                 raise ValueError("compiler receipt does not match ranked candidate")
@@ -111,6 +122,8 @@ def run(link, ranking, output, packages, jobs, exclude=(), scalar_ffi=False, *, 
         snapshot = output / "results.json"
         previous = json.loads(snapshot.read_bytes()) if snapshot.is_file() else {}
         scope = "all-scalar" if scalar_ffi == "all" else "libc" if scalar_ffi else "private-inlines"
+        if scalar_ffi == "variadic":
+            scope = "variadic"
         result["scope"] = scope
         if previous and (previous["link_sha256"] != signature or previous["ranking_sha256"] != result["ranking_sha256"]
                          or previous.get("scope", "libc" if scalar_ffi is True else "private-inlines") != scope):
@@ -143,6 +156,7 @@ if __name__ == "__main__":
     parser.add_argument("--package", action="append", default=[])
     parser.add_argument("--exclude-package", action="append", default=[])
     scope = parser.add_mutually_exclusive_group()
+    scope.add_argument("--variadic-ffi", action="store_const", const="variadic", dest="scalar_ffi")
     scope.add_argument("--all-scalar-ffi", action="store_const", const="all", dest="scalar_ffi")
     scope.add_argument("--scalar-ffi", action="store_true", help="use the scalar ABI ranking and cold-build driver")
     parser.add_argument("--narrow-sweep", type=Path, help="skip previous verified builds already at the ranked maximum")

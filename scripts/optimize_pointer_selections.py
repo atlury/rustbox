@@ -10,8 +10,7 @@ from cargo_source_parent import cargo_origin, row_origin
 from check_cargo_private_inlines import digest
 from compose_pointer_selections import compose
 from prepare_identical_archives import selected_receipts
-
-ORDER = ("shared_va_list_layouts", "closed_inline_groups", "shared_scalar_ffi")
+from rebase_va_list_layouts import ORDER
 
 
 def best_chain(parent, key, options):
@@ -43,7 +42,7 @@ def optimize(link, manifests, output):
     inputs = {p: digest(p) for p in (link, *(path for files in manifests.values() for path in files))}
     parent = json.loads(link.read_bytes())
     if any(k in parent for k in ORDER):
-        raise ValueError("optimization needs a parent preceding the three optional layers")
+        raise ValueError("optimization needs a parent preceding the optional source layers")
     options = {}
     for layer, paths in manifests.items():
         if layer not in ORDER:

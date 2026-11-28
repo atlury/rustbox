@@ -14,15 +14,15 @@ from check_cargo_private_inlines import ROOT, digest
 from verify_c_string_sources import syntax_tool
 
 
-def rank(link):
+def rank(link, *, variadic=False):
     raw = link.read_bytes()
     copies = defaultdict(Counter)
     by_signature = defaultdict(Counter)
-    tool = syntax_tool("scalar-ffi")
+    tool = syntax_tool("variadic-ffi" if variadic else "scalar-ffi")
     with TemporaryDirectory() as tmp:
         directory = Path(tmp)
         def capture(archive, module, checksum, data):
-            if b'extern "C"' not in data:
+            if b'extern "C"' not in data or (variadic and b"..." not in data):
                 return
             name = checksum.hex() + ".rs"
             if name not in copies:
@@ -46,13 +46,17 @@ def rank(link):
     groups.sort(key=lambda g: (-g["pointer_types"], g["signature"]))
     if raw != link.read_bytes():
         raise ValueError("release changed during FFI inventory")
-    return dict(link_sha256=sha256(raw).hexdigest(), binary_sha256=json.loads(raw)["binary"]["sha256"],
+    result = dict(link_sha256=sha256(raw).hexdigest(), binary_sha256=json.loads(raw)["binary"]["sha256"],
                 scanner_source_sha256=digest(ROOT/"tools/private-inlines/src/bin/scalar-ffi.rs"),
                 candidate_pointer_types=sum(totals.values()), archives=dict(totals), signatures=groups)
+    if variadic:
+        result["variadic_scanner_sha256"] = digest(ROOT / "tools/private-inlines/src/bin/variadic-ffi.rs")
+    return result
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("link", type=Path)
+    parser.add_argument("--variadic", action="store_true", help="rank C variadic declarations with matching fixed parameter types")
     args = parser.parse_args()
-    print(json.dumps(rank(args.link), indent=2, sort_keys=True))
+    print(json.dumps(rank(args.link, variadic=args.variadic), indent=2, sort_keys=True))
