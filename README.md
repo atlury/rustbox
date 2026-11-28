@@ -2484,6 +2484,8 @@ On the tested DS field executable, the initial selection chose compatible compil
 
 On the tested DS field executable, the expanded selection chose compatible compiler receipts for 92 archives. Its source count fell from 742,521 to 708,717, with 551,280 when identical files are counted once. [Verified expanded selection](evidence/dsfield-optimized-expanded.json)
 
+The GNU tar table tests are reproducible with `python3 -B scripts/test_tar_exclusion_tables.py` and `python3 -B scripts/test_tar_argmatch_tables.py`. Run them without arguments for the GCC/Clang baseline, then pass `--link LINK --pilot PILOT` to compare the translated control and candidate. Both GNU builds agreed on all 132 option cases, including 24 expected failures. [Canonical option results](evidence/tar-argmatch-canonical.json)
+
 To replay a recovered group, run `python3 -B scripts/verify_closed_inline_recovery.py PARENT_LINK SELECTED_LINK ACTIVE_MANIFEST WHOLE_TRIAL SUBSET_TRIAL OUTPUT`. It checks both compiler receipts, matches the removed helpers against the original module list, and recounts the combined selection.
 
 The first four verified archives remove 3,861 declarations on the tar baseline:
