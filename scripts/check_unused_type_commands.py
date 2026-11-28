@@ -12,13 +12,10 @@ from tempfile import TemporaryDirectory
 
 from check_cargo_private_inlines import ROOT, digest
 from qualify_iproute2_combined_names import write_result
+import unused_type_package_oracles as installed
 
 
-def run_suite(package, cc, elf, stage):
-    stage.mkdir()
-    name = package.split("-")[0]
-    baseline = json.loads((ROOT / "evidence" / (package + "-oracle.json")).read_bytes())
-    directory = ROOT / "work/analysis" / package / "oracle"
+def prepare_programs(name, cc, elf, stage, baseline, directory):
     if name == "curl":
         reference = baseline["tests"]["differential"]
     elif name == "gawk":
@@ -26,7 +23,6 @@ def run_suite(package, cc, elf, stage):
     else:
         reference = baseline["cross_compiler_differential"]
     expected = reference.get("comparisons", reference.get("cases"))
-    driver = ROOT / "tests" / (name + "-oracle-differential.py")
     pins = {}
     oracle = stage / "canonical"
     oracle.mkdir()
@@ -75,7 +71,18 @@ def run_suite(package, cc, elf, stage):
             candidate.symlink_to(elf)
         args = ["--gcc", canonical(name), "--clang", candidate]
     else:
-        raise ValueError(f"missing canonical suite for {package}")
+        raise ValueError(f"missing canonical suite for {name}")
+    return args, pins, expected
+
+
+def run_suite(package, cc, elf, stage):
+    stage.mkdir()
+    name = package.split("-")[0]
+    baseline = json.loads((ROOT / "evidence" / (package + "-oracle.json")).read_bytes())
+    directory = ROOT / "work/analysis" / package / "oracle"
+    prepare = installed.prepare if name in installed.PACKAGES else prepare_programs
+    args, pins, expected = prepare(name, cc, elf, stage, baseline, directory)
+    driver = ROOT / "tests" / (name + "-oracle-differential.py")
     out = stage / f"{name}-{cc}.json"
     print(f"Checking {package} against {cc}", flush=True)
     subprocess.run([sys.executable, driver, *args, "--output", out], check=True)
