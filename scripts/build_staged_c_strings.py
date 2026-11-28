@@ -145,7 +145,7 @@ def build(link, output, key, modules=None, *, routing_protocols=False, dsfield=F
         publish(result, output, Path(key).name)
 
 
-if __name__ == "__main__":
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("snapshot", type=Path)
     parser.add_argument("output", type=Path)
@@ -161,8 +161,12 @@ if __name__ == "__main__":
     choice.add_argument("--all-scalar-ffi", action="store_const", const="all", dest="scalar_ffi")
     choice.add_argument("--closed-inlines", action="store_true")
     choice.add_argument("--va-list-layout", action="store_true")
-    args = parser.parse_args()
+    args = parser.parse_intermixed_args(argv)
     compile_archive(args.snapshot, args.output, args.archive, args.modules or None,
                     routing_protocols=args.routing_protocol_table, dsfield=args.dsfield,
                     va_list_layout=args.va_list_layout, static_arrays=args.static_arrays, color_palette=args.color_palette,
                     e2p_error_names=args.e2p_error_names, closed_inlines=args.closed_inlines, scalar_ffi=args.scalar_ffi)
+
+
+if __name__ == "__main__":
+    main()
