@@ -1,0 +1,355 @@
+{
+  "commands": {
+    "binary_sha256": "69344f0e3652d22a489f75df73c910f2701c0e8d386f9fcfc48fbdc3ca2258b3",
+    "comparisons": 678,
+    "selection_sha256": "f0bfad876babd7f3445b77bb765f4c18d410ff096b64d64a9cbb29232a749973",
+    "side": "candidate",
+    "suites": {
+      "acl-clang": {
+        "canonical_sha256": {
+          "chacl": "6eeeb2f55feb54a2577755d654bc4bf17672821f3c72cca1d9a1a4c7f701b650",
+          "getfacl": "0d488012298e92ad9853158d87dd26466d1b24820090c3ec034d6c6147c6aa09",
+          "setfacl": "005b51c33dc43ab78a1e422389867f11609d9655a2433ad3a4b62c0c4dfdd1e6"
+        },
+        "driver_sha256": "d3d454c6fee0dba0383cad41b2d270e21304eb2ce1d2e4e48ab2329886579936",
+        "passed": 30,
+        "report_sha256": "fcbc1330de086cf12820e7188ae1a02c69abffe48dfa6809caf432167a17d250"
+      },
+      "acl-gcc": {
+        "canonical_sha256": {
+          "chacl": "2b6915fd65d41b6bfe0ca9a9b4df0d3527690ae9de26fa89e170c558e4d04e03",
+          "getfacl": "2ad9438d6d47a13ea7d7f94ac87f96afbeeea78a809071595df7a4075ead7cc4",
+          "setfacl": "5bd479f4eb751f885ac0b1b1210ce002648139096f1fa9b5239d5e3287c32ad7"
+        },
+        "driver_sha256": "d3d454c6fee0dba0383cad41b2d270e21304eb2ce1d2e4e48ab2329886579936",
+        "passed": 30,
+        "report_sha256": "fcbc1330de086cf12820e7188ae1a02c69abffe48dfa6809caf432167a17d250"
+      },
+      "curl-clang": {
+        "canonical_sha256": {
+          "curl": "5772b0a811e85d7fdcfac912b874f602e0c28f09ed19188cae28820240749f45"
+        },
+        "driver_sha256": "b64db85bc0d7df46b4c399b8fee06cea4f63aa9fb96eb66e6084c548b45106a1",
+        "passed": 12,
+        "report_sha256": "db9eb7abea3c0d6808359f96df07bb91fbce5a6dfa4025277d6c3a1f4168a102"
+      },
+      "curl-gcc": {
+        "canonical_sha256": {
+          "curl": "ded386aadc2f9abfcc5cae0c6dbb4797d2f4702681622eb8e16cce1f0471e627"
+        },
+        "driver_sha256": "b64db85bc0d7df46b4c399b8fee06cea4f63aa9fb96eb66e6084c548b45106a1",
+        "passed": 12,
+        "report_sha256": "db9eb7abea3c0d6808359f96df07bb91fbce5a6dfa4025277d6c3a1f4168a102"
+      },
+      "diffutils-clang": {
+        "canonical_sha256": {
+          "cmp": "db859d377072d394981d0cc4a7e1fb684d910c73394b332be4e24457e9622fea",
+          "diff": "af0b00eebab2101063636bd06d8e46e2c7561709a8cd2a2f88d3b49c905d01b5",
+          "diff3": "45eb46ce2a6ecc4acbe64d4aac70be3544658981998c66962dd21f7043dfaff3",
+          "sdiff": "cd30f316d07b79e12136135de0bb794486052bdb429cfa60d8ff79330741ee02"
+        },
+        "driver_sha256": "3446f25f596beb85e632431b0a890d8f7ddaea192f0cdb2a9a4068198441c1af",
+        "passed": 48,
+        "report_sha256": "77f1c4a04abfe585a41d54584a597e7132d2ecea54a625e246d598502b156f64"
+      },
+      "diffutils-gcc": {
+        "canonical_sha256": {
+          "cmp": "fc9f7dd641f1b05a7a755c510ab672d6dedd9fa87f7d9b75d8acb61d59e4cffe",
+          "diff": "fc6a0108e03c7992085ec8e151377a16e67a37c6f2d349d7895e4e111f0d704e",
+          "diff3": "472a35eabe172256b5db4f7f51ffa710dae9534790d39092a6d5431e05376a76",
+          "sdiff": "27b33052ef866412855bc76adc92b5f63994998b3e52487ac4ee0b367ff706d8"
+        },
+        "driver_sha256": "3446f25f596beb85e632431b0a890d8f7ddaea192f0cdb2a9a4068198441c1af",
+        "passed": 48,
+        "report_sha256": "77f1c4a04abfe585a41d54584a597e7132d2ecea54a625e246d598502b156f64"
+      },
+      "findutils-clang": {
+        "canonical_sha256": {
+          "find": "117ae40859f530260f4fb8d604c8d0fe3da2e44eadc0099b5e180ecb760b2b8b",
+          "frcode": "d2793c93e339c1aa75306d8e103b7b90d79a88617367735d8a35810e28afe1f8",
+          "locate": "3b4570e3d31dd0327a823a0f8d319a6b9384913369ad43f58df4fae071e030bb",
+          "updatedb": "3c3b309175bcdbf21688b608cebe20a97ccc93d53dc9ad40958c1b3fcb062cf1",
+          "xargs": "f4583e50cd4485ea5d1cc63f2b38a83cea0fa20940d82d03078e352b6a184ad7"
+        },
+        "driver_sha256": "bc7d610fba01ba97a563af6ee84724c1d2113f0ab0dea018291f74f4af28c555",
+        "passed": 38,
+        "report_sha256": "d39866280486b73ae8db39ae4e2c6cbe01da13fc7f1e9a171d2650a5181c625f"
+      },
+      "findutils-gcc": {
+        "canonical_sha256": {
+          "find": "502256edb8cd6a3be123596beae872bad8584110a72e47f54fb9a15003c02963",
+          "frcode": "4a28c0ac2ff611f8621e89cd6906ca05366851ffa10c56ba3ab3b349b18b4b3c",
+          "locate": "ab9386bdb9b2010d9b659835e8e3171e2bc73e94120f6b3fdf8004db3b658ef9",
+          "updatedb": "3c3b309175bcdbf21688b608cebe20a97ccc93d53dc9ad40958c1b3fcb062cf1",
+          "xargs": "c7e6f04a317b2fba09d026c65b7b142bc27e668ea62185b7c54a58804a887815"
+        },
+        "driver_sha256": "bc7d610fba01ba97a563af6ee84724c1d2113f0ab0dea018291f74f4af28c555",
+        "passed": 38,
+        "report_sha256": "bfdeebfafdadd19ed6e92f837f9c79abe08b57e13254b13b7e3831df5f6f14da"
+      },
+      "gawk-clang": {
+        "canonical_sha256": {
+          "gawk": "bb87b5c385f8f1713efb2cfdf01d328b69a1116d6af7068fb0765dda3f4efd60"
+        },
+        "driver_sha256": "49c078c730898f692ac82ba06151f9efe49620808a26e53befa2b14685d7b031",
+        "passed": 26,
+        "report_sha256": "d953c5c9f4da88f2c827a91a83a6334d16c0f77280f707fd105afe4ff24307f1"
+      },
+      "gawk-gcc": {
+        "canonical_sha256": {
+          "gawk": "3104bf3571f6148f15bc8fae53029c94a50e7b7854d734fca71816725de0f564"
+        },
+        "driver_sha256": "49c078c730898f692ac82ba06151f9efe49620808a26e53befa2b14685d7b031",
+        "passed": 26,
+        "report_sha256": "4c686995c4412181f60208ff05bdc5fdd64b4708048e4541cbf429db8b39a426"
+      },
+      "grep-clang": {
+        "canonical_sha256": {
+          "grep": "5542cf9b3f767269831545d3e8b09f6263269699fc967e6b9791431ebc94718a"
+        },
+        "driver_sha256": "0ee25c5ede08ea154887890ebfbb97de3310f49cd66eed33637b80ac65e61b5a",
+        "passed": 36,
+        "report_sha256": "178032d09c44a592b1fff674bba84dd33bf5906356056a25cd88bbfea9b1d3ac"
+      },
+      "grep-gcc": {
+        "canonical_sha256": {
+          "grep": "449442f60c867390c615d87d4ce3302939b816c22641838ae418c312c307a055"
+        },
+        "driver_sha256": "0ee25c5ede08ea154887890ebfbb97de3310f49cd66eed33637b80ac65e61b5a",
+        "passed": 36,
+        "report_sha256": "178032d09c44a592b1fff674bba84dd33bf5906356056a25cd88bbfea9b1d3ac"
+      },
+      "kmod-clang": {
+        "canonical_sha256": {
+          "depmod": "310eb0a840f99f7db8702bec20c75a2ddf8abe5954213ec49fcde0af71d51527",
+          "insmod": "310eb0a840f99f7db8702bec20c75a2ddf8abe5954213ec49fcde0af71d51527",
+          "kmod": "310eb0a840f99f7db8702bec20c75a2ddf8abe5954213ec49fcde0af71d51527",
+          "lsmod": "310eb0a840f99f7db8702bec20c75a2ddf8abe5954213ec49fcde0af71d51527",
+          "modinfo": "310eb0a840f99f7db8702bec20c75a2ddf8abe5954213ec49fcde0af71d51527",
+          "modprobe": "310eb0a840f99f7db8702bec20c75a2ddf8abe5954213ec49fcde0af71d51527",
+          "rmmod": "310eb0a840f99f7db8702bec20c75a2ddf8abe5954213ec49fcde0af71d51527"
+        },
+        "driver_sha256": "9578f54854ecf6195eed4069a2e21b47e998cd6a0784a731111c40921c3a9802",
+        "passed": 25,
+        "report_sha256": "38632fee2bac053afbc07301476cc3ad9fd393501b08221c1a1bb67d7f7d613b"
+      },
+      "kmod-gcc": {
+        "canonical_sha256": {
+          "depmod": "84e190b5ee32d4f6d7b5bf1c707229e6df84282dced8dac60c4159e1401da6aa",
+          "insmod": "84e190b5ee32d4f6d7b5bf1c707229e6df84282dced8dac60c4159e1401da6aa",
+          "kmod": "84e190b5ee32d4f6d7b5bf1c707229e6df84282dced8dac60c4159e1401da6aa",
+          "lsmod": "84e190b5ee32d4f6d7b5bf1c707229e6df84282dced8dac60c4159e1401da6aa",
+          "modinfo": "84e190b5ee32d4f6d7b5bf1c707229e6df84282dced8dac60c4159e1401da6aa",
+          "modprobe": "84e190b5ee32d4f6d7b5bf1c707229e6df84282dced8dac60c4159e1401da6aa",
+          "rmmod": "84e190b5ee32d4f6d7b5bf1c707229e6df84282dced8dac60c4159e1401da6aa"
+        },
+        "driver_sha256": "9578f54854ecf6195eed4069a2e21b47e998cd6a0784a731111c40921c3a9802",
+        "passed": 25,
+        "report_sha256": "561ff92e18af01fccdc5caca243f7067af8a2fb63fc72011d2011330763e4323"
+      },
+      "ncurses-clang": {
+        "canonical_sha256": {
+          "captoinfo": "d010629477546db4308b5d71b9920838b434a4b4436ed2c325b5b282bb27a514",
+          "clear": "12ceac8ab71d039fad815d49cc92fe33e1326bcf4b4a93620c46416ae996cfdf",
+          "infocmp": "183769a7ef6b56b73db15faded9c1b6ccf1f5e3bda8a47069f7b9add566a044c",
+          "infotocap": "d010629477546db4308b5d71b9920838b434a4b4436ed2c325b5b282bb27a514",
+          "ncursesw6-config": "bbe999377085acabb5ee26a5be039df6065275aca7db1615d4dc250a8e8323f3",
+          "reset": "80e37e9d65406adb4042935a2a907d44485094098a641837f2f46a213319c3a3",
+          "tabs": "049c3d8aa4a18233b3c4d278ee7dc898df82579fa1d26a826ffacf5341f1f129",
+          "tic": "d010629477546db4308b5d71b9920838b434a4b4436ed2c325b5b282bb27a514",
+          "toe": "d5422fc471b4332658a48a96897afbf30a29ec5d5ddd61ce919868cdf2f4b4f7",
+          "tput": "28263c553ce575cfe391c55822160f0f06ebeeaf62f1e1224fe14dfa19720350",
+          "tset": "80e37e9d65406adb4042935a2a907d44485094098a641837f2f46a213319c3a3"
+        },
+        "driver_sha256": "274c70b1b70fbb3063b9564bb99efa52c065daf5c892a796e7dc6827fa0f9636",
+        "passed": 27,
+        "report_sha256": "27260daad33ed557cbe7561dc46f8724b7542cca61ef680079fd9f5616df0361"
+      },
+      "ncurses-gcc": {
+        "canonical_sha256": {
+          "captoinfo": "c32b7f7bcd52163251df3dc0f1f446cdef9994752eb1ff03efa5864799de4ebf",
+          "clear": "16bbacfe604a4def3e4269e7be5b77ba7bcfbac825a44e8023d9282508593f17",
+          "infocmp": "13a199d56f5e3350c09732ae1d9bcccad5ba375915e295158536e9f395b37ebb",
+          "infotocap": "c32b7f7bcd52163251df3dc0f1f446cdef9994752eb1ff03efa5864799de4ebf",
+          "ncursesw6-config": "bbe999377085acabb5ee26a5be039df6065275aca7db1615d4dc250a8e8323f3",
+          "reset": "4f87a1f130ddc577037ae505ccf254d804d0d5b20a318789df4c230ad0f1ad97",
+          "tabs": "c5303efd71d8381d363167063c97c2b5607a7052599fedfc68d9b85c7f4b2c1d",
+          "tic": "c32b7f7bcd52163251df3dc0f1f446cdef9994752eb1ff03efa5864799de4ebf",
+          "toe": "3d09f97eaa6d7382abd0f255b7f8a884b9bc1afd5cb7f4a81117a36db3cfa9e0",
+          "tput": "76d687b3d5a1e92545457ef3924a7f1cc106e19efc81bc9b719fd63fe0394169",
+          "tset": "4f87a1f130ddc577037ae505ccf254d804d0d5b20a318789df4c230ad0f1ad97"
+        },
+        "driver_sha256": "274c70b1b70fbb3063b9564bb99efa52c065daf5c892a796e7dc6827fa0f9636",
+        "passed": 27,
+        "report_sha256": "c582a1ea856a777323cc034a5a89f47e471b8b47392f52b7b9170f95af4c5e5a"
+      },
+      "shadow-clang": {
+        "canonical_sha256": {
+          "chage": "d689d705099335ffd566844624274761b810086506c783302a9de1c4478ad103",
+          "chfn": "6ce538c27340f094b49c03d2fe885bdde796b08a051445d6e938c3592c7ccd9b",
+          "chgpasswd": "2e878fc5ac06e3b7c5aca3ca0dd579f4051c0fe5ea9a8067c91f7e634d2feec4",
+          "chpasswd": "14df1b2bc429cd01876996ed960a5b329d72dc8eac14b50560e8eeceb1a1ad7d",
+          "chsh": "54ccebf1d369740a945e21746082e6c96b92b140d352573568af20f233866959",
+          "faillog": "6f3f71f39ec263869630aa367ae9a6377e1e925f60475c4544876f44addafc24",
+          "getsubids": "0e60e3364d26794ed4d8cc293ca66a161f46153d3b27d5798902674d24df052e",
+          "gpasswd": "87a939cfbd1bffa0dc961b74dcbb434086ff0706d0127f29971b66d1b1569ccc",
+          "groupadd": "04f6b55b252f86b34799865ac00361533371c8124d1cd455003efc3da3c7178a",
+          "groupdel": "0ca04cc5bf0c65566baf70abae14a9852549c3c3d7133d4273e645f1e61658e3",
+          "groupmod": "c9fa82c5e58e8eeb1bc67c610356a598c230e65c98378067efaa6826728a8510",
+          "grpck": "86443be077abf6e0171cce51d3825769f2a890a166d87452a8d7fc9a36272b90",
+          "grpconv": "bd7808d56fbf2a5a6e79c669ef0ce522c38a5b0ad68700643e790687c729f255",
+          "grpunconv": "799a9ef2b3bcbf4484242d04e2bb07c0e4c66da39e1e62ba954e185cfe05899b",
+          "lastlog": "a5c02308ee72ddb292f6e4d70e8f49b0e02db3db54bf0022b46069e2511a31f3",
+          "login": "b40670b1efbe45aac2a0bda6eaae040446d5d096976818762fb8ade22aea1129",
+          "newgidmap": "a54a8436a4728a3d2af49d47bc119d4a5be4c6785bb93ce3d60c8d3566850f72",
+          "newgrp": "eebcb7cb81c732c63d80e7112438a202f421c6122f143b334c16a8ada3ba57cd",
+          "newuidmap": "41c464430a27c0ea93a48ed10369e1f654f9544fde11b81ca6de37928a8b108d",
+          "newusers": "763cd01f239ec438c3380e72d133fdb9053588188df812bc6b89b382b7fb049c",
+          "nologin": "dad77e86f4cc8e57b26f1327ed8d35a1c2a7d1b8718bf851cff0534ba7e2b7d0",
+          "passwd": "8477927d353676740c31140eb1832e93e55f1dfda60aea23d21d696a7b94816f",
+          "pwck": "7a74ceccc45cf063f1d9fb0648f65a3cfa2ccdd0ec140165f314f5e211e2b13c",
+          "pwconv": "ca11110280d2ec3fcc1f09da33398e9142c68f708ed2a3ee40647a79e135b93c",
+          "pwunconv": "a4944f22616c60c59eb1e6e184918b0e8e2eb693538509e7b082dc81cb2d1fa4",
+          "sg": "eebcb7cb81c732c63d80e7112438a202f421c6122f143b334c16a8ada3ba57cd",
+          "su": "261b5ba2954fa3d16665130ce617c03407029bc5ca37fb2b5a1990a0862d3a51",
+          "useradd": "7c3239b57fbc992d057590d75c76a62ee4e47785d1611f302e2792c544ad5b7e",
+          "userdel": "b4eed4343471c60256df8f7a92e88b451c1a43ccf3c396689e0c1346a8523571",
+          "usermod": "1afb321e7473e9d68083a526107e7e11c613d888fddd78b14beb218f64957d19",
+          "vigr": "2283413aef87a99f882e4a4e0cf56cdac11e92c0e9ac582424e914f55cd2864a",
+          "vipw": "2283413aef87a99f882e4a4e0cf56cdac11e92c0e9ac582424e914f55cd2864a"
+        },
+        "driver_sha256": "6a622c5e067c4378935f687623342ca741a870d2f2401bf763c74fe30bc60a78",
+        "passed": 79,
+        "report_sha256": "92a8b27b2f08fe44ecddba1dc8b9ae73ddc5e45a063b5fe42db641f54a77d401"
+      },
+      "shadow-gcc": {
+        "canonical_sha256": {
+          "chage": "c0bc8e899d5e529271e18b3367f9e0b5b721fff2a3082e4978b57265aedf5ed4",
+          "chfn": "55d32befdac3043bce489b07ca26ebee21c48d33dbc44634c1a878fa1ff98cdf",
+          "chgpasswd": "f0493b91c917c89fd0271c0751bc40baa493d5aff93f2b477959dd6fce7b6ea0",
+          "chpasswd": "a25f133c779d9680b2d36f961e35c795ee81cbafcac4e27eb648be428372b177",
+          "chsh": "48f9a6341e045f54c85a00dea67a03eb46ffdbf73f7fb299e9bd589d9ab90183",
+          "faillog": "acfaca897a6e43b0d37010a8c65881f4f20cddc3167960bf6c9b2c0b86c289d4",
+          "getsubids": "88b34faaf173ff3577dbe01d76361896179b389fdd6c7427c4104b76bb1ca5f2",
+          "gpasswd": "20b302eed83a41f7f8cfe1f8cd118dabd0d8c3a9548db0a986eb9f2926771119",
+          "groupadd": "86d4a6aee65df6381fea0940bb6b00f696c1b0fab97be0e79b6a27579ad04592",
+          "groupdel": "16c388d53b10a6d3ef63192caae424ca30a3d04ee869b74bc5b586b8fac29e33",
+          "groupmod": "4b2a444b3c8e48bdb8ff607e60e165b590d5458ea76da107257486769679b042",
+          "grpck": "7a9d9938ef58bf625f0c28fba43347ab92050b8d535d982a7f7b00207f0b46e3",
+          "grpconv": "0491feb154e7ffa024bb681cea320ba01eecd7c1bea55d008cb3c67f316a8a9c",
+          "grpunconv": "de6a7df4f749ab1b121b29a42b3f82f7c31a0b951695fcc8a3d55a9a2dfb52e8",
+          "lastlog": "672b74bcb0787a117cb3cfcfb008d550ab6bd4b6b909e19bd02223aad51b0046",
+          "login": "ae556c4fc1768866f430da61e5b1232c7e973395048d735a0b8a624d5c77b975",
+          "newgidmap": "3cffb6e103ff6bb27fb50cb770e8076018d570ab4fd9c34307a56a2dbe7341f0",
+          "newgrp": "c09e7b1eec1f5de17f58d4825598fae846553e95588672e8718e346500d84e3b",
+          "newuidmap": "52e667c6775717c8bc2d8e96dfdf69600ae77914e12b7fa9ee5b3fde653710f0",
+          "newusers": "50d0dbc84853bd527eda95a1cba5f948237abcbfdae03eee1647d296b6beab97",
+          "nologin": "4be35f4ddb5c76b1c2d37731bc6af07df38f1dcbe67738a915b6694e1a634815",
+          "passwd": "0c72a80d048b8ed18fe4c4852d8f56edb0798029c0b2da3afc6dda7ad3684ecb",
+          "pwck": "a9ffa8c469c3541e00fefd4292d8cf9d8d50afe7092fad2eb2afbf5c2f4491ab",
+          "pwconv": "e448401707a131c6dedebd7824d251d05d8af36e700f67007f9a0395a01fed79",
+          "pwunconv": "ba601f6ef837f20876dc588cea1897a722bd0c1724277c27baa37d14bf992a12",
+          "sg": "c09e7b1eec1f5de17f58d4825598fae846553e95588672e8718e346500d84e3b",
+          "su": "5ff6bf9d1e7eaf45a6e86d8965c7635f0082e9ef007f254255f3e89f4e3ad8ea",
+          "useradd": "f06fe52c8b451f8b2d4c290eef4d8e51ec81441310fca15ab0406cc304b08870",
+          "userdel": "8cf3c0229819a910d48533f835a7a7b327a6f3b3ed6bd03c572e291518c0d691",
+          "usermod": "6a6fa07ccbe43bfbddd89012db4c540348c7cbace84b10f141e8d3f286c93827",
+          "vigr": "9cdea482e13b6a1b56c586ff4dc92feb7d5cc9684a4da317f08129a90c417f0f",
+          "vipw": "9cdea482e13b6a1b56c586ff4dc92feb7d5cc9684a4da317f08129a90c417f0f"
+        },
+        "driver_sha256": "6a622c5e067c4378935f687623342ca741a870d2f2401bf763c74fe30bc60a78",
+        "passed": 79,
+        "report_sha256": "92a8b27b2f08fe44ecddba1dc8b9ae73ddc5e45a063b5fe42db641f54a77d401"
+      },
+      "tar-clang": {
+        "canonical_sha256": {
+          "rmt": "179baa2dee1debf58591104e2839bccb3ea7fc0c1cba58fe6df84ffb398f6da1",
+          "tar": "288fa31c75cdb951ab661c23c2c7ce8cc5e9b85bd38350b44d54520b182aef80"
+        },
+        "driver_sha256": "8439f255ea660b232e033f6194c698a68d747915533176cf67e06a61151373c7",
+        "passed": 18,
+        "report_sha256": "7e3509546c5a972f53f4fa5d3505de6269317fa0f030ad67fbf15e2a95f2917b"
+      },
+      "tar-gcc": {
+        "canonical_sha256": {
+          "rmt": "f72475f06b0b2c9fed84f86ea744e3a7445fb35a4354b8e10b19ac508577934d",
+          "tar": "be8909b9d9c1d05ad408d56bd92c9bb21f53843bd3a433431a030e28433f80c7"
+        },
+        "driver_sha256": "8439f255ea660b232e033f6194c698a68d747915533176cf67e06a61151373c7",
+        "passed": 18,
+        "report_sha256": "173f877aa4dc518bc9be8a792f32511fedf1bc6f8144af50182936dd79e894ac"
+      }
+    }
+  },
+  "counts": {
+    "all": {
+      "after": 686133,
+      "before": 691218
+    },
+    "counting_identical_files_once": {
+      "after": 602087,
+      "before": 606616
+    }
+  },
+  "identical_except_build_id": true,
+  "identity": {
+    "candidate": {
+      "build_id": "e08e7d41e82e95328f607312b00978b7d11ac383",
+      "outside_descriptor_sha256": "90bc5c782e3507f566670a819958c645dbdea2e7d228891a177d0b12551b3431",
+      "stripped_sha256": "e862291d867432bdfaf69cf196b2ab0bf84797bb4efdf400eb319d5cdd059c5b"
+    },
+    "descriptor_bytes": 20,
+    "descriptor_offset": 928,
+    "differing_bytes": 19,
+    "link_comparison_sha256": "39a95101576f85a869b48d4d34056c670d236caf397b35a804fb7fc804d0dada",
+    "parent": {
+      "build_id": "b216ae77dad393485a037333eca2cc926ada3e95",
+      "outside_descriptor_sha256": "90bc5c782e3507f566670a819958c645dbdea2e7d228891a177d0b12551b3431",
+      "stripped_sha256": "25c0517cec3b9d5a3043fde6d80f4ca214bff45b12a34b8c578fef52c5302200"
+    },
+    "stripped_bytes": 24983648
+  },
+  "link": {
+    "candidate": {
+      "archive_sha256": {
+        "work/analysis/acl-2.4.0/translations/c2rust-0.22.1/acl-2.4.0-stable/target/release/libacl_2_4_0_normalized_audit.a": "2a06b9244c4a70f914bc29a7a86d938281917b70ee5501fa5028ca51ca01d563",
+        "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/packed-manual/5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7/libcurl_8_23_0_normalized_audit.a": "e5f83e8b3ab9c27e22e82b4ab9e12ec415f2338e78037856c319cae4e5bf6548",
+        "work/analysis/diffutils-3.12/translations/c2rust-0.22.1/diffutils-3.12-stable/target/release/libdiffutils_3_12_normalized_audit.a": "5382d93e1e6dc68e3fcbf1b1324d02eb8f569d359fb8d5a858fe675e6cc5773c",
+        "work/analysis/findutils-4.10.0/translations/c2rust-0.22.1/findutils-4.10.0-stable/target/release/libfindutils_4_10_0_combined.a": "5f5635be7ce748a03a054a87c865247019d73c45a6af20b80ec843627d826f16",
+        "work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-core-stable/target/release/libgawk_5_4_0_core.a": "48ac29da79222a7cc7062931c821a42bacf9e327c710a74d963b37e00f87d210",
+        "work/analysis/grep-3.12/translations/c2rust-0.22.1/grep-3.12-stable/target/release/libgrep_3_12_normalized_audit.a": "05188242b8a8aa88f175774ad78e1718ac17e988815278e0ec23b2ed019d94ec",
+        "work/analysis/kmod-34.3/translations/c2rust-0.22.1/kmod-34.3-stable/target/release/libkmod_34_3_normalized_audit.a": "8f61ab2bf5b68cb04df8479c838d31763b5bf4ace6a659fedae6fbf933dbedcb",
+        "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a": "6b275702f7bbad21a4fc6a897e9992c26c341eb65646394804850561e843fd68",
+        "work/analysis/shadow-4.20.4/translations/c2rust-0.22.1/shadow-4.20.4-nightly/target/release/libshadow_4_20_4_normalized_audit.a": "f96706703a099728bd0f231409f5df0ffcf6f47a366fc57247c6e0cee2d27e24",
+        "work/analysis/tar-1.35/translations/c2rust-0.22.1/tar-1.35-stable/target/borrowed-timestamps/30ac31a37c96970ff8b030c8e71981914d4d117fd78b4a8bec8283628a69a2f3/libtar_1_35_normalized_audit.a": "4dbbcea28629663323dcbc5766c30da8cef393b7d4813036702e9e3d0d27d1a8"
+      },
+      "bytes": 42476776,
+      "sha256": "69344f0e3652d22a489f75df73c910f2701c0e8d386f9fcfc48fbdc3ca2258b3",
+      "stripped_bytes": 24983648,
+      "stripped_sha256": "e862291d867432bdfaf69cf196b2ab0bf84797bb4efdf400eb319d5cdd059c5b"
+    },
+    "linker_command_sha256": "411fb9679311197f0273b170625142d2fa40e9016b74ba6255e2c4fe02f7183e",
+    "parent": {
+      "archive_sha256": {
+        "work/analysis/acl-2.4.0/translations/c2rust-0.22.1/acl-2.4.0-stable/target/release/libacl_2_4_0_normalized_audit.a": "a3bfbedb671c868ac50f9b03099de138ce290efd419363481e900399f72fa3b7",
+        "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/packed-manual/5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7/libcurl_8_23_0_normalized_audit.a": "5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7",
+        "work/analysis/diffutils-3.12/translations/c2rust-0.22.1/diffutils-3.12-stable/target/release/libdiffutils_3_12_normalized_audit.a": "8719c2aa863f0a23a71f722642c22d8b935a7819094695e5dbb5a23272332575",
+        "work/analysis/findutils-4.10.0/translations/c2rust-0.22.1/findutils-4.10.0-stable/target/release/libfindutils_4_10_0_combined.a": "b6def5e6a86efc3bc82d66f15829b5fd0c3e19a46dfc6d0dd973202be2780da7",
+        "work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-core-stable/target/release/libgawk_5_4_0_core.a": "ca02f86dbb647f04f50d507ac7a4ee9f08267af7cd3e54a50dec67564e83eac4",
+        "work/analysis/grep-3.12/translations/c2rust-0.22.1/grep-3.12-stable/target/release/libgrep_3_12_normalized_audit.a": "773734b6968c400631b9404b1195ac5929648fb397c59caba84bcee0e58c1a11",
+        "work/analysis/kmod-34.3/translations/c2rust-0.22.1/kmod-34.3-stable/target/release/libkmod_34_3_normalized_audit.a": "ac868cae19c7db93e17944b5d950929647cbd04e7364b1b34da459a8e4fc23b5",
+        "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a": "ea368da66151d2217604544b72bbef827f2982e0ad2c9b8231aa4d4412c52b97",
+        "work/analysis/shadow-4.20.4/translations/c2rust-0.22.1/shadow-4.20.4-nightly/target/release/libshadow_4_20_4_normalized_audit.a": "1f03d771809640b56a6df61f4f297ebfbf08cdb2ae3fd2b88303da7b58d8a917",
+        "work/analysis/tar-1.35/translations/c2rust-0.22.1/tar-1.35-stable/target/borrowed-timestamps/30ac31a37c96970ff8b030c8e71981914d4d117fd78b4a8bec8283628a69a2f3/libtar_1_35_normalized_audit.a": "30ac31a37c96970ff8b030c8e71981914d4d117fd78b4a8bec8283628a69a2f3"
+      },
+      "bytes": 42477032,
+      "sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "stripped_bytes": 24983648,
+      "stripped_sha256": "25c0517cec3b9d5a3043fde6d80f4ca214bff45b12a34b8c578fef52c5302200"
+    },
+    "parent_link_report_sha256": "56f58750faeb2aeff4ffa3820d5f3468e70f2e8d4d5e0c130d452c9ac4c6a6b5",
+    "selection_sha256": "f0bfad876babd7f3445b77bb765f4c18d410ff096b64d64a9cbb29232a749973"
+  },
+  "parent_census_sha256": "8dc73ed3ccbda98188e6c245ae6a944478973e6edeca325dd6218c5f728bfe94",
+  "selection_sha256": "f0bfad876babd7f3445b77bb765f4c18d410ff096b64d64a9cbb29232a749973"
+}

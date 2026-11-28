@@ -2588,6 +2588,8 @@ Adding the byte-identical Gawk archive removed 85 more duplicate raw-pointer typ
 
 <a id="combined-pointer-checkpoints"></a>
 
+The ten-package Linux build has **686,133 raw-pointer type occurrences** across the full selection. Findutils, Kmod, ncurses, Shadow and tar join curl, Gawk, grep, Diffutils and ACL. The linked executable passed 678 canonical command comparisons across GCC and Clang builds. [Link and tests](evidence/ten-package-unused-types-686133.json) · [Compiler selection](batches/ten-package-unused-types-686133.json).
+
 The grouped command harness checks Findutils, Kmod, ncurses, Shadow and GNU tar against their canonical GCC and Clang builds. To speed up ncurses tests on Linux VMs, run `python3 scripts/unused_type_package_oracles.py` on the build host. It packs each installed terminal database into a single file. The harness verifies its [canonical checksum](evidence/ncurses-terminfo-snapshots.json) before extracting it into a private Linux directory.
 
 The compiler replay of ten cold-built packages removes **5,085 raw-pointer type occurrences** from the 691,218 input selection. This gives **686,133** at the source-replay stage. The [ten-package compiler inputs](batches/ten-package-unused-types-source.json) include the original and rebuilt archive hashes for each package.
