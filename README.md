@@ -1908,6 +1908,8 @@ The arpd archive with both owned name tables passed 31,035 device-group and 21,7
 
 The ip archive with both owned name tables passed 31,035 device-group and 21,776 DS field lookup cases, plus nine Memcheck runs. Its two edits remove 532 raw-pointer type occurrences from this engine. [Combined ip tests](evidence/iproute2-ip-combined-name-tables.json)
 
+On the 703,346-occurrence compiler selection, the device-group source rewrite still removes 267 occurrences in each of the 18 engines. Twelve source sets match the earlier DS-field inputs exactly. The six changed sets are arpd, bridge, dcb, devlink, ip and tc. This 4,806-occurrence projection awaits a combined executable census. [Per-engine source hashes](evidence/iproute2-group-names-fixed-parent-sources.json)
+
 A 499-name multicall containing all 18 rebuilt DS field engines matched both canonical compilers on
 288 IPRoute2 command comparisons and 144 DS field filter comparisons in four
 configuration profiles. Its stripped size was 24,983,632 bytes.
