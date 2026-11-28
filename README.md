@@ -2484,6 +2484,8 @@ On the tested DS field executable, the initial selection chose compatible compil
 
 On the tested DS field executable, the expanded selection chose compatible compiler receipts for 92 archives. Its source count fell from 742,521 to 708,717, with 551,280 when identical files are counted once. [Verified expanded selection](evidence/dsfield-optimized-expanded.json)
 
+The saved 499-name executable for this source selection passed all 884 dispatch checks and 14,022 differential cases. [Full public comparisons](evidence/dsfield-optimized-expanded-public.json)
+
 On this compiler selection, 106 archives contain up to 2,751 repeated pointer types in private C variadic declarations. The scanner preserves the ellipsis and the fixed argument types. The first Cargo and direct-rustc trials reproduced their original controls; 2 candidate archives were byte-identical and eliminated 29 repeated pointer types. Use `scripts/rank_scalar_ffi.py LINK --variadic` and `scripts/batch_closed_inlines.py LINK RANKING OUTPUT --variadic-ffi`. [Variadic ranking](evidence/rustbox-variadic-ffi-ranking.json) · [Initial archive comparisons](evidence/variadic-ffi-first-archives.json)
 
 The initial variadic compiler selection reduced the checked multicall source count from 708,717 to 708,688 with 2 byte-identical archives. The final build option is `--shared-variadic-ffi MANIFEST`. [Variadic initial census](evidence/dsfield-initial-variadic-ffi-recount.json)
