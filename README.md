@@ -2557,6 +2557,8 @@ The common compiler selection with 5 additional scalar-interface archives, 3 add
 
 The next whole-build recount covers 702,612 raw-pointer type occurrences across compiler inputs. Sharing C declarations in ifstat and lnstat removed 191 occurrences. Sharing struct definitions in e2freefrag and e4defrag removed another 58. All four archives retained their original bytes. The earlier ip and tc variadic receipts require fresh builds on their current scalar declarations. The extension tool preserves existing selections and checks the combined before-and-after counts for every package. [Updated compiler census](evidence/dsfield-routing-successor.json)
 
+Rebuilding the E2fsprogs declaration selections and recounting the best compatible archive combination brought the whole-compiler count to **696,753** on the public-tested binary. [E2fsprogs compiler selection](evidence/dsfield-e2fs-declarations-optimized.json)
+
 Cold builds on the current scalar declarations qualified 2 previously incompatible variadic archives. The new compiler selection has 702,388 raw-pointer type occurrences. [Rebuilt variadic declarations](evidence/dsfield-ip-tc-refreshed-variadic.json)
 
 The cold tune2fs archive matched its control after sharing 860 raw-pointer type occurrences in private C declarations. The complete compiler recount on the tested executable is **701,752**. [tune2fs census](evidence/dsfield-tune2fs-scalar-successor.json) · [Extension tool](scripts/extend_pointer_selection.py)
