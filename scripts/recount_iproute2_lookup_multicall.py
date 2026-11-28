@@ -23,6 +23,10 @@ def recount(link, comparison, executable, qualification, transform):
     # Single-engine receipts store one pilot directly. Whole-batch receipts
     # index their pilots by the archive path selected by the linker.
     entries = batch.get("verified")
+    if entries is None and "engines" in batch:
+        entries = {item["archive"]["archive"]: item for item in batch["engines"].values()}
+        if len(entries) != len(batch["engines"]):
+            raise ValueError("duplicate archive in the joint qualification")
     if entries is None:
         entries = {batch["archive"]["archive"]: batch}
     rows = {key: entry["archive"] if isinstance(entry["archive"], dict) else entry for key, entry in entries.items()}
@@ -94,7 +98,7 @@ def recount(link, comparison, executable, qualification, transform):
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("table", choices=("dsfield", "group", "route-table"))
+    p.add_argument("table", choices=("dsfield", "group", "route-table", "group-route-tables"))
     for name in ("link", "comparison", "executable", "qualification"):
         p.add_argument(name, type=Path)
     a = p.parse_args()
@@ -102,6 +106,8 @@ if __name__ == "__main__":
         from build_dsfield_names import transform
     elif a.table == "group":
         from build_group_names import transform
+    elif a.table == "group-route-tables":
+        from build_iproute2_group_route_tables import transform
     else:
         from build_iproute2_route_tables import transform
     print(json.dumps(recount(a.link, a.comparison, a.executable, a.qualification, transform), sort_keys=True, indent=2))
