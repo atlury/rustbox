@@ -1,0 +1,1687 @@
+{
+  "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/fuse2fs/0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a/libfuse2fs_audit.a": {
+    "parent_receipts": {
+      "closed_inline_groups": {
+        "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/fuse2fs/0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a/libfuse2fs_audit.a",
+        "candidate_sha256": "0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a",
+        "candidate_sources_sha256": "94e63ab41210172d2f26e3f6c89bf0bf789a0c547e42041f0a213e83674df39f",
+        "compiler_selected_sources": 66,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a",
+        "dead_sites": {
+          "src/work/work/normalized/e2fsprogs_1_47_4/debugfs/journal.rs": {
+            "ext2fs_get_mem": 43763,
+            "ext2fs_has_feature_gdt_csum": 36639,
+            "ext2fs_has_feature_largedir": 38378,
+            "ext2fs_resize_mem": 45477
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/recovery.rs": {
+            "ext2fs_get_mem": 38656,
+            "ext2fs_get_memzero": 39178,
+            "ext2fs_has_feature_gdt_csum": 33241,
+            "ext2fs_has_feature_largedir": 34108,
+            "ext2fs_has_feature_metadata_csum": 33570,
+            "ext2fs_resize_mem": 39800,
+            "hash_32": 47697
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/revoke.rs": {
+            "ext2fs_get_mem": 35977,
+            "ext2fs_get_memzero": 36499,
+            "ext2fs_has_feature_gdt_csum": 31508,
+            "ext2fs_has_feature_largedir": 32387,
+            "ext2fs_has_feature_metadata_csum": 31845,
+            "ext2fs_resize_mem": 37121,
+            "ext2fs_swab32": 33996,
+            "jbd2_chksum": 45360,
+            "jbd2_has_feature_64bit": 41244,
+            "jbd2_has_feature_csum2": 41606,
+            "jbd2_has_feature_csum3": 41949,
+            "jbd2_journal_has_csum_v2or3": 42330
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/alloc.rs": {
+            "ext2fs_get_mem": 37010,
+            "ext2fs_get_memzero": 37532,
+            "ext2fs_has_feature_largedir": 29771,
+            "ext2fs_resize_mem": 38154,
+            "ext2fs_swab32": 32229
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/alloc_sb.rs": {
+            "ext2fs_get_mem": 31590,
+            "ext2fs_get_memzero": 32112,
+            "ext2fs_has_feature_gdt_csum": 26492,
+            "ext2fs_has_feature_largedir": 27614,
+            "ext2fs_has_feature_metadata_csum": 26825,
+            "ext2fs_resize_mem": 32734,
+            "ext2fs_swab32": 29417
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/alloc_stats.rs": {
+            "ext2fs_get_mem": 33226,
+            "ext2fs_get_memzero": 33748,
+            "ext2fs_has_feature_largedir": 26180,
+            "ext2fs_resize_mem": 34370,
+            "ext2fs_swab32": 30188
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/badblocks.rs": {
+            "ext2fs_get_memzero": 34370,
+            "ext2fs_has_feature_gdt_csum": 28984,
+            "ext2fs_has_feature_largedir": 29855,
+            "ext2fs_has_feature_metadata_csum": 29313,
+            "ext2fs_swab32": 31867
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/bitmaps.rs": {
+            "ext2fs_get_mem": 40448,
+            "ext2fs_get_memzero": 40970,
+            "ext2fs_has_feature_gdt_csum": 34343,
+            "ext2fs_has_feature_largedir": 35469,
+            "ext2fs_has_feature_metadata_csum": 34676,
+            "ext2fs_resize_mem": 41592,
+            "ext2fs_swab32": 38467
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/bitops.rs": {
+            "ext2fs_get_mem": 30375,
+            "ext2fs_get_memzero": 30897,
+            "ext2fs_has_feature_gdt_csum": 25708,
+            "ext2fs_has_feature_largedir": 26591,
+            "ext2fs_has_feature_metadata_csum": 26041,
+            "ext2fs_resize_mem": 31519,
+            "ext2fs_swab32": 28394
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/blkmap64_ba.rs": {
+            "ext2fs_get_memzero": 38733,
+            "ext2fs_has_feature_gdt_csum": 32519,
+            "ext2fs_has_feature_largedir": 33398,
+            "ext2fs_has_feature_metadata_csum": 32848,
+            "ext2fs_swab32": 36150
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/blkmap64_rb.rs": {
+            "ext2fs_get_memzero": 39239,
+            "ext2fs_has_feature_gdt_csum": 33434,
+            "ext2fs_has_feature_largedir": 34301,
+            "ext2fs_has_feature_metadata_csum": 33767,
+            "ext2fs_rb_set_parent": 41572,
+            "ext2fs_resize_mem": 40431,
+            "ext2fs_swab32": 36658
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/blknum.rs": {
+            "ext2fs_get_memzero": 34693,
+            "ext2fs_has_feature_gdt_csum": 28829,
+            "ext2fs_has_feature_metadata_csum": 29162,
+            "ext2fs_resize_mem": 35885,
+            "ext2fs_swab32": 31739
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/block.rs": {
+            "ext2fs_get_memzero": 36602,
+            "ext2fs_has_feature_gdt_csum": 27002,
+            "ext2fs_has_feature_largedir": 27873,
+            "ext2fs_has_feature_metadata_csum": 27335,
+            "ext2fs_resize_mem": 38142,
+            "ext2fs_swab32": 32455
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/bmap.rs": {
+            "ext2fs_get_memzero": 37420,
+            "ext2fs_has_feature_gdt_csum": 28752,
+            "ext2fs_has_feature_largedir": 29870,
+            "ext2fs_has_feature_metadata_csum": 29332,
+            "ext2fs_resize_mem": 38960,
+            "ext2fs_swab32": 34242
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/closefs.rs": {
+            "ext2fs_get_mem": 36619,
+            "ext2fs_get_memzero": 37141,
+            "ext2fs_has_feature_gdt_csum": 28223,
+            "ext2fs_has_feature_largedir": 29999,
+            "ext2fs_has_feature_metadata_csum": 28560,
+            "ext2fs_resize_mem": 37763,
+            "ext2fs_swab32": 34557
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/csum.rs": {
+            "ext2fs_get_mem": 37539,
+            "ext2fs_get_memzero": 38061,
+            "ext2fs_has_feature_largedir": 32291,
+            "ext2fs_resize_mem": 38683,
+            "ext2fs_swab32": 35094
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/dir_iterate.rs": {
+            "ext2fs_get_memzero": 37346,
+            "ext2fs_has_feature_gdt_csum": 28698,
+            "ext2fs_has_feature_largedir": 29565,
+            "ext2fs_resize_mem": 38538,
+            "ext2fs_swab32": 33834
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/dirblock.rs": {
+            "ext2fs_get_mem": 31085,
+            "ext2fs_get_memzero": 31607,
+            "ext2fs_has_feature_gdt_csum": 24119,
+            "ext2fs_has_feature_largedir": 25002,
+            "ext2fs_has_feature_metadata_csum": 24452,
+            "ext2fs_resize_mem": 32229,
+            "ext2fs_swab32": 29104
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/dirhash.rs": {
+            "ext2fs_get_mem": 33641,
+            "ext2fs_get_memzero": 34163,
+            "ext2fs_has_feature_gdt_csum": 26636,
+            "ext2fs_has_feature_largedir": 27511,
+            "ext2fs_has_feature_metadata_csum": 26969,
+            "ext2fs_resize_mem": 34785,
+            "ext2fs_swab32": 31660
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/expanddir.rs": {
+            "ext2fs_get_mem": 36288,
+            "ext2fs_get_memzero": 36810,
+            "ext2fs_has_feature_gdt_csum": 28782,
+            "ext2fs_has_feature_largedir": 29657,
+            "ext2fs_has_feature_metadata_csum": 29111,
+            "ext2fs_resize_mem": 38002,
+            "ext2fs_swab32": 34092
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/ext_attr.rs": {
+            "ext2fs_has_feature_gdt_csum": 33759,
+            "ext2fs_has_feature_largedir": 35114,
+            "ext2fs_has_feature_metadata_csum": 34096,
+            "ext2fs_resize_mem": 46237,
+            "ext2fs_swab32": 41887
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/extent.rs": {
+            "ext2fs_has_feature_gdt_csum": 33415,
+            "ext2fs_has_feature_largedir": 34282,
+            "ext2fs_resize_mem": 44386,
+            "ext2fs_swab32": 38744
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/fallocate.rs": {
+            "ext2fs_get_mem": 35429,
+            "ext2fs_get_memzero": 35951,
+            "ext2fs_has_feature_gdt_csum": 28458,
+            "ext2fs_has_feature_largedir": 29329,
+            "ext2fs_has_feature_metadata_csum": 28795,
+            "ext2fs_resize_mem": 36573,
+            "ext2fs_swab32": 32015
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/fileio.rs": {
+            "ext2fs_get_memzero": 38632,
+            "ext2fs_has_feature_gdt_csum": 29748,
+            "ext2fs_has_feature_largedir": 30615,
+            "ext2fs_has_feature_metadata_csum": 30073,
+            "ext2fs_resize_mem": 40172,
+            "ext2fs_swab32": 35916
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/freefs.rs": {
+            "ext2fs_get_mem": 33936,
+            "ext2fs_get_memzero": 34458,
+            "ext2fs_has_feature_gdt_csum": 26809,
+            "ext2fs_has_feature_largedir": 27676,
+            "ext2fs_has_feature_metadata_csum": 27134,
+            "ext2fs_resize_mem": 35650,
+            "ext2fs_swab32": 31955
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/gen_bitmap.rs": {
+            "ext2fs_get_memzero": 38497,
+            "ext2fs_has_feature_gdt_csum": 30552,
+            "ext2fs_has_feature_largedir": 31419,
+            "ext2fs_has_feature_metadata_csum": 30877,
+            "ext2fs_swab32": 35798
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/gen_bitmap64.rs": {
+            "ext2fs_has_feature_gdt_csum": 36148,
+            "ext2fs_has_feature_largedir": 37023,
+            "ext2fs_has_feature_metadata_csum": 36481,
+            "ext2fs_resize_mem": 45083,
+            "ext2fs_swab32": 40144
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/get_num_dirs.rs": {
+            "ext2fs_get_mem": 33186,
+            "ext2fs_get_memzero": 33708,
+            "ext2fs_has_feature_gdt_csum": 26341,
+            "ext2fs_has_feature_largedir": 27224,
+            "ext2fs_has_feature_metadata_csum": 26674,
+            "ext2fs_resize_mem": 34330,
+            "ext2fs_swab32": 31205
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/getenv.rs": {
+            "ext2fs_get_mem": 30626,
+            "ext2fs_get_memzero": 31148,
+            "ext2fs_has_feature_gdt_csum": 26226,
+            "ext2fs_has_feature_largedir": 27097,
+            "ext2fs_has_feature_metadata_csum": 26555,
+            "ext2fs_resize_mem": 31770,
+            "ext2fs_swab32": 28645
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/getsectsize.rs": {
+            "ext2fs_get_mem": 42627,
+            "ext2fs_get_memzero": 43149,
+            "ext2fs_has_feature_gdt_csum": 35855,
+            "ext2fs_has_feature_largedir": 36730,
+            "ext2fs_has_feature_metadata_csum": 36192,
+            "ext2fs_resize_mem": 43771,
+            "ext2fs_swab32": 40646
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/i_block.rs": {
+            "ext2fs_get_mem": 30596,
+            "ext2fs_get_memzero": 31118,
+            "ext2fs_has_feature_gdt_csum": 25937,
+            "ext2fs_has_feature_largedir": 26812,
+            "ext2fs_has_feature_metadata_csum": 26262,
+            "ext2fs_resize_mem": 31740,
+            "ext2fs_swab32": 28615
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/ind_block.rs": {
+            "ext2fs_get_mem": 30285,
+            "ext2fs_get_memzero": 30807,
+            "ext2fs_has_feature_gdt_csum": 23430,
+            "ext2fs_has_feature_largedir": 24313,
+            "ext2fs_has_feature_metadata_csum": 23763,
+            "ext2fs_resize_mem": 31429,
+            "ext2fs_swab32": 28304
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/inline.rs": {
+            "ext2fs_has_feature_gdt_csum": 28168,
+            "ext2fs_has_feature_largedir": 29043,
+            "ext2fs_has_feature_metadata_csum": 28501
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/inline_data.rs": {
+            "ext2fs_has_feature_gdt_csum": 31428,
+            "ext2fs_has_feature_largedir": 32783,
+            "ext2fs_resize_mem": 42077,
+            "ext2fs_swab32": 37919
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/inode.rs": {
+            "ext2fs_get_memzero": 41132,
+            "ext2fs_has_feature_largedir": 34006,
+            "ext2fs_resize_mem": 42672,
+            "ext2fs_swab32": 37316
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/io_manager.rs": {
+            "ext2fs_get_memzero": 31631,
+            "ext2fs_has_feature_gdt_csum": 26061,
+            "ext2fs_has_feature_largedir": 26928,
+            "ext2fs_has_feature_metadata_csum": 26386,
+            "ext2fs_resize_mem": 32253,
+            "ext2fs_swab32": 29128
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/ismounted.rs": {
+            "ext2fs_get_mem": 38718,
+            "ext2fs_get_memzero": 39240,
+            "ext2fs_has_feature_gdt_csum": 33538,
+            "ext2fs_has_feature_largedir": 34413,
+            "ext2fs_has_feature_metadata_csum": 33871,
+            "ext2fs_resize_mem": 39862,
+            "ext2fs_swab32": 36305
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/link.rs": {
+            "ext2fs_get_memzero": 41807,
+            "ext2fs_has_feature_gdt_csum": 32663,
+            "ext2fs_resize_mem": 43347,
+            "ext2fs_swab32": 38596
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/lookup.rs": {
+            "ext2fs_get_mem": 31241,
+            "ext2fs_get_memzero": 31763,
+            "ext2fs_has_feature_gdt_csum": 24304,
+            "ext2fs_has_feature_largedir": 25183,
+            "ext2fs_has_feature_metadata_csum": 24637,
+            "ext2fs_resize_mem": 32385,
+            "ext2fs_swab32": 29190
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/mkdir.rs": {
+            "ext2fs_get_mem": 37811,
+            "ext2fs_get_memzero": 38333,
+            "ext2fs_has_feature_gdt_csum": 32199,
+            "ext2fs_has_feature_largedir": 33313,
+            "ext2fs_has_feature_metadata_csum": 32532,
+            "ext2fs_resize_mem": 39525,
+            "ext2fs_swab32": 35753
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/mkjournal.rs": {
+            "ext2fs_get_memzero": 48415,
+            "ext2fs_has_feature_gdt_csum": 41281,
+            "ext2fs_has_feature_largedir": 42638,
+            "ext2fs_has_feature_metadata_csum": 41606,
+            "ext2fs_resize_mem": 49607,
+            "ext2fs_swab32": 45519,
+            "jbd2_has_feature_64bit": 51826,
+            "jbd2_has_feature_csum2": 52193,
+            "jbd2_has_feature_csum3": 52526
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/mmp.rs": {
+            "ext2fs_get_memzero": 37006,
+            "ext2fs_has_feature_gdt_csum": 29303,
+            "ext2fs_has_feature_largedir": 30417,
+            "ext2fs_has_feature_metadata_csum": 29636,
+            "ext2fs_resize_mem": 37628,
+            "ext2fs_swab32": 34503
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/namei.rs": {
+            "ext2fs_has_feature_gdt_csum": 27604,
+            "ext2fs_has_feature_largedir": 28479,
+            "ext2fs_has_feature_metadata_csum": 27933,
+            "ext2fs_resize_mem": 36403,
+            "ext2fs_swab32": 32553
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/newdir.rs": {
+            "ext2fs_get_memzero": 32536,
+            "ext2fs_has_feature_gdt_csum": 24315,
+            "ext2fs_has_feature_largedir": 25427,
+            "ext2fs_resize_mem": 33728,
+            "ext2fs_swab32": 30033
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/openfs.rs": {
+            "ext2fs_get_memzero": 41792,
+            "ext2fs_has_feature_largedir": 32299,
+            "ext2fs_resize_mem": 42762,
+            "ext2fs_swab32": 37652
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/punch.rs": {
+            "ext2fs_get_memzero": 37426,
+            "ext2fs_has_feature_gdt_csum": 29413,
+            "ext2fs_has_feature_largedir": 30280,
+            "ext2fs_has_feature_metadata_csum": 29738,
+            "ext2fs_resize_mem": 38966,
+            "ext2fs_swab32": 34681
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/read_bb.rs": {
+            "ext2fs_get_mem": 31872,
+            "ext2fs_get_memzero": 32394,
+            "ext2fs_has_feature_gdt_csum": 27058,
+            "ext2fs_has_feature_largedir": 27933,
+            "ext2fs_has_feature_metadata_csum": 27399,
+            "ext2fs_resize_mem": 33016,
+            "ext2fs_swab32": 29744
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/rw_bitmaps.rs": {
+            "ext2fs_get_memzero": 51986,
+            "ext2fs_has_feature_largedir": 45319,
+            "ext2fs_resize_mem": 53178,
+            "ext2fs_swab32": 48712
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/sha512.rs": {
+            "ext2fs_get_mem": 30484,
+            "ext2fs_get_memzero": 31006,
+            "ext2fs_has_feature_gdt_csum": 26088,
+            "ext2fs_has_feature_largedir": 26955,
+            "ext2fs_has_feature_metadata_csum": 26421,
+            "ext2fs_resize_mem": 31628,
+            "ext2fs_swab32": 28503
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/symlink.rs": {
+            "ext2fs_get_memzero": 35032,
+            "ext2fs_has_feature_gdt_csum": 28785,
+            "ext2fs_has_feature_largedir": 29903,
+            "ext2fs_has_feature_metadata_csum": 29118,
+            "ext2fs_resize_mem": 36224,
+            "ext2fs_swab32": 32306
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/unix_io.rs": {
+            "ext2fs_get_memzero": 47129,
+            "ext2fs_has_feature_gdt_csum": 39996,
+            "ext2fs_has_feature_largedir": 40867,
+            "ext2fs_has_feature_metadata_csum": 40333,
+            "ext2fs_resize_mem": 48321,
+            "ext2fs_swab32": 44626
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/unlink.rs": {
+            "ext2fs_get_mem": 31848,
+            "ext2fs_get_memzero": 32370,
+            "ext2fs_has_feature_gdt_csum": 24428,
+            "ext2fs_has_feature_largedir": 25311,
+            "ext2fs_has_feature_metadata_csum": 24761,
+            "ext2fs_resize_mem": 32992,
+            "ext2fs_swab32": 29563
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/valid_blk.rs": {
+            "ext2fs_get_mem": 31173,
+            "ext2fs_get_memzero": 31695,
+            "ext2fs_has_feature_gdt_csum": 24099,
+            "ext2fs_has_feature_largedir": 24974,
+            "ext2fs_has_feature_metadata_csum": 24428,
+            "ext2fs_resize_mem": 32317,
+            "ext2fs_swab32": 28882
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/misc/fuse2fs.rs": {
+            "ext2fs_get_memzero": 97957,
+            "ext2fs_has_feature_gdt_csum": 83191,
+            "ext2fs_has_feature_largedir": 85762,
+            "ext2fs_resize_mem": 99497,
+            "ext2fs_swab32": 93495
+          }
+        },
+        "parent_sources_sha256": "b93d982817f7e7409b632c4c60694058443d135d2560af2fe034eebc6cde1b07",
+        "private_helpers_removed": 326,
+        "raw_pointer_types_removed": 749,
+        "referenced_helpers_removed": 4,
+        "referenced_pointer_types_removed": 2,
+        "rustc_archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-e2fsprogs-shared/fuse2fs/libfuse2fs_audit.a",
+        "scanner_source_sha256": "74e8393122c399359f208509fb81fbe911b75b3d6f9f34edcc7084b88331f2ae"
+      },
+      "linked_foreign_declaration_proofs": {
+        "file": "libfuse2fs_audit.foreign-0a977dc886277b87152a02af9db0ee6d5682e54cff860612eda09c72a02a7a01.json",
+        "sha256": "0a977dc886277b87152a02af9db0ee6d5682e54cff860612eda09c72a02a7a01"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libfuse2fs_audit.inlines-d1712e19b242752a323af890ab758bbdac62cf3c005a32a25e02044376ff58bf.json",
+        "sha256": "295cf6dc7914fa422cf887f58ddf469720ab19a1cb14aeec710cb0eb66ae8dbd"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/fuse2fs/0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a/libfuse2fs_audit.a",
+        "c_string_literals": 196,
+        "candidate_sha256": "0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a",
+        "candidate_sources_sha256": "b93d982817f7e7409b632c4c60694058443d135d2560af2fe034eebc6cde1b07",
+        "compiler_selected_sources": 66,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a",
+        "legacy_compiler": "nightly-2023-04-15",
+        "modules": {
+          "src/rustbox_e2fsprogs/normalized_clang_18/lib/ext2fs/ext2_err.rs": 183,
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/ext_attr.rs": 8,
+          "src/work/work/normalized/e2fsprogs_1_47_4/misc/fuse2fs.rs": 5
+        },
+        "parent_sources_sha256": "b9a6b2b264c28b2a805588a4095e5784799a64bac0c0d9d273682daa1430cdbf",
+        "raw_ffi_pointer_extractions": 196,
+        "raw_pointer_types_removed": 392,
+        "rustc_archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-e2fsprogs-shared/fuse2fs/libfuse2fs_audit.a",
+        "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/fuse2fs/0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a/libfuse2fs_audit.a",
+      "candidate_sha256": "0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a",
+      "candidate_sources_sha256": "dee3b71f15b892b259ada47c878abb923e8c1959c37d3c5cbab9d55e6a781866",
+      "compiler_selected_sources": 66,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a",
+      "leaf_layouts": {
+        "__pthread_internal_list": {
+          "consumers": [
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/unix_io.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/misc/fuse2fs.rs"
+          ],
+          "copies": 3,
+          "fingerprint": "a6c5dd5e6dd6e1158342849d3155519f96341e30b143037b5759d3b874558326",
+          "pointer_fields": 2,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/rw_bitmaps.rs"
+        },
+        "error_table": {
+          "consumers": [
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/et/error_message.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/misc/fuse2fs.rs"
+          ],
+          "copies": 3,
+          "fingerprint": "7123fc12765a795777271e85049f41c0fc2fb3eead76c0b579a72f56e4250e21",
+          "pointer_fields": 2,
+          "provider": "src/rustbox_e2fsprogs/normalized_clang_18/lib/ext2fs/ext2_err.rs"
+        },
+        "ext2_struct_u32_list": {
+          "consumers": [
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/bitmaps.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/blkmap64_ba.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/blkmap64_rb.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/bmap.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/closefs.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/dir_iterate.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/dirhash.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/expanddir.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/ext_attr.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/extent.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/fileio.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/freefs.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/gen_bitmap.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/gen_bitmap64.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/get_num_dirs.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/inline_data.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/inode.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/ismounted.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/link.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/mkdir.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/mkjournal.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/namei.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/nls_utf8.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/punch.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/unix_io.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/misc/fuse2fs.rs"
+          ],
+          "copies": 27,
+          "fingerprint": "544be1ec1fb685f14efd8d77ddca3ff2b1ec8479c81f53a2705af0869123837e",
+          "pointer_fields": 1,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/badblocks.rs"
+        },
+        "iovec": {
+          "consumers": [
+            "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/recovery.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/revoke.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/mkjournal.rs"
+          ],
+          "copies": 4,
+          "fingerprint": "aa556192b8dab607c808aa7e11461794e8c144a851801992837f741dda8fa8cb",
+          "pointer_fields": 1,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/debugfs/journal.rs"
+        },
+        "list_head": {
+          "consumers": [
+            "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/recovery.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/revoke.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/mkjournal.rs"
+          ],
+          "copies": 4,
+          "fingerprint": "8ff6a31e6462316f57823476c577dcf28913857eac919e8847bd6ab66f0b7803",
+          "pointer_fields": 2,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/debugfs/journal.rs"
+        }
+      },
+      "parent_sources_sha256": "94e63ab41210172d2f26e3f6c89bf0bf789a0c547e42041f0a213e83674df39f",
+      "raw_pointer_types_removed": 43,
+      "rustc_archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-e2fsprogs-shared/fuse2fs/libfuse2fs_audit.a"
+    }
+  },
+  "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libncurses_6_6_normalized_audit.foreign-e4d580cb4e5c92f21a5f13e03b61aefcc5c84175bc67ddb351f3303221354595.json",
+        "sha256": "e4d580cb4e5c92f21a5f13e03b61aefcc5c84175bc67ddb351f3303221354595"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libncurses_6_6_normalized_audit.inlines-fc013fdadeb69597c32cd67c04a442366c10a7b391b8e88f4aba905929f6c235.json",
+        "sha256": "7819deeb70e3099f51a0cd39dbd19270502f8900b2599349b2568447aa2fc32c"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a",
+        "c_string_literals": 1491,
+        "candidate_sha256": "ea368da66151d2217604544b72bbef827f2982e0ad2c9b8231aa4d4412c52b97",
+        "candidate_sources_sha256": "7154f6d1bcdcbd409dfa2dabc26b0b427a121871b39367bedc0dd3875292b042",
+        "compiler_selected_sources": 266,
+        "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+        "control_sha256": "ea368da66151d2217604544b72bbef827f2982e0ad2c9b8231aa4d4412c52b97",
+        "modules": {
+          "src/ncurses/codes.rs": 497,
+          "src/ncurses/names.rs": 994
+        },
+        "parent_sources_sha256": "4cd2ab8538779e6f6b03b678ce87e0df8c1e5e23ead1edbca162bf25909f8640",
+        "raw_ffi_pointer_extractions": 1491,
+        "raw_pointer_types_removed": 2982,
+        "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_ncurses_termtypes": {
+        "archive": "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a",
+        "candidate_sha256": "ea368da66151d2217604544b72bbef827f2982e0ad2c9b8231aa4d4412c52b97",
+        "candidate_sources_sha256": "beceb719ff943b1960a933be04f42663719e3f3af81b8f5aa4f9e38aa275b4f9",
+        "compiler_selected_sources": 266,
+        "control_binary_sha256": "a8b07738a1985cb6ff68e70cc87870fec0712eebe994e920389918136048379b",
+        "control_sha256": "ea368da66151d2217604544b72bbef827f2982e0ad2c9b8231aa4d4412c52b97",
+        "declarations_sha256": {
+          "termtype": "41e6697aa396d30f041da30c021d4441e087f90441c0baad2c37433e365035bb",
+          "termtype2": "c36e97e28f231f2d4363ee09c8341f094db0515716b0069065dd21a8c465e894"
+        },
+        "parent_sources_sha256": "7154f6d1bcdcbd409dfa2dabc26b0b427a121871b39367bedc0dd3875292b042",
+        "providers": {
+          "termtype": "src/form/frm_def.rs",
+          "termtype2": "src/form/frm_def.rs"
+        },
+        "raw_pointer_types_removed": 2439,
+        "reexporting_modules": {
+          "termtype": [
+            "src/form/frm_driver.rs",
+            "src/form/frm_post.rs",
+            "src/form/frm_sub.rs",
+            "src/form/frm_win.rs",
+            "src/menu/m_cursor.rs",
+            "src/menu/m_driver.rs",
+            "src/menu/m_global.rs",
+            "src/menu/m_new.rs",
+            "src/menu/m_post.rs",
+            "src/menu/m_sub.rs",
+            "src/menu/m_win.rs",
+            "src/ncurses/base/define_key.rs",
+            "src/ncurses/base/key_defined.rs",
+            "src/ncurses/base/keybound.rs",
+            "src/ncurses/base/keyok.rs",
+            "src/ncurses/base/legacy_coding.rs",
+            "src/ncurses/base/lib_addch.rs",
+            "src/ncurses/base/lib_beep.rs",
+            "src/ncurses/base/lib_bkgd.rs",
+            "src/ncurses/base/lib_color.rs",
+            "src/ncurses/base/lib_colorset.rs",
+            "src/ncurses/base/lib_delwin.rs",
+            "src/ncurses/base/lib_dft_fgbg.rs",
+            "src/ncurses/base/lib_echo.rs",
+            "src/ncurses/base/lib_endwin.rs",
+            "src/ncurses/base/lib_flash.rs",
+            "src/ncurses/base/lib_freeall.rs",
+            "src/ncurses/base/lib_getch.rs",
+            "src/ncurses/base/lib_getstr.rs",
+            "src/ncurses/base/lib_initscr.rs",
+            "src/ncurses/base/lib_insch.rs",
+            "src/ncurses/base/lib_insnstr.rs",
+            "src/ncurses/base/lib_isendwin.rs",
+            "src/ncurses/base/lib_mouse.rs",
+            "src/ncurses/base/lib_mvwin.rs",
+            "src/ncurses/base/lib_newterm.rs",
+            "src/ncurses/base/lib_newwin.rs",
+            "src/ncurses/base/lib_nl.rs",
+            "src/ncurses/base/lib_pad.rs",
+            "src/ncurses/base/lib_printw.rs",
+            "src/ncurses/base/lib_redrawln.rs",
+            "src/ncurses/base/lib_refresh.rs",
+            "src/ncurses/base/lib_restart.rs",
+            "src/ncurses/base/lib_screen.rs",
+            "src/ncurses/base/lib_scroll.rs",
+            "src/ncurses/base/lib_set_term.rs",
+            "src/ncurses/base/lib_slk.rs",
+            "src/ncurses/base/lib_slkatr_set.rs",
+            "src/ncurses/base/lib_slkatrof.rs",
+            "src/ncurses/base/lib_slkatron.rs",
+            "src/ncurses/base/lib_slkatrset.rs",
+            "src/ncurses/base/lib_slkattr.rs",
+            "src/ncurses/base/lib_slkclear.rs",
+            "src/ncurses/base/lib_slkcolor.rs",
+            "src/ncurses/base/lib_slkinit.rs",
+            "src/ncurses/base/lib_slklab.rs",
+            "src/ncurses/base/lib_slkrefr.rs",
+            "src/ncurses/base/lib_slkset.rs",
+            "src/ncurses/base/lib_slktouch.rs",
+            "src/ncurses/base/lib_ungetch.rs",
+            "src/ncurses/base/lib_window.rs",
+            "src/ncurses/base/nc_panel.rs",
+            "src/ncurses/base/new_pair.rs",
+            "src/ncurses/base/resizeterm.rs",
+            "src/ncurses/base/safe_sprintf.rs",
+            "src/ncurses/base/wresize.rs",
+            "src/ncurses/fallback.rs",
+            "src/ncurses/lib_keyname.rs",
+            "src/ncurses/report_offsets.rs",
+            "src/ncurses/tinfo/alloc_ttype.rs",
+            "src/ncurses/tinfo/comp_error.rs",
+            "src/ncurses/tinfo/comp_parse.rs",
+            "src/ncurses/tinfo/db_iterator.rs",
+            "src/ncurses/tinfo/free_ttype.rs",
+            "src/ncurses/tinfo/home_terminfo.rs",
+            "src/ncurses/tinfo/init_keytry.rs",
+            "src/ncurses/tinfo/lib_acs.rs",
+            "src/ncurses/tinfo/lib_baudrate.rs",
+            "src/ncurses/tinfo/lib_cur_term.rs",
+            "src/ncurses/tinfo/lib_data.rs",
+            "src/ncurses/tinfo/lib_has_cap.rs",
+            "src/ncurses/tinfo/lib_kernel.rs",
+            "src/ncurses/tinfo/lib_longname.rs",
+            "src/ncurses/tinfo/lib_napms.rs",
+            "src/ncurses/tinfo/lib_options.rs",
+            "src/ncurses/tinfo/lib_print.rs",
+            "src/ncurses/tinfo/lib_raw.rs",
+            "src/ncurses/tinfo/lib_setup.rs",
+            "src/ncurses/tinfo/lib_termcap.rs",
+            "src/ncurses/tinfo/lib_termname.rs",
+            "src/ncurses/tinfo/lib_ti.rs",
+            "src/ncurses/tinfo/lib_tparm.rs",
+            "src/ncurses/tinfo/lib_tputs.rs",
+            "src/ncurses/tinfo/lib_ttyflags.rs",
+            "src/ncurses/tinfo/name_match.rs",
+            "src/ncurses/tinfo/obsolete.rs",
+            "src/ncurses/tinfo/read_entry.rs",
+            "src/ncurses/tinfo/use_screen.rs",
+            "src/ncurses/tty/hardscroll.rs",
+            "src/ncurses/tty/hashmap.rs",
+            "src/ncurses/tty/lib_mvcur.rs",
+            "src/ncurses/tty/lib_tstp.rs",
+            "src/ncurses/tty/lib_twait.rs",
+            "src/ncurses/tty/lib_vidattr.rs",
+            "src/ncurses/tty/tty_update.rs",
+            "src/ncurses/unctrl.rs",
+            "src/ncurses/widechar/lib_erasewchar.rs",
+            "src/ncurses/widechar/lib_get_wch.rs",
+            "src/ncurses/widechar/lib_get_wstr.rs",
+            "src/ncurses/widechar/lib_ins_wch.rs",
+            "src/ncurses/widechar/lib_key_name.rs",
+            "src/ncurses/widechar/lib_unget_wch.rs",
+            "src/ncurses/widechar/lib_vid_attr.rs",
+            "src/ncurses/widechar/lib_wunctrl.rs",
+            "src/panel/p_above.rs",
+            "src/panel/p_below.rs",
+            "src/panel/p_bottom.rs",
+            "src/panel/p_delete.rs",
+            "src/panel/p_hidden.rs",
+            "src/panel/p_hide.rs",
+            "src/panel/p_move.rs",
+            "src/panel/p_new.rs",
+            "src/panel/p_replace.rs",
+            "src/panel/p_show.rs",
+            "src/panel/p_update.rs",
+            "src/progs/clear_cmd.rs",
+            "src/progs/dump_entry.rs",
+            "src/progs/reset_cmd.rs",
+            "src/progs/tabs.rs",
+            "src/progs/tic.rs",
+            "src/progs/tput.rs",
+            "src/progs/tset.rs"
+          ],
+          "termtype2": [
+            "src/form/frm_driver.rs",
+            "src/form/frm_post.rs",
+            "src/form/frm_sub.rs",
+            "src/form/frm_win.rs",
+            "src/menu/m_cursor.rs",
+            "src/menu/m_driver.rs",
+            "src/menu/m_global.rs",
+            "src/menu/m_new.rs",
+            "src/menu/m_post.rs",
+            "src/menu/m_sub.rs",
+            "src/menu/m_win.rs",
+            "src/ncurses/base/define_key.rs",
+            "src/ncurses/base/key_defined.rs",
+            "src/ncurses/base/keybound.rs",
+            "src/ncurses/base/keyok.rs",
+            "src/ncurses/base/legacy_coding.rs",
+            "src/ncurses/base/lib_addch.rs",
+            "src/ncurses/base/lib_beep.rs",
+            "src/ncurses/base/lib_bkgd.rs",
+            "src/ncurses/base/lib_color.rs",
+            "src/ncurses/base/lib_colorset.rs",
+            "src/ncurses/base/lib_delwin.rs",
+            "src/ncurses/base/lib_dft_fgbg.rs",
+            "src/ncurses/base/lib_echo.rs",
+            "src/ncurses/base/lib_endwin.rs",
+            "src/ncurses/base/lib_flash.rs",
+            "src/ncurses/base/lib_freeall.rs",
+            "src/ncurses/base/lib_getch.rs",
+            "src/ncurses/base/lib_getstr.rs",
+            "src/ncurses/base/lib_initscr.rs",
+            "src/ncurses/base/lib_insch.rs",
+            "src/ncurses/base/lib_insnstr.rs",
+            "src/ncurses/base/lib_isendwin.rs",
+            "src/ncurses/base/lib_mouse.rs",
+            "src/ncurses/base/lib_mvwin.rs",
+            "src/ncurses/base/lib_newterm.rs",
+            "src/ncurses/base/lib_newwin.rs",
+            "src/ncurses/base/lib_nl.rs",
+            "src/ncurses/base/lib_pad.rs",
+            "src/ncurses/base/lib_printw.rs",
+            "src/ncurses/base/lib_redrawln.rs",
+            "src/ncurses/base/lib_refresh.rs",
+            "src/ncurses/base/lib_restart.rs",
+            "src/ncurses/base/lib_screen.rs",
+            "src/ncurses/base/lib_scroll.rs",
+            "src/ncurses/base/lib_set_term.rs",
+            "src/ncurses/base/lib_slk.rs",
+            "src/ncurses/base/lib_slkatr_set.rs",
+            "src/ncurses/base/lib_slkatrof.rs",
+            "src/ncurses/base/lib_slkatron.rs",
+            "src/ncurses/base/lib_slkatrset.rs",
+            "src/ncurses/base/lib_slkattr.rs",
+            "src/ncurses/base/lib_slkclear.rs",
+            "src/ncurses/base/lib_slkcolor.rs",
+            "src/ncurses/base/lib_slkinit.rs",
+            "src/ncurses/base/lib_slklab.rs",
+            "src/ncurses/base/lib_slkrefr.rs",
+            "src/ncurses/base/lib_slkset.rs",
+            "src/ncurses/base/lib_slktouch.rs",
+            "src/ncurses/base/lib_ungetch.rs",
+            "src/ncurses/base/lib_window.rs",
+            "src/ncurses/base/nc_panel.rs",
+            "src/ncurses/base/new_pair.rs",
+            "src/ncurses/base/resizeterm.rs",
+            "src/ncurses/base/safe_sprintf.rs",
+            "src/ncurses/base/wresize.rs",
+            "src/ncurses/fallback.rs",
+            "src/ncurses/lib_keyname.rs",
+            "src/ncurses/report_offsets.rs",
+            "src/ncurses/tinfo/alloc_entry.rs",
+            "src/ncurses/tinfo/alloc_ttype.rs",
+            "src/ncurses/tinfo/comp_error.rs",
+            "src/ncurses/tinfo/comp_parse.rs",
+            "src/ncurses/tinfo/db_iterator.rs",
+            "src/ncurses/tinfo/entries.rs",
+            "src/ncurses/tinfo/free_ttype.rs",
+            "src/ncurses/tinfo/home_terminfo.rs",
+            "src/ncurses/tinfo/init_keytry.rs",
+            "src/ncurses/tinfo/lib_acs.rs",
+            "src/ncurses/tinfo/lib_baudrate.rs",
+            "src/ncurses/tinfo/lib_cur_term.rs",
+            "src/ncurses/tinfo/lib_data.rs",
+            "src/ncurses/tinfo/lib_has_cap.rs",
+            "src/ncurses/tinfo/lib_kernel.rs",
+            "src/ncurses/tinfo/lib_longname.rs",
+            "src/ncurses/tinfo/lib_napms.rs",
+            "src/ncurses/tinfo/lib_options.rs",
+            "src/ncurses/tinfo/lib_print.rs",
+            "src/ncurses/tinfo/lib_raw.rs",
+            "src/ncurses/tinfo/lib_setup.rs",
+            "src/ncurses/tinfo/lib_termcap.rs",
+            "src/ncurses/tinfo/lib_termname.rs",
+            "src/ncurses/tinfo/lib_ti.rs",
+            "src/ncurses/tinfo/lib_tparm.rs",
+            "src/ncurses/tinfo/lib_tputs.rs",
+            "src/ncurses/tinfo/lib_ttyflags.rs",
+            "src/ncurses/tinfo/name_match.rs",
+            "src/ncurses/tinfo/obsolete.rs",
+            "src/ncurses/tinfo/parse_entry.rs",
+            "src/ncurses/tinfo/read_entry.rs",
+            "src/ncurses/tinfo/trim_sgr0.rs",
+            "src/ncurses/tinfo/use_screen.rs",
+            "src/ncurses/tinfo/write_entry.rs",
+            "src/ncurses/tty/hardscroll.rs",
+            "src/ncurses/tty/hashmap.rs",
+            "src/ncurses/tty/lib_mvcur.rs",
+            "src/ncurses/tty/lib_tstp.rs",
+            "src/ncurses/tty/lib_twait.rs",
+            "src/ncurses/tty/lib_vidattr.rs",
+            "src/ncurses/tty/tty_update.rs",
+            "src/ncurses/unctrl.rs",
+            "src/ncurses/widechar/lib_erasewchar.rs",
+            "src/ncurses/widechar/lib_get_wch.rs",
+            "src/ncurses/widechar/lib_get_wstr.rs",
+            "src/ncurses/widechar/lib_ins_wch.rs",
+            "src/ncurses/widechar/lib_key_name.rs",
+            "src/ncurses/widechar/lib_unget_wch.rs",
+            "src/ncurses/widechar/lib_vid_attr.rs",
+            "src/ncurses/widechar/lib_wunctrl.rs",
+            "src/panel/p_above.rs",
+            "src/panel/p_below.rs",
+            "src/panel/p_bottom.rs",
+            "src/panel/p_delete.rs",
+            "src/panel/p_hidden.rs",
+            "src/panel/p_hide.rs",
+            "src/panel/p_move.rs",
+            "src/panel/p_new.rs",
+            "src/panel/p_replace.rs",
+            "src/panel/p_show.rs",
+            "src/panel/p_update.rs",
+            "src/progs/clear_cmd.rs",
+            "src/progs/dump_entry.rs",
+            "src/progs/infocmp.rs",
+            "src/progs/reset_cmd.rs",
+            "src/progs/tabs.rs",
+            "src/progs/tic.rs",
+            "src/progs/toe.rs",
+            "src/progs/tput.rs",
+            "src/progs/tset.rs"
+          ]
+        }
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a",
+      "candidate_sha256": "ea368da66151d2217604544b72bbef827f2982e0ad2c9b8231aa4d4412c52b97",
+      "candidate_sources_sha256": "e9b8a10ee0f313bf827266a2a8cb9a589f38fafe3e655f7254b19fbe089c8388",
+      "compiler_selected_sources": 266,
+      "control_binary_sha256": "f154fa79b5642c2cb6d01ff139e7f3b3ac1b32248ccd9b6e086b3be2e6bd7ad2",
+      "control_sha256": "ea368da66151d2217604544b72bbef827f2982e0ad2c9b8231aa4d4412c52b97",
+      "leaf_layouts": {
+        "ITERATOR_VARS": {
+          "consumers": [
+            "src/ncurses/base/lib_initscr.rs",
+            "src/ncurses/base/lib_slk.rs",
+            "src/ncurses/base/lib_slkinit.rs",
+            "src/ncurses/base/safe_sprintf.rs",
+            "src/ncurses/lib_keyname.rs",
+            "src/ncurses/report_offsets.rs",
+            "src/ncurses/tinfo/comp_error.rs",
+            "src/ncurses/tinfo/db_iterator.rs",
+            "src/ncurses/tinfo/home_terminfo.rs",
+            "src/ncurses/tinfo/lib_cur_term.rs",
+            "src/ncurses/tinfo/lib_data.rs",
+            "src/ncurses/tinfo/lib_setup.rs",
+            "src/ncurses/tinfo/lib_termcap.rs",
+            "src/ncurses/tinfo/lib_tparm.rs",
+            "src/ncurses/tinfo/name_match.rs",
+            "src/ncurses/tty/lib_tstp.rs",
+            "src/ncurses/widechar/lib_get_wstr.rs",
+            "src/ncurses/widechar/lib_key_name.rs"
+          ],
+          "copies": 19,
+          "fingerprint": "de5b54ec85a402be989dad508380fd4729b9db547c19f0e9beaac9223b9db6bf",
+          "pointer_fields": 2,
+          "provider": "src/ncurses/base/lib_getstr.rs"
+        },
+        "TEXT": {
+          "consumers": [
+            "src/menu/m_cursor.rs",
+            "src/menu/m_driver.rs",
+            "src/menu/m_format.rs",
+            "src/menu/m_global.rs",
+            "src/menu/m_hook.rs",
+            "src/menu/m_item_cur.rs",
+            "src/menu/m_item_nam.rs",
+            "src/menu/m_item_new.rs",
+            "src/menu/m_item_opt.rs",
+            "src/menu/m_item_top.rs",
+            "src/menu/m_item_use.rs",
+            "src/menu/m_item_val.rs",
+            "src/menu/m_item_vis.rs",
+            "src/menu/m_items.rs",
+            "src/menu/m_new.rs",
+            "src/menu/m_opts.rs",
+            "src/menu/m_pad.rs",
+            "src/menu/m_pattern.rs",
+            "src/menu/m_post.rs",
+            "src/menu/m_scale.rs",
+            "src/menu/m_spacing.rs",
+            "src/menu/m_sub.rs",
+            "src/menu/m_userptr.rs",
+            "src/menu/m_win.rs"
+          ],
+          "copies": 25,
+          "fingerprint": "7f5df47b7c7d3b0682e3b84f4c9a4ba74068ad160c307f6ddaefbbbcfdcf021f",
+          "pointer_fields": 1,
+          "provider": "src/menu/m_attribs.rs"
+        },
+        "alias": {
+          "consumers": [
+            "src/ncurses/tinfo/parse_entry.rs"
+          ],
+          "copies": 2,
+          "fingerprint": "6acccbb1d9dca88feaa098d2850bc39b966fe874d9a6082550589b291f1703f6",
+          "pointer_fields": 3,
+          "provider": "src/ncurses/comp_captab.rs"
+        },
+        "name_table_entry": {
+          "consumers": [
+            "src/ncurses/tinfo/comp_hash.rs",
+            "src/ncurses/tinfo/comp_scan.rs",
+            "src/ncurses/tinfo/lib_termcap.rs",
+            "src/ncurses/tinfo/lib_ti.rs",
+            "src/ncurses/tinfo/parse_entry.rs",
+            "src/progs/dump_entry.rs",
+            "src/progs/tic.rs",
+            "src/progs/tput.rs"
+          ],
+          "copies": 9,
+          "fingerprint": "a06f4337076baa1d1e4054af4a38a099f59e8b20ab624f3f49100f29eb4ca5eb",
+          "pointer_fields": 1,
+          "provider": "src/ncurses/comp_captab.rs"
+        },
+        "slk_ent": {
+          "consumers": [
+            "src/form/frm_driver.rs",
+            "src/form/frm_post.rs",
+            "src/form/frm_sub.rs",
+            "src/form/frm_win.rs",
+            "src/menu/m_cursor.rs",
+            "src/menu/m_driver.rs",
+            "src/menu/m_global.rs",
+            "src/menu/m_new.rs",
+            "src/menu/m_post.rs",
+            "src/menu/m_sub.rs",
+            "src/menu/m_win.rs",
+            "src/ncurses/base/legacy_coding.rs",
+            "src/ncurses/base/lib_addch.rs",
+            "src/ncurses/base/lib_beep.rs",
+            "src/ncurses/base/lib_bkgd.rs",
+            "src/ncurses/base/lib_color.rs",
+            "src/ncurses/base/lib_colorset.rs",
+            "src/ncurses/base/lib_delwin.rs",
+            "src/ncurses/base/lib_dft_fgbg.rs",
+            "src/ncurses/base/lib_echo.rs",
+            "src/ncurses/base/lib_endwin.rs",
+            "src/ncurses/base/lib_flash.rs",
+            "src/ncurses/base/lib_freeall.rs",
+            "src/ncurses/base/lib_getch.rs",
+            "src/ncurses/base/lib_getstr.rs",
+            "src/ncurses/base/lib_initscr.rs",
+            "src/ncurses/base/lib_insch.rs",
+            "src/ncurses/base/lib_insnstr.rs",
+            "src/ncurses/base/lib_isendwin.rs",
+            "src/ncurses/base/lib_mouse.rs",
+            "src/ncurses/base/lib_mvwin.rs",
+            "src/ncurses/base/lib_newterm.rs",
+            "src/ncurses/base/lib_newwin.rs",
+            "src/ncurses/base/lib_nl.rs",
+            "src/ncurses/base/lib_pad.rs",
+            "src/ncurses/base/lib_printw.rs",
+            "src/ncurses/base/lib_redrawln.rs",
+            "src/ncurses/base/lib_refresh.rs",
+            "src/ncurses/base/lib_restart.rs",
+            "src/ncurses/base/lib_screen.rs",
+            "src/ncurses/base/lib_scroll.rs",
+            "src/ncurses/base/lib_set_term.rs",
+            "src/ncurses/base/lib_slk.rs",
+            "src/ncurses/base/lib_slkatr_set.rs",
+            "src/ncurses/base/lib_slkatrof.rs",
+            "src/ncurses/base/lib_slkatron.rs",
+            "src/ncurses/base/lib_slkatrset.rs",
+            "src/ncurses/base/lib_slkattr.rs",
+            "src/ncurses/base/lib_slkclear.rs",
+            "src/ncurses/base/lib_slkcolor.rs",
+            "src/ncurses/base/lib_slkinit.rs",
+            "src/ncurses/base/lib_slklab.rs",
+            "src/ncurses/base/lib_slkrefr.rs",
+            "src/ncurses/base/lib_slkset.rs",
+            "src/ncurses/base/lib_slktouch.rs",
+            "src/ncurses/base/lib_ungetch.rs",
+            "src/ncurses/base/lib_window.rs",
+            "src/ncurses/base/nc_panel.rs",
+            "src/ncurses/base/new_pair.rs",
+            "src/ncurses/base/resizeterm.rs",
+            "src/ncurses/base/safe_sprintf.rs",
+            "src/ncurses/base/wresize.rs",
+            "src/ncurses/tinfo/comp_parse.rs",
+            "src/ncurses/tinfo/lib_print.rs",
+            "src/ncurses/tinfo/use_screen.rs",
+            "src/ncurses/tty/hardscroll.rs",
+            "src/ncurses/tty/hashmap.rs",
+            "src/ncurses/tty/lib_mvcur.rs",
+            "src/ncurses/tty/lib_tstp.rs",
+            "src/ncurses/tty/lib_vidattr.rs",
+            "src/ncurses/tty/tty_update.rs",
+            "src/ncurses/widechar/lib_erasewchar.rs",
+            "src/ncurses/widechar/lib_get_wch.rs",
+            "src/ncurses/widechar/lib_get_wstr.rs",
+            "src/ncurses/widechar/lib_ins_wch.rs",
+            "src/ncurses/widechar/lib_unget_wch.rs",
+            "src/ncurses/widechar/lib_vid_attr.rs",
+            "src/ncurses/widechar/lib_wunctrl.rs",
+            "src/panel/p_above.rs",
+            "src/panel/p_below.rs",
+            "src/panel/p_bottom.rs",
+            "src/panel/p_delete.rs",
+            "src/panel/p_hidden.rs",
+            "src/panel/p_hide.rs",
+            "src/panel/p_move.rs",
+            "src/panel/p_new.rs",
+            "src/panel/p_replace.rs",
+            "src/panel/p_show.rs",
+            "src/panel/p_update.rs"
+          ],
+          "copies": 90,
+          "fingerprint": "296967427e9c0d48583156d925dbaacf5f5a27ab2e29903b72fc3d92653cc631",
+          "pointer_fields": 2,
+          "provider": "src/form/frm_def.rs"
+        },
+        "string_desc": {
+          "consumers": [
+            "src/ncurses/tinfo/strings.rs",
+            "src/ncurses/tty/lib_mvcur.rs"
+          ],
+          "copies": 3,
+          "fingerprint": "904a3b670d1947eb722de0c330cce9edf46763c8d1d9e4ac0a0ac71d10924999",
+          "pointer_fields": 2,
+          "provider": "src/ncurses/tinfo/parse_entry.rs"
+        },
+        "token": {
+          "consumers": [
+            "src/ncurses/tinfo/parse_entry.rs"
+          ],
+          "copies": 2,
+          "fingerprint": "dcb6a004e2ba4ee041da25292be7811ad60d62aff9dbe743687b21b7bbea2adf",
+          "pointer_fields": 2,
+          "provider": "src/ncurses/tinfo/comp_scan.rs"
+        },
+        "tries": {
+          "consumers": [
+            "src/form/frm_driver.rs",
+            "src/form/frm_post.rs",
+            "src/form/frm_sub.rs",
+            "src/form/frm_win.rs",
+            "src/menu/m_cursor.rs",
+            "src/menu/m_driver.rs",
+            "src/menu/m_global.rs",
+            "src/menu/m_new.rs",
+            "src/menu/m_post.rs",
+            "src/menu/m_sub.rs",
+            "src/menu/m_win.rs",
+            "src/ncurses/base/define_key.rs",
+            "src/ncurses/base/key_defined.rs",
+            "src/ncurses/base/keybound.rs",
+            "src/ncurses/base/keyok.rs",
+            "src/ncurses/base/legacy_coding.rs",
+            "src/ncurses/base/lib_addch.rs",
+            "src/ncurses/base/lib_beep.rs",
+            "src/ncurses/base/lib_bkgd.rs",
+            "src/ncurses/base/lib_color.rs",
+            "src/ncurses/base/lib_colorset.rs",
+            "src/ncurses/base/lib_delwin.rs",
+            "src/ncurses/base/lib_dft_fgbg.rs",
+            "src/ncurses/base/lib_echo.rs",
+            "src/ncurses/base/lib_endwin.rs",
+            "src/ncurses/base/lib_flash.rs",
+            "src/ncurses/base/lib_freeall.rs",
+            "src/ncurses/base/lib_getch.rs",
+            "src/ncurses/base/lib_getstr.rs",
+            "src/ncurses/base/lib_initscr.rs",
+            "src/ncurses/base/lib_insch.rs",
+            "src/ncurses/base/lib_insnstr.rs",
+            "src/ncurses/base/lib_isendwin.rs",
+            "src/ncurses/base/lib_mouse.rs",
+            "src/ncurses/base/lib_mvwin.rs",
+            "src/ncurses/base/lib_newterm.rs",
+            "src/ncurses/base/lib_newwin.rs",
+            "src/ncurses/base/lib_nl.rs",
+            "src/ncurses/base/lib_pad.rs",
+            "src/ncurses/base/lib_printw.rs",
+            "src/ncurses/base/lib_redrawln.rs",
+            "src/ncurses/base/lib_refresh.rs",
+            "src/ncurses/base/lib_restart.rs",
+            "src/ncurses/base/lib_screen.rs",
+            "src/ncurses/base/lib_scroll.rs",
+            "src/ncurses/base/lib_set_term.rs",
+            "src/ncurses/base/lib_slk.rs",
+            "src/ncurses/base/lib_slkatr_set.rs",
+            "src/ncurses/base/lib_slkatrof.rs",
+            "src/ncurses/base/lib_slkatron.rs",
+            "src/ncurses/base/lib_slkatrset.rs",
+            "src/ncurses/base/lib_slkattr.rs",
+            "src/ncurses/base/lib_slkclear.rs",
+            "src/ncurses/base/lib_slkcolor.rs",
+            "src/ncurses/base/lib_slkinit.rs",
+            "src/ncurses/base/lib_slklab.rs",
+            "src/ncurses/base/lib_slkrefr.rs",
+            "src/ncurses/base/lib_slkset.rs",
+            "src/ncurses/base/lib_slktouch.rs",
+            "src/ncurses/base/lib_ungetch.rs",
+            "src/ncurses/base/lib_window.rs",
+            "src/ncurses/base/nc_panel.rs",
+            "src/ncurses/base/new_pair.rs",
+            "src/ncurses/base/resizeterm.rs",
+            "src/ncurses/base/safe_sprintf.rs",
+            "src/ncurses/base/tries.rs",
+            "src/ncurses/base/wresize.rs",
+            "src/ncurses/lib_keyname.rs",
+            "src/ncurses/report_offsets.rs",
+            "src/ncurses/tinfo/add_tries.rs",
+            "src/ncurses/tinfo/comp_parse.rs",
+            "src/ncurses/tinfo/init_keytry.rs",
+            "src/ncurses/tinfo/lib_acs.rs",
+            "src/ncurses/tinfo/lib_baudrate.rs",
+            "src/ncurses/tinfo/lib_cur_term.rs",
+            "src/ncurses/tinfo/lib_data.rs",
+            "src/ncurses/tinfo/lib_has_cap.rs",
+            "src/ncurses/tinfo/lib_kernel.rs",
+            "src/ncurses/tinfo/lib_longname.rs",
+            "src/ncurses/tinfo/lib_napms.rs",
+            "src/ncurses/tinfo/lib_options.rs",
+            "src/ncurses/tinfo/lib_print.rs",
+            "src/ncurses/tinfo/lib_raw.rs",
+            "src/ncurses/tinfo/lib_setup.rs",
+            "src/ncurses/tinfo/lib_termcap.rs",
+            "src/ncurses/tinfo/lib_termname.rs",
+            "src/ncurses/tinfo/lib_ti.rs",
+            "src/ncurses/tinfo/lib_tparm.rs",
+            "src/ncurses/tinfo/lib_tputs.rs",
+            "src/ncurses/tinfo/lib_ttyflags.rs",
+            "src/ncurses/tinfo/obsolete.rs",
+            "src/ncurses/tinfo/use_screen.rs",
+            "src/ncurses/tty/hardscroll.rs",
+            "src/ncurses/tty/hashmap.rs",
+            "src/ncurses/tty/lib_mvcur.rs",
+            "src/ncurses/tty/lib_tstp.rs",
+            "src/ncurses/tty/lib_twait.rs",
+            "src/ncurses/tty/lib_vidattr.rs",
+            "src/ncurses/tty/tty_update.rs",
+            "src/ncurses/unctrl.rs",
+            "src/ncurses/widechar/lib_erasewchar.rs",
+            "src/ncurses/widechar/lib_get_wch.rs",
+            "src/ncurses/widechar/lib_get_wstr.rs",
+            "src/ncurses/widechar/lib_ins_wch.rs",
+            "src/ncurses/widechar/lib_unget_wch.rs",
+            "src/ncurses/widechar/lib_vid_attr.rs",
+            "src/ncurses/widechar/lib_wunctrl.rs",
+            "src/panel/p_above.rs",
+            "src/panel/p_below.rs",
+            "src/panel/p_bottom.rs",
+            "src/panel/p_delete.rs",
+            "src/panel/p_hidden.rs",
+            "src/panel/p_hide.rs",
+            "src/panel/p_move.rs",
+            "src/panel/p_new.rs",
+            "src/panel/p_replace.rs",
+            "src/panel/p_show.rs",
+            "src/panel/p_update.rs"
+          ],
+          "copies": 119,
+          "fingerprint": "a791e16c87c4cad347489215b5c7b884923084af87f04b7bfb8cd6f2f19c76cb",
+          "pointer_fields": 2,
+          "provider": "src/form/frm_def.rs"
+        },
+        "typearg": {
+          "consumers": [
+            "src/form/fld_type.rs",
+            "src/form/frm_driver.rs",
+            "src/form/fty_generic.rs"
+          ],
+          "copies": 4,
+          "fingerprint": "d1fb56f5aa03e29670ef61fbf1245f7c49a9f61b5bb9617b4d65e6d91dbaac69",
+          "pointer_fields": 2,
+          "provider": "src/form/fld_def.rs"
+        },
+        "user_table_entry": {
+          "consumers": [
+            "src/ncurses/tinfo/comp_hash.rs",
+            "src/ncurses/tinfo/parse_entry.rs",
+            "src/progs/tic.rs"
+          ],
+          "copies": 4,
+          "fingerprint": "44864204dea8fdfe6004ff7d4d405977972ba379a430bacdcca31766ab79d674",
+          "pointer_fields": 1,
+          "provider": "src/ncurses/comp_userdefs.rs"
+        }
+      },
+      "parent_sources_sha256": "beceb719ff943b1960a933be04f42663719e3f3af81b8f5aa4f9e38aa275b4f9",
+      "raw_pointer_types_removed": 500
+    }
+  },
+  "work/analysis/pkgconf-3.0.11/translations/c2rust-0.22.1/pkgconf-3.0.11-stable/target/release/libpkgconf_3_0_11_normalized_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libpkgconf_3_0_11_normalized_audit.foreign-c5868ecf2c2c0c48e5ce0db5ae2e3a566fb85107a1bef0de98e59afe1b06d540.json",
+        "sha256": "c5868ecf2c2c0c48e5ce0db5ae2e3a566fb85107a1bef0de98e59afe1b06d540"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libpkgconf_3_0_11_normalized_audit.inlines-5f7b92e201f1f550275d8861046f85a167bd266f4bac9dd8d07bc7a9e74df212.json",
+        "sha256": "9f9f62a0e4bb5dfc3c0bcce6babfebc23ffdfe0ea0edb5e358dff5d81da47421"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libpkgconf_3_0_11_normalized_audit.layer2-162248f92c75482ba3e1d4591705de7065ec306e91144e8ca7d006d67c7eca98.json",
+        "sha256": "162248f92c75482ba3e1d4591705de7065ec306e91144e8ca7d006d67c7eca98"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/pkgconf-3.0.11/translations/c2rust-0.22.1/pkgconf-3.0.11-stable/target/release/libpkgconf_3_0_11_normalized_audit.a",
+        "c_string_literals": 1202,
+        "candidate_sha256": "d3e6b0b4d941a034d0b40511835bf1177dc62bfa38bf05287fad2775a9f2da26",
+        "candidate_sources_sha256": "836b50483c4edae7d3230a1bf5535eb7105c2254cd962b74a3da7a2848214099",
+        "compiler_selected_sources": 37,
+        "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+        "control_sha256": "d3e6b0b4d941a034d0b40511835bf1177dc62bfa38bf05287fad2775a9f2da26",
+        "modules": {
+          "src/cli/bomtool/main.rs": 111,
+          "src/cli/core.rs": 82,
+          "src/cli/getopt_long.rs": 15,
+          "src/cli/main.rs": 177,
+          "src/cli/pccritic/critic.rs": 117,
+          "src/cli/pccritic/main.rs": 61,
+          "src/cli/renderer_msvc.rs": 4,
+          "src/cli/spdxtool/core.rs": 51,
+          "src/cli/spdxtool/generate.rs": 27,
+          "src/cli/spdxtool/main.rs": 40,
+          "src/cli/spdxtool/serialize.rs": 27,
+          "src/cli/spdxtool/simplelicensing.rs": 8,
+          "src/cli/spdxtool/software.rs": 45,
+          "src/cli/spdxtool/util.rs": 28,
+          "src/libpkgconf/audit.rs": 7,
+          "src/libpkgconf/buffer.rs": 3,
+          "src/libpkgconf/bytecode.rs": 8,
+          "src/libpkgconf/cache.rs": 15,
+          "src/libpkgconf/client.rs": 63,
+          "src/libpkgconf/dependency.rs": 23,
+          "src/libpkgconf/fragment.rs": 60,
+          "src/libpkgconf/license.rs": 12,
+          "src/libpkgconf/parser.rs": 4,
+          "src/libpkgconf/personality.rs": 19,
+          "src/libpkgconf/pkg.rs": 147,
+          "src/libpkgconf/queue.rs": 45,
+          "src/libpkgconf/tuple.rs": 2,
+          "src/libpkgconf/variable.rs": 1
+        },
+        "parent_sources_sha256": "d23391acebe32f6f9c28423306dab9aac5e3b69526e85fa767368390bceff6a6",
+        "raw_ffi_pointer_extractions": 1202,
+        "raw_pointer_types_removed": 2404,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_scalar_ffi": {
+        "all_scalar_interfaces": true,
+        "archive": "work/analysis/pkgconf-3.0.11/translations/c2rust-0.22.1/pkgconf-3.0.11-stable/target/release/libpkgconf_3_0_11_normalized_audit.a",
+        "candidate_sha256": "d3e6b0b4d941a034d0b40511835bf1177dc62bfa38bf05287fad2775a9f2da26",
+        "candidate_sources_sha256": "5c39dfc65ac5015a16c2a1f594ebf3a0a5d72c4f0cf908fb334d2e9a9d1e1941",
+        "compiler_selected_sources": 37,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "d3e6b0b4d941a034d0b40511835bf1177dc62bfa38bf05287fad2775a9f2da26",
+        "parent_sources_sha256": "836b50483c4edae7d3230a1bf5535eb7105c2254cd962b74a3da7a2848214099",
+        "raw_pointer_types_removed": 342,
+        "scalar_ffi": {
+          "__ctype_b_loc": {
+            "copies": 11,
+            "provider": "src/cli/bomtool/main.rs",
+            "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+          },
+          "__ctype_tolower_loc": {
+            "copies": 28,
+            "provider": "src/cli/bomtool/main.rs",
+            "signature": "fn __ctype_tolower_loc() -> *mut *const i32;"
+          },
+          "__ctype_toupper_loc": {
+            "copies": 28,
+            "provider": "src/cli/bomtool/main.rs",
+            "signature": "fn __ctype_toupper_loc() -> *mut *const i32;"
+          },
+          "__errno_location": {
+            "copies": 6,
+            "provider": "src/cli/bomtool/main.rs",
+            "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+          },
+          "calloc": {
+            "copies": 19,
+            "provider": "src/cli/core.rs",
+            "signature": "fn calloc(a0: usize, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "free": {
+            "copies": 23,
+            "provider": "src/cli/bomtool/main.rs",
+            "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+          },
+          "getenv": {
+            "copies": 8,
+            "provider": "src/cli/bomtool/main.rs",
+            "signature": "fn getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "memcmp": {
+            "copies": 2,
+            "provider": "src/libpkgconf/buffer.rs",
+            "signature": "fn memcmp(a0: *const ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "memcpy": {
+            "copies": 3,
+            "provider": "src/libpkgconf/buffer.rs",
+            "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memmove": {
+            "copies": 3,
+            "provider": "src/libpkgconf/cache.rs",
+            "signature": "fn memmove(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memset": {
+            "copies": 3,
+            "provider": "src/libpkgconf/buffer.rs",
+            "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "pkgconf_argv_free": {
+            "copies": 2,
+            "provider": "src/libpkgconf/fragment.rs",
+            "signature": "fn pkgconf_argv_free(a0: *mut *mut ::core::ffi::c_char);"
+          },
+          "pkgconf_argv_split": {
+            "copies": 2,
+            "provider": "src/libpkgconf/fragment.rs",
+            "signature": "fn pkgconf_argv_split(a0: *const ::core::ffi::c_char, a1: *mut ::core::ffi::c_int, a2: *mut *mut *mut ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "pkgconf_compare_version": {
+            "copies": 2,
+            "provider": "src/cli/core.rs",
+            "signature": "fn pkgconf_compare_version(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "pkgconf_path_normalize_separators": {
+            "copies": 2,
+            "provider": "src/libpkgconf/client.rs",
+            "signature": "fn pkgconf_path_normalize_separators(a0: *mut ::core::ffi::c_char);"
+          },
+          "pkgconf_reallocarray": {
+            "copies": 3,
+            "provider": "src/libpkgconf/argvsplit.rs",
+            "signature": "fn pkgconf_reallocarray(a0: *mut ::core::ffi::c_void, a1: usize, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "pkgconf_strndup": {
+            "copies": 2,
+            "provider": "src/cli/main.rs",
+            "signature": "fn pkgconf_strndup(a0: *const ::core::ffi::c_char, a1: usize) -> *mut ::core::ffi::c_char;"
+          },
+          "strcasecmp": {
+            "copies": 5,
+            "provider": "src/libpkgconf/fragment.rs",
+            "signature": "fn strcasecmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strchr": {
+            "copies": 7,
+            "provider": "src/cli/core.rs",
+            "signature": "fn strchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strcmp": {
+            "copies": 12,
+            "provider": "src/cli/core.rs",
+            "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strdup": {
+            "copies": 16,
+            "provider": "src/cli/core.rs",
+            "signature": "fn strdup(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strerror": {
+            "copies": 5,
+            "provider": "src/cli/bomtool/main.rs",
+            "signature": "fn strerror(a0: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strlen": {
+            "copies": 16,
+            "provider": "src/cli/bomtool/main.rs",
+            "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+          },
+          "strncmp": {
+            "copies": 8,
+            "provider": "src/cli/core.rs",
+            "signature": "fn strncmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "strrchr": {
+            "copies": 3,
+            "provider": "src/cli/main.rs",
+            "signature": "fn strrchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strstr": {
+            "copies": 3,
+            "provider": "src/cli/main.rs",
+            "signature": "fn strstr(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strtol": {
+            "copies": 2,
+            "provider": "src/cli/main.rs",
+            "signature": "fn strtol(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_long;"
+          },
+          "strtoll": {
+            "copies": 2,
+            "provider": "src/cli/bomtool/main.rs",
+            "signature": "fn strtoll(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_longlong;"
+          }
+        },
+        "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+      },
+      "shared_stdio_layouts": {
+        "archive": "work/analysis/pkgconf-3.0.11/translations/c2rust-0.22.1/pkgconf-3.0.11-stable/target/release/libpkgconf_3_0_11_normalized_audit.a",
+        "candidate_sha256": "d3e6b0b4d941a034d0b40511835bf1177dc62bfa38bf05287fad2775a9f2da26",
+        "candidate_sources_sha256": "d23391acebe32f6f9c28423306dab9aac5e3b69526e85fa767368390bceff6a6",
+        "compiler_selected_sources": 37,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "d3e6b0b4d941a034d0b40511835bf1177dc62bfa38bf05287fad2775a9f2da26",
+        "parent_sources_sha256": "515abb47aa9135c541a902d891ad48e0b2d988378de6511cb3b2cb28f504f092",
+        "provider": "src/cli/bomtool/main.rs",
+        "raw_pointer_types_removed": 612,
+        "reexporting_modules": [
+          "src/cli/core.rs",
+          "src/cli/getopt_long.rs",
+          "src/cli/main.rs",
+          "src/cli/pccritic/critic.rs",
+          "src/cli/pccritic/main.rs",
+          "src/cli/renderer_msvc.rs",
+          "src/cli/spdxtool/core.rs",
+          "src/cli/spdxtool/generate.rs",
+          "src/cli/spdxtool/main.rs",
+          "src/cli/spdxtool/serialize.rs",
+          "src/cli/spdxtool/simplelicensing.rs",
+          "src/cli/spdxtool/software.rs",
+          "src/cli/spdxtool/util.rs",
+          "src/libpkgconf/argvsplit.rs",
+          "src/libpkgconf/audit.rs",
+          "src/libpkgconf/bsdstubs.rs",
+          "src/libpkgconf/buffer.rs",
+          "src/libpkgconf/bufferset.rs",
+          "src/libpkgconf/bytecode.rs",
+          "src/libpkgconf/cache.rs",
+          "src/libpkgconf/client.rs",
+          "src/libpkgconf/dependency.rs",
+          "src/libpkgconf/fileio.rs",
+          "src/libpkgconf/fragment.rs",
+          "src/libpkgconf/license.rs",
+          "src/libpkgconf/output.rs",
+          "src/libpkgconf/parser.rs",
+          "src/libpkgconf/path.rs",
+          "src/libpkgconf/personality.rs",
+          "src/libpkgconf/pkg.rs",
+          "src/libpkgconf/queue.rs",
+          "src/libpkgconf/tuple.rs",
+          "src/libpkgconf/variable.rs",
+          "src/libpkgconf/version.rs"
+        ]
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/pkgconf-3.0.11/translations/c2rust-0.22.1/pkgconf-3.0.11-stable/target/release/libpkgconf_3_0_11_normalized_audit.a",
+      "candidate_sha256": "d3e6b0b4d941a034d0b40511835bf1177dc62bfa38bf05287fad2775a9f2da26",
+      "candidate_sources_sha256": "d50ee77a7b4056f3a4ed04f33432a6df9f1e027ade45ce5236a5349a956772fa",
+      "compiler_selected_sources": 37,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "d3e6b0b4d941a034d0b40511835bf1177dc62bfa38bf05287fad2775a9f2da26",
+      "leaf_layouts": {
+        "pkg_option": {
+          "consumers": [
+            "src/cli/getopt_long.rs",
+            "src/cli/main.rs",
+            "src/cli/pccritic/main.rs",
+            "src/cli/spdxtool/main.rs"
+          ],
+          "copies": 5,
+          "fingerprint": "a806488556423d36829f63b28b46295e2201ae02f7b0c7982f5db96d9695acdd",
+          "pointer_fields": 2,
+          "provider": "src/cli/bomtool/main.rs"
+        },
+        "pkgconf_buffer_": {
+          "consumers": [
+            "src/cli/core.rs",
+            "src/cli/main.rs",
+            "src/cli/pccritic/critic.rs",
+            "src/cli/pccritic/main.rs",
+            "src/cli/renderer_msvc.rs",
+            "src/cli/spdxtool/core.rs",
+            "src/cli/spdxtool/generate.rs",
+            "src/cli/spdxtool/main.rs",
+            "src/cli/spdxtool/serialize.rs",
+            "src/cli/spdxtool/simplelicensing.rs",
+            "src/cli/spdxtool/software.rs",
+            "src/cli/spdxtool/util.rs",
+            "src/libpkgconf/argvsplit.rs",
+            "src/libpkgconf/audit.rs",
+            "src/libpkgconf/buffer.rs",
+            "src/libpkgconf/bufferset.rs",
+            "src/libpkgconf/bytecode.rs",
+            "src/libpkgconf/cache.rs",
+            "src/libpkgconf/client.rs",
+            "src/libpkgconf/dependency.rs",
+            "src/libpkgconf/fileio.rs",
+            "src/libpkgconf/fragment.rs",
+            "src/libpkgconf/license.rs",
+            "src/libpkgconf/output.rs",
+            "src/libpkgconf/parser.rs",
+            "src/libpkgconf/path.rs",
+            "src/libpkgconf/personality.rs",
+            "src/libpkgconf/pkg.rs",
+            "src/libpkgconf/queue.rs",
+            "src/libpkgconf/tuple.rs",
+            "src/libpkgconf/variable.rs",
+            "src/libpkgconf/version.rs"
+          ],
+          "copies": 33,
+          "fingerprint": "03a1e6b27f741c05ea30cf52d390fde894b9fc06a9d3657944d653e55497bf1f",
+          "pointer_fields": 2,
+          "provider": "src/cli/bomtool/main.rs"
+        },
+        "pkgconf_bytecode_t": {
+          "consumers": [
+            "src/cli/pccritic/critic.rs",
+            "src/cli/spdxtool/generate.rs",
+            "src/cli/spdxtool/util.rs",
+            "src/libpkgconf/bytecode.rs",
+            "src/libpkgconf/pkg.rs",
+            "src/libpkgconf/tuple.rs",
+            "src/libpkgconf/variable.rs"
+          ],
+          "copies": 8,
+          "fingerprint": "08405905b327d5e39f86cf24ace7ba926fa2f1a922029cee2812feb531f5bd0d",
+          "pointer_fields": 1,
+          "provider": "src/cli/core.rs"
+        },
+        "pkgconf_node_": {
+          "consumers": [
+            "src/cli/core.rs",
+            "src/cli/main.rs",
+            "src/cli/pccritic/critic.rs",
+            "src/cli/pccritic/main.rs",
+            "src/cli/renderer_msvc.rs",
+            "src/cli/spdxtool/core.rs",
+            "src/cli/spdxtool/generate.rs",
+            "src/cli/spdxtool/main.rs",
+            "src/cli/spdxtool/serialize.rs",
+            "src/cli/spdxtool/simplelicensing.rs",
+            "src/cli/spdxtool/software.rs",
+            "src/cli/spdxtool/util.rs",
+            "src/libpkgconf/argvsplit.rs",
+            "src/libpkgconf/audit.rs",
+            "src/libpkgconf/buffer.rs",
+            "src/libpkgconf/bufferset.rs",
+            "src/libpkgconf/bytecode.rs",
+            "src/libpkgconf/cache.rs",
+            "src/libpkgconf/client.rs",
+            "src/libpkgconf/dependency.rs",
+            "src/libpkgconf/fileio.rs",
+            "src/libpkgconf/fragment.rs",
+            "src/libpkgconf/license.rs",
+            "src/libpkgconf/output.rs",
+            "src/libpkgconf/parser.rs",
+            "src/libpkgconf/path.rs",
+            "src/libpkgconf/personality.rs",
+            "src/libpkgconf/pkg.rs",
+            "src/libpkgconf/queue.rs",
+            "src/libpkgconf/tuple.rs",
+            "src/libpkgconf/variable.rs",
+            "src/libpkgconf/version.rs"
+          ],
+          "copies": 33,
+          "fingerprint": "a9e7ac72226bae7e1a393b56cd58ee1e794a674ef283ef07c40e5f242fd3b5c7",
+          "pointer_fields": 3,
+          "provider": "src/cli/bomtool/main.rs"
+        },
+        "spdxtool_core_agent_": {
+          "consumers": [
+            "src/cli/spdxtool/generate.rs",
+            "src/cli/spdxtool/serialize.rs"
+          ],
+          "copies": 3,
+          "fingerprint": "13cd31dfdf9e79ae2c3a58a726ddfb0978d5a9836070385d5e231bb13f9739ff",
+          "pointer_fields": 4,
+          "provider": "src/cli/spdxtool/core.rs"
+        },
+        "spdxtool_core_creation_info_": {
+          "consumers": [
+            "src/cli/spdxtool/generate.rs",
+            "src/cli/spdxtool/serialize.rs"
+          ],
+          "copies": 3,
+          "fingerprint": "0a0ab33fcf0a9b96a822c354a13cff68afe00c0cd30462eb6a9227d84955f1c6",
+          "pointer_fields": 7,
+          "provider": "src/cli/spdxtool/core.rs"
+        },
+        "spdxtool_core_tool_": {
+          "consumers": [
+            "src/cli/spdxtool/generate.rs",
+            "src/cli/spdxtool/serialize.rs"
+          ],
+          "copies": 3,
+          "fingerprint": "99aa0d3f557be12a7f9dfc2586b04e471ff08daec61ef1ddc91d0c094631ce8d",
+          "pointer_fields": 4,
+          "provider": "src/cli/spdxtool/core.rs"
+        },
+        "spdxtool_simplelicensing_license_expression_": {
+          "consumers": [
+            "src/cli/spdxtool/serialize.rs",
+            "src/cli/spdxtool/simplelicensing.rs"
+          ],
+          "copies": 3,
+          "fingerprint": "9eb83114f1da969ab8051f1a21446bfdf786580beab9cfdb821b2190c163d4d8",
+          "pointer_fields": 3,
+          "provider": "src/cli/spdxtool/core.rs"
+        },
+        "tm": {
+          "consumers": [
+            "src/cli/spdxtool/util.rs"
+          ],
+          "copies": 2,
+          "fingerprint": "9b55ef87b99cbfa9e42d56168320412ea0014f3541306dd7e51c579ac7f19a0b",
+          "pointer_fields": 1,
+          "provider": "src/cli/bomtool/main.rs"
+        }
+      },
+      "parent_sources_sha256": "5c39dfc65ac5015a16c2a1f594ebf3a0a5d72c4f0cf908fb334d2e9a9d1e1941",
+      "raw_pointer_types_removed": 212
+    }
+  }
+}

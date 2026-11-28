@@ -2510,6 +2510,8 @@ Ten repeated ncurses C struct definitions can share their existing Rust definiti
 
 Replaying the IPRoute2 `ip` and `tc` declaration changes with both variadic archives and the ncurses layouts brought the same executable’s source count to **704,595**. All selected archive bytes matched their controls. [Joint candidate recount](evidence/dsfield-ip-tc-variadic-ncurses.json)
 
+The combined pkgconf selection shares layouts in 3 byte-identical archives. Its compiler inputs contain **704,340** raw-pointer type occurrences. [Selected archives and census](evidence/dsfield-pkgconf-leaf-sources.json)
+
 Use `python3 -B scripts/prepare_leaf_layouts.py enroll LINK MANIFEST PILOT ...` to verify an identical-archive receipt against the current compiler inputs. Place `--shared-leaf-layouts MANIFEST` first in the ordinary multicall build command. For an older pilot on changed sources, `python3 -B scripts/refresh_leaf_layout_pilots.py LINK RANKING OUTPUT PRIOR ...` rebuilds the archive and compares the result with the current control.
 
 Running `python3 -B scripts/preflight_variadic_ffi.py LINK RANKING` reproduced 2,751 removable type occurrences on the compiler-selected sources of all 106 archives. The report records the before and after source hashes for each archive. Cold archive comparisons determine which edits can enter the byte-identical multicall selection. [Source hashes for all 106 archives](evidence/rustbox-variadic-ffi-source-replay.json)
