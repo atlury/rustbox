@@ -1,0 +1,76 @@
+{
+  "archives": [
+    {
+      "archive": "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/dsfield-names/c4b6b84f510866ae1fdc8466692e5c25254fe0ccb8b1fba7cb77ca2cc4c9a11a/libbridge_audit.a",
+      "candidate_sha256": "c4b6b84f510866ae1fdc8466692e5c25254fe0ccb8b1fba7cb77ca2cc4c9a11a",
+      "candidate_sources_sha256": "9d11468e91df21cc15d59132a26c1e4331659fc1ad763c733ef29cccc1721fb8",
+      "compiler_selected_sources": 24,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "c4b6b84f510866ae1fdc8466692e5c25254fe0ccb8b1fba7cb77ca2cc4c9a11a",
+      "parent_sources_sha256": "2b625d2504dbc8381a262e156dc64630ef982b7a77c12ed62cb6e4283ea250f7",
+      "raw_pointer_types_removed": 25,
+      "rustc_archive": "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/libbridge_audit.a",
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd",
+      "variadic_ffi": {
+        "printf": {
+          "copies": 6,
+          "provider": "src/bridge/bridge.rs",
+          "signature": "fn printf(a0: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "snprintf": {
+          "copies": 8,
+          "provider": "src/bridge/mdb.rs",
+          "signature": "fn snprintf(a0: *mut ::core::ffi::c_char, a1: usize, a2: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "sprintf": {
+          "copies": 2,
+          "provider": "src/bridge/fdb.rs",
+          "signature": "fn sprintf(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "sscanf": {
+          "copies": 3,
+          "provider": "src/bridge/fdb.rs",
+          "signature": "fn sscanf(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        }
+      },
+      "variadic_scanner_sha256": "b2bbe52ef1c1130dd7c661d86f9f55ec8e38f47a12d3bf0be91cebc2ba2e8858"
+    },
+    {
+      "archive": "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a",
+      "candidate_sha256": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd",
+      "candidate_sources_sha256": "0c4b93392cbbd53006f70000602a519569b20a6662347e4af6610b9a5235cd73",
+      "compiler_selected_sources": 66,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "8cd96bf73956165a926563b194eba0ce04d989a3b8dfb8ae6c26612109ef41fd",
+      "parent_sources_sha256": "cf846be8b93ee972298aeeefe45f2759c9225bc4871e6c16d271936de1da3cb4",
+      "raw_pointer_types_removed": 4,
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd",
+      "variadic_ffi": {
+        "error": {
+          "copies": 2,
+          "provider": "src/normalized_source/lib/openat_die.rs",
+          "signature": "fn error(a0: ::core::ffi::c_int, a1: ::core::ffi::c_int, a2: *const ::core::ffi::c_char, ...);"
+        },
+        "open": {
+          "copies": 2,
+          "provider": "src/normalized_source/lib/open_safer.rs",
+          "signature": "fn open(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;"
+        },
+        "open_safer": {
+          "copies": 2,
+          "provider": "src/normalized_source/gzip.rs",
+          "signature": "fn open_safer(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;"
+        },
+        "openat": {
+          "copies": 2,
+          "provider": "src/normalized_source/lib/chdir_long.rs",
+          "signature": "fn openat(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;"
+        }
+      },
+      "variadic_scanner_sha256": "b2bbe52ef1c1130dd7c661d86f9f55ec8e38f47a12d3bf0be91cebc2ba2e8858"
+    }
+  ],
+  "byte_identical_archives": 2,
+  "ranking_sha256": "4efae651bcea17878635faf932b64186e77506a00f2ce1f5169d6d736052e786",
+  "verified_pointer_types_removed": 29
+}

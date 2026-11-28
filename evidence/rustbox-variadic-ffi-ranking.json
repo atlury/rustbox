@@ -1,0 +1,935 @@
+{
+  "archives": {
+    "work/analysis/acl-2.4.0/translations/c2rust-0.22.1/acl-2.4.0-stable/target/release/libacl_2_4_0_normalized_audit.a": 16,
+    "work/analysis/attr-2.6.0/translations/c2rust-0.22.1/attr-2.6.0-stable/target/release/libattr_2_6_0_normalized_audit.a": 6,
+    "work/analysis/bc-1.08.2/translations/c2rust-0.22.1/bc-1.08.2-stable/target/release/libbc_1_08_2_normalized_audit.a": 15,
+    "work/analysis/bison-3.8.2/translations/c2rust-0.22.1/bison-3.8.2-stable/target/literal-lengths/e60a4fb2be106db3ecffe4380214d26b6fd9198d93ba2ccb380f3babc49aa0d2/libbison_3_8_2_normalized_audit.a": 24,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-01-stable/target/release/libcoreutils_small_01_reachable.a": 18,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-02-stable/target/release/libcoreutils_small_02_normalized_reachable.a": 15,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-04-stable/target/release/libcoreutils_small_04_normalized_reachable.a": 20,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-05-stable/target/release/libcoreutils_small_05_normalized_reachable.a": 20,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-06-stable/target/release/libcoreutils_small_06_normalized_reachable.a": 23,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-07-stable/target/release/libcoreutils_small_07_normalized_reachable.a": 27,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-08-stable/target/release/libcoreutils_small_08_normalized_reachable.a": 29,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-09-stable/target/release/libcoreutils_small_09_normalized_reachable.a": 16,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-10-stable/target/release/libcoreutils_small_10_normalized_reachable.a": 1,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-11-stable/target/release/libcoreutils_small_11_normalized_reachable.a": 11,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-14-stable/target/release/libcoreutils_small_14_normalized_reachable.a": 3,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-15-stable/target/release/libcoreutils_small_15_normalized_reachable.a": 3,
+    "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-16-stable/target/release/libcoreutils_small_16_normalized_reachable.a": 5,
+    "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/packed-manual/5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7/libcurl_8_23_0_normalized_audit.a": 158,
+    "work/analysis/diffutils-3.12/translations/c2rust-0.22.1/diffutils-3.12-stable/target/release/libdiffutils_3_12_normalized_audit.a": 28,
+    "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/chattr/release/libchattr_audit.a": 3,
+    "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/lsattr/release/liblsattr_audit.a": 2,
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/badblocks/2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff/libbadblocks_audit.a": 11,
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/debugfs/0b1483e5fe35bab542de5f9285e9f2df6edd6c215a6d1481e2a004cdc203958a/libdebugfs_audit.a": 115,
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/dumpe2fs/0e7dd48180b25ee0e893f7ec2254bd62400c208fdd873858cc56cd62c40ad12f/libdumpe2fs_audit.a": 24,
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2freefrag/dff1d228a46ef9b0bb99a0a2fb7995385f762f3c86aa51463a100dbec84294b5/libe2freefrag_audit.a": 11,
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2fsck/564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd/libe2fsck_audit.a": 78,
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2image/399a863ff0c37471b7e8ab0cbad3d9cd6f80d6f326871ba85e85bed25225fc2e/libe2image_audit.a": 11,
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2initrd_helper/6edccc168e7742f23fafe09103351a09528c8e57699efe07b6009d65fca34cab/libe2initrd_helper_audit.a": 10,
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2undo/cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8/libe2undo_audit.a": 12,
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e4defrag/0de205baddb49a145d654d7972d120739e38af71596acd5a07da8a43a43d0734/libe4defrag_audit.a": 9,
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/fuse2fs/0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a/libfuse2fs_audit.a": 15,
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a": 43,
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/resize2fs/b0c8126d1bdf73d216736f090e322dc52c1a9aa2f37ab78ba534910fc9e68005/libresize2fs_audit.a": 19,
+    "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/tune2fs/03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966/libtune2fs_audit.a": 37,
+    "work/analysis/file-5.48/translations/c2rust-0.22.1/file-5.48-stable/target/release/libfile_5_48_normalized_audit.a": 19,
+    "work/analysis/findutils-4.10.0/translations/c2rust-0.22.1/findutils-4.10.0-stable/target/release/libfindutils_4_10_0_combined.a": 52,
+    "work/analysis/flex-2.6.4/translations/c2rust-0.22.1/flex-2.6.4-stable/target/release/libflex_2_6_4_normalized_audit.a": 18,
+    "work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-core-stable/target/release/libgawk_5_4_0_core.a": 85,
+    "work/analysis/grep-3.12/translations/c2rust-0.22.1/grep-3.12-stable/target/release/libgrep_3_12_normalized_audit.a": 16,
+    "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a": 4,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libdnsdomainname_audit.a": 1,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftp_audit.a": 15,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftpd_audit.a": 25,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libhostname_audit.a": 1,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libifconfig_audit.a": 10,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libinetd_audit.a": 1,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/liblogger_audit.a": 1,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libping6_audit.a": 3,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libping_audit.a": 10,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librcp_audit.a": 1,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexec_audit.a": 1,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexecd_audit.a": 1,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogind_audit.a": 1,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librshd_audit.a": 1,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libsyslogd_audit.a": 8,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalk_audit.a": 3,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalkd_audit.a": 10,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnet_audit.a": 11,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnetd_audit.a": 9,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftp_audit.a": 2,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtraceroute_audit.a": 2,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libuucpd_audit.a": 1,
+    "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libwhois_audit.a": 2,
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/arpd/dsfield-names/f384d69ea46f8ee27c486a4e649ff7e4c467b9475c0e2ee965c4b35fa27af1b6/libarpd_audit.a": 18,
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dcb/dsfield-names/e583f6cb8b933204603a61a8418cfe081f8949dbc9414d43e57f738877b40609/libdcb_audit.a": 22,
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/devlink/dsfield-names/e552f710761726143cb90592ca8a1b702e98756996cccc02b67efe0289090665/libdevlink_audit.a": 18,
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dpll/dsfield-names/8fa47af08cd0dd8006d4508c9e5ce687fbfeae8d0888e5685e2edd577e62c831/libdpll_audit.a": 14,
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/genl/dsfield-names/2d817a01109f8eed870f60292aa9943b2ab00984e25f9ff781a649b087b95df7/libgenl_audit.a": 16,
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ifstat/dsfield-names/de3f934acc885351b1d1bb7745f1ba6acc6b8b2d7c1e2bb7586bd521633239da/libifstat_audit.a": 18,
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/dsfield-names/0af8cebadc6066e2fe5e89a0cb6ec5986a9449f11d6fc29f18e00442053bc649/libip_audit.a": 112,
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/lnstat/dsfield-names/e5c3bab03c83f3dda0096c8354aafb0d24043ef98d354f8ab49441a57dce71e7/liblnstat_audit.a": 19,
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/netshaper/dsfield-names/cc23393eef92065060ca5399f4e276926ec4bcc386a6311e72ad6b1e37d5ec11/libnetshaper_audit.a": 14,
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/nstat/dsfield-names/87bf217e7abfe8e7e1cd07beac5781f65b4878c0e8ba3a924c4f5fe5ce1c899a/libnstat_audit.a": 18,
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rdma/dsfield-names/457d43b1a7427e7d31cd6b1b8cbac24943dd2cbeb6e116bb980902e565098569/librdma_audit.a": 39,
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtacct/dsfield-names/3031a37a4319869eedcd86b6411af66881a702f8a82edb4eb06ef1ebdbf69296/librtacct_audit.a": 20,
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtmon/dsfield-names/1b1a19290e9b94e5144315ed910729e33897ef5cee5697157b870bdf175c47ba/librtmon_audit.a": 14,
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ss/dsfield-names/773694768d4441e2e36a15dee9300fede61e2c45d417a04cc7a6712482b6e0f4/libss_audit.a": 29,
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/dsfield-names/8b9ffa4f61832836c79a6b52d045246be4afdf53f46026dce8e03507b19e07be/libtc_audit.a": 112,
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tipc/dsfield-names/9b1ed5fb80ca278df3aef2ba9d980ef04dbdf304f0f45a7a41f86e66c19ce4f7/libtipc_audit.a": 27,
+    "work/analysis/iproute2-7.3.0/program-translations/cargo-target/vdpa/dsfield-names/5782386a1b8b427eaf11d988d966719d89569e5538881f72618e282faa6e1f11/libvdpa_audit.a": 16,
+    "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/dsfield-names/c4b6b84f510866ae1fdc8466692e5c25254fe0ccb8b1fba7cb77ca2cc4c9a11a/libbridge_audit.a": 25,
+    "work/analysis/kmod-34.3/translations/c2rust-0.22.1/kmod-34.3-stable/target/release/libkmod_34_3_normalized_audit.a": 40,
+    "work/analysis/less-710/translations/c2rust-0.22.1/less-710-stable/target/release/libless_710_normalized_audit.a": 37,
+    "work/analysis/lz4-1.11.1/translations/c2rust-0.22.1/lz4-1.11.1-stable/target/packed-dictionary/f3e4435913115dfc9c3550deae4e8cc06abcb910d56fb5da98627b5ff4a3f91f/liblz4_1_11_1_normalized_audit.a": 2,
+    "work/analysis/m4-1.4.21/translations/c2rust-0.22.1/m4-1.4.21-stable/target/release/libm4_1_4_21_normalized_audit.a": 17,
+    "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a": 85,
+    "work/analysis/patch-2.8/translations/c2rust-0.22.1/patch-2.8-stable/target/release/libpatch_2_8_normalized_audit.a": 26,
+    "work/analysis/pkgconf-3.0.11/translations/c2rust-0.22.1/pkgconf-3.0.11-stable/target/release/libpkgconf_3_0_11_normalized_audit.a": 11,
+    "work/analysis/procps-ng-4.0.7/translations/c2rust-0.22.1/procps-ng-4.0.7-nightly/target/release/libprocps_ng_4_0_7_normalized_audit.a": 120,
+    "work/analysis/sed-4.10/translations/c2rust-0.22.1/sed-4.10-stable/target/release/libsed_4_10_normalized_audit.a": 8,
+    "work/analysis/shadow-4.20.4/translations/c2rust-0.22.1/shadow-4.20.4-nightly/target/release/libshadow_4_20_4_normalized_audit.a": 85,
+    "work/analysis/tar-1.35/translations/c2rust-0.22.1/tar-1.35-stable/target/borrowed-timestamps/30ac31a37c96970ff8b030c8e71981914d4d117fd78b4a8bec8283628a69a2f3/libtar_1_35_normalized_audit.a": 54,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-01-stable/target/release/libutil_linux_small_01_normalized_reachable.a": 28,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-02-stable/target/release/libutil_linux_small_02_normalized_reachable.a": 29,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-03-stable/target/release/libutil_linux_small_03_normalized_reachable.a": 34,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-04-stable/target/release/libutil_linux_small_04_normalized_reachable.a": 30,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-05-stable/target/release/libutil_linux_small_05_normalized_reachable.a": 41,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-06-stable/target/release/libutil_linux_small_06_normalized_reachable.a": 39,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-07-stable/target/release/libutil_linux_small_07_normalized_reachable.a": 39,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-09-stable/target/release/libutil_linux_small_09_normalized_reachable.a": 40,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-10-stable/target/release/libutil_linux_small_10_normalized_reachable.a": 43,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-11-stable/target/release/libutil_linux_small_11_normalized_reachable.a": 54,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-12-stable/target/release/libutil_linux_small_12_normalized_reachable.a": 44,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-13-stable/target/release/libutil_linux_small_13_normalized_reachable.a": 51,
+    "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-14-stable/target/release/libutil_linux_small_14_normalized_reachable.a": 58,
+    "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a": 33
+  },
+  "binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+  "candidate_pointer_types": 2751,
+  "link_sha256": "b2b4633e4022828711fd26d86ed250694644027c1b8d263cbc3f9df6acfae63c",
+  "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd",
+  "signatures": [
+    {
+      "archives": {
+        "work/analysis/bc-1.08.2/translations/c2rust-0.22.1/bc-1.08.2-stable/target/release/libbc_1_08_2_normalized_audit.a": 4,
+        "work/analysis/bison-3.8.2/translations/c2rust-0.22.1/bison-3.8.2-stable/target/literal-lengths/e60a4fb2be106db3ecffe4380214d26b6fd9198d93ba2ccb380f3babc49aa0d2/libbison_3_8_2_normalized_audit.a": 6,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/debugfs/0b1483e5fe35bab542de5f9285e9f2df6edd6c215a6d1481e2a004cdc203958a/libdebugfs_audit.a": 6,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2fsck/564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd/libe2fsck_audit.a": 8,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a": 2,
+        "work/analysis/file-5.48/translations/c2rust-0.22.1/file-5.48-stable/target/release/libfile_5_48_normalized_audit.a": 10,
+        "work/analysis/findutils-4.10.0/translations/c2rust-0.22.1/findutils-4.10.0-stable/target/release/libfindutils_4_10_0_combined.a": 8,
+        "work/analysis/flex-2.6.4/translations/c2rust-0.22.1/flex-2.6.4-stable/target/release/libflex_2_6_4_normalized_audit.a": 14,
+        "work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-core-stable/target/release/libgawk_5_4_0_core.a": 6,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftp_audit.a": 2,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftpd_audit.a": 8,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libsyslogd_audit.a": 2,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalkd_audit.a": 2,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnet_audit.a": 4,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/arpd/dsfield-names/f384d69ea46f8ee27c486a4e649ff7e4c467b9475c0e2ee965c4b35fa27af1b6/libarpd_audit.a": 10,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dcb/dsfield-names/e583f6cb8b933204603a61a8418cfe081f8949dbc9414d43e57f738877b40609/libdcb_audit.a": 18,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/devlink/dsfield-names/e552f710761726143cb90592ca8a1b702e98756996cccc02b67efe0289090665/libdevlink_audit.a": 14,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dpll/dsfield-names/8fa47af08cd0dd8006d4508c9e5ce687fbfeae8d0888e5685e2edd577e62c831/libdpll_audit.a": 10,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/genl/dsfield-names/2d817a01109f8eed870f60292aa9943b2ab00984e25f9ff781a649b087b95df7/libgenl_audit.a": 12,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ifstat/dsfield-names/de3f934acc885351b1d1bb7745f1ba6acc6b8b2d7c1e2bb7586bd521633239da/libifstat_audit.a": 12,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/dsfield-names/0af8cebadc6066e2fe5e89a0cb6ec5986a9449f11d6fc29f18e00442053bc649/libip_audit.a": 66,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/lnstat/dsfield-names/e5c3bab03c83f3dda0096c8354aafb0d24043ef98d354f8ab49441a57dce71e7/liblnstat_audit.a": 14,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/netshaper/dsfield-names/cc23393eef92065060ca5399f4e276926ec4bcc386a6311e72ad6b1e37d5ec11/libnetshaper_audit.a": 10,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/nstat/dsfield-names/87bf217e7abfe8e7e1cd07beac5781f65b4878c0e8ba3a924c4f5fe5ce1c899a/libnstat_audit.a": 12,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rdma/dsfield-names/457d43b1a7427e7d31cd6b1b8cbac24943dd2cbeb6e116bb980902e565098569/librdma_audit.a": 30,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtacct/dsfield-names/3031a37a4319869eedcd86b6411af66881a702f8a82edb4eb06ef1ebdbf69296/librtacct_audit.a": 12,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtmon/dsfield-names/1b1a19290e9b94e5144315ed910729e33897ef5cee5697157b870bdf175c47ba/librtmon_audit.a": 10,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ss/dsfield-names/773694768d4441e2e36a15dee9300fede61e2c45d417a04cc7a6712482b6e0f4/libss_audit.a": 20,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/dsfield-names/8b9ffa4f61832836c79a6b52d045246be4afdf53f46026dce8e03507b19e07be/libtc_audit.a": 50,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tipc/dsfield-names/9b1ed5fb80ca278df3aef2ba9d980ef04dbdf304f0f45a7a41f86e66c19ce4f7/libtipc_audit.a": 12,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/vdpa/dsfield-names/5782386a1b8b427eaf11d988d966719d89569e5538881f72618e282faa6e1f11/libvdpa_audit.a": 10,
+        "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/dsfield-names/c4b6b84f510866ae1fdc8466692e5c25254fe0ccb8b1fba7cb77ca2cc4c9a11a/libbridge_audit.a": 14,
+        "work/analysis/kmod-34.3/translations/c2rust-0.22.1/kmod-34.3-stable/target/release/libkmod_34_3_normalized_audit.a": 16,
+        "work/analysis/less-710/translations/c2rust-0.22.1/less-710-stable/target/release/libless_710_normalized_audit.a": 20,
+        "work/analysis/lz4-1.11.1/translations/c2rust-0.22.1/lz4-1.11.1-stable/target/packed-dictionary/f3e4435913115dfc9c3550deae4e8cc06abcb910d56fb5da98627b5ff4a3f91f/liblz4_1_11_1_normalized_audit.a": 2,
+        "work/analysis/pkgconf-3.0.11/translations/c2rust-0.22.1/pkgconf-3.0.11-stable/target/release/libpkgconf_3_0_11_normalized_audit.a": 8,
+        "work/analysis/procps-ng-4.0.7/translations/c2rust-0.22.1/procps-ng-4.0.7-nightly/target/release/libprocps_ng_4_0_7_normalized_audit.a": 48,
+        "work/analysis/tar-1.35/translations/c2rust-0.22.1/tar-1.35-stable/target/borrowed-timestamps/30ac31a37c96970ff8b030c8e71981914d4d117fd78b4a8bec8283628a69a2f3/libtar_1_35_normalized_audit.a": 4,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-03-stable/target/release/libutil_linux_small_03_normalized_reachable.a": 4,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-04-stable/target/release/libutil_linux_small_04_normalized_reachable.a": 4,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-05-stable/target/release/libutil_linux_small_05_normalized_reachable.a": 8,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-06-stable/target/release/libutil_linux_small_06_normalized_reachable.a": 6,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-07-stable/target/release/libutil_linux_small_07_normalized_reachable.a": 10,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-09-stable/target/release/libutil_linux_small_09_normalized_reachable.a": 8,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-10-stable/target/release/libutil_linux_small_10_normalized_reachable.a": 12,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-11-stable/target/release/libutil_linux_small_11_normalized_reachable.a": 18,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-12-stable/target/release/libutil_linux_small_12_normalized_reachable.a": 14,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-13-stable/target/release/libutil_linux_small_13_normalized_reachable.a": 14,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-14-stable/target/release/libutil_linux_small_14_normalized_reachable.a": 18,
+        "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a": 6
+      },
+      "pointer_types": 638,
+      "signature": "fn snprintf(a0: *mut ::core::ffi::c_char, a1: usize, a2: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+    },
+    {
+      "archives": {
+        "work/analysis/acl-2.4.0/translations/c2rust-0.22.1/acl-2.4.0-stable/target/release/libacl_2_4_0_normalized_audit.a": 2,
+        "work/analysis/attr-2.6.0/translations/c2rust-0.22.1/attr-2.6.0-stable/target/release/libattr_2_6_0_normalized_audit.a": 2,
+        "work/analysis/bc-1.08.2/translations/c2rust-0.22.1/bc-1.08.2-stable/target/release/libbc_1_08_2_normalized_audit.a": 4,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-01-stable/target/release/libcoreutils_small_01_reachable.a": 9,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-02-stable/target/release/libcoreutils_small_02_normalized_reachable.a": 8,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-04-stable/target/release/libcoreutils_small_04_normalized_reachable.a": 10,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-05-stable/target/release/libcoreutils_small_05_normalized_reachable.a": 10,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-06-stable/target/release/libcoreutils_small_06_normalized_reachable.a": 9,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-07-stable/target/release/libcoreutils_small_07_normalized_reachable.a": 11,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-08-stable/target/release/libcoreutils_small_08_normalized_reachable.a": 11,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-09-stable/target/release/libcoreutils_small_09_normalized_reachable.a": 6,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-10-stable/target/release/libcoreutils_small_10_normalized_reachable.a": 1,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-11-stable/target/release/libcoreutils_small_11_normalized_reachable.a": 4,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-14-stable/target/release/libcoreutils_small_14_normalized_reachable.a": 1,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-15-stable/target/release/libcoreutils_small_15_normalized_reachable.a": 1,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-16-stable/target/release/libcoreutils_small_16_normalized_reachable.a": 2,
+        "work/analysis/diffutils-3.12/translations/c2rust-0.22.1/diffutils-3.12-stable/target/release/libdiffutils_3_12_normalized_audit.a": 5,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/debugfs/0b1483e5fe35bab542de5f9285e9f2df6edd6c215a6d1481e2a004cdc203958a/libdebugfs_audit.a": 18,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/dumpe2fs/0e7dd48180b25ee0e893f7ec2254bd62400c208fdd873858cc56cd62c40ad12f/libdumpe2fs_audit.a": 2,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2fsck/564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd/libe2fsck_audit.a": 13,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2image/399a863ff0c37471b7e8ab0cbad3d9cd6f80d6f326871ba85e85bed25225fc2e/libe2image_audit.a": 1,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/fuse2fs/0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a/libfuse2fs_audit.a": 2,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a": 4,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/resize2fs/b0c8126d1bdf73d216736f090e322dc52c1a9aa2f37ab78ba534910fc9e68005/libresize2fs_audit.a": 4,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/tune2fs/03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966/libtune2fs_audit.a": 4,
+        "work/analysis/file-5.48/translations/c2rust-0.22.1/file-5.48-stable/target/release/libfile_5_48_normalized_audit.a": 1,
+        "work/analysis/findutils-4.10.0/translations/c2rust-0.22.1/findutils-4.10.0-stable/target/release/libfindutils_4_10_0_combined.a": 2,
+        "work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-core-stable/target/release/libgawk_5_4_0_core.a": 3,
+        "work/analysis/grep-3.12/translations/c2rust-0.22.1/grep-3.12-stable/target/release/libgrep_3_12_normalized_audit.a": 3,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftp_audit.a": 6,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftpd_audit.a": 4,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libifconfig_audit.a": 5,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libping6_audit.a": 1,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libping_audit.a": 5,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexec_audit.a": 1,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libsyslogd_audit.a": 1,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalk_audit.a": 3,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnet_audit.a": 4,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnetd_audit.a": 1,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftp_audit.a": 1,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtraceroute_audit.a": 1,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libuucpd_audit.a": 1,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libwhois_audit.a": 1,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/arpd/dsfield-names/f384d69ea46f8ee27c486a4e649ff7e4c467b9475c0e2ee965c4b35fa27af1b6/libarpd_audit.a": 2,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dcb/dsfield-names/e583f6cb8b933204603a61a8418cfe081f8949dbc9414d43e57f738877b40609/libdcb_audit.a": 2,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/devlink/dsfield-names/e552f710761726143cb90592ca8a1b702e98756996cccc02b67efe0289090665/libdevlink_audit.a": 2,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dpll/dsfield-names/8fa47af08cd0dd8006d4508c9e5ce687fbfeae8d0888e5685e2edd577e62c831/libdpll_audit.a": 2,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/genl/dsfield-names/2d817a01109f8eed870f60292aa9943b2ab00984e25f9ff781a649b087b95df7/libgenl_audit.a": 2,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ifstat/dsfield-names/de3f934acc885351b1d1bb7745f1ba6acc6b8b2d7c1e2bb7586bd521633239da/libifstat_audit.a": 2,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/dsfield-names/0af8cebadc6066e2fe5e89a0cb6ec5986a9449f11d6fc29f18e00442053bc649/libip_audit.a": 17,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/lnstat/dsfield-names/e5c3bab03c83f3dda0096c8354aafb0d24043ef98d354f8ab49441a57dce71e7/liblnstat_audit.a": 1,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/netshaper/dsfield-names/cc23393eef92065060ca5399f4e276926ec4bcc386a6311e72ad6b1e37d5ec11/libnetshaper_audit.a": 2,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/nstat/dsfield-names/87bf217e7abfe8e7e1cd07beac5781f65b4878c0e8ba3a924c4f5fe5ce1c899a/libnstat_audit.a": 2,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rdma/dsfield-names/457d43b1a7427e7d31cd6b1b8cbac24943dd2cbeb6e116bb980902e565098569/librdma_audit.a": 3,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtacct/dsfield-names/3031a37a4319869eedcd86b6411af66881a702f8a82edb4eb06ef1ebdbf69296/librtacct_audit.a": 2,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtmon/dsfield-names/1b1a19290e9b94e5144315ed910729e33897ef5cee5697157b870bdf175c47ba/librtmon_audit.a": 2,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ss/dsfield-names/773694768d4441e2e36a15dee9300fede61e2c45d417a04cc7a6712482b6e0f4/libss_audit.a": 2,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/dsfield-names/8b9ffa4f61832836c79a6b52d045246be4afdf53f46026dce8e03507b19e07be/libtc_audit.a": 7,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tipc/dsfield-names/9b1ed5fb80ca278df3aef2ba9d980ef04dbdf304f0f45a7a41f86e66c19ce4f7/libtipc_audit.a": 7,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/vdpa/dsfield-names/5782386a1b8b427eaf11d988d966719d89569e5538881f72618e282faa6e1f11/libvdpa_audit.a": 2,
+        "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/dsfield-names/c4b6b84f510866ae1fdc8466692e5c25254fe0ccb8b1fba7cb77ca2cc4c9a11a/libbridge_audit.a": 5,
+        "work/analysis/kmod-34.3/translations/c2rust-0.22.1/kmod-34.3-stable/target/release/libkmod_34_3_normalized_audit.a": 7,
+        "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a": 7,
+        "work/analysis/pkgconf-3.0.11/translations/c2rust-0.22.1/pkgconf-3.0.11-stable/target/release/libpkgconf_3_0_11_normalized_audit.a": 3,
+        "work/analysis/procps-ng-4.0.7/translations/c2rust-0.22.1/procps-ng-4.0.7-nightly/target/release/libprocps_ng_4_0_7_normalized_audit.a": 16,
+        "work/analysis/sed-4.10/translations/c2rust-0.22.1/sed-4.10-stable/target/release/libsed_4_10_normalized_audit.a": 2,
+        "work/analysis/shadow-4.20.4/translations/c2rust-0.22.1/shadow-4.20.4-nightly/target/release/libshadow_4_20_4_normalized_audit.a": 21,
+        "work/analysis/tar-1.35/translations/c2rust-0.22.1/tar-1.35-stable/target/borrowed-timestamps/30ac31a37c96970ff8b030c8e71981914d4d117fd78b4a8bec8283628a69a2f3/libtar_1_35_normalized_audit.a": 2,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-01-stable/target/release/libutil_linux_small_01_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-02-stable/target/release/libutil_linux_small_02_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-03-stable/target/release/libutil_linux_small_03_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-04-stable/target/release/libutil_linux_small_04_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-05-stable/target/release/libutil_linux_small_05_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-06-stable/target/release/libutil_linux_small_06_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-07-stable/target/release/libutil_linux_small_07_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-09-stable/target/release/libutil_linux_small_09_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-10-stable/target/release/libutil_linux_small_10_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-11-stable/target/release/libutil_linux_small_11_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-12-stable/target/release/libutil_linux_small_12_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-13-stable/target/release/libutil_linux_small_13_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-14-stable/target/release/libutil_linux_small_14_normalized_reachable.a": 9,
+        "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a": 5
+      },
+      "pointer_types": 432,
+      "signature": "fn printf(a0: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+    },
+    {
+      "archives": {
+        "work/analysis/acl-2.4.0/translations/c2rust-0.22.1/acl-2.4.0-stable/target/release/libacl_2_4_0_normalized_audit.a": 2,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-07-stable/target/release/libcoreutils_small_07_normalized_reachable.a": 4,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-08-stable/target/release/libcoreutils_small_08_normalized_reachable.a": 4,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-11-stable/target/release/libcoreutils_small_11_normalized_reachable.a": 2,
+        "work/analysis/diffutils-3.12/translations/c2rust-0.22.1/diffutils-3.12-stable/target/release/libdiffutils_3_12_normalized_audit.a": 2,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/debugfs/0b1483e5fe35bab542de5f9285e9f2df6edd6c215a6d1481e2a004cdc203958a/libdebugfs_audit.a": 32,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/dumpe2fs/0e7dd48180b25ee0e893f7ec2254bd62400c208fdd873858cc56cd62c40ad12f/libdumpe2fs_audit.a": 12,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2fsck/564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd/libe2fsck_audit.a": 22,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a": 16,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/tune2fs/03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966/libtune2fs_audit.a": 16,
+        "work/analysis/findutils-4.10.0/translations/c2rust-0.22.1/findutils-4.10.0-stable/target/release/libfindutils_4_10_0_combined.a": 8,
+        "work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-core-stable/target/release/libgawk_5_4_0_core.a": 30,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftp_audit.a": 2,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftpd_audit.a": 4,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalkd_audit.a": 2,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnet_audit.a": 2,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnetd_audit.a": 4,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/arpd/dsfield-names/f384d69ea46f8ee27c486a4e649ff7e4c467b9475c0e2ee965c4b35fa27af1b6/libarpd_audit.a": 2,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/dsfield-names/0af8cebadc6066e2fe5e89a0cb6ec5986a9449f11d6fc29f18e00442053bc649/libip_audit.a": 6,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtacct/dsfield-names/3031a37a4319869eedcd86b6411af66881a702f8a82edb4eb06ef1ebdbf69296/librtacct_audit.a": 2,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ss/dsfield-names/773694768d4441e2e36a15dee9300fede61e2c45d417a04cc7a6712482b6e0f4/libss_audit.a": 2,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/dsfield-names/8b9ffa4f61832836c79a6b52d045246be4afdf53f46026dce8e03507b19e07be/libtc_audit.a": 16,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tipc/dsfield-names/9b1ed5fb80ca278df3aef2ba9d980ef04dbdf304f0f45a7a41f86e66c19ce4f7/libtipc_audit.a": 4,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/vdpa/dsfield-names/5782386a1b8b427eaf11d988d966719d89569e5538881f72618e282faa6e1f11/libvdpa_audit.a": 2,
+        "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/dsfield-names/c4b6b84f510866ae1fdc8466692e5c25254fe0ccb8b1fba7cb77ca2cc4c9a11a/libbridge_audit.a": 2,
+        "work/analysis/less-710/translations/c2rust-0.22.1/less-710-stable/target/release/libless_710_normalized_audit.a": 12,
+        "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a": 34,
+        "work/analysis/patch-2.8/translations/c2rust-0.22.1/patch-2.8-stable/target/release/libpatch_2_8_normalized_audit.a": 6,
+        "work/analysis/procps-ng-4.0.7/translations/c2rust-0.22.1/procps-ng-4.0.7-nightly/target/release/libprocps_ng_4_0_7_normalized_audit.a": 6,
+        "work/analysis/tar-1.35/translations/c2rust-0.22.1/tar-1.35-stable/target/borrowed-timestamps/30ac31a37c96970ff8b030c8e71981914d4d117fd78b4a8bec8283628a69a2f3/libtar_1_35_normalized_audit.a": 6
+      },
+      "pointer_types": 264,
+      "signature": "fn sprintf(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+    },
+    {
+      "archives": {
+        "work/analysis/bison-3.8.2/translations/c2rust-0.22.1/bison-3.8.2-stable/target/literal-lengths/e60a4fb2be106db3ecffe4380214d26b6fd9198d93ba2ccb380f3babc49aa0d2/libbison_3_8_2_normalized_audit.a": 10,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-01-stable/target/release/libcoreutils_small_01_reachable.a": 9,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-02-stable/target/release/libcoreutils_small_02_normalized_reachable.a": 7,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-04-stable/target/release/libcoreutils_small_04_normalized_reachable.a": 10,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-05-stable/target/release/libcoreutils_small_05_normalized_reachable.a": 10,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-06-stable/target/release/libcoreutils_small_06_normalized_reachable.a": 12,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-07-stable/target/release/libcoreutils_small_07_normalized_reachable.a": 11,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-08-stable/target/release/libcoreutils_small_08_normalized_reachable.a": 14,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-09-stable/target/release/libcoreutils_small_09_normalized_reachable.a": 9,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-11-stable/target/release/libcoreutils_small_11_normalized_reachable.a": 5,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-14-stable/target/release/libcoreutils_small_14_normalized_reachable.a": 2,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-15-stable/target/release/libcoreutils_small_15_normalized_reachable.a": 2,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-16-stable/target/release/libcoreutils_small_16_normalized_reachable.a": 3,
+        "work/analysis/diffutils-3.12/translations/c2rust-0.22.1/diffutils-3.12-stable/target/release/libdiffutils_3_12_normalized_audit.a": 12,
+        "work/analysis/findutils-4.10.0/translations/c2rust-0.22.1/findutils-4.10.0-stable/target/release/libfindutils_4_10_0_combined.a": 22,
+        "work/analysis/grep-3.12/translations/c2rust-0.22.1/grep-3.12-stable/target/release/libgrep_3_12_normalized_audit.a": 6,
+        "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a": 1,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libdnsdomainname_audit.a": 1,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftp_audit.a": 3,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftpd_audit.a": 2,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libhostname_audit.a": 1,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libifconfig_audit.a": 5,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/liblogger_audit.a": 1,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libping6_audit.a": 2,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libping_audit.a": 5,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librcp_audit.a": 1,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librexecd_audit.a": 1,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librlogind_audit.a": 1,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/librshd_audit.a": 1,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libsyslogd_audit.a": 2,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnet_audit.a": 1,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnetd_audit.a": 1,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtftp_audit.a": 1,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtraceroute_audit.a": 1,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libwhois_audit.a": 1,
+        "work/analysis/patch-2.8/translations/c2rust-0.22.1/patch-2.8-stable/target/release/libpatch_2_8_normalized_audit.a": 5,
+        "work/analysis/procps-ng-4.0.7/translations/c2rust-0.22.1/procps-ng-4.0.7-nightly/target/release/libprocps_ng_4_0_7_normalized_audit.a": 4,
+        "work/analysis/sed-4.10/translations/c2rust-0.22.1/sed-4.10-stable/target/release/libsed_4_10_normalized_audit.a": 2,
+        "work/analysis/tar-1.35/translations/c2rust-0.22.1/tar-1.35-stable/target/borrowed-timestamps/30ac31a37c96970ff8b030c8e71981914d4d117fd78b4a8bec8283628a69a2f3/libtar_1_35_normalized_audit.a": 27
+      },
+      "pointer_types": 214,
+      "signature": "fn error(a0: ::core::ffi::c_int, a1: ::core::ffi::c_int, a2: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/badblocks/2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff/libbadblocks_audit.a": 8,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/debugfs/0b1483e5fe35bab542de5f9285e9f2df6edd6c215a6d1481e2a004cdc203958a/libdebugfs_audit.a": 52,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/dumpe2fs/0e7dd48180b25ee0e893f7ec2254bd62400c208fdd873858cc56cd62c40ad12f/libdumpe2fs_audit.a": 8,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2freefrag/dff1d228a46ef9b0bb99a0a2fb7995385f762f3c86aa51463a100dbec84294b5/libe2freefrag_audit.a": 8,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2fsck/564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd/libe2fsck_audit.a": 28,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2image/399a863ff0c37471b7e8ab0cbad3d9cd6f80d6f326871ba85e85bed25225fc2e/libe2image_audit.a": 8,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2initrd_helper/6edccc168e7742f23fafe09103351a09528c8e57699efe07b6009d65fca34cab/libe2initrd_helper_audit.a": 8,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2undo/cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8/libe2undo_audit.a": 10,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e4defrag/0de205baddb49a145d654d7972d120739e38af71596acd5a07da8a43a43d0734/libe4defrag_audit.a": 6,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/fuse2fs/0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a/libfuse2fs_audit.a": 10,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a": 18,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/resize2fs/b0c8126d1bdf73d216736f090e322dc52c1a9aa2f37ab78ba534910fc9e68005/libresize2fs_audit.a": 12,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/tune2fs/03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966/libtune2fs_audit.a": 14
+      },
+      "pointer_types": 190,
+      "signature": "fn com_err(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_long, a2: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-06-stable/target/release/libcoreutils_small_06_normalized_reachable.a": 2,
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-07-stable/target/release/libcoreutils_small_07_normalized_reachable.a": 1,
+        "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/packed-manual/5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7/libcurl_8_23_0_normalized_audit.a": 6,
+        "work/analysis/diffutils-3.12/translations/c2rust-0.22.1/diffutils-3.12-stable/target/release/libdiffutils_3_12_normalized_audit.a": 6,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/chattr/release/libchattr_audit.a": 3,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/lsattr/release/liblsattr_audit.a": 2,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/badblocks/2a8224c607a760863143ace0cf879429599757d21f8a5206d9f01c9cdeb302ff/libbadblocks_audit.a": 3,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/debugfs/0b1483e5fe35bab542de5f9285e9f2df6edd6c215a6d1481e2a004cdc203958a/libdebugfs_audit.a": 6,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/dumpe2fs/0e7dd48180b25ee0e893f7ec2254bd62400c208fdd873858cc56cd62c40ad12f/libdumpe2fs_audit.a": 2,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2freefrag/dff1d228a46ef9b0bb99a0a2fb7995385f762f3c86aa51463a100dbec84294b5/libe2freefrag_audit.a": 3,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2fsck/564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd/libe2fsck_audit.a": 5,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2image/399a863ff0c37471b7e8ab0cbad3d9cd6f80d6f326871ba85e85bed25225fc2e/libe2image_audit.a": 2,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2initrd_helper/6edccc168e7742f23fafe09103351a09528c8e57699efe07b6009d65fca34cab/libe2initrd_helper_audit.a": 2,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2undo/cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8/libe2undo_audit.a": 2,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e4defrag/0de205baddb49a145d654d7972d120739e38af71596acd5a07da8a43a43d0734/libe4defrag_audit.a": 2,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/fuse2fs/0044d13e7915d328b5ad5b96af60b35c6d812db6989760826f30602e48bac53a/libfuse2fs_audit.a": 3,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a": 3,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/resize2fs/b0c8126d1bdf73d216736f090e322dc52c1a9aa2f37ab78ba534910fc9e68005/libresize2fs_audit.a": 3,
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/tune2fs/03b3c3bbb137b9c9cd157d7bf9664a19194192a1c6f65cc4e011d7d1d5317966/libtune2fs_audit.a": 3,
+        "work/analysis/file-5.48/translations/c2rust-0.22.1/file-5.48-stable/target/release/libfile_5_48_normalized_audit.a": 2,
+        "work/analysis/findutils-4.10.0/translations/c2rust-0.22.1/findutils-4.10.0-stable/target/release/libfindutils_4_10_0_combined.a": 2,
+        "work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-core-stable/target/release/libgawk_5_4_0_core.a": 1,
+        "work/analysis/grep-3.12/translations/c2rust-0.22.1/grep-3.12-stable/target/release/libgrep_3_12_normalized_audit.a": 3,
+        "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a": 1,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftpd_audit.a": 3,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libinetd_audit.a": 1,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libsyslogd_audit.a": 3,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalkd_audit.a": 1,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/dsfield-names/0af8cebadc6066e2fe5e89a0cb6ec5986a9449f11d6fc29f18e00442053bc649/libip_audit.a": 7,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rdma/dsfield-names/457d43b1a7427e7d31cd6b1b8cbac24943dd2cbeb6e116bb980902e565098569/librdma_audit.a": 1,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ss/dsfield-names/773694768d4441e2e36a15dee9300fede61e2c45d417a04cc7a6712482b6e0f4/libss_audit.a": 1,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/dsfield-names/8b9ffa4f61832836c79a6b52d045246be4afdf53f46026dce8e03507b19e07be/libtc_audit.a": 1,
+        "work/analysis/kmod-34.3/translations/c2rust-0.22.1/kmod-34.3-stable/target/release/libkmod_34_3_normalized_audit.a": 5,
+        "work/analysis/less-710/translations/c2rust-0.22.1/less-710-stable/target/release/libless_710_normalized_audit.a": 5,
+        "work/analysis/patch-2.8/translations/c2rust-0.22.1/patch-2.8-stable/target/release/libpatch_2_8_normalized_audit.a": 4,
+        "work/analysis/procps-ng-4.0.7/translations/c2rust-0.22.1/procps-ng-4.0.7-nightly/target/release/libprocps_ng_4_0_7_normalized_audit.a": 10,
+        "work/analysis/shadow-4.20.4/translations/c2rust-0.22.1/shadow-4.20.4-nightly/target/release/libshadow_4_20_4_normalized_audit.a": 9,
+        "work/analysis/tar-1.35/translations/c2rust-0.22.1/tar-1.35-stable/target/borrowed-timestamps/30ac31a37c96970ff8b030c8e71981914d4d117fd78b4a8bec8283628a69a2f3/libtar_1_35_normalized_audit.a": 8,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-01-stable/target/release/libutil_linux_small_01_normalized_reachable.a": 2,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-02-stable/target/release/libutil_linux_small_02_normalized_reachable.a": 6,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-03-stable/target/release/libutil_linux_small_03_normalized_reachable.a": 3,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-05-stable/target/release/libutil_linux_small_05_normalized_reachable.a": 4,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-06-stable/target/release/libutil_linux_small_06_normalized_reachable.a": 4,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-07-stable/target/release/libutil_linux_small_07_normalized_reachable.a": 2,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-09-stable/target/release/libutil_linux_small_09_normalized_reachable.a": 5,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-10-stable/target/release/libutil_linux_small_10_normalized_reachable.a": 3,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-11-stable/target/release/libutil_linux_small_11_normalized_reachable.a": 6,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-12-stable/target/release/libutil_linux_small_12_normalized_reachable.a": 4,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-13-stable/target/release/libutil_linux_small_13_normalized_reachable.a": 4,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-14-stable/target/release/libutil_linux_small_14_normalized_reachable.a": 7,
+        "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a": 1
+      },
+      "pointer_types": 178,
+      "signature": "fn open(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;"
+    },
+    {
+      "archives": {
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2fsck/564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd/libe2fsck_audit.a": 2,
+        "work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-core-stable/target/release/libgawk_5_4_0_core.a": 2,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftp_audit.a": 2,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/arpd/dsfield-names/f384d69ea46f8ee27c486a4e649ff7e4c467b9475c0e2ee965c4b35fa27af1b6/libarpd_audit.a": 4,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dcb/dsfield-names/e583f6cb8b933204603a61a8418cfe081f8949dbc9414d43e57f738877b40609/libdcb_audit.a": 2,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/devlink/dsfield-names/e552f710761726143cb90592ca8a1b702e98756996cccc02b67efe0289090665/libdevlink_audit.a": 2,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/dpll/dsfield-names/8fa47af08cd0dd8006d4508c9e5ce687fbfeae8d0888e5685e2edd577e62c831/libdpll_audit.a": 2,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/genl/dsfield-names/2d817a01109f8eed870f60292aa9943b2ab00984e25f9ff781a649b087b95df7/libgenl_audit.a": 2,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ifstat/dsfield-names/de3f934acc885351b1d1bb7745f1ba6acc6b8b2d7c1e2bb7586bd521633239da/libifstat_audit.a": 4,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/dsfield-names/0af8cebadc6066e2fe5e89a0cb6ec5986a9449f11d6fc29f18e00442053bc649/libip_audit.a": 12,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/lnstat/dsfield-names/e5c3bab03c83f3dda0096c8354aafb0d24043ef98d354f8ab49441a57dce71e7/liblnstat_audit.a": 4,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/netshaper/dsfield-names/cc23393eef92065060ca5399f4e276926ec4bcc386a6311e72ad6b1e37d5ec11/libnetshaper_audit.a": 2,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/nstat/dsfield-names/87bf217e7abfe8e7e1cd07beac5781f65b4878c0e8ba3a924c4f5fe5ce1c899a/libnstat_audit.a": 4,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rdma/dsfield-names/457d43b1a7427e7d31cd6b1b8cbac24943dd2cbeb6e116bb980902e565098569/librdma_audit.a": 2,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtacct/dsfield-names/3031a37a4319869eedcd86b6411af66881a702f8a82edb4eb06ef1ebdbf69296/librtacct_audit.a": 4,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtmon/dsfield-names/1b1a19290e9b94e5144315ed910729e33897ef5cee5697157b870bdf175c47ba/librtmon_audit.a": 2,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ss/dsfield-names/773694768d4441e2e36a15dee9300fede61e2c45d417a04cc7a6712482b6e0f4/libss_audit.a": 4,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/dsfield-names/8b9ffa4f61832836c79a6b52d045246be4afdf53f46026dce8e03507b19e07be/libtc_audit.a": 32,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tipc/dsfield-names/9b1ed5fb80ca278df3aef2ba9d980ef04dbdf304f0f45a7a41f86e66c19ce4f7/libtipc_audit.a": 4,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/vdpa/dsfield-names/5782386a1b8b427eaf11d988d966719d89569e5538881f72618e282faa6e1f11/libvdpa_audit.a": 2,
+        "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/dsfield-names/c4b6b84f510866ae1fdc8466692e5c25254fe0ccb8b1fba7cb77ca2cc4c9a11a/libbridge_audit.a": 4,
+        "work/analysis/kmod-34.3/translations/c2rust-0.22.1/kmod-34.3-stable/target/release/libkmod_34_3_normalized_audit.a": 2,
+        "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a": 8,
+        "work/analysis/procps-ng-4.0.7/translations/c2rust-0.22.1/procps-ng-4.0.7-nightly/target/release/libprocps_ng_4_0_7_normalized_audit.a": 20,
+        "work/analysis/shadow-4.20.4/translations/c2rust-0.22.1/shadow-4.20.4-nightly/target/release/libshadow_4_20_4_normalized_audit.a": 6,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-06-stable/target/release/libutil_linux_small_06_normalized_reachable.a": 2,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-10-stable/target/release/libutil_linux_small_10_normalized_reachable.a": 2,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-11-stable/target/release/libutil_linux_small_11_normalized_reachable.a": 2,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-13-stable/target/release/libutil_linux_small_13_normalized_reachable.a": 4,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-14-stable/target/release/libutil_linux_small_14_normalized_reachable.a": 4
+      },
+      "pointer_types": 148,
+      "signature": "fn sscanf(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+    },
+    {
+      "archives": {
+        "work/analysis/procps-ng-4.0.7/translations/c2rust-0.22.1/procps-ng-4.0.7-nightly/target/release/libprocps_ng_4_0_7_normalized_audit.a": 6,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-01-stable/target/release/libutil_linux_small_01_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-02-stable/target/release/libutil_linux_small_02_normalized_reachable.a": 8,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-03-stable/target/release/libutil_linux_small_03_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-04-stable/target/release/libutil_linux_small_04_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-05-stable/target/release/libutil_linux_small_05_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-06-stable/target/release/libutil_linux_small_06_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-07-stable/target/release/libutil_linux_small_07_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-09-stable/target/release/libutil_linux_small_09_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-10-stable/target/release/libutil_linux_small_10_normalized_reachable.a": 8,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-11-stable/target/release/libutil_linux_small_11_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-12-stable/target/release/libutil_linux_small_12_normalized_reachable.a": 8,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-13-stable/target/release/libutil_linux_small_13_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-14-stable/target/release/libutil_linux_small_14_normalized_reachable.a": 8
+      },
+      "pointer_types": 119,
+      "signature": "fn warnx(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/procps-ng-4.0.7/translations/c2rust-0.22.1/procps-ng-4.0.7-nightly/target/release/libprocps_ng_4_0_7_normalized_audit.a": 3,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-01-stable/target/release/libutil_linux_small_01_normalized_reachable.a": 8,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-02-stable/target/release/libutil_linux_small_02_normalized_reachable.a": 6,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-03-stable/target/release/libutil_linux_small_03_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-04-stable/target/release/libutil_linux_small_04_normalized_reachable.a": 8,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-05-stable/target/release/libutil_linux_small_05_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-06-stable/target/release/libutil_linux_small_06_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-07-stable/target/release/libutil_linux_small_07_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-09-stable/target/release/libutil_linux_small_09_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-10-stable/target/release/libutil_linux_small_10_normalized_reachable.a": 8,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-11-stable/target/release/libutil_linux_small_11_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-12-stable/target/release/libutil_linux_small_12_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-13-stable/target/release/libutil_linux_small_13_normalized_reachable.a": 9,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-14-stable/target/release/libutil_linux_small_14_normalized_reachable.a": 8
+      },
+      "pointer_types": 113,
+      "signature": "fn warn(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/packed-manual/5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7/libcurl_8_23_0_normalized_audit.a": 62
+      },
+      "pointer_types": 62,
+      "signature": "fn curl_msnprintf(a0: *mut ::core::ffi::c_char, a1: usize, a2: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+    },
+    {
+      "archives": {
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftpd_audit.a": 2,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtalkd_audit.a": 5,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libtelnetd_audit.a": 3,
+        "work/analysis/shadow-4.20.4/translations/c2rust-0.22.1/shadow-4.20.4-nightly/target/release/libshadow_4_20_4_normalized_audit.a": 43
+      },
+      "pointer_types": 53,
+      "signature": "fn syslog(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/packed-manual/5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7/libcurl_8_23_0_normalized_audit.a": 48
+      },
+      "pointer_types": 48,
+      "signature": "fn curl_maprintf(a0: *const ::core::ffi::c_char, ...) -> *mut ::core::ffi::c_char;"
+    },
+    {
+      "archives": {
+        "work/analysis/acl-2.4.0/translations/c2rust-0.22.1/acl-2.4.0-stable/target/release/libacl_2_4_0_normalized_audit.a": 9,
+        "work/analysis/attr-2.6.0/translations/c2rust-0.22.1/attr-2.6.0-stable/target/release/libattr_2_6_0_normalized_audit.a": 3,
+        "work/analysis/file-5.48/translations/c2rust-0.22.1/file-5.48-stable/target/release/libfile_5_48_normalized_audit.a": 6,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/dsfield-names/0af8cebadc6066e2fe5e89a0cb6ec5986a9449f11d6fc29f18e00442053bc649/libip_audit.a": 3,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rdma/dsfield-names/457d43b1a7427e7d31cd6b1b8cbac24943dd2cbeb6e116bb980902e565098569/librdma_audit.a": 3,
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/dsfield-names/8b9ffa4f61832836c79a6b52d045246be4afdf53f46026dce8e03507b19e07be/libtc_audit.a": 6,
+        "work/analysis/kmod-34.3/translations/c2rust-0.22.1/kmod-34.3-stable/target/release/libkmod_34_3_normalized_audit.a": 3,
+        "work/analysis/procps-ng-4.0.7/translations/c2rust-0.22.1/procps-ng-4.0.7-nightly/target/release/libprocps_ng_4_0_7_normalized_audit.a": 3
+      },
+      "pointer_types": 36,
+      "signature": "fn asprintf(a0: *mut *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+    },
+    {
+      "archives": {
+        "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a": 24
+      },
+      "pointer_types": 24,
+      "signature": "fn _nc_tiparm(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char, ...) -> *mut ::core::ffi::c_char;"
+    },
+    {
+      "archives": {
+        "work/analysis/acl-2.4.0/translations/c2rust-0.22.1/acl-2.4.0-stable/target/release/libacl_2_4_0_normalized_audit.a": 3,
+        "work/analysis/attr-2.6.0/translations/c2rust-0.22.1/attr-2.6.0-stable/target/release/libattr_2_6_0_normalized_audit.a": 1,
+        "work/analysis/diffutils-3.12/translations/c2rust-0.22.1/diffutils-3.12-stable/target/release/libdiffutils_3_12_normalized_audit.a": 2,
+        "work/analysis/findutils-4.10.0/translations/c2rust-0.22.1/findutils-4.10.0-stable/target/release/libfindutils_4_10_0_combined.a": 1,
+        "work/analysis/grep-3.12/translations/c2rust-0.22.1/grep-3.12-stable/target/release/libgrep_3_12_normalized_audit.a": 1,
+        "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a": 1,
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftpd_audit.a": 1,
+        "work/analysis/kmod-34.3/translations/c2rust-0.22.1/kmod-34.3-stable/target/release/libkmod_34_3_normalized_audit.a": 1,
+        "work/analysis/patch-2.8/translations/c2rust-0.22.1/patch-2.8-stable/target/release/libpatch_2_8_normalized_audit.a": 2,
+        "work/analysis/procps-ng-4.0.7/translations/c2rust-0.22.1/procps-ng-4.0.7-nightly/target/release/libprocps_ng_4_0_7_normalized_audit.a": 1,
+        "work/analysis/shadow-4.20.4/translations/c2rust-0.22.1/shadow-4.20.4-nightly/target/release/libshadow_4_20_4_normalized_audit.a": 2,
+        "work/analysis/tar-1.35/translations/c2rust-0.22.1/tar-1.35-stable/target/borrowed-timestamps/30ac31a37c96970ff8b030c8e71981914d4d117fd78b4a8bec8283628a69a2f3/libtar_1_35_normalized_audit.a": 7,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-14-stable/target/release/libutil_linux_small_14_normalized_reachable.a": 1
+      },
+      "pointer_types": 24,
+      "signature": "fn openat(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;"
+    },
+    {
+      "archives": {
+        "work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-core-stable/target/release/libgawk_5_4_0_core.a": 20
+      },
+      "pointer_types": 20,
+      "signature": "fn r_fatal(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/packed-manual/5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7/libcurl_8_23_0_normalized_audit.a": 15
+      },
+      "pointer_types": 15,
+      "signature": "fn warnf(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-core-stable/target/release/libgawk_5_4_0_core.a": 13
+      },
+      "pointer_types": 13,
+      "signature": "fn r_warning(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/packed-manual/5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7/libcurl_8_23_0_normalized_audit.a": 10
+      },
+      "pointer_types": 10,
+      "signature": "fn errorf(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a": 8
+      },
+      "pointer_types": 8,
+      "signature": "fn _nc_warning(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/bison-3.8.2/translations/c2rust-0.22.1/bison-3.8.2-stable/target/literal-lengths/e60a4fb2be106db3ecffe4380214d26b6fd9198d93ba2ccb380f3babc49aa0d2/libbison_3_8_2_normalized_audit.a": 8
+      },
+      "pointer_types": 8,
+      "signature": "fn asnprintf(a0: *mut ::core::ffi::c_char, a1: *mut usize, a2: *const ::core::ffi::c_char, ...) -> *mut ::core::ffi::c_char;"
+    },
+    {
+      "archives": {
+        "work/analysis/m4-1.4.21/translations/c2rust-0.22.1/m4-1.4.21-stable/target/release/libm4_1_4_21_normalized_audit.a": 8
+      },
+      "pointer_types": 8,
+      "signature": "fn m4_error(a0: ::core::ffi::c_int, a1: ::core::ffi::c_int, a2: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a": 8
+      },
+      "pointer_types": 8,
+      "signature": "fn message_fatal(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/coreutils-9.12/translations/c2rust-0.22.1/coreutils-small-09-stable/target/release/libcoreutils_small_09_normalized_reachable.a": 1,
+        "work/analysis/findutils-4.10.0/translations/c2rust-0.22.1/findutils-4.10.0-stable/target/release/libfindutils_4_10_0_combined.a": 5,
+        "work/analysis/grep-3.12/translations/c2rust-0.22.1/grep-3.12-stable/target/release/libgrep_3_12_normalized_audit.a": 1,
+        "work/analysis/gzip-1.14/translations/c2rust-0.22.1/gzip-1.14-stable/target/release/libgzip_1_14_reachable_audit.a": 1
+      },
+      "pointer_types": 8,
+      "signature": "fn open_safer(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;"
+    },
+    {
+      "archives": {
+        "work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-core-stable/target/release/libgawk_5_4_0_core.a": 2,
+        "work/analysis/shadow-4.20.4/translations/c2rust-0.22.1/shadow-4.20.4-nightly/target/release/libshadow_4_20_4_normalized_audit.a": 4
+      },
+      "pointer_types": 6,
+      "signature": "fn execl(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+    },
+    {
+      "archives": {
+        "work/analysis/kmod-34.3/translations/c2rust-0.22.1/kmod-34.3-stable/target/release/libkmod_34_3_normalized_audit.a": 6
+      },
+      "pointer_types": 6,
+      "signature": "fn log_printf(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/packed-manual/5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7/libcurl_8_23_0_normalized_audit.a": 5
+      },
+      "pointer_types": 5,
+      "signature": "fn curl_easy_getinfo(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_uint, ...) -> ::core::ffi::c_uint;"
+    },
+    {
+      "archives": {
+        "work/analysis/findutils-4.10.0/translations/c2rust-0.22.1/findutils-4.10.0-stable/target/release/libfindutils_4_10_0_combined.a": 3,
+        "work/analysis/grep-3.12/translations/c2rust-0.22.1/grep-3.12-stable/target/release/libgrep_3_12_normalized_audit.a": 2
+      },
+      "pointer_types": 5,
+      "signature": "fn openat_safer(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;"
+    },
+    {
+      "archives": {
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-13-stable/target/release/libutil_linux_small_13_normalized_reachable.a": 2,
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-14-stable/target/release/libutil_linux_small_14_normalized_reachable.a": 3
+      },
+      "pointer_types": 5,
+      "signature": "fn ul_debug(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/packed-manual/5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7/libcurl_8_23_0_normalized_audit.a": 4
+      },
+      "pointer_types": 4,
+      "signature": "fn curl_easy_setopt(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_uint, ...) -> ::core::ffi::c_uint;"
+    },
+    {
+      "archives": {
+        "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a": 4
+      },
+      "pointer_types": 4,
+      "signature": "fn message_error(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-core-stable/target/release/libgawk_5_4_0_core.a": 4
+      },
+      "pointer_types": 4,
+      "signature": "fn mpg_fmt(a0: *const ::core::ffi::c_char, ...) -> *const ::core::ffi::c_char;"
+    },
+    {
+      "archives": {
+        "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a": 4
+      },
+      "pointer_types": 4,
+      "signature": "fn my_snprintf(a0: *mut *mut ::core::ffi::c_char, a1: *mut usize, a2: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a": 4
+      },
+      "pointer_types": 4,
+      "signature": "fn tparm(a0: *const ::core::ffi::c_char, ...) -> *mut ::core::ffi::c_char;"
+    },
+    {
+      "archives": {
+        "work/analysis/m4-1.4.21/translations/c2rust-0.22.1/m4-1.4.21-stable/target/release/libm4_1_4_21_normalized_audit.a": 4
+      },
+      "pointer_types": 4,
+      "signature": "fn xasprintf(a0: *const ::core::ffi::c_char, ...) -> *mut ::core::ffi::c_char;"
+    },
+    {
+      "archives": {
+        "work/analysis/flex-2.6.4/translations/c2rust-0.22.1/flex-2.6.4-stable/target/release/libflex_2_6_4_normalized_audit.a": 3
+      },
+      "pointer_types": 3,
+      "signature": "fn lerr(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/m4-1.4.21/translations/c2rust-0.22.1/m4-1.4.21-stable/target/release/libm4_1_4_21_normalized_audit.a": 3
+      },
+      "pointer_types": 3,
+      "signature": "fn m4_failure(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a": 3
+      },
+      "pointer_types": 3,
+      "signature": "fn message(a0: ::core::ffi::c_uint, a1: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/packed-manual/5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7/libcurl_8_23_0_normalized_audit.a": 3
+      },
+      "pointer_types": 3,
+      "signature": "fn notef(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/sed-4.10/translations/c2rust-0.22.1/sed-4.10-stable/target/release/libsed_4_10_normalized_audit.a": 3
+      },
+      "pointer_types": 3,
+      "signature": "fn panic(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/patch-2.8/translations/c2rust-0.22.1/patch-2.8-stable/target/release/libpatch_2_8_normalized_audit.a": 3
+      },
+      "pointer_types": 3,
+      "signature": "fn say(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/patch-2.8/translations/c2rust-0.22.1/patch-2.8-stable/target/release/libpatch_2_8_normalized_audit.a": 2
+      },
+      "pointer_types": 2,
+      "signature": "fn ask(a0: *const ::core::ffi::c_char, ...) -> *mut ::core::ffi::c_char;"
+    },
+    {
+      "archives": {
+        "work/analysis/bc-1.08.2/translations/c2rust-0.22.1/bc-1.08.2-stable/target/release/libbc_1_08_2_normalized_audit.a": 2
+      },
+      "pointer_types": 2,
+      "signature": "fn ct_warn(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-core-stable/target/release/libgawk_5_4_0_core.a": 2
+      },
+      "pointer_types": 2,
+      "signature": "fn error(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/procps-ng-4.0.7/translations/c2rust-0.22.1/procps-ng-4.0.7-nightly/target/release/libprocps_ng_4_0_7_normalized_audit.a": 2
+      },
+      "pointer_types": 2,
+      "signature": "fn error_at_line(a0: ::core::ffi::c_int, a1: ::core::ffi::c_int, a2: *const ::core::ffi::c_char, a3: ::core::ffi::c_uint, a4: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-05-stable/target/release/libutil_linux_small_05_normalized_reachable.a": 2
+      },
+      "pointer_types": 2,
+      "signature": "fn execlp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+    },
+    {
+      "archives": {
+        "work/analysis/patch-2.8/translations/c2rust-0.22.1/patch-2.8-stable/target/release/libpatch_2_8_normalized_audit.a": 2
+      },
+      "pointer_types": 2,
+      "signature": "fn fatal(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/packed-manual/5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7/libcurl_8_23_0_normalized_audit.a": 2
+      },
+      "pointer_types": 2,
+      "signature": "fn helpf(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/m4-1.4.21/translations/c2rust-0.22.1/m4-1.4.21-stable/target/release/libm4_1_4_21_normalized_audit.a": 2
+      },
+      "pointer_types": 2,
+      "signature": "fn m4_failure_at_line(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int, a3: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/xz-5.8.4/translations/c2rust-0.22.1/xz-5.8.4-stable/target/release/libxz_5_8_4_normalized_audit.a": 2
+      },
+      "pointer_types": 2,
+      "signature": "fn message_warning(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-core-stable/target/release/libgawk_5_4_0_core.a": 2
+      },
+      "pointer_types": 2,
+      "signature": "fn msg(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/patch-2.8/translations/c2rust-0.22.1/patch-2.8-stable/target/release/libpatch_2_8_normalized_audit.a": 2
+      },
+      "pointer_types": 2,
+      "signature": "fn pfatal(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/bc-1.08.2/translations/c2rust-0.22.1/bc-1.08.2-stable/target/release/libbc_1_08_2_normalized_audit.a": 2
+      },
+      "pointer_types": 2,
+      "signature": "fn rt_error(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/packed-manual/5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7/libcurl_8_23_0_normalized_audit.a": 2
+      },
+      "pointer_types": 2,
+      "signature": "fn tool_setopt_ptr(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_uint, ...) -> ::core::ffi::c_uint;"
+    },
+    {
+      "archives": {
+        "work/analysis/bc-1.08.2/translations/c2rust-0.22.1/bc-1.08.2-stable/target/release/libbc_1_08_2_normalized_audit.a": 2
+      },
+      "pointer_types": 2,
+      "signature": "fn yyerror(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/sed-4.10/translations/c2rust-0.22.1/sed-4.10-stable/target/release/libsed_4_10_normalized_audit.a": 1
+      },
+      "pointer_types": 1,
+      "signature": "fn bad_prog(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/curl-8.23.0/translations/c2rust-0.22.1/curl-8.23.0-stable/target/packed-manual/5215a7cfdd56f7c3942e3d2035cb71c2bda9b9884b81777c5834bf27dca228b7/libcurl_8_23_0_normalized_audit.a": 1
+      },
+      "pointer_types": 1,
+      "signature": "fn curl_multi_setopt(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_uint, ...) -> ::core::ffi::c_int;"
+    },
+    {
+      "archives": {
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-10-stable/target/release/libutil_linux_small_10_normalized_reachable.a": 1
+      },
+      "pointer_types": 1,
+      "signature": "fn dprintf(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+    },
+    {
+      "archives": {
+        "work/analysis/flex-2.6.4/translations/c2rust-0.22.1/flex-2.6.4-stable/target/release/libflex_2_6_4_normalized_audit.a": 1
+      },
+      "pointer_types": 1,
+      "signature": "fn lerr_fatal(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftpd_audit.a": 1
+      },
+      "pointer_types": 1,
+      "signature": "fn lreply(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/diffutils-3.12/translations/c2rust-0.22.1/diffutils-3.12-stable/target/release/libdiffutils_3_12_normalized_audit.a": 1
+      },
+      "pointer_types": 1,
+      "signature": "fn message(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e4defrag/0de205baddb49a145d654d7972d120739e38af71596acd5a07da8a43a43d0734/libe4defrag_audit.a": 1
+      },
+      "pointer_types": 1,
+      "signature": "fn open64(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;"
+    },
+    {
+      "archives": {
+        "work/analysis/findutils-4.10.0/translations/c2rust-0.22.1/findutils-4.10.0-stable/target/release/libfindutils_4_10_0_combined.a": 1
+      },
+      "pointer_types": 1,
+      "signature": "fn open_cloexec(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;"
+    },
+    {
+      "archives": {
+        "work/analysis/procps-ng-4.0.7/translations/c2rust-0.22.1/procps-ng-4.0.7-nightly/target/release/libprocps_ng_4_0_7_normalized_audit.a": 1
+      },
+      "pointer_types": 1,
+      "signature": "fn printw(a0: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+    },
+    {
+      "archives": {
+        "work/analysis/bc-1.08.2/translations/c2rust-0.22.1/bc-1.08.2-stable/target/release/libbc_1_08_2_normalized_audit.a": 1
+      },
+      "pointer_types": 1,
+      "signature": "fn rt_warn(a0: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/dsfield-names/0af8cebadc6066e2fe5e89a0cb6ec5986a9449f11d6fc29f18e00442053bc649/libip_audit.a": 1
+      },
+      "pointer_types": 1,
+      "signature": "fn size_columns(a0: *mut ::core::ffi::c_uint, a1: ::core::ffi::c_uint, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/debugfs/0b1483e5fe35bab542de5f9285e9f2df6edd6c215a6d1481e2a004cdc203958a/libdebugfs_audit.a": 1
+      },
+      "pointer_types": 1,
+      "signature": "fn ss_error(a0: ::core::ffi::c_int, a1: ::core::ffi::c_long, a2: *const ::core::ffi::c_char, ...);"
+    },
+    {
+      "archives": {
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-11-stable/target/release/libutil_linux_small_11_normalized_reachable.a": 1
+      },
+      "pointer_types": 1,
+      "signature": "fn ul_parse_switch(a0: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+    }
+  ],
+  "variadic_scanner_sha256": "b2bbe52ef1c1130dd7c661d86f9f55ec8e38f47a12d3bf0be91cebc2ba2e8858"
+}
