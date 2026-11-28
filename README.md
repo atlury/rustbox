@@ -1349,6 +1349,8 @@ preview executables byte-for-byte. The saved ordinary build passed all four
 10 MB benchmark runs and 108 canonical command comparisons.
 [Ordinary Linux link evidence](evidence/lz4-dictionary-normal-link.json)
 
+On that saved release candidate, fresh comparisons for all 18 IPRoute2 netlink archives reproduced their earlier results, including the retried tipc engine. They cover 393,480 canonical lookups, 48 public command cases and 72 Memcheck runs. [Per-archive results](evidence/lz4-release-netlink-archive-recheck.json)
+
 For a built release interrupted during verification, use
 `scripts/qualify_pointer_release.sh --resume-built SELECTION PARENT_LINK BUILD_DIRECTORY [PARENT_REPLAYS]`.
 It checks the saved ELF and link reports, keeps the first run's logs, and writes fresh verification results under `BUILD_DIRECTORY/retry.*`. A complete passing independent package result can be reused after its executable, parent and release hashes are verified.
