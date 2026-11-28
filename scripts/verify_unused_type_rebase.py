@@ -5,7 +5,10 @@ import argparse
 import json
 from pathlib import Path
 
+from audit_linked_pointers import measure
+from cargo_source_parent import cargo_origin
 from check_cargo_private_inlines import ROOT, digest
+from check_e2fsprogs_dirhash_arrays import source_list_digest
 from extend_pointer_selection import LAYERS
 from qualify_iproute2_combined_names import write_result
 from qualify_unused_type_batch import plan
@@ -99,8 +102,23 @@ def include_identical_foreign(proof, link, selection, foreign_selection, foreign
         raise ValueError("foreign declaration evidence belongs to a different release")
     replaced = changed["archives"]
     unchanged = {k: v for k, v in foreign["archives"].items() if k not in replaced}
+    stale = {}
+    if foreign["parent_link_sha256"] != digest(link):
+        release = read(link)
+        for key, record in list(unchanged.items()):
+            sources = {}
+            def capture(archive, module, checksum, data):
+                if str(archive) != key or str(module) in sources:
+                    raise ValueError("unexpected compiler input during compatibility check")
+                sources[str(module)] = checksum.hex()
+            measure(release, inspect_module=capture, archive_pair=(cargo_origin(release, key), Path(key)))
+            observed = source_list_digest(sources)
+            expected = record["pilot"]["parent_sources_sha256"]
+            if observed != expected:
+                stale[key] = dict(recorded_parent_sha256=expected, current_parent_sha256=observed)
+                del unchanged[key]
     if not unchanged:
-        raise ValueError("all foreign archives overlap with the tested package replacements")
+        raise ValueError("no foreign archive has compatible, disjoint compiler inputs")
     directories = [ROOT / row["directory"] for row in replaced.values()]
     extras = [ROOT / row["directory"] for row in unchanged.values()]
     combined = plan(link, directories, extra_foreign=extras)
@@ -108,7 +126,8 @@ def include_identical_foreign(proof, link, selection, foreign_selection, foreign
         raise ValueError("fresh compiler receipts differ from the pinned selections")
     return dict(**{k: v for k, v in proof.items() if k != "counts"}, counts=combined["counts"],
                 foreign_evidence_sha256=digest(foreign_evidence), foreign_selection_sha256=digest(foreign_selection),
-                included_foreign_archives=sorted(unchanged), overlapping_archives=sorted(set(replaced) & set(foreign["archives"])))
+                included_foreign_archives=sorted(unchanged), overlapping_archives=sorted(set(replaced) & set(foreign["archives"])),
+                **({"requires_rebuild": stale} if stale else {}))
 
 
 if __name__ == "__main__":
