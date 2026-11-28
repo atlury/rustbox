@@ -1,0 +1,214 @@
+{
+  "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/dsfield-names/c4b6b84f510866ae1fdc8466692e5c25254fe0ccb8b1fba7cb77ca2cc4c9a11a/libbridge_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libbridge_audit.foreign-20b74164bcd600f568962f61b3a24434b69640dcde708383b6a0506b87092309.json",
+        "sha256": "20b74164bcd600f568962f61b3a24434b69640dcde708383b6a0506b87092309"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libbridge_audit.inlines-d6197c65cb9880065053d8822264f9aabaf8f589676eeb4661bc1eb63dbeaf18.json",
+        "sha256": "d6197c65cb9880065053d8822264f9aabaf8f589676eeb4661bc1eb63dbeaf18"
+      }
+    },
+    "pilot": {
+      "all_scalar_interfaces": true,
+      "archive": "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/dsfield-names/c4b6b84f510866ae1fdc8466692e5c25254fe0ccb8b1fba7cb77ca2cc4c9a11a/libbridge_audit.a",
+      "candidate_sha256": "c4b6b84f510866ae1fdc8466692e5c25254fe0ccb8b1fba7cb77ca2cc4c9a11a",
+      "candidate_sources_sha256": "3a4d0c87f0ae97311efcf63009d38f6fad48ccbfdb310364fc845a74b81e38b2",
+      "compiler_selected_sources": 24,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "c4b6b84f510866ae1fdc8466692e5c25254fe0ccb8b1fba7cb77ca2cc4c9a11a",
+      "parent_sources_sha256": "2b625d2504dbc8381a262e156dc64630ef982b7a77c12ed62cb6e4283ea250f7",
+      "raw_pointer_types_removed": 290,
+      "rustc_archive": "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/libbridge_audit.a",
+      "scalar_ffi": {
+        "__ctype_b_loc": {
+          "copies": 2,
+          "provider": "src/lib/ll_addr.rs",
+          "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+        },
+        "__ctype_tolower_loc": {
+          "copies": 2,
+          "provider": "src/lib/ll_addr.rs",
+          "signature": "fn __ctype_tolower_loc() -> *mut *const i32;"
+        },
+        "__ctype_toupper_loc": {
+          "copies": 2,
+          "provider": "src/lib/ll_addr.rs",
+          "signature": "fn __ctype_toupper_loc() -> *mut *const i32;"
+        },
+        "__errno_location": {
+          "copies": 6,
+          "provider": "src/lib/libnetlink.rs",
+          "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+        },
+        "close_json_array": {
+          "copies": 7,
+          "provider": "src/bridge/fdb.rs",
+          "signature": "fn close_json_array(a0: ::core::ffi::c_uint, a1: *const ::core::ffi::c_char);"
+        },
+        "format_host": {
+          "copies": 3,
+          "provider": "src/bridge/fdb.rs",
+          "signature": "fn format_host(a0: ::core::ffi::c_int, a1: ::core::ffi::c_int, a2: *const ::core::ffi::c_void) -> *const ::core::ffi::c_char;"
+        },
+        "free": {
+          "copies": 8,
+          "provider": "src/bridge/fdb.rs",
+          "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+        },
+        "get_u32": {
+          "copies": 4,
+          "provider": "src/bridge/fdb.rs",
+          "signature": "fn get_u32(a0: *mut ::core::ffi::c_uint, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_int;"
+        },
+        "getenv": {
+          "copies": 2,
+          "provider": "src/lib/color.rs",
+          "signature": "fn getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "inet_pton": {
+          "copies": 2,
+          "provider": "src/bridge/mdb.rs",
+          "signature": "fn inet_pton(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char, a2: *mut ::core::ffi::c_void) -> ::core::ffi::c_int;"
+        },
+        "ll_addr_a2n": {
+          "copies": 2,
+          "provider": "src/bridge/mdb.rs",
+          "signature": "fn ll_addr_a2n(a0: *mut ::core::ffi::c_char, a1: ::core::ffi::c_int, a2: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "ll_addr_n2a": {
+          "copies": 2,
+          "provider": "src/bridge/fdb.rs",
+          "signature": "fn ll_addr_n2a(a0: *const ::core::ffi::c_uchar, a1: ::core::ffi::c_int, a2: ::core::ffi::c_int, a3: *mut ::core::ffi::c_char, a4: ::core::ffi::c_int) -> *const ::core::ffi::c_char;"
+        },
+        "ll_index_to_name": {
+          "copies": 7,
+          "provider": "src/bridge/fdb.rs",
+          "signature": "fn ll_index_to_name(a0: ::core::ffi::c_uint) -> *const ::core::ffi::c_char;"
+        },
+        "ll_name_to_index": {
+          "copies": 6,
+          "provider": "src/bridge/fdb.rs",
+          "signature": "fn ll_name_to_index(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_uint;"
+        },
+        "malloc": {
+          "copies": 5,
+          "provider": "src/lib/json_writer.rs",
+          "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "matches": {
+          "copies": 8,
+          "provider": "src/bridge/bridge.rs",
+          "signature": "fn matches(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "memcpy": {
+          "copies": 19,
+          "provider": "src/bridge/bridge.rs",
+          "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "memset": {
+          "copies": 4,
+          "provider": "src/bridge/vlan.rs",
+          "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "nodev": {
+          "copies": 6,
+          "provider": "src/bridge/fdb.rs",
+          "signature": "fn nodev(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "open_json_array": {
+          "copies": 7,
+          "provider": "src/bridge/fdb.rs",
+          "signature": "fn open_json_array(a0: ::core::ffi::c_uint, a1: *const ::core::ffi::c_char);"
+        },
+        "open_json_object": {
+          "copies": 8,
+          "provider": "src/bridge/fdb.rs",
+          "signature": "fn open_json_object(a0: *const ::core::ffi::c_char);"
+        },
+        "parse_stp_state": {
+          "copies": 2,
+          "provider": "src/bridge/mst.rs",
+          "signature": "fn parse_stp_state(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "perror": {
+          "copies": 10,
+          "provider": "src/bridge/fdb.rs",
+          "signature": "fn perror(a0: *const ::core::ffi::c_char);"
+        },
+        "print_color_int": {
+          "copies": 3,
+          "provider": "src/bridge/link.rs",
+          "signature": "fn print_color_int(a0: ::core::ffi::c_uint, a1: ::core::ffi::c_uint, a2: *const ::core::ffi::c_char, a3: *const ::core::ffi::c_char, a4: ::core::ffi::c_int) -> ::core::ffi::c_int;"
+        },
+        "print_color_lluint": {
+          "copies": 3,
+          "provider": "src/bridge/vlan.rs",
+          "signature": "fn print_color_lluint(a0: ::core::ffi::c_uint, a1: ::core::ffi::c_uint, a2: *const ::core::ffi::c_char, a3: *const ::core::ffi::c_char, a4: ::core::ffi::c_ulonglong) -> ::core::ffi::c_int;"
+        },
+        "print_color_string": {
+          "copies": 8,
+          "provider": "src/bridge/fdb.rs",
+          "signature": "fn print_color_string(a0: ::core::ffi::c_uint, a1: ::core::ffi::c_uint, a2: *const ::core::ffi::c_char, a3: *const ::core::ffi::c_char, a4: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "print_color_uint": {
+          "copies": 6,
+          "provider": "src/bridge/fdb.rs",
+          "signature": "fn print_color_uint(a0: ::core::ffi::c_uint, a1: ::core::ffi::c_uint, a2: *const ::core::ffi::c_char, a3: *const ::core::ffi::c_char, a4: ::core::ffi::c_uint) -> ::core::ffi::c_int;"
+        },
+        "print_range": {
+          "copies": 2,
+          "provider": "src/bridge/vlan.rs",
+          "signature": "fn print_range(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_uint, a2: ::core::ffi::c_uint) -> ::core::ffi::c_uint;"
+        },
+        "strchr": {
+          "copies": 6,
+          "provider": "src/bridge/mdb.rs",
+          "signature": "fn strchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        },
+        "strcmp": {
+          "copies": 13,
+          "provider": "src/bridge/bridge.rs",
+          "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "strcpy": {
+          "copies": 3,
+          "provider": "src/lib/ll_map.rs",
+          "signature": "fn strcpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "strdup": {
+          "copies": 3,
+          "provider": "src/lib/namespace.rs",
+          "signature": "fn strdup(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "strerror": {
+          "copies": 3,
+          "provider": "src/lib/libnetlink.rs",
+          "signature": "fn strerror(a0: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        },
+        "strlen": {
+          "copies": 7,
+          "provider": "src/bridge/vni.rs",
+          "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+        },
+        "strrchr": {
+          "copies": 2,
+          "provider": "src/lib/color.rs",
+          "signature": "fn strrchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        },
+        "strtol": {
+          "copies": 8,
+          "provider": "src/bridge/fdb.rs",
+          "signature": "fn strtol(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_long;"
+        },
+        "strtoul": {
+          "copies": 6,
+          "provider": "src/bridge/fdb.rs",
+          "signature": "fn strtoul(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_ulong;"
+        }
+      },
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+    }
+  }
+}

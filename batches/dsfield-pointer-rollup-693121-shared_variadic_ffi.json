@@ -1,0 +1,565 @@
+{
+  "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libmke2fs_audit.foreign-d3b20be8031d97645b5490170bdd1b6c1d62bba0d4df1e8bf1c42433796d4005.json",
+        "sha256": "d3b20be8031d97645b5490170bdd1b6c1d62bba0d4df1e8bf1c42433796d4005"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libmke2fs_audit.inlines-7c0c1c0b84b66cdac56c43072e7fd24c66c5a08755f8025174755ec203c60d16.json",
+        "sha256": "0e01e221fd021455910777bfab88f5c264eadccb13963b147af267a75a2f21cd"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a",
+        "c_string_literals": 319,
+        "candidate_sha256": "3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294",
+        "candidate_sources_sha256": "7f6d5555590a45b4a8e23966bb0aab332e16875173ee727bf59dd39560915cab",
+        "compiler_selected_sources": 97,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294",
+        "legacy_compiler": "nightly-2023-04-15",
+        "modules": {
+          "src/rustbox_e2fsprogs/normalized_clang_18/lib/ext2fs/ext2_err.rs": 183,
+          "src/rustbox_e2fsprogs/normalized_clang_18/lib/support/prof_err.rs": 31,
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/encoding.rs": 3,
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/feature.rs": 52,
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/hashstr.rs": 3,
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/mntopts.rs": 12,
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/ostype.rs": 5,
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/ext_attr.rs": 8,
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/support/profile.rs": 12,
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/support/quotaio.rs": 8,
+          "src/work/work/normalized/e2fsprogs_1_47_4/misc/mke2fs.rs": 2
+        },
+        "parent_sources_sha256": "e13f48d87cfb3aea46a64b9a4bdc7eb59ddea54f2ebae62f5dd29291de94183e",
+        "raw_ffi_pointer_extractions": 319,
+        "raw_pointer_types_removed": 638,
+        "rustc_archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-e2fsprogs-shared/mke2fs/libmke2fs_audit.a",
+        "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_scalar_ffi": {
+        "all_scalar_interfaces": true,
+        "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a",
+        "candidate_sha256": "3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294",
+        "candidate_sources_sha256": "672e1775c2690a21fafceac588f02278dbce9e61074a51b547922de7b09bc0a9",
+        "compiler_selected_sources": 97,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294",
+        "parent_sources_sha256": "7f6d5555590a45b4a8e23966bb0aab332e16875173ee727bf59dd39560915cab",
+        "raw_pointer_types_removed": 1040,
+        "rustc_archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-e2fsprogs-shared/mke2fs/libmke2fs_audit.a",
+        "scalar_ffi": {
+          "__ctype_b_loc": {
+            "copies": 4,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/feature.rs",
+            "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+          },
+          "__ctype_tolower_loc": {
+            "copies": 8,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/encoding.rs",
+            "signature": "fn __ctype_tolower_loc() -> *mut *const i32;"
+          },
+          "__ctype_toupper_loc": {
+            "copies": 8,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/encoding.rs",
+            "signature": "fn __ctype_toupper_loc() -> *mut *const i32;"
+          },
+          "__errno_location": {
+            "copies": 15,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/fgetflags.rs",
+            "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+          },
+          "__xpg_basename": {
+            "copies": 2,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/misc/create_inode_libarchive.rs",
+            "signature": "fn __xpg_basename(a0: *mut ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "access": {
+            "copies": 2,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/support/devname.rs",
+            "signature": "fn access(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> ::core::ffi::c_int;"
+          },
+          "calloc": {
+            "copies": 7,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/fileio.rs",
+            "signature": "fn calloc(a0: usize, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "dcgettext": {
+            "copies": 7,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/support/devname.rs",
+            "signature": "fn dcgettext(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "dlopen": {
+            "copies": 2,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/support/plausible.rs",
+            "signature": "fn dlopen(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_void;"
+          },
+          "dlsym": {
+            "copies": 2,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/support/plausible.rs",
+            "signature": "fn dlsym(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_void;"
+          },
+          "error_message": {
+            "copies": 5,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/et/com_err.rs",
+            "signature": "fn error_message(a0: ::core::ffi::c_long) -> *const ::core::ffi::c_char;"
+          },
+          "ext2fs_get_memalign": {
+            "copies": 2,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/io_manager.rs",
+            "signature": "fn ext2fs_get_memalign(a0: ::core::ffi::c_ulong, a1: ::core::ffi::c_ulong, a2: *mut ::core::ffi::c_void) -> ::core::ffi::c_long;"
+          },
+          "ext2fs_safe_getenv": {
+            "copies": 8,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/gen_bitmap64.rs",
+            "signature": "fn ext2fs_safe_getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "ext2fs_set_bit": {
+            "copies": 2,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/gen_bitmap.rs",
+            "signature": "fn ext2fs_set_bit(a0: ::core::ffi::c_uint, a1: *mut ::core::ffi::c_void) -> ::core::ffi::c_int;"
+          },
+          "ext2fs_test_bit": {
+            "copies": 2,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/blkmap64_rb.rs",
+            "signature": "fn ext2fs_test_bit(a0: ::core::ffi::c_uint, a1: *const ::core::ffi::c_void) -> ::core::ffi::c_int;"
+          },
+          "ext2fs_warn_bitmap": {
+            "copies": 2,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/gen_bitmap.rs",
+            "signature": "fn ext2fs_warn_bitmap(a0: ::core::ffi::c_long, a1: ::core::ffi::c_ulong, a2: *const ::core::ffi::c_char);"
+          },
+          "free": {
+            "copies": 51,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/feature.rs",
+            "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+          },
+          "getenv": {
+            "copies": 4,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/et/error_message.rs",
+            "signature": "fn getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "malloc": {
+            "copies": 82,
+            "provider": "src/rustbox_e2fsprogs/normalized_clang_18/lib/ext2fs/ext2_err.rs",
+            "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memcmp": {
+            "copies": 11,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/badblocks.rs",
+            "signature": "fn memcmp(a0: *const ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "memcpy": {
+            "copies": 76,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/feature.rs",
+            "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memmove": {
+            "copies": 4,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/atexit.rs",
+            "signature": "fn memmove(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memset": {
+            "copies": 75,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/feature.rs",
+            "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "parse_num_blocks2": {
+            "copies": 2,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/misc/mk_hugefiles.rs",
+            "signature": "fn parse_num_blocks2(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> ::core::ffi::c_ulonglong;"
+          },
+          "perror": {
+            "copies": 3,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/gen_bitmap64.rs",
+            "signature": "fn perror(a0: *const ::core::ffi::c_char);"
+          },
+          "realloc": {
+            "copies": 75,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/feature.rs",
+            "signature": "fn realloc(a0: *mut ::core::ffi::c_void, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "secure_getenv": {
+            "copies": 2,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/et/error_message.rs",
+            "signature": "fn secure_getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strcasecmp": {
+            "copies": 6,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/feature.rs",
+            "signature": "fn strcasecmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strcat": {
+            "copies": 7,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/et/error_message.rs",
+            "signature": "fn strcat(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strchr": {
+            "copies": 9,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/io_manager.rs",
+            "signature": "fn strchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strcmp": {
+            "copies": 13,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/encoding.rs",
+            "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strcpy": {
+            "copies": 21,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/feature.rs",
+            "signature": "fn strcpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strdup": {
+            "copies": 6,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/undo_io.rs",
+            "signature": "fn strdup(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strerror": {
+            "copies": 3,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/et/error_message.rs",
+            "signature": "fn strerror(a0: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strlen": {
+            "copies": 26,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/feature.rs",
+            "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+          },
+          "strncasecmp": {
+            "copies": 3,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/feature.rs",
+            "signature": "fn strncasecmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "strncmp": {
+            "copies": 7,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/encoding.rs",
+            "signature": "fn strncmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "strncpy": {
+            "copies": 6,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/feature.rs",
+            "signature": "fn strncpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> *mut ::core::ffi::c_char;"
+          },
+          "strrchr": {
+            "copies": 3,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/misc/create_inode.rs",
+            "signature": "fn strrchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strtod": {
+            "copies": 2,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/support/profile.rs",
+            "signature": "fn strtod(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char) -> ::core::ffi::c_double;"
+          },
+          "strtol": {
+            "copies": 6,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/feature.rs",
+            "signature": "fn strtol(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_long;"
+          },
+          "strtoul": {
+            "copies": 8,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/et/error_message.rs",
+            "signature": "fn strtoul(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_ulong;"
+          },
+          "strtoull": {
+            "copies": 3,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/parse_num.rs",
+            "signature": "fn strtoull(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_ulonglong;"
+          },
+          "unlink": {
+            "copies": 2,
+            "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/ismounted.rs",
+            "signature": "fn unlink(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          }
+        },
+        "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a",
+      "candidate_sha256": "3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294",
+      "candidate_sources_sha256": "b7445dcaf1b58abbd89df3d60481fe86824cd6d7c3ca960c6d0abf955dc02d16",
+      "compiler_selected_sources": 97,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294",
+      "parent_sources_sha256": "672e1775c2690a21fafceac588f02278dbce9e61074a51b547922de7b09bc0a9",
+      "raw_pointer_types_removed": 43,
+      "rustc_archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-e2fsprogs-shared/mke2fs/libmke2fs_audit.a",
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd",
+      "variadic_ffi": {
+        "com_err": {
+          "copies": 10,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/alloc_stats.rs",
+          "signature": "fn com_err(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_long, a2: *const ::core::ffi::c_char, ...);"
+        },
+        "open": {
+          "copies": 4,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/fgetflags.rs",
+          "signature": "fn open(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;"
+        },
+        "printf": {
+          "copies": 5,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/progress.rs",
+          "signature": "fn printf(a0: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "snprintf": {
+          "copies": 2,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/support/quotaio.rs",
+          "signature": "fn snprintf(a0: *mut ::core::ffi::c_char, a1: usize, a2: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "sprintf": {
+          "copies": 9,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/encoding.rs",
+          "signature": "fn sprintf(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        }
+      },
+      "variadic_scanner_sha256": "b2bbe52ef1c1130dd7c661d86f9f55ec8e38f47a12d3bf0be91cebc2ba2e8858"
+    }
+  },
+  "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-12-stable/target/release/libutil_linux_small_12_normalized_reachable.a": {
+    "parent_receipts": {
+      "native_c_strings": {
+        "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-12-stable/target/release/libutil_linux_small_12_normalized_reachable.a",
+        "c_string_literals": 1775,
+        "candidate_sha256": "42e96d62388f3e16ed87b95b92f4f9b34eff8eeae5737efbdea60cb2df533c64",
+        "candidate_sources_sha256": "3e41cc8367f9704de83329cb89599c9b136eb171a1a12a3948ffb6548ee4583f",
+        "compiler_selected_sources": 12,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "42e96d62388f3e16ed87b95b92f4f9b34eff8eeae5737efbdea60cb2df533c64",
+        "modules": {
+          "src/disk_utils/fsck_minix.rs": 168,
+          "src/misc_utils/cal.rs": 154,
+          "src/misc_utils/hardlink.rs": 185,
+          "src/sys_utils/dmesg.rs": 246,
+          "src/sys_utils/irqtop.rs": 84,
+          "src/sys_utils/lsipc.rs": 377,
+          "src/sys_utils/mount.rs": 223,
+          "src/sys_utils/umount.rs": 98,
+          "src/text_utils/more.rs": 142,
+          "src/text_utils/pg.rs": 98
+        },
+        "parent_sources_sha256": "962ad63f2c0719cd0e721c2ec9452fc386811dba6c618492adbcaab57675405f",
+        "raw_ffi_pointer_extractions": 1775,
+        "raw_pointer_types_removed": 3550,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_scalar_ffi": {
+        "all_scalar_interfaces": true,
+        "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-12-stable/target/release/libutil_linux_small_12_normalized_reachable.a",
+        "candidate_sha256": "42e96d62388f3e16ed87b95b92f4f9b34eff8eeae5737efbdea60cb2df533c64",
+        "candidate_sources_sha256": "0e70101036e3217085acf1d320a53a067d926638ae3c9db1ff76b60c15714d27",
+        "compiler_selected_sources": 12,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "42e96d62388f3e16ed87b95b92f4f9b34eff8eeae5737efbdea60cb2df533c64",
+        "parent_sources_sha256": "3e41cc8367f9704de83329cb89599c9b136eb171a1a12a3948ffb6548ee4583f",
+        "raw_pointer_types_removed": 213,
+        "scalar_ffi": {
+          "__ctype_b_loc": {
+            "copies": 5,
+            "provider": "src/misc_utils/cal.rs",
+            "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+          },
+          "__errno_location": {
+            "copies": 10,
+            "provider": "src/disk_utils/fsck_minix.rs",
+            "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+          },
+          "bindtextdomain": {
+            "copies": 10,
+            "provider": "src/disk_utils/fsck_minix.rs",
+            "signature": "fn bindtextdomain(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "calloc": {
+            "copies": 5,
+            "provider": "src/disk_utils/fsck_minix.rs",
+            "signature": "fn calloc(a0: usize, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "colormode_or_err": {
+            "copies": 2,
+            "provider": "src/misc_utils/cal.rs",
+            "signature": "fn colormode_or_err(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "colors_init": {
+            "copies": 2,
+            "provider": "src/misc_utils/cal.rs",
+            "signature": "fn colors_init(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "dcgettext": {
+            "copies": 10,
+            "provider": "src/disk_utils/fsck_minix.rs",
+            "signature": "fn dcgettext(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "dcngettext": {
+            "copies": 2,
+            "provider": "src/sys_utils/mount.rs",
+            "signature": "fn dcngettext(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: *const ::core::ffi::c_char, a3: ::core::ffi::c_ulong, a4: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "free": {
+            "copies": 9,
+            "provider": "src/misc_utils/cal.rs",
+            "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+          },
+          "getenv": {
+            "copies": 2,
+            "provider": "src/text_utils/more.rs",
+            "signature": "fn getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "isdigit_strend": {
+            "copies": 2,
+            "provider": "src/misc_utils/cal.rs",
+            "signature": "fn isdigit_strend(a0: *const ::core::ffi::c_char, a1: *mut *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "malloc": {
+            "copies": 7,
+            "provider": "src/disk_utils/fsck_minix.rs",
+            "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memcmp": {
+            "copies": 2,
+            "provider": "src/misc_utils/hardlink.rs",
+            "signature": "fn memcmp(a0: *const ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "memcpy": {
+            "copies": 3,
+            "provider": "src/disk_utils/fsck_minix.rs",
+            "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memset": {
+            "copies": 4,
+            "provider": "src/disk_utils/fsck_minix.rs",
+            "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "mnt_get_library_features": {
+            "copies": 2,
+            "provider": "src/sys_utils/mount.rs",
+            "signature": "fn mnt_get_library_features(a0: *mut *mut *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "mnt_get_library_version": {
+            "copies": 2,
+            "provider": "src/sys_utils/mount.rs",
+            "signature": "fn mnt_get_library_version(a0: *mut *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "mnt_tag_is_valid": {
+            "copies": 2,
+            "provider": "src/sys_utils/mount.rs",
+            "signature": "fn mnt_tag_is_valid(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "puts": {
+            "copies": 2,
+            "provider": "src/sys_utils/irqtop.rs",
+            "signature": "fn puts(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "setlocale": {
+            "copies": 10,
+            "provider": "src/disk_utils/fsck_minix.rs",
+            "signature": "fn setlocale(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "setupterm": {
+            "copies": 2,
+            "provider": "src/text_utils/more.rs",
+            "signature": "fn setupterm(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, a2: *mut ::core::ffi::c_int) -> ::core::ffi::c_int;"
+          },
+          "strchr": {
+            "copies": 5,
+            "provider": "src/sys_utils/dmesg.rs",
+            "signature": "fn strchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strcmp": {
+            "copies": 9,
+            "provider": "src/disk_utils/fsck_minix.rs",
+            "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strcpy": {
+            "copies": 2,
+            "provider": "src/text_utils/more.rs",
+            "signature": "fn strcpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strdup": {
+            "copies": 5,
+            "provider": "src/sys_utils/dmesg.rs",
+            "signature": "fn strdup(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strerror": {
+            "copies": 2,
+            "provider": "src/disk_utils/fsck_minix.rs",
+            "signature": "fn strerror(a0: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strlen": {
+            "copies": 8,
+            "provider": "src/disk_utils/fsck_minix.rs",
+            "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+          },
+          "strncmp": {
+            "copies": 2,
+            "provider": "src/misc_utils/hardlink.rs",
+            "signature": "fn strncmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "strstr": {
+            "copies": 2,
+            "provider": "src/sys_utils/dmesg.rs",
+            "signature": "fn strstr(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strtoul": {
+            "copies": 2,
+            "provider": "src/sys_utils/mount.rs",
+            "signature": "fn strtoul(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_ulong;"
+          },
+          "textdomain": {
+            "copies": 10,
+            "provider": "src/disk_utils/fsck_minix.rs",
+            "signature": "fn textdomain(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "ul_canonicalize_path_restricted": {
+            "copies": 2,
+            "provider": "src/sys_utils/mount.rs",
+            "signature": "fn ul_canonicalize_path_restricted(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "wait": {
+            "copies": 2,
+            "provider": "src/text_utils/more.rs",
+            "signature": "fn wait(a0: *mut ::core::ffi::c_int) -> ::core::ffi::c_int;"
+          }
+        },
+        "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-12-stable/target/release/libutil_linux_small_12_normalized_reachable.a",
+      "candidate_sha256": "42e96d62388f3e16ed87b95b92f4f9b34eff8eeae5737efbdea60cb2df533c64",
+      "candidate_sources_sha256": "a021aacd44ea24988d7fe10ef4d05509a16356ad17913a843dbef2bd802190ae",
+      "compiler_selected_sources": 12,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "42e96d62388f3e16ed87b95b92f4f9b34eff8eeae5737efbdea60cb2df533c64",
+      "parent_sources_sha256": "0e70101036e3217085acf1d320a53a067d926638ae3c9db1ff76b60c15714d27",
+      "raw_pointer_types_removed": 44,
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd",
+      "variadic_ffi": {
+        "open": {
+          "copies": 5,
+          "provider": "src/disk_utils/fsck_minix.rs",
+          "signature": "fn open(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;"
+        },
+        "printf": {
+          "copies": 10,
+          "provider": "src/disk_utils/fsck_minix.rs",
+          "signature": "fn printf(a0: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "snprintf": {
+          "copies": 8,
+          "provider": "src/misc_utils/cal.rs",
+          "signature": "fn snprintf(a0: *mut ::core::ffi::c_char, a1: usize, a2: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "warn": {
+          "copies": 10,
+          "provider": "src/disk_utils/fsck_minix.rs",
+          "signature": "fn warn(a0: *const ::core::ffi::c_char, ...);"
+        },
+        "warnx": {
+          "copies": 9,
+          "provider": "src/disk_utils/fsck_minix.rs",
+          "signature": "fn warnx(a0: *const ::core::ffi::c_char, ...);"
+        }
+      },
+      "variadic_scanner_sha256": "b2bbe52ef1c1130dd7c661d86f9f55ec8e38f47a12d3bf0be91cebc2ba2e8858"
+    }
+  }
+}

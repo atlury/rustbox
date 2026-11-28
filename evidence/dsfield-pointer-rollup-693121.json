@@ -1,0 +1,46 @@
+{
+  "binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+  "candidate_link_sha256": "c031e617ca0caf4d4b5bbad874a4fbe1e1120ceb169b01323a5295d18885b785",
+  "counts": {
+    "all": {
+      "after": 693121,
+      "before": 693451
+    },
+    "counting_identical_files_once": {
+      "after": 608499,
+      "before": 608582
+    }
+  },
+  "deferred": {},
+  "displaced": {
+    "shared_leaf_layouts": {
+      "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/dsfield-names/c4b6b84f510866ae1fdc8466692e5c25254fe0ccb8b1fba7cb77ca2cc4c9a11a/libbridge_audit.a": "c45fb48b59c49ca032809c407b54462e33ff32e0288038710f6abd4e89ca8523"
+    },
+    "shared_variadic_ffi": {
+      "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/dsfield-names/c4b6b84f510866ae1fdc8466692e5c25254fe0ccb8b1fba7cb77ca2cc4c9a11a/libbridge_audit.a": "9d11468e91df21cc15d59132a26c1e4331659fc1ad763c733ef29cccc1721fb8"
+    }
+  },
+  "input_manifests": {
+    "batches/dsfield-pointer-rollup-693121-shared_scalar_ffi.json": "4c3089c374e443c1998cfcb9924d645b7159453c995743a477254f7457321a66",
+    "batches/dsfield-pointer-rollup-693121-shared_variadic_ffi.json": "3903dd7391fc0b20dfef7b8308f5e3f97ad8d2b2e1012e34fc7e0d44a9d16a85"
+  },
+  "layers": {
+    "shared_scalar_ffi": {
+      "archives": [
+        "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/dsfield-names/c4b6b84f510866ae1fdc8466692e5c25254fe0ccb8b1fba7cb77ca2cc4c9a11a/libbridge_audit.a"
+      ],
+      "manifest_sha256": "4c3089c374e443c1998cfcb9924d645b7159453c995743a477254f7457321a66"
+    },
+    "shared_variadic_ffi": {
+      "archives": [
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/mke2fs/3ed78107097f7e11e9a5512ee21445814ecf58620f4a7bbebd7826f2140f7294/libmke2fs_audit.a",
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-12-stable/target/release/libutil_linux_small_12_normalized_reachable.a"
+      ],
+      "manifest_sha256": "3903dd7391fc0b20dfef7b8308f5e3f97ad8d2b2e1012e34fc7e0d44a9d16a85"
+    }
+  },
+  "parent_census_sha256": "a9ada669b56b80c8a10db342b05e22e0cda2b6053c461abc57c92ec02097ebf6",
+  "parent_link_sha256": "7957651b749f10f9aa558e24589eb8ac0979bc96858fbcc7607861aa2ff75801",
+  "public_evidence_sha256": "6599c4ec031ad9207a57a8b15c86be77b07e206ece2f3ce0597fa84c72d57fe5",
+  "raw_pointer_types_removed": 330
+}
