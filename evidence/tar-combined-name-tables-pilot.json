@@ -1,0 +1,232 @@
+{
+  "archive": {
+    "archive": "work/analysis/tar-1.35/translations/c2rust-0.22.1/tar-1.35-stable/target/borrowed-timestamps/30ac31a37c96970ff8b030c8e71981914d4d117fd78b4a8bec8283628a69a2f3/libtar_1_35_normalized_audit.a",
+    "candidate_sha256": "e36b2fd7495d9dfa86c099b2930e53d6436112fdd9f041bd86423ce99b0e90cd",
+    "candidate_sources_sha256": "0e14d890d66937bb062a861409175ac8723ffb3b42d6b3905ac918f7f32b95ec",
+    "cargo_archive": "work/analysis/tar-1.35/translations/c2rust-0.22.1/tar-1.35-stable/target/release/libtar_1_35_normalized_audit.a",
+    "compiler_selected_sources": 195,
+    "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+    "control_sha256": "30ac31a37c96970ff8b030c8e71981914d4d117fd78b4a8bec8283628a69a2f3",
+    "name_tables": {
+      "argmatch": {
+        "argmatch_tables": {
+          "atime_preserve_args": [
+            "replace",
+            "system"
+          ],
+          "backup_args": [
+            "none",
+            "off",
+            "simple",
+            "never",
+            "existing",
+            "nil",
+            "numbered",
+            "t"
+          ],
+          "hole_detection_args": [
+            "raw",
+            "seek"
+          ],
+          "sort_mode_arg": [
+            "none",
+            "name",
+            "inode"
+          ],
+          "warning_args": [
+            "all",
+            "alone-zero-block",
+            "bad-dumpdir",
+            "cachedir",
+            "contiguous-cast",
+            "file-changed",
+            "file-ignored",
+            "file-removed",
+            "file-shrank",
+            "file-unchanged",
+            "filename-with-nuls",
+            "ignore-archive",
+            "ignore-newer",
+            "new-directory",
+            "rename-directory",
+            "symlink-cast",
+            "timestamp",
+            "unknown-cast",
+            "unknown-keyword",
+            "xdev",
+            "decompress-program",
+            "existing-file",
+            "xattr-write",
+            "record-size",
+            "failed-read",
+            "missing-zero-blocks",
+            "verbose"
+          ]
+        },
+        "canonical_source_sha256": {
+          "gnu/argmatch.c": "7e24c3717c38f2cfbdd55642849b7f9659d94e2eb64544fa195017d5fdd3aef7",
+          "gnu/backup-find.c": "b9b4f9f3871a45f5b8bbcdd7e604ee89cb05d3c1be47850cd63673a3f9ca50e5",
+          "src/tar.c": "cc5fad63d3ae5b7610cb3a30a670edb2e27baacd2d7668703e464a69577c86d5",
+          "src/warning.c": "3de8461f8b18f84b082a53f71e12ba2f899880ea88aa6b99b6ddbfd625841e47"
+        },
+        "raw_pointer_types_removed": 99
+      },
+      "exclusion": {
+        "candidate_module_sha256": "9f2aad1816b8d0efded832f66986c5a50d34981da90b4e32b898ab1bb29b7de4",
+        "canonical_source_sha256": "b1b4ebf14cdc82f27aa7265ca59ae5c7df2d54fe311a350484b175921396fb96",
+        "control_module_sha256": "37d1e2c3d30e1a1539a6a7ad8d563a6d974236998a0af9788eb4e469a306d143",
+        "module": "src/src/names.rs",
+        "patterns": {
+          "backup_file_table": [
+            ".#*",
+            "*~",
+            "#*#"
+          ],
+          "vcs_file_table": [
+            "CVS",
+            ".cvsignore",
+            "RCS",
+            "SCCS",
+            ".svn",
+            ".git",
+            ".gitignore",
+            ".gitattributes",
+            ".gitmodules",
+            ".arch-ids",
+            "{arch}",
+            "=RELEASE-ID",
+            "=meta-update",
+            "=update",
+            ".bzr",
+            ".bzrignore",
+            ".bzrtags",
+            ".hg",
+            ".hgignore",
+            ".hgtags",
+            "_darcs"
+          ]
+        },
+        "raw_pointer_types_removed": 56
+      }
+    },
+    "parent_sources_sha256": "64360388a910ea6084faf9057b9e5bc67030be3e168194fa2fea86d691690a6c",
+    "raw_pointer_types_removed": 155
+  },
+  "argmatch": {
+    "cases": 132,
+    "failed_options": 24,
+    "memcheck_runs": 1,
+    "observations_sha256": "fe06c58e228d8e5f9d179b59a6d4b17ab7c304494b78a5f53d1684ea074332c9",
+    "tables": 5
+  },
+  "exclusions": {
+    "fixture_files": 93,
+    "memcheck_runs": 1,
+    "profiles": [
+      {
+        "archive_sha256": "34ee8b58574bce0752cf49c1dcb0c3541081ac497666775a6e5a169550404f1d",
+        "options": [],
+        "regular_members": 93
+      },
+      {
+        "archive_sha256": "af69358dc072394a2aecc20bbf159b67ecd0316adc32d8105a23a96dd77a3a52",
+        "options": [
+          "--exclude-vcs"
+        ],
+        "regular_members": 30
+      },
+      {
+        "archive_sha256": "f9b9bb6d6d123a863af59f022b70dd48a82282803f5b5b999212009f01f750bd",
+        "options": [
+          "--exclude-backups"
+        ],
+        "regular_members": 81
+      },
+      {
+        "archive_sha256": "ae6a9be0b5b29d666ebaaf60fed6cb6078fc5bf8a62123cee29ce8871d8cad2a",
+        "options": [
+          "--exclude-vcs",
+          "--exclude-backups"
+        ],
+        "regular_members": 18
+      },
+      {
+        "archive_sha256": "ae6a9be0b5b29d666ebaaf60fed6cb6078fc5bf8a62123cee29ce8871d8cad2a",
+        "options": [
+          "--exclude-backups",
+          "--exclude-vcs"
+        ],
+        "regular_members": 18
+      },
+      {
+        "archive_sha256": "af69358dc072394a2aecc20bbf159b67ecd0316adc32d8105a23a96dd77a3a52",
+        "options": [
+          "--exclude-vcs",
+          "--exclude-vcs"
+        ],
+        "regular_members": 30
+      },
+      {
+        "archive_sha256": "f9b9bb6d6d123a863af59f022b70dd48a82282803f5b5b999212009f01f750bd",
+        "options": [
+          "--exclude-backups",
+          "--exclude-backups"
+        ],
+        "regular_members": 81
+      },
+      {
+        "archive_sha256": "f9b9bb6d6d123a863af59f022b70dd48a82282803f5b5b999212009f01f750bd",
+        "options": [
+          "--no-wildcards",
+          "--exclude-backups"
+        ],
+        "regular_members": 81
+      },
+      {
+        "archive_sha256": "af69358dc072394a2aecc20bbf159b67ecd0316adc32d8105a23a96dd77a3a52",
+        "options": [
+          "--anchored",
+          "--exclude-vcs"
+        ],
+        "regular_members": 30
+      },
+      {
+        "archive_sha256": "a931ad2d85f83869ef1fb8a7fc84d37ba77d21219accebc90b185160df288394",
+        "options": [
+          "--no-recursion",
+          "--exclude-vcs"
+        ],
+        "regular_members": 0
+      },
+      {
+        "archive_sha256": "331bddcf76c1457465cb1a225617cd6299b36d0009b50498b57003ce0cb7b2d7",
+        "options": [
+          "--exclude-vcs",
+          "--exclude=keep"
+        ],
+        "regular_members": 27
+      },
+      {
+        "archive_sha256": "7d43fb4f2462e8a3c7edd3a71f2570b8f1bb8ea96f75a3bc7c8e0df701fb298f",
+        "options": [
+          "--exclude=keep",
+          "--exclude-backups",
+          "--exclude-vcs"
+        ],
+        "regular_members": 15
+      }
+    ]
+  },
+  "executable_sha256": {
+    "candidate": "4af5ff293eb82a27fc901b051223a4ab908408517ca360574f4497e5a41ba500",
+    "clang": "288fa31c75cdb951ab661c23c2c7ce8cc5e9b85bd38350b44d54520b182aef80",
+    "control": "3c0e88da314f04dad82628dfee56049e28486ff11831df1734fdef3d5885cffc",
+    "gcc": "be8909b9d9c1d05ad408d56bd92c9bb21f53843bd3a433431a030e28433f80c7"
+  },
+  "harness_sha256": {
+    "test_tar_argmatch_tables.py": "33044c0ff0ff204a0451d81e80115094ba08eae8a50f2a4789c3e72364dd48a1",
+    "test_tar_exclusion_tables.py": "2106ed8a0b3737264d4f6639bd6de708db9ab3f99d80198fbf393f04e447fa9c"
+  },
+  "link_sha256": "b2b4633e4022828711fd26d86ed250694644027c1b8d263cbc3f9df6acfae63c",
+  "oracle_driver_sha256": "666394b9d9ce7a0426dadad97199df303332a1025b8e8a2135bcb2b76fec9337"
+}

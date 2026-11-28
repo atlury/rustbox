@@ -2492,6 +2492,8 @@ On the tested DS field executable, the expanded selection chose compatible compi
 
 Five GNU tar option tables now use immutable Rust string references in a candidate archive. The C argument matcher borrows a temporary array only for the duration of its call. This removes 99 raw-pointer type occurrences. The control and candidate matched both canonical builds across 132 cases, including ambiguous abbreviations, diagnostic bytes, warning toggles and backup files. The combined option path passed Memcheck. [GNU tar option-table tests](evidence/tar-argmatch-tables-pilot.json)
 
+Both rewrites together removed 155 raw-pointer type occurrences on four GNU tar compiler inputs. The same candidate archive matched all 12 exclusion profiles and 132 option cases against GCC and Clang, and passed both Memcheck runs. [Combined GNU tar archive](evidence/tar-combined-name-tables-pilot.json)
+
 Rebuilding scalar ABI declarations on the DS field compiler inputs qualified 2 of 2 additional engines in the ip-tc batch. The candidate retained 705,124 raw-pointer occurrences after this batch. [DS field ABI ip-tc results](evidence/dsfield-optimized-scalar-ip-tc.json) The two additional archive selections are stored in [the ip/tc manifest](batches/dsfield-ip-tc-scalar-ffi.json). Combining these entries with the preceding 78 reconstructs the tested 80-archive scalar manifest byte for byte.
 
 The saved 499-name executable for this source selection passed all 884 dispatch checks and 14,022 differential cases. [Full public comparisons](evidence/dsfield-optimized-expanded-public.json)
