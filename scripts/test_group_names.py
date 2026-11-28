@@ -60,7 +60,7 @@ def compare(link, pilot):
         row = json.loads((pilot/"pilot.json").read_bytes())
         key = row["archive"]
         if (parent["binary"]["sha256"] != row["control_binary_sha256"] or parent["source_library_sha256"][key] != row["control_sha256"]
-            or digest(ROOT/key) != row["control_sha256"] or digest(pilot/Path(key).name) != row["candidate_sha256"] or digest(HELPER) != row["helper_sha256"]):
+            or digest(ROOT/key) != row["control_sha256"] or digest(pilot/Path(key).name) != row["candidate_sha256"] or digest(HELPER) != row.get("group_helper_sha256", row["helper_sha256"])):
             raise ValueError("device-group archive or compiler input changed")
         ip = Path(key).name == "libip_audit.a"
         if ip:
