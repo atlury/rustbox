@@ -2446,6 +2446,8 @@ The combined optional selection removes 11,667 declarations in 24 byte-identical
 
 Zstd's whole-archive cleanup changed the archive bytes. Rebuilding smaller groups together recovered 2,106 unused helpers in 30 modules. Removing those helpers eliminated 2,484 raw-pointer type occurrences and reproduced the original archive byte for byte. Together with the 24 archives above, the tar-baseline candidate removes 14,151 occurrences. Its full compiler-input recount is 740,846. These figures apply to the candidate. [Zstd recovery and source recount](evidence/zstd-closed-inline-recovery.json) Replaying the 25-archive selection on the routing release carried 22 archives forward and cold-built 3 against updated inputs. Its candidate source recount fell from 747,302 to 733,151. [Routing release replay](evidence/routing-private-helper-recovery.json)
 
+On the LZ4 candidate the combined compiler-input recount fell from 747,291 to 732,086 (15,205 fewer). The selection includes 2 variadic-layout archives, 25 private-helper archives and 1 scalar ABI archive(s). The recount includes only matching parent receipts at each step. [Joint inventory](evidence/lz4-variadic-closed-scalar-composition.json)
+
 To replay a recovered group, run `python3 -B scripts/verify_closed_inline_recovery.py PARENT_LINK SELECTED_LINK ACTIVE_MANIFEST WHOLE_TRIAL SUBSET_TRIAL OUTPUT`. It checks both compiler receipts, matches the removed helpers against the original module list, and recounts the combined selection.
 
 The first four verified archives remove 3,861 declarations on the tar baseline:
