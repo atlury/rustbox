@@ -1,0 +1,39 @@
+{
+  "compiler_module_sha256": "0e68eac4c29d79de63a2c75f3424e460c15c8ad919ecafa2cda0d783957a93f7",
+  "test_driver_sha256": "effafd6731082fa183f81405fabf42767b10c3de30214e2f5d06137a8c26d333",
+  "tests": {
+    "clang": {
+      "case_sources_sha256": {
+        "strcase.c": "020af11b675a782b09de8343debc10bead83f72dca99282a1e417e3101b8681e",
+        "strcase.h": "0ccf0a5a21523a882ca5811161e3db7422c425b106d5e0bdfc78dc9653e441d9",
+        "strequal.c": "d0f52ffd191d7cd7118980a1f479fdc63501d583b1a4e4317a3aed19a757ec32"
+      },
+      "cases": 88810,
+      "cc": "Ubuntu clang version 18.1.3 (1ubuntu1)",
+      "helper_sha256": "4647936763eb77bde8ca611f9f2ceee2037d4380305fc50764e11456ce8472ea",
+      "passed": 88810,
+      "protocol_sha256": "5a5c60c04bc84a328ef6f0933b1896bef2294b19fd22440c738a019444347c36",
+      "schemes": 30
+    },
+    "gcc": {
+      "case_sources_sha256": {
+        "strcase.c": "020af11b675a782b09de8343debc10bead83f72dca99282a1e417e3101b8681e",
+        "strcase.h": "0ccf0a5a21523a882ca5811161e3db7422c425b106d5e0bdfc78dc9653e441d9",
+        "strequal.c": "d0f52ffd191d7cd7118980a1f479fdc63501d583b1a4e4317a3aed19a757ec32"
+      },
+      "cases": 88810,
+      "cc": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "helper_sha256": "4647936763eb77bde8ca611f9f2ceee2037d4380305fc50764e11456ce8472ea",
+      "passed": 88810,
+      "protocol_sha256": "5a5c60c04bc84a328ef6f0933b1896bef2294b19fd22440c738a019444347c36",
+      "schemes": 30
+    }
+  },
+  "transform": {
+    "canonical_sha256": "5a5c60c04bc84a328ef6f0933b1896bef2294b19fd22440c738a019444347c36",
+    "helper_sha256": "4647936763eb77bde8ca611f9f2ceee2037d4380305fc50764e11456ce8472ea",
+    "raw_pointer_types_removed": 45,
+    "removed_callbacks": 6,
+    "schemes": 30
+  }
+}
