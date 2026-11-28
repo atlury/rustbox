@@ -60,7 +60,7 @@ def checked_executable(link, selection, evidence, elf):
     return inputs, commands
 
 
-def qualify(link, selection, evidence, elf, foreign_link, foreign_selection, foreign_evidence, latest, *, export=None):
+def qualify(link, selection, evidence, elf, foreign_link, foreign_selection, foreign_evidence, latest, *, stacked=(), export=None):
     replaced, commands = checked_executable(link, selection, evidence, elf)
     foreign, witness = read(foreign_selection), read(foreign_evidence)
     if (digest(foreign_link) != foreign["parent_link_sha256"]
@@ -80,13 +80,29 @@ def qualify(link, selection, evidence, elf, foreign_link, foreign_selection, for
                     projected.setdefault(layer, {})[key] = parent[layer][key]
                 elif layer in projected:
                     projected[layer].pop(key, None)
+    merged = dict(replaced)
+    stacked_receipts = {}
+    for directory in stacked:
+        path = directory / "pilot.json"
+        row = read(path)
+        key = row["archive"]
+        if (key in stacked_receipts or key not in replaced or key not in foreign["archives"]
+                or row["unused_types"] != replaced[key]["pilot"]
+                or row["foreign_declarations"] != foreign["archives"][key]["pilot"]
+                or row["candidate_sha256"] != replaced[key]["pilot"]["candidate_sha256"]):
+            raise ValueError("stacked edits do not reproduce the archive used by the tested executable")
+        relative = directory.resolve().relative_to(ROOT).as_posix()
+        merged[key] = dict(directory=relative, pilot=row)
+        stacked_receipts[key] = dict(directory=relative, pilot_sha256=digest(path),
+                                    candidate_sources_sha256=row["candidate_sources_sha256"],
+                                    removed=row["raw_pointer_types_removed"])
     with TemporaryDirectory() as tmp:
         control = Path(tmp) / "release.json"
         write_result(control, projected)
-        rebuilt = [ROOT / row["directory"] for row in replaced.values()]
+        rebuilt = [ROOT / row["directory"] for row in merged.values()]
         same = [ROOT / row["directory"] for row in identical.values()]
         combined = plan(control, rebuilt, extra_foreign=same)
-    if combined["archives"] != {**replaced, **identical}:
+    if combined["archives"] != {**merged, **identical}:
         raise ValueError("cold build receipts differ from projected compiler inputs")
     if export is not None:
         # Publish the release and its matching selection together only after replay.
@@ -107,8 +123,8 @@ def qualify(link, selection, evidence, elf, foreign_link, foreign_selection, for
                 latest_control_sha256=digest(latest), foreign_control_sha256=digest(foreign_link),
                 tested_control_sha256=digest(link), source_only_chain={p.name: digest(p) for _, p in edges},
                 rebuilt_archives=sorted(replaced), identical_foreign_archives=sorted(identical),
-                stacked_archives={},
-                deferred_overlaps=sorted(replaced.keys() & foreign["archives"].keys()))
+                stacked_archives=stacked_receipts,
+                deferred_overlaps=sorted((replaced.keys() & foreign["archives"].keys()) - stacked_receipts.keys()))
 
 
 if __name__ == "__main__":
@@ -116,6 +132,7 @@ if __name__ == "__main__":
     for name in ("link", "selection", "evidence", "elf", "foreign_link", "foreign_selection",
                  "foreign_evidence", "latest", "output"):
         parser.add_argument(name, type=Path)
+    parser.add_argument("--stacked", type=Path, action="append", default=[], metavar="COLD_BUILD")
     parser.add_argument("--export", type=Path, help="publish reproducible release and selection files in a new directory")
     args = vars(parser.parse_args())
     output = args.pop("output")
