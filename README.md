@@ -2492,6 +2492,8 @@ GNU tar's 21 version-control names and three backup globs now occupy two immutab
 
 The GNU tar table tests are reproducible with `python3 -B scripts/test_tar_exclusion_tables.py` and `python3 -B scripts/test_tar_argmatch_tables.py`. Run them without arguments for the GCC/Clang baseline, then pass `--link LINK --pilot PILOT` to compare the translated control and candidate. Both GNU builds agreed on all 132 option cases, including 24 expected failures. [Canonical option results](evidence/tar-argmatch-canonical.json)
 
+To build both tar rewrites in one archive, run `python3 -B scripts/build_tar_name_tables.py --link LINK --output PILOT`, then run `python3 -B scripts/test_tar_name_tables.py --link LINK --pilot PILOT`. The combined build checks that the rewrites edit disjoint compiler inputs and reruns both sets of behavior checks on the same candidate.
+
 To replay a recovered group, run `python3 -B scripts/verify_closed_inline_recovery.py PARENT_LINK SELECTED_LINK ACTIVE_MANIFEST WHOLE_TRIAL SUBSET_TRIAL OUTPUT`. It checks both compiler receipts, matches the removed helpers against the original module list, and recounts the combined selection.
 
 The first four verified archives remove 3,861 declarations on the tar baseline:

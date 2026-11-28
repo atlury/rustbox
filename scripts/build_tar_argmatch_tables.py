@@ -1,15 +1,12 @@
 #!/usr/bin/env python3
 """Move GNU tar's private argmatch name tables into immutable Rust C-string references."""
 # SPDX-License-Identifier: GPL-3.0-or-later
-import argparse
-import json
 from pathlib import Path
 import re
 
-from build_checked_errno import replay
-from cargo_archive_pilot import compile_mounted_sources, stage_selected_archive
 from check_cargo_private_inlines import ROOT, digest
 from prune_private_inlines import POINTER
+from tar_table_pilot import main
 
 CANONICAL = ROOT / "work/upstream/tar-1.35"
 MARKER = ".rustbox-tar-argmatch-tables"
@@ -77,20 +74,4 @@ def substitute(crate, sources):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--mounted", type=Path)
-    parser.add_argument("--link", type=Path)
-    parser.add_argument("--output", type=Path)
-    parser.add_argument("--replay", action="store_true")
-    args = parser.parse_args()
-    if args.mounted:
-        compile_mounted_sources(args.mounted, substitute, MARKER, allow_identical=True)
-    elif args.link and args.output:
-        links = json.loads(args.link.read_bytes())["source_library_sha256"]
-        key, = [k for k in links if Path(k).name == "libtar_1_35_normalized_audit.a"]
-        if args.replay:
-            print(json.dumps(replay(args.link, key, args.output, transform=substitute), sort_keys=True))
-        else:
-            stage_selected_archive(args.link, args.output, key, MARKER, Path(__file__).name)
-    else:
-        parser.error("supply the link and the archive output directory")
+    main(Path(__file__), MARKER, substitute, allow_identical=True)
