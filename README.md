@@ -1862,6 +1862,8 @@ The optional multicall selection stages the verified archives by digest. On the 
 
 The saved DS field executable and its `ip` and `ss` archives passed 63,908 canonical lookup comparisons across scope, realm and netlink names, with 8 Memcheck runs. Set `RUSTBOX_MULTICALL_TEST_BINARY` to the absolute executable path when running `test_iproute2_route_names.py` or `test_iproute2_netlink_protocols.py` with a saved link. [Saved-executable results](evidence/iproute2-dsfield-saved-lookup-interfaces.json)
 
+The device-group lookup pilot replaces mutable hash chains with owned Rust names in 256 indexed buckets. Across five Linux configurations it matched 31,035 canonical lookup results from GCC and Clang and passed five Memcheck runs. The tests check collision order, local and vendor fallback, signed numeric conversion, retained names and malformed-file diagnostics. Replaying the source edit on all 18 routing engines found 267 fewer raw-pointer occurrences per engine (4,806 total). Applying the DS field and group edits in either order produced identical module bytes. The two group functions retain their C ABI pointers and the loader calls the canonical parser. [Canonical lookup tests](evidence/iproute2-group-names-standalone.json) · [Per-engine source projection](evidence/iproute2-group-names-routing-sources.json)
+
 A 499-name multicall containing all 18 rebuilt DS field engines matched both canonical compilers on
 288 IPRoute2 command comparisons and 144 DS field filter comparisons in four
 configuration profiles. Its stripped size was 24,983,632 bytes.

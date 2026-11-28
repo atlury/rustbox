@@ -12,10 +12,16 @@ from iproute2_route_name_archives import netlink_path
 from check_e2fsprogs_dirhash_arrays import source_list_digest
 
 
-def rank(path, *, dsfield=False):
+def rank(path, *, dsfield=False, group_names=False):
     data = path.read_bytes()
     link = json.loads(data)
-    if dsfield:
+    if group_names:
+        from build_group_names import transform as replace_table
+        from iproute2_route_name_archives import lookup_archive, lookup_records
+        if dsfield or "iproute2_routing_protocols" not in link:
+            raise ValueError("device group names require a routing release and one requested table")
+        current = {lookup_archive(link, key) for key in lookup_records(link)}
+    elif dsfield:
         from build_dsfield_names import transform as replace_table
         from stage_routing_protocol_archives import FIELD, candidate_path, parent_view
         parent_view(link)  # Validate every preceding routing archive and native C-string selection.
@@ -38,7 +44,14 @@ def rank(path, *, dsfield=False):
             return
         if str(archive) in engines:
             raise ValueError(f"duplicate route names module in {archive}")
-        _, row = replace_table(source)
+        candidate, row = replace_table(source)
+        if group_names and "iproute2_dsfield_names" not in link:
+            from build_dsfield_names import transform as replace_dsfield
+            first, _ = replace_dsfield(candidate)
+            second, _ = replace_table(replace_dsfield(source)[0])
+            if first != second:
+                raise ValueError(f"DS field and group-name edits differ by selection order in {archive}")
+            row["with_dsfield_module_sha256"] = sha256(first).hexdigest()
         if row["control_module_sha256"] != checksum.hex():
             raise ValueError(f"source hash differs for {archive}")
         engines[str(archive)] = dict(row, module=str(module), control_archive_sha256=link["source_library_sha256"][str(archive)])
@@ -57,6 +70,8 @@ def rank(path, *, dsfield=False):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("link", type=Path)
-    parser.add_argument("--dsfield", action="store_true", help="inspect DS field names after routing protocol replacement")
+    selection = parser.add_mutually_exclusive_group()
+    selection.add_argument("--group-names", action="store_true", help="inspect device group lookups in the selected engines")
+    selection.add_argument("--dsfield", action="store_true", help="inspect DS field names after routing protocol replacement")
     args = parser.parse_args()
-    print(json.dumps(rank(args.link, dsfield=args.dsfield), indent=2, sort_keys=True))
+    print(json.dumps(rank(args.link, dsfield=args.dsfield, group_names=args.group_names), indent=2, sort_keys=True))
