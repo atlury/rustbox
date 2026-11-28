@@ -91,6 +91,10 @@ def compare_e2fsck(root, targets, link, flags):
         run("clang-18", "-O2", "-DRUSTBOX_E2FSPROGS_ENTRY=rustbox_e2fsprogs_e2fsck_main",
             ROOT/"bridges/e2fsprogs_program_main.c", targets[label], *objects, *flags, "-o", exe)
         tools[label] = exe
+    return compare_image(root, canon, {label: [tool] for label, tool in tools.items()})
+
+
+def compare_image(root, canon, commands):
     env = dict(os.environ, LC_ALL="C", TZ="UTC", E2FSCK_TIME="1700000000", E2FSPROGS_FAKE_TIME="1700000000")
     image = root/"original.img"
     with image.open("wb") as f:
@@ -98,18 +102,18 @@ def compare_e2fsck(root, targets, link, flags):
     run(canon/"mke2fs", "-Fq", "-t", "ext4", "-U", "8b4a3c52-57f9-48bd-a3fc-ad988f081b0c", "-b", "1024",
         "-E", "lazy_itable_init=0,lazy_journal_init=0", image, env=env)
     expected = None
-    for label, tool in tools.items():
+    for label, command in commands.items():
         copy = root/("fs-"+label)
         copy.mkdir()
         shutil.copyfile(image, copy/"fs.img")
-        proc = run(tool, "-fn", "fs.img", env=env, cwd=copy, capture_output=True)
+        proc = run(*command, "-fn", "fs.img", env=env, cwd=copy, capture_output=True)
         result = (proc.stdout, proc.stderr, digest(copy/"fs.img"))
         if expected is not None and expected != result:
             raise ValueError(f"{label} differed on the read-only ext4 check")
         expected = result
     if expected[2] != digest(image):
         raise ValueError("filesystem image changed during read-only check")
-    return dict(compared=sorted(tools), image_unchanged=True, commands_per_program=1)
+    return dict(compared=sorted(commands), image_unchanged=True, commands_per_program=1)
 
 
 if __name__ == "__main__":

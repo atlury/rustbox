@@ -136,7 +136,7 @@ def main() -> int:
                 [str(rustbox), public_name, *arguments], rustbox, environment,
                 ((str(rustbox).encode(), canonical_name.encode()),),
             )
-            passed = expected == actual
+            passed = isinstance(expected[0], int) and expected == actual
             records.append({
                 "program": public_name,
                 "canonical_name": canonical_name,

@@ -15,16 +15,7 @@ PACKAGE = ROOT / "tests/e2fsprogs-error-names"
 BUILD = Path("/rustbox-coreutils/canonical-clang-no-security-compdb")
 
 
-def preview(parent, log, batch, output):
-    batch = batch.resolve()
-    raw = parent.read_bytes()
-    release = json.loads(raw)
-    receipt = ROOT / "evidence/e2fsprogs-packed-error-names-archives.json"
-    proof = json.loads(receipt.read_bytes())
-    selected = proof["api"]["archive_checks"]
-    if (set(selected) != {"debugfs", "dumpe2fs", "tune2fs"} or proof["parent_link_report_sha256"] != digest(parent)
-            or proof["public"]["elf_sha256"] != release["binary"]["sha256"]):
-        raise ValueError("expected all three qualified archives on the selected parent")
+def engine_inputs(release, selected, directories):
     inputs = release["source_library_sha256"]
     runtime, = [ROOT / key for key in inputs if Path(key).name == "libprocps_ng_4_0_7_normalized_audit.a"]
     if digest(runtime) != inputs[str(runtime.relative_to(ROOT))]:
@@ -40,10 +31,10 @@ def preview(parent, log, batch, output):
                 continue
             row = selected[engine]
             key = row["archive"]
-            folder = batch / engine
+            folder = directories[engine]
             if (json.loads((folder / "pilot.json").read_bytes()) != row or Path(key).name != archive_name
                     or inputs[key] != row["control_sha256"]):
-                raise ValueError("incomplete error-name qualification for " + engine)
+                raise ValueError("incomplete archive qualification for " + engine)
             archive = ROOT / key if which == "parent" else folder / archive_name
             hashes[engine] = digest(archive)
             if hashes[engine] != row["control_sha256" if which == "parent" else "candidate_sha256"]:
@@ -57,20 +48,40 @@ def preview(parent, log, batch, output):
             raise ValueError("E2fsprogs C symbol isolation differs")
         return list(mapped.values()), {mapped[engine] for engine in selected}, dict(engine_sha256=hashes)
 
+    return prepare
+
+
+def compare_public_commands(elf, stage, minimum_names):
+    driver = ROOT / "tests/e2fsprogs-multicall-differential.py"
+    comparisons = {}
+    for cc in ("gcc", "clang-18"):
+        report = stage / (cc + ".json")
+        subprocess.run([sys.executable, "-B", driver, "--canonical-root", "/rustbox-e2fsprogs/stage-" + cc,
+                        "--rustbox", elf, "--output", report], check=True)
+        result = json.loads(report.read_bytes())
+        if result["cases"] != result["passed"] or result["native_names"] < minimum_names:
+            raise ValueError("incomplete E2fsprogs multicall comparisons")
+        comparisons[cc] = {k:v for k,v in result.items() if k != "records"}
+    return comparisons
+
+
+def preview(parent, log, batch, output):
+    batch = batch.resolve()
+    raw = parent.read_bytes()
+    release = json.loads(raw)
+    receipt = ROOT / "evidence/e2fsprogs-packed-error-names-archives.json"
+    proof = json.loads(receipt.read_bytes())
+    selected = proof["api"]["archive_checks"]
+    if (set(selected) != {"debugfs", "dumpe2fs", "tune2fs"} or proof["parent_link_report_sha256"] != digest(parent)
+            or proof["public"]["elf_sha256"] != release["binary"]["sha256"]):
+        raise ValueError("expected all three qualified archives on the selected parent")
+    prepare = engine_inputs(release, selected, {engine: batch / engine for engine in selected})
+
     def exercise(elf, stage):
         public = json.loads(subprocess.check_output([sys.executable, "-B", PACKAGE / "images.py", elf]))
         if any(public[k] != v for k, v in proof["public_baseline"].items() if k != "elf_sha256"):
             raise ValueError("full executable differs from the canonical ext2 image comparisons")
-        driver = ROOT / "tests/e2fsprogs-multicall-differential.py"
-        comparisons = {}
-        for cc in ("gcc", "clang-18"):
-            report = stage / (cc + ".json")
-            subprocess.run([sys.executable, "-B", driver, "--canonical-root", "/rustbox-e2fsprogs/stage-" + cc,
-                            "--rustbox", elf, "--output", report], check=True)
-            result = json.loads(report.read_bytes())
-            if result["cases"] != result["passed"] or result["native_names"] < len(selected):
-                raise ValueError("incomplete E2fsprogs multicall comparisons")
-            comparisons[cc] = {k:v for k,v in result.items() if k != "records"}
+        comparisons = compare_public_commands(elf, stage, len(selected))
         return dict(ext2_images=public, public_commands=comparisons, archive_evidence_sha256=digest(receipt))
 
     preview_link(parent, raw, log, output, prepare, exercise)

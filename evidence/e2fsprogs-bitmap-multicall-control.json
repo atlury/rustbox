@@ -1,0 +1,39 @@
+{
+  "elf_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+  "filesystem": {
+    "commands_per_program": 1,
+    "compared": [
+      "applet",
+      "clang-18",
+      "gcc",
+      "subcommand"
+    ],
+    "image_unchanged": true
+  },
+  "public_commands": {
+    "clang-18": {
+      "canonical_multicall_exact": true,
+      "cases": 84,
+      "collision_aliases": {
+        "fsck": "e2fsprogs-fsck"
+      },
+      "native_engines": 20,
+      "native_names": 28,
+      "passed": 84,
+      "release": "1.47.4",
+      "schema": 1
+    },
+    "gcc": {
+      "canonical_multicall_exact": true,
+      "cases": 84,
+      "collision_aliases": {
+        "fsck": "e2fsprogs-fsck"
+      },
+      "native_engines": 20,
+      "native_names": 28,
+      "passed": 84,
+      "release": "1.47.4",
+      "schema": 1
+    }
+  }
+}
