@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: 0BSD
 from pathlib import Path
 import sys
+from tempfile import TemporaryDirectory
 import unittest
 from unittest.mock import patch
 
@@ -20,6 +21,14 @@ class CompilerArguments(unittest.TestCase):
                 staged.main(args)
                 self.assertEqual(compile_archive.call_args.args, (Path(base[0]), Path(base[1]), base[2], paths))
                 self.assertTrue(compile_archive.call_args.kwargs["closed_inlines"])
+
+    def test_direct_layout_selection(self):
+        with TemporaryDirectory() as temp, patch.object(staged, "compile_archive") as compile_archive:
+            selection = Path(temp) / "layouts.json"
+            selection.write_text('{"Node": {"copies": 3}}')
+            staged.main(["parent.json", "result", "libengine.a", "--leaf-layouts", str(selection)])
+            self.assertEqual(compile_archive.call_args.kwargs["leaf_layouts"], {"Node": {"copies": 3}})
+            self.assertIsNone(compile_archive.call_args.args[3])
 
     def test_whole_archive(self):
         with patch.object(staged, "compile_archive") as compile_archive:

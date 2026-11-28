@@ -15,7 +15,7 @@ from check_cargo_private_inlines import ROOT, digest
 from check_e2fsprogs_dirhash_arrays import compile_staged, source_list_digest
 
 
-def compile_archive(snapshot, output, key, modules=None, *, routing_protocols=False, dsfield=False, va_list_layout=False, static_arrays=False, color_palette=False, e2p_error_names=False, closed_inlines=False, scalar_ffi=False):
+def compile_archive(snapshot, output, key, modules=None, *, routing_protocols=False, dsfield=False, va_list_layout=False, static_arrays=False, color_palette=False, e2p_error_names=False, closed_inlines=False, scalar_ffi=False, leaf_layouts=None):
     from audit_linked_pointers import measure
     from build_c_string_literal_pilot import substitute
     from e2fsprogs_foreign_declarations import staged_compiler_inputs
@@ -26,7 +26,7 @@ def compile_archive(snapshot, output, key, modules=None, *, routing_protocols=Fa
     if not output.is_dir() or any(output.iterdir()):
         raise ValueError("direct compilation requires an empty output directory")
     link = json.loads(snapshot.read_bytes())
-    if not (routing_protocols or dsfield or va_list_layout or color_palette or e2p_error_names or closed_inlines or scalar_ffi) and key in link.get("native_c_strings", {}):
+    if not (routing_protocols or dsfield or va_list_layout or color_palette or e2p_error_names or closed_inlines or scalar_ffi or leaf_layouts is not None) and key in link.get("native_c_strings", {}):
         link["native_c_strings"] = {k: v for k, v in link["native_c_strings"].items() if k != key}
     selected = Path(key)
     original = cargo_origin(link, key)
@@ -50,7 +50,13 @@ def compile_archive(snapshot, output, key, modules=None, *, routing_protocols=Fa
         built = scratch / selected.name
         if sources.keys() != inputs or compile_staged(crate, inputs, rustc, built) != expected:
             raise ValueError("direct compiler recipe failed to reproduce the selected archive")
-        if scalar_ffi:
+        if leaf_layouts is not None:
+            if not leaf_layouts or any((scalar_ffi, closed_inlines, color_palette, e2p_error_names, va_list_layout,
+                                        routing_protocols, dsfield, modules, static_arrays)):
+                raise ValueError("select one nonempty set of leaf layouts")
+            from build_leaf_layout_pilot import substitute as share_layouts
+            replacements, changes = share_layouts(crate, sources, leaf_layouts)
+        elif scalar_ffi:
             if any((closed_inlines, color_palette, e2p_error_names, va_list_layout, routing_protocols, dsfield, modules, static_arrays)):
                 raise ValueError("select only scalar ABI declaration sharing")
             from build_scalar_ffi import substitute as share_scalar_ffi
@@ -121,7 +127,7 @@ def publish(result, output, archive_name):
             raise ValueError("concurrently published archive or compiler receipt differs") from exc
 
 
-def build(link, output, key, modules=None, *, routing_protocols=False, dsfield=False, va_list_layout=False, static_arrays=False, color_palette=False, e2p_error_names=False, closed_inlines=False, scalar_ffi=False):
+def build(link, output, key, modules=None, *, routing_protocols=False, dsfield=False, va_list_layout=False, static_arrays=False, color_palette=False, e2p_error_names=False, closed_inlines=False, scalar_ffi=False, leaf_layouts=None):
     output = output.resolve()
     raw = link.read_bytes()
     if output.exists():
@@ -129,12 +135,16 @@ def build(link, output, key, modules=None, *, routing_protocols=False, dsfield=F
     with TemporaryDirectory(dir=output.parent) as temp:
         stage = Path(temp)
         (stage / "snapshot.json").write_bytes(raw)
+        mode = []
+        if leaf_layouts is not None:
+            (stage / "leaf-layouts.json").write_text(json.dumps(leaf_layouts, sort_keys=True))
+            mode = ["--leaf-layouts", "/trial/leaf-layouts.json"]
         result = stage / "result"
         result.mkdir()
         subprocess.run(["docker", "run", "--rm", "--network", "none", "--platform", "linux/amd64",
                         "-v", f"{ROOT}:/work:ro", "-v", f"{stage}:/trial", "rustbox-e2fsprogs:2026-11-24",
                         "python3", "-B", "/work/scripts/build_staged_c_strings.py",
-                        "/trial/snapshot.json", "/trial/result", key,
+                        "/trial/snapshot.json", "/trial/result", key, *mode,
                         *(["--all-scalar-ffi" if scalar_ffi == "all" else "--scalar-ffi"] if scalar_ffi else []), *(["--closed-inlines"] if closed_inlines else []), *(["--color-palette"] if color_palette else []), *(["--e2p-error-names"] if e2p_error_names else []),
                         *(["--dsfield"] if dsfield else []),
                         *(["--routing-protocol-table"] if routing_protocols else []),
@@ -159,13 +169,15 @@ def main(argv=None):
     choice.add_argument("--static-arrays", action="store_true")
     choice.add_argument("--scalar-ffi", action="store_true")
     choice.add_argument("--all-scalar-ffi", action="store_const", const="all", dest="scalar_ffi")
+    choice.add_argument("--leaf-layouts", type=Path)
     choice.add_argument("--closed-inlines", action="store_true")
     choice.add_argument("--va-list-layout", action="store_true")
     args = parser.parse_intermixed_args(argv)
     compile_archive(args.snapshot, args.output, args.archive, args.modules or None,
                     routing_protocols=args.routing_protocol_table, dsfield=args.dsfield,
                     va_list_layout=args.va_list_layout, static_arrays=args.static_arrays, color_palette=args.color_palette,
-                    e2p_error_names=args.e2p_error_names, closed_inlines=args.closed_inlines, scalar_ffi=args.scalar_ffi)
+                    e2p_error_names=args.e2p_error_names, closed_inlines=args.closed_inlines, scalar_ffi=args.scalar_ffi,
+                    leaf_layouts=json.loads(args.leaf_layouts.read_bytes()) if args.leaf_layouts else None)
 
 
 if __name__ == "__main__":

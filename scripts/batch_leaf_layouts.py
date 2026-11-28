@@ -16,12 +16,16 @@ from cargo_source_parent import cargo_origin, direct_crate
 from check_cargo_private_inlines import ROOT, digest
 
 
-def run(link, ranking, output, exclude_layouts, exclude_packages, jobs):
+def run(link, ranking, output, exclude_layouts, exclude_packages, jobs, *, direct=False):
     script = ROOT / "scripts/build_leaf_layout_pilot.py"
     scanner = ROOT / "tools/private-inlines/src/bin/leaf-layouts.rs"
     parent, rank = (json.loads(path.read_bytes()) for path in (link, ranking))
     inputs = dict(link_sha256=link, ranking_sha256=ranking, scanner_sha256=scanner, selector_sha256=script,
                   ranking_script_sha256=ROOT / "scripts/rank_leaf_c_layouts.py")
+    driver = script
+    if direct:
+        driver = ROOT / "scripts/build_direct_leaf_layouts.py"
+        inputs.update(direct_selector_sha256=driver, direct_compiler_sha256=ROOT / "scripts/build_staged_c_strings.py")
     stamp = {name: digest(path) for name, path in inputs.items()}
     stamp.update(exclude_layouts=sorted(exclude_layouts), exclude_packages=sorted(exclude_packages))
     if stamp["link_sha256"] != rank["link_report_sha256"] or rank["binary_sha256"] != parent["binary"]["sha256"]:
@@ -38,8 +42,9 @@ def run(link, ranking, output, exclude_layouts, exclude_packages, jobs):
 
     selected, skipped = {}, {}
     for key, names in options.items():
-        if direct_crate(cargo_origin(parent, key)) is not None:
-            skipped[key] = "archive uses direct rustc"
+        uses_direct = direct_crate(cargo_origin(parent, key)) is not None
+        if uses_direct != direct:
+            skipped[key] = "archive uses direct rustc" if uses_direct else "archive uses Cargo"
             continue
         single = {name: counts[0] for name, counts in names.items() if len(counts) == 1}
         if len(single) != len(names):
@@ -47,12 +52,12 @@ def run(link, ranking, output, exclude_layouts, exclude_packages, jobs):
         if single:
             selected[key] = single
     if not selected:
-        raise ValueError("no eligible Cargo archives in the selection")
+        raise ValueError("no eligible archives in the selection")
 
     def check(key):
         folder = archive_folder(output, key)
         layouts = sorted(selected[key])
-        cmd = [sys.executable, "-B", script, "--link", link, "--ranking", ranking, "--archive", key,
+        cmd = [sys.executable, "-B", driver, "--link", link, "--ranking", ranking, "--archive", key,
                "--layouts", *layouts, "--output", folder]
         with folder.with_suffix(".log").open("ab") as log:
             if not folder.exists():
@@ -116,8 +121,9 @@ if __name__ == "__main__":
         p.add_argument(arg, type=Path)
     p.add_argument("--exclude-layout", action="append", default=[])
     p.add_argument("--exclude-package", action="append", default=[])
+    p.add_argument("--direct", action="store_true", help="use direct rustc archives instead of Cargo")
     p.add_argument("--jobs", type=int, default=1)
     args = p.parse_args()
     if args.jobs < 1:
         p.error("--jobs must be positive")
-    sys.exit(0 if run(args.link, args.ranking, args.output, args.exclude_layout, args.exclude_package, args.jobs) else 1)
+    sys.exit(0 if run(args.link, args.ranking, args.output, args.exclude_layout, args.exclude_package, args.jobs, direct=args.direct) else 1)
