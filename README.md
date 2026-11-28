@@ -2510,6 +2510,8 @@ Ten repeated ncurses C struct definitions can share their existing Rust definiti
 
 Replaying the IPRoute2 `ip` and `tc` declaration changes with both variadic archives and the ncurses layouts brought the same executable’s source count to **704,595**. All selected archive bytes matched their controls. [Joint candidate recount](evidence/dsfield-ip-tc-variadic-ncurses.json)
 
+With 2 byte-identical shared-layout archives, the compiler census is **704,265** on the joint IPRoute2 candidate. [Shared-layout next census](evidence/dsfield-next-leaf-recount.json)
+
 The combined pkgconf selection shares layouts in 3 byte-identical archives. Its compiler inputs contain **704,340** raw-pointer type occurrences. [Selected archives and census](evidence/dsfield-pkgconf-leaf-sources.json)
 
 Use `python3 -B scripts/prepare_leaf_layouts.py enroll LINK MANIFEST PILOT ...` to verify an identical-archive receipt against the current compiler inputs. Place `--shared-leaf-layouts MANIFEST` first in the ordinary multicall build command. For an older pilot on changed sources, `python3 -B scripts/refresh_leaf_layout_pilots.py LINK RANKING OUTPUT PRIOR ...` rebuilds the archive and compares the result with the current control.
