@@ -26,7 +26,7 @@ def expected_profiles(baseline, public_ip, *, dsfield=False, group_names=False):
     return profiles
 
 
-def run(link, output, jobs, engine=None, *, dsfield=False, group_names=False):
+def run(link, output, jobs, engine=None, *, dsfield=False, group_names=False, include_direct=False):
     if group_names:
         from build_group_names import build
         evidence_name = "iproute2-group-names-pilot.json"
@@ -48,7 +48,10 @@ def run(link, output, jobs, engine=None, *, dsfield=False, group_names=False):
         from cargo_source_parent import cargo_origin, direct_crate
         parent = json.loads(link.read_bytes())
         deferred_direct = sorted(k for k in selected if direct_crate(cargo_origin(parent, k)) is not None)
-        selected = {k:v for k,v in selected.items() if k not in deferred_direct}
+        if include_direct or engine == "bridge":
+            deferred_direct = []
+        else:
+            selected = {k:v for k,v in selected.items() if k not in deferred_direct}
     if engine is not None:
         selected = {key: row for key, row in selected.items() if Path(key).name == f"lib{engine}_audit.a"}
         if len(selected) != 1:
@@ -110,7 +113,7 @@ def run(link, output, jobs, engine=None, *, dsfield=False, group_names=False):
                   memcheck_runs=sum(r["memcheck_runs"] for r in checked.values()))
     if group_names:
         totals["direct_engines_pending"] = deferred_direct
-    batch_name = "cargo-results.json" if group_names else "results.json"
+    batch_name = "cargo-results.json" if group_names and not include_direct else "results.json"
     destination = output / (batch_name if engine is None else f"{engine}-results.json")
     pending = destination.with_suffix(".json.tmp")
     pending.write_text(json.dumps(totals, indent=2, sort_keys=True)+"\n")
@@ -126,7 +129,10 @@ if __name__ == "__main__":
     choice = p.add_mutually_exclusive_group()
     choice.add_argument("--group-names", action="store_true", help="qualify device group lookups in the Cargo engines")
     choice.add_argument("--dsfield", action="store_true", help="qualify the DS field and DSCP reader on the routing parent")
+    p.add_argument("--include-direct", action="store_true", help="include the direct-rustc bridge in the device-group sweep")
     args = p.parse_args()
+    if args.include_direct and not args.group_names:
+        p.error("--include-direct applies to the device-group sweep")
     if args.jobs < 1:
         p.error("--jobs must be positive")
-    run(args.link.resolve(), args.output.resolve(), args.jobs, args.engine, dsfield=args.dsfield, group_names=args.group_names)
+    run(args.link.resolve(), args.output.resolve(), args.jobs, args.engine, dsfield=args.dsfield, group_names=args.group_names, include_direct=args.include_direct)

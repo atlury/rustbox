@@ -41,7 +41,12 @@ def substitute(crate, sources):
 
 
 def build(link, output, key):
-    stage_selected_archive(link, output, key, MARKER, Path(__file__).name)
+    from cargo_source_parent import cargo_origin, direct_crate
+    if direct_crate(cargo_origin(json.loads(link.read_bytes()), key)) is not None:
+        from build_group_names_bridge import build as direct
+        direct(link, output, key)
+    else:
+        stage_selected_archive(link, output, key, MARKER, Path(__file__).name)
 
 
 if __name__ == "__main__":
@@ -56,7 +61,16 @@ if __name__ == "__main__":
         compile_mounted_sources(args.mounted, substitute, MARKER, allow_identical=False)
     elif args.link and args.archive and args.output:
         if args.replay:
-            print(json.dumps(replay(args.link, args.archive, args.output, transform=substitute), sort_keys=True))
+            row = json.loads((args.output / "pilot.json").read_bytes())
+            if "rustc_archive" in row:
+                from build_group_names_bridge import bridge_receipt
+                expected = bridge_receipt(args.link, args.archive)
+                expected["candidate_sha256"] = digest(args.output / Path(args.archive).name)
+                if expected != row:
+                    raise ValueError("saved bridge receipt differs from the direct source replay")
+            else:
+                replay(args.link, args.archive, args.output, transform=substitute)
+            print(json.dumps(row, sort_keys=True))
         else:
             build(args.link, args.output, args.archive)
     else:
