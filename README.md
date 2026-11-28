@@ -2591,6 +2591,10 @@ Adding the byte-identical Gawk archive removed 85 more duplicate raw-pointer typ
 
 <a id="combined-pointer-checkpoints"></a>
 
+Removing unused foreign declarations can leave generated C layout types without callers. Re-running the layout analysis on those exact intermediate source bytes found **10,304 further raw-pointer type occurrences in 12 archives**, including curl, ncurses, E2fsprogs and IPRoute2. This is a source ranking. Some layout removals overlap the ten-package build, so its count is tracked independently. [Per-archive source hashes and additional removals](evidence/layouts-after-foreign-684630.json)
+
+Run `python3 -B scripts/build_cascaded_declarations.py --link CONTROL --foreign FOREIGN_SELECTION --rank --jobs 2 --output RANKING.json` to rank every archive. Replace the ranking arguments with `--archive ARCHIVE --output NEW_DIRECTORY` for an isolated Linux cold build and independent source replay.
+
 <!-- projected-stacked-count -->The ten-package Linux executable has a compiler selection with **679,430 raw-pointer type occurrences** across all 499 names, or **609,908** with identical source files counted once. It includes the combined Shadow cleanup and byte-identical builds of 9 additional archives. [Compiler inputs and executable evidence](evidence/ten-package-projected-679430.json) · [Foreign declarations](batches/current-foreign-declarations-684630.json).<!-- /projected-stacked-count -->
 
 Shadow's cold Linux build combines the unused-type and unused foreign-declaration cleanups inside the same archive. The two edits remove **1,379** pointer occurrences and reproduce the archive used by the ten-package executable byte-for-byte. Both source hashes and the archive are pinned. [Shadow cold-build receipt](evidence/stacked-shadow-declarations.json)

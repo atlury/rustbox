@@ -131,7 +131,13 @@ def plan(link, pilots, *, identical_foreign=False, extra_foreign=()):
             def read(module):
                 return (store / modules[module]).read_bytes()
             row = rows[key]["pilot"]
-            if key in foreign_keys:
+            if "unused_after_foreign" in row:
+                from build_cascaded_declarations import transform as cascade
+                from build_scalar_ffi import replay_layer as replay_sources
+                def after_foreign(crate, sources, tool):
+                    return cascade(crate, sources, row["foreign_declarations"], tool)
+                changes = replay_sources(modules, read, row, scanner or syntax_tool("unused-c-types"), transform=after_foreign)
+            elif key in foreign_keys:
                 changes = replay_compiler_layer(modules, read, row)
             elif "foreign_declarations" in row:
                 from build_scalar_ffi import replay_layer as replay_sources
@@ -171,7 +177,7 @@ def materialize(link, manifest):
         directory = (ROOT / relative).resolve()
         if not directory.is_relative_to(ROOT / "work/analysis"):
             raise ValueError("build directory must remain inside the local analysis tree")
-        foreign = row["control_sha256"] == row["candidate_sha256"] and "ranges" in row
+        foreign = row["control_sha256"] == row["candidate_sha256"] and ("ranges" in row or "unused_after_foreign" in row)
         (identical if foreign else changed).append(directory)
         directory.parent.mkdir(parents=True, exist_ok=True)
         with directory.with_name(directory.name + ".materialize.lock").open("a") as lock:
@@ -185,7 +191,12 @@ def materialize(link, manifest):
             else:
                 with TemporaryDirectory(dir=directory.parent) as tmp:
                     stage = Path(tmp) / "archive"
-                    if "foreign_declarations" in row:
+                    if "unused_after_foreign" in row:
+                        from build_cascaded_declarations import trial
+                        foreign_manifest = Path(tmp) / "foreign.json"
+                        write_result(foreign_manifest, {"archives": {key: {"pilot": row["foreign_declarations"]}}})
+                        trial(link, foreign_manifest, key, stage)
+                    elif "foreign_declarations" in row:
                         from build_stacked_declarations import build
                         build(link, row["unused_types"], row["foreign_declarations"], key, stage)
                     else:
