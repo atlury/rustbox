@@ -20,10 +20,12 @@ def best_chain(parent, key, options):
     origin = str(cargo_origin(parent, key))
     states = [(0, {}, parent)]
     for layer in ORDER:
+        if layer not in options:
+            continue
         extended = []
         for score, chosen, current in states:
             receipts = selected_receipts(current, key, layer)
-            for item in options.get(layer, []):
+            for item in options[layer]:
                 row = item["pilot"]
                 if (row["control_sha256"] != checksum or row_origin(row) != origin
                         or item["parent_receipts"] != receipts
@@ -41,8 +43,9 @@ def optimize(link, manifests, output):
         raise FileExistsError(output)
     inputs = {p: digest(p) for p in (link, *(path for files in manifests.values() for path in files))}
     parent = json.loads(link.read_bytes())
-    if any(k in parent for k in ORDER):
-        raise ValueError("optimization needs a parent preceding the optional source layers")
+    requested = [layer for layer in ORDER if manifests.get(layer)]
+    if requested and any(layer in parent for layer in ORDER[ORDER.index(requested[0]):]):
+        raise ValueError("optimization needs a parent preceding the requested source layers")
     options = {}
     for layer, paths in manifests.items():
         if layer not in ORDER:

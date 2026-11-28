@@ -41,6 +41,34 @@ class Chains(unittest.TestCase):
         parent = dict(self.parent, shared_ncurses_termtypes={self.key: "terminal"})
         self.assertEqual(best_chain(parent, self.key, {ORDER[0]:[self.choice(1)]}), (0, {}))
 
+    def test_fixed_earlier_layers_are_dependencies(self):
+        fixed = self.choice(9)["pilot"]
+        parent = dict(self.parent, **{ORDER[1]: {self.key: fixed}})
+        compatible = self.choice(7, {ORDER[1]: fixed})
+        stale = self.choice(22)
+        self.assertEqual(best_chain(parent, self.key, {ORDER[2]: [stale, compatible]}),
+                         (7, {ORDER[2]: compatible}))
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            link, manifest = root / "link.json", root / "manifest.json"
+            link.write_text(json.dumps(parent))
+            manifest.write_text(json.dumps({self.key: compatible}))
+            # Empty CLI option lists leave the corresponding earlier layers fixed.
+            def recount(source, target, layers):
+                self.assertEqual(json.loads(source.read_bytes()), parent)
+                self.assertEqual([layer for layer, _ in layers], [ORDER[2]])
+                self.assertEqual(json.loads(layers[0][1][0].read_bytes()), {self.key: compatible})
+                target.mkdir()
+                return dict(counts={"all": {"before": 31, "after": 24}}, binary_sha256="elf",
+                            layers={ORDER[2]: {"deferred": {}}}, sources={})
+            with patch("optimize_pointer_selections.compose", side_effect=recount):
+                result = optimize(link, {ORDER[0]: [], ORDER[2]: [manifest]}, root / "compatible")
+            self.assertEqual(result["raw_pointer_types_removed"], 7)
+            for conflict in ORDER[:2]:
+                with self.assertRaisesRegex(ValueError, "preceding"):
+                    optimize(link, {conflict: [manifest]}, root / "trial")
+            self.assertFalse((root / "trial").exists())
+
     def test_publish_only_after_recount_agrees(self):
         with TemporaryDirectory() as tmp:
             root = Path(tmp)
