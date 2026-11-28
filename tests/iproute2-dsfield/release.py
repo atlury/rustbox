@@ -3,6 +3,9 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 from copy import deepcopy
 import json
+import os
+from tempfile import TemporaryDirectory
+from unittest.mock import patch
 from pathlib import Path
 import sys
 import unittest
@@ -31,6 +34,20 @@ class Selection(unittest.TestCase):
             compiler_key = "rustc_archive" if "rustc_archive" in row else "cargo_archive"
             later = {"archive": key, "control_sha256": row["candidate_sha256"], compiler_key: origin}
             self.assertEqual(pinned_parent(key, later), self.selected)
+
+    def test_lookup_snapshot_is_bound_to_saved_executable(self):
+        from check_cargo_private_inlines import digest
+        from test_iproute2_route_names import multicall_mount
+        with TemporaryDirectory() as tmp, patch.dict(os.environ, {}, clear=True):
+            binary, link = (Path(tmp) / n for n in ("rustbox", "release.json"))
+            binary.write_bytes(b"saved ELF")
+            link.write_text(json.dumps({"binary":{"sha256":digest(binary)}}))
+            self.assertEqual(multicall_mount(link), ["-v", "rustbox-coreutils-9.12:/rustbox-coreutils:ro"])
+            os.environ["RUSTBOX_MULTICALL_TEST_BINARY"] = str(binary)
+            self.assertIn(f"{binary}:/candidate:ro", multicall_mount(link))
+            binary.write_bytes(b"other ELF")
+            with self.assertRaises(ValueError):
+                multicall_mount(link)
 
     def test_earlier_public_interfaces_use_final_archive(self):
         from iproute2_address_protocol_archive import control_view

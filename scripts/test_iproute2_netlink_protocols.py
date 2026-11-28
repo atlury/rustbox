@@ -13,7 +13,7 @@ import sys
 from check_cargo_private_inlines import ROOT, LINK_REPORT, digest
 from iproute2_route_name_archives import candidate_path, netlink_control_view, netlink_path, verified_records
 from iproute2_route_name_archives import lookup_archive, lookup_records, routing_lookup_pair
-from test_iproute2_route_names import SOURCE, capture, run
+from test_iproute2_route_names import SOURCE, capture, multicall_binary, multicall_mount, run
 
 DRIVER = ROOT / "tests/iproute2-netlink-protocols/lookups.c"
 
@@ -21,7 +21,7 @@ DRIVER = ROOT / "tests/iproute2-netlink-protocols/lookups.c"
 def compare(linked_key=None):
     pilot = Path("/pilot")
     link = json.loads(Path("/control-link.json").read_bytes())
-    binary = Path("/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox")
+    binary = multicall_binary()
     routing = linked_key and "iproute2_routing_protocols" in link
     if routing:
         row, control, candidate = routing_lookup_pair(link, linked_key)
@@ -191,7 +191,7 @@ if __name__ == "__main__":
             "-v", f"{ROOT}:/work:ro", "-v", f"{pilot.resolve(strict=True)}:/pilot:ro",
             "-v", f"{args.link.resolve(strict=True)}:/control-link.json:ro",
             "-v", "rustbox-iproute2-7.3.0:/rustbox-iproute2:ro",
-            *(["-v", "rustbox-coreutils-9.12:/rustbox-coreutils:ro"] if args.linked_key else []), "-w", "/tmp", "rustbox-e2fsprogs:2026-11-24",
+            *(multicall_mount(args.link) if args.linked_key else []), "-w", "/tmp", "rustbox-e2fsprogs:2026-11-24",
             "python3", "-B", "/work/scripts/test_iproute2_netlink_protocols.py", "--mounted",
             *(["--linked-key", args.linked_key] if args.linked_key else []))
     else:

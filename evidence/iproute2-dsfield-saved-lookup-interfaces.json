@@ -1,0 +1,88 @@
+{
+  "binary_sha256": "3cb09f88a4f16bfaa5fca49b6fe5ff9cc83a2683bde6a25009bfa04008249b54",
+  "interfaces": {
+    "ip": {
+      "candidate_sha256": "0af8cebadc6066e2fe5e89a0cb6ec5986a9449f11d6fc29f18e00442053bc649",
+      "comparison_sha256": "51325f58b4f78d579d031effa26553439b7db90ca9e7a066d344ba0ae7ca06ba",
+      "control_sha256": "b798f4f8fec00bb1b57d0296c40083a024ac5c23e768f36f55da22decc6f5cde",
+      "driver_sha256": "d3ec18119ae5609a0c776e9cfece54191cd1d9aeeef082ed526c1f71f89399a4",
+      "lookups": 42048,
+      "memcheck_runs": 4,
+      "profiles": [
+        {
+          "lookup_rows": 10512,
+          "profile": "empty",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "f1c8b2787f313f6a0d705debd5c6c74643807035d2067867f7e4efaa1516dbc4"
+        },
+        {
+          "lookup_rows": 10512,
+          "profile": "vendor",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "619d6cc0587f8c57a0b2cf194c5137bf319cfc01536255c85157dd90a5a15bd7"
+        },
+        {
+          "lookup_rows": 10512,
+          "profile": "local",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "a780492ab931beecb043a1037a1ec8cba0437a3b1b09dcf9b1f8a83cd3027e5b"
+        },
+        {
+          "lookup_rows": 10512,
+          "profile": "malformed",
+          "stderr_sha256": "35393fe1410aad0872ee01a07df53e570820e84524745f07ac99657e68713465",
+          "stdout_sha256": "19907d493e3fb2f0ee71bc7210ef8ffa3290338cbf0bce8d7733c586230a4ba5"
+        }
+      ],
+      "public_commands_per_dispatch_mode": 96
+    },
+    "ss": {
+      "candidate_sha256": "773694768d4441e2e36a15dee9300fede61e2c45d417a04cc7a6712482b6e0f4",
+      "comparison_sha256": "654d4b3410eeea52aba969f965a33bf415cd3e01a0de451575e4d5a8616e3711",
+      "control_sha256": "18d689e69622f53c430a532807578d1da23f6156013530a150df1ceb2191de0c",
+      "driver_sha256": "3ab65e190014ed2c16854eda7ae01808e1a07ff77b6a9ecb5d5d9940d35cb320",
+      "lookups": 21860,
+      "memcheck_runs": 4,
+      "profiles": [
+        {
+          "forward": 5167,
+          "profile": "empty",
+          "public_commands": 12,
+          "public_successes": 6,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "a4c7b12f03c7bc2cc00f0db4c9805630b37e4aef17beaf041c3adb982e6f60a7"
+        },
+        {
+          "forward": 5167,
+          "profile": "vendor",
+          "public_commands": 12,
+          "public_successes": 8,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "c4a9fbfb0725c6cc5c27720caace59e2b10c9bf3ed0c57e09fcd8df3e3af1c42"
+        },
+        {
+          "forward": 5167,
+          "profile": "local",
+          "public_commands": 12,
+          "public_successes": 8,
+          "reverse": 298,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "6e08c7303c7ce7aa6359cba8edeb72e289b128cf38471c002b82ac7a888782fe"
+        },
+        {
+          "forward": 5167,
+          "profile": "malformed",
+          "public_commands": 12,
+          "public_successes": 6,
+          "reverse": 298,
+          "stderr_sha256": "0c65aa0a4db4a3ccbdd6764859ebe91f5797705c4fc7d78739e8df2b1adbf862",
+          "stdout_sha256": "4bc732aeab52bb27efe3235c7556900768fa59c7fa81b279c5ec9d9ea7846122"
+        }
+      ],
+      "public_commands_per_dispatch_mode": 48
+    }
+  },
+  "qualification_sha256": "7f23578bf440918511799473c8ffb5f365f28ff24f1d9b35b6614fd259c5199e"
+}

@@ -7,6 +7,7 @@ from hashlib import sha256
 import json
 import os
 import re
+import shutil
 from pathlib import Path
 import subprocess
 
@@ -28,10 +29,30 @@ def capture(args, *, executable=None, timeout=60):
     return result.returncode, result.stdout, result.stderr
 
 
+def multicall_mount(link):
+    saved = os.environ.get("RUSTBOX_MULTICALL_TEST_BINARY")
+    if saved is None:
+        return ["-v", "rustbox-coreutils-9.12:/rustbox-coreutils:ro"]
+    source = Path(saved)
+    if not source.is_absolute() or not source.is_file() or digest(source) != json.loads(link.read_bytes())["binary"]["sha256"]:
+        raise ValueError("saved lookup-test executable differs from its link report")
+    return ["-v", f"{source}:/candidate:ro", "-e", "RUSTBOX_LOOKUP_SNAPSHOT=/candidate"]
+
+
+def multicall_binary():
+    saved = os.environ.get("RUSTBOX_LOOKUP_SNAPSHOT")
+    if saved is None:
+        return Path("/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox")
+    target = Path("/tmp/rustbox")
+    shutil.copyfile(saved, target)
+    target.chmod(0o555)
+    return target
+
+
 def compare(pilot, key, live=False):
     from iproute2_route_name_archives import build_control_view, candidate_path as route_path
     release = json.loads(Path("/control-link.json").read_bytes())
-    binary = Path("/rustbox-coreutils/canonical-clang-no-security-compdb/src/rustbox")
+    binary = multicall_binary()
     routing = live and "iproute2_routing_protocols" in release
     if routing:
         report, parent, variant = routing_lookup_pair(release, key)
@@ -156,7 +177,7 @@ def linux_comparison(pilot, key, link, output=None, *, live=False):
            "python3", "-B", "/work/scripts/" + HERE.name, "/pilot", "--mounted", key]
     if live:
         position = cmd.index("-w")
-        cmd[position:position] = ["-v", "rustbox-coreutils-9.12:/rustbox-coreutils:ro"]
+        cmd[position:position] = multicall_mount(link)
         cmd.append("--linked")
     if output is None:
         run(*cmd)

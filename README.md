@@ -1860,6 +1860,8 @@ The LZ4 release candidate has the same 18 IPRoute2 engine archives and the same 
 
 The optional multicall selection stages the verified archives by digest. On the LZ4 parent the full compiler-input recount fell from 747,291 to 742,521. Run `scripts/stage_dsfield_archives.py LINK --built ARCHIVE_BATCH` to reuse the cold builds. Run `scripts/audit_linked_pointers.py CANDIDATE_LINK --verify-dsfield-from PARENT_LINK` to check the complete source delta. [Staging and inventory](evidence/iproute2-dsfield-release-staging.json) The release verifier resolves the address, scope, realm and netlink lookup tests to the final DS field archive for each of the 18 engines. It checks each engine’s pointer count and the tested executable’s hash before recording a release.
 
+The saved DS field executable and its `ip` and `ss` archives passed 63,908 canonical lookup comparisons across scope, realm and netlink names, with 8 Memcheck runs. Set `RUSTBOX_MULTICALL_TEST_BINARY` to the absolute executable path when running `test_iproute2_route_names.py` or `test_iproute2_netlink_protocols.py` with a saved link. [Saved-executable results](evidence/iproute2-dsfield-saved-lookup-interfaces.json)
+
 A 499-name multicall containing all 18 rebuilt DS field engines matched both canonical compilers on
 288 IPRoute2 command comparisons and 144 DS field filter comparisons in four
 configuration profiles. Its stripped size was 24,983,632 bytes.
