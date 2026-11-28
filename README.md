@@ -1331,6 +1331,10 @@ preview executables byte-for-byte. The saved ordinary build passed all four
 10 MB benchmark runs and 108 canonical command comparisons.
 [Ordinary Linux link evidence](evidence/lz4-dictionary-normal-link.json)
 
+For a built release interrupted during verification, use
+`scripts/qualify_pointer_release.sh --resume-built SELECTION PARENT_LINK BUILD_DIRECTORY [PARENT_REPLAYS]`.
+It checks the saved ELF and link reports, keeps the first run's logs, and writes fresh verification results under `BUILD_DIRECTORY/retry.*`. A complete passing independent package result can be reused after its executable, parent and release hashes are verified.
+
 Zstd 1.5.7 uses a related 255-word benchmark dictionary. Its separate Rust
 generator writes into a bounded slice of potentially uninitialized output.
 The candidate removes 13 mutable statics and 574 explicit pointer types
