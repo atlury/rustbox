@@ -1891,6 +1891,8 @@ The optional multicall selection stages the verified archives by digest. On the 
 
 The ordinary linker and the independent relink produced the same 499-name executable with all 18 DS field replacements. Each executable passed 288 IPRoute2 command comparisons and 144 DS field comparisons against canonical GCC and Clang builds. Use `--iproute2-dsfield-names` to select the readers on their verified routing parent. [Executable and canonical command results](evidence/iproute2-dsfield-lz4-normal-link.json)
 
+Rebuilding the variadic ABI layout on the DS field sources qualified 9 of 9 previously tested IPRoute2 archives and removed 206 additional repeated pointer fields in the candidate. [Compiler receipts and source recount](evidence/iproute2-dsfield-variadic-layout-refresh.json)
+
 On the packed LZ4 parent, an independent relink reproduced the parent executable and then linked all 18 DS field readers. The candidate passed 288 IPRoute2 command comparisons and 144 differentiated-services filter comparisons against canonical GCC and Clang builds. Its stripped size is 24,983,648 bytes. [LZ4 executable comparison](evidence/iproute2-dsfield-lz4-multicall.json)
 
 The release verifier resolves the address, scope, realm and netlink lookup tests to the final DS field archive for each of the 18 engines. It checks each engine’s pointer count and the tested executable’s hash before recording a release.
