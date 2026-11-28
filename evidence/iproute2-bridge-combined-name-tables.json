@@ -1,0 +1,137 @@
+{
+  "archive": {
+    "archive": "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/dsfield-names/c4b6b84f510866ae1fdc8466692e5c25254fe0ccb8b1fba7cb77ca2cc4c9a11a/libbridge_audit.a",
+    "candidate_module_sha256": "3a6dff4bbf44e2ef0000f2e737e274ce14d382f5cdbb7d4fa87778febe236b16",
+    "candidate_sha256": "481b0076a256d89892a9c63eca7de32f7161fd848318efe7f3db268b99b5ea3e",
+    "candidate_sources_sha256": "e36a504ca3528559c2eaf64a0983ddc982361dcdba6aad10978e7c5faa2b390b",
+    "canonical_sha256": "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e",
+    "compiler_selected_sources": 24,
+    "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+    "control_module_sha256": "2495253711ba2f9e3b4db0e4f7dfb1d5ba180b742cec0e465fa5de61c3a91f23",
+    "control_sha256": "c4b6b84f510866ae1fdc8466692e5c25254fe0ccb8b1fba7cb77ca2cc4c9a11a",
+    "helper_sha256": "5297d2f97174a2ffda3a3ad5d1158c8091575d58f6e80654f4ab46705e9c5373",
+    "module": "src/lib/rt_names.rs",
+    "parent_sources_sha256": "2b625d2504dbc8381a262e156dc64630ef982b7a77c12ed62cb6e4283ea250f7",
+    "raw_pointer_types_removed": 267,
+    "rustc_archive": "work/analysis/iproute2-7.3.0/program-translations/rustbox-bridge/libbridge_audit.a"
+  },
+  "combined_projection_sha256": "601e0e357271af84d6b3be51f6f04b1c27435e7c6ef308f05ad53d9c83b51c48",
+  "comparisons": {
+    "dsfield": {
+      "canonical_inputs": {
+        "include/rt_names.h": "b8223569a65254ecd3ea34c0368b253e355f558c270e246fdb7c240823b29414",
+        "lib/rt_names.c": "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e",
+        "lib/utils.c": "d5ab95c34ce7d5447e3951ca2e83faf6af604c0e6aad23b36659473f3c388bf7"
+      },
+      "driver_sha256": "b8ed262ce4c37fd6f7780ff4598c94ee371b302e610e2b57935d9e49b85977c1",
+      "memcheck_runs": 4,
+      "oracle_compilers": [
+        "gcc",
+        "clang-18"
+      ],
+      "profiles": [
+        {
+          "counts": {
+            "F": 4552,
+            "N": 258,
+            "R": 634
+          },
+          "profile": "empty",
+          "public_filter_status": [],
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "645dcd3c21fb11fdac73e09f1a6a31db888a981f938811025c7c7c1724794288"
+        },
+        {
+          "counts": {
+            "F": 4552,
+            "N": 258,
+            "R": 634
+          },
+          "profile": "vendor",
+          "public_filter_status": [],
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "df07c2350cca237923541f46dd5ed67816259df013fd1fd748563dc68cff0239"
+        },
+        {
+          "counts": {
+            "F": 4552,
+            "N": 258,
+            "R": 634
+          },
+          "profile": "local",
+          "public_filter_status": [],
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "c436065f3d517dfbbce1ab961dc622f19fe2ef9f56d32fc3d145cdd24e17d5f0"
+        },
+        {
+          "counts": {
+            "F": 4552,
+            "N": 258,
+            "R": 634
+          },
+          "profile": "malformed",
+          "public_filter_status": [],
+          "stderr_sha256": "2d6bd71bbefd517912527697ab16491c35b4702d383e621f8f0c2ec1abfc962e",
+          "stdout_sha256": "cfeb537066b4ff43075f141c2a745f6c0154de9d77a8cdfc970e37cf4ac8b53c"
+        }
+      ],
+      "public_oracle_sha256": {}
+    },
+    "group": {
+      "driver_sha256": "06ff72625bdc6f6eb64e5d68b3964abae52146a9070f5e6a0250e75e26c56f9e",
+      "memcheck_runs": 5,
+      "oracle_compilers": [
+        "gcc",
+        "clang-18"
+      ],
+      "profiles": [
+        {
+          "forward": 6178,
+          "profile": "empty",
+          "public_statuses": [],
+          "reverse": 29,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "3880ec6c112153b0ff6cbb917ba129bfb1acfa4092f8ffd449429676985ce5d1"
+        },
+        {
+          "forward": 6178,
+          "profile": "vendor",
+          "public_statuses": [],
+          "reverse": 29,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "a7ea8b3bae7b351e76e411d65188067ca7fc525de955f20d503d51daa226623c"
+        },
+        {
+          "forward": 6178,
+          "profile": "local",
+          "public_statuses": [],
+          "reverse": 29,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "942041280e9cd076199e10f6e7d7317391477fe6bdb1d9d8ae9bc06a46707d64"
+        },
+        {
+          "forward": 6178,
+          "profile": "corrupt",
+          "public_statuses": [],
+          "reverse": 29,
+          "stderr_sha256": "19dfb40ecc5920eedbdc5fc5fdb51ca1dc7ee517de10ec60be5f0a9438dd7fa7",
+          "stdout_sha256": "a51338608fc81fa7c59eb1bb536f1aa33152dd011d83026db7e2d314ac54502e"
+        },
+        {
+          "forward": 6178,
+          "profile": "directory",
+          "public_statuses": [],
+          "reverse": 29,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e6781026eb62297b9d766b2997b62b7e0993b32a1f3f578c7db6eac4e88d7fca"
+        }
+      ],
+      "public_oracle_sha256": {}
+    }
+  },
+  "dsfield_baseline_sha256": "fa59b2a77b6a1758e6c2e032f45dac5e17134786b007254f6e1c260c649fcf85",
+  "group_baseline_sha256": "fff028cfe48ec1bcda74e65782994371b9d5c0b6f4329a7cc925b976f57b9264",
+  "link_sha256": "146bb01897f17c341e72ea97d2b4226c967a73e37aa784e4425488f7eaa91921",
+  "parent_executable_evidence_sha256": "a4cca27b386dc99ca1465d697785f51bc57353c26817238b6261d8a5b7ef1a1c",
+  "raw_pointer_types_removed": 532
+}
