@@ -2579,7 +2579,7 @@ Adding the byte-identical Gawk archive removed 85 more duplicate raw-pointer typ
 
 <a id="combined-pointer-checkpoints"></a>
 
-<!-- five-and-foreign -->The five-package Linux executable now has a compiler selection with **689,580 raw-pointer type occurrences** after including 2 additional byte-identical archive rebuilds. Counting identical source files once gives **605,358**. [Complete recount and executable identity](evidence/five-package-and-foreign-689580.json) · [Additional compiler inputs](batches/current-foreign-declarations-691418.json).<!-- /five-and-foreign -->
+<!-- five-and-foreign -->The five-package Linux executable now has a compiler selection with **689,414 raw-pointer type occurrences** after including 3 additional byte-identical archive rebuilds. Counting identical source files once gives **605,204**. [Complete recount and executable identity](evidence/five-package-and-foreign-689414.json) · [Additional compiler inputs](batches/current-foreign-declarations-691252.json).<!-- /five-and-foreign -->
 
 The foreign-declaration sweep covers all 127 Rust archives in the 499-name multicall. Its source scan found 18,319 candidate raw-pointer type occurrences in 89 archives. The Linux compiler must confirm each edit. The queue includes 75 Cargo archives and 14 directly compiled E2fsprogs or IPRoute2 engines. Run the [batch driver](scripts/batch_current_foreign_declarations.py) with the selected release and an output directory to resume. [Per-archive ranking](evidence/current-foreign-declarations-ranking.json)
 

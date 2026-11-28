@@ -3,8 +3,11 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 import argparse
 from collections import Counter
+import fcntl
 from hashlib import sha256
 import json
+import subprocess
+import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -112,6 +115,44 @@ def plan(link, pilots, *, identical_foreign=False, extra_foreign=()):
                 counts={k: dict(before=before[k], after=after[k]) for k in before}, archives=rows)
 
 
+def materialize(link, manifest):
+    """Rebuild missing pinned archives in private staging and replay the full source census."""
+    selection = json.loads(manifest.read_bytes())
+    if digest(link) != selection["parent_link_sha256"]:
+        raise ValueError("manifest belongs to a different compiler selection")
+    changed, identical = [], []
+    for key, item in selection["archives"].items():
+        row = item["pilot"]
+        relative = Path(item["directory"])
+        if row["archive"] != key or relative.parts[:2] != ("work", "analysis") or ".." in relative.parts:
+            raise ValueError("invalid archive or build directory in compiler selection")
+        directory = (ROOT / relative).resolve()
+        if not directory.is_relative_to(ROOT / "work/analysis"):
+            raise ValueError("build directory must remain inside the local analysis tree")
+        foreign = row["control_sha256"] == row["candidate_sha256"] and "ranges" in row
+        (identical if foreign else changed).append(directory)
+        directory.parent.mkdir(parents=True, exist_ok=True)
+        with directory.with_name(directory.name + ".materialize.lock").open("a") as lock:
+            fcntl.flock(lock, fcntl.LOCK_EX)
+            def verify(stage):
+                if (json.loads((stage / "pilot.json").read_bytes()) != row
+                        or digest(stage / Path(key).name) != row["candidate_sha256"]):
+                    raise ValueError(f"rebuilt archive or compiler inputs differ for {key}")
+            if directory.exists():
+                verify(directory)
+            else:
+                with TemporaryDirectory(dir=directory.parent) as tmp:
+                    stage = Path(tmp) / "archive"
+                    script = "build_current_foreign_declarations.py" if foreign else "build_unused_c_types.py"
+                    subprocess.run([sys.executable, "-B", ROOT / "scripts" / script,
+                                    "--link", link, "--archive", key, "--output", stage], check=True)
+                    verify(stage)
+                    stage.rename(directory)
+    if plan(link, changed, extra_foreign=identical) != selection:
+        raise ValueError("reconstructed selection differs from the committed census")
+    print(f"Verified {len(changed) + len(identical)} archives and the complete compiler census", flush=True)
+
+
 def relink(link, log, selection, output):
     raw = link.read_bytes()
     selected = selection.read_bytes()
@@ -147,11 +188,16 @@ if __name__ == "__main__":
         scan.add_argument("link", type=Path)
         scan.add_argument("output", type=Path)
         scan.add_argument("pilots", type=Path, nargs="+")
+    restore = operations.add_parser("materialize", help="restore pinned archives and verify their compiler inputs")
+    restore.add_argument("link", type=Path)
+    restore.add_argument("selection", type=Path)
     build = operations.add_parser("link")
     for name in ("link", "log", "selection", "output"):
         build.add_argument(name, type=Path)
     args = p.parse_args()
-    if args.operation != "link":
+    if args.operation == "materialize":
+        materialize(args.link, args.selection)
+    elif args.operation != "link":
         write_result(args.output, plan(args.link, args.pilots, identical_foreign=args.operation == "identical-foreign"))
     else:
         relink(args.link, args.log, args.selection, args.output)
