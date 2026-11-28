@@ -2447,7 +2447,7 @@ in the other engines. [Four archive receipts](evidence/rustbox-closed-inline-che
 
 The next checkpoint qualifies 11,276 declarations in 4,871 private helpers across 15 byte-identical archives on the tar baseline. This includes the first four verified archives. [Per-archive counts](evidence/closed-inline-first-ten-thousand.json) [Reproducible source selection](batches/multicall-closed-inline-first-ten-thousand.json)
 
-The file compression candidate matches all 15 canonical compression methods using bounded byte slices. It removes 37 raw-pointer type occurrences and 12 unchecked pointer offsets from the complete file archive. Each canonical compiler agreed on 988,678 header comparisons and 174 public command cases. The gzip decompression path passed Memcheck. [Archive and command checks](evidence/file-borrowed-compression-headers.json)
+The file compression candidate matches all 15 canonical compression methods using bounded byte slices. It removes 37 raw-pointer type occurrences and 12 unchecked pointer offsets from the complete file archive. Each canonical compiler agreed on 988,678 header comparisons and 174 public command cases. The gzip decompression path passed Memcheck. [Archive and command checks](evidence/file-borrowed-compression-headers.json) The complete candidate multicall also passed 696 comparisons against both canonical compilers through its file applet and subcommand. [Full Linux link and command results](evidence/file-compression-header-multicall.json)
 
 
 The multicall linker accepts `--closed-inlines MANIFEST`. To make a manifest
