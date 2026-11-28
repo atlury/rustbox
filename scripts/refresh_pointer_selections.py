@@ -21,6 +21,7 @@ from prepare_identical_archives import enroll, prepare, selected_receipts, valid
 DRIVERS = {
     "closed_inline_groups": "build_closed_inlines.py",
     "shared_scalar_ffi": "build_scalar_ffi.py",
+    "shared_variadic_ffi": "build_variadic_ffi.py",
     "shared_va_list_layouts": "build_va_list_layout_pilot.py",
 }
 
@@ -69,7 +70,9 @@ def refresh(link, source_manifest, output, workspace, layer, jobs):
             fcntl.flock(lock, fcntl.LOCK_EX)
             if not folder.exists():
                 subprocess.run([*cmd, "--archive", key, "--output", folder, *selection], stdout=log, stderr=subprocess.STDOUT, check=True)
-            subprocess.run([*cmd, "--replay", folder], stdout=log, stderr=subprocess.STDOUT, check=True)
+            replay = (["--archive", key, "--output", folder, "--replay"] if layer == "shared_variadic_ffi"
+                      else ["--replay", folder])
+            subprocess.run([*cmd, *replay], stdout=log, stderr=subprocess.STDOUT, check=True)
         row = json.loads((folder / "pilot.json").read_bytes())
         if row["archive"] != key or row["control_binary_sha256"] != parent["binary"]["sha256"]:
             raise ValueError("fresh compiler receipt does not belong to this release")
