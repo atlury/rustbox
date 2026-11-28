@@ -14,7 +14,7 @@ from tempfile import TemporaryDirectory
 from audit_linked_pointers import measure
 from build_unused_c_types import replay_layer
 from check_cargo_private_inlines import ROOT, digest
-from link_rustbox_multicall import (coalesce_identical_archive_members, namespace_acl_library, namespace_findutils_inputs, namespace_grep_library,
+from link_rustbox_multicall import (coalesce_identical_archive_members, namespace_acl_library, namespace_attr_library, namespace_findutils_inputs, namespace_grep_library,
                                    namespace_kmod_library, namespace_ncurses_library, namespace_shadow_library,
                                    namespace_tar_inputs)
 from preview_cargo_multicall import preview_link, qualified_inputs
@@ -65,6 +65,7 @@ def tar_inputs(path, residues, release, stage):
 
 
 PACKAGES = {
+    "attr-2.6.0": simple_namespace("attr", namespace_attr_library),
     "acl-2.4.0": simple_namespace("acl", namespace_acl_library),
     "curl-8.23.0": curl_inputs,
     "diffutils-3.12": diffutils_inputs,

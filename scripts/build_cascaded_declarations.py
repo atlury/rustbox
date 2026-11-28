@@ -2,9 +2,12 @@
 """Recompute unused C layout types after compiler-confirmed foreign declarations have been removed."""
 # SPDX-License-Identifier: GPL-3.0-or-later
 import argparse
-from concurrent.futures import ThreadPoolExecutor
+import fcntl
+from concurrent.futures import as_completed, ThreadPoolExecutor
 from hashlib import sha256
 import json
+import subprocess
+import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -108,6 +111,67 @@ def rank(link, manifest, jobs):
                 additional_layout_pointers=sum(row["additional_layout_pointers"] for row in rows.values()))
 
 
+def sweep(link, manifest, ranking, output, jobs):
+    report = json.loads(ranking.read_bytes())
+    if report["control_sha256"] != digest(link) or report["foreign_selection_sha256"] != digest(manifest):
+        raise ValueError("ranking belongs to another compiler selection")
+    foreign = json.loads(manifest.read_bytes())["archives"]
+    if report["archives"].keys() != foreign.keys():
+        raise ValueError("ranking omits selected archives")
+    output.mkdir(parents=True, exist_ok=True)
+    positive = {key: row for key, row in report["archives"].items() if row["additional_layout_pointers"] > 0}
+    names = [Path(key).stem for key in positive]
+    if len(set(names)) != len(names):
+        raise ValueError("multiple selected archives share a build directory name")
+
+    def one(key):
+        directory = output / Path(key).stem
+        def verify(path):
+            row = json.loads((path / "pilot.json").read_bytes())
+            source = positive[key]
+            if (row["archive"] != key or row["foreign_declarations"] != foreign[key]["pilot"]
+                    or row["raw_pointer_types_removed"] != source["combined_pointers"]
+                    or row["unused_after_foreign"]["raw_pointer_types_removed"] != source["additional_layout_pointers"]
+                    or row["parent_sources_sha256"] != source["parent_sources_sha256"]
+                    or row["candidate_sources_sha256"] != source["candidate_sources_sha256"]
+                    or digest(path / Path(key).name) != row["candidate_sha256"]):
+                raise ValueError(f"cold build differs from ranked compiler inputs for {key}")
+            return row
+        with (output / (directory.name + ".lock")).open("a") as lock:
+            fcntl.flock(lock, fcntl.LOCK_EX)
+            if directory.is_dir():
+                row = verify(directory)
+            else:
+                with TemporaryDirectory(dir=output) as tmp:
+                    stage = Path(tmp) / "verified"
+                    cmd = [sys.executable, "-B", Path(__file__).resolve(), "--link", link, "--foreign", manifest,
+                           "--archive", key, "--output", stage]
+                    with (output / (directory.name + ".log")).open("w") as log:
+                        subprocess.run(cmd, check=True, stdout=log, stderr=subprocess.STDOUT)
+                    row = verify(stage)
+                    stage.rename(directory)
+            return dict(directory=str(directory), pilot_sha256=digest(directory / "pilot.json"),
+                        identical_to_control=row["candidate_sha256"] == row["control_sha256"],
+                        raw_pointer_types_removed=row["raw_pointer_types_removed"])
+
+    with (output / ".sweep.lock").open("a") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        results = dict(ranking_sha256=digest(ranking), verified={}, failures={})
+        ordered = sorted(positive, key=lambda k: -positive[k]["additional_layout_pointers"])
+        with ThreadPoolExecutor(max_workers=jobs) as pool:
+            futures = {pool.submit(one, k): k for k in ordered}
+            for task in as_completed(futures):
+                key = futures[task]
+                try:
+                    results["verified"][key] = task.result()
+                except (ValueError, OSError, subprocess.CalledProcessError) as error:
+                    results["failures"][key] = str(error)
+                write_result(output / "sweep.json", results)
+        write_result(output / "sweep.json", results)
+        if results["failures"]:
+            raise RuntimeError(f"{len(results['failures'])} cold builds failed; see {output / 'sweep.json'}")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--mounted", type=Path)
@@ -116,6 +180,7 @@ if __name__ == "__main__":
     parser.add_argument("--foreign", type=Path)
     parser.add_argument("--archive")
     parser.add_argument("--rank", action="store_true", help="rank additional layouts on every archive in the foreign selection")
+    parser.add_argument("--sweep", type=Path, metavar="RANKING", help="cold-build every ranked archive with additional removals")
     parser.add_argument("--jobs", type=int, default=1)
     parser.add_argument("--output", type=Path, help="cold build in a new directory (omit for a source-only trial)")
     args = parser.parse_args()
@@ -127,6 +192,8 @@ if __name__ == "__main__":
         row = selection(args.foreign, args.direct)
         mounted_pair(Path("/trial/release.json"), Path("/trial/result"), args.direct,
                      lambda crate, sources: transform(crate, sources, row), allow_identical=True)
+    elif args.sweep and args.link and args.foreign and args.output and args.jobs > 0:
+        sweep(args.link, args.foreign, args.sweep, args.output, args.jobs)
     elif args.rank and args.link and args.foreign and args.output and args.jobs > 0:
         write_result(args.output, rank(args.link, args.foreign, args.jobs))
     elif args.link and args.foreign and args.archive:

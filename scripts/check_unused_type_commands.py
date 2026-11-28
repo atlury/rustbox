@@ -29,7 +29,7 @@ def prepare_programs(name, cc, elf, stage, baseline, directory):
 
     def canonical(tool):
         key = baseline.get("binaries", {})
-        if name == "acl":
+        if name in ("acl", "attr"):
             pin = key[tool][cc]["sha256"]
         elif name == "diffutils":
             pin = key[cc][tool]["sha256"]
@@ -54,8 +54,9 @@ def prepare_programs(name, cc, elf, stage, baseline, directory):
         (dispatch / "gawk").symlink_to(elf)
         (dispatch / "extension").symlink_to(ROOT / "build/gawk-5.4.0-hybrid/extension")
         args = ["--gcc-build", source, "--clang-build", dispatch]
-    elif name == "acl":
-        for tool in ("chacl", "getfacl", "setfacl"):
+    elif name in ("acl", "attr"):
+        tools = ("attr", "getfattr", "setfattr") if name == "attr" else ("chacl", "getfacl", "setfacl")
+        for tool in tools:
             canonical(tool)
             (stage / (tool + "-" + cc)).symlink_to(elf)
         args = ["--gcc-directory", oracle, "--gcc-suffix", cc, "--clang-directory", stage, "--clang-suffix", cc]
