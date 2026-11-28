@@ -1,0 +1,704 @@
+{
+  "work/analysis/kmod-34.3/translations/c2rust-0.22.1/kmod-34.3-stable/target/release/libkmod_34_3_normalized_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libkmod_34_3_normalized_audit.foreign-d484b541a7e0be6ff2d21550197e8a4c50571400227054a9abcdb0ed27f4023e.json",
+        "sha256": "d484b541a7e0be6ff2d21550197e8a4c50571400227054a9abcdb0ed27f4023e"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libkmod_34_3_normalized_audit.inlines-855282459e1e8cf2e0d64562605096b960dfc6afd8f9bac2c168bab969816d8f.json",
+        "sha256": "29783988e185a5102fd236c8c481079a0e0d25e9c500be980682d08d77dd8d81"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libkmod_34_3_normalized_audit.layer2-218f5460221b16cd13d282c37f42fa6fae54893ab2844bd4c4305812a2bd334a.json",
+        "sha256": "218f5460221b16cd13d282c37f42fa6fae54893ab2844bd4c4305812a2bd334a"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/kmod-34.3/translations/c2rust-0.22.1/kmod-34.3-stable/target/release/libkmod_34_3_normalized_audit.a",
+        "c_string_literals": 110,
+        "candidate_sha256": "ac868cae19c7db93e17944b5d950929647cbd04e7364b1b34da459a8e4fc23b5",
+        "candidate_sources_sha256": "f80dd6089521d74b194a0baa908525929f9f09548d22a1de4fdfd262ba681241",
+        "compiler_selected_sources": 28,
+        "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+        "control_sha256": "ac868cae19c7db93e17944b5d950929647cbd04e7364b1b34da459a8e4fc23b5",
+        "modules": {
+          "src/libkmod/libkmod.rs": 10,
+          "src/libkmod/libkmod_elf.rs": 5,
+          "src/libkmod/libkmod_signature.rs": 14,
+          "src/tools/depmod.rs": 21,
+          "src/tools/insmod.rs": 5,
+          "src/tools/kmod.rs": 2,
+          "src/tools/lsmod.rs": 4,
+          "src/tools/modinfo.rs": 12,
+          "src/tools/modprobe.rs": 29,
+          "src/tools/rmmod.rs": 5,
+          "src/tools/static_nodes.rs": 3
+        },
+        "parent_sources_sha256": "aecb8583f423a1999cf860ddf97890a3ca80f03334d8e19dd562be3a1e482194",
+        "raw_ffi_pointer_extractions": 110,
+        "raw_pointer_types_removed": 220,
+        "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_scalar_ffi": {
+        "all_scalar_interfaces": true,
+        "archive": "work/analysis/kmod-34.3/translations/c2rust-0.22.1/kmod-34.3-stable/target/release/libkmod_34_3_normalized_audit.a",
+        "candidate_sha256": "ac868cae19c7db93e17944b5d950929647cbd04e7364b1b34da459a8e4fc23b5",
+        "candidate_sources_sha256": "582e8cca35085c24aaa02093b822c75ec5862261526a41421f16bafc79855732",
+        "compiler_selected_sources": 28,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "ac868cae19c7db93e17944b5d950929647cbd04e7364b1b34da459a8e4fc23b5",
+        "parent_sources_sha256": "f80dd6089521d74b194a0baa908525929f9f09548d22a1de4fdfd262ba681241",
+        "raw_pointer_types_removed": 296,
+        "scalar_ffi": {
+          "__ctype_b_loc": {
+            "copies": 4,
+            "provider": "src/libkmod/libkmod.rs",
+            "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+          },
+          "__ctype_tolower_loc": {
+            "copies": 5,
+            "provider": "src/libkmod/libkmod.rs",
+            "signature": "fn __ctype_tolower_loc() -> *mut *const i32;"
+          },
+          "__ctype_toupper_loc": {
+            "copies": 5,
+            "provider": "src/libkmod/libkmod.rs",
+            "signature": "fn __ctype_toupper_loc() -> *mut *const i32;"
+          },
+          "__errno_location": {
+            "copies": 19,
+            "provider": "src/libkmod/libkmod.rs",
+            "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+          },
+          "alias_normalize": {
+            "copies": 2,
+            "provider": "src/libkmod/libkmod_module.rs",
+            "signature": "fn alias_normalize(a0: *const ::core::ffi::c_char, a1: *mut ::core::ffi::c_char, a2: *mut usize) -> ::core::ffi::c_int;"
+          },
+          "basename": {
+            "copies": 3,
+            "provider": "src/libkmod/libkmod_config.rs",
+            "signature": "fn basename(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "calloc": {
+            "copies": 6,
+            "provider": "src/libkmod/libkmod.rs",
+            "signature": "fn calloc(a0: usize, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "fnmatch": {
+            "copies": 3,
+            "provider": "src/libkmod/libkmod.rs",
+            "signature": "fn fnmatch(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_int;"
+          },
+          "free": {
+            "copies": 20,
+            "provider": "src/libkmod/libkmod.rs",
+            "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+          },
+          "malloc": {
+            "copies": 11,
+            "provider": "src/libkmod/libkmod_config.rs",
+            "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memcmp": {
+            "copies": 6,
+            "provider": "src/libkmod/libkmod_config.rs",
+            "signature": "fn memcmp(a0: *const ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "memcpy": {
+            "copies": 11,
+            "provider": "src/libkmod/libkmod_config.rs",
+            "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memdup": {
+            "copies": 3,
+            "provider": "src/libkmod/libkmod_elf.rs",
+            "signature": "fn memdup(a0: *const ::core::ffi::c_void, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memmove": {
+            "copies": 5,
+            "provider": "src/libkmod/libkmod_builtin.rs",
+            "signature": "fn memmove(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memset": {
+            "copies": 3,
+            "provider": "src/libkmod/libkmod_elf.rs",
+            "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "mmap": {
+            "copies": 3,
+            "provider": "src/libkmod/libkmod_file.rs",
+            "signature": "fn mmap(a0: *mut ::core::ffi::c_void, a1: usize, a2: ::core::ffi::c_int, a3: ::core::ffi::c_int, a4: ::core::ffi::c_int, a5: ::core::ffi::c_long) -> *mut ::core::ffi::c_void;"
+          },
+          "munmap": {
+            "copies": 3,
+            "provider": "src/libkmod/libkmod_file.rs",
+            "signature": "fn munmap(a0: *mut ::core::ffi::c_void, a1: usize) -> ::core::ffi::c_int;"
+          },
+          "options_from_array": {
+            "copies": 2,
+            "provider": "src/tools/insmod.rs",
+            "signature": "fn options_from_array(a0: *mut *mut ::core::ffi::c_char, a1: ::core::ffi::c_int, a2: *mut *mut ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "path_make_absolute_cwd": {
+            "copies": 3,
+            "provider": "src/libkmod/libkmod.rs",
+            "signature": "fn path_make_absolute_cwd(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "path_to_modname": {
+            "copies": 2,
+            "provider": "src/libkmod/libkmod_module.rs",
+            "signature": "fn path_to_modname(a0: *const ::core::ffi::c_char, a1: *mut ::core::ffi::c_char, a2: *mut usize) -> *mut ::core::ffi::c_char;"
+          },
+          "puts": {
+            "copies": 7,
+            "provider": "src/tools/depmod.rs",
+            "signature": "fn puts(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "realloc": {
+            "copies": 11,
+            "provider": "src/libkmod/libkmod_builtin.rs",
+            "signature": "fn realloc(a0: *mut ::core::ffi::c_void, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "setenv": {
+            "copies": 2,
+            "provider": "src/libkmod/libkmod_module.rs",
+            "signature": "fn setenv(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_int;"
+          },
+          "strchr": {
+            "copies": 6,
+            "provider": "src/libkmod/libkmod.rs",
+            "signature": "fn strchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strcmp": {
+            "copies": 11,
+            "provider": "src/libkmod/libkmod.rs",
+            "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strdup": {
+            "copies": 6,
+            "provider": "src/libkmod/libkmod_config.rs",
+            "signature": "fn strdup(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strerror": {
+            "copies": 13,
+            "provider": "src/libkmod/libkmod.rs",
+            "signature": "fn strerror(a0: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strlen": {
+            "copies": 14,
+            "provider": "src/libkmod/libkmod.rs",
+            "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+          },
+          "strncmp": {
+            "copies": 6,
+            "provider": "src/libkmod/libkmod.rs",
+            "signature": "fn strncmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "strrchr": {
+            "copies": 4,
+            "provider": "src/shared/util.rs",
+            "signature": "fn strrchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strstr": {
+            "copies": 2,
+            "provider": "src/libkmod/libkmod_module.rs",
+            "signature": "fn strstr(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strtok_r": {
+            "copies": 3,
+            "provider": "src/libkmod/libkmod_config.rs",
+            "signature": "fn strtok_r(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: *mut *mut ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strtol": {
+            "copies": 3,
+            "provider": "src/libkmod/libkmod.rs",
+            "signature": "fn strtol(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_long;"
+          },
+          "strtoul": {
+            "copies": 2,
+            "provider": "src/shared/util.rs",
+            "signature": "fn strtoul(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_ulong;"
+          },
+          "system": {
+            "copies": 2,
+            "provider": "src/libkmod/libkmod_module.rs",
+            "signature": "fn system(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "unsetenv": {
+            "copies": 2,
+            "provider": "src/libkmod/libkmod_module.rs",
+            "signature": "fn unsetenv(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          }
+        },
+        "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/kmod-34.3/translations/c2rust-0.22.1/kmod-34.3-stable/target/release/libkmod_34_3_normalized_audit.a",
+      "candidate_sha256": "ac868cae19c7db93e17944b5d950929647cbd04e7364b1b34da459a8e4fc23b5",
+      "candidate_sources_sha256": "9f9bc1db16206597ce9a5942eec457be7fd3e0a2a88f31a8195fcdfaffa74659",
+      "compiler_selected_sources": 28,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "ac868cae19c7db93e17944b5d950929647cbd04e7364b1b34da459a8e4fc23b5",
+      "parent_sources_sha256": "582e8cca35085c24aaa02093b822c75ec5862261526a41421f16bafc79855732",
+      "raw_pointer_types_removed": 40,
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd",
+      "variadic_ffi": {
+        "asprintf": {
+          "copies": 2,
+          "provider": "src/libkmod/libkmod.rs",
+          "signature": "fn asprintf(a0: *mut *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "log_printf": {
+          "copies": 7,
+          "provider": "src/tools/depmod.rs",
+          "signature": "fn log_printf(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char, ...);"
+        },
+        "open": {
+          "copies": 6,
+          "provider": "src/libkmod/libkmod.rs",
+          "signature": "fn open(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;"
+        },
+        "openat": {
+          "copies": 2,
+          "provider": "src/libkmod/libkmod_module.rs",
+          "signature": "fn openat(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;"
+        },
+        "printf": {
+          "copies": 8,
+          "provider": "src/tools/depmod.rs",
+          "signature": "fn printf(a0: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "snprintf": {
+          "copies": 9,
+          "provider": "src/libkmod/libkmod.rs",
+          "signature": "fn snprintf(a0: *mut ::core::ffi::c_char, a1: usize, a2: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "sscanf": {
+          "copies": 2,
+          "provider": "src/tools/depmod.rs",
+          "signature": "fn sscanf(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        }
+      },
+      "variadic_scanner_sha256": "b2bbe52ef1c1130dd7c661d86f9f55ec8e38f47a12d3bf0be91cebc2ba2e8858"
+    }
+  },
+  "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-05-stable/target/release/libutil_linux_small_05_normalized_reachable.a": {
+    "parent_receipts": {
+      "native_c_strings": {
+        "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-05-stable/target/release/libutil_linux_small_05_normalized_reachable.a",
+        "c_string_literals": 645,
+        "candidate_sha256": "dca7842726bd5ebde6bb92f702ed0e32ee4d092d741c355afe56638fbd9fc547",
+        "candidate_sources_sha256": "8b87d04ea998d17425f8ac5503c3193d5fbad3bea68f6af58aaa4a58a3722779",
+        "compiler_selected_sources": 12,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "dca7842726bd5ebde6bb92f702ed0e32ee4d092d741c355afe56638fbd9fc547",
+        "modules": {
+          "src/login_utils/utmpdump.rs": 48,
+          "src/login_utils/vipw.rs": 50,
+          "src/misc_utils/lastlog2.rs": 66,
+          "src/misc_utils/look.rs": 34,
+          "src/misc_utils/pipesz.rs": 79,
+          "src/misc_utils/rename.rs": 62,
+          "src/misc_utils/uuidparse.rs": 90,
+          "src/sys_utils/blkdiscard.rs": 66,
+          "src/sys_utils/tunelp.rs": 76,
+          "src/term_utils/scriptlive.rs": 74
+        },
+        "parent_sources_sha256": "da8e4c4b8a413f320aa3d1be34c74cd1aff3ebc1986d5c15a1ed39a02788d556",
+        "raw_ffi_pointer_extractions": 645,
+        "raw_pointer_types_removed": 1290,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_scalar_ffi": {
+        "all_scalar_interfaces": true,
+        "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-05-stable/target/release/libutil_linux_small_05_normalized_reachable.a",
+        "candidate_sha256": "dca7842726bd5ebde6bb92f702ed0e32ee4d092d741c355afe56638fbd9fc547",
+        "candidate_sources_sha256": "e2aa84801660b1f7555103676af125bdf21888f02e843a6cc12a048496d2eb4a",
+        "compiler_selected_sources": 12,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "dca7842726bd5ebde6bb92f702ed0e32ee4d092d741c355afe56638fbd9fc547",
+        "parent_sources_sha256": "8b87d04ea998d17425f8ac5503c3193d5fbad3bea68f6af58aaa4a58a3722779",
+        "raw_pointer_types_removed": 127,
+        "scalar_ffi": {
+          "__ctype_b_loc": {
+            "copies": 2,
+            "provider": "src/login_utils/utmpdump.rs",
+            "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+          },
+          "__errno_location": {
+            "copies": 10,
+            "provider": "src/login_utils/utmpdump.rs",
+            "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+          },
+          "access": {
+            "copies": 4,
+            "provider": "src/login_utils/vipw.rs",
+            "signature": "fn access(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> ::core::ffi::c_int;"
+          },
+          "bindtextdomain": {
+            "copies": 9,
+            "provider": "src/login_utils/utmpdump.rs",
+            "signature": "fn bindtextdomain(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "dcgettext": {
+            "copies": 10,
+            "provider": "src/login_utils/utmpdump.rs",
+            "signature": "fn dcgettext(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "free": {
+            "copies": 5,
+            "provider": "src/login_utils/utmpdump.rs",
+            "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+          },
+          "getenv": {
+            "copies": 2,
+            "provider": "src/login_utils/vipw.rs",
+            "signature": "fn getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "malloc": {
+            "copies": 4,
+            "provider": "src/login_utils/utmpdump.rs",
+            "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "rename": {
+            "copies": 2,
+            "provider": "src/login_utils/vipw.rs",
+            "signature": "fn rename(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "rpmatch": {
+            "copies": 2,
+            "provider": "src/login_utils/vipw.rs",
+            "signature": "fn rpmatch(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "setlocale": {
+            "copies": 9,
+            "provider": "src/login_utils/utmpdump.rs",
+            "signature": "fn setlocale(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strchr": {
+            "copies": 3,
+            "provider": "src/login_utils/utmpdump.rs",
+            "signature": "fn strchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strcmp": {
+            "copies": 3,
+            "provider": "src/login_utils/vipw.rs",
+            "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strdup": {
+            "copies": 3,
+            "provider": "src/login_utils/vipw.rs",
+            "signature": "fn strdup(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strlen": {
+            "copies": 4,
+            "provider": "src/login_utils/vipw.rs",
+            "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+          },
+          "strrchr": {
+            "copies": 2,
+            "provider": "src/login_utils/vipw.rs",
+            "signature": "fn strrchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "textdomain": {
+            "copies": 9,
+            "provider": "src/login_utils/utmpdump.rs",
+            "signature": "fn textdomain(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "unlink": {
+            "copies": 2,
+            "provider": "src/login_utils/vipw.rs",
+            "signature": "fn unlink(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          }
+        },
+        "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+      },
+      "shared_stdio_layouts": {
+        "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-05-stable/target/release/libutil_linux_small_05_normalized_reachable.a",
+        "candidate_sha256": "dca7842726bd5ebde6bb92f702ed0e32ee4d092d741c355afe56638fbd9fc547",
+        "candidate_sources_sha256": "da8e4c4b8a413f320aa3d1be34c74cd1aff3ebc1986d5c15a1ed39a02788d556",
+        "compiler_selected_sources": 12,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "dca7842726bd5ebde6bb92f702ed0e32ee4d092d741c355afe56638fbd9fc547",
+        "parent_sources_sha256": "06f4a2b6ee81244d451e32912e7ff3e249fa867b56c508ec89757e42c4670fb4",
+        "provider": "src/login_utils/utmpdump.rs",
+        "raw_pointer_types_removed": 162,
+        "reexporting_modules": [
+          "src/login_utils/vipw.rs",
+          "src/misc_utils/lastlog2.rs",
+          "src/misc_utils/look.rs",
+          "src/misc_utils/pipesz.rs",
+          "src/misc_utils/rename.rs",
+          "src/misc_utils/uuidparse.rs",
+          "src/sys_utils/blkdiscard.rs",
+          "src/sys_utils/tunelp.rs",
+          "src/term_utils/scriptlive.rs"
+        ]
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-05-stable/target/release/libutil_linux_small_05_normalized_reachable.a",
+      "candidate_sha256": "dca7842726bd5ebde6bb92f702ed0e32ee4d092d741c355afe56638fbd9fc547",
+      "candidate_sources_sha256": "fd43f1517c1f36266e51decb2e7af65e5779254a370e03016784099454c32b63",
+      "compiler_selected_sources": 12,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "dca7842726bd5ebde6bb92f702ed0e32ee4d092d741c355afe56638fbd9fc547",
+      "parent_sources_sha256": "e2aa84801660b1f7555103676af125bdf21888f02e843a6cc12a048496d2eb4a",
+      "raw_pointer_types_removed": 41,
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd",
+      "variadic_ffi": {
+        "execlp": {
+          "copies": 2,
+          "provider": "src/login_utils/vipw.rs",
+          "signature": "fn execlp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "open": {
+          "copies": 5,
+          "provider": "src/login_utils/vipw.rs",
+          "signature": "fn open(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;"
+        },
+        "printf": {
+          "copies": 10,
+          "provider": "src/login_utils/utmpdump.rs",
+          "signature": "fn printf(a0: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "snprintf": {
+          "copies": 5,
+          "provider": "src/login_utils/vipw.rs",
+          "signature": "fn snprintf(a0: *mut ::core::ffi::c_char, a1: usize, a2: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "warn": {
+          "copies": 10,
+          "provider": "src/login_utils/utmpdump.rs",
+          "signature": "fn warn(a0: *const ::core::ffi::c_char, ...);"
+        },
+        "warnx": {
+          "copies": 10,
+          "provider": "src/login_utils/utmpdump.rs",
+          "signature": "fn warnx(a0: *const ::core::ffi::c_char, ...);"
+        }
+      },
+      "variadic_scanner_sha256": "b2bbe52ef1c1130dd7c661d86f9f55ec8e38f47a12d3bf0be91cebc2ba2e8858"
+    }
+  },
+  "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-10-stable/target/release/libutil_linux_small_10_normalized_reachable.a": {
+    "parent_receipts": {
+      "native_c_strings": {
+        "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-10-stable/target/release/libutil_linux_small_10_normalized_reachable.a",
+        "c_string_literals": 2139,
+        "candidate_sha256": "ff39a7930076f74ecec7737c46565a4c2816deedd65c07689a3fc334706c4608",
+        "candidate_sources_sha256": "4046f86d6f43f6056016c1df98b43aaa7524fd5bc79b60b996da1d73fa391571",
+        "compiler_selected_sources": 12,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "ff39a7930076f74ecec7737c46565a4c2816deedd65c07689a3fc334706c4608",
+        "modules": {
+          "src/disk_utils/mkfs_minix.rs": 95,
+          "src/disk_utils/mkswap.rs": 181,
+          "src/login_utils/last.rs": 133,
+          "src/misc_utils/enosys.rs": 573,
+          "src/misc_utils/lsclocks.rs": 139,
+          "src/misc_utils/lslocks.rs": 182,
+          "src/misc_utils/uuidd.rs": 124,
+          "src/sys_utils/ipcs.rs": 266,
+          "src/sys_utils/lsmem.rs": 178,
+          "src/term_utils/setterm.rs": 268
+        },
+        "parent_sources_sha256": "cc696bd9756632ae28e4d885386b03ab0ed4a9f86d64c8d5eb094a6200f0e3fd",
+        "raw_ffi_pointer_extractions": 2139,
+        "raw_pointer_types_removed": 4278,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_scalar_ffi": {
+        "all_scalar_interfaces": true,
+        "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-10-stable/target/release/libutil_linux_small_10_normalized_reachable.a",
+        "candidate_sha256": "ff39a7930076f74ecec7737c46565a4c2816deedd65c07689a3fc334706c4608",
+        "candidate_sources_sha256": "dfd6e2e051c3f0144190f113c75add3caf46718ac4406238b252cc9aa923742c",
+        "compiler_selected_sources": 12,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "ff39a7930076f74ecec7737c46565a4c2816deedd65c07689a3fc334706c4608",
+        "parent_sources_sha256": "4046f86d6f43f6056016c1df98b43aaa7524fd5bc79b60b996da1d73fa391571",
+        "raw_pointer_types_removed": 204,
+        "scalar_ffi": {
+          "__ctype_b_loc": {
+            "copies": 2,
+            "provider": "src/login_utils/last.rs",
+            "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+          },
+          "__errno_location": {
+            "copies": 10,
+            "provider": "src/disk_utils/mkfs_minix.rs",
+            "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+          },
+          "bindtextdomain": {
+            "copies": 10,
+            "provider": "src/disk_utils/mkfs_minix.rs",
+            "signature": "fn bindtextdomain(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "blkdev_get_size": {
+            "copies": 2,
+            "provider": "src/disk_utils/mkfs_minix.rs",
+            "signature": "fn blkdev_get_size(a0: ::core::ffi::c_int, a1: *mut ::core::ffi::c_ulonglong) -> ::core::ffi::c_int;"
+          },
+          "blkdev_lock": {
+            "copies": 2,
+            "provider": "src/disk_utils/mkfs_minix.rs",
+            "signature": "fn blkdev_lock(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char, a2: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "calloc": {
+            "copies": 3,
+            "provider": "src/disk_utils/mkfs_minix.rs",
+            "signature": "fn calloc(a0: usize, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "dcgettext": {
+            "copies": 10,
+            "provider": "src/disk_utils/mkfs_minix.rs",
+            "signature": "fn dcgettext(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "dcngettext": {
+            "copies": 3,
+            "provider": "src/disk_utils/mkfs_minix.rs",
+            "signature": "fn dcngettext(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: *const ::core::ffi::c_char, a3: ::core::ffi::c_ulong, a4: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "free": {
+            "copies": 7,
+            "provider": "src/disk_utils/mkswap.rs",
+            "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+          },
+          "getenv": {
+            "copies": 4,
+            "provider": "src/misc_utils/lsclocks.rs",
+            "signature": "fn getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "is_mounted": {
+            "copies": 2,
+            "provider": "src/disk_utils/mkfs_minix.rs",
+            "signature": "fn is_mounted(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "malloc": {
+            "copies": 7,
+            "provider": "src/disk_utils/mkfs_minix.rs",
+            "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memcpy": {
+            "copies": 5,
+            "provider": "src/disk_utils/mkswap.rs",
+            "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memset": {
+            "copies": 8,
+            "provider": "src/disk_utils/mkfs_minix.rs",
+            "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "setlocale": {
+            "copies": 10,
+            "provider": "src/disk_utils/mkfs_minix.rs",
+            "signature": "fn setlocale(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strchr": {
+            "copies": 2,
+            "provider": "src/misc_utils/enosys.rs",
+            "signature": "fn strchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strcmp": {
+            "copies": 7,
+            "provider": "src/disk_utils/mkswap.rs",
+            "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strcpy": {
+            "copies": 2,
+            "provider": "src/disk_utils/mkfs_minix.rs",
+            "signature": "fn strcpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strdup": {
+            "copies": 4,
+            "provider": "src/disk_utils/mkswap.rs",
+            "signature": "fn strdup(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strlen": {
+            "copies": 7,
+            "provider": "src/disk_utils/mkswap.rs",
+            "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+          },
+          "strncmp": {
+            "copies": 5,
+            "provider": "src/login_utils/last.rs",
+            "signature": "fn strncmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "strtok": {
+            "copies": 2,
+            "provider": "src/misc_utils/lslocks.rs",
+            "signature": "fn strtok(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strtol": {
+            "copies": 2,
+            "provider": "src/misc_utils/lslocks.rs",
+            "signature": "fn strtol(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_long;"
+          },
+          "textdomain": {
+            "copies": 10,
+            "provider": "src/disk_utils/mkfs_minix.rs",
+            "signature": "fn textdomain(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "uuid_unparse": {
+            "copies": 2,
+            "provider": "src/disk_utils/mkswap.rs",
+            "signature": "fn uuid_unparse(a0: *const ::core::ffi::c_uchar, a1: *mut ::core::ffi::c_char);"
+          }
+        },
+        "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-10-stable/target/release/libutil_linux_small_10_normalized_reachable.a",
+      "candidate_sha256": "ff39a7930076f74ecec7737c46565a4c2816deedd65c07689a3fc334706c4608",
+      "candidate_sources_sha256": "59463677f4c2b2ff050767d2b68f88c33f34b4657ee06b77db7be9a9d4890fe4",
+      "compiler_selected_sources": 12,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "ff39a7930076f74ecec7737c46565a4c2816deedd65c07689a3fc334706c4608",
+      "parent_sources_sha256": "dfd6e2e051c3f0144190f113c75add3caf46718ac4406238b252cc9aa923742c",
+      "raw_pointer_types_removed": 43,
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd",
+      "variadic_ffi": {
+        "dprintf": {
+          "copies": 2,
+          "provider": "src/login_utils/last.rs",
+          "signature": "fn dprintf(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "open": {
+          "copies": 4,
+          "provider": "src/disk_utils/mkswap.rs",
+          "signature": "fn open(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;"
+        },
+        "printf": {
+          "copies": 10,
+          "provider": "src/disk_utils/mkfs_minix.rs",
+          "signature": "fn printf(a0: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "snprintf": {
+          "copies": 7,
+          "provider": "src/disk_utils/mkswap.rs",
+          "signature": "fn snprintf(a0: *mut ::core::ffi::c_char, a1: usize, a2: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "sscanf": {
+          "copies": 2,
+          "provider": "src/misc_utils/lslocks.rs",
+          "signature": "fn sscanf(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "warn": {
+          "copies": 9,
+          "provider": "src/disk_utils/mkfs_minix.rs",
+          "signature": "fn warn(a0: *const ::core::ffi::c_char, ...);"
+        },
+        "warnx": {
+          "copies": 9,
+          "provider": "src/disk_utils/mkfs_minix.rs",
+          "signature": "fn warnx(a0: *const ::core::ffi::c_char, ...);"
+        }
+      },
+      "variadic_scanner_sha256": "b2bbe52ef1c1130dd7c661d86f9f55ec8e38f47a12d3bf0be91cebc2ba2e8858"
+    }
+  }
+}

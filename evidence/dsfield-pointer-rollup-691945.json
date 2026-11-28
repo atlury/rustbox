@@ -1,0 +1,40 @@
+{
+  "binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+  "candidate_link_sha256": "e6f03684a387dde03151e53f651acdab2465e76aec831790d9b80e90bffdd9cf",
+  "counts": {
+    "all": {
+      "after": 691945,
+      "before": 692254
+    },
+    "counting_identical_files_once": {
+      "after": 607323,
+      "before": 607632
+    }
+  },
+  "deferred": {},
+  "input_manifests": {
+    "batches/dsfield-pointer-rollup-691945-shared_variadic_ffi.json": "4e89aa378f044215fdb771e0dc63cbef98b392c8886dd7cc075da833023df0ce",
+    "batches/dsfield-pointer-rollup-691945-unused_c_types.json": "52021210152eb0ae06bf4b575d26b95613e6fe4eb0682b9f3357a40d66e00f5d"
+  },
+  "layers": {
+    "shared_variadic_ffi": {
+      "archives": [
+        "work/analysis/kmod-34.3/translations/c2rust-0.22.1/kmod-34.3-stable/target/release/libkmod_34_3_normalized_audit.a",
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-05-stable/target/release/libutil_linux_small_05_normalized_reachable.a",
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-10-stable/target/release/libutil_linux_small_10_normalized_reachable.a"
+      ],
+      "manifest_sha256": "4e89aa378f044215fdb771e0dc63cbef98b392c8886dd7cc075da833023df0ce"
+    },
+    "unused_c_types": {
+      "archives": [
+        "work/analysis/zstd-1.5.7/translations/c2rust-0.22.1/zstd-1.5.7-stable/target/release/libzstd_1_5_7_normalized_audit.a"
+      ],
+      "manifest_sha256": "52021210152eb0ae06bf4b575d26b95613e6fe4eb0682b9f3357a40d66e00f5d"
+    }
+  },
+  "parent_census_sha256": "2d5384b1cd0ff8f1de896b6c977bffdf9a83495ec758d62fdf92c79d62cf5f34",
+  "parent_link_sha256": "c407dccc8bf7b03daf1f609705147466f663c61892570367ce293015a96eaca2",
+  "public_evidence_sha256": "6599c4ec031ad9207a57a8b15c86be77b07e206ece2f3ce0597fa84c72d57fe5",
+  "raw_pointer_types_removed": 309,
+  "unused_types_ranking_sha256": "2b4468ec2997bed1ceab8d7b9c786ab8f85ba5dc0a3aa5b11ab2f8419d73ddd1"
+}
