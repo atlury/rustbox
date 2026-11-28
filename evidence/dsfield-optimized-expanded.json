@@ -1,0 +1,86 @@
+{
+  "archives_considered": 116,
+  "archives_selected": 92,
+  "binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+  "canonical_executable_evidence_sha256": "a4cca27b386dc99ca1465d697785f51bc57353c26817238b6261d8a5b7ef1a1c",
+  "counts": {
+    "all": {
+      "after": 708717,
+      "before": 742521
+    },
+    "counting_identical_files_once": {
+      "after": 551280,
+      "before": 528384
+    }
+  },
+  "inputs": {
+    "batches/multicall-closed-inline-first-ten-thousand.json": "b5e14980b69992892141a7f05c496274cc21e721e29dd44a33cac1d7ad21a27e",
+    "batches/multicall-closed-inline-groups.json": "9a0b0809063f925eb4a965cf92072c43fa68d773cdd0e6a955173216ce5ed8c0",
+    "batches/multicall-expanded-scalar-ffi.json": "d72091acab6504fe0826edf4b190d83a9e597104280d273756d3730645db8aa2",
+    "batches/multicall-initial-scalar-ffi.json": "3d18953cca205e224c377b87ecb518b60f155ef1c1d18ab3752eb169ba0de9f6",
+    "batches/multicall-va-list-layouts.json": "103484f8aa629ae32b4497207238f1897fc6efe385668c57c8c82d1a89ce5771",
+    "batches/multicall-va-list-subsets.json": "091fa10e1f6247b84444999e708f32fa85b51910ae92ca3ced4029c80f8f4a30",
+    "work/analysis/gzip-arpd-variadic-joint.json": "b793ba6ad3b063344a9ce95e8d3cf525eed16fdcc59e1c378260ba8fbcd25629",
+    "work/analysis/routing-closed-inline-expanded-fixed.json": "c8d5d3dbb8f2a05784438995123f9d9868c56ef3251d9a743c3a1d8315a1224e",
+    "work/analysis/scalar-ffi-joint-manifest.json": "1c12ec8e08b4666359d1495ab897d8f322c429b58b40c2701cba3796dd741542"
+  },
+  "layers": {
+    "closed_inline_groups": {
+      "binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "candidate_link_sha256": "2c302a987ef27fb7fa69a9514f63c306ea687ce61284430162b7e221835106af",
+      "counts": {
+        "all": {
+          "after": 731249,
+          "before": 742491
+        },
+        "counting_identical_files_once": {
+          "after": 538162,
+          "before": 528522
+        }
+      },
+      "deferred": {},
+      "manifest_sha256": "aa3b92fb2e87a995a5bd665631a3632f9b02cb167e3bb6f4cc8e23178a04957b",
+      "parent_link_sha256": "1b065f2f861fd84bfa124c189a3b05c83af90b43448ad44608d7a92f79353cfc",
+      "selected": 13
+    },
+    "shared_scalar_ffi": {
+      "binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "candidate_link_sha256": "b2b4633e4022828711fd26d86ed250694644027c1b8d263cbc3f9df6acfae63c",
+      "counts": {
+        "all": {
+          "after": 708717,
+          "before": 731249
+        },
+        "counting_identical_files_once": {
+          "after": 551280,
+          "before": 538162
+        }
+      },
+      "deferred": {},
+      "manifest_sha256": "cdd5d0ef4e102040057088066a8b058d490a8f18a297a8d6909e5a5651e16605",
+      "parent_link_sha256": "2c302a987ef27fb7fa69a9514f63c306ea687ce61284430162b7e221835106af",
+      "selected": 78
+    },
+    "shared_va_list_layouts": {
+      "binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "candidate_link_sha256": "1b065f2f861fd84bfa124c189a3b05c83af90b43448ad44608d7a92f79353cfc",
+      "counts": {
+        "all": {
+          "after": 742491,
+          "before": 742521
+        },
+        "counting_identical_files_once": {
+          "after": 528522,
+          "before": 528384
+        }
+      },
+      "deferred": {},
+      "manifest_sha256": "2fc40d71161b523b9648711c97526cd33c727e24524648de3dabd53d10bd6362",
+      "parent_link_sha256": "146bb01897f17c341e72ea97d2b4226c967a73e37aa784e4425488f7eaa91921",
+      "selected": 2
+    }
+  },
+  "link_sha256": "146bb01897f17c341e72ea97d2b4226c967a73e37aa784e4425488f7eaa91921",
+  "raw_pointer_types_removed": 33804,
+  "routing_parent_link_sha256": "70f459a3770e92d00559586b3bd9d04939b74dda7590ec8bc09dc9c84180b2b7"
+}

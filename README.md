@@ -2470,6 +2470,8 @@ On the LZ4 candidate the combined compiler-input recount fell from 747,291 to 73
 
 On the tested DS field executable, the initial selection chose compatible compiler receipts for 57 archives. Its source count fell from 742,521 to 726,729, with 536,011 when identical files are counted once. [Verified initial selection](evidence/dsfield-optimized-initial.json)
 
+On the tested DS field executable, the expanded selection chose compatible compiler receipts for 92 archives. Its source count fell from 742,521 to 708,717, with 551,280 when identical files are counted once. [Verified expanded selection](evidence/dsfield-optimized-expanded.json)
+
 To replay a recovered group, run `python3 -B scripts/verify_closed_inline_recovery.py PARENT_LINK SELECTED_LINK ACTIVE_MANIFEST WHOLE_TRIAL SUBSET_TRIAL OUTPUT`. It checks both compiler receipts, matches the removed helpers against the original module list, and recounts the combined selection.
 
 The first four verified archives remove 3,861 declarations on the tar baseline:
