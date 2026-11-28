@@ -18,7 +18,13 @@ if [ "${1:-}" = --lz4-benchmark-dictionary ]; then
     lz4_dictionary=1
     shift
 fi
+dsfield_names=
+if [ "${1:-}" = --iproute2-dsfield-names ]; then
+    dsfield_names=1
+    shift
+fi
 routing_protocols=
+if [ -n "$dsfield_names" ]; then routing_protocols=1; fi
 if [ "$#" -eq 0 ]; then routing_protocols=1; fi
 if [ "${1:-}" = --iproute2-routing-protocols ]; then
     routing_protocols=1
@@ -70,7 +76,7 @@ case "$#:${1:-}" in
     1:--iproute2-route-names) set -- --iproute2-route-names --iproute2-address-protocol-copies --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
     1:--iproute2-address-protocol-copies) set -- --iproute2-address-protocol-copies --iproute2-address-protocols --e2fsprogs-dirhash-arrays /work/batches/e2fsprogs-trie-arrays.json ;;
     2:--e2fsprogs-dirhash-arrays) ;;
-    *) echo "usage: $0 [--shared-scalar-ffi MANIFEST] [--closed-inlines MANIFEST] [--lz4-benchmark-dictionary] [--iproute2-routing-protocols] [--ncurses-termtypes MANIFEST] [--va-list-layouts MANIFEST] [--bison-literal-lengths] [--tar-borrowed-timestamps] [--native-c-strings MANIFEST] [--shared-stdio MANIFEST | --curl-manual | --iproute2-netlink-protocols | --iproute2-route-names | --iproute2-address-protocols | --iproute2-address-protocol-copies | --e2fsprogs-dirhash-arrays MANIFEST]" >&2; exit 2 ;;
+    *) echo "usage: $0 [--shared-scalar-ffi MANIFEST] [--closed-inlines MANIFEST] [--lz4-benchmark-dictionary] [--iproute2-dsfield-names] [--iproute2-routing-protocols] [--ncurses-termtypes MANIFEST] [--va-list-layouts MANIFEST] [--bison-literal-lengths] [--tar-borrowed-timestamps] [--native-c-strings MANIFEST] [--shared-stdio MANIFEST | --curl-manual | --iproute2-netlink-protocols | --iproute2-route-names | --iproute2-address-protocols | --iproute2-address-protocol-copies | --e2fsprogs-dirhash-arrays MANIFEST]" >&2; exit 2 ;;
 esac
 "$root/scripts/build_private_inline_tool.sh"
 python3 -B "$root/scripts/check_cargo_private_inlines.py" --prepare-e2fsprogs
@@ -131,6 +137,10 @@ fi
 if [ -n "$routing_protocols" ]; then
     python3 -B "$root/scripts/stage_routing_protocol_archives.py"
     set -- "$@" --iproute2-routing-protocols
+fi
+if [ -n "$dsfield_names" ]; then
+    python3 -B "$root/scripts/stage_dsfield_archives.py"
+    set -- "$@" --iproute2-dsfield-names
 fi
 if [ -n "$va_manifest" ]; then
     python3 -B "$root/scripts/prepare_va_list_layouts.py" prepare --cargo-only "$root/$va_manifest"

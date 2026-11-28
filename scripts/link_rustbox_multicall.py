@@ -22,6 +22,7 @@ import prepare_identical_archives
 import iproute2_address_protocol_archive as address_protocols
 import iproute2_route_name_archives as route_names
 import stage_routing_protocol_archives as routing_protocols
+import stage_dsfield_archives as dsfield_names
 from build_iproute2_bridge import build_bridge
 from build_e2fsprogs_checksums import build_shared, BITCOUNT_SYMBOL, CRC_SYMBOLS
 from batch_cargo_private_inlines import release_archives
@@ -2439,6 +2440,7 @@ def main() -> int:
     parser.add_argument("--shared-stdio", type=Path)
     parser.add_argument("--native-c-strings", type=Path)
     parser.add_argument("--va-list-layouts", type=Path)
+    parser.add_argument("--iproute2-dsfield-names", action="store_true")
     parser.add_argument("--iproute2-routing-protocols", action="store_true")
     parser.add_argument("--shared-scalar-ffi", type=Path)
     parser.add_argument("--closed-inlines", type=Path)
@@ -2868,18 +2870,20 @@ def main() -> int:
     identical_layers = {}
     for manifest, layer in ((args.shared_stdio, "shared_stdio_layouts"), (args.native_c_strings, "native_c_strings"),
                             (args.iproute2_routing_protocols, routing_protocols.FIELD),
+                            (args.iproute2_dsfield_names, dsfield_names.FIELD),
                             (args.lz4_benchmark_dictionary, lz4_dictionary_archive.selection.field),
                             (args.va_list_layouts, "shared_va_list_layouts"), (args.ncurses_termtypes, "shared_ncurses_termtypes"),
                             (args.closed_inlines, "closed_inline_groups"), (args.shared_scalar_ffi, "shared_scalar_ffi")):
-        if manifest and layer == routing_protocols.FIELD:
-            context = dict(source_library_sha256=source_library_hashes, **identical_layers)
-            resolved = routing_protocols.select(context)
+        if manifest and layer in (routing_protocols.FIELD, dsfield_names.FIELD):
+            reader = dsfield_names if layer == dsfield_names.FIELD else routing_protocols
+            context = dict(source_library_sha256=source_library_hashes, **route_selections, **identical_layers)
+            resolved = reader.select(context)
             rows = resolved[layer]
             for name, old in iproute2_libraries.items():
                 row = rows[str(old.relative_to(repository))]
-                new = repository / routing_protocols.candidate_path(row)
+                new = repository / reader.candidate_path(row)
                 if sha256(new) != row["candidate_sha256"] or c_exports(new) != c_exports(old):
-                    raise ValueError(f"routing protocol archive or C exports differ for {name}")
+                    raise ValueError(f"{layer} archive or C exports differ for {name}")
                 iproute2_libraries[name] = libraries[iproute2_library_indices[name]] = new
             source_library_hashes = resolved["source_library_sha256"]
             route_selections[layer] = rows
