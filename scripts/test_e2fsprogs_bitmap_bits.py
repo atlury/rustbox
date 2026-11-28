@@ -40,6 +40,7 @@ def verify(link=None, pilot=None):
             "-Cpanic=abort", HELPER, "-o", obj)
         targets["standalone"] = obj
         library_flags = ["-Wl,--gc-sections", "-lblkid", "-luuid", "-lfuse3", "-ldl", "-lpthread", "-lm"]
+        objects = []
         if pilot:
             row = json.loads((pilot / "pilot.json").read_bytes())
             key = row["archive"]
@@ -48,12 +49,14 @@ def verify(link=None, pilot=None):
                     or digest(ROOT/key) != row["control_sha256"] or digest(pilot/Path(key).name) != row["candidate_sha256"]
                     or row["helper_sha256"] != digest(HELPER) or row["canonical_sha256"] != digest(SOURCE)):
                 raise ValueError("bitmap archive, source, or parent ELF changed")
+            objects = companion_objects(record)
             targets.update(control=ROOT/key, candidate=pilot/Path(key).name)
         expected = None
         executable_hashes = {}
         for label, obj in targets.items():
             exe = root / (label+"-compare")
-            run("gcc", "-O2", "-Wall", "-Wextra", "-Werror", TEST, obj, *library_flags, "-o", exe)
+            companions = objects if label in ("control", "candidate") else []
+            run("gcc", "-O2", "-Wall", "-Wextra", "-Werror", TEST, obj, *companions, *library_flags, "-o", exe)
             output = run(exe, capture_output=True)
             if output.stderr or not re.fullmatch(rb"393260 bitmap calls passed\n", output.stdout):
                 raise ValueError((label, output.stdout, output.stderr))
@@ -72,18 +75,22 @@ def verify(link=None, pilot=None):
         if pilot:
             report["archive"] = row
             if Path(key).name == "libe2fsck_audit.a":
-                report["filesystem"] = compare_e2fsck(root, targets, record, library_flags)
+                report["filesystem"] = compare_e2fsck(root, targets, objects, library_flags)
         return report
 
 
-def compare_e2fsck(root, targets, link, flags):
-    canon = Path("/oracle/stage-gcc/sbin")
-    tools = {"gcc": canon/"e2fsck", "clang": Path("/oracle/stage-clang-18/sbin/e2fsck")}
+def companion_objects(link):
     shared = ROOT/"work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-e2fsprogs-shared"
     objects = [shared/n for n in ("crc16.o","crc32.o","bitcount.o")]
     for obj in objects:
         if digest(obj) != link["source_library_sha256"][str(obj.relative_to(ROOT))]:
             raise ValueError(f"changed E2fsprogs companion object {obj.name}")
+    return objects
+
+
+def compare_e2fsck(root, targets, objects, flags):
+    canon = Path("/oracle/stage-gcc/sbin")
+    tools = {"gcc": canon/"e2fsck", "clang": Path("/oracle/stage-clang-18/sbin/e2fsck")}
     for label in ("control","candidate"):
         directory = root/label
         directory.mkdir()
