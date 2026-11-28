@@ -2591,6 +2591,8 @@ Adding the byte-identical Gawk archive removed 85 more duplicate raw-pointer typ
 
 <a id="combined-pointer-checkpoints"></a>
 
+<!-- projected-stacked-count -->The ten-package Linux executable has a compiler selection with **679,430 raw-pointer type occurrences** across all 499 names, or **609,908** with identical source files counted once. It includes the combined Shadow cleanup and byte-identical builds of 9 additional archives. [Compiler inputs and executable evidence](evidence/ten-package-projected-679430.json) · [Foreign declarations](batches/current-foreign-declarations-684630.json).<!-- /projected-stacked-count -->
+
 Shadow's cold Linux build combines the unused-type and unused foreign-declaration cleanups inside the same archive. The two edits remove **1,379** pointer occurrences and reproduce the archive used by the ten-package executable byte-for-byte. Both source hashes and the archive are pinned. [Shadow cold-build receipt](evidence/stacked-shadow-declarations.json)
 
 To validate every shared archive in two selections, run `python3 -B scripts/build_stacked_declarations.py --all --link CONTROL --types TYPES_MANIFEST --foreign FOREIGN_MANIFEST --output DIRECTORY`. Each result names its cold-build directory. Supply verified directories to `scripts/qualify_projected_archives.py` with repeated `--stacked DIRECTORY` arguments. Its optional `--export NEW_DIRECTORY` writes the complete `release.json` and `selection.json` for materialization and relinking.
