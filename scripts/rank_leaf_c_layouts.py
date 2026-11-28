@@ -19,9 +19,8 @@ SCALAR = re.compile(rb"(?:[ui](?:8|16|32|64|128|size)|f(?:32|64)|::core::ffi::c_
 ALIAS = re.compile(rb"^pub type (\w+) = ([^;\n]+);$", re.M)
 
 
-def leaf_layouts(data):
+def leaf_declarations(data):
     aliases = dict(ALIAS.findall(data))
-    layouts = []
     for struct in STRUCT.finditer(data):
         count = len(POINTER.findall(struct[0]))
         if not count:
@@ -50,8 +49,11 @@ def leaf_layouts(data):
             signature.append(b" ".join([*constructors, field]))
         else:
             fingerprint = sha256(struct[0] + b"\0" + b"\0".join(signature)).hexdigest()
-            layouts.append((struct[1].decode(), fingerprint, count))
-    return layouts
+            yield struct, fingerprint, count
+
+
+def leaf_layouts(data):
+    return [(struct[1].decode(), fingerprint, count) for struct, fingerprint, count in leaf_declarations(data)]
 
 
 def rank(link, limit):

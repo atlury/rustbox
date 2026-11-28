@@ -522,6 +522,8 @@ Run `python3 -B scripts/rank_leaf_c_layouts.py LINK --limit 30` to reproduce
 the ranking.
 [Ranked layouts and per-archive counts](evidence/rustbox-leaf-c-layout-candidates.json)
 
+Use `scripts/build_leaf_layout_pilot.py --link LINK --ranking RANKING --archive ARCHIVE --layouts NAME ... --output PILOT` to test several repeated layouts in one Cargo archive. Add `--replay` to verify the saved result independently. The replay parses each struct with Syn, resolves its field types in its own module, checks the exact source ranges, and reconstructs the compiler-input hashes. Compare the complete candidate and control archive hashes before counting a byte-identical reduction. Run `python3 -B tests/leaf-layout-selection.py` to check alias and attribute handling.
+
 For the System V tag, the complete E2fsprogs `e4defrag` archive remained
 byte-identical with 50 modules sharing one definition. Replaying all 58
 compiler inputs measured 100 fewer repeated pointer fields. GNU grep shared
