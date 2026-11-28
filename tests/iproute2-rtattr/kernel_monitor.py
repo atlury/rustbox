@@ -5,6 +5,7 @@ from contextlib import ExitStack
 from pathlib import Path
 import subprocess
 import time
+from monitor import VALGRIND_TIMEOUT
 
 PROGRAMS = Path("/rustbox-iproute2/programs-gcc")
 DEVICE = "rbtest"
@@ -61,7 +62,7 @@ def main():
             assert target.encode() in expected.stdout
             actual = subprocess.run(["valgrind", "--tool=memcheck", "--error-exitcode=88",
                                      "--log-file=query.memcheck", "./bridge", *args],
-                                    capture_output=True, timeout=45)
+                                    capture_output=True, timeout=VALGRIND_TIMEOUT)
             if actual.returncode:
                 raise RuntimeError(f"{args}: {actual.stderr!r}\n{Path('query.memcheck').read_text()}")
             assert (actual.stdout, actual.stderr) == (expected.stdout, expected.stderr), args

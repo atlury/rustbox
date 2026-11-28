@@ -7,6 +7,7 @@ import socket
 import struct
 import subprocess
 
+VALGRIND_TIMEOUT = 300
 
 def attr(kind, payload):
     size = 4 + len(payload)
@@ -34,7 +35,8 @@ def receive(command, datagrams):
         for packet in datagrams:
             sent = sender.sendto(packet, receiver.getsockname())
             assert sent == len(packet)
-        return subprocess.run(command, stdin=receiver, capture_output=True, timeout=45)
+        timeout = VALGRIND_TIMEOUT if command[0] == "valgrind" else 45
+        return subprocess.run(command, stdin=receiver, capture_output=True, timeout=timeout)
 
 
 def check_nested(command):
@@ -66,7 +68,7 @@ def check_nested(command):
         assert (b"inactive" in line.split()) == bool(value & 2)
     candidate = subprocess.run(["valgrind", "--tool=memcheck", "--error-exitcode=88",
                                 "--log-file=nested.memcheck", *command, *args],
-                               capture_output=True, timeout=45)
+                               capture_output=True, timeout=VALGRIND_TIMEOUT)
     if candidate.returncode:
         raise RuntimeError(f"{candidate.stderr!r}\n{Path('nested.memcheck').read_text()}")
     assert (candidate.stdout, candidate.stderr) == (expected.stdout, expected.stderr)
