@@ -1,0 +1,2455 @@
+{
+  "work/analysis/bison-3.8.2/translations/c2rust-0.22.1/bison-3.8.2-stable/target/literal-lengths/e60a4fb2be106db3ecffe4380214d26b6fd9198d93ba2ccb380f3babc49aa0d2/libbison_3_8_2_normalized_audit.a": {
+    "parent_receipts": {
+      "closed_inline_groups": {
+        "archive": "work/analysis/bison-3.8.2/translations/c2rust-0.22.1/bison-3.8.2-stable/target/literal-lengths/e60a4fb2be106db3ecffe4380214d26b6fd9198d93ba2ccb380f3babc49aa0d2/libbison_3_8_2_normalized_audit.a",
+        "candidate_sha256": "e60a4fb2be106db3ecffe4380214d26b6fd9198d93ba2ccb380f3babc49aa0d2",
+        "candidate_sources_sha256": "31ec23e3bc9f01d5373e478202fe05030f3969edfa4a65618855f7ceb37a7754",
+        "cargo_archive": "work/analysis/bison-3.8.2/translations/c2rust-0.22.1/bison-3.8.2-stable/target/release/libbison_3_8_2_normalized_audit.a",
+        "compiler_selected_sources": 150,
+        "control_binary_sha256": "f154fa79b5642c2cb6d01ff139e7f3b3ac1b32248ccd9b6e086b3be2e6bd7ad2",
+        "control_sha256": "e60a4fb2be106db3ecffe4380214d26b6fd9198d93ba2ccb380f3babc49aa0d2",
+        "dead_sites": {
+          "src/src/counterexample.rs": {
+            "gl_list_nx_set_at": 39687,
+            "ostream_write_mem": 43581
+          },
+          "src/src/derivation.rs": {
+            "gl_list_nx_create_empty": 14298,
+            "gl_list_nx_set_at": 16109
+          },
+          "src/src/files.rs": {
+            "gl_list_nx_set_at": 25005,
+            "gl_list_size": 24731
+          },
+          "src/src/fixits.rs": {
+            "gl_list_nx_set_at": 17941,
+            "gl_list_size": 17405
+          },
+          "src/src/getargs.rs": {
+            "ostream_write_mem": 23460
+          },
+          "src/src/lssi.rs": {
+            "gl_list_nx_set_at": 27515
+          },
+          "src/src/parse_simulation.rs": {
+            "gl_list_nx_set_at": 24841
+          },
+          "src/src/state_item.rs": {
+            "gl_list_nx_set_at": 28545
+          }
+        },
+        "parent_sources_sha256": "a0b39e24a0cf56624b52f91f1d89adb8201b88fbb81253e7298e3dcf14d4ac11",
+        "private_helpers_removed": 12,
+        "raw_pointer_types_removed": 28,
+        "referenced_helpers_removed": 0,
+        "referenced_pointer_types_removed": 0,
+        "scanner_source_sha256": "74e8393122c399359f208509fb81fbe911b75b3d6f9f34edcc7084b88331f2ae"
+      },
+      "linked_foreign_declaration_proofs": {
+        "file": "libbison_3_8_2_normalized_audit.foreign-4255b99b40d7d8d9818f4d1f6e09c2d3735922da45bf3b474690273a6b14d413.json",
+        "sha256": "4255b99b40d7d8d9818f4d1f6e09c2d3735922da45bf3b474690273a6b14d413"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libbison_3_8_2_normalized_audit.inlines-de234211d4da1d33bd5c457f25f1495cbd8d0625c6e060f6408590ddbaee765b.json",
+        "sha256": "bd9612a6de8c592cc4dab86d1ab5955c9c3afc8df9af97ce0a16d0653b708f62"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libbison_3_8_2_normalized_audit.layer2-14ccbf9fbd5a386e4396daf2caf6c7e866dae426f6c24c7347f715caf3b8903b.json",
+        "sha256": "14ccbf9fbd5a386e4396daf2caf6c7e866dae426f6c24c7347f715caf3b8903b"
+      }
+    },
+    "pilot": {
+      "all_scalar_interfaces": true,
+      "archive": "work/analysis/bison-3.8.2/translations/c2rust-0.22.1/bison-3.8.2-stable/target/literal-lengths/e60a4fb2be106db3ecffe4380214d26b6fd9198d93ba2ccb380f3babc49aa0d2/libbison_3_8_2_normalized_audit.a",
+      "candidate_sha256": "e60a4fb2be106db3ecffe4380214d26b6fd9198d93ba2ccb380f3babc49aa0d2",
+      "candidate_sources_sha256": "340f2f0bd49a727f93091a60f32eb1ef204d91ca853c04b1378114d331da8470",
+      "cargo_archive": "work/analysis/bison-3.8.2/translations/c2rust-0.22.1/bison-3.8.2-stable/target/release/libbison_3_8_2_normalized_audit.a",
+      "compiler_selected_sources": 150,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "e60a4fb2be106db3ecffe4380214d26b6fd9198d93ba2ccb380f3babc49aa0d2",
+      "parent_sources_sha256": "31ec23e3bc9f01d5373e478202fe05030f3969edfa4a65618855f7ceb37a7754",
+      "raw_pointer_types_removed": 741,
+      "scalar_ffi": {
+        "__ctype_b_loc": {
+          "copies": 2,
+          "provider": "src/lib/mbswidth.rs",
+          "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+        },
+        "__ctype_tolower_loc": {
+          "copies": 2,
+          "provider": "src/lib/mbswidth.rs",
+          "signature": "fn __ctype_tolower_loc() -> *mut *const i32;"
+        },
+        "__ctype_toupper_loc": {
+          "copies": 2,
+          "provider": "src/lib/mbswidth.rs",
+          "signature": "fn __ctype_toupper_loc() -> *mut *const i32;"
+        },
+        "__errno_location": {
+          "copies": 30,
+          "provider": "src/lib/canonicalize.rs",
+          "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+        },
+        "argmatch_invalid": {
+          "copies": 2,
+          "provider": "src/src/complain.rs",
+          "signature": "fn argmatch_invalid(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: isize);"
+        },
+        "assoc_to_string": {
+          "copies": 2,
+          "provider": "src/src/print_xml.rs",
+          "signature": "fn assoc_to_string(a0: ::core::ffi::c_uint) -> *const ::core::ffi::c_char;"
+        },
+        "base_len": {
+          "copies": 2,
+          "provider": "src/lib/basename.rs",
+          "signature": "fn base_len(a0: *const ::core::ffi::c_char) -> usize;"
+        },
+        "c_strcasecmp": {
+          "copies": 2,
+          "provider": "src/lib/quotearg.rs",
+          "signature": "fn c_strcasecmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "calloc": {
+          "copies": 5,
+          "provider": "src/lib/gl_hash_map.rs",
+          "signature": "fn calloc(a0: usize, a1: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "canonicalize_filename_mode": {
+          "copies": 2,
+          "provider": "src/lib/execute.rs",
+          "signature": "fn canonicalize_filename_mode(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_uint) -> *mut ::core::ffi::c_char;"
+        },
+        "closure": {
+          "copies": 5,
+          "provider": "src/src/lr0.rs",
+          "signature": "fn closure(a0: *const ::core::ffi::c_uint, a1: usize);"
+        },
+        "code_props_type_string": {
+          "copies": 2,
+          "provider": "src/src/output.rs",
+          "signature": "fn code_props_type_string(a0: ::core::ffi::c_uint) -> *const ::core::ffi::c_char;"
+        },
+        "concatenated_filename": {
+          "copies": 2,
+          "provider": "src/lib/findprog_in.rs",
+          "signature": "fn concatenated_filename(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "dcgettext": {
+          "copies": 32,
+          "provider": "src/lib/argmatch.rs",
+          "signature": "fn dcgettext(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        },
+        "dcngettext": {
+          "copies": 4,
+          "provider": "src/src/conflicts.rs",
+          "signature": "fn dcngettext(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: *const ::core::ffi::c_char, a3: ::core::ffi::c_ulong, a4: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        },
+        "free": {
+          "copies": 62,
+          "provider": "src/lib/allocator.rs",
+          "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+        },
+        "getenv": {
+          "copies": 10,
+          "provider": "src/lib/execute.rs",
+          "signature": "fn getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "glthread_once_singlethreaded": {
+          "copies": 2,
+          "provider": "src/lib/fatal_signal.rs",
+          "signature": "fn glthread_once_singlethreaded(a0: *mut ::core::ffi::c_int) -> ::core::ffi::c_int;"
+        },
+        "gnu_mbswidth": {
+          "copies": 6,
+          "provider": "src/src/counterexample.rs",
+          "signature": "fn gnu_mbswidth(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> ::core::ffi::c_int;"
+        },
+        "grammar_rules_useless_report": {
+          "copies": 2,
+          "provider": "src/src/main.rs",
+          "signature": "fn grammar_rules_useless_report(a0: *const ::core::ffi::c_char);"
+        },
+        "hash_string": {
+          "copies": 2,
+          "provider": "src/src/muscle_tab.rs",
+          "signature": "fn hash_string(a0: *const ::core::ffi::c_char, a1: usize) -> usize;"
+        },
+        "last_component": {
+          "copies": 5,
+          "provider": "src/lib/basename.rs",
+          "signature": "fn last_component(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "locale_charset": {
+          "copies": 2,
+          "provider": "src/lib/quotearg.rs",
+          "signature": "fn locale_charset() -> *const ::core::ffi::c_char;"
+        },
+        "malloc": {
+          "copies": 22,
+          "provider": "src/lib/allocator.rs",
+          "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "map_file_name": {
+          "copies": 3,
+          "provider": "src/src/muscle_tab.rs",
+          "signature": "fn map_file_name(a0: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char;"
+        },
+        "mbsnwidth": {
+          "copies": 2,
+          "provider": "src/src/location.rs",
+          "signature": "fn mbsnwidth(a0: *const ::core::ffi::c_char, a1: usize, a2: ::core::ffi::c_int) -> ::core::ffi::c_int;"
+        },
+        "memchr": {
+          "copies": 2,
+          "provider": "src/src/parse_gram.rs",
+          "signature": "fn memchr(a0: *const ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "memcmp": {
+          "copies": 4,
+          "provider": "src/lib/argmatch.rs",
+          "signature": "fn memcmp(a0: *const ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> ::core::ffi::c_int;"
+        },
+        "memcpy": {
+          "copies": 35,
+          "provider": "src/lib/basename.rs",
+          "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "memset": {
+          "copies": 14,
+          "provider": "src/lib/bitset/array.rs",
+          "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "muscle_insert": {
+          "copies": 2,
+          "provider": "src/src/getargs.rs",
+          "signature": "fn muscle_insert(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char);"
+        },
+        "muscle_percent_define_get": {
+          "copies": 6,
+          "provider": "src/src/ielr.rs",
+          "signature": "fn muscle_percent_define_get(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "pipe": {
+          "copies": 2,
+          "provider": "src/lib/pipe2.rs",
+          "signature": "fn pipe(a0: *mut ::core::ffi::c_int) -> ::core::ffi::c_int;"
+        },
+        "pkgdatadir": {
+          "copies": 3,
+          "provider": "src/src/getargs.rs",
+          "signature": "fn pkgdatadir() -> *const ::core::ffi::c_char;"
+        },
+        "quote": {
+          "copies": 9,
+          "provider": "src/lib/argmatch.rs",
+          "signature": "fn quote(a0: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char;"
+        },
+        "quote_n": {
+          "copies": 6,
+          "provider": "src/lib/argmatch.rs",
+          "signature": "fn quote_n(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char;"
+        },
+        "quotearg_colon": {
+          "copies": 4,
+          "provider": "src/lib/closeout.rs",
+          "signature": "fn quotearg_colon(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "quotearg_n_style": {
+          "copies": 4,
+          "provider": "src/lib/argmatch.rs",
+          "signature": "fn quotearg_n_style(a0: ::core::ffi::c_int, a1: ::core::ffi::c_uint, a2: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "quotearg_style": {
+          "copies": 5,
+          "provider": "src/src/getargs.rs",
+          "signature": "fn quotearg_style(a0: ::core::ffi::c_uint, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "readlink": {
+          "copies": 2,
+          "provider": "src/lib/areadlink.rs",
+          "signature": "fn readlink(a0: *const ::core::ffi::c_char, a1: *mut ::core::ffi::c_char, a2: usize) -> isize;"
+        },
+        "realloc": {
+          "copies": 11,
+          "provider": "src/lib/allocator.rs",
+          "signature": "fn realloc(a0: *mut ::core::ffi::c_void, a1: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "reallocarray": {
+          "copies": 2,
+          "provider": "src/lib/ialloc.rs",
+          "signature": "fn reallocarray(a0: *mut ::core::ffi::c_void, a1: usize, a2: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "setlocale": {
+          "copies": 3,
+          "provider": "src/lib/setlocale_null.rs",
+          "signature": "fn setlocale(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "stpcpy": {
+          "copies": 3,
+          "provider": "src/lib/concat_filename.rs",
+          "signature": "fn stpcpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "strchr": {
+          "copies": 7,
+          "provider": "src/src/getargs.rs",
+          "signature": "fn strchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        },
+        "strcmp": {
+          "copies": 24,
+          "provider": "src/lib/concat_filename.rs",
+          "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "strcpy": {
+          "copies": 4,
+          "provider": "src/lib/canonicalize.rs",
+          "signature": "fn strcpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "strdup": {
+          "copies": 2,
+          "provider": "src/lib/findprog_in.rs",
+          "signature": "fn strdup(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "strlen": {
+          "copies": 26,
+          "provider": "src/lib/argmatch.rs",
+          "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+        },
+        "strncmp": {
+          "copies": 6,
+          "provider": "src/lib/argmatch.rs",
+          "signature": "fn strncmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> ::core::ffi::c_int;"
+        },
+        "strrchr": {
+          "copies": 3,
+          "provider": "src/lib/progname.rs",
+          "signature": "fn strrchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        },
+        "strspn": {
+          "copies": 2,
+          "provider": "src/lib/canonicalize.rs",
+          "signature": "fn strspn(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_ulong;"
+        },
+        "strtok": {
+          "copies": 2,
+          "provider": "src/src/complain.rs",
+          "signature": "fn strtok(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "strtol": {
+          "copies": 6,
+          "provider": "src/src/location.rs",
+          "signature": "fn strtol(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_long;"
+        },
+        "strversion_to_int": {
+          "copies": 2,
+          "provider": "src/src/output.rs",
+          "signature": "fn strversion_to_int(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "triple_free": {
+          "copies": 2,
+          "provider": "src/lib/canonicalize.rs",
+          "signature": "fn triple_free(a0: *mut ::core::ffi::c_void);"
+        },
+        "warning_argmatch": {
+          "copies": 2,
+          "provider": "src/src/getargs.rs",
+          "signature": "fn warning_argmatch(a0: *const ::core::ffi::c_char, a1: usize, a2: usize);"
+        },
+        "xcalloc": {
+          "copies": 11,
+          "provider": "src/src/Sbitset.rs",
+          "signature": "fn xcalloc(a0: usize, a1: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "xcharalloc": {
+          "copies": 3,
+          "provider": "src/lib/quotearg.rs",
+          "signature": "fn xcharalloc(a0: usize) -> *mut ::core::ffi::c_char;"
+        },
+        "xmalloc": {
+          "copies": 30,
+          "provider": "src/lib/bitset/list.rs",
+          "signature": "fn xmalloc(a0: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "xmemdup": {
+          "copies": 2,
+          "provider": "src/lib/quotearg.rs",
+          "signature": "fn xmemdup(a0: *const ::core::ffi::c_void, a1: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "xml_escape": {
+          "copies": 3,
+          "provider": "src/src/conflicts.rs",
+          "signature": "fn xml_escape(a0: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char;"
+        },
+        "xnmalloc": {
+          "copies": 17,
+          "provider": "src/lib/fstrcmp.rs",
+          "signature": "fn xnmalloc(a0: usize, a1: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "xpath_join": {
+          "copies": 3,
+          "provider": "src/src/output.rs",
+          "signature": "fn xpath_join(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "xrealloc": {
+          "copies": 2,
+          "provider": "src/lib/bitset/table.rs",
+          "signature": "fn xrealloc(a0: *mut ::core::ffi::c_void, a1: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "xreallocarray": {
+          "copies": 5,
+          "provider": "src/src/files.rs",
+          "signature": "fn xreallocarray(a0: *mut ::core::ffi::c_void, a1: usize, a2: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "xstrdup": {
+          "copies": 9,
+          "provider": "src/lib/file_set.rs",
+          "signature": "fn xstrdup(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "xzalloc": {
+          "copies": 2,
+          "provider": "src/lib/bitset/stats.rs",
+          "signature": "fn xzalloc(a0: usize) -> *mut ::core::ffi::c_void;"
+        }
+      },
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+    }
+  },
+  "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/chattr/release/libchattr_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libchattr_audit.foreign-c07e336b1b9e49d0e00642022c0ed331c4587639f668d5304add09c4b8b3d604.json",
+        "sha256": "c07e336b1b9e49d0e00642022c0ed331c4587639f668d5304add09c4b8b3d604"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libchattr_audit.inlines-4fd33d5b6db727ec42efef659c1c8f3f47e160292f52c04cbc55f4d2c3ab2b5c.json",
+        "sha256": "e18a334f409ae56ad97d2e5a65a8adbf3fb0d1ba756fabf4874ba41b0d7df28d"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/chattr/release/libchattr_audit.a",
+        "c_string_literals": 87,
+        "candidate_sha256": "36b039f2a9ae0c6b9237580cb2ee86bbfcf33ba4e973520ab3c064dd48d336cb",
+        "candidate_sources_sha256": "baf970c12ac801d2f663ad15d934543b374e20f0db246ec54be7a22d5dcb00b4",
+        "compiler_selected_sources": 12,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "36b039f2a9ae0c6b9237580cb2ee86bbfcf33ba4e973520ab3c064dd48d336cb",
+        "legacy_compiler": "nightly-2023-04-15",
+        "modules": {
+          "src/lib/e2p/pf.rs": 47,
+          "src/lib/et/com_err.rs": 2,
+          "src/lib/et/error_message.rs": 11,
+          "src/misc/chattr.rs": 27
+        },
+        "parent_sources_sha256": "3d10f8e9ccf346a85860a4b09e3a789f6d04227262f42284ee3026f34baa5861",
+        "raw_ffi_pointer_extractions": 87,
+        "raw_pointer_types_removed": 174,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_va_list_layouts": {
+        "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/chattr/release/libchattr_audit.a",
+        "candidate_sha256": "36b039f2a9ae0c6b9237580cb2ee86bbfcf33ba4e973520ab3c064dd48d336cb",
+        "candidate_sources_sha256": "b8bd508daf78c66eb7387e31d91aee5aa34f088a408f5cd1f38694fa9eb88e5b",
+        "compiler_selected_sources": 12,
+        "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+        "control_sha256": "36b039f2a9ae0c6b9237580cb2ee86bbfcf33ba4e973520ab3c064dd48d336cb",
+        "declaration_sha256": "d296c17ccd61fe78f5aaa568a8a8ea08b0e811edb049764982240829565ee797",
+        "parent_sources_sha256": "baf970c12ac801d2f663ad15d934543b374e20f0db246ec54be7a22d5dcb00b4",
+        "provider": "src/lib/e2p/fgetflags.rs",
+        "provider_namespace": "src/lib/e2p/fgetflags.rs",
+        "raw_pointer_types_removed": 16,
+        "reexporting_modules": [
+          "src/lib/e2p/fsetflags.rs",
+          "src/lib/e2p/fsetproject.rs",
+          "src/lib/e2p/fsetversion.rs",
+          "src/lib/e2p/iod.rs",
+          "src/lib/e2p/pf.rs",
+          "src/lib/et/com_err.rs",
+          "src/lib/et/error_message.rs",
+          "src/misc/chattr.rs"
+        ]
+      }
+    },
+    "pilot": {
+      "all_scalar_interfaces": true,
+      "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/chattr/release/libchattr_audit.a",
+      "candidate_sha256": "36b039f2a9ae0c6b9237580cb2ee86bbfcf33ba4e973520ab3c064dd48d336cb",
+      "candidate_sources_sha256": "fd6178e43d5167887344f2e56eb3f4de5e208b1620b659732664b279f074c679",
+      "compiler_selected_sources": 12,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "36b039f2a9ae0c6b9237580cb2ee86bbfcf33ba4e973520ab3c064dd48d336cb",
+      "parent_sources_sha256": "b8bd508daf78c66eb7387e31d91aee5aa34f088a408f5cd1f38694fa9eb88e5b",
+      "raw_pointer_types_removed": 9,
+      "scalar_ffi": {
+        "__errno_location": {
+          "copies": 6,
+          "provider": "src/lib/e2p/fgetflags.rs",
+          "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+        },
+        "free": {
+          "copies": 3,
+          "provider": "src/lib/e2p/iod.rs",
+          "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+        },
+        "malloc": {
+          "copies": 3,
+          "provider": "src/lib/e2p/iod.rs",
+          "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+        }
+      },
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+    }
+  },
+  "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/lsattr/release/liblsattr_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "liblsattr_audit.foreign-e643c1174cf20ab0200af5c263c3c614df9ce03532a9041d4cdacd87f3a19a41.json",
+        "sha256": "e643c1174cf20ab0200af5c263c3c614df9ce03532a9041d4cdacd87f3a19a41"
+      },
+      "linked_private_inline_proofs": {
+        "file": "liblsattr_audit.inlines-08556e85d6c6f18b6013cc852d2cc18c44cc430ca4a2159dd725e9cdb5f167c8.json",
+        "sha256": "c3f3e553497b4e70c5994935decc0da3e5ab51f1cb92d82bec3f1a8d15590f48"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/lsattr/release/liblsattr_audit.a",
+        "c_string_literals": 82,
+        "candidate_sha256": "5ccea8b5de5c4da29e48c9efcbca1457d7dcb9b67c4ba10469ed5c62a60df965",
+        "candidate_sources_sha256": "deeca9db07c8f058c389b6676f6b63265e9c870e62c324974f6b5b31603b9b38",
+        "compiler_selected_sources": 11,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "5ccea8b5de5c4da29e48c9efcbca1457d7dcb9b67c4ba10469ed5c62a60df965",
+        "legacy_compiler": "nightly-2023-04-15",
+        "modules": {
+          "src/lib/e2p/pf.rs": 47,
+          "src/lib/et/com_err.rs": 2,
+          "src/lib/et/error_message.rs": 11,
+          "src/misc/lsattr.rs": 22
+        },
+        "parent_sources_sha256": "669e84172e52eebb0232ab6731fff5586e48d3988ac7d52b3e32854d92de987f",
+        "raw_ffi_pointer_extractions": 82,
+        "raw_pointer_types_removed": 164,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_va_list_layouts": {
+        "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/lsattr/release/liblsattr_audit.a",
+        "candidate_sha256": "5ccea8b5de5c4da29e48c9efcbca1457d7dcb9b67c4ba10469ed5c62a60df965",
+        "candidate_sources_sha256": "31046ce53f5135a125c4a7c94e6b169038febcf3c64c7742e5275f087271fd8b",
+        "compiler_selected_sources": 11,
+        "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+        "control_sha256": "5ccea8b5de5c4da29e48c9efcbca1457d7dcb9b67c4ba10469ed5c62a60df965",
+        "declaration_sha256": "d296c17ccd61fe78f5aaa568a8a8ea08b0e811edb049764982240829565ee797",
+        "parent_sources_sha256": "deeca9db07c8f058c389b6676f6b63265e9c870e62c324974f6b5b31603b9b38",
+        "provider": "src/lib/e2p/fgetflags.rs",
+        "provider_namespace": "src/lib/e2p/fgetflags.rs",
+        "raw_pointer_types_removed": 14,
+        "reexporting_modules": [
+          "src/lib/e2p/fgetproject.rs",
+          "src/lib/e2p/fgetversion.rs",
+          "src/lib/e2p/iod.rs",
+          "src/lib/e2p/pf.rs",
+          "src/lib/et/com_err.rs",
+          "src/lib/et/error_message.rs",
+          "src/misc/lsattr.rs"
+        ]
+      }
+    },
+    "pilot": {
+      "all_scalar_interfaces": true,
+      "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/lsattr/release/liblsattr_audit.a",
+      "candidate_sha256": "5ccea8b5de5c4da29e48c9efcbca1457d7dcb9b67c4ba10469ed5c62a60df965",
+      "candidate_sources_sha256": "4a02d231ffbd34531243076c39cd84547395b51974e7f85d09af40694f945bf9",
+      "compiler_selected_sources": 11,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "5ccea8b5de5c4da29e48c9efcbca1457d7dcb9b67c4ba10469ed5c62a60df965",
+      "parent_sources_sha256": "31046ce53f5135a125c4a7c94e6b169038febcf3c64c7742e5275f087271fd8b",
+      "raw_pointer_types_removed": 8,
+      "scalar_ffi": {
+        "__errno_location": {
+          "copies": 5,
+          "provider": "src/lib/e2p/fgetflags.rs",
+          "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+        },
+        "free": {
+          "copies": 3,
+          "provider": "src/lib/e2p/iod.rs",
+          "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+        },
+        "malloc": {
+          "copies": 3,
+          "provider": "src/lib/e2p/iod.rs",
+          "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+        }
+      },
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+    }
+  },
+  "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2fsck/564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd/libe2fsck_audit.a": {
+    "parent_receipts": {
+      "closed_inline_groups": {
+        "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2fsck/564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd/libe2fsck_audit.a",
+        "candidate_sha256": "564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd",
+        "candidate_sources_sha256": "001736c1472ac9ebe153c68114250ea7f8222a489f13309cfc0bf21d5e387f39",
+        "compiler_selected_sources": 115,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd",
+        "dead_sites": {
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/badblocks.rs": {
+            "ext2fs_get_mem": 45432,
+            "ext2fs_get_memzero": 45954,
+            "ext2fs_has_feature_gdt_csum": 40957,
+            "ext2fs_has_feature_largedir": 41840,
+            "ext2fs_has_feature_metadata_csum": 41290,
+            "ext2fs_resize_mem": 46576,
+            "ext2fs_swab32": 43380
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/dirinfo.rs": {
+            "ext2fs_get_memzero": 48703,
+            "ext2fs_has_feature_gdt_csum": 43706,
+            "ext2fs_has_feature_largedir": 44581,
+            "ext2fs_has_feature_metadata_csum": 44039,
+            "ext2fs_swab32": 46200
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/dx_dirinfo.rs": {
+            "ext2fs_get_mem": 43742,
+            "ext2fs_get_memzero": 44264,
+            "ext2fs_has_feature_gdt_csum": 39346,
+            "ext2fs_has_feature_largedir": 40221,
+            "ext2fs_has_feature_metadata_csum": 39671,
+            "ext2fs_swab32": 41761
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/e2fsck.rs": {
+            "ext2fs_get_memzero": 45326,
+            "ext2fs_has_feature_gdt_csum": 40404,
+            "ext2fs_has_feature_largedir": 41275,
+            "ext2fs_has_feature_metadata_csum": 40737,
+            "ext2fs_resize_mem": 46518,
+            "ext2fs_swab32": 42823
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/ea_refcount.rs": {
+            "ext2fs_get_mem": 32117,
+            "ext2fs_has_feature_gdt_csum": 27624,
+            "ext2fs_has_feature_largedir": 28491,
+            "ext2fs_has_feature_metadata_csum": 27957,
+            "ext2fs_swab32": 30136
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/ehandler.rs": {
+            "ext2fs_get_mem": 44486,
+            "ext2fs_get_memzero": 45008,
+            "ext2fs_has_feature_gdt_csum": 40019,
+            "ext2fs_has_feature_largedir": 40894,
+            "ext2fs_has_feature_metadata_csum": 40344,
+            "ext2fs_resize_mem": 45630,
+            "ext2fs_swab32": 42505
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/encrypted_files.rs": {
+            "ext2fs_has_feature_gdt_csum": 43049,
+            "ext2fs_has_feature_largedir": 43932,
+            "ext2fs_has_feature_metadata_csum": 43390,
+            "ext2fs_rb_set_parent": 53624,
+            "ext2fs_swab32": 45472
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/extents.rs": {
+            "ext2fs_get_memzero": 53384,
+            "ext2fs_has_feature_gdt_csum": 46169,
+            "ext2fs_has_feature_largedir": 47287,
+            "ext2fs_has_feature_metadata_csum": 46506,
+            "ext2fs_swab32": 49225
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/journal.rs": {
+            "ext2fs_get_memzero": 66586,
+            "ext2fs_has_feature_gdt_csum": 56621,
+            "ext2fs_has_feature_largedir": 58545
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/logfile.rs": {
+            "ext2fs_get_mem": 47661,
+            "ext2fs_get_memzero": 48183,
+            "ext2fs_has_feature_gdt_csum": 43261,
+            "ext2fs_has_feature_largedir": 44132,
+            "ext2fs_has_feature_metadata_csum": 43594,
+            "ext2fs_resize_mem": 48805,
+            "ext2fs_swab32": 45680
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/message.rs": {
+            "ext2fs_get_mem": 48053,
+            "ext2fs_get_memzero": 48575,
+            "ext2fs_has_feature_gdt_csum": 42387,
+            "ext2fs_has_feature_largedir": 43266,
+            "ext2fs_has_feature_metadata_csum": 42724,
+            "ext2fs_resize_mem": 49767,
+            "ext2fs_swab32": 45139
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/pass1.rs": {
+            "ext2fs_get_memzero": 82994,
+            "ext2fs_has_feature_gdt_csum": 66964,
+            "ext2fs_has_feature_metadata_csum": 67769,
+            "ext2fs_resize_mem": 84186,
+            "ext2fs_swab32": 76651
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/pass1b.rs": {
+            "ext2fs_get_memzero": 57796,
+            "ext2fs_has_feature_gdt_csum": 50013,
+            "ext2fs_has_feature_largedir": 51319,
+            "ext2fs_has_feature_metadata_csum": 50338,
+            "ext2fs_resize_mem": 58988,
+            "ext2fs_swab32": 53061
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/pass2.rs": {
+            "ext2fs_get_mem": 66070,
+            "ext2fs_get_memzero": 66592,
+            "ext2fs_has_feature_gdt_csum": 57213,
+            "ext2fs_resize_mem": 67784,
+            "ext2fs_swab32": 62419
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/pass3.rs": {
+            "ext2fs_get_mem": 55418,
+            "ext2fs_get_memzero": 55940,
+            "ext2fs_has_feature_gdt_csum": 48379,
+            "ext2fs_has_feature_largedir": 49491,
+            "ext2fs_has_feature_metadata_csum": 48708,
+            "ext2fs_resize_mem": 57132,
+            "ext2fs_swab32": 51885
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/pass4.rs": {
+            "ext2fs_get_mem": 48843,
+            "ext2fs_get_memzero": 49365,
+            "ext2fs_has_feature_gdt_csum": 43434,
+            "ext2fs_has_feature_largedir": 44725,
+            "ext2fs_has_feature_metadata_csum": 44175,
+            "ext2fs_resize_mem": 50557,
+            "ext2fs_swab32": 46424
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/pass5.rs": {
+            "ext2fs_get_memzero": 52688,
+            "ext2fs_has_feature_largedir": 45933,
+            "ext2fs_resize_mem": 53880,
+            "ext2fs_swab32": 47832
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/problem.rs": {
+            "ext2fs_get_mem": 46717,
+            "ext2fs_get_memzero": 47239,
+            "ext2fs_has_feature_gdt_csum": 42250,
+            "ext2fs_has_feature_largedir": 43117,
+            "ext2fs_has_feature_metadata_csum": 42583,
+            "ext2fs_resize_mem": 47861,
+            "ext2fs_swab32": 44736
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/quota.rs": {
+            "ext2fs_get_mem": 46751,
+            "ext2fs_get_memzero": 47273,
+            "ext2fs_has_feature_gdt_csum": 41793,
+            "ext2fs_has_feature_largedir": 43144,
+            "ext2fs_has_feature_metadata_csum": 42367,
+            "ext2fs_resize_mem": 47895,
+            "ext2fs_swab32": 44692
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/readahead.rs": {
+            "ext2fs_get_mem": 36014,
+            "ext2fs_get_memzero": 36536,
+            "ext2fs_has_feature_gdt_csum": 30222,
+            "ext2fs_has_feature_largedir": 31093,
+            "ext2fs_has_feature_metadata_csum": 30551,
+            "ext2fs_resize_mem": 37158,
+            "ext2fs_swab32": 32969
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/recovery.rs": {
+            "ext2fs_get_mem": 50677,
+            "ext2fs_get_memzero": 51199,
+            "ext2fs_has_feature_gdt_csum": 45262,
+            "ext2fs_has_feature_largedir": 46137,
+            "ext2fs_has_feature_metadata_csum": 45595,
+            "ext2fs_resize_mem": 51821,
+            "hash_32": 60240
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/region.rs": {
+            "ext2fs_has_feature_gdt_csum": 27480,
+            "ext2fs_has_feature_largedir": 28355,
+            "ext2fs_has_feature_metadata_csum": 27809,
+            "ext2fs_resize_mem": 33594,
+            "ext2fs_swab32": 29899
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/rehash.rs": {
+            "ext2fs_get_memzero": 56512,
+            "ext2fs_has_feature_gdt_csum": 49910,
+            "ext2fs_has_feature_largedir": 51026,
+            "ext2fs_swab32": 53734,
+            "sort_r_cmpswap": 66253,
+            "sort_r_simple": 67331,
+            "sort_r_swap": 65873,
+            "sort_r_swap_blocks": 66977
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/revoke.rs": {
+            "ext2fs_get_mem": 48078,
+            "ext2fs_get_memzero": 48600,
+            "ext2fs_has_feature_gdt_csum": 43617,
+            "ext2fs_has_feature_largedir": 44484,
+            "ext2fs_has_feature_metadata_csum": 43942,
+            "ext2fs_resize_mem": 49222,
+            "ext2fs_swab32": 46097,
+            "jbd2_chksum": 57983,
+            "jbd2_has_feature_64bit": 53867,
+            "jbd2_has_feature_csum2": 54239,
+            "jbd2_has_feature_csum3": 54572,
+            "jbd2_journal_has_csum_v2or3": 54953
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/sigcatcher.rs": {
+            "ext2fs_get_mem": 38379,
+            "ext2fs_get_memzero": 38901,
+            "ext2fs_has_feature_gdt_csum": 33975,
+            "ext2fs_has_feature_largedir": 34854,
+            "ext2fs_has_feature_metadata_csum": 34308,
+            "ext2fs_resize_mem": 39523,
+            "ext2fs_swab32": 36398
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/super.rs": {
+            "ext2fs_get_mem": 60090,
+            "ext2fs_get_memzero": 60612,
+            "ext2fs_has_feature_largedir": 55027,
+            "ext2fs_resize_mem": 61804,
+            "ext2fs_swab32": 56985
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/unix.rs": {
+            "ext2fs_get_memzero": 96431,
+            "ext2fs_has_feature_gdt_csum": 77419,
+            "ext2fs_has_feature_largedir": 79704,
+            "ext2fs_has_feature_metadata_csum": 77989,
+            "ext2fs_resize_mem": 97053,
+            "ext2fs_swab32": 82402,
+            "hash_32": 81663,
+            "jbd2_chksum": 81862,
+            "jbd2_has_feature_64bit": 86184,
+            "jbd2_has_feature_csum2": 86556,
+            "jbd2_has_feature_csum3": 86889,
+            "jbd2_journal_has_csum_v2or3": 87270
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/util.rs": {
+            "ext2fs_has_feature_gdt_csum": 62087,
+            "ext2fs_has_feature_largedir": 62962,
+            "ext2fs_has_feature_metadata_csum": 62416,
+            "ext2fs_resize_mem": 69909,
+            "ext2fs_swab32": 65444
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/feature.rs": {
+            "ext2fs_get_mem": 36317,
+            "ext2fs_get_memzero": 36839,
+            "ext2fs_has_feature_gdt_csum": 31668,
+            "ext2fs_has_feature_largedir": 32535,
+            "ext2fs_has_feature_metadata_csum": 31993,
+            "ext2fs_resize_mem": 37461,
+            "ext2fs_swab32": 34336,
+            "jbd2_has_feature_64bit": 41463,
+            "jbd2_has_feature_csum2": 41820,
+            "jbd2_has_feature_csum3": 42158
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/alloc.rs": {
+            "ext2fs_get_mem": 37010,
+            "ext2fs_get_memzero": 37532,
+            "ext2fs_has_feature_largedir": 29771,
+            "ext2fs_resize_mem": 38154,
+            "ext2fs_swab32": 32229
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/alloc_sb.rs": {
+            "ext2fs_get_mem": 31590,
+            "ext2fs_get_memzero": 32112,
+            "ext2fs_has_feature_gdt_csum": 26492,
+            "ext2fs_has_feature_largedir": 27614,
+            "ext2fs_has_feature_metadata_csum": 26825,
+            "ext2fs_resize_mem": 32734,
+            "ext2fs_swab32": 29417
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/alloc_stats.rs": {
+            "ext2fs_get_mem": 33226,
+            "ext2fs_get_memzero": 33748,
+            "ext2fs_has_feature_largedir": 26180,
+            "ext2fs_resize_mem": 34370,
+            "ext2fs_swab32": 30188
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/atexit.rs": {
+            "ext2fs_get_mem": 33790,
+            "ext2fs_get_memzero": 34312,
+            "ext2fs_has_feature_gdt_csum": 28870,
+            "ext2fs_has_feature_largedir": 29745,
+            "ext2fs_has_feature_metadata_csum": 29199,
+            "ext2fs_swab32": 31809
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/badblocks.rs": {
+            "ext2fs_get_memzero": 34370,
+            "ext2fs_has_feature_gdt_csum": 28984,
+            "ext2fs_has_feature_largedir": 29855,
+            "ext2fs_has_feature_metadata_csum": 29313,
+            "ext2fs_swab32": 31867
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/bb_inode.rs": {
+            "ext2fs_get_memzero": 37072,
+            "ext2fs_has_feature_gdt_csum": 31297,
+            "ext2fs_has_feature_largedir": 32180,
+            "ext2fs_has_feature_metadata_csum": 31634,
+            "ext2fs_swab32": 34079
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/bitmaps.rs": {
+            "ext2fs_get_mem": 40448,
+            "ext2fs_get_memzero": 40970,
+            "ext2fs_has_feature_gdt_csum": 34343,
+            "ext2fs_has_feature_largedir": 35469,
+            "ext2fs_has_feature_metadata_csum": 34676,
+            "ext2fs_resize_mem": 41592,
+            "ext2fs_swab32": 38467
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/bitops.rs": {
+            "ext2fs_get_mem": 30375,
+            "ext2fs_get_memzero": 30897,
+            "ext2fs_has_feature_gdt_csum": 25708,
+            "ext2fs_has_feature_largedir": 26591,
+            "ext2fs_has_feature_metadata_csum": 26041,
+            "ext2fs_resize_mem": 31519,
+            "ext2fs_swab32": 28394
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/blkmap64_ba.rs": {
+            "ext2fs_get_memzero": 38733,
+            "ext2fs_has_feature_gdt_csum": 32519,
+            "ext2fs_has_feature_largedir": 33398,
+            "ext2fs_has_feature_metadata_csum": 32848,
+            "ext2fs_swab32": 36150
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/blkmap64_rb.rs": {
+            "ext2fs_get_memzero": 39239,
+            "ext2fs_has_feature_gdt_csum": 33434,
+            "ext2fs_has_feature_largedir": 34301,
+            "ext2fs_has_feature_metadata_csum": 33767,
+            "ext2fs_rb_set_parent": 41572,
+            "ext2fs_resize_mem": 40431,
+            "ext2fs_swab32": 36658
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/blknum.rs": {
+            "ext2fs_get_memzero": 34693,
+            "ext2fs_has_feature_gdt_csum": 28829,
+            "ext2fs_has_feature_metadata_csum": 29162,
+            "ext2fs_resize_mem": 35885,
+            "ext2fs_swab32": 31739
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/block.rs": {
+            "ext2fs_get_memzero": 36602,
+            "ext2fs_has_feature_gdt_csum": 27002,
+            "ext2fs_has_feature_largedir": 27873,
+            "ext2fs_has_feature_metadata_csum": 27335,
+            "ext2fs_resize_mem": 38142,
+            "ext2fs_swab32": 32455
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/bmap.rs": {
+            "ext2fs_get_memzero": 37420,
+            "ext2fs_has_feature_gdt_csum": 28752,
+            "ext2fs_has_feature_largedir": 29870,
+            "ext2fs_has_feature_metadata_csum": 29332,
+            "ext2fs_resize_mem": 38960,
+            "ext2fs_swab32": 34242
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/check_desc.rs": {
+            "ext2fs_get_mem": 32581,
+            "ext2fs_get_memzero": 33103,
+            "ext2fs_has_feature_gdt_csum": 26664,
+            "ext2fs_has_feature_largedir": 28013,
+            "ext2fs_has_feature_metadata_csum": 26997,
+            "ext2fs_resize_mem": 33725,
+            "ext2fs_swab32": 30216
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/closefs.rs": {
+            "ext2fs_get_mem": 36619,
+            "ext2fs_get_memzero": 37141,
+            "ext2fs_has_feature_gdt_csum": 28223,
+            "ext2fs_has_feature_largedir": 29999,
+            "ext2fs_has_feature_metadata_csum": 28560,
+            "ext2fs_resize_mem": 37763,
+            "ext2fs_swab32": 34557
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/csum.rs": {
+            "ext2fs_get_mem": 37539,
+            "ext2fs_get_memzero": 38061,
+            "ext2fs_has_feature_largedir": 32291,
+            "ext2fs_resize_mem": 38683,
+            "ext2fs_swab32": 35094
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/dblist.rs": {
+            "ext2fs_get_memzero": 34692,
+            "ext2fs_has_feature_gdt_csum": 26996,
+            "ext2fs_has_feature_largedir": 27863,
+            "ext2fs_has_feature_metadata_csum": 27321,
+            "ext2fs_swab32": 32189
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/dblist_dir.rs": {
+            "ext2fs_get_memzero": 35380,
+            "ext2fs_has_feature_gdt_csum": 27878,
+            "ext2fs_has_feature_largedir": 28749,
+            "ext2fs_has_feature_metadata_csum": 28207,
+            "ext2fs_resize_mem": 36572,
+            "ext2fs_swab32": 32808
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/dir_iterate.rs": {
+            "ext2fs_get_memzero": 37346,
+            "ext2fs_has_feature_gdt_csum": 28698,
+            "ext2fs_has_feature_largedir": 29565,
+            "ext2fs_resize_mem": 38538,
+            "ext2fs_swab32": 33834
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/dirblock.rs": {
+            "ext2fs_get_mem": 31085,
+            "ext2fs_get_memzero": 31607,
+            "ext2fs_has_feature_gdt_csum": 24119,
+            "ext2fs_has_feature_largedir": 25002,
+            "ext2fs_has_feature_metadata_csum": 24452,
+            "ext2fs_resize_mem": 32229,
+            "ext2fs_swab32": 29104
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/dirhash.rs": {
+            "ext2fs_get_mem": 33641,
+            "ext2fs_get_memzero": 34163,
+            "ext2fs_has_feature_gdt_csum": 26636,
+            "ext2fs_has_feature_largedir": 27511,
+            "ext2fs_has_feature_metadata_csum": 26969,
+            "ext2fs_resize_mem": 34785,
+            "ext2fs_swab32": 31660
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/expanddir.rs": {
+            "ext2fs_get_mem": 36288,
+            "ext2fs_get_memzero": 36810,
+            "ext2fs_has_feature_gdt_csum": 28782,
+            "ext2fs_has_feature_largedir": 29657,
+            "ext2fs_has_feature_metadata_csum": 29111,
+            "ext2fs_resize_mem": 38002,
+            "ext2fs_swab32": 34092
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/ext_attr.rs": {
+            "ext2fs_has_feature_gdt_csum": 33759,
+            "ext2fs_has_feature_largedir": 35114,
+            "ext2fs_has_feature_metadata_csum": 34096,
+            "ext2fs_resize_mem": 46237,
+            "ext2fs_swab32": 41887
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/extent.rs": {
+            "ext2fs_has_feature_gdt_csum": 33415,
+            "ext2fs_has_feature_largedir": 34282,
+            "ext2fs_resize_mem": 44386,
+            "ext2fs_swab32": 38744
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/fallocate.rs": {
+            "ext2fs_get_mem": 35429,
+            "ext2fs_get_memzero": 35951,
+            "ext2fs_has_feature_gdt_csum": 28458,
+            "ext2fs_has_feature_largedir": 29329,
+            "ext2fs_has_feature_metadata_csum": 28795,
+            "ext2fs_resize_mem": 36573,
+            "ext2fs_swab32": 32015
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/fileio.rs": {
+            "ext2fs_get_memzero": 38632,
+            "ext2fs_has_feature_gdt_csum": 29748,
+            "ext2fs_has_feature_largedir": 30615,
+            "ext2fs_has_feature_metadata_csum": 30073,
+            "ext2fs_resize_mem": 40172,
+            "ext2fs_swab32": 35916
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/flushb.rs": {
+            "ext2fs_get_mem": 31277,
+            "ext2fs_get_memzero": 31799,
+            "ext2fs_has_feature_gdt_csum": 26610,
+            "ext2fs_has_feature_largedir": 27485,
+            "ext2fs_has_feature_metadata_csum": 26951,
+            "ext2fs_resize_mem": 32421,
+            "ext2fs_swab32": 29296
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/freefs.rs": {
+            "ext2fs_get_mem": 33936,
+            "ext2fs_get_memzero": 34458,
+            "ext2fs_has_feature_gdt_csum": 26809,
+            "ext2fs_has_feature_largedir": 27676,
+            "ext2fs_has_feature_metadata_csum": 27134,
+            "ext2fs_resize_mem": 35650,
+            "ext2fs_swab32": 31955
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/gen_bitmap.rs": {
+            "ext2fs_get_memzero": 38497,
+            "ext2fs_has_feature_gdt_csum": 30552,
+            "ext2fs_has_feature_largedir": 31419,
+            "ext2fs_has_feature_metadata_csum": 30877,
+            "ext2fs_swab32": 35798
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/gen_bitmap64.rs": {
+            "ext2fs_has_feature_gdt_csum": 36148,
+            "ext2fs_has_feature_largedir": 37023,
+            "ext2fs_has_feature_metadata_csum": 36481,
+            "ext2fs_resize_mem": 45083,
+            "ext2fs_swab32": 40144
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/get_num_dirs.rs": {
+            "ext2fs_get_mem": 33186,
+            "ext2fs_get_memzero": 33708,
+            "ext2fs_has_feature_gdt_csum": 26341,
+            "ext2fs_has_feature_largedir": 27224,
+            "ext2fs_has_feature_metadata_csum": 26674,
+            "ext2fs_resize_mem": 34330,
+            "ext2fs_swab32": 31205
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/get_pathname.rs": {
+            "ext2fs_get_memzero": 32515,
+            "ext2fs_has_feature_gdt_csum": 25066,
+            "ext2fs_has_feature_largedir": 25945,
+            "ext2fs_has_feature_metadata_csum": 25403,
+            "ext2fs_resize_mem": 33707,
+            "ext2fs_swab32": 29942
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/getenv.rs": {
+            "ext2fs_get_mem": 30626,
+            "ext2fs_get_memzero": 31148,
+            "ext2fs_has_feature_gdt_csum": 26226,
+            "ext2fs_has_feature_largedir": 27097,
+            "ext2fs_has_feature_metadata_csum": 26555,
+            "ext2fs_resize_mem": 31770,
+            "ext2fs_swab32": 28645
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/getsectsize.rs": {
+            "ext2fs_get_mem": 42627,
+            "ext2fs_get_memzero": 43149,
+            "ext2fs_has_feature_gdt_csum": 35855,
+            "ext2fs_has_feature_largedir": 36730,
+            "ext2fs_has_feature_metadata_csum": 36192,
+            "ext2fs_resize_mem": 43771,
+            "ext2fs_swab32": 40646
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/getsize.rs": {
+            "ext2fs_get_mem": 34754,
+            "ext2fs_get_memzero": 35276,
+            "ext2fs_has_feature_gdt_csum": 27986,
+            "ext2fs_has_feature_largedir": 28865,
+            "ext2fs_has_feature_metadata_csum": 28319,
+            "ext2fs_resize_mem": 35898,
+            "ext2fs_swab32": 32773
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/i_block.rs": {
+            "ext2fs_get_mem": 30596,
+            "ext2fs_get_memzero": 31118,
+            "ext2fs_has_feature_gdt_csum": 25937,
+            "ext2fs_has_feature_largedir": 26812,
+            "ext2fs_has_feature_metadata_csum": 26262,
+            "ext2fs_resize_mem": 31740,
+            "ext2fs_swab32": 28615
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/icount.rs": {
+            "ext2fs_get_memzero": 35798,
+            "ext2fs_has_feature_gdt_csum": 27444,
+            "ext2fs_has_feature_largedir": 28323,
+            "ext2fs_has_feature_metadata_csum": 27773,
+            "ext2fs_swab32": 32505
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/ind_block.rs": {
+            "ext2fs_get_mem": 30285,
+            "ext2fs_get_memzero": 30807,
+            "ext2fs_has_feature_gdt_csum": 23430,
+            "ext2fs_has_feature_largedir": 24313,
+            "ext2fs_has_feature_metadata_csum": 23763,
+            "ext2fs_resize_mem": 31429,
+            "ext2fs_swab32": 28304
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/initialize.rs": {
+            "ext2fs_get_memzero": 42469,
+            "ext2fs_has_feature_largedir": 34774,
+            "ext2fs_resize_mem": 44009,
+            "ext2fs_swab32": 38021
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/inline.rs": {
+            "ext2fs_has_feature_gdt_csum": 28168,
+            "ext2fs_has_feature_largedir": 29043,
+            "ext2fs_has_feature_metadata_csum": 28501
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/inline_data.rs": {
+            "ext2fs_has_feature_gdt_csum": 31428,
+            "ext2fs_has_feature_largedir": 32783,
+            "ext2fs_resize_mem": 42077,
+            "ext2fs_swab32": 37919
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/inode.rs": {
+            "ext2fs_get_memzero": 41132,
+            "ext2fs_has_feature_largedir": 34006,
+            "ext2fs_resize_mem": 42672,
+            "ext2fs_swab32": 37316
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/io_manager.rs": {
+            "ext2fs_get_memzero": 31631,
+            "ext2fs_has_feature_gdt_csum": 26061,
+            "ext2fs_has_feature_largedir": 26928,
+            "ext2fs_has_feature_metadata_csum": 26386,
+            "ext2fs_resize_mem": 32253,
+            "ext2fs_swab32": 29128
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/ismounted.rs": {
+            "ext2fs_get_mem": 38718,
+            "ext2fs_get_memzero": 39240,
+            "ext2fs_has_feature_gdt_csum": 33538,
+            "ext2fs_has_feature_largedir": 34413,
+            "ext2fs_has_feature_metadata_csum": 33871,
+            "ext2fs_resize_mem": 39862,
+            "ext2fs_swab32": 36305
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/link.rs": {
+            "ext2fs_get_memzero": 41807,
+            "ext2fs_has_feature_gdt_csum": 32663,
+            "ext2fs_resize_mem": 43347,
+            "ext2fs_swab32": 38596
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/lookup.rs": {
+            "ext2fs_get_mem": 31241,
+            "ext2fs_get_memzero": 31763,
+            "ext2fs_has_feature_gdt_csum": 24304,
+            "ext2fs_has_feature_largedir": 25183,
+            "ext2fs_has_feature_metadata_csum": 24637,
+            "ext2fs_resize_mem": 32385,
+            "ext2fs_swab32": 29190
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/mkjournal.rs": {
+            "ext2fs_get_memzero": 48415,
+            "ext2fs_has_feature_gdt_csum": 41281,
+            "ext2fs_has_feature_largedir": 42638,
+            "ext2fs_has_feature_metadata_csum": 41606,
+            "ext2fs_resize_mem": 49607,
+            "ext2fs_swab32": 45519,
+            "jbd2_has_feature_64bit": 51826,
+            "jbd2_has_feature_csum2": 52193,
+            "jbd2_has_feature_csum3": 52526
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/mmp.rs": {
+            "ext2fs_get_memzero": 37006,
+            "ext2fs_has_feature_gdt_csum": 29303,
+            "ext2fs_has_feature_largedir": 30417,
+            "ext2fs_has_feature_metadata_csum": 29636,
+            "ext2fs_resize_mem": 37628,
+            "ext2fs_swab32": 34503
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/newdir.rs": {
+            "ext2fs_get_memzero": 32536,
+            "ext2fs_has_feature_gdt_csum": 24315,
+            "ext2fs_has_feature_largedir": 25427,
+            "ext2fs_resize_mem": 33728,
+            "ext2fs_swab32": 30033
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/openfs.rs": {
+            "ext2fs_get_memzero": 41792,
+            "ext2fs_has_feature_largedir": 32299,
+            "ext2fs_resize_mem": 42762,
+            "ext2fs_swab32": 37652
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/orphan.rs": {
+            "ext2fs_get_memzero": 38147,
+            "ext2fs_has_feature_gdt_csum": 29486,
+            "ext2fs_has_feature_largedir": 30780,
+            "ext2fs_resize_mem": 39339,
+            "ext2fs_swab32": 35113
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/punch.rs": {
+            "ext2fs_get_memzero": 37426,
+            "ext2fs_has_feature_gdt_csum": 29413,
+            "ext2fs_has_feature_largedir": 30280,
+            "ext2fs_has_feature_metadata_csum": 29738,
+            "ext2fs_resize_mem": 38966,
+            "ext2fs_swab32": 34681
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/read_bb.rs": {
+            "ext2fs_get_mem": 31872,
+            "ext2fs_get_memzero": 32394,
+            "ext2fs_has_feature_gdt_csum": 27058,
+            "ext2fs_has_feature_largedir": 27933,
+            "ext2fs_has_feature_metadata_csum": 27399,
+            "ext2fs_resize_mem": 33016,
+            "ext2fs_swab32": 29744
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/read_bb_file.rs": {
+            "ext2fs_get_mem": 31040,
+            "ext2fs_get_memzero": 31562,
+            "ext2fs_has_feature_gdt_csum": 26305,
+            "ext2fs_has_feature_largedir": 27188,
+            "ext2fs_has_feature_metadata_csum": 26642,
+            "ext2fs_resize_mem": 32184,
+            "ext2fs_swab32": 29059
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/res_gdt.rs": {
+            "ext2fs_get_memzero": 35972,
+            "ext2fs_has_feature_gdt_csum": 28430,
+            "ext2fs_has_feature_largedir": 29301,
+            "ext2fs_has_feature_metadata_csum": 28767,
+            "ext2fs_resize_mem": 37512,
+            "ext2fs_swab32": 33391
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/rw_bitmaps.rs": {
+            "ext2fs_get_memzero": 51986,
+            "ext2fs_has_feature_largedir": 45319,
+            "ext2fs_resize_mem": 53178,
+            "ext2fs_swab32": 48712
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/sha512.rs": {
+            "ext2fs_get_mem": 30484,
+            "ext2fs_get_memzero": 31006,
+            "ext2fs_has_feature_gdt_csum": 26088,
+            "ext2fs_has_feature_largedir": 26955,
+            "ext2fs_has_feature_metadata_csum": 26421,
+            "ext2fs_resize_mem": 31628,
+            "ext2fs_swab32": 28503
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/symlink.rs": {
+            "ext2fs_get_memzero": 35032,
+            "ext2fs_has_feature_gdt_csum": 28785,
+            "ext2fs_has_feature_largedir": 29903,
+            "ext2fs_has_feature_metadata_csum": 29118,
+            "ext2fs_resize_mem": 36224,
+            "ext2fs_swab32": 32306
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/test_io.rs": {
+            "ext2fs_get_memzero": 34394,
+            "ext2fs_has_feature_gdt_csum": 28736,
+            "ext2fs_has_feature_largedir": 29615,
+            "ext2fs_has_feature_metadata_csum": 29073,
+            "ext2fs_resize_mem": 35586,
+            "ext2fs_swab32": 31891
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/undo_io.rs": {
+            "ext2fs_get_memzero": 41665,
+            "ext2fs_has_feature_gdt_csum": 34941,
+            "ext2fs_has_feature_largedir": 35824,
+            "ext2fs_has_feature_metadata_csum": 35278,
+            "ext2fs_resize_mem": 42857,
+            "ext2fs_swab32": 38700
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/unix_io.rs": {
+            "ext2fs_get_memzero": 47129,
+            "ext2fs_has_feature_gdt_csum": 39996,
+            "ext2fs_has_feature_largedir": 40867,
+            "ext2fs_has_feature_metadata_csum": 40333,
+            "ext2fs_resize_mem": 48321,
+            "ext2fs_swab32": 44626
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/unlink.rs": {
+            "ext2fs_get_mem": 31848,
+            "ext2fs_get_memzero": 32370,
+            "ext2fs_has_feature_gdt_csum": 24428,
+            "ext2fs_has_feature_largedir": 25311,
+            "ext2fs_has_feature_metadata_csum": 24761,
+            "ext2fs_resize_mem": 32992,
+            "ext2fs_swab32": 29563
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/valid_blk.rs": {
+            "ext2fs_get_mem": 31173,
+            "ext2fs_get_memzero": 31695,
+            "ext2fs_has_feature_gdt_csum": 24099,
+            "ext2fs_has_feature_largedir": 24974,
+            "ext2fs_has_feature_metadata_csum": 24428,
+            "ext2fs_resize_mem": 32317,
+            "ext2fs_swab32": 28882
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/version.rs": {
+            "ext2fs_get_mem": 31256,
+            "ext2fs_get_memzero": 31778,
+            "ext2fs_has_feature_gdt_csum": 24192,
+            "ext2fs_has_feature_largedir": 25071,
+            "ext2fs_has_feature_metadata_csum": 24521,
+            "ext2fs_resize_mem": 32400,
+            "ext2fs_swab32": 29275
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/support/mkquota.rs": {
+            "ext2fs_get_memzero": 41410,
+            "ext2fs_has_feature_gdt_csum": 35909,
+            "ext2fs_has_feature_largedir": 36780,
+            "ext2fs_has_feature_metadata_csum": 36234,
+            "ext2fs_resize_mem": 42602,
+            "ext2fs_swab32": 38907
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/support/plausible.rs": {
+            "ext2fs_get_mem": 36032,
+            "ext2fs_get_memzero": 36554,
+            "ext2fs_has_feature_gdt_csum": 31548,
+            "ext2fs_has_feature_largedir": 32427,
+            "ext2fs_has_feature_metadata_csum": 31881,
+            "ext2fs_resize_mem": 37176,
+            "ext2fs_swab32": 34051
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/support/quotaio.rs": {
+            "ext2fs_has_feature_gdt_csum": 33561,
+            "ext2fs_has_feature_largedir": 34679,
+            "ext2fs_has_feature_metadata_csum": 33890,
+            "ext2fs_resize_mem": 40386,
+            "ext2fs_swab32": 36613
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/support/quotaio_tree.rs": {
+            "ext2fs_has_feature_gdt_csum": 31507,
+            "ext2fs_has_feature_largedir": 32382,
+            "ext2fs_has_feature_metadata_csum": 31836,
+            "ext2fs_resize_mem": 37621,
+            "ext2fs_swab32": 33926
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/support/quotaio_v2.rs": {
+            "ext2fs_get_mem": 36830,
+            "ext2fs_get_memzero": 37352,
+            "ext2fs_has_feature_gdt_csum": 32430,
+            "ext2fs_has_feature_largedir": 33301,
+            "ext2fs_has_feature_metadata_csum": 32759,
+            "ext2fs_resize_mem": 37974
+          }
+        },
+        "parent_sources_sha256": "d945bbf7f5c94a8bc99adca6a1c113e165b8afc131af77e3c1a3939b5cb89db1",
+        "private_helpers_removed": 599,
+        "raw_pointer_types_removed": 1367,
+        "referenced_helpers_removed": 12,
+        "referenced_pointer_types_removed": 46,
+        "rustc_archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-e2fsprogs-shared/e2fsck/libe2fsck_audit.a",
+        "scanner_source_sha256": "74e8393122c399359f208509fb81fbe911b75b3d6f9f34edcc7084b88331f2ae"
+      },
+      "linked_foreign_declaration_proofs": {
+        "file": "libe2fsck_audit.foreign-1ed63cefe94f23403c98625bd78661d2d4170cd202c77f00448532e5e2d116f1.json",
+        "sha256": "1ed63cefe94f23403c98625bd78661d2d4170cd202c77f00448532e5e2d116f1"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libe2fsck_audit.inlines-f6ec750f6afaf02e1d4e3ed020b38cc95bcdbf2e305ebe4198abfe2d8f09ff9a.json",
+        "sha256": "fe9f3811fc49e1e08cec3b3da92d6f5c523dc6d6c6c1466163f956f0ad4307d6"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2fsck/564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd/libe2fsck_audit.a",
+        "c_string_literals": 884,
+        "candidate_sha256": "564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd",
+        "candidate_sources_sha256": "d945bbf7f5c94a8bc99adca6a1c113e165b8afc131af77e3c1a3939b5cb89db1",
+        "compiler_selected_sources": 115,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd",
+        "legacy_compiler": "nightly-2023-04-15",
+        "modules": {
+          "src/rustbox_e2fsprogs/normalized_clang_18/lib/ext2fs/ext2_err.rs": 183,
+          "src/rustbox_e2fsprogs/normalized_clang_18/lib/support/prof_err.rs": 31,
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/journal.rs": 4,
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/message.rs": 43,
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/problem.rs": 460,
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/sigcatcher.rs": 72,
+          "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/unix.rs": 1,
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/feature.rs": 52,
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/ext_attr.rs": 8,
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/tdb.rs": 10,
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/support/profile.rs": 12,
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/support/quotaio.rs": 8
+        },
+        "parent_sources_sha256": "47a8f555b8e34fe60227fb266f2833d38cfddfae33176ce63bbb197c532371ec",
+        "raw_ffi_pointer_extractions": 884,
+        "raw_pointer_types_removed": 1768,
+        "rustc_archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-e2fsprogs-shared/e2fsck/libe2fsck_audit.a",
+        "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      }
+    },
+    "pilot": {
+      "all_scalar_interfaces": true,
+      "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2fsck/564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd/libe2fsck_audit.a",
+      "candidate_sha256": "564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd",
+      "candidate_sources_sha256": "7a98746910110a5011f8c4ff27bd9fbae0150a9da780f28e71ab3cc68cf253b3",
+      "compiler_selected_sources": 115,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "564070b0067cd4e797dee933e5c58fc24672f31d990f62c023dc767091b048cd",
+      "parent_sources_sha256": "001736c1472ac9ebe153c68114250ea7f8222a489f13309cfc0bf21d5e387f39",
+      "raw_pointer_types_removed": 1308,
+      "rustc_archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-e2fsprogs-shared/e2fsck/libe2fsck_audit.a",
+      "scalar_ffi": {
+        "__ctype_b_loc": {
+          "copies": 7,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/message.rs",
+          "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+        },
+        "__ctype_tolower_loc": {
+          "copies": 11,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/ehandler.rs",
+          "signature": "fn __ctype_tolower_loc() -> *mut *const i32;"
+        },
+        "__ctype_toupper_loc": {
+          "copies": 11,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/ehandler.rs",
+          "signature": "fn __ctype_toupper_loc() -> *mut *const i32;"
+        },
+        "__errno_location": {
+          "copies": 19,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/badblocks.rs",
+          "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+        },
+        "access": {
+          "copies": 4,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/dirinfo.rs",
+          "signature": "fn access(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> ::core::ffi::c_int;"
+        },
+        "calloc": {
+          "copies": 5,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/fileio.rs",
+          "signature": "fn calloc(a0: usize, a1: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "dcgettext": {
+          "copies": 19,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/badblocks.rs",
+          "signature": "fn dcgettext(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        },
+        "ehandler_operation": {
+          "copies": 3,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/pass1.rs",
+          "signature": "fn ehandler_operation(a0: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char;"
+        },
+        "error_message": {
+          "copies": 8,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/ehandler.rs",
+          "signature": "fn error_message(a0: ::core::ffi::c_long) -> *const ::core::ffi::c_char;"
+        },
+        "ext2fs_check_if_mounted": {
+          "copies": 2,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/journal.rs",
+          "signature": "fn ext2fs_check_if_mounted(a0: *const ::core::ffi::c_char, a1: *mut ::core::ffi::c_int) -> ::core::ffi::c_long;"
+        },
+        "ext2fs_extent_header_verify": {
+          "copies": 2,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/pass1.rs",
+          "signature": "fn ext2fs_extent_header_verify(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int) -> ::core::ffi::c_long;"
+        },
+        "ext2fs_get_memalign": {
+          "copies": 2,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/io_manager.rs",
+          "signature": "fn ext2fs_get_memalign(a0: ::core::ffi::c_ulong, a1: ::core::ffi::c_ulong, a2: *mut ::core::ffi::c_void) -> ::core::ffi::c_long;"
+        },
+        "ext2fs_safe_getenv": {
+          "copies": 7,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/gen_bitmap64.rs",
+          "signature": "fn ext2fs_safe_getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "ext2fs_set_bit": {
+          "copies": 2,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/gen_bitmap.rs",
+          "signature": "fn ext2fs_set_bit(a0: ::core::ffi::c_uint, a1: *mut ::core::ffi::c_void) -> ::core::ffi::c_int;"
+        },
+        "ext2fs_test_bit": {
+          "copies": 2,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/blkmap64_rb.rs",
+          "signature": "fn ext2fs_test_bit(a0: ::core::ffi::c_uint, a1: *const ::core::ffi::c_void) -> ::core::ffi::c_int;"
+        },
+        "ext2fs_warn_bitmap": {
+          "copies": 2,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/gen_bitmap.rs",
+          "signature": "fn ext2fs_warn_bitmap(a0: ::core::ffi::c_long, a1: ::core::ffi::c_ulong, a2: *const ::core::ffi::c_char);"
+        },
+        "free": {
+          "copies": 68,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/dirinfo.rs",
+          "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+        },
+        "getenv": {
+          "copies": 5,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/e2fsck.rs",
+          "signature": "fn getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "gethostname": {
+          "copies": 2,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/logfile.rs",
+          "signature": "fn gethostname(a0: *mut ::core::ffi::c_char, a1: usize) -> ::core::ffi::c_int;"
+        },
+        "malloc": {
+          "copies": 105,
+          "provider": "src/rustbox_e2fsprogs/normalized_clang_18/lib/ext2fs/ext2_err.rs",
+          "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "memcmp": {
+          "copies": 15,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/encrypted_files.rs",
+          "signature": "fn memcmp(a0: *const ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> ::core::ffi::c_int;"
+        },
+        "memcpy": {
+          "copies": 101,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/badblocks.rs",
+          "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "memmove": {
+          "copies": 8,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/ea_refcount.rs",
+          "signature": "fn memmove(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "memset": {
+          "copies": 100,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/badblocks.rs",
+          "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "mkstemp": {
+          "copies": 2,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/dirinfo.rs",
+          "signature": "fn mkstemp(a0: *mut ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "perror": {
+          "copies": 3,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/logfile.rs",
+          "signature": "fn perror(a0: *const ::core::ffi::c_char);"
+        },
+        "quota_get_qf_name": {
+          "copies": 2,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/quota.rs",
+          "signature": "fn quota_get_qf_name(a0: ::core::ffi::c_uint, a1: ::core::ffi::c_int, a2: *mut ::core::ffi::c_char) -> *const ::core::ffi::c_char;"
+        },
+        "read": {
+          "copies": 2,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/logfile.rs",
+          "signature": "fn read(a0: ::core::ffi::c_int, a1: *mut ::core::ffi::c_void, a2: usize) -> isize;"
+        },
+        "realloc": {
+          "copies": 100,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/badblocks.rs",
+          "signature": "fn realloc(a0: *mut ::core::ffi::c_void, a1: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "secure_getenv": {
+          "copies": 2,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/et/error_message.rs",
+          "signature": "fn secure_getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "strcasecmp": {
+          "copies": 2,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/e2p/feature.rs",
+          "signature": "fn strcasecmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "strcat": {
+          "copies": 8,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/unix.rs",
+          "signature": "fn strcat(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "strchr": {
+          "copies": 7,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/unix.rs",
+          "signature": "fn strchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        },
+        "strcmp": {
+          "copies": 9,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/unix.rs",
+          "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "strcpy": {
+          "copies": 16,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/unix.rs",
+          "signature": "fn strcpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "strdup": {
+          "copies": 5,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/unix.rs",
+          "signature": "fn strdup(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "strerror": {
+          "copies": 5,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/unix.rs",
+          "signature": "fn strerror(a0: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        },
+        "strlen": {
+          "copies": 25,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/dirinfo.rs",
+          "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+        },
+        "strncmp": {
+          "copies": 9,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/pass2.rs",
+          "signature": "fn strncmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> ::core::ffi::c_int;"
+        },
+        "strncpy": {
+          "copies": 7,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/util.rs",
+          "signature": "fn strncpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> *mut ::core::ffi::c_char;"
+        },
+        "strnlen": {
+          "copies": 3,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/pass1.rs",
+          "signature": "fn strnlen(a0: *const ::core::ffi::c_char, a1: usize) -> usize;"
+        },
+        "strrchr": {
+          "copies": 2,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/logfile.rs",
+          "signature": "fn strrchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        },
+        "strtol": {
+          "copies": 4,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/unix.rs",
+          "signature": "fn strtol(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_long;"
+        },
+        "strtoul": {
+          "copies": 7,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/unix.rs",
+          "signature": "fn strtoul(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_ulong;"
+        },
+        "strtoull": {
+          "copies": 3,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/e2fsck.rs",
+          "signature": "fn strtoull(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_ulonglong;"
+        },
+        "unlink": {
+          "copies": 4,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/dirinfo.rs",
+          "signature": "fn unlink(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "uuid_generate": {
+          "copies": 2,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/journal.rs",
+          "signature": "fn uuid_generate(a0: *mut ::core::ffi::c_uchar);"
+        },
+        "uuid_is_null": {
+          "copies": 3,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/journal.rs",
+          "signature": "fn uuid_is_null(a0: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int;"
+        },
+        "uuid_unparse": {
+          "copies": 3,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/dirinfo.rs",
+          "signature": "fn uuid_unparse(a0: *const ::core::ffi::c_uchar, a1: *mut ::core::ffi::c_char);"
+        },
+        "write": {
+          "copies": 2,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/e2fsck/logfile.rs",
+          "signature": "fn write(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_void, a2: usize) -> isize;"
+        }
+      },
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+    }
+  },
+  "work/analysis/lz4-1.11.1/translations/c2rust-0.22.1/lz4-1.11.1-stable/target/packed-dictionary/f3e4435913115dfc9c3550deae4e8cc06abcb910d56fb5da98627b5ff4a3f91f/liblz4_1_11_1_normalized_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "liblz4_1_11_1_normalized_audit.foreign-cf2e7ada0723fd00a6480330c9b5f7e76e6b977a04c2e874d546051fc7e66c54.json",
+        "sha256": "cf2e7ada0723fd00a6480330c9b5f7e76e6b977a04c2e874d546051fc7e66c54"
+      },
+      "linked_private_inline_proofs": {
+        "file": "liblz4_1_11_1_normalized_audit.inlines-614dec7637c25e3f84b336b6d4ba2b40ee45787c88b9a78721ccc39af189550c.json",
+        "sha256": "37981902a2d5026ecef94e2857bdf5b3696378ef46a3b4361cc3b7dbd322c23e"
+      }
+    },
+    "pilot": {
+      "all_scalar_interfaces": true,
+      "archive": "work/analysis/lz4-1.11.1/translations/c2rust-0.22.1/lz4-1.11.1-stable/target/packed-dictionary/f3e4435913115dfc9c3550deae4e8cc06abcb910d56fb5da98627b5ff4a3f91f/liblz4_1_11_1_normalized_audit.a",
+      "candidate_sha256": "f3e4435913115dfc9c3550deae4e8cc06abcb910d56fb5da98627b5ff4a3f91f",
+      "candidate_sources_sha256": "208f6acfccb04c82a5949027ca02e8344c785db5c792e992923f3378471e61cf",
+      "cargo_archive": "work/analysis/lz4-1.11.1/translations/c2rust-0.22.1/lz4-1.11.1-stable/target/release/liblz4_1_11_1_normalized_audit.a",
+      "compiler_selected_sources": 14,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "f3e4435913115dfc9c3550deae4e8cc06abcb910d56fb5da98627b5ff4a3f91f",
+      "parent_sources_sha256": "b0ce988654eaa5454cef17b7dbe06b0323c3129adb90233349b26a8c0bdb3c82",
+      "raw_pointer_types_removed": 102,
+      "scalar_ffi": {
+        "LZ4_XXH32": {
+          "copies": 2,
+          "provider": "src/lib/lz4frame.rs",
+          "signature": "fn LZ4_XXH32(a0: *const ::core::ffi::c_void, a1: usize, a2: ::core::ffi::c_uint) -> ::core::ffi::c_uint;"
+        },
+        "__errno_location": {
+          "copies": 4,
+          "provider": "src/programs/bench.rs",
+          "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+        },
+        "calloc": {
+          "copies": 6,
+          "provider": "src/lib/lz4.rs",
+          "signature": "fn calloc(a0: usize, a1: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "chmod": {
+          "copies": 4,
+          "provider": "src/programs/bench.rs",
+          "signature": "fn chmod(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_uint) -> ::core::ffi::c_int;"
+        },
+        "chown": {
+          "copies": 4,
+          "provider": "src/programs/bench.rs",
+          "signature": "fn chown(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_uint, a2: ::core::ffi::c_uint) -> ::core::ffi::c_int;"
+        },
+        "free": {
+          "copies": 10,
+          "provider": "src/lib/lz4.rs",
+          "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+        },
+        "malloc": {
+          "copies": 9,
+          "provider": "src/lib/lz4.rs",
+          "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "memcpy": {
+          "copies": 7,
+          "provider": "src/lib/lz4file.rs",
+          "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "memmove": {
+          "copies": 2,
+          "provider": "src/lib/lz4frame.rs",
+          "signature": "fn memmove(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "memset": {
+          "copies": 7,
+          "provider": "src/lib/lz4.rs",
+          "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "perror": {
+          "copies": 5,
+          "provider": "src/programs/bench.rs",
+          "signature": "fn perror(a0: *const ::core::ffi::c_char);"
+        },
+        "pthread_join": {
+          "copies": 2,
+          "provider": "src/lib/lz4frame.rs",
+          "signature": "fn pthread_join(a0: ::core::ffi::c_ulong, a1: *mut *mut ::core::ffi::c_void) -> ::core::ffi::c_int;"
+        },
+        "realloc": {
+          "copies": 4,
+          "provider": "src/programs/bench.rs",
+          "signature": "fn realloc(a0: *mut ::core::ffi::c_void, a1: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "strcmp": {
+          "copies": 4,
+          "provider": "src/programs/bench.rs",
+          "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "strerror": {
+          "copies": 4,
+          "provider": "src/programs/bench.rs",
+          "signature": "fn strerror(a0: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        },
+        "strlen": {
+          "copies": 4,
+          "provider": "src/programs/bench.rs",
+          "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+        },
+        "strncpy": {
+          "copies": 4,
+          "provider": "src/programs/bench.rs",
+          "signature": "fn strncpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> *mut ::core::ffi::c_char;"
+        },
+        "strrchr": {
+          "copies": 3,
+          "provider": "src/programs/bench.rs",
+          "signature": "fn strrchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        }
+      },
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+    }
+  },
+  "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libncurses_6_6_normalized_audit.foreign-e4d580cb4e5c92f21a5f13e03b61aefcc5c84175bc67ddb351f3303221354595.json",
+        "sha256": "e4d580cb4e5c92f21a5f13e03b61aefcc5c84175bc67ddb351f3303221354595"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libncurses_6_6_normalized_audit.inlines-fc013fdadeb69597c32cd67c04a442366c10a7b391b8e88f4aba905929f6c235.json",
+        "sha256": "7819deeb70e3099f51a0cd39dbd19270502f8900b2599349b2568447aa2fc32c"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a",
+        "c_string_literals": 1491,
+        "candidate_sha256": "ea368da66151d2217604544b72bbef827f2982e0ad2c9b8231aa4d4412c52b97",
+        "candidate_sources_sha256": "7154f6d1bcdcbd409dfa2dabc26b0b427a121871b39367bedc0dd3875292b042",
+        "compiler_selected_sources": 266,
+        "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+        "control_sha256": "ea368da66151d2217604544b72bbef827f2982e0ad2c9b8231aa4d4412c52b97",
+        "modules": {
+          "src/ncurses/codes.rs": 497,
+          "src/ncurses/names.rs": 994
+        },
+        "parent_sources_sha256": "4cd2ab8538779e6f6b03b678ce87e0df8c1e5e23ead1edbca162bf25909f8640",
+        "raw_ffi_pointer_extractions": 1491,
+        "raw_pointer_types_removed": 2982,
+        "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_ncurses_termtypes": {
+        "archive": "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a",
+        "candidate_sha256": "ea368da66151d2217604544b72bbef827f2982e0ad2c9b8231aa4d4412c52b97",
+        "candidate_sources_sha256": "beceb719ff943b1960a933be04f42663719e3f3af81b8f5aa4f9e38aa275b4f9",
+        "compiler_selected_sources": 266,
+        "control_binary_sha256": "a8b07738a1985cb6ff68e70cc87870fec0712eebe994e920389918136048379b",
+        "control_sha256": "ea368da66151d2217604544b72bbef827f2982e0ad2c9b8231aa4d4412c52b97",
+        "declarations_sha256": {
+          "termtype": "41e6697aa396d30f041da30c021d4441e087f90441c0baad2c37433e365035bb",
+          "termtype2": "c36e97e28f231f2d4363ee09c8341f094db0515716b0069065dd21a8c465e894"
+        },
+        "parent_sources_sha256": "7154f6d1bcdcbd409dfa2dabc26b0b427a121871b39367bedc0dd3875292b042",
+        "providers": {
+          "termtype": "src/form/frm_def.rs",
+          "termtype2": "src/form/frm_def.rs"
+        },
+        "raw_pointer_types_removed": 2439,
+        "reexporting_modules": {
+          "termtype": [
+            "src/form/frm_driver.rs",
+            "src/form/frm_post.rs",
+            "src/form/frm_sub.rs",
+            "src/form/frm_win.rs",
+            "src/menu/m_cursor.rs",
+            "src/menu/m_driver.rs",
+            "src/menu/m_global.rs",
+            "src/menu/m_new.rs",
+            "src/menu/m_post.rs",
+            "src/menu/m_sub.rs",
+            "src/menu/m_win.rs",
+            "src/ncurses/base/define_key.rs",
+            "src/ncurses/base/key_defined.rs",
+            "src/ncurses/base/keybound.rs",
+            "src/ncurses/base/keyok.rs",
+            "src/ncurses/base/legacy_coding.rs",
+            "src/ncurses/base/lib_addch.rs",
+            "src/ncurses/base/lib_beep.rs",
+            "src/ncurses/base/lib_bkgd.rs",
+            "src/ncurses/base/lib_color.rs",
+            "src/ncurses/base/lib_colorset.rs",
+            "src/ncurses/base/lib_delwin.rs",
+            "src/ncurses/base/lib_dft_fgbg.rs",
+            "src/ncurses/base/lib_echo.rs",
+            "src/ncurses/base/lib_endwin.rs",
+            "src/ncurses/base/lib_flash.rs",
+            "src/ncurses/base/lib_freeall.rs",
+            "src/ncurses/base/lib_getch.rs",
+            "src/ncurses/base/lib_getstr.rs",
+            "src/ncurses/base/lib_initscr.rs",
+            "src/ncurses/base/lib_insch.rs",
+            "src/ncurses/base/lib_insnstr.rs",
+            "src/ncurses/base/lib_isendwin.rs",
+            "src/ncurses/base/lib_mouse.rs",
+            "src/ncurses/base/lib_mvwin.rs",
+            "src/ncurses/base/lib_newterm.rs",
+            "src/ncurses/base/lib_newwin.rs",
+            "src/ncurses/base/lib_nl.rs",
+            "src/ncurses/base/lib_pad.rs",
+            "src/ncurses/base/lib_printw.rs",
+            "src/ncurses/base/lib_redrawln.rs",
+            "src/ncurses/base/lib_refresh.rs",
+            "src/ncurses/base/lib_restart.rs",
+            "src/ncurses/base/lib_screen.rs",
+            "src/ncurses/base/lib_scroll.rs",
+            "src/ncurses/base/lib_set_term.rs",
+            "src/ncurses/base/lib_slk.rs",
+            "src/ncurses/base/lib_slkatr_set.rs",
+            "src/ncurses/base/lib_slkatrof.rs",
+            "src/ncurses/base/lib_slkatron.rs",
+            "src/ncurses/base/lib_slkatrset.rs",
+            "src/ncurses/base/lib_slkattr.rs",
+            "src/ncurses/base/lib_slkclear.rs",
+            "src/ncurses/base/lib_slkcolor.rs",
+            "src/ncurses/base/lib_slkinit.rs",
+            "src/ncurses/base/lib_slklab.rs",
+            "src/ncurses/base/lib_slkrefr.rs",
+            "src/ncurses/base/lib_slkset.rs",
+            "src/ncurses/base/lib_slktouch.rs",
+            "src/ncurses/base/lib_ungetch.rs",
+            "src/ncurses/base/lib_window.rs",
+            "src/ncurses/base/nc_panel.rs",
+            "src/ncurses/base/new_pair.rs",
+            "src/ncurses/base/resizeterm.rs",
+            "src/ncurses/base/safe_sprintf.rs",
+            "src/ncurses/base/wresize.rs",
+            "src/ncurses/fallback.rs",
+            "src/ncurses/lib_keyname.rs",
+            "src/ncurses/report_offsets.rs",
+            "src/ncurses/tinfo/alloc_ttype.rs",
+            "src/ncurses/tinfo/comp_error.rs",
+            "src/ncurses/tinfo/comp_parse.rs",
+            "src/ncurses/tinfo/db_iterator.rs",
+            "src/ncurses/tinfo/free_ttype.rs",
+            "src/ncurses/tinfo/home_terminfo.rs",
+            "src/ncurses/tinfo/init_keytry.rs",
+            "src/ncurses/tinfo/lib_acs.rs",
+            "src/ncurses/tinfo/lib_baudrate.rs",
+            "src/ncurses/tinfo/lib_cur_term.rs",
+            "src/ncurses/tinfo/lib_data.rs",
+            "src/ncurses/tinfo/lib_has_cap.rs",
+            "src/ncurses/tinfo/lib_kernel.rs",
+            "src/ncurses/tinfo/lib_longname.rs",
+            "src/ncurses/tinfo/lib_napms.rs",
+            "src/ncurses/tinfo/lib_options.rs",
+            "src/ncurses/tinfo/lib_print.rs",
+            "src/ncurses/tinfo/lib_raw.rs",
+            "src/ncurses/tinfo/lib_setup.rs",
+            "src/ncurses/tinfo/lib_termcap.rs",
+            "src/ncurses/tinfo/lib_termname.rs",
+            "src/ncurses/tinfo/lib_ti.rs",
+            "src/ncurses/tinfo/lib_tparm.rs",
+            "src/ncurses/tinfo/lib_tputs.rs",
+            "src/ncurses/tinfo/lib_ttyflags.rs",
+            "src/ncurses/tinfo/name_match.rs",
+            "src/ncurses/tinfo/obsolete.rs",
+            "src/ncurses/tinfo/read_entry.rs",
+            "src/ncurses/tinfo/use_screen.rs",
+            "src/ncurses/tty/hardscroll.rs",
+            "src/ncurses/tty/hashmap.rs",
+            "src/ncurses/tty/lib_mvcur.rs",
+            "src/ncurses/tty/lib_tstp.rs",
+            "src/ncurses/tty/lib_twait.rs",
+            "src/ncurses/tty/lib_vidattr.rs",
+            "src/ncurses/tty/tty_update.rs",
+            "src/ncurses/unctrl.rs",
+            "src/ncurses/widechar/lib_erasewchar.rs",
+            "src/ncurses/widechar/lib_get_wch.rs",
+            "src/ncurses/widechar/lib_get_wstr.rs",
+            "src/ncurses/widechar/lib_ins_wch.rs",
+            "src/ncurses/widechar/lib_key_name.rs",
+            "src/ncurses/widechar/lib_unget_wch.rs",
+            "src/ncurses/widechar/lib_vid_attr.rs",
+            "src/ncurses/widechar/lib_wunctrl.rs",
+            "src/panel/p_above.rs",
+            "src/panel/p_below.rs",
+            "src/panel/p_bottom.rs",
+            "src/panel/p_delete.rs",
+            "src/panel/p_hidden.rs",
+            "src/panel/p_hide.rs",
+            "src/panel/p_move.rs",
+            "src/panel/p_new.rs",
+            "src/panel/p_replace.rs",
+            "src/panel/p_show.rs",
+            "src/panel/p_update.rs",
+            "src/progs/clear_cmd.rs",
+            "src/progs/dump_entry.rs",
+            "src/progs/reset_cmd.rs",
+            "src/progs/tabs.rs",
+            "src/progs/tic.rs",
+            "src/progs/tput.rs",
+            "src/progs/tset.rs"
+          ],
+          "termtype2": [
+            "src/form/frm_driver.rs",
+            "src/form/frm_post.rs",
+            "src/form/frm_sub.rs",
+            "src/form/frm_win.rs",
+            "src/menu/m_cursor.rs",
+            "src/menu/m_driver.rs",
+            "src/menu/m_global.rs",
+            "src/menu/m_new.rs",
+            "src/menu/m_post.rs",
+            "src/menu/m_sub.rs",
+            "src/menu/m_win.rs",
+            "src/ncurses/base/define_key.rs",
+            "src/ncurses/base/key_defined.rs",
+            "src/ncurses/base/keybound.rs",
+            "src/ncurses/base/keyok.rs",
+            "src/ncurses/base/legacy_coding.rs",
+            "src/ncurses/base/lib_addch.rs",
+            "src/ncurses/base/lib_beep.rs",
+            "src/ncurses/base/lib_bkgd.rs",
+            "src/ncurses/base/lib_color.rs",
+            "src/ncurses/base/lib_colorset.rs",
+            "src/ncurses/base/lib_delwin.rs",
+            "src/ncurses/base/lib_dft_fgbg.rs",
+            "src/ncurses/base/lib_echo.rs",
+            "src/ncurses/base/lib_endwin.rs",
+            "src/ncurses/base/lib_flash.rs",
+            "src/ncurses/base/lib_freeall.rs",
+            "src/ncurses/base/lib_getch.rs",
+            "src/ncurses/base/lib_getstr.rs",
+            "src/ncurses/base/lib_initscr.rs",
+            "src/ncurses/base/lib_insch.rs",
+            "src/ncurses/base/lib_insnstr.rs",
+            "src/ncurses/base/lib_isendwin.rs",
+            "src/ncurses/base/lib_mouse.rs",
+            "src/ncurses/base/lib_mvwin.rs",
+            "src/ncurses/base/lib_newterm.rs",
+            "src/ncurses/base/lib_newwin.rs",
+            "src/ncurses/base/lib_nl.rs",
+            "src/ncurses/base/lib_pad.rs",
+            "src/ncurses/base/lib_printw.rs",
+            "src/ncurses/base/lib_redrawln.rs",
+            "src/ncurses/base/lib_refresh.rs",
+            "src/ncurses/base/lib_restart.rs",
+            "src/ncurses/base/lib_screen.rs",
+            "src/ncurses/base/lib_scroll.rs",
+            "src/ncurses/base/lib_set_term.rs",
+            "src/ncurses/base/lib_slk.rs",
+            "src/ncurses/base/lib_slkatr_set.rs",
+            "src/ncurses/base/lib_slkatrof.rs",
+            "src/ncurses/base/lib_slkatron.rs",
+            "src/ncurses/base/lib_slkatrset.rs",
+            "src/ncurses/base/lib_slkattr.rs",
+            "src/ncurses/base/lib_slkclear.rs",
+            "src/ncurses/base/lib_slkcolor.rs",
+            "src/ncurses/base/lib_slkinit.rs",
+            "src/ncurses/base/lib_slklab.rs",
+            "src/ncurses/base/lib_slkrefr.rs",
+            "src/ncurses/base/lib_slkset.rs",
+            "src/ncurses/base/lib_slktouch.rs",
+            "src/ncurses/base/lib_ungetch.rs",
+            "src/ncurses/base/lib_window.rs",
+            "src/ncurses/base/nc_panel.rs",
+            "src/ncurses/base/new_pair.rs",
+            "src/ncurses/base/resizeterm.rs",
+            "src/ncurses/base/safe_sprintf.rs",
+            "src/ncurses/base/wresize.rs",
+            "src/ncurses/fallback.rs",
+            "src/ncurses/lib_keyname.rs",
+            "src/ncurses/report_offsets.rs",
+            "src/ncurses/tinfo/alloc_entry.rs",
+            "src/ncurses/tinfo/alloc_ttype.rs",
+            "src/ncurses/tinfo/comp_error.rs",
+            "src/ncurses/tinfo/comp_parse.rs",
+            "src/ncurses/tinfo/db_iterator.rs",
+            "src/ncurses/tinfo/entries.rs",
+            "src/ncurses/tinfo/free_ttype.rs",
+            "src/ncurses/tinfo/home_terminfo.rs",
+            "src/ncurses/tinfo/init_keytry.rs",
+            "src/ncurses/tinfo/lib_acs.rs",
+            "src/ncurses/tinfo/lib_baudrate.rs",
+            "src/ncurses/tinfo/lib_cur_term.rs",
+            "src/ncurses/tinfo/lib_data.rs",
+            "src/ncurses/tinfo/lib_has_cap.rs",
+            "src/ncurses/tinfo/lib_kernel.rs",
+            "src/ncurses/tinfo/lib_longname.rs",
+            "src/ncurses/tinfo/lib_napms.rs",
+            "src/ncurses/tinfo/lib_options.rs",
+            "src/ncurses/tinfo/lib_print.rs",
+            "src/ncurses/tinfo/lib_raw.rs",
+            "src/ncurses/tinfo/lib_setup.rs",
+            "src/ncurses/tinfo/lib_termcap.rs",
+            "src/ncurses/tinfo/lib_termname.rs",
+            "src/ncurses/tinfo/lib_ti.rs",
+            "src/ncurses/tinfo/lib_tparm.rs",
+            "src/ncurses/tinfo/lib_tputs.rs",
+            "src/ncurses/tinfo/lib_ttyflags.rs",
+            "src/ncurses/tinfo/name_match.rs",
+            "src/ncurses/tinfo/obsolete.rs",
+            "src/ncurses/tinfo/parse_entry.rs",
+            "src/ncurses/tinfo/read_entry.rs",
+            "src/ncurses/tinfo/trim_sgr0.rs",
+            "src/ncurses/tinfo/use_screen.rs",
+            "src/ncurses/tinfo/write_entry.rs",
+            "src/ncurses/tty/hardscroll.rs",
+            "src/ncurses/tty/hashmap.rs",
+            "src/ncurses/tty/lib_mvcur.rs",
+            "src/ncurses/tty/lib_tstp.rs",
+            "src/ncurses/tty/lib_twait.rs",
+            "src/ncurses/tty/lib_vidattr.rs",
+            "src/ncurses/tty/tty_update.rs",
+            "src/ncurses/unctrl.rs",
+            "src/ncurses/widechar/lib_erasewchar.rs",
+            "src/ncurses/widechar/lib_get_wch.rs",
+            "src/ncurses/widechar/lib_get_wstr.rs",
+            "src/ncurses/widechar/lib_ins_wch.rs",
+            "src/ncurses/widechar/lib_key_name.rs",
+            "src/ncurses/widechar/lib_unget_wch.rs",
+            "src/ncurses/widechar/lib_vid_attr.rs",
+            "src/ncurses/widechar/lib_wunctrl.rs",
+            "src/panel/p_above.rs",
+            "src/panel/p_below.rs",
+            "src/panel/p_bottom.rs",
+            "src/panel/p_delete.rs",
+            "src/panel/p_hidden.rs",
+            "src/panel/p_hide.rs",
+            "src/panel/p_move.rs",
+            "src/panel/p_new.rs",
+            "src/panel/p_replace.rs",
+            "src/panel/p_show.rs",
+            "src/panel/p_update.rs",
+            "src/progs/clear_cmd.rs",
+            "src/progs/dump_entry.rs",
+            "src/progs/infocmp.rs",
+            "src/progs/reset_cmd.rs",
+            "src/progs/tabs.rs",
+            "src/progs/tic.rs",
+            "src/progs/toe.rs",
+            "src/progs/tput.rs",
+            "src/progs/tset.rs"
+          ]
+        }
+      }
+    },
+    "pilot": {
+      "all_scalar_interfaces": true,
+      "archive": "work/analysis/ncurses-6.6/translations/c2rust-0.22.1/ncurses-6.6-normalized-audit-stable/target/release/libncurses_6_6_normalized_audit.a",
+      "candidate_sha256": "ea368da66151d2217604544b72bbef827f2982e0ad2c9b8231aa4d4412c52b97",
+      "candidate_sources_sha256": "50d81279fe02a95fbac5612ea87de0dd424af6c0d1db057bdff3b52ee546ee2e",
+      "compiler_selected_sources": 266,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "ea368da66151d2217604544b72bbef827f2982e0ad2c9b8231aa4d4412c52b97",
+      "parent_sources_sha256": "beceb719ff943b1960a933be04f42663719e3f3af81b8f5aa4f9e38aa275b4f9",
+      "raw_pointer_types_removed": 1367,
+      "scalar_ffi": {
+        "__ctype_b_loc": {
+          "copies": 33,
+          "provider": "src/form/fld_pad.rs",
+          "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+        },
+        "__ctype_tolower_loc": {
+          "copies": 109,
+          "provider": "src/form/fld_arg.rs",
+          "signature": "fn __ctype_tolower_loc() -> *mut *const i32;"
+        },
+        "__ctype_toupper_loc": {
+          "copies": 109,
+          "provider": "src/form/fld_arg.rs",
+          "signature": "fn __ctype_toupper_loc() -> *mut *const i32;"
+        },
+        "__errno_location": {
+          "copies": 72,
+          "provider": "src/form/fld_arg.rs",
+          "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+        },
+        "_nc_access": {
+          "copies": 4,
+          "provider": "src/ncurses/base/lib_screen.rs",
+          "signature": "fn _nc_access(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> ::core::ffi::c_int;"
+        },
+        "_nc_capcmp": {
+          "copies": 2,
+          "provider": "src/progs/infocmp.rs",
+          "signature": "fn _nc_capcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "_nc_doalloc": {
+          "copies": 16,
+          "provider": "src/ncurses/base/lib_slk.rs",
+          "signature": "fn _nc_doalloc(a0: *mut ::core::ffi::c_void, a1: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "_nc_first_db": {
+          "copies": 3,
+          "provider": "src/ncurses/tinfo/read_entry.rs",
+          "signature": "fn _nc_first_db(a0: *mut ::core::ffi::c_uint, a1: *mut ::core::ffi::c_int);"
+        },
+        "_nc_first_name": {
+          "copies": 6,
+          "provider": "src/ncurses/tinfo/comp_parse.rs",
+          "signature": "fn _nc_first_name(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "_nc_getenv_num": {
+          "copies": 2,
+          "provider": "src/ncurses/base/lib_newterm.rs",
+          "signature": "fn _nc_getenv_num(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "_nc_home_terminfo": {
+          "copies": 3,
+          "provider": "src/ncurses/tinfo/db_iterator.rs",
+          "signature": "fn _nc_home_terminfo() -> *mut ::core::ffi::c_char;"
+        },
+        "_nc_infotocap": {
+          "copies": 2,
+          "provider": "src/progs/dump_entry.rs",
+          "signature": "fn _nc_infotocap(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        },
+        "_nc_name_match": {
+          "copies": 5,
+          "provider": "src/ncurses/tinfo/comp_parse.rs",
+          "signature": "fn _nc_name_match(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "_nc_next_db": {
+          "copies": 3,
+          "provider": "src/ncurses/tinfo/read_entry.rs",
+          "signature": "fn _nc_next_db(a0: *mut ::core::ffi::c_uint, a1: *mut ::core::ffi::c_int) -> *const ::core::ffi::c_char;"
+        },
+        "_nc_pathlast": {
+          "copies": 2,
+          "provider": "src/ncurses/tinfo/read_entry.rs",
+          "signature": "fn _nc_pathlast(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_uint;"
+        },
+        "_nc_rootname": {
+          "copies": 7,
+          "provider": "src/progs/clear.rs",
+          "signature": "fn _nc_rootname(a0: *mut ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "_nc_set_source": {
+          "copies": 4,
+          "provider": "src/ncurses/tinfo/read_entry.rs",
+          "signature": "fn _nc_set_source(a0: *const ::core::ffi::c_char);"
+        },
+        "_nc_set_type": {
+          "copies": 5,
+          "provider": "src/ncurses/tinfo/comp_parse.rs",
+          "signature": "fn _nc_set_type(a0: *const ::core::ffi::c_char);"
+        },
+        "_nc_setupterm": {
+          "copies": 3,
+          "provider": "src/ncurses/base/lib_newterm.rs",
+          "signature": "fn _nc_setupterm(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, a2: *mut ::core::ffi::c_int, a3: ::core::ffi::c_int) -> ::core::ffi::c_int;"
+        },
+        "_nc_tic_dir": {
+          "copies": 2,
+          "provider": "src/ncurses/tinfo/write_entry.rs",
+          "signature": "fn _nc_tic_dir(a0: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char;"
+        },
+        "_nc_visbuf": {
+          "copies": 2,
+          "provider": "src/ncurses/tinfo/parse_entry.rs",
+          "signature": "fn _nc_visbuf(a0: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char;"
+        },
+        "access": {
+          "copies": 2,
+          "provider": "src/ncurses/tinfo/access.rs",
+          "signature": "fn access(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> ::core::ffi::c_int;"
+        },
+        "calloc": {
+          "copies": 32,
+          "provider": "src/form/fld_def.rs",
+          "signature": "fn calloc(a0: usize, a1: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "chdir": {
+          "copies": 2,
+          "provider": "src/ncurses/tinfo/write_entry.rs",
+          "signature": "fn chdir(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "curses_version": {
+          "copies": 8,
+          "provider": "src/ncurses/base/lib_screen.rs",
+          "signature": "fn curses_version() -> *const ::core::ffi::c_char;"
+        },
+        "free": {
+          "copies": 56,
+          "provider": "src/form/fld_def.rs",
+          "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+        },
+        "getenv": {
+          "copies": 14,
+          "provider": "src/ncurses/base/lib_initscr.rs",
+          "signature": "fn getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "getopt": {
+          "copies": 6,
+          "provider": "src/progs/clear.rs",
+          "signature": "fn getopt(a0: ::core::ffi::c_int, a1: *const *mut ::core::ffi::c_char, a2: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "malloc": {
+          "copies": 39,
+          "provider": "src/form/fld_def.rs",
+          "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "mblen": {
+          "copies": 2,
+          "provider": "src/form/frm_driver.rs",
+          "signature": "fn mblen(a0: *const ::core::ffi::c_char, a1: usize) -> ::core::ffi::c_int;"
+        },
+        "memcmp": {
+          "copies": 12,
+          "provider": "src/form/frm_driver.rs",
+          "signature": "fn memcmp(a0: *const ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> ::core::ffi::c_int;"
+        },
+        "memcpy": {
+          "copies": 17,
+          "provider": "src/form/fld_dup.rs",
+          "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "memset": {
+          "copies": 42,
+          "provider": "src/form/frm_driver.rs",
+          "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "perror": {
+          "copies": 6,
+          "provider": "src/progs/dump_entry.rs",
+          "signature": "fn perror(a0: *const ::core::ffi::c_char);"
+        },
+        "puts": {
+          "copies": 7,
+          "provider": "src/progs/clear.rs",
+          "signature": "fn puts(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "read": {
+          "copies": 2,
+          "provider": "src/ncurses/base/lib_getch.rs",
+          "signature": "fn read(a0: ::core::ffi::c_int, a1: *mut ::core::ffi::c_void, a2: usize) -> isize;"
+        },
+        "realloc": {
+          "copies": 3,
+          "provider": "src/ncurses/base/lib_screen.rs",
+          "signature": "fn realloc(a0: *mut ::core::ffi::c_void, a1: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "remove": {
+          "copies": 2,
+          "provider": "src/ncurses/tinfo/write_entry.rs",
+          "signature": "fn remove(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "set_window_size": {
+          "copies": 2,
+          "provider": "src/progs/tput.rs",
+          "signature": "fn set_window_size(a0: ::core::ffi::c_int, a1: *mut ::core::ffi::c_int, a2: *mut ::core::ffi::c_int);"
+        },
+        "setupterm": {
+          "copies": 4,
+          "provider": "src/progs/clear.rs",
+          "signature": "fn setupterm(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, a2: *mut ::core::ffi::c_int) -> ::core::ffi::c_int;"
+        },
+        "strcat": {
+          "copies": 6,
+          "provider": "src/ncurses/tinfo/comp_scan.rs",
+          "signature": "fn strcat(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "strchr": {
+          "copies": 15,
+          "provider": "src/ncurses/base/lib_screen.rs",
+          "signature": "fn strchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        },
+        "strcmp": {
+          "copies": 30,
+          "provider": "src/form/frm_req_name.rs",
+          "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "strcpy": {
+          "copies": 20,
+          "provider": "src/ncurses/base/lib_screen.rs",
+          "signature": "fn strcpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "strdup": {
+          "copies": 18,
+          "provider": "src/form/fty_enum.rs",
+          "signature": "fn strdup(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "strerror": {
+          "copies": 6,
+          "provider": "src/ncurses/tinfo/write_entry.rs",
+          "signature": "fn strerror(a0: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        },
+        "strlen": {
+          "copies": 43,
+          "provider": "src/form/frm_driver.rs",
+          "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+        },
+        "strncat": {
+          "copies": 2,
+          "provider": "src/ncurses/tinfo/comp_error.rs",
+          "signature": "fn strncat(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> *mut ::core::ffi::c_char;"
+        },
+        "strncmp": {
+          "copies": 16,
+          "provider": "src/ncurses/base/lib_mouse.rs",
+          "signature": "fn strncmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> ::core::ffi::c_int;"
+        },
+        "strncpy": {
+          "copies": 5,
+          "provider": "src/ncurses/tinfo/comp_parse.rs",
+          "signature": "fn strncpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> *mut ::core::ffi::c_char;"
+        },
+        "strrchr": {
+          "copies": 2,
+          "provider": "src/ncurses/tinfo/access.rs",
+          "signature": "fn strrchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        },
+        "strstr": {
+          "copies": 6,
+          "provider": "src/ncurses/base/lib_mouse.rs",
+          "signature": "fn strstr(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "strtol": {
+          "copies": 10,
+          "provider": "src/form/fty_int.rs",
+          "signature": "fn strtol(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_long;"
+        },
+        "tigetflag": {
+          "copies": 4,
+          "provider": "src/ncurses/base/lib_color.rs",
+          "signature": "fn tigetflag(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "tigetnum": {
+          "copies": 4,
+          "provider": "src/ncurses/base/lib_color.rs",
+          "signature": "fn tigetnum(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "tigetstr": {
+          "copies": 6,
+          "provider": "src/ncurses/base/lib_color.rs",
+          "signature": "fn tigetstr(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "tparm_type": {
+          "copies": 2,
+          "provider": "src/progs/tic.rs",
+          "signature": "fn tparm_type(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "unctrl": {
+          "copies": 2,
+          "provider": "src/ncurses/tinfo/captoinfo.rs",
+          "signature": "fn unctrl(a0: ::core::ffi::c_uint) -> *const ::core::ffi::c_char;"
+        },
+        "write": {
+          "copies": 2,
+          "provider": "src/ncurses/tinfo/lib_print.rs",
+          "signature": "fn write(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_void, a2: usize) -> isize;"
+        }
+      },
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+    }
+  }
+}

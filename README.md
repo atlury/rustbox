@@ -2616,7 +2616,7 @@ python3 -B scripts/collect_closed_inlines.py "$link" ranking.json manifest.json 
 python3 -B scripts/extend_pointer_selection.py "$link" recount --unused-c-types manifest.json --replace-weaker
 ```
 
-Replaying the current compiler inputs identified 9,191 possible further raw-pointer type removals across 25 archives after accounting for existing scalar declarations and later layouts. Ten E2fsprogs rebuilds account for 5,859 of those. For ncurses, 1,367 shared declaration occurrences would replace a layout that already saves 500, giving a potential net reduction of 867. These are source projections pending archive verification. [Per-archive arithmetic](evidence/dsfield-scalar-upgrade-projection.json)
+Replaying the current compiler inputs identified 9,191 possible further raw-pointer type removals across 25 archives after accounting for existing scalar declarations and later layouts. Ten E2fsprogs rebuilds account for 5,859 of those. For ncurses, 1,367 shared declaration occurrences would replace a layout that already saves 500, giving a potential net reduction of 867. These are source projections pending archive verification. [Per-archive arithmetic](evidence/dsfield-scalar-upgrade-projection.json) · [Verified compiler count of 700,553](evidence/dsfield-cross-package-scalar-upgrades.json)
 
 Compiling owned device groups and routing tables together removed 538 raw-pointer type occurrences in ip. Each combined archive matched both canonical C compilers on both lookup suites and passed 12 Memcheck runs. These archives await a complete multicall relink. [Joint ip archive tests](evidence/iproute2-joint-owned-group-table-ip.json)
 
