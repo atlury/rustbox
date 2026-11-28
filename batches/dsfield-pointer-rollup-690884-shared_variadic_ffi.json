@@ -1,0 +1,270 @@
+{
+  "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-01-stable/target/release/libutil_linux_small_01_normalized_reachable.a": {
+    "parent_receipts": {
+      "native_c_strings": {
+        "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-01-stable/target/release/libutil_linux_small_01_normalized_reachable.a",
+        "c_string_literals": 308,
+        "candidate_sha256": "f523bf614d565fa4233a02bb4e1db702d807dce56fa3329fc5f1979ed1d79544",
+        "candidate_sources_sha256": "1feb568c2cc9c637e24a68fbebac17bf7cb5f2f82215ff2a3ad137090f277005",
+        "compiler_selected_sources": 12,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "f523bf614d565fa4233a02bb4e1db702d807dce56fa3329fc5f1979ed1d79544",
+        "modules": {
+          "src/misc_utils/exch.rs": 22,
+          "src/misc_utils/fadvise.rs": 45,
+          "src/misc_utils/mcookie.rs": 38,
+          "src/sys_utils/choom.rs": 43,
+          "src/sys_utils/ctrlaltdel.rs": 29,
+          "src/sys_utils/setpgid.rs": 31,
+          "src/sys_utils/setsid.rs": 33,
+          "src/text_utils/colrm.rs": 21,
+          "src/text_utils/line.rs": 19,
+          "src/text_utils/rev.rs": 27
+        },
+        "parent_sources_sha256": "f43b940b4f48cf21923530893877ab6ad68d2f0324d4d5878167a784836c5339",
+        "raw_ffi_pointer_extractions": 308,
+        "raw_pointer_types_removed": 616,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_scalar_ffi": {
+        "all_scalar_interfaces": true,
+        "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-01-stable/target/release/libutil_linux_small_01_normalized_reachable.a",
+        "candidate_sha256": "f523bf614d565fa4233a02bb4e1db702d807dce56fa3329fc5f1979ed1d79544",
+        "candidate_sources_sha256": "2caf06b13f6520b30bae67973b52d4bf77b9e05d7f3d27f6fee673c4cb7a84b6",
+        "compiler_selected_sources": 12,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "f523bf614d565fa4233a02bb4e1db702d807dce56fa3329fc5f1979ed1d79544",
+        "parent_sources_sha256": "1feb568c2cc9c637e24a68fbebac17bf7cb5f2f82215ff2a3ad137090f277005",
+        "raw_pointer_types_removed": 106,
+        "scalar_ffi": {
+          "__errno_location": {
+            "copies": 8,
+            "provider": "src/misc_utils/mcookie.rs",
+            "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+          },
+          "bindtextdomain": {
+            "copies": 10,
+            "provider": "src/misc_utils/exch.rs",
+            "signature": "fn bindtextdomain(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "dcgettext": {
+            "copies": 10,
+            "provider": "src/misc_utils/exch.rs",
+            "signature": "fn dcgettext(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "execvp": {
+            "copies": 3,
+            "provider": "src/sys_utils/choom.rs",
+            "signature": "fn execvp(a0: *const ::core::ffi::c_char, a1: *const *mut ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "free": {
+            "copies": 2,
+            "provider": "src/misc_utils/mcookie.rs",
+            "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+          },
+          "setlocale": {
+            "copies": 10,
+            "provider": "src/misc_utils/exch.rs",
+            "signature": "fn setlocale(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strcmp": {
+            "copies": 2,
+            "provider": "src/misc_utils/fadvise.rs",
+            "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "textdomain": {
+            "copies": 10,
+            "provider": "src/misc_utils/exch.rs",
+            "signature": "fn textdomain(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          }
+        },
+        "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+      },
+      "shared_stdio_layouts": {
+        "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-01-stable/target/release/libutil_linux_small_01_normalized_reachable.a",
+        "candidate_sha256": "f523bf614d565fa4233a02bb4e1db702d807dce56fa3329fc5f1979ed1d79544",
+        "candidate_sources_sha256": "f43b940b4f48cf21923530893877ab6ad68d2f0324d4d5878167a784836c5339",
+        "compiler_selected_sources": 12,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "f523bf614d565fa4233a02bb4e1db702d807dce56fa3329fc5f1979ed1d79544",
+        "parent_sources_sha256": "98902a5fad1aab15e5655a05540d6ecdb4c8c2bce5fb1d402274e481d400c051",
+        "provider": "src/misc_utils/exch.rs",
+        "raw_pointer_types_removed": 162,
+        "reexporting_modules": [
+          "src/misc_utils/fadvise.rs",
+          "src/misc_utils/mcookie.rs",
+          "src/sys_utils/choom.rs",
+          "src/sys_utils/ctrlaltdel.rs",
+          "src/sys_utils/setpgid.rs",
+          "src/sys_utils/setsid.rs",
+          "src/text_utils/colrm.rs",
+          "src/text_utils/line.rs",
+          "src/text_utils/rev.rs"
+        ]
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-01-stable/target/release/libutil_linux_small_01_normalized_reachable.a",
+      "candidate_sha256": "f523bf614d565fa4233a02bb4e1db702d807dce56fa3329fc5f1979ed1d79544",
+      "candidate_sources_sha256": "4f733566e5065c2ec6996099a3f440d8f42851c1a774628680fa9ce832966c5a",
+      "compiler_selected_sources": 12,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "f523bf614d565fa4233a02bb4e1db702d807dce56fa3329fc5f1979ed1d79544",
+      "parent_sources_sha256": "2caf06b13f6520b30bae67973b52d4bf77b9e05d7f3d27f6fee673c4cb7a84b6",
+      "raw_pointer_types_removed": 28,
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd",
+      "variadic_ffi": {
+        "open": {
+          "copies": 3,
+          "provider": "src/misc_utils/fadvise.rs",
+          "signature": "fn open(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;"
+        },
+        "printf": {
+          "copies": 10,
+          "provider": "src/misc_utils/exch.rs",
+          "signature": "fn printf(a0: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "warn": {
+          "copies": 9,
+          "provider": "src/misc_utils/exch.rs",
+          "signature": "fn warn(a0: *const ::core::ffi::c_char, ...);"
+        },
+        "warnx": {
+          "copies": 10,
+          "provider": "src/misc_utils/exch.rs",
+          "signature": "fn warnx(a0: *const ::core::ffi::c_char, ...);"
+        }
+      },
+      "variadic_scanner_sha256": "b2bbe52ef1c1130dd7c661d86f9f55ec8e38f47a12d3bf0be91cebc2ba2e8858"
+    }
+  },
+  "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-02-stable/target/release/libutil_linux_small_02_normalized_reachable.a": {
+    "parent_receipts": {
+      "native_c_strings": {
+        "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-02-stable/target/release/libutil_linux_small_02_normalized_reachable.a",
+        "c_string_literals": 295,
+        "candidate_sha256": "d5d22a655383d623cf90a69b6a8009106c0a65b22946499a4711d0bbdc7580d6",
+        "candidate_sources_sha256": "5cbb737388cea80eb19f1309db4ccb73cdac743bc29709465a003fb2825b34f1",
+        "compiler_selected_sources": 12,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "d5d22a655383d623cf90a69b6a8009106c0a65b22946499a4711d0bbdc7580d6",
+        "modules": {
+          "src/disk_utils/addpart.rs": 24,
+          "src/disk_utils/delpart.rs": 22,
+          "src/disk_utils/isosize.rs": 37,
+          "src/disk_utils/mkfs.rs": 35,
+          "src/disk_utils/resizepart.rs": 28,
+          "src/login_utils/nologin.rs": 27,
+          "src/misc_utils/findfs.rs": 22,
+          "src/sys_utils/fsfreeze.rs": 41,
+          "src/sys_utils/pivot_root.rs": 22,
+          "src/term_utils/mesg.rs": 37
+        },
+        "parent_sources_sha256": "9046d3192aa29d0f6a6fc10b0c28472ed2b340792eca08f759b7046fd8a39d80",
+        "raw_ffi_pointer_extractions": 295,
+        "raw_pointer_types_removed": 590,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_scalar_ffi": {
+        "all_scalar_interfaces": true,
+        "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-02-stable/target/release/libutil_linux_small_02_normalized_reachable.a",
+        "candidate_sha256": "d5d22a655383d623cf90a69b6a8009106c0a65b22946499a4711d0bbdc7580d6",
+        "candidate_sources_sha256": "a14a60007379b3ba91bafd3a378326b5a05366a3a5e9d6f014c5fe8b1aadcffb",
+        "compiler_selected_sources": 12,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "d5d22a655383d623cf90a69b6a8009106c0a65b22946499a4711d0bbdc7580d6",
+        "parent_sources_sha256": "5cbb737388cea80eb19f1309db4ccb73cdac743bc29709465a003fb2825b34f1",
+        "raw_pointer_types_removed": 97,
+        "scalar_ffi": {
+          "__errno_location": {
+            "copies": 7,
+            "provider": "src/disk_utils/isosize.rs",
+            "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+          },
+          "bindtextdomain": {
+            "copies": 10,
+            "provider": "src/disk_utils/addpart.rs",
+            "signature": "fn bindtextdomain(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "dcgettext": {
+            "copies": 10,
+            "provider": "src/disk_utils/addpart.rs",
+            "signature": "fn dcgettext(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "puts": {
+            "copies": 2,
+            "provider": "src/misc_utils/findfs.rs",
+            "signature": "fn puts(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "setlocale": {
+            "copies": 10,
+            "provider": "src/disk_utils/addpart.rs",
+            "signature": "fn setlocale(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "textdomain": {
+            "copies": 10,
+            "provider": "src/disk_utils/addpart.rs",
+            "signature": "fn textdomain(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          }
+        },
+        "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+      },
+      "shared_stdio_layouts": {
+        "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-02-stable/target/release/libutil_linux_small_02_normalized_reachable.a",
+        "candidate_sha256": "d5d22a655383d623cf90a69b6a8009106c0a65b22946499a4711d0bbdc7580d6",
+        "candidate_sources_sha256": "9046d3192aa29d0f6a6fc10b0c28472ed2b340792eca08f759b7046fd8a39d80",
+        "compiler_selected_sources": 12,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "d5d22a655383d623cf90a69b6a8009106c0a65b22946499a4711d0bbdc7580d6",
+        "parent_sources_sha256": "393c3c46ca742f36cc0bcb3363f6188ffff49f2f39063a90cf8eaa02f39fb26e",
+        "provider": "src/disk_utils/addpart.rs",
+        "raw_pointer_types_removed": 162,
+        "reexporting_modules": [
+          "src/disk_utils/delpart.rs",
+          "src/disk_utils/isosize.rs",
+          "src/disk_utils/mkfs.rs",
+          "src/disk_utils/resizepart.rs",
+          "src/login_utils/nologin.rs",
+          "src/misc_utils/findfs.rs",
+          "src/sys_utils/fsfreeze.rs",
+          "src/sys_utils/pivot_root.rs",
+          "src/term_utils/mesg.rs"
+        ]
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-02-stable/target/release/libutil_linux_small_02_normalized_reachable.a",
+      "candidate_sha256": "d5d22a655383d623cf90a69b6a8009106c0a65b22946499a4711d0bbdc7580d6",
+      "candidate_sources_sha256": "cf9cefc135095506b39309d1002d6348f4774a463328a64d497d9a28e1f32759",
+      "compiler_selected_sources": 12,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "d5d22a655383d623cf90a69b6a8009106c0a65b22946499a4711d0bbdc7580d6",
+      "parent_sources_sha256": "a14a60007379b3ba91bafd3a378326b5a05366a3a5e9d6f014c5fe8b1aadcffb",
+      "raw_pointer_types_removed": 29,
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd",
+      "variadic_ffi": {
+        "open": {
+          "copies": 7,
+          "provider": "src/disk_utils/addpart.rs",
+          "signature": "fn open(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;"
+        },
+        "printf": {
+          "copies": 10,
+          "provider": "src/disk_utils/addpart.rs",
+          "signature": "fn printf(a0: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "warn": {
+          "copies": 7,
+          "provider": "src/disk_utils/isosize.rs",
+          "signature": "fn warn(a0: *const ::core::ffi::c_char, ...);"
+        },
+        "warnx": {
+          "copies": 9,
+          "provider": "src/disk_utils/addpart.rs",
+          "signature": "fn warnx(a0: *const ::core::ffi::c_char, ...);"
+        }
+      },
+      "variadic_scanner_sha256": "b2bbe52ef1c1130dd7c661d86f9f55ec8e38f47a12d3bf0be91cebc2ba2e8858"
+    }
+  }
+}
