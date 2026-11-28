@@ -1,0 +1,107 @@
+{
+  "archives_considered": 103,
+  "archives_selected": 103,
+  "binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+  "contributing_evidence": {
+    "evidence/dsfield-e2fs-declarations-optimized.json": "ab21717016c75543210d6744911a097544e36875ef2d9639691124d8082e1930",
+    "evidence/dsfield-ip-tc-refreshed-variadic.json": "cbffa9c399ddb480a935331acc9676c71ed527dbcbd81275e6adf52760543f19"
+  },
+  "counts": {
+    "all": {
+      "after": 694470,
+      "before": 731249
+    },
+    "counting_identical_files_once": {
+      "after": 599064,
+      "before": 538162
+    }
+  },
+  "extra_archive_sweep": {
+    "counts": {
+      "all": {
+        "after": 727714,
+        "before": 731249
+      },
+      "counting_identical_files_once": {
+        "after": 547851,
+        "before": 538162
+      }
+    },
+    "deferred": {},
+    "manifest_sha256": "3ac1d43b6de831373a7ead43fafebf54ebb9ea5a3cd0fcfe4c37d7894230d6a6",
+    "parent_link_sha256": "2c302a987ef27fb7fa69a9514f63c306ea687ce61284430162b7e221835106af",
+    "rebuilt_identical": 6,
+    "reused": 0
+  },
+  "inputs": {
+    "batches/dsfield-cross-package-scalar-upgrades.json": "3ac1d43b6de831373a7ead43fafebf54ebb9ea5a3cd0fcfe4c37d7894230d6a6",
+    "batches/dsfield-ip-tc-refreshed-variadic.json": "68c4a56ea40f30e786f82530ba164b2222fadc845cb097e41414be1e388fb10f",
+    "work/analysis/dsfield-e2fs-declarations-optimized/shared_leaf_layouts.json": "ef0308d972e41197ba1efd22c99bd2127d83a2836e788013747ed41baab5a3cd",
+    "work/analysis/dsfield-e2fs-declarations-optimized/shared_scalar_ffi.json": "f32094070ca060915c68261d5d66e750717f795e7fd7f0b2c2613bba4876ca9a",
+    "work/analysis/dsfield-e2fs-declarations-optimized/shared_variadic_ffi.json": "4396e19b60fb2e18abffc7dddae4b54f6c52c30b296cf7e180b4078ade4b2bba",
+    "work/analysis/dsfield-extra-scalar-upgrades/shared_leaf_layouts.json": "eb0fca8f9ba22027303bbeb343a372d60b01f3cd671be172b76c567da6a2073e",
+    "work/analysis/dsfield-extra-scalar-upgrades/shared_scalar_ffi.json": "c00c28e84b05fbc3ba24508b30ae895243c8538fd0f525f51c0399abb9a89938",
+    "work/analysis/dsfield-extra-scalar-upgrades/shared_variadic_ffi.json": "4396e19b60fb2e18abffc7dddae4b54f6c52c30b296cf7e180b4078ade4b2bba"
+  },
+  "layers": {
+    "shared_leaf_layouts": {
+      "binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "candidate_link_sha256": "476338b28c5b7f179f04ebafebfab2c7d6574f156605856707ae5b009e044253",
+      "counts": {
+        "all": {
+          "after": 694470,
+          "before": 695034
+        },
+        "counting_identical_files_once": {
+          "after": 599064,
+          "before": 599628
+        }
+      },
+      "deferred": {},
+      "manifest_sha256": "e742ce8815f992540ac9fd5b6a169cfb72a9cc68d5cf83a9f2d6429798eac2fd",
+      "parent_link_sha256": "d5e99521a2cda733c63c020f140e03e959ff83cce4cca3fb2830a42a15953d9e",
+      "selected": 3
+    },
+    "shared_scalar_ffi": {
+      "binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "candidate_link_sha256": "bbb8e32110a659d0d9cd3c53acc7b48bdd0e34275417ceee1f91901bd90c9518",
+      "counts": {
+        "all": {
+          "after": 695680,
+          "before": 731249
+        },
+        "counting_identical_files_once": {
+          "after": 600227,
+          "before": 538162
+        }
+      },
+      "deferred": {},
+      "manifest_sha256": "fd8756676ad9e2a5273c4051f535de894e51027bd1d6bc26ad11015013ef0a78",
+      "parent_link_sha256": "2c302a987ef27fb7fa69a9514f63c306ea687ce61284430162b7e221835106af",
+      "selected": 102
+    },
+    "shared_variadic_ffi": {
+      "binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "candidate_link_sha256": "d5e99521a2cda733c63c020f140e03e959ff83cce4cca3fb2830a42a15953d9e",
+      "counts": {
+        "all": {
+          "after": 695034,
+          "before": 695680
+        },
+        "counting_identical_files_once": {
+          "after": 599628,
+          "before": 600227
+        }
+      },
+      "deferred": {},
+      "manifest_sha256": "403778d9e3c94f0bf46ac137de41a20d227bacb4cccd35a359a7068b200c0cc3",
+      "parent_link_sha256": "bbb8e32110a659d0d9cd3c53acc7b48bdd0e34275417ceee1f91901bd90c9518",
+      "selected": 7
+    }
+  },
+  "link_sha256": "2c302a987ef27fb7fa69a9514f63c306ea687ce61284430162b7e221835106af",
+  "parent_census_sha256": "cad6c7548719218578ea65e1426eb01d7366ab263619bd1e269aa632fca05e6b",
+  "public_evidence_sha256": "6599c4ec031ad9207a57a8b15c86be77b07e206ece2f3ce0597fa84c72d57fe5",
+  "raw_pointer_types_removed": 36779,
+  "source_projection_sha256": "eac5bade4f8a2bdbab25e267a37e26bec696d94ab360287aba8345433e075e26"
+}
