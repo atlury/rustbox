@@ -2579,6 +2579,8 @@ Adding the byte-identical Gawk archive removed 85 more duplicate raw-pointer typ
 
 <a id="combined-pointer-checkpoints"></a>
 
+The combined curl, Gawk, grep, Diffutils and ACL build removes 1,838 raw-pointer type occurrences, bringing its compiler census from 691,945 to **690,107**. All 304 command comparisons passed against the canonical GCC and Clang builds. The two stripped executables matched outside the GNU build ID. [Link, tests and counts](evidence/five-package-unused-types-multicall.json) · [Compiler selection](batches/five-package-unused-types.json)
+
 <!-- current-foreign-pass -->The compiler-confirmed foreign-declaration pass removed 30 unused declarations containing **60 raw-pointer type occurrences** across 1 byte-identical archive rebuild. Its complete compiler census is **691,584**, against the 691,644 baseline. [Executable and counts](evidence/current-foreign-declarations-691584.json) · [Compiler inputs and declaration ranges](batches/current-foreign-declarations-691584.json). The ranked Cargo sweep can be resumed with `python3 scripts/batch_current_foreign_declarations.py RELEASE OUTPUT_DIR`.<!-- /current-foreign-pass -->
 
 The private foreign-declaration pass can check leading-underscore names that rustc ordinarily omits from its dead-code diagnostics. It temporarily renames single-use candidate identifiers without moving their byte offsets, asks rustc and the Rust syntax parser which private declarations are unused, then restores the original files before applying the selected ranges. Run `python3 tests/current-foreign-declarations.py` for the compiler regression and `python3 scripts/build_current_foreign_declarations.py --help` for the Linux archive build and replay.

@@ -39,19 +39,23 @@ PACKAGES = {
 }
 
 
-def plan(link, pilots, *, identical_foreign=False):
+def plan(link, pilots, *, identical_foreign=False, extra_foreign=()):
     raw = link.read_bytes()
     release = json.loads(raw)
     rows, sources = {}, {}
-    for directory in pilots:
+    foreign_keys = set()
+    directories = [(d, identical_foreign) for d in pilots] + [(d, True) for d in extra_foreign]
+    for directory, foreign in directories:
         row = json.loads((directory / "pilot.json").read_bytes())
         key = row["archive"]
-        if (key in rows or (not identical_foreign and Path(key).parts[2] not in PACKAGES)
+        if (key in rows or (not foreign and Path(key).parts[2] not in PACKAGES)
                 or release["source_library_sha256"].get(key) != row["control_sha256"]
                 or digest(directory / Path(key).name) != row["candidate_sha256"]
-                or (row["candidate_sha256"] == row["control_sha256"]) != identical_foreign
+                or (row["candidate_sha256"] == row["control_sha256"]) != foreign
                 or row["raw_pointer_types_removed"] <= 0):
             raise ValueError(f"unexpected cold archive for {key}")
+        if foreign:
+            foreign_keys.add(key)
         rows[key] = dict(directory=directory.resolve().relative_to(ROOT).as_posix(), pilot=row)
         sources[key] = {}
 
@@ -82,18 +86,16 @@ def plan(link, pilots, *, identical_foreign=False):
         before = totals()
         if any(before[k] != audit[k]["raw_pointer_type_tokens"] for k in before):
             raise ValueError("source enumeration differs from the control census")
-        if identical_foreign:
-            from build_current_foreign_declarations import replay_compiler_layer
-            apply = replay_compiler_layer
-        else:
-            scanner = syntax_tool("unused-c-types")
-            def apply(modules, read, row):
-                return replay_layer(modules, read, row, scanner)
+        from build_current_foreign_declarations import replay_compiler_layer
+        scanner = syntax_tool("unused-c-types") if set(rows) != foreign_keys else None
         for key, modules in sources.items():
             def read(module):
                 return (store / modules[module]).read_bytes()
             row = rows[key]["pilot"]
-            changes = apply(modules, read, row)
+            if key in foreign_keys:
+                changes = replay_compiler_layer(modules, read, row)
+            else:
+                changes = replay_layer(modules, read, row, scanner)
             removed = 0
             for module, data in changes.items():
                 old, new = modules[module], sha256(data).hexdigest()
