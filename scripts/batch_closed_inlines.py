@@ -46,7 +46,7 @@ def ranked_inputs(inventory, scalar_ffi):
     return ordered, ffi_source, "build_scalar_ffi.py", b"ValueError: no repeated eligible libc interfaces in this crate"
 
 
-def run(link, ranking, output, packages, jobs, exclude=(), scalar_ffi=False, *, narrow_sweep=None):
+def run(link, ranking, output, packages, jobs, exclude=(), scalar_ffi=False, *, narrow_sweep=None, max_compiler_sources=None):
     inventory = json.loads(ranking.read_bytes())
     candidates, source, script, empty_diagnostic = ranked_inputs(inventory, scalar_ffi)
     parent = json.loads(link.read_bytes())
@@ -56,6 +56,11 @@ def run(link, ranking, output, packages, jobs, exclude=(), scalar_ffi=False, *, 
         raise ValueError("ranking does not match the selected release and scanner")
     selected = {key: row for key, row in candidates.items()
                 if (not packages or Path(key).parts[2] in packages) and Path(key).parts[2] not in exclude}
+    if max_compiler_sources is not None:
+        if scalar_ffi != "unused-types" or max_compiler_sources < 1:
+            raise ValueError("a positive compiler-source limit requires the unused-type ranking")
+        selected = {key: row for key, row in selected.items()
+                    if inventory["archives"][key]["compiler_selected_sources"] <= max_compiler_sources}
     if not selected or set(packages) - {Path(key).parts[2] for key in selected}:
         raise ValueError("unknown or empty package selection")
     maximum = {}
@@ -122,6 +127,8 @@ def run(link, ranking, output, packages, jobs, exclude=(), scalar_ffi=False, *, 
 
     result = dict(link_sha256=signature, binary_sha256=inventory["binary_sha256"], ranking_sha256=digest(ranking),
                   selected=len(selected), identical={}, changed={}, empty={}, errors={})
+    if max_compiler_sources is not None:
+        result["max_compiler_sources"] = max_compiler_sources
     if narrow_sweep is not None:
         result["at_maximum"] = {}
     # Serialize supervisors sharing an output directory. Individual pilots survive interruptions.
@@ -169,8 +176,10 @@ if __name__ == "__main__":
     scope.add_argument("--all-scalar-ffi", action="store_const", const="all", dest="scalar_ffi")
     scope.add_argument("--scalar-ffi", action="store_true", help="use the scalar ABI ranking and cold-build driver")
     parser.add_argument("--narrow-sweep", type=Path, help="skip previous verified builds already at the ranked maximum")
+    parser.add_argument("--max-compiler-sources", type=int, help="limit each unused-type trial to this many compiled source files")
     parser.add_argument("--jobs", type=int, default=2)
     args = parser.parse_args()
     if args.jobs < 1:
         parser.error("--jobs must be positive")
-    sys.exit(0 if run(args.link, args.ranking, args.output, args.package, args.jobs, args.exclude_package, args.scalar_ffi, narrow_sweep=args.narrow_sweep) else 1)
+    sys.exit(0 if run(args.link, args.ranking, args.output, args.package, args.jobs, args.exclude_package, args.scalar_ffi, narrow_sweep=args.narrow_sweep,
+                      max_compiler_sources=args.max_compiler_sources) else 1)

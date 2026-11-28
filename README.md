@@ -2573,7 +2573,7 @@ The next combined compiler selection removed 689 more raw-pointer occurrences an
 
 Kmod rebuilt after removing unused declarations containing 919 raw-pointer types. The complete candidate executable passed 100 comparisons across all seven Kmod names, using both invocation modes and both canonical C compilers. The stripped executables matched byte-for-byte across all 24,975,248 bytes except the 20 bytes of the GNU build ID. [Whole-file comparison](evidence/kmod-unused-c-types-build-id.json) · [Comparison script](scripts/compare_stripped_build_ids.py) The test used the c0e71f2883d5 multicall as its control. The 919 remain separate from the combined compiler count. [Kmod link and command comparisons](evidence/kmod-unused-c-types-multicall.json) · [Reproduce the link](scripts/preview_kmod_unused_types.py)
 
-To reproduce the unused-type sweep, set `link` to the release JSON used for the ranking. Each accepted archive must reproduce the parent archive bytes and the hashes of the compiler inputs. The final command recounts the combined selection and records its executable hash.
+To reproduce the unused-type sweep, set `link` to the release JSON used for the ranking. Each accepted archive must reproduce the parent archive bytes and the hashes of the compiler inputs. The final command recounts the combined selection and records its executable hash. To prioritize smaller crates, add `--package e2fsprogs-1.47.4 --max-compiler-sources 12` to the batch command and omit `--complete` when collecting a subset.
 
 ```sh
 python3 -B scripts/rank_unused_c_types.py "$link" > ranking.json
@@ -2583,6 +2583,8 @@ python3 -B scripts/extend_pointer_selection.py "$link" recount --unused-c-types 
 ```
 
 Replaying the current compiler inputs identified 9,191 possible further raw-pointer type removals across 25 archives after accounting for existing scalar declarations and later layouts. Ten E2fsprogs rebuilds account for 5,859 of those. For ncurses, 1,367 shared declaration occurrences would replace a layout that already saves 500, giving a potential net reduction of 867. These are source projections pending archive verification. [Per-archive arithmetic](evidence/dsfield-scalar-upgrade-projection.json)
+
+The seven E2fsprogs archives built from at most 12 source files all matched their controls after unused-type removal. They cover 187 raw-pointer occurrences across chattr, e4crypt, filefrag, fsck, logsave, lsattr and mklost+found. The 698,699 selection already included filefrag’s 51. Adding the other six removed 136 and brought that compiler count to **698,563**. [Seven archive checks](evidence/e2fsprogs-small-unused-c-types.json) · [Whole-build count](evidence/dsfield-seven-small-e2fs.json)
 
 Compiling owned device groups and routing tables together removed 538 raw-pointer type occurrences in dpll. Each combined archive matched both canonical C compilers on both lookup suites and passed 12 Memcheck runs. These archives await a complete multicall relink. [Joint dpll archive tests](evidence/iproute2-joint-owned-group-table-dpll.json) · [Reproduce the ranking](scripts/preview_scalar_ffi_upgrades.py)
 
