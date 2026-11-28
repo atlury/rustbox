@@ -1910,6 +1910,8 @@ The ip archive with both owned name tables passed 31,035 device-group and 21,776
 
 On the 703,346-occurrence compiler selection, the device-group source rewrite still removes 267 occurrences in each of the 18 engines. Twelve source sets match the earlier DS-field inputs exactly. The six changed sets are arpd, bridge, dcb, devlink, ip and tc. This 4,806-occurrence projection awaits a combined executable census. [Per-engine source hashes](evidence/iproute2-group-names-fixed-parent-sources.json)
 
+On those optimized inputs, arpd reproduced both archive hashes from its earlier 52,811 lookup comparisons and nine Memcheck runs. A fresh compiler-source replay confirms that the 267-occurrence group rewrite coexists with the scalar FFI cleanup. [arpd archive comparison](evidence/iproute2-arpd-group-names-fixed-parent.json)
+
 A 499-name multicall containing all 18 rebuilt DS field engines matched both canonical compilers on
 288 IPRoute2 command comparisons and 144 DS field filter comparisons in four
 configuration profiles. Its stripped size was 24,983,632 bytes.
