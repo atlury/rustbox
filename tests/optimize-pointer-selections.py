@@ -57,6 +57,26 @@ class Chains(unittest.TestCase):
         with self.assertRaises(ValueError):
             additions(parent, scalar, {self.key: changed})
 
+    def test_replace_only_a_strictly_better_compatible_chain(self):
+        from extend_pointer_selection import improvements
+        scalar, variadic, leaf = ORDER[-3:]
+        layout = self.choice(11)
+        parent = dict(self.parent, **{leaf: {self.key: layout["pilot"]}})
+        first = self.choice(7)
+        for secondary_score, expected_gain in [(4, False), (5, True)]:
+            second = self.choice(secondary_score, {scalar: first["pilot"]})
+            proposals = {scalar: {self.key: first}, variadic: {self.key: second}}
+            removed, added, deferred = improvements(parent, proposals)
+            if expected_gain:
+                self.assertEqual((removed, added, deferred), ({leaf: {self.key: layout}}, proposals, {}))
+            else:
+                self.assertFalse(removed or added)
+                self.assertEqual(set(deferred), {scalar, variadic})
+        stale = self.choice(70, {"native_c_strings": first["pilot"]})
+        removed, added, deferred = improvements(parent, {scalar: {self.key: stale}})
+        self.assertFalse(removed or added)
+        self.assertIn(self.key, deferred[scalar])
+
     def test_keep_existing_terminal_layout(self):
         parent = dict(self.parent, shared_ncurses_termtypes={self.key: "terminal"})
         self.assertEqual(best_chain(parent, self.key, {ORDER[0]:[self.choice(1)]}), (0, {}))

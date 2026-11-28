@@ -1,0 +1,389 @@
+{
+  "work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-core-stable/target/release/libgawk_5_4_0_core.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libgawk_5_4_0_core.foreign-24a57cccedcbca48097dfbe74117a618477545f36bb2ea1c974fa94993cfa331.json",
+        "sha256": "24a57cccedcbca48097dfbe74117a618477545f36bb2ea1c974fa94993cfa331"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libgawk_5_4_0_core.inlines-85eb380a655f3251198a38697ca70b749284a9e179094d74eac473d8298be1bf.json",
+        "sha256": "817cd7a9dee281faf6484ddb60b45be2f3d7eccc93c52f25fccdce81daafcf5d"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libgawk_5_4_0_core.layer2-0c04f14ae2374f1b416c6e4974c651ae6147e1bc03b956d05a968837b25cd953.json",
+        "sha256": "0c04f14ae2374f1b416c6e4974c651ae6147e1bc03b956d05a968837b25cd953"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-core-stable/target/release/libgawk_5_4_0_core.a",
+        "c_string_literals": 5005,
+        "candidate_sha256": "ca02f86dbb647f04f50d507ac7a4ee9f08267af7cd3e54a50dec67564e83eac4",
+        "candidate_sources_sha256": "fcea3fbb7c1fe1a69edeaab141b535e95248a23a580f3e89324d0678167bdc51",
+        "compiler_selected_sources": 39,
+        "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+        "control_sha256": "ca02f86dbb647f04f50d507ac7a4ee9f08267af7cd3e54a50dec67564e83eac4",
+        "modules": {
+          "src/array.rs": 156,
+          "src/awkgram.rs": 468,
+          "src/builtin.rs": 467,
+          "src/cint_array.rs": 102,
+          "src/command.rs": 237,
+          "src/debug.rs": 631,
+          "src/dfa.rs": 49,
+          "src/eval.rs": 709,
+          "src/ext.rs": 65,
+          "src/field.rs": 153,
+          "src/gawkapi.rs": 113,
+          "src/gawkmisc.rs": 13,
+          "src/getopt.rs": 16,
+          "src/int_array.rs": 60,
+          "src/io.rs": 379,
+          "src/localeinfo.rs": 1,
+          "src/main.rs": 260,
+          "src/minrx.rs": 100,
+          "src/mpfr.rs": 119,
+          "src/msg.rs": 20,
+          "src/node.rs": 117,
+          "src/printf.rs": 210,
+          "src/profile.rs": 271,
+          "src/random.rs": 4,
+          "src/re.rs": 121,
+          "src/regex.rs": 20,
+          "src/str_array.rs": 47,
+          "src/symbol.rs": 97
+        },
+        "parent_sources_sha256": "c8c49273d740659a9437f39348c7816411700a7c71b71114841cc3861972a1c2",
+        "raw_ffi_pointer_extractions": 5005,
+        "raw_pointer_types_removed": 10010,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_scalar_ffi": {
+        "all_scalar_interfaces": true,
+        "archive": "work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-core-stable/target/release/libgawk_5_4_0_core.a",
+        "candidate_sha256": "ca02f86dbb647f04f50d507ac7a4ee9f08267af7cd3e54a50dec67564e83eac4",
+        "candidate_sources_sha256": "c3ae0824cbcae9d47cc6c8afd9086588fad949b7909315d4c2b89473e3a48213",
+        "compiler_selected_sources": 39,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "ca02f86dbb647f04f50d507ac7a4ee9f08267af7cd3e54a50dec67564e83eac4",
+        "parent_sources_sha256": "fcea3fbb7c1fe1a69edeaab141b535e95248a23a580f3e89324d0678167bdc51",
+        "raw_pointer_types_removed": 775,
+        "scalar_ffi": {
+          "__ctype_b_loc": {
+            "copies": 16,
+            "provider": "src/array.rs",
+            "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+          },
+          "__ctype_tolower_loc": {
+            "copies": 27,
+            "provider": "src/array.rs",
+            "signature": "fn __ctype_tolower_loc() -> *mut *const i32;"
+          },
+          "__ctype_toupper_loc": {
+            "copies": 27,
+            "provider": "src/array.rs",
+            "signature": "fn __ctype_toupper_loc() -> *mut *const i32;"
+          },
+          "__errno_location": {
+            "copies": 28,
+            "provider": "src/array.rs",
+            "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+          },
+          "add_history": {
+            "copies": 2,
+            "provider": "src/command.rs",
+            "signature": "fn add_history(a0: *const ::core::ffi::c_char);"
+          },
+          "bindtextdomain": {
+            "copies": 2,
+            "provider": "src/builtin.rs",
+            "signature": "fn bindtextdomain(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "check_args_min_max": {
+            "copies": 2,
+            "provider": "src/field.rs",
+            "signature": "fn check_args_min_max(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int, a3: ::core::ffi::c_int);"
+          },
+          "check_special": {
+            "copies": 2,
+            "provider": "src/ext.rs",
+            "signature": "fn check_special(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "dcgettext": {
+            "copies": 25,
+            "provider": "src/array.rs",
+            "signature": "fn dcgettext(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "estrdup": {
+            "copies": 14,
+            "provider": "src/awkgram.rs",
+            "signature": "fn estrdup(a0: *const ::core::ffi::c_char, a1: usize) -> *mut ::core::ffi::c_char;"
+          },
+          "flags2str": {
+            "copies": 8,
+            "provider": "src/array.rs",
+            "signature": "fn flags2str(a0: ::core::ffi::c_int) -> *const ::core::ffi::c_char;"
+          },
+          "getenv": {
+            "copies": 10,
+            "provider": "src/awkgram.rs",
+            "signature": "fn getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "getenv_long": {
+            "copies": 5,
+            "provider": "src/cint_array.rs",
+            "signature": "fn getenv_long(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_long;"
+          },
+          "load_ext": {
+            "copies": 2,
+            "provider": "src/awkgram.rs",
+            "signature": "fn load_ext(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char);"
+          },
+          "memchr": {
+            "copies": 2,
+            "provider": "src/minrx.rs",
+            "signature": "fn memchr(a0: *const ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memcmp": {
+            "copies": 9,
+            "provider": "src/array.rs",
+            "signature": "fn memcmp(a0: *const ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "memcpy": {
+            "copies": 20,
+            "provider": "src/array.rs",
+            "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memmove": {
+            "copies": 4,
+            "provider": "src/awkgram.rs",
+            "signature": "fn memmove(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memset": {
+            "copies": 24,
+            "provider": "src/array.rs",
+            "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "more_blocks": {
+            "copies": 13,
+            "provider": "src/array.rs",
+            "signature": "fn more_blocks(a0: ::core::ffi::c_int) -> *mut ::core::ffi::c_void;"
+          },
+          "nl_langinfo": {
+            "copies": 2,
+            "provider": "src/minrx.rs",
+            "signature": "fn nl_langinfo(a0: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "nondec2awknum": {
+            "copies": 2,
+            "provider": "src/awkgram.rs",
+            "signature": "fn nondec2awknum(a0: *mut ::core::ffi::c_char, a1: usize, a2: *mut *mut ::core::ffi::c_char) -> ::core::ffi::c_double;"
+          },
+          "os_devopen": {
+            "copies": 2,
+            "provider": "src/debug.rs",
+            "signature": "fn os_devopen(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> ::core::ffi::c_int;"
+          },
+          "pma_calloc": {
+            "copies": 16,
+            "provider": "src/awkgram.rs",
+            "signature": "fn pma_calloc(a0: usize, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "pma_free": {
+            "copies": 24,
+            "provider": "src/array.rs",
+            "signature": "fn pma_free(a0: *mut ::core::ffi::c_void);"
+          },
+          "pma_malloc": {
+            "copies": 27,
+            "provider": "src/array.rs",
+            "signature": "fn pma_malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "pma_realloc": {
+            "copies": 22,
+            "provider": "src/array.rs",
+            "signature": "fn pma_realloc(a0: *mut ::core::ffi::c_void, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "read": {
+            "copies": 3,
+            "provider": "src/awkgram.rs",
+            "signature": "fn read(a0: ::core::ffi::c_int, a1: *mut ::core::ffi::c_void, a2: usize) -> isize;"
+          },
+          "set_loc": {
+            "copies": 21,
+            "provider": "src/array.rs",
+            "signature": "fn set_loc(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int);"
+          },
+          "setenv": {
+            "copies": 3,
+            "provider": "src/debug.rs",
+            "signature": "fn setenv(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_int;"
+          },
+          "setlocale": {
+            "copies": 3,
+            "provider": "src/main.rs",
+            "signature": "fn setlocale(a0: ::core::ffi::c_int, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strcasecmp": {
+            "copies": 4,
+            "provider": "src/awkgram.rs",
+            "signature": "fn strcasecmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strcat": {
+            "copies": 3,
+            "provider": "src/awkgram.rs",
+            "signature": "fn strcat(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strchr": {
+            "copies": 16,
+            "provider": "src/awkgram.rs",
+            "signature": "fn strchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strcmp": {
+            "copies": 18,
+            "provider": "src/array.rs",
+            "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strcoll": {
+            "copies": 2,
+            "provider": "src/eval.rs",
+            "signature": "fn strcoll(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strcpy": {
+            "copies": 9,
+            "provider": "src/array.rs",
+            "signature": "fn strcpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strerror": {
+            "copies": 22,
+            "provider": "src/array.rs",
+            "signature": "fn strerror(a0: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strlen": {
+            "copies": 23,
+            "provider": "src/array.rs",
+            "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+          },
+          "strncasecmpmbs": {
+            "copies": 2,
+            "provider": "src/array.rs",
+            "signature": "fn strncasecmpmbs(a0: *const ::core::ffi::c_uchar, a1: *const ::core::ffi::c_uchar, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "strncmp": {
+            "copies": 10,
+            "provider": "src/awkgram.rs",
+            "signature": "fn strncmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "strrchr": {
+            "copies": 2,
+            "provider": "src/debug.rs",
+            "signature": "fn strrchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strtod": {
+            "copies": 4,
+            "provider": "src/awkgram.rs",
+            "signature": "fn strtod(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char) -> ::core::ffi::c_double;"
+          },
+          "strtol": {
+            "copies": 4,
+            "provider": "src/command.rs",
+            "signature": "fn strtol(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_long;"
+          },
+          "strtoul": {
+            "copies": 3,
+            "provider": "src/debug.rs",
+            "signature": "fn strtoul(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_ulong;"
+          },
+          "unsetenv": {
+            "copies": 3,
+            "provider": "src/debug.rs",
+            "signature": "fn unsetenv(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "update_ERRNO_string": {
+            "copies": 2,
+            "provider": "src/gawkapi.rs",
+            "signature": "fn update_ERRNO_string(a0: *const ::core::ffi::c_char);"
+          },
+          "update_PROCINFO_num": {
+            "copies": 2,
+            "provider": "src/eval.rs",
+            "signature": "fn update_PROCINFO_num(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_double);"
+          },
+          "wctype": {
+            "copies": 2,
+            "provider": "src/minrx.rs",
+            "signature": "fn wctype(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_ulong;"
+          }
+        },
+        "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/gawk-5.4.0/translations/c2rust-0.22.1/gawk-5.4.0-core-stable/target/release/libgawk_5_4_0_core.a",
+      "candidate_sha256": "ca02f86dbb647f04f50d507ac7a4ee9f08267af7cd3e54a50dec67564e83eac4",
+      "candidate_sources_sha256": "c7d4f44e86e9ede74492608bbd562721cb5d397bf8f05e6d39d709e0b60069f6",
+      "compiler_selected_sources": 39,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "ca02f86dbb647f04f50d507ac7a4ee9f08267af7cd3e54a50dec67564e83eac4",
+      "parent_sources_sha256": "c3ae0824cbcae9d47cc6c8afd9086588fad949b7909315d4c2b89473e3a48213",
+      "raw_pointer_types_removed": 85,
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd",
+      "variadic_ffi": {
+        "error": {
+          "copies": 3,
+          "provider": "src/awkgram.rs",
+          "signature": "fn error(a0: *const ::core::ffi::c_char, ...);"
+        },
+        "execl": {
+          "copies": 2,
+          "provider": "src/builtin.rs",
+          "signature": "fn execl(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "mpg_fmt": {
+          "copies": 3,
+          "provider": "src/array.rs",
+          "signature": "fn mpg_fmt(a0: *const ::core::ffi::c_char, ...) -> *const ::core::ffi::c_char;"
+        },
+        "msg": {
+          "copies": 3,
+          "provider": "src/awkgram.rs",
+          "signature": "fn msg(a0: *const ::core::ffi::c_char, ...);"
+        },
+        "open": {
+          "copies": 2,
+          "provider": "src/debug.rs",
+          "signature": "fn open(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;"
+        },
+        "printf": {
+          "copies": 4,
+          "provider": "src/awkgram.rs",
+          "signature": "fn printf(a0: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "r_fatal": {
+          "copies": 21,
+          "provider": "src/array.rs",
+          "signature": "fn r_fatal(a0: *const ::core::ffi::c_char, ...);"
+        },
+        "r_warning": {
+          "copies": 14,
+          "provider": "src/awkgram.rs",
+          "signature": "fn r_warning(a0: *const ::core::ffi::c_char, ...);"
+        },
+        "snprintf": {
+          "copies": 4,
+          "provider": "src/debug.rs",
+          "signature": "fn snprintf(a0: *mut ::core::ffi::c_char, a1: usize, a2: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "sprintf": {
+          "copies": 16,
+          "provider": "src/array.rs",
+          "signature": "fn sprintf(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "sscanf": {
+          "copies": 2,
+          "provider": "src/builtin.rs",
+          "signature": "fn sscanf(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        }
+      },
+      "variadic_scanner_sha256": "b2bbe52ef1c1130dd7c661d86f9f55ec8e38f47a12d3bf0be91cebc2ba2e8858"
+    }
+  }
+}

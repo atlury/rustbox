@@ -2557,6 +2557,8 @@ The netshaper declaration cleanup and badblocks layout cleanup removed another 9
 
 The cold declaration builds for badblocks, tune2fs, netshaper matched the original archives. Recounting those compiler inputs gave **701,126** raw-pointer type occurrences on the tested executable. [Combined declaration census](evidence/dsfield-initial-e2fs-netshaper.json)
 
+Adding the byte-identical Gawk archive removed 85 more duplicate raw-pointer types in variadic declarations, bringing the verified compiler count to **701,041**. The incremental selector can now replace a weaker set of declarations or layouts on the same archive. It checks the gain against the whole build and charges back the previous reduction. On badblocks, the 534 declaration occurrences displaced a layout that already saved 25. Use `scripts/extend_pointer_selection.py --replace-weaker` to reproduce that selection. [Combined Gawk and E2fsprogs recount](evidence/dsfield-gawk-e2fs-merged.json)
+
 Replaying the current compiler inputs identified 9,191 possible further raw-pointer type removals across 25 archives after accounting for existing scalar declarations and later layouts. Ten E2fsprogs rebuilds account for 5,859 of those. For ncurses, 1,367 shared declaration occurrences would replace a layout that already saves 500, giving a potential net reduction of 867. These are source projections pending archive verification. [Per-archive arithmetic](evidence/dsfield-scalar-upgrade-projection.json) · [Reproduce the ranking](scripts/preview_scalar_ffi_upgrades.py)
 
 On the mid-sweep source selection, the compatible declaration and layout changes left **702,950** raw-pointer type occurrences. Earlier compiler layers stayed fixed. [Optimized census](evidence/dsfield-optimized-mid-sweep.json)
