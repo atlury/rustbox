@@ -1872,6 +1872,8 @@ The saved DS field executable and its `ip` and `ss` archives passed 63,908 canon
 
 The device-group lookup pilot replaces mutable hash chains with owned Rust names in 256 indexed buckets. Across five Linux configurations it matched 31,035 canonical lookup results from GCC and Clang and passed five Memcheck runs. The tests check collision order, local and vendor fallback, signed numeric conversion, retained names and malformed-file diagnostics. Replaying the source edit on all 18 routing engines found 267 fewer raw-pointer occurrences per engine (4,806 total). Applying the DS field and group edits in either order produced identical module bytes. The two group functions retain their C ABI pointers and the loader calls the canonical parser. [Canonical lookup tests](evidence/iproute2-group-names-standalone.json) · [Per-engine source projection](evidence/iproute2-group-names-routing-sources.json)
 
+The complete cold-built ip archive reproduced its control before the rewrite. Its candidate then matched all 31,035 canonical ABI results, five Memcheck runs and 50 read-only ip link group filters. [Translated ip archive](evidence/iproute2-group-names-pilot.json)
+
 The direct-rustc bridge engine reproduced its original archive from all 24 compiler inputs. Its owned group lookup passed 31,035 canonical ABI cases and five Memcheck runs. [Direct bridge comparison](evidence/iproute2-group-names-bridge.json)
 
 A 499-name multicall containing all 18 rebuilt DS field engines matched both canonical compilers on
