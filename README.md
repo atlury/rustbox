@@ -2158,6 +2158,8 @@ E2fsprogs’ portable 32-bit and 64-bit set, clear and test operations use the p
 
 Run `python3 -B scripts/test_e2fsprogs_bitmap_bits.py` for the standalone comparison with GCC and Clang E2fsprogs. All 393,260 calls agreed, including every possible input byte, unchanged neighboring bytes, read-only bitmap tests and bit indices crossing 2³². The Rust helper passed Memcheck. To check an archive, add `--link LINK --pilot PILOT`. The batch command is `python3 -B scripts/qualify_e2fsprogs_bitmap_bits.py LINK INVENTORY OUTPUT`. [Standalone bitmap results](evidence/e2fsprogs-bitmap-bits-standalone.json)
 
+The cold-built `e2fsck` control and candidate passed all 393,260 bitmap calls against both C compilers. The candidate passed Memcheck. All four programs agreed on stdout, stderr and the unchanged ext4 image after `e2fsck -fn`. [E2fsck engine evidence](evidence/e2fsck-bitmap-bits-engine.json)
+
 E2fsprogs uses one shared bitmap counter in `compat/e2fsprogs/bitcount.rs`.
 The algorithm counts set bits in safe eight-byte chunks and then in the
 remaining bytes. Its unsigned 32-bit result wraps as in upstream C. The
