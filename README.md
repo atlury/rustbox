@@ -524,6 +524,8 @@ the ranking.
 
 Use `scripts/build_leaf_layout_pilot.py --link LINK --ranking RANKING --archive ARCHIVE --layouts NAME ... --output PILOT` to test several repeated layouts in one Cargo archive. Add `--replay` to verify the saved result independently. The replay parses each struct with Syn, resolves its field types in its own module, checks the exact source ranges, and reconstructs the compiler-input hashes. Compare the complete candidate and control archive hashes before counting a byte-identical reduction. Run `python3 -B tests/leaf-layout-selection.py` to check alias and attribute handling.
 
+On x86-64 Linux, GCC, Clang and Rust agreed on the sizes and alignments of five public curl 8.23.0 records and on the offsets and widths of all 40 fields. Clang's header parse also matched the Rust field names and order. The checks cover `curl_slist`, `curl_header`, `curl_blob`, `curl_tlssessioninfo`, and `curl_version_info_data`. [Canonical ABI measurements](evidence/curl-public-layout-abi.json)
+
 Run `python3 -B scripts/batch_leaf_layouts.py LINK RANKING OUTPUT` for a resumable Cargo sweep. It builds the highest-ranked archives first, replays their source edits, and saves each result in `OUTPUT/results.json`. The total includes only archives that reproduce the control bytes. The report also lists archives built by direct rustc, ambiguous layouts, changed archives and failed checks. Use `--exclude-layout` or `--exclude-package` to leave groups under separate verification out of the run.
 
 For the System V tag, the complete E2fsprogs `e4defrag` archive remained

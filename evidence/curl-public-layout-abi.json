@@ -1,0 +1,220 @@
+{
+  "compilers": [
+    "gcc",
+    "clang-18",
+    "rustc 1.99.0"
+  ],
+  "link_sha256": "b4fc241f4b720e5cb6212da394c5d021c06285d36645f8412dc04f2261bb5e0b",
+  "public_headers": {
+    "curl.h": "ad8989a81e79b407355e14d673410d51420bfec48287f4b890d0b211d9235ec3",
+    "curlver.h": "fed299993c517a6a1785f44b19893d4ae65061a7d7b5ca43036b35bf998065b4",
+    "easy.h": "f101da02dd373151ea7b00082cb62c9d6e482361ab26b6d430ee96aab1b71565",
+    "header.h": "e92525a91bb1119034dd45dd42d255ff9b6a49d964ca7105964e0107671b3395",
+    "mprintf.h": "a79657fa15db71e732bcb58bc4645ab65bdb3222767f34be5bab56aa0d4f4cc9",
+    "multi.h": "621048debd536e82084cefa22d0cf8444c02991b7ade28d5e1884dbadcbe0189",
+    "options.h": "32fe87f843367d25a9db91a47386652402f08c9668617b4c51295ef31d93f8b0",
+    "stdcheaders.h": "d7588b86814a35ffc3766ff6242e6f6705e04401fc9c208a195caff3503af81c",
+    "system.h": "edb2c507a084448a5e3c7e2b9c65c408e22ffeaca5ab0c1ee2e76d82a21113fa",
+    "typecheck-gcc.h": "62bf346ae4dc33bc61cd99a9e935c62dfbcd8120399cdbd5874d15897a57e681",
+    "urlapi.h": "d888326d5bdebb84b5fe133d7ef7703d4e88732757ce4d6b0476f0c668d38a6e",
+    "websockets.h": "05b70dbce5274aa6e360703bb17d67a0390fea18bf4437745a25b08b55d6962b"
+  },
+  "ranking_sha256": "e445616b2df5d5fa549ce9e9081b882233068ee0e20d776006d0c172521ab971",
+  "records": {
+    "curl_blob": {
+      "alignment": 8,
+      "fields": {
+        "data": {
+          "bytes": 8,
+          "offset": 0
+        },
+        "flags": {
+          "bytes": 4,
+          "offset": 16
+        },
+        "len": {
+          "bytes": 8,
+          "offset": 8
+        }
+      },
+      "fingerprint": "6d12edec669ed0bf3683a9552a2b268f10bb19da6f8f322a40503d0cdfe0a33c",
+      "size": 24
+    },
+    "curl_header": {
+      "alignment": 8,
+      "fields": {
+        "amount": {
+          "bytes": 8,
+          "offset": 16
+        },
+        "anchor": {
+          "bytes": 8,
+          "offset": 40
+        },
+        "index": {
+          "bytes": 8,
+          "offset": 24
+        },
+        "name": {
+          "bytes": 8,
+          "offset": 0
+        },
+        "origin": {
+          "bytes": 4,
+          "offset": 32
+        },
+        "value": {
+          "bytes": 8,
+          "offset": 8
+        }
+      },
+      "fingerprint": "064a997bd40e4f9ae1f2430b87d0c5ac4f8a25944eb9695c6421d68d15fb300d",
+      "size": 48
+    },
+    "curl_slist": {
+      "alignment": 8,
+      "fields": {
+        "data": {
+          "bytes": 8,
+          "offset": 0
+        },
+        "next": {
+          "bytes": 8,
+          "offset": 8
+        }
+      },
+      "fingerprint": "954a1798a1325b4a960ba46b64f3aeee688420227f829151e2c2f9e315ceb08f",
+      "size": 16
+    },
+    "curl_tlssessioninfo": {
+      "alignment": 8,
+      "fields": {
+        "backend": {
+          "bytes": 4,
+          "offset": 0
+        },
+        "internals": {
+          "bytes": 8,
+          "offset": 8
+        }
+      },
+      "fingerprint": "9b1c8bb6d59ca87c644b47022056b0e8e60354734a2fbb5056c6789521bf3626",
+      "size": 16
+    },
+    "curl_version_info_data": {
+      "alignment": 8,
+      "fields": {
+        "age": {
+          "bytes": 4,
+          "offset": 0
+        },
+        "ares": {
+          "bytes": 8,
+          "offset": 72
+        },
+        "ares_num": {
+          "bytes": 4,
+          "offset": 80
+        },
+        "brotli_ver_num": {
+          "bytes": 4,
+          "offset": 112
+        },
+        "brotli_version": {
+          "bytes": 8,
+          "offset": 120
+        },
+        "cainfo": {
+          "bytes": 8,
+          "offset": 152
+        },
+        "capath": {
+          "bytes": 8,
+          "offset": 160
+        },
+        "feature_names": {
+          "bytes": 8,
+          "offset": 200
+        },
+        "features": {
+          "bytes": 4,
+          "offset": 32
+        },
+        "gsasl_version": {
+          "bytes": 8,
+          "offset": 192
+        },
+        "host": {
+          "bytes": 8,
+          "offset": 24
+        },
+        "hyper_version": {
+          "bytes": 8,
+          "offset": 184
+        },
+        "iconv_ver_num": {
+          "bytes": 4,
+          "offset": 96
+        },
+        "libidn": {
+          "bytes": 8,
+          "offset": 88
+        },
+        "libssh_version": {
+          "bytes": 8,
+          "offset": 104
+        },
+        "libz_version": {
+          "bytes": 8,
+          "offset": 56
+        },
+        "nghttp2_ver_num": {
+          "bytes": 4,
+          "offset": 128
+        },
+        "nghttp2_version": {
+          "bytes": 8,
+          "offset": 136
+        },
+        "protocols": {
+          "bytes": 8,
+          "offset": 64
+        },
+        "quic_version": {
+          "bytes": 8,
+          "offset": 144
+        },
+        "rtmp_version": {
+          "bytes": 8,
+          "offset": 208
+        },
+        "ssl_version": {
+          "bytes": 8,
+          "offset": 40
+        },
+        "ssl_version_num": {
+          "bytes": 8,
+          "offset": 48
+        },
+        "version": {
+          "bytes": 8,
+          "offset": 8
+        },
+        "version_num": {
+          "bytes": 4,
+          "offset": 16
+        },
+        "zstd_ver_num": {
+          "bytes": 4,
+          "offset": 168
+        },
+        "zstd_version": {
+          "bytes": 8,
+          "offset": 176
+        }
+      },
+      "fingerprint": "78aef843695945807f56515cbb99ea40499eb3273292744f0aead316963a4e10",
+      "size": 216
+    }
+  }
+}
