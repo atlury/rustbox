@@ -14,7 +14,7 @@ from tempfile import TemporaryDirectory
 from audit_linked_pointers import measure
 from build_unused_c_types import replay_layer
 from check_cargo_private_inlines import ROOT, digest
-from link_rustbox_multicall import (namespace_acl_library, namespace_findutils_inputs, namespace_grep_library,
+from link_rustbox_multicall import (coalesce_identical_archive_members, namespace_acl_library, namespace_findutils_inputs, namespace_grep_library,
                                    namespace_kmod_library, namespace_ncurses_library, namespace_shadow_library,
                                    namespace_tar_inputs)
 from preview_cargo_multicall import preview_link, qualified_inputs
@@ -42,6 +42,21 @@ def findutils_inputs(path, residues, release, stage):
     return archive, objects
 
 
+def shadow_inputs(path, residues, release, stage):
+    # The production link coalesces Shadow's shared runtime against the original
+    # Procps staticlib before namespace isolation. Verify the same members here.
+    inputs = release["source_library_sha256"]
+    provider, = (name for name in inputs if Path(name).name == "libprocps_ng_4_0_7_normalized_audit.a")
+    if residues or digest(ROOT / provider) != inputs[provider]:
+        raise ValueError("Shadow runtime provider differs from the control")
+    archive, members, _ = coalesce_identical_archive_members(ROOT / provider, path,
+        stage / "src/.rustbox-shadow-runtime", "Shadow/Procps pinned Rust runtime")
+    mapped, symbols = namespace_shadow_library(archive, stage)
+    if members != release["shadow_coalesced_runtime_members"] or symbols != release["shadow_namespaced_symbols"]:
+        raise ValueError("Shadow runtime or private symbols differ from the control")
+    return mapped, []
+
+
 def tar_inputs(path, residues, release, stage):
     archive, objects, symbols, imports = namespace_tar_inputs(path, residues, release["acl_namespaced_symbols"], stage)
     if symbols != release["tar_namespaced_symbols"] or imports != release["tar_acl_imports"]:
@@ -58,7 +73,7 @@ PACKAGES = {
     "grep-3.12": simple_namespace("grep", namespace_grep_library),
     "kmod-34.3": simple_namespace("kmod", namespace_kmod_library),
     "ncurses-6.6": simple_namespace("ncurses", namespace_ncurses_library),
-    "shadow-4.20.4": simple_namespace("shadow", namespace_shadow_library),
+    "shadow-4.20.4": shadow_inputs,
     "tar-1.35": tar_inputs,
 }
 
