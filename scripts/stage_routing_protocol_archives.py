@@ -86,6 +86,36 @@ def parent_view(link):
     return previous
 
 
+def install_qualified(link, sources, row, dest, excluded, binary_sha, build):
+    key = row["archive"]
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    if not dest.exists():
+        with TemporaryDirectory(dir=dest.parent) as tmp:
+            scratch = Path(tmp)
+            if sources is None:
+                directory = scratch / "built"
+                build(link, directory, key)
+            else:
+                directory = sources / Path(key).stem
+            compiled = json.loads((directory / "pilot.json").read_bytes())
+            wanted = {k: v for k, v in row.items() if k not in excluded}
+            # The parent executable may also contain newer, unrelated engines.
+            # Match every compiler input and both complete archive digests.
+            permitted = {binary_sha, wanted["control_binary_sha256"]}
+            if compiled["control_binary_sha256"] not in permitted:
+                raise ValueError(f"unexpected compiler receipt for {key}")
+            wanted["control_binary_sha256"] = compiled["control_binary_sha256"]
+            if compiled != wanted:
+                raise ValueError(f"staged compiler receipt differs for {key}")
+            artifact = scratch / dest.name
+            shutil.copyfile(directory / dest.name, artifact)
+            if digest(artifact) != row["candidate_sha256"]:
+                raise ValueError(f"changed routing archive: {artifact}")
+            artifact.replace(dest)
+    if digest(dest) != row["candidate_sha256"]:
+        raise ValueError(f"invalid content-addressed routing archive: {dest}")
+
+
 def prepare(link, sources=None):
     from rank_routing_protocols import rank
     qualification = EVIDENCE.read_bytes()
@@ -102,32 +132,7 @@ def prepare(link, sources=None):
                 or any(row[k] != v for k, v in inventory.items() if k != "control_archive_sha256")):
             raise ValueError(f"compiler sources or parent archive changed: {key}")
         dest = ROOT / candidate_path(row)
-        dest.parent.mkdir(parents=True, exist_ok=True)
-        if not dest.exists():
-            with TemporaryDirectory(dir=dest.parent) as tmp:
-                scratch = Path(tmp)
-                if sources is None:
-                    directory = scratch / "built"
-                    build(link, directory, key)
-                else:
-                    directory = sources / Path(key).stem
-                compiled = json.loads((directory / "pilot.json").read_bytes())
-                wanted = {k: v for k, v in row.items() if k not in QUALIFICATION}
-                # The parent executable may also contain newer, unrelated engines.
-                # Match every compiler input and both complete archive digests.
-                permitted = {ranking["binary_sha256"], wanted["control_binary_sha256"]}
-                if compiled["control_binary_sha256"] not in permitted:
-                    raise ValueError(f"unexpected compiler receipt for {key}")
-                wanted["control_binary_sha256"] = compiled["control_binary_sha256"]
-                if compiled != wanted:
-                    raise ValueError(f"staged compiler receipt differs for {key}")
-                artifact = scratch / dest.name
-                shutil.copyfile(directory / dest.name, artifact)
-                if digest(artifact) != row["candidate_sha256"]:
-                    raise ValueError(f"changed routing archive: {artifact}")
-                artifact.replace(dest)
-        if digest(dest) != row["candidate_sha256"]:
-            raise ValueError(f"invalid content-addressed routing archive: {dest}")
+        install_qualified(link, sources, row, dest, QUALIFICATION, ranking["binary_sha256"], build)
         installed[key] = str(dest.relative_to(ROOT))
     if digest(link) != ranking["link_report_sha256"] or EVIDENCE.read_bytes() != qualification:
         raise ValueError("selected multicall source or qualification changed during preparation")

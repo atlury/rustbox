@@ -1854,6 +1854,8 @@ filters. Together the archives remove 4,770 raw-pointer type occurrences.
 
 The LZ4 release candidate has the same 18 IPRoute2 engine archives and the same compiler inputs for the tested DS field replacements. Replaying each source edit reproduced the candidate source hashes and the reduction of 4,770 pointer types. To check reuse on another release, run `scripts/rank_routing_protocols.py --dsfield LINK` and pass its JSON output to `scripts/preview_routing_protocols.py --dsfield --source-replay RANKING`. The preview verifies the original archive comparisons and repeats the public commands on the newly linked executable. [Per-engine source replay](evidence/iproute2-dsfield-lz4-source-replay.json)
 
+The optional multicall selection stages the verified archives by digest. On the LZ4 parent the full compiler-input recount fell from 747,291 to 742,521. Run `scripts/stage_dsfield_archives.py LINK --built ARCHIVE_BATCH` to reuse the cold builds. Run `scripts/audit_linked_pointers.py CANDIDATE_LINK --verify-dsfield-from PARENT_LINK` to check the complete source delta. [Staging and inventory](evidence/iproute2-dsfield-release-staging.json)
+
 A 499-name multicall containing all 18 rebuilt DS field engines matched both canonical compilers on
 288 IPRoute2 command comparisons and 144 DS field filter comparisons in four
 configuration profiles. Its stripped size was 24,983,632 bytes.

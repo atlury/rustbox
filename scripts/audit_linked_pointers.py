@@ -19,6 +19,7 @@ from tar_timespec_archive import selection as tar_timestamps
 from bison_length_archive import selection as bison_lengths
 from lz4_dictionary_archive import selection as lz4_dictionary
 import stage_routing_protocol_archives as routing_protocols
+import stage_dsfield_archives as dsfield_names
 from build_tar_timespec_pilot import MODULE as TIMESTAMP_MODULE, replace_timestamps
 import share_stdio_layout
 import verify_c_string_sources as native_strings
@@ -91,6 +92,9 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
     dictionary_record = link.get(lz4_dictionary.field, {}).get("pilot")
     dictionary_deltas = {}
     link = lz4_dictionary.parent_view(link)
+    dsfield_records = link.get(dsfield_names.FIELD, {})
+    dsfield_deltas = {}
+    link = dsfield_names.parent_view(link)
     routing_records = link.get(routing_protocols.FIELD, {})
     routing_deltas = {}
     link = routing_protocols.parent_view(link)
@@ -158,7 +162,9 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
         timestamp_records = for_key(timestamp_records)
         if original != bison_lengths.key:
             length_record = None
-        routing_records = {k: r for k, r in routing_records.items() if str(routing_protocols.candidate_path(r)) == selected_path}
+        dsfield_records = {k: r for k, r in dsfield_records.items() if str(dsfield_names.candidate_path(r)) == selected_path}
+        after_routing = next(iter(dsfield_records), selected_path)
+        routing_records = {k: r for k, r in routing_records.items() if str(routing_protocols.candidate_path(r)) == after_routing}
         if original != lz4_dictionary.key:
             dictionary_record = None
         before_table = lz4_dictionary.key if dictionary_record else next(iter(routing_records), selected_path)
@@ -326,19 +332,28 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
         literal = literal_records.get(str(linked_path))
         routing = routing_records.get(str(linked_path))
         dictionary = dictionary_record if name == lz4_dictionary.key else None
-        table = routing or dictionary
+        tables = []
         final_path = linked_path
         if routing:
+            from build_routing_protocol_pilot import transform as replace_routing
             final_path = routing_protocols.candidate_path(routing)
+            tables.append((routing, final_path, replace_routing, routing_deltas))
+            dsfield = dsfield_records.get(str(final_path))
+            if dsfield:
+                from build_dsfield_names import transform as replace_dsfield
+                final_path = dsfield_names.candidate_path(dsfield)
+                tables.append((dsfield, final_path, replace_dsfield, dsfield_deltas))
         elif dictionary:
+            from build_lz4_dictionary_pilot import transform as replace_dictionary
             final_path = lz4_dictionary.candidate_path(dictionary)
+            tables.append((dictionary, final_path, replace_dictionary, dictionary_deltas))
         if archive_pair and str(final_path) != selected_path:
             raise ValueError("Cargo origin does not yield the requested linked archive")
         va = va_records.get(str(final_path))
         term = term_records.get(str(final_path))
         closed = closed_records.get(str(final_path))
         scalar = scalar_records.get(str(final_path))
-        if any(record is not None for record in (literal, table, va, term, closed, scalar)):
+        if tables or any(record is not None for record in (literal, va, term, closed, scalar)):
             modules = [str(path.relative_to(crate)) for path in files]
             parent = {module: hashlib.sha256(read_parent(module)).hexdigest() for module in modules}
         if literal is not None:
@@ -350,17 +365,11 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
             changed = native_strings.replay(parent, read_parent, literal, literal_tool)
             replacements.update({crate / module: data for module, data in changed.items()})
             literal_deltas[str(linked_path)] = literal["c_string_literals"]
-        if literal is not None and any(record is not None for record in (table, va, term, closed, scalar)):
+        if literal is not None and (tables or any(record is not None for record in (va, term, closed, scalar))):
             parent.update({module: hashlib.sha256(data).hexdigest() for module, data in changed.items()})
-        if table is not None:
-            if routing:
-                from build_routing_protocol_pilot import transform as replace_table
-                deltas = routing_deltas
-            else:
-                from build_lz4_dictionary_pilot import transform as replace_table
-                deltas = dictionary_deltas
-            if hashlib.sha256((ROOT / final_path).read_bytes()).hexdigest() != table["candidate_sha256"]:
-                raise ValueError(f"staged archive differs from its compiler receipt: {final_path}")
+        for table, archive_path, replace_table, deltas in tables:
+            if hashlib.sha256((ROOT / archive_path).read_bytes()).hexdigest() != table["candidate_sha256"]:
+                raise ValueError(f"staged archive differs from its compiler receipt: {archive_path}")
             module = table["module"]
             old = read_parent(module)
             new, facts = replace_table(old)
@@ -369,7 +378,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
                                         for k, regex in METRICS.items()}
             replacements[crate / module] = new
             parent[module] = facts["candidate_module_sha256"]
-            linked_path = final_path
+            linked_path = archive_path
         for record_layout, kind, deltas in ((va, "va-list", va_deltas), (term, "termtype", term_deltas)):
             if record_layout is None:
                 continue
@@ -448,6 +457,8 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
         raise ValueError("Bison length receipt outside the compiler inputs")
     if timestamp_records.keys() != timestamp_deltas.keys():
         raise ValueError("tar timestamp receipt outside linked compiler inputs")
+    if dsfield_deltas.keys() != dsfield_records.keys():
+        raise ValueError("DS field receipt outside the compiler inputs")
     if routing_deltas.keys() != routing_records.keys():
         raise ValueError("routing protocol record lies outside the selected compiler inputs")
     if scalar_deltas.keys() != scalar_records.keys():
@@ -479,6 +490,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
             **({"byte_identical_inline_cleanups": cleanups} if cleanups else {}),
             **({"byte_identical_second_inline_cleanups": second_cleanups} if second_cleanups else {}),
             **({"native_c_string_conversions": literal_deltas} if literal_deltas else {}),
+            **({"dsfield_deltas": dsfield_deltas} if dsfield_deltas else {}),
             **({"routing_protocol_deltas": routing_deltas} if routing_deltas else {}),
             **({"scalar_ffi_deltas": scalar_deltas} if scalar_deltas else {}),
             **({"closed_inline_deltas": closed_deltas} if closed_deltas else {}),
@@ -716,6 +728,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("link_report", type=Path)
     previous = parser.add_mutually_exclusive_group()
+    previous.add_argument("--verify-dsfield-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-routing-protocols-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-scalar-ffi-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-closed-inlines-from", type=Path, metavar="CONTROL")
@@ -742,6 +755,12 @@ if __name__ == "__main__":
     if args.verify_cleanup_from:
         previous_link = json.loads(args.verify_cleanup_from.read_bytes())
         check_added_cleanups(previous_link, link, measure(previous_link), current)
+    if args.verify_dsfield_from:
+        prior = json.loads(args.verify_dsfield_from.read_bytes())
+        if dsfield_names.FIELD in prior or dsfield_names.FIELD not in link:
+            raise ValueError("expected the preceding routing release and the DS field candidate")
+        check_archive_counts(prior, dsfield_names.parent_view(link), measure(prior), current,
+                             link[dsfield_names.FIELD], "dsfield_deltas")
     if args.verify_routing_protocols_from:
         prior = json.loads(args.verify_routing_protocols_from.read_bytes())
         if routing_protocols.FIELD in prior or routing_protocols.FIELD not in link:

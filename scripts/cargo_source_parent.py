@@ -7,6 +7,11 @@ def cargo_origin(link, key):
     from curl_manual_archive import KEY, candidate_path
     from iproute2_route_name_archives import netlink_path
     selected = Path(key)
+    import stage_dsfield_archives as dsfield
+    for prior, row in link.get(dsfield.FIELD, {}).items():
+        if dsfield.candidate_path(row) == selected:
+            selected = Path(prior)
+            break
     from stage_routing_protocol_archives import FIELD, candidate_path as routing_path
     for prior, row in link.get(FIELD, {}).items():
         if routing_path(row) == selected:
@@ -51,6 +56,12 @@ def direct_crate(archive):
 def pinned_parent(key, row):
     """Reconstruct exactly the preceding link fields needed for a standalone cold rebuild."""
     original = row_origin(row)
+    if Path(key).parent.parent.name == "dsfield-names":
+        import stage_dsfield_archives as dsfield
+        link = dsfield.select(dsfield.parent_build_link())
+        if str(cargo_origin(link, key)) != original or link["source_library_sha256"].get(key) != row["control_sha256"]:
+            raise ValueError("staged DS field archive differs from its qualified parent")
+        return link
     if Path(key).parent.parent.name == "routing-protocols":
         from stage_routing_protocol_archives import parent_build_link, select
         link = select(parent_build_link())
