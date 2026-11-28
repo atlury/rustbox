@@ -299,19 +299,26 @@ sources the raw-pointer type count fell from **1,379,960 to 747,302**.
 Counting byte-identical Rust files once gives **528,925** remaining occurrences.
 The count of applets certified pointer-free is still zero.
 
-The development candidate has a separate source census. To see its lowest
-verified count from this checkout, run the following from the repository root.
-It selects one complete census for the executable that passed the public
-comparisons. The filename identifies the archive selection behind the count.
+Development builds have separate compiler counts. This query reports the lowest
+verified count for each of two tested executables. The original has completed
+the full dispatcher and batch suites. The grouped package build has passed
+its GCC and Clang command suites. Each row points to a complete source census.
 
 ```sh
-jq -n --slurpfile tested evidence/dsfield-optimized-expanded-public.json '
-  [inputs | select(.binary_sha256 == $tested[0].binary_sha256
-                   and (.candidate_link_sha256 // .layers.shared_leaf_layouts.candidate_link_sha256)
-                   and .counts.all.after)
-          | {remaining: .counts.all.after, evidence: input_filename}]
-  | min_by(.remaining)
-' evidence/dsfield-*.json
+jq -n --slurpfile public evidence/dsfield-optimized-expanded-public.json \
+      --slurpfile grouped evidence/five-package-unused-types-multicall.json '
+  [inputs | select(.counts.all.after)
+   | (if .binary_sha256 == $public[0].binary_sha256 and
+        (.candidate_link_sha256 or .layers.shared_leaf_layouts.candidate_link_sha256
+         or (.compiler_selection_sha256 and .public_evidence_sha256))
+     then "original"
+     elif .binary_sha256 == $grouped[0].commands.binary_sha256 and
+          .canonical_comparisons == $grouped[0].commands.comparisons
+     then "five-package"
+     else empty end) as $build
+   | {build: $build, remaining: .counts.all.after, evidence: input_filename}]
+  | group_by(.build) | map(min_by(.remaining))
+' evidence/dsfield-*.json evidence/current-foreign-declarations-*.json evidence/five-package-*.json
 ```
 
 To combine existing compiler receipts on a saved executable, run
