@@ -2430,6 +2430,10 @@ raw-pointer declarations eligible for this pass.
 
 The combined optional selection removes 11,667 declarations in 24 byte-identical archives. Its complete 499-name Linux ELF and link map match the tar baseline, with 743,330 pointer types in the selected compiler inputs. [Combined verification](evidence/rustbox-closed-inline-sweep.json)
 
+Zstd's whole-archive cleanup changed the archive bytes. Rebuilding smaller groups together recovered 2,106 unused helpers in 30 modules. Removing those helpers eliminated 2,484 raw-pointer type occurrences and reproduced the original archive byte for byte. Together with the 24 archives above, the tar-baseline candidate removes 14,151 occurrences. Its full compiler-input recount is 740,846. These figures apply to the candidate. [Zstd recovery and source recount](evidence/zstd-closed-inline-recovery.json)
+
+To replay a recovered group, run `python3 -B scripts/verify_closed_inline_recovery.py PARENT_LINK SELECTED_LINK ACTIVE_MANIFEST WHOLE_TRIAL SUBSET_TRIAL OUTPUT`. It checks both compiler receipts, matches the removed helpers against the original module list, and recounts the combined selection.
+
 The first four verified archives remove 3,861 declarations on the tar baseline:
 1,367 in E2fsck, 1,237 in debugfs, 1,011 in mke2fs and 246 in Shadow.
 Replaying the E2fsck and mke2fs receipts together on the Bison candidate
