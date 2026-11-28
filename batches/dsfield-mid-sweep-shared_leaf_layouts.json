@@ -1,0 +1,513 @@
+{
+  "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2undo/cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8/libe2undo_audit.a": {
+    "parent_receipts": {
+      "closed_inline_groups": {
+        "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2undo/cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8/libe2undo_audit.a",
+        "candidate_sha256": "cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8",
+        "candidate_sources_sha256": "b79a986561b041f67abd7282a21050862b068a6b5cc3f0fd387a7cc16c48801e",
+        "compiler_selected_sources": 61,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8",
+        "dead_sites": {
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/alloc.rs": {
+            "ext2fs_get_mem": 37010,
+            "ext2fs_get_memzero": 37532,
+            "ext2fs_has_feature_largedir": 29771,
+            "ext2fs_resize_mem": 38154,
+            "ext2fs_swab32": 32229
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/alloc_sb.rs": {
+            "ext2fs_get_mem": 31590,
+            "ext2fs_get_memzero": 32112,
+            "ext2fs_has_feature_gdt_csum": 26492,
+            "ext2fs_has_feature_largedir": 27614,
+            "ext2fs_has_feature_metadata_csum": 26825,
+            "ext2fs_resize_mem": 32734,
+            "ext2fs_swab32": 29417
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/alloc_stats.rs": {
+            "ext2fs_get_mem": 33226,
+            "ext2fs_get_memzero": 33748,
+            "ext2fs_has_feature_largedir": 26180,
+            "ext2fs_resize_mem": 34370,
+            "ext2fs_swab32": 30188
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/atexit.rs": {
+            "ext2fs_get_mem": 33790,
+            "ext2fs_get_memzero": 34312,
+            "ext2fs_has_feature_gdt_csum": 28870,
+            "ext2fs_has_feature_largedir": 29745,
+            "ext2fs_has_feature_metadata_csum": 29199,
+            "ext2fs_swab32": 31809
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/badblocks.rs": {
+            "ext2fs_get_memzero": 34370,
+            "ext2fs_has_feature_gdt_csum": 28984,
+            "ext2fs_has_feature_largedir": 29855,
+            "ext2fs_has_feature_metadata_csum": 29313,
+            "ext2fs_swab32": 31867
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/bitmaps.rs": {
+            "ext2fs_get_mem": 40448,
+            "ext2fs_get_memzero": 40970,
+            "ext2fs_has_feature_gdt_csum": 34343,
+            "ext2fs_has_feature_largedir": 35469,
+            "ext2fs_has_feature_metadata_csum": 34676,
+            "ext2fs_resize_mem": 41592,
+            "ext2fs_swab32": 38467
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/bitops.rs": {
+            "ext2fs_get_mem": 30375,
+            "ext2fs_get_memzero": 30897,
+            "ext2fs_has_feature_gdt_csum": 25708,
+            "ext2fs_has_feature_largedir": 26591,
+            "ext2fs_has_feature_metadata_csum": 26041,
+            "ext2fs_resize_mem": 31519,
+            "ext2fs_swab32": 28394
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/blkmap64_ba.rs": {
+            "ext2fs_get_memzero": 38733,
+            "ext2fs_has_feature_gdt_csum": 32519,
+            "ext2fs_has_feature_largedir": 33398,
+            "ext2fs_has_feature_metadata_csum": 32848,
+            "ext2fs_swab32": 36150
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/blkmap64_rb.rs": {
+            "ext2fs_get_memzero": 39239,
+            "ext2fs_has_feature_gdt_csum": 33434,
+            "ext2fs_has_feature_largedir": 34301,
+            "ext2fs_has_feature_metadata_csum": 33767,
+            "ext2fs_rb_set_parent": 41572,
+            "ext2fs_resize_mem": 40431,
+            "ext2fs_swab32": 36658
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/blknum.rs": {
+            "ext2fs_get_memzero": 34693,
+            "ext2fs_has_feature_gdt_csum": 28829,
+            "ext2fs_has_feature_metadata_csum": 29162,
+            "ext2fs_resize_mem": 35885,
+            "ext2fs_swab32": 31739
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/block.rs": {
+            "ext2fs_get_memzero": 36602,
+            "ext2fs_has_feature_gdt_csum": 27002,
+            "ext2fs_has_feature_largedir": 27873,
+            "ext2fs_has_feature_metadata_csum": 27335,
+            "ext2fs_resize_mem": 38142,
+            "ext2fs_swab32": 32455
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/bmap.rs": {
+            "ext2fs_get_memzero": 37420,
+            "ext2fs_has_feature_gdt_csum": 28752,
+            "ext2fs_has_feature_largedir": 29870,
+            "ext2fs_has_feature_metadata_csum": 29332,
+            "ext2fs_resize_mem": 38960,
+            "ext2fs_swab32": 34242
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/closefs.rs": {
+            "ext2fs_get_mem": 36619,
+            "ext2fs_get_memzero": 37141,
+            "ext2fs_has_feature_gdt_csum": 28223,
+            "ext2fs_has_feature_largedir": 29999,
+            "ext2fs_has_feature_metadata_csum": 28560,
+            "ext2fs_resize_mem": 37763,
+            "ext2fs_swab32": 34557
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/csum.rs": {
+            "ext2fs_get_mem": 37539,
+            "ext2fs_get_memzero": 38061,
+            "ext2fs_has_feature_largedir": 32291,
+            "ext2fs_resize_mem": 38683,
+            "ext2fs_swab32": 35094
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/dir_iterate.rs": {
+            "ext2fs_get_memzero": 37346,
+            "ext2fs_has_feature_gdt_csum": 28698,
+            "ext2fs_has_feature_largedir": 29565,
+            "ext2fs_resize_mem": 38538,
+            "ext2fs_swab32": 33834
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/dirblock.rs": {
+            "ext2fs_get_mem": 31085,
+            "ext2fs_get_memzero": 31607,
+            "ext2fs_has_feature_gdt_csum": 24119,
+            "ext2fs_has_feature_largedir": 25002,
+            "ext2fs_has_feature_metadata_csum": 24452,
+            "ext2fs_resize_mem": 32229,
+            "ext2fs_swab32": 29104
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/dirhash.rs": {
+            "ext2fs_get_mem": 33641,
+            "ext2fs_get_memzero": 34163,
+            "ext2fs_has_feature_gdt_csum": 26636,
+            "ext2fs_has_feature_largedir": 27511,
+            "ext2fs_has_feature_metadata_csum": 26969,
+            "ext2fs_resize_mem": 34785,
+            "ext2fs_swab32": 31660
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/expanddir.rs": {
+            "ext2fs_get_mem": 36288,
+            "ext2fs_get_memzero": 36810,
+            "ext2fs_has_feature_gdt_csum": 28782,
+            "ext2fs_has_feature_largedir": 29657,
+            "ext2fs_has_feature_metadata_csum": 29111,
+            "ext2fs_resize_mem": 38002,
+            "ext2fs_swab32": 34092
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/ext_attr.rs": {
+            "ext2fs_has_feature_gdt_csum": 33759,
+            "ext2fs_has_feature_largedir": 35114,
+            "ext2fs_has_feature_metadata_csum": 34096,
+            "ext2fs_resize_mem": 46237,
+            "ext2fs_swab32": 41887
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/extent.rs": {
+            "ext2fs_has_feature_gdt_csum": 33415,
+            "ext2fs_has_feature_largedir": 34282,
+            "ext2fs_resize_mem": 44386,
+            "ext2fs_swab32": 38744
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/fallocate.rs": {
+            "ext2fs_get_mem": 35429,
+            "ext2fs_get_memzero": 35951,
+            "ext2fs_has_feature_gdt_csum": 28458,
+            "ext2fs_has_feature_largedir": 29329,
+            "ext2fs_has_feature_metadata_csum": 28795,
+            "ext2fs_resize_mem": 36573,
+            "ext2fs_swab32": 32015
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/fileio.rs": {
+            "ext2fs_get_memzero": 38632,
+            "ext2fs_has_feature_gdt_csum": 29748,
+            "ext2fs_has_feature_largedir": 30615,
+            "ext2fs_has_feature_metadata_csum": 30073,
+            "ext2fs_resize_mem": 40172,
+            "ext2fs_swab32": 35916
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/freefs.rs": {
+            "ext2fs_get_mem": 33936,
+            "ext2fs_get_memzero": 34458,
+            "ext2fs_has_feature_gdt_csum": 26809,
+            "ext2fs_has_feature_largedir": 27676,
+            "ext2fs_has_feature_metadata_csum": 27134,
+            "ext2fs_resize_mem": 35650,
+            "ext2fs_swab32": 31955
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/gen_bitmap.rs": {
+            "ext2fs_get_memzero": 38497,
+            "ext2fs_has_feature_gdt_csum": 30552,
+            "ext2fs_has_feature_largedir": 31419,
+            "ext2fs_has_feature_metadata_csum": 30877,
+            "ext2fs_swab32": 35798
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/gen_bitmap64.rs": {
+            "ext2fs_has_feature_gdt_csum": 36148,
+            "ext2fs_has_feature_largedir": 37023,
+            "ext2fs_has_feature_metadata_csum": 36481,
+            "ext2fs_resize_mem": 45083,
+            "ext2fs_swab32": 40144
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/get_num_dirs.rs": {
+            "ext2fs_get_mem": 33186,
+            "ext2fs_get_memzero": 33708,
+            "ext2fs_has_feature_gdt_csum": 26341,
+            "ext2fs_has_feature_largedir": 27224,
+            "ext2fs_has_feature_metadata_csum": 26674,
+            "ext2fs_resize_mem": 34330,
+            "ext2fs_swab32": 31205
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/getenv.rs": {
+            "ext2fs_get_mem": 30626,
+            "ext2fs_get_memzero": 31148,
+            "ext2fs_has_feature_gdt_csum": 26226,
+            "ext2fs_has_feature_largedir": 27097,
+            "ext2fs_has_feature_metadata_csum": 26555,
+            "ext2fs_resize_mem": 31770,
+            "ext2fs_swab32": 28645
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/getsectsize.rs": {
+            "ext2fs_get_mem": 42627,
+            "ext2fs_get_memzero": 43149,
+            "ext2fs_has_feature_gdt_csum": 35855,
+            "ext2fs_has_feature_largedir": 36730,
+            "ext2fs_has_feature_metadata_csum": 36192,
+            "ext2fs_resize_mem": 43771,
+            "ext2fs_swab32": 40646
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/i_block.rs": {
+            "ext2fs_get_mem": 30596,
+            "ext2fs_get_memzero": 31118,
+            "ext2fs_has_feature_gdt_csum": 25937,
+            "ext2fs_has_feature_largedir": 26812,
+            "ext2fs_has_feature_metadata_csum": 26262,
+            "ext2fs_resize_mem": 31740,
+            "ext2fs_swab32": 28615
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/ind_block.rs": {
+            "ext2fs_get_mem": 30285,
+            "ext2fs_get_memzero": 30807,
+            "ext2fs_has_feature_gdt_csum": 23430,
+            "ext2fs_has_feature_largedir": 24313,
+            "ext2fs_has_feature_metadata_csum": 23763,
+            "ext2fs_resize_mem": 31429,
+            "ext2fs_swab32": 28304
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/inline.rs": {
+            "ext2fs_has_feature_gdt_csum": 28168,
+            "ext2fs_has_feature_largedir": 29043,
+            "ext2fs_has_feature_metadata_csum": 28501
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/inline_data.rs": {
+            "ext2fs_has_feature_gdt_csum": 31428,
+            "ext2fs_has_feature_largedir": 32783,
+            "ext2fs_resize_mem": 42077,
+            "ext2fs_swab32": 37919
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/inode.rs": {
+            "ext2fs_get_memzero": 41132,
+            "ext2fs_has_feature_largedir": 34006,
+            "ext2fs_resize_mem": 42672,
+            "ext2fs_swab32": 37316
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/io_manager.rs": {
+            "ext2fs_get_memzero": 31631,
+            "ext2fs_has_feature_gdt_csum": 26061,
+            "ext2fs_has_feature_largedir": 26928,
+            "ext2fs_has_feature_metadata_csum": 26386,
+            "ext2fs_resize_mem": 32253,
+            "ext2fs_swab32": 29128
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/ismounted.rs": {
+            "ext2fs_get_mem": 38718,
+            "ext2fs_get_memzero": 39240,
+            "ext2fs_has_feature_gdt_csum": 33538,
+            "ext2fs_has_feature_largedir": 34413,
+            "ext2fs_has_feature_metadata_csum": 33871,
+            "ext2fs_resize_mem": 39862,
+            "ext2fs_swab32": 36305
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/link.rs": {
+            "ext2fs_get_memzero": 41807,
+            "ext2fs_has_feature_gdt_csum": 32663,
+            "ext2fs_resize_mem": 43347,
+            "ext2fs_swab32": 38596
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/lookup.rs": {
+            "ext2fs_get_mem": 31241,
+            "ext2fs_get_memzero": 31763,
+            "ext2fs_has_feature_gdt_csum": 24304,
+            "ext2fs_has_feature_largedir": 25183,
+            "ext2fs_has_feature_metadata_csum": 24637,
+            "ext2fs_resize_mem": 32385,
+            "ext2fs_swab32": 29190
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/mkjournal.rs": {
+            "ext2fs_get_memzero": 48415,
+            "ext2fs_has_feature_gdt_csum": 41281,
+            "ext2fs_has_feature_largedir": 42638,
+            "ext2fs_has_feature_metadata_csum": 41606,
+            "ext2fs_resize_mem": 49607,
+            "ext2fs_swab32": 45519,
+            "jbd2_has_feature_64bit": 51826,
+            "jbd2_has_feature_csum2": 52193,
+            "jbd2_has_feature_csum3": 52526
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/mmp.rs": {
+            "ext2fs_get_memzero": 37006,
+            "ext2fs_has_feature_gdt_csum": 29303,
+            "ext2fs_has_feature_largedir": 30417,
+            "ext2fs_has_feature_metadata_csum": 29636,
+            "ext2fs_resize_mem": 37628,
+            "ext2fs_swab32": 34503
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/newdir.rs": {
+            "ext2fs_get_memzero": 32536,
+            "ext2fs_has_feature_gdt_csum": 24315,
+            "ext2fs_has_feature_largedir": 25427,
+            "ext2fs_resize_mem": 33728,
+            "ext2fs_swab32": 30033
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/openfs.rs": {
+            "ext2fs_get_memzero": 41792,
+            "ext2fs_has_feature_largedir": 32299,
+            "ext2fs_resize_mem": 42762,
+            "ext2fs_swab32": 37652
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/punch.rs": {
+            "ext2fs_get_memzero": 37426,
+            "ext2fs_has_feature_gdt_csum": 29413,
+            "ext2fs_has_feature_largedir": 30280,
+            "ext2fs_has_feature_metadata_csum": 29738,
+            "ext2fs_resize_mem": 38966,
+            "ext2fs_swab32": 34681
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/read_bb.rs": {
+            "ext2fs_get_mem": 31872,
+            "ext2fs_get_memzero": 32394,
+            "ext2fs_has_feature_gdt_csum": 27058,
+            "ext2fs_has_feature_largedir": 27933,
+            "ext2fs_has_feature_metadata_csum": 27399,
+            "ext2fs_resize_mem": 33016,
+            "ext2fs_swab32": 29744
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/rw_bitmaps.rs": {
+            "ext2fs_get_memzero": 51986,
+            "ext2fs_has_feature_largedir": 45319,
+            "ext2fs_resize_mem": 53178,
+            "ext2fs_swab32": 48712
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/sha512.rs": {
+            "ext2fs_get_mem": 30484,
+            "ext2fs_get_memzero": 31006,
+            "ext2fs_has_feature_gdt_csum": 26088,
+            "ext2fs_has_feature_largedir": 26955,
+            "ext2fs_has_feature_metadata_csum": 26421,
+            "ext2fs_resize_mem": 31628,
+            "ext2fs_swab32": 28503
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/symlink.rs": {
+            "ext2fs_get_memzero": 35032,
+            "ext2fs_has_feature_gdt_csum": 28785,
+            "ext2fs_has_feature_largedir": 29903,
+            "ext2fs_has_feature_metadata_csum": 29118,
+            "ext2fs_resize_mem": 36224,
+            "ext2fs_swab32": 32306
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/undo_io.rs": {
+            "ext2fs_get_memzero": 41665,
+            "ext2fs_has_feature_gdt_csum": 34941,
+            "ext2fs_has_feature_largedir": 35824,
+            "ext2fs_has_feature_metadata_csum": 35278,
+            "ext2fs_resize_mem": 42857,
+            "ext2fs_swab32": 38700
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/unix_io.rs": {
+            "ext2fs_get_memzero": 47129,
+            "ext2fs_has_feature_gdt_csum": 39996,
+            "ext2fs_has_feature_largedir": 40867,
+            "ext2fs_has_feature_metadata_csum": 40333,
+            "ext2fs_resize_mem": 48321,
+            "ext2fs_swab32": 44626
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/valid_blk.rs": {
+            "ext2fs_get_mem": 31173,
+            "ext2fs_get_memzero": 31695,
+            "ext2fs_has_feature_gdt_csum": 24099,
+            "ext2fs_has_feature_largedir": 24974,
+            "ext2fs_has_feature_metadata_csum": 24428,
+            "ext2fs_resize_mem": 32317,
+            "ext2fs_swab32": 28882
+          },
+          "src/work/work/normalized/e2fsprogs_1_47_4/misc/e2undo.rs": {
+            "ext2fs_get_memzero": 38044,
+            "ext2fs_has_feature_gdt_csum": 32599,
+            "ext2fs_has_feature_largedir": 33482,
+            "ext2fs_has_feature_metadata_csum": 32932,
+            "ext2fs_resize_mem": 39236,
+            "ext2fs_swab32": 35468
+          }
+        },
+        "parent_sources_sha256": "b23ae9aa4ae1ffab2654816bfb8087427bb7e55baf522e6d70c3051ddb62ceb3",
+        "private_helpers_removed": 297,
+        "raw_pointer_types_removed": 678,
+        "referenced_helpers_removed": 1,
+        "referenced_pointer_types_removed": 0,
+        "rustc_archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-e2fsprogs-shared/e2undo/libe2undo_audit.a",
+        "scanner_source_sha256": "74e8393122c399359f208509fb81fbe911b75b3d6f9f34edcc7084b88331f2ae"
+      },
+      "linked_foreign_declaration_proofs": {
+        "file": "libe2undo_audit.foreign-61f84ad998b7ad5ead5f1d5a31c15feb892f6996d1dd61317e4bc77344dc821e.json",
+        "sha256": "61f84ad998b7ad5ead5f1d5a31c15feb892f6996d1dd61317e4bc77344dc821e"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libe2undo_audit.inlines-99e4098e45c254a3b2d3a5f191a1dd85413e6fc550b673297803a9e41a2df20d.json",
+        "sha256": "c3d13666b0ab2f2801b91304f15e401bb332e1654181a6b542d8fecfb0773e6b"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2undo/cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8/libe2undo_audit.a",
+        "c_string_literals": 191,
+        "candidate_sha256": "cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8",
+        "candidate_sources_sha256": "b23ae9aa4ae1ffab2654816bfb8087427bb7e55baf522e6d70c3051ddb62ceb3",
+        "compiler_selected_sources": 61,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8",
+        "legacy_compiler": "nightly-2023-04-15",
+        "modules": {
+          "src/rustbox_e2fsprogs/normalized_clang_18/lib/ext2fs/ext2_err.rs": 183,
+          "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/ext_attr.rs": 8
+        },
+        "parent_sources_sha256": "f8c0e3e896a40bb0a9d89a79eb4b1ae15eb9a3d480e88132e351678fd91f2485",
+        "raw_ffi_pointer_extractions": 191,
+        "raw_pointer_types_removed": 382,
+        "rustc_archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-e2fsprogs-shared/e2undo/libe2undo_audit.a",
+        "static_array_selector_sha256": "e302fbc41e14a55f5de131773a4116f35ba4bc4d9a6f694ca86ad13d5601f321",
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2undo/cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8/libe2undo_audit.a",
+      "candidate_sha256": "cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8",
+      "candidate_sources_sha256": "b93bffeaae4bb6bd36e7003104b06e51e4f33ed7edfa9f6547a11256c319b281",
+      "compiler_selected_sources": 61,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "cf9af4778f5271eda8f686fe8d1bc81ea70ffbb42a37df2127735313b0e646f8",
+      "leaf_layouts": {
+        "__pthread_internal_list": {
+          "consumers": [
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/unix_io.rs"
+          ],
+          "copies": 2,
+          "fingerprint": "a6c5dd5e6dd6e1158342849d3155519f96341e30b143037b5759d3b874558326",
+          "pointer_fields": 2,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/rw_bitmaps.rs"
+        },
+        "error_table": {
+          "consumers": [
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/et/error_message.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/misc/e2undo.rs"
+          ],
+          "copies": 3,
+          "fingerprint": "7123fc12765a795777271e85049f41c0fc2fb3eead76c0b579a72f56e4250e21",
+          "pointer_fields": 2,
+          "provider": "src/rustbox_e2fsprogs/normalized_clang_18/lib/ext2fs/ext2_err.rs"
+        },
+        "ext2_struct_u32_list": {
+          "consumers": [
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/badblocks.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/bitmaps.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/blkmap64_ba.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/blkmap64_rb.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/bmap.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/closefs.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/dir_iterate.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/dirhash.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/expanddir.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/ext_attr.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/extent.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/fileio.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/freefs.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/gen_bitmap.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/gen_bitmap64.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/get_num_dirs.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/inline_data.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/inode.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/ismounted.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/link.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/mkjournal.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/nls_utf8.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/punch.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/undo_io.rs",
+            "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/unix_io.rs"
+          ],
+          "copies": 26,
+          "fingerprint": "544be1ec1fb685f14efd8d77ddca3ff2b1ec8479c81f53a2705af0869123837e",
+          "pointer_fields": 1,
+          "provider": "src/work/work/normalized/e2fsprogs_1_47_4/lib/ext2fs/atexit.rs"
+        }
+      },
+      "parent_sources_sha256": "b79a986561b041f67abd7282a21050862b068a6b5cc3f0fd387a7cc16c48801e",
+      "raw_pointer_types_removed": 31,
+      "rustc_archive": "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-e2fsprogs-shared/e2undo/libe2undo_audit.a"
+    }
+  }
+}
