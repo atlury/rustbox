@@ -74,6 +74,9 @@ def selected_records(link):
 
 
 def control_view(link):
+    if "iproute2_dsfield_names" in link:
+        from stage_dsfield_archives import parent_view
+        link = parent_view(link)
     if "iproute2_routing_protocols" in link:
         from stage_routing_protocol_archives import parent_view
         link = parent_view(link)

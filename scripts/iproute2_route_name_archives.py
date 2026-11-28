@@ -46,6 +46,9 @@ def manifest(*, netlink=False):
 
 
 def parent_view(link):
+    if "iproute2_dsfield_names" in link:
+        from stage_dsfield_archives import parent_view as dsfield_parent
+        return dsfield_parent(link)
     if "iproute2_routing_protocols" in link:
         from stage_routing_protocol_archives import parent_view as routing_parent
         return routing_parent(link)
@@ -123,6 +126,10 @@ def prepare(record, built=None, *, mounted_bridge=False, netlink=False):
 
 def lookup_archive(link, key):
     """Archive currently providing a given address-protocol C interface."""
+    if "iproute2_dsfield_names" in link:
+        from stage_dsfield_archives import candidate_path as dsfield_path
+        previous = parent_view(link)
+        return dsfield_path(link["iproute2_dsfield_names"][str(lookup_archive(previous, key))])
     parent_view(link)
     if "iproute2_routing_protocols" in link:
         from stage_routing_protocol_archives import candidate_path as routing_path
@@ -137,6 +144,10 @@ def lookup_archive(link, key):
 
 def lookup_records(link):
     """Index the selected lookup archives by their original engine paths."""
+    if "iproute2_dsfield_names" in link:
+        from stage_routing_protocol_archives import candidate_path as routing_path
+        return {key: link["iproute2_dsfield_names"][str(routing_path(row))]
+                for key, row in lookup_records(parent_view(link)).items()}
     if "iproute2_routing_protocols" in link:
         parent_view(link)
         return {key: link["iproute2_routing_protocols"][str(netlink_path(row))]
@@ -167,6 +178,8 @@ def additional_lookup_records(link):
 
 
 def netlink_control_view(link):
+    if "iproute2_dsfield_names" in link:
+        link = parent_view(link)
     if "iproute2_routing_protocols" in link:
         link = parent_view(link)
     if "iproute2_netlink_protocols" not in link:

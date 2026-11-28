@@ -45,6 +45,15 @@ def check(elf, receipt, link=None):
     return dict(current, elf_sha256=expected)
 
 
+def verify_release(preview, release, inventory, observed, field, metric):
+    sha = expected_binary(preview, release)
+    measured = {key: delta["raw_pointer_type_tokens"] for key, delta in inventory[metric].items()}
+    expected = {key: row["raw_pointer_types_removed"] for key, row in release[field].items()}
+    if sha != observed["elf_sha256"] or sha != inventory["binary_sha256"] or measured != expected:
+        raise ValueError("IPRoute2 compiler inputs or tested executable differ from the selected archives")
+    validate_coverage(preview, observed)
+
+
 def validate_coverage(previous, current):
     for key in ("public_names", "differential_driver_sha256", "routel_source_sha256"):
         if current[key] != previous[key]:

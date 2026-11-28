@@ -107,6 +107,10 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
     if routing:
         tasks.append(("iproute2-routing-protocols", ["test_routing_protocol_multicall.py", binary,
                       ROOT / "evidence/iproute2-routing-protocol-multicall.json", "--link", current]))
+    dsfield = release.get("iproute2_dsfield_names")
+    if dsfield:
+        tasks.append(("iproute2-dsfield-names", ["test_routing_protocol_multicall.py", binary,
+                      ROOT / "evidence/iproute2-dsfield-all-multicall.json", "--link", current]))
     netlink = lookup_records(release) if release.get("iproute2_netlink_protocols") else {}
     if netlink:
         tasks.append(("iproute2-netlink-protocols", ["test_iproute2_netlink_protocols.py", "--linked", "--link", current,
@@ -137,6 +141,7 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
             subprocess.run([sys.executable, "-B", scripts / "audit_linked_pointers.py", previous,
                             "--verify-dirhash-from", original], cwd=ROOT, stdout=stream, check=True)
     stages = (
+        ("iproute2_dsfield_names", "--verify-dsfield-from"),
         ("lz4_benchmark_dictionary", "--verify-lz4-dictionary-from"),
         ("iproute2_routing_protocols", "--verify-routing-protocols-from"),
         ("bison_literal_lengths", "--verify-bison-lengths-from"),
@@ -188,6 +193,8 @@ def verify(before, binary, output, jobs, independent_replay=None, chain_from=Non
         raise ValueError("release changed during verification")
     result = {"link_report_sha256": hashlib.sha256(selected).hexdigest(), "previous_link_report_sha256": digest(previous),
               "binary_sha256": release["binary"]["sha256"], "packages": statuses, "passed_checks": [name for name, _ in tasks]}
+    if dsfield:
+        result["iproute2_dsfield_names"] = json.loads((output / "iproute2-dsfield-names.log").read_bytes())
     if routing:
         result["iproute2_routing_protocols"] = json.loads((output / "iproute2-routing-protocols.log").read_bytes())
     if lengths:

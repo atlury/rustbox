@@ -27,10 +27,11 @@ def record(binary, results, rankings):
     lengths = release.get("bison_literal_lengths")
     dictionary = release.get("lz4_benchmark_dictionary")
     routing = release.get("iproute2_routing_protocols")
+    dsfield = release.get("iproute2_dsfield_names")
     replay_name = "rustbox-netlink-protocol-replays"
     for record, name in ((curl, "rustbox-curl-manual-replays"), (timestamps, "rustbox-tar-timestamps-replays"),
                          (lengths, "rustbox-bison-length-replays"), (routing, "rustbox-routing-protocol-replays"),
-                         (dictionary, "rustbox-lz4-dictionary-replays")):
+                         (dictionary, "rustbox-lz4-dictionary-replays"), (dsfield, "rustbox-dsfield-name-replays")):
         if record:
             replay_name = name
     inputs = {
@@ -69,15 +70,14 @@ def record(binary, results, rankings):
     if dictionary:
         from test_lz4_dictionary_multicall import verify_release
         verify_release(release, json.loads((results / "control.json").read_bytes()), inventory, replay["lz4_benchmark_dictionary"])
-    if routing:
-        from test_routing_protocol_multicall import expected_binary, validate_coverage
-        preview = json.loads((evidence / "iproute2-routing-protocol-multicall.json").read_bytes())
-        tested_routes = replay["iproute2_routing_protocols"]
-        if (expected_binary(preview, release) != binary_sha or tested_routes["elf_sha256"] != binary_sha
-                or {k: d["raw_pointer_type_tokens"] for k, d in inventory["routing_protocol_deltas"].items()}
-                != {k: r["raw_pointer_types_removed"] for k, r in routing.items()}):
-            raise ValueError("routing reader inventory or tested executable differs from the selected archives")
-        validate_coverage(preview, tested_routes)
+    for field, metric, preview_file in (
+        ("iproute2_routing_protocols", "routing_protocol_deltas", "iproute2-routing-protocol-multicall.json"),
+        ("iproute2_dsfield_names", "dsfield_deltas", "iproute2-dsfield-all-multicall.json"),
+    ):
+        if release.get(field):
+            from test_routing_protocol_multicall import verify_release as verify_iproute2
+            preview = json.loads((evidence / preview_file).read_bytes())
+            verify_iproute2(preview, release, inventory, replay[field], field, metric)
     if lengths:
         from bison_length_archive import selection
         row = selection.pinned()["pilot"]
