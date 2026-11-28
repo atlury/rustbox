@@ -133,6 +133,12 @@ def plan(link, pilots, *, identical_foreign=False, extra_foreign=()):
             row = rows[key]["pilot"]
             if key in foreign_keys:
                 changes = replay_compiler_layer(modules, read, row)
+            elif "foreign_declarations" in row:
+                from build_scalar_ffi import replay_layer as replay_sources
+                from build_stacked_declarations import transform
+                def stacked(crate, sources, tool):
+                    return transform(crate, sources, row["unused_types"], row["foreign_declarations"], tool)
+                changes = replay_sources(modules, read, row, scanner, transform=stacked)
             else:
                 changes = replay_layer(modules, read, row, scanner)
             removed = 0
@@ -179,9 +185,13 @@ def materialize(link, manifest):
             else:
                 with TemporaryDirectory(dir=directory.parent) as tmp:
                     stage = Path(tmp) / "archive"
-                    script = "build_current_foreign_declarations.py" if foreign else "build_unused_c_types.py"
-                    subprocess.run([sys.executable, "-B", ROOT / "scripts" / script,
-                                    "--link", link, "--archive", key, "--output", stage], check=True)
+                    if "foreign_declarations" in row:
+                        from build_stacked_declarations import build
+                        build(link, row["unused_types"], row["foreign_declarations"], key, stage)
+                    else:
+                        script = "build_current_foreign_declarations.py" if foreign else "build_unused_c_types.py"
+                        subprocess.run([sys.executable, "-B", ROOT / "scripts" / script,
+                                        "--link", link, "--archive", key, "--output", stage], check=True)
                     verify(stage)
                     stage.rename(directory)
     if plan(link, changed, extra_foreign=identical) != selection:
@@ -196,16 +206,23 @@ def relink(link, log, selection, output):
     release = json.loads(raw)
     if report["parent_link_sha256"] != sha256(raw).hexdigest() or report["parent_binary_sha256"] != release["binary"]["sha256"]:
         raise ValueError("compiler selection belongs to a different control")
-    stages = {}
+    stages, identical = {}, {}
     for key, item in report["archives"].items():
         directory = ROOT / item["directory"]
         row = item["pilot"]
         if row["archive"] != key or row != json.loads((directory / "pilot.json").read_bytes()):
             raise ValueError(f"cold compiler receipt changed for {key}")
+        if row["control_sha256"] == row["candidate_sha256"]:
+            sha = row["control_sha256"]
+            if (release["source_library_sha256"].get(key) != sha or digest(ROOT / key) != sha
+                    or digest(directory / Path(key).name) != sha):
+                raise ValueError(f"byte-identical archive changed for {key}")
+            identical[key] = sha
+            continue
         stages[key] = qualified_inputs(release, directory, row, PACKAGES[Path(key).parts[2]])
 
     def prepare(name, stage):
-        objects, changed, hashes = [], set(), {}
+        objects, changed, hashes = [], set(), dict(identical)
         for key, build in stages.items():
             files, replaced, meta = build(name, stage)
             objects.extend(files)
