@@ -1,0 +1,37 @@
+{
+  "binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+  "candidate_link_sha256": "098b5d6f79311111b401cadad10e639f273ec2b1e8ddb0bd98d89ad8a2d954f2",
+  "counts": {
+    "all": {
+      "after": 699977,
+      "before": 700352
+    },
+    "counting_identical_files_once": {
+      "after": 621287,
+      "before": 618433
+    }
+  },
+  "deferred": {},
+  "input_manifests": {
+    "batches/dsfield-pointer-rollup-699977-shared_scalar_ffi.json": "5b8007e75767cf36d3d3884556db39f40ef80119a7dd1cce873d90a352a6d85f",
+    "batches/dsfield-pointer-rollup-699977-shared_variadic_ffi.json": "e92e8349d138c06b740d591b22b1d4c89d659dffd85a6c82234822c2eb01e998"
+  },
+  "layers": {
+    "shared_scalar_ffi": {
+      "archives": [
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rdma/dsfield-names/457d43b1a7427e7d31cd6b1b8cbac24943dd2cbeb6e116bb980902e565098569/librdma_audit.a"
+      ],
+      "manifest_sha256": "5b8007e75767cf36d3d3884556db39f40ef80119a7dd1cce873d90a352a6d85f"
+    },
+    "shared_variadic_ffi": {
+      "archives": [
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/dsfield-names/0af8cebadc6066e2fe5e89a0cb6ec5986a9449f11d6fc29f18e00442053bc649/libip_audit.a"
+      ],
+      "manifest_sha256": "e92e8349d138c06b740d591b22b1d4c89d659dffd85a6c82234822c2eb01e998"
+    }
+  },
+  "parent_census_sha256": "aeda8d8e25610c8afe9041901f34631eb748e1a4deeba20b01d33fb7076abc13",
+  "parent_link_sha256": "a722fc1384889cd389e33e27f05f4fd8666e360fa6adab913935200e2399046e",
+  "public_evidence_sha256": "6599c4ec031ad9207a57a8b15c86be77b07e206ece2f3ce0597fa84c72d57fe5",
+  "raw_pointer_types_removed": 375
+}
