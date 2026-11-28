@@ -1,0 +1,281 @@
+{
+  "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/e4crypt/release/libe4crypt_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libe4crypt_audit.foreign-b44e1b41fff17df571f15f135c641b1e24366507f439c03e2dbe79a230517b99.json",
+        "sha256": "b44e1b41fff17df571f15f135c641b1e24366507f439c03e2dbe79a230517b99"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libe4crypt_audit.inlines-f1e701bb7e924b5c1f7d1a08c6d091035715c60eb796c5b6def683e8ba2e9c62.json",
+        "sha256": "9548b0c44c73f79abe9ecfaf604f17c66f0347a492c739b47ef84fcfc1c80bcb"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libe4crypt_audit.layer2-e361c18910f562a9073b5898a0a0beff1a53656fbeb591abe609f5f538c21005.json",
+        "sha256": "e361c18910f562a9073b5898a0a0beff1a53656fbeb591abe609f5f538c21005"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/e4crypt/release/libe4crypt_audit.a",
+        "c_string_literals": 67,
+        "candidate_sha256": "ddfedb3b9ae441522012c682ab5f9bf036010b3f58c680ddfa182367aee594eb",
+        "candidate_sources_sha256": "eb9f262a7f6170fce5f329d964d2958a58c0dad84bca0ba13637d1be5172cf5c",
+        "compiler_selected_sources": 4,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "ddfedb3b9ae441522012c682ab5f9bf036010b3f58c680ddfa182367aee594eb",
+        "legacy_compiler": "nightly-2023-04-15",
+        "modules": {
+          "src/misc/e4crypt.rs": 67
+        },
+        "parent_sources_sha256": "1aa041fac3ddaae24bf5a99deb126f0efb26564441c63f0f639d4d71c72b2de9",
+        "raw_ffi_pointer_extractions": 67,
+        "raw_pointer_types_removed": 134,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_scalar_ffi": {
+        "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/e4crypt/release/libe4crypt_audit.a",
+        "candidate_sha256": "ddfedb3b9ae441522012c682ab5f9bf036010b3f58c680ddfa182367aee594eb",
+        "candidate_sources_sha256": "107f54fa6c2d31bb0b1ee6964d3994366223c9b48634b5d4dda1a9730be3f0b9",
+        "compiler_selected_sources": 4,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "ddfedb3b9ae441522012c682ab5f9bf036010b3f58c680ddfa182367aee594eb",
+        "parent_sources_sha256": "eb9f262a7f6170fce5f329d964d2958a58c0dad84bca0ba13637d1be5172cf5c",
+        "raw_pointer_types_removed": 3,
+        "scalar_ffi": {
+          "memcpy": {
+            "copies": 2,
+            "provider": "src/lib/ext2fs/sha512.rs",
+            "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          }
+        },
+        "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/e4crypt/release/libe4crypt_audit.a",
+      "candidate_sha256": "ddfedb3b9ae441522012c682ab5f9bf036010b3f58c680ddfa182367aee594eb",
+      "candidate_sources_sha256": "2ee0929ea3c93cf7f16734f62795063ce02edf0f69a9cbc42173e71416e7b19a",
+      "changed_modules": 2,
+      "compiler_selected_sources": 4,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "ddfedb3b9ae441522012c682ab5f9bf036010b3f58c680ddfa182367aee594eb",
+      "parent_sources_sha256": "107f54fa6c2d31bb0b1ee6964d3994366223c9b48634b5d4dda1a9730be3f0b9",
+      "raw_pointer_types_removed": 102,
+      "removed_declarations": {
+        "struct": 12,
+        "type": 22
+      },
+      "scanner_sha256": "2b7cb8c49225787ddc05c5b6d441089b3a647290119d1473977758e8a6f4e226"
+    }
+  },
+  "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/fsck/release/libfsck_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libfsck_audit.foreign-da564dfda5143b7ad9e7d3e90246570b925f109062fbf4921a8eb8c6b7659251.json",
+        "sha256": "da564dfda5143b7ad9e7d3e90246570b925f109062fbf4921a8eb8c6b7659251"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libfsck_audit.inlines-df93ae750e1472d458b3dcf77870304b47c59737e5da8938e30f0e01f5ee62e2.json",
+        "sha256": "894da003493a50adb1581d3e391f036a208056e9dec106b9410d9a078cf99a3e"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/fsck/release/libfsck_audit.a",
+        "c_string_literals": 113,
+        "candidate_sha256": "28d4986cd680b55854ebcc54b209c55fb8bd59ea2ae922dd357c4de81d2984ed",
+        "candidate_sources_sha256": "6cd32d244fad1c5cbefb9315b59a2adac9d3e65e43e7ee6a5300e9633d2a132f",
+        "compiler_selected_sources": 6,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "28d4986cd680b55854ebcc54b209c55fb8bd59ea2ae922dd357c4de81d2984ed",
+        "legacy_compiler": "nightly-2023-04-15",
+        "modules": {
+          "src/lib/support/devname.rs": 1,
+          "src/misc/base_device.rs": 13,
+          "src/misc/fsck.rs": 95,
+          "src/misc/ismounted.rs": 4
+        },
+        "parent_sources_sha256": "98ad7d569983a5ae5908304ebe31a082713e2c51b842510eb4ace12996ef3b8b",
+        "raw_ffi_pointer_extractions": 113,
+        "raw_pointer_types_removed": 226,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_scalar_ffi": {
+        "all_scalar_interfaces": true,
+        "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/fsck/release/libfsck_audit.a",
+        "candidate_sha256": "28d4986cd680b55854ebcc54b209c55fb8bd59ea2ae922dd357c4de81d2984ed",
+        "candidate_sources_sha256": "d870dcaf40cfe140e5a76a17099eab24d54b3ae062a3424c70ef0fd1963b14d5",
+        "compiler_selected_sources": 6,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "28d4986cd680b55854ebcc54b209c55fb8bd59ea2ae922dd357c4de81d2984ed",
+        "parent_sources_sha256": "6cd32d244fad1c5cbefb9315b59a2adac9d3e65e43e7ee6a5300e9633d2a132f",
+        "raw_pointer_types_removed": 29,
+        "scalar_ffi": {
+          "__ctype_b_loc": {
+            "copies": 3,
+            "provider": "src/misc/base_device.rs",
+            "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+          },
+          "__ctype_tolower_loc": {
+            "copies": 3,
+            "provider": "src/misc/base_device.rs",
+            "signature": "fn __ctype_tolower_loc() -> *mut *const i32;"
+          },
+          "__ctype_toupper_loc": {
+            "copies": 3,
+            "provider": "src/misc/base_device.rs",
+            "signature": "fn __ctype_toupper_loc() -> *mut *const i32;"
+          },
+          "__errno_location": {
+            "copies": 2,
+            "provider": "src/misc/fsck.rs",
+            "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+          },
+          "access": {
+            "copies": 2,
+            "provider": "src/lib/support/devname.rs",
+            "signature": "fn access(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> ::core::ffi::c_int;"
+          },
+          "dcgettext": {
+            "copies": 2,
+            "provider": "src/lib/support/devname.rs",
+            "signature": "fn dcgettext(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "free": {
+            "copies": 2,
+            "provider": "src/misc/base_device.rs",
+            "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+          },
+          "malloc": {
+            "copies": 2,
+            "provider": "src/misc/base_device.rs",
+            "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "strcmp": {
+            "copies": 3,
+            "provider": "src/lib/support/devname.rs",
+            "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strcpy": {
+            "copies": 2,
+            "provider": "src/misc/base_device.rs",
+            "signature": "fn strcpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strlen": {
+            "copies": 2,
+            "provider": "src/misc/base_device.rs",
+            "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+          },
+          "strncmp": {
+            "copies": 2,
+            "provider": "src/misc/base_device.rs",
+            "signature": "fn strncmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> ::core::ffi::c_int;"
+          }
+        },
+        "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/fsck/release/libfsck_audit.a",
+      "candidate_sha256": "28d4986cd680b55854ebcc54b209c55fb8bd59ea2ae922dd357c4de81d2984ed",
+      "candidate_sources_sha256": "ae66aab50f35a77fb18fe2aaef89176f2bd0714c1420e573cbf124f026730651",
+      "changed_modules": 4,
+      "compiler_selected_sources": 6,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "28d4986cd680b55854ebcc54b209c55fb8bd59ea2ae922dd357c4de81d2984ed",
+      "parent_sources_sha256": "d870dcaf40cfe140e5a76a17099eab24d54b3ae062a3424c70ef0fd1963b14d5",
+      "raw_pointer_types_removed": 14,
+      "removed_declarations": {
+        "struct": 4,
+        "type": 3
+      },
+      "scanner_sha256": "2b7cb8c49225787ddc05c5b6d441089b3a647290119d1473977758e8a6f4e226"
+    }
+  },
+  "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/logsave/release/liblogsave_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "liblogsave_audit.foreign-62674e6b6acff6d3c9a63b29add563a1939ec34fc9483bf8054de9c1d717dfa6.json",
+        "sha256": "62674e6b6acff6d3c9a63b29add563a1939ec34fc9483bf8054de9c1d717dfa6"
+      },
+      "linked_private_inline_proofs": {
+        "file": "liblogsave_audit.inlines-384a3d8f2605c1a485e796fb4f38ecce5044bdd790eb37ecf45b7d8d96755f6b.json",
+        "sha256": "6e74eb859a9f0247c4b20266951c640cc8cbe80329f64b94c8b0de09c30235fb"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/logsave/release/liblogsave_audit.a",
+        "c_string_literals": 17,
+        "candidate_sha256": "0c1ba271f084bb6529fcde197e1285839d32f09a3db01e6ff0329d1ccea9c61c",
+        "candidate_sources_sha256": "97e537f1c7d0dc0011835ee359f0241b14fa42e4c27fb7e46e0d43b88e030715",
+        "compiler_selected_sources": 3,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "0c1ba271f084bb6529fcde197e1285839d32f09a3db01e6ff0329d1ccea9c61c",
+        "legacy_compiler": "nightly-2023-04-15",
+        "modules": {
+          "src/logsave.rs": 17
+        },
+        "parent_sources_sha256": "f27f64716257d0b4956713e013fc63c7586a50aaba0c8da32fe29edad94747fe",
+        "raw_ffi_pointer_extractions": 17,
+        "raw_pointer_types_removed": 34,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/logsave/release/liblogsave_audit.a",
+      "candidate_sha256": "0c1ba271f084bb6529fcde197e1285839d32f09a3db01e6ff0329d1ccea9c61c",
+      "candidate_sources_sha256": "07b5a392df3ba69199616316ee6f631b6f52472a6d7a73d5ee9def55c76d2cce",
+      "changed_modules": 1,
+      "compiler_selected_sources": 3,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "0c1ba271f084bb6529fcde197e1285839d32f09a3db01e6ff0329d1ccea9c61c",
+      "parent_sources_sha256": "97e537f1c7d0dc0011835ee359f0241b14fa42e4c27fb7e46e0d43b88e030715",
+      "raw_pointer_types_removed": 4,
+      "removed_declarations": {
+        "struct": 1,
+        "type": 1
+      },
+      "scanner_sha256": "2b7cb8c49225787ddc05c5b6d441089b3a647290119d1473977758e8a6f4e226"
+    }
+  },
+  "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/mklost_found/release/libmklost_found_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libmklost_found_audit.foreign-513da62c3d20dc86b46890f8126514c4c582f6e472022577edd9145e8c36667d.json",
+        "sha256": "513da62c3d20dc86b46890f8126514c4c582f6e472022577edd9145e8c36667d"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libmklost_found_audit.inlines-07219d9ec7da85747cfe2889f3d9b6bb2a30c841b7658f929ccd52b00bce2bc2.json",
+        "sha256": "dc2052b9b8aeb49b08b24901f11d09061b32009925fb156335b9adf8836e1e4b"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/mklost_found/release/libmklost_found_audit.a",
+        "c_string_literals": 13,
+        "candidate_sha256": "7f6f69f0aef9f1709f9c86623464e3507afc037918aaca047740a1b5015e6ae5",
+        "candidate_sources_sha256": "333d3f0f78fc0537e7469f29f324f9dc446898a776690b323f71b98308f2c3c9",
+        "compiler_selected_sources": 3,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "7f6f69f0aef9f1709f9c86623464e3507afc037918aaca047740a1b5015e6ae5",
+        "legacy_compiler": "nightly-2023-04-15",
+        "modules": {
+          "src/mklost_found.rs": 13
+        },
+        "parent_sources_sha256": "cd1570846a3d6c1638bd77babdca982fccb5c8787108b318c5ace33adcf19a25",
+        "raw_ffi_pointer_extractions": 13,
+        "raw_pointer_types_removed": 26,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/mklost_found/release/libmklost_found_audit.a",
+      "candidate_sha256": "7f6f69f0aef9f1709f9c86623464e3507afc037918aaca047740a1b5015e6ae5",
+      "candidate_sources_sha256": "b768d9d85363ff22987f6121c9b7d5cbabef737ca0dd5924331cc3fa9c4670a2",
+      "changed_modules": 1,
+      "compiler_selected_sources": 3,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "7f6f69f0aef9f1709f9c86623464e3507afc037918aaca047740a1b5015e6ae5",
+      "parent_sources_sha256": "333d3f0f78fc0537e7469f29f324f9dc446898a776690b323f71b98308f2c3c9",
+      "raw_pointer_types_removed": 4,
+      "removed_declarations": {
+        "struct": 1,
+        "type": 1
+      },
+      "scanner_sha256": "2b7cb8c49225787ddc05c5b6d441089b3a647290119d1473977758e8a6f4e226"
+    }
+  }
+}

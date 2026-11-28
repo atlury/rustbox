@@ -1,0 +1,295 @@
+{
+  "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/chattr/release/libchattr_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libchattr_audit.foreign-c07e336b1b9e49d0e00642022c0ed331c4587639f668d5304add09c4b8b3d604.json",
+        "sha256": "c07e336b1b9e49d0e00642022c0ed331c4587639f668d5304add09c4b8b3d604"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libchattr_audit.inlines-4fd33d5b6db727ec42efef659c1c8f3f47e160292f52c04cbc55f4d2c3ab2b5c.json",
+        "sha256": "e18a334f409ae56ad97d2e5a65a8adbf3fb0d1ba756fabf4874ba41b0d7df28d"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/chattr/release/libchattr_audit.a",
+        "c_string_literals": 87,
+        "candidate_sha256": "36b039f2a9ae0c6b9237580cb2ee86bbfcf33ba4e973520ab3c064dd48d336cb",
+        "candidate_sources_sha256": "baf970c12ac801d2f663ad15d934543b374e20f0db246ec54be7a22d5dcb00b4",
+        "compiler_selected_sources": 12,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "36b039f2a9ae0c6b9237580cb2ee86bbfcf33ba4e973520ab3c064dd48d336cb",
+        "legacy_compiler": "nightly-2023-04-15",
+        "modules": {
+          "src/lib/e2p/pf.rs": 47,
+          "src/lib/et/com_err.rs": 2,
+          "src/lib/et/error_message.rs": 11,
+          "src/misc/chattr.rs": 27
+        },
+        "parent_sources_sha256": "3d10f8e9ccf346a85860a4b09e3a789f6d04227262f42284ee3026f34baa5861",
+        "raw_ffi_pointer_extractions": 87,
+        "raw_pointer_types_removed": 174,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_va_list_layouts": {
+        "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/chattr/release/libchattr_audit.a",
+        "candidate_sha256": "36b039f2a9ae0c6b9237580cb2ee86bbfcf33ba4e973520ab3c064dd48d336cb",
+        "candidate_sources_sha256": "b8bd508daf78c66eb7387e31d91aee5aa34f088a408f5cd1f38694fa9eb88e5b",
+        "compiler_selected_sources": 12,
+        "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+        "control_sha256": "36b039f2a9ae0c6b9237580cb2ee86bbfcf33ba4e973520ab3c064dd48d336cb",
+        "declaration_sha256": "d296c17ccd61fe78f5aaa568a8a8ea08b0e811edb049764982240829565ee797",
+        "parent_sources_sha256": "baf970c12ac801d2f663ad15d934543b374e20f0db246ec54be7a22d5dcb00b4",
+        "provider": "src/lib/e2p/fgetflags.rs",
+        "provider_namespace": "src/lib/e2p/fgetflags.rs",
+        "raw_pointer_types_removed": 16,
+        "reexporting_modules": [
+          "src/lib/e2p/fsetflags.rs",
+          "src/lib/e2p/fsetproject.rs",
+          "src/lib/e2p/fsetversion.rs",
+          "src/lib/e2p/iod.rs",
+          "src/lib/e2p/pf.rs",
+          "src/lib/et/com_err.rs",
+          "src/lib/et/error_message.rs",
+          "src/misc/chattr.rs"
+        ]
+      }
+    },
+    "pilot": {
+      "all_scalar_interfaces": true,
+      "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/chattr/release/libchattr_audit.a",
+      "candidate_sha256": "36b039f2a9ae0c6b9237580cb2ee86bbfcf33ba4e973520ab3c064dd48d336cb",
+      "candidate_sources_sha256": "fd6178e43d5167887344f2e56eb3f4de5e208b1620b659732664b279f074c679",
+      "compiler_selected_sources": 12,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "36b039f2a9ae0c6b9237580cb2ee86bbfcf33ba4e973520ab3c064dd48d336cb",
+      "parent_sources_sha256": "b8bd508daf78c66eb7387e31d91aee5aa34f088a408f5cd1f38694fa9eb88e5b",
+      "raw_pointer_types_removed": 9,
+      "scalar_ffi": {
+        "__errno_location": {
+          "copies": 6,
+          "provider": "src/lib/e2p/fgetflags.rs",
+          "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+        },
+        "free": {
+          "copies": 3,
+          "provider": "src/lib/e2p/iod.rs",
+          "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+        },
+        "malloc": {
+          "copies": 3,
+          "provider": "src/lib/e2p/iod.rs",
+          "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+        }
+      },
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+    }
+  },
+  "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/lsattr/release/liblsattr_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "liblsattr_audit.foreign-e643c1174cf20ab0200af5c263c3c614df9ce03532a9041d4cdacd87f3a19a41.json",
+        "sha256": "e643c1174cf20ab0200af5c263c3c614df9ce03532a9041d4cdacd87f3a19a41"
+      },
+      "linked_private_inline_proofs": {
+        "file": "liblsattr_audit.inlines-08556e85d6c6f18b6013cc852d2cc18c44cc430ca4a2159dd725e9cdb5f167c8.json",
+        "sha256": "c3f3e553497b4e70c5994935decc0da3e5ab51f1cb92d82bec3f1a8d15590f48"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/lsattr/release/liblsattr_audit.a",
+        "c_string_literals": 82,
+        "candidate_sha256": "5ccea8b5de5c4da29e48c9efcbca1457d7dcb9b67c4ba10469ed5c62a60df965",
+        "candidate_sources_sha256": "deeca9db07c8f058c389b6676f6b63265e9c870e62c324974f6b5b31603b9b38",
+        "compiler_selected_sources": 11,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "5ccea8b5de5c4da29e48c9efcbca1457d7dcb9b67c4ba10469ed5c62a60df965",
+        "legacy_compiler": "nightly-2023-04-15",
+        "modules": {
+          "src/lib/e2p/pf.rs": 47,
+          "src/lib/et/com_err.rs": 2,
+          "src/lib/et/error_message.rs": 11,
+          "src/misc/lsattr.rs": 22
+        },
+        "parent_sources_sha256": "669e84172e52eebb0232ab6731fff5586e48d3988ac7d52b3e32854d92de987f",
+        "raw_ffi_pointer_extractions": 82,
+        "raw_pointer_types_removed": 164,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_va_list_layouts": {
+        "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/lsattr/release/liblsattr_audit.a",
+        "candidate_sha256": "5ccea8b5de5c4da29e48c9efcbca1457d7dcb9b67c4ba10469ed5c62a60df965",
+        "candidate_sources_sha256": "31046ce53f5135a125c4a7c94e6b169038febcf3c64c7742e5275f087271fd8b",
+        "compiler_selected_sources": 11,
+        "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+        "control_sha256": "5ccea8b5de5c4da29e48c9efcbca1457d7dcb9b67c4ba10469ed5c62a60df965",
+        "declaration_sha256": "d296c17ccd61fe78f5aaa568a8a8ea08b0e811edb049764982240829565ee797",
+        "parent_sources_sha256": "deeca9db07c8f058c389b6676f6b63265e9c870e62c324974f6b5b31603b9b38",
+        "provider": "src/lib/e2p/fgetflags.rs",
+        "provider_namespace": "src/lib/e2p/fgetflags.rs",
+        "raw_pointer_types_removed": 14,
+        "reexporting_modules": [
+          "src/lib/e2p/fgetproject.rs",
+          "src/lib/e2p/fgetversion.rs",
+          "src/lib/e2p/iod.rs",
+          "src/lib/e2p/pf.rs",
+          "src/lib/et/com_err.rs",
+          "src/lib/et/error_message.rs",
+          "src/misc/lsattr.rs"
+        ]
+      }
+    },
+    "pilot": {
+      "all_scalar_interfaces": true,
+      "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/lsattr/release/liblsattr_audit.a",
+      "candidate_sha256": "5ccea8b5de5c4da29e48c9efcbca1457d7dcb9b67c4ba10469ed5c62a60df965",
+      "candidate_sources_sha256": "4a02d231ffbd34531243076c39cd84547395b51974e7f85d09af40694f945bf9",
+      "compiler_selected_sources": 11,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "5ccea8b5de5c4da29e48c9efcbca1457d7dcb9b67c4ba10469ed5c62a60df965",
+      "parent_sources_sha256": "31046ce53f5135a125c4a7c94e6b169038febcf3c64c7742e5275f087271fd8b",
+      "raw_pointer_types_removed": 8,
+      "scalar_ffi": {
+        "__errno_location": {
+          "copies": 5,
+          "provider": "src/lib/e2p/fgetflags.rs",
+          "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+        },
+        "free": {
+          "copies": 3,
+          "provider": "src/lib/e2p/iod.rs",
+          "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+        },
+        "malloc": {
+          "copies": 3,
+          "provider": "src/lib/e2p/iod.rs",
+          "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+        }
+      },
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+    }
+  },
+  "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtacct/dsfield-names/3031a37a4319869eedcd86b6411af66881a702f8a82edb4eb06ef1ebdbf69296/librtacct_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "librtacct_audit.foreign-c115a7ea7f0fea1e97a9d79e93810d9da060c67179d2484c2594823d5cd215da.json",
+        "sha256": "c115a7ea7f0fea1e97a9d79e93810d9da060c67179d2484c2594823d5cd215da"
+      },
+      "linked_private_inline_proofs": {
+        "file": "librtacct_audit.inlines-ff667d3c0a1229faa98826deba42c2e63c0e6de78d251435d670c3e8a66fa254.json",
+        "sha256": "c449e994447b302c60595047bd76fdaba1ea27afb93d3c4c53c8febf5f6cb821"
+      },
+      "linked_second_inline_proofs": {
+        "file": "librtacct_audit.layer2-7976dd962cb60e847ec85cb97c39b0ca264812054fd165bb02c47ae02d23a2cc.json",
+        "sha256": "7976dd962cb60e847ec85cb97c39b0ca264812054fd165bb02c47ae02d23a2cc"
+      }
+    },
+    "pilot": {
+      "all_scalar_interfaces": true,
+      "archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtacct/dsfield-names/3031a37a4319869eedcd86b6411af66881a702f8a82edb4eb06ef1ebdbf69296/librtacct_audit.a",
+      "candidate_sha256": "3031a37a4319869eedcd86b6411af66881a702f8a82edb4eb06ef1ebdbf69296",
+      "candidate_sources_sha256": "7a45c7eb9cd467993e029642e94c421284cbc265406d4d018714b5d02266aef0",
+      "cargo_archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtacct/release/librtacct_audit.a",
+      "compiler_selected_sources": 13,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "3031a37a4319869eedcd86b6411af66881a702f8a82edb4eb06ef1ebdbf69296",
+      "parent_sources_sha256": "0c44c6b1aa7ba11b9883cec367a3e8b183b3268583111962f021f6c2cf4317d0",
+      "raw_pointer_types_removed": 86,
+      "scalar_ffi": {
+        "__ctype_b_loc": {
+          "copies": 2,
+          "provider": "src/lib/ll_addr.rs",
+          "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+        },
+        "__ctype_tolower_loc": {
+          "copies": 2,
+          "provider": "src/lib/ll_addr.rs",
+          "signature": "fn __ctype_tolower_loc() -> *mut *const i32;"
+        },
+        "__ctype_toupper_loc": {
+          "copies": 2,
+          "provider": "src/lib/ll_addr.rs",
+          "signature": "fn __ctype_toupper_loc() -> *mut *const i32;"
+        },
+        "__errno_location": {
+          "copies": 6,
+          "provider": "src/lib/libnetlink.rs",
+          "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+        },
+        "free": {
+          "copies": 5,
+          "provider": "src/lib/json_print.rs",
+          "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+        },
+        "getenv": {
+          "copies": 3,
+          "provider": "src/lib/color.rs",
+          "signature": "fn getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "malloc": {
+          "copies": 5,
+          "provider": "src/lib/json_writer.rs",
+          "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "memcpy": {
+          "copies": 5,
+          "provider": "src/lib/color.rs",
+          "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "memset": {
+          "copies": 3,
+          "provider": "src/lib/libnetlink.rs",
+          "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+        },
+        "perror": {
+          "copies": 4,
+          "provider": "src/lib/json_print.rs",
+          "signature": "fn perror(a0: *const ::core::ffi::c_char);"
+        },
+        "strchr": {
+          "copies": 2,
+          "provider": "src/lib/ll_addr.rs",
+          "signature": "fn strchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        },
+        "strcmp": {
+          "copies": 5,
+          "provider": "src/lib/color.rs",
+          "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+        },
+        "strcpy": {
+          "copies": 4,
+          "provider": "src/lib/ll_map.rs",
+          "signature": "fn strcpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "strdup": {
+          "copies": 2,
+          "provider": "src/lib/rt_names.rs",
+          "signature": "fn strdup(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+        },
+        "strerror": {
+          "copies": 2,
+          "provider": "src/lib/libnetlink.rs",
+          "signature": "fn strerror(a0: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        },
+        "strlen": {
+          "copies": 6,
+          "provider": "src/lib/color.rs",
+          "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+        },
+        "strrchr": {
+          "copies": 2,
+          "provider": "src/lib/color.rs",
+          "signature": "fn strrchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+        },
+        "strtol": {
+          "copies": 3,
+          "provider": "src/lib/rt_names.rs",
+          "signature": "fn strtol(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_long;"
+        },
+        "strtoul": {
+          "copies": 4,
+          "provider": "src/lib/ll_addr.rs",
+          "signature": "fn strtoul(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_ulong;"
+        }
+      },
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+    }
+  }
+}
