@@ -1,0 +1,235 @@
+{
+  "archive": {
+    "archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/dsfield-names/0af8cebadc6066e2fe5e89a0cb6ec5986a9449f11d6fc29f18e00442053bc649/libip_audit.a",
+    "candidate_module_sha256": "82a7f883c13c2e9e7a81ff9e3684aa85e9e1aeccefabd88d11fa3551dc332d7f",
+    "candidate_sha256": "5e2ec0a8c44fb586c3549a41908b8c323aa7806a42f4909fdacb473a9d9b9ddb",
+    "candidate_sources_sha256": "0e2bcc8ad5d7cce1ad46f859f505cb1ee6fa6d014149fdcfc003950e41024f69",
+    "canonical_sha256": "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e",
+    "cargo_archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/release/libip_audit.a",
+    "compiler_selected_sources": 102,
+    "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+    "control_module_sha256": "2f2052e81d58275e57b1fbd06fdc73e269eec866c6a4b0610edfab2af857cc51",
+    "control_sha256": "0af8cebadc6066e2fe5e89a0cb6ec5986a9449f11d6fc29f18e00442053bc649",
+    "helper_sha256": "5297d2f97174a2ffda3a3ad5d1158c8091575d58f6e80654f4ab46705e9c5373",
+    "module": "src/lib/rt_names.rs",
+    "parent_sources_sha256": "9f0f6bf6206cccd1b888e16339c49b5020510c15d8c5f29d7b87a6c7579d27f9",
+    "raw_pointer_types_removed": 267
+  },
+  "canonical_comparison_sha256": "edcbf6f773ec0db64cceafa52ab0d191c84565dec790b781af7bb21c0ab09d15",
+  "canonical_tests_rerun": false,
+  "comparisons": {
+    "dsfield": {
+      "canonical_inputs": {
+        "include/rt_names.h": "b8223569a65254ecd3ea34c0368b253e355f558c270e246fdb7c240823b29414",
+        "lib/rt_names.c": "c7a7fbcfc2995b82fe50b8afd839311e45126e1d3dc135b732988c158f7ec77e",
+        "lib/utils.c": "d5ab95c34ce7d5447e3951ca2e83faf6af604c0e6aad23b36659473f3c388bf7"
+      },
+      "driver_sha256": "b8ed262ce4c37fd6f7780ff4598c94ee371b302e610e2b57935d9e49b85977c1",
+      "memcheck_runs": 4,
+      "oracle_compilers": [
+        "gcc",
+        "clang-18"
+      ],
+      "profiles": [
+        {
+          "counts": {
+            "F": 4552,
+            "N": 258,
+            "R": 634
+          },
+          "profile": "empty",
+          "public_filter_status": [
+            0,
+            0,
+            0,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255
+          ],
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "645dcd3c21fb11fdac73e09f1a6a31db888a981f938811025c7c7c1724794288"
+        },
+        {
+          "counts": {
+            "F": 4552,
+            "N": 258,
+            "R": 634
+          },
+          "profile": "vendor",
+          "public_filter_status": [
+            0,
+            0,
+            0,
+            255,
+            0,
+            255,
+            255,
+            0,
+            255
+          ],
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "df07c2350cca237923541f46dd5ed67816259df013fd1fd748563dc68cff0239"
+        },
+        {
+          "counts": {
+            "F": 4552,
+            "N": 258,
+            "R": 634
+          },
+          "profile": "local",
+          "public_filter_status": [
+            0,
+            0,
+            0,
+            255,
+            255,
+            0,
+            255,
+            0,
+            255
+          ],
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "c436065f3d517dfbbce1ab961dc622f19fe2ef9f56d32fc3d145cdd24e17d5f0"
+        },
+        {
+          "counts": {
+            "F": 4552,
+            "N": 258,
+            "R": 634
+          },
+          "profile": "malformed",
+          "public_filter_status": [
+            0,
+            0,
+            0,
+            255,
+            255,
+            255,
+            0,
+            255,
+            255
+          ],
+          "stderr_sha256": "2d6bd71bbefd517912527697ab16491c35b4702d383e621f8f0c2ec1abfc962e",
+          "stdout_sha256": "cfeb537066b4ff43075f141c2a745f6c0154de9d77a8cdfc970e37cf4ac8b53c"
+        }
+      ],
+      "public_oracle_sha256": {
+        "clang-18": "d11e16aa272e39208836dd5ad4a31fa83f4c1a886adee4e0f51efb7e34e9210c",
+        "gcc": "26a54839326841f119fb5e810e5d24cd4722462d0c5837524e14e1e1bc3fe1b2"
+      }
+    },
+    "group": {
+      "driver_sha256": "06ff72625bdc6f6eb64e5d68b3964abae52146a9070f5e6a0250e75e26c56f9e",
+      "memcheck_runs": 5,
+      "oracle_compilers": [
+        "gcc",
+        "clang-18"
+      ],
+      "profiles": [
+        {
+          "forward": 6178,
+          "profile": "empty",
+          "public_statuses": [
+            0,
+            255,
+            255,
+            0,
+            255,
+            255,
+            0,
+            255,
+            255,
+            0
+          ],
+          "reverse": 29,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "3880ec6c112153b0ff6cbb917ba129bfb1acfa4092f8ffd449429676985ce5d1"
+        },
+        {
+          "forward": 6178,
+          "profile": "vendor",
+          "public_statuses": [
+            0,
+            255,
+            0,
+            0,
+            0,
+            0,
+            0,
+            255,
+            255,
+            0
+          ],
+          "reverse": 29,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "a7ea8b3bae7b351e76e411d65188067ca7fc525de955f20d503d51daa226623c"
+        },
+        {
+          "forward": 6178,
+          "profile": "local",
+          "public_statuses": [
+            0,
+            0,
+            255,
+            0,
+            0,
+            0,
+            0,
+            255,
+            255,
+            0
+          ],
+          "reverse": 29,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "942041280e9cd076199e10f6e7d7317391477fe6bdb1d9d8ae9bc06a46707d64"
+        },
+        {
+          "forward": 6178,
+          "profile": "corrupt",
+          "public_statuses": [
+            0,
+            255,
+            255,
+            0,
+            255,
+            255,
+            0,
+            255,
+            255,
+            0
+          ],
+          "reverse": 29,
+          "stderr_sha256": "19dfb40ecc5920eedbdc5fc5fdb51ca1dc7ee517de10ec60be5f0a9438dd7fa7",
+          "stdout_sha256": "a51338608fc81fa7c59eb1bb536f1aa33152dd011d83026db7e2d314ac54502e"
+        },
+        {
+          "forward": 6178,
+          "profile": "directory",
+          "public_statuses": [
+            0,
+            255,
+            255,
+            0,
+            255,
+            255,
+            0,
+            255,
+            255,
+            0
+          ],
+          "reverse": 29,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e6781026eb62297b9d766b2997b62b7e0993b32a1f3f578c7db6eac4e88d7fca"
+        }
+      ],
+      "public_oracle_sha256": {
+        "clang-18": "d11e16aa272e39208836dd5ad4a31fa83f4c1a886adee4e0f51efb7e34e9210c",
+        "gcc": "26a54839326841f119fb5e810e5d24cd4722462d0c5837524e14e1e1bc3fe1b2"
+      }
+    }
+  },
+  "link_sha256": "b539b724d4d51a29c9688b8dc1576931d09f89e032a6a3f9658e91ee8cfbad94"
+}
