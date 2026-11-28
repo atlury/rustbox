@@ -2462,6 +2462,8 @@ Zstd's whole-archive cleanup changed the archive bytes. Rebuilding smaller group
 
 On the LZ4 candidate the combined compiler-input recount fell from 747,291 to 732,086 (15,205 fewer). The selection includes 2 variadic-layout archives, 25 private-helper archives and 1 scalar ABI archive(s). The recount includes only matching parent receipts at each step. [Joint inventory](evidence/lz4-variadic-closed-scalar-composition.json)
 
+On the tested DS field executable, the initial selection chose compatible compiler receipts for 57 archives. Its source count fell from 742,521 to 726,729, with 536,011 when identical files are counted once. [Verified initial selection](evidence/dsfield-optimized-initial.json)
+
 To replay a recovered group, run `python3 -B scripts/verify_closed_inline_recovery.py PARENT_LINK SELECTED_LINK ACTIVE_MANIFEST WHOLE_TRIAL SUBSET_TRIAL OUTPUT`. It checks both compiler receipts, matches the removed helpers against the original module list, and recounts the combined selection.
 
 The first four verified archives remove 3,861 declarations on the tar baseline:
