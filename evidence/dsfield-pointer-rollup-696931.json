@@ -1,0 +1,39 @@
+{
+  "binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+  "candidate_link_sha256": "b7f846749d04dc4ffbf590b37c61730d73fe4a49d50435ca7c60187c57e34cc8",
+  "counts": {
+    "all": {
+      "after": 696931,
+      "before": 697726
+    },
+    "counting_identical_files_once": {
+      "after": 626116,
+      "before": 628585
+    }
+  },
+  "deferred": {},
+  "input_manifests": {
+    "batches/dsfield-pointer-rollup-696931-shared_scalar_ffi.json": "aec9cde0bef7d809d674231f35799bb95f89e506d5f5718a2407dc7efa717796",
+    "batches/dsfield-pointer-rollup-696931-shared_variadic_ffi.json": "2e4e9f1e4c79e027ebff85bc07f70afad619aa1ce57ee1d68b93ff7c330dfd1e"
+  },
+  "layers": {
+    "shared_scalar_ffi": {
+      "archives": [
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2initrd_helper/6edccc168e7742f23fafe09103351a09528c8e57699efe07b6009d65fca34cab/libe2initrd_helper_audit.a",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/rtmon/dsfield-names/1b1a19290e9b94e5144315ed910729e33897ef5cee5697157b870bdf175c47ba/librtmon_audit.a"
+      ],
+      "manifest_sha256": "aec9cde0bef7d809d674231f35799bb95f89e506d5f5718a2407dc7efa717796"
+    },
+    "shared_variadic_ffi": {
+      "archives": [
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/dsfield-names/8b9ffa4f61832836c79a6b52d045246be4afdf53f46026dce8e03507b19e07be/libtc_audit.a",
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-14-stable/target/release/libutil_linux_small_14_normalized_reachable.a"
+      ],
+      "manifest_sha256": "2e4e9f1e4c79e027ebff85bc07f70afad619aa1ce57ee1d68b93ff7c330dfd1e"
+    }
+  },
+  "parent_census_sha256": "81cf351338db4213ad150f36fce33f251d243b26910d7eadb2d7e8cb63589d25",
+  "parent_link_sha256": "ff60ca992a40905934f87cdae842445e091043fe63260f83ef1cceee18086464",
+  "public_evidence_sha256": "6599c4ec031ad9207a57a8b15c86be77b07e206ece2f3ce0597fa84c72d57fe5",
+  "raw_pointer_types_removed": 795
+}
