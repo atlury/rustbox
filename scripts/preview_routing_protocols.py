@@ -57,9 +57,10 @@ def commands(elf, stage):
                 routel_source_sha256=digest(routel))
 
 
-def dsfield_commands(elf, stage):
+def dsfield_commands(elf, stage, checked=None):
     from test_dsfield_names import PROFILES, QUERIES, capture, configure
-    checked = commands(elf, stage)
+    if checked is None:
+        checked = commands(elf, stage)
     local, vendor = Path("/etc/iproute2"), Path("/usr/share/iproute2")
     if not all(os.path.ismount(p) and not any(p.iterdir()) for p in (local, vendor)):
         raise ValueError("expected empty temporary configuration mounts")

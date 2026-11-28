@@ -1876,6 +1876,8 @@ The complete cold-built ip archive reproduced its control before the rewrite. It
 
 The 499-name DS field executable establishes the group command baseline. It passed 200 device-group comparisons through symlink and subcommand dispatch against both canonical ip builds. [Public command baseline](evidence/iproute2-group-names-command-baseline.json)
 
+Use `scripts/qualify_iproute2_combined_names.py LINK OUTPUT` to cold-build both readers in each DS field engine and compare both interfaces with canonical IPRoute2. The full multicall comparator in `scripts/preview_iproute2_combined_names.py` checks group and DS field configuration in one run. Its 632 command comparisons passed on the saved control executable. [Combined command control](evidence/iproute2-combined-name-tables-command-control.json)
+
 The direct-rustc bridge engine reproduced its original archive from all 24 compiler inputs. Its owned group lookup passed 31,035 canonical ABI cases and five Memcheck runs. [Direct bridge comparison](evidence/iproute2-group-names-bridge.json)
 
 The bridge archive with both owned name tables passed 31,035 device-group and 21,776 DS field lookup cases, plus nine Memcheck runs. Its two edits remove 532 raw-pointer type occurrences from this engine. [Combined bridge tests](evidence/iproute2-bridge-combined-name-tables.json)
