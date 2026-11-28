@@ -15,6 +15,7 @@ from test_routing_protocol_pilot import LIBS
 
 TEST = ROOT / "tests/iproute2-group-names"
 PROFILES = ("empty", "vendor", "local", "corrupt", "directory")
+QUERIES = ("0", "local", "vendor", "default", "dup", b"raw-\xff", "0x101", "missing", "-1", "4294967297")
 
 
 def configure(profile, local, vendor):
@@ -112,7 +113,7 @@ def compare(link, pilot):
             raise ValueError((profile,"Memcheck or program output differed"))
         statuses = []
         if ip:
-            for name in ("0","local","vendor","default","dup","raw-ÿ".encode("latin1"),"0x101","missing","-1","4294967297"):
+            for name in QUERIES:
                 argv = ["ip","link","show","group",name]
                 canonical = capture(argv,executable="/rustbox-iproute2/programs-gcc/ip")
                 for exe in ("/rustbox-iproute2/programs-clang-18/ip","./control-ip","./candidate-ip"):

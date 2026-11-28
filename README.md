@@ -1874,6 +1874,8 @@ The device-group lookup pilot replaces mutable hash chains with owned Rust names
 
 The complete cold-built ip archive reproduced its control before the rewrite. Its candidate then matched all 31,035 canonical ABI results, five Memcheck runs and 50 read-only ip link group filters. [Translated ip archive](evidence/iproute2-group-names-pilot.json)
 
+The 499-name DS field executable establishes the group command baseline. It passed 200 device-group comparisons through symlink and subcommand dispatch against both canonical ip builds. [Public command baseline](evidence/iproute2-group-names-command-baseline.json)
+
 The direct-rustc bridge engine reproduced its original archive from all 24 compiler inputs. Its owned group lookup passed 31,035 canonical ABI cases and five Memcheck runs. [Direct bridge comparison](evidence/iproute2-group-names-bridge.json)
 
 A 499-name multicall containing all 18 rebuilt DS field engines matched both canonical compilers on
