@@ -2581,6 +2581,8 @@ Adding the byte-identical Gawk archive removed 85 more duplicate raw-pointer typ
 
 The unused C type scan found **14,439 candidate raw-pointer occurrences in 107 of 127 compiled Rust archives** on the 701,041 selection. It follows references among translated structs, unions and aliases, including cycles, and retains types referenced by compiled code, C function signatures, imports or macros. The largest candidates are ncurses (1,050), curl (936) and Kmod (919). Only byte-identical cold rebuilds can enter the shared executable count through this pass. Reproduce with `python3 -B scripts/rank_unused_c_types.py LINK`. [Full archive ranking](evidence/dsfield-unused-c-types-ranking.json)
 
+The next combined compiler selection removed 301 more raw-pointer occurrences and retained the public-tested executable, leaving **691,644**. [Verified archive changes](evidence/dsfield-pointer-rollup-691644.json) This selection includes 1 cold-built archives with unused C type declarations removed.
+
 The next combined compiler selection removed 309 more raw-pointer occurrences and retained the public-tested executable, leaving **691,945**. [Verified archive changes](evidence/dsfield-pointer-rollup-691945.json) This selection includes 1 cold-built archives with unused C type declarations removed.
 
 The next combined compiler selection removed 867 more raw-pointer occurrences and retained the public-tested executable, leaving **692,254**. [Verified archive changes](evidence/dsfield-pointer-rollup-692254.json)

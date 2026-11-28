@@ -1,0 +1,40 @@
+{
+  "binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+  "candidate_link_sha256": "63f32e414c96365f6deef41b3341c70f9aa0899f0df7b545eaff1dc276a9f06c",
+  "counts": {
+    "all": {
+      "after": 691644,
+      "before": 691945
+    },
+    "counting_identical_files_once": {
+      "after": 607038,
+      "before": 607323
+    }
+  },
+  "deferred": {},
+  "input_manifests": {
+    "batches/dsfield-pointer-rollup-691644-shared_variadic_ffi.json": "5b490a0c587ae89c54d7f30f90d590191913e783b5985b73123866abb49f216d",
+    "batches/dsfield-pointer-rollup-691644-unused_c_types.json": "17b0e69d6f3ef006762bc72ee23a87a3458f7be0e3c38787833ebdc12a7ec1d9"
+  },
+  "layers": {
+    "shared_variadic_ffi": {
+      "archives": [
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-06-stable/target/release/libutil_linux_small_06_normalized_reachable.a",
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-07-stable/target/release/libutil_linux_small_07_normalized_reachable.a",
+        "work/analysis/util-linux-2.42.4/translations/c2rust-0.22.1/util-linux-small-09-stable/target/release/libutil_linux_small_09_normalized_reachable.a"
+      ],
+      "manifest_sha256": "5b490a0c587ae89c54d7f30f90d590191913e783b5985b73123866abb49f216d"
+    },
+    "unused_c_types": {
+      "archives": [
+        "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftpd_audit.a"
+      ],
+      "manifest_sha256": "17b0e69d6f3ef006762bc72ee23a87a3458f7be0e3c38787833ebdc12a7ec1d9"
+    }
+  },
+  "parent_census_sha256": "bb72e8465726718c09d0ad9bbb697f22da7d2cb20c5fa9921334c1209b5af43c",
+  "parent_link_sha256": "e6f03684a387dde03151e53f651acdab2465e76aec831790d9b80e90bffdd9cf",
+  "public_evidence_sha256": "6599c4ec031ad9207a57a8b15c86be77b07e206ece2f3ce0597fa84c72d57fe5",
+  "raw_pointer_types_removed": 301,
+  "unused_types_ranking_sha256": "2b4468ec2997bed1ceab8d7b9c786ab8f85ba5dc0a3aa5b11ab2f8419d73ddd1"
+}

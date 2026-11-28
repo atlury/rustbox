@@ -1,0 +1,274 @@
+{
+  "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftpd_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libftpd_audit.foreign-2fde8e673147776105019d185e0d33466a7b1672fd7e60f8865366c1f1e93c2e.json",
+        "sha256": "2fde8e673147776105019d185e0d33466a7b1672fd7e60f8865366c1f1e93c2e"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libftpd_audit.inlines-cfdb5c795c7377d88bc0faed676478a19fde41a4f32b4c604bd2aee52b3ae850.json",
+        "sha256": "9346dbc5b5c841ced6b09163a6ac7537d366e16e001f0f9e07c943b581053713"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libftpd_audit.layer2-95c347410b810602f695ffdbb944f22fbd56b405046fff26a9b7b390f318affc.json",
+        "sha256": "95c347410b810602f695ffdbb944f22fbd56b405046fff26a9b7b390f318affc"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftpd_audit.a",
+        "c_string_literals": 747,
+        "candidate_sha256": "6df26f3b6d65a40953a17f3886d0cd86878550b248f67f820e0a406c3fe8592e",
+        "candidate_sources_sha256": "bc3cb61d0de0f05d09ea2a27ed37297f7c5f4da881ab9e70b3d84f89c369046d",
+        "compiler_selected_sources": 54,
+        "control_binary_sha256": "e83290b5d352a57ec7590a3c69e685ae7d7ca3f7ef364615ba1b818546886341",
+        "control_sha256": "6df26f3b6d65a40953a17f3886d0cd86878550b248f67f820e0a406c3fe8592e",
+        "modules": {
+          "src/ftpd/auth.rs": 11,
+          "src/ftpd/conf.rs": 3,
+          "src/ftpd/ftpcmd.rs": 255,
+          "src/ftpd/ftpd.rs": 285,
+          "src/ftpd/popen.rs": 3,
+          "src/ftpd/server_mode.rs": 11,
+          "src/lib/argp_help.rs": 48,
+          "src/lib/argp_parse.rs": 22,
+          "src/lib/cycle_check.rs": 2,
+          "src/lib/fts.rs": 11,
+          "src/lib/getopt.rs": 15,
+          "src/lib/glob.rs": 15,
+          "src/lib/hash.rs": 4,
+          "src/lib/progname.rs": 2,
+          "src/lib/version_etc.rs": 22,
+          "src/lib/xalloc_die.rs": 4,
+          "src/libinetutils/daemon.rs": 3,
+          "src/libinetutils/defauthors.rs": 1,
+          "src/libls/ls.rs": 11,
+          "src/libls/print.rs": 18,
+          "src/libls/util.rs": 1
+        },
+        "parent_sources_sha256": "5b8951f09b1185fece7cc0ea73fead5261c19481eb4063d106303ac8abf36524",
+        "raw_ffi_pointer_extractions": 747,
+        "raw_pointer_types_removed": 1494,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      },
+      "shared_scalar_ffi": {
+        "all_scalar_interfaces": true,
+        "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftpd_audit.a",
+        "candidate_sha256": "6df26f3b6d65a40953a17f3886d0cd86878550b248f67f820e0a406c3fe8592e",
+        "candidate_sources_sha256": "d4d9fd05d1285c1fcfaf7bf731db80dbbdc0f69f712c48c9319c8a38f063a482",
+        "compiler_selected_sources": 54,
+        "control_binary_sha256": "45fdb23273066ea950a469b17b7ccdb2b719031c1b761f3fcec600f15d48091a",
+        "control_sha256": "6df26f3b6d65a40953a17f3886d0cd86878550b248f67f820e0a406c3fe8592e",
+        "parent_sources_sha256": "bc3cb61d0de0f05d09ea2a27ed37297f7c5f4da881ab9e70b3d84f89c369046d",
+        "raw_pointer_types_removed": 279,
+        "scalar_ffi": {
+          "__ctype_b_loc": {
+            "copies": 12,
+            "provider": "src/ftpd/conf.rs",
+            "signature": "fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;"
+          },
+          "__ctype_tolower_loc": {
+            "copies": 12,
+            "provider": "src/ftpd/conf.rs",
+            "signature": "fn __ctype_tolower_loc() -> *mut *const i32;"
+          },
+          "__ctype_toupper_loc": {
+            "copies": 12,
+            "provider": "src/ftpd/conf.rs",
+            "signature": "fn __ctype_toupper_loc() -> *mut *const i32;"
+          },
+          "__errno_location": {
+            "copies": 21,
+            "provider": "src/ftpd/conf.rs",
+            "signature": "fn __errno_location() -> *mut ::core::ffi::c_int;"
+          },
+          "calloc": {
+            "copies": 3,
+            "provider": "src/ftpd/ftpcmd.rs",
+            "signature": "fn calloc(a0: usize, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "chdir": {
+            "copies": 2,
+            "provider": "src/ftpd/ftpd.rs",
+            "signature": "fn chdir(a0: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "free": {
+            "copies": 18,
+            "provider": "src/ftpd/auth.rs",
+            "signature": "fn free(a0: *mut ::core::ffi::c_void);"
+          },
+          "getenv": {
+            "copies": 4,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn getenv(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "malloc": {
+            "copies": 14,
+            "provider": "src/ftpd/auth.rs",
+            "signature": "fn malloc(a0: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memchr": {
+            "copies": 3,
+            "provider": "src/lib/argp_fmtstream.rs",
+            "signature": "fn memchr(a0: *const ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memcmp": {
+            "copies": 2,
+            "provider": "src/ftpd/ftpcmd.rs",
+            "signature": "fn memcmp(a0: *const ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "memcpy": {
+            "copies": 6,
+            "provider": "src/ftpd/ftpcmd.rs",
+            "signature": "fn memcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memmove": {
+            "copies": 2,
+            "provider": "src/lib/argp_fmtstream.rs",
+            "signature": "fn memmove(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "mempcpy": {
+            "copies": 2,
+            "provider": "src/lib/argp_help.rs",
+            "signature": "fn mempcpy(a0: *mut ::core::ffi::c_void, a1: *const ::core::ffi::c_void, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "memset": {
+            "copies": 11,
+            "provider": "src/ftpd/ftpcmd.rs",
+            "signature": "fn memset(a0: *mut ::core::ffi::c_void, a1: ::core::ffi::c_int, a2: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "realloc": {
+            "copies": 7,
+            "provider": "src/ftpd/ftpd.rs",
+            "signature": "fn realloc(a0: *mut ::core::ffi::c_void, a1: usize) -> *mut ::core::ffi::c_void;"
+          },
+          "strcasecmp": {
+            "copies": 2,
+            "provider": "src/ftpd/ftpd.rs",
+            "signature": "fn strcasecmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strchr": {
+            "copies": 6,
+            "provider": "src/ftpd/conf.rs",
+            "signature": "fn strchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strchrnul": {
+            "copies": 2,
+            "provider": "src/ftpd/ftpd.rs",
+            "signature": "fn strchrnul(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strcmp": {
+            "copies": 9,
+            "provider": "src/ftpd/auth.rs",
+            "signature": "fn strcmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> ::core::ffi::c_int;"
+          },
+          "strcpy": {
+            "copies": 5,
+            "provider": "src/ftpd/auth.rs",
+            "signature": "fn strcpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strdup": {
+            "copies": 5,
+            "provider": "src/ftpd/ftpcmd.rs",
+            "signature": "fn strdup(a0: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strerror": {
+            "copies": 5,
+            "provider": "src/ftpd/ftpcmd.rs",
+            "signature": "fn strerror(a0: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strlen": {
+            "copies": 11,
+            "provider": "src/ftpd/auth.rs",
+            "signature": "fn strlen(a0: *const ::core::ffi::c_char) -> usize;"
+          },
+          "strncmp": {
+            "copies": 4,
+            "provider": "src/ftpd/conf.rs",
+            "signature": "fn strncmp(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> ::core::ffi::c_int;"
+          },
+          "strncpy": {
+            "copies": 2,
+            "provider": "src/ftpd/ftpd.rs",
+            "signature": "fn strncpy(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char, a2: usize) -> *mut ::core::ffi::c_char;"
+          },
+          "strpbrk": {
+            "copies": 2,
+            "provider": "src/ftpd/ftpcmd.rs",
+            "signature": "fn strpbrk(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;"
+          },
+          "strrchr": {
+            "copies": 4,
+            "provider": "src/ftpd/ftpd.rs",
+            "signature": "fn strrchr(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;"
+          },
+          "strtol": {
+            "copies": 5,
+            "provider": "src/ftpd/ftpcmd.rs",
+            "signature": "fn strtol(a0: *const ::core::ffi::c_char, a1: *mut *mut ::core::ffi::c_char, a2: ::core::ffi::c_int) -> ::core::ffi::c_long;"
+          },
+          "waitpid": {
+            "copies": 2,
+            "provider": "src/ftpd/popen.rs",
+            "signature": "fn waitpid(a0: ::core::ffi::c_int, a1: *mut ::core::ffi::c_int, a2: ::core::ffi::c_int) -> ::core::ffi::c_int;"
+          }
+        },
+        "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd"
+      },
+      "shared_stdio_layouts": {
+        "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftpd_audit.a",
+        "candidate_sha256": "6df26f3b6d65a40953a17f3886d0cd86878550b248f67f820e0a406c3fe8592e",
+        "candidate_sources_sha256": "5b8951f09b1185fece7cc0ea73fead5261c19481eb4063d106303ac8abf36524",
+        "compiler_selected_sources": 54,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "6df26f3b6d65a40953a17f3886d0cd86878550b248f67f820e0a406c3fe8592e",
+        "parent_sources_sha256": "dbe7f9256e10f6284dd026a9710450acdcb3cb858bd5690578cb01fa921b8129",
+        "provider": "src/ftpd/auth.rs",
+        "raw_pointer_types_removed": 486,
+        "reexporting_modules": [
+          "src/ftpd/conf.rs",
+          "src/ftpd/ftpcmd.rs",
+          "src/ftpd/ftpd.rs",
+          "src/ftpd/pam.rs",
+          "src/ftpd/popen.rs",
+          "src/ftpd/server_mode.rs",
+          "src/lib/argp_ba.rs",
+          "src/lib/argp_eexst.rs",
+          "src/lib/argp_fmtstream.rs",
+          "src/lib/argp_help.rs",
+          "src/lib/argp_parse.rs",
+          "src/lib/argp_pv.rs",
+          "src/lib/argp_pvh.rs",
+          "src/lib/argp_version_etc.rs",
+          "src/lib/cycle_check.rs",
+          "src/lib/fopen.rs",
+          "src/lib/fseeko.rs",
+          "src/lib/fts.rs",
+          "src/lib/getopt.rs",
+          "src/lib/hash.rs",
+          "src/lib/version_etc.rs",
+          "src/lib/version_etc_fsf.rs",
+          "src/lib/xalloc_die.rs",
+          "src/libinetutils/daemon.rs",
+          "src/libls/ls.rs",
+          "src/libls/print.rs",
+          "src/libls/util.rs"
+        ]
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/inetutils-2.8/program-translations/cargo-target/release/libftpd_audit.a",
+      "candidate_sha256": "6df26f3b6d65a40953a17f3886d0cd86878550b248f67f820e0a406c3fe8592e",
+      "candidate_sources_sha256": "13595d3873f41f94932df604314ca73cf0a8b4614ddd5946a7763c3f18401cd8",
+      "changed_modules": 40,
+      "compiler_selected_sources": 54,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "6df26f3b6d65a40953a17f3886d0cd86878550b248f67f820e0a406c3fe8592e",
+      "parent_sources_sha256": "d4d9fd05d1285c1fcfaf7bf731db80dbbdc0f69f712c48c9319c8a38f063a482",
+      "raw_pointer_types_removed": 183,
+      "removed_declarations": {
+        "struct": 40,
+        "type": 43
+      },
+      "scanner_sha256": "2b7cb8c49225787ddc05c5b6d441089b3a647290119d1473977758e8a6f4e226"
+    }
+  }
+}
