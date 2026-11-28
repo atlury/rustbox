@@ -2563,6 +2563,15 @@ The unused C type scan found **14,439 candidate raw-pointer occurrences in 107 o
 
 The next combined compiler selection removed 689 more raw-pointer occurrences and retained the public-tested executable, leaving **700,352**. [Verified archive changes](evidence/dsfield-pointer-rollup-700352.json) · [Type selection and replacement](scripts/build_unused_c_types.py)
 
+To reproduce the unused-type sweep, set `link` to the release JSON used for the ranking. Each accepted archive must reproduce the parent archive bytes and the hashes of the compiler inputs. The final command recounts the combined selection and records its executable hash.
+
+```sh
+python3 -B scripts/rank_unused_c_types.py "$link" > ranking.json
+python3 -B scripts/batch_closed_inlines.py "$link" ranking.json sweep --unused-c-types --jobs 2
+python3 -B scripts/collect_closed_inlines.py "$link" ranking.json manifest.json summary.json sweep --unused-c-types --complete
+python3 -B scripts/extend_pointer_selection.py "$link" recount --unused-c-types manifest.json --replace-weaker
+```
+
 Replaying the current compiler inputs identified 9,191 possible further raw-pointer type removals across 25 archives after accounting for existing scalar declarations and later layouts. Ten E2fsprogs rebuilds account for 5,859 of those. For ncurses, 1,367 shared declaration occurrences would replace a layout that already saves 500, giving a potential net reduction of 867. These are source projections pending archive verification. [Per-archive arithmetic](evidence/dsfield-scalar-upgrade-projection.json)
 
 Compiling owned device groups and routing tables together removed 538 raw-pointer type occurrences in dpll. Each combined archive matched both canonical C compilers on both lookup suites and passed 12 Memcheck runs. These archives await a complete multicall relink. [Joint dpll archive tests](evidence/iproute2-joint-owned-group-table-dpll.json) · [Reproduce the ranking](scripts/preview_scalar_ffi_upgrades.py)

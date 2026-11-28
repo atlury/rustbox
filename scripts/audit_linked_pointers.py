@@ -111,6 +111,9 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
     leaf_records = link.get("shared_leaf_layouts", {})
     leaf_tool = native_strings.syntax_tool("leaf-layouts") if leaf_records else None
     leaf_deltas = {}
+    unused_types = link.get("unused_c_types", {})
+    unused_type_tool = native_strings.syntax_tool("unused-c-types") if unused_types else None
+    unused_type_deltas = {}
     variadic_records = link.get("shared_variadic_ffi", {})
     variadic_tool = native_strings.syntax_tool("variadic-ffi") if variadic_records else None
     variadic_deltas = {}
@@ -181,6 +184,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
         closed_records = for_key(closed_records, selected_path)
         scalar_records = for_key(scalar_records, selected_path)
         leaf_records = for_key(leaf_records, selected_path)
+        unused_types = for_key(unused_types, selected_path)
         variadic_records = for_key(variadic_records, selected_path)
     if not second.keys() <= proofs.keys() & link["source_library_sha256"].keys():
         raise ValueError("second-layer receipt has no linked parent archive")
@@ -362,8 +366,9 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
         closed = closed_records.get(str(final_path))
         scalar = scalar_records.get(str(final_path))
         leaf = leaf_records.get(str(final_path))
+        unused = unused_types.get(str(final_path))
         variadic = variadic_records.get(str(final_path))
-        if tables or any(record is not None for record in (literal, va, term, closed, scalar, variadic, leaf)):
+        if tables or any(record is not None for record in (literal, va, term, closed, scalar, variadic, leaf, unused)):
             modules = [str(path.relative_to(crate)) for path in files]
             parent = {module: hashlib.sha256(read_parent(module)).hexdigest() for module in modules}
         if literal is not None:
@@ -375,7 +380,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
             changed = native_strings.replay(parent, read_parent, literal, literal_tool)
             replacements.update({crate / module: data for module, data in changed.items()})
             literal_deltas[str(linked_path)] = literal["c_string_literals"]
-        if literal is not None and (tables or any(record is not None for record in (va, term, closed, scalar))):
+        if literal is not None and (tables or any(record is not None for record in (va, term, closed, scalar, variadic, leaf, unused))):
             parent.update({module: hashlib.sha256(data).hexdigest() for module, data in changed.items()})
         for table, archive_path, replace_table, deltas in tables:
             if hashlib.sha256((ROOT / archive_path).read_bytes()).hexdigest() != table["candidate_sha256"]:
@@ -416,11 +421,14 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
         for kind, selection, tool, deltas in (("private helpers", closed, closed_tool, closed_deltas),
                                               ("scalar ABI", scalar, scalar_tool, scalar_deltas),
                                               ("variadic ABI", variadic, variadic_tool, variadic_deltas),
-                                              ("leaf layouts", leaf, leaf_tool, leaf_deltas)):
+                                              ("leaf layouts", leaf, leaf_tool, leaf_deltas),
+                                              ("unused types", unused, unused_type_tool, unused_type_deltas)):
             if selection is None:
                 continue
             if kind == "private helpers":
                 from build_closed_inlines import replay_layer
+            elif kind == "unused types":
+                from build_unused_c_types import replay_layer
             elif kind == "leaf layouts":
                 from prepare_leaf_layouts import replay_layer
             elif kind == "variadic ABI":
@@ -477,6 +485,8 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
         raise ValueError("DS field receipt outside the compiler inputs")
     if routing_deltas.keys() != routing_records.keys():
         raise ValueError("routing protocol record lies outside the selected compiler inputs")
+    if unused_type_deltas.keys() != unused_types.keys():
+        raise ValueError("unused type receipts differ from the selected archives")
     if leaf_deltas.keys() != leaf_records.keys():
         raise ValueError("leaf layout receipts differ from the selected compiler archives")
     if variadic_deltas.keys() != variadic_records.keys():
@@ -513,6 +523,7 @@ def audit(link, temporary, inspect_source=None, *, inspect_module=None, archive_
             **({"dsfield_deltas": dsfield_deltas} if dsfield_deltas else {}),
             **({"routing_protocol_deltas": routing_deltas} if routing_deltas else {}),
             **({"scalar_ffi_deltas": scalar_deltas} if scalar_deltas else {}),
+            **({"unused_c_type_deltas": unused_type_deltas} if unused_type_deltas else {}),
             **({"leaf_layout_deltas": leaf_deltas} if leaf_deltas else {}),
             **({"variadic_ffi_deltas": variadic_deltas} if variadic_deltas else {}),
             **({"closed_inline_deltas": closed_deltas} if closed_deltas else {}),
@@ -715,6 +726,8 @@ def check_identical_layer(previous, selected, before, after, field):
             delta.subtract(after["scalar_ffi_deltas"][key])
             if old is not None:
                 delta.update(before["scalar_ffi_deltas"][key])
+        elif field == "unused_c_types":
+            delta.subtract(after["unused_c_type_deltas"][key])
         elif field == "shared_leaf_layouts":
             delta.subtract(after["leaf_layout_deltas"][key])
         elif field == "shared_variadic_ffi":
@@ -756,6 +769,7 @@ if __name__ == "__main__":
     previous = parser.add_mutually_exclusive_group()
     previous.add_argument("--verify-dsfield-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-routing-protocols-from", type=Path, metavar="CONTROL")
+    previous.add_argument("--verify-unused-c-types-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-leaf-layouts-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-variadic-ffi-from", type=Path, metavar="CONTROL")
     previous.add_argument("--verify-scalar-ffi-from", type=Path, metavar="CONTROL")
@@ -795,6 +809,9 @@ if __name__ == "__main__":
             raise ValueError("expected a new routing protocol selection")
         check_archive_counts(prior, routing_protocols.parent_view(link), measure(prior), current,
                              link[routing_protocols.FIELD], "routing_protocol_deltas")
+    if args.verify_unused_c_types_from:
+        prior = json.loads(args.verify_unused_c_types_from.read_bytes())
+        check_identical_layer(prior, link, measure(prior), current, "unused_c_types")
     if args.verify_leaf_layouts_from:
         prior = json.loads(args.verify_leaf_layouts_from.read_bytes())
         check_identical_layer(prior, link, measure(prior), current, "shared_leaf_layouts")

@@ -12,7 +12,7 @@ from cargo_source_parent import cargo_origin
 from prepare_identical_archives import prepare, row_origin, selected_receipts, validate_link
 
 LAYER = "shared_va_list_layouts"
-ORDER = (LAYER, "closed_inline_groups", "shared_scalar_ffi", "shared_variadic_ffi", "shared_leaf_layouts")
+ORDER = (LAYER, "closed_inline_groups", "shared_scalar_ffi", "shared_variadic_ffi", "shared_leaf_layouts", "unused_c_types")
 
 
 def rebase(link, manifests, output, *, layer=LAYER, allow_empty=False):
@@ -54,7 +54,8 @@ def rebase(link, manifests, output, *, layer=LAYER, allow_empty=False):
         check_identical_layer(parent, candidate, before, after, layer)
         if layer != LAYER:
             metric = {"closed_inline_groups": "closed_inline_deltas", "shared_scalar_ffi": "scalar_ffi_deltas",
-                      "shared_variadic_ffi": "variadic_ffi_deltas", "shared_leaf_layouts": "leaf_layout_deltas"}[layer]
+                      "shared_variadic_ffi": "variadic_ffi_deltas", "shared_leaf_layouts": "leaf_layout_deltas",
+                      "unused_c_types": "unused_c_type_deltas"}[layer]
             changes = {key: counts["raw_pointer_type_tokens"] for key, counts in after[metric].items()}
         else:
             changes = after["shared_va_list_layout_deltas"]
@@ -79,6 +80,7 @@ if __name__ == "__main__":
     p.add_argument("output", type=Path)
     p.add_argument("manifests", nargs="+", type=Path)
     choice = p.add_mutually_exclusive_group()
+    choice.add_argument("--unused-c-types", action="store_const", dest="layer", const="unused_c_types")
     choice.add_argument("--shared-leaf-layouts", action="store_const", dest="layer", const="shared_leaf_layouts")
     choice.add_argument("--shared-variadic-ffi", action="store_const", dest="layer", const="shared_variadic_ffi")
     choice.add_argument("--closed-inlines", action="store_const", dest="layer", const="closed_inline_groups")

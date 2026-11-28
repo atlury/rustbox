@@ -16,7 +16,10 @@ def collect(link, ranking, batches, manifest, evidence, complete=False, *, scala
     from batch_closed_inlines import ranked_inputs
     candidates, source, _, _ = ranked_inputs(inventory, scalar_ffi)
     layer = "shared_scalar_ffi" if scalar_ffi else "closed_inline_groups"
-    if digest(source) != inventory["scanner_source_sha256"]:
+    if scalar_ffi == "unused-types":
+        layer = "unused_c_types"
+    scanner_hash = inventory["scanner_sha256" if layer == "unused_c_types" else "scanner_source_sha256"]
+    if digest(source) != scanner_hash:
         raise ValueError("scanner differs from the ranked source")
     rank_sha = digest(ranking)
     if digest(link) != inventory["link_sha256"]:
@@ -29,6 +32,8 @@ def collect(link, ranking, batches, manifest, evidence, complete=False, *, scala
         if (state["link_sha256"] != inventory["link_sha256"] or state["ranking_sha256"] != rank_sha
                 or state["binary_sha256"] != inventory["binary_sha256"]):
             raise ValueError("batch does not belong to the requested release and ranking")
+        if layer == "unused_c_types" and state.get("scope") != "unused-types":
+            raise ValueError("expected a staticlib unused-type sweep")
         for category in ("identical", "changed", "empty", "errors"):
             for key, receipt in state.get(category, {}).items():
                 if key in outcomes or key not in candidates:
@@ -39,6 +44,8 @@ def collect(link, ranking, batches, manifest, evidence, complete=False, *, scala
                 directory = archive_folder(batch, key)
                 source = directory / "pilot.json"
                 row = json.loads(source.read_bytes())
+                if layer == "unused_c_types" and any(row.get(k) != v for k, v in inventory["archives"][key].items()):
+                    raise ValueError("archive differs from the projected type closure")
                 if (bool(row.get("all_scalar_interfaces")) != (scalar_ffi == "all")
                         or digest(source) != receipt["receipt_sha256"] or row["archive"] != key
                         or {k: v for k, v in row.items() if k != "dead_sites"}
@@ -75,6 +82,7 @@ if __name__ == "__main__":
     parser.add_argument("batches", type=Path, nargs="+")
     parser.add_argument("--complete", action="store_true")
     scope = parser.add_mutually_exclusive_group()
+    scope.add_argument("--unused-c-types", action="store_const", const="unused-types", dest="scalar_ffi")
     scope.add_argument("--all-scalar-ffi", action="store_const", const="all", dest="scalar_ffi")
     scope.add_argument("--scalar-ffi", action="store_true")
     args = parser.parse_args()

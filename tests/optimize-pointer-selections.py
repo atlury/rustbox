@@ -59,7 +59,7 @@ class Chains(unittest.TestCase):
 
     def test_replace_only_a_strictly_better_compatible_chain(self):
         from extend_pointer_selection import improvements
-        scalar, variadic, leaf = ORDER[-3:]
+        scalar, variadic, leaf = "shared_scalar_ffi", "shared_variadic_ffi", "shared_leaf_layouts"
         layout = self.choice(11)
         parent = dict(self.parent, **{leaf: {self.key: layout["pilot"]}})
         first = self.choice(7)

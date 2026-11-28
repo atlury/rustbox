@@ -17,6 +17,7 @@ LAYERS = {
     "shared_scalar_ffi": "scalar_ffi_deltas",
     "shared_variadic_ffi": "variadic_ffi_deltas",
     "shared_leaf_layouts": "leaf_layout_deltas",
+    "unused_c_types": "unused_c_type_deltas",
 }
 
 
