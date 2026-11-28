@@ -1,0 +1,129 @@
+{
+  "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/dsfield-names/0af8cebadc6066e2fe5e89a0cb6ec5986a9449f11d6fc29f18e00442053bc649/libip_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libip_audit.foreign-6e70c5c72923e92c1621daba5e96f7e33422ce9acbabab3eab376ad9c50cf648.json",
+        "sha256": "6e70c5c72923e92c1621daba5e96f7e33422ce9acbabab3eab376ad9c50cf648"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libip_audit.inlines-9a93ea91297417c2175739ed2001690e0572340e644a290fc2b0a2cb3c02ecde.json",
+        "sha256": "580a60411581a4153df43bc3fcc0be05053c0dbff89fab175f85dc672ad4da91"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libip_audit.layer2-78bc9f4b8d1a9db65a55c0bad10398f2399fad40cd8bb11485248f09bd000b78.json",
+        "sha256": "78bc9f4b8d1a9db65a55c0bad10398f2399fad40cd8bb11485248f09bd000b78"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/dsfield-names/0af8cebadc6066e2fe5e89a0cb6ec5986a9449f11d6fc29f18e00442053bc649/libip_audit.a",
+      "candidate_sha256": "0af8cebadc6066e2fe5e89a0cb6ec5986a9449f11d6fc29f18e00442053bc649",
+      "candidate_sources_sha256": "ba26881eafaf77a84d11016e409e015ae7428d3094b0f494aa193d6192591e51",
+      "cargo_archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/release/libip_audit.a",
+      "compiler_selected_sources": 102,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "0af8cebadc6066e2fe5e89a0cb6ec5986a9449f11d6fc29f18e00442053bc649",
+      "parent_sources_sha256": "17c92092b39f2c370c96fd0f8887ee42edd1883f2578bb6809713de24ea984e8",
+      "raw_pointer_types_removed": 112,
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd",
+      "variadic_ffi": {
+        "asprintf": {
+          "copies": 2,
+          "provider": "src/ip/iptuntap.rs",
+          "signature": "fn asprintf(a0: *mut *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "open": {
+          "copies": 8,
+          "provider": "src/ip/iplink.rs",
+          "signature": "fn open(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;"
+        },
+        "printf": {
+          "copies": 18,
+          "provider": "src/ip/ip.rs",
+          "signature": "fn printf(a0: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "size_columns": {
+          "copies": 2,
+          "provider": "src/ip/iplink.rs",
+          "signature": "fn size_columns(a0: *mut ::core::ffi::c_uint, a1: ::core::ffi::c_uint, ...);"
+        },
+        "snprintf": {
+          "copies": 34,
+          "provider": "src/ip/ip6tunnel.rs",
+          "signature": "fn snprintf(a0: *mut ::core::ffi::c_char, a1: usize, a2: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "sprintf": {
+          "copies": 4,
+          "provider": "src/ip/iplink.rs",
+          "signature": "fn sprintf(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "sscanf": {
+          "copies": 7,
+          "provider": "src/ip/ipmaddr.rs",
+          "signature": "fn sscanf(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        }
+      },
+      "variadic_scanner_sha256": "b2bbe52ef1c1130dd7c661d86f9f55ec8e38f47a12d3bf0be91cebc2ba2e8858"
+    }
+  },
+  "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/dsfield-names/8b9ffa4f61832836c79a6b52d045246be4afdf53f46026dce8e03507b19e07be/libtc_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libtc_audit.foreign-6def9f94dae252cd2ff63e0d6efb897516079a57a1564acf502d7843b2666ea3.json",
+        "sha256": "6def9f94dae252cd2ff63e0d6efb897516079a57a1564acf502d7843b2666ea3"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libtc_audit.inlines-fe2c665160f4a4c0aea98641488ec01353883fe524e34d7937c60d7d6d7ec3cc.json",
+        "sha256": "938695a453321fb27946f9084d82b4fd47562a4219f99af804c7322d838b13a1"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libtc_audit.layer2-aa3509a1374e8c8d1f8c02b337c98189fb08aea11c7ba6e19d50fdeb90319c77.json",
+        "sha256": "aa3509a1374e8c8d1f8c02b337c98189fb08aea11c7ba6e19d50fdeb90319c77"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/dsfield-names/8b9ffa4f61832836c79a6b52d045246be4afdf53f46026dce8e03507b19e07be/libtc_audit.a",
+      "candidate_sha256": "8b9ffa4f61832836c79a6b52d045246be4afdf53f46026dce8e03507b19e07be",
+      "candidate_sources_sha256": "175d46c7d2d1e920a73c99f61c962b2b9065f52a7b72848a4e089f93e77b3b3b",
+      "cargo_archive": "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/release/libtc_audit.a",
+      "compiler_selected_sources": 114,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "8b9ffa4f61832836c79a6b52d045246be4afdf53f46026dce8e03507b19e07be",
+      "parent_sources_sha256": "bc6d98ef5a42614cebe1a6749bb861e08cbe8e97d9c08537fb758e3fecbc46ea",
+      "raw_pointer_types_removed": 112,
+      "scanner_source_sha256": "c1c52fe101ca4e2d93af34da1411541f46e3e72d92e0b462a3d9a1be64d296cd",
+      "variadic_ffi": {
+        "asprintf": {
+          "copies": 3,
+          "provider": "src/lib/json_print.rs",
+          "signature": "fn asprintf(a0: *mut *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "open": {
+          "copies": 2,
+          "provider": "src/lib/bpf_legacy.rs",
+          "signature": "fn open(a0: *const ::core::ffi::c_char, a1: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;"
+        },
+        "printf": {
+          "copies": 8,
+          "provider": "src/lib/bpf_legacy.rs",
+          "signature": "fn printf(a0: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "snprintf": {
+          "copies": 26,
+          "provider": "src/lib/bpf_legacy.rs",
+          "signature": "fn snprintf(a0: *mut ::core::ffi::c_char, a1: usize, a2: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "sprintf": {
+          "copies": 9,
+          "provider": "src/lib/utils.rs",
+          "signature": "fn sprintf(a0: *mut ::core::ffi::c_char, a1: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        },
+        "sscanf": {
+          "copies": 17,
+          "provider": "src/lib/bpf_legacy.rs",
+          "signature": "fn sscanf(a0: *const ::core::ffi::c_char, a1: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;"
+        }
+      },
+      "variadic_scanner_sha256": "b2bbe52ef1c1130dd7c661d86f9f55ec8e38f47a12d3bf0be91cebc2ba2e8858"
+    }
+  }
+}

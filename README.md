@@ -307,7 +307,8 @@ comparisons. The filename identifies the archive selection behind the count.
 ```sh
 jq -n --slurpfile tested evidence/dsfield-optimized-expanded-public.json '
   [inputs | select(.binary_sha256 == $tested[0].binary_sha256
-                   and .layers.shared_leaf_layouts and .counts.all.after)
+                   and (.candidate_link_sha256 // .layers.shared_leaf_layouts.candidate_link_sha256)
+                   and .counts.all.after)
           | {remaining: .counts.all.after, evidence: input_filename}]
   | min_by(.remaining)
 ' evidence/dsfield-*.json
@@ -2541,6 +2542,8 @@ Ten repeated ncurses C struct definitions can share their existing Rust definiti
 Replaying the IPRoute2 `ip` and `tc` declaration changes with both variadic archives and the ncurses layouts brought the same executable’s source count to **704,595**. All selected archive bytes matched their controls. [Joint candidate recount](evidence/dsfield-ip-tc-variadic-ncurses.json)
 
 The common compiler selection with 5 additional scalar-interface archives, 3 additional variadic-interface archives and 3 additional shared-layout archives has **702,861** raw-pointer type occurrences. Every selected archive retained its control bytes. [Combined routing-expanded census](evidence/dsfield-joint-routing-expanded.json)
+
+The next whole-build recount covers 702,612 raw-pointer type occurrences across compiler inputs. Sharing C declarations in ifstat and lnstat removed 191 occurrences. Sharing struct definitions in e2freefrag and e4defrag removed another 58. All four archives retained their original bytes. The earlier ip and tc variadic receipts require fresh builds on their current scalar declarations. The extension tool preserves existing selections and checks the combined before-and-after counts for every package. [Updated compiler census](evidence/dsfield-routing-successor.json) · [Extension tool](scripts/extend_pointer_selection.py)
 
 On the mid-sweep source selection, the compatible declaration and layout changes left **702,950** raw-pointer type occurrences. Earlier compiler layers stayed fixed. [Optimized census](evidence/dsfield-optimized-mid-sweep.json)
 

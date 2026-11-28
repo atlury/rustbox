@@ -1,0 +1,45 @@
+{
+  "binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+  "candidate_link_sha256": "c64efdc235016d6c42e194d7c3f472ff3963f77ae4b7e29d9545fcc0a4141ed8",
+  "counts": {
+    "all": {
+      "after": 702612,
+      "before": 702861
+    },
+    "counting_identical_files_once": {
+      "after": 592247,
+      "before": 586024
+    }
+  },
+  "deferred": {
+    "shared_variadic_ffi": {
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ip/dsfield-names/0af8cebadc6066e2fe5e89a0cb6ec5986a9449f11d6fc29f18e00442053bc649/libip_audit.a": "preceding compiler inputs differ",
+      "work/analysis/iproute2-7.3.0/program-translations/cargo-target/tc/dsfield-names/8b9ffa4f61832836c79a6b52d045246be4afdf53f46026dce8e03507b19e07be/libtc_audit.a": "preceding compiler inputs differ"
+    }
+  },
+  "inputs": {
+    "batches/dsfield-successor-shared_leaf_layouts.json": "079b365e2daf2bec7941f9a81c2bc4848839fc3218f1457273f0466d3d91efae",
+    "batches/dsfield-successor-shared_scalar_ffi.json": "c0025484f67dd2296f55923e47e2bb132468649baf84d95c5487e8057b6e6d85",
+    "batches/dsfield-successor-shared_variadic_ffi.json": "f73e1c0dc16f4e85d85938a0bdbd3dfe7b598da6be8d2fbcb65d2f15ea7b882d"
+  },
+  "layers": {
+    "shared_leaf_layouts": {
+      "archives": [
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e2freefrag/dff1d228a46ef9b0bb99a0a2fb7995385f762f3c86aa51463a100dbec84294b5/libe2freefrag_audit.a",
+        "work/analysis/e2fsprogs-1.47.4/program-translations/rustbox-dirhash-arrays/e4defrag/0de205baddb49a145d654d7972d120739e38af71596acd5a07da8a43a43d0734/libe4defrag_audit.a"
+      ],
+      "manifest_sha256": "079b365e2daf2bec7941f9a81c2bc4848839fc3218f1457273f0466d3d91efae"
+    },
+    "shared_scalar_ffi": {
+      "archives": [
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/ifstat/dsfield-names/de3f934acc885351b1d1bb7745f1ba6acc6b8b2d7c1e2bb7586bd521633239da/libifstat_audit.a",
+        "work/analysis/iproute2-7.3.0/program-translations/cargo-target/lnstat/dsfield-names/e5c3bab03c83f3dda0096c8354aafb0d24043ef98d354f8ab49441a57dce71e7/liblnstat_audit.a"
+      ],
+      "manifest_sha256": "c0025484f67dd2296f55923e47e2bb132468649baf84d95c5487e8057b6e6d85"
+    }
+  },
+  "parent_census_sha256": "98bd709202151343e6618a5fe91fdbd0a7e25980327ead06fb1233707cd55e71",
+  "parent_link_sha256": "346e1d3592fceadc73b5345c4cbcc3b2b059090a8c35fdbc1a2c15001c371c63",
+  "public_evidence_sha256": "6599c4ec031ad9207a57a8b15c86be77b07e206ece2f3ce0597fa84c72d57fe5",
+  "raw_pointer_types_removed": 249
+}
