@@ -17,6 +17,12 @@ from check_cargo_private_inlines import ROOT, digest
 EMPTY_DIAGNOSTIC = b"ValueError: these compiler-dead groups contain no raw pointer types"
 
 def ranked_inputs(inventory, scalar_ffi):
+    if scalar_ffi == "unused-types":
+        from build_unused_c_types import SELECTOR
+        ranked = sorted(inventory["archives"].items(), key=lambda item: (-item[1]["raw_pointer_types_removed"], item[0]))
+        positive = {k: {"pointer_types": row["raw_pointer_types_removed"]} for k, row in ranked
+                    if row["raw_pointer_types_removed"]}
+        return positive, SELECTOR, "build_unused_c_types.py", None
     if not scalar_ffi:
         return inventory["archives"], SOURCE, "build_closed_inlines.py", EMPTY_DIAGNOSTIC
     from collections import Counter
@@ -46,7 +52,7 @@ def run(link, ranking, output, packages, jobs, exclude=(), scalar_ffi=False, *, 
     parent = json.loads(link.read_bytes())
     signature = inventory["link_sha256"]
     if (digest(link) != signature or parent["binary"]["sha256"] != inventory["binary_sha256"]
-            or digest(source) != inventory["scanner_source_sha256"]):
+            or digest(source) != inventory["scanner_sha256" if scalar_ffi == "unused-types" else "scanner_source_sha256"]):
         raise ValueError("ranking does not match the selected release and scanner")
     selected = {key: row for key, row in candidates.items()
                 if (not packages or Path(key).parts[2] in packages) and Path(key).parts[2] not in exclude}
@@ -101,7 +107,7 @@ def run(link, ranking, output, packages, jobs, exclude=(), scalar_ffi=False, *, 
                             return "empty", {"log": log.name, "log_sha256": digest(log)}
                     proc.check_returncode()
             with log.open("ab") as stream:
-                replay = [*build, "--replay"] if scalar_ffi == "variadic" else [*driver, "--replay", folder]
+                replay = [*build, "--replay"] if scalar_ffi in ("variadic", "unused-types") else [*driver, "--replay", folder]
                 subprocess.run(replay, check=True, stdout=stream, stderr=subprocess.STDOUT)
             row = json.loads((folder / "pilot.json").read_bytes())
             if scalar_ffi == "variadic" and row.get("variadic_scanner_sha256") != inventory["variadic_scanner_sha256"]:
@@ -109,6 +115,8 @@ def run(link, ranking, output, packages, jobs, exclude=(), scalar_ffi=False, *, 
             if (bool(row.get("all_scalar_interfaces")) != (scalar_ffi == "all") or row["archive"] != key or row["control_binary_sha256"] != inventory["binary_sha256"]
                     or not 0 < row["raw_pointer_types_removed"] <= selected[key]["pointer_types"]):
                 raise ValueError("compiler receipt does not match ranked candidate")
+            if scalar_ffi == "unused-types" and any(row.get(field) != value for field, value in inventory["archives"][key].items()):
+                raise ValueError("unused type closure differs from the ranked compiler inputs")
             category = "identical" if row["control_sha256"] == row["candidate_sha256"] else "changed"
             return category, {k: v for k, v in row.items() if k != "dead_sites"} | {"receipt_sha256": digest(folder / "pilot.json")}
 
@@ -122,8 +130,8 @@ def run(link, ranking, output, packages, jobs, exclude=(), scalar_ffi=False, *, 
         snapshot = output / "results.json"
         previous = json.loads(snapshot.read_bytes()) if snapshot.is_file() else {}
         scope = "all-scalar" if scalar_ffi == "all" else "libc" if scalar_ffi else "private-inlines"
-        if scalar_ffi == "variadic":
-            scope = "variadic"
+        if scalar_ffi in ("variadic", "unused-types"):
+            scope = scalar_ffi
         result["scope"] = scope
         if previous and (previous["link_sha256"] != signature or previous["ranking_sha256"] != result["ranking_sha256"]
                          or previous.get("scope", "libc" if scalar_ffi is True else "private-inlines") != scope):
@@ -156,6 +164,7 @@ if __name__ == "__main__":
     parser.add_argument("--package", action="append", default=[])
     parser.add_argument("--exclude-package", action="append", default=[])
     scope = parser.add_mutually_exclusive_group()
+    scope.add_argument("--unused-c-types", action="store_const", const="unused-types", dest="scalar_ffi")
     scope.add_argument("--variadic-ffi", action="store_const", const="variadic", dest="scalar_ffi")
     scope.add_argument("--all-scalar-ffi", action="store_const", const="all", dest="scalar_ffi")
     scope.add_argument("--scalar-ffi", action="store_true", help="use the scalar ABI ranking and cold-build driver")
