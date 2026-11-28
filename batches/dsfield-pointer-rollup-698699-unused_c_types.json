@@ -1,0 +1,51 @@
+{
+  "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/filefrag/release/libfilefrag_audit.a": {
+    "parent_receipts": {
+      "linked_foreign_declaration_proofs": {
+        "file": "libfilefrag_audit.foreign-d24cb3d7040419031ec9f2f35401aa32ab228f67413665da37cb30db31c8c060.json",
+        "sha256": "d24cb3d7040419031ec9f2f35401aa32ab228f67413665da37cb30db31c8c060"
+      },
+      "linked_private_inline_proofs": {
+        "file": "libfilefrag_audit.inlines-7483c82cfc84f56d7142b91d7cc7d504ac0981f4741ab1fb364f20cdc3c5575e.json",
+        "sha256": "b8e6a29da59b8fb12af218a907024645bd9b8bc2929dc702c8a6175eabc7c797"
+      },
+      "linked_second_inline_proofs": {
+        "file": "libfilefrag_audit.layer2-44b96a18b07682eaec349f0830940ace4b25246b9d57f67dd4e24a854827a9a8.json",
+        "sha256": "44b96a18b07682eaec349f0830940ace4b25246b9d57f67dd4e24a854827a9a8"
+      },
+      "native_c_strings": {
+        "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/filefrag/release/libfilefrag_audit.a",
+        "c_string_literals": 55,
+        "candidate_sha256": "0f21cbb3421fddd12423d97aa2f4c84590051cec3cd85106c9d149b5361163f8",
+        "candidate_sources_sha256": "d5c92f2ca64850947c18164824dc24147426a33234e3396727e1f7fe2d3b9b4a",
+        "compiler_selected_sources": 3,
+        "control_binary_sha256": "4ff7b5562aad4d2aea7dfdb615576bbfd50088adf9b5e2b38b8dcdd6e2cc046a",
+        "control_sha256": "0f21cbb3421fddd12423d97aa2f4c84590051cec3cd85106c9d149b5361163f8",
+        "legacy_compiler": "nightly-2023-04-15",
+        "modules": {
+          "src/filefrag.rs": 55
+        },
+        "parent_sources_sha256": "feb4e12fbcc071a82d72f79f8fd434d1780b9067541b4dd6f52caa329b9d576f",
+        "raw_ffi_pointer_extractions": 55,
+        "raw_pointer_types_removed": 110,
+        "syntax_tool_sha256": "301662f89d6706c70948dfc97bdea363a00ec13eeb918a1a0f1b45a0f1ba9df5"
+      }
+    },
+    "pilot": {
+      "archive": "work/analysis/e2fsprogs-1.47.4/program-translations/cargo-target/filefrag/release/libfilefrag_audit.a",
+      "candidate_sha256": "0f21cbb3421fddd12423d97aa2f4c84590051cec3cd85106c9d149b5361163f8",
+      "candidate_sources_sha256": "1f597c1cd025bb42019c5e4976b91ff5b8b5ceef9eccbc32a225866f78463920",
+      "changed_modules": 1,
+      "compiler_selected_sources": 3,
+      "control_binary_sha256": "97ea665cc595e04dc4b95a8f607a4b6c36842dc06932919b7290338d8248d695",
+      "control_sha256": "0f21cbb3421fddd12423d97aa2f4c84590051cec3cd85106c9d149b5361163f8",
+      "parent_sources_sha256": "d5c92f2ca64850947c18164824dc24147426a33234e3396727e1f7fe2d3b9b4a",
+      "raw_pointer_types_removed": 51,
+      "removed_declarations": {
+        "struct": 6,
+        "type": 10
+      },
+      "scanner_sha256": "2b7cb8c49225787ddc05c5b6d441089b3a647290119d1473977758e8a6f4e226"
+    }
+  }
+}
