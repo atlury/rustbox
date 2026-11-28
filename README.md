@@ -1901,6 +1901,8 @@ The device-group lookup pilot replaces mutable hash chains with owned Rust names
 
 The complete cold-built ip archive reproduced its control before the rewrite. Its candidate then matched all 31,035 canonical ABI results, five Memcheck runs and 50 read-only ip link group filters. [Translated ip archive](evidence/iproute2-group-names-pilot.json)
 
+The 17 Cargo-built IPRoute2 engines passed 527,595 group-name lookups and 85 Memcheck runs after removing 4,539 raw-pointer occurrences. The direct-rustc bridge engine is tracked separately. [Cargo archive comparisons](evidence/iproute2-group-names-cargo-archives.json)
+
 The 499-name DS field executable establishes the group command baseline. It passed 200 device-group comparisons through symlink and subcommand dispatch against both canonical ip builds. [Public command baseline](evidence/iproute2-group-names-command-baseline.json)
 
 Use `scripts/qualify_iproute2_combined_names.py LINK OUTPUT` to cold-build both readers in each DS field engine and compare both interfaces with canonical IPRoute2. The full multicall comparator in `scripts/preview_iproute2_combined_names.py` checks group and DS field configuration in one run. Its 632 command comparisons passed on the saved control executable. [Combined command control](evidence/iproute2-combined-name-tables-command-control.json)
