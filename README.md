@@ -288,7 +288,7 @@ The target across all 499 public names is zero raw pointers in Rustbox-owned
 production code, including the generated applet code and ABI adapters.
 Count residual adapters explicitly. Track shared implementations by their
 actual callers and verify the final linked executable before recording a
-production reduction.
+production reduction. [Latest combined compiler counts and archive evidence](#combined-pointer-checkpoints)
 
 The default 499-name Linux executable uses verified private-helper cleanups
 for 89 linked Rust archives. These cover the 20 E2fsprogs, 18 IPRoute2 and
@@ -2559,6 +2559,8 @@ The cold declaration builds for badblocks, tune2fs, netshaper matched the origin
 
 Adding the byte-identical Gawk archive removed 85 more duplicate raw-pointer types in variadic declarations, bringing the verified compiler count to **701,041**. The incremental selector can now replace a weaker set of declarations or layouts on the same archive. It checks the gain against the whole build and charges back the previous reduction. On badblocks, the 534 declaration occurrences displaced a layout that already saved 25. Use `scripts/extend_pointer_selection.py --replace-weaker` to reproduce that selection. [Combined Gawk and E2fsprogs recount](evidence/dsfield-gawk-e2fs-merged.json)
 
+<a id="combined-pointer-checkpoints"></a>
+
 The unused C type scan found **14,439 candidate raw-pointer occurrences in 107 of 127 compiled Rust archives** on the 701,041 selection. It follows references among translated structs, unions and aliases, including cycles, and retains types referenced by compiled code, C function signatures, imports or macros. The largest candidates are ncurses (1,050), curl (936) and Kmod (919). Only byte-identical cold rebuilds can enter the shared executable count through this pass. Reproduce with `python3 -B scripts/rank_unused_c_types.py LINK`. [Full archive ranking](evidence/dsfield-unused-c-types-ranking.json)
 
 The next combined compiler selection removed 537 more raw-pointer occurrences and retained the public-tested executable, leaving **698,699**. [Verified archive changes](evidence/dsfield-pointer-rollup-698699.json) This selection includes 1 cold-built archives with unused C type declarations removed.
@@ -2568,6 +2570,8 @@ The next combined compiler selection removed 741 more raw-pointer occurrences an
 The next combined compiler selection removed 375 more raw-pointer occurrences and retained the public-tested executable, leaving **699,977**. [Verified archive changes](evidence/dsfield-pointer-rollup-699977.json)
 
 The next combined compiler selection removed 689 more raw-pointer occurrences and retained the public-tested executable, leaving **700,352**. [Verified archive changes](evidence/dsfield-pointer-rollup-700352.json) · [Type selection and replacement](scripts/build_unused_c_types.py)
+
+Kmod rebuilt after removing unused declarations containing 919 raw-pointer types. The complete candidate executable passed 100 comparisons across all seven Kmod names, using both invocation modes and both canonical C compilers. The stripped executables have different hashes. The test used the c0e71f2883d5 multicall as its control. The 919 remain separate from the combined compiler count. [Kmod link and command comparisons](evidence/kmod-unused-c-types-multicall.json) · [Reproduce the link](scripts/preview_kmod_unused_types.py)
 
 To reproduce the unused-type sweep, set `link` to the release JSON used for the ranking. Each accepted archive must reproduce the parent archive bytes and the hashes of the compiler inputs. The final command recounts the combined selection and records its executable hash.
 
