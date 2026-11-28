@@ -14,7 +14,9 @@ from tempfile import TemporaryDirectory
 from audit_linked_pointers import measure
 from build_unused_c_types import replay_layer
 from check_cargo_private_inlines import ROOT, digest
-from link_rustbox_multicall import namespace_acl_library, namespace_grep_library
+from link_rustbox_multicall import (namespace_acl_library, namespace_findutils_inputs, namespace_grep_library,
+                                   namespace_kmod_library, namespace_ncurses_library, namespace_shadow_library,
+                                   namespace_tar_inputs)
 from preview_cargo_multicall import preview_link, qualified_inputs
 from preview_curl_month_array import namespace as curl_inputs
 from preview_diffutils_help_catalogs import namespace as diffutils_inputs
@@ -33,12 +35,31 @@ def simple_namespace(package, mapper):
     return namespace
 
 
+def findutils_inputs(path, residues, release, stage):
+    archive, objects, symbols = namespace_findutils_inputs(path, residues, stage)
+    if symbols != release["findutils_namespaced_symbols"]:
+        raise ValueError("Findutils private linker symbols differ from the control")
+    return archive, objects
+
+
+def tar_inputs(path, residues, release, stage):
+    archive, objects, symbols, imports = namespace_tar_inputs(path, residues, release["acl_namespaced_symbols"], stage)
+    if symbols != release["tar_namespaced_symbols"] or imports != release["tar_acl_imports"]:
+        raise ValueError("GNU tar private symbols or ACL imports differ from the control")
+    return archive, objects
+
+
 PACKAGES = {
     "acl-2.4.0": simple_namespace("acl", namespace_acl_library),
     "curl-8.23.0": curl_inputs,
     "diffutils-3.12": diffutils_inputs,
+    "findutils-4.10.0": findutils_inputs,
     "gawk-5.4.0": gawk_inputs,
     "grep-3.12": simple_namespace("grep", namespace_grep_library),
+    "kmod-34.3": simple_namespace("kmod", namespace_kmod_library),
+    "ncurses-6.6": simple_namespace("ncurses", namespace_ncurses_library),
+    "shadow-4.20.4": simple_namespace("shadow", namespace_shadow_library),
+    "tar-1.35": tar_inputs,
 }
 
 

@@ -2581,6 +2581,8 @@ Adding the byte-identical Gawk archive removed 85 more duplicate raw-pointer typ
 
 <a id="combined-pointer-checkpoints"></a>
 
+The compiler replay of ten cold-built packages removes **5,085 raw-pointer type occurrences** from the 691,218 input selection. This gives **686,133** at the source-replay stage. The [ten-package compiler inputs](batches/ten-package-unused-types-source.json) include the original and rebuilt archive hashes for each package.
+
 <!-- five-package-chain -->The five-package Linux executable has a verified selection with **688,988 raw-pointer type occurrences** across 499 applet names, or **604,782** when identical compiler inputs are counted once. This includes the later byte-identical archive builds and compiler-confirmed unused foreign declarations. [Recount and executable identity](evidence/five-package-chain-688988.json) · [Five-package compiler selection](batches/five-package-chain-selection-689380.json) · [Foreign-declaration selection](batches/current-foreign-declarations-691252.json).<!-- /five-package-chain -->
 
 To restore the archives for a verified compiler selection, run `python3 scripts/qualify_unused_type_batch.py materialize RELEASE SELECTION` in the configured build checkout. The command checks existing artifacts, cold-builds missing ones in isolation, compares their hashes, and replays the complete compiler census. A fresh build of the `attr` archive reproduced both its archive bytes and its original compiler receipt.
