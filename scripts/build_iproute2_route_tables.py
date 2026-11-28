@@ -40,10 +40,10 @@ def substitute(crate, sources):
     return {module: data}, dict(facts, module=module)
 
 
-def build(link, output, archive):
+def build(link, output, archive, *, linux_scratch=False):
     origin = cargo_origin(json.loads(link.read_bytes()), archive)
     if direct_crate(origin) is None:
-        stage_selected_archive(link, output, archive, MARKER, Path(__file__).name)
+        stage_selected_archive(link, output, archive, MARKER, Path(__file__).name, linux_scratch=linux_scratch)
     else:
         from build_group_names_bridge import check_bridge
         from direct_source_pair import build_pair
@@ -58,6 +58,7 @@ if __name__ == "__main__":
     p.add_argument("--link", type=Path)
     p.add_argument("--archive")
     p.add_argument("--output", type=Path)
+    p.add_argument("--linux-scratch", action="store_true", help="keep intermediate Cargo files in disposable Linux volumes")
     args = p.parse_args()
     if args.direct:
         from build_group_names_bridge import check_bridge
@@ -68,6 +69,6 @@ if __name__ == "__main__":
     elif args.mounted:
         compile_mounted_sources(args.mounted, substitute, MARKER, allow_identical=False)
     elif args.link and args.archive and args.output:
-        build(args.link, args.output, args.archive)
+        build(args.link, args.output, args.archive, linux_scratch=args.linux_scratch)
     else:
         p.error("supply a Cargo archive, release link and output directory")

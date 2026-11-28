@@ -78,7 +78,7 @@ def verify_source_substitution(record, sources, changes, module):
         raise ValueError("compiler inputs differ from the pinned archive substitution")
 
 
-def stage_selected_archive(link_file, out, key, marker, script, prepare_crate=None, omit_layer=None):
+def stage_selected_archive(link_file, out, key, marker, script, prepare_crate=None, omit_layer=None, *, linux_scratch=False):
     from audit_linked_pointers import measure
     out = out.resolve()
     raw = link_file.read_bytes()
@@ -114,12 +114,35 @@ def stage_selected_archive(link_file, out, key, marker, script, prepare_crate=No
         (target / "control.json").write_text(json.dumps(dict(archive=key, control_sha256=sha,
             control_binary_sha256=link["binary"]["sha256"], sources=sources,
             **({"cargo_archive": str(origin)} if origin != archive else {}))))
-        subprocess.run(["docker", "run", "--rm", "--network", "none", "--platform", "linux/amd64",
-                        "-v", f"{ROOT}:/work:ro", "--tmpfs", "/work/.git:ro",
-                        "-v", f"{crate}:/work/{src}", "-v", f"{target}:/work/{base}",
-                        "-v", "rustbox-pointer-cargo-registry:/root/.cargo/registry:ro",
-                        "rustbox-e2fsprogs:2026-11-24", "python3", "-B",
-                        str(Path("/work/scripts") / script), "--mounted", str(origin)], check=True)
+        docker = ["docker", "run", "--rm", "--network", "none", "--platform", "linux/amd64",
+                  "-v", f"{ROOT}:/work:ro", "--tmpfs", "/work/.git:ro",
+                  "-v", "rustbox-pointer-cargo-registry:/root/.cargo/registry:ro"]
+        image = "rustbox-e2fsprogs:2026-11-24"
+        driver = ["python3", "-B", str(Path("/work/scripts") / script), "--mounted", str(origin)]
+        if linux_scratch:
+            # Keep Cargo intermediates on Linux storage. Preserve the canonical
+            # absolute paths and start the control with an empty target.
+            import tarfile
+            with tarfile.open(target / "sources.tar", "w") as tar:
+                tar.add(crate, arcname=".")
+            (target / "release").mkdir()
+            copies = """set -eu
+tar -xf /trial/sources.tar -C "$1"
+cp /trial/control.json "$2/control.json"
+out="$2"
+archive="$3"
+shift 3
+"$@"
+cp "$out/release/$archive" /trial/release/
+cp "$out/pilot.json" /trial/
+"""
+            subprocess.run([*docker, "--mount", f"type=volume,dst=/work/{src},volume-nocopy",
+                            "--mount", f"type=volume,dst=/work/{base},volume-nocopy", "-v", f"{target}:/trial",
+                            image, "sh", "-c", copies, "sh", f"/work/{src}", f"/work/{base}", archive.name,
+                            *driver], check=True)
+        else:
+            subprocess.run([*docker, "-v", f"{crate}:/work/{src}", "-v", f"{target}:/work/{base}",
+                            image, *driver], check=True)
         row = json.loads((target / "pilot.json").read_bytes())
         candidate = target / "release" / archive.name
         if digest(candidate) != row["candidate_sha256"] or row["control_sha256"] != sha or link_file.read_bytes() != raw:
